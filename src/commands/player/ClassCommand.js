@@ -1,4 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Classes} from "../../core/models/Class";
+import {Entities} from "../../core/models/Entity";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "class",
@@ -9,17 +13,17 @@ module.exports.commandInfo = {
 
 /**
  * Select a class
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ClassCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
 	const classTranslations = JsonReader.commands.class.getTranslation(language);
-
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
-
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.title)
 		.setDescription(
@@ -49,22 +53,22 @@ const ClassCommand = async (message, language) => {
 
 	const collector = classMessage.createReactionCollector({ filter: filterConfirm, time: COLLECTOR_TIME, max: 1 });
 
-	addBlockedPlayer(entity.discordUserId, "class", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "class", collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
 		if (!reaction.first()) { // the user is afk
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			return;
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass, true);
 			return;
 		}
 
-		const selectedClass = await Classes.getByEmojy(reaction.first().emoji.name);
-		confirmPurchase(message, language, selectedClass, entity);
+		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
+		await confirmPurchase(message, language, selectedClass, entity);
 	});
 
 	// Adding reactions
@@ -106,7 +110,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 
 	collector.on("end", async (reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, entity.Player)) {
@@ -120,12 +124,15 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				if (selectedClass.id === playerClass.id) {
 					return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.sameClass);
 				}
-				reaction.first().message.delete();
+				await reaction.first().message.delete();
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)));
-				entity.Player.addMoney(-selectedClass.price);
+					entity.health / playerClass.getMaxHealthValue(entity.Player.level) * newClass.getMaxHealthValue(entity.Player.level)
+				), message.channel, language, false);
+				await entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, { tier: selectedClass.classgroup });
 				await Promise.all([
 					entity.save(),
 					entity.Player.save()

@@ -1,0 +1,10 @@
+{
+	"type": "castle_throne",
+	"nameFr": "Salle de reception",
+	"nameEn": "Reception room",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Immense salle ornée de nombreuses oeuvres d'art",
+	"descEn": "The reception room of the King's castle",
+	"canBeGoToPlaceMissionDestination" : false
+}

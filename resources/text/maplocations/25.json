@@ -1,9 +1,13 @@
 {
 	"type": "ri",
-	"nameFr": "La Rivière aux Crabes",
-	"nameEn": "The Crabs' River",
-	"particleFr": "vers",
+	"nameFr": "Rivière aux Crabes",
+	"nameEn": "Crabs' River",
+	"particleFr": "vers la",
 	"particleEn": "of",
 	"descFr": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
-	"descEn": "Everything is in the name. A river well appreciated by fishmen from Claire De Ville."
+	"descEn": "Everything is in the name. A river well appreciated by fishmen from Claire De Ville.",
+	"tags": [
+		"detALa"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

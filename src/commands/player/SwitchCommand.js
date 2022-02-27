@@ -4,6 +4,10 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
+import {Entities} from "../../core/models/Entity";
+import InventorySlot from "../../core/models/InventorySlot";
+import {Servers} from "../../core/models/Server";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const moment = require("moment");
 
@@ -65,7 +69,7 @@ const SwitchCommand = async (message, language) => {
 		const otherItemInstance = await otherItem.getItem();
 		await Promise.all([
 			otherItem.itemId === 0 ?
-				InventorySlots.destroy({
+				InventorySlot.destroy({
 					where: {
 						playerId: entity.Player.id,
 						itemCategory: item.item.itemCategory,
@@ -73,7 +77,7 @@ const SwitchCommand = async (message, language) => {
 					}
 				})
 				:
-				InventorySlots.update({
+				InventorySlot.update({
 					itemId: otherItem.itemId
 				}, {
 					where: {
@@ -82,7 +86,7 @@ const SwitchCommand = async (message, language) => {
 						slot: item.item.slot
 					}
 				}),
-			InventorySlots.update({
+			InventorySlot.update({
 				itemId: item.item.itemId
 			}, {
 				where: {
@@ -115,14 +119,14 @@ const SwitchCommand = async (message, language) => {
 		] });
 	},
 	async (endMessage) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (endMessage.isCanceled()) {
 			await sendErrorMessage(message.author, message.channel, language, tr.get("canceled"), true);
 		}
 	})
 		.formatAuthor(tr.get("switchTitle"), message.author);
 	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "switch", collector));
+	choiceMessage.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "switch", collector));
 };
 
 module.exports.execute = SwitchCommand;

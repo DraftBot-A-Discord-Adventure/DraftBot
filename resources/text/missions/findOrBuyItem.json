@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Trouver ou acheter {objective} objet{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Find or buy {objective} item{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [],
+		"medium": [
+			0
+		],
+		"hard": []
+	},
+	"objectives": [
+		1
+	],
+	"gems": [
+		2
+	],
+	"xp": [
+		30
+	],
+	"money": [
+		50
+	],
+	"expirations": [
+		24
+	],
+	"dailyIndexes": [
+		0
+	]
+}

@@ -11,8 +11,13 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
+import {Potions} from "../../core/models/Potion";
+import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
+import Shop from "../../core/models/Shop";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "shop",
@@ -55,7 +60,7 @@ const ShopCommand = async (message, language) => {
 		shopTranslations.get("inventoryCategory")
 	);
 
-	const shopMessage = (await new DraftBotShopMessageBuilder(
+	await (await new DraftBotShopMessageBuilder(
 		message.author,
 		shopTranslations.get("title"),
 		language
@@ -65,11 +70,11 @@ const ShopCommand = async (message, language) => {
 		.addCategory(inventoryCategory)
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "shop", collector));
+		.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(message.author.id, "shop", collector));
 };
 
 function shopEndCallback(shopMessage) {
-	removeBlockedPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id);
 }
 
 function getPermanentItemShopItem(name, translationModule, buyCallback) {
@@ -107,6 +112,7 @@ function getHealAlterationShopItem(translationModule) {
 				await Maps.removeEffect(entity.Player);
 				await entity.Player.save();
 			}
+			await MissionsController.update(entity.discordUserId, message.sentMessage.channel, translationModule.language, "recoverAlteration");
 			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(translationModule.get("success"), message.user)
 				.setDescription(translationModule.get("permanentItems.healAlterations.give"))] });
@@ -121,7 +127,7 @@ function getRegenShopItem(translationModule) {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.setHealth(await entity.getMaxHealth());
+			await entity.setHealth(await entity.getMaxHealth(), message.sentMessage.channel, translationModule.language);
 			await entity.save();
 			await message.sentMessage.channel.send({ embeds: [
 				new DraftBotEmbed()
@@ -158,11 +164,7 @@ async function getDailyPotionShopItem(translationModule, discordUser, channel) {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
 	});
-	const potion = await Potions.findOne({
-		where: {
-			id: shopPotion.shopPotionId
-		}
-	});
+	const potion = await Potions.getById(shopPotion.shopPotionId);
 
 	return new ShopItem(
 		potion.getEmoji(),
@@ -203,7 +205,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 				.endCallback(async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						removeBlockedPlayer(shopMessage.user.id);
+						BlockingUtils.unblockPlayer(shopMessage.user.id);
 						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 							shopMessage.user,
 							shopMessage.language,
@@ -214,7 +216,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 					[entity] = await Entities.getOrRegister(shopMessage.user.id);
 					for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 						if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-							entity.Player.addMoney(-price);
+							await entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language);
 							await entity.Player.save();
 							entity.Player.InventoryInfo.addSlotForCategory(i);
 							await entity.Player.InventoryInfo.save();
@@ -226,7 +228,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 							break;
 						}
 					}
-					removeBlockedPlayer(shopMessage.user.id);
+					BlockingUtils.unblockPlayer(shopMessage.user.id);
 				});
 			let desc = "";
 			for (const category of availableCategories) {
@@ -240,7 +242,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 			chooseSlot = chooseSlot.build();
 			chooseSlot.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 			chooseSlot.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
-			chooseSlot.send(shopMessage.sentMessage.channel, (collector) => addBlockedPlayer(entity.discordUserId, "shop", collector));
+			chooseSlot.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "shop", collector));
 			Promise.resolve(false);
 		}
 	);

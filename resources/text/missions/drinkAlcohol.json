@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Boire un alcool"
+		},
+		"en": {
+			"desc": "Drink an alcohol"
+		}
+	},
+	"campaignOnly": true
+}

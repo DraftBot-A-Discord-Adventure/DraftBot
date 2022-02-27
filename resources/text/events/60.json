@@ -1,0 +1,47 @@
+{
+	"map_location_ids": [
+		29
+	],
+	"translations": {
+		"fr": "🪑 Vous êtes amené dans la grande salle de réception du chateau où vous rencontrez rapidement le roi. On vous explique la nature du concours qui consiste à récolter un grand nombre de points dans l'objectif de dominer les classements. En plus d'une agréable prime de départ, vous recevez un bel ouvrage censé vous guider lors de votre aventure. Vous ouvrez le livre (https://guide.draftbot.com) et consultez rapidement les premières pages...",
+		"en": "🪑 You are taken to the large reception room of the castle where you quickly meet the king. Someone explains to you the nature of the competition, which is to collect a large number of points in order to dominate the rankings. In addition to a nice starting bonus, you receive a beautiful book that is supposed to guide you during your adventure. You open the book (https://guide.draftbot.com) and quickly check the first pages ..."
+	},
+	"possibilities": {
+		"\uD83D\uDCD6": {
+			"translations": {
+				"fr": "Débuter votre aventure",
+				"en": "Start your adventure"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Une fois votre lecture terminée, vous êtes reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieux de votre choix.",
+						"en": "Once you have finished reading, you are taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command `mission`) and someone offers you a transport to the capital of your choice."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 150,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous écoutez patiemment le roi avant d'être reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieux de votre choix.",
+						"en": "You listen patiently to the king before being taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command `mission`) and someone offers you a transport to the capital of your choice."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 150,
+					"item": false
+				}
+			]
+		}
+	}
+}

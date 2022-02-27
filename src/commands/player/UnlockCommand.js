@@ -1,6 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "unlock",
@@ -15,6 +17,9 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const UnlockCommand = async (message, language, args) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {
@@ -56,16 +61,16 @@ const UnlockCommand = async (message, language, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "unlock", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "unlock", collector);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(lockedEntity.discordUserId); // released entity
 			const [player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entity.Player);
-				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); // Remove money
+				await player.Player.addMoney(player, -UNLOCK.PRICE_FOR_UNLOCK, message.channel, language); // Remove money
 				await Promise.all([
 					entity.save(),
 					entity.Player.save(),

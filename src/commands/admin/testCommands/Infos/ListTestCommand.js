@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+import {escapeUsername} from "../../../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "list",
@@ -17,7 +18,7 @@ const CT = require("../../../../core/CommandsTest");
  */
 const listTestCommand = (language, message) => {
 	const embedListCommandsTest = new DraftBotEmbed()
-		.formatAuthor(message.author.username + ", voici la liste des commandes tests disponibles :", message.author)
+		.formatAuthor(escapeUsername(message.author.username) + ", voici la liste des commandes tests disponibles :", message.author)
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
 	CT.testCommType.forEach(category => {

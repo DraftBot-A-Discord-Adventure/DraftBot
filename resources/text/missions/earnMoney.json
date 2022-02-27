@@ -1,0 +1,57 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Récolter {objective} 💰"
+		},
+		"en": {
+			"desc": "Earn {objective} 💰"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0,
+			1
+		],
+		"medium": [
+			2
+		],
+		"hard": [
+			3
+		]
+	},
+	"objectives": [
+		250,
+		350,
+		500,
+		1000
+	],
+	"gems": [
+		2,
+		0,
+		6,
+		0
+	],
+	"xp": [
+		20,
+		35,
+		65,
+		140
+	],
+	"money": [
+		20,
+		30,
+		40,
+		80
+	],
+	"expirations": [
+		36,
+		40,
+		56,
+		72
+	],
+	"dailyIndexes": [
+		0,
+		2
+	]
+}

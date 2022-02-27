@@ -1,0 +1,50 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagner {objective} points"
+		},
+		"en": {
+			"desc": "Earn {objective} points"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		500,
+		1500,
+		3000
+	],
+	"gems": [
+		1,
+		0,
+		0
+	],
+	"xp": [
+		10,
+		40,
+		100
+	],
+	"money": [
+		25,
+		75,
+		125
+	],
+	"expirations": [
+		24,
+		48,
+		72
+	],
+	"dailyIndexes": [
+		0
+	]
+}

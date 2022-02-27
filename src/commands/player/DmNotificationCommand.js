@@ -1,4 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "dmnotification",
@@ -13,20 +15,20 @@ module.exports.commandInfo = {
  */
 
 const DmNotificationCommand = async (message, language) => {
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
-
 	// update value user dmNotification
 	entity.Player.dmNotification = !entity.Player.dmNotification;
 	const isDmNotificationOn = entity.Player.dmNotification;
-
 	// send message updated value
 	const dmNotificationEmbed = new DraftBotEmbed()
 		.setDescription(
 			format(translations.normal, {
-				pseudo: message.author.username,
+				pseudo: escapeUsername(message.author.username),
 				notifOnVerif: isDmNotificationOn ? translations.open : translations.closed
 			})
 		)

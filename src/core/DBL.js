@@ -1,3 +1,4 @@
+import {Entities} from "./models/Entity";
 import {botConfig, draftBotClient} from "./bot";
 
 const DiscordBotList = require("dblapi.js");

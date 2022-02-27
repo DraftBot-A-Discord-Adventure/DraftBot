@@ -8,18 +8,18 @@
 			],
 			"\uD83D\uDCB5": [
 				"Vous tentez votre chance et gagnez au jeu, l'homme vous récompense comme il se doit. Cependant vous perdez **{lostTime} min :clock2:**.",
-				"Vous participez au jeu de l'homme cependant vous ne gagnez pas et repartez en espérant avoir plus de chance la prochaine fois. Et vous perdez **{lostTime} min :clock2:**."
+				"Vous participez au jeu de l'homme cependant vous ne gagnez pas et repartez en espérant avoir plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{lostTime} min :clock2:**."
 			],
 			"\uD83D\uDCB0": [
 				"Vous gagnez au jeu de l'homme, en conséquence, celui-ci vous récompense gracieusement. Cependant vous perdez **{lostTime} min :clock2:**.",
-				"Vous saisissez votre chance malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Et vous perdez **{lostTime} min :clock2:**.",
-				"Vous misez une centaine de pièces au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent. Malheureusement vous perdez **{lostTime} min :clock2:**."
+				"Vous saisissez votre chance. Malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{lostTime} min :clock2:**.",
+				"Vous misez une centaine de pièces au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent. Participer à la loterie vous aura fait perdre **{lostTime} min :clock2:**."
 			],
 			"poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
 			"end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
 			"rewardTypeText": {
 				"xp": " Vous avez gagné **{xpWon} :star:**.",
-				"money": " Vous avez {negativeMoney?perdu:gagné} **{money} :{negativeMoney?money_with_wings:moneybag}: !**",
+				"money": " Vous avez {negativeMoney?perdu:gagné} **{money} :{negativeMoney?money_with_wings:moneybag}:** !",
 				"guildXp": " Votre guilde gagne **{guildXpWon} :star:**.",
 				"points": " Vous avez gagné **{pointsWon} :medal:**."
 			}

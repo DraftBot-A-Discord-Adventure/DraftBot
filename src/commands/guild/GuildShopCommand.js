@@ -2,6 +2,9 @@ import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guildshop",
@@ -50,11 +53,11 @@ const GuildShopCommand = async (message, language) => {
 	))
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "guildShop", collector));
+		.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(message.author.id, "guildShop", collector));
 };
 
 function shopEndCallback(shopMessage) {
-	removeBlockedPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id);
 }
 
 function getGuildXPShopItem(guildShopTranslations) {
@@ -67,7 +70,7 @@ function getGuildXPShopItem(guildShopTranslations) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			const xpToAdd = randInt(50, 450);
-			guild.addExperience(xpToAdd,message.sentMessage,message.language);
+			await guild.addExperience(xpToAdd, message.sentMessage, message.language);
 
 			await guild.save();
 			await message.sentMessage.channel.send({ embeds: [

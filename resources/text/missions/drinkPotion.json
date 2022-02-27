@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Boire {objective} potion{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Drink {objective} potion{objective>1?s:}"
+		}
+	},
+	"campaignOnly": true
+}

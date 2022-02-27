@@ -5,10 +5,8 @@ import {Constants} from "../Constants";
 import {User} from "discord.js";
 import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
-
-declare function format(s: string, replacement: any): string;
-
-declare const Entities: any;
+import {Entities} from "../models/Entity";
+import {format} from "../utils/StringFormatter";
 
 /**
  * Reasons when the shop ends
@@ -64,6 +62,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	 * @param getUserMoney
 	 * @param removeUserMoney
 	 * @param shopEndCallback
+	 * @param translationPosition
 	 */
 	// eslint-disable-next-line max-params
 	constructor(
@@ -74,9 +73,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		currentMoney: number,
 		getUserMoney: (userId: string) => Promise<number>,
 		removeUserMoney: (userId: string, amount: number) => Promise<void>,
-		shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void
+		shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void,
+		translationPosition: string
 	) {
-		const translationModule = Translations.getModule("commands.shop", language);
+		const translationModule = Translations.getModule(translationPosition, language);
 		const reactions: DraftBotReaction[] = [];
 		const shopItems: ShopItem[] = [];
 		const shopItemReactions: string[] = [];
@@ -284,15 +284,17 @@ export class DraftBotShopMessageBuilder {
 	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
-		const player = (await Entities.getOrRegister(userId))[0].Player;
-		player.money -= amount;
-		await player.save();
+		const [entity] = await Entities.getOrRegister(userId);
+		await entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
+		await entity.Player.save();
 	};
 
 	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */
 	};
 
 	private _noShoppingCart = false;
+
+	private _translationPosition = "commands.shop";
 
 	/**
 	 * Default constructor
@@ -327,6 +329,11 @@ export class DraftBotShopMessageBuilder {
 	 */
 	noShoppingCart(): DraftBotShopMessageBuilder {
 		this._noShoppingCart = true;
+		return this;
+	}
+
+	setTranslationPosition(position: string): DraftBotShopMessageBuilder {
+		this._translationPosition = position;
 		return this;
 	}
 
@@ -373,7 +380,8 @@ export class DraftBotShopMessageBuilder {
 			await this._getUserMoney(this._user.id),
 			this._getUserMoney,
 			this._removeUserMoney,
-			this._shopEndCallback
+			this._shopEndCallback,
+			this._translationPosition
 		);
 	}
 }

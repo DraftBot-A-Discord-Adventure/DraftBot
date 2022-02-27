@@ -1,3 +1,7 @@
+import {Entities} from "../../../../core/models/Entity";
+import Guild from "../../../../core/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
+
 module.exports.commandInfo = {
 	name: "guildxp",
 	aliases: ["gxp"],
@@ -18,7 +22,7 @@ module.exports.commandInfo = {
  */
 const guildXpTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur gxp : vous n'êtes pas dans une guilde !");
 	}
@@ -31,8 +35,8 @@ const guildXpTestCommand = async (language, message, args) => {
 	if (guild.isAtMaxLevel()) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");
 	}
-	guild.addExperience(parseInt(args[0],10),message,language);
-	guild.save();
+	await guild.addExperience(parseInt(args[0], 10), message, language);
+	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };
 

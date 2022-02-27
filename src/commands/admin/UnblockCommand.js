@@ -1,3 +1,6 @@
+import {Entities} from "../../core/models/Entity";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
+
 module.exports.commandInfo = {
 	name: "unblock",
 	aliases: [],
@@ -11,11 +14,11 @@ module.exports.commandInfo = {
  */
 const UnblockCommand = async (message, language, args) => {
 	if (args.length === 1) {
-		if (!await hasBlockedPlayer(args[0])) {
+		if (await BlockingUtils.getPlayerBlockingReason(args[0]) === null) {
 			await message.channel.send({ content: "Not blocked" });
 			return;
 		}
-		removeBlockedPlayer(args[0]);
+		BlockingUtils.unblockPlayer(args[0]);
 		await message.channel.send({ content: "Unblocked with success" });
 		const user = await client.users.fetch(args[0]);
 		const [entity] = await Entities.getOrRegister(args[0]);

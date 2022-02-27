@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Posséder un équipement de rareté {variantText} ou mieux"
+		},
+		"en": {
+			"desc": "Have an item with a rarity {variantText} or better"
+		}
+	},
+	"campaignOnly": true
+}

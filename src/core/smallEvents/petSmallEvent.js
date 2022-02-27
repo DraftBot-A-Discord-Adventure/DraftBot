@@ -1,7 +1,8 @@
 import {giveRandomItem} from "../utils/ItemUtils";
+import {PetEntities} from "../models/PetEntity";
+import {smallEvent as doNothing} from "./doNothingSmallEvent";
 
 const BADGE = "💞";
-const doNothing = require("./doNothingSmallEvent");
 
 /**
  * Main function of small event
@@ -26,20 +27,17 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	switch (interaction) {
 	case "money":
 		amount = randInt(20, 70);
-		entity.Player.money += amount;
+		await entity.Player.addMoney(entity, amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "gainLife":
 		amount = randInt(1, 5);
-		await entity.addHealth(amount);
+		await entity.addHealth(amount, message.channel, language);
 		await entity.save();
 		break;
 	case "gainLove":
 		amount = randInt(1, 3);
-		pet.lovePoints += amount;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-			pet.lovePoints = PETS.MAX_LOVE_POINTS;
-		}
+		await pet.changeLovePoints(amount, entity.discordUserId, message.channel, language);
 		await pet.save();
 		break;
 	case "food":
@@ -57,7 +55,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "points":
 		amount = randInt(20, 70);
-		entity.Player.score += amount;
+		await entity.Player.addScore(entity, amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "badge":
@@ -78,12 +76,12 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseLife":
 		amount = randInt(1, 5);
-		await entity.addHealth(-amount);
+		await entity.addHealth(-amount, message.channel, language);
 		await entity.save();
 		break;
 	case "loseMoney":
 		amount = randInt(20, 70);
-		entity.Player.money -= amount;
+		await entity.Player.addMoney(entity, -amount, message.channel, language);
 		entity.Player.save();
 		break;
 	case "loseTime":
@@ -98,10 +96,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseLove":
 		amount = randInt(1, 3);
-		pet.lovePoints -= amount;
-		if (pet.lovePoints < 0) {
-			pet.lovePoints = 0;
-		}
+		await pet.changeLovePoints(-amount, entity.discordUserId, message.channel, language);
 		await pet.save();
 		break;
 	default:
@@ -141,7 +136,7 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 	const sentence = tr[interaction][randInt(0, tr[interaction].length)];
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
-		pet: PetEntities.getPetEmote(pet) + " " + (pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)),
+		pet: pet.getPetEmote() + " " + (pet.nickname ? pet.nickname : pet.getPetTypeName(language)),
 		nominative: tr.nominative[pet.sex],
 		nominativeShift: tr.nominative[pet.sex].charAt(0).toUpperCase() + tr.nominative[pet.sex].slice(1),
 		accusative: tr.accusative[pet.sex],
@@ -152,7 +147,7 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 		food: food ? food.translations[language].name.toLowerCase() + " " + food.emote + " " : "",
 		badge: BADGE,
 		feminine: pet.sex === "f" ? "e" : "",
-		randomAnimal: randomAnimal ? PetEntities.getPetEmote(randomAnimal) + " " + PetEntities.getPetTypeName(randomAnimal, language) : "",
+		randomAnimal: randomAnimal ? randomAnimal.getPetEmote() + " " + randomAnimal.getPetTypeName(language) : "",
 		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",
 		petFemale: pet.sex === "f"
 	}));
@@ -164,8 +159,8 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
  * @returns {string|null} - une interaction aléatoire
  */
 const pickRandomInteraction = function(petEntity) {
-	const section = petEntity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.smallEvents.pet.rarities.feisty : JsonReader.smallEvents.pet.rarities.normal;
-	const level = petEntity.PetModel.rarity + (PetEntities.getLoveLevelNumber(petEntity) === 5 ? 1 : 0);
+	const section = petEntity.isFeisty() ? JsonReader.smallEvents.pet.rarities.feisty : JsonReader.smallEvents.pet.rarities.normal;
+	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
 
 	let total = 0;
 	for (const key in section) {
@@ -206,5 +201,8 @@ const pickRandomInteraction = function(petEntity) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

@@ -1,9 +1,13 @@
 {
 	"type": "ro",
-	"nameFr": "La Grande Rue",
-	"nameEn": "The Main Road",
-	"particleFr": "vers",
-	"particleEn": "of",
+	"nameFr": "Grande Rue",
+	"nameEn": "Main Road",
+	"particleFr": "vers la",
+	"particleEn": "of the",
 	"descFr": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
-	"descEn": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road."
+	"descEn": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road.",
+	"tags": [
+		"detALa"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

@@ -1,3 +1,10 @@
+import {Entities} from "../../../../core/models/Entity";
+import {GuildPets} from "../../../../core/models/GuildPet";
+import {PetEntities} from "../../../../core/models/PetEntity";
+import {Guilds} from "../../../../core/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
+import {Pets} from "../../../../core/models/Pet";
+
 module.exports.commandInfo = {
 	name: "guildpet",
 	aliases: ["gp"],
@@ -26,7 +33,7 @@ const guildPetTestCommand = async (language, message, args) => {
 		throw new Error("Erreur guildpet : Vous n'avez pas de guilde !");
 	}
 
-	if (Guilds.isPetShelterFull(guild)) {
+	if (guild.isPetShelterFull()) {
 		throw new Error("Erreur guildpet : Plus de place dans le shelter !");
 	}
 
@@ -47,7 +54,7 @@ const guildPetTestCommand = async (language, message, args) => {
 	const newPet = guild.GuildPets[guild.GuildPets.length - 1];
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
-			petString: await PetEntities.getPetDisplay(newPet.PetEntity, language)
+			petString: await newPet.PetEntity.getPetDisplay(language)
 		}
 	);
 };

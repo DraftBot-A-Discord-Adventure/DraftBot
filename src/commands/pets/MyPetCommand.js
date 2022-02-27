@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "mypet",
 	aliases: ["pet", "pp"],
@@ -31,7 +33,7 @@ const MyPetCommand = async (message, language, args) => {
 				user.displayAvatarURL()
 			)
 			.setDescription(
-				await PetEntities.getPetDisplay(authorPet, language)
+				await authorPet.getPetDisplay(language)
 			)] });
 	}
 

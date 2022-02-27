@@ -5,5 +5,9 @@
 	"particleFr": "vers le",
 	"particleEn": "of the",
 	"descFr": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
-	"descEn": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers."
+	"descEn": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
+	"tags": [
+		"detAu"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

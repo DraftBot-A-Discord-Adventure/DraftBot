@@ -5,5 +5,9 @@
 	"particleFr": "vers la",
 	"particleEn": "of",
 	"descFr": "Ancienne grande ville fortifiée, Ville Forte n’est plus que l’ombre d’elle-même. Ravagée par l’ancienne guerre il ne reste qu’une dizaine de maisons et paysans. Le reste de l’ancienne fortification n’est que ruine.",
-	"descEn": "An anciently fortified city, Ville Forte is not what it used to be. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification isn't more than ruins."
+	"descEn": "An anciently fortified city, Ville Forte is not what it used to be. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification isn't more than ruins.",
+	"tags": [
+		"detA"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

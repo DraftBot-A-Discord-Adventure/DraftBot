@@ -11,7 +11,7 @@
 				"vous êtes interpelé par un homme disant s'appeler **{name}**",
 				"un oracle du nom de **{name}** vous apostrophe",
 				"un étranger prétendant s'appeler **{name}** vous demande d'approcher",
-				"un homme surgit de nulle part court vers vous et se présente sous le nom de **{name}**",
+				"un homme surgissant de nulle part court vers vous et se présente sous le nom de **{name}**",
 				"un inconnu suspect vous demande d'approcher, il vous dit s'appeler **{name}**"
 			],
 			"searchAction": [
@@ -19,7 +19,8 @@
 				"Il se dit capable de vous donner des informations sur le ciel à condition de lui accorder un peu de temps",
 				"Il vous dit que si vous lui en laissez le temps, il serait capable de vous donner des informations sur le ciel",
 				"Il dit pouvoir donner des informations sur le ciel si on lui en accorde le temps nécessaire",
-				"Celui-ci prétend pouvoir lire dans les étoiles à condition que vous ne lui en laissiez le temps",
+				"Celui-ci prétend pouvoir lire dans les étoiles à condition que vous lui en laissiez le temps",
+
 				"Celui-ci affirme être capable de vous donner des informations à propos du ciel si vous lui accordez un peu de votre temps"
 			],
 			"search": [

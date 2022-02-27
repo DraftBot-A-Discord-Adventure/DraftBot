@@ -5,5 +5,9 @@
 	"particleFr": "vers le",
 	"particleEn": "of the",
 	"descFr": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
-	"descEn": "A major crossroad that links main paths to the West of Mount Celestrum."
+	"descEn": "A major crossroad that links main paths to the West of Mount Celestrum.",
+	"tags": [
+		"detAu"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

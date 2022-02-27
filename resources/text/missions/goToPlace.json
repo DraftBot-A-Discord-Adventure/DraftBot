@@ -1,0 +1,56 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Voyager jusqu'{variantText}"
+		},
+		"en": {
+			"desc": "Go to this place: {variantText}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0,
+			3
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		1,
+		1,
+		1,
+		1
+	],
+	"gems": [
+		3,
+		0,
+		0,
+		0
+	],
+	"xp": [
+		35,
+		60,
+		140,
+		25
+	],
+	"money": [
+		50,
+		75,
+		160,
+		45
+	],
+	"expirations": [
+		72,
+		48,
+		24,
+		168
+	],
+	"dailyIndexes": [
+		0
+	]
+}

@@ -9,7 +9,11 @@
 		"vi",
 		"de",
 		"ri",
-		"la"
+		"la",
+		"castle_entrance",
+		"castle_throne",
+		"castle_forge",
+		"castle_carriage"
 	],
 	"translations": {
 		"fr": {
@@ -63,6 +67,26 @@
 					"name": "Lac",
 					"prefix": "du",
 					"emote": "\uD83D\uDEA3\u200D♂️"
+				},
+				"castle_entrance": {
+					"name": "",
+					"prefix": "des",
+					"emote": "\uD83C\uDFF0"
+				},
+				"castle_throne": {
+					"name": "",
+					"prefix": "de la",
+					"emote": "\uD83E\uDE91"
+				},
+				"castle_forge": {
+					"name": "",
+					"prefix": "de la",
+					"emote": "\uD83D\uDD28"
+				},
+				"castle_carriage": {
+					"name": "",
+					"prefix": "de la",
+					"emote": "\uD83D\uDC0E"
 				}
 			},
 			"directions": {
@@ -131,6 +155,26 @@
 					"name": "Lake",
 					"prefix": "of the",
 					"emote": "\uD83D\uDEA3\u200D♂️"
+				},
+				"castle_entrance": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFF0"
+				},
+				"castle_throne": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83E\uDE91"
+				},
+				"castle_forge": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83D\uDD28"
+				},
+				"castle_carriage": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83D\uDC0E"
 				}
 			},
 			"directions": {

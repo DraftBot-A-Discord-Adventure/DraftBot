@@ -3,8 +3,6 @@ import {EmbedFieldData} from "discord.js";
 
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
-declare const PetEntities: any;
-declare const Guilds: any;
 
 /**
  * Shelter embed
@@ -73,14 +71,14 @@ export class DraftBotShelterMessageBuilder {
 			for (let i = 0; i < this._guild.GuildPets.length; ++i) {
 				const pet = this._guild.GuildPets[i];
 				fields.push({
-					name: PetEntities.getPetTitle(pet.PetEntity, this._language, i + 1),
-					value: await PetEntities.getPetDisplay(pet.PetEntity, this._language),
+					name: pet.PetEntity.getPetTitle(this._language, i + 1),
+					value: await pet.PetEntity.getPetDisplay(this._language),
 					inline: true
 				});
 			}
 		}
 
-		if (Guilds.isPetShelterFull(this._guild)) {
+		if (this._guild.isPetShelterFull()) {
 			description = JsonReader.commands.guildShelter.getTranslation(this._language).warningFull;
 		}
 

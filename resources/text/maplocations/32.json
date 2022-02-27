@@ -1,0 +1,10 @@
+{
+	"type": "ro",
+	"nameFr": "Route vers le château du Roi",
+	"nameEn": "Road to the King's castle",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "La route qui mène au château du Roi",
+	"descEn": "The road which leads to the King's castle",
+	"canBeGoToPlaceMissionDestination": false
+}

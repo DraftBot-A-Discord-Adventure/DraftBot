@@ -1,5 +1,10 @@
 import {Constants} from "../../../../core/Constants";
 import * as ItemUtils from "../../../../core/utils/ItemUtils";
+import {Armors} from "../../../../core/models/Armor";
+import {Weapons} from "../../../../core/models/Weapon";
+import {Potions} from "../../../../core/models/Potion";
+import {ObjectItems} from "../../../../core/models/ObjectItem";
+import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "finditem",
@@ -38,7 +43,7 @@ const findItemTestCommand = async (language, message, args) => {
 		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		item = itemId <= await Objects.getMaxId() && itemId > 0 ? await Objects.getById(itemId) : null;
+		item = itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null;
 		break;
 	default:
 		break;
@@ -47,13 +52,7 @@ const findItemTestCommand = async (language, message, args) => {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(
-		entity,
-		item,
-		language,
-		message.author,
-		message.channel
-	);
+	await ItemUtils.giveItemToPlayer(entity, item, language, message.author, message.channel);
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };

@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "pettrade",
 	aliases: ["ptrade"],
@@ -12,6 +14,8 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const PetTradeCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -43,7 +47,7 @@ const PetTradeCommand = async (message, language) => {
 	if (!pet2) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPetOther);
 	}
-	if (pet1.lovePoints < PETS.LOVE_LEVELS[0] || pet2.lovePoints < PETS.LOVE_LEVELS[0]) {
+	if (pet1.isFeisty() || pet2.isFeisty()) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).isFeisty);
 	}
 
@@ -52,8 +56,8 @@ const PetTradeCommand = async (message, language) => {
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
 		pet2 = trader2.Player.Pet;
-		removeBlockedPlayer(trader1.discordUserId);
-		removeBlockedPlayer(trader2.discordUserId);
+		BlockingUtils.unblockPlayer(trader1.discordUserId);
+		BlockingUtils.unblockPlayer(trader2.discordUserId);
 		trader1.Player.petId = pet2.id;
 		trader1.Player.save();
 		trader2.Player.petId = pet1.id;
@@ -72,23 +76,27 @@ const PetTradeCommand = async (message, language) => {
 			.formatAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author)
 			.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess)
 		] });
+		await MissionsController.update(trader1.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet2.getLoveLevelNumber() });
+		await MissionsController.update(trader2.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet1.getLoveLevelNumber() });
+		await MissionsController.update(trader1.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: pet2.getLoveLevelNumber() });
+		await MissionsController.update(trader2.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: pet1.getLoveLevelNumber() });
 	};
 
 	const tradeRefusedCallback = async (tradeMessage) => {
-		removeBlockedPlayer(message.author.id);
-		removeBlockedPlayer(message.mentions.users.first().id);
+		BlockingUtils.unblockPlayer(message.author.id);
+		BlockingUtils.unblockPlayer(message.mentions.users.first().id);
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTrade.getTranslation(language).tradeCanceled, {
 			trader: tradeMessage.trader1Accepted === false ? message.author : message.mentions.users.first()
 		}),true);
 	};
 
 	const tradeNoResponseCallback = async () => {
-		removeBlockedPlayer(message.author.id);
-		removeBlockedPlayer(message.mentions.users.first().id);
+		BlockingUtils.unblockPlayer(message.author.id);
+		BlockingUtils.unblockPlayer(message.mentions.users.first().id);
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
 	};
 
-	const tradeMessage = new DraftBotTradeMessage(
+	await new DraftBotTradeMessage(
 		message.author,
 		message.mentions.users.first(),
 		tradeSuccessCallback,
@@ -103,13 +111,13 @@ const PetTradeCommand = async (message, language) => {
 		.setFooter(JsonReader.commands.petTrade.getTranslation(language).warningTradeReset)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader1.Player.getPseudo(language)
-		}), await PetEntities.getPetDisplay(pet1, language), true)
+		}), pet1.getPetDisplay(language), true)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader2.Player.getPseudo(language)
-		}), await PetEntities.getPetDisplay(pet2, language), true)
+		}), pet2.getPetDisplay(language), true)
 		.send(message.channel, (collector) => {
-			addBlockedPlayer(trader1.discordUserId, "petTrade", collector);
-			addBlockedPlayer(trader2.discordUserId, "petTrade", collector);
+			BlockingUtils.blockPlayerWithCollector(trader1.discordUserId, "petTrade", collector);
+			BlockingUtils.blockPlayerWithCollector(trader2.discordUserId, "petTrade", collector);
 		});
 };
 

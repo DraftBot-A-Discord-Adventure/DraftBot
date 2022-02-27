@@ -95,3 +95,52 @@ export class Translations {
 		return translationModule;
 	}
 }
+
+const getDeepKeys = function(obj: any): string[] {
+	let keys: string[] = [];
+	for (const key of Object.keys(obj)) {
+		keys.push(key);
+		if (typeof obj[key] === "object") {
+			const subKeys = getDeepKeys(obj[key]);
+			keys = keys.concat(subKeys.map(function(subKeys) {
+				return key + "." + subKeys;
+			}));
+		}
+	}
+	return keys;
+};
+
+const checkMissing = function(obj: any, name: string) {
+	if (!obj || typeof obj !== "object" && typeof obj !== "function") {
+		return;
+	}
+	if (obj.translations) {
+		if (obj.translations.fr && !obj.translations.en) {
+			console.warn(name + ": Missing en object translation");
+			return;
+		}
+		if (!obj.translations.fr && obj.translations.en) {
+			console.warn(name + ": Missing fr object translation");
+			return;
+		}
+		const keysFr = getDeepKeys(obj.translations.fr);
+		const keysEn = getDeepKeys(obj.translations.en);
+		const differencesEn = keysFr.filter(key => keysEn.indexOf(key) === -1);
+		const differencesFr = keysEn.filter(key => keysFr.indexOf(key) === -1);
+		for (const diff of differencesEn) {
+			console.warn(name + ": \"" + diff + "\" is present in french but not in english");
+		}
+		for (const diff of differencesFr) {
+			console.warn(name + ": \"" + diff + "\" is present in english but not in french");
+		}
+	}
+	else {
+		for (const key of Object.keys(obj)) {
+			checkMissing(obj[key], name === "" ? key : name + "." + key);
+		}
+	}
+};
+
+export const checkMissingTranslations = function(): void {
+	checkMissing(JsonReader, "");
+};

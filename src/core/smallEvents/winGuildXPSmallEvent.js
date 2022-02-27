@@ -1,4 +1,5 @@
-const doNothing = require("./doNothingSmallEvent");
+import {Guilds} from "../models/Guild";
+import {smallEvent as doNothing} from "./doNothingSmallEvent";
 
 /**
  * Main function of small event
@@ -41,5 +42,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

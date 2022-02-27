@@ -1,4 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {GuildPets} from "../../core/models/GuildPet";
+import {Guilds} from "../../core/models/Guild";
+import {Servers} from "../../core/models/Server";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "pettransfer",
@@ -43,7 +48,7 @@ const PetTransferCommand = async function(message, language, args) {
 				cmdShelter: "shelter"
 			}));
 		}
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		if (pPet.isFeisty()) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		if (guildPetCount >= JsonReader.models.pets.slots) {
@@ -53,7 +58,7 @@ const PetTransferCommand = async function(message, language, args) {
 		entity.Player.save();
 		await (await GuildPets.addPet(guild.id, pPet.id)).save();
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
-			pet: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language))
+			pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
 		}));
 		return message.channel.send({ embeds: [confirmEmbed] });
 	}
@@ -84,7 +89,7 @@ const PetTransferCommand = async function(message, language, args) {
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		if (pPet.isFeisty()) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		swPet.petEntityId = pPet.id;
@@ -98,16 +103,19 @@ const PetTransferCommand = async function(message, language, args) {
 
 	if (pPet) {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
-			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
-			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
+			pet1: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language)),
+			pet2: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
 	else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
-			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
+			pet: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
-	return message.channel.send({ embeds: [confirmEmbed] });
+	await message.channel.send({ embeds: [confirmEmbed] });
+	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
+	await MissionsController.update(entity.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: swPetEntity.getLoveLevelNumber() });
+	await MissionsController.update(entity.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: swPetEntity.getLoveLevelNumber() });
 };
 
 module.exports.execute = PetTransferCommand;

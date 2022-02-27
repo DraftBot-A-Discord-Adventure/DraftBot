@@ -19,6 +19,5 @@
 	"commonFood": 0,
 	"herbivorousFood": 0,
 	"carnivorousFood": 0,
-	"ultimateFood": 0,
-	"lastDailyAt": null
+	"ultimateFood": 0
 }

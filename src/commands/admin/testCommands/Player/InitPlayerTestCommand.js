@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "initplayer",
 	aliases: ["init"],
@@ -6,7 +8,7 @@ module.exports.commandInfo = {
 	description: "Initialise votre joueur pour des tests"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Initialize the player

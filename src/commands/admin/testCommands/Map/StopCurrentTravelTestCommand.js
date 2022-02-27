@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "stopcurrenttravel",
 	aliases: ["stravel", "stoptravel"],
@@ -6,7 +8,7 @@ module.exports.commandInfo = {
 	description: "Stoppe le voyage en cours"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Stop your current travel

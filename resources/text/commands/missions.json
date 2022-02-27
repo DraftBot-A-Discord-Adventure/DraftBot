@@ -1,0 +1,24 @@
+{
+	"translations": {
+		"fr": {
+			"title": "Missions de {pseudo}",
+			"campaign": "\uD83D\uDCD6 **Campagne ({current}/{max})**",
+			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
+			"daily": "\uD83D\uDCC5 **Mission quotidienne**",
+			"dailyFinished": "Vous avez complété la mission du jour ! Revenez {time}.",
+			"currentMissions": "\uD83D\uDCDC **Missions secondaires ({amountOfMissions}/{slots})**",
+			"noCurrentMissionsDescription": "Vous pouvez occasionnellement trouver des missions supplémentaires à réaliser en demandant un rapport.",
+			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
+		},
+		"en": {
+			"title": "Missions of {pseudo}",
+			"campaign": "\uD83D\uDCD6 **Campaign ({current}/{max})**",
+			"finishedCampaign": "\uD83D\uDCD6 **Campaign finished**",
+			"daily": "\uD83D\uDCC5 **Daily Mission**",
+			"dailyFinished": "You have completed today's mission! Come back {time}.",
+			"currentMissions": "\uD83D\uDCDC **Secondary missions ({amountOfMissions}/{slots})**",
+			"noCurrentMissionsDescription": "You can occasionally find additional missions to complete by requesting a report.",
+			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
+		}
+	}
+}

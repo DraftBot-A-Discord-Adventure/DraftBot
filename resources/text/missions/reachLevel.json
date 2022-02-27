@@ -1,0 +1,12 @@
+
+{
+	"translations": {
+		"fr": {
+			"desc": "Atteindre le niveau {objective}"
+		},
+		"en": {
+			"desc": "Reach level {objective}"
+		}
+	},
+	"campaignOnly": true
+}

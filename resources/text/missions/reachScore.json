@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir un score supérieur à {objective}"
+		},
+		"en": {
+			"desc": "Get a score of {objective} or more"
+		}
+	},
+	"campaignOnly": true
+}

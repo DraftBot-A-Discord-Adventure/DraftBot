@@ -1,15 +1,17 @@
 /**
  * Main function of small event
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @param {MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
+import {Guilds} from "../models/Guild";
+import {Maps} from "../Maps";
 import {Constants} from "../Constants";
-const Maps = require("../Maps");
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationLottery = Translations.getModule("smallEvents.lottery", language);
@@ -27,20 +29,26 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	});
 
 	collectorLottery.on("end", async (collected) => {
-		await removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 
 		if (!collected.first()) {
 			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
-		if (player.money < 175 && emojiLottery[2]) {
+		if (player.money < 175 && collected.first().emoji.name === emojiLottery[2]) {
 			seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
 		const malus = emojiLottery[2] === collected.first().emoji.name;
 		let rewardType = JsonReader.smallEvents.lottery.rewardType;
-		const guild = await Guilds.getById(entity.Player.guildId);
-		if (guild.isAtMaxLevel()) {
+		let guild;
+		try {
+			guild = await Guilds.getById(entity.Player.guildId);
+		}
+		catch {
+			guild = null;
+		}
+		if (guild === null || guild.isAtMaxLevel()) {
 			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
 		}
 		let sentenceReward;
@@ -53,26 +61,25 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case Constants.LOTTERY_REWARD_TYPES.XP:
-				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
-				player.save();
+				await player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message.channel, language);
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.MONEY:
-				player.addMoney(SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
-				player.save();
+				await player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
+				await guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
 				await guild.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.POINTS:
-				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
-				player.save();
+				await player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
 				break;
 			default:
 				throw new Error("lottery reward type not found");
 			}
+			await player.save();
+			await entity.save();
 			const money = SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,0), {
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText." + reward), {
 				money: Math.abs(money),
@@ -84,9 +91,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			player.addMoney(-175);
-			player.save();
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
+			await player.addMoney(entity, -175, message.channel, language);
+			await player.save();
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText.money"), {
 				negativeMoney: true,
@@ -103,7 +110,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	});
 
 
-	await addBlockedPlayer(entity.discordUserId, "lottery", collectorLottery);
+	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "lottery", collectorLottery);
 	for (let i = 0; i < emojiLottery.length; ++i) {
 		try {
 			await lotteryIntro.react(emojiLottery[i]);
@@ -115,5 +122,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

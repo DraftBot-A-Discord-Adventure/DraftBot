@@ -1,5 +1,10 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guildadd",
@@ -57,13 +62,7 @@ const GuildAddCommand = async (message, language, args) => {
 		);
 	}
 
-	if (
-		await sendBlockedError(
-			message.mentions.users.last(),
-			message.channel,
-			language
-		)
-	) {
+	if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
 		return;
 	}
 
@@ -99,7 +98,7 @@ const GuildAddCommand = async (message, language, args) => {
 	}
 
 	const endCallback = async (msg) => {
-		removeBlockedPlayer(invitedEntity.discordUserId);
+		BlockingUtils.unblockPlayer(invitedEntity.discordUserId);
 		if (msg.isValidated()) {
 			try {
 				guild = await Guilds.getById(entity.Player.guildId);
@@ -108,7 +107,7 @@ const GuildAddCommand = async (message, language, args) => {
 				guild = null;
 			}
 			if (guild === null) {
-				// guild is destroy
+				// guild is destroyed
 				return sendErrorMessage(
 					message.mentions.users.last(),
 					message.channel,
@@ -125,15 +124,20 @@ const GuildAddCommand = async (message, language, args) => {
 				invitedEntity.Player.save()
 			]);
 
-			return message.channel.send({ embeds: [
-				new DraftBotEmbed()
-					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: message.mentions.users.last().username,
-						guildName: guild.name
-					}),
-					message.mentions.users.last().displayAvatarURL())
-					.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
-			] });
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "joinGuild");
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "guildLevel", guild.level, null, true);
+
+			return message.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
+							pseudo: escapeUsername(message.mentions.users.last().username),
+							guildName: guild.name
+						}),
+						message.mentions.users.last().displayAvatarURL())
+						.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
+				]
+			});
 		}
 
 		// Cancel the creation
@@ -149,7 +153,7 @@ const GuildAddCommand = async (message, language, args) => {
 		.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
 			guildName: guild.name
 		}));
-	await validationEmbed.send(message.channel, (collector) => addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector));
+	await validationEmbed.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, "guildAdd", collector));
 };
 
 module.exports.execute = GuildAddCommand;

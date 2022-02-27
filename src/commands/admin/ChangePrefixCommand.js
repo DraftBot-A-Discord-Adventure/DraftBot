@@ -1,3 +1,5 @@
+import {Servers} from "../../core/models/Server";
+
 module.exports.commandInfo = {
 	name: "prefix",
 	aliases: [],

@@ -1,4 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const tr = JsonReader.commands.petFeed;
 module.exports.commandInfo = {
@@ -37,17 +40,14 @@ const PetFeedCommand = async (message, language) => {
 			tr.getTranslation(language).noPet
 		);
 	}
-
-	const cooldownTime =
-		PETS.BREED_COOLDOWN * authorPet.PetModel.rarity -
-		(new Date().getTime() - authorPet.hungrySince);
+	const cooldownTime = entity.Player.Pet.getFeedCooldown();
 	if (cooldownTime > 0) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
 			language,
 			format(tr.getTranslation(language).notHungry, {
-				petnick: await PetEntities.displayName(authorPet, language)
+				petnick: await authorPet.displayName(language)
 			})
 		);
 	}
@@ -92,7 +92,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petFeed");
+	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
 
 	// Fetch the choice from the user
 	collector.on("end", (reaction) => {
@@ -100,7 +100,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY
 		) {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			return sendErrorMessage(
 				message.author,
 				message.channel,
@@ -112,7 +112,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			feedPet(message, language, entity, authorPet, item);
 		}
 	});
@@ -139,7 +139,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		.formatAuthor(tr.getTranslation(language).feedEmbedTitle2, message.author);
 	feedEmbed.setDescription(
 		format(tr.getTranslation(language).feedEmbedDescription2, {
-			petnick: await PetEntities.displayName(authorPet, language)
+			petnick: await authorPet.displayName(language)
 		})
 	);
 	feedEmbed.setFooter(tr.getTranslation(language).feedEmbedFooter);
@@ -154,11 +154,11 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petFeed");
+	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY
@@ -179,12 +179,9 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 				tr.getTranslation(language).noMoney
 			);
 		}
-		entity.Player.money -= 20;
+		await entity.Player.addMoney(entity, -20, message.channel, language);
 		authorPet.hungrySince = Date();
-		authorPet.lovePoints += JsonReader.food.commonFood.effect;
-		if (authorPet.lovePoints > PETS.MAX_LOVE_POINTS) {
-			authorPet.lovePoints = PETS.MAX_LOVE_POINTS;
-		}
+		await authorPet.changeLovePoints(JsonReader.food.commonFood.effect, entity.discordUserId, message.channel, language);
 		await Promise.all([
 			authorPet.save(),
 			entity.Player.save()
@@ -192,19 +189,13 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		const feedSuccessEmbed = new DraftBotEmbed();
 		if (language === LANGUAGE.FRENCH) {
 			feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
-				petnick: await PetEntities.displayName(
-					authorPet,
-					language
-				),
+				petnick: await authorPet.displayName(language),
 				typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
 			});
 		}
 		else {
 			feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
-				petnick: await PetEntities.displayName(
-					authorPet,
-					language
-				)
+				petnick: await authorPet.displayName(language)
 			});
 		}
 		return message.channel.send({ embeds: [feedSuccessEmbed] });
@@ -242,15 +233,12 @@ async function feedPet(message, language, entity, pet, item) {
 		(item.type === "herbivorousFood" || item.type === "carnivorousFood")
 	) {
 		if (item.type.includes(pet.PetModel.diet)) {
-			pet.lovePoints += item.effect;
-			if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-				pet.lovePoints = PETS.MAX_LOVE_POINTS;
-			}
+			await pet.changeLovePoints(item.effect, entity.discordUserId, message.channel, language);
 			guild[item.type]--;
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: await pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -258,7 +246,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -267,23 +255,20 @@ async function feedPet(message, language, entity, pet, item) {
 			guild[item.type]--;
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["0"], {
-					petnick: await PetEntities.displayName(pet, language)
+					petnick: await pet.displayName(language)
 				})
 			);
 		}
 	}
 	else {
-		pet.lovePoints += item.effect;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-			pet.lovePoints = PETS.MAX_LOVE_POINTS;
-		}
+		await pet.changeLovePoints(item.effect, entity.discordUserId, message.channel, language);
 		guild[item.type]--;
 		switch (item.type) {
 		case "commonFood":
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: await pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -291,7 +276,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -301,7 +286,7 @@ async function feedPet(message, language, entity, pet, item) {
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -309,7 +294,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -317,7 +302,7 @@ async function feedPet(message, language, entity, pet, item) {
 		case "ultimateFood":
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["3"], {
-					petnick: await PetEntities.displayName(pet, language)
+					petnick: await pet.displayName(language)
 				})
 			);
 			break;

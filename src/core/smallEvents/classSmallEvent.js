@@ -78,7 +78,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.basic.winMoney[draftbotRandom.integer(0, trans.basic.winMoney.length - 1)], {money: moneyWon}));
 			await message.channel.send({ embeds: [seEmbed] });
-			await entity.Player.addMoney(moneyWon);
+			await entity.Player.addMoney(entity, moneyWon, message.channel, language);
 		}
 	}
 	else if (JsonReader.smallEvents.class.otherEligible.includes(classId)) {
@@ -93,7 +93,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.other.winHealth[draftbotRandom.integer(0, trans.other.winHealth.length - 1)], {health: healthWon}));
 			await message.channel.send({ embeds: [seEmbed] });
-			await entity.addHealth(healthWon);
+			await entity.addHealth(healthWon, message.channel, language);
 		}
 	}
 	else {
@@ -105,5 +105,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

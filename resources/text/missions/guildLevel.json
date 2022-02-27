@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire partie d'une guilde niveau {objective} ou plus"
+		},
+		"en": {
+			"desc": "Be in a guild level {objective} or more"
+		}
+	},
+	"campaignOnly": true
+}

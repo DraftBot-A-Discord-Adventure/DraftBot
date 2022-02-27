@@ -5,5 +5,9 @@
 	"particleFr": "vers le",
 	"particleEn": "of the",
 	"descFr": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
-	"descEn": "A large lake where families enjoy to round up. The Vacarme river flows to there."
+	"descEn": "A large lake where families enjoy to round up. The Vacarme river flows to there.",
+	"tags": [
+		"detAu"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

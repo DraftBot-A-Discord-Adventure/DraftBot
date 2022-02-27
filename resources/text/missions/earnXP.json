@@ -1,0 +1,57 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagner {objective} point{objective>1?s:} d'expérience"
+		},
+		"en": {
+			"desc": "Earn {objective} experience point{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0,
+			1
+		],
+		"medium": [
+			2
+		],
+		"hard": [
+			3
+		]
+	},
+	"objectives": [
+		300,
+		400,
+		1000,
+		2000
+	],
+	"gems": [
+		2,
+		3,
+		0,
+		0
+	],
+	"xp": [
+		10,
+		30,
+		45,
+		75
+	],
+	"money": [
+		15,
+		25,
+		50,
+		100
+	],
+	"expirations": [
+		36,
+		36,
+		72,
+		96
+	],
+	"dailyIndexes": [
+		0,
+		1
+	]
+}

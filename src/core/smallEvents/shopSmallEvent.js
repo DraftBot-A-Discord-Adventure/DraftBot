@@ -9,11 +9,12 @@
  */
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const randomItem = await generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
-	price = Math.round(randInt(1, 10) === 10 ? price * 5 : price *= 0.6);
+	price *= Math.round(randInt(1, 10) === 10 ? 5 : 0.6);
 	const gender = randInt(0, 1);
 	const translationShop = JsonReader.smallEvents.shop.getTranslation(language);
 	seEmbed.setDescription(seEmbed.description
@@ -32,7 +33,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
 	const collector = msg.createReactionCollector({filter: filterConfirm, time: COLLECTOR_TIME, max: 1});
-	addBlockedPlayer(entity.discordUserId, "merchant", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "merchant", collector);
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
@@ -40,7 +41,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	]);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (entity.Player.money < price) {
@@ -49,10 +50,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 							{missingMoney: price - entity.Player.money})
 					);
 				}
-				await giveItemToPlayer(entity, randomItem, language,
-					message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+				await giveItemToPlayer(entity, randomItem, language, message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 				log(entity.discordUserId + " bought an item in a mini shop for " + price);
-				entity.Player.addMoney(-price);
+				await entity.Player.addMoney(entity, -price, message.channel, language);
 				await entity.Player.save();
 				return;
 			}
@@ -65,5 +65,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

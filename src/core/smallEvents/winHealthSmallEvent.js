@@ -21,12 +21,15 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			health: healthWon
 		})
 	);
-	await entity.addHealth(healthWon);
+	await entity.addHealth(healthWon, message.channel, language);
 	await entity.save();
 	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " gained some health points in a mini event");
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

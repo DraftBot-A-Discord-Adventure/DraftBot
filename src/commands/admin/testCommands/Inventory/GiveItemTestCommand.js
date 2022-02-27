@@ -1,4 +1,9 @@
 import {Constants} from "../../../../core/Constants";
+import {Armors} from "../../../../core/models/Armor";
+import {Weapons} from "../../../../core/models/Weapon";
+import {Potions} from "../../../../core/models/Potion";
+import {ObjectItems} from "../../../../core/models/ObjectItem";
+import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "giveitem",
@@ -37,7 +42,7 @@ const giveItemTestCommand = async (language, message, args) => {
 		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		item = itemId <= await Objects.getMaxId() && itemId > 0 ? await Objects.getById(itemId) : null;
+		item = itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null;
 		break;
 	default:
 		break;

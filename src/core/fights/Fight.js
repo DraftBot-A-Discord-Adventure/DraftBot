@@ -1,4 +1,7 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Entities} from "../models/Entity";
+import {MissionsController} from "../missions/MissionsController";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const Fighter = require("./Fighter.js");
 // const Attack = require('./Attack.js');
@@ -74,8 +77,8 @@ class Fight {
 		// load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
-			await this.fighters[i].consumePotionIfNeeded();
-			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
+			await this.fighters[i].consumePotionIfNeeded(this.message, this.language);
+			BlockingUtils.blockPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
 
 		// the player with the highest speed start the fight
@@ -142,7 +145,7 @@ class Fight {
 				points: this.points
 			});
 		}
-		else {
+		else if (this.elo !== 0) {
 			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.drawElo, {
 				elo: this.elo
 			});
@@ -167,6 +170,8 @@ class Fight {
 							total: attacksListElement.total,
 							damage: attacksListElement.success !== 0 ? Math.round(attacksListElement.damage / attacksListElement.success * 10) / 10 : 0
 						});
+						await MissionsController.update(fighter.entity.discordUserId, this.message.channel, this.language, "fightAttacks",
+							attacksListElement.total, {attackType: attacksListElement.actionNumber});
 					}
 				}
 			}
@@ -457,11 +462,9 @@ class Fight {
 
 		// give and remove points if the fight is not a draw
 		if (loser !== null && loser.power !== winner.power) {
-			loser.entity.Player.addScore(-this.points);
-			loser.entity.Player.addWeeklyScore(-this.points);
+			await loser.entity.Player.addScore(loser.entity, -this.points, this.message.channel, this.language);
 			loser.entity.Player.save();
-			winner.entity.Player.addScore(this.points);
-			winner.entity.Player.addWeeklyScore(this.points);
+			await winner.entity.Player.addScore(winner.entity, this.points, this.message.channel, this.language);
 			winner.entity.Player.save();
 		}
 
@@ -472,23 +475,33 @@ class Fight {
 			}
 		}
 		for (let i = 0; i < this.fighters.length; i++) {
-			global.removeBlockedPlayer(this.fighters[i].entity.discordUserId);
+			BlockingUtils.unblockPlayer(this.fighters[i].entity.discordUserId);
 		}
 		if (this.lastSummary !== undefined) {
 			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
 		if (winner !== null) {
-			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower
-				+ "); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower
-				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower +
+				"); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower +
+				"); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		else {
-			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower
-				+ "); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower
-				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower +
+				"); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower +
+				"); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		this.outroFight();
 		this.turn = -1;
+		if (this.friendly) {
+			await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "friendlyFight");
+			await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "friendlyFight");
+		}
+		else {
+			await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "rankedFight");
+			await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "rankedFight");
+		}
+		await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "anyFight");
+		await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "anyFight");
 	}
 
 	/**
@@ -598,7 +611,7 @@ class Fight {
 					player: await attacker.entity.Player.getPseudo(this.language)
 				}));
 				attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-				attacker.defense = Math.round(attacker.defense * 0.60);
+				attacker.defense = Math.round(attacker.defense * 0.6);
 				await this.nextTurn();
 				return;
 			}
@@ -624,7 +637,8 @@ class Fight {
 			attacker.attacksList[actionName] = {
 				success: 0,
 				total: 0,
-				damage: 0
+				damage: 0,
+				actionNumber: action
 			};
 		}
 		const stats = attacker.attacksList[actionName];
@@ -639,6 +653,9 @@ class Fight {
 		}
 		else {
 			far.damage = 0;
+		}
+		if (defender.power === 0) {
+			await MissionsController.update(attacker.entity.discordUserId, this.message.channel, this.language, "finishWithAttack", 1, {attackType: action});
 		}
 		await this.sendActionMessage(action, far);
 		await this.nextTurn();

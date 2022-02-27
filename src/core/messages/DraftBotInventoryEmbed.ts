@@ -4,6 +4,7 @@ import {Constants} from "../Constants";
 import {TranslationModule, Translations} from "../Translations";
 import {EmbedField, User} from "discord.js";
 import {format} from "../utils/StringFormatter";
+import Player from "../models/Player";
 
 class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 	mainTitle: string;
@@ -111,7 +112,7 @@ export class DraftBotInventoryEmbedBuilder {
 
 	private readonly _language: string;
 
-	private readonly _player: any;
+	private readonly _player: Player;
 
 	constructor(user: User, language: string, player: any) {
 		this._user = user;
@@ -120,31 +121,31 @@ export class DraftBotInventoryEmbedBuilder {
 	}
 
 	async build(): Promise<DraftBotInventoryEmbed> {
-		const weapons = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.WEAPON);
-		const armors = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.ARMOR);
-		const potions = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.POTION);
-		const objects = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.OBJECT);
+		const weapons = this._player.InventorySlots.filter(slot => slot.itemCategory === Constants.ITEM_CATEGORIES.WEAPON);
+		const armors = this._player.InventorySlots.filter(slot => slot.itemCategory === Constants.ITEM_CATEGORIES.ARMOR);
+		const potions = this._player.InventorySlots.filter(slot => slot.itemCategory === Constants.ITEM_CATEGORIES.POTION);
+		const objects = this._player.InventorySlots.filter(slot => slot.itemCategory === Constants.ITEM_CATEGORIES.OBJECT);
 		await this._player.getPseudo(this._language);
 		return new DraftBotInventoryEmbed(
 			this._user,
 			this._language,
-			await Promise.all(weapons.map(async function(item: { slot: number; getItem: () => any; }) {
-				const newItem = await item.getItem();
+			await Promise.all(weapons.map(async function(item) {
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
-			await Promise.all(armors.map(async function(item: { slot: number; getItem: () => any; }) {
-				const newItem = await item.getItem();
+			await Promise.all(armors.map(async function(item) {
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
-			await Promise.all(potions.map(async function(item: { slot: number; getItem: () => any; }) {
-				const newItem = await item.getItem();
+			await Promise.all(potions.map(async function(item) {
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
-			await Promise.all(objects.map(async function(item: { slot: number; getItem: () => any; }) {
-				const newItem = await item.getItem();
+			await Promise.all(objects.map(async function(item) {
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),

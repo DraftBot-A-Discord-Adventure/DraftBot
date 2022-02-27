@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "guildleave",
 	aliases: ["gleave", "gl"],
@@ -13,6 +15,11 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import Guild, {Guilds} from "../../core/models/Guild";
+import Player from "../../core/models/Player";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -28,9 +35,9 @@ const GuildLeaveCommand = async (message, language) => {
 
 	const endCallback = async (validationMessage) => {
 		const embed = new DraftBotEmbed();
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (elder) {
-			removeBlockedPlayer(elder.discordUserId);
+			BlockingUtils.unblockPlayer(elder.discordUserId);
 		}
 		if (validationMessage.isValidated()) {
 			entity.Player.guildId = null;
@@ -59,7 +66,7 @@ const GuildLeaveCommand = async (message, language) => {
 						" has been destroyed"
 					);
 					// the chief is leaving : destroy the guild
-					await Players.update(
+					await Player.update(
 						{guildId: null},
 						{
 							where: {
@@ -71,7 +78,7 @@ const GuildLeaveCommand = async (message, language) => {
 						pet.PetEntity.destroy();
 						pet.destroy();
 					}
-					await Guilds.destroy({
+					await Guild.destroy({
 						where: {
 							id: guild.id
 						}
@@ -83,12 +90,13 @@ const GuildLeaveCommand = async (message, language) => {
 
 			embed.setAuthor(
 				format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
-					pseudo: message.author.username,
+					pseudo: escapeUsername(message.author.username),
 					guildName: guild.name
 				}),
 				message.author.displayAvatarURL()
 			);
 			embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "guildLevel", 0, null, true);
 			return message.channel.send({ embeds: [embed] });
 		}
 
@@ -132,9 +140,9 @@ const GuildLeaveCommand = async (message, language) => {
 	}
 
 	await confirmationEmbed.send(message.channel, (collector) => {
-		addBlockedPlayer(entity.discordUserId, "guildLeave", collector);
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildLeave", collector);
 		if (elder) {
-			addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
+			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, "chiefGuildLeave", collector);
 		}
 	});
 };

@@ -1,5 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
+import Entity, {Entities} from "../../core/models/Entity";
+import Player, {Players} from "../../core/models/Player";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "top",
@@ -36,7 +39,9 @@ const TopCommand = async function(message, language, args) {
 		// get all discordID on the server
 		const listId = Array.from((await message.guild.members.fetch()).keys());
 
-		const numberOfPlayer = await Entities.count({
+		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
+
+		const numberOfPlayer = await Entity.count({
 			defaults: {
 				Player: {
 					Inventory: {}
@@ -46,7 +51,7 @@ const TopCommand = async function(message, language, args) {
 				discordUserId: listId
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -56,7 +61,7 @@ const TopCommand = async function(message, language, args) {
 			}]
 		});
 
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}
@@ -66,7 +71,7 @@ const TopCommand = async function(message, language, args) {
 				discordUserId: listId
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -75,8 +80,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "score", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "score", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -93,21 +98,21 @@ const TopCommand = async function(message, language, args) {
 	else if (args[0] === "week" || args[0] === "w") {
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
-		const numberOfPlayer = await Players.count({
+		const numberOfPlayer = await Player.count({
 			where: {
 				weeklyScore: {
 					[require("sequelize/lib/operators").gt]: 100
 				}
 			}
 		});
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}
 				}
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					weeklyScore: {
@@ -116,8 +121,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -131,7 +136,7 @@ const TopCommand = async function(message, language, args) {
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
 
-		const numberOfPlayer = await Players.count({
+		const numberOfPlayer = await Player.count({
 			where: {
 				score: {
 					[require("sequelize/lib/operators").gt]: 100
@@ -139,14 +144,14 @@ const TopCommand = async function(message, language, args) {
 			}
 		});
 
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}
 				}
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -155,8 +160,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "score", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "score", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -183,7 +188,7 @@ const TopCommand = async function(message, language, args) {
 async function displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, topTitle, page, scoreTooLow) { // eslint-disable-line max-params
 	const embedError = new DraftBotEmbed();
 	const embed = new DraftBotEmbed();
-	const actualPlayer = message.author.username;
+	const actualPlayer = escapeUsername(message.author.username);
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1) {
 		pageMax = 1;

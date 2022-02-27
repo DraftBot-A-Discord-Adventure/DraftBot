@@ -1,4 +1,4 @@
-const Maps = require("../Maps");
+import {Maps} from "../Maps";
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				], {lifeLoss: lifeLoss}
 			)
 		);
-		await entity.addHealth(-lifeLoss);
+		await entity.addHealth(-lifeLoss, message.channel, language);
 		break;
 	case 1:
 		time = draftbotRandom.integer(SMALL_EVENT.MINIMUM_TIME_LOST_SMALL,
@@ -49,7 +49,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				translationSBE.moneyLoss.stories[
 					randInt(0, translationSBE.moneyLoss.stories.length)
 				], {moneyLost: moneyLoss}));
-		entity.Player.addMoney(-moneyLoss);
+		await entity.Player.addMoney(entity, -moneyLoss, message.channel, language);
 		break;
 	}
 	await message.channel.send({ embeds: [seEmbed] });
@@ -60,5 +60,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

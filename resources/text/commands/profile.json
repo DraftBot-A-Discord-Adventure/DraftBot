@@ -8,11 +8,16 @@
 			},
 			"statistique": {
 				"fieldName": "Statistiques :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :zap: {cumulativeHealth} / {cumulativeMaxHealth}"
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
 			},
-			"classement": {
+			"mission": {
+				"fieldName": "Missions :",
+				"fieldValue": ":gem: {gems} | :book: {campaign}% "
+			},
+			"ranking": {
 				"fieldName": "Classement et Score :",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
+				"unranked" : "Non classé"
 			},
 			"timeLeft": {
 				"fieldName": "Temps restant :",
@@ -35,7 +40,8 @@
 				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Destination :"
+				"fieldName": "Destination :",
+				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -61,45 +67,51 @@
 				"⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
 				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`",
 				"🔖": ":bookmark:  `Adopteur de classes de la première heure`",
-				"💞": ":revolving_hearts:  `Joueur ayant dressé un familier légendaire`"
+				"💞": ":revolving_hearts:  `Joueur ayant dressé un familier légendaire`",
+				"\uD83D\uDC8D": ":ring: `Badge acheté dans le shop des Missions`"
 			}
 		},
 		"en": {
 			"title": "{effect} | {pseudo} | Level {level}",
 			"information": {
-				"fieldName": "Information :",
+				"fieldName": "Information:",
 				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
 			},
 			"statistique": {
-				"fieldName": "Stats :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :zap: {cumulativeHealth} / {cumulativeMaxHealth}"
+				"fieldName": "Stats:",
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
 			},
-			"classement": {
-				"fieldName": "Ranking and score :",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+			"mission": {
+				"fieldName": "Missions:",
+				"fieldValue": ":gem: {gems} | :book: {campaign}% "
+			},
+			"ranking": {
+				"fieldName": "Ranking and score:",
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
+				"unranked": "Unranked"
 			},
 			"timeLeft": {
-				"fieldName": "Time left :",
+				"fieldName": "Time left:",
 				"fieldValue": "{effect} {timeLeft}"
 			},
 			"noTimeLeft": {
-				"fieldName": "Temps restant :",
+				"fieldName": "Temps restant:",
 				"fieldValue": ":hospital: You can continue playing now"
 			},
 			"guild": {
-				"fieldName": "Guild :",
+				"fieldName": "Guild:",
 				"fieldValue": ":stadium: {guild}"
 			},
 			"playerClass": {
-				"fieldName": "Class :",
+				"fieldName": "Class:",
 				"fieldValue": "{class}"
 			},
 			"pet": {
-				"fieldName": "Pet :",
+				"fieldName": "Pet:",
 				"fieldValue": "Rarity: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Destination :",
+				"fieldName": "Destination:",
 				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
@@ -111,7 +123,6 @@
 				"❤️": ":heart:  `User who has the Support role on the bot server`",
 				"🍀": ":four_leaf_clover:  `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
 				"💸": ":money_with_wings:  `Donor`",
-				"🖊": ":pen_ballpoint:  `Person who helped fix a lot of spelling mistakes`",
 				"🐞": ":lady_beetle:  `person who reported major bugs`",
 				"🎰": ":slot_machine:  `Badge given in a completely random way`",
 				"⛑️": ":helmet_with_cross:  `People who are one of the 20 first members of the bot server`",
@@ -127,7 +138,8 @@
 				"⚔️": ":crossed_swords: `Tournament winner`",
 				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`",
 				"🔖": ":bookmark:  `Class early adopter`",
-				"💞": ":revolving_hearts:  `A player that raised a legendary pet`"
+				"💞": ":revolving_hearts:  `A player that raised a legendary pet`",
+				"\uD83D\uDC8D": ":ring: `Badge bought in the Missions shop`"
 			}
 		}
 	},

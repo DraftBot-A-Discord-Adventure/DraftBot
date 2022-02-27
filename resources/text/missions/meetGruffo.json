@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rencontrez Gruffo"
+		},
+		"en": {
+			"desc": "Meet Gruffo"
+		}
+	},
+	"campaignOnly": true
+}

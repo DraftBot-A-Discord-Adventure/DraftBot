@@ -1,0 +1,67 @@
+{
+	"map_location_ids": [
+		28
+	],
+	"translations": {
+		"fr": "<:draftbot:529305485963427840> **Bonjour et bienvenue sur DraftBot !** \uD83D\uDC51 Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du chateau après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir.",
+		"en": "<:draftbot:529305485963427840> **Hello and welcome to DraftBot!** \uD83D\uDC51 The king is looking for a noble knight to marry his daughter and you have chosen to participate in the selection contest! Having just arrived at the castle entrance after a long journey, you signal your presence to the guards at the entrance. You are invited to enter and quickly meet a young woman who seems to want to welcome you."
+	},
+	"possibilities": {
+		"🚶": {
+			"translations": {
+				"fr": "Suivre votre guide",
+				"en": "Follow the guide"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "La jeune femme se présente et enchaîne rapidement sur des premiers conseils que vous écoutez avec attention, vous apprenez que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"en": "The young woman introduces herself and quickly follows up with some initial advice which you listen to carefully, you learn that the command 'report' allows you to get all the information about your trip."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"👀": {
+			"translations": {
+				"fr": "Observer les alentours",
+				"en": "Observe your surroundings"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous admirez les immenses murailles du château. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"en": "You admire the immense walls of the castle. After a while, the young woman finally reaches you and gives you some advice. You learn that the command 'report' allows you to get all the information about your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous restez sans réagir à l'invitation du garde. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"en": "You remain unresponsive to the guard's invitation. After a while, the young woman finally reaches you and gives you some advice. You learn that the command 'report' allows you to get all the information about your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
+	}
+}

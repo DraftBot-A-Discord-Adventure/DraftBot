@@ -63,8 +63,8 @@
 				"acceptItem": "Choix de garder un objet ou non",
 				"petFeed": "nourrir un familier",
 				"freepet": "Libération d'un familier",
-				"guildElder": "Choisir l'ainé",
-				"guildElderRemove": "Supprimer l'ainé",
+				"guildElder": "Choisir l'aîné",
+				"guildElderRemove": "Supprimer l'aîné",
 				"petTrade": "Échange d'animaux",
 				"guildShop": "Magasin de guilde",
 				"selectQuantity": "Sélection d'une quantité",
@@ -76,6 +76,7 @@
 				"chooseDestination": "Choix de la destination",
 				"lottery": "Mini-évent lotterie",
 				"switch": "Échange d'équipement",
+				"missionShop": "Magasin des missions",
 				"merchant": "Marchand",
 				"drink": "Choix de boire une potion ou non"
 			}
@@ -149,13 +150,14 @@
 				"guildShop": "Guild's shop",
 				"selectQuantity": "Quantity selection",
 				"test": "Test",
-				"sellPet": "Pet sale.",
-				"sellPetConfirm": "Confirmation of a pet purchase.",
+				"petSell": "Pet sale.",
+				"petSellConfirm": "Confirmation of a pet purchase.",
 				"chiefGuildLeave": "Authority will be transferred.",
 				"unlock": "Releasing someone",
 				"chooseDestination": "Choose the destination",
 				"switch": "Equipment switch",
 				"lottery": "Lottery small event",
+				"missionShop": "Missions shop",
 				"merchant": "Merchant",
 				"drink": "Choice to drink a potion or not"
 			}

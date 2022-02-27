@@ -1,4 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guildelder",
@@ -24,7 +28,7 @@ const GuildElderCommand = async (message, language, args) => {
 
 	guild = await Guilds.getById(entity.Player.guildId);
 	try {
-		[elderEntity] = await Entities.getByArgs(args, message);
+		elderEntity = message.mentions.users.last() ? await Entities.getByDiscordUserId(message.mentions.users.last().id) : null;
 	}
 	catch (error) {
 		elderEntity = null;
@@ -83,7 +87,7 @@ const GuildElderCommand = async (message, language, args) => {
 		format(
 			JsonReader.commands.guildElder.getTranslation(language).elderAddTitle,
 			{
-				pseudo: message.author.username
+				pseudo: escapeUsername(message.author.username)
 			}
 		),
 		message.author.displayAvatarURL()
@@ -110,10 +114,10 @@ const GuildElderCommand = async (message, language, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "guildElder", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElder", collector);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -164,7 +168,7 @@ const GuildElderCommand = async (message, language, args) => {
 						JsonReader.commands.guildElder.getTranslation(language)
 							.successElderAddTitle,
 						{
-							pseudo: message.mentions.users.last().username,
+							pseudo: escapeUsername(message.mentions.users.last().username),
 							guildName: guild.name
 						}
 					),

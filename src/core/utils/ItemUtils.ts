@@ -1,4 +1,5 @@
-import {Collector, DMChannel, NewsChannel, TextChannel, User} from "discord.js";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {Collector, TextBasedChannels, TextChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
@@ -6,25 +7,27 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Random} from "random-js";
+import Armor, {Armors} from "../models/Armor";
+import Weapon, {Weapons} from "../models/Weapon";
+import Potion, {Potions} from "../models/Potion";
+import ObjectItem, {ObjectItems} from "../models/ObjectItem";
+import Entity, {Entities} from "../models/Entity";
+import InventorySlot from "../models/InventorySlot";
+import {MissionsController} from "../missions/MissionsController";
+import {GenericItemModel} from "../models/GenericItemModel";
+import Player from "../models/Player";
+import {BlockingUtils} from "./BlockingUtils";
 
-declare const InventorySlots: any;
-declare const Entities: any;
 declare const JsonReader: any;
-declare function removeBlockedPlayer(id: string): void;
-declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
-declare const Weapons: any;
-declare const Armors: any;
-declare const Potions: any;
-declare const Objects: any;
 
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
-	entity: any,
-	item: any,
+	entity: Entity,
+	item: Weapon | ObjectItem | Armor | Potion,
 	language: string,
 	discordUser: User,
-	channel: TextChannel | DMChannel | NewsChannel,
+	channel: TextChannel,
 	resaleMultiplierNew = 1,
 	resaleMultiplierActual = 1
 ): Promise<void> {
@@ -33,10 +36,16 @@ export const giveItemToPlayer = async function(
 	await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(tr.get("randomItemTitle"), discordUser)
-			.setDescription(item.toString(language))
+			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language))
 	] });
 
 	if (await entity.Player.giveItem(item) === true) {
+		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+		const entityForMC = (await Entities.getOrRegister(entity.discordUserId))[0];
+		await MissionsController.update(entityForMC.discordUserId, channel, language, "havePotions", countNbOfPotions(entityForMC.Player), null, true);
+		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
+			rarity: item.rarity
+		}, true);
 		return;
 	}
 
@@ -63,7 +72,7 @@ export const giveItemToPlayer = async function(
 			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(
-					(await item.getItem()).toString(language),
+					(await item.getItem()).toString(language, -1),
 					item
 				));
 			}
@@ -72,7 +81,7 @@ export const giveItemToPlayer = async function(
 				discordUser.id,
 				async (replacedItem: any) => {
 					[entity] = await Entities.getOrRegister(entity.discordUserId);
-					removeBlockedPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id);
 					await sellOrKeepItem(
 						entity,
 						false,
@@ -88,7 +97,7 @@ export const giveItemToPlayer = async function(
 					);
 				},
 				async (endMessage: DraftBotListChoiceMessage) => {
-					removeBlockedPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id);
 					if (endMessage.isCanceled()) {
 						await sellOrKeepItem(
 							entity,
@@ -110,7 +119,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			choiceMessage.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
+			choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 			return;
 		}
 	}
@@ -136,7 +145,7 @@ export const giveItemToPlayer = async function(
 		discordUser,
 		async (msg: DraftBotValidateReactionMessage) => {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
-			removeBlockedPlayer(discordUser.id);
+			BlockingUtils.unblockPlayer(discordUser.id);
 			await sellOrKeepItem(
 				entity,
 				!msg.isValidated(),
@@ -156,19 +165,19 @@ export const giveItemToPlayer = async function(
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
 		})) as DraftBotValidateReactionMessage;
-	await validateSell.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
+	await validateSell.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 };
 
 // eslint-disable-next-line max-params
 const sellOrKeepItem = async function(
-	entity: any,
+	entity: Entity,
 	keepOriginal: boolean,
 	discordUser: User,
-	channel: TextChannel | DMChannel | NewsChannel,
+	channel: TextChannel,
 	language: string,
-	item: any,
-	itemToReplace: any,
-	itemToReplaceInstance: any,
+	item: GenericItemModel,
+	itemToReplace: InventorySlot,
+	itemToReplaceInstance: GenericItemModel,
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
 	autoSell: boolean
@@ -178,9 +187,9 @@ const sellOrKeepItem = async function(
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
-			.setDescription(item.toString(language));
+			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, Infinity) : item.toString(language, -1));
 
-		await InventorySlots.update(
+		await InventorySlot.update(
 			{
 				itemId: item.id
 			},
@@ -214,9 +223,10 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	entity.Player.addMoney(money);
+	await entity.Player.addMoney(entity, money, channel, language);
+	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost",1,{itemCost: money});
 	await entity.Player.save();
-	return await channel.send({ embeds: [
+	await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(
 				autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
@@ -231,6 +241,14 @@ const sellOrKeepItem = async function(
 				)
 			)
 	] });
+	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
+	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
+	if (!keepOriginal) {
+		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
+			rarity: item.rarity
+		}, true);
+	}
 };
 
 export const getItemValue = function(item: any) {
@@ -248,8 +266,8 @@ export const getItemValue = function(item: any) {
 	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
 };
 
-export const generateRandomItem = async function(maxRarity = 8, itemCategory: number = null): Promise<any> {
-	const rarity = generateRandomRarity(maxRarity);
+export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<any> {
+	const rarity = generateRandomRarity(minRarity, maxRarity);
 	if (itemCategory === null) {
 		itemCategory = generateRandomItemCategory();
 	}
@@ -257,32 +275,16 @@ export const generateRandomItem = async function(maxRarity = 8, itemCategory: nu
 	switch (itemCategory) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
 		itemsIds = await Weapons.getAllIdsForRarity(rarity);
-		return await Weapons.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Weapons.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.ARMOR:
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
-		return await Armors.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Armors.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.POTION:
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
-		return await Potions.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Potions.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		itemsIds = await Objects.getAllIdsForRarity(rarity);
-		return await Objects.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
+		return await ObjectItems.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	default:
 		return null;
 	}
@@ -290,12 +292,17 @@ export const generateRandomItem = async function(maxRarity = 8, itemCategory: nu
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
+ * @param {number} minRarity
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-export const generateRandomRarity = function(maxRarity = Constants.RARITY.MYTHICAL): number {
-	const randomValue = draftbotRandom.integer(0, JsonReader.values.raritiesGenerator.maxValue -
-		(maxRarity === Constants.RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
+export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
+	const randomValue = draftbotRandom.integer(
+		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity - 2],10)),
+		parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
+			- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
+			- parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1],10))
+	);
 
 	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
 		return Constants.RARITY.COMMON;
@@ -335,11 +342,11 @@ export const generateRandomItemCategory = function() {
  * @param {number} potionType
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = 8) {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL) {
 	if (potionType === null) {
 		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.POTION);
 	}
-	const rarity = generateRandomRarity(maxRarity);
+	const rarity = generateRandomRarity(Constants.RARITY.COMMON, maxRarity);
 	return await Potions.randomItem(potionType, rarity);
 };
 
@@ -347,24 +354,25 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  * Generate a random object
  * @param {number} maxRarity
  * @param {number} objectType
- * @returns {Objects} generated object
+ * @param minRarity
+ * @returns {ObjectItem} generated object
  */
-export const generateRandomObject = async function(objectType: number = null, maxRarity = 8) {
+export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL) {
 	if (objectType === null) {
-		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
+		return this.generateRandomItem(minRarity, maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
 	}
-	const rarity = generateRandomRarity(maxRarity);
-	return await Objects.randomItem(objectType, rarity);
+	const rarity = generateRandomRarity(minRarity, maxRarity);
+	return await ObjectItems.randomItem(objectType, rarity);
 };
 
 /**
  * give a random item
- * @param {module:"discord.js".User} discordUser
- * @param {module:"discord.js".TextChannel} channel
+ * @param {User} discordUser
+ * @param {TextBasedChannels} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextChannel | DMChannel | NewsChannel, language: string, entity: any) {
+export const giveRandomItem = async function(discordUser: User, channel: TextChannel, language: string, entity: any) {
 	const item = await generateRandomItem();
 	return await giveItemToPlayer(entity, item, language, discordUser, channel);
 };
@@ -399,4 +407,21 @@ export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
 	return itemInstances.map(function(e) {
 		return e[0];
 	});
+};
+
+export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
+	for (const slot of slots) {
+		if ((await slot.getItem()).rarity > rarity) {
+			return true;
+		}
+	}
+	return false;
+};
+
+export const countNbOfPotions = function(player: Player): number {
+	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
+	for (const slot of player.InventorySlots) {
+		nbPotions += slot.isPotion() ? 1 : 0;
+	}
+	return nbPotions;
 };

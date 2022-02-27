@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} combat{objective>1?s:} (amica{objective>1?ux:l} ou classé{objective>1?s:})"
+		},
+		"en": {
+			"desc": "Do {objective} fight{objective>1?s:} (friendly or ranked)"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [],
+		"hard": []
+	},
+	"objectives": [
+		1
+	],
+	"gems": [
+		2
+	],
+	"money": [
+		25
+	],
+	"xp": [
+		20
+	],
+	"expirations": [
+		24
+	],
+	"dailyIndexes": [
+		0
+	]
+}

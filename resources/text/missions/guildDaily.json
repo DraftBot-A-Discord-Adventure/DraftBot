@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Recevoir {objective} récompense{objective>1?s:} de guilde (!guilddaily)"
+		},
+		"en": {
+			"desc": "Receive {objective} guild reward{objective>1?s:} (!guilddaily)"
+		}
+	},
+	"campaignOnly": true
+}

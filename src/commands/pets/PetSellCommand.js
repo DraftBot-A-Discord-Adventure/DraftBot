@@ -1,4 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "petsell",
@@ -60,7 +65,7 @@ const PetSellCommand = async (message, language, args) => {
 		);
 	}
 
-	if (pet.lovePoints < PETS.LOVE_LEVELS[0]) {
+	if (pet.isFeisty()) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -84,9 +89,9 @@ const PetSellCommand = async (message, language, args) => {
 	fields.push({
 		name: translations.petFieldName,
 		value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-			rarity: Pets.getRarityDisplay(pet.PetModel),
-			emote: PetEntities.getPetEmote(pet),
-			nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+			rarity: pet.PetModel.getRarityDisplay(),
+			emote: pet.getPetEmote(),
+			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 		}),
 		inline: false
 	});
@@ -96,7 +101,7 @@ const PetSellCommand = async (message, language, args) => {
 			.setTitle(translations.sellMessage.title)
 			.setDescription(
 				format(translations.sellMessage.description, {
-					author: message.author.username,
+					author: escapeUsername(message.author.username),
 					price: petCost,
 					guildMaxLevel: guild.isAtMaxLevel()
 				})
@@ -112,7 +117,7 @@ const PetSellCommand = async (message, language, args) => {
 		time: COLLECTOR_TIME
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petSell", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petSell", collector);
 
 	let spamCount = 0;
 	const spammers = [];
@@ -159,13 +164,13 @@ const PetSellCommand = async (message, language, args) => {
 
 	collector.on("end", function() {
 		if (sellInstance === undefined) {
-			global.removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			if (buyer === null) {
 				sendErrorMessage(message.author, message.channel, language, translations.errors.noOneAvailable);
 			}
 		}
 		if (sellInstance === null) {
-			global.removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 		}
 	});
 
@@ -180,8 +185,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		.formatAuthor(translations.confirmEmbed.author, user)
 		.setDescription(
 			format(translations.confirmEmbed.description, {
-				emote: await PetEntities.getPetEmote(pet),
-				pet: await pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language),
+				emote: await pet.getPetEmote(),
+				pet: await pet.nickname ? pet.nickname : pet.getPetTypeName(language),
 				price: petCost
 			})
 		);
@@ -196,15 +201,15 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		max: 1
 	});
 
-	addBlockedPlayer(buyer.discordUserId, "petSellConfirm", confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(buyer.discordUserId, "petSellConfirm", confirmCollector);
 
 	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(buyer.discordUserId);
+			BlockingUtils.unblockPlayer(buyer.discordUserId);
 			return sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-			removeBlockedPlayer(buyer.discordUserId);
+			BlockingUtils.unblockPlayer(buyer.discordUserId);
 			let buyerGuild;
 			try {
 				buyerGuild = await Guilds.getById(buyer.Player.guildId);
@@ -225,11 +230,11 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			const MIN_XP = Math.floor(petCost / (1000 / 50));
 			const MAX_XP = Math.floor(petCost / (1000 / 450));
 			const toAdd = Math.floor(randInt(MIN_XP, MAX_XP));
-			guild.addExperience(toAdd,message,language); // Add xp
+			await guild.addExperience(toAdd, message, language);
 
 			await guild.save();
 			buyer.Player.petId = pet.id;
-			buyer.Player.money -= petCost;
+			await buyer.Player.addMoney(buyer, -petCost, message.channel, language);
 			await buyer.Player.save();
 			entity.Player.petId = null;
 			await entity.Player.save();
@@ -253,11 +258,12 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				.formatAuthor(translations.addPetEmbed.author, user);
 			addPetEmbed.setDescription(
 				format(translations.addPetEmbed.description, {
-					emote: await PetEntities.getPetEmote(pet),
-					pet: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+					emote: await pet.getPetEmote(),
+					pet: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				})
 			);
-			return message.channel.send({ embeds: [addPetEmbed] });
+			await message.channel.send({ embeds: [addPetEmbed] });
+			await MissionsController.update(buyer.discordUserId, message.channel, language, "havePet");
 		}
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);

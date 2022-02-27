@@ -1,9 +1,13 @@
 {
 	"type": "ro",
-	"nameFr": "La Route des Merveilles",
-	"nameEn": "The Road of Wonders",
-	"particleFr": "vers",
-	"particleEn": "of",
+	"nameFr": "Route des Merveilles",
+	"nameEn": "Road of Wonders",
+	"particleFr": "vers la",
+	"particleEn": "of the",
 	"descFr": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s’y installent le temps d’une journée pour au final créer un immense marché.",
-	"descEn": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together."
+	"descEn": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together.",
+	"tags": [
+		"detALa"
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

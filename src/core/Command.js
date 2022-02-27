@@ -1,5 +1,10 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+import {Entities} from "./models/Entity";
+import {Guilds} from "./models/Guild";
+import Server from "./models/Server";
 import {botConfig, draftBotClient} from "./bot";
+import {escapeUsername} from "./utils/StringUtils";
+import {BlockingUtils} from "./utils/BlockingUtils";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -17,11 +22,10 @@ class Command {
 	 */
 	static async init() {
 		Command.commands = new Collection();
-		Command.players = new Map();
 
-		const categories = await readdir("src/commands");
+		const categories = await readdir("dist/src/commands");
 		categories.forEach(category => {
-			const commandsFiles = readdirSync(`src/commands/${category}`).filter(command => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const command = require(`../commands/${category}/${commandFile}`);
 				Command.commands.set(command.commandInfo.name, command);
@@ -43,75 +47,13 @@ class Command {
 	}
 
 	/**
-	 * check if a player is blocked
-	 * @param {String} id
-	 */
-	static async hasBlockedPlayer(id) {
-		const response = await draftBotClient.shard.broadcastEval((client, context) => _hasBlockedPlayer(context.id), {
-			context: {
-				id
-			}
-		});
-		return response.includes(true);
-	}
-
-	static _hasBlockedPlayer(id) {
-		if (Object.keys(Command.players).includes(id)) {
-			return !(
-				Command.players[id].collector &&
-				Command.players[id].collector.ended
-			);
-		}
-	}
-
-	/**
-	 * get the reason why a player is blocked and the time he is blocked for
-	 * @param {String} id
-	 * @return {{context: string, time: number}}
-	 */
-	static async getBlockedPlayer(id) {
-		let response = await draftBotClient.shard.broadcastEval((client, context) => _getBlockedPlayer(context.id), {
-			context: {
-				id
-			}
-		});
-		response = response.filter(r => r);
-		if (response.length === 0) {
-			return null;
-		}
-		return response[0];
-	}
-
-	static _getBlockedPlayer(id) {
-		return Command.players[id];
-	}
-
-	/**
-	 * block a player
-	 * @param {String} id
-	 * @param {String} context
-	 * @param {module:"discord.js".ReactionCollector} collector
-	 */
-	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
-	}
-
-	/**
-	 * unblock a player
-	 * @param {String} id
-	 */
-	static removeBlockedPlayer(id) {
-		delete Command.players[id];
-	}
-
-	/**
 	 * This function analyses the passed message and check if he can be processed
 	 * @param {module:"discord.js".Message} message - Message from the discord server
 	 */
 	static async handleMessage(message) {
 
 		// server check :
-		const [server] = await Servers.findOrCreate({
+		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: message.guild.id
 			}
@@ -145,8 +87,8 @@ class Command {
 		}
 
 		// otherwise continue
-
-		if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
+		const serverPrefixEquals = server.prefix === Command.getUsedPrefix(message, server.prefix);
+		if (serverPrefixEquals || Command.getUsedPrefix(message, "sudo /usr/sbin/") === "sudo /usr/sbin/") {
 
 			// check maintenance mode
 			if (
@@ -160,7 +102,7 @@ class Command {
 						.setErrorColor()
 				] });
 			}
-			await Command.launchCommand(language, server.prefix, message);
+			await Command.launchCommand(language, serverPrefixEquals ? server.prefix : "sudo /usr/sbin/", message);
 		}
 		else if (
 			Command.getUsedPrefix(
@@ -187,10 +129,10 @@ class Command {
 		if (!entity.Player.dmNotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
-		await draftBotClient.shard.broadcastEval(async (client, context) => {
+		await draftBotClient.shard.broadcastEval((client, context) => {
 			const mainServer = client.guilds.cache.get(context.mainServerId);
 			if (mainServer) {
-				const dmChannel = mainServer.channels.cache.get(context.dmChannelId);
+				const dmChannel = client.users.cache.get(context.dmChannelId);
 				if (context.attachments.length > 0) {
 					for (const attachment of context.attachments) {
 						dmChannel.send({
@@ -209,7 +151,7 @@ class Command {
 				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(JsonReader.bot.dm.supportAlert, {
-					username: message.author.username,
+					username: escapeUsername(message.author.username),
 					alertIcon: icon,
 					id: message.author.id
 				}) + message.content
@@ -241,7 +183,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{pseudo: escapeUsername(message.author.username)}
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);
@@ -414,28 +356,15 @@ class Command {
 			}
 		}
 
-		if (!Command.players.has(command.name)) {
-			Command.players.set(command.name, new Map());
+		if (await BlockingUtils.isPlayerSpamming(message.author.id)) {
+			return sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
 		}
 
-		const now = Date.now();
-		const timestamps = Command.players.get(command.name);
-		const cooldownAmount = 1000;
-
-		if (timestamps.has(message.author.id)) {
-			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-			if (now < expirationTime) {
-				return sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
-			}
-		}
-
-		timestamps.set(message.author.id, now);
-		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+		BlockingUtils.spamBlockPlayer(message.author.id);
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 		await command.execute(message, language, args);
@@ -452,18 +381,6 @@ module
 
 global
 	.getCommand = Command.getCommand;
-global
-	.getBlockedPlayer = Command.getBlockedPlayer;
-global
-	.hasBlockedPlayer = Command.hasBlockedPlayer;
-global
-	._hasBlockedPlayer = Command._hasBlockedPlayer;
-global
-	._getBlockedPlayer = Command._getBlockedPlayer;
-global
-	.addBlockedPlayer = Command.addBlockedPlayer;
-global
-	.removeBlockedPlayer = Command.removeBlockedPlayer;
 global
 	.handleMessage = Command.handleMessage;
 global

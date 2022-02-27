@@ -39,7 +39,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'aller au sanctuaire tout seul. Sur votre route, vous trouvez un objet qui pourrait vous être utile. Arrivé sur les lieux, ils se révèlent être une grotte. Vous décidez de ne pas aller plus loin.",
+						"fr": "Vous décidez d'aller au sanctuaire tout seul. Sur votre route, vous trouvez un objet qui pourrait vous être utile. Arrivé sur les lieux, vous découvrez que le sanctuaire se révèle être une grotte. Vous décidez de ne pas aller plus loin.",
 						"en": "You decide to go to the shrine on your own. On your way, you find an object which may be useful. When you reach the shrine, it appears to be a dark cave. With no light source, you decide not to go any further."
 					},
 					"lostTime": 75,
@@ -171,7 +171,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous continuez votre route, quelques minutes plus tard, vous vous sentez plus léger.",
+						"fr": "Vous continuez votre route. Quelques minutes plus tard, vous vous rendez compte que vous avez pris le mauvais chemin. Dans votre précipitation pour rattraper le temps perdu, vous trébuchez contre une pierre et vos affaires s'éparpillent.",
 						"en": "You continue on your way, but a few minutes later notice your pockets are lighter than before..."
 					},
 					"lostTime": 15,

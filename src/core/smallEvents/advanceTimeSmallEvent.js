@@ -7,7 +7,7 @@
  * @returns {Promise<>}
  */
 import {Translations} from "../Translations";
-const Maps = require("../../core/Maps");
+import {Maps} from "../Maps";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
@@ -29,5 +29,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

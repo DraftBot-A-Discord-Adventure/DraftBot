@@ -1,0 +1,50 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Réaliser {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
+		},
+		"en": {
+			"desc": "Do {objective} friendly fight{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		1,
+		2,
+		3
+	],
+	"gems": [
+		2,
+		0,
+		0
+	],
+	"xp": [
+		100,
+		125,
+		150
+	],
+	"money": [
+		50,
+		75,
+		125
+	],
+	"expirations": [
+		12,
+		12,
+		12
+	],
+	"dailyIndexes": [
+		0
+	]
+}
