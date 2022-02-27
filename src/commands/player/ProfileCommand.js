@@ -190,16 +190,29 @@ const ProfileCommand = async (message, language, args) => {
 	});
 
 	collector.on("collect", (reaction) => {
-		message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
-			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
-		});
+		if (reaction.emoji.name === "🎖️") {
+			message.channel.send({
+				embeds: [new DraftBotEmbed()
+					.setDescription()
+					.setTitle(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title)]});
+		}
+		else {
+			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
+				setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
+			});
+		}
 	});
 
 	if (entity.Player.badges !== null && entity.Player.badges !== "") {
 		const badges = entity.Player.badges.split("-");
-		for (const badgeid in badges) {
-			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
-				await msg.react(badges[badgeid]);
+		if (badges.length >= 20) {
+			await msg.react("🎖️");
+		}
+		else {
+			for (const badgeid in badges) {
+				if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
+					await msg.react(badges[badgeid]);
+				}
 			}
 		}
 	}
