@@ -189,14 +189,23 @@ const ProfileCommand = async (message, language, args) => {
 		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});
 
-	collector.on("collect", (reaction) => {
+	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === "🎖️") {
+			let content = "";
+			let badges = entity.Player.badges.split("-");
+			for (let badgeSentence in badges) {
+				content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
+			}
 			message.channel.send({
 				embeds: [new DraftBotEmbed()
-					.setDescription()
-					.setTitle(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title)]});
-		}
-		else {
+					.setDescription(format(content + JsonReader.commands.profile.getTranslation(language).badgeDisplay.numberBadge, {
+						badge: badges.length
+					}))
+					.setTitle(format(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title, {
+						pseudo: await entity.Player.getPseudo(language)
+					}))]
+			});
+		} else {
 			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
 				setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 			});

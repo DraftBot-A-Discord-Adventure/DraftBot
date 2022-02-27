@@ -72,7 +72,7 @@
 			},
 			"badgeDisplay": {
 				"title": "Liste des badges de {pseudo}",
-				"numberBadge": "Ce joueur possède {badge} badge{badges>1?:s} au total !"
+				"numberBadge": "\n Ce joueur possède {badge} badge{badge>1?s:} au total !"
 			}
 		},
 		"en": {
