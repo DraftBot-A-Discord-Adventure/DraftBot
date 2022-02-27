@@ -187,13 +187,13 @@
 					"emote": ":military_medal:",
 					"usage": "guildelder [mention]",
 					"category": "guild",
-					"description": "Permet d'ajouter un ainé à la guilde, nécessite d'être chef de guilde."
+					"description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
 				},
 				"guildelderremove": {
 					"emote": ":outbox_tray:",
 					"usage": "guildelderremove",
 					"category": "guild",
-					"description": "Permet de supprimer l'ainé de la guilde, nécessite d'être chef de guilde."
+					"description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
 				},
 				"guildstorage": {
 					"emote": ":pencil:",
