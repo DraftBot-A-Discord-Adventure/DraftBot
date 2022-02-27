@@ -17,7 +17,7 @@
 			"cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
 			"notInAguild": "You have to be in a guild to use this command.",
 			"notInTheGuild": "This player is not in your guild.",
-			"notChiefError": "You have to be a guil leader to use this command.",
+			"notChiefError": "You have to be a guild leader to use this command.",
 			"chiefError": "Being the chief of the guild, you can't be the elder.",
 			"elderAddTitle": "{pseudo}, do you confirm your choice ?",
 			"elderAdd": ":question: {elder} will become the elder of the guild {guildName}.",

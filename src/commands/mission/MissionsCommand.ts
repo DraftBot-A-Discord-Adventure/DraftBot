@@ -1,9 +1,10 @@
 import {Constants} from "../../core/Constants";
-import {Message, TextChannel} from "discord.js";
+import {Message, TextChannel, User} from "discord.js";
 import {Entities} from "../../core/models/Entity";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
+declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
 export const commandInfo = {
 	name: "missions",
@@ -12,6 +13,9 @@ export const commandInfo = {
 };
 
 const MissionsCommand = async (message: Message, language: string, args: string[]) => {
+	if (await sendBlockedError(message.author, <TextChannel>message.channel, language)) {
+		return;
+	}
 	let [entity] = await Entities.getByArgs(args, message);
 	if (!entity) {
 		[entity] = await Entities.getOrRegister(message.author.id);

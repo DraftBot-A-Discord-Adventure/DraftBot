@@ -17,12 +17,13 @@ module.exports.commandInfo = {
  * @param {("fr"|"en")} language - Language to use in the response
  */
 const ClassCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
 	const classTranslations = JsonReader.commands.class.getTranslation(language);
-
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
-
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.title)
 		.setDescription(

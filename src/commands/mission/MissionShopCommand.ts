@@ -8,6 +8,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {Entities} from "../../core/models/Entity";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {Collector, Message, TextChannel, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";

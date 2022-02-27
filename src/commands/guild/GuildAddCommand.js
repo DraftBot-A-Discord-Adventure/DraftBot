@@ -62,13 +62,7 @@ const GuildAddCommand = async (message, language, args) => {
 		);
 	}
 
-	if (
-		await sendBlockedError(
-			message.mentions.users.last(),
-			message.channel,
-			language
-		)
-	) {
+	if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
 		return;
 	}
 
