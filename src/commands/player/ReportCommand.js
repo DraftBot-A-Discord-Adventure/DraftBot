@@ -231,6 +231,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
+		await BlockingUtils.unblockPlayer(entity.discordUserId);
 	});
 
 	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "chooseDestination", collector);

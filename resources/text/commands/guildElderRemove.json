@@ -5,12 +5,12 @@
 			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
 			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
-			"elderRemoveTitle": "{pseudo}, voulez-vous retirer l'ainé de votre guilde ?",
-			"elderRemove": ":question: Si vous acceptez, le poste d'ainé sera vacant.",
-			"noElderToRemove" : "Votre guide n'a pas d'ainé.",
-			"successElderRemoveTitle": "Il n'y a plus d'ainé dans votre guilde !",
-			"successElderRemove": "Pour choisir un ainé, utilisez la commande `guildelder`",
-			"elderRemoveCancelled": "L'ainé ne sera pas supprimé."
+			"elderRemoveTitle": "{pseudo}, voulez-vous retirer l'aîné de votre guilde ?",
+			"elderRemove": ":question: Si vous acceptez, le poste d'aîné sera vacant.",
+			"noElderToRemove" : "Votre guide n'a pas d'aîné.",
+			"successElderRemoveTitle": "Il n'y a plus d'aîné dans votre guilde !",
+			"successElderRemove": "Pour choisir un aîné, utilisez la commande `guildelder`",
+			"elderRemoveCancelled": "L'aîné ne sera pas supprimé."
 		},
 		"en": {
 			"cannotGetElderUser": "please mention an existing user. Example : `@user#0000`",

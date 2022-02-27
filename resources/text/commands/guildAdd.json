@@ -4,14 +4,14 @@
 			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"cannotGetInvitedUser": "Veuillez mentionner un joueur existant. Ex : `guildAdd @user#0000`",
 			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
-			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été suprimée, ou vous avez été exclue de celle-ci.",
-			"notAuthorizedError": "Vous devez être chef ou ainé de la guilde pour effectuer cette commande.",
+			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci.",
+			"notAuthorizedError": "Vous devez être chef ou aîné de la guilde pour effectuer cette commande.",
 			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
 			"invitation": ":question: Souhaitez vous rejoindre la guilde `{guildName}` ?",
 			"successTitle": "{pseudo} a rejoint la guilde {guildName} !",
 			"invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
 			"invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
-			"guildFull": "Votre guilde est pleine et ne peut pas acceuillir plus de membres.",
+			"guildFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
 			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} avant de pouvoir vous rejoindre !"
 		},
 		"en": {

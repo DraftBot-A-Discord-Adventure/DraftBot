@@ -15,7 +15,7 @@
 		},
 		"en": {
 			"completedTitle": "{pseudo}, your completed mission{missionCount>1?s:}",
-			"campaign": "\uD83D\uDCD6 **Campaign Mission{missionCount>1?s:}",
+			"campaign": "\uD83D\uDCD6 **Campaign Mission{missionCount>1?s:}**",
 			"daily": "\uD83D\uDCC5 **Daily Mission**",
 			"sideMissions": "\uD83D\uDCDC **Secondary Mission{missionCount>1?s:}{missionCount>1?s:}**",
 			"gemsDisplay": "+{gems} \uD83D\uDC8E",

@@ -17,6 +17,9 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const UnlockCommand = async (message, language, args) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {

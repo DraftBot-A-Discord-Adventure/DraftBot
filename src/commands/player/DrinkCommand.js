@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
-
 import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Tags} from "../../core/models/Tag";
@@ -19,11 +18,11 @@ module.exports.commandInfo = {
 };
 
 const DrinkCommand = async (message, language, args) => {
-	const tr = Translations.getModule("commands.drink", language);
-	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+	const tr = Translations.getModule("commands.drink", language);
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	const potion = await entity.Player.getMainPotionSlot().getItem();
 	const embed = new DraftBotEmbed()
 		.formatAuthor(tr.get("drinkSuccess"), message.author);
@@ -42,11 +41,10 @@ const DrinkCommand = async (message, language, args) => {
 				if (potion.id !== JsonReader.models.inventories.potionId) {
 					await entity.Player.drinkPotion();
 					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
-				}
-				else {
-					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
 					return;
 				}
+				await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
+				return;
 			}
 			else if (potion.nature === NATURE.HEALTH) {
 				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));

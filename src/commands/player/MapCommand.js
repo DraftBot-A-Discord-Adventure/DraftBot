@@ -16,7 +16,9 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const MapCommand = async (message, language) => {
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const mapEmbed = new DraftBotEmbed()
