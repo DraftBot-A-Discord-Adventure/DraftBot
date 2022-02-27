@@ -192,8 +192,8 @@ const ProfileCommand = async (message, language, args) => {
 	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === "🎖️") {
 			let content = "";
-			let badges = entity.Player.badges.split("-");
-			for (let badgeSentence in badges) {
+			const badges = entity.Player.badges.split("-");
+			for (const badgeSentence in badges) {
 				content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
 			}
 			message.channel.send({
@@ -205,6 +205,7 @@ const ProfileCommand = async (message, language, args) => {
 						pseudo: await entity.Player.getPseudo(language)
 					}))]
 			});
+			await msg.reactions.removeAll();
 		} else {
 			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
 				setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
