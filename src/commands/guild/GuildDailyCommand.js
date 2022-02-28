@@ -211,7 +211,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 					await members[i].save();
 				}
 				else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
-					await require("../../core/Maps").removeEffect(members[i].Player);
+					await Maps.removeEffect(members[i].Player);
 					await members[i].Player.save();
 				}
 			}

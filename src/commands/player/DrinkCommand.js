@@ -40,6 +40,13 @@ const DrinkCommand = async (message, language, args) => {
 			if (potion.nature === NATURE.NONE) {
 				if (potion.id !== JsonReader.models.inventories.potionId) {
 					await entity.Player.drinkPotion();
+					const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
+					if (tagsToVerify) {
+						for (let i = 0; i < tagsToVerify.length; i++) {
+							await MissionsController.update(entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+						}
+					}
+					await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
 					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
 					return;
 				}
