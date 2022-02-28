@@ -139,7 +139,9 @@ export class Player extends Model {
 
 	public async addScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
 		this.score += score;
-		await MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score);
+		if (score > 0) {
+			await MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score);
+		}
 		await this.setScore(entity, this.score, channel, language);
 		this.addWeeklyScore(score);
 	}
