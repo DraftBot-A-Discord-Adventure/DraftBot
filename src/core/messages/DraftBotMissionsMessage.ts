@@ -89,6 +89,9 @@ export class DraftBotMissionsMessageBuilder {
 
 	private static generateDisplayProgression(current: number, objective: number): string {
 		let progression = current / objective;
+		if (progression < 0) {
+			return "ERROR:PROGRESS_BAR_NEGATIVE";
+		}
 		if (progression > 1) {
 			progression = 1;
 		}
