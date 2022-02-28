@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {Collector, TextBasedChannels, TextChannel, User} from "discord.js";
+import {TextChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
@@ -252,18 +251,18 @@ const sellOrKeepItem = async function(
 };
 
 export const getItemValue = function(item: any) {
-	let addedvalue;
+	let addedValue;
 	const category = item.getCategory();
 	if (category === Constants.ITEM_CATEGORIES.POTION || category === Constants.ITEM_CATEGORIES.OBJECT) {
-		addedvalue = parseInt(item.power);
+		addedValue = parseInt(item.power);
 	}
 	if (category === Constants.ITEM_CATEGORIES.WEAPON) {
-		addedvalue = parseInt(item.rawAttack);
+		addedValue = parseInt(item.rawAttack);
 	}
 	if (category === Constants.ITEM_CATEGORIES.ARMOR) {
-		addedvalue = parseInt(item.rawDefense);
+		addedValue = parseInt(item.rawDefense);
 	}
-	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
+	return Math.round(parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedValue);
 };
 
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<any> {
@@ -368,7 +367,7 @@ export const generateRandomObject = async function(objectType: number = null, mi
 /**
  * give a random item
  * @param {User} discordUser
- * @param {TextBasedChannels} channel
+ * @param {TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
