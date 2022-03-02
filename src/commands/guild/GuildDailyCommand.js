@@ -33,7 +33,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 
-	const time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
+	const time = millisecondsToHours(message.createdAt.valueOf() - guild.lastDailyAt.valueOf());
 	if (time < JsonReader.commands.guildDaily.timeBetweenDailys && !forcedReward) {
 		return sendErrorMessage(
 			message.author,
@@ -41,7 +41,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 			language,
 			format(translations.coolDown, {
 				coolDownTime: JsonReader.commands.guildDaily.timeBetweenDailys,
-				time: minutesToString(millisecondsToMinutes(JsonReader.commands.guildDaily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + guild.lastDailyAt.valueOf()))
+				time: minutesToString(millisecondsToMinutes(JsonReader.commands.guildDaily.timeBetweenDailys * 3600000 - message.createdAt.valueOf() + guild.lastDailyAt.valueOf()))
 			}));
 	}
 

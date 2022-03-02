@@ -79,7 +79,7 @@ class DBL {
 		if (user === undefined || user === null) {
 			return -1;
 		}
-		return user.Player.topggVoteAt.getTime() + TOPGG.ROLE_DURATION * 60 * 60 * 1000 - new Date();
+		return user.Player.topggVoteAt.valueOf() + TOPGG.ROLE_DURATION * 60 * 60 * 1000 - new Date();
 	}
 
 	static async programDBLRoleRemoval(userId) {
@@ -89,7 +89,7 @@ class DBL {
 
 	static async removeDBLRole(userId) {
 		const [entity] = await Entities.getOrRegister(userId);
-		if (new Date().getTime() - entity.Player.topggVoteAt.getTime() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
+		if (new Date().valueOf() - entity.Player.topggVoteAt.valueOf() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
 			return;
 		}
 		const member = await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)).members.fetch(userId);

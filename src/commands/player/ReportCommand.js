@@ -52,7 +52,7 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 	}
 
 	if (entity.Player.mapLinkId === null) {
-		return await Maps.startTravel(entity.player, await MapLinks.getRandomLink(), message.createdAt.getTime());
+		return await Maps.startTravel(entity.player, await MapLinks.getRandomLink(), message.createdAt.valueOf());
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
@@ -85,7 +85,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, {mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap});
 	let time;
 	if (forceSpecificEvent === -1) {
-		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.startTravelDate);
+		time = millisecondsToMinutes(message.createdAt.valueOf() - entity.Player.startTravelDate);
 	}
 	else {
 		time = JsonReader.commands.report.timeMaximal + 1;
@@ -148,7 +148,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		let milisecondsBeforeSmallEvent = 0;
 		if (entity.Player.PlayerSmallEvents.length !== 0) {
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
+			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			milisecondsBeforeSmallEvent = lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now();
 		}
 		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
@@ -159,7 +159,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		else if (entity.Player.PlayerSmallEvents.length !== 0) {
 			// the first mini event of the travel is calculated differently
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
+			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
 				smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
 				time: parseTimeDifference(lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
@@ -199,7 +199,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.valueOf());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -229,7 +229,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
-		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.valueOf());
 		await destinationChoseMessage(entity, mapId, message, language);
 		await BlockingUtils.unblockPlayer(entity.discordUserId);
 	});
@@ -337,13 +337,13 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 };
 
 /**
- * @param {Message} message - Message from the discord server
+ * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Possibility} possibility
  * @param {Entities} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
- * @return {Promise<Message>}
+ * @return {Promise<module:"discord.js".Message>}
  */
 const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
@@ -487,7 +487,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 const needSmallEvent = function(entity) {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
+		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 		return Date.now() >= lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
 	return Date.now() >= entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;

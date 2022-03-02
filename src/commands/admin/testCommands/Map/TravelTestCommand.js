@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/models/Entity";
 import {MapLocations} from "../../../../core/models/MapLocation";
 import {MapLinks} from "../../../../core/models/MapLink";
+import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "travel",
@@ -13,8 +14,6 @@ module.exports.commandInfo = {
 	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
 	description: "Vous téléporte sur un chemin donné"
 };
-
-import {Maps} from "../../../../core/Maps";
 
 /**
  * Teleport you on a given path
@@ -45,7 +44,7 @@ const travelTestCommand = async (language, message, args) => {
 		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
 	}
 
-	await Maps.startTravel(entity.Player, link, message.createdAt.getTime());
+	await Maps.startTravel(entity.Player, link, message.createdAt.valueOf());
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),

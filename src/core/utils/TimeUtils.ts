@@ -26,7 +26,7 @@ export const getTomorrowMidnight = function() {
 	return tomorrow;
 };
 
-export const getDayNumber = () => Math.floor(new Date().getTime() / 8.64e7);
+export const getDayNumber = () => Math.floor(new Date().valueOf() / 8.64e7);
 
 export const millisecondsToMinutes = (milliseconds: number) => Math.round(milliseconds / 60000);
 
@@ -43,4 +43,4 @@ export const datesAreOnSameDay = (first: Date, second: Date) =>
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
 
-export const finishInTimeDisplay = (finishDate: Date) => "<t:" + Math.floor(finishDate.getTime() / 1000) + ":R>";
+export const finishInTimeDisplay = (finishDate: Date) => "<t:" + Math.floor(finishDate.valueOf() / 1000) + ":R>";
