@@ -13,7 +13,7 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "drink",
-	aliases: ["dr","glouglou"],
+	aliases: ["dr", "glouglou"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 };
 
@@ -85,9 +85,10 @@ const DrinkCommand = async (message, language, args) => {
 			]);
 			log(entity.discordUserId + " drank " + potion.en);
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
-			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
-			return await message.channel.send({ embeds: [embed] });
+			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
+			return await message.channel.send({embeds: [embed]});
 		}
+		return await sendErrorMessage(message.author, message.channel, language, Translations.getModule("commands.drink", language).get("drinkCanceled"));
 	};
 
 	if (args[0] === "force" || args[0] === "f") {
