@@ -410,7 +410,7 @@ export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
 
 export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
 	for (const slot of slots) {
-		if ((await slot.getItem()).rarity > rarity) {
+		if ((await slot.getItem()).rarity >= rarity) {
 			return true;
 		}
 	}
