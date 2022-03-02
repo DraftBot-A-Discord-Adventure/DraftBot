@@ -79,7 +79,7 @@ export class DraftBot {
 	}
 
 	static programTopWeekTimeout() {
-		const millisTill = getNextSundayMidnight().getTime() - Date.now();
+		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
 			setTimeout(DraftBot.programTopWeekTimeout, 10000);
@@ -89,7 +89,7 @@ export class DraftBot {
 	}
 
 	static programDailyTimeout() {
-		const millisTill = getNextDay2AM().getTime() - Date.now();
+		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
 			setTimeout(DraftBot.programDailyTimeout, 10000);
@@ -274,7 +274,7 @@ export class DraftBot {
 									parseInt(parts[1]),
 									parseInt(parts[2]) - 1,
 									parseInt(parts[3])
-								).getTime() >
+								).valueOf() >
 								7 * 24 * 60 * 60 * 1000
 							) {
 								// 7 days

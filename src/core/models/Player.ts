@@ -310,7 +310,7 @@ export class Player extends Model {
 	}
 
 	public isInactive(): boolean {
-		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + Data.getModule("commands.top").getNumber("fifth10days") < Date.now();
+		return this.startTravelDate.valueOf() + minutesToMilliseconds(120) + Data.getModule("commands.top").getNumber("fifth10days") < Date.now();
 	}
 
 	public currentEffectFinished(): boolean {
@@ -323,7 +323,7 @@ export class Player extends Model {
 		if (!this.effectEndDate) {
 			return true;
 		}
-		return this.effectEndDate.getTime() < Date.now();
+		return this.effectEndDate.valueOf() < Date.now();
 	}
 
 	public effectRemainingTime(): number {
@@ -332,7 +332,7 @@ export class Player extends Model {
 			if (!this.effectEndDate) {
 				return 0;
 			}
-			remainingTime = this.effectEndDate.getTime() - Date.now();
+			remainingTime = this.effectEndDate.valueOf() - Date.now();
 		}
 		if (remainingTime < 0) {
 			remainingTime = 0;

@@ -1,10 +1,5 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import Pet from "./Pet";
-import moment = require("moment");
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Data} from "../Data";
@@ -13,6 +8,7 @@ import {Translations} from "../Translations";
 import {TextChannel} from "discord.js";
 import {MissionsController} from "../missions/MissionsController";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
+import moment = require("moment");
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -43,7 +39,7 @@ export class PetEntity extends Model {
 		if (!this.hungrySince || this.getFeedCooldown() <= 0) {
 			return Translations.getModule("models.pets", language).get("hungry");
 		}
-		return finishInTimeDisplay(new Date(new Date().getTime() + this.getFeedCooldown()));
+		return finishInTimeDisplay(new Date(new Date().valueOf() + this.getFeedCooldown()));
 	}
 
 	public getFeedCooldown(): number {
@@ -51,7 +47,7 @@ export class PetEntity extends Model {
 			return 0;
 		}
 		return Constants.PETS.BREED_COOLDOWN * this.PetModel.rarity -
-			(new Date().getTime() - this.hungrySince.getTime());
+			(new Date().valueOf() - this.hungrySince.valueOf());
 	}
 
 	public getDietDisplay(language: string): string {

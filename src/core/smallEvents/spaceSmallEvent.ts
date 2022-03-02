@@ -124,7 +124,7 @@ function nextPartialLunarEclipse(): Promise<Record<string, unknown>> {
 		eclipse = NextLunarEclipse(eclipse.peak);
 	}
 	return Promise.resolve({
-		days: Math.floor((eclipse.peak.date.getTime() - new Date().getTime()) / (1000 * 3600 * 24))
+		days: Math.floor((eclipse.peak.date.valueOf() - new Date().valueOf()) / (1000 * 3600 * 24))
 	});
 }
 
@@ -140,6 +140,6 @@ function nextTotalLunarEclipse(): Promise<Record<string, unknown>> {
 		eclipse = NextLunarEclipse(eclipse.peak);
 	}
 	return Promise.resolve({
-		days: Math.floor((eclipse.peak.date.getTime() - new Date().getTime()) / (1000 * 3600 * 24))
+		days: Math.floor((eclipse.peak.date.valueOf() - new Date().valueOf()) / (1000 * 3600 * 24))
 	});
 }

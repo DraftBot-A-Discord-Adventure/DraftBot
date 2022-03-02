@@ -137,7 +137,7 @@ class Fight {
 		msg += format(JsonReader.commands.fight.getTranslation(this.language).end.gameStats, {
 			turn: this.turn,
 			maxTurn: FIGHT.MAX_TURNS,
-			time: minutesToString(millisecondsToMinutes(new Date().getTime() - this.message.createdTimestamp))
+			time: minutesToString(millisecondsToMinutes(new Date().valueOf() - this.message.createdTimestamp))
 		});
 		if (loser !== null && loser.power !== winner.power && this.elo !== 0) {
 			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.winElo, {

@@ -21,7 +21,6 @@ module.exports.commandInfo = {
  * Allow to exchange the object that is in the player backup slot within the one that is active
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -52,7 +51,7 @@ const SwitchCommand = async (message, language) => {
 		[entity] = await Entities.getOrRegister(message.author.id);
 		if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 			const nextDailyDate = new moment(entity.Player.InventoryInfo.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
-			const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
+			const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.valueOf());
 			const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
 			if (timeToCheck < 0) {
 				entity.Player.InventoryInfo.updateLastDailyAt();

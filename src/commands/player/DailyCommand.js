@@ -21,7 +21,7 @@ const DailyCommand = async (message, language) => {
 	}
 	const activeObject = await entity.Player.getMainObjectSlot().getItem();
 
-	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
+	const time = millisecondsToHours(message.createdAt.valueOf() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
 
 	if (activeObject.nature === NATURE.NONE) {
 		if (activeObject.id !== JsonReader.models.inventories.objectId) {
@@ -43,7 +43,7 @@ const DailyCommand = async (message, language) => {
 				coolDownTime: JsonReader.commands.daily.timeBetweenDailys,
 				time: minutesToString(
 					millisecondsToMinutes(
-						JsonReader.commands.daily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + entity.Player.InventoryInfo.lastDailyAt.valueOf()
+						JsonReader.commands.daily.timeBetweenDailys * 3600000 - message.createdAt.valueOf() + entity.Player.InventoryInfo.lastDailyAt.valueOf()
 					)
 				)
 			})

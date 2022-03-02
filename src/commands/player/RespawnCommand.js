@@ -15,7 +15,6 @@ module.exports.commandInfo = {
  * Allow a player who is dead to respawn
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const RespawnCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -41,7 +40,7 @@ const RespawnCommand = async (message, language) => {
 			await entity.Player.getPreviousMapId(),
 			await entity.Player.getDestinationId()
 		);
-		await Maps.startTravel(entity.Player, newlink, message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, newlink, message.createdAt.valueOf());
 
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
