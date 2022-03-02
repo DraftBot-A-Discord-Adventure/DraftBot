@@ -456,6 +456,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		}
 	}
 
+	BlockingUtils.unblockPlayer(entity.discordUserId);
 	const resultMsg = await message.channel.send({content: result});
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
@@ -471,7 +472,6 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 	await entity.save();
 	await player.save();
-
 	return resultMsg;
 };
 
