@@ -487,7 +487,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 const needSmallEvent = function(entity) {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
+		const lastTime = lastMiniEvent.time > entity.Player.startTravelDate.valueOf() ? lastMiniEvent.time : entity.Player.startTravelDate.valueOf();
 		return Date.now() >= lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
 	return Date.now() >= entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;
