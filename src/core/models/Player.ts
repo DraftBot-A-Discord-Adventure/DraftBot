@@ -218,7 +218,7 @@ export class Player extends Model {
 					3;
 	}
 
-	public async getLvlUpReward(language: string, entity: Entity): Promise<string[]> {
+	public async getLvlUpReward(language: string, entity: Entity, channel: TextChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
@@ -229,7 +229,7 @@ export class Player extends Model {
 		}
 
 		if (this.level % 10 === 0) {
-			entity.health = await entity.getMaxHealth();
+			await entity.setHealth(await entity.getMaxHealth(), channel, language);
 			bonuses.push(tr.get("levelUp.healthRestored"));
 		}
 
@@ -263,7 +263,7 @@ export class Player extends Model {
 		this.experience -= xpNeeded;
 		this.level++;
 		await MissionsController.update(entity.discordUserId, channel, language, "reachLevel", this.level, null, true);
-		const bonuses = await this.getLvlUpReward(language, entity);
+		const bonuses = await this.getLvlUpReward(language, entity, channel);
 
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {
 			mention: entity.getMention(),
