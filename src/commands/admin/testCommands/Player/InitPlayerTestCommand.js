@@ -1,4 +1,6 @@
 import {Entities} from "../../../../core/models/Entity";
+import {Maps} from "../../../../core/Maps";
+import {MapLinks} from "../../../../core/models/MapLink";
 
 module.exports.commandInfo = {
 	name: "initplayer",
@@ -7,8 +9,6 @@ module.exports.commandInfo = {
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
 	description: "Initialise votre joueur pour des tests"
 };
-
-import {Maps} from "../../../../core/Maps";
 
 /**
  * Initialize the player
@@ -27,6 +27,7 @@ const initPlayerTestCommand = async (language, message) => {
 	entity.Player.effectEndDate = Date.now();
 	entity.Player.effectDuration = 0;
 	await Maps.removeEffect(entity.Player);
+	await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), 0);
 	entity.Player.startTravelDate = new Date();
 	entity.Player.save();
 
