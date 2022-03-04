@@ -32,11 +32,13 @@ export const giveItemToPlayer = async function(
 ): Promise<void> {
 	const resaleMultiplier = resaleMultiplierNew;
 	const tr = Translations.getModule("commands.inventory", language);
-	await channel.send({ embeds: [
-		new DraftBotEmbed()
-			.formatAuthor(tr.get("randomItemTitle"), discordUser)
-			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language))
-	] });
+	await channel.send({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(tr.get("randomItemTitle"), discordUser)
+				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language))
+		]
+	});
 
 	if (await entity.Player.giveItem(item) === true) {
 		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
@@ -199,55 +201,57 @@ const sellOrKeepItem = async function(
 					playerId: entity.Player.id
 				}
 			});
-		await channel.send({ embeds: [menuEmbed] });
+		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
+			rarity: item.rarity
+		}, true);
+		await channel.send({embeds: [menuEmbed]});
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
-		await channel.send({ embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(
-					autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
-						: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-					discordUser)
-				.setDescription(
-					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-						{
-							item: item.getName(language),
-							frenchMasculine: item.frenchMasculine
-						}
-					)
-				)] }
+		await channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(
+						autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
+							: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+						discordUser)
+					.setDescription(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+							{
+								item: item.getName(language),
+								frenchMasculine: item.frenchMasculine
+							}
+						)
+					)]
+		}
 		);
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
 	await entity.Player.addMoney(entity, money, channel, language);
-	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost",1,{itemCost: money});
+	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost", 1, {itemCost: money});
 	await entity.Player.save();
-	await channel.send({ embeds: [
-		new DraftBotEmbed()
-			.formatAuthor(
-				autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
-					: JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
-				discordUser)
-			.setDescription(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-					{
-						item: item.getName(language),
-						money: money
-					}
+	await channel.send({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(
+					autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
+						: JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+					discordUser)
+				.setDescription(
+					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+						{
+							item: item.getName(language),
+							money: money
+						}
+					)
 				)
-			)
-	] });
+		]
+	});
 	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
-	if (!keepOriginal) {
-		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
-			rarity: item.rarity
-		}, true);
-	}
+	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
 };
 
 export const getItemValue = function(item: any) {
@@ -297,10 +301,10 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  */
 export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
 	const randomValue = draftbotRandom.integer(
-		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity - 2],10)),
-		parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
-			- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
-			- parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1],10))
+		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity - 2], 10)),
+		parseInt(JsonReader.values.raritiesGenerator.maxValue, 10)
+		- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue, 10)
+			- parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1], 10))
 	);
 
 	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
