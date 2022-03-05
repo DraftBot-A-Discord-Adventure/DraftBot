@@ -359,6 +359,14 @@
 			"gemsToWin": 1,
 			"xpToWin": 1,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "drinkPotionWithoutEffect",
+			"missionVariant": 0,
+			"missionObjective": 3,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }
