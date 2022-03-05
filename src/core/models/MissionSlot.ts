@@ -31,6 +31,8 @@ export class MissionSlot extends Model {
 
 	public createdAt!: Date;
 
+	public saveBlob!: Buffer;
+
 
 	public Mission: Mission;
 
@@ -109,6 +111,10 @@ export function initModel(sequelize: Sequelize) {
 		createdAt: {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		},
+		saveBlob: {
+			type: DataTypes.BLOB,
+			defaultValue: null
 		}
 	}, {
 		sequelize,

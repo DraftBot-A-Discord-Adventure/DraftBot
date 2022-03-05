@@ -5,9 +5,13 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	areParamsMatchingVariant: (variant: number, params: { [key: string]: any }) => params.itemCost >= variant,
+	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: any }) => params.itemCost >= variant,
 
 	getVariantFormatVariable: (variant: number) => Promise.resolve(variant.toString()),
 
-	initialNumberDone: () => Promise.resolve(0)
+	initialNumberDone: () => Promise.resolve(0),
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
+	}
 };

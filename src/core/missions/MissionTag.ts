@@ -8,7 +8,7 @@ export class MissionTag implements IMission {
 		this.tagNames = tagsToProc;
 	}
 
-	areParamsMatchingVariant(variant: number, params: { [p: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [p: string]: any }): boolean {
 		for (const tag in this.tagNames) {
 			if (tag in params.tags) {
 				return true;
@@ -29,4 +29,7 @@ export class MissionTag implements IMission {
 		return Promise.resolve(0);
 	}
 
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
+	}
 }

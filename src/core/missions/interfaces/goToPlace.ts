@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {MapLocations} from "../../models/MapLocation";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
 		return variant === params.mapId;
 	},
 
@@ -17,5 +17,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(): Promise<number> {
 		return Promise.resolve(0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

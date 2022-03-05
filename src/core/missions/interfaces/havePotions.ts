@@ -3,7 +3,7 @@ import Player from "../../models/Player";
 import {countNbOfPotions} from "../../utils/ItemUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(): boolean {
+	areParamsMatchingVariantAndSave(): boolean {
 		return true;
 	},
 
@@ -17,5 +17,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(player: Player): Promise<number> {
 		return Promise.resolve(countNbOfPotions(player));
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

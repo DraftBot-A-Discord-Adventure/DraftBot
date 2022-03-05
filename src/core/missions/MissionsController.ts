@@ -71,7 +71,7 @@ export class MissionsController {
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			if (dailyMission.missionId === missionId) {
-				if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
+				if (missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, params, null)) {
 					player.PlayerMissionsInfo.dailyMissionNumberDone += count;
 					if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
 						player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
@@ -102,7 +102,10 @@ export class MissionsController {
 	 */// eslint-disable-next-line max-params
 	private static async checkMissionSlots(player: Player, missionId: string, missionInterface: IMission, params: { [p: string]: any }, set: boolean, count: number, completedCampaign: boolean) {
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
+			if (mission.missionId === missionId
+				&& missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, params, mission.saveBlob)
+				&& !mission.hasExpired() && !mission.isCompleted()
+			) {
 				if (set) {
 					mission.numberDone = count;
 				}
@@ -112,6 +115,7 @@ export class MissionsController {
 				if (mission.numberDone > mission.missionObjective) {
 					mission.numberDone = mission.missionObjective;
 				}
+				mission.saveBlob = await missionInterface.updateSaveBlob(mission.saveBlob, params);
 				if (mission.isCampaign() && mission.isCompleted()) {
 					completedCampaign = true;
 				}

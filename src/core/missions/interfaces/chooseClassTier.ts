@@ -3,7 +3,7 @@ import Player from "../../models/Player";
 import {Classes} from "../../models/Class";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
 		return params.tier >= variant;
 	},
 
@@ -17,5 +17,9 @@ export const missionInterface: IMission = {
 
 	async initialNumberDone(player: Player, variant: number): Promise<number> {
 		return (await Classes.getById(player.class)).classgroup >= variant ? 1 : 0;
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

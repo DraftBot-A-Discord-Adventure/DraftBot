@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} {variantText} dans un combat"
+			"desc": "Faire {objective} {variantText} dans des combats"
 		},
 		"en": {
-			"desc": "Do {objective} {variantText} in a fight"
+			"desc": "Do {objective} {variantText} in fights"
 		}
 	},
 	"campaignOnly": true
