@@ -343,6 +343,14 @@
 			"gemsToWin": 1,
 			"xpToWin": 1,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "fightHealthPercent",
+			"missionVariant": 20,
+			"missionObjective": 1,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }
