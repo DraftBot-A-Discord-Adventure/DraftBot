@@ -47,6 +47,7 @@ const DrinkCommand = async (message, language, args) => {
 						}
 					}
 					await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
+					await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotionWithoutEffect");
 					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
 					return;
 				}
