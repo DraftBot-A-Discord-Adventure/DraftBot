@@ -502,6 +502,11 @@ class Fight {
 		}
 		await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "anyFight");
 		await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "anyFight");
+		if (winner) {
+			await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "fightHealthPercent", 1, {
+				remainingPercent: winner.power / winner.maxPower
+			});
+		}
 	}
 
 	/**
