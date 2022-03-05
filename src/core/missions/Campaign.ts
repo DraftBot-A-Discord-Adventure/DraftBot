@@ -32,14 +32,15 @@ export class Campaign {
 
 	public static async completeCampaignMissions(player: Player, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
+		let firstMissionChecked = false;
 		while (campaign.isCompleted()) {
-			if (completedCampaign) {
+			if (completedCampaign || firstMissionChecked) {
 				completedMissions.push(
 					new CompletedMission(
 						campaign.xpToWin,
 						campaign.gemsToWin,
 						campaign.moneyToWin,
-						await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
+						await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language, campaign.saveBlob),
 						CompletedMissionType.CAMPAIGN)
 				);
 			}
@@ -59,6 +60,7 @@ export class Campaign {
 			else {
 				break;
 			}
+			firstMissionChecked = true;
 		}
 		if (completedMissions.length !== 0 || !completedCampaign) {
 			await campaign.save();

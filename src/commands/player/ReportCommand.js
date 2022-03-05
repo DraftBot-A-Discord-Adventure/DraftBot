@@ -85,6 +85,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	const endMapId = (await MapLinks.getById(entity.Player.mapLinkId)).endMap;
 	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, { mapId: endMapId });
 	await MissionsController.update(entity.discordUserId, message.channel, language, "exploreDifferentPlaces", 1, { placeId: endMapId });
+	await MissionsController.update(entity.discordUserId, message.channel, language, "fromPlaceToPlace", 1, { mapId: endMapId });
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.valueOf() - entity.Player.startTravelDate);

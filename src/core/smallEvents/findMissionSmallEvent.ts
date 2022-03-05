@@ -4,6 +4,7 @@ import {Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
+import mission from "../models/Mission";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(entity: Entity): Promise<boolean> {
@@ -19,7 +20,7 @@ export const smallEvent: SmallEvent = {
 			+ intro
 			+ tr.getRandom("intrigue")
 			+ "\n\n**"
-			+ await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language)
+			+ await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, missionSlot.saveBlob)
 			+ "**"
 		);
 		await message.channel.send({ embeds: [seEmbed] });

@@ -30,10 +30,10 @@ export class Mission extends Model {
 	public createdAt!: Date;
 
 
-	public async formatDescription(objective: number, variant: number, language: string): Promise<string> {
+	public async formatDescription(objective: number, variant: number, language: string, saveBlob: Buffer): Promise<string> {
 		return format(language === "fr" ? this.descFr : this.descEn, {
 			objective,
-			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language),
+			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language, saveBlob),
 			variant
 		});
 	}

@@ -99,27 +99,35 @@ export class MissionsController {
 	 * @param count
 	 * @param completedCampaign
 	 * @private
-	 */// eslint-disable-next-line max-params
+	 */
+	// eslint-disable-next-line max-params
 	private static async checkMissionSlots(player: Player, missionId: string, missionInterface: IMission, params: { [p: string]: any }, set: boolean, count: number, completedCampaign: boolean) {
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId
-				&& missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, params, mission.saveBlob)
-				&& !mission.hasExpired() && !mission.isCompleted()
-			) {
-				if (set) {
-					mission.numberDone = count;
+			if (mission.missionId === missionId) {
+				if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, params, mission.saveBlob)
+					&& !mission.hasExpired() && !mission.isCompleted()
+				) {
+					if (set) {
+						mission.numberDone = count;
+					}
+					else {
+						mission.numberDone += count;
+					}
+					if (mission.numberDone > mission.missionObjective) {
+						mission.numberDone = mission.missionObjective;
+					}
+					if (mission.isCampaign() && mission.isCompleted()) {
+						completedCampaign = true;
+					}
+					await mission.save();
 				}
-				else {
-					mission.numberDone += count;
+				if (!mission.isCompleted()) {
+					const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, params);
+					if (saveBlob !== mission.saveBlob) {
+						mission.saveBlob = saveBlob;
+						await mission.save();
+					}
 				}
-				if (mission.numberDone > mission.missionObjective) {
-					mission.numberDone = mission.missionObjective;
-				}
-				mission.saveBlob = await missionInterface.updateSaveBlob(mission.saveBlob, params);
-				if (mission.isCampaign() && mission.isCompleted()) {
-					completedCampaign = true;
-				}
-				await mission.save();
 			}
 		}
 		return completedCampaign;
@@ -142,7 +150,7 @@ export class MissionsController {
 						mission.xpToWin,
 						0, // Don't win gems in secondary missions
 						mission.moneyToWin,
-						await mission.Mission.formatDescription(mission.missionObjective, mission.missionVariant, language),
+						await mission.Mission.formatDescription(mission.missionObjective, mission.missionVariant, language, mission.saveBlob),
 						CompletedMissionType.NORMAL
 					)
 				);
@@ -155,7 +163,7 @@ export class MissionsController {
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
 				Math.round(dailyMission.moneyToWin / Constants.MISSIONS.DAILY_MISSION_MONEY_PENALITY), // daily missions gives less money than secondary missions
-				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language),
+				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language, null),
 				CompletedMissionType.DAILY
 			));
 		}
@@ -196,7 +204,7 @@ export class MissionsController {
 		let missionsExpiredDesc = "";
 		for (const mission of expiredMissions) {
 			missionsExpiredDesc += "- " + await mission.Mission.formatDescription(
-				mission.missionObjective, mission.missionVariant, language) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
+				mission.missionObjective, mission.missionVariant, language, mission.saveBlob) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
 		}
 		await channel.send({
 			embeds: [
@@ -290,8 +298,8 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
-	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string) {
-		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language);
+	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer) {
+		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language, saveBlob);
 	}
 
 	public static getRandomDifficulty(player: Player): MissionDifficulty {

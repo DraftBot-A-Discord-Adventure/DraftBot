@@ -367,6 +367,22 @@
 			"gemsToWin": 1,
 			"xpToWin": 1,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "chooseClassTier",
+			"missionVariant": 2,
+			"missionObjective": 1,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "fromPlaceToPlace",
+			"missionVariant": 27286600,
+			"missionObjective": 1,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }
