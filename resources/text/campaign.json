@@ -351,6 +351,14 @@
 			"gemsToWin": 1,
 			"xpToWin": 1,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "exploreDifferentPlaces",
+			"missionVariant": 0,
+			"missionObjective": 10,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }
