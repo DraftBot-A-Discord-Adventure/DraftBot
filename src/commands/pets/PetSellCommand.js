@@ -264,6 +264,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			);
 			await message.channel.send({ embeds: [addPetEmbed] });
 			await MissionsController.update(buyer.discordUserId, message.channel, language, "havePet");
+			await MissionsController.update(entity.discordUserId, message.channel, language, "sellOrTradePet");
 		}
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);

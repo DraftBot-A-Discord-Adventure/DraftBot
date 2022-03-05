@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Vendre ou échanger un familier à un autre joueur"
+		},
+		"en": {
+			"desc": "Sell or trade a pet to another player"
+		}
+	},
+	"campaignOnly": true
+}
