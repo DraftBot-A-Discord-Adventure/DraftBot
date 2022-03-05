@@ -5,6 +5,7 @@ import {Translations} from "../../core/Translations";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "guildshop",
@@ -100,6 +101,9 @@ function getFoodShopItem(guildShopTranslations, name, language, amounts) {
 				return false;
 			}
 			await giveFood(message.sentMessage, message.language, entity, message.user, foodJson, amount);
+			if (name === "ultimateFood") {
+				await MissionsController.update(entity.discordUserId, message.sentMessage.channel, language, "buyUltimateSoups", amount);
+			}
 			return true;
 		},
 		amounts

@@ -327,6 +327,14 @@
 			"gemsToWin": 1,
 			"xpToWin": 1,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "buyUltimateSoups",
+			"missionVariant": 0,
+			"missionObjective": 2,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }
