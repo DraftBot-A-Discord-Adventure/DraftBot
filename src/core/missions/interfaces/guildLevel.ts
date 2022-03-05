@@ -3,7 +3,7 @@ import Player from "../../models/Player";
 import {Guilds} from "../../models/Guild";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(): boolean {
+	areParamsMatchingVariantAndSave(): boolean {
 		return true;
 	},
 
@@ -18,5 +18,9 @@ export const missionInterface: IMission = {
 	async initialNumberDone(player: Player): Promise<number> {
 		const guild = await Guilds.getById(player.guildId);
 		return guild ? guild.level : 0;
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

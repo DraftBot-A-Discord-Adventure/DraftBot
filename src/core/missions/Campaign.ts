@@ -30,17 +30,19 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	public static async completeCampaignMissions(player: Player, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+	public static async completeCampaignMissions(player: Player, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		while (campaign.isCompleted()) {
-			completedMissions.push(
-				new CompletedMission(
-					campaign.xpToWin,
-					campaign.gemsToWin,
-					campaign.moneyToWin,
-					await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
-					CompletedMissionType.CAMPAIGN)
-			);
+			if (completedCampaign) {
+				completedMissions.push(
+					new CompletedMission(
+						campaign.xpToWin,
+						campaign.gemsToWin,
+						campaign.moneyToWin,
+						await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
+						CompletedMissionType.CAMPAIGN)
+				);
+			}
 			if (this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
 				const prop = Campaign.getDataModule().getObjectFromArray("missions", player.PlayerMissionsInfo.campaignProgression);
 				campaign.missionVariant = prop.missionVariant;
@@ -50,6 +52,7 @@ export class Campaign {
 				campaign.missionId = prop.missionId;
 				campaign.missionObjective = prop.missionObjective;
 				campaign.moneyToWin = prop.moneyToWin;
+				campaign.saveBlob = null;
 				player.PlayerMissionsInfo.campaignProgression++;
 				campaign.Mission = await Missions.getById(campaign.missionId);
 			}
@@ -57,7 +60,7 @@ export class Campaign {
 				break;
 			}
 		}
-		if (completedMissions.length !== 0) {
+		if (completedMissions.length !== 0 || !completedCampaign) {
 			await campaign.save();
 			await player.PlayerMissionsInfo.save();
 		}
@@ -74,7 +77,7 @@ export class Campaign {
 			return this.updatePlayerCampaign(completedCampaign, player, language);
 		}
 		if (completedCampaign || Campaign.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
-			return await this.completeCampaignMissions(player, campaign, language);
+			return await this.completeCampaignMissions(player, completedCampaign, campaign, language);
 		}
 		return [];
 	}

@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
 		return params.loveLevel >= 4;
 	},
 
@@ -16,5 +16,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(player: Player): Promise<number> {
 		return Promise.resolve(player.Pet ? player.Pet.getLoveLevelNumber() >= 4 ? 1 : 0 : 0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

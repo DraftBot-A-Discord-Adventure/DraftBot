@@ -3,7 +3,7 @@ import {Translations} from "../../Translations";
 import {Constants} from "../../Constants";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
 		return params.attackType === variant;
 	},
 
@@ -17,6 +17,10 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(): Promise<number> {
 		return Promise.resolve(0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };
 // TODO UTILISER CELLE DE FIGHT QUAND REFACTOR

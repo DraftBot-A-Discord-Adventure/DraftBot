@@ -31,6 +31,7 @@ const setCampaignTestCommand = async (language, message, args) => {
 	campaign.xpToWin = campaignMission.xpToWin;
 	campaign.gemsToWin = campaignMission.gemsToWin;
 	campaign.moneyToWin = campaignMission.moneyToWin;
+	campaign.saveBlob = null;
 	await campaign.save();
 	await entity.Player.PlayerMissionsInfo.save();
 

@@ -319,6 +319,14 @@
 			"gemsToWin": 2,
 			"xpToWin": 100,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "meetDifferentPlayers",
+			"missionVariant": 0,
+			"missionObjective": 5,
+			"gemsToWin": 1,
+			"xpToWin": 1,
+			"moneyToWin": 0
 		}
 	]
 }

@@ -13,6 +13,7 @@ import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
 import Player, {Players} from "../models/Player";
 import {BlockingUtils} from "../utils/BlockingUtils";
+import {MissionsController} from "../missions/MissionsController";
 import {Constants} from "../Constants";
 
 function checkTop(otherPlayer, cList) {
@@ -202,6 +203,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const cList = [];
 	const player = (await Players.getById(entity.Player.id))[0];
 	const otherPlayer = (await Players.getById(otherEntity.Player.id))[0];
+	await MissionsController.update(entity.discordUserId, message.channel, language, "meetDifferentPlayers", 1, {metPlayerDiscordId: otherEntity.discordUserId});
 	let guild = null;
 	checkTop(otherPlayer, cList);
 	checkBadges(otherEntity, cList);

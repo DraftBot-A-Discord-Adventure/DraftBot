@@ -39,7 +39,8 @@ const debugMissionsTestCommand = async (language, message) => {
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
 				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
 				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never") +
-				"\n-> Campaign only: " + entity.Player.MissionSlots[i].Mission.campaignOnly + "\n\n";
+				"\n-> Campaign only: " + entity.Player.MissionSlots[i].Mission.campaignOnly +
+				"\n-> Save blob: " + entity.Player.MissionSlots[i].saveBlob + "\n\n";
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);

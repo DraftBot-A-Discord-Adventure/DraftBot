@@ -3,7 +3,7 @@ import {MissionDifficulty} from "../MissionDifficulty";
 import {RandomUtils} from "../../utils/RandomUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
 		return params.travelTime >= variant;
 	},
 
@@ -24,5 +24,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(): Promise<number> {
 		return Promise.resolve(0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };
