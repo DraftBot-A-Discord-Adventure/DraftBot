@@ -31,6 +31,10 @@ export class MapLocation extends Model {
 		return Translations.getModule("models.maps", language).get("types." + this.type + ".emote");
 	}
 
+	public getNameWithoutEmote(language: string): string {
+		return language === "fr" ? this.nameFr : this.nameEn;
+	}
+
 	public getDisplayName(language: string): string {
 		return this.getEmote(language) + " " + (language === "fr" ? this.nameFr : this.nameEn);
 	}
@@ -41,6 +45,10 @@ export class MapLocation extends Model {
 
 	public getDescription(language: string): string {
 		return language === "fr" ? this.descFr : this.descEn;
+	}
+
+	public async getFullName(language: string): Promise<string> {
+		return await this.getDeterminant(language) + " " + this.getDisplayName(language);
 	}
 
 	public async getDeterminant(language: string): Promise<string> {

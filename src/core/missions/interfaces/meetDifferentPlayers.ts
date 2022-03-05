@@ -14,7 +14,7 @@ export const missionInterface: IMission = {
 
 	initialNumberDone: () => Promise.resolve(0),
 
-	updateSaveBlob(saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer> {
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer> {
 		if (!saveBlob) {
 			return Promise.resolve(Buffer.from(params.metPlayerDiscordId));
 		}

@@ -155,7 +155,12 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 										.formatAuthor(translationModule.get("items.skipMapMission.successTitle"), message.user)
 										.setDescription(translationModule.format("items.skipMapMission.successDescription", {
 											num: i + 1,
-											missionInfo: await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language)
+											missionInfo: await allMissions[i].Mission.formatDescription(
+												allMissions[i].missionObjective,
+												allMissions[i].missionVariant,
+												message.language,
+												allMissions[i].saveBlob
+											)
 										}))
 								]
 							});
@@ -170,7 +175,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
 				desc += Constants.REACTIONS.NUMBERS[i + 1] + " "
-					+ await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language) + "\n";
+					+ await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language, allMissions[i].saveBlob) + "\n";
 			}
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();

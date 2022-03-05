@@ -6,9 +6,9 @@ export type IMission = {
 
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }, saveBlob: Buffer): boolean;
 
-	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string>;
+	getVariantFormatVariable(variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string>;
 
 	initialNumberDone(player: Player, variant: number): Promise<number>;
 
-	updateSaveBlob(saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer>;
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer>;
 }

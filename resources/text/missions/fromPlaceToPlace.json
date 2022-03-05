@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "{variantText}"
+		},
+		"en": {
+			"desc": "{variantText}"
+		}
+	},
+	"campaignOnly": true
+}
