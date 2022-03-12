@@ -25,6 +25,7 @@ export const smallEvent: SmallEvent = {
 		return Promise.resolve(true);
 	},
 	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
+
 		async function generateReward(entity: any) {
 			function minRarity(entity: any): number {
 				return Math.floor(5 * Math.tanh(entity.Player.level / 125) + 1);
@@ -32,19 +33,19 @@ export const smallEvent: SmallEvent = {
 			function maxRarity(entity: any): number {
 				return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
 			}
-			function ultimateFoodsAmount(entity: any): number {
+			function ultimateFoodsAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1);
-				if (amount > foodData.getNumber("max.ultimateFood") - guild.ultimateFood) {
-					amount = foodData.getNumber("max.ultimateFood") - guild.ultimateFood;
+				if (amount > foodData.getNumber("max.ultimateFood") - currentFoodLevel) {
+					amount = foodData.getNumber("max.ultimateFood") - currentFoodLevel;
 				}
 				return amount;
 			}
-			function commonFoodAmout(entity: any): number {
+			function commonFoodAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2);
-				if (amount > foodData.getNumber("max.commonFood") - guild.commondFood) {
-					amount = foodData.getNumber("max.commonFood") - guild.commondFood;
+				if (amount > foodData.getNumber("max.commonFood") - currentFoodLevel) {
+					amount = foodData.getNumber("max.commonFood") - currentFoodLevel;
 				}
-				if (amount === 0) {
+				if (amount <= 0) {
 					amount = 1;
 				}
 				return amount;
@@ -60,12 +61,12 @@ export const smallEvent: SmallEvent = {
 
 			const foodData = Data.getModule("commands.guildShop");
 			if (guild !== null) {
-				if (entity.Player.level >= 30) {
+				if (entity.Player.level >= Constants.SMALL_EVENT.MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT) {
 					if (RandomUtils.draftbotRandom.bool()) {
 						if (guild.ultimateFood < foodData.getNumber("max.ultimateFood")) {
 							return {
 								type: "ultimateFood",
-								option: ultimateFoodsAmount(entity)
+								option: ultimateFoodsAmount(entity, guild.ultimateFood)
 							};
 						}
 						return {
@@ -81,7 +82,7 @@ export const smallEvent: SmallEvent = {
 				if (foodData.getNumber("max.commonFood") > guild.commonFood) {
 					return {
 						type: "commonFood",
-						option: commonFoodAmout(entity)
+						option: commonFoodAmount(entity, guild.commonFood)
 					};
 				}
 				return {
@@ -94,6 +95,7 @@ export const smallEvent: SmallEvent = {
 				option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT + entity.Player.level
 			};
 		}
+
 		function generateEmbed(reward: any) {
 			const tr = Translations.getModule("smallEvents.ultimateFoodMerchant", language);
 			const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -106,6 +108,7 @@ export const smallEvent: SmallEvent = {
 			);
 			return seEmbed;
 		}
+
 		async function giveReward(reward: any) {
 			switch (reward.type) {
 			case "ultimateFood":

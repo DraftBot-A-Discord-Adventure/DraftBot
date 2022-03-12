@@ -2,34 +2,34 @@
     "translations": {
         "fr": {
             "intrigue": [
-                "en observant le paysage alentour, vous ne remarquez pas l’homme qui est devant vous et le bousculez. Vous vous excusez, mais l’homme étant fort sympathique, vous faîtes connaissance. Il se prénomme « Colucci », et c’est un marchand de soupe. Par sa grande générosité, il récompense le talent des joueurs qu’il trouve sur son chemin. ",
-                "une petite roulotte avec une cheminée se dirige vers vous. Vous prenez la peine de saluer poliment le marchand, qui, après une rapide discussion durant laquelle vous apprenez qu'il s'appelle « Colucci », s'avère vouloir vous récompenser pour vos bonnes actions. "
+                "en observant le paysage alentour, vous ne remarquez pas l’homme qui est devant vous et le bousculez. Vous vous excusez et, l'homme étant fort sympathique, vous êtes rapidement pardonné et engagé dans une discussion. Il se prénomme « Gaspard-Jo », et c’est un marchand de soupe. Par sa grande générosité, il récompense le talent des joueurs qu’il trouve sur son chemin. ",
+                "une petite roulotte avec une cheminée se dirige vers vous. Vous prenez la peine de saluer poliment le marchand, qui, après une rapide discussion durant laquelle vous apprenez qu'il s'appelle « Gaspard-Jo », s'avère vouloir vous récompenser pour vos bonnes actions. "
             ],
             "rewards": {
                 "ultimateFood": [
-                    "Ayant entendu parler des bonnes actions perpétuées par votre guilde, il vous tend plusieurs **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
+                    "Il vous tend plusieurs **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
                 ],
                 "fullUltimateFood": [
-                    "Ayant entendu parler des bonnes actions que votre guilde perpétue, il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de la lui rendre."
+                    "Il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de les lui rendre."
                 ],
                 "item": [
-                    "Remarquant le blason de votre guilde sur votre torse, et impressionné par votre carrure, il vous offre un objet qui, d'après ses dires, pourrait vous être utile."
+                    "Il vous offre un objet qui, d'après ses dires, pourrait vous être utile."
                 ],
                 "commonFood": [
-                    "Estimant que vous n'êtes pas assez puissant pour vous voir obtenir sa marchandise gratuitement, il vous offre **{reward} bonbon{reward>1?s:}**."
+                    "Estimant que vous n'êtes pas assez puissant pour obtenir sa marchandise gratuitement, il vous offre **{reward} friandise{reward>1?s:}**."
                 ],
                 "fullCommonFood": [
-                    "Voyant que vous n'êtes pas très puissant, il veut vous offrir des bonbons, mais vous n'avez malheureusement plus assez de place pour les prendre. Vous décidez alors de les accepter afin de les manger sur place."
+                    "Voyant que vous n'êtes pas très puissant, il se résigne à vous offrir quelques friandises, mais vous n'avez malheureusement plus assez de place pour les prendre. Vous reprenez votre route déçu."
                 ],
                 "money": [
-                    "Il avait apparemment décidé de ne récompenser que les joueurs présents dans une guilde. Voyant votre dépit, il prend pitié et vous donne **{reward}💰** en guise de consolation."
+                    "Comme vous ne faites pas parti d'une guilde, vous ne pouvez cependant pas stocker la précieuse marchandise de votre bienfaiteur. Vous reprenez votre route déçu."
                 ]
             }
         },
         "en": {
             "intrigue": [
-                "observing the surrounding landscape and lost in your thoughts, you do not notice the man in front of you and hustle him. You apologize, but the man being very nice you get to know each other. His name is Colucci, and he is a soup seller. Generously, he rewards the talent of the players he finds on his way. ",
-                "a small caravan with a chimney is heading towards you. You greet politely the merchant, who, after a quick discussion during which you learn that his name is Colucci, turns out to want to reward you for your good deeds."
+                "observing the surrounding landscape and lost in your thoughts, you do not notice the man in front of you and hustle him. You apologize, but the man being very nice you get to know each other. His name is Gaspard-Jo, and he is a soup seller. Generously, he rewards the talent of the players he finds on his way. ",
+                "a small caravan with a chimney is heading towards you. You greet politely the merchant, who, after a quick discussion during which you learn that his name is Gaspard-Jo, turns out to want to reward you for your good deeds."
             ],
             "rewards": {
                 "ultimateFood": [

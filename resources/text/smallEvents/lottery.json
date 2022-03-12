@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"intro": "Vous croisez le chemin d'un homme qui vous interpelle, curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard de sa concoction. Vous pouvez choisir entre plusieurs niveaux de récompenses.\n\n:coin: Petite récompense\n:dollar:  Moyenne récompense\n:moneybag: Grosse récompense\n",
+			"intro": "Vous croisez le chemin d'un homme qui vous interpelle, curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé, vous pouvez choisir entre plusieurs niveaux de récompenses.\n\n:coin: Petite récompense\n:dollar:  Moyenne récompense\n:moneybag: Grosse récompense\n",
 			"\uD83E\uDE99": [
 				"Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
 				"Vous perdez au jeu de l'homme cependant la participation était gratuite donc vous décidez de reprendre votre route."

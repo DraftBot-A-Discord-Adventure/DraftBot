@@ -39,7 +39,7 @@ export const smallEvent: SmallEvent = {
 			case "time":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 3) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-10, 10)
+					option: Math.round(entity.Player.level / 3 * 1.25 ) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
 				};
 			case "nothing":
 				return {
@@ -48,7 +48,7 @@ export const smallEvent: SmallEvent = {
 			case "end":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 2) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-5, 5)
+					option: Math.round(entity.Player.level / 8) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
 				};
 			default:
 			}
