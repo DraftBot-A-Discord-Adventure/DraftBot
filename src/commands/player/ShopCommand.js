@@ -29,7 +29,7 @@ module.exports.commandInfo = {
 const ShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
+	if (await canPerformCommand(message.author, message.channel, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {

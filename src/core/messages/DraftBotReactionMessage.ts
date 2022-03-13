@@ -3,7 +3,7 @@ import {
 	Message,
 	MessageReaction,
 	NewsChannel,
-	ReactionCollector, TextBasedChannels,
+	ReactionCollector, TextBasedChannel,
 	TextChannel,
 	User
 } from "discord.js";
@@ -102,7 +102,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param channel
 	 * @param collectorCallback The callback called when the collector is initialized. Often used to block the player
 	 */
-	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannels, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannel, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await channel.send({ embeds: [this] });
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&

@@ -101,18 +101,6 @@ global.sendDirectMessage = (user, title, description, color, language) => {
 	}
 };
 
-
-/**
- * Send a simple message in a channel
- * @param {module:"discord.js".User} user
- * @param {module:"discord.js".TextChannel} channel
- * @param {String} title - the title of the message
- * @param {String} message - the message
- */
-global.sendSimpleMessage = (user, channel, title, message) => channel.send({ embeds: [new DraftBotEmbed()
-	.formatAuthor(title, user)
-	.setDescription(message)] });
-
 /**
  * @deprecated Use ItemUtils.giveItemToPlayer instead
  * Give an item to a user

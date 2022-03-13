@@ -2,43 +2,34 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Permissions} from "discord.js";
 
 class MessageError {
-	/**
-	 * @param {module:"discord.js".Message} message - Message from the discord server
-	 * @param {String} permission
-	 * @param {("fr"|"en")} language
-	 * @param {String[]} disallowEffects
-	 * @param {Entities} entity
-	 * @param {number} minimalLevel
-	 * @return {Promise<any>}
-	 */
-	static async canPerformCommand(message, language, permission) {
+	static async canPerformCommand(member, channel, language, permission) {
 		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
-			if (!message.member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
+			if (!member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(member.id)) {
+				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
 			}
 		}
 
 		if (permission === PERMISSION.ROLE.CONTRIBUTORS) {
-			if (!message.member.roles.cache.has(JsonReader.app.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
+			if (!member.roles.cache.has(JsonReader.app.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(member.id)) {
+				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
 			}
 		}
 
 		if (permission === PERMISSION.ROLE.SUPPORT) {
-			if (!message.member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
+			if (!member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(member.id)) {
+				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
 			}
 		}
 
 		if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
-			if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
+			if (!member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !MessageError.isBotOwner(member.id)) {
+				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
 			}
 		}
 
 		if (permission === PERMISSION.ROLE.BOT_OWNER) {
-			if (!MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
+			if (!MessageError.isBotOwner(member.id)) {
+				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
 			}
 		}
 
@@ -59,10 +50,10 @@ class MessageError {
 	 * @param {String} permission
 	 * @return {Promise<Message>}
 	 */
-	static async permissionErrorMe(message, language, permission) {
+	static async permissionErrorMe(user, channel, language, permission) {
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
-			.formatAuthor(JsonReader.error.getTranslation(language).titlePermissionError, message.author);
+			.formatAuthor(JsonReader.error.getTranslation(language).titlePermissionError, user);
 
 		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
 			embed.setDescription(JsonReader.error.getTranslation(language).badgeManagerPermissionMissing);
@@ -84,102 +75,95 @@ class MessageError {
 			embed.setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
 		}
 
-		return await message.channel.send({ embeds: [embed] });
+		return await channel.send({ embeds: [embed] });
 	}
 
-	/**
-	 * @param {module:"discord.js".Message} message - Message from the discord server
-	 * @param {("fr"|"en")} language
-	 * @param {Entities} entity
-	 * @param {String} effect
-	 * @return {Promise<Message>}
-	 */
-	static async effectsErrorMe(message, language, entity, effect) {
+	static async effectsErrorMe(user, channel, language, entity, effect) {
 
 		const embed = new DraftBotEmbed().setErrorColor();
 
 		if (effect === EFFECT.SMILEY) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsFine, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsFine, user)
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).notPossibleWithoutStatus);
 		}
 
 		if (effect === EFFECT.BABY) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsBaby, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsBaby, user)
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsBaby);
 		}
 
 		if (effect === EFFECT.DEAD) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsDead, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsDead, user)
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsDead);
 		}
 
 		const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.effectRemainingTime()));
 		if (effect === EFFECT.SLEEPING) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsSleeping, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsSleeping, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.DRUNK) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsDrunk, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsDrunk, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 		if (effect === EFFECT.HURT) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsHurt, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsHurt, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.SICK) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsSick, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsSick, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.LOCKED) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsLocked, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsLocked, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWait, {time: timeEffect}));
 		}
 		if (effect === EFFECT.INJURED) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsInjured, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsInjured, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 		if (effect === EFFECT.SCARED) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsScared, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsScared, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.OCCUPIED) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsOccupied, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsOccupied, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.CONFOUNDED) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsConfounded, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsConfounded, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
 		if (effect === EFFECT.FROZEN) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsFrozen, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsFrozen, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 		if (effect === EFFECT.STARVING) {
 			embed
-				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsStarving, message.author)
+				.formatAuthor(JsonReader.error.getTranslation(language).titleMeIsStarving, user)
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
-		return await message.channel.send({ embeds: [embed] });
+		return await channel.send({ embeds: [embed] });
 	}
 
 	/**

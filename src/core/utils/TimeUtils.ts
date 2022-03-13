@@ -44,3 +44,17 @@ export const datesAreOnSameDay = (first: Date, second: Date) =>
     first.getDate() === second.getDate();
 
 export const finishInTimeDisplay = (finishDate: Date) => "<t:" + Math.floor(finishDate.valueOf() / 1000) + ":R>";
+
+export const getNextSundayMidnight = (): number => {
+	const now = new Date();
+	const dateOfReset = new Date();
+	dateOfReset.setDate(now.getDate() + (7 - now.getDay()) % 7);
+	dateOfReset.setHours(23, 59, 59);
+	let dateOfResetTimestamp = dateOfReset.valueOf();
+	while (dateOfResetTimestamp < now.valueOf()) {
+		dateOfResetTimestamp += 1000 * 60 * 60 * 24 * 7;
+	}
+	return dateOfResetTimestamp;
+};
+
+export const resetIsNow = () => getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;

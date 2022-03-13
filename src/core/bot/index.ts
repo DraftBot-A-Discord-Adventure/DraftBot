@@ -73,7 +73,7 @@ const main = async function() {
 				Intents.FLAGS.GUILD_MEMBERS, // For tops
 				// Intents.FLAGS.GUILD_BANS We don't need to ban or unban
 				// Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS We don't need to create emojis or stickers
-				// Intents.FLAGS.GUILD_INTEGRATIONS Not sure what it is so disable it
+				Intents.FLAGS.GUILD_INTEGRATIONS,
 				// Intents.FLAGS.GUILD_WEBHOOKS We don't need to create webhooks
 				// Intents.FLAGS.GUILD_INVITES We don't need to create or delete invites
 				// Intents.FLAGS.GUILD_VOICE_STATES We don't use voice
@@ -132,27 +132,9 @@ const main = async function() {
 			});
 	};
 
-	/**
-	 * Will be executed each time the bot see a message
-	 * @param {module:"discord.js".Message} message
-	 * @return {Promise<void>}
-	 */
-	const onDiscordMessage = async (message: Message) => {
-		if (message.author.bot) {
-			return;
-		}
-		if (message.channel.type === "DM") {
-			await handlePrivateMessage(message);
-		}
-		else {
-			await handleMessage(message);
-		}
-	};
-
 	client.on("ready", () => console.log("Client ready"));
 	client.on("guildCreate", onDiscordGuildCreate);
 	client.on("guildDelete", onDiscordGuildDelete);
-	client.on("messageCreate", onDiscordMessage);
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore

@@ -298,4 +298,16 @@ export abstract class Constants {
 		BASE_TIME_LOST_GOBLETS_GAME: 1,
 		BASE_HEALTH_LOST_GOBLETS_GAME: 5
 	}
+
+	static readonly LANGUAGE = {
+		FRENCH: "fr",
+		ENGLISH: "en"
+	}
+
+	static readonly MENU_REACTION = {
+		ACCEPT: "✅",
+		DENY: "❌",
+		FRENCH_FLAG: "🇫🇷",
+		ENGLISH_FLAG: "🇬🇧"
+	};
 }

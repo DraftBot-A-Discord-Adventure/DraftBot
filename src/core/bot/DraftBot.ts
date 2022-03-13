@@ -12,6 +12,7 @@ import {botConfig, draftBotClient, shardId} from "./index";
 import Shop from "../models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../models/Entity";
+import {CommandsManager} from "../../commands/CommandsManager";
 
 require("colors");
 require("../Constant");
@@ -60,7 +61,7 @@ export class DraftBot {
 			]
 		});
 		await require("../Database").init(this.isMainShard);
-		await require("../Command").init();
+		await CommandsManager.register(draftBotClient);
 		await require("../fights/Attack").init();
 		if (this.config.TEST_MODE === true) {
 			await require("../CommandsTest").init();

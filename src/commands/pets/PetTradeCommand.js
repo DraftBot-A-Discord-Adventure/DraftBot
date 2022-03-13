@@ -31,7 +31,7 @@ const PetTradeCommand = async (message, language) => {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).cantTradeSelf);
 	}
 	let [trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+	if (await canPerformCommand(message.author, message.channel, language, PERMISSION.ROLE.ALL,
 		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2) !== true) {
 		return;
 	}
