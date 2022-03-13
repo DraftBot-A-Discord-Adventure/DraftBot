@@ -13,6 +13,26 @@ module.exports.commandInfo = {
 };
 
 /**
+ * Display badges for the given entity
+ * @param {Entities} entity
+ * @param msg
+ * @returns {Promise<void>}
+ */
+async function displayBadges(entity, msg) {
+	const badges = entity.Player.badges.split("-");
+	if (badges.length >= 20) {
+		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
+	}
+	else {
+		for (const badgeid in badges) {
+			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
+				await msg.react(badges[badgeid]);
+			}
+		}
+	}
+}
+
+/**
  * Displays information about the profile of the player who sent the command
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
@@ -202,17 +222,7 @@ const ProfileCommand = async (message, language, args) => {
 	});
 
 	if (entity.Player.badges !== null && entity.Player.badges !== "") {
-		const badges = entity.Player.badges.split("-");
-		if (badges.length >= 20) {
-			await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
-		}
-		else {
-			for (const badgeid in badges) {
-				if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
-					await msg.react(badges[badgeid]);
-				}
-			}
-		}
+		await displayBadges(entity, msg);
 	}
 	if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION * 60 * 60 * 1000) {
 		await msg.react(TOPGG.BADGE);
