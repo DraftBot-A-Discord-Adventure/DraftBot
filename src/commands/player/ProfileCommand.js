@@ -192,22 +192,7 @@ const ProfileCommand = async (message, language, args) => {
 
 	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
-			let content = "";
-			const badges = entity.Player.badges.split("-");
-			// eslint-disable-next-line guard-for-in
-			for (const badgeSentence in badges) {
-				content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
-			}
-			message.channel.send({
-				embeds: [new DraftBotEmbed()
-					.setDescription(format(content + JsonReader.commands.profile.getTranslation(language).badgeDisplay.numberBadge, {
-						badge: badges.length
-					}))
-					.setTitle(format(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title, {
-						pseudo: await entity.Player.getPseudo(language)
-					}))]
-			});
-			await msg.reactions.removeAll();
+			await sendMessageAllBadgesTooMuchBadges(entity, language, message, msg);
 		}
 		else {
 			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
@@ -233,5 +218,32 @@ const ProfileCommand = async (message, language, args) => {
 		await msg.react(TOPGG.BADGE);
 	}
 };
+
+/**
+ * Envoie un message contenant les informations sur tous les badges de la personne concernée, si celle-ci possède trop de badges
+ * @param {Entities} entity
+ * @param {("fr"|"en")} language
+ * @param {module:"discord.js".Message} message
+ * @param msg
+ * @returns {Promise<void>}
+ */
+async function sendMessageAllBadgesTooMuchBadges(entity, language, message, msg) {
+	let content = "";
+	const badges = entity.Player.badges.split("-");
+	// eslint-disable-next-line guard-for-in
+	for (const badgeSentence in badges) {
+		content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
+	}
+	message.channel.send({
+		embeds: [new DraftBotEmbed()
+			.setDescription(format(content + JsonReader.commands.profile.getTranslation(language).badgeDisplay.numberBadge, {
+				badge: badges.length
+			}))
+			.setTitle(format(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title, {
+				pseudo: await entity.Player.getPseudo(language)
+			}))]
+	});
+	await msg.reactions.removeAll();
+}
 
 module.exports.execute = ProfileCommand;
