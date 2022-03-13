@@ -15,7 +15,7 @@ export const missionInterface: IMission = {
 				&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
 		}
 		return (variantParams.toMap === params.mapId && variantParams.fromMap === saveData.startMap
-			|| variantParams.fromMap === params.mapId && variantParams.toMap === saveData.startMap)
+				|| variantParams.fromMap === params.mapId && variantParams.toMap === saveData.startMap)
 			&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
 	},
 
@@ -43,7 +43,7 @@ export const missionInterface: IMission = {
 			place: saveData.startMap === variantParams.fromMap ?
 				(await MapLocations.getById(variantParams.toMap)).getNameWithoutEmote(language) :
 				(await MapLocations.getById(variantParams.fromMap)).getNameWithoutEmote(language),
-			timestamp: Math.round(saveData.startTimestamp / 1000) + (variantParams.time * 60 * 60)
+			timestamp: Math.round(saveData.startTimestamp / 1000) + variantParams.time * 60 * 60
 		}));
 	},
 
@@ -100,7 +100,7 @@ const paramsFromVariant = function(variant: number): { fromMap: number, toMap: n
 		orderMatter: (variant & 0x40000000) !== 0
 	};
 };
-
+//TODO: supprimmer les commentaires avec du code mort
 // May be useful latter
 /* const variantFromParams = function(fromMap: number, toMap: number, time: number, orderMatter: boolean): number {
 	return (fromMap & 0x3ff) << 20 | (toMap & 0x3ff) << 10 | time & 0x3ff | (orderMatter ? 1 : 0) << 31;
