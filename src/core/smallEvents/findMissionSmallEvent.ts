@@ -4,7 +4,6 @@ import {Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
-import mission from "../models/Mission";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(entity: Entity): Promise<boolean> {
