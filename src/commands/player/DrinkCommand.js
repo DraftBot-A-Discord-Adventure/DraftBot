@@ -13,7 +13,7 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "drink",
-	aliases: ["dr","glouglou"],
+	aliases: ["dr", "glouglou"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 };
 
@@ -40,6 +40,13 @@ const DrinkCommand = async (message, language, args) => {
 			if (potion.nature === NATURE.NONE) {
 				if (potion.id !== JsonReader.models.inventories.potionId) {
 					await entity.Player.drinkPotion();
+					const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
+					if (tagsToVerify) {
+						for (let i = 0; i < tagsToVerify.length; i++) {
+							await MissionsController.update(entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+						}
+					}
+					await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
 					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
 					return;
 				}
@@ -78,9 +85,10 @@ const DrinkCommand = async (message, language, args) => {
 			]);
 			log(entity.discordUserId + " drank " + potion.en);
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
-			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
-			return await message.channel.send({ embeds: [embed] });
+			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
+			return await message.channel.send({embeds: [embed]});
 		}
+		return await sendErrorMessage(message.author, message.channel, language, Translations.getModule("commands.drink", language).get("drinkCanceled"));
 	};
 
 	if (args[0] === "force" || args[0] === "f") {

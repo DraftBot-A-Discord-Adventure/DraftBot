@@ -13,7 +13,6 @@ module.exports.commandInfo = {
  * Allow to free a pet
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetFreeCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -35,7 +34,7 @@ const PetFreeCommand = async (message, language) => {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().getTime() - entity.Player.lastPetFree);
+	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().valueOf() - entity.Player.lastPetFree);
 	if (cooldownTime > 0) {
 		return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petFree.getTranslation(language).cooldown, {
 			time: minutesToString(millisecondsToMinutes(cooldownTime))

@@ -1,0 +1,58 @@
+{
+    "translations": {
+        "fr": {
+            "intrigue": [
+                "en observant le paysage alentour, vous ne remarquez pas l’homme qui est devant vous et le bousculez. Vous vous excusez et, l'homme étant fort sympathique, vous êtes rapidement pardonné et engagé dans une discussion. Il se prénomme « Gaspard-Jo », et c’est un marchand de soupe. Par sa grande générosité, il récompense le talent des joueurs qu’il trouve sur son chemin. ",
+                "une petite roulotte avec une cheminée se dirige vers vous. Vous prenez la peine de saluer poliment le marchand, qui, après une rapide discussion durant laquelle vous apprenez qu'il s'appelle « Gaspard-Jo », s'avère vouloir vous récompenser pour vos bonnes actions. "
+            ],
+            "rewards": {
+                "ultimateFood": [
+                    "Il vous tend plusieurs **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
+                ],
+                "fullUltimateFood": [
+                    "Il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de les lui rendre."
+                ],
+                "item": [
+                    "Il vous offre un objet qui, d'après ses dires, pourrait vous être utile."
+                ],
+                "commonFood": [
+                    "Estimant que vous n'êtes pas assez puissant pour obtenir sa marchandise gratuitement, il vous offre **{reward} friandise{reward>1?s:}**."
+                ],
+                "fullCommonFood": [
+                    "Voyant que vous n'êtes pas très puissant, il se résigne à vous offrir quelques friandises, mais vous n'avez malheureusement plus assez de place pour les prendre. Vous reprenez votre route déçu."
+                ],
+                "money": [
+                    "Comme vous ne faites pas parti d'une guilde, vous ne pouvez cependant pas stocker la précieuse marchandise de votre bienfaiteur. Vous reprenez votre route déçu."
+                ]
+            }
+        },
+        "en": {
+            "intrigue": [
+                "observing the surrounding landscape and lost in your thoughts, you do not notice the man in front of you and hustle him. You apologize, but the man being very nice you get to know each other. His name is Gaspard-Jo, and he is a soup seller. Generously, he rewards the talent of the players he finds on his way. ",
+                "a small caravan with a chimney is heading towards you. You greet politely the merchant, who, after a quick discussion during which you learn that his name is Gaspard-Jo, turns out to want to reward you for your good deeds."
+            ],
+            "rewards": {
+                "ultimateFood": [
+                    "Having heard of the good deeds perpetuated by your guild, he hands you several **{reward} ultimate soup{reward>1?s:}**, which you store carefully."
+                ],
+                "fullUltimateFood": [
+                    "Having heard of the good deeds your guild is perpetuating, he offers you ultimate soups. Unfortunately, your warehouse being full, you are obliged to return it to him."
+                ],
+                "item": [
+                    "Noticing your guild crest on your chest, and impressed by your build, he offers you an item that he says might be useful to you."
+                ],
+                "commonFood": [
+                    "Believing that you are not powerful enough to get his goods for free, he offers you **{reward} candy{reward>1?s:}**."
+                ],
+                "fullCommonFood": [
+                    "Seeing that you are not very powerful, he wants to offer you candies, but unfortunately you no longer have enough space to take them. You then decide to accept them to eat them on the spot."
+                ],
+                "money": [
+                    "Apparently, he had decided to reward only players present in a guild. Seeing your spite, he takes pity and gives you {reward}💰 as a consolation."
+                ]
+            }
+        }
+    },
+    "rarity": 1,
+	"emote": ":stew:️"
+}

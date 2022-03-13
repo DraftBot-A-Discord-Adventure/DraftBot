@@ -47,7 +47,7 @@ export class Maps {
 	 * @returns {boolean}
 	 */
 	static isTravelling(player: Player): boolean {
-		return player.startTravelDate.getTime() !== 0;
+		return player.startTravelDate.valueOf() !== 0;
 	}
 
 	/**
@@ -59,8 +59,8 @@ export class Maps {
 		if (!this.isTravelling(player)) {
 			return 0;
 		}
-		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effectEndDate.getTime();
-		return Date.now() - player.startTravelDate.getTime() - malus;
+		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effectEndDate.valueOf();
+		return Date.now() - player.startTravelDate.valueOf() - malus;
 	}
 
 
@@ -74,7 +74,7 @@ export class Maps {
 			player.effectDuration = millisecondsToMinutes(Data.getModule("models.players").getNumber("effectMalus." + effect));
 		}
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
-		player.startTravelDate = new Date(player.startTravelDate.getTime() + minutesToMilliseconds(player.effectDuration));
+		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 	}
 
@@ -92,11 +92,11 @@ export class Maps {
 	static advanceTime(player: Player, time: number): void {
 		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
-			if (t >= player.effectEndDate.getTime() - Date.now()) {
+			if (t >= player.effectEndDate.valueOf() - Date.now()) {
 				player.effectEndDate = new Date();
 			}
 			else {
-				player.effectEndDate = new Date(player.effectEndDate.getTime() - t);
+				player.effectEndDate = new Date(player.effectEndDate.valueOf() - t);
 			}
 		}
 		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
@@ -104,7 +104,7 @@ export class Maps {
 			lastSmallEvent.time -= t;
 			lastSmallEvent.save().then();
 		}
-		player.startTravelDate = new Date(player.startTravelDate.getTime() - t);
+		player.startTravelDate = new Date(player.startTravelDate.valueOf() - t);
 	}
 
 	/**

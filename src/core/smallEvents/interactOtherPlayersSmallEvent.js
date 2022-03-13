@@ -285,6 +285,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					pseudo: await otherEntity.Player.getPseudo(language)
 				}));
 			}
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			await message.channel.send({embeds: [poorEmbed]});
 		});
 		await msg.react(COIN_EMOTE);

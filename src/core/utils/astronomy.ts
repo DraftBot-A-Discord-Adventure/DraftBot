@@ -1123,15 +1123,15 @@ export class AstroTime {
 
 		const MillisPerDay = 1000 * 3600 * 24;
 
-		if ((date instanceof Date) && Number.isFinite(date.getTime())) {
+		if ((date instanceof Date) && Number.isFinite(date.valueOf())) {
 			this.date = date;
-			this.ut = (date.getTime() - J2000.getTime()) / MillisPerDay;
+			this.ut = (date.valueOf() - J2000.valueOf()) / MillisPerDay;
 			this.tt = TerrestrialTime(this.ut);
 			return;
 		}
 
 		if (Number.isFinite(date)) {
-			this.date = new Date(J2000.getTime() + <number>date * MillisPerDay);
+			this.date = new Date(J2000.valueOf() + <number>date * MillisPerDay);
 			this.ut = <number>date;
 			this.tt = TerrestrialTime(this.ut);
 			return;
@@ -3251,7 +3251,7 @@ interface jupiter_moon_t {
 	l: jm_series_t;
 	z: jm_series_t;
 	zeta: jm_series_t;
-};
+}
 
 const Rotation_JUP_EQJ = new RotationMatrix([
 	[9.9943276533865444e-01, -3.3677107469764142e-02, 0.0000000000000000e+00],
@@ -3574,7 +3574,7 @@ export function HelioVector(body: Body, date: FlexibleDateTime): Vector {
 	if (body === Body.SSB)
 		return CalcSolarSystemBarycenter(time);
 	throw `HelioVector: Unknown body "${body}"`;
-};
+}
 
 /**
  * @brief Calculates the distance between a body and the Sun at a given time.
@@ -4593,7 +4593,7 @@ export function NextMoonQuarter(mq: MoonQuarter): MoonQuarter {
 	// Skip 6 days past the previous found moon quarter to find the next one.
 	// This is less than the minimum possible increment.
 	// So far I have seen the interval well contained by the range (6.5, 8.3) days.
-	let date = new Date(mq.time.date.getTime() + 6 * MILLIS_PER_DAY);
+	let date = new Date(mq.time.date.valueOf() + 6 * MILLIS_PER_DAY);
 	return SearchMoonQuarter(date);
 }
 
@@ -4904,7 +4904,7 @@ export function Seasons(year: (number | AstroTime)): SeasonInfo {
 		return time;
 	}
 
-	if ((year instanceof Date) && Number.isFinite(year.getTime()))
+	if ((year instanceof Date) && Number.isFinite(year.valueOf()))
 		year = year.getUTCFullYear();
 
 	if (!Number.isSafeInteger(year))

@@ -2,7 +2,6 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
 import Mission from "./Mission";
-import moment = require("moment");
 import {Data} from "../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 
@@ -20,6 +19,8 @@ export class DailyMission extends Model {
 	public xpToWin!: number;
 
 	public moneyToWin!: number;
+
+	public lastDate!: Date;
 
 	public updatedAt!: Date;
 
@@ -43,7 +44,7 @@ export class DailyMissions {
 
 	static async getOrGenerate(): Promise<DailyMission> {
 		let dailyMission = await DailyMissions.queryDailyMission();
-		if (!dailyMission || !datesAreOnSameDay(dailyMission.updatedAt, new Date())) {
+		if (!dailyMission || !datesAreOnSameDay(dailyMission.lastDate, new Date())) {
 			await PlayerMissionsInfo.update({
 				dailyMissionNumberDone: 0
 			}, { where: {} });
@@ -64,7 +65,8 @@ export class DailyMissions {
 				variant: prop.variant,
 				gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 				xpToWin: missionData.getNumberFromArray("xp", prop.index),
-				moneyToWin: missionData.getNumberFromArray("money", prop.index)
+				moneyToWin: missionData.getNumberFromArray("money", prop.index),
+				lastDate: new Date()
 			});
 		}
 		else {
@@ -73,7 +75,7 @@ export class DailyMissions {
 			dailyMission.variant = prop.variant;
 			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
 			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
-			dailyMission.updatedAt = new Date();
+			dailyMission.lastDate = new Date();
 			await dailyMission.save();
 		}
 		return await this.queryDailyMission();
@@ -104,6 +106,9 @@ export function initModel(sequelize: Sequelize) {
 		moneyToWin: {
 			type: DataTypes.INTEGER
 		},
+		lastDate: {
+			type: DataTypes.DATE
+		},
 		updatedAt: {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
@@ -119,7 +124,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	DailyMission.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = new Date();
 	});
 }
 

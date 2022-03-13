@@ -2,6 +2,7 @@ import {giveRandomItem} from "../utils/ItemUtils";
 import {PetEntities} from "../models/PetEntity";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {Constants} from "../Constants";
+import {Maps} from "../Maps";
 
 /**
  * Main function of small event
@@ -49,7 +50,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "gainTime":
 		amount = randInt(5, 20);
-		require("../Maps").advanceTime(entity.Player, amount);
+		Maps.advanceTime(entity.Player, amount);
 		entity.Player.save();
 		break;
 	case "points":
@@ -85,7 +86,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseTime":
 		amount = randInt(5, 20);
-		await require("../Maps").applyEffect(entity.Player, EFFECT.OCCUPIED, amount);
+		await Maps.applyEffect(entity.Player, EFFECT.OCCUPIED, amount);
 		entity.Player.save();
 		break;
 	case "petFlee":
