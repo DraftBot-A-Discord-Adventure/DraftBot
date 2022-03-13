@@ -3,8 +3,7 @@ import {
 	CommandInteraction,
 	GuildChannel,
 	GuildMember,
-	Interaction,
-	Message, MessageReaction,
+	Message,
 	TextBasedChannel,
 	User
 } from "discord.js";
@@ -48,7 +47,15 @@ export class CommandsManager {
 					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 					continue;
 				}
-				await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), "429765017332613120");
+				if (commandInfo.mainGuildCommand) {
+					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+					if (commandInfo.slashCommandPermissions) {
+						await cmd.permissions.add({ guild: botConfig.MAIN_SERVER_ID, permissions: commandInfo.slashCommandPermissions });
+					}
+				}
+				else {
+					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
+				}
 				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			}
 		}
@@ -130,6 +137,9 @@ export class CommandsManager {
 			return;
 		}
 
+		if (!interaction.command) {
+			return;
+		}
 		const commandInfo = this.commands.get(interaction.command.name);
 
 		if (!commandInfo) {

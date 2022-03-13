@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
+import {ApplicationCommandPermissionData, CommandInteraction} from "discord.js";
 import Entity from "../core/models/Entity";
 
 export interface ICommand {
@@ -14,5 +14,8 @@ export interface ICommand {
 		userPermission: string | null,
 		guildRequired: boolean | null,
 		guildPermissions: number | null
-	}
+	},
+
+	mainGuildCommand: boolean,
+	slashCommandPermissions: ApplicationCommandPermissionData[] | null
 }
