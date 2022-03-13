@@ -249,5 +249,17 @@ export abstract class Constants {
 			}
 		],
 		DAILY_MISSION_MONEY_PENALITY: 2
+	};
+
+	static readonly PROFILE = {
+		DISPLAY_ALL_BADGE_EMOTE: "🎖️"
+	}
+
+	static readonly BADGES = {
+		POWERFUL_GUILD: "💎",
+		STAFF_MEMBER: "⚙️",
+		QUEST_MASTER: "💍",
+		RICH_PERSON: "🤑",
+		PET_TAMER: "💞"
 	}
 }

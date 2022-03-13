@@ -13,6 +13,7 @@ import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
 import Player, {Players} from "../models/Player";
 import {BlockingUtils} from "../utils/BlockingUtils";
+import {Constants} from "../Constants";
 
 function checkTop(otherPlayer, cList) {
 	if (otherPlayer.rank === 1) {
@@ -31,10 +32,10 @@ function checkTop(otherPlayer, cList) {
 
 function checkBadges(otherEntity, cList) {
 	if (otherEntity.Player.badges) {
-		if (otherEntity.Player.badges.includes("💎")) {
+		if (otherEntity.Player.badges.includes(Constants.BADGES.POWERFUL_GUILD)) {
 			cList.push("powerfulGuild");
 		}
-		if (otherEntity.Player.badges.includes("⚙️")) {
+		if (otherEntity.Player.badges.includes(Constants.BADGES.STAFF_MEMBER)) {
 			cList.push("staffMember");
 		}
 	}

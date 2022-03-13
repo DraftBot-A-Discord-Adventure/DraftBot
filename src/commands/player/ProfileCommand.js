@@ -4,6 +4,7 @@ import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import Player, {Players} from "../../core/models/Player";
 import {Campaign} from "../../core/missions/Campaign";
+import {Constants} from "../../core/Constants.ts";
 
 module.exports.commandInfo = {
 	name: "profile",
@@ -190,9 +191,10 @@ const ProfileCommand = async (message, language, args) => {
 	});
 
 	collector.on("collect", async (reaction) => {
-		if (reaction.emoji.name === "🎖️") {
+		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 			let content = "";
 			const badges = entity.Player.badges.split("-");
+			// eslint-disable-next-line guard-for-in
 			for (const badgeSentence in badges) {
 				content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
 			}
@@ -206,7 +208,8 @@ const ProfileCommand = async (message, language, args) => {
 					}))]
 			});
 			await msg.reactions.removeAll();
-		} else {
+		}
+		else {
 			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
 				setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 			});
@@ -216,7 +219,7 @@ const ProfileCommand = async (message, language, args) => {
 	if (entity.Player.badges !== null && entity.Player.badges !== "") {
 		const badges = entity.Player.badges.split("-");
 		if (badges.length >= 20) {
-			await msg.react("🎖️");
+			await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
 		}
 		else {
 			for (const badgeid in badges) {
