@@ -4,12 +4,33 @@ import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import Player, {Players} from "../../core/models/Player";
 import {Campaign} from "../../core/missions/Campaign";
+import {Constants} from "../../core/Constants.ts";
 
 module.exports.commandInfo = {
 	name: "profile",
 	aliases: ["p", "profil"],
 	disallowEffects: [EFFECT.BABY]
 };
+
+/**
+ * Display badges for the given entity
+ * @param {Entities} entity
+ * @param msg
+ * @returns {Promise<void>}
+ */
+async function displayBadges(entity, msg) {
+	const badges = entity.Player.badges.split("-");
+	if (badges.length >= 20) {
+		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
+	}
+	else {
+		for (const badgeid in badges) {
+			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
+				await msg.react(badges[badgeid]);
+			}
+		}
+	}
+}
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -189,23 +210,50 @@ const ProfileCommand = async (message, language, args) => {
 		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});
 
-	collector.on("collect", (reaction) => {
-		message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
-			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
-		});
+	collector.on("collect", async (reaction) => {
+		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
+			await sendMessageAllBadgesTooMuchBadges(entity, language, message, msg);
+		}
+		else {
+			message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
+				setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
+			});
+		}
 	});
 
 	if (entity.Player.badges !== null && entity.Player.badges !== "") {
-		const badges = entity.Player.badges.split("-");
-		for (const badgeid in badges) {
-			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
-				await msg.react(badges[badgeid]);
-			}
-		}
+		await displayBadges(entity, msg);
 	}
 	if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION * 60 * 60 * 1000) {
 		await msg.react(TOPGG.BADGE);
 	}
 };
+
+/**
+ * Envoie un message contenant les informations sur tous les badges de la personne concernée, si celle-ci possède trop de badges
+ * @param {Entities} entity
+ * @param {("fr"|"en")} language
+ * @param {module:"discord.js".Message} message
+ * @param msg
+ * @returns {Promise<void>}
+ */
+async function sendMessageAllBadgesTooMuchBadges(entity, language, message, msg) {
+	let content = "";
+	const badges = entity.Player.badges.split("-");
+	// eslint-disable-next-line guard-for-in
+	for (const badgeSentence in badges) {
+		content += JsonReader.commands.profile.getTranslation(language).badges[badges[badgeSentence]] + "\n";
+	}
+	message.channel.send({
+		embeds: [new DraftBotEmbed()
+			.setDescription(format(content + JsonReader.commands.profile.getTranslation(language).badgeDisplay.numberBadge, {
+				badge: badges.length
+			}))
+			.setTitle(format(JsonReader.commands.profile.getTranslation(language).badgeDisplay.title, {
+				pseudo: await entity.Player.getPseudo(language)
+			}))]
+	});
+	await msg.reactions.removeAll();
+}
 
 module.exports.execute = ProfileCommand;

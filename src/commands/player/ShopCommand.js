@@ -1,8 +1,4 @@
-import {
-	DraftBotShopMessageBuilder,
-	ShopItem,
-	ShopItemCategory
-} from "../../core/messages/DraftBotShopMessage";
+import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core/messages/DraftBotShopMessage";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {giveItemToPlayer, giveRandomItem} from "../../core/utils/ItemUtils";
@@ -145,15 +141,15 @@ function getBadgeShopItem(translationModule) {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			if (entity.Player.hasBadge("🤑")) {
+			if (entity.Player.hasBadge(Constants.BADGES.RICH_PERSON)) {
 				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.alreadyHasItem"));
 				return false;
 			}
-			entity.Player.addBadge("🤑");
+			entity.Player.addBadge(Constants.BADGES.RICH_PERSON);
 			await entity.Player.save();
 			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
-				.setDescription("🤑 " + translationModule.get("permanentItems.badge.name"))
+				.setDescription(Constants.BADGES.RICH_PERSON + " " + translationModule.get("permanentItems.badge.name"))
 			] });
 			return true;
 		}

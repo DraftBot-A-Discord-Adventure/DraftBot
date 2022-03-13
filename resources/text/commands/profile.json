@@ -69,6 +69,10 @@
 				"🔖": ":bookmark:  `Adopteur de classes de la première heure`",
 				"💞": ":revolving_hearts:  `Joueur ayant dressé un familier légendaire`",
 				"\uD83D\uDC8D": ":ring: `Badge acheté dans le shop des Missions`"
+			},
+			"badgeDisplay": {
+				"title": "Liste des badges de {pseudo}",
+				"numberBadge": "\n Ce joueur possède {badge} badge{badge>1?s:} au total !"
 			}
 		},
 		"en": {

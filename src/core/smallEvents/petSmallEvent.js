@@ -1,9 +1,8 @@
 import {giveRandomItem} from "../utils/ItemUtils";
 import {PetEntities} from "../models/PetEntity";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
+import {Constants} from "../Constants";
 import {Maps} from "../Maps";
-
-const BADGE = "💞";
 
 /**
  * Main function of small event
@@ -61,16 +60,16 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "badge":
 		if (entity.Player.badges !== null) {
-			if (entity.Player.badges.includes(BADGE)) {
+			if (entity.Player.badges.includes(Constants.BADGES.PET_TAMER)) {
 				interaction = "nothing";
 			}
 			else {
-				entity.Player.addBadge(BADGE);
+				entity.Player.addBadge(Constants.BADGES.PET_TAMER);
 				entity.Player.save();
 			}
 		}
 		else {
-			entity.Player.addBadge(BADGE);
+			entity.Player.addBadge(Constants.BADGES.PET_TAMER);
 			entity.Player.save();
 		}
 
@@ -146,7 +145,7 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 		determinantShift: tr.determinant[pet.sex].charAt(0).toUpperCase() + tr.determinant[pet.sex].slice(1),
 		amount: amount,
 		food: food ? food.translations[language].name.toLowerCase() + " " + food.emote + " " : "",
-		badge: BADGE,
+		badge: Constants.BADGES.PET_TAMER,
 		feminine: pet.sex === "f" ? "e" : "",
 		randomAnimal: randomAnimal ? randomAnimal.getPetEmote() + " " + randomAnimal.getPetTypeName(language) : "",
 		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",

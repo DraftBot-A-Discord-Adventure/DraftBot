@@ -8,6 +8,7 @@ import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {Constants} from "../../core/Constants";
 
 module.exports.commandInfo = {
 	name: "guilddaily",
@@ -146,7 +147,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		let membersThatOwnTheBadge = 0;
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				if (!members[i].Player.addBadge("💎")) {
+				if (!members[i].Player.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
 					membersThatOwnTheBadge++;
 				}
 				await members[i].Player.save();

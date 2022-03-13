@@ -300,7 +300,7 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			if (entity.Player.hasBadge("💍")) {
+			if (entity.Player.hasBadge(Constants.BADGES.QUEST_MASTER)) {
 				message.sentMessage.channel.send({
 					embeds: [new DraftBotErrorEmbed(
 						message.user,
@@ -310,12 +310,12 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 				});
 				return false;
 			}
-			entity.Player.addBadge("💍");
+			entity.Player.addBadge(Constants.BADGES.QUEST_MASTER);
 			await entity.Player.save();
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.badge.give"), message.user)
-					.setDescription("💍 " + translationModule.get("items.badge.name"))
+					.setDescription(Constants.BADGES.QUEST_MASTER + " " + translationModule.get("items.badge.name"))
 				]
 			});
 			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
