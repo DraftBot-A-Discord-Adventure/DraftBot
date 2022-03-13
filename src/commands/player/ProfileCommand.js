@@ -4,7 +4,7 @@ import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import Player, {Players} from "../../core/models/Player";
 import {Campaign} from "../../core/missions/Campaign";
-import {Constants} from "../../core/Constants.ts";
+import {Constants} from "../../core/Constants";
 
 module.exports.commandInfo = {
 	name: "profile",
