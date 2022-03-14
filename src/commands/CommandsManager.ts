@@ -47,7 +47,7 @@ export class CommandsManager {
 					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 					continue;
 				}
-				if (commandInfo.mainGuildCommand) {
+				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
 					if (commandInfo.slashCommandPermissions) {
 						await cmd.permissions.add({ guild: botConfig.MAIN_SERVER_ID, permissions: commandInfo.slashCommandPermissions });
