@@ -9,7 +9,7 @@ import MissionSlot from "./MissionSlot";
 import Mission from "./Mission";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
-import {Message, TextChannel} from "discord.js";
+import {CommandInteraction, Message, TextChannel} from "discord.js";
 import {Classes} from "./Class";
 import Armor from "./Armor";
 import Weapon from "./Weapon";
@@ -398,6 +398,22 @@ export class Entities {
 			return [null];
 		}
 		return [await Entities.getById(player.entityId)];
+	}
+
+	static async getByOptions(interaction: CommandInteraction): Promise<Entity | null> {
+		const rank = interaction.options.getNumber("rank");
+		if (rank) {
+			const [player] = await Players.getByRank(rank);
+			if (player === undefined) {
+				return null;
+			}
+			return await Entities.getById(player.entityId);
+		}
+		const user = interaction.options.getUser("user");
+		if (user) {
+			return (await Entities.getOrRegister(user.id))[0];
+		}
+		return null;
 	}
 }
 

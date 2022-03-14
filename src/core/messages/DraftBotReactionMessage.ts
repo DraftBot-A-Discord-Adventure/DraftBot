@@ -1,4 +1,5 @@
 import {
+	CommandInteraction,
 	DMChannel,
 	Message,
 	MessageReaction,
@@ -98,12 +99,33 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	}
 
 	/**
+	 * Reply to a command interaction
+	 * @param interaction
+	 * @param collectorCallback
+	 */
+	async reply(interaction: CommandInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+		this._sentMessage = await interaction.reply({ embeds: [this], fetchReply: true }) as Message;
+		await this.collectAndReact(collectorCallback);
+		return this._sentMessage;
+	}
+
+	/**
 	 * Send the message to a channel
 	 * @param channel
 	 * @param collectorCallback The callback called when the collector is initialized. Often used to block the player
 	 */
 	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannel, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await channel.send({ embeds: [this] });
+		await this.collectAndReact(collectorCallback);
+		return this._sentMessage;
+	}
+
+	/**
+	 * Create the collector, add the reactions etc...
+	 * @param collectorCallback
+	 * @private
+	 */
+	private async collectAndReact(collectorCallback: (collector: ReactionCollector) => void = null) {
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
@@ -157,7 +179,6 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 				await this._sentMessage.react(emoji.identifier);
 			}
 		}
-		return this._sentMessage;
 	}
 
 	/**
