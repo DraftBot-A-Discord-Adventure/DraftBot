@@ -1,5 +1,5 @@
 import {DraftBot} from "./DraftBot";
-import {Client, Guild, Intents, Message, TextChannel} from "discord.js";
+import {Client, Guild, Intents, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../models/Server";
