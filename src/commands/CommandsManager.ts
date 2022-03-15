@@ -25,12 +25,18 @@ import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
+import {each} from "bluebird";
 
 declare const effectsErrorMe: (user: User, channel: TextBasedChannel, language: string, entity: Entity, effect: string) => Promise<void>;
 declare const canPerformCommand: (member: GuildMember, channel: TextBasedChannel, language: string, permission: string) => Promise<boolean>;
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
+
+	static async clear(client: Client): Promise<void> {
+		// TODO: discuter, c'est peut être une mauvaise pratique ? faut voir ce qu'on fait en tout cas pour clear que ce qui a changé depuis le restart d'avant (ou si c'est pas une mauvaise pratique on peut laisser comme ça.
+		await client.application.commands.set([]);
+	}
 
 	static async register(client: Client): Promise<void> {
 		const categories = await readdir("dist/src/commands");
@@ -50,7 +56,10 @@ export class CommandsManager {
 				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
 					if (commandInfo.slashCommandPermissions) {
-						await cmd.permissions.add({ guild: botConfig.MAIN_SERVER_ID, permissions: commandInfo.slashCommandPermissions });
+						await cmd.permissions.add({
+							guild: botConfig.MAIN_SERVER_ID,
+							permissions: commandInfo.slashCommandPermissions
+						});
 					}
 				}
 				else {
@@ -344,9 +353,11 @@ export class CommandsManager {
 			.endCallback((msg) => {
 				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				const tr = Translations.getModule("bot", language);
-				message.channel.send({ embeds: [new DraftBotEmbed()
-					.formatAuthor(tr.format("dmHelpMessageTitle", { pseudo: escapeUsername(message.author.username) }), message.author)
-					.setDescription(tr.get("dmHelpMessage"))] });
+				message.channel.send({
+					embeds: [new DraftBotEmbed()
+						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(message.author.username)}), message.author)
+						.setDescription(tr.get("dmHelpMessage"))]
+				});
 			})
 			.build();
 		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);
