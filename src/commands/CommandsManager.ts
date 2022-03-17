@@ -36,7 +36,8 @@ export class CommandsManager {
 		await client.application.commands.set([]);
 	}
 
-	static async register(client: Client): Promise<void> {
+	static async getCommandList(): Promise<ICommand[]> {
+		const list: ICommand[] = [];
 		const categories = await readdir("dist/src/commands");
 
 		for (const category of categories) {
@@ -51,55 +52,29 @@ export class CommandsManager {
 					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 					continue;
 				}
-				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
-					if (commandInfo.slashCommandPermissions) {
-						await cmd.permissions.add({
-							guild: botConfig.MAIN_SERVER_ID,
-							permissions: commandInfo.slashCommandPermissions
-						});
-					}
-				}
-				else {
-					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
-				}
-				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+				list.push(commandInfo);
 			}
 		}
+		return list;
+	}
 
-		client.on("interactionCreate", interaction => {
-			if (!interaction.isCommand() || !interaction.inGuild()) {
-				return;
-			}
-
-			CommandsManager.handleCommand(interaction as CommandInteraction);
-		});
-
-		client.on("messageCreate", async message => {
-			if (message.author.bot || message.author.id === draftBotClient.user.id) {
-				return;
-			}
-
-			if (message.channel.type === "DM") {
-				await CommandsManager.handlePrivateMessage(message);
-			}
-			else {
-				const [server] = await Server.findOrCreate({
-					where: {
-						discordGuildId: message.guild.id
-					}
-				});
-
-				if (message.mentions.has(client.user)) {
-					message.channel.send({
-						content:
-							Translations.getModule("bot", server.language).format("mentionHelp", {
-								prefix: server.prefix
-							})
-					}).then();
+	static async register(client: Client): Promise<void> {
+		const commandList = await this.getCommandList();
+		for (const commandInfo of commandList) {
+			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+				const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+				if (commandInfo.slashCommandPermissions) {
+					await cmd.permissions.add({
+						guild: botConfig.MAIN_SERVER_ID,
+						permissions: commandInfo.slashCommandPermissions
+					});
 				}
 			}
-		});
+			else {
+				await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
+			}
+			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+		}
 	}
 
 	private static async handleCommand(interaction: CommandInteraction) {
