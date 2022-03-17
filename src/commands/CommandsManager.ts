@@ -33,8 +33,6 @@ export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
 	static async clear(client: Client): Promise<void> {
-		// TODO: discuter, c'est peut être une mauvaise pratique ? faut voir ce qu'on fait en tout cas pour clear que ce
-		//  qui a changé depuis le restart d'avant (ou si c'est pas une mauvaise pratique on peut laisser comme ça.
 		await client.application.commands.set([]);
 	}
 
