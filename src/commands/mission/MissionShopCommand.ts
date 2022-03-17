@@ -7,8 +7,8 @@ import {
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
-import {Entities} from "../../core/models/Entity";
-import {Message, TextChannel, User} from "discord.js";
+import Entity, {Entities} from "../../core/models/Entity";
+import {CommandInteraction, TextChannel, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
@@ -16,23 +16,19 @@ import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {ICommand} from "../ICommand";
+import {SlashCommandBuilder} from "@discordjs/builders";
 
 declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
-module.exports.commandInfo = {
-	name: "missionshop",
-	aliases: ["ms", "mshop", "questshop", "missionsshop", "questsshop", "qs", "qshop"],
-	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
-};
-
 /**
  * Displays the mission shop
- * @param {Message} message - Message from the discord server
+ * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
  */
-const MissionShopCommand = async (message: Message, language: string) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await sendBlockedError(message.author, <TextChannel>message.channel, language)) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
 		return;
 	}
 
@@ -61,7 +57,7 @@ const MissionShopCommand = async (message: Message, language: string) => {
 	);
 
 	const shopMessage = await new DraftBotShopMessageBuilder(
-		message.author,
+		interaction.user,
 		shopTranslations.get("title"),
 		language
 	)
@@ -74,8 +70,8 @@ const MissionShopCommand = async (message: Message, language: string) => {
 		.setTranslationPosition("commands.missionShop")
 		.build();
 
-	await shopMessage.send(message.channel, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", collector));
-};
+	await shopMessage.reply(interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", collector));
+}
 
 /**
  * get the amount of gems a user has
@@ -329,4 +325,19 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 	);
 }
 
-module.exports.execute = MissionShopCommand;
+export const commandInfo: ICommand = {
+	slashCommandBuilder: new SlashCommandBuilder()
+		.setName("missionshop")
+		.setDescription("Affiche le shop des missions à des fins d'achats"),
+	executeCommand,
+	requirements: {
+		allowEffects: null,
+		requiredLevel: null,
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED],
+		guildPermissions: null,
+		guildRequired: null,
+		userPermission: null
+	},
+	mainGuildCommand: false,
+	slashCommandPermissions: null
+};
