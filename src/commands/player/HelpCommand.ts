@@ -1,10 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {SlashCommandBuilder} from "@discordjs/builders";
+import {SlashCommandBuilder, SlashCommandStringOption} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {CommandsManager} from "../CommandsManager";
-import {Constants} from "../../core/Constants";
 
 /**
  * Displays the link that allow to send the devs some suggestions
@@ -26,23 +24,24 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 }
 
-const getCommandNameArray = async function(): Promise<[string, string][]> {
-	const list: [string, string][] = [];
-	for (const command of await CommandsManager.getCommandList()){
-		list.push([command.slashCommandBuilder.name,command.slashCommandBuilder.name]);
+const setupCommandOption = function(option: SlashCommandStringOption): SlashCommandStringOption {
+	option.setName("command")
+		.setDescription("Get help about a specific command")
+		.setRequired(false);
+	const commandList: string[] = Array.from(this.commands.keys());
+	for (let i = 0; i < commandList.length; i++) {
+		const command = commandList[i];
+		const cToTest = command.replace(new RegExp(/^.*\/(.*)Command\.js$/), "$1").toLowerCase();
+		option.addChoice(cToTest, cToTest);
 	}
-	return list;
+	return option;
 };
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("help")
 		.setDescription("Get the list of available commands, and information about DraftBot")
-		.addStringOption(option => option.setName("command")
-			.setDescription("Get help about a specific command")
-			.addChoices(getCommandNameArray())
-			.setRequired(false)
-		) as SlashCommandBuilder,
+		.addStringOption(option => setupCommandOption(option)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
 		allowEffects: null,

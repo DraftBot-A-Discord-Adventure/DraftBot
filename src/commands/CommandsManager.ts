@@ -1,12 +1,4 @@
-import {
-	Client,
-	CommandInteraction,
-	GuildChannel,
-	GuildMember,
-	Message,
-	TextBasedChannel,
-	User
-} from "discord.js";
+import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -36,31 +28,26 @@ export class CommandsManager {
 		await client.application.commands.set([]);
 	}
 
-	static async getCommandList(): Promise<ICommand[]> {
-		const list: ICommand[] = [];
+	static async register(client: Client): Promise<void> {
 		const categories = await readdir("dist/src/commands");
-
 		for (const category of categories) {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
 			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const command = require(`./${category}/${commandFile}`);
-				const commandInfo = command.commandInfo as ICommand;
-				if (!commandInfo || !commandInfo.slashCommandBuilder) {
-					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
-					continue;
-				}
-				list.push(commandInfo);
+				this.commands.set(category + "/" + commandFile, null);
 			}
 		}
-		return list;
-	}
-
-	static async register(client: Client): Promise<void> {
-		const commandList = await this.getCommandList();
-		for (const commandInfo of commandList) {
+		const commandList = Array.from(this.commands.keys());
+		for (let i = 0; i < commandList.length; i++) {
+			const command = commandList[i];
+			const commandFile = require(`./${command}`);
+			const commandInfo = commandFile.commandInfo as ICommand;
+			if (!commandInfo || !commandInfo.slashCommandBuilder) {
+				console.error(`Command dist/src/commands/${command} is not a slash command`);
+				continue;
+			}
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 				const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
 				if (commandInfo.slashCommandPermissions) {
@@ -75,6 +62,41 @@ export class CommandsManager {
 			}
 			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 		}
+
+
+		client.on("interactionCreate", interaction => {
+			if (!interaction.isCommand() || !interaction.inGuild()) {
+				return;
+			}
+
+			CommandsManager.handleCommand(interaction as CommandInteraction);
+		});
+
+		client.on("messageCreate", async message => {
+			if (message.author.bot || message.author.id === draftBotClient.user.id) {
+				return;
+			}
+
+			if (message.channel.type === "DM") {
+				await CommandsManager.handlePrivateMessage(message);
+			}
+			else {
+				const [server] = await Server.findOrCreate({
+					where: {
+						discordGuildId: message.guild.id
+					}
+				});
+
+				if (message.mentions.has(client.user)) {
+					message.channel.send({
+						content:
+							Translations.getModule("bot", server.language).format("mentionHelp", {
+								prefix: server.prefix
+							})
+					}).then();
+				}
+			}
+		});
 	}
 
 	private static async handleCommand(interaction: CommandInteraction) {
