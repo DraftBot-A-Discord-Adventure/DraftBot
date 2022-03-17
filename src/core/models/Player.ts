@@ -488,6 +488,20 @@ export class Player extends Model {
 }
 
 export class Players {
+	static async getRankById(id: number): Promise<number> {
+		const query = `SELECT *
+                        FROM (SELECT id,
+                                RANK() OVER (ORDER BY score desc, level desc)       rank
+                            FROM players)
+                        WHERE id = :id`;
+		return (<[{ rank: number }]> await Player.sequelize.query(query, {
+			replacements: {
+				id: id
+			},
+			type: QueryTypes.SELECT
+		}))[0].rank;
+	}
+
 	static async getByRank(rank: number): Promise<Player[]> {
 		const query = `SELECT *
                        FROM (SELECT entityId,
