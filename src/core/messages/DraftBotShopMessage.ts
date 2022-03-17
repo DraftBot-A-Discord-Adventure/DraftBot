@@ -195,7 +195,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					name: choseShopItem.name,
 					price: choseShopItem.price
 				}) + "\n\n" + Constants.REACTIONS.WARNING + " " + choseShopItem.description);
-				confirmBuyMessage.send(shopMessage.sentMessage.channel);
+				await confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 			else {
 				const numberReactions: DraftBotReaction[] = [];

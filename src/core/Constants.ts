@@ -310,4 +310,36 @@ export abstract class Constants {
 		FRENCH_FLAG: "🇫🇷",
 		ENGLISH_FLAG: "🇬🇧"
 	};
+
+	static readonly ITEMS = {
+		MAPPER: [
+			1,
+			1.5,
+			2.1,
+			2.8,
+			3.6,
+			4.5,
+			5.5,
+			6.6,
+			6.7
+		],
+		SLOTS: {
+			LIMITS: [
+				2,
+				2,
+				4,
+				4
+			],
+			PRICES: [
+				500,
+				1000,
+				2500,
+				7000,
+				12000,
+				17000,
+				25000,
+				30000
+			]
+		}
+	}
 }
