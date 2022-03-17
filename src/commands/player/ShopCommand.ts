@@ -33,7 +33,7 @@ declare function sendErrorMessage(user: User, channel: TextChannel, language: st
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entities) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
 		return;
 	}
@@ -54,7 +54,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		shopTranslations.get("dailyItem")
 	);
 	const inventoryCategory = new ShopItemCategory(
-		[getSlotExtensionShopItem(shopTranslations, <Entity>entity)],
+		[getSlotExtensionShopItem(shopTranslations, entity)],
 		shopTranslations.get("inventoryCategory")
 	);
 
