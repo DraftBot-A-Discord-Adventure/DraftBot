@@ -401,5 +401,32 @@ export abstract class Constants {
 				30000
 			]
 		}
-	}
+	};
+
+	static readonly PET_FOOD = {
+		TYPE: [
+			"commonFood",
+			"herbivorousFood",
+			"carnivorousFood",
+			"ultimateFood"
+		],
+		EMOTE: [
+			"\uD83C\uDF6C",
+			"\uD83E\uDD6C",
+			"\uD83E\uDD69",
+			"\uD83C\uDF72"
+		],
+		PRICE: [
+			20,
+			250,
+			250,
+			600
+		],
+		EFFECT: [
+			1,
+			3,
+			3,
+			5
+		]
+	};
 }
