@@ -133,9 +133,9 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
  * @return {Promise<*>}
  */
 global.destroyPotionMessage = async (channel, language, discordUser, item, isAutoSell = false) => {
-	const titleEmbedDestroyPotionMessage = isAutoSell ?
-	JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle 
-	: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
+	const titleEmbedDestroyPotionMessage = isAutoSell
+		? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
+		: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
 	return await channel.send({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(titleEmbedDestroyPotionMessage, discordUser)
