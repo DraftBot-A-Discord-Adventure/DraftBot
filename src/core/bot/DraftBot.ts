@@ -61,7 +61,10 @@ export class DraftBot {
 			]
 		});
 		await require("../Database").init(this.isMainShard);
-		await CommandsManager.clear(draftBotClient);
+		if (this.config.TEST_MODE || this.config.MODE_MAINTENANCE) {
+			// todo: Améliorer le système ? peut etre l'extraire dans une commande à part. Je pense que pour la v1 ça ira tho
+			await CommandsManager.clear(draftBotClient);
+		}
 		await CommandsManager.register(draftBotClient);
 		await require("../fights/Attack").init();
 		if (this.config.TEST_MODE === true) {
