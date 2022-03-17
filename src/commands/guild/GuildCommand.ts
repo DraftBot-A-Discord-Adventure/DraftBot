@@ -147,17 +147,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("guild")
-		.setDescription("Displays the guild via a player or via its name")
+		.setDescription("Displays the guild through a player or through its name")
 		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to see the inventory")
+			.setDescription("The user you want to see the guild")
 			.setRequired(false)
 		)
 		.addStringOption(option => option.setName("guild_s_name")
-			.setDescription("The guild's name to display")
+			.setDescription("The name of the guild to display")
 			.setRequired(false)
 		)
 		.addNumberOption(option => option.setName("rank")
-			.setDescription("The rank of the player you want to see the inventory")
+			.setDescription("The rank of the player you want to see the guild")
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
