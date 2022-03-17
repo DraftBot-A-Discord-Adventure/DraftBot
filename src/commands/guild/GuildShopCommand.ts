@@ -122,7 +122,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("guildshop")
-		.setDescription("Affiche le shop des guildes à des fins d'achats"),
+		.setDescription("Shows the guild's shop in order to buy guild related items"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,

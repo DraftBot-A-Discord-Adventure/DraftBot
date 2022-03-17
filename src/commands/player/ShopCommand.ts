@@ -256,7 +256,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("shop")
-		.setDescription("Affiche le shop à des fins d'achats"),
+		.setDescription("Shows the main shop in order to buy player related items"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,
