@@ -328,7 +328,7 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("missionshop")
-		.setDescription("Affiche le shop des missions à des fins d'achats"),
+		.setDescription("Shows the mission's shop in order to buy mission related items"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,
