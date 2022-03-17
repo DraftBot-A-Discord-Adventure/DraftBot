@@ -10,16 +10,16 @@ import {ICommand} from "../ICommand";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
-	const updateModule = Translations.getModule("commands.idea", language);
-	const updateMessage = new DraftBotEmbed()
+	const tr = Translations.getModule("commands.idea", language);
+	const ideaMessage = new DraftBotEmbed()
 		.setTitle(
-			updateModule.get(
+			tr.get(
 				"title"
 			))
-		.setDescription(updateModule.get(
+		.setDescription(tr.get(
 			"text"));
 	await interaction.reply({
-		embeds: [updateMessage]
+		embeds: [ideaMessage]
 	});
 }
 

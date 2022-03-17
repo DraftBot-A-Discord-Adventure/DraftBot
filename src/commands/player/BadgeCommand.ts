@@ -10,18 +10,18 @@ import {ICommand} from "../ICommand";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
-	const helpModule = Translations.getModule("commands.help", language);
+	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed()
-		.setDescription(helpModule.get("commands.badge.description"))
+		.setDescription(tr.get("commands.badge.description"))
 		.setTitle(
-			helpModule.format(
+			tr.format(
 				"commandEmbedTitle",
-				{emote: helpModule.get("commands.badge.emote"), cmd: "badges"}
+				{emote: tr.get("commands.badge.emote"), cmd: "badges"}
 			)
 		);
 	helpMessage.addField(
-		helpModule.get("usageFieldTitle"),
-		"`" + helpModule.get("commands.badge.usage") + "`",
+		tr.get("usageFieldTitle"),
+		"`" + tr.get("commands.badge.usage") + "`",
 		true
 	);
 	await interaction.reply({

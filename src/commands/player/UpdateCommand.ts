@@ -13,13 +13,13 @@ declare const JsonReader: any;
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
-	const updateModule = Translations.getModule("commands.update", language);
+	const tr = Translations.getModule("commands.update", language);
 	const updateMessage = new DraftBotEmbed()
 		.setTitle(
-			updateModule.get(
+			tr.get(
 				"title"
 			))
-		.setDescription(updateModule.format(
+		.setDescription(tr.format(
 			"text",
 			{version: JsonReader.package.version}));
 	await interaction.reply({
