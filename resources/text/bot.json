@@ -35,10 +35,6 @@
 	},
 	"activity": "🌍 - Draftbot.com !",
 	"startStatus": ":robot: **DraftBot** - v{version} - Shard {shardId}",
-	"embed": {
-		"error": "#D92D43",
-		"default": "NOT_QUITE_BLACK"
-	},
 	"reboot": "DraftBot",
 	"br": "############################################\n",
 	"dm": {
