@@ -62,6 +62,64 @@ export abstract class Constants {
 		MYTHICAL: 8
 	};
 
+	static readonly RARITIES_VALUES = {
+		"0": "0",
+		"1": "20",
+		"2": "40",
+		"3": "100",
+		"4": "250",
+		"5": "580",
+		"6": "1690",
+		"7": "5000",
+		"8": "10000"
+	};
+
+	static readonly RARITIES_GENERATOR = {
+		"0": 4375,
+		"1": 6875,
+		"2": 8375,
+		"3": 9375,
+		"4": 9875,
+		"5": 9975,
+		"6": 9998,
+		"maxValue": 10000
+	};
+
+	static readonly ITEM_GENERATOR = {
+		"max": "10",
+		"tab": {
+			"1": "weapons",
+			"2": "weapons",
+			"3": "weapons",
+			"4": "armors",
+			"5": "armors",
+			"6": "armors",
+			"7": "objects",
+			"8": "objects",
+			"9": "potions",
+			"10": "potions"
+		}
+	};
+
+	static readonly TOP = {
+		PLAYERS_BY_PAGE: 15,
+		DAYS_BEFORE_INACTIVE: 7
+	};
+
+	static readonly TOP_WEEK: {
+		PLAYERS_BY_PAGE: "15"
+	};
+
+	static readonly TOP_SERV: {
+		PLAYERS_BY_PAGE: "15"
+	};
+
+	static readonly XP: {
+		BASE_VALUE: 325,
+		COEFFICIENT: 1.041,
+		MINUS: 188
+	}
+
 	static readonly ITEM_NATURE = {
 		NO_EFFECT: 0,
 		HEALTH: 1,

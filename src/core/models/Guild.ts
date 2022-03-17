@@ -56,12 +56,11 @@ export class Guild extends Model {
 	}
 
 	public getExperienceNeededToLevelUp(): number {
-		const data = Data.getModule("values");
 		return (
 			Math.round(
-				data.getNumber("xp.baseValue") *
-				Math.pow(data.getNumber("xp.coeff"), this.level + 1)
-			) - data.getNumber("xp.minus")
+				Constants.XP.BASE_VALUE *
+				Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
+			) - Constants.XP.MINUS
 		);
 	}
 

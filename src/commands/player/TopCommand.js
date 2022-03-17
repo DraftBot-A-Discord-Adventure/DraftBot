@@ -3,6 +3,7 @@ import {Maps} from "../../core/Maps";
 import Entity, {Entities} from "../../core/models/Entity";
 import Player, {Players} from "../../core/models/Player";
 import {escapeUsername} from "../../core/utils/StringUtils";
+import {Constants} from "../../core/Constants";
 
 module.exports.commandInfo = {
 	name: "top",
@@ -83,8 +84,8 @@ const TopCommand = async function(message, language, args) {
 				[{model: Player, as: "Player"}, "score", "DESC"],
 				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
-			limit: 15,
-			offset: (page - 1) * 15
+			limit: Constants.TOP_SERV.PLAYERS_BY_PAGE,
+			offset: (page - 1) * Constants.TOP_SERV.PLAYERS_BY_PAGE
 		});
 
 		if (scoreTooLow === 0) {
@@ -124,8 +125,8 @@ const TopCommand = async function(message, language, args) {
 				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
 				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
-			limit: 15,
-			offset: (page - 1) * 15
+			limit: Constants.TOP_WEEK.PLAYERS_BY_PAGE,
+			offset: (page - 1) * Constants.TOP_WEEK.PLAYERS_BY_PAGE
 		});
 
 		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.top.getTranslation(language).generalWeek, page, scoreTooLow);
@@ -163,8 +164,8 @@ const TopCommand = async function(message, language, args) {
 				[{model: Player, as: "Player"}, "score", "DESC"],
 				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
-			limit: 15,
-			offset: (page - 1) * 15
+			limit: Constants.TOP.PLAYERS_BY_PAGE,
+			offset: (page - 1) * Constants.TOP.PLAYERS_BY_PAGE
 		});
 
 		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.top.getTranslation(language).general, page, scoreTooLow);
