@@ -266,6 +266,7 @@ export const getItemValue = function(item: any) {
 	if (category === Constants.ITEM_CATEGORIES.ARMOR) {
 		addedValue = parseInt(item.rawDefense);
 	}
+	// todo: raritiesValues a été déplacé dans les constants.ts
 	return Math.round(parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedValue);
 };
 
@@ -301,31 +302,31 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  */
 export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
 	const randomValue = draftbotRandom.integer(
-		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity - 2], 10)),
-		parseInt(JsonReader.values.raritiesGenerator.maxValue, 10)
-		- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue, 10)
-			- parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1], 10))
+		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(Constants.RARITIES_GENERATOR[minRarity - 2], 10)),
+		parseInt(Constants.RARITIES_GENERATOR.maxValue, 10)
+		- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(Constants.RARITIES_GENERATOR.maxValue, 10)
+			- parseInt(Constants.RARITIES_GENERATOR[maxRarity - 1], 10))
 	);
 
-	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
+	if (randomValue <= Constants.RARITIES_GENERATOR["0"]) {
 		return Constants.RARITY.COMMON;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["1"]) {
 		return Constants.RARITY.UNCOMMON;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["2"]) {
 		return Constants.RARITY.EXOTIC;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["3"]) {
 		return Constants.RARITY.RARE;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["4"]) {
 		return Constants.RARITY.SPECIAL;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["5"]) {
 		return Constants.RARITY.EPIC;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
+	else if (randomValue <= Constants.RARITIES_GENERATOR["6"]) {
 		return Constants.RARITY.LEGENDARY;
 	}
 	return Constants.RARITY.MYTHICAL;

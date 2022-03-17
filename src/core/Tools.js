@@ -248,6 +248,7 @@ global.progressBar = (value, maxValue) => {
  * @return {Number} - The value of the item
  */
 global.getItemValue = function(item) {
+	// todo: raritiesValues a été déplacé dans les constants.ts
 	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + item.getItemAddedValue();
 };
 
