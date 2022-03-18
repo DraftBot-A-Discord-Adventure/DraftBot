@@ -429,4 +429,20 @@ export abstract class Constants {
 			5
 		]
 	};
+
+	static readonly ROLES = {
+		GUILD: {
+			NONE: "none",
+			MEMBER: "member",
+			ELDER: "elder",
+			CHIEF: "chief"
+		},
+		USER: {
+			ADMINISTRATOR: "administrator",
+			BADGE_MANAGER: "manager",
+			SUPPORT: "support",
+			CONTRIBUTORS: "contributors",
+			BOT_OWNER: "owner"
+		}
+	};
 }
