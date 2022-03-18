@@ -21,14 +21,14 @@ declare function sendDirectMessage(user: User, title: string, description: strin
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const pointsModule = Translations.getModule("commands.points", language);
+	const pointsWeekModule = Translations.getModule("commands.pointsWeek", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
 		return await sendErrorMessage(
 			interaction.user,
 			<TextChannel>interaction.channel,
 			language,
-			pointsModule.get("errors.tooMuchPeople"),
+			pointsWeekModule.get("errors.tooMuchPeople"),
 			false,
 			interaction
 		);
@@ -39,7 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			interaction.user,
 			<TextChannel>interaction.channel,
 			language,
-			pointsModule.get("errors.invalidAmountFormat"),
+			pointsWeekModule.get("errors.invalidAmountFormat"),
 			false,
 			interaction
 		);
@@ -52,7 +52,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				interaction.user,
 				<TextChannel>interaction.channel,
 				language,
-				pointsModule.format("errors.invalidIdOrMention", {
+				pointsWeekModule.format("errors.invalidIdOrMention", {
 					position: i + 1,
 					wrongText: usersToChange[i]
 				}),
@@ -71,7 +71,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				interaction.user,
 				<TextChannel>interaction.channel,
 				language,
-				pointsModule.format("errors.invalidIdOrMentionDoesntExist", {
+				pointsWeekModule.format("errors.invalidIdOrMentionDoesntExist", {
 					position: usersToChange.indexOf(user) + 1,
 					wrongText: user
 				}),
@@ -79,17 +79,17 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				interaction
 			);
 		}
-		const pointsBefore = entityToEdit.Player.score;
+		const pointsWBefore = entityToEdit.Player.weeklyScore;
 		try {
-			givePointsTo(entityToEdit, amount, interaction);
+			giveWeeklyPointsTo(entityToEdit, amount, interaction);
 		}
 		catch (e) {
-			if (e.message === "mauvais paramètre don points") {
+			if (e.message === "mauvais paramètre don points hebdo") {
 				return await sendErrorMessage(
 					interaction.user,
 					<TextChannel>interaction.channel,
 					language,
-					pointsModule.get("errors.invalidDonationParameter"),
+					pointsWeekModule.get("errors.invalidDonationParameter"),
 					false,
 					interaction
 				);
@@ -98,16 +98,16 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 		}
 		await entityToEdit.Player.save();
-		descString += pointsModule.format("desc", {
+		descString += pointsWeekModule.format("desc", {
 			player: entityToEdit.getMention(),
-			score: entityToEdit.Player.score
+			pointsw: entityToEdit.Player.weeklyScore
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
 				await draftBotClient.users.fetch(user),
-				pointsModule.get("dm.title"),
-				pointsModule.format("dm.description", {
-					pointsGained: entityToEdit.Player.score - pointsBefore
+				pointsWeekModule.get("dm.title"),
+				pointsWeekModule.format("dm.description", {
+					pointsWGained: entityToEdit.Player.weeklyScore - pointsWBefore
 				}),
 				null, // Data.getModule("bot").getString("embed.default"),
 				language
@@ -116,33 +116,33 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 	return await interaction.reply({
 		embeds: [new DraftBotEmbed()
-			.formatAuthor(pointsModule.get("title"), interaction.user)
+			.formatAuthor(pointsWeekModule.get("title"), interaction.user)
 			.setDescription(descString)]
 	});
 }
 
-function givePointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction) {
+function giveWeeklyPointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction) {
 	if (interaction.options.getString("mode") === "set") {
-		entityToEdit.Player.score = amount;
+		entityToEdit.Player.weeklyScore = amount;
 	}
 	else if (interaction.options.getString("mode") === "add") {
-		entityToEdit.Player.score += amount;
+		entityToEdit.Player.weeklyScore += amount;
 	}
 	else {
-		throw new Error("mauvais paramètre don points");
+		throw new Error("mauvais paramètre don points hebdo");
 	}
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("points")
-		.setDescription("Give points to one or more players (admin only)")
+		.setName("pointsw")
+		.setDescription("Give weekly points to one or more players (admin only)")
 		.addStringOption(option => option.setName("mode")
 			.setDescription("Add / Set")
 			.setRequired(true)
 			.addChoices([["Add", "add"], ["Set", "set"]]))
 		.addNumberOption(option => option.setName("amount")
-			.setDescription("The amount of points to give")
+			.setDescription("The amount of weekly points to give")
 			.setRequired(true))
 		.addStringOption(option => option.setName("users")
 			.setDescription("The users' ids affected by the command (example : 'id1 id2 id3')")
