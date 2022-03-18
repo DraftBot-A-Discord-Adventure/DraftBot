@@ -320,7 +320,34 @@ export abstract class Constants {
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
-		PET_TAMER: "💞"
+		PET_TAMER: "💞",
+		LIST: [
+			"🏆",
+			"🏅",
+			"👑",
+			"⚙️",
+			"🥚",
+			"❤️",
+			"🍀",
+			"💸",
+			"🐞",
+			"🎰",
+			"⛑️",
+			"🥇",
+			"🤑",
+			"🌟",
+			"🖋️",
+			"🌍",
+			"🎗️",
+			"🎄",
+			"😂",
+			"💎",
+			"⚔️",
+			"🗳️",
+			"🔖",
+			"💞",
+			"\uD83D\uDC8D"
+		]
 	}
 
 	static readonly SMALL_EVENT = {
