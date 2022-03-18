@@ -77,7 +77,10 @@ global.sendMessageAttachments = (message, channel) => {
  */
 global.sendErrorMessage = function(user, channel, language, reason, isCancelling = false, interaction = null) {
 	if (interaction) {
-		return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)]});
+		if (isCancelling) {
+			return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, true)]});
+		}
+		return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, false)], ephemeral: true});
 	}
 	return channel.send({embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)]});
 };
