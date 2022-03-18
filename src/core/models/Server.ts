@@ -13,7 +13,7 @@ export class Server extends Model {
 
 	public language!: string;
 
-	public discordGuildId!: number;
+	public discordGuildId!: string;
 
 	public updatedAt!: Date;
 
@@ -21,7 +21,7 @@ export class Server extends Model {
 }
 
 export class Servers {
-	static async getOrRegister(discordGuildId: number) {
+	static async getOrRegister(discordGuildId: string) {
 		return await Server.findOrCreate({
 			where: {
 				discordGuildId: discordGuildId

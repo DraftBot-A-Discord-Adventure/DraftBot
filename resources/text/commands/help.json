@@ -22,9 +22,19 @@
 			"commands": {
 				"prefix": {
 					"emote": ":interrobang:",
-					"usage": "prefix [Nouveau préfixe]",
+					"usage": "prefix",
 					"category": "server",
-					"description": "Permet, si vous êtes administrateur sur un serveur, de changer le préfixe utilisé par le bot."
+					"description": "Cette fonctionnalité a été supprimée du jeu suite à l'arrivée des slash commandes.",
+					"acceptedSearchWords": [
+						"prefixe",
+						"prefix",
+						"préfixe",
+						"préfix",
+						"changePrefix",
+						"changePréfix",
+						"changePrefixe",
+						"changePréfixe"
+					]
 				},
 				"ping": {
 					"emote": ":ping_pong:",
@@ -175,7 +185,6 @@
 					"usage": "guildadd [mention]",
 					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
-					
 				},
 				"guilddesc": {
 					"emote": ":writing_hand:",
@@ -298,13 +307,13 @@
 					"description": "Permet d'activer ou de désactiver les notifications du bot."
 				},
 				"unlock": {
-					"emote":":unlock:",
+					"emote": ":unlock:",
 					"usage": "unlock [mention]",
 					"category": "player",
 					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
 				},
 				"map": {
-					"emote":":map:",
+					"emote": ":map:",
 					"usage": "map",
 					"category": "player",
 					"description": "Affiche des informations sur votre destination, ainsi que la carte."
@@ -620,13 +629,13 @@
 					"description": "Allows to enable or disable private messages from the bot."
 				},
 				"unlock": {
-					"emote":":unlock:",
+					"emote": ":unlock:",
 					"usage": "unlock [mention]",
 					"category": "player",
 					"description": "Allows you to pay a bail for set someone free."
 				},
 				"map": {
-					"emote":":map:",
+					"emote": ":map:",
 					"usage": "map",
 					"category": "player",
 					"description": "Display information about your destination, and also the map."
