@@ -57,6 +57,6 @@ export const commandInfo: ICommand = {
 		guildRequired: null,
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
-	mainGuildCommand: false,
+	mainGuildCommand: true,
 	slashCommandPermissions: null
 };
