@@ -6,8 +6,8 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Random} from "random-js";
-import Armor, {Armors} from "../models/Armor";
-import Weapon, {Weapons} from "../models/Weapon";
+import {Armors} from "../models/Armor";
+import {Weapons} from "../models/Weapon";
 import Potion, {Potions} from "../models/Potion";
 import ObjectItem, {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
@@ -23,7 +23,7 @@ declare const draftbotRandom: Random;
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: Entity,
-	item: Weapon | ObjectItem | Armor | Potion,
+	item: GenericItemModel,
 	language: string,
 	discordUser: User,
 	channel: TextChannel,
@@ -36,7 +36,7 @@ export const giveItemToPlayer = async function(
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(tr.get("randomItemTitle"), discordUser)
-				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language))
+				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language, null))
 		]
 	});
 
@@ -269,7 +269,7 @@ export const getItemValue = function(item: any) {
 	return Math.round(parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedValue);
 };
 
-export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<any> {
+export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	if (itemCategory === null) {
 		itemCategory = generateRandomItemCategory();

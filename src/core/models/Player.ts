@@ -86,6 +86,10 @@ export class Player extends Model {
 
 	private pseudo: string;
 
+	public rank?: number = -1;
+
+	public weeklyRank?: number = -1;
+
 
 	public addBadge(badge: string): boolean {
 		if (this.badges !== null) {

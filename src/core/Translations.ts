@@ -95,6 +95,10 @@ export class TranslationModule {
 		console.warn("Trying to use an invalid translation object: " + translation + " in module " + this._module);
 		return 0;
 	}
+
+	public getKeys(translation: string): string[] {
+		return Object.keys(this.getTranslationObject(translation));
+	}
 }
 
 export class Translations {

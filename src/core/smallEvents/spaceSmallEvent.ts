@@ -1,13 +1,4 @@
-/**
- * Main function of small event
- * @param {module:"discord.js".Message} message
- * @param {"fr"|"en"} language
- * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
- *    The description already contains the emote so you have to get it and add your text
- * @returns {Promise<>}
- */
-import {Message, MessageEmbed} from "discord.js";
+import {CommandInteraction, Message, MessageEmbed} from "discord.js";
 import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
 import {Random} from "random-js";
 import {TranslationModule, Translations} from "../Translations";
@@ -20,7 +11,7 @@ declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
 
 export const smallEvent: SmallEvent = {
-	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: any, seEmbed: MessageEmbed) {
 		let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");
@@ -41,7 +32,7 @@ export const smallEvent: SmallEvent = {
 			seIntro, intro, searchAction, search
 		});
 		seEmbed.setDescription(baseDescription + messageBefore);
-		message.channel.send({embeds: [seEmbed]}).then(async (sentMessage) => {
+		interaction.reply({embeds: [seEmbed], fetchReply: true }).then(async (sentMessage) => {
 			const waitTime = 5000;
 			const t0 = performance.now();
 			if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {
@@ -57,7 +48,7 @@ export const smallEvent: SmallEvent = {
 				});
 				const callBack = async () => {
 					seEmbed.setDescription(baseDescription + messageAfter);
-					await sentMessage.edit({embeds: [seEmbed]});
+					await (sentMessage as Message).edit({embeds: [seEmbed]});
 				};
 				if (timeLeft <= 0) {
 					callBack().then();
