@@ -24,7 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	const fs = require("fs");
 
-	if (interaction.options.getString("mode") === "list") {
+	if (interaction.options.getString("specificFile") === null) {
 		fs.readdir("logs", function(err: string, files: any[]) {
 			if (err) {
 				return interaction.reply({content: "```Unable to scan directory: " + err + "```"});
@@ -70,10 +70,6 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("sendlogs")
 		.setDescription("Send a specific log file, or the list of all stored logs (contributors only)")
-		.addStringOption(option => option.setName("mode")
-			.setDescription("List / Specific")
-			.setRequired(true)
-			.addChoices([["List", "list"], ["Specific", "specific"]]))
 		.addStringOption(option => option.setName("specificFile")
 			.setDescription("If specific is chosen, name of the file to reach")
 			.setRequired(false)) as SlashCommandBuilder,
