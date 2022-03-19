@@ -141,7 +141,7 @@ export const commandInfo: ICommand = {
 			.setDescription("Add / Set")
 			.setRequired(true)
 			.addChoices([["Add", "add"], ["Set", "set"]]))
-		.addNumberOption(option => option.setName("amount")
+		.addIntegerOption(option => option.setName("amount")
 			.setDescription("The amount of money to give")
 			.setRequired(true))
 		.addStringOption(option => option.setName("users")

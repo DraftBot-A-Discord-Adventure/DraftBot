@@ -43,7 +43,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		);
 	}
 	const category = interaction.options.getInteger("category");
-	const itemId = interaction.options.getInteger("itemId");
+	const itemId = interaction.options.getInteger("itemid");
 	let item: GenericItemModel = null;
 	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
@@ -158,7 +158,7 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("give")
 		.setDescription("Give an item to a given user (admin only)")
-		.addNumberOption(option => option.setName("category")
+		.addIntegerOption(option => option.setName("category")
 			.setDescription("the category of the item to give")
 			.setRequired(true)
 			.addChoices([
@@ -167,7 +167,7 @@ export const commandInfo: ICommand = {
 				["Potion", Constants.ITEM_CATEGORIES.POTION],
 				["Object", Constants.ITEM_CATEGORIES.OBJECT]
 			]))
-		.addNumberOption(option => option.setName("itemId")
+		.addIntegerOption(option => option.setName("itemid")
 			.setDescription("The id of the item to give")
 			.setRequired(true))
 		.addStringOption(option => option.setName("users")

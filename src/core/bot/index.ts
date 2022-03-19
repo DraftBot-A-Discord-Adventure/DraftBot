@@ -85,7 +85,8 @@ const main = async function() {
 				Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
 				// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
 			],
-			allowedMentions: { parse: ["users", "roles"] },
+			restRequestTimeout: 30000, // allows the senddata command to succeed
+			allowedMentions: {parse: ["users", "roles"]},
 			partials: ["MESSAGE", "CHANNEL"]
 		}
 	);
@@ -112,7 +113,7 @@ const main = async function() {
 
 	/**
 	 * Get the message when the bot joins or leaves a guild
-	 * @param {module:"discord.js".Guild} guild
+	 * @param {Guild} guild
 	 * @param {boolean} join
 	 * @param {"fr"|"en"} language
 	 * @return {string}

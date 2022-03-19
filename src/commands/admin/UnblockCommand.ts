@@ -14,7 +14,7 @@ declare function sendDirectMessage(user: User, title: string, description: strin
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const idToUnblock = interaction.options.getInteger("discordId", true).toString(10);
+	const idToUnblock = interaction.options.getInteger("discordid", true).toString(10);
 	if (await Entities.getByDiscordUserId(idToUnblock) === null) {
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});
 		return;
@@ -45,7 +45,7 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("unblock")
 		.setDescription("Unblock a given player (admin only)")
-		.addNumberOption(option => option.setName("discordId")
+		.addIntegerOption(option => option.setName("discordid")
 			.setDescription("The discord id of the blocked user")
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,

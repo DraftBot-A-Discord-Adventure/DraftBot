@@ -18,7 +18,7 @@
 		},
 		"en": {
 			"title": "{pseudo}, you changed the week score of one or more players!",
-			"desc": "{player} now has {points} week point{points>1?s:}\n",
+			"desc": "{player} now has {pointsw} week point{points>1?s:}\n",
 			"errors": {
 				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",

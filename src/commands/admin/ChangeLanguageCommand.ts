@@ -12,7 +12,7 @@ import {Translations} from "../../core/Translations";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const [server] = await Servers.getOrRegister(parseInt(interaction.guild.id, 10));
+	const [server] = await Servers.getOrRegister(interaction.guild.id);
 	const languageModule = Translations.getModule("commands.changeLanguage", language);
 	if (server.language === Constants.LANGUAGE.FRENCH) {
 		server.language = Constants.LANGUAGE.ENGLISH;

@@ -1,10 +1,6 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Data} from "../Data";
+import moment = require("moment");
 
 export class Server extends Model {
 	public id!: number;
@@ -21,7 +17,7 @@ export class Server extends Model {
 }
 
 export class Servers {
-	static async getOrRegister(discordGuildId: number) {
+	static async getOrRegister(discordGuildId: string) {
 		return await Server.findOrCreate({
 			where: {
 				discordGuildId: discordGuildId

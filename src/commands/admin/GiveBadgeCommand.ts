@@ -33,7 +33,7 @@ function getAllBadgesForOptions(): [string, string][] {
 	const tabBadges: [string, string][] = [];
 	// eslint-disable-next-line guard-for-in
 	for (const badge in Constants.BADGES.LIST) {
-		tabBadges.push([badge, badge]);
+		tabBadges.push([Constants.BADGES.LIST[badge], Constants.BADGES.LIST[badge]]);
 	}
 	return tabBadges;
 }

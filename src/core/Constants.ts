@@ -472,4 +472,10 @@ export abstract class Constants {
 			BOT_OWNER: "owner"
 		}
 	};
+
+	static readonly EMBED_COLOR = {
+		SUCCESSFUL: "#FF8888",
+		ERROR: "#FF0000",
+		DEFAULT: "NOT_QUITE_BLACK"
+	};
 }

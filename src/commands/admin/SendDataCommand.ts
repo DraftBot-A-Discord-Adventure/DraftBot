@@ -8,7 +8,8 @@ import {CommandInteraction} from "discord.js";
  * @param interaction
  */
 async function executeCommand(interaction: CommandInteraction): Promise<void> {
-	await interaction.reply({
+	await interaction.deferReply();
+	await interaction.editReply({
 		files: [{
 			attachment: "database/database.sqlite",
 			name: "database.sqlite"

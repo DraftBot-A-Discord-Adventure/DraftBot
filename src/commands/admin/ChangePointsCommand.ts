@@ -100,7 +100,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await entityToEdit.Player.save();
 		descString += pointsModule.format("desc", {
 			player: entityToEdit.getMention(),
-			score: entityToEdit.Player.score
+			points: entityToEdit.Player.score
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
@@ -141,7 +141,7 @@ export const commandInfo: ICommand = {
 			.setDescription("Add / Set")
 			.setRequired(true)
 			.addChoices([["Add", "add"], ["Set", "set"]]))
-		.addNumberOption(option => option.setName("amount")
+		.addIntegerOption(option => option.setName("amount")
 			.setDescription("The amount of points to give")
 			.setRequired(true))
 		.addStringOption(option => option.setName("users")

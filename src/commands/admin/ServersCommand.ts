@@ -39,7 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			"servers.txt",
 			result
 		);
-		await interaction.reply({files: ["servers.txt"]});
+		await interaction.reply({content: "Voici la liste des serveurs :", files: ["servers.txt"]});
 		fs.rmSync("servers.txt");
 		return;
 	}

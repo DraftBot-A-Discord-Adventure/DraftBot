@@ -9,13 +9,17 @@ import {draftBotClient} from "../../core/bot";
 
 declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
 
+declare function getIdFromMention(variable: string): string;
+
 /**
  * Allow an admin to change the prefix the bot use in a specific server
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const userId = interaction.options.getString("user");
+	const userId = getIdFromMention(interaction.options.getString("user")).length < 17
+		? interaction.options.getString("user")
+		: getIdFromMention(interaction.options.getString("user"));
 	const dmModule = Translations.getModule("commands.sendPrivateMessage", language);
 	const messageToSend = interaction.options.getString("message") +
 		dmModule.format("signature", {
@@ -24,10 +28,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const user = draftBotClient.users.cache.get(userId);
 
 	if (userId === undefined) {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("descError"));
+		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("descError"), false, interaction);
 	}
 	if (user === undefined) {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("personNotExists"));
+		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("personNotExists"), false, interaction);
 	}
 	const embed = new DraftBotEmbed()
 		.formatAuthor(dmModule.get("title"), user)
@@ -40,7 +44,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return await interaction.reply({embeds: [embed]});
 	}
 	catch {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("errorCannotSend"));
+		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("errorCannotSend"), false, interaction);
 	}
 }
 

@@ -24,7 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	const fs = require("fs");
 
-	if (interaction.options.getString("specificFile") === null) {
+	if (interaction.options.getString("specificfile") === null) {
 		fs.readdir("logs", function(err: string, files: any[]) {
 			if (err) {
 				return interaction.reply({content: "```Unable to scan directory: " + err + "```"});
@@ -42,9 +42,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				interaction.user.send({content: msg + "```"});
 			}
 		});
+		await interaction.reply({content: "Logs list sent !"});
 	}
 	else {
-		let queriedFile = interaction.options.getString("specificFile");
+		let queriedFile = interaction.options.getString("specificfile");
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
 			return await sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, sendLogsModule.get("localFileInclusion"));
 		}
@@ -70,7 +71,7 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("sendlogs")
 		.setDescription("Send a specific log file, or the list of all stored logs (contributors only)")
-		.addStringOption(option => option.setName("specificFile")
+		.addStringOption(option => option.setName("specificfile")
 			.setDescription("If specific is chosen, name of the file to reach")
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,

@@ -4,7 +4,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
-import {log} from "node-ipc";
 
 /**
  * Allow an admin to list all items
@@ -27,35 +26,35 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		fs.unlinkSync("allArmors.txt");
 	}
 	catch (err) {
-		log("Cannot send allArmors.txt: " + err);
+		console.log("Cannot send allArmors.txt: " + err);
 	}
 	try {
 		fs.statSync("allWeapons.txt");
 		fs.unlinkSync("allWeapons.txt");
 	}
 	catch (err) {
-		log("Cannot send allWeapons.txt: " + err);
+		console.log("Cannot send allWeapons.txt: " + err);
 	}
 	try {
 		fs.statSync("allPotions.txt");
 		fs.unlinkSync("allPotions.txt");
 	}
 	catch (err) {
-		log("Cannot send allPotions.txt: " + err);
+		console.log("Cannot send allPotions.txt: " + err);
 	}
 	try {
 		fs.statSync("allItems.txt");
 		fs.unlinkSync("allItems.txt");
 	}
 	catch (err) {
-		log("Cannot send allItems.txt: " + err);
+		console.log("Cannot send allItems.txt: " + err);
 	}
 	try {
 		fs.statSync("allObjects.txt");
 		fs.unlinkSync("allObjects.txt");
 	}
 	catch (err) {
-		log("Cannot send allObjects.txt: " + err);
+		console.log("Cannot send allObjects.txt: " + err);
 	}
 
 	// List armors

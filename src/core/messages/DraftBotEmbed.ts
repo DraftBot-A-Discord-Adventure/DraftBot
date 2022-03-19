@@ -1,7 +1,7 @@
-import {MessageEmbed, User} from "discord.js";
+import {HexColorString, MessageEmbed, User} from "discord.js";
 import {escapeUsername} from "../utils/StringUtils";
+import {Constants} from "../Constants";
 
-declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
 
 /**
@@ -31,7 +31,7 @@ export class DraftBotEmbed extends MessageEmbed {
 	}
 
 	setErrorColor(): DraftBotEmbed {
-		this.setColor(JsonReader.bot.embed.error);
+		this.setColor(<HexColorString>Constants.EMBED_COLOR.ERROR);
 		return this;
 	}
 }
