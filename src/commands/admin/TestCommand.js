@@ -1,15 +1,16 @@
+/*
 const CT = require("../../core/CommandsTest");
 
 module.exports.commandInfo = {
 	name: "test"
 };
 
-/**
+/!**
  * Cheat command for testers
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
- */
+ *!/
 const TestCommand = async (message, language, args) => {
 	// First, we test if we are in test mode
 	if (JsonReader.app.TEST_MODE) {
@@ -35,4 +36,4 @@ const TestCommand = async (message, language, args) => {
 	}
 };
 
-module.exports.execute = TestCommand;
+module.exports.execute = TestCommand;*/
