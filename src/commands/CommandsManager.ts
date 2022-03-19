@@ -1,12 +1,4 @@
-import {
-	Client,
-	CommandInteraction,
-	GuildChannel,
-	GuildMember,
-	Message,
-	TextBasedChannel,
-	User
-} from "discord.js";
+import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -25,6 +17,7 @@ import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
+import {log} from "node-ipc";
 
 declare const effectsErrorMe: (user: User, channel: TextBasedChannel, language: string, entity: Entity, effect: string) => Promise<void>;
 declare const canPerformCommand: (member: GuildMember, channel: TextBasedChannel, language: string, permission: string) => Promise<boolean>;
@@ -300,7 +293,7 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
+		log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
 		await commandInfo.executeCommand(interaction, tr.language, entity);
 	}
 
