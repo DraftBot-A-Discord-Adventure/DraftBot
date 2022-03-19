@@ -478,4 +478,6 @@ export abstract class Constants {
 		ERROR: "#FF0000",
 		DEFAULT: "NOT_QUITE_BLACK"
 	};
+
+	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 }

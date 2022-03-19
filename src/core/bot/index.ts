@@ -4,6 +4,7 @@ import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../models/Server";
 import {IPCClient} from "./ipc/IPCClient";
+import {Constants} from "../Constants";
 
 // TODO changed when Data.ts will be merged
 declare const JsonReader: any;
@@ -85,7 +86,7 @@ const main = async function() {
 				Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
 				// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
 			],
-			restRequestTimeout: 30000, // allows the senddata command to succeed
+			restRequestTimeout: Constants.MAX_TIME_BOT_RESPONSE, // allows the senddata command to succeed
 			allowedMentions: {parse: ["users", "roles"]},
 			partials: ["MESSAGE", "CHANNEL"]
 		}
