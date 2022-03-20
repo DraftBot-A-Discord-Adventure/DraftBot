@@ -15,12 +15,12 @@ module.exports.commandInfo = {
 /**
  * Set your new guild
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const forceJoinGuildTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const forceJoinGuildTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const guildToJoin = await Guild.findOne({where: {id: args[0]}});
 	if (guildToJoin === null) {

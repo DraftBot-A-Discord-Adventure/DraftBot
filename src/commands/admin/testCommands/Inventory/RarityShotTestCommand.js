@@ -20,11 +20,11 @@ module.exports.commandInfo = {
 /**
  * Do random rarity tries
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param _interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const RarityShotTestCommand = (language, message, args) => {
+const RarityShotTestCommand = (language, _interaction, args) => {
 	if (args[0] < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");
 	}

@@ -1,33 +1,46 @@
+import {CommandInteraction, HexColorString} from "discord.js";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+import {Constants} from "./Constants";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
-
 const {Collection} = require("discord.js");
 
-global.typeVariable = {
-	INTEGER: {
+declare function isAMention(v: any): boolean;
+
+declare function isAnEmoji(v: any): boolean;
+
+const typeVariableChecks = [
+	{
+		name: "INTEGER",
 		type: "number",
-		check: (v) => !isNaN(v)
+		check: (v: any) => !isNaN(v)
 	},
-	MENTION: {
+	{
+		name: "MENTION",
 		type: "mention",
-		check: (v) => isAMention(v)
+		check: (v: any) => isAMention(v)
 	},
-	EMOJI: {
+	{
+		name: "EMOJI",
 		type: "emoji",
-		check: (v) => isAnEmoji(v)
+		check: (v: any) => isAnEmoji(v)
 	},
-	STRING: {
+	{
+		name: "STRING",
 		type: "string",
 		check: () => false
 	}
-};
+];
 
 /**
  * @class
  */
-class CommandsTest {
+export class CommandsTest {
+	static testCommandsArray: any;
+
+	static testCommType: string[];
+
 	/**
 	 * load all the test commands from source files
 	 */
@@ -35,7 +48,7 @@ class CommandsTest {
 		CommandsTest.testCommandsArray = new Collection();
 		CommandsTest.testCommType = await readdir("src/commands/admin/testCommands");
 		CommandsTest.testCommType.forEach(type => {
-			const commandsFiles = readdirSync(`src/commands/admin/testCommands/${type}`).filter(command => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const testCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`);
 				testCommand.commandInfo.category = type;
@@ -48,19 +61,22 @@ class CommandsTest {
 	 * Say if the given args are the args awaited for the given command
 	 * @param commandTest - The command to test
 	 * @param {any[]} args - The args given to the test
-	 * @param {module:"discord.js".Message} message - The user's message
+	 * @param interaction
 	 * @return [Boolean,String] - if the test is successful or not, and if not, the reason why
 	 */
-	static isGoodFormat(commandTest, args, message) {
+	static isGoodFormat(
+		commandTest: { commandInfo: { typeWaited: { [x: string]: { type: string; }; }; name: string; commandFormat: string; }; },
+		args: string | string[],
+		interaction: CommandInteraction): [boolean, string | DraftBotEmbed] {
 		if (commandTest.commandInfo.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
 				new DraftBotEmbed()
-					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, message.author)
+					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, interaction.user)
 					.setDescription(
 						"**Format attendu :** `test " + commandTest.commandInfo.name + "`"
 					)
-					.setColor(TEST_EMBED_COLOR.ERROR)
+					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
 			];
 		}
 		const commandTypeKeys = Object.keys(commandTest.commandInfo.typeWaited);
@@ -69,11 +85,11 @@ class CommandsTest {
 			return [
 				false,
 				new DraftBotEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, message.author.displayAvatarURL())
+					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, interaction.user.displayAvatarURL())
 					.setDescription(
 						"**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`"
 					)
-					.setColor(TEST_EMBED_COLOR.ERROR)
+					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
 			];
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
@@ -81,13 +97,13 @@ class CommandsTest {
 				return [
 					false,
 					new DraftBotEmbed()
-						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name, message.author.displayAvatarURL())
+						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name, interaction.user.displayAvatarURL())
 						.setDescription(
 							"**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +
 							"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type + "\n" +
 							"**Format reçu** : " + CommandsTest.getTypeOf(args[i])
 						)
-						.setColor(TEST_EMBED_COLOR.ERROR)
+						.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
 				];
 			}
 		}
@@ -97,66 +113,69 @@ class CommandsTest {
 	/**
 	 * Execute the test command, and alert the user about its success or its failure
 	 * @param {("fr"|"en")} language - Language to use in the response
-	 * @param {module:"discord.js".Message} message - Message from the discord server
+	 * @param interaction
 	 * @param commandTestCurrent - the executed test command
 	 * @param {any[]} args - Additional arguments sent with the test command
 	 */
-	static async executeAndAlertUser(language, message, commandTestCurrent, args) {
+	static async executeAndAlertUser(
+		language: string,
+		interaction: CommandInteraction,
+		commandTestCurrent: { execute: (arg0: any, arg1: any, arg2: any) => any; commandInfo: { name: string; }; },
+		args: string | string[]) {
 		try {
 
-			const messageToDisplay = await commandTestCurrent.execute(language, message, args);
+			const messageToDisplay = await commandTestCurrent.execute(language, interaction, args);
 			if (!messageToDisplay || messageToDisplay === "") {
 				return;
 			}
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
 				embedTestSuccessful = new DraftBotEmbed()
-					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", message.author.displayAvatarURL())
+					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", interaction.user.displayAvatarURL())
 					.setDescription(messageToDisplay)
-					.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
-			}
-			else {
+					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.SUCCESSFUL);
+			} else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			await message.channel.send({ embeds: [embedTestSuccessful] });
-		}
-		catch (e) {
+			await interaction.reply({embeds: [embedTestSuccessful]});
+		} catch (e) {
 			console.error(e);
 			try {
-				await message.channel.send({ content: "**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```" });
-			}
-			catch (e2) {
-				await message.channel.send({ content:
-					"**:x: Une erreur est survenue pendant la commande test "
-					+ commandTestCurrent.commandInfo.name
-					+ "** : (Erreur tronquée car limite de caractères atteinte) " +
-					"```" + e.stack.slice(0,1850) + "```" });
+				await interaction.reply({content: "**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```"});
+			} catch (e2) {
+				await interaction.reply({
+					content:
+						"**:x: Une erreur est survenue pendant la commande test "
+						+ commandTestCurrent.commandInfo.name
+						+ "** : (Erreur tronquée car limite de caractères atteinte) " +
+						"```" + e.stack.slice(0, 1850) + "```"
+				});
 			}
 		}
 	}
 
-	static getTypeOf(variable) {
-		const typeKeys = Object.keys(typeVariable);
+	static getTypeOf(variable: any) {
+		const typeKeys = Object.keys(typeVariableChecks);
 		for (const typeIn of typeKeys) {
-			if (typeVariable[typeIn].check(variable)) {
-				return typeVariable[typeIn].type;
+			if (typeVariableChecks.find(value => value.name === typeIn).check(variable)) {
+				return typeVariableChecks.find(value => value.name === typeIn).type;
 			}
 		}
-		return typeVariable.STRING.type;
+		return typeVariableChecks.find(value => value.name === "STRING").type;
 	}
 
-	static getTestCommand(commandName) {
+	static getTestCommand(commandName: string) {
 		const commandTestCurrent = CommandsTest.testCommandsArray.get(commandName)
-			|| CommandsTest.testCommandsArray.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(commandName));
+			|| CommandsTest.testCommandsArray.find((cmd: { commandInfo: { aliases: string | string[]; }; }) => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(commandName));
 		if (commandTestCurrent === undefined) {
 			throw new Error("Commande Test non définie : " + commandName);
 		}
 		return commandTestCurrent;
 	}
 
-	static getAllCommandsFromCategory(category) {
-		const tabCommandReturn = [];
-		CommandsTest.testCommandsArray.forEach(command => {
+	static getAllCommandsFromCategory(category: string) {
+		const tabCommandReturn: any[] = [];
+		CommandsTest.testCommandsArray.forEach((command: { commandInfo: { category: string; }; }) => {
 			if (command.commandInfo.category === category) {
 				tabCommandReturn.push(command);
 			}

@@ -16,20 +16,18 @@ const CT = require("../../../../core/CommandsTest");
 /**
  * Help the player about one given test command
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
- * @return {module:"discord.js".MessageEmbed} - The successful message formatted
  */
-const helpTestCommand = async (language, message, args) => {
+const helpTestCommand = async (language, interaction, args) => {
 	let helpOnCommand;
 	try {
 		helpOnCommand = await CT.getTestCommand(args[0]);
-	}
-	catch (e) {
+	} catch (e) {
 		throw new Error("Commande inexistante : " + args[0]);
 	}
 	const embedHelpTest = new DraftBotEmbed()
-		.formatAuthor("Commande test : " + helpOnCommand.commandInfo.name, message.author)
+		.formatAuthor("Commande test : " + helpOnCommand.commandInfo.name, interaction.user)
 		.addFields(
 			{
 				name: "Description",

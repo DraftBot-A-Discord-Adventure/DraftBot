@@ -2,6 +2,7 @@ import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "myids",
+	commandFormat: "",
 	messageWhenExecuted: "Entity id: {entityId}\nPlayer id: {playerId}",
 	description: "Montre vos IDs d'entité et de joueur"
 };
@@ -9,11 +10,11 @@ module.exports.commandInfo = {
 /**
  * Show your entity's and player's IDs
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const MyIDsTestCommand = async (language, message) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const MyIDsTestCommand = async (language, interaction) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	return format(module.exports.commandInfo.messageWhenExecuted, {entityId: entity.id, playerId: entity.Player.id});
 };
 

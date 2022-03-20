@@ -20,23 +20,23 @@ module.exports.commandInfo = {
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const findItemTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	const itemId = parseInt(args[1],10);
+const findItemTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const itemId = parseInt(args[1], 10);
 	const category = parseInt(args[0], 10);
 	if (category < 0 || category > 3) {
 		throw Error("Catégorie inconnue. Elle doit être en 0 et 3");
 	}
 	let item = null;
 	switch (category) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
-		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
-		break;
-	case Constants.ITEM_CATEGORIES.ARMOR:
+		case Constants.ITEM_CATEGORIES.WEAPON:
+			item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
+			break;
+		case Constants.ITEM_CATEGORIES.ARMOR:
 		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
@@ -52,7 +52,7 @@ const findItemTestCommand = async (language, message, args) => {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(entity, item, language, message.author, message.channel);
+	await ItemUtils.giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };
