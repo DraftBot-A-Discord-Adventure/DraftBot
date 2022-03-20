@@ -4,6 +4,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
@@ -26,7 +27,8 @@ export const commandInfo: ICommand = {
 		)
 		.addNumberOption(option => option.setName("rank")
 			.setDescription("The rank of the player you want to see the inventory")
-			.setRequired(false)) as SlashCommandBuilder,
+			.setRequired(false)
+		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
 		allowEffects: null,
@@ -37,5 +39,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.NORMAL
 };

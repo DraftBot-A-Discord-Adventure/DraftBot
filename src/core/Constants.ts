@@ -50,6 +50,15 @@ export abstract class Constants {
 		OBJECT: 3
 	};
 
+	static readonly COMMAND_CATEGORY = {
+		SERVER: "server",
+		UTIL: "util",
+		PLAYER: "player",
+		MISSION: "mission",
+		GUILD: "guild",
+		PET: "pet"
+	};
+
 	static readonly RARITY = {
 		BASIC: 0,
 		COMMON: 1,

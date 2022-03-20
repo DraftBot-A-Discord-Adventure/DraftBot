@@ -1,14 +1,5 @@
-import {
-	ApplicationCommand,
-	ApplicationCommandPermissionData,
-	Client,
-	CommandInteraction,
-	GuildChannel,
-	GuildMember, GuildResolvable,
-	Message,
-	TextBasedChannel,
-	User
-} from "discord.js";
+import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
+
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -34,35 +25,39 @@ declare const canPerformCommand: (member: GuildMember, interaction: CommandInter
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
-	static async clear(client: Client): Promise<void> {
-		await client.application.commands.set([]);
-	}
-
 	static async register(client: Client): Promise<void> {
 		const categories = await readdir("dist/src/commands");
-
+		const commandsToRegister: ICommand[] = [];
 		for (const category of categories) {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
 			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const command = require(`./${category}/${commandFile}`);
-				const commandInfo = command.commandInfo as ICommand;
+				const commandInfo = require(`./${category + "/" + commandFile}`).commandInfo as ICommand;
 				if (!commandInfo || !commandInfo.slashCommandBuilder) {
-					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
+					console.error(`Command dist/src/commands/${category + "/" + commandFile} is not a slash command`);
 					continue;
 				}
-				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
-					await this.enforcePermission(commandInfo, cmd);
-				}
-				else {
-					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
-				}
-				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+				commandsToRegister.push(commandInfo);
 			}
 		}
+
+		commandsToRegister.sort((cmd1, cmd2) => cmd2.registerPriority - cmd1.registerPriority);
+
+		for (const commandInfo of commandsToRegister) {
+			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+				client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID).then(async (cmd) => {
+					await this.enforcePermission(commandInfo, cmd);
+					console.log("Command " + commandInfo.slashCommandBuilder.name + " registered");
+				});
+			}
+			else {
+				client.application.commands.create(commandInfo.slashCommandBuilder.toJSON()).then(() => console.log("Command " + commandInfo.slashCommandBuilder.name + " registered"));
+			}
+			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+		}
+
 
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || !interaction.inGuild()) {

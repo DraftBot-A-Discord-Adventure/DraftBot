@@ -14,311 +14,210 @@
 			"guildCommands": ":stadium: Guilde :",
 			"petCommands": ":dog: Animaux :",
 			"forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
-			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !\n\n:arrow_forward: Le préfixe actuel est : `{prefix}`",
+			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
 			"commandEmbedTitle": "{emote} Commande {cmd}",
 			"usageFieldTitle": "Utilisation",
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Alias",
 			"commands": {
-				"prefix": {
-					"emote": ":interrobang:",
-					"usage": "prefix [Nouveau préfixe]",
-					"category": "server",
-					"description": "Permet, si vous êtes administrateur sur un serveur, de changer le préfixe utilisé par le bot."
+				"PREFIX": {
+					"usage": "prefix",
+					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
 				},
-				"ping": {
-					"emote": ":ping_pong:",
+				"PING": {
 					"usage": "ping",
-					"category": "util",
 					"description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
 				},
-				"respawn": {
-					"emote": ":angel:",
+				"RESPAWN": {
 					"usage": "respawn",
-					"category": "player",
 					"description": "Permet de recommencer à jouer après avoir été mis K.O."
 				},
-				"profile": {
-					"emote": ":bust_in_silhouette:",
+				"PROFILE": {
 					"usage": "profile",
-					"category": "player",
 					"description": "Affiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :zap: Energie | :trophy: Classement | :moneybag: Argent | :medal: Score\n\nLes badges sont affichés sur votre profil sous forme de réaction."
 				},
-				"switch": {
-					"emote": ":repeat:",
+				"SWITCH": {
 					"usage": "switch",
-					"category": "player",
 					"description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
 				},
-				"fight": {
-					"emote": ":crossed_swords:",
+				"FIGHT": {
 					"usage": "fight",
-					"category": "player",
 					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nVoici la liste des actions:\n- :crossed_swords: **Attaque simple**: Une attaque moyenne qui a des chances moyennes de réussir.\n- :dagger: **Attaque rapide**: Une attaque qui marche bien si vous êtes plus rapide que votre adversaire.\n- :axe: **Attaque puissante**: Une attaque avec peu de réussite mais qui fait beaucoup de dégâts.\n- :bomb: **Attaque ultime**: Une attaque sur 2 tours, qui est efficace si vous avez perdu de la vie. Elle enlève 2/3 de la vie de votre adversaire.\n- :firecracker: **Attaque bélier**: Attaque qui fait des dégâts à tous les combattants, utile si vous avez plus de défense que votre adversaire.\n- :rocket: **Vitesse**: Augmente la vitesse. Si votre vitesse est supérieure à celle de votre adversaire, vous avez plus de chance de réussir votre attaque sauf pour l'attaque ultime. Plus l'action est utilisée, moins elle est efficace.\n\nLe combat s'arrête quand un joueur n'a plus de vie, ne répond pas au bout de 30 secondes ou que le tour 25 est atteint. Quand un combat se finit, vous allez probablement perdre de l'énergie. Elle se régénèrent avec le temps.\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats"
 				},
-				"friendlyfight": {
-					"emote": ":crossed_swords:",
+				"FRIENDLY_FIGHT": {
 					"usage": "friendlyfight",
-					"category": "player",
 					"description": "Cette commande permet de lancer un combat amical.\n\nDans un combat amical, vous avez votre vie de combat maximale, vous ne perdez pas de points et vous n'utilisez pas votre potion.\n\nPour plus d'informations à propos des combats, utilisez `help fight`."
 				},
-				"help": {
-					"emote": ":notebook_with_decorative_cover:",
+				"HELP": {
 					"usage": "help",
-					"category": "util",
 					"description": ":expressionless:"
 				},
-				"language": {
-					"emote": ":flag_gb:",
+				"LANGUAGE": {
 					"usage": "language",
-					"category": "server",
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
-				"top": {
-					"emote": ":trophy:",
+				"TOP": {
 					"usage": "top [numéro de page]",
-					"category": "player",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
-				"topweek": {
-					"emote": ":trophy:",
+				"TOP_WEEK": {
 					"usage": "topweek [numéro de page]",
-					"category": "player",
 					"description": "Affiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
-				"topserver": {
-					"emote": ":trophy:",
+				"TOP_SERVER": {
 					"usage": "topserver [numéro de page]",
-					"category": "player",
 					"description": "Affiche le classement du serveur par tranche de 15 joueurs."
 				},
-				"inventory": {
-					"emote": ":school_satchel:",
+				"INVENTORY": {
 					"usage": "inventory",
-					"category": "player",
 					"description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un."
 				},
-				"report": {
-					"emote": ":newspaper:",
+				"REPORT": {
 					"usage": "report",
-					"category": "player",
 					"description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières."
 				},
-				"sell": {
-					"emote": ":moneybag:",
+				"SELL": {
 					"usage": "sell",
-					"category": "player",
 					"description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:."
 				},
-				"daily": {
-					"emote": ":calendar:",
+				"DAILY": {
 					"usage": "daily",
-					"category": "player",
 					"description": "Certains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`."
 				},
-				"invite": {
-					"emote": ":inbox_tray:",
+				"INVITE": {
 					"usage": "invite",
-					"category": "util",
 					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
-				"badge": {
-					"emote": ":military_medal:",
+				"BADGE": {
 					"usage": "badge",
-					"category": "util",
 					"description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
 				},
-				"drink": {
-					"emote": ":tropical_drink:",
+				"DRINK": {
 					"usage": "drink",
-					"category": "player",
 					"description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
 				},
-				"shop": {
-					"emote": ":shopping_cart:",
+				"SHOP": {
 					"usage": "shop",
-					"category": "player",
 					"description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
 				},
-				"guildcreate": {
-					"emote": ":pencil:",
+				"GUILD_CREATE": {
 					"usage": "guildcreate [Nom de guilde]",
-					"category": "guild",
 					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
 				},
-				"guildleave": {
-					"emote": ":outbox_tray:",
+				"GUILD_LEAVE": {
 					"usage": "guildleave",
-					"category": "guild",
 					"description": "Permet de quitter votre guilde."
 				},
-				"guild": {
-					"emote": ":stadium:",
+				"GUILD": {
 					"usage": "guild [nom de guilde ou mention]",
-					"category": "guild",
 					"description": "Permet d'afficher les informations sur une guilde."
 				},
-				"guilddaily": {
-					"emote": ":newspaper:",
+				"GUILD_DAILY": {
 					"usage": "guildaily",
-					"category": "guild",
 					"description": "Permet de récupérer des récompenses quotidiennes de guildes."
 				},
-				"guildkick": {
-					"emote": ":leg:",
+				"GUILD_KICK": {
 					"usage": "guildkick [mention]",
-					"category": "guild",
 					"description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
 				},
-				"guildadd": {
-					"emote": ":incoming_envelope:",
+				"GUILD_ADD": {
 					"usage": "guildadd [mention]",
-					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
-					
 				},
-				"guilddesc": {
-					"emote": ":writing_hand:",
+				"GUILD_DESC": {
 					"usage": "guilddesc [description]",
-					"category": "guild",
 					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
 				},
-				"guildelder": {
-					"emote": ":military_medal:",
+				"GUILD_ELDER": {
 					"usage": "guildelder [mention]",
-					"category": "guild",
 					"description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
 				},
-				"guildelderremove": {
-					"emote": ":outbox_tray:",
+				"GUILD_ELDER_REMOVE": {
 					"usage": "guildelderremove",
-					"category": "guild",
 					"description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
 				},
-				"guildstorage": {
-					"emote": ":pencil:",
+				"GUILD_STORAGE": {
 					"usage": "guildstorage",
-					"category": "guild",
 					"description": "Affiche le contenu de l'entrepôt de la guilde."
 				},
-				"guildshop": {
-					"emote": ":shopping_cart:",
+				"GUILD_SHOP": {
 					"usage": "guildshop",
-					"category": "guild",
 					"description": "Affiche le magasin de votre guilde."
 				},
-				"update": {
-					"emote": ":scroll:",
+				"UPDATE": {
 					"usage": "update",
-					"category": "util",
 					"description": "Permet de visionner le changelog."
 				},
-				"class": {
-					"emote": ":bookmark:",
+				"CLASS": {
 					"usage": "class",
-					"category": "player",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
 				},
-				"mypet": {
-					"emote": ":dog:",
+				"MY_PET": {
 					"usage": "mypet",
-					"category": "pet",
 					"description": "Affiche les informations relatives à votre familier."
 				},
-				"pettransfer": {
-					"emote": ":arrow_right:",
+				"PET_TRANSFER": {
 					"usage": "pettransfer [numéro]",
-					"category": "pet",
 					"description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fournit, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
 				},
-				"petnickname": {
-					"emote": ":abcd:",
+				"PET_NICKNAME": {
 					"usage": "petnickname [nom]",
-					"category": "pet",
 					"description": "Change le surnom de votre familier. Si aucun nom n'est fournit, le nom actuel sera effacé."
 				},
-				"petfree": {
-					"emote": ":wave:",
+				"PET_FREE": {
 					"usage": "petfree",
-					"category": "pet",
 					"description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
 				},
-				"shelter": {
-					"emote": ":park:",
+				"SHELTER": {
 					"usage": "shelter",
-					"category": "pet",
 					"description": "Affiche le refuge d'animaux de la guilde."
 				},
-				"pettrade": {
-					"emote": ":scales:",
+				"PET_TRADE": {
 					"usage": "pettrade [mention]",
-					"category": "pet",
 					"description": "Propose un échange de vos animaux avec la personne mentionnée."
 				},
-				"petfeed": {
-					"emote": ":candy:",
+				"PET_FEED": {
 					"usage": "petfeed",
-					"category": "pet",
 					"description": "Donner de la nourriture à votre familier."
 				},
-				"petsell": {
-					"emote": ":dollar:",
+				"PET_SELL": {
 					"usage": "petsell <price>",
-					"category": "pet",
 					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
-				"classstats": {
-					"emote": ":bookmark:",
+				"CLASS_STATS": {
 					"usage": "classstats",
-					"category": "player",
 					"description": "Permet de lire une comparaison rapide des statistiques des classes qui sont accessible à l'utilisateur effectuant la commande."
 				},
-				"rarity": {
-					"emote": ":slot_machine:",
+				"RARITY": {
 					"usage": "rarity",
-					"category": "util",
 					"description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
 				},
-				"vote": {
-					"emote": ":ballot_box:",
+				"VOTE": {
 					"usage": "vote",
-					"category": "util",
 					"description": "Permet d'obtenir le lien pour voter pour le bot."
 				},
-				"idea": {
-					"emote": ":bulb:",
+				"IDEA": {
 					"usage": "idea",
-					"category": "util",
 					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
 				},
-				"dmnotification": {
-					"emote": ":no_bell:",
+				"DM_NOTIFICATION": {
 					"usage": "dmnotification",
-					"category": "util",
 					"description": "Permet d'activer ou de désactiver les notifications du bot."
 				},
-				"unlock": {
-					"emote":":unlock:",
+				"UNLOCK": {
 					"usage": "unlock [mention]",
-					"category": "player",
 					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
 				},
-				"map": {
-					"emote":":map:",
+				"MAP": {
 					"usage": "map",
-					"category": "player",
 					"description": "Affiche des informations sur votre destination, ainsi que la carte."
 				},
-				"missions": {
-					"emote": ":scroll:",
+				"MISSIONS": {
 					"usage": "mission",
-					"category": "mission",
 					"description": "Affiche la liste des missions qui vous sont proposées."
 				},
-				"missionshop": {
-					"emote": ":shopping_cart:",
+				"MISSION_SHOP": {
 					"usage": "missionshop",
-					"category": "mission",
 					"description": "Affiche le magasin des missions."
 				}
 			}
@@ -337,310 +236,210 @@
 			"guildCommands": ":stadium: Guild:",
 			"petCommands": ":dog: Pet:",
 			"forMoreHelp": ":arrow_forward: For more help: ",
-			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !\n\n:arrow_forward: Current prefix is: `{prefix}`",
+			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/)!",
 			"commandEmbedTitle": "{emote} Command {cmd}",
 			"usageFieldTitle": "Usage",
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Aliases",
 			"commands": {
-				"prefix": {
-					"emote": ":interrobang:",
-					"usage": "prefix [New prefix]",
-					"category": "server",
-					"description": "Allows you, if you are admin of a server, to change the prefix used by the bot on this server."
+				"PREFIX": {
+					"usage": "prefix",
+					"description": "This feature was removed from the bot after an updates to discord's features."
 				},
-				"ping": {
-					"emote": ":ping_pong:",
+				"PING": {
 					"usage": "ping",
-					"category": "util",
 					"description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
 				},
-				"respawn": {
-					"emote": ":angel:",
+				"RESPAWN": {
 					"usage": "respawn",
-					"category": "player",
 					"description": "Lets you continue to play after you've been knocked out."
 				},
-				"profile": {
-					"emote": ":bust_in_silhouette:",
+				"PROFILE": {
 					"usage": "profile",
-					"category": "player",
 					"description": "Your character's information:\n\n:smiley: Status effects | Nickname | Level :star: XP | :heart: Health | :dagger: Attack | :shield: Armor | :rocket: Speed | :zap: energy | :trophy: Ranking | :moneybag: Money | :medal: Points\n\nBadges are displayed using reactions."
 				},
-				"switch": {
-					"emote": ":repeat:",
+				"SWITCH": {
 					"usage": "switch",
-					"category": "player",
 					"description": "Switches the item currently in use with the one in your inventory."
 				},
-				"fight": {
-					"emote": ":crossed_swords:",
+				"FIGHT": {
 					"usage": "fight",
-					"category": "player",
 					"description": "Use this command to duel other players on the same server as you.\nFights are turn-based. Each turn, you can choose an action.\n\nHere's the action list:\n- :crossed_swords: **Basic attack**: A balanced attack with a medium success rate.\n- :dagger: **Quick attack**: An attack efficient if you are faster than your opponent.\n- :axe: **Powerful attack**: A low success rate attack, but which deals a lot of damage.\n- :bomb: **Supreme attack**: A 2 turns attack, which is efficient only if your loose life during the fight. When successful, it decreases 2/3 of your opponent's life.\n- :firecracker: **Bulk attack**: A risky attack that does damages to all the fighters, useful if you have more defense than your opponent.\n- :rocket: **Speed**: Increases your speed. Attacks have a higher success rate if your speed is greater than your opponent's one, except for the supreme attack. Moreover, the more you use this action, the less speed you'll get.\n\nThe fight ends when a fighter's life drops to 0, doesn't answer after 30 seconds or when the turn number 25 is reached. When the fight ends, you'll probably lost energy. They will be recovered over time.\nFor more informations you can read the guide : https://guide.draftbot.com/v/en/notions-principale/combats"
 				},
-				"friendlyfight": {
-					"emote": ":crossed_swords:",
+				"FRIENDLY_FIGHT": {
 					"usage": "friendlyfight",
-					"category": "player",
 					"description": "Use this command to friendly fight players on the same server as you\n\nIn a friendly fight, you have your maximal life, you don't lose points and you don't use your potion.\n\nFor more information about fights, please use `help fight`."
 				},
-				"help": {
-					"emote": ":notebook_with_decorative_cover:",
+				"HELP": {
 					"usage": "help",
-					"category": "util",
 					"description": ":expressionless:"
 				},
-				"language": {
-					"emote": ":flag_fr:",
+				"LANGUAGE": {
 					"usage": "language",
-					"category": "server",
 					"description": "Change the language the bot use to french. You can use this command if you are admin of a server."
 				},
-				"top": {
-					"emote": ":trophy:",
+				"TOP": {
 					"usage": "top [page number]",
-					"category": "player",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
 				},
-				"topweek": {
-					"emote": ":trophy:",
+				"TOP_WEEK": {
 					"usage": "topweek [page number]",
-					"category": "player",
 					"description": "Displays the general weekly ranking of the game in pages of 15 players. Players in the same server as you are shown with a blue dot."
 				},
-				"topserver": {
-					"emote": ":trophy:",
+				"TOP_SERVER": {
 					"usage": "topserver [page number]",
-					"category": "player",
 					"description": "Displays this server's ranking of the game in pages of 15 players."
 				},
-				"inventory": {
-					"emote": ":school_satchel:",
+				"INVENTORY": {
 					"usage": "inventory",
-					"category": "player",
 					"description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the reserve that can contain another type of item temporarily during the time you deliberate whether or not to keep it.\n\n:warning: **The reserve is not to be trusted if you want to keep anything precious**\nThe items kept in here can be replaced whenever you find a new one."
 				},
-				"report": {
-					"emote": ":newspaper:",
+				"REPORT": {
 					"usage": "report",
-					"category": "player",
 					"description": "Lets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices."
 				},
-				"sell": {
-					"emote": ":moneybag:",
+				"SELL": {
 					"usage": "sell",
-					"category": "player",
 					"description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
 				},
-				"daily": {
-					"emote": ":calendar:",
+				"DAILY": {
 					"usage": "daily",
-					"category": "player",
 					"description": "Some items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`."
 				},
-				"invite": {
-					"emote": ":inbox_tray:",
+				"INVITE": {
 					"usage": "invite",
-					"category": "util",
 					"description": "This command allows you to get an invite url to get the bot on your server, or join the support server!"
 				},
-				"badge": {
-					"emote": ":military_medal:",
+				"BADGE": {
 					"usage": "badge",
-					"category": "util",
 					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
-				"drink": {
-					"emote": ":tropical_drink:",
+				"DRINK": {
 					"usage": "drink",
-					"category": "player",
 					"description": "This command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight."
 				},
-				"shop": {
-					"emote": ":shopping_cart:",
+				"SHOP": {
 					"usage": "shop",
-					"category": "player",
 					"description": "This command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
 				},
-				"guildcreate": {
-					"emote": ":pencil:",
+				"GUILD_CREATE": {
 					"usage": "guildcreate [guild name]",
-					"category": "guild",
 					"description": "Create a guild. You need 5000 :moneybag: in order to create a guild."
 				},
-				"guildleave": {
-					"emote": ":outbox_tray:",
+				"GUILD_LEAVE": {
 					"usage": "guildleave",
-					"category": "guild",
 					"description": "Lets you leave your guild."
 				},
-				"guild": {
-					"emote": ":stadium:",
+				"GUILD": {
 					"usage": "guild [guild name or mention]",
-					"category": "guild",
 					"description": "Displays a guild's infos."
 				},
-				"guilddaily": {
-					"emote": ":newspaper:",
+				"GUILD_DAILY": {
 					"usage": "guildaily",
-					"category": "guild",
 					"description": "Claims your guild's daily reward."
 				},
-				"guildkick": {
-					"emote": ":leg:",
+				"GUILD_KICK": {
 					"usage": "guildkick [mention]",
-					"category": "guild",
 					"description": "Kicks a member. Requires to be the guild's leader."
 				},
-				"guildadd": {
-					"emote": ":incoming_envelope:",
+				"GUILD_ADD": {
 					"usage": "guildadd [mention]",
-					"category": "guild",
 					"description": "Invites someone to join your guild. Requires to be the guild's leader."
 				},
-				"guilddesc": {
-					"emote": ":writing_hand:",
+				"GUILD_DESC": {
 					"usage": "guilddesc [description]",
-					"category": "guild",
 					"description": "Edit the description of your guild. Requires to be the guild's leader."
 				},
-				"guildelder": {
-					"emote": ":military_medal:",
+				"GUILD_ELDER": {
 					"usage": "guildelder [mention]",
-					"category": "guild",
 					"description": "Allows one to designate a guild elder, requires to be guild's leader."
 				},
-				"guildelderremove": {
-					"emote": ":outbox_tray:",
+				"GUILD_ELDER_REMOVE": {
 					"usage": "guildelderremove",
-					"category": "guild",
 					"description": "Allow to remove the current guild's elder, requires to be guild's leader."
 				},
-				"guildstorage": {
-					"emote": ":pencil:",
+				"GUILD_STORAGE": {
 					"usage": "guildstorage",
-					"category": "guild",
 					"description": "Show the guild's storage."
 				},
-				"guildshop": {
-					"emote": ":shopping_cart:",
+				"GUILD_SHOP": {
 					"usage": "guildshop",
-					"category": "guild",
 					"description": "Show the guild's shop."
 				},
-				"update": {
-					"emote": ":scroll:",
+				"UPDATE": {
 					"usage": "update",
-					"category": "util",
 					"description": "Read the changelog."
 				},
-				"class": {
-					"emote": ":bookmark:",
+				"CLASS": {
 					"usage": "class",
-					"category": "player",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
 				},
-				"mypet": {
-					"emote": ":dog:",
+				"MY_PET": {
 					"usage": "mypet",
-					"category": "pet",
 					"description": "Show information about your pet."
 				},
-				"pettransfer": {
-					"emote": ":arrow_right:",
+				"PET_TRANSFER": {
 					"usage": "pettransfer [number]",
-					"category": "pet",
 					"description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet with the corresponding number."
 				},
-				"petnickname": {
-					"emote": ":abcd:",
+				"PET_NICKNAME": {
 					"usage": "petnickname [name]",
-					"category": "pet",
 					"description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
 				},
-				"petfree": {
-					"emote": ":wave:",
+				"PET_FREE": {
 					"usage": "petfree",
-					"category": "pet",
 					"description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
 				},
-				"petsell": {
-					"emote": ":dollar:",
+				"PET_SELL": {
 					"usage": "petsell <price>",
-					"category": "pet",
 					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{option1}💰` and lower than `{option2}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
 				},
-				"shelter": {
-					"emote": ":park:",
+				"SHELTER": {
 					"usage": "shelter",
-					"category": "pet",
 					"description": "Show the guild's shelter."
 				},
-				"pettrade": {
-					"emote": ":scales:",
+				"PET_TRADE": {
 					"usage": "pettrade [mention]",
-					"category": "pet",
 					"description": "Propose a trade of pets with the mentioned player."
 				},
-				"petfeed": {
-					"emote": ":candy:",
+				"PET_FEED": {
 					"usage": "petfeed",
-					"category": "pet",
 					"description": "Give some food to your pet."
 				},
-				"classstats": {
-					"emote": ":bookmark:",
+				"CLASS_STATS": {
 					"usage": "classstats",
-					"category": "player",
 					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
-				"rarity": {
-					"emote": ":slot_machine:",
+				"RARITY": {
 					"usage": "rarity",
-					"category": "util",
 					"description": "Allows you to see the probability of getting an item by its rarity."
 				},
-				"vote": {
-					"emote": ":ballot_box:",
+				"VOTE": {
 					"usage": "vote",
-					"category": "util",
 					"description": "Allows you to get the link to vote for the bot."
 				},
-				"idea": {
-					"emote": ":bulb:",
+				"IDEA": {
 					"usage": "idea",
-					"category": "util",
 					"description": "Give a link to submit suggestions and vote for those already submitted."
 				},
-				"dmnotification": {
-					"emote": ":no_bell:",
+				"DM_NOTIFICATION": {
 					"usage": "dmnotification",
-					"category": "util",
 					"description": "Allows to enable or disable private messages from the bot."
 				},
-				"unlock": {
-					"emote":":unlock:",
+				"UNLOCK": {
 					"usage": "unlock [mention]",
-					"category": "player",
 					"description": "Allows you to pay a bail for set someone free."
 				},
-				"map": {
-					"emote":":map:",
+				"MAP": {
 					"usage": "map",
-					"category": "player",
 					"description": "Display information about your destination, and also the map."
 				},
-				"missions": {
-					"emote": ":scroll:",
+				"MISSIONS": {
 					"usage": "mission",
-					"category": "mission",
 					"description": "Displays the lists of quest you have to achieve."
 				},
-				"missionshop": {
-					"emote": ":shopping_cart:",
+				"MISSION_SHOP": {
 					"usage": "missionshop",
-					"category": "mission",
 					"description": "Display the mission's shop."
 				}
 			}

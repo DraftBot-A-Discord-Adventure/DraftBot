@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import {ApplicationCommandPermissionData, CommandInteraction} from "discord.js";
 import Entity from "../core/models/Entity";
+import {CommandRegisterPriority} from "./CommandRegisterPriority";
 
 export interface ICommand {
 	slashCommandBuilder: SlashCommandBuilder,
@@ -17,5 +18,6 @@ export interface ICommand {
 	},
 
 	mainGuildCommand: boolean,
-	slashCommandPermissions: ApplicationCommandPermissionData[] | null
+	slashCommandPermissions: ApplicationCommandPermissionData[] | null,
+	registerPriority: CommandRegisterPriority
 }

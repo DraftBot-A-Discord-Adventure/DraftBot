@@ -9,7 +9,7 @@ export class Server extends Model {
 
 	public language!: string;
 
-	public discordGuildId!: number;
+	public discordGuildId!: string;
 
 	public updatedAt!: Date;
 

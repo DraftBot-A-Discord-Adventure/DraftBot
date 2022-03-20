@@ -121,14 +121,6 @@ global.CLASS = {
 	GROUP3LEVEL: 48
 };
 
-global.CATEGORY = {
-	SERVER: "server",
-	UTIL: "util",
-	PLAYER: "player",
-	MISSION: "mission",
-	GUILD: "guild",
-	PET: "pet"
-};
 global.MENU_REACTION = {
 	ACCEPT: "✅",
 	DENY: "❌",

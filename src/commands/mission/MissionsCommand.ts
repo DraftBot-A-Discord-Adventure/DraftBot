@@ -7,6 +7,7 @@ import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissio
 import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
@@ -62,5 +63,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.HIGH
 };

@@ -8,6 +8,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
 
@@ -169,5 +170,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOW
 };
