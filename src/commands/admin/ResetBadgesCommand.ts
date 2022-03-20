@@ -12,7 +12,6 @@ import {Translations} from "../../core/Translations";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	// the author of the command is the author of the bot
 	const playerToReset = interaction.options.getUser("user");
 	const [entity] = await Entities.getOrRegister(playerToReset.id);
 

@@ -29,11 +29,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 }
 
 function getAllBadgesForOptions(): [string, string][] {
-	// TODO check la commande en profondeur
 	const tabBadges: [string, string][] = [];
-	// eslint-disable-next-line guard-for-in
-	for (const badge in Constants.BADGES.LIST) {
-		tabBadges.push([Constants.BADGES.LIST[badge], Constants.BADGES.LIST[badge]]);
+	for (const badge of Constants.BADGES.LIST) {
+		tabBadges.push([badge, badge]);
 	}
 	return tabBadges;
 }

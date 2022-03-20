@@ -2,8 +2,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel, User} from "discord.js";
-import {Data} from "../../core/Data";
 import {Translations} from "../../core/Translations";
+import {botConfig} from "../../core/bot";
 
 declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
 
@@ -14,7 +14,7 @@ declare function sendErrorMessage(user: User, channel: TextChannel, language: st
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const sendLogsModule = Translations.getModule("commands.sendLogs", language);
-	if (interaction.channel.id !== Data.getModule("app").getString("CONTRIBUTORS_CHANNEL") && interaction.user.id !== Data.getModule("app").getString("BOT_OWNER_ID")) {
+	if (interaction.channel.id !== botConfig.CONTRIBUTORS_CHANNEL) {
 		return sendErrorMessage(
 			interaction.user,
 			<TextChannel>interaction.channel,
@@ -72,7 +72,7 @@ export const commandInfo: ICommand = {
 		.setName("sendlogs")
 		.setDescription("Send a specific log file, or the list of all stored logs (contributors only)")
 		.addStringOption(option => option.setName("specificfile")
-			.setDescription("If specific is chosen, name of the file to reach")
+			.setDescription("Name of the file to reach (optionnal) / unspecified : send the list of all logs")
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
