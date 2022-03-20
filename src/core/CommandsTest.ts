@@ -14,17 +14,17 @@ const typeVariableChecks = [
 	{
 		name: "INTEGER",
 		type: "number",
-		check: (v: any) => !isNaN(v)
+		check: (v: string) => !isNaN(parseInt(v, 10))
 	},
 	{
 		name: "MENTION",
 		type: "mention",
-		check: (v: any) => isAMention(v)
+		check: (v: string) => isAMention(v)
 	},
 	{
 		name: "EMOJI",
 		type: "emoji",
-		check: (v: any) => isAnEmoji(v)
+		check: (v: string) => isAnEmoji(v)
 	},
 	{
 		name: "STRING",
@@ -155,10 +155,15 @@ export class CommandsTest {
 	}
 
 	static getTypeOf(variable: any) {
-		const typeKeys = Object.keys(typeVariableChecks);
+		const typeKeys: string[] = [];
+		typeVariableChecks.forEach(value => typeKeys.push(value.name));
 		for (const typeIn of typeKeys) {
-			if (typeVariableChecks.find(value => value.name === typeIn).check(variable)) {
-				return typeVariableChecks.find(value => value.name === typeIn).type;
+			console.log(typeIn);
+			if (typeVariableChecks.find(value => value.name === typeIn)) {
+				console.log(typeVariableChecks.find(value => value.name === typeIn).check(variable));
+				if (typeVariableChecks.find(value => value.name === typeIn).check(variable)) {
+					return typeVariableChecks.find(value => value.name === typeIn).type;
+				}
 			}
 		}
 		return typeVariableChecks.find(value => value.name === "STRING").type;

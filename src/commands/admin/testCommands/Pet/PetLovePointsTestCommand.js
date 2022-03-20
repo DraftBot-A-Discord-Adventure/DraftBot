@@ -14,12 +14,12 @@ module.exports.commandInfo = {
 /**
  * Set the lovePoints of your pet
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const petLovePointsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const petLovePointsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const pet = await entity.Player.Pet;
 	if (pet === null) {
 		throw new Error("Erreur petlp : vous n'avez pas de pet !");
@@ -27,7 +27,7 @@ const petLovePointsTestCommand = async (language, message, args) => {
 	if (args[0] < 0 || args[0] > 100) {
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
-	await pet.changeLovePoints(parseInt(args[0], 10) - pet.lovePoints, message.author.id, message.channel, language);
+	await pet.changeLovePoints(parseInt(args[0], 10) - pet.lovePoints, interaction.user.id, interaction.channel, language);
 	await pet.save();
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {

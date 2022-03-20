@@ -15,18 +15,18 @@ module.exports.commandInfo = {
 /**
  * Quick travel your gd of a given time
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advanceGuildDailyTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const advanceGuildDailyTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur agd : vous n'êtes pas dans une guilde !");
 	}
 	guild.lastDailyAt -= parseInt(args[0]) * 60000;
-	guild.save();
+	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
