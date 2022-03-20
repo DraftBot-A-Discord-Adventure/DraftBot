@@ -158,9 +158,7 @@ export class CommandsTest {
 		const typeKeys: string[] = [];
 		typeVariableChecks.forEach(value => typeKeys.push(value.name));
 		for (const typeIn of typeKeys) {
-			console.log(typeIn);
 			if (typeVariableChecks.find(value => value.name === typeIn)) {
-				console.log(typeVariableChecks.find(value => value.name === typeIn).check(variable));
 				if (typeVariableChecks.find(value => value.name === typeIn).check(variable)) {
 					return typeVariableChecks.find(value => value.name === typeIn).type;
 				}

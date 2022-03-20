@@ -12,6 +12,7 @@ module.exports.commandInfo = {
  * @return {String} - The successful message formatted
  */
 const fakeVoteTestCommand = async (language, interaction) => {
+	// TODO investiguer sur la raison du crash cf https://discord.com/channels/429765017332613120/440879632837902346/955025758412230667
 	await require("../../../../core/DBL").userDBLVote(interaction.user.id);
 	return module.exports.commandInfo.messageWhenExecuted;
 };
