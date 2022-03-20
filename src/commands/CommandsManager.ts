@@ -1,4 +1,13 @@
-import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
+import {
+	ApplicationCommand, ApplicationCommandPermissionData,
+	Client,
+	CommandInteraction,
+	GuildChannel,
+	GuildMember, GuildResolvable,
+	Message,
+	TextBasedChannel,
+	User
+} from "discord.js";
 
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";

@@ -5,6 +5,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -42,5 +43,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.ADMINISTRATOR
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

@@ -6,6 +6,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {draftBotClient} from "../../core/bot";
 import {Translations} from "../../core/Translations";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void;
 
@@ -58,5 +59,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.NORMAL
 };
