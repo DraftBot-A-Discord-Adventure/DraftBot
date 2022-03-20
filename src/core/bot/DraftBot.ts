@@ -208,7 +208,7 @@ export class DraftBot {
 				}
 			});
 			winner.Player.addBadge("🎗️");
-			winner.Player.save();
+			await winner.Player.save();
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
