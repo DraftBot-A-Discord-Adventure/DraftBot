@@ -31,7 +31,7 @@ export class DraftBotEmbed extends MessageEmbed {
 	}
 
 	setErrorColor(): DraftBotEmbed {
-		this.setColor(<HexColorString>Constants.EMBED_COLOR.ERROR);
+		this.setColor(<HexColorString>Constants.MESSAGES.COLORS.ERROR);
 		return this;
 	}
 }
