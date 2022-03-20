@@ -2,6 +2,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 const {BlockingUtils} = require("../../core/utils/BlockingUtils");
 
@@ -35,5 +36,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

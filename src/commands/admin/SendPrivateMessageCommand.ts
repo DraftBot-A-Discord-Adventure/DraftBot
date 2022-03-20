@@ -6,6 +6,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
 
@@ -68,5 +69,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

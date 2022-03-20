@@ -5,6 +5,7 @@ import {CommandInteraction, Guild} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import * as fs from "fs";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function getValidationInfos(guild: Guild): { validation: string, humans: number, bots: number, ratio: number }
 
@@ -60,5 +61,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

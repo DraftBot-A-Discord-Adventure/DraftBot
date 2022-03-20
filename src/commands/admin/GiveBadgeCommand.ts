@@ -5,6 +5,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Allow the bot owner or a badgemanager to give an item to somebody
@@ -57,5 +58,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BADGE_MANAGER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

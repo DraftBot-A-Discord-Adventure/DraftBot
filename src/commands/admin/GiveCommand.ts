@@ -15,6 +15,7 @@ import {CommandInteraction, TextChannel, User} from "discord.js";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
 import {DraftBotReactionMessage} from "../../core/messages/DraftBotReactionMessage";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
 
@@ -183,5 +184,6 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };
