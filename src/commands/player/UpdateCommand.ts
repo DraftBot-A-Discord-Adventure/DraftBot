@@ -3,6 +3,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Displays the changelog of the bot
@@ -38,5 +39,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

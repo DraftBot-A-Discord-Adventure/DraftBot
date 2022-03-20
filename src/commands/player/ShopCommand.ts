@@ -23,9 +23,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, TextChannel, User} from "discord.js";
 import {sendErrorMessage} from "../../core/utils/MessageUtils";
-
-// TODO enlever après refactor
-declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 
 /**
  * Displays the shop
@@ -34,7 +33,7 @@ declare function sendBlockedError(user: User, channel: TextChannel, language: st
  * @param {Entities} entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 
@@ -267,5 +266,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.NORMAL
 };

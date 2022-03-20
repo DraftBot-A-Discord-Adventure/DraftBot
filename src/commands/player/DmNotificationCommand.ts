@@ -8,6 +8,7 @@ import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {sendErrorMessage} from "../../core/utils/MessageUtils";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Activate or desactivate DMs notifications.
@@ -71,5 +72,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

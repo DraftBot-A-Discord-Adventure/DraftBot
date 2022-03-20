@@ -8,6 +8,7 @@ import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedErrorInteraction(interaction, language)) {
@@ -61,5 +62,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.HIGH
 };

@@ -18,6 +18,7 @@ import {CommandInteraction, TextChannel} from "discord.js";
 import {randomInt} from "crypto";
 import {giveFood} from "../../core/utils/MessageUtils";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Displays the guild shop
@@ -131,5 +132,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOW
 };

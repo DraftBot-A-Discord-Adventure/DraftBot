@@ -10,6 +10,7 @@ import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {sendErrorMessage} from "../../core/utils/MessageUtils";
 import {progressBar} from "../../core/utils/StringUtils";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Allow to display the info of a guild
@@ -167,5 +168,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOW
 };
