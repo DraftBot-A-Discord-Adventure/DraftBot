@@ -1,4 +1,13 @@
-import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
+import {
+	ApplicationCommandPermissionData,
+	Client,
+	CommandInteraction,
+	GuildChannel,
+	GuildMember,
+	Message,
+	TextBasedChannel,
+	User
+} from "discord.js";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -45,10 +54,52 @@ export class CommandsManager {
 				}
 				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+					const perms = [];
 					if (commandInfo.slashCommandPermissions) {
+						commandInfo.slashCommandPermissions.forEach(value => perms.push(value));
+					}
+					if (commandInfo.requirements.userPermission) {
+						switch (commandInfo.requirements.userPermission) {
+						case Constants.ROLES.USER.CONTRIBUTORS:
+							perms.push({
+								id: botConfig.CONTRIBUTOR_ROLE,
+								type: "ROLE",
+								permission: true
+							} as ApplicationCommandPermissionData);
+							perms.push({
+								id: botConfig.BOT_OWNER_ID,
+								type: "USER",
+								permission: true
+							} as ApplicationCommandPermissionData);
+							break;
+						case Constants.ROLES.USER.BADGE_MANAGER:
+							perms.push({
+								id: botConfig.BADGE_MANAGER_ROLE,
+								type: "ROLE",
+								permission: true
+							} as ApplicationCommandPermissionData);
+							perms.push({
+								id: botConfig.BOT_OWNER_ID,
+								type: "USER",
+								permission: true
+							} as ApplicationCommandPermissionData);
+							break;
+						case Constants.ROLES.USER.BOT_OWNER:
+							perms.push({
+								id: botConfig.BOT_OWNER_ID,
+								type: "USER",
+								permission: true
+							} as ApplicationCommandPermissionData);
+							break;
+						default:
+							break;
+						}
+					}
+					if (perms !== []) {
+						await cmd.setDefaultPermission(false);
 						await cmd.permissions.add({
 							guild: botConfig.MAIN_SERVER_ID,
-							permissions: commandInfo.slashCommandPermissions
+							permissions: perms
 						});
 					}
 				}

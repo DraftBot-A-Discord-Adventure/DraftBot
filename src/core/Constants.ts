@@ -467,7 +467,6 @@ export abstract class Constants {
 		USER: {
 			ADMINISTRATOR: "administrator",
 			BADGE_MANAGER: "manager",
-			SUPPORT: "support",
 			CONTRIBUTORS: "contributors",
 			BOT_OWNER: "owner"
 		}
