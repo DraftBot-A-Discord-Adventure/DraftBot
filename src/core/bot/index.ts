@@ -1,5 +1,5 @@
 import {DraftBot} from "./DraftBot";
-import {Client, Guild, Intents, Message, TextChannel} from "discord.js";
+import {Client, Guild, Intents, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../models/Server";
@@ -9,10 +9,6 @@ import {IPCClient} from "./ipc/IPCClient";
 declare const JsonReader: any;
 // TODO change
 declare const getValidationInfos: any;
-// TODO change
-declare const handlePrivateMessage: any;
-// TODO change
-declare const handleMessage: any;
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;

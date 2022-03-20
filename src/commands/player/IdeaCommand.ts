@@ -3,32 +3,30 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {HelpData} from "../../core/HelpData";
 
 /**
- * Allow to use the object if the player has one in the dedicated slot of his inventory
+ * Displays the link that allow to send the devs some suggestions
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
-	const tr = Translations.getModule("commands.help", language);
-	const badgeMessage = new DraftBotEmbed()
+	const tr = Translations.getModule("commands.idea", language);
+	const ideaMessage = new DraftBotEmbed()
 		.setTitle(
-			tr.format(
-				"commandEmbedTitle",
-				{emote: HelpData.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
-			)
-		)
-		.setDescription(tr.get("commands.BADGE.description"));
+			tr.get(
+				"title"
+			))
+		.setDescription(tr.get(
+			"text"));
 	await interaction.reply({
-		embeds: [badgeMessage]
+		embeds: [ideaMessage]
 	});
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("badges")
-		.setDescription("Get informations about badges"),
+		.setName("idea")
+		.setDescription("Get the link to send a suggestion for the game"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,

@@ -100,3 +100,13 @@ export const parseTimeDifference = function(date1: number, date2: number, langua
 	parsed += seconds + " s";
 	return parsed;
 };
+
+export const getNextDay2AM = function() {
+	const now = new Date();
+	const dateOfReset = new Date();
+	dateOfReset.setHours(1, 59, 59);
+	if (dateOfReset < now) {
+		dateOfReset.setDate(dateOfReset.getDate() + 1);
+	}
+	return new Date(dateOfReset);
+};

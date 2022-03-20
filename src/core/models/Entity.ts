@@ -401,6 +401,10 @@ export class Entities {
 	}
 
 	static async getByOptions(interaction: CommandInteraction): Promise<Entity | null> {
+		const user = interaction.options.getUser("user");
+		if (user) {
+			return (await Entities.getOrRegister(user.id))[0];
+		}
 		const rank = interaction.options.getNumber("rank");
 		if (rank) {
 			const [player] = await Players.getByRank(rank);
@@ -408,10 +412,6 @@ export class Entities {
 				return null;
 			}
 			return await Entities.getById(player.entityId);
-		}
-		const user = interaction.options.getUser("user");
-		if (user) {
-			return (await Entities.getOrRegister(user.id))[0];
 		}
 		return null;
 	}

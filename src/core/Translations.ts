@@ -1,10 +1,10 @@
 import {format, Replacements} from "./utils/StringFormatter";
 import {Random} from "random-js";
+import {RandomUtils} from "./utils/RandomUtils";
 
 declare const JsonReader: any;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
-declare const draftbotRandom: Random;
 
 export class TranslationModule {
 	private readonly _module: string;
@@ -80,7 +80,7 @@ export class TranslationModule {
 	}
 
 	getRandom(translation: string): string {
-		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
+		return RandomUtils.draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}
 
 	public getObject(translation: string): any[] {

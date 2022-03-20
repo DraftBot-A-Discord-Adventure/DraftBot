@@ -1,8 +1,6 @@
 import {MessageEmbed, User} from "discord.js";
 import {escapeUsername} from "../utils/StringUtils";
-
-declare const JsonReader: any;
-declare function format(s: string, replacement: any): string;
+import {format} from "../utils/StringFormatter";
 
 /**
  * Base class for bot embeds
@@ -31,7 +29,7 @@ export class DraftBotEmbed extends MessageEmbed {
 	}
 
 	setErrorColor(): DraftBotEmbed {
-		this.setColor(JsonReader.bot.embed.error);
+		this.setColor(null);
 		return this;
 	}
 }

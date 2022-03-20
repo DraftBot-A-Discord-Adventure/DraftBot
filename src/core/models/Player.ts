@@ -13,7 +13,7 @@ import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../Translations";
-import {Client, TextChannel} from "discord.js";
+import {TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
@@ -21,8 +21,7 @@ import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
 import {escapeUsername} from "../utils/StringUtils";
 import moment = require("moment");
-
-declare const client: Client;
+import {draftBotClient} from "../bot";
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -137,8 +136,10 @@ export class Player extends Model {
 	}
 
 	public getExperienceNeededToLevelUp(): number {
-		const data = Data.getModule("values");
-		return Math.round(data.getNumber("xp.baseValue") * Math.pow(data.getNumber("xp.coeff"), this.level + 1)) - data.getNumber("xp.minus");
+		return Math.round(
+			Constants.XP.BASE_VALUE *
+			Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
+		) - Constants.XP.MINUS;
 	}
 
 	public async addScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
@@ -199,8 +200,8 @@ export class Player extends Model {
 	public async setPseudo(language: string): Promise<void> {
 		const entity = await this.getEntity();
 		if (entity.discordUserId !== undefined) {
-			if (client.users.cache.get(entity.discordUserId) !== undefined) {
-				this.pseudo = escapeUsername(client.users.cache.get(entity.discordUserId).username);
+			if (draftBotClient.users.cache.get(entity.discordUserId) !== undefined) {
+				this.pseudo = escapeUsername(draftBotClient.users.cache.get(entity.discordUserId).username);
 			}
 			else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");
@@ -490,6 +491,20 @@ export class Player extends Model {
 }
 
 export class Players {
+	static async getRankById(id: number): Promise<number> {
+		const query = `SELECT *
+                        FROM (SELECT id,
+                                RANK() OVER (ORDER BY score desc, level desc)       rank
+                            FROM players)
+                        WHERE id = :id`;
+		return (<[{ rank: number }]> await Player.sequelize.query(query, {
+			replacements: {
+				id: id
+			},
+			type: QueryTypes.SELECT
+		}))[0].rank;
+	}
+
 	static async getByRank(rank: number): Promise<Player[]> {
 		const query = `SELECT *
                        FROM (SELECT entityId,

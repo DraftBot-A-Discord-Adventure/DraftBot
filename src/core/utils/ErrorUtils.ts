@@ -10,9 +10,12 @@ import {millisecondsToMinutes, minutesToString} from "./TimeUtils";
 export const sendBlockedErrorInteraction = async function(interaction: CommandInteraction, language: string) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
 	if (blockingReason !== null) {
+		const tr = Translations.getModule("error", language);
 		await interaction.reply({
 			embeds: [
-				new DraftBotErrorEmbed(interaction.user, language, Translations.getModule("error", language).get("blockedContext." + blockingReason))
+				new DraftBotErrorEmbed(interaction.user, language, tr.format("playerBlocked", {
+					context: tr.get("blockedContext." + blockingReason)
+				}))
 			]
 		});
 		return true;

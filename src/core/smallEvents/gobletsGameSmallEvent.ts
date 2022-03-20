@@ -11,8 +11,6 @@ import {format} from "../utils/StringFormatter";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
 
-declare function log(text: string): void;
-
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
@@ -47,19 +45,19 @@ export const smallEvent: SmallEvent = {
 			switch (malus.type) {
 			case "life":
 				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
-				log(entity.discordUserId + "got a bad level small event and lost" + malus.option + "💔");
+				console.log(entity.discordUserId + "got a bad level small event and lost" + malus.option + "💔");
 				break;
 			case "time":
 				await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, malus.option);
 				malus.option = minutesDisplay(malus.option);
-				log(entity.discordUserId + "got a bad level small event and lost" + malus.option);
+				console.log(entity.discordUserId + "got a bad level small event and lost" + malus.option);
 				break;
 			case "nothing":
-				log(entity.discordUserId + "got a bad level small event but didn't lost anything");
+				console.log(entity.discordUserId + "got a bad level small event but didn't lost anything");
 				break;
 			case "end":
 				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
-				log(entity.discordUserId + "got a bad level small event and didn't react (" + malus.option + "💔)");
+				console.log(entity.discordUserId + "got a bad level small event and didn't react (" + malus.option + "💔)");
 				break;
 			default:
 				throw new Error("reward type not found");

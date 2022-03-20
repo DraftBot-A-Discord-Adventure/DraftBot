@@ -7,7 +7,7 @@
             ],
             "rewards": {
                 "ultimateFood": [
-                    "Il vous tend plusieurs **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
+                    "Il vous tend **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
                 ],
                 "fullUltimateFood": [
                     "Il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de les lui rendre."

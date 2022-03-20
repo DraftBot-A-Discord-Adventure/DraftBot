@@ -26,7 +26,8 @@ export const commandInfo: ICommand = {
 		)
 		.addNumberOption(option => option.setName("rank")
 			.setDescription("The rank of the player you want to see the inventory")
-			.setRequired(false)) as SlashCommandBuilder,
+			.setRequired(false)
+		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
 		allowEffects: null,

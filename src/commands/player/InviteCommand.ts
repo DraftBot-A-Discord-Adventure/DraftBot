@@ -1,34 +1,22 @@
-import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {HelpData} from "../../core/HelpData";
 
 /**
- * Allow to use the object if the player has one in the dedicated slot of his inventory
+ * Display the link to invite the bot to another server
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
-	const tr = Translations.getModule("commands.help", language);
-	const badgeMessage = new DraftBotEmbed()
-		.setTitle(
-			tr.format(
-				"commandEmbedTitle",
-				{emote: HelpData.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
-			)
-		)
-		.setDescription(tr.get("commands.BADGE.description"));
-	await interaction.reply({
-		embeds: [badgeMessage]
-	});
+	const tr = Translations.getModule("commands.invite", language);
+	await interaction.reply({ content: tr.get("main") });
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("badges")
-		.setDescription("Get informations about badges"),
+		.setName("invite")
+		.setDescription("Display the link to invite the bot to another server"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,

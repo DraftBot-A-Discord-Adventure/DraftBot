@@ -1,12 +1,4 @@
-import {
-	Client,
-	CommandInteraction,
-	GuildChannel,
-	GuildMember,
-	Message,
-	TextBasedChannel,
-	User
-} from "discord.js";
+import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -32,33 +24,45 @@ declare const canPerformCommand: (member: GuildMember, channel: TextBasedChannel
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
+	static async clear(client: Client): Promise<void> {
+		await client.application.commands.set([]);
+	}
+
 	static async register(client: Client): Promise<void> {
 		const categories = await readdir("dist/src/commands");
-
 		for (const category of categories) {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
 			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const command = require(`./${category}/${commandFile}`);
-				const commandInfo = command.commandInfo as ICommand;
-				if (!commandInfo || !commandInfo.slashCommandBuilder) {
-					console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
-					continue;
-				}
-				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
-					if (commandInfo.slashCommandPermissions) {
-						await cmd.permissions.add({ guild: botConfig.MAIN_SERVER_ID, permissions: commandInfo.slashCommandPermissions });
-					}
-				}
-				else {
-					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
-				}
-				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+				this.commands.set(category + "/" + commandFile, null);
 			}
 		}
+		const commandList = Array.from(this.commands.keys());
+		for (let i = 0; i < commandList.length; i++) {
+			const command = commandList[i];
+			const commandFile = require(`./${command}`);
+			const commandInfo = commandFile.commandInfo as ICommand;
+			if (!commandInfo || !commandInfo.slashCommandBuilder) {
+				console.error(`Command dist/src/commands/${command} is not a slash command`);
+				continue;
+			}
+			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+				const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+				if (commandInfo.slashCommandPermissions) {
+					await cmd.permissions.add({
+						guild: botConfig.MAIN_SERVER_ID,
+						permissions: commandInfo.slashCommandPermissions
+					});
+				}
+			}
+			else {
+				await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
+			}
+			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+		}
+
 
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || !interaction.inGuild()) {
@@ -344,9 +348,11 @@ export class CommandsManager {
 			.endCallback((msg) => {
 				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				const tr = Translations.getModule("bot", language);
-				message.channel.send({ embeds: [new DraftBotEmbed()
-					.formatAuthor(tr.format("dmHelpMessageTitle", { pseudo: escapeUsername(message.author.username) }), message.author)
-					.setDescription(tr.get("dmHelpMessage"))] });
+				message.channel.send({
+					embeds: [new DraftBotEmbed()
+						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(message.author.username)}), message.author)
+						.setDescription(tr.get("dmHelpMessage"))]
+				});
 			})
 			.build();
 		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);

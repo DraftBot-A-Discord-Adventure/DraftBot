@@ -1,18 +1,16 @@
 import {CommandInteraction, Message, MessageEmbed} from "discord.js";
 import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
-import {Random} from "random-js";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
 import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
 import {SmallEvent} from "./SmallEvent";
-
-declare const draftbotRandom: Random;
-declare const JsonReader: any;
-declare function format(s: string, replacement: any): string;
+import {format} from "../utils/StringFormatter";
+import {botConfig} from "../bot";
+import {RandomUtils} from "../utils/RandomUtils";
 
 export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: any, seEmbed: MessageEmbed) {
-		let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
+		let keysList = Translations.getModule("smallEvents.space", language).getKeys("specific");
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");
 		}
@@ -35,10 +33,10 @@ export const smallEvent: SmallEvent = {
 		interaction.reply({embeds: [seEmbed], fetchReply: true }).then(async (sentMessage) => {
 			const waitTime = 5000;
 			const t0 = performance.now();
-			if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {
+			if (botConfig.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY)).length < 2) {
 				keysList = keysList.filter(e => e !== "neoWS");
 			}
-			const specificEvent = draftbotRandom.pick(keysList);
+			const specificEvent = RandomUtils.draftbotRandom.pick(keysList);
 			eval(`${specificEvent}(translationModule)`).then((replacements: Record<string, unknown>) => {
 				const specific = format(translationModule.getRandom("specific." + specificEvent), replacements);
 				const t1 = performance.now();
@@ -67,8 +65,8 @@ export const smallEvent: SmallEvent = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function neoWS(): Promise<Record<string, unknown>> {
-	const neoWSFeed = await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY);
-	const randomObject: NearEarthObject = draftbotRandom.pick(neoWSFeed.near_earth_objects);
+	const neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
+	const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed.near_earth_objects);
 	return Promise.resolve({
 		count: neoWSFeed.near_earth_objects.length,
 		randomObjectName: randomObject.name,

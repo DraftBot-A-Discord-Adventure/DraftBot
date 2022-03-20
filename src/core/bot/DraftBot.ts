@@ -13,16 +13,12 @@ import Shop from "../models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
+import {getNextDay2AM, getNextSundayMidnight} from "../utils/TimeUtils";
 
 require("colors");
 require("../Constant");
 require("../MessageError");
 require("../Tools");
-
-// TODO refactor when TimeUtils will be merged
-declare const getNextSundayMidnight: () => Date;
-// TODO refactor when TimeUtils will be merged
-declare const getNextDay2AM: () => Date;
 
 export class DraftBot {
 	private config: DraftBotConfig;
@@ -54,13 +50,16 @@ export class DraftBot {
 				"resources/text/classesValues.json",
 				"resources/text/advices.json",
 				"resources/text/smallEventsIntros.json",
-				"resources/text/values.json",
 				"resources/text/items.json",
 				"resources/text/food.json",
 				"resources/text/campaign.json"
 			]
 		});
 		await require("../Database").init(this.isMainShard);
+		if (this.config.TEST_MODE || this.config.MODE_MAINTENANCE) {
+			// todo: Améliorer le système ? peut etre l'extraire dans une commande à part. Je pense que pour la v1 ça ira tho
+			await CommandsManager.clear(draftBotClient);
+		}
 		await CommandsManager.register(draftBotClient);
 		await require("../fights/Attack").init();
 		if (this.config.TEST_MODE === true) {
