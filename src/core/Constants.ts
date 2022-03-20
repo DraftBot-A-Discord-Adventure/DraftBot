@@ -329,7 +329,34 @@ export abstract class Constants {
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
-		PET_TAMER: "💞"
+		PET_TAMER: "💞",
+		LIST: [
+			"🏆",
+			"🏅",
+			"👑",
+			"⚙️",
+			"🥚",
+			"❤️",
+			"🍀",
+			"💸",
+			"🐞",
+			"🎰",
+			"⛑️",
+			"🥇",
+			"🤑",
+			"🌟",
+			"🖋️",
+			"🌍",
+			"🎗️",
+			"🎄",
+			"😂",
+			"💎",
+			"⚔️",
+			"🗳️",
+			"🔖",
+			"💞",
+			"\uD83D\uDC8D"
+		]
 	}
 
 	static readonly SMALL_EVENT = {
@@ -438,4 +465,27 @@ export abstract class Constants {
 			5
 		]
 	};
+
+	static readonly ROLES = {
+		GUILD: {
+			NONE: "none",
+			MEMBER: "member",
+			ELDER: "elder",
+			CHIEF: "chief"
+		},
+		USER: {
+			ADMINISTRATOR: "administrator",
+			BADGE_MANAGER: "manager",
+			CONTRIBUTORS: "contributors",
+			BOT_OWNER: "owner"
+		}
+	};
+
+	static readonly EMBED_COLOR = {
+		SUCCESSFUL: "#FF8888",
+		ERROR: "#FF0000",
+		DEFAULT: "NOT_QUITE_BLACK"
+	};
+
+	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 }
