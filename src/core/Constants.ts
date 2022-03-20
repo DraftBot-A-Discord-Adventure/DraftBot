@@ -32,7 +32,9 @@ export abstract class Constants {
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
-			DEFAULT: "NOT_QUITE_BLACK"
+			DEFAULT: "NOT_QUITE_BLACK",
+			ERROR: "#D92D43",
+			SUCCESSFUL: "#5EAD45"
 		}
 	};
 
@@ -479,12 +481,6 @@ export abstract class Constants {
 			CONTRIBUTORS: "contributors",
 			BOT_OWNER: "owner"
 		}
-	};
-
-	static readonly EMBED_COLOR = {
-		SUCCESSFUL: "#FF8888",
-		ERROR: "#FF0000",
-		DEFAULT: "NOT_QUITE_BLACK"
 	};
 
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
