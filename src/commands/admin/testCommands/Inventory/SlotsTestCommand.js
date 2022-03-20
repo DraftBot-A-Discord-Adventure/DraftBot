@@ -15,23 +15,23 @@ module.exports.commandInfo = {
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const slotsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	const slots = parseInt(args[1],10);
+const slotsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const slots = parseInt(args[1], 10);
 	let category;
 
 	switch (parseInt(args[0], 10)) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
-		entity.Player.InventoryInfo.weaponSlots = slots;
-		category = "armes";
-		break;
-	case Constants.ITEM_CATEGORIES.ARMOR:
-		entity.Player.InventoryInfo.armorSlots = slots;
-		category = "armures";
+		case Constants.ITEM_CATEGORIES.WEAPON:
+			entity.Player.InventoryInfo.weaponSlots = slots;
+			category = "armes";
+			break;
+		case Constants.ITEM_CATEGORIES.ARMOR:
+			entity.Player.InventoryInfo.armorSlots = slots;
+			category = "armures";
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
 		entity.Player.InventoryInfo.potionSlots = slots;
@@ -45,7 +45,7 @@ const slotsTestCommand = async (language, message, args) => {
 		break;
 	}
 
-	entity.Player.InventoryInfo.save();
+	await entity.Player.InventoryInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		slot: slots,

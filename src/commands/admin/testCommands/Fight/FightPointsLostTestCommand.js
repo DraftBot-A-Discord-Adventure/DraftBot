@@ -14,14 +14,14 @@ module.exports.commandInfo = {
 /**
  * Set fightpointslost of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const fightPointsLostTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.fightPointsLost = parseInt(args[0],10);
-	entity.save();
+const fightPointsLostTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	entity.fightPointsLost = parseInt(args[0], 10);
+	await entity.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {lostPoints: args[0]});
 };

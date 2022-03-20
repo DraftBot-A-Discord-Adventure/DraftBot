@@ -484,4 +484,9 @@ export abstract class Constants {
 	};
 
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
+
+	static readonly TEST_EMBED_COLOR = {
+		SUCCESSFUL: "#FF8888",
+		ERROR: "#FF0000"
+	};
 }

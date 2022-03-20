@@ -121,6 +121,14 @@ global.CLASS = {
 	GROUP3LEVEL: 48
 };
 
+global.CATEGORY = {
+	SERVER: "server",
+	UTIL: "util",
+	PLAYER: "player",
+	MISSION: "mission",
+	GUILD: "guild",
+	PET: "pet"
+};
 global.MENU_REACTION = {
 	ACCEPT: "✅",
 	DENY: "❌",
@@ -250,4 +258,23 @@ global.COLLECTOR_TIME = 120000;
 global.TEST_EMBED_COLOR = {
 	SUCCESSFUL: "#FF8888",
 	ERROR: "#FF0000"
+};
+
+global.typeVariable = {
+	INTEGER: {
+		type: "number",
+		check: (v) => !isNaN(v)
+	},
+	MENTION: {
+		type: "mention",
+		check: (v) => isAMention(v)
+	},
+	EMOJI: {
+		type: "emoji",
+		check: (v) => isAnEmoji(v)
+	},
+	STRING: {
+		type: "string",
+		check: () => false
+	}
 };
