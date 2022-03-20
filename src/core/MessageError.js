@@ -2,37 +2,21 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Permissions} from "discord.js";
 
 class MessageError {
-	static async canPerformCommand(member, channel, language, permission) {
-		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
-			if (!member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
-			}
-		}
 
-		if (permission === PERMISSION.ROLE.CONTRIBUTORS) {
-			if (!member.roles.cache.has(JsonReader.app.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
-			}
-		}
-
-		if (permission === PERMISSION.ROLE.SUPPORT) {
-			if (!member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
-			}
-		}
-
+	/**
+	 *
+	 * @param member
+	 * @param interaction
+	 * @param language
+	 * @param permission
+	 * @returns {Promise<boolean|*>}
+	 */
+	static async canPerformCommand(member, interaction, language, permission) {
 		if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
 			if (!member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
+				return await MessageError.permissionErrorMe(member.user, interaction, language, permission);
 			}
 		}
-
-		if (permission === PERMISSION.ROLE.BOT_OWNER) {
-			if (!MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member.user, channel, language, permission);
-			}
-		}
-
 		return true;
 	}
 
@@ -45,37 +29,22 @@ class MessageError {
 	}
 
 	/**
-	 * @param {module:"discord.js".Message} message - Message from the discord server
-	 * @param {("fr"|"en")} language
-	 * @param {String} permission
-	 * @return {Promise<Message>}
+	 * Reply with an error "missing permissions"
+	 * @param user
+	 * @param interaction
+	 * @param language
+	 * @param permission
+	 * @returns {Promise<*>}
 	 */
-	static async permissionErrorMe(user, channel, language, permission) {
+	static async permissionErrorMe(user, interaction, language, permission) {
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
 			.formatAuthor(JsonReader.error.getTranslation(language).titlePermissionError, user);
 
-		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
-			embed.setDescription(JsonReader.error.getTranslation(language).badgeManagerPermissionMissing);
-		}
-
-		if (permission === PERMISSION.ROLE.CONTRIBUTORS) {
-			embed.setDescription(JsonReader.error.getTranslation(language).contributorPermissionMissing);
-		}
-
-		if (permission === PERMISSION.ROLE.SUPPORT) {
-			embed.setDescription(JsonReader.error.getTranslation(language).dmSupportPermissionMissing);
-		}
-
 		if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
 			embed.setDescription(JsonReader.error.getTranslation(language).administratorPermissionMissing);
 		}
-
-		if (permission === PERMISSION.ROLE.BOT_OWNER) {
-			embed.setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
-		}
-
-		return await channel.send({ embeds: [embed] });
+		return await interaction.reply({embeds: [embed]});
 	}
 
 	static async effectsErrorMe(user, channel, language, entity, effect) {
@@ -163,7 +132,7 @@ class MessageError {
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
-		return await channel.send({ embeds: [embed] });
+		return await channel.send({embeds: [embed]});
 	}
 
 	/**

@@ -1,9 +1,10 @@
 import {
+	ApplicationCommand,
 	ApplicationCommandPermissionData,
 	Client,
 	CommandInteraction,
 	GuildChannel,
-	GuildMember,
+	GuildMember, GuildResolvable,
 	Message,
 	TextBasedChannel,
 	User
@@ -28,7 +29,7 @@ import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionM
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 
 declare const effectsErrorMe: (user: User, channel: TextBasedChannel, language: string, entity: Entity, effect: string) => Promise<void>;
-declare const canPerformCommand: (member: GuildMember, channel: TextBasedChannel, language: string, permission: string) => Promise<boolean>;
+declare const canPerformCommand: (member: GuildMember, interaction: CommandInteraction, language: string, permission: string) => Promise<boolean>;
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -54,54 +55,7 @@ export class CommandsManager {
 				}
 				if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 					const cmd = await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
-					const perms = [];
-					if (commandInfo.slashCommandPermissions) {
-						commandInfo.slashCommandPermissions.forEach(value => perms.push(value));
-					}
-					if (commandInfo.requirements.userPermission) {
-						switch (commandInfo.requirements.userPermission) {
-						case Constants.ROLES.USER.CONTRIBUTORS:
-							perms.push({
-								id: botConfig.CONTRIBUTOR_ROLE,
-								type: "ROLE",
-								permission: true
-							} as ApplicationCommandPermissionData);
-							perms.push({
-								id: botConfig.BOT_OWNER_ID,
-								type: "USER",
-								permission: true
-							} as ApplicationCommandPermissionData);
-							break;
-						case Constants.ROLES.USER.BADGE_MANAGER:
-							perms.push({
-								id: botConfig.BADGE_MANAGER_ROLE,
-								type: "ROLE",
-								permission: true
-							} as ApplicationCommandPermissionData);
-							perms.push({
-								id: botConfig.BOT_OWNER_ID,
-								type: "USER",
-								permission: true
-							} as ApplicationCommandPermissionData);
-							break;
-						case Constants.ROLES.USER.BOT_OWNER:
-							perms.push({
-								id: botConfig.BOT_OWNER_ID,
-								type: "USER",
-								permission: true
-							} as ApplicationCommandPermissionData);
-							break;
-						default:
-							break;
-						}
-					}
-					if (perms.length !== 0) {
-						await cmd.setDefaultPermission(false);
-						await cmd.permissions.add({
-							guild: botConfig.MAIN_SERVER_ID,
-							permissions: perms
-						});
-					}
+					await this.enforcePermission(commandInfo, cmd);
 				}
 				else {
 					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
@@ -119,6 +73,8 @@ export class CommandsManager {
 		});
 
 		client.on("messageCreate", async message => {
+
+			// ignore all bot messages and own messages
 			if (message.author.bot || message.author.id === draftBotClient.user.id) {
 				return;
 			}
@@ -136,13 +92,72 @@ export class CommandsManager {
 				if (message.mentions.has(client.user)) {
 					message.channel.send({
 						content:
-							Translations.getModule("bot", server.language).format("mentionHelp", {
-								prefix: server.prefix
-							})
+							Translations.getModule("bot", server.language).get("mentionHelp")
 					}).then();
 				}
 			}
 		});
+	}
+
+	/**
+	 * Link permission to the command
+	 * @param commandInfo
+	 * @param cmd
+	 * @private
+	 */
+	private static async enforcePermission(commandInfo: ICommand, cmd: ApplicationCommand<{ guild: GuildResolvable }>) {
+		const perms: ApplicationCommandPermissionData[] = [];
+		if (commandInfo.slashCommandPermissions) {
+			commandInfo.slashCommandPermissions.forEach(value => perms.push(value));
+		}
+		if (commandInfo.requirements.userPermission) {
+			this.setCommandPermissions(commandInfo, perms);
+		}
+		if (perms.length !== 0) {
+			await cmd.setDefaultPermission(false);
+			await cmd.permissions.add({
+				guild: botConfig.MAIN_SERVER_ID,
+				permissions: perms
+			});
+		}
+	}
+
+	private static setCommandPermissions(commandInfo: ICommand, perms: ApplicationCommandPermissionData[]) {
+		switch (commandInfo.requirements.userPermission) {
+		case Constants.ROLES.USER.CONTRIBUTORS:
+			perms.push({
+				id: botConfig.CONTRIBUTOR_ROLE,
+				type: "ROLE",
+				permission: true
+			} as ApplicationCommandPermissionData);
+			perms.push({
+				id: botConfig.BOT_OWNER_ID,
+				type: "USER",
+				permission: true
+			} as ApplicationCommandPermissionData);
+			break;
+		case Constants.ROLES.USER.BADGE_MANAGER:
+			perms.push({
+				id: botConfig.BADGE_MANAGER_ROLE,
+				type: "ROLE",
+				permission: true
+			} as ApplicationCommandPermissionData);
+			perms.push({
+				id: botConfig.BOT_OWNER_ID,
+				type: "USER",
+				permission: true
+			} as ApplicationCommandPermissionData);
+			break;
+		case Constants.ROLES.USER.BOT_OWNER:
+			perms.push({
+				id: botConfig.BOT_OWNER_ID,
+				type: "USER",
+				permission: true
+			} as ApplicationCommandPermissionData);
+			break;
+		default:
+			break;
+		}
 	}
 
 	private static async handleCommand(interaction: CommandInteraction) {
@@ -279,7 +294,7 @@ export class CommandsManager {
 			return;
 		}
 
-		if (await canPerformCommand(interaction.member as GuildMember, interaction.channel, tr.language, commandInfo.requirements.userPermission) !== true) {
+		if (await canPerformCommand(interaction.member as GuildMember, interaction, tr.language, commandInfo.requirements.userPermission) !== true) {
 			return;
 		}
 
