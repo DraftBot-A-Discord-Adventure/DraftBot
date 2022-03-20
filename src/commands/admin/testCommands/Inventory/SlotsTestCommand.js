@@ -15,13 +15,13 @@ module.exports.commandInfo = {
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const slotsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	const slots = parseInt(args[1],10);
+const slotsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const slots = parseInt(args[1], 10);
 	let category;
 
 	switch (parseInt(args[0], 10)) {
@@ -45,7 +45,7 @@ const slotsTestCommand = async (language, message, args) => {
 		break;
 	}
 
-	entity.Player.InventoryInfo.save();
+	await entity.Player.InventoryInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		slot: slots,

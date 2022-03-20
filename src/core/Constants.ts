@@ -429,4 +429,9 @@ export abstract class Constants {
 			5
 		]
 	};
+
+	static readonly TEST_EMBED_COLOR = {
+		SUCCESSFUL: "#FF8888",
+		ERROR: "#FF0000"
+	};
 }

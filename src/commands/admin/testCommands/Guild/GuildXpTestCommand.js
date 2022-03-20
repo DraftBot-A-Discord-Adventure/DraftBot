@@ -16,12 +16,12 @@ module.exports.commandInfo = {
 /**
  * Set your guild's experience to the given integer
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const guildXpTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const guildXpTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur gxp : vous n'êtes pas dans une guilde !");
@@ -35,7 +35,7 @@ const guildXpTestCommand = async (language, message, args) => {
 	if (guild.isAtMaxLevel()) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");
 	}
-	await guild.addExperience(parseInt(args[0], 10), message, language);
+	await guild.addExperience(parseInt(args[0], 10), interaction.channel, language);
 	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };

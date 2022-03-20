@@ -275,3 +275,22 @@ global.ROLES = {
 		BOT_OWNER: "owner" // is the owner of the bot
 	}
 };
+
+global.typeVariable = {
+	INTEGER: {
+		type: "number",
+		check: (v) => !isNaN(v)
+	},
+	MENTION: {
+		type: "mention",
+		check: (v) => isAMention(v)
+	},
+	EMOJI: {
+		type: "emoji",
+		check: (v) => isAnEmoji(v)
+	},
+	STRING: {
+		type: "string",
+		check: () => false
+	}
+};
