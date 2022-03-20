@@ -6,6 +6,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, TextChannel, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
@@ -74,5 +75,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };
