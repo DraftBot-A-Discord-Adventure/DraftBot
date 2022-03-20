@@ -22,7 +22,7 @@
 			"commands": {
 				"PREFIX": {
 					"usage": "prefix",
-					"description": "Cette fonctionnalité a été supprimée du jeu suite à l'arrivée des slash commandes."
+					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
 				},
 				"PING": {
 					"usage": "ping",
@@ -243,8 +243,8 @@
 			"aliasesFieldTitle": "Aliases",
 			"commands": {
 				"PREFIX": {
-					"usage": "prefix [New prefix]",
-					"description": "Allows you, if you are admin of a server, to change the prefix used by the bot on this server."
+					"usage": "prefix",
+					"description": "This feature was removed from the bot after an updates to discord's features."
 				},
 				"PING": {
 					"usage": "ping",

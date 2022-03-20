@@ -12,23 +12,23 @@ import {HelpData} from "../../core/HelpData";
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
 	const tr = Translations.getModule("commands.help", language);
-	const badgeMessage = new DraftBotEmbed()
+	const prefixMessage = new DraftBotEmbed()
 		.setTitle(
 			tr.format(
 				"commandEmbedTitle",
-				{emote: HelpData.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
+				{emote: HelpData.COMMANDS_DATA.PREFIX.EMOTE, cmd: "prefix"}
 			)
 		)
-		.setDescription(tr.get("commands.BADGE.description"));
+		.setDescription(tr.get("commands.PREFIX.description"));
 	await interaction.reply({
-		embeds: [badgeMessage]
+		embeds: [prefixMessage]
 	});
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("badges")
-		.setDescription("Get informations about badges"),
+		.setName("prefix")
+		.setDescription("Get information about the prefix"),
 	executeCommand,
 	requirements: {
 		allowEffects: null,
