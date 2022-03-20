@@ -4,6 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpData} from "../../core/HelpData";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Allow to use the object if the player has one in the dedicated slot of his inventory
@@ -39,5 +40,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOWEST
 };

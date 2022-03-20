@@ -17,6 +17,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel, User} from "discord.js";
 import {randomInt} from "crypto";
 import {giveFood, isStorageFullFor} from "../../core/utils/GuildUtils";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 
 declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
@@ -133,5 +134,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.LOW
 };

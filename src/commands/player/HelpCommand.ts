@@ -5,6 +5,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpData} from "../../core/HelpData";
 import {Constants} from "../../core/Constants";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 function getCommandByCategories() {
 	const commandsDataList = HelpData.COMMANDS_DATA;
@@ -167,5 +168,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.HIGHEST
 };
