@@ -42,9 +42,7 @@ export class CommandsManager {
 			}
 		}
 
-		commandsToRegister.sort((cmd1, cmd2) => {
-			return cmd2.registerPriority - cmd1.registerPriority;
-		});
+		commandsToRegister.sort((cmd1, cmd2) => cmd2.registerPriority - cmd1.registerPriority);
 
 		for (const commandInfo of commandsToRegister) {
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
