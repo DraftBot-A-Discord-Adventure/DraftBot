@@ -32,7 +32,10 @@ const giveMissionTestCommand = async (language, interaction, args) => {
 		throw new Error("Cette mission n'est disponible que pour la campagne !");
 	}
 
-	const difficulty = args[1];
+	let difficulty = args[1];
+	if (difficulty in ["easy", "medium", "hard"]) {
+		difficulty = difficulty[0];
+	}
 	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}

@@ -25,7 +25,8 @@ const blockPlayerTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
 	const sec = parseInt(args[0], 10);
-	const collector = interaction.createReactionCollector({
+	const messageToReact = await interaction.reply({content: "je suis un message qui va te bloquer"});
+	const collector = messageToReact.createReactionCollector({
 		filter: () => true,
 		time: sec * 1000
 	});
