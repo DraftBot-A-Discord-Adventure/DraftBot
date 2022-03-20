@@ -95,7 +95,7 @@ export class CommandsManager {
 							break;
 						}
 					}
-					if (perms !== []) {
+					if (perms.length !== 0) {
 						await cmd.setDefaultPermission(false);
 						await cmd.permissions.add({
 							guild: botConfig.MAIN_SERVER_ID,
