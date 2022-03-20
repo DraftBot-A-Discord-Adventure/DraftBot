@@ -12,12 +12,12 @@ module.exports.commandInfo = {
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Message} message - Message from the discord server
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const debugMissionsTestCommand = async (language, message) => {
+const debugMissionsTestCommand = async (language, interaction) => {
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
@@ -44,7 +44,7 @@ const debugMissionsTestCommand = async (language, message) => {
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);
-	message.channel.send({embeds: [embed]});
+	return embed;
 };
 
 module.exports.execute = debugMissionsTestCommand;

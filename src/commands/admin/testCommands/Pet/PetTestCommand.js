@@ -17,13 +17,13 @@ module.exports.commandInfo = {
 /**
  * Give you a pet with id and sex given
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const petTestCommand = async (language, message, args) => {
+const petTestCommand = async (language, interaction, args) => {
 
-	let [entity] = await Entities.getOrRegister(message.author.id);
+	let [entity] = await Entities.getOrRegister(interaction.user.id);
 	if (entity.Player.Pet) {
 		await entity.Player.Pet.destroy();
 	}
@@ -31,7 +31,7 @@ const petTestCommand = async (language, message, args) => {
 	if (args[0] === "0") {
 		return "Vous n'avez plus de pet maintenant !";
 	}
-	if (!["m","f"].includes(args[1])) {
+	if (!["m", "f"].includes(args[1])) {
 		throw new Error("Erreur pet : sexe invalide.");
 	}
 	const maxIdPet = await Pets.getMaxId();
@@ -43,12 +43,12 @@ const petTestCommand = async (language, message, args) => {
 	await pet.save();
 	entity.Player.petId = pet.id;
 	await entity.Player.save();
-	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
 
-	[entity] = await Entities.getOrRegister(message.author.id); // recall needed to refresh the pet
+	[entity] = await Entities.getOrRegister(interaction.user.id); // recall needed to refresh the pet
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
-			petString: await entity.Player.Pet.getPetDisplay(language)
+			petString: entity.Player.Pet.getPetDisplay(language)
 		}
 	);
 };

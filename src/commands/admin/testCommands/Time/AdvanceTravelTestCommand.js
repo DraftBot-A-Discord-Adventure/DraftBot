@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "advancetravel",
@@ -11,19 +12,17 @@ module.exports.commandInfo = {
 	description: "Avance votre voyage d'une durée en minutes donnée"
 };
 
-import {Maps} from "../../../../core/Maps";
-
 /**
  * Quick travel your travel of a given time
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advanceTravelTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const advanceTravelTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	Maps.advanceTime(entity.Player, parseInt(args[0]));
-	entity.Player.save();
+	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
