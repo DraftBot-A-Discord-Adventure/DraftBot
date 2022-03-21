@@ -32,7 +32,9 @@ export abstract class Constants {
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
-			DEFAULT: "NOT_QUITE_BLACK"
+			DEFAULT: "NOT_QUITE_BLACK",
+			ERROR: "#D92D43",
+			SUCCESSFUL: "#5EAD45"
 		},
 		PROGRESS_BAR_SIZE: 20
 	};
@@ -330,7 +332,34 @@ export abstract class Constants {
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
-		PET_TAMER: "💞"
+		PET_TAMER: "💞",
+		LIST: [
+			"🏆",
+			"🏅",
+			"👑",
+			"⚙️",
+			"🥚",
+			"❤️",
+			"🍀",
+			"💸",
+			"🐞",
+			"🎰",
+			"⛑️",
+			"🥇",
+			"🤑",
+			"🌟",
+			"🖋️",
+			"🌍",
+			"🎗️",
+			"🎄",
+			"😂",
+			"💎",
+			"⚔️",
+			"🗳️",
+			"🔖",
+			"💞",
+			"\uD83D\uDC8D"
+		]
 	}
 
 	static readonly SMALL_EVENT = {
@@ -447,4 +476,21 @@ export abstract class Constants {
 			5
 		]
 	};
+
+	static readonly ROLES = {
+		GUILD: {
+			NONE: "none",
+			MEMBER: "member",
+			ELDER: "elder",
+			CHIEF: "chief"
+		},
+		USER: {
+			ADMINISTRATOR: "administrator",
+			BADGE_MANAGER: "manager",
+			CONTRIBUTORS: "contributors",
+			BOT_OWNER: "owner"
+		}
+	};
+
+	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 }

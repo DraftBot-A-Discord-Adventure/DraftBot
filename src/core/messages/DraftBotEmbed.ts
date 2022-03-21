@@ -1,5 +1,6 @@
-import {MessageEmbed, User} from "discord.js";
+import {HexColorString, MessageEmbed, User} from "discord.js";
 import {escapeUsername} from "../utils/StringUtils";
+import {Constants} from "../Constants";
 import {format} from "../utils/StringFormatter";
 
 /**
@@ -29,7 +30,7 @@ export class DraftBotEmbed extends MessageEmbed {
 	}
 
 	setErrorColor(): DraftBotEmbed {
-		this.setColor(null);
+		this.setColor(<HexColorString> Constants.MESSAGES.COLORS.ERROR);
 		return this;
 	}
 }
