@@ -25,13 +25,13 @@ const slotsTestCommand = async (language, interaction, args) => {
 	let category;
 
 	switch (parseInt(args[0], 10)) {
-		case Constants.ITEM_CATEGORIES.WEAPON:
-			entity.Player.InventoryInfo.weaponSlots = slots;
-			category = "armes";
-			break;
-		case Constants.ITEM_CATEGORIES.ARMOR:
-			entity.Player.InventoryInfo.armorSlots = slots;
-			category = "armures";
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		entity.Player.InventoryInfo.weaponSlots = slots;
+		category = "armes";
+		break;
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		entity.Player.InventoryInfo.armorSlots = slots;
+		category = "armures";
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
 		entity.Player.InventoryInfo.potionSlots = slots;
