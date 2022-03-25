@@ -50,6 +50,9 @@ export class CommandsManager {
 					console.error(`Command dist/src/commands/${category + "/" + commandFile} is not a slash command`);
 					continue;
 				}
+				if (commandFile === "TestCommand.ts" && !botConfig.TEST_MODE) {
+					continue;
+				}
 				commandsToRegister.push(commandInfo);
 			}
 		}

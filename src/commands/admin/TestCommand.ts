@@ -2,6 +2,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {botConfig} from "../../core/bot";
+import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 const CT = require("../../core/CommandsTest");
 
@@ -21,18 +22,21 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		let testCommand = "list";
 		try {
 			testCommand = interaction.options.getString("testcommand").split(" ")[0];
-		} catch { /* case no command given */
+		}
+		catch { /* case no command given */
 		}
 		let argsTest: string | string[] = [];
 		try {
 			argsTest = interaction.options.getString("testcommand").split(" ")
 				.slice(1);
-		} catch { /* case no args given */
+		}
+		catch { /* case no args given */
 		}
 		let commandTestCurrent;
 		try {
 			commandTestCurrent = await CT.getTestCommand(testCommand);
-		} catch (e) {
+		}
+		catch (e) {
 			return interaction.reply({content: ":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```"});
 		}
 		// Third, we check if the test command has the good arguments
@@ -40,10 +44,12 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		if (testGoodFormat[0]) {
 			// Last, we execute the test command
 			await CT.executeAndAlertUser(language, interaction, commandTestCurrent, argsTest);
-		} else {
+		}
+		else {
 			try {
 				await interaction.reply({embeds: [testGoodFormat[1]]});
-			} catch {
+			}
+			catch {
 				await interaction.followUp({embeds: [testGoodFormat[1]]});
 			}
 		}
@@ -67,5 +73,6 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null
+	slashCommandPermissions: null,
+	registerPriority: CommandRegisterPriority.TESTING
 };
