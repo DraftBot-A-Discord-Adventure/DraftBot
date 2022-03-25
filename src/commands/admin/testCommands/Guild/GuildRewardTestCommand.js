@@ -32,7 +32,7 @@ const guildRewardTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur greward : vous n'êtes pas dans une guilde !");
 	}
 
-	const rewardValues = Object.keys(REWARD_TYPES).map(function (key) {
+	const rewardValues = Object.keys(REWARD_TYPES).map(function(key) {
 		return REWARD_TYPES[key];
 	});
 	if (!rewardValues.includes(args[0])) {

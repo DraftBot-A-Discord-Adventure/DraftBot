@@ -33,10 +33,10 @@ const findItemTestCommand = async (language, interaction, args) => {
 	}
 	let item = null;
 	switch (category) {
-		case Constants.ITEM_CATEGORIES.WEAPON:
-			item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
-			break;
-		case Constants.ITEM_CATEGORIES.ARMOR:
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.ARMOR:
 		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:

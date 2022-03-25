@@ -134,15 +134,18 @@ export class CommandsTest {
 					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", interaction.user.displayAvatarURL())
 					.setDescription(messageToDisplay)
 					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.SUCCESSFUL);
-			} else {
+			}
+			else {
 				embedTestSuccessful = messageToDisplay;
 			}
 			await interaction.reply({embeds: [embedTestSuccessful]});
-		} catch (e) {
+		}
+		catch (e) {
 			console.error(e);
 			try {
 				await interaction.reply({content: "**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```"});
-			} catch (e2) {
+			}
+			catch (e2) {
 				await interaction.reply({
 					content:
 						"**:x: Une erreur est survenue pendant la commande test "
