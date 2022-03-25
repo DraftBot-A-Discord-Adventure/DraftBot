@@ -29,8 +29,7 @@ const forceReportTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
 	}
 	await CT.getTestCommand("atravel").execute(language, interaction, ["5000"]);
-	// TODO check avec nysvaa la commande report (doit forcer un event spécifique avec args[1])
-	await CommandsManager.commands.get("report").executeCommand(interaction, language, entity);
+	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, parseInt(args[0]));
 	return format(module.exports.commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});
 };
 

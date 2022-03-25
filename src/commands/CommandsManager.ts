@@ -1,9 +1,11 @@
 import {
-	ApplicationCommand, ApplicationCommandPermissionData,
+	ApplicationCommand,
+	ApplicationCommandPermissionData,
 	Client,
 	CommandInteraction,
 	GuildChannel,
-	GuildMember, GuildResolvable,
+	GuildMember,
+	GuildResolvable,
 	Message,
 	TextBasedChannel,
 	User
@@ -365,6 +367,10 @@ export class CommandsManager {
 		// TODO: REFAIRE LES LOGS
 		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
 		await commandInfo.executeCommand(interaction, tr.language, entity);
+	}
+
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, argsOfCommand);
 	}
 
 	static async handlePrivateMessage(message: Message) {

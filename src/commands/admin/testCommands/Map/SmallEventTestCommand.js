@@ -27,8 +27,7 @@ const smallEventTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur smallEvent : le mini-event " + args[0] + " n'existe pas. Veuillez vous référer à la commande \"test help smallEvent\" pour plus d'informations");
 	}
 	const entity = await Entities.getOrRegister(interaction.user.id);
-	// TODO check avec nysvaa la commande report ([], -1, args[0] pour les 3 anciens derniers args)
-	await CommandsManager.commands.get("report").executeCommand(interaction, language, entity);
+	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, -1, args[0]);
 	return format(module.exports.commandInfo.messageWhenExecuted, {name: args[0]});
 };
 
