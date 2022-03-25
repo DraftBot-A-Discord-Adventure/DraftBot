@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import {SlashCommandBuilder} from "@discordjs/builders";
 import {ApplicationCommandPermissionData, CommandInteraction} from "discord.js";
 import Entity from "../core/models/Entity";
 
 export interface ICommand {
 	slashCommandBuilder: SlashCommandBuilder,
 
-	executeCommand: (interaction: CommandInteraction, language: string, entity: Entity) => Promise<void>;
+	executeCommand: (interaction: CommandInteraction, language: string, entity: Entity, ...addedArgs: any) => Promise<void>;
 
 	requirements: {
 		requiredLevel: number | null,

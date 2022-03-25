@@ -1,12 +1,4 @@
-import {
-	Client,
-	CommandInteraction,
-	GuildChannel,
-	GuildMember,
-	Message,
-	TextBasedChannel,
-	User
-} from "discord.js";
+import {Client, CommandInteraction, GuildChannel, GuildMember, Message, TextBasedChannel, User} from "discord.js";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
@@ -302,6 +294,10 @@ export class CommandsManager {
 
 		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
 		await commandInfo.executeCommand(interaction, tr.language, entity);
+	}
+
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, argsOfCommand);
 	}
 
 	static async handlePrivateMessage(message: Message) {
