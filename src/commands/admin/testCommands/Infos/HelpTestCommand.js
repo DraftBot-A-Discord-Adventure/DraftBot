@@ -23,7 +23,8 @@ const helpTestCommand = async (language, interaction, args) => {
 	let helpOnCommand;
 	try {
 		helpOnCommand = await CT.getTestCommand(args[0]);
-	} catch (e) {
+	}
+	catch (e) {
 		throw new Error("Commande inexistante : " + args[0]);
 	}
 	const embedHelpTest = new DraftBotEmbed()
