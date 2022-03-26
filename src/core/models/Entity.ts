@@ -9,7 +9,7 @@ import MissionSlot from "./MissionSlot";
 import Mission from "./Mission";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
-import {CommandInteraction, Message, TextChannel} from "discord.js";
+import {CommandInteraction, Message, TextBasedChannel} from "discord.js";
 import {Classes} from "./Class";
 import Armor from "./Armor";
 import Weapon from "./Weapon";
@@ -93,11 +93,11 @@ export class Entity extends Model {
 		return playerClass.getMaxCumulativeHealthValue(this.Player.level);
 	}
 
-	public async addHealth(health: number, channel: TextChannel, language: string) {
+	public async addHealth(health: number, channel: TextBasedChannel, language: string) {
 		await this.setHealth(this.health + health, channel, language);
 	}
 
-	public async setHealth(health: number, channel: TextChannel, language: string, shouldPokeMission = true) {
+	public async setHealth(health: number, channel: TextBasedChannel, language: string, shouldPokeMission = true) {
 		const difference = (health > await this.getMaxHealth() ? await this.getMaxHealth() : health < 0 ? 0 : health) - this.health;
 		if (difference > 0 && shouldPokeMission) {
 			await MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference);

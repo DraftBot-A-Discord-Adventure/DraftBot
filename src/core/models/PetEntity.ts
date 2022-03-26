@@ -5,7 +5,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {MissionsController} from "../missions/MissionsController";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
 import moment = require("moment");
@@ -123,18 +123,7 @@ export class PetEntity extends Model {
 						? 2 : 1;
 	}
 
-	private getNickname(language: string): string {
-		return this.nickname ? this.nickname : Translations.getModule("models.pets", language).get("noNickname");
-	}
-
-	private getSexDisplay(language: string): string {
-		const sex = this.sex === "m" ? "male" : "female";
-		return Translations.getModule("models.pets", language).get(sex)
-			+ " "
-			+ Data.getModule("models.pets").getString(sex + "Emote");
-	}
-
-	public async changeLovePoints(amount: number, discordId: string, channel: TextChannel, language: string): Promise<void> {
+	public async changeLovePoints(amount: number, discordId: string, channel: TextBasedChannel, language: string): Promise<void> {
 		this.lovePoints += amount;
 		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
 			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
@@ -148,6 +137,17 @@ export class PetEntity extends Model {
 
 	public isFeisty(): boolean {
 		return this.getLoveLevelNumber() === 0;
+	}
+
+	private getNickname(language: string): string {
+		return this.nickname ? this.nickname : Translations.getModule("models.pets", language).get("noNickname");
+	}
+
+	private getSexDisplay(language: string): string {
+		const sex = this.sex === "m" ? "male" : "female";
+		return Translations.getModule("models.pets", language).get(sex)
+			+ " "
+			+ Data.getModule("models.pets").getString(sex + "Emote");
 	}
 }
 

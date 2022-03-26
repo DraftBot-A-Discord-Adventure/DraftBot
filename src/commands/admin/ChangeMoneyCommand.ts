@@ -3,12 +3,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function isAMention(variable: string): boolean;
 
@@ -25,33 +24,35 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const moneyModule = Translations.getModule("commands.money", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
-			<TextChannel>interaction.channel,
+			interaction.channel,
 			language,
 			moneyModule.get("errors.tooMuchPeople"),
 			false,
 			interaction
 		);
+		return;
 	}
 	const amount = interaction.options.getInteger("amount");
 	if (amount > 10 ** 17) {
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
-			<TextChannel>interaction.channel,
+			interaction.channel,
 			language,
 			moneyModule.get("errors.invalidAmountFormat"),
 			false,
 			interaction
 		);
+		return;
 	}
 	const users = new Set<string>();
 	for (let i = 0; i < usersToChange.length; i++) {
 		const mention = usersToChange[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-			return await sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
-				<TextChannel>interaction.channel,
+				interaction.channel,
 				language,
 				moneyModule.format("errors.invalidIdOrMention", {
 					position: i + 1,
@@ -60,6 +61,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				false,
 				interaction
 			);
+			return;
 		}
 		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
 	}
@@ -68,9 +70,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	for (const user of users) {
 		const entityToEdit = await Entities.getByDiscordUserId(user);
 		if (!entityToEdit) {
-			return await sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
-				<TextChannel>interaction.channel,
+				interaction.channel,
 				language,
 				moneyModule.format("errors.invalidIdOrMentionDoesntExist", {
 					position: usersToChange.indexOf(user) + 1,
@@ -79,6 +81,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				false,
 				interaction
 			);
+			return;
 		}
 		const moneyBefore = entityToEdit.Player.money;
 		try {
@@ -86,14 +89,15 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 		catch (e) {
 			if (e.message === "mauvais paramètre don monnaie") {
-				return await sendErrorMessage(
+				await sendErrorMessage(
 					interaction.user,
-					<TextChannel>interaction.channel,
+					interaction.channel,
 					language,
 					moneyModule.get("errors.invalidDonationParameter"),
 					false,
 					interaction
 				);
+				return;
 			}
 			console.error(e.stack);
 

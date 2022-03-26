@@ -11,13 +11,12 @@ import {ObjectItem, ObjectItems} from "../../core/models/ObjectItem";
 import {Entities} from "../../core/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction, User} from "discord.js";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
 import {DraftBotReactionMessage} from "../../core/messages/DraftBotReactionMessage";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function isAMention(variable: string): boolean;
 
@@ -36,12 +35,13 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const tr = Translations.getModule("commands.giveCommand", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
-			<TextChannel>interaction.channel,
+			interaction.channel,
 			language,
 			tr.get("errors.tooMuchPeople")
 		);
+		return;
 	}
 	const category = interaction.options.getInteger("category");
 	const itemId = interaction.options.getInteger("itemid");
@@ -73,9 +73,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	for (let i = 0; i < usersToChange.length; i++) {
 		const mention = usersToChange[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-			return await sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
-				<TextChannel>interaction.channel,
+				interaction.channel,
 				language,
 				tr.format("errors.invalidIdOrMention", {
 					position: i + 1,
@@ -84,6 +84,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				false,
 				interaction
 			);
+			return;
 		}
 		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
 	}
@@ -136,7 +137,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			else {
 				await sendErrorMessage(
 					interaction.user,
-					<TextChannel>interaction.channel,
+					interaction.channel,
 					language,
 					tr.get("errors.commandCanceled"),
 					true

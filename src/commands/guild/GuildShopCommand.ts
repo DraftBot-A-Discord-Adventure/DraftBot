@@ -9,18 +9,15 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {randomInt} from "crypto";
 import {giveFood, isStorageFullFor} from "../../core/utils/GuildUtils";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-
-declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
 /**
  * Displays the guild shop
@@ -29,7 +26,7 @@ declare function sendBlockedError(user: User, channel: TextChannel, language: st
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
 		return;
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
@@ -83,12 +80,14 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language);
 
 			await guild.save();
-			await message.sentMessage.channel.send({ embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
-					.setDescription(guildShopTranslations.format("guildXp.give", {
-						experience: xpToAdd
-					}))] }
+			await message.sentMessage.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
+						.setDescription(guildShopTranslations.format("guildXp.give", {
+							experience: xpToAdd
+						}))]
+			}
 			);
 			return true;
 		}
@@ -112,7 +111,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 			}
 			await giveFood(message.sentMessage, message.language, entity, message.user, name, amount);
 			if (name === "ultimateFood") {
-				await MissionsController.update(entity.discordUserId, <TextChannel>message.sentMessage.channel, language, "buyUltimateSoups", amount);
+				await MissionsController.update(entity.discordUserId, message.sentMessage.channel, language, "buyUltimateSoups", amount);
 			}
 			return true;
 		},

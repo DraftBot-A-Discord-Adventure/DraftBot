@@ -5,12 +5,11 @@ import Player, {Players} from "../../core/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function progressBar(value: number, maxValue: number): string;
 
@@ -49,14 +48,15 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed();
 
 	if (guild === null) {
-		return sendErrorMessage(
+		sendErrorMessage(
 			interaction.user,
-			<TextChannel>interaction.channel,
+			interaction.channel,
 			language,
 			guildModule.get("noGuildException"),
 			false,
 			interaction
 		);
+		return;
 	}
 	const members = await Entities.getByGuild(guild.id);
 
