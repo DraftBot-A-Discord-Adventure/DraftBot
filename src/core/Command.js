@@ -197,7 +197,7 @@ class Command {
 	 * @return {String}
 	 */
 	static getUsedPrefix(message, prefix) {
-		return message.content.substr(0, prefix.length);
+		return message.content.slice(0, prefix.length);
 	}
 
 	/**
@@ -366,7 +366,7 @@ class Command {
 
 		BlockingUtils.spamBlockPlayer(message.author.id);
 
-		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
+		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.slice(1));
 		await command.execute(message, language, args);
 	}
 }

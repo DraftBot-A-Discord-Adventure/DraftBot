@@ -26,7 +26,7 @@ export class Potion extends SupportItemModel {
 	}
 
 	public getSimplePotionName(language: string): string {
-		return this.getName(language).substr(this.getName(language).indexOf(" ") + 1)
+		return this.getName(language).slice(this.getName(language).indexOf(" ") + 1)
 			.replace(/\*\*/g, "");
 	}
 
