@@ -68,5 +68,5 @@ export const commandInfo: ICommand = {
 	},
 	mainGuildCommand: false,
 	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.TESTING
+	registerPriority: CommandRegisterPriority.LOW
 };
