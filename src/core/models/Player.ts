@@ -13,7 +13,7 @@ import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../Translations";
-import {Client, TextChannel} from "discord.js";
+import {Client, TextBasedChannel, TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
@@ -139,7 +139,7 @@ export class Player extends Model {
 		) - Constants.XP.MINUS;
 	}
 
-	public async addScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
+	public async addScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		this.score += score;
 		if (score > 0) {
 			await MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score);
@@ -148,7 +148,7 @@ export class Player extends Model {
 		this.addWeeklyScore(score);
 	}
 
-	public async setScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
+	public async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		await MissionsController.update(entity.discordUserId, channel, language, "reachScore", score, null, true);
 		if (score > 0) {
 			this.score = score;
@@ -158,7 +158,7 @@ export class Player extends Model {
 		}
 	}
 
-	public async addMoney(entity: Entity, money: number, channel: TextChannel, language: string): Promise<void> {
+	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string): Promise<void> {
 		this.money += money;
 		if (money > 0) {
 			await MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money);
@@ -172,20 +172,6 @@ export class Player extends Model {
 		}
 		else {
 			this.money = 0;
-		}
-	}
-
-	private addWeeklyScore(weeklyScore: number): void {
-		this.weeklyScore += weeklyScore;
-		this.setWeeklyScore(this.weeklyScore);
-	}
-
-	private setWeeklyScore(weeklyScore: number): void {
-		if (weeklyScore > 0) {
-			this.weeklyScore = weeklyScore;
-		}
-		else {
-			this.weeklyScore = 0;
 		}
 	}
 
@@ -220,7 +206,7 @@ export class Player extends Model {
 					3;
 	}
 
-	public async getLvlUpReward(language: string, entity: Entity, channel: TextChannel): Promise<string[]> {
+	public async getLvlUpReward(language: string, entity: Entity, channel: TextBasedChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
@@ -256,7 +242,7 @@ export class Player extends Model {
 		return bonuses;
 	}
 
-	public async levelUpIfNeeded(entity: Entity, channel: TextChannel, language: string): Promise<void> {
+	public async levelUpIfNeeded(entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -288,7 +274,7 @@ export class Player extends Model {
 		await Maps.applyEffect(this, effectMalus, timeMalus);
 	}
 
-	public async killIfNeeded(entity: Entity, channel: TextChannel, language: string): Promise<boolean> {
+	public async killIfNeeded(entity: Entity, channel: TextBasedChannel, language: string): Promise<boolean> {
 		if (entity.health > 0) {
 			return false;
 		}
@@ -298,7 +284,7 @@ export class Player extends Model {
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
 
-		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
+		const guildMember = await (<TextChannel>channel).guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		this.dmNotification ? user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
 			: channel.send({
@@ -469,7 +455,7 @@ export class Player extends Model {
 	 * @param channel
 	 * @param language
 	 */
-	public async addExperience(xpWon: number, entity: Entity, channel: TextChannel, language: string) {
+	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string) {
 		this.experience += xpWon;
 		if (xpWon > 0) {
 			await MissionsController.update(entity.discordUserId, channel, language, "earnXP", xpWon);
@@ -484,6 +470,20 @@ export class Player extends Model {
 	 */
 	public getMissionSlots(): number {
 		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
+	}
+
+	private addWeeklyScore(weeklyScore: number): void {
+		this.weeklyScore += weeklyScore;
+		this.setWeeklyScore(this.weeklyScore);
+	}
+
+	private setWeeklyScore(weeklyScore: number): void {
+		if (weeklyScore > 0) {
+			this.weeklyScore = weeklyScore;
+		}
+		else {
+			this.weeklyScore = 0;
+		}
 	}
 }
 

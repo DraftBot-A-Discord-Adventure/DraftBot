@@ -1,5 +1,5 @@
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Entities, Entity} from "../../core/models/Entity";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -8,11 +8,11 @@ import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
-declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
 		return;
 	}
 	let entityToLook = await Entities.getByOptions(interaction);
@@ -24,10 +24,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		entityToLook = entity;
 	}
 
-	await MissionsController.update(entity.discordUserId, <TextChannel>interaction.channel, language, "commandMission");
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "commandMission");
 	entity = await Entities.getById(entity.id);
 
-	await Campaign.updateCampaignAndSendMessage(entity, <TextChannel>interaction.channel, language);
+	await Campaign.updateCampaignAndSendMessage(entity, interaction.channel, language);
 	if (entityToLook.discordUserId === entity.discordUserId) {
 		[entityToLook] = await Entities.getOrRegister(entityToLook.discordUserId);
 	}

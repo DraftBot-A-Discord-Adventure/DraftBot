@@ -3,14 +3,12 @@ import {Entity} from "../../core/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
-
-declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Activate or desactivate DMs notifications.
@@ -19,7 +17,7 @@ declare function sendErrorMessage(user: User, channel: TextChannel, language: st
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, <TextChannel>interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
 		return;
 	}
 	const translationsDmn = Translations.getModule("commands.dmNotification", language);
@@ -44,7 +42,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			entity.Player.dmNotification = false;
 			await sendErrorMessage(
 				interaction.user,
-				<TextChannel>interaction.channel,
+				interaction.channel,
 				language,
 				translationsDmn.get("error"),
 				false,
@@ -57,7 +55,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await interaction.reply({embeds: [dmNotificationEmbed], ephemeral: true});
 	}
 	// TODO refact la commande "log"
-	console.log("Player " + interaction.user + " switched dms to " + entity.Player.dmNotification);
+	// log("Player " + interaction.user + " switched dms to " + entity.Player.dmNotification);
 	await entity.Player.save();
 }
 

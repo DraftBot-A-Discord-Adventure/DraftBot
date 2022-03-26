@@ -4,7 +4,7 @@ import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {TextBasedChannel, TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
 import {Entities} from "./Entity";
@@ -83,7 +83,7 @@ export class Guild extends Model {
 		this.experience += experience;
 		this.setExperience(this.experience);
 		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(<TextChannel>channel, language);
+			await this.levelUpIfNeeded(channel, language);
 		}
 	}
 
@@ -91,7 +91,7 @@ export class Guild extends Model {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	}
 
-	public async levelUpIfNeeded(channel: TextChannel, language: string): Promise<void> {
+	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}

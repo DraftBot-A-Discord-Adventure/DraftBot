@@ -7,7 +7,7 @@
  *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-import {Message, MessageEmbed, TextChannel, User} from "discord.js";
+import {Message, MessageEmbed, User} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Guilds} from "../models/Guild";
@@ -18,6 +18,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 
 declare function giveFood(message: Message, language: string, entity: any, author: User, food: any, quantity: number): any;
+
 declare function log(text: string): any;
 
 export const smallEvent: SmallEvent = {
@@ -30,9 +31,11 @@ export const smallEvent: SmallEvent = {
 			function minRarity(entity: any): number {
 				return Math.floor(5 * Math.tanh(entity.Player.level / 125) + 1);
 			}
+
 			function maxRarity(entity: any): number {
 				return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
 			}
+
 			function ultimateFoodsAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1);
 				if (amount > foodData.getNumber("max.ultimateFood") - currentFoodLevel) {
@@ -40,6 +43,7 @@ export const smallEvent: SmallEvent = {
 				}
 				return amount;
 			}
+
 			function commonFoodAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2);
 				if (amount > foodData.getNumber("max.commonFood") - currentFoodLevel) {
@@ -119,7 +123,7 @@ export const smallEvent: SmallEvent = {
 				log(entity.discordUserId + "got a good level small event but didn't have enough space for ultimate soups");
 				break;
 			case "item":
-				await giveItemToPlayer(entity, reward.option, language, message.author, <TextChannel> message.channel);
+				await giveItemToPlayer(entity, reward.option, language, message.author, message.channel);
 				log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
 				break;
 			case "commonFood":
