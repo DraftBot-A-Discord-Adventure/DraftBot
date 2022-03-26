@@ -1,6 +1,7 @@
 import {CommandInteraction, HexColorString} from "discord.js";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Constants} from "./Constants";
+import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -71,12 +72,9 @@ export class CommandsTest {
 		if (commandTest.commandInfo.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
-				new DraftBotEmbed()
-					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, interaction.user)
-					.setDescription(
-						"**Format attendu :** `test " + commandTest.commandInfo.name + "`"
-					)
-					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
+				new DraftBotErrorEmbed(interaction.user,
+					Constants.LANGUAGE.FRENCH,
+					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name + "\n\n**Format attendu :** `test " + commandTest.commandInfo.name + "`")
 			];
 		}
 		const commandTypeKeys = Object.keys(commandTest.commandInfo.typeWaited);
@@ -84,26 +82,22 @@ export class CommandsTest {
 		if (nbArgsWaited !== args.length) {
 			return [
 				false,
-				new DraftBotEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, interaction.user.displayAvatarURL())
-					.setDescription(
-						"**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`"
-					)
-					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
+				new DraftBotErrorEmbed(interaction.user,
+					Constants.LANGUAGE.FRENCH,
+					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name +
+					"\n\n**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`")
 			];
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
 			if (commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
 				return [
 					false,
-					new DraftBotEmbed()
-						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name, interaction.user.displayAvatarURL())
-						.setDescription(
-							"**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +
-							"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type + "\n" +
-							"**Format reçu** : " + CommandsTest.getTypeOf(args[i])
-						)
-						.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.ERROR)
+					new DraftBotErrorEmbed(interaction.user,
+						Constants.LANGUAGE.FRENCH,
+						"❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name +
+						"\n\n**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +
+						"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type + "\n" +
+						"**Format reçu** : " + CommandsTest.getTypeOf(args[i]))
 				];
 			}
 		}
@@ -133,7 +127,7 @@ export class CommandsTest {
 				embedTestSuccessful = new DraftBotEmbed()
 					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", interaction.user.displayAvatarURL())
 					.setDescription(messageToDisplay)
-					.setColor(<HexColorString>Constants.TEST_EMBED_COLOR.SUCCESSFUL);
+					.setColor(<HexColorString>Constants.MESSAGES.COLORS.SUCCESSFUL);
 			}
 			else {
 				embedTestSuccessful = messageToDisplay;
