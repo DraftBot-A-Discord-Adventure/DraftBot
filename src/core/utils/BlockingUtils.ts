@@ -1,4 +1,4 @@
-import {ReactionCollector, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, ReactionCollector, TextBasedChannel, User} from "discord.js";
 import {IPCClient} from "../bot/ipc/IPCClient";
 import {Translations} from "../Translations";
 import {sendErrorMessage} from "./ErrorUtils";
@@ -35,14 +35,15 @@ export class BlockingUtils {
  * @param {User} user
  * @param {TextBasedChannel} channel
  * @param {"fr"|"en"} language
+ * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string) {
+export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string, interaction: CommandInteraction = null ) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason !== null) {
 		await sendErrorMessage(user, channel, language, Translations.getModule("error", language).format("playerBlocked", {
 			context: Translations.getModule("error", language).get("blockedContext." + blockingReason)
-		}));
+		}),false, interaction);
 		return true;
 	}
 	return false;

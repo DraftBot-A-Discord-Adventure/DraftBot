@@ -12,7 +12,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
 		return;
 	}
 	let entityToLook = await Entities.getByOptions(interaction);

@@ -73,27 +73,27 @@ export abstract class Constants {
 		MYTHICAL: 8
 	};
 
-	static readonly RARITIES_VALUES = {
-		"0": 0,
-		"1": 20,
-		"2": 40,
-		"3": 100,
-		"4": 250,
-		"5": 580,
-		"6": 1690,
-		"7": 5000,
-		"8": 10000
-	};
+	static readonly RARITIES_VALUES = [
+		0, // basic
+		20, // common
+		40, // uncommon
+		100, // exotic
+		250, // rare
+		580, // special
+		1690, // epic
+		5000, // legendary
+		10000 // unique
+	];
 
 	static readonly RARITIES_GENERATOR = {
-		VALUES: [
-			4375,
-			6875,
-			8375,
-			9375,
-			9875,
-			9975,
-			9998
+		VALUES: [// common
+			4375,// uncommon
+			6875,// exotic
+			8375,// rare
+			9375,// special
+			9875, // epic
+			9975, // legendary
+			9998 // unique
 		],
 		MAX_VALUE: 10000
 	};

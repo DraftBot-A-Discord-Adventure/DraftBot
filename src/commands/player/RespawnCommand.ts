@@ -19,7 +19,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
