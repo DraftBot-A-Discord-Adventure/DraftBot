@@ -2,7 +2,7 @@ import {Data, DataModule} from "../Data";
 import Player from "../models/Player";
 import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 import {MissionsController} from "./MissionsController";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {Missions} from "../models/Mission";
 import Entity from "../models/Entity";
@@ -11,13 +11,6 @@ export class Campaign {
 	private static maxCampaignCache = -1;
 
 	private static campaignModule: DataModule = null;
-
-	private static getDataModule(): DataModule {
-		if (!this.campaignModule) {
-			this.campaignModule = Data.getModule("campaign");
-		}
-		return this.campaignModule;
-	}
 
 	static getMaxCampaignNumber(): number {
 		if (this.maxCampaignCache === -1) {
@@ -84,11 +77,18 @@ export class Campaign {
 		return [];
 	}
 
-	public static async updateCampaignAndSendMessage(entity: Entity, channel: TextChannel, language: string) {
+	public static async updateCampaignAndSendMessage(entity: Entity, channel: TextBasedChannel, language: string) {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, false, false, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(entity.discordUserId, entity.Player, completedMissions, channel, language);
 		}
+	}
+
+	private static getDataModule(): DataModule {
+		if (!this.campaignModule) {
+			this.campaignModule = Data.getModule("campaign");
+		}
+		return this.campaignModule;
 	}
 }

@@ -9,7 +9,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Translations} from "../Translations";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
-import {sendErrorMessage} from "../utils/MessageUtils";
+import {sendErrorMessage} from "../utils/ErrorUtils";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {

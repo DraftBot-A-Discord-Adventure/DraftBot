@@ -3,7 +3,6 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
 import {Guilds} from "./models/Guild";
-import {BlockingUtils} from "./utils/BlockingUtils";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -257,24 +256,6 @@ global.getItemValue = function(item) {
 };
 
 /**
- * Send an error if the user is blocked by a command
- * @param {module:"discord.js".User} user
- * @param {module:"discord.js".TextChannel} channel
- * @param {"fr"|"en"} language
- * @returns {boolean}
- */
-global.sendBlockedError = async function(user, channel, language) {
-	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
-	if (blockingReason !== null) {
-		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-			context: JsonReader.error.getTranslation(language).blockedContext[blockingReason]
-		}));
-		return true;
-	}
-	return false;
-};
-
-/**
  * Returns the next sunday 23h59 59s
  * @return {Date}
  */
@@ -353,12 +334,6 @@ global.getValidationInfos = function(guild) {
 	return {
 		validation: validation, humans: humans, bots: bots, ratio: ratio
 	};
-};
-
-global.checkNameString = (name, minLength, maxLength) => {
-	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
-	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
 /**

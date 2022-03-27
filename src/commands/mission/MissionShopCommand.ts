@@ -8,7 +8,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import Entity, {Entities} from "../../core/models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
@@ -165,7 +165,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 						}
 					}
 					BlockingUtils.unblockPlayer(message.user.id);
-					await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+					await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 				});
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
@@ -202,7 +202,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
@@ -211,7 +211,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						.setDescription(translationModule.format("items.money.giveDescription", {amount: calculateGemsToMoneyRatio()})
 						)]
 				});
-			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -223,8 +223,8 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
-			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel>message.sentMessage.channel);
-			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+			await giveItemToPlayer(entity, item, message.language, message.user, message.sentMessage.channel);
+			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -245,7 +245,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 				return false;
 			}
-			await entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addScore(entity, 1000, message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
@@ -256,7 +256,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
 			await entity.Player.PlayerMissionsInfo.save();
-			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -290,7 +290,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 					}))
 				]
 			});
-			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -319,7 +319,7 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 					.setDescription(Constants.BADGES.QUEST_MASTER + " " + translationModule.get("items.badge.name"))
 				]
 			});
-			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		}
 	);

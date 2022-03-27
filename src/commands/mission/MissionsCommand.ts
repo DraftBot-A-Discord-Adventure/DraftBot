@@ -1,5 +1,5 @@
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Entities, Entity} from "../../core/models/Entity";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -23,10 +23,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		entityToLook = entity;
 	}
 
-	await MissionsController.update(entity.discordUserId, <TextChannel>interaction.channel, language, "commandMission");
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "commandMission");
 	entity = await Entities.getById(entity.id);
 
-	await Campaign.updateCampaignAndSendMessage(entity, <TextChannel>interaction.channel, language);
+	await Campaign.updateCampaignAndSendMessage(entity, interaction.channel, language);
 	if (entityToLook.discordUserId === entity.discordUserId) {
 		[entityToLook] = await Entities.getOrRegister(entityToLook.discordUserId);
 	}

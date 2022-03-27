@@ -1,15 +1,12 @@
-import {Guilds} from "../models/Guild";
+import {Guild, Guilds} from "../models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {format} from "./StringFormatter";
-import Entity from "../models/Entity";
 import {TextBasedChannel, User} from "discord.js";
-import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
+import Entity from "../models/Entity";
 import {Translations} from "../Translations";
-import {Constants} from "../Constants";
 import {Data} from "../Data";
-
-export const sendErrorMessage = (user: User, channel: TextBasedChannel, language: string, reason: string, isCancelling = false) =>
-	channel.send({ embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)] });
+import {Constants} from "../Constants";
+import {sendErrorMessage} from "./ErrorUtils";
+import {format} from "./StringFormatter";
 
 export const giveFood = async (
 	channel: TextBasedChannel,
@@ -79,3 +76,5 @@ export const giveFood = async (
 	}
 	return channel.send({ embeds: [successEmbed] });
 };
+
+export const isStorageFullFor = (name: string, quantity: number, guild: Guild): boolean => guild.getDataValue(name) + quantity > Data.getModule("commands.guildShop").getNumber("max." + name);

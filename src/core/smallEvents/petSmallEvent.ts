@@ -11,7 +11,7 @@ import {Constants} from "../Constants";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {PetEntities, PetEntity} from "../models/PetEntity";
 import {Data} from "../Data";
-import {giveFood} from "../utils/MessageUtils";
+import {giveFood} from "../utils/GuildUtils";
 
 /**
  * Allow to generate the embed that will be displayed to the player

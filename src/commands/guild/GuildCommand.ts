@@ -5,12 +5,12 @@ import Player, {Players} from "../../core/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
-import {sendErrorMessage} from "../../core/utils/MessageUtils";
 import {progressBar} from "../../core/utils/StringUtils";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Allow to display the info of a guild
@@ -49,7 +49,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (guild === null) {
 		sendErrorMessage(
 			interaction.user,
-			<TextChannel>interaction.channel,
+			interaction.channel,
 			language,
 			guildModule.get("noGuildException"),
 			false

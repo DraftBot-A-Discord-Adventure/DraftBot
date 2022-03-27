@@ -3,12 +3,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-declare function sendErrorMessage(user: User, channel: TextChannel, language: string, reason: string, isCancelling?: boolean, interaction?: CommandInteraction): Promise<void>;
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function getIdFromMention(variable: string): string;
 
@@ -29,10 +28,12 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const user = draftBotClient.users.cache.get(userId);
 
 	if (userId === undefined) {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("descError"), false, interaction);
+		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("descError"), false, interaction);
+		return;
 	}
 	if (user === undefined) {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("personNotExists"), false, interaction);
+		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("personNotExists"), false, interaction);
+		return;
 	}
 	const embed = new DraftBotEmbed()
 		.formatAuthor(dmModule.get("title"), user)
@@ -45,7 +46,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return await interaction.reply({embeds: [embed]});
 	}
 	catch {
-		return sendErrorMessage(interaction.user, <TextChannel>interaction.channel, language, dmModule.get("errorCannotSend"), false, interaction);
+		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("errorCannotSend"), false, interaction);
 	}
 }
 

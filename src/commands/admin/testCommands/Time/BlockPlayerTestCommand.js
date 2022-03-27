@@ -15,17 +15,18 @@ module.exports.commandInfo = {
 /**
  * Block your player for a given time
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const blockPlayerTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const blockPlayerTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	if (args[0] <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const sec = parseInt(args[0],10);
-	const collector = message.createReactionCollector({
+	const sec = parseInt(args[0], 10);
+	const messageToReact = await interaction.reply({content: "je suis un message qui va te bloquer"});
+	const collector = messageToReact.createReactionCollector({
 		filter: () => true,
 		time: sec * 1000
 	});

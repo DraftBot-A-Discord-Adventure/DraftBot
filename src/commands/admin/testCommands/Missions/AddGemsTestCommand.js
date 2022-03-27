@@ -13,14 +13,14 @@ module.exports.commandInfo = {
 /**
  * Add gems to the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const addGemsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const addGemsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0]));
-	entity.Player.PlayerMissionsInfo.save();
+	await entity.Player.PlayerMissionsInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});
 };

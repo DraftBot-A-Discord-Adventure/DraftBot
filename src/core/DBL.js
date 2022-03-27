@@ -39,7 +39,7 @@ class DBL {
 	static async userDBLVote(user) {
 		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
-		voter.Player.save();
+		await voter.Player.save();
 		await draftBotClient.shard.broadcastEval(async (client, context) => {
 			const guild = await client.guilds.cache.get(context.config.MAIN_SERVER_ID);
 			if (guild) {

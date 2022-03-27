@@ -1,9 +1,11 @@
 import {
-	ApplicationCommand, ApplicationCommandPermissionData,
+	ApplicationCommand,
+	ApplicationCommandPermissionData,
 	Client,
 	CommandInteraction,
 	GuildChannel,
-	GuildMember, GuildResolvable,
+	GuildMember,
+	GuildResolvable,
 	Message,
 	TextBasedChannel,
 	User
@@ -46,6 +48,9 @@ export class CommandsManager {
 				const commandInfo = require(`./${category + "/" + commandFile}`).commandInfo as ICommand;
 				if (!commandInfo || !commandInfo.slashCommandBuilder) {
 					console.error(`Command dist/src/commands/${category + "/" + commandFile} is not a slash command`);
+					continue;
+				}
+				if (commandFile === "TestCommand.ts" && !botConfig.TEST_MODE) {
 					continue;
 				}
 				commandsToRegister.push(commandInfo);
@@ -101,6 +106,69 @@ export class CommandsManager {
 				}
 			}
 		});
+	}
+
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, argsOfCommand);
+	}
+
+	static async handlePrivateMessage(message: Message) {
+		const [entity] = await Entities.getOrRegister(message.author.id);
+		const dataModule = Data.getModule("bot");
+		let icon = "";
+		if (!entity.Player.dmNotification) {
+			icon = dataModule.getString("dm.alertIcon");
+		}
+		await draftBotClient.shard.broadcastEval((client, context) => {
+			const mainServer = client.guilds.cache.get(context.mainServerId);
+			if (mainServer) {
+				const dmChannel = client.users.cache.get(context.dmChannelId);
+				if (context.attachments.length > 0) {
+					for (const attachment of context.attachments) {
+						dmChannel.send({
+							files: [{
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								// @ts-ignore
+								attachment: attachment.url,
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								// @ts-ignore
+								name: attachment.filename
+							}]
+						});
+					}
+				}
+				dmChannel.send({content: context.supportAlert});
+			}
+		}, {
+			context: {
+				mainServerId: botConfig.MAIN_SERVER_ID,
+				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
+				attachments: Array.from(message.attachments.values()),
+				supportAlert: format(dataModule.getString("dm.supportAlert"), {
+					username: escapeUsername(message.author.username),
+					alertIcon: icon,
+					id: message.author.id
+				}) + message.content
+			}
+		});
+
+		const reactionMessage = new DraftBotReactionMessageBuilder()
+			.allowUserId(message.author.id)
+			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
+			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
+			.endCallback((msg) => {
+				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
+				const tr = Translations.getModule("bot", language);
+				message.channel.send({
+					embeds: [new DraftBotEmbed()
+						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(message.author.username)}), message.author)
+						.setDescription(tr.get("dmHelpMessage"))]
+				});
+			})
+			.build();
+		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);
+		reactionMessage.setDescription(dataModule.getString("dm.messageSupport"));
+		await reactionMessage.send(message.channel);
 	}
 
 	/**
@@ -282,7 +350,9 @@ export class CommandsManager {
 				embeds: [new DraftBotErrorEmbed(
 					interaction.user,
 					tr.language,
-					Translations.getModule("error", tr.language).get("levelTooLow")
+					Translations.getModule("error", tr.language).format("levelTooLow", {
+						level: entity.Player.getLevel()
+					})
 				)]
 			}).then();
 			return;
@@ -365,64 +435,5 @@ export class CommandsManager {
 		// TODO: REFAIRE LES LOGS
 		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
 		await commandInfo.executeCommand(interaction, tr.language, entity);
-	}
-
-	static async handlePrivateMessage(message: Message) {
-		const [entity] = await Entities.getOrRegister(message.author.id);
-		const dataModule = Data.getModule("bot");
-		let icon = "";
-		if (!entity.Player.dmNotification) {
-			icon = dataModule.getString("dm.alertIcon");
-		}
-		await draftBotClient.shard.broadcastEval((client, context) => {
-			const mainServer = client.guilds.cache.get(context.mainServerId);
-			if (mainServer) {
-				const dmChannel = client.users.cache.get(context.dmChannelId);
-				if (context.attachments.length > 0) {
-					for (const attachment of context.attachments) {
-						dmChannel.send({
-							files: [{
-								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-								// @ts-ignore
-								attachment: attachment.url,
-								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-								// @ts-ignore
-								name: attachment.filename
-							}]
-						});
-					}
-				}
-				dmChannel.send({content: context.supportAlert});
-			}
-		}, {
-			context: {
-				mainServerId: botConfig.MAIN_SERVER_ID,
-				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
-				attachments: Array.from(message.attachments.values()),
-				supportAlert: format(dataModule.getString("dm.supportAlert"), {
-					username: escapeUsername(message.author.username),
-					alertIcon: icon,
-					id: message.author.id
-				}) + message.content
-			}
-		});
-
-		const reactionMessage = new DraftBotReactionMessageBuilder()
-			.allowUserId(message.author.id)
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
-			.endCallback((msg) => {
-				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
-				const tr = Translations.getModule("bot", language);
-				message.channel.send({
-					embeds: [new DraftBotEmbed()
-						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(message.author.username)}), message.author)
-						.setDescription(tr.get("dmHelpMessage"))]
-				});
-			})
-			.build();
-		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);
-		reactionMessage.setDescription(dataModule.getString("dm.messageSupport"));
-		await reactionMessage.send(message.channel);
 	}
 }

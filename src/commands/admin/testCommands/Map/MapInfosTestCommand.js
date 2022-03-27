@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {Entities} from "../../../../core/models/Entity";
 import {MapLocations} from "../../../../core/models/MapLocation";
+import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "mapinfo",
@@ -8,23 +9,21 @@ module.exports.commandInfo = {
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"
 };
 
-import {Maps} from "../../../../core/Maps";
-
 /**
  * Give you informations about the map you are on
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const mapInfosTestCommand = async (language, message) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const mapInfosTestCommand = async (language, interaction) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const mapEmbed = new DraftBotEmbed();
 	const currMap = await entity.Player.getDestination();
 	const prevMap = await entity.Player.getPreviousMap();
 	const travelling = Maps.isTravelling(entity.Player);
 
-	mapEmbed.formatAuthor("🗺️ Map debugging", message.author)
+	mapEmbed.formatAuthor("🗺️ Map debugging", interaction.user)
 		.addField(
 			travelling ? "Next map" : "Current map",
 			currMap.getDisplayName(language) + " (id: " + currMap.id + ")",

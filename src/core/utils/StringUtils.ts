@@ -28,4 +28,17 @@ export const progressBar = (value: number, maxValue: number) => {
 	const percentageText = Math.floor(percentage * 100) + "%"; // Displaying the percentage of the bar
 
 	return "```[" + progressText + emptyProgressText + "]" + percentageText + "```"; // Creating the bar
-}
+};
+
+/**
+ * Check if a name is valid
+ * @param name - the name to check
+ * @param minLength
+ * @param maxLength
+ */
+export const checkNameString = function(name :string, minLength: number, maxLength:number) {
+	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+};
+

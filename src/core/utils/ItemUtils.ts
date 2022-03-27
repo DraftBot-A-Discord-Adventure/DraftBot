@@ -1,4 +1,4 @@
-import {TextChannel, User} from "discord.js";
+import {TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
@@ -24,7 +24,7 @@ export const giveItemToPlayer = async function(
 	item: GenericItemModel,
 	language: string,
 	discordUser: User,
-	channel: TextChannel,
+	channel: TextBasedChannel,
 	resaleMultiplierNew = 1,
 	resaleMultiplierActual = 1
 ): Promise<void> {
@@ -118,7 +118,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
+			await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 			return;
 		}
 	}
@@ -172,7 +172,7 @@ const sellOrKeepItem = async function(
 	entity: Entity,
 	keepOriginal: boolean,
 	discordUser: User,
-	channel: TextChannel,
+	channel: TextBasedChannel,
 	language: string,
 	item: GenericItemModel,
 	itemToReplace: InventorySlot,
@@ -254,21 +254,7 @@ const sellOrKeepItem = async function(
 };
 
 export const getItemValue = function(item: GenericItemModel) {
-	let addedValue: number;
-	const category = item.getCategory();
-	if (category === Constants.ITEM_CATEGORIES.POTION) {
-		addedValue = (item as Potion).power;
-	}
-	if (category === Constants.ITEM_CATEGORIES.OBJECT) {
-		addedValue = (item as ObjectItem).power;
-	}
-	if (category === Constants.ITEM_CATEGORIES.WEAPON) {
-		addedValue = (item as Weapon).rawAttack;
-	}
-	if (category === Constants.ITEM_CATEGORIES.ARMOR) {
-		addedValue = (item as Armor).rawDefense;
-	}
-	return Math.round((Constants.RARITIES_VALUES as any)[item.rarity] + addedValue);
+	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
@@ -373,11 +359,11 @@ export const generateRandomObject = async function(objectType: number = null, mi
 /**
  * give a random item
  * @param {User} discordUser
- * @param {TextChannel} channel
+ * @param {TextBasedChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextChannel, language: string, entity: any) {
+export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: any) {
 	const item = await generateRandomItem();
 	return await giveItemToPlayer(entity, item, language, discordUser, channel);
 };

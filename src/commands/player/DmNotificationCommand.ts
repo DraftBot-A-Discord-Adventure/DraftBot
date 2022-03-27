@@ -3,11 +3,10 @@ import {Entity} from "../../core/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
-import {sendErrorMessage} from "../../core/utils/MessageUtils";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
@@ -40,13 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		catch (err) {
 			entity.Player.dmNotification = false;
-			await sendErrorMessage(
-				interaction.user,
-				<TextChannel>interaction.channel,
-				language,
-				translationsDmn.get("error"),
-				false
-			);
+			await sendBlockedErrorInteraction(interaction, language);
 		}
 
 	}
@@ -54,7 +47,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await interaction.reply({embeds: [dmNotificationEmbed], ephemeral: true});
 	}
 	// TODO refact la commande "log"
-	console.log("Player " + interaction.user + " switched dms to " + entity.Player.dmNotification);
+	// log("Player " + interaction.user + " switched dms to " + entity.Player.dmNotification);
 	await entity.Player.save();
 }
 

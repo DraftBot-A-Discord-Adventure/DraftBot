@@ -13,11 +13,11 @@ module.exports.commandInfo = {
 /**
  * Force you to be the guild's chief
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const forceGuildOwnerTestCommand = async (language, message) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const forceGuildOwnerTestCommand = async (language, interaction) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur forceguildowner : vous n'êtes pas dans une guilde !");

@@ -16,9 +16,9 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel} from "discord.js";
 import {randomInt} from "crypto";
-import {giveFood} from "../../core/utils/MessageUtils";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {giveFood} from "../../core/utils/GuildUtils";
 
 /**
  * Displays the guild shop
@@ -81,12 +81,14 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language);
 
 			await guild.save();
-			await message.sentMessage.channel.send({ embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
-					.setDescription(guildShopTranslations.format("guildXp.give", {
-						experience: xpToAdd
-					}))] }
+			await message.sentMessage.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
+						.setDescription(guildShopTranslations.format("guildXp.give", {
+							experience: xpToAdd
+						}))]
+			}
 			);
 			return true;
 		}
@@ -133,5 +135,5 @@ export const commandInfo: ICommand = {
 	},
 	mainGuildCommand: false,
 	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	registerPriority: CommandRegisterPriority.NORMAL
 };

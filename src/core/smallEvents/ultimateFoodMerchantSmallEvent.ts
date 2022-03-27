@@ -7,7 +7,7 @@ import {Constants} from "../Constants";
 import {SmallEvent} from "./SmallEvent";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {giveFood} from "../utils/MessageUtils";
+import {giveFood} from "../utils/GuildUtils";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -19,9 +19,11 @@ export const smallEvent: SmallEvent = {
 			function minRarity(entity: any): number {
 				return Math.floor(5 * Math.tanh(entity.Player.level / 125) + 1);
 			}
+
 			function maxRarity(entity: any): number {
 				return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
 			}
+
 			function ultimateFoodsAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1);
 				if (amount > foodData.getNumber("max.ultimateFood") - currentFoodLevel) {
@@ -29,6 +31,7 @@ export const smallEvent: SmallEvent = {
 				}
 				return amount;
 			}
+
 			function commonFoodAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2);
 				if (amount > foodData.getNumber("max.commonFood") - currentFoodLevel) {

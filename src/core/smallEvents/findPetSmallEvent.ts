@@ -10,7 +10,7 @@ import {GuildPets} from "../models/GuildPet";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Constants} from "../Constants";
-import {giveFood} from "../utils/MessageUtils";
+import {giveFood} from "../utils/GuildUtils";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(entity: Entity): Promise<boolean> {
