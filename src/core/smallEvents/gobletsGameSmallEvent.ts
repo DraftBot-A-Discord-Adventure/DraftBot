@@ -12,7 +12,7 @@ import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Constants} from "../Constants";
 import {SmallEvent} from "./SmallEvent";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Maps} from "../Maps";
@@ -39,7 +39,7 @@ export const smallEvent: SmallEvent = {
 			case "time":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 3 * 1.25 ) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
+					option: Math.round(entity.Player.level / 3 * 1.25) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
 				};
 			case "nothing":
 				return {
@@ -53,6 +53,7 @@ export const smallEvent: SmallEvent = {
 			default:
 			}
 		}
+
 		async function applyMalus(malus: any): Promise<void> {
 			switch (malus.type) {
 			case "life":
@@ -78,6 +79,7 @@ export const smallEvent: SmallEvent = {
 			await entity.save();
 			await entity.save();
 		}
+
 		function generateEndMessage(malus: any, goblet: string) {
 			seEmbed.setDescription(format(tr.getRandom("results." + malus.type), {
 				amount: malus.option,
@@ -126,6 +128,6 @@ export const smallEvent: SmallEvent = {
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
 		);
-		await builtEmbed.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "levelBad", collector));
+		await builtEmbed.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "gobletChoose", collector));
 	}
 };
