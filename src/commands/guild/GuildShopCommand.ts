@@ -26,7 +26,7 @@ import {CommandRegisterPriority} from "../CommandRegisterPriority";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
 		return;
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);

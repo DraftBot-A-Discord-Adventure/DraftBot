@@ -255,19 +255,7 @@ const sellOrKeepItem = async function(
 };
 
 export const getItemValue = function(item: any) {
-	let addedValue;
-	const category = item.getCategory();
-	if (category === Constants.ITEM_CATEGORIES.POTION || category === Constants.ITEM_CATEGORIES.OBJECT) {
-		addedValue = parseInt(item.power);
-	}
-	if (category === Constants.ITEM_CATEGORIES.WEAPON) {
-		addedValue = parseInt(item.rawAttack);
-	}
-	if (category === Constants.ITEM_CATEGORIES.ARMOR) {
-		addedValue = parseInt(item.rawDefense);
-	}
-	// todo: raritiesValues a été déplacé dans les constants.ts
-	return Math.round(parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedValue);
+	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<any> {

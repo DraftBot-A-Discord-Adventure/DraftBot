@@ -16,7 +16,7 @@ import Player from "../../core/models/Player";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
 		return;
 	}
 	const mapModule = Translations.getModule("commands.map", language);

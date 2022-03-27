@@ -17,7 +17,7 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language)) {
+	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
 		return;
 	}
 	const translationsDmn = Translations.getModule("commands.dmNotification", language);
