@@ -4,9 +4,6 @@
 	"maleEmote": "♂️",
 	"femaleEmote": "♀️",
 	"rarityEmote": "⭐",
-
-	"nicknameMinLength": 3,
-	"nicknameMaxLength": 16,
 	"translations": {
 		"fr": {
 			"hungry" : "\uD83E\uDD24 affamé",
