@@ -6,7 +6,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	let askedEntity = await Entities.getByOptions(interaction);
 	if (!askedEntity) {
 		askedEntity = entity;

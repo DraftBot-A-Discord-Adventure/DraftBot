@@ -5,7 +5,7 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string) {
 	const tr = Translations.getModule("commands.vote", language);
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
