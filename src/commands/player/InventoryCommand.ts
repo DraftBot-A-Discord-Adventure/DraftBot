@@ -4,7 +4,6 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	let askedEntity = await Entities.getByOptions(interaction);
@@ -39,6 +38,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

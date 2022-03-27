@@ -2,7 +2,6 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Send database
@@ -32,6 +31,5 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.HIGH
+	slashCommandPermissions: null
 };

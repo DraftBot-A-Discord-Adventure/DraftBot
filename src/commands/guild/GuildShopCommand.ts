@@ -17,7 +17,6 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, TextChannel} from "discord.js";
 import {randomInt} from "crypto";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {giveFood} from "../../core/utils/GuildUtils";
 
 /**
@@ -134,6 +133,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

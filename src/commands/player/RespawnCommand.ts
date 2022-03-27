@@ -3,7 +3,6 @@ import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Constants} from "../../core/Constants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import Entity from "../../core/models/Entity";
@@ -67,6 +66,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

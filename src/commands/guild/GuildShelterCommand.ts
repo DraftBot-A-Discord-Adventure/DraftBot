@@ -3,7 +3,6 @@ import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelter
 import {Guilds} from "../../core/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 
@@ -26,6 +25,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

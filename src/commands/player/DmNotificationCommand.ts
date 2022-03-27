@@ -7,7 +7,6 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Activate or desactivate DMs notifications.
@@ -65,6 +64,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

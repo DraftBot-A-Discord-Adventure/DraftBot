@@ -9,7 +9,6 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {progressBar} from "../../core/utils/StringUtils";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
@@ -168,6 +167,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

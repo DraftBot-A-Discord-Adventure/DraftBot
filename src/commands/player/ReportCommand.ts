@@ -28,7 +28,6 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 const executeCommand = async (interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent = -1, forceSmallEvent: string = null) => {
 	if (entity.Player.score === 0 && entity.Player.effect === Constants.EFFECT.BABY) {
@@ -544,6 +543,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.HIGHEST
+	slashCommandPermissions: null
 };

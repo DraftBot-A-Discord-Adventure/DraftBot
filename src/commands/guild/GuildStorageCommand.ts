@@ -3,7 +3,6 @@ import {Entity} from "../../core/models/Entity";
 import {Guild, Guilds} from "../../core/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
@@ -75,6 +74,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

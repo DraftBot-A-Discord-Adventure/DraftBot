@@ -19,7 +19,6 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Displays the mission shop
@@ -339,6 +338,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

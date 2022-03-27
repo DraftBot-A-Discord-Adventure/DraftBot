@@ -6,7 +6,6 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function getIdFromMention(variable: string): string;
@@ -70,6 +69,5 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };
