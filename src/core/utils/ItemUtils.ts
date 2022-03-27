@@ -254,7 +254,7 @@ const sellOrKeepItem = async function(
 	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
 };
 
-export const getItemValue = function(item: any) {
+export const getItemValue = function(item: GenericItemModel) {
 	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
