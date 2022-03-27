@@ -159,6 +159,8 @@ export abstract class Constants {
 
 	static readonly PETS = {
 		IS_FOOD: 1,
+		NICKNAME_MIN_LENGTH: 3,
+		NICKNAME_MAX_LENGTH: 16,
 		MALE: "m",
 		FEMALE: "f",
 		FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
