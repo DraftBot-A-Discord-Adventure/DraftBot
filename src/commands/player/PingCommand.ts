@@ -5,7 +5,7 @@ import {Translations} from "../../core/Translations";
 import {draftBotInstance, shardId} from "../../core/bot";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string){
 	const tr = Translations.getModule("commands.ping", language);
 	const reply = await interaction.reply({ content: tr.get("create"), fetchReply: true });
 	await interaction.editReply({
