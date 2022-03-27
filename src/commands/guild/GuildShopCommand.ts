@@ -31,10 +31,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
-	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
-	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
-	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
-	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
+	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("commonFood")] - guild.commonFood, 1);
+	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("herbivorousFood")] - guild.herbivorousFood, 1);
+	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("carnivorousFood")] - guild.carnivorousFood, 1);
+	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("ultimateFood")] - guild.ultimateFood, 1);
 
 	const shopMessage = new DraftBotShopMessageBuilder(
 		interaction.user,
@@ -134,5 +134,5 @@ export const commandInfo: ICommand = {
 	},
 	mainGuildCommand: false,
 	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	registerPriority: CommandRegisterPriority.NORMAL
 };

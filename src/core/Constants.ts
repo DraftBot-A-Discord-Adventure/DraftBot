@@ -204,11 +204,13 @@ export abstract class Constants {
 		MIN_GUILD_NAME_SIZE: 2,
 		MIN_DESCRIPTION_LENGTH: 2,
 		MAX_DESCRIPTION_LENGTH: 140,
-		MAX_COMMON_PET_FOOD: 25,
-		MAX_HERBIVOROUS_PET_FOOD: 15,
-		MAX_CARNIVOROUS_PET_FOOD: 15,
-		MAX_ULTIMATE_PET_FOOD: 5,
-		MAX_LEVEL: 100
+		MAX_LEVEL: 100,
+		MAX_PET_FOOD: [
+			25, // Common food
+			15, // Herbivorous food
+			15, // Carnivorous food
+			5 // Ultimate food
+		]
 	};
 
 	static readonly NATURE = {
