@@ -206,10 +206,10 @@ export abstract class Constants {
 		MAX_DESCRIPTION_LENGTH: 140,
 		MAX_LEVEL: 100,
 		MAX_PET_FOOD: [
-			25,
-			15,
-			15,
-			5
+			25, // Common food
+			15, // Herbivorous food
+			15, // Carnivorous food
+			5 // Ultimate food
 		]
 	};
 
