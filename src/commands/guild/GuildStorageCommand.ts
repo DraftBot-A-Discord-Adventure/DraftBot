@@ -1,13 +1,36 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entity} from "../../core/models/Entity";
-import {Guilds} from "../../core/models/Guild";
+import {Guild, Guilds} from "../../core/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Data} from "../../core/Data";
-import {Translations} from "../../core/Translations";
+import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
+
+/**
+ * Add a food storage field for storage embeds
+ * @param {DraftBotEmbed} storageEmbed
+ * @param {TranslationModule} translations
+ * @param {TranslationModule} foodModule
+ * @param {Guild} guild
+ * @param {string} food
+ */
+function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string) {
+	const foodIndex = Constants.PET_FOOD.TYPE.indexOf(food);
+	storageEmbed.addField(
+		translations.format("foodTitle", {
+			foodType: foodModule.get(food + ".name"),
+			emote: Constants.PET_FOOD.EMOTE[foodIndex]
+		}),
+		translations.format("foodField", {
+			guildFood: guild.getDataValue(food),
+			maxFood: Constants.GUILD.MAX_PET_FOOD[foodIndex]
+		}),
+		true
+	);
+}
 
 /**
  * Display the storage of the guild
@@ -19,7 +42,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const foodModule = Translations.getModule("food", language);
 	const translations = Translations.getModule("commands.guildStorage", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
-
 	const storageEmbed = new DraftBotEmbed();
 
 	storageEmbed.setTitle(
@@ -27,57 +49,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			guild: guild.name
 		})
 	);
-
 	storageEmbed.setThumbnail(Data.getModule("commands.guild").getString("icon"));
-
 	storageEmbed.addField(
 		translations.get("fieldDescKey"),
 		translations.get("fieldDescValue")
 	);
-	storageEmbed.addField(
-		translations.format("foodTitle", {
-			foodType: foodModule.get("commonFood.name"),
-			emote: Constants.PET_FOOD.EMOTE[0]
-		}),
-		translations.format("foodField", {
-			guildFood: guild.commonFood,
-			maxFood: Constants.GUILD.MAX_COMMON_PET_FOOD
-		}),
-		true
-	);
-	storageEmbed.addField(
-		translations.format("foodTitle", {
-			foodType: foodModule.get("herbivorousFood.name"),
-			emote: Constants.PET_FOOD.EMOTE[1]
-		}),
-		translations.format("foodField", {
-			guildFood: guild.herbivorousFood,
-			maxFood: Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD
-		}),
-		true
-	);
-	storageEmbed.addField(
-		translations.format("foodTitle", {
-			foodType: foodModule.get("carnivorousFood.name"),
-			emote: Constants.PET_FOOD.EMOTE[2]
-		}),
-		translations.format("foodField", {
-			guildFood: guild.carnivorousFood,
-			maxFood: Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD
-		}),
-		true
-	);
-	storageEmbed.addField(
-		translations.format("foodTitle", {
-			foodType: foodModule.get("ultimateFood.name"),
-			emote: Constants.PET_FOOD.EMOTE[3]
-		}),
-		translations.format("foodField", {
-			guildFood: guild.ultimateFood,
-			maxFood: Constants.GUILD.MAX_ULTIMATE_PET_FOOD
-		}),
-		true
-	);
+	for (const food of Constants.PET_FOOD.TYPE) {
+		addFoodStorageField(storageEmbed, translations, foodModule, guild, food);
+	}
 
 	await interaction.reply({embeds: [storageEmbed]});
 }
