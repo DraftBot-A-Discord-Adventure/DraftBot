@@ -9,7 +9,7 @@ import {Constants} from "../../core/Constants";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
- * Displays the link that allow to send the devs some suggestions
+ * Displays information about a pet
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
@@ -63,7 +63,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("pet")
-		.setDescription("Display information about your pet")
+		.setDescription("Display information about a pet")
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the pet")
 			.setRequired(false)
