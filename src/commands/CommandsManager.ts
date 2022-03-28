@@ -235,6 +235,7 @@ export class CommandsManager {
 			} as ApplicationCommandPermissionData);
 			break;
 		case Constants.ROLES.USER.ADMINISTRATOR:
+			// Administrator role is filtered when a user enters the command
 			break;
 		default:
 			break;
