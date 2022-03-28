@@ -4,7 +4,7 @@ import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {TextBasedChannel, TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
 import {Entities} from "./Entity";

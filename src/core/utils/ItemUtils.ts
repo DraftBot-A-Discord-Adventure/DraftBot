@@ -5,8 +5,8 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListCho
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
-import {Armor, Armors} from "../models/Armor";
-import {Weapon, Weapons} from "../models/Weapon";
+import {Armors} from "../models/Armor";
+import {Weapons} from "../models/Weapon";
 import Potion, {Potions} from "../models/Potion";
 import ObjectItem, {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
@@ -16,7 +16,6 @@ import {GenericItemModel} from "../models/GenericItemModel";
 import Player from "../models/Player";
 import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
-import {Data} from "../Data";
 
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
