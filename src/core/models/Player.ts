@@ -13,7 +13,7 @@ import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../Translations";
-import {Client, TextBasedChannel, TextChannel} from "discord.js";
+import {TextBasedChannel, TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
@@ -21,8 +21,7 @@ import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
 import {escapeUsername} from "../utils/StringUtils";
 import moment = require("moment");
-
-declare const client: Client;
+import {draftBotClient} from "../bot";
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -85,6 +84,10 @@ export class Player extends Model {
 	public getEntity: () => Entity;
 
 	private pseudo: string;
+
+	public rank?: number = -1;
+
+	public weeklyRank?: number = -1;
 
 
 	public addBadge(badge: string): boolean {
@@ -183,8 +186,8 @@ export class Player extends Model {
 	public async setPseudo(language: string): Promise<void> {
 		const entity = await this.getEntity();
 		if (entity.discordUserId !== undefined) {
-			if (client.users.cache.get(entity.discordUserId) !== undefined) {
-				this.pseudo = escapeUsername(client.users.cache.get(entity.discordUserId).username);
+			if (draftBotClient.users.cache.get(entity.discordUserId) !== undefined) {
+				this.pseudo = escapeUsername(draftBotClient.users.cache.get(entity.discordUserId).username);
 			}
 			else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");

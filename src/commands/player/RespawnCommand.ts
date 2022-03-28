@@ -3,7 +3,6 @@ import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Constants} from "../../core/Constants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import Entity from "../../core/models/Entity";
@@ -11,6 +10,7 @@ import {CommandInteraction} from "discord.js";
 import {Data} from "../../core/Data";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Allow a player who is dead to respawn
@@ -23,6 +23,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
+	if (entity.Player.effect !== Constants.EFFECT.DEAD) {
+		await sendErrorMessage(interaction.user, interaction.channel, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}), false, interaction);
+		return;
+	}
 	const lostScore = Math.round(entity.Player.score * Data.getModule("commands.respawn").getNumber("score_remove_during_respawn"));
 	entity.health = await entity.getMaxHealth();
 	await entity.Player.addScore(entity, -lostScore, interaction.channel, language);
@@ -59,7 +63,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Revives you at the cost of points."),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.DEAD],
+		allowEffects: null,
 		requiredLevel: null,
 		disallowEffects: [Constants.EFFECT.BABY],
 		guildPermissions: null,
@@ -67,6 +71,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

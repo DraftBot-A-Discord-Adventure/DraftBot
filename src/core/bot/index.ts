@@ -10,10 +10,6 @@ import {Constants} from "../Constants";
 declare const JsonReader: any;
 // TODO change
 declare const getValidationInfos: any;
-// TODO change
-declare const handlePrivateMessage: any;
-// TODO change
-declare const handleMessage: any;
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;

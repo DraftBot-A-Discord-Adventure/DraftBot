@@ -5,9 +5,8 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListCho
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
-import {Random} from "random-js";
-import Armor, {Armors} from "../models/Armor";
-import Weapon, {Weapons} from "../models/Weapon";
+import {Armors} from "../models/Armor";
+import {Weapons} from "../models/Weapon";
 import Potion, {Potions} from "../models/Potion";
 import ObjectItem, {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
@@ -16,14 +15,12 @@ import {MissionsController} from "../missions/MissionsController";
 import {GenericItemModel} from "../models/GenericItemModel";
 import Player from "../models/Player";
 import {BlockingUtils} from "./BlockingUtils";
-
-declare const JsonReader: any;
-declare const draftbotRandom: Random;
+import {RandomUtils} from "./RandomUtils";
 
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: Entity,
-	item: Weapon | ObjectItem | Armor | Potion,
+	item: GenericItemModel,
 	language: string,
 	discordUser: User,
 	channel: TextBasedChannel,
@@ -36,7 +33,7 @@ export const giveItemToPlayer = async function(
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(tr.get("randomItemTitle"), discordUser)
-				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language))
+				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language, null))
 		]
 	});
 
@@ -208,16 +205,17 @@ const sellOrKeepItem = async function(
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
+	const trSell = Translations.getModule("commands.sell", language);
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
 		await channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(
-						autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
-							: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+						autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
+							: trSell.get("potionDestroyedTitle"),
 						discordUser)
 					.setDescription(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+						format(trSell.get("potionDestroyedMessage"),
 							{
 								item: item.getName(language),
 								frenchMasculine: item.frenchMasculine
@@ -236,11 +234,11 @@ const sellOrKeepItem = async function(
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(
-					autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
-						: JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+					autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
+						: trSell.get("soldMessageTitle"),
 					discordUser)
 				.setDescription(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+					format(trSell.get("soldMessage"),
 						{
 							item: item.getName(language),
 							money: money
@@ -258,7 +256,7 @@ export const getItemValue = function(item: GenericItemModel) {
 	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
-export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<any> {
+export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	if (itemCategory === null) {
 		itemCategory = generateRandomItemCategory();
@@ -267,16 +265,16 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
 	switch (itemCategory) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
 		itemsIds = await Weapons.getAllIdsForRarity(rarity);
-		return await Weapons.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.ARMOR:
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
-		return await Armors.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.POTION:
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
-		return await Potions.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.OBJECT:
 		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
-		return await ObjectItems.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	default:
 		return null;
 	}
@@ -289,7 +287,7 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  * @return {Number} generated rarity
  */
 export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
-	const randomValue = draftbotRandom.integer(
+	const randomValue = RandomUtils.draftbotRandom.integer(
 		1 + (minRarity === Constants.RARITY.COMMON ? -1 : Constants.RARITIES_GENERATOR.VALUES[minRarity - 2]),
 		Constants.RARITIES_GENERATOR.MAX_VALUE
 		- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : Constants.RARITIES_GENERATOR.MAX_VALUE
@@ -325,7 +323,7 @@ export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON
  * @return {Number}
  */
 export const generateRandomItemCategory = function() {
-	return draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
+	return RandomUtils.draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
 };
 
 /**

@@ -3,7 +3,6 @@ import {Entity} from "../../core/models/Entity";
 import {Guild, Guilds} from "../../core/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
@@ -18,11 +17,11 @@ import {SlashCommandBuilder} from "@discordjs/builders";
  * @param {string} food
  */
 function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string) {
-	const foodIndex = Constants.PET_FOOD.TYPE.indexOf(food);
+	const foodIndex = Constants.PET_FOOD_GUILD_SHOP.TYPE.indexOf(food);
 	storageEmbed.addField(
 		translations.format("foodTitle", {
 			foodType: foodModule.get(food + ".name"),
-			emote: Constants.PET_FOOD.EMOTE[foodIndex]
+			emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[foodIndex]
 		}),
 		translations.format("foodField", {
 			guildFood: guild.getDataValue(food),
@@ -54,7 +53,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		translations.get("fieldDescKey"),
 		translations.get("fieldDescValue")
 	);
-	for (const food of Constants.PET_FOOD.TYPE) {
+	for (const food of Constants.PET_FOOD_GUILD_SHOP.TYPE) {
 		addFoodStorageField(storageEmbed, translations, foodModule, guild, food);
 	}
 
@@ -75,6 +74,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

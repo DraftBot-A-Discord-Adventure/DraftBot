@@ -3,7 +3,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, Message} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotInstance, shardId} from "../../core/bot";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 async function executeCommand(interaction: CommandInteraction, language: string){
 	const tr = Translations.getModule("commands.ping", language);
@@ -33,6 +32,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.HIGHEST
+	slashCommandPermissions: null
 };

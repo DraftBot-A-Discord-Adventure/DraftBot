@@ -1,5 +1,6 @@
 import {
 	ApplicationCommand,
+	ApplicationCommandDataResolvable,
 	ApplicationCommandPermissionData,
 	Client,
 	CommandInteraction,
@@ -57,21 +58,28 @@ export class CommandsManager {
 			}
 		}
 
-		commandsToRegister.sort((cmd1, cmd2) => cmd2.registerPriority - cmd1.registerPriority);
-
+		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
+		const commandsToSetGuild: ApplicationCommandDataResolvable[] = [];
 		for (const commandInfo of commandsToRegister) {
+			if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
+				commandInfo.slashCommandBuilder.setDefaultPermission(false);
+			}
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-				client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID).then(async (cmd) => {
-					await this.enforcePermission(commandInfo, cmd);
-					console.log("Command " + commandInfo.slashCommandBuilder.name + " registered");
-				});
+				commandsToSetGuild.push(commandInfo.slashCommandBuilder.toJSON());
 			}
 			else {
-				client.application.commands.create(commandInfo.slashCommandBuilder.toJSON()).then(() => console.log("Command " + commandInfo.slashCommandBuilder.name + " registered"));
+				commandsToSetGlobal.push(commandInfo.slashCommandBuilder.toJSON());
 			}
 			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 		}
 
+		await client.application.commands.set([]);
+		const setCommands = await client.application.commands.set(commandsToSetGuild, botConfig.MAIN_SERVER_ID);
+		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
+
+		for (const cmd of setCommands.values()) {
+			this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
+		}
 
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || !interaction.inGuild()) {
@@ -186,7 +194,6 @@ export class CommandsManager {
 			this.setCommandPermissions(commandInfo, perms);
 		}
 		if (perms.length !== 0) {
-			await cmd.setDefaultPermission(false);
 			await cmd.permissions.add({
 				guild: botConfig.MAIN_SERVER_ID,
 				permissions: perms
@@ -226,6 +233,9 @@ export class CommandsManager {
 				type: "USER",
 				permission: true
 			} as ApplicationCommandPermissionData);
+			break;
+		case Constants.ROLES.USER.ADMINISTRATOR:
+			// Administrator role is filtered when a user enters the command
 			break;
 		default:
 			break;

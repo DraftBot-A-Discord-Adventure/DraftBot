@@ -3,7 +3,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Displays the link that allow to send the devs some suggestions
@@ -38,6 +37,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

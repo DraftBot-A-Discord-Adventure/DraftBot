@@ -3,10 +3,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
-// TODO changed when Data.ts will be merged
-declare const JsonReader: any;
 
 /**
  * Displays the changelog of the bot
@@ -22,7 +18,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			))
 		.setDescription(tr.format(
 			"text",
-			{version: JsonReader.package.version}));
+			{version: require("../../../../package.json").version}));
 	await interaction.reply({
 		embeds: [updateMessage]
 	});
@@ -42,6 +38,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

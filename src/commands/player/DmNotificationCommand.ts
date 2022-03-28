@@ -6,9 +6,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
-import {sendBlockedError} from "../../core/utils/BlockingUtils";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 
 /**
  * Activate or desactivate DMs notifications.
@@ -17,7 +15,7 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 	const translationsDmn = Translations.getModule("commands.dmNotification", language);
@@ -40,14 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		catch (err) {
 			entity.Player.dmNotification = false;
-			await sendErrorMessage(
-				interaction.user,
-				interaction.channel,
-				language,
-				translationsDmn.get("error"),
-				false,
-				interaction
-			);
+			await sendBlockedErrorInteraction(interaction, language);
 		}
 
 	}
@@ -73,6 +64,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

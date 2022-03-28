@@ -8,10 +8,8 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {progressBar} from "../../core/utils/StringUtils";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-
-declare function progressBar(value: number, maxValue: number): string;
 
 /**
  * Allow to display the info of a guild
@@ -53,8 +51,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			interaction.channel,
 			language,
 			guildModule.get("noGuildException"),
-			false,
-			interaction
+			false
 		);
 		return;
 	}
@@ -170,6 +167,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

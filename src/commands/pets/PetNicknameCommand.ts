@@ -3,7 +3,6 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -64,6 +63,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

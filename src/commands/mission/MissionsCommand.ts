@@ -7,12 +7,10 @@ import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissio
 import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
-import {sendBlockedError} from "../../core/utils/BlockingUtils";
-
+import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 	let entityToLook = await Entities.getByOptions(interaction);
@@ -63,6 +61,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.HIGH
+	slashCommandPermissions: null
 };

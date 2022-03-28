@@ -4,7 +4,6 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {botConfig} from "../../core/bot";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
@@ -86,6 +85,5 @@ export const commandInfo: ICommand = {
 		userPermission: Constants.ROLES.USER.CONTRIBUTORS
 	},
 	mainGuildCommand: true,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOW
+	slashCommandPermissions: null
 };

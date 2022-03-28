@@ -2,7 +2,6 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {botConfig} from "../../core/bot";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 const CT = require("../../core/CommandsTest");
 
@@ -73,6 +72,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.TESTING
+	slashCommandPermissions: null
 };

@@ -15,11 +15,10 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
-import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
-
+import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 
 /**
  * Displays the mission shop
@@ -28,7 +27,7 @@ import {CommandRegisterPriority} from "../CommandRegisterPriority";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 
@@ -339,6 +338,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

@@ -2,7 +2,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 
 /**
  * Display the link to invite the bot to another server
@@ -28,6 +27,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

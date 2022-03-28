@@ -35,7 +35,8 @@ export abstract class Constants {
 			DEFAULT: "NOT_QUITE_BLACK",
 			ERROR: "#D92D43",
 			SUCCESSFUL: "#5EAD45"
-		}
+		},
+		PROGRESS_BAR_SIZE: 20
 	};
 
 	static readonly TOPGG = {
@@ -119,15 +120,15 @@ export abstract class Constants {
 		DAYS_BEFORE_INACTIVE: 7
 	};
 
-	static readonly TOP_WEEK: {
+	static readonly TOP_WEEK = {
 		PLAYERS_BY_PAGE: "15"
 	};
 
-	static readonly TOP_SERV: {
+	static readonly TOP_SERV = {
 		PLAYERS_BY_PAGE: "15"
 	};
 
-	static readonly XP: {
+	static readonly XP = {
 		BASE_VALUE: 325,
 		COEFFICIENT: 1.041,
 		MINUS: 188
@@ -207,6 +208,10 @@ export abstract class Constants {
 		MIN_DESCRIPTION_LENGTH: 2,
 		MAX_DESCRIPTION_LENGTH: 140,
 		MAX_LEVEL: 100,
+		MAX_COMMON_PET_FOOD: 25,
+		MAX_HERBIVOROUS_PET_FOOD: 15,
+		MAX_CARNIVOROUS_PET_FOOD: 15,
+		MAX_ULTIMATE_PET_FOOD: 5,
 		MAX_PET_FOOD: [
 			25, // Common food
 			15, // Herbivorous food
@@ -398,7 +403,8 @@ export abstract class Constants {
 		MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT: 30,
 		MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT: 20,
 		BASE_TIME_LOST_GOBLETS_GAME: 1,
-		BASE_HEALTH_LOST_GOBLETS_GAME: 5
+		BASE_HEALTH_LOST_GOBLETS_GAME: 5,
+		COIN_EMOTE: "🪙"
 	}
 
 	static readonly LANGUAGE = {
@@ -412,6 +418,13 @@ export abstract class Constants {
 		FRENCH_FLAG: "🇫🇷",
 		ENGLISH_FLAG: "🇬🇧"
 	};
+
+	static readonly PET_FOOD = {
+		COMMON_FOOD: "commonFood",
+		CARNIVOROUS: "carnivorousFood",
+		HERBIVOROUS: "herbivorousFood",
+		ULTIMATE_FOOD: "ultimateFood"
+	}
 
 	static readonly ITEMS = {
 		MAPPER: [
@@ -445,7 +458,7 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly PET_FOOD = {
+	static readonly PET_FOOD_GUILD_SHOP = {
 		TYPE: [
 			"commonFood",
 			"herbivorousFood",

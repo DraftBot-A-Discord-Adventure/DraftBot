@@ -3,7 +3,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Constants} from "../../core/Constants";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -82,6 +81,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

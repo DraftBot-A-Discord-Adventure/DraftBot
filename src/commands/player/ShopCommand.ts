@@ -18,13 +18,11 @@ import {Entities, Entity} from "../../core/models/Entity";
 import {Maps} from "../../core/Maps";
 import Shop from "../../core/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-
 
 /**
  * Displays the shop
@@ -33,7 +31,7 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
  * @param {Entities} entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 
@@ -270,6 +268,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

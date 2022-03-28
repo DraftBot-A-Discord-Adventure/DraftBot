@@ -9,15 +9,15 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
+import {CommandInteraction, TextChannel} from "discord.js";
 import {randomInt} from "crypto";
-import {giveFood, isStorageFullFor} from "../../core/utils/GuildUtils";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
+import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {giveFood} from "../../core/utils/GuildUtils";
 
 /**
  * Displays the guild shop
@@ -26,15 +26,15 @@ import {CommandRegisterPriority} from "../CommandRegisterPriority";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedErrorInteraction(interaction, language)) {
 		return;
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
-	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("commonFood")] - guild.commonFood, 1);
-	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("herbivorousFood")] - guild.herbivorousFood, 1);
-	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("carnivorousFood")] - guild.carnivorousFood, 1);
-	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_PET_FOOD[Constants.PET_FOOD.TYPE.indexOf("ultimateFood")] - guild.ultimateFood, 1);
+	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
+	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
+	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
+	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
 	const shopMessage = new DraftBotShopMessageBuilder(
 		interaction.user,
@@ -96,22 +96,22 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 
 function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, language: string, amounts: number[]) {
 	const foodJson = Translations.getModule("food", language);
-	const indexFood = Constants.PET_FOOD.TYPE.indexOf(name);
+	const indexFood = Constants.PET_FOOD_GUILD_SHOP.TYPE.indexOf(name);
 	return new ShopItem(
-		Constants.PET_FOOD.EMOTE[indexFood],
+		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
 		foodJson.get(name + ".name"),
-		Constants.PET_FOOD.PRICE[indexFood],
+		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
 		foodJson.get(name + ".info"),
 		async (message, amount) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
-			if (isStorageFullFor(name, amount, guild)) {
+			if (guild.isStorageFullFor(name, amount)) {
 				await message.sentMessage.channel.send({embeds: [new DraftBotErrorEmbed(message.user, language, guildShopTranslations.get("fullStock"))]});
 				return false;
 			}
-			await giveFood(message.sentMessage, message.language, entity, message.user, name, amount);
-			if (name === "ultimateFood") {
-				await MissionsController.update(entity.discordUserId, message.sentMessage.channel, language, "buyUltimateSoups", amount);
+			await giveFood(message.sentMessage.channel, message.language, entity, message.user, name, amount);
+			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
+				await MissionsController.update(entity.discordUserId, <TextChannel>message.sentMessage.channel, language, "buyUltimateSoups", amount);
 			}
 			return true;
 		},
@@ -133,6 +133,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.NORMAL
+	slashCommandPermissions: null
 };

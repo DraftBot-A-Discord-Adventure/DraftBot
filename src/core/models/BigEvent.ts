@@ -38,6 +38,10 @@ export class BigEvent extends Model {
 		reactions.push(Constants.REPORT.QUICK_END_EMOTE);
 		return reactions;
 	}
+
+	public getText(language: string) {
+		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+	}
 }
 
 export class BigEvents {

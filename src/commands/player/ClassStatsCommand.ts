@@ -2,7 +2,6 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Classes} from "../../core/models/Class";
 import {Entity} from "../../core/models/Entity";
 import {ICommand} from "../ICommand";
-import {CommandRegisterPriority} from "../CommandRegisterPriority";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
@@ -37,7 +36,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("classtats")
+		.setName("classstats")
 		.setDescription("Display the stats you could have for each class"),
 	executeCommand,
 	requirements: {
@@ -49,6 +48,5 @@ export const commandInfo: ICommand = {
 		userPermission: null
 	},
 	mainGuildCommand: false,
-	slashCommandPermissions: null,
-	registerPriority: CommandRegisterPriority.LOWEST
+	slashCommandPermissions: null
 };

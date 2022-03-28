@@ -4,6 +4,7 @@ import {
 	DataTypes
 } from "sequelize";
 import moment = require("moment");
+import {Constants} from "../Constants";
 
 export class Possibility extends Model {
 	public id!: number;
@@ -17,6 +18,8 @@ export class Possibility extends Model {
 	public oneshot!: boolean;
 
 	public effect!: string;
+
+	public experience!: number;
 
 	public money!: number;
 
@@ -35,6 +38,11 @@ export class Possibility extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
+
+
+	public getText(language: string) {
+		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+	}
 }
 
 export function initModel(sequelize: Sequelize) {

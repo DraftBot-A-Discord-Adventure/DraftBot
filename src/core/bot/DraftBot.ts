@@ -13,16 +13,12 @@ import Shop from "../models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
+import {getNextDay2AM, getNextSundayMidnight} from "../utils/TimeUtils";
 
 require("colors");
 require("../Constant");
 require("../MessageError");
 require("../Tools");
-
-// TODO refactor when TimeUtils will be merged
-declare const getNextSundayMidnight: () => Date;
-// TODO refactor when TimeUtils will be merged
-declare const getNextDay2AM: () => Date;
 
 export class DraftBot {
 	private config: DraftBotConfig;

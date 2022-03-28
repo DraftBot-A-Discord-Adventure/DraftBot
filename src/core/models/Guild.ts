@@ -137,6 +137,51 @@ export class Guild extends Model {
 	public isAtMaxLevel(): boolean {
 		return this.level >= Constants.GUILD.MAX_LEVEL;
 	}
+
+	public isStorageFullFor(selectedItemType: string, quantity: number): boolean {
+		switch (selectedItemType) {
+		case Constants.PET_FOOD.CARNIVOROUS:
+			return this.carnivorousFood + quantity > Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD;
+		case Constants.PET_FOOD.HERBIVOROUS:
+			return this.herbivorousFood + quantity > Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD;
+		case Constants.PET_FOOD.ULTIMATE_FOOD:
+			return this.ultimateFood + quantity > Constants.GUILD.MAX_ULTIMATE_PET_FOOD;
+		case Constants.PET_FOOD.COMMON_FOOD:
+			return this.commonFood + quantity > Constants.GUILD.MAX_COMMON_PET_FOOD;
+		default:
+			return true;
+		}
+	}
+
+	public addFood(selectedItemType: string, quantity: number): void {
+		switch (selectedItemType) {
+		case Constants.PET_FOOD.CARNIVOROUS:
+			this.carnivorousFood += quantity;
+			if (this.carnivorousFood > Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD) {
+				this.carnivorousFood = Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD;
+			}
+			break;
+		case Constants.PET_FOOD.HERBIVOROUS:
+			this.herbivorousFood += quantity;
+			if (this.herbivorousFood > Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD) {
+				this.herbivorousFood = Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD;
+			}
+			break;
+		case Constants.PET_FOOD.ULTIMATE_FOOD:
+			this.ultimateFood += quantity;
+			if (this.ultimateFood > Constants.GUILD.MAX_ULTIMATE_PET_FOOD) {
+				this.ultimateFood = Constants.GUILD.MAX_ULTIMATE_PET_FOOD;
+			}
+			break;
+		case Constants.PET_FOOD.COMMON_FOOD:
+			this.commonFood += quantity;
+			if (this.ultimateFood > Constants.GUILD.MAX_COMMON_PET_FOOD) {
+				this.ultimateFood = Constants.GUILD.MAX_COMMON_PET_FOOD;
+			}
+			break;
+		default:
+		}
+	}
 }
 
 export class Guilds {

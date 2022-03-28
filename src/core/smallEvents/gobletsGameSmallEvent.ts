@@ -1,13 +1,4 @@
-/**
- * Main function of small event
- * @param {module:"discord.js".Message} message
- * @param {"fr"|"en"} language
- * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
- *    The description already contains the emote so you have to get it and add your text
- * @returns {Promise<>}
- */
-import {Message, MessageEmbed} from "discord.js";
+import {CommandInteraction, MessageEmbed, TextChannel} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Constants} from "../Constants";
@@ -20,15 +11,12 @@ import {format} from "../utils/StringFormatter";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
 
-declare function log(text: string): void;
-
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
-	// eslint-disable-next-line require-await
-	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: any, seEmbed: MessageEmbed) {
 		function generateMalus(malus = data.getRandomStringFromArray("malusTypes")): any {
 			switch (malus) {
 			case "life":
@@ -57,25 +45,25 @@ export const smallEvent: SmallEvent = {
 		async function applyMalus(malus: any): Promise<void> {
 			switch (malus.type) {
 			case "life":
-				await entity.addHealth(-malus.option, message.channel, language);
-				log(entity.discordUserId + "got a bad level small event and lost" + malus.option + "💔");
+				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
+				console.log(entity.discordUserId + "got a bad level small event and lost" + malus.option + "💔");
 				break;
 			case "time":
 				await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, malus.option);
 				malus.option = minutesDisplay(malus.option);
-				log(entity.discordUserId + "got a bad level small event and lost" + malus.option);
+				console.log(entity.discordUserId + "got a bad level small event and lost" + malus.option);
 				break;
 			case "nothing":
-				log(entity.discordUserId + "got a bad level small event but didn't lost anything");
+				console.log(entity.discordUserId + "got a bad level small event but didn't lost anything");
 				break;
 			case "end":
-				await entity.addHealth(-malus.option, message.channel, language);
-				log(entity.discordUserId + "got a bad level small event and didn't react (" + malus.option + "💔)");
+				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
+				console.log(entity.discordUserId + "got a bad level small event and didn't react (" + malus.option + "💔)");
 				break;
 			default:
 				throw new Error("reward type not found");
 			}
-			await entity.Player.killIfNeeded(entity, message.channel, language);
+			await entity.Player.killIfNeeded(entity, <TextChannel> interaction.channel, language);
 			await entity.save();
 			await entity.save();
 		}
@@ -92,7 +80,7 @@ export const smallEvent: SmallEvent = {
 		const data = Data.getModule("smallEvents.gobletsGame");
 
 		const embed = new DraftBotReactionMessageBuilder()
-			.allowUser(message.author)
+			.allowUser(interaction.user)
 			.endCallback(async (chooseGobletMessage) => {
 				const reaction = chooseGobletMessage.getFirstReaction();
 				const reactionEmoji = !reaction ? "🔚" : reaction.emoji.name;
@@ -106,7 +94,7 @@ export const smallEvent: SmallEvent = {
 					if (reactionEmoji === "🔚" || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
 						BlockingUtils.unblockPlayer(entity.discordUserId);
 						await applyMalus(malus);
-						await message.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name)]});
+						await chooseGobletMessage.sentMessage.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name)]});
 						break;
 					}
 				}
@@ -121,13 +109,13 @@ export const smallEvent: SmallEvent = {
 			embed.addReaction(new DraftBotReaction(gobletEmoji));
 		}
 		const builtEmbed = embed.build();
-		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), message.author);
+		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 		builtEmbed.setDescription(
 			seEmbed.description
 			+ intro
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
 		);
-		await builtEmbed.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "gobletChoose", collector));
+		await builtEmbed.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "gobletChoose", collector));
 	}
 };
