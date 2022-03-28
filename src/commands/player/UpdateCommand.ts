@@ -18,7 +18,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			))
 		.setDescription(tr.format(
 			"text",
-			{ version: require("../../../package.json").version }));
+			{version: require("../../../../package.json").version}));
 	await interaction.reply({
 		embeds: [updateMessage]
 	});

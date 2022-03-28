@@ -36,7 +36,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("classtats")
+		.setName("classstats")
 		.setDescription("Display the stats you could have for each class"),
 	executeCommand,
 	requirements: {

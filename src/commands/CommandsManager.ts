@@ -1,7 +1,8 @@
 import {
-	ApplicationCommand, ApplicationCommandDataResolvable,
+	ApplicationCommand,
+	ApplicationCommandDataResolvable,
 	ApplicationCommandPermissionData,
-	Client, Collection,
+	Client,
 	CommandInteraction,
 	GuildChannel,
 	GuildMember,
@@ -60,7 +61,7 @@ export class CommandsManager {
 		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
 		const commandsToSetGuild: ApplicationCommandDataResolvable[] = [];
 		for (const commandInfo of commandsToRegister) {
-			if (commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) {
+			if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
 				commandInfo.slashCommandBuilder.setDefaultPermission(false);
 			}
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
@@ -232,6 +233,8 @@ export class CommandsManager {
 				type: "USER",
 				permission: true
 			} as ApplicationCommandPermissionData);
+			break;
+		case Constants.ROLES.USER.ADMINISTRATOR:
 			break;
 		default:
 			break;
