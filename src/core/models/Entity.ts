@@ -43,31 +43,31 @@ export class Entity extends Model {
 	public Player: Player;
 
 
-	public async getCumulativeAttack(weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem) {
+	public async getCumulativeAttack(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const attackItemValue = weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
-			? playerClass.getAttackValue(this.Player.level) : weapon.getAttack();
-		const attack = playerClass.getAttackValue(this.Player.level) + object.getAttack() + attackItemValue + armor.getAttack() +
-			potion.getAttack();
+		const attackItemValue = playerActiveObjects.weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
+			? playerClass.getAttackValue(this.Player.level) : playerActiveObjects.weapon.getAttack();
+		const attack = playerClass.getAttackValue(this.Player.level) + playerActiveObjects.object.getAttack() + attackItemValue + playerActiveObjects.armor.getAttack() +
+			playerActiveObjects.potion.getAttack();
 		return attack > 0 ? attack : 0;
 	}
 
-	public async getCumulativeDefense(weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem) {
+	public async getCumulativeDefense(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const defenseItemValue = armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
-			? playerClass.getDefenseValue(this.Player.level) : armor.getDefense();
-		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + object.getDefense() + defenseItemValue +
-			potion.getDefense();
+		const defenseItemValue = playerActiveObjects.armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
+			? playerClass.getDefenseValue(this.Player.level) : playerActiveObjects.armor.getDefense();
+		const defense = playerClass.getDefenseValue(this.Player.level) + playerActiveObjects.weapon.getDefense() + playerActiveObjects.object.getDefense() + defenseItemValue +
+			playerActiveObjects.potion.getDefense();
 		return defense > 0 ? defense : 0;
 	}
 
-	public async getCumulativeSpeed(weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem) {
+	public async getCumulativeSpeed(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
-			? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2)
-			: object.getSpeed();
-		const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
-			potion.getSpeed() + speedItemValue;
+		const speedItemValue = playerActiveObjects.object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
+			? playerClass.getSpeedValue(this.Player.level) + Math.round(playerActiveObjects.object.getSpeed() / 2)
+			: playerActiveObjects.object.getSpeed();
+		const speed = playerClass.getSpeedValue(this.Player.level) + playerActiveObjects.weapon.getSpeed() + playerActiveObjects.armor.getSpeed() +
+			playerActiveObjects.potion.getSpeed() + speedItemValue;
 		return speed > 0 ? speed : 0;
 	}
 

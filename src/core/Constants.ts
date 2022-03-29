@@ -269,6 +269,8 @@ export abstract class Constants {
 		SCARED: ":scream:"
 	};
 
+	static readonly DEFAULT_HEALED_EFFECT = ":hospital:"
+
 	static readonly MISSION_SHOP = {
 		RANGE_MISSION_MONEY: 300,
 		BASE_RATIO: 2500,
@@ -502,4 +504,6 @@ export abstract class Constants {
 	};
 
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
+
+	static readonly MINIMAL_PLAYER_SCORE = 100;
 }

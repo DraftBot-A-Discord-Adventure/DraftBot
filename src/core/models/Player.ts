@@ -20,8 +20,12 @@ import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
 import {escapeUsername} from "../utils/StringUtils";
-import moment = require("moment");
 import {draftBotClient} from "../bot";
+import Weapon from "./Weapon";
+import Armor from "./Armor";
+import Potion from "./Potion";
+import ObjectItem from "./ObjectItem";
+import moment = require("moment");
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -488,15 +492,27 @@ export class Player extends Model {
 			this.weeklyScore = 0;
 		}
 	}
+
+	/**
+	 * Return the current active items a player hold
+	 */
+	public async getMainSlotsItems() {
+		return {
+			weapon: <Weapon>(await this.getMainWeaponSlot().getItem()),
+			armor: <Armor>(await this.getMainArmorSlot().getItem()),
+			potion: <Potion>(await this.getMainPotionSlot().getItem()),
+			object: <ObjectItem>(await this.getMainObjectSlot().getItem())
+		};
+	}
 }
 
 export class Players {
 	static async getRankById(id: number): Promise<number> {
 		const query = `SELECT *
-                        FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank
-                            FROM players)
-                        WHERE id = :id`;
+                       FROM (SELECT id,
+                                    RANK() OVER (ORDER BY score desc, level desc) rank
+                             FROM players)
+                       WHERE id = :id`;
 		return (<[{ rank: number }]> await Player.sequelize.query(query, {
 			replacements: {
 				id: id
@@ -538,9 +554,12 @@ export class Players {
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
                        FROM Players
-                       WHERE score > 100`;
+                       WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+				replacements: {
+					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -549,9 +568,12 @@ export class Players {
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
                        FROM Players
-                       WHERE score > 100`;
+                       WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+				replacements: {
+					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -566,12 +588,27 @@ export class Players {
 		})))[0].count;
 	}
 
+	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
+		const query = `SELECT COUNT(*) as count
+                       FROM Players
+                       WHERE score > :minimalPlayerScore`;
+		return (<{ count: number }[]>(await Player.sequelize.query(query, {
+			replacements: {
+				minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+			},
+			type: QueryTypes.SELECT
+		})))[0].count;
+	}
+
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
                        FROM Players
-                       WHERE score > 100`;
+                       WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+				replacements: {
+					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -580,9 +617,12 @@ export class Players {
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
                        FROM Players
-                       WHERE score > 100`;
+                       WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+				replacements: {
+					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -591,8 +631,11 @@ export class Players {
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
                        FROM Players
-                       WHERE score > 100`;
+                       WHERE score > :minimalPlayerScore`;
 		return (<{ sum: number }[]>(await Player.sequelize.query(query, {
+			replacements: {
+				minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+			},
 			type: QueryTypes.SELECT
 		})))[0].sum;
 	}
@@ -609,11 +652,12 @@ export class Players {
 		const query = `SELECT COUNT(*) as count
                        FROM Players
                        WHERE class = :class
-                         AND score > 100`;
+                         AND score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ count: number }[]>(await Player.sequelize.query(query, {
 				replacements: {
-					class: classEntity.id
+					class: classEntity.id,
+					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
 				},
 				type: QueryTypes.SELECT
 			})))[0].count
