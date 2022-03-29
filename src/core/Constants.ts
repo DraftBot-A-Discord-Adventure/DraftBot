@@ -332,7 +332,8 @@ export abstract class Constants {
 	};
 
 	static readonly PROFILE = {
-		DISPLAY_ALL_BADGE_EMOTE: "🎖️"
+		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
+		MAX_EMOTE_DISPLAY_NUMBER: 10
 	}
 
 	static readonly BADGES = {
