@@ -33,7 +33,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const profileModule = Translations.getModule("commands.profile", language);
 	const titleEffect = askedEntity.Player.effect;
 	const fields = await generateFields(profileModule, askedEntity, interaction, titleEffect, language);
-	const msg = await interaction.reply({
+	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(profileModule.format("title", {
@@ -47,7 +47,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}) as Message;
 	const filterConfirm = (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last().bot;
 
-	const collector = msg.createReactionCollector({
+	const collector = reply.createReactionCollector({
 		filter: filterConfirm,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: Data.getModule("commands.profile").getNumber("badgeMaxReactNumber")
@@ -56,20 +56,20 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 			collector.stop(); // only one is allowed to avoid spam
-			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction, msg);
+			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction);
 		}
 		else {
-			msg.channel.send({content: profileModule.get("badges." + reaction.emoji.name)}).then((msg: Message) => {
+			reply.channel.send({content: profileModule.get("badges." + reaction.emoji.name)}).then((msg: Message) => {
 				setTimeout(() => msg.delete(), Data.getModule("commands.profile").getNumber("badgeDescriptionTimeout"));
 			});
 		}
 	});
 
 	if (askedEntity.Player.badges !== null && askedEntity.Player.badges !== "") {
-		await displayBadges(askedEntity, msg);
+		await displayBadges(askedEntity, reply);
 	}
 	if (new Date().valueOf() - askedEntity.Player.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
-		await msg.react(Constants.TOPGG.BADGE);
+		await reply.react(Constants.TOPGG.BADGE);
 	}
 }
 
@@ -155,9 +155,9 @@ async function displayBadges(entity: Entity, msg: Message) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
 	}
 	else {
-		for (const badgeid in badges) {
-			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
-				await msg.react(badges[badgeid]);
+		for (const badgeId in badges) {
+			if (Object.prototype.hasOwnProperty.call(badges, badgeId)) {
+				await msg.react(badges[badgeId]);
 			}
 		}
 	}
@@ -285,10 +285,9 @@ function getNoTimeLeftField(profileModule: TranslationModule) {
  * @param {Entities} entity
  * @param {("fr"|"en")} language
  * @param interaction
- * @param msg
  * @returns {Promise<void>}
  */
-async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: string, interaction: CommandInteraction, msg: Message) {
+async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: string, interaction: CommandInteraction) {
 	let content = "";
 	const badges = entity.Player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
