@@ -20,6 +20,7 @@ const petFreeTestCommand = async (language, interaction) => {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
 	entity.Player.petId = null;
+	entity.Player.save();
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 

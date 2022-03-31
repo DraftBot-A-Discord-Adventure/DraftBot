@@ -18,7 +18,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (!askedEntity) {
 		askedEntity = entity;
 	}
-	const tr = Translations.getModule("commands.myPet", language);
+	const tr = Translations.getModule("commands.pet", language);
 
 	const pet = askedEntity.Player.Pet;
 
