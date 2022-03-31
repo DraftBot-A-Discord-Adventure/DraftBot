@@ -23,7 +23,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const petTransferModule = Translations.getModule("commands.petTransfer", language);
-	const pPet = entity.Player.Pet;
+	const playerPet = entity.Player.Pet;
 
 	const guild = await getGuildOfEntity(entity);
 	if (!guild) {
@@ -56,7 +56,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return null;
 	}
 
-	setDescriptionPetTransferEmbed(pPet, confirmEmbed, petTransferModule, language, swPetEntity);
+	setDescriptionPetTransferEmbed(playerPet, confirmEmbed, petTransferModule, language, swPetEntity);
 	await interaction.reply({embeds: [confirmEmbed]});
 	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
 }
@@ -71,12 +71,12 @@ async function getGuildOfEntity(entity: Entity) {
 }
 
 async function transfertPetToGuild(interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed) {
-	const pPet = entity.Player.Pet;
+	const playerPet = entity.Player.Pet;
 	const guildPetCount = guild.GuildPets.length;
-	if (!pPet) {
+	if (!playerPet) {
 		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noPetToTransfer"), false, interaction);
 	}
-	if (pPet.isFeisty()) {
+	if (playerPet.isFeisty()) {
 		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
 	}
 	if (guildPetCount >= Data.getModule("models.pets").getNumber("slots")) {
@@ -84,9 +84,9 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 	}
 	entity.Player.petId = null;
 	entity.Player.save();
-	await (await GuildPets.addPet(guild.id, pPet.id)).save();
+	await (await GuildPets.addPet(guild.id, playerPet.id)).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
-		pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
+		pet: playerPet.getPetEmote() + " " + (playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language))
 	}));
 	return interaction.reply({embeds: [confirmEmbed]});
 }
@@ -101,16 +101,16 @@ function sendErrorInvalidPositionShelter(guildPetCount: number, interaction: Com
 }
 
 async function switchPets(guild: Guild, shelterPosition: any, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity) {
-	const pPet = entity.Player.Pet;
+	const playerPet = entity.Player.Pet;
 	const swPet = guild.GuildPets[shelterPosition - 1];
 	const swPetEntity = swPet.PetEntity;
 
-	if (pPet) {
-		if (pPet.isFeisty()) {
+	if (playerPet) {
+		if (playerPet.isFeisty()) {
 			sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
 			return null;
 		}
-		swPet.petEntityId = pPet.id;
+		swPet.petEntityId = playerPet.id;
 		await swPet.save();
 	}
 	else {
@@ -121,10 +121,10 @@ async function switchPets(guild: Guild, shelterPosition: any, interaction: Comma
 	return swPetEntity;
 }
 
-function setDescriptionPetTransferEmbed(pPet: PetEntity, confirmEmbed: DraftBotEmbed, petTransferModule: TranslationModule, language: string, swPetEntity: PetEntity) {
-	if (pPet) {
+function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: DraftBotEmbed, petTransferModule: TranslationModule, language: string, swPetEntity: PetEntity) {
+	if (playerPet) {
 		confirmEmbed.setDescription(petTransferModule.format("confirmSwitch", {
-			pet1: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language)),
+			pet1: playerPet.getPetEmote() + " " + (playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language)),
 			pet2: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
