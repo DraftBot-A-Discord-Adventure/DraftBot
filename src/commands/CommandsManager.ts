@@ -361,7 +361,7 @@ export class CommandsManager {
 					interaction.user,
 					tr.language,
 					Translations.getModule("error", tr.language).format("levelTooLow", {
-						level: entity.Player.getLevel()
+						level: commandInfo.requirements.requiredLevel
 					})
 				)]
 			}).then();
