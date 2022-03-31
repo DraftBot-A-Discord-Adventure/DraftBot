@@ -136,7 +136,7 @@ export class PetEntity extends Model {
 	}
 
 	public isFeisty(): boolean {
-		return this.getLoveLevelNumber() === 0;
+		return this.getLoveLevelNumber() === 1;
 	}
 
 	private getNickname(language: string): string {

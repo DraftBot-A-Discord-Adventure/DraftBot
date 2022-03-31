@@ -10,36 +10,7 @@ import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/Er
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
-
-async function getGuildOfEntity(entity: Entity) {
-	try {
-		return await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		return null;
-	}
-}
-
-async function transfertPetToGuild(interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed) {
-	const pPet = entity.Player.Pet;
-	const guildPetCount = guild.GuildPets.length;
-	if (!pPet) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noPetToTransfer"), false, interaction);
-	}
-	if (pPet.isFeisty()) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
-	}
-	if (guildPetCount >= Data.getModule("models.pets").getNumber("slots")) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noSlotAvailable"), false, interaction);
-	}
-	entity.Player.petId = null;
-	entity.Player.save();
-	await (await GuildPets.addPet(guild.id, pPet.id)).save();
-	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
-		pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
-	}));
-	return interaction.reply({embeds: [confirmEmbed]});
-}
+import PetEntity from "../../core/models/PetEntity";
 
 /**
  * Allow to transfer a pet
@@ -72,27 +43,72 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (guildPetCount === 0) {
-		sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noPetMessage"), false, interaction);
+		sendErrorMessage(interaction.user, interaction.channel, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"), false, interaction);
 		return;
 	}
 	if (shelterPosition > guildPetCount) {
-		if (guildPetCount === 1) {
-			sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("wrongPetNumberSingle"));
-			return;
-		}
-		sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.format("wrongPetNumberBetween", {
-			max: guildPetCount
-		}));
+		sendErrorInvalidPositionShelter(guildPetCount, interaction, language, petTransferModule);
 		return;
 	}
 
+	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, entity);
+	if (swPetEntity === null) {
+		return null;
+	}
+
+	setDescriptionPetTransferEmbed(pPet, confirmEmbed, petTransferModule, language, swPetEntity);
+	await interaction.reply({embeds: [confirmEmbed]});
+	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
+}
+
+async function getGuildOfEntity(entity: Entity) {
+	try {
+		return await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
+		return null;
+	}
+}
+
+async function transfertPetToGuild(interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed) {
+	const pPet = entity.Player.Pet;
+	const guildPetCount = guild.GuildPets.length;
+	if (!pPet) {
+		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noPetToTransfer"), false, interaction);
+	}
+	if (pPet.isFeisty()) {
+		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
+	}
+	if (guildPetCount >= Data.getModule("models.pets").getNumber("slots")) {
+		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noSlotAvailable"), false, interaction);
+	}
+	entity.Player.petId = null;
+	entity.Player.save();
+	await (await GuildPets.addPet(guild.id, pPet.id)).save();
+	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
+		pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
+	}));
+	return interaction.reply({embeds: [confirmEmbed]});
+}
+
+function sendErrorInvalidPositionShelter(guildPetCount: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule) {
+	if (guildPetCount === 1) {
+		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("wrongPetNumberSingle"), false, interaction);
+	}
+	return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.format("wrongPetNumberBetween", {
+		max: guildPetCount
+	}), false, interaction);
+}
+
+async function switchPets(guild: Guild, shelterPosition: any, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity) {
+	const pPet = entity.Player.Pet;
 	const swPet = guild.GuildPets[shelterPosition - 1];
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
 		if (pPet.isFeisty()) {
-			sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"));
-			return;
+			sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
+			return null;
 		}
 		swPet.petEntityId = pPet.id;
 		await swPet.save();
@@ -102,7 +118,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	entity.Player.petId = swPetEntity.id;
 	await entity.Player.save();
+	return swPetEntity;
+}
 
+function setDescriptionPetTransferEmbed(pPet: PetEntity, confirmEmbed: DraftBotEmbed, petTransferModule: TranslationModule, language: string, swPetEntity: PetEntity) {
 	if (pPet) {
 		confirmEmbed.setDescription(petTransferModule.format("confirmSwitch", {
 			pet1: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language)),
@@ -114,7 +133,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			pet: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
-	await interaction.reply({embeds: [confirmEmbed]});
+}
+
+async function updateMissionsOfEntity(entity: Entity, interaction: CommandInteraction, language: string, swPetEntity: PetEntity) {
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "tamedPet", 1, {loveLevel: swPetEntity.getLoveLevelNumber()});
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "trainedPet", 1, {loveLevel: swPetEntity.getLoveLevelNumber()});
