@@ -170,6 +170,13 @@ export abstract class Constants {
 		BASE_LOVE: 10,
 		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
 		LOVE_LEVELS: [5, 20, 50],
+		LOVE_LEVEL: {
+			FEISTY: 1,
+			WILD: 2,
+			FEARFUL: 3,
+			TAMED: 4,
+			TRAINED: 5
+		},
 		SELL: {
 			MIN: 100,
 			MAX: 50000
