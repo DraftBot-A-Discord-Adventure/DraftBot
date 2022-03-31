@@ -1,5 +1,4 @@
 import {format, Replacements} from "./utils/StringFormatter";
-import {Random} from "random-js";
 import {RandomUtils} from "./utils/RandomUtils";
 
 declare const JsonReader: any;
@@ -19,6 +18,10 @@ export class TranslationModule {
 		this._language = language;
 	}
 
+	get language(): string {
+		return this._language;
+	}
+
 	private static getTranslationObject(modulePath: string[], language: string): any {
 		let lastObject = JsonReader;
 		for (const path of modulePath) {
@@ -35,27 +38,6 @@ export class TranslationModule {
 			return null;
 		}
 		return lastObject[language];
-	}
-
-	get language(): string {
-		return this._language;
-	}
-
-	private getTranslationObject(translation: string): unknown {
-		if (!this._moduleTranslationObject) {
-			console.warn("Trying to use an invalid translation module: " + this._module);
-			return "ERR:MODULE_NOT_FOUND";
-		}
-		const translationPath = translation.split(".");
-		let lastObject = this._moduleTranslationObject;
-		for (const path of translationPath) {
-			if (!(path in lastObject)) {
-				console.warn("Trying to use an invalid translation: " + path + " in module " + this._module);
-				return "ERR:TRANSLATION_NOT_FOUND";
-			}
-			lastObject = lastObject[path];
-		}
-		return lastObject;
 	}
 
 	format(translation: string, replacements: Replacements) {
@@ -98,6 +80,23 @@ export class TranslationModule {
 
 	public getKeys(translation: string): string[] {
 		return Object.keys(this.getTranslationObject(translation));
+	}
+
+	private getTranslationObject(translation: string): unknown {
+		if (!this._moduleTranslationObject) {
+			console.warn("Trying to use an invalid translation module: " + this._module);
+			return "ERR:MODULE_NOT_FOUND";
+		}
+		const translationPath = translation.split(".");
+		let lastObject = this._moduleTranslationObject;
+		for (const path of translationPath) {
+			if (!(path in lastObject)) {
+				console.warn("Trying to use an invalid translation: " + path + " in module " + this._module);
+				return "ERR:TRANSLATION_NOT_FOUND";
+			}
+			lastObject = lastObject[path];
+		}
+		return lastObject;
 	}
 }
 

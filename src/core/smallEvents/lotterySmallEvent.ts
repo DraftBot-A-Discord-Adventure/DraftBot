@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, Message, TextChannel} from "discord.js";
+import {CommandInteraction, Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Maps} from "../Maps";
@@ -23,12 +23,14 @@ export const smallEvent: SmallEvent = {
 		console.log(entity.discordUserId + " got a mini-event lottery.");
 
 		const player = entity.Player;
-		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true }) as Message;
+		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true}) as Message;
 		const dataLottery = Data.getModule("smallEvents.lottery");
 		const emojiLottery = dataLottery.getStringArray("emojiLottery");
 
-		const collectorLottery = lotteryIntro.createReactionCollector({ time: Constants.MESSAGES.COLLECTOR_TIME,
-			filter: (reaction, user) => emojiLottery.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id });
+		const collectorLottery = lotteryIntro.createReactionCollector({
+			time: Constants.MESSAGES.COLLECTOR_TIME,
+			filter: (reaction, user) => emojiLottery.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id
+		});
 		collectorLottery.on("collect", () => {
 			collectorLottery.stop();
 		});
@@ -58,7 +60,7 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await Maps.applyEffect(player,":clock2:", dataLottery.getNumber("lostTime"));
+				await Maps.applyEffect(player, ":clock2:", dataLottery.getNumber("lostTime"));
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
@@ -106,7 +108,7 @@ export const smallEvent: SmallEvent = {
 				});
 			}
 			else {
-				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,1), {
+				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 1), {
 					lostTime: dataLottery.getNumber("lostTime")
 				});
 			}
