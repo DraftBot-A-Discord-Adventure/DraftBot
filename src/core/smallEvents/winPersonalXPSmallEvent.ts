@@ -21,8 +21,7 @@ export const smallEvent: SmallEvent = {
 		seEmbed
 			.setDescription(
 				format(
-					Translations.getModule("smallEventsIntros", language).getRandom("intro") +
-					+ translationWXPP.get("end"),
+					translationWXPP.getRandom("stories") + translationWXPP.get("end"),
 					{
 						xp: xpWon
 					})

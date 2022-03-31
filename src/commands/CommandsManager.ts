@@ -117,7 +117,7 @@ export class CommandsManager {
 	}
 
 	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
-		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, argsOfCommand);
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
 	}
 
 	static async handlePrivateMessage(message: Message) {

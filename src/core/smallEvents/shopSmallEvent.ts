@@ -22,15 +22,6 @@ export const smallEvent: SmallEvent = {
 		price *= Math.round(RandomUtils.randInt(1, 10) === 10 ? 5 : 0.6);
 		const gender = RandomUtils.randInt(0, 1);
 		const translationShop = Translations.getModule("smallEvents.shop", language);
-		seEmbed.setDescription(seEmbed.description
-			+ format(
-				translationShop.getRandom("intro." + gender)
-				+ translationShop.get("end"), {
-					name: translationShop.getRandom("names." + gender),
-					item: randomItem.toString(language, null),
-					price: price,
-					type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
-				}));
 
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
@@ -44,9 +35,9 @@ export const smallEvent: SmallEvent = {
 							})
 						);
 					}
-					await giveItemToPlayer(entity, randomItem, language, interaction.user, <TextChannel> interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+					await giveItemToPlayer(entity, randomItem, language, interaction.user, <TextChannel>interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 					console.log(entity.discordUserId + " bought an item in a mini shop for " + price);
-					await entity.Player.addMoney(entity, -price, <TextChannel> interaction.channel, language);
+					await entity.Player.addMoney(entity, -price, <TextChannel>interaction.channel, language);
 					await entity.Player.save();
 					return;
 				}
@@ -54,7 +45,15 @@ export const smallEvent: SmallEvent = {
 					translationShop.get("error.canceledPurchase"), true
 				);
 			}
-
-		).reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "merchant", collector));
+		).setDescription(seEmbed.description
+			+ format(
+				translationShop.getRandom("intro." + gender)
+				+ translationShop.get("end"), {
+					name: translationShop.getRandom("names." + gender),
+					item: randomItem.toString(language, null),
+					price: price,
+					type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
+				}))
+			.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "merchant", collector));
 	}
 };

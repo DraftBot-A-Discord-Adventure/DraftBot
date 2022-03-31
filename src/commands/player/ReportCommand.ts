@@ -24,8 +24,6 @@ import {CommandInteraction, Message, TextBasedChannel, TextChannel, User} from "
 import {effectsErrorMeTextValue, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {Translations} from "../../core/Translations";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
-import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
 
@@ -150,7 +148,7 @@ const sendTravelPath = async function(entity: Entity, interaction: CommandIntera
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			travelEmbed.addField(tr.get("travellingTitle"), tr.format("travellingDescription", {
-				smallEventEmoji: Data.getModule("smallEvents." + lastMiniEvent.eventType + ".emote"),
+				smallEventEmoji: Data.getModule("smallEvents." + lastMiniEvent.eventType).getString("emote"),
 				time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
 			}), false);
 		}
@@ -175,31 +173,19 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		return console.log(interaction.user + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
+		console.log(interaction.user + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
+		return;
 	}
 
 	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
-		return await destinationChoseMessage(entity, destinationMaps[0], interaction.user, interaction.channel, language);
+		await destinationChoseMessage(entity, destinationMaps[0], interaction.user, interaction.channel, language);
+		return;
 	}
 
 	const tr = Translations.getModule("commands.report", language);
-
-	const reactionMessage = new DraftBotReactionMessageBuilder()
-		.allowUser(interaction.user)
-		.endCallback(async (msg) => {
-			const reaction = msg.getFirstReaction();
-			const mapId = reaction ? destinationMaps[destinationChoiceEmotes.indexOf(reaction.emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length - 1)];
-			const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
-			await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
-			await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
-			await BlockingUtils.unblockPlayer(entity.discordUserId);
-		});
-	for (let i = 0; i < destinationChoiceEmotes.length; ++i) {
-		reactionMessage.addReaction(new DraftBotReaction(destinationChoiceEmotes[i]));
-	}
-	const chooseDestinationEmbed = reactionMessage.build();
+	const chooseDestinationEmbed = new DraftBotEmbed();
 	chooseDestinationEmbed.formatAuthor(tr.get("destinationTitle"), interaction.user);
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
@@ -209,8 +195,35 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + " (" + duration + "h)\n";
 	}
 	chooseDestinationEmbed.setDescription(desc);
-	await chooseDestinationEmbed.send(interaction.channel, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "chooseDestination", collector));
 
+	const sentMessage = await interaction.channel.send({embeds: [chooseDestinationEmbed]});
+
+	const collector = sentMessage.createReactionCollector({
+		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
+		time: Constants.MESSAGES.COLLECTOR_TIME
+	});
+
+	collector.on("collect", () => {
+		collector.stop();
+	});
+
+	collector.on("end", async (collected) => {
+		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length - 1)];
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
+		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
+		await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
+		await BlockingUtils.unblockPlayer(entity.discordUserId);
+	});
+
+	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "chooseDestination", collector);
+	for (let i = 0; i < destinationMaps.length; ++i) {
+		try {
+			await sentMessage.react(destinationChoiceEmotes[i]);
+		}
+		catch (e) {
+			console.error(e);
+		}
+	}
 };
 
 /**
@@ -467,9 +480,8 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 
 	// Pick random event
 	let event: string;
-	const smallEvents = Data.getModule("smallEvents").getObject("");
 	if (forced === null) {
-		const keys = Object.keys(smallEvents);
+		const keys = Data.getKeys("smallEvents");
 		let totalSmallEventsRarity = 0;
 		const updatedKeys = [];
 		for (let i = 0; i < keys.length; ++i) {
@@ -480,13 +492,13 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 			}
 			if (await file.smallEvent.canBeExecuted(entity)) {
 				updatedKeys.push(keys[i]);
-				totalSmallEventsRarity += smallEvents[keys[i]].rarity;
+				totalSmallEventsRarity += Data.getModule("smallEvents." + keys[i]).getNumber("rarity");
 			}
 		}
 		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity);
 		let cumul = 0;
 		for (let i = 0; i < updatedKeys.length; ++i) {
-			cumul += smallEvents[updatedKeys[i]].rarity;
+			cumul += Data.getModule("smallEvents." + updatedKeys[i]).getNumber("rarity");
 			if (cumul >= randomNb) {
 				event = updatedKeys[i];
 				break;
@@ -510,7 +522,7 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 				// Create a template embed
 				const seEmbed = new DraftBotEmbed()
 					.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
-					.setDescription(smallEvents[event].emote + " ");
+					.setDescription(Data.getModule("smallEvents." + event).getString("emote"));
 
 				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
 

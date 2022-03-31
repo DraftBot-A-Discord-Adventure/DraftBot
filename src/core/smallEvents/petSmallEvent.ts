@@ -32,7 +32,7 @@ const generatePetEmbed = async function(
 	food: string
 ) {
 	const tr = Translations.getModule("smallEvents.pet", language);
-	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = Data.getModule("food").getObject(food);
+	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = food ? Data.getModule("food").getObject(food) : null;
 	const sentence = tr.getRandom(interaction);
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {

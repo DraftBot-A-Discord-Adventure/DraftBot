@@ -18,14 +18,14 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		const transIntroSE = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		const tr = Translations.getModule("smallEvents", language);
+		const tr = Translations.getModule("smallEvents.bigBadEvent", language);
 		const base = seEmbed.description + transIntroSE;
-		const alterationObject = tr.getObject("bigBadEvent.alteration.stories");
+		const alterationObject = tr.getObject("alteration.stories");
 		let lifeLoss, seFallen, moneyLoss;
 		switch (outRand) {
 		case 0:
 			lifeLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
-			seEmbed.setDescription(base + format(tr.getRandom("bigBadEvent.lifeLoss.stories"), {lifeLoss: lifeLoss}));
+			seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
 			await entity.addHealth(-lifeLoss, <TextChannel> interaction.channel, language);
 			break;
 		case 1:
@@ -38,7 +38,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
-			seEmbed.setDescription(base + format(tr.getRandom("bigBadEvent.moneyLoss.stories"), {moneyLost: moneyLoss}));
+			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
 			await entity.Player.addMoney(entity, -moneyLoss, <TextChannel> interaction.channel, language);
 			break;
 		}

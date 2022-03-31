@@ -14,7 +14,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.staffMember", language);
 		const keys = tr.getKeys("members");
-		const key = tr.get(keys[RandomUtils.randInt(0, keys.length)]);
+		const key = keys[RandomUtils.randInt(0, keys.length)];
 		seEmbed.setDescription(
 			seEmbed.description + " "
 			+ format(tr.getRandom("context"), {
