@@ -23,6 +23,25 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const classTranslations = Translations.getModule("commands.class", language);
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	const classMessage = await createDisplayClassEmbedAndSendIt(classTranslations, allClasses, language, entity, interaction);
+
+	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
+
+	createClassCollectorAndManageIt(classMessage, filterConfirm, entity, interaction, language, classTranslations);
+
+	// Adding reactions
+	await addClassEmbedReactions(allClasses, classMessage);
+}
+
+/**
+ * Creates the main class display and sends it
+ * @param classTranslations
+ * @param allClasses
+ * @param language
+ * @param entity
+ * @param interaction
+ */
+async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, entity: Entity, interaction: CommandInteraction) {
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
@@ -44,10 +63,39 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			money: entity.Player.money
 		}));
 	// Creating class message
-	const classMessage = <Message> await interaction.reply({embeds: [embedClassMessage], fetchReply: true});
+	return await interaction.reply({embeds: [embedClassMessage], fetchReply: true}) as Message;
+}
 
-	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
+/**
+ * Add all reactions to the class embed corresponding to the possible class choices
+ * @param allClasses
+ * @param classMessage
+ */
+async function addClassEmbedReactions(allClasses: Class[], classMessage: Message) {
+	const classEmojis = new Map();
+	for (let k = 0; k < allClasses.length; k++) {
+		await classMessage.react(allClasses[k].emoji);
+		classEmojis.set(allClasses[k].emoji, k);
+	}
+	classMessage.react(Constants.MENU_REACTION.DENY);
+}
 
+/**
+ * Creates the collector to allow the class changement
+ * @param classMessage
+ * @param filterConfirm
+ * @param entity
+ * @param interaction
+ * @param language
+ * @param classTranslations
+ */
+function createClassCollectorAndManageIt(
+	classMessage: Message,
+	filterConfirm: (reaction: MessageReaction, user: User) => boolean,
+	entity: Entity,
+	interaction: CommandInteraction,
+	language: string,
+	classTranslations: TranslationModule) {
 	const collector = classMessage.createReactionCollector({
 		filter: filterConfirm,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
@@ -71,14 +119,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
 		await confirmPurchase(classMessage, language, selectedClass, entity, classTranslations);
 	});
-
-	// Adding reactions
-	const classEmojis = new Map();
-	for (let k = 0; k < allClasses.length; k++) {
-		await classMessage.react(allClasses[k].emoji);
-		classEmojis.set(allClasses[k].emoji, k);
-	}
-	classMessage.react(Constants.MENU_REACTION.DENY);
 }
 
 /**
@@ -101,7 +141,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 			})
 		);
 
-	const confirmMessage = <Message> await message.channel.send({embeds: [confirmEmbed]});
+	const confirmMessage = await message.channel.send({embeds: [confirmEmbed]}) as Message;
 	const filterConfirm = (reaction: MessageReaction, user: User) =>
 		(
 			reaction.emoji.name === Constants.MENU_REACTION.ACCEPT
