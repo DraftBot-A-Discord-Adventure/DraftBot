@@ -9,6 +9,7 @@ import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
 import {Entities} from "./Entity";
 import {Constants} from "../Constants";
+import {getFoodIndexOf} from "../utils/FoodUtils";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -139,47 +140,13 @@ export class Guild extends Model {
 	}
 
 	public isStorageFullFor(selectedItemType: string, quantity: number): boolean {
-		switch (selectedItemType) {
-		case Constants.PET_FOOD.CARNIVOROUS:
-			return this.carnivorousFood + quantity > Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD;
-		case Constants.PET_FOOD.HERBIVOROUS:
-			return this.herbivorousFood + quantity > Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD;
-		case Constants.PET_FOOD.ULTIMATE_FOOD:
-			return this.ultimateFood + quantity > Constants.GUILD.MAX_ULTIMATE_PET_FOOD;
-		case Constants.PET_FOOD.COMMON_FOOD:
-			return this.commonFood + quantity > Constants.GUILD.MAX_COMMON_PET_FOOD;
-		default:
-			return true;
-		}
+		return this.getDataValue(selectedItemType) + quantity > Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)];
 	}
 
 	public addFood(selectedItemType: string, quantity: number): void {
-		switch (selectedItemType) {
-		case Constants.PET_FOOD.CARNIVOROUS:
-			this.carnivorousFood += quantity;
-			if (this.carnivorousFood > Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD) {
-				this.carnivorousFood = Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD;
-			}
-			break;
-		case Constants.PET_FOOD.HERBIVOROUS:
-			this.herbivorousFood += quantity;
-			if (this.herbivorousFood > Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD) {
-				this.herbivorousFood = Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD;
-			}
-			break;
-		case Constants.PET_FOOD.ULTIMATE_FOOD:
-			this.ultimateFood += quantity;
-			if (this.ultimateFood > Constants.GUILD.MAX_ULTIMATE_PET_FOOD) {
-				this.ultimateFood = Constants.GUILD.MAX_ULTIMATE_PET_FOOD;
-			}
-			break;
-		case Constants.PET_FOOD.COMMON_FOOD:
-			this.commonFood += quantity;
-			if (this.ultimateFood > Constants.GUILD.MAX_COMMON_PET_FOOD) {
-				this.ultimateFood = Constants.GUILD.MAX_COMMON_PET_FOOD;
-			}
-			break;
-		default:
+		this.setDataValue(selectedItemType, this.getDataValue(selectedItemType) + quantity);
+		if (this.isStorageFullFor(selectedItemType, 0)) {
+			this.setDataValue(selectedItemType, Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
 		}
 	}
 }
