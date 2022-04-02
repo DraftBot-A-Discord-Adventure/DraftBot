@@ -85,6 +85,27 @@ function getFoodItems() {
 }
 
 /**
+ * Sends PetFeed Message and prepare the corresponding collector
+ * @param interaction
+ * @param feedEmbed
+ * @param entity
+ */
+async function sendPetFeedMessageAndPrepareCollector(interaction: CommandInteraction, feedEmbed: DraftBotEmbed, entity: Entity) {
+	const feedMsg = await interaction.reply({embeds: [feedEmbed], fetchReply: true}) as Message;
+
+	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
+
+	const collector = feedMsg.createReactionCollector({
+		filter: filterConfirm,
+		time: Constants.MESSAGES.COLLECTOR_TIME,
+		max: 1
+	});
+
+	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
+	return {feedMsg, collector};
+}
+
+/**
  * Allow a user in a guild to give some food to his pet
  * @param language
  * @param interaction
@@ -102,17 +123,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 		petFeedModule.get("feedEmbedDescription")
 	);
 
-	const feedMsg = await interaction.reply({embeds: [feedEmbed], fetchReply: true}) as Message;
-
-	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
-
-	const collector = feedMsg.createReactionCollector({
-		filter: filterConfirm,
-		time: Constants.MESSAGES.COLLECTOR_TIME,
-		max: 1
-	});
-
-	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
+	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
 
 	// Fetch the choice from the user
 	collector.on("end", (reaction) => {
@@ -162,17 +173,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 	);
 	feedEmbed.setFooter(petFeedModule.get("feedEmbedFooter"));
 
-	const feedMsg = await interaction.reply({embeds: [feedEmbed], fetchReply: true}) as Message;
-
-	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
-
-	const collector = feedMsg.createReactionCollector({
-		filter: filterConfirm,
-		time: Constants.MESSAGES.COLLECTOR_TIME,
-		max: 1
-	});
-
-	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
+	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
