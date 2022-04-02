@@ -51,19 +51,37 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
+	const guild = await getGuild(entity);
 	if (guild === null) {
 		await withoutGuildPetFeed(language, interaction, entity, authorPet, petFeedModule);
 	}
 	else {
 		await guildUserFeedPet(language, interaction, entity, authorPet, petFeedModule);
 	}
+}
+
+/**
+ * Obtiens la guilde du joueur
+ * @param entity
+ */
+async function getGuild(entity: Entity) {
+	try {
+		return await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
+		return null;
+	}
+}
+
+/**
+ * Get all food items to use to make the petfeed embed
+ */
+function getFoodItems() {
+	const foodItems = new Map<string, string>();
+	for (const foodItem of Constants.PET_FOOD_GUILD_SHOP.TYPE) {
+		foodItems.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(foodItem)], foodItem);
+	}
+	return foodItems;
 }
 
 /**
@@ -76,11 +94,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
  * @returns {Promise<void>}
  */
 async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule) {
-	const foodItems = new Map<string, string>()
-		.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(Constants.PET_FOOD.COMMON_FOOD)], Constants.PET_FOOD.COMMON_FOOD)
-		.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(Constants.PET_FOOD.HERBIVOROUS_FOOD)], Constants.PET_FOOD.HERBIVOROUS_FOOD)
-		.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)], Constants.PET_FOOD.CARNIVOROUS_FOOD)
-		.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(Constants.PET_FOOD.ULTIMATE_FOOD)], Constants.PET_FOOD.ULTIMATE_FOOD);
+	const foodItems = getFoodItems();
 
 	const feedEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("feedEmbedAuthor"), interaction.user);
