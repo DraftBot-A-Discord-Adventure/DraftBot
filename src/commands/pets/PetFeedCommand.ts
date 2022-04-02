@@ -101,7 +101,7 @@ async function sendPetFeedMessageAndPrepareCollector(interaction: CommandInterac
 		max: 1
 	});
 
-	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petFeed", collector);
 	return {feedMsg, collector};
 }
 
