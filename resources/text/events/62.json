@@ -1,0 +1,227 @@
+{
+	"map_location_ids": [
+		12
+	],
+	"translations": {
+		"fr": "🌾 Un paysan vous hèle au devant de sa ferme située aux abords de l'Étendue. Celle-ci est constituée de pâturages, d'un vignoble et d'un champ de blé. L'air rembruni, il vous salue et vous explique qu'il a perdu sa fourche préférée. Il vous implore de l'aider à la retrouver tout en vous promettant une large récompense.",
+		"en": "🌾 A peasant hail you while you're passing by the front of his farm on the outskirts of the Extended. It is made of pastures, vines and wheat fields. He greets you and explains you that he has lost his favorite fork: that's why he seemed anxious. He urges you to help him find it while promising you a large reward."
+	},
+	"possibilities": {
+		"🍀": {
+			"translations": {
+				"fr": "Chercher près des pâturages.",
+				"en": "Search next to pastures."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après avoir regardé de loin les bovins mastiquer l'herbe fraîche dans la première étendue d'herbes folles, vous vous élancez vers la seconde. De nombreux moutons y broutent paisiblement. Un impressionnant chêne domine le pâturage et attire votre attention, si bien que vous décidez de vous en approcher. Arrivant à quelques mètres de l'arbre, vous discernez une fourche nonchalamment appuyée contre le tronc. Le paysan semble fou de joie lorsque vous lui donnez votre trouvaille. Il vous octroie alors, comme promis, une petite bourse remplie d'or.",
+						"en": "After looking cows chewing fresh grass in the first wild grass field, you ran towards the second. Many sheep graze there peacefully. An impressive oak dominates the pastures and attracts your attention, so that you decide to approach it. A few meters from the tree, you discern a fork against the trunk. The peasant seems crazy when you give it back to him. He then grants you, as promised, a small purse filled with gold."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 500,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l’objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
+						"en": "As you approach pastures, you notice footprints. While following them, you are entering a dark grove in which you found a gloomy hut to say the least. Curious, you walk around it and find yourself face to handle with the so wanted fork! After coming back, you give the item to the farmer who thanks you a lot and invites you to share his meal so that you can tell him how you find it. The evening is pleasant and you leave the farmer late in the night, invigorated by local products."
+					},
+					"lostTime": 120,
+					"health": 30,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "En vous approchant des pâturages, vous remarquez des empreintes de pas traversant le terrain et menant jusqu'au breuil où des moutons profitent de l'ombre rafraîchissante de frêles chênes. Vous décidez de les suivre, pensant qu'il s'agit d'une piste. Lorsque vous arrivez au milieu des moutons, l'un d'eux vient vers vous. D'humeur joueur, vous lui présentez votre main avec un peu d'herbe dedans. Celui-ci en profite pour se rassasier, vous croquant un doigt au passage. Énervé, vous décidez de fuir ce lieu. Approchant du bord du pâturage, vous ne voyez pas la fourche au sol, et marchez dessus. Furieux de cette malchance, vous songez à ne plus aider quiconque lors de votre aventure.",
+						"en": "As you approach pastures, you notice footprints crossing the land leading to an inclosure where sheep benefit from the refreshing shade of young oaks. You decide to follow the footprints, thinking they'll lead you to the fork. When you arrive in the middle of the sheep, one of them comes to you. In a playful mood, you show him your hand with a bit of grass in it. He benefits of it to satiate himself, biting your finger while eating. Irritated, you decide to flee this place. Approaching the edge of the pasture, you do not see the fork on the ground, and walk over it. Furious about this misfortune, you are thinking about not helping anyone anymore on your adventure and throw the fork far away."
+					},
+					"lostTime": 20,
+					"health": -10,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🍇": {
+			"translations": {
+				"fr": "Chercher dans les vignes.",
+				"en": "Search in the vine."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après avoir hésité un court instant, vous décidez de chercher la fameuse fourche aux abords du vignoble. Une alléchante grappe de raisin attire votre attention, vous décidez alors de vous en emparer. Le paysan surgit de nulle part et vous voyant avec un bout de sa récolte en main, hurle de colère. Effrayé, vous lâchez votre cueillette et prenez la poudre d'escampette !",
+						"en": "After a short time, you decide to look for the famous fork near the vines. A large grape catches your attention, so you decide to grab it. The peasant appearing out of nowhere and seeing you handing a piece of his harvest, scream in anger. Frightened, you pick it down and fly away!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "À peine arrivé dans les vignobles, voilà que vous tombez sur la fameuse fourche. Après l'avoir rendue au paysan, celui-ci tient sa promesse à votre égard.",
+						"en": "Barely arrived in the vines, you found the fork. After keeping it back to the peasant, he gives you your due."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+                {
+					"translations": {
+						"fr": "À peine arrivé dans les vignobles, vous discernez une petite cabane en bois. En y entrant, vous découvrez quelques tonneaux et plusieurs bouteilles de vin, dont une est déjà entamée. Quelques gorgées ne vous auraient pas fait de mal si seulement vous aviez réussi à vous limiter à une petite quantité. Vous trouvez le vin délicieux mais ne souhaitez pas perdre plus de temps que cela à chercher une fourche. Vous reprenez votre chemin en prenant soin d'éviter le paysan.",
+						"en": "Barely arrived in the vines, you discern a small wooden hut. As you enter it, you discover a few barrels and several bottles of wine, one of it has already been started. A few sips would not have hurt you if only you had managed to limit yourself to a small amount. You find the wine delicious and do not want to waste more time looking for a fork. You take your path back and take care to avoid the peasant."
+					},
+					"lostTime": 0,
+					"health": 3,
+					"effect": ":zany_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🎑": {
+			"translations": {
+				"fr": "Chercher dans le champ de blé.",
+				"en": "Search in wheat fields."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après plusieurs minutes de recherches dans le champ, vous retrouvez la fourche, à peine visible, sous de nombreux plants de blé couchés sur la terre. Pour vous remercier, le paysan vous offre, comme promis, votre récompense.",
+						"en": "After several minutes searching in the field, you find the fork, barely visible under the cut wheat lying on the ground. To thank you, the peasant offers you, as promised, your reward."
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 400,
+					"item": false
+				},
+                {
+					"translations": {
+						"fr": "Après trois heures de recherche, la fourche reste introuvable. Vous découvrez cependant un objet qui pourra peut-être vous être utile pour gagner le coeur de votre chère Princesse !",
+						"en": "After three hours of research, the fork asn't been found. However, you find a pretty item that may be useful to get the heart of the Princess!"
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 325,
+					"money": 0,
+					"item": true
+				},
+                {
+					"translations": {
+						"fr": "Alors que vous êtes à la recherche de la fourche, vous marchez dessus et vous faites une vilaine entaille. Vous prenez le temps nécessaire afin de prévenir le paysan que vous avez retrouvé sa fourche. Celui-ci, apercevant votre blessure, s'empresse de vous soigner comme il peut.",
+						"en": "Looking for the fork, you step on it and get a nasty cut. You take on your time to inform the peasant you found his fork. He, seeing you're injured, hastens to heal you as he can."
+					},
+					"lostTime": 0,
+					"health": 4,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+        "✖️": {
+			"translations": {
+				"fr": "Refuser d'aider le paysan.",
+				"en": "Refuse to help the peasant."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous refusez la demande du paysan avec une telle méchanceté que celui-ci finit par vous chasser en vous lançant des pierres !",
+						"en": "You refuse the peasant's request with such a lack of sympathy that he ends up stoning you!"
+					},
+					"lostTime": 0,
+					"health": -4,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+                {
+					"translations": {
+						"fr": "Vous refusez la demande du paysan avec une telle courtoisie que celui-ci vous souhaite même un bon courage pour la suite de votre aventure !",
+						"en": "You refuse the peasant's request with such courtesy that he wishes you a good continuation for your adventure!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+                {
+					"translations": {
+						"fr": "Vous décidez d'ignorer la demande du paysan. Alors que vous marchez depuis plusieurs minutes, vous apercevez une route bordée d'impressionnants cerisiers. Quelques cerises bien rouges semblent vous tendre les bras. Après en avoir dégusté quelques-unes, vous reprenez tranquillement votre périple.",
+						"en": "You decide to ignore the peasant's request. As you were walking for several minutes, you see a road lined with impressive cherry trees. Some cherries seem to reach out you. After eating a few ones, you resume your journey."
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🥓 Devant votre absence de réponse, le paysan semble légèrement agacé mais vous laisse partir sans insister. Vous trouvez une besace oubliée sur le bord d'un chemin. En l'ouvrant, vous y découvrez deux petits morceaux de lard séché. ",
+						"en": "🥓 Seeing you unresponsive, the peasant seems quite annoyed but lets you leave without insisting. You find a losted wallet on the edge of a path. When you open it, you discover two small pieces of dried bacon."
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "🐕 Devant l'air désespéré du paysan, vous décidez de vous mettre à la recherche de sa fameuse fourche. Vous finissez par arriver aux abords d'une jachère où des bovins mangent tranquillement de l'herbe fraîche. Soudain, un chien de couleur fauve surgit des buissons près de la pâture et se jette sur vous. En un éclair, vous assommez le chien et reprenez votre chemin, l'air de rien.",
+						"en": "🐕 Seeing this desperated peasant, you decide to start looking for its fork. You end up at the edge of wild grass where cattles eat fresh herb quietly. Suddenly, a fawn dog, springs up from the premises of the pasture and gets on you. Faster than it takes to say so, you knock the dog out and get on your way like nothing happened."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "🐝 Alors que vous alliez accepter d'aider le paysan, vous sentez un bourdonnement près de votre oreille et y enfoncez votre petit doigt. Une vive douleur vous saisit : une abeille vient de vous piquer ! Vous partez sans plus attendre de cet endroit piquant.",
+						"en": "🐝 While you agreed to help the peasant, you feel a buzzing in your ear and push in your little finger. A sharp pain grabs you: a bee has just stinged you! You leave immediately from this stingy place."
+					},
+					"lostTime": 0,
+					"health": -1,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
+	}
+}
