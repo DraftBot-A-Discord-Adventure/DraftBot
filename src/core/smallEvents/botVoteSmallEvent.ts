@@ -8,9 +8,6 @@ import {format} from "../utils/StringFormatter";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 
-// TODO remove after refactor
-declare const DBL: any;
-
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
@@ -20,7 +17,7 @@ export const smallEvent: SmallEvent = {
 		const tr = Translations.getModule("smallEvents.botVote", language);
 		const base = seEmbed.description + " " + Translations.getModule("smallEventsIntros", language).getRandom("intro");
 
-		if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
+		if (await require("../DBL").getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 			// hasn't voted
 			seEmbed.setDescription(base + tr.get("pleaseVote") + "\n\n" + tr.get("pleaseVoteFooter"));
 			await interaction.reply({ embeds: [seEmbed] });

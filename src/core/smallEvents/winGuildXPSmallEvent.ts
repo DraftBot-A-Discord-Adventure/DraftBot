@@ -28,7 +28,7 @@ export const smallEvent: SmallEvent = {
 		seEmbed.setDescription(
 			seEmbed.description +
 			format(
-				translationWGXP.getRandom("smallEvents.winGuildXP")
+				translationWGXP.getRandom("stories")
 				+ translationWGXP.get("end"), {
 					guilde: g.name,
 					xp: xpWon

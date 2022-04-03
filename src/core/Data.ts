@@ -122,4 +122,8 @@ export class Data {
 		dataModulesCache[moduleKey] = dataModule;
 		return dataModule;
 	}
+
+	static getKeys(path: string): string[] {
+		return Object.keys(JsonReader[path]);
+	}
 }

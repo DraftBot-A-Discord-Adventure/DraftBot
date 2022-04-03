@@ -132,7 +132,12 @@ export class CommandsTest {
 			else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			await interaction.reply({embeds: [embedTestSuccessful]});
+			if (interaction.replied) {
+				await interaction.channel.send({embeds: [embedTestSuccessful]});
+			}
+			else {
+				await interaction.reply({embeds: [embedTestSuccessful]});
+			}
 		}
 		catch (e) {
 			console.error(e);

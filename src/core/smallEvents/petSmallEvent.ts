@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Maps} from "../Maps";
@@ -32,7 +32,7 @@ const generatePetEmbed = async function(
 	food: string
 ) {
 	const tr = Translations.getModule("smallEvents.pet", language);
-	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = Data.getModule("food").getObject(food);
+	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = food ? Data.getModule("food").getObject(food) : null;
 	const sentence = tr.getRandom(interaction);
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
@@ -104,6 +104,52 @@ const pickRandomInteraction = function(petEntity: PetEntity) {
 	return null;
 };
 
+/**
+ * Gives to the entity the pet tamer badge, if he doesn't have it already
+ * @param entity
+ * @param interaction
+ */
+async function givePetTamerBadge(entity: Entity, interaction: string) {
+	if (entity.Player.badges !== null) {
+		if (entity.Player.badges.includes(Constants.BADGES.PET_TAMER)) {
+			interaction = "nothing";
+		}
+		else {
+			entity.Player.addBadge(Constants.BADGES.PET_TAMER);
+			await entity.Player.save();
+		}
+	}
+	else {
+		entity.Player.addBadge(Constants.BADGES.PET_TAMER);
+		await entity.Player.save();
+	}
+	return interaction;
+}
+
+/**
+ * Resolves the actions of several interactions which requires to send an embed after the small event
+ * @param interaction
+ * @param interactionCommand
+ * @param language
+ * @param entity
+ * @param food
+ */
+async function finishResolvingSpecialInteractions(interaction: string, interactionCommand: CommandInteraction, language: string, entity: Entity, food: string) {
+	switch (interaction) {
+	case "item":
+		await giveRandomItem(interactionCommand.user, interactionCommand.channel, language, entity);
+		break;
+	case "food":
+		await giveFood(interactionCommand.channel, language, entity, interactionCommand.user, food, 1);
+		break;
+	case "loseLife":
+		await entity.Player.killIfNeeded(entity, interactionCommand.channel, language);
+		break;
+	default:
+		break;
+	}
+}
+
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
@@ -122,17 +168,17 @@ export const smallEvent: SmallEvent = {
 		switch (interaction) {
 		case "money":
 			amount = RandomUtils.randInt(20, 70);
-			await entity.Player.addMoney(entity, amount, <TextChannel> interactionCommand.channel, language);
+			await entity.Player.addMoney(entity, amount, interactionCommand.channel, language);
 			await entity.Player.save();
 			break;
 		case "gainLife":
 			amount = RandomUtils.randInt(1, 5);
-			await entity.addHealth(amount, <TextChannel> interactionCommand.channel, language);
+			await entity.addHealth(amount, interactionCommand.channel, language);
 			await entity.save();
 			break;
 		case "gainLove":
 			amount = RandomUtils.randInt(1, 3);
-			await pet.changeLovePoints(amount, entity.discordUserId, <TextChannel> interactionCommand.channel, language);
+			await pet.changeLovePoints(amount, entity.discordUserId, interactionCommand.channel, language);
 			await pet.save();
 			break;
 		case "food":
@@ -150,33 +196,20 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "points":
 			amount = RandomUtils.randInt(20, 70);
-			await entity.Player.addScore(entity, amount, <TextChannel> interactionCommand.channel, language);
+			await entity.Player.addScore(entity, amount, interactionCommand.channel, language);
 			await entity.Player.save();
 			break;
 		case "badge":
-			if (entity.Player.badges !== null) {
-				if (entity.Player.badges.includes(Constants.BADGES.PET_TAMER)) {
-					interaction = "nothing";
-				}
-				else {
-					entity.Player.addBadge(Constants.BADGES.PET_TAMER);
-					await entity.Player.save();
-				}
-			}
-			else {
-				entity.Player.addBadge(Constants.BADGES.PET_TAMER);
-				await entity.Player.save();
-			}
-
+			interaction = await givePetTamerBadge(entity, interaction);
 			break;
 		case "loseLife":
 			amount = RandomUtils.randInt(1, 5);
-			await entity.addHealth(-amount, <TextChannel> interactionCommand.channel, language);
+			await entity.addHealth(-amount, interactionCommand.channel, language);
 			await entity.save();
 			break;
 		case "loseMoney":
 			amount = RandomUtils.randInt(20, 70);
-			await entity.Player.addMoney(entity, -amount, <TextChannel> interactionCommand.channel, language);
+			await entity.Player.addMoney(entity, -amount, interactionCommand.channel, language);
 			await entity.Player.save();
 			break;
 		case "loseTime":
@@ -191,7 +224,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "loseLove":
 			amount = RandomUtils.randInt(1, 3);
-			await pet.changeLovePoints(-amount, entity.discordUserId, <TextChannel> interactionCommand.channel, language);
+			await pet.changeLovePoints(-amount, entity.discordUserId, interactionCommand.channel, language);
 			await pet.save();
 			break;
 		default:
@@ -199,20 +232,8 @@ export const smallEvent: SmallEvent = {
 		}
 		await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 
-		await interactionCommand.reply({ embeds: [seEmbed] });
-		switch (interaction) {
-		case "item":
-			await giveRandomItem(interactionCommand.user, <TextChannel> interactionCommand.channel, language, entity);
-			break;
-		case "food":
-			await giveFood(interactionCommand.channel, language, entity, interactionCommand.user, food, 1);
-			break;
-		case "loseLife":
-			await entity.Player.killIfNeeded(entity, <TextChannel> interactionCommand.channel, language);
-			break;
-		default:
-			break;
-		}
+		await interactionCommand.reply({embeds: [seEmbed]});
+		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, entity, food);
 		console.log(entity.discordUserId + " got a pet interaction");
 	}
 };
