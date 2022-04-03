@@ -18,6 +18,7 @@ import {CommandInteraction, TextChannel} from "discord.js";
 import {randomInt} from "crypto";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {giveFood} from "../../core/utils/GuildUtils";
+import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 
 /**
  * Displays the guild shop
@@ -96,7 +97,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 
 function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, language: string, amounts: number[]) {
 	const foodJson = Translations.getModule("food", language);
-	const indexFood = Constants.PET_FOOD_GUILD_SHOP.TYPE.indexOf(name);
+	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(
 		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
 		foodJson.get(name + ".name"),

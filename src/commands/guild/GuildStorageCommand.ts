@@ -7,6 +7,7 @@ import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 
 /**
  * Add a food storage field for storage embeds
@@ -17,7 +18,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
  * @param {string} food
  */
 function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string) {
-	const foodIndex = Constants.PET_FOOD_GUILD_SHOP.TYPE.indexOf(food);
+	const foodIndex = getFoodIndexOf(food);
 	storageEmbed.addField(
 		translations.format("foodTitle", {
 			foodType: foodModule.get(food + ".name"),

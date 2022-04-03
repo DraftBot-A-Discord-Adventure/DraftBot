@@ -1,12 +1,12 @@
-import {Guild, Guilds} from "../models/Guild";
+import {Guilds} from "../models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TextBasedChannel, User} from "discord.js";
 import Entity from "../models/Entity";
 import {Translations} from "../Translations";
-import {Data} from "../Data";
 import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
 import {format} from "./StringFormatter";
+import {getFoodIndexOf} from "./FoodUtils";
 
 export const giveFood = async (
 	channel: TextBasedChannel,
@@ -17,9 +17,10 @@ export const giveFood = async (
 	quantity: number
 ) => {
 	const tr = Translations.getModule("commands.guildShop", language);
-	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = Data.getModule("food").getObject(selectedFood);
+	const foodModule = Translations.getModule("food", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (guild.isStorageFullFor(selectedItem.type, quantity)) {
+	const selectedFoodIndex = getFoodIndexOf(selectedFood);
+	if (guild.isStorageFullFor(selectedFood, quantity)) {
 		return sendErrorMessage(
 			author,
 			channel,
@@ -27,7 +28,7 @@ export const giveFood = async (
 			tr.get("fullStock")
 		);
 	}
-	guild.addFood(selectedItem.type, quantity);
+	guild.addFood(selectedFood, quantity);
 	await Promise.all([guild.save()]);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(tr.get("success"), author);
@@ -36,9 +37,9 @@ export const giveFood = async (
 			format(
 				tr.get("singleSuccessAddFoodDesc"),
 				{
-					emote: selectedItem.emote,
+					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
-					name: (language === Constants.LANGUAGE.FRENCH ? selectedItem.translations.fr.name : selectedItem.translations.en.name)
+					name: foodModule.get(selectedFood + ".name")
 						.slice(2, -2)
 						.toLowerCase()
 				}
@@ -50,31 +51,30 @@ export const giveFood = async (
 			format(
 				tr.get("multipleSuccessAddFoodDesc"),
 				{
-					emote: selectedItem.emote,
+					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
 					name:
-						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
-							.slice(2, -2)
-							.toLowerCase()
-							.replace(
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0],
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0]
-									.concat("s")
-							)
-							: (language === Constants.LANGUAGE.FRENCH ? selectedItem.translations.fr.name : selectedItem.translations.en.name)
+						selectedFood === "ultimateFood" && language === "fr"
+							? foodModule.get(selectedFood + ".name")
+								.slice(2, -2)
+								.toLowerCase()
+								.replace(
+									foodModule.get(selectedFood + ".name")
+										.slice(2, -2)
+										.toLowerCase()
+										.split(" ")[0],
+									foodModule.get(selectedFood + ".name")
+										.slice(2, -2)
+										.toLowerCase()
+										.split(" ")[0]
+										.concat("s")
+								)
+							: foodModule.get(selectedFood + ".name")
 								.slice(2, -2)
 								.toLowerCase()
 				}
 			)
 		);
 	}
-	return channel.send({ embeds: [successEmbed] });
+	return channel.send({embeds: [successEmbed]});
 };
-
-export const isStorageFullFor = (name: string, quantity: number, guild: Guild): boolean => guild.getDataValue(name) + quantity > Data.getModule("commands.guildShop").getNumber("max." + name);

@@ -431,8 +431,8 @@ export abstract class Constants {
 
 	static readonly PET_FOOD = {
 		COMMON_FOOD: "commonFood",
-		CARNIVOROUS: "carnivorousFood",
-		HERBIVOROUS: "herbivorousFood",
+		CARNIVOROUS_FOOD: "carnivorousFood",
+		HERBIVOROUS_FOOD: "herbivorousFood",
 		ULTIMATE_FOOD: "ultimateFood"
 	}
 

@@ -48,9 +48,9 @@ export const smallEvent: SmallEvent = {
 			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, storiesObject[outRand][0]);
-			await interaction.reply({ embeds: [seEmbed] });
+			await interaction.reply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction.channel, language, entity, interaction.user, Constants.PET_FOOD.CARNIVOROUS, 1);
+				await giveFood(interaction.channel, language, entity, interaction.user, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1);
 			}
 		}
 		else if (!noRoomInGuild && entity.Player.petId !== null) {
@@ -58,12 +58,12 @@ export const smallEvent: SmallEvent = {
 			await pet.save();
 			await (await GuildPets.addPet(entity.Player.guildId, pet.id)).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
-			interaction.channel.send({ embeds: [seEmbed] });
+			interaction.channel.send({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
 			}));
-			await interaction.reply({ embeds: [seEmbedPetObtention] });
+			await interaction.reply({embeds: [seEmbedPetObtention]});
 		}
 		else {
 			// Place le pet avec le joueur
@@ -71,13 +71,13 @@ export const smallEvent: SmallEvent = {
 			entity.Player.petId = pet.id;
 			await entity.Player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
-			interaction.channel.send({ embeds: [seEmbed] });
+			interaction.channel.send({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
 			}));
-			await interaction.reply({ embeds: [seEmbedPetObtention] });
-			await MissionsController.update(entity.discordUserId, <TextChannel> interaction.channel, language, "havePet");
+			await interaction.reply({embeds: [seEmbedPetObtention]});
+			await MissionsController.update(entity.discordUserId, <TextChannel>interaction.channel, language, "havePet");
 		}
 		console.log(entity.discordUserId + " got find pet event.");
 	}
