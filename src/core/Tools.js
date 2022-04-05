@@ -85,31 +85,6 @@ global.sendErrorMessage = function(user, channel, language, reason, isCancelling
 };
 
 /**
- * Send a dm to a user
- * @param {module:"discord.js".User} user
- * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
- * @param {String} description - Description of the DM
- * @param {module:"discord.js".color} color - Color of the DM
- * @param {("fr"|"en")} language - Language to use in the response
- */
-global.sendDirectMessage = (user, title, description, color, language) => {
-	try {
-		user.send({
-			embeds: [new DraftBotEmbed()
-				// Ignore this for now
-				// .setColor(color)
-				.formatAuthor(title, user)
-				.setDescription(description)
-				.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter)]
-		});
-		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
-	}
-	catch (err) {
-		log("user" + user.id + "has closed dms !");
-	}
-};
-
-/**
  * @deprecated Use ItemUtils.giveItemToPlayer instead
  * Give an item to a user
  * @param {module:"discord.js".User} discordUser

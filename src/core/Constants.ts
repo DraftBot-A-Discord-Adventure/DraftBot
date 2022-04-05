@@ -513,4 +513,17 @@ export abstract class Constants {
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 
 	static readonly MINIMAL_PLAYER_SCORE = 100;
+
+	static readonly REWARD_TYPES = {
+		PERSONAL_XP: "personalXP",
+		GUILD_XP: "guildXp",
+		HOSPITAL: "hospital",
+		MONEY: "money",
+		FIXED_MONEY: "fixedMoney",
+		BADGE: "badge",
+		FULL_HEAL: "fullHeal",
+		PARTIAL_HEAL: "partialHeal",
+		ALTERATION: "alterationHeal",
+		PET_FOOD: "petFood"
+	};
 }
