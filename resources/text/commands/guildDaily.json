@@ -57,7 +57,7 @@
 	"guildChances": [
 		{
 			"personalXP": 0,
-			"guildXp": 0,
+			"guildXP": 0,
 			"money": 970,
 			"fixedMoney": 0,
 			"badge": 0,
@@ -69,7 +69,7 @@
 		},
 		{
 			"personalXP": 50,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 595,
 			"fixedMoney": 25,
 			"badge": 0,
@@ -81,7 +81,7 @@
 		},
 		{
 			"personalXP": 50,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 530,
 			"fixedMoney": 50,
 			"badge": 0,
@@ -93,7 +93,7 @@
 		},
 		{
 			"personalXP": 50,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 502,
 			"fixedMoney": 75,
 			"badge": 0,
@@ -105,7 +105,7 @@
 		},
 		{
 			"personalXP": 100,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 424,
 			"fixedMoney": 100,
 			"badge": 0,
@@ -117,7 +117,7 @@
 		},
 		{
 			"personalXP": 100,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 376,
 			"fixedMoney": 125,
 			"badge": 10,
@@ -129,7 +129,7 @@
 		},
 		{
 			"personalXP": 100,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 338,
 			"fixedMoney": 150,
 			"badge": 20,
@@ -141,7 +141,7 @@
 		},
 		{
 			"personalXP": 100,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 295,
 			"fixedMoney": 175,
 			"badge": 30,
@@ -153,7 +153,7 @@
 		},
 		{
 			"personalXP": 150,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 202,
 			"fixedMoney": 200,
 			"badge": 40,
@@ -165,7 +165,7 @@
 		},
 		{
 			"personalXP": 150,
-			"guildXp": 250,
+			"guildXP": 250,
 			"money": 159,
 			"fixedMoney": 225,
 			"badge": 50,
@@ -177,7 +177,7 @@
 		},
 		{
 			"personalXP": 200,
-			"guildXp": 0,
+			"guildXP": 0,
 			"money": 257,
 			"fixedMoney": 250,
 			"badge": 100,
