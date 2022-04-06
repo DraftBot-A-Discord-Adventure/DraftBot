@@ -516,7 +516,7 @@ export abstract class Constants {
 
 	static readonly REWARD_TYPES = {
 		PERSONAL_XP: "personalXP",
-		GUILD_XP: "guildXp",
+		GUILD_XP: "guildXP",
 		HOSPITAL: "hospital",
 		MONEY: "money",
 		FIXED_MONEY: "fixedMoney",

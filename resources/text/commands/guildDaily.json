@@ -51,8 +51,9 @@
 	"fixedPetFood": 5,
 	"levelMultiplier": 0.25,
 	"timeAdvanceMultiplier": 0.05,
-	"timeBetweenDailys": 22,
+	"timeBetweenDailies": 22,
 	"sizePalier": 10,
+	"chancesSum": 1000,
 	"guildChances": [
 		{
 			"personalXP": 0,

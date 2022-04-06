@@ -80,19 +80,6 @@ global.PERMISSION = {
 	}
 };
 
-global.REWARD_TYPES = {
-	PERSONAL_XP: "personalXP",
-	GUILD_XP: "guildXp",
-	HOSPITAL: "hospital",
-	MONEY: "money",
-	FIXED_MONEY: "fixedMoney",
-	BADGE: "badge",
-	FULL_HEAL: "fullHeal",
-	PARTIAL_HEAL: "partialHeal",
-	ALTERATION: "alterationHeal",
-	PET_FOOD: "petFood"
-};
-
 global.ITEMTYPE = {
 	POTION: "potions",
 	WEAPON: "weapons",
