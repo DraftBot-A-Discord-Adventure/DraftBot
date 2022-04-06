@@ -12,7 +12,7 @@ import {Constants} from "../../core/Constants";
 import {
 	hoursToMilliseconds,
 	millisecondsToMinutes,
-	minutesToString,
+	minutesDisplay,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/models/Tag";
@@ -405,7 +405,7 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 		result += tr.format("health", {health: randomPossibility.health});
 	}
 	if (randomPossibility.lostTime > 0 && randomPossibility.effect === ":clock2:") {
-		result += tr.format("timeLost", {timeLost: minutesToString(randomPossibility.lostTime)});
+		result += tr.format("timeLost", {timeLost: minutesDisplay(randomPossibility.lostTime)});
 	}
 	let emojiEnd = randomPossibility.effect !== Constants.EFFECT.SMILEY && randomPossibility.effect !== Constants.EFFECT.OCCUPIED ? " " + randomPossibility.effect : "";
 

@@ -4,7 +4,7 @@ import Entity, {Entities} from "../../core/models/Entity";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/models/Guild";
-import {hoursToMinutes, millisecondsToHours, millisecondsToMinutes, minutesToString} from "../../core/utils/TimeUtils";
+import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
 import {Data, DataModule} from "../../core/Data";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotClient} from "../../core/bot";
@@ -18,6 +18,22 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
+
+type GuildLike = { guild: Guild, members: Entity[] }
+type StringInfos = { language: string, interaction: CommandInteraction, embed: DraftBotEmbed }
+type InformationModules = { guildDailyModule: TranslationModule; guildDailyData: DataModule }
+
+const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, informationModules: InformationModules) => Promise<void>>();
+linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
+linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
+linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
+linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
+linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
+linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
+linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
+linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
+linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
 
 /**
  * Allow to claim a daily guild reward
@@ -35,15 +51,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
-	if (time < guildDailyData.getNumber("timeBetweenDailys") && !forcedReward) {
+	if (time < guildDailyData.getNumber("timeBetweenDailies") && !forcedReward) {
 		sendErrorMessage(
 			interaction.user,
 			interaction.channel,
 			language,
 			guildDailyModule.format("coolDown", {
-				coolDownTime: guildDailyData.getNumber("timeBetweenDailys"),
-				time: minutesToString(hoursToMinutes(guildDailyData.getNumber("timeBetweenDailys")) - millisecondsToMinutes(interaction.createdAt.valueOf() + guild.lastDailyAt.valueOf()))
-			}));
+				coolDownTime: guildDailyData.getNumber("timeBetweenDailies"),
+				time: minutesDisplay(hoursToMinutes(guildDailyData.getNumber("timeBetweenDailies")) - time)
+			}),
+			false,
+			interaction);
 		return;
 	}
 
@@ -69,22 +87,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	await notifyAndUpdatePlayers(members, interaction, language, guildDailyModule, embed);
 }
-
-type GuildLike = { guild: Guild, members: Entity[] }
-type StringInfos = { language: string, interaction: CommandInteraction, embed: DraftBotEmbed }
-type InformationModules = { guildDailyModule: TranslationModule; guildDailyData: DataModule }
-
-const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, informationModules: InformationModules) => Promise<void>>();
-linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
-linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
-linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
 
 async function genericAwardingFunction(members: Entity[], awardingFunctionForAMember: (member: Entity) => Promise<void> | void) {
 	for (const member of members) {
@@ -271,7 +273,7 @@ async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInt
 
 function generateRandomProperty(guild: Guild): string {
 	const dataModule = Data.getModule("commands.guildDaily");
-	let resultNumber = RandomUtils.randInt(0, 1000);
+	let resultNumber = RandomUtils.randInt(0, dataModule.getNumber("chancesSum"));
 	const rewardLevel = Math.floor(guild.level / dataModule.getNumber("sizePalier"));
 	const recompenses = dataModule.getObjectFromArray("guildChances", rewardLevel);
 	for (const property in recompenses) {

@@ -1,4 +1,5 @@
 export const minutesDisplay = function(minutes: number): string {
+	minutes = Math.floor(minutes);
 	const hours = Math.floor(minutes / 60);
 	minutes %= 60;
 
@@ -38,28 +39,10 @@ export const hoursToMinutes = (hours: number) => hours * 60;
 
 export const millisecondsToHours = (milliseconds: number) => milliseconds / 3600000;
 
-export const minutesToString = (minutes: number): string => {
-	const hours = Math.floor(minutes / 60);
-	minutes %= 60;
-
-	let display;
-	if (hours > 0) {
-		display = hours + " H " + minutes + " Min";
-	}
-	else if (minutes !== 0) {
-		display = minutes + " Min";
-	}
-	else {
-		display = "< 1 Min";
-	}
-
-	return display;
-};
-
 export const datesAreOnSameDay = (first: Date, second: Date) =>
 	first.getFullYear() === second.getFullYear() &&
-    first.getMonth() === second.getMonth() &&
-    first.getDate() === second.getDate();
+	first.getMonth() === second.getMonth() &&
+	first.getDate() === second.getDate();
 
 export const finishInTimeDisplay = (finishDate: Date) => "<t:" + Math.floor(finishDate.valueOf() / 1000) + ":R>";
 
