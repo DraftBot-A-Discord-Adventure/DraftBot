@@ -5,7 +5,7 @@ import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import Entity from "../models/Entity";
 import {format} from "./StringFormatter";
-import {millisecondsToMinutes, minutesToString} from "./TimeUtils";
+import {millisecondsToMinutes, minutesDisplay} from "./TimeUtils";
 
 export const sendBlockedErrorInteraction = async function(interaction: CommandInteraction, language: string) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
@@ -45,7 +45,7 @@ export const effectsErrorMeTextValue = function(user: User, language: string, en
 		errorMessageObject.description = entity.Player.effect + tr.get("meIsDead");
 	}
 
-	const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.effectRemainingTime()));
+	const timeEffect = minutesDisplay(millisecondsToMinutes(entity.Player.effectRemainingTime()));
 	if (effect === Constants.EFFECT.SLEEPING) {
 		errorMessageObject.title = tr.get("titleMeIsSleeping");
 		errorMessageObject.description = format(entity.Player.effect + tr.get("pleaseWaitForHeal"), {time: timeEffect});
