@@ -58,7 +58,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			language,
 			guildDailyModule.format("coolDown", {
 				coolDownTime: guildDailyData.getNumber("timeBetweenDailies"),
-				time: minutesDisplay(hoursToMinutes(guildDailyData.getNumber("timeBetweenDailies")) - time)
+				time: minutesDisplay(hoursToMinutes(guildDailyData.getNumber("timeBetweenDailies") - time))
 			}),
 			false,
 			interaction);
@@ -220,6 +220,18 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	// log("GuildDaily of guild " + guild.name + ": got alteration heal");
 }
 
+async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string) {
+	const pet = await PetEntities.generateRandomPetEntity(guild.level);
+	await pet.save();
+	await (await GuildPets.addPet(guild.id, pet.id)).save();
+	embed.setDescription(embed.description + "\n\n" + guildDailyModule.format("pet", {
+		emote: pet.getPetEmote(),
+		pet: pet.getPetTypeName(language)
+	}));
+	// TODO REFACTOR LES LOGS
+	// log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
+}
+
 async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	const guildDailyData = Data.getModule("commands.guildDaily");
@@ -230,19 +242,10 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
 	const guildLike: GuildLike = {guild, members};
 	const stringInfos: StringInfos = {language, interaction, embed};
 	const informationModules: InformationModules = {guildDailyModule, guildDailyData};
-
 	await linkToFunction.get(rewardType)(guildLike, stringInfos, informationModules);
 
 	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= 0.01) {
-		const pet = await PetEntities.generateRandomPetEntity(guild.level);
-		await pet.save();
-		await (await GuildPets.addPet(guild.id, pet.id)).save();
-		embed.setDescription(embed.description + "\n\n" + guildDailyModule.format("pet", {
-			emote: pet.getPetEmote(),
-			pet: pet.getPetTypeName(language)
-		}));
-		// TODO REFACTOR LES LOGS
-		// log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
+		await awardGuildWithNewPet(guild, embed, guildDailyModule, language);
 	}
 
 	await interaction.reply({embeds: [embed]});
