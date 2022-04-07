@@ -15,75 +15,6 @@ import {Data, DataModule} from "../../core/Data";
 
 type InformationModules = { guildCreateModule: TranslationModule, guildCreateData: DataModule }
 
-async function getGuildByName(askedName: string) {
-	try {
-		return await Guilds.getByName(askedName);
-	}
-	catch (error) {
-		return null;
-	}
-}
-
-function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, askedName: string, interaction: CommandInteraction, language: string, informationModules: InformationModules) {
-	return async (validateMessage: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
-		if (validateMessage.isValidated()) {
-			guild = await getGuildByName(askedName);
-			if (guild !== null) {
-				// the name is already used
-				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
-			}
-			if (entity.Player.money < informationModules.guildCreateData.getNumber("guildCreationPrice")) {
-				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("notEnoughMoney"));
-			}
-
-			const newGuild = await Guild.create({
-				name: askedName,
-				chiefId: entity.id
-			});
-
-			entity.Player.guildId = newGuild.id;
-			await entity.Player.addMoney(entity, -informationModules.guildCreateData.getNumber("guildCreationPrice"), interaction.channel, language);
-			newGuild.updateLastDailyAt();
-			newGuild.save();
-			await Promise.all([
-				entity.save(),
-				entity.Player.save()
-			]);
-
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, "joinGuild");
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, "guildLevel", newGuild.level, null, true);
-
-			return interaction.followUp({
-				embeds: [new DraftBotEmbed()
-					.formatAuthor(informationModules.guildCreateModule.get("createTitle"), interaction.user)
-					.setDescription(informationModules.guildCreateModule.format("createSuccess", {guildName: askedName}))]
-			});
-		}
-
-		// Cancel the creation
-		return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("creationCancelled"), true);
-	};
-}
-
-function createValidationEmbedGuildCreation(
-	interaction: CommandInteraction,
-	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<any>,
-	askedName: string,
-	informationsModule: InformationModules
-) {
-	return new DraftBotValidateReactionMessage(interaction.user, endCallback)
-		.formatAuthor(informationsModule.guildCreateModule.get("buyTitle"), interaction.user)
-		.setDescription(
-			informationsModule.guildCreateModule.format("buyConfirm",
-				{
-					guildName: askedName,
-					price: informationsModule.guildCreateData.getNumber("guildCreationPrice")
-				}
-			))
-		.setFooter(informationsModule.guildCreateModule.get("buyFooter"), null) as DraftBotValidateReactionMessage;
-}
-
 /**
  * Allow to Create a guild
  * @param interaction
@@ -156,6 +87,76 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildCreate", collector));
 }
 
+async function getGuildByName(askedName: string) {
+	try {
+		return await Guilds.getByName(askedName);
+	}
+	catch (error) {
+		return null;
+	}
+}
+
+function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, askedName: string, interaction: CommandInteraction, language: string, informationModules: InformationModules) {
+	return async (validateMessage: DraftBotValidateReactionMessage) => {
+		BlockingUtils.unblockPlayer(entity.discordUserId);
+		if (validateMessage.isValidated()) {
+			guild = await getGuildByName(askedName);
+			if (guild !== null) {
+				// the name is already used
+				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
+			}
+			if (entity.Player.money < informationModules.guildCreateData.getNumber("guildCreationPrice")) {
+				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("notEnoughMoney"));
+			}
+
+			const newGuild = await Guild.create({
+				name: askedName,
+				chiefId: entity.id
+			});
+
+			entity.Player.guildId = newGuild.id;
+			await entity.Player.addMoney(entity, -informationModules.guildCreateData.getNumber("guildCreationPrice"), interaction.channel, language);
+			newGuild.updateLastDailyAt();
+			newGuild.save();
+			await Promise.all([
+				entity.save(),
+				entity.Player.save()
+			]);
+
+			await MissionsController.update(entity.discordUserId, interaction.channel, language, "joinGuild");
+			await MissionsController.update(entity.discordUserId, interaction.channel, language, "guildLevel", newGuild.level, null, true);
+
+			return interaction.followUp({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(informationModules.guildCreateModule.get("createTitle"), interaction.user)
+					.setDescription(informationModules.guildCreateModule.format("createSuccess", {guildName: askedName}))]
+			});
+		}
+
+		// Cancel the creation
+		return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("creationCancelled"), true);
+	};
+}
+
+function createValidationEmbedGuildCreation(
+	interaction: CommandInteraction,
+	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<any>,
+	askedName: string,
+	informationsModule: InformationModules
+) {
+	return new DraftBotValidateReactionMessage(interaction.user, endCallback)
+		.formatAuthor(informationsModule.guildCreateModule.get("buyTitle"), interaction.user)
+		.setDescription(
+			informationsModule.guildCreateModule.format("buyConfirm",
+				{
+					guildName: askedName,
+					price: informationsModule.guildCreateData.getNumber("guildCreationPrice")
+				}
+			))
+		.setFooter(informationsModule.guildCreateModule.get("buyFooter"), null) as DraftBotValidateReactionMessage;
+}
+
+
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("guildcreate")
@@ -169,7 +170,7 @@ export const commandInfo: ICommand = {
 		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
 		guildPermissions: null,
-		guildRequired: true,
+		guildRequired: false,
 		userPermission: null
 	},
 	mainGuildCommand: false,
