@@ -11,7 +11,6 @@
 			"editSuccessTitle": "La description de la guilde à bien été éditée !",
 			"editCancelled": "Vous n'avez pas édité la description de la guilde !",
 			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-			"notAuthorizedError": "Vous devez être chef ou aîné de la guilde pour effectuer cette commande.",
 			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
 		},
 		"en": {
@@ -25,7 +24,6 @@
 			"editSuccessTitle": "The description of guild has been edit !",
 			"editCancelled": "You does not change the description of guild !",
 			"notInAguild": "You have to be in a guild to use this command.",
-			"notAuthorizedError": "You have to be a guild leader or elder to use this command.",
 			"guildDestroy": "You can't join the guild because it has been deleted, or you have been kicked of it."
 		}
 	}
