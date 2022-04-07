@@ -51,7 +51,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			interaction.channel,
 			language,
 			guildModule.get("noGuildException"),
-			false
+			false,
+			interaction
 		);
 		return;
 	}
