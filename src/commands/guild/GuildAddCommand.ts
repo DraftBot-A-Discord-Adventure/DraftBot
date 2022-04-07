@@ -104,13 +104,15 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 						? `${Constants.GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
 						: `${Constants.GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
 				}
-			)
+			),
+			false,
+			interaction
 		);
 		return;
 	}
 
 	const invitedUser: User = interaction.options.getUser("user");
-	if (await sendBlockedError(invitedUser, interaction.channel, language)) {
+	if (await sendBlockedError(invitedUser, interaction.channel, language, interaction)) {
 		return;
 	}
 
