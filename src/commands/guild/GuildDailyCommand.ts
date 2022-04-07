@@ -23,17 +23,7 @@ type GuildLike = { guild: Guild, members: Entity[] }
 type StringInfos = { language: string, interaction: CommandInteraction, embed: DraftBotEmbed }
 type InformationModules = { guildDailyModule: TranslationModule; guildDailyData: DataModule }
 
-const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, informationModules: InformationModules) => Promise<void>>();
-linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
-linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
-linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
-linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
-linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
+const linkToFunction = getMapOfAllRewardCommands();
 
 /**
  * Allow to claim a daily guild reward
@@ -78,10 +68,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	guild.lastDailyAt = new Date(interaction.createdTimestamp);
 	await guild.save();
 
-	let rewardType = generateRandomProperty(guild);
-	if (forcedReward) {
-		rewardType = forcedReward;
-	}
+	const rewardType = forcedReward ?? generateRandomProperty(guild);
 
 	const embed = await rewardPlayersOfTheGuild(guild, members, language, interaction, rewardType);
 
@@ -288,6 +275,21 @@ function generateRandomProperty(guild: Guild): string {
 		}
 	}
 	throw new Error("Erreur generateRandomProperty : nombre property invalide");
+}
+
+function getMapOfAllRewardCommands() {
+	const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, informationModules: InformationModules) => Promise<void>>();
+	linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
+	linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
+	linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
+	return linkToFunction;
 }
 
 export const commandInfo: ICommand = {

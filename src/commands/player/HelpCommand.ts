@@ -3,11 +3,11 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CacheType, CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {HelpData} from "../../core/HelpData";
+import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 
 function getCommandByCategories() {
-	const commandsDataList = HelpData.COMMANDS_DATA;
+	const commandsDataList = HelpConstants.COMMANDS_DATA;
 	const serverCommands = [], utilCommands = [], playerCommands = [],
 		missionCommands = [], guildCommands = [], petCommands = [];
 	for (const commandData of Object.entries(commandsDataList)) {
@@ -85,7 +85,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 
 function getCommandAliasMap() {
 	const helpAlias: Map<string, string> = new Map<string, string>();
-	Object.entries(HelpData.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {
+	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {
 		for (const alias of commands[1]) {
 			helpAlias.set(alias, commands[0]);
 		}
@@ -110,7 +110,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 	else {
 		const helpAlias = getCommandAliasMap();
-		const command = helpAlias.get(askedCommand.toLowerCase().replace(" ",""));
+		const command = helpAlias.get(askedCommand.toLowerCase().replace(" ", ""));
 		let option1, option2;
 		if (!command) {
 			generateGenericHelpMessage(helpMessage, tr, interaction);
@@ -133,7 +133,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				tr.format(
 					"commandEmbedTitle",
 					{
-						emote: HelpData.COMMANDS_DATA[command as keyof typeof HelpData.COMMANDS_DATA].EMOTE,
+						emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE,
 						cmd: command.toLowerCase().replace("_", "")
 					}
 				)

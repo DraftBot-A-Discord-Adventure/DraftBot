@@ -3,7 +3,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import {HelpData} from "../../core/HelpData";
+import {HelpConstants} from "../../core/constants/HelpConstants";
 
 /**
  * Allow to use the object if the player has one in the dedicated slot of his inventory
@@ -16,7 +16,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.setTitle(
 			tr.format(
 				"commandEmbedTitle",
-				{emote: HelpData.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
+				{emote: HelpConstants.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
 			)
 		)
 		.setDescription(tr.get("commands.BADGE.description"));
