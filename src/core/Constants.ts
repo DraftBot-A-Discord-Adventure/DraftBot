@@ -224,7 +224,12 @@ export abstract class Constants {
 			15, // Herbivorous food
 			15, // Carnivorous food
 			5 // Ultimate food
-		]
+		],
+		PERMISSION_LEVEL: {
+			MEMBER: 1,
+			ELDER: 2,
+			CHIEF: 3
+		}
 	};
 
 	static readonly NATURE = {

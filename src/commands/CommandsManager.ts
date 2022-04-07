@@ -404,13 +404,13 @@ export class CommandsManager {
 				return;
 			}
 
-			let userPermissionsLevel = 1;
+			let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
 
 			if (entity.id === guild.getElderId()) {
-				userPermissionsLevel = 2;
+				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
 			}
 			if (entity.id === guild.getChiefId()) {
-				userPermissionsLevel = 3;
+				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
 			}
 
 			if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
