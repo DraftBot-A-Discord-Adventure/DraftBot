@@ -1,4 +1,4 @@
-export abstract class HelpData {
+export abstract class HelpConstants {
 	static readonly ACCEPTED_SEARCH_WORDS = {
 		PREFIX: ["prefix", "prefixe", "préfixe", "préfix", "changePrefix", "changePréfix", "changePrefixe", "changePréfixe"],
 		PING: ["ping", "mention", "uptime", "shard"],
