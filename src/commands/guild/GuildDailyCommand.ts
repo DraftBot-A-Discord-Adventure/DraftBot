@@ -74,6 +74,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await notifyAndUpdatePlayers(members, interaction, language, guildDailyModule, embed);
 }
 
+/**
+ * Generic function to call when awarding members of a guild personnally
+ * @param members
+ * @param awardingFunctionForAMember
+ */
 async function genericAwardingFunction(members: Entity[], awardingFunctionForAMember: (member: Entity) => Promise<void> | void) {
 	for (const member of members) {
 		await awardingFunctionForAMember(member);
@@ -218,6 +223,14 @@ async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDai
 	// log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
 }
 
+/**
+ * Rewards the members of the guild and sends the reward embed
+ * @param guild
+ * @param members
+ * @param language
+ * @param interaction
+ * @param rewardType
+ */
 async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	const embed: DraftBotEmbed = new DraftBotEmbed()
@@ -226,9 +239,16 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
 		}));
 	const guildLike: GuildLike = {guild, members};
 	const stringInfos: StringInfos = {language, interaction, embed};
+
+	/*
+	Here is the fun part !
+	First collect the function which is associated to the given reward (linkToFunction.get(rewardType))
+	Then call this function using the prepared parameters above
+	And Voilà ! You rewarded all the members of the guild according to rewardType !
+	*/
 	await linkToFunction.get(rewardType)(guildLike, stringInfos, guildDailyModule);
 
-	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= 0.01) {
+	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
 		await awardGuildWithNewPet(guild, embed, guildDailyModule, language);
 	}
 
@@ -236,6 +256,14 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
 	return embed;
 }
 
+/**
+ * Updates the guilddaily mission for each member of the guild and send a private message for those who have dms opened
+ * @param members
+ * @param interaction
+ * @param language
+ * @param guildDailyModule
+ * @param embed
+ */
 async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: any) {
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
@@ -258,6 +286,10 @@ async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInt
 	}
 }
 
+/**
+ * Generates the reward that will be awarded by the guild
+ * @param guild
+ */
 function generateRandomProperty(guild: Guild): string {
 	let resultNumber = RandomUtils.randInt(0, GuildDailyConstants.CHANCES_SUM);
 	const rewardLevel = Math.floor(guild.level / GuildDailyConstants.SIZE_PALIER);
@@ -273,6 +305,9 @@ function generateRandomProperty(guild: Guild): string {
 	throw new Error("Erreur generateRandomProperty : nombre property invalide");
 }
 
+/**
+ * Map all possible rewards to the corresponding rewarding function
+ */
 function getMapOfAllRewardCommands() {
 	const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>>();
 	linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
