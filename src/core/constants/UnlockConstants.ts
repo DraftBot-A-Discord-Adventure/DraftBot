@@ -1,6 +1,3 @@
-/**
- * Constants for the unlock command
- */
 export abstract class UnlockConstants {
 	static readonly PRICE_FOR_UNLOCK = 3000;
 
