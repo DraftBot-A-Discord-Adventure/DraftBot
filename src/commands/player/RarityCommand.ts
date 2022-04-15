@@ -37,14 +37,6 @@ export const commandInfo: ICommand = {
 		.setName("rarity")
 		.setDescription("Get the probability to get an item according to its rarity"),
 	executeCommand,
-	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
-	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	requirements: {},
+	mainGuildCommand: false
 };

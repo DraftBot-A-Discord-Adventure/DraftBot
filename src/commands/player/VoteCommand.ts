@@ -19,13 +19,6 @@ export const commandInfo: ICommand = {
 		.setDescription("Display a link that allow a user to vote for the bot."),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

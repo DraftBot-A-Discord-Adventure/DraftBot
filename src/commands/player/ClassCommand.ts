@@ -219,12 +219,7 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		allowEffects: [Constants.EFFECT.SMILEY],
-		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		requiredLevel: Constants.CLASS.REQUIRED_LEVEL
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

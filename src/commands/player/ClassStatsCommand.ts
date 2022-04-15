@@ -40,13 +40,8 @@ export const commandInfo: ICommand = {
 		.setDescription("Display the stats you could have for each class"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

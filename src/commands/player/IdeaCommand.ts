@@ -28,14 +28,6 @@ export const commandInfo: ICommand = {
 		.setName("idea")
 		.setDescription("Get the link to send a suggestion for the game"),
 	executeCommand,
-	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
-	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	requirements: {},
+	mainGuildCommand: false
 };
