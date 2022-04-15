@@ -20,8 +20,7 @@
 			"healthDaily": "❤️ HP recovered : {value}!",
 			"moneyBonus": "💰 Money Earned: {value} !",
 			"hospitalBonus": "🕥 You have moved up {value}",
-			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in : \n `{time}`."
+			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in `{time}`."
 		}
-	},
-	"timeBetweenDailys": 22
+	}
 }

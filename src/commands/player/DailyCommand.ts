@@ -72,6 +72,34 @@ function dailyNotReady(interaction: CommandInteraction, entity: Entity, language
 	return false;
 }
 
+async function activateDailyItem(
+	entityInformations: { entity: Entity, activeObject: ObjectItem },
+	embed: DraftBotEmbed,
+	textInformations: { dailyModule: TranslationModule, interaction: CommandInteraction, language: string }) {
+	switch (entityInformations.activeObject.nature) {
+	case Constants.NATURE.HEALTH:
+		embed.setDescription(textInformations.dailyModule.format("healthDaily", {value: entityInformations.activeObject.power}));
+		await entityInformations.entity.addHealth(entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language);
+		break;
+	case Constants.NATURE.HOSPITAL:
+		embed.setDescription(
+			textInformations.dailyModule.format("hospitalBonus", {
+				value: minutesDisplay(hoursToMinutes(entityInformations.activeObject.power))
+			})
+		);
+		Maps.advanceTime(entityInformations.entity.Player, hoursToMinutes(entityInformations.activeObject.power));
+		break;
+	case Constants.NATURE.MONEY:
+		embed.setDescription(textInformations.dailyModule.format("moneyBonus", {value: entityInformations.activeObject.power}));
+		await entityInformations.entity.Player.addMoney(entityInformations.entity, entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language);
+		break;
+	default:
+		break;
+	}
+	entityInformations.entity.Player.InventoryInfo.updateLastDailyAt();
+	await Promise.all([entityInformations.entity.save(), entityInformations.entity.Player.save(), entityInformations.entity.Player.InventoryInfo.save()]);
+}
+
 /**
  * Activate your daily item effect
  * @param interaction
@@ -91,33 +119,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const embed = new DraftBotEmbed().formatAuthor(dailyModule.get("dailySuccess"), interaction.user);
+	await activateDailyItem({entity, activeObject}, embed, {interaction, language, dailyModule});
+	await interaction.reply({embeds: [embed]});
 
-	switch (activeObject.nature) {
-	case Constants.NATURE.HEALTH:
-		embed.setDescription(dailyModule.format("healthDaily", {value: activeObject.power}));
-		await entity.addHealth(activeObject.power, interaction.channel, language);
-		break;
-	case Constants.NATURE.HOSPITAL:
-		embed.setDescription(
-			dailyModule.format("hospitalBonus", {
-				value: minutesDisplay(hoursToMinutes(activeObject.power))
-			})
-		);
-		Maps.advanceTime(entity.Player, hoursToMinutes(activeObject.power));
-		break;
-	case Constants.NATURE.MONEY:
-		embed.setDescription(dailyModule.format("moneyBonus", {value: activeObject.power}));
-		await entity.Player.addMoney(entity, activeObject.power, interaction.channel, language);
-		break;
-	default:
-		break;
-	}
-
-	entity.Player.InventoryInfo.updateLastDailyAt();
-	await Promise.all([entity.save(), entity.Player.save(), entity.Player.InventoryInfo.save()]);
 	// TODO REFACTOR LES LOGS
 	// log(entity.discordUserId + " used his daily item " + activeObject.en);
-	await interaction.reply({embeds: [embed]});
 }
 
 export const commandInfo: ICommand = {
