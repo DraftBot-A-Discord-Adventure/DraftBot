@@ -34,7 +34,7 @@ function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInt
 		sendErrorMessage(interaction.user, interaction.channel, language, dailyModule.get("noActiveObjectdescription"), false, interaction);
 		return true;
 	}
-	if (activeObject.nature in [Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK]) {
+	if ([Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK].indexOf(activeObject.nature) === -1) {
 		// Those objects are active only during fights
 		sendErrorMessage(
 			interaction.user,
