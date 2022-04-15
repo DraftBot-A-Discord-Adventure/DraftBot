@@ -27,25 +27,26 @@ export const getTomorrowMidnight = function() {
 	return tomorrow;
 };
 
-export const getDayNumber = (): number  => Math.floor(new Date().valueOf() / 8.64e7);
+export const getDayNumber = (): number => Math.floor(new Date().valueOf() / 8.64e7);
 
-export const millisecondsToMinutes = (milliseconds: number): number  => Math.round(milliseconds / 60000);
+export const millisecondsToMinutes = (milliseconds: number): number => Math.round(milliseconds / 60000);
 
-export const minutesToMilliseconds = (minutes: number): number  => minutes * 60000;
+export const minutesToMilliseconds = (minutes: number): number => minutes * 60000;
 
-export const hoursToMilliseconds = (hours: number): number  => hours * 3600000;
+export const hoursToMilliseconds = (hours: number): number => hours * 3600000;
 
-export const hoursToMinutes = (hours: number): number  => hours * 60;
+export const hoursToMinutes = (hours: number): number => hours * 60;
 
-export const millisecondsToHours = (milliseconds: number): number  => milliseconds / 3600000;
+export const millisecondsToHours = (milliseconds: number): number => milliseconds / 3600000;
 
-export const datesAreOnSameDay = (first: Date, second: Date): boolean  =>
+export const datesAreOnSameDay = (first: Date, second: Date): boolean =>
 	first.getFullYear() === second.getFullYear() &&
 	first.getMonth() === second.getMonth() &&
 	first.getDate() === second.getDate();
 
-export const finishInTimeDisplay = (finishDate: Date): string  => "<t:" + Math.floor(finishDate.valueOf() / 1000) + ":R>";
 
+export const finishInTimeDisplay = (finishDate: Date): string => "<t:" + Math.floor(finishDate.valueOf() / 1000).toString() + ":R>";
+finishInTimeDisplay(new Date());
 export const getNextSundayMidnight = (): number => {
 	const now = new Date();
 	const dateOfReset = new Date();
@@ -58,9 +59,9 @@ export const getNextSundayMidnight = (): number => {
 	return dateOfResetTimestamp;
 };
 
-export const resetIsNow = (): boolean  => getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;
+export const resetIsNow = (): boolean => getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;
 
-export const parseTimeDifference = function(date1: number, date2: number, language: string): string  {
+export const parseTimeDifference = function(date1: number, date2: number, language: string): string {
 	if (date1 > date2) {
 		date1 = [date2, date2 = date1][0];
 	}
