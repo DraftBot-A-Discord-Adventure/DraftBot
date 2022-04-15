@@ -260,13 +260,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Shows the main shop in order to buy player related items"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

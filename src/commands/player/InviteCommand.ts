@@ -10,7 +10,7 @@ import {ICommand} from "../ICommand";
  */
 async function executeCommand(interaction: CommandInteraction, language: string) {
 	const tr = Translations.getModule("commands.invite", language);
-	await interaction.reply({ content: tr.get("main") });
+	await interaction.reply({content: tr.get("main")});
 }
 
 export const commandInfo: ICommand = {
@@ -18,14 +18,6 @@ export const commandInfo: ICommand = {
 		.setName("invite")
 		.setDescription("Display the link to invite the bot to another server"),
 	executeCommand,
-	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
-	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	requirements: {},
+	mainGuildCommand: false
 };

@@ -56,13 +56,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Activates or desactivates the notifications through direct messages"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

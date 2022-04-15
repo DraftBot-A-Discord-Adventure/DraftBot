@@ -58,13 +58,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the map and the position of the player."),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

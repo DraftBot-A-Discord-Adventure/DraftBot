@@ -29,14 +29,6 @@ export const commandInfo: ICommand = {
 		.setName("update")
 		.setDescription("Displays the changelog of the bot"),
 	executeCommand,
-	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
-	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	requirements: {},
+	mainGuildCommand: false
 };

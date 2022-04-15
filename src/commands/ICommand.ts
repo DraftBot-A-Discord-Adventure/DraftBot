@@ -16,6 +16,6 @@ export interface ICommand {
 		guildPermissions?: number
 	},
 
-	mainGuildCommand?: boolean,
+	mainGuildCommand: boolean,
 	slashCommandPermissions?: ApplicationCommandPermissionData[]
 }

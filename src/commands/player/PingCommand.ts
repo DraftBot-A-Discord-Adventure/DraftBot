@@ -23,14 +23,6 @@ export const commandInfo: ICommand = {
 		.setName("ping")
 		.setDescription("Displays the ping of the bot and allow the player to check if the bot is online"),
 	executeCommand,
-	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
-	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	requirements: {},
+	mainGuildCommand: false
 };

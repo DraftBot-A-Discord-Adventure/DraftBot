@@ -20,130 +20,6 @@ import PetEntity from "../../core/models/PetEntity";
 
 
 /**
- * Displays information about the profile of the player who sent the command
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	let askedEntity = await Entities.getByOptions(interaction);
-	if (!askedEntity) {
-		askedEntity = entity;
-	}
-	const profileModule = Translations.getModule("commands.profile", language);
-	const titleEffect = askedEntity.Player.effect;
-	const fields = await generateFields(profileModule, askedEntity, interaction, titleEffect, language);
-	const reply = await interaction.reply({
-		embeds: [
-			new DraftBotEmbed()
-				.setTitle(profileModule.format("title", {
-					effect: titleEffect,
-					pseudo: await askedEntity.Player.getPseudo(language),
-					level: askedEntity.Player.level
-				}))
-				.addFields(fields)
-		],
-		fetchReply: true
-	}) as Message;
-	const filterConfirm = (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last().bot;
-
-	const collector = reply.createReactionCollector({
-		filter: filterConfirm,
-		time: Constants.MESSAGES.COLLECTOR_TIME,
-		max: Data.getModule("commands.profile").getNumber("badgeMaxReactNumber")
-	});
-
-	collector.on("collect", async (reaction) => {
-		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
-			collector.stop(); // only one is allowed to avoid spam
-			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction);
-		}
-		else {
-			reply.channel.send({content: profileModule.get("badges." + reaction.emoji.name)}).then((msg: Message) => {
-				setTimeout(() => msg.delete(), Data.getModule("commands.profile").getNumber("badgeDescriptionTimeout"));
-			});
-		}
-	});
-
-	if (askedEntity.Player.badges !== null && askedEntity.Player.badges !== "") {
-		await displayBadges(askedEntity, reply);
-	}
-	if (new Date().valueOf() - askedEntity.Player.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
-		await reply.react(Constants.TOPGG.BADGE);
-	}
-}
-
-async function generateFields(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction<CacheType>, titleEffect: string, language: string) {
-	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
-	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
-	const rank = await Players.getRankById(askedEntity.Player.id);
-	const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
-	const fields = await getInformationField(profileModule, askedEntity);
-	if (askedEntity.Player.level >= Constants.CLASS.REQUIRED_LEVEL) {
-		fields.push(await getStatisticField(profileModule, askedEntity, playerActiveObjects));
-	}
-	fields.push(
-		getMissionField(profileModule, askedEntity, mc));
-	fields.push(
-		getRankingField(profileModule, rank, numberOfPlayers, askedEntity));
-
-	if (!askedEntity.Player.checkEffect()) {
-		if (interaction.createdAt >= askedEntity.Player.effectEndDate) {
-			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
-			fields.push(getNoTimeLeftField(profileModule));
-		}
-		else {
-			fields.push(getTimeLeftField(profileModule, askedEntity, interaction));
-		}
-	}
-
-	try {
-		const playerClass = await Classes.getById(askedEntity.Player.class);
-		if (playerClass) {
-			fields.push(getClassField(profileModule, playerClass, language));
-		}
-	}
-	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting class of player for profile: " + error);
-	}
-
-	try {
-		const guild = await Guilds.getById(askedEntity.Player.guildId);
-		if (guild) {
-			fields.push(getGuildField(profileModule, guild));
-		}
-	}
-	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting guild of player for profile: " + error);
-	}
-
-	try {
-		const mapId = await askedEntity.Player.getDestinationId();
-		if (mapId !== null) {
-			fields.push(await getLocationField(profileModule, askedEntity, language));
-		}
-	}
-	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting map of player for profile: " + error);
-	}
-
-	try {
-		const pet = askedEntity.Player.Pet;
-		if (pet) {
-			fields.push(getPetField(profileModule, pet, language));
-		}
-	}
-	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting pet of player for profile: " + error);
-	}
-	return fields;
-}
-
-/**
  * Display badges for the given entity
  * @param {Entities} entity
  * @param msg
@@ -209,12 +85,14 @@ function getMissionField(profileModule: TranslationModule, askedEntity: Entity, 
 }
 
 function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity) {
+	const isUnranked = rank > numberOfPlayers;
 	return {
 		name: profileModule.get("ranking.fieldName"),
 		value:
 			profileModule.format("ranking.fieldValue", {
-				rank: rank > numberOfPlayers ? profileModule.get("ranking.unranked") : rank,
-				numberOfPlayer: numberOfPlayers,
+				isUnranked: isUnranked,
+				rank: isUnranked ? profileModule.get("ranking.unranked") : rank,
+				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
 				score: askedEntity.Player.score
 			}),
 		inline: false
@@ -305,6 +183,139 @@ async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: strin
 	});
 }
 
+/**
+ * Generates all the fields for the profile command
+ * @param profileModule
+ * @param askedEntity
+ * @param interaction
+ * @param titleEffect
+ * @param language
+ */
+async function generateFields(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction<CacheType>, titleEffect: string, language: string) {
+	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
+	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
+	const rank = await Players.getRankById(askedEntity.Player.id);
+	const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
+	const fields = await getInformationField(profileModule, askedEntity);
+	if (askedEntity.Player.level >= Constants.CLASS.REQUIRED_LEVEL) {
+		fields.push(await getStatisticField(profileModule, askedEntity, playerActiveObjects));
+	}
+	fields.push(
+		getMissionField(profileModule, askedEntity, mc));
+	fields.push(
+		getRankingField(profileModule, rank, numberOfPlayers, askedEntity));
+
+	if (!askedEntity.Player.checkEffect()) {
+		if (interaction.createdAt >= askedEntity.Player.effectEndDate) {
+			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
+			fields.push(getNoTimeLeftField(profileModule));
+		}
+		else {
+			fields.push(getTimeLeftField(profileModule, askedEntity, interaction));
+		}
+	}
+
+	try {
+		const playerClass = await Classes.getById(askedEntity.Player.class);
+		if (playerClass) {
+			fields.push(getClassField(profileModule, playerClass, language));
+		}
+	}
+	catch (error) {
+		// TODO REFACTOR LES LOGS
+		// log("Error while getting class of player for profile: " + error);
+	}
+
+	try {
+		const guild = await Guilds.getById(askedEntity.Player.guildId);
+		if (guild) {
+			fields.push(getGuildField(profileModule, guild));
+		}
+	}
+	catch (error) {
+		// TODO REFACTOR LES LOGS
+		// log("Error while getting guild of player for profile: " + error);
+	}
+
+	try {
+		const mapId = await askedEntity.Player.getDestinationId();
+		if (mapId !== null) {
+			fields.push(await getLocationField(profileModule, askedEntity, language));
+		}
+	}
+	catch (error) {
+		// TODO REFACTOR LES LOGS
+		// log("Error while getting map of player for profile: " + error);
+	}
+
+	try {
+		const pet = askedEntity.Player.Pet;
+		if (pet) {
+			fields.push(getPetField(profileModule, pet, language));
+		}
+	}
+	catch (error) {
+		// TODO REFACTOR LES LOGS
+		// log("Error while getting pet of player for profile: " + error);
+	}
+	return {fields, titleEffect};
+}
+
+/**
+ * Displays information about the profile of the player who sent the command
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+	let askedEntity = await Entities.getByOptions(interaction);
+	if (!askedEntity) {
+		askedEntity = entity;
+	}
+	const profileModule = Translations.getModule("commands.profile", language);
+	const {
+		fields,
+		titleEffect
+	} = await generateFields(profileModule, askedEntity, interaction, askedEntity.Player.effect, language);
+	const reply = await interaction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.setTitle(profileModule.format("title", {
+					effect: titleEffect,
+					pseudo: await askedEntity.Player.getPseudo(language),
+					level: askedEntity.Player.level
+				}))
+				.addFields(fields)
+		],
+		fetchReply: true
+	}) as Message;
+
+	const collector = reply.createReactionCollector({
+		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last().bot,
+		time: Constants.MESSAGES.COLLECTOR_TIME,
+		max: Data.getModule("commands.profile").getNumber("badgeMaxReactNumber")
+	});
+
+	collector.on("collect", async (reaction) => {
+		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
+			collector.stop(); // only one is allowed to avoid spam
+			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction);
+		}
+		else {
+			reply.channel.send({content: profileModule.get("badges." + reaction.emoji.name)}).then((msg: Message) => {
+				setTimeout(() => msg.delete(), Data.getModule("commands.profile").getNumber("badgeDescriptionTimeout"));
+			});
+		}
+	});
+
+	if (askedEntity.Player.badges !== null && askedEntity.Player.badges !== "") {
+		await displayBadges(askedEntity, reply);
+	}
+	if (new Date().valueOf() - askedEntity.Player.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
+		await reply.react(Constants.TOPGG.BADGE);
+	}
+}
+
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("profile")
@@ -319,13 +330,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

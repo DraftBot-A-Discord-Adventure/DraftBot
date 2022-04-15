@@ -30,13 +30,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };
