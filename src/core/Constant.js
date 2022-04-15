@@ -191,9 +191,6 @@ global.PETS = {
 		MAX: 50000
 	}
 };
-global.UNLOCK = {
-	PRICE_FOR_UNLOCK: 3000
-};
 
 global.LOGS = {
 	LOG_COUNT_LINE_LIMIT: 50000
