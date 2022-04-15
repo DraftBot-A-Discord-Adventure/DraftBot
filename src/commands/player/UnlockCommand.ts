@@ -188,13 +188,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY],
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		allowEffects: [Constants.EFFECT.SMILEY]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

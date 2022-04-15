@@ -8,14 +8,14 @@ export interface ICommand {
 	executeCommand: (interaction: CommandInteraction, language: string, entity: Entity, ...addedArgs: any) => Promise<void>;
 
 	requirements: {
-		requiredLevel: number | null,
-		disallowEffects: string[] | null,
-		allowEffects: string[] | null,
-		userPermission: string | null,
-		guildRequired: boolean | null,
-		guildPermissions: number | null
+		requiredLevel?: number,
+		disallowEffects?: string[],
+		allowEffects?: string[],
+		userPermission?: string,
+		guildRequired?: boolean,
+		guildPermissions?: number
 	},
 
-	mainGuildCommand: boolean,
-	slashCommandPermissions: ApplicationCommandPermissionData[] | null
+	mainGuildCommand?: boolean,
+	slashCommandPermissions?: ApplicationCommandPermissionData[]
 }
