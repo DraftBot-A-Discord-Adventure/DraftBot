@@ -1,3 +1,6 @@
+/**
+ * Constants for the guilddaily command
+ */
 export abstract class GuildDailyConstants {
 
 	static readonly MINIMAL_XP = 20;
