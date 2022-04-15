@@ -18,7 +18,6 @@ export const commandInfo: ICommand = {
 		.setName("vote")
 		.setDescription("Display a link that allow a user to vote for the bot."),
 	executeCommand,
-	requirements: {
-	},
+	requirements: {},
 	mainGuildCommand: false
 };
