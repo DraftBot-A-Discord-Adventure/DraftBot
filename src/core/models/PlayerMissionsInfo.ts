@@ -1,10 +1,6 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../utils/TimeUtils";
+import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -28,19 +24,19 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public addGems(amount: number) {
-		this.gems += amount;
-	}
-
 	static async resetShopBuyout() {
 		await PlayerMissionsInfo.update(
 			{
 				hasBoughtPointsThisWeek: false
-			},{where: {}});
+			}, {where: {}});
+	}
+
+	public addGems(amount: number): void {
+		this.gems += amount;
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	PlayerMissionsInfo.init({
 		playerId: {
 			type: DataTypes.INTEGER,

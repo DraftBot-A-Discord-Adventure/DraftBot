@@ -40,7 +40,7 @@ export class TranslationModule {
 		return lastObject[language];
 	}
 
-	format(translation: string, replacements: Replacements) {
+	format(translation: string, replacements: Replacements): string {
 		return format(this.get(translation), replacements);
 	}
 

@@ -7,7 +7,7 @@ const spamDelay = 1000;
 const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }> = new Map();
 const spamPlayers: Map<string, number> = new Map();
 
-export const startIPCServer = () => {
+export const startIPCServer = (): void => {
 	let ipc: InstanceType<typeof IPC> = null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
@@ -21,7 +21,10 @@ export const startIPCServer = () => {
 			ipc.server.on(
 				"block",
 				function(data) {
-					blockedPlayers.set(data.discordId, { reason: data.reason, limitTimestamp: data.time !== 0 ? Date.now() + data.time : 0 });
+					blockedPlayers.set(data.discordId, {
+						reason: data.reason,
+						limitTimestamp: data.time !== 0 ? Date.now() + data.time : 0
+					});
 				}
 			);
 			ipc.server.on(

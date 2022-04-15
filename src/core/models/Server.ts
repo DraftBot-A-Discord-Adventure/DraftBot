@@ -26,7 +26,7 @@ export class Servers {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	const data = Data.getModule("models.servers");
 
 	Server.init({

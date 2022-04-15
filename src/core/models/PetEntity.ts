@@ -58,7 +58,7 @@ export class PetEntity extends Model {
 		return this.PetModel["emote" + (this.sex === "m" ? "Male" : "Female") as keyof Pet];
 	}
 
-	public displayName(language: string) {
+	public displayName(language: string): string {
 		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(language);
 		return this.getPetEmote() + " " + displayedName;
 	}
@@ -251,7 +251,7 @@ export class PetEntities {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	PetEntity.init({
 		id: {
 			type: DataTypes.INTEGER,

@@ -1,12 +1,8 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {format} from "../utils/StringFormatter";
 import {MissionDifficulty} from "../missions/MissionDifficulty";
 import {MissionsController} from "../missions/MissionsController";
+import moment = require("moment");
 
 export class Mission extends Model {
 	public id!: string;
@@ -90,7 +86,7 @@ export class Missions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Mission.init({
 		id: {
 			type: DataTypes.TEXT,

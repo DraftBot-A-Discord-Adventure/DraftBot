@@ -61,8 +61,8 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM potions
-		               WHERE rarity = :rarity`;
+                       FROM potions
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -82,7 +82,7 @@ export class Potions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Potion.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "potions",

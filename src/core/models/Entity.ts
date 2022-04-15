@@ -39,11 +39,10 @@ export class Entity extends Model {
 
 	public createdAt!: Date;
 
-
 	public Player: Player;
 
 
-	public async getCumulativeAttack(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
+	public async getCumulativeAttack(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const attackItemValue = playerActiveObjects.weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
 			? playerClass.getAttackValue(this.Player.level) : playerActiveObjects.weapon.getAttack();
@@ -52,7 +51,7 @@ export class Entity extends Model {
 		return attack > 0 ? attack : 0;
 	}
 
-	public async getCumulativeDefense(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
+	public async getCumulativeDefense(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const defenseItemValue = playerActiveObjects.armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
 			? playerClass.getDefenseValue(this.Player.level) : playerActiveObjects.armor.getDefense();
@@ -61,7 +60,7 @@ export class Entity extends Model {
 		return defense > 0 ? defense : 0;
 	}
 
-	public async getCumulativeSpeed(playerActiveObjects:{weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem}) {
+	public async getCumulativeSpeed(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const speedItemValue = playerActiveObjects.object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
 			? playerClass.getSpeedValue(this.Player.level) + Math.round(playerActiveObjects.object.getSpeed() / 2)
@@ -113,7 +112,7 @@ export class Entity extends Model {
 		}
 	}
 
-	public getMention() {
+	public getMention(): string {
 		return "<@" + this.discordUserId + ">";
 	}
 }
@@ -417,7 +416,7 @@ export class Entities {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	const data = Data.getModule("models.entities");
 
 	Entity.init({
