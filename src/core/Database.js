@@ -362,7 +362,7 @@ class Database {
 							textTag: fileContent.tags[i],
 							idObject: fileContent.id,
 							// eslint-disable-next-line no-prototype-builtins
-							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
+							typeObject: Object.prototype.hasOwnProperty.call(model.model, 'name') ? model.model.name : "ERRORNONAME"
 						};
 						tagsToInsert.push(tagContent);
 					}
