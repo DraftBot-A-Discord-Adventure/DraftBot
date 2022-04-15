@@ -72,6 +72,12 @@ function dailyNotReady(interaction: CommandInteraction, entity: Entity, language
 	return false;
 }
 
+/**
+ * Activates the daily item
+ * @param entityInformations
+ * @param embed
+ * @param textInformations
+ */
 async function activateDailyItem(
 	entityInformations: { entity: Entity, activeObject: ObjectItem },
 	embed: DraftBotEmbed,
