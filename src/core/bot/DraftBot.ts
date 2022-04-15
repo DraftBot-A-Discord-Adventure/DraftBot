@@ -74,7 +74,7 @@ export class DraftBot {
 		}
 	}
 
-	static programTopWeekTimeout() {
+	static programTopWeekTimeout(): void  {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -84,7 +84,7 @@ export class DraftBot {
 		setTimeout(DraftBot.topWeekEnd, millisTill);
 	}
 
-	static programDailyTimeout() {
+	static programDailyTimeout(): void  {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
@@ -94,7 +94,7 @@ export class DraftBot {
 		setTimeout(DraftBot.dailyTimeout, millisTill);
 	}
 
-	static dailyTimeout() {
+	static dailyTimeout(): void  {
 		DraftBot.randomPotion();
 		DraftBot.randomLovePointsLoose();
 		DraftBot.programDailyTimeout();
@@ -229,7 +229,7 @@ export class DraftBot {
 		);
 	}
 
-	updateGlobalLogsFile(now: Date) {
+	updateGlobalLogsFile(now: Date): void  {
 		/* Find first available log file */
 		let i = 1;
 		do {
@@ -247,7 +247,7 @@ export class DraftBot {
 		} while (fs.existsSync(this.currLogsFile));
 	}
 
-	handleLogs() {
+	handleLogs(): void  {
 		const now = Date.now();
 		const originalConsoleLog = console.log;
 

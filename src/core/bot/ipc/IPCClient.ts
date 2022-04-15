@@ -15,7 +15,7 @@ const blockCallbacks: Map<number, (reason: string) => void> = new Map();
 const spamCallbacks: Map<number, (spamming: boolean) => void> = new Map();
 
 export class IPCClient {
-	static connectToIPCServer(shardId: number) {
+	static connectToIPCServer(shardId: number): void  {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		ipc = new RootIPC.IPCModule();
@@ -66,11 +66,11 @@ export class IPCClient {
 		});
 	}
 
-	static ipcBlockPlayer(discordId: string, reason: string, time = 0) {
+	static ipcBlockPlayer(discordId: string, reason: string, time = 0): void  {
 		ipc.of.draftbot.emit("block", {discordId, reason, time});
 	}
 
-	static ipcUnblockPlayer(discordId: string) {
+	static ipcUnblockPlayer(discordId: string): void  {
 		ipc.of.draftbot.emit("unblock", {discordId});
 	}
 
@@ -82,7 +82,7 @@ export class IPCClient {
 		});
 	}
 
-	static ipcSpamBlockPlayer(discordId: string) {
+	static ipcSpamBlockPlayer(discordId: string): void  {
 		ipc.of.draftbot.emit("spam", {discordId});
 	}
 

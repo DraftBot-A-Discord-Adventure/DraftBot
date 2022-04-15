@@ -13,7 +13,7 @@ export class Shop extends Model {
 	public createdAt!: Date;
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Shop.init({
 		shopPotionId: {
 			type: DataTypes.INTEGER,

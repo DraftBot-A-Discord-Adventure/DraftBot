@@ -30,7 +30,7 @@ export class Tags {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Tag.init({
 		id: {
 			type: DataTypes.INTEGER,

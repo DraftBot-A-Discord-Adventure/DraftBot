@@ -26,7 +26,7 @@ export abstract class GenericItemModel extends Model {
 
 	public abstract toString(language: string, maxStatsValue: number): string;
 
-	public getRarityTranslation(language: string) {
+	public getRarityTranslation(language: string): string  {
 		return Translations.getModule("items", language).getFromArray("rarities", this.rarity);
 	}
 

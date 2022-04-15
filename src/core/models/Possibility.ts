@@ -40,12 +40,12 @@ export class Possibility extends Model {
 	public createdAt!: Date;
 
 
-	public getText(language: string) {
+	public getText(language: string): string  {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Possibility.init({
 		id: {
 			type: DataTypes.INTEGER,

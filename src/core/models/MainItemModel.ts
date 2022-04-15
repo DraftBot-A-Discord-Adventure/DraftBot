@@ -33,7 +33,7 @@ export abstract class MainItemModel extends GenericItemModel {
 		};
 	}
 
-	public toString(language: string) {
+	public toString(language: string): string  {
 		const tr = Translations.getModule("items", language);
 		if (this.id === 0) {
 			return this.getName(language);

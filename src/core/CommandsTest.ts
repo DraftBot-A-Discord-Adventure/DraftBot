@@ -156,7 +156,7 @@ export class CommandsTest {
 		}
 	}
 
-	static getTypeOf(variable: any) {
+	static getTypeOf(variable: any): string  {
 		const typeKeys: string[] = [];
 		typeVariableChecks.forEach(value => typeKeys.push(value.name));
 		for (const typeIn of typeKeys) {

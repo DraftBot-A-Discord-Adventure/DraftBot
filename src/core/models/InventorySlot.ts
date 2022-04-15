@@ -39,28 +39,28 @@ export class InventorySlot extends Model {
 		}
 	}
 
-	isEquipped() {
+	isEquipped(): boolean  {
 		return this.slot === 0;
 	}
 
-	isWeapon() {
+	isWeapon(): boolean  {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.WEAPON;
 	}
 
-	isArmor() {
+	isArmor(): boolean  {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.ARMOR;
 	}
 
-	isPotion() {
+	isPotion(): boolean  {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.POTION;
 	}
 
-	isObject() {
+	isObject(): boolean  {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.OBJECT;
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	InventorySlot.init({
 		playerId: {
 			type: DataTypes.INTEGER,

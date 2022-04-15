@@ -102,7 +102,7 @@ export class Classes {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Class.init({
 		id: {
 			type: DataTypes.INTEGER,

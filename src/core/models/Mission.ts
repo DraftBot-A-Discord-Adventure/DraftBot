@@ -90,7 +90,7 @@ export class Missions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Mission.init({
 		id: {
 			type: DataTypes.TEXT,

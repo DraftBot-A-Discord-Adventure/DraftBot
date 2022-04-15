@@ -60,7 +60,7 @@ export class PlayerSmallEvents {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	PlayerSmallEvent.init({
 		id: {
 			type: DataTypes.INTEGER,

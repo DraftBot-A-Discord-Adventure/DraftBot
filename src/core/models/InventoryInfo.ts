@@ -24,7 +24,7 @@ export class InventoryInfo extends Model {
 	public createdAt!: Date;
 
 
-	public slotLimitForCategory(category: number) {
+	public slotLimitForCategory(category: number): number  {
 		switch (category) {
 		case Constants.ITEM_CATEGORIES.WEAPON:
 			return this.weaponSlots;
@@ -39,7 +39,7 @@ export class InventoryInfo extends Model {
 		}
 	}
 
-	public addSlotForCategory(category: number) {
+	public addSlotForCategory(category: number): void  {
 		switch (category) {
 		case Constants.ITEM_CATEGORIES.WEAPON:
 			this.weaponSlots++;
@@ -58,17 +58,17 @@ export class InventoryInfo extends Model {
 		}
 	}
 
-	public updateLastDailyAt() {
+	public updateLastDailyAt(): void  {
 		this.lastDailyAt = moment().toDate(); // eslint-disable-line new-cap
 	}
 
-	public editDailyCooldown(hours: number) {
+	public editDailyCooldown(hours: number): void  {
 		this.lastDailyAt = moment(this.lastDailyAt).add(hours, "h")
 			.toDate(); // eslint-disable-line new-cap
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	InventoryInfo.init({
 		playerId: {
 			type: DataTypes.INTEGER,

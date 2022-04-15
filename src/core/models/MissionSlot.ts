@@ -68,7 +68,7 @@ export class MissionSlots {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	MissionSlot.init({
 		id: {
 			type: DataTypes.INTEGER,

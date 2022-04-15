@@ -28,7 +28,7 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public addGems(amount: number) {
+	public addGems(amount: number): void  {
 		this.gems += amount;
 	}
 
@@ -40,7 +40,7 @@ export class PlayerMissionsInfo extends Model {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	PlayerMissionsInfo.init({
 		playerId: {
 			type: DataTypes.INTEGER,

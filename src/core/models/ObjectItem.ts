@@ -91,7 +91,7 @@ export class ObjectItems {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	ObjectItem.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "objects",

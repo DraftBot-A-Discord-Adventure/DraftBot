@@ -60,7 +60,7 @@ export class DraftBotBackup {
 		}
 	}
 
-	public static backupFiles(files: string[], interval: number, archiveBasename: string) {
+	public static backupFiles(files: string[], interval: number, archiveBasename: string): void  {
 		if (DraftBotBackup._backupInterfaces.length === 0) {
 			return;
 		}

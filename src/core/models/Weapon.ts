@@ -62,7 +62,7 @@ export class Weapons {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Weapon.init(MainItemModelAttributes, {
 		sequelize,
 		tableName: "weapons",

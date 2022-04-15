@@ -215,7 +215,7 @@ export class Guilds {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	const guildsData = Data.getModule("models.guilds");
 
 	Guild.init({

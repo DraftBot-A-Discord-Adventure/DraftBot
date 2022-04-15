@@ -61,7 +61,7 @@ export class MapLinks {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	MapLink.init({
 		id: {
 			type: DataTypes.INTEGER,

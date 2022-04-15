@@ -143,7 +143,7 @@ export class MapLocations {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	MapLocation.init({
 		id: {
 			type: DataTypes.INTEGER,

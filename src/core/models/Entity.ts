@@ -113,7 +113,7 @@ export class Entity extends Model {
 		}
 	}
 
-	public getMention() {
+	public getMention(): string  {
 		return "<@" + this.discordUserId + ">";
 	}
 }
@@ -417,7 +417,7 @@ export class Entities {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	const data = Data.getModule("models.entities");
 
 	Entity.init({

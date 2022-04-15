@@ -19,7 +19,7 @@ export class EventMapLocationIds {
 
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	EventMapLocationId.init({
 		eventId: {
 			type: DataTypes.INTEGER,

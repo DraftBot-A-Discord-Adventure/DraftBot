@@ -9,7 +9,10 @@ export abstract class SupportItemModel extends GenericItemModel {
 	public readonly nature!: number;
 
 
-	protected toFieldObject(language: string, maxStatsValue: number) {
+	protected toFieldObject(language: string, maxStatsValue: number): {name: string;
+value: string;
+inline: boolean;
+}  {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {

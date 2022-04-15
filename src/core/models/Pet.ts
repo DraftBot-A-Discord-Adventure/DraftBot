@@ -56,7 +56,7 @@ export class Pets {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Pet.init({
 		id: {
 			type: DataTypes.INTEGER,

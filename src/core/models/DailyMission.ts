@@ -82,7 +82,7 @@ export class DailyMissions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	DailyMission.init({
 		id: {
 			type: DataTypes.INTEGER,

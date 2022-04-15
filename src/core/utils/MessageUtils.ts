@@ -11,7 +11,7 @@ import {Translations} from "../Translations";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 
-export function sendDirectMessage(user: User, title: string, description: string, color: string, language: string) {
+export function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void  {
 	try {
 		user.send({
 			embeds: [new DraftBotEmbed()

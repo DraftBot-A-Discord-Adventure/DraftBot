@@ -7,7 +7,7 @@ const spamDelay = 1000;
 const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }> = new Map();
 const spamPlayers: Map<string, number> = new Map();
 
-export const startIPCServer = () => {
+export const startIPCServer = (): void  => {
 	let ipc: InstanceType<typeof IPC> = null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore

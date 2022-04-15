@@ -82,7 +82,7 @@ export class Potions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void  {
 	Potion.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "potions",

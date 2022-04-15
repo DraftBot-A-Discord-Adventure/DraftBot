@@ -4,7 +4,7 @@
  */
 import {Constants} from "../Constants";
 
-export const escapeUsername = function(username: string) {
+export const escapeUsername = function(username: string): string  {
 	let fixedName = username.replace(/[*`_|]/g, "");
 	if (fixedName === "") {
 		fixedName = ".";
@@ -12,7 +12,7 @@ export const escapeUsername = function(username: string) {
 	return fixedName;
 };
 
-export const progressBar = (value: number, maxValue: number) => {
+export const progressBar = (value: number, maxValue: number): string  => {
 	let percentage = value / maxValue; // Calculate the percentage of the bar
 	if (percentage < 0 || isNaN(percentage) || percentage === Infinity) {
 		percentage = 0;
@@ -36,7 +36,7 @@ export const progressBar = (value: number, maxValue: number) => {
  * @param minLength
  * @param maxLength
  */
-export const checkNameString = function(name :string, minLength: number, maxLength:number) {
+export const checkNameString = function(name :string, minLength: number, maxLength:number): boolean  {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
