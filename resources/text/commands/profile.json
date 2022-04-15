@@ -16,8 +16,8 @@
 			},
 			"ranking": {
 				"fieldName": "Classement et Score :",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
-				"unranked" : "Non classé"
+				"fieldValue": ":trophy: {rank}{isUnranked?:/}{numberOfPlayer} | :medal: {score}",
+				"unranked": "Non classé"
 			},
 			"timeLeft": {
 				"fieldName": "Temps restant :",
@@ -91,7 +91,7 @@
 			},
 			"ranking": {
 				"fieldName": "Ranking and score:",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
+				"fieldValue": ":trophy: {rank}{isUnranked?:/}{numberOfPlayer} | :medal: {score}",
 				"unranked": "Unranked"
 			},
 			"timeLeft": {
