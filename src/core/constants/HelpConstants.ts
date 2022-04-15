@@ -1,6 +1,3 @@
-/**
- * Constants for the help command
- */
 export abstract class HelpConstants {
 	static readonly ACCEPTED_SEARCH_WORDS = {
 		PREFIX: ["prefix", "prefixe", "préfixe", "préfix", "changePrefix", "changePréfix", "changePrefixe", "changePréfixe"],

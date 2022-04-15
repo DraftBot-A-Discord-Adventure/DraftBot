@@ -13,6 +13,9 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 
+type EntityInformations = { entity: Entity, activeObject: ObjectItem };
+type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
+
 /**
  * Checks if you have a right object you can daily with, and if you don't, sends an error
  * @param activeObject
@@ -79,9 +82,9 @@ function dailyNotReady(interaction: CommandInteraction, entity: Entity, language
  * @param textInformations
  */
 async function activateDailyItem(
-	entityInformations: { entity: Entity, activeObject: ObjectItem },
+	entityInformations: EntityInformations,
 	embed: DraftBotEmbed,
-	textInformations: { dailyModule: TranslationModule, interaction: CommandInteraction, language: string }) {
+	textInformations: TextInformations) {
 	switch (entityInformations.activeObject.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformations.dailyModule.format("healthDaily", {value: entityInformations.activeObject.power}));
