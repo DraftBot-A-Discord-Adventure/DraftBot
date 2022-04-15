@@ -59,7 +59,9 @@ async function conditionAreFulfiledForUnlocking(entityCouple: EntityCouple, text
 			textInformations.unlockModule.format("noMoney", {
 				money: UnlockConstants.PRICE_FOR_UNLOCK - entityCouple.unlocker.Player.money,
 				pseudo: await entityCouple.locked.Player.getPseudo(textInformations.language)
-			})
+			}),
+			false,
+			textInformations.interaction
 		);
 		return false;
 	}
@@ -132,7 +134,7 @@ async function sendAndManageUnlockMessage(entityCouple: EntityCouple, textInform
 	const unlockMessage = await textInformations.interaction.reply({embeds: [embed], fetchReply: true}) as Message;
 
 	const collector = unlockMessage.createReactionCollector({
-		filter: (reaction, user) => reaction.emoji.name in [Constants.MENU_REACTION.ACCEPT, Constants.MENU_REACTION.DENY] && user.id === textInformations.interaction.user.id,
+		filter: (reaction, user) => [Constants.MENU_REACTION.ACCEPT, Constants.MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === textInformations.interaction.user.id,
 		time: UnlockConstants.COLLECTOR_TIME_FOR_UNLOCK_COLLECTOR,
 		max: UnlockConstants.MAX_ACCEPTED_REACTION
 	});
