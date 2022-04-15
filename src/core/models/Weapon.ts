@@ -1,10 +1,7 @@
-import {
-	Sequelize,
-	QueryTypes
-} from "sequelize";
-import fs = require("fs");
+import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
+import fs = require("fs");
 import moment = require("moment");
 
 export class Weapon extends MainItemModel {
@@ -51,8 +48,8 @@ export class Weapons {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM weapons
-		               WHERE rarity = :rarity`;
+                       FROM weapons
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(Weapon.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -62,7 +59,7 @@ export class Weapons {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	Weapon.init(MainItemModelAttributes, {
 		sequelize,
 		tableName: "weapons",

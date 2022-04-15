@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Translations} from "../Translations";
 import moment = require("moment");
 
@@ -102,7 +98,7 @@ export class Classes {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	Class.init({
 		id: {
 			type: DataTypes.INTEGER,

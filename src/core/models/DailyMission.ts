@@ -26,7 +26,6 @@ export class DailyMission extends Model {
 
 	public createdAt!: Date;
 
-
 	public Mission: Mission;
 }
 
@@ -47,7 +46,7 @@ export class DailyMissions {
 		if (!dailyMission || !datesAreOnSameDay(dailyMission.lastDate, new Date())) {
 			await PlayerMissionsInfo.update({
 				dailyMissionNumberDone: 0
-			}, { where: {} });
+			}, {where: {}});
 			dailyMission = await DailyMissions.regenerateDailyMission();
 		}
 		return dailyMission;
@@ -82,7 +81,7 @@ export class DailyMissions {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	DailyMission.init({
 		id: {
 			type: DataTypes.INTEGER,

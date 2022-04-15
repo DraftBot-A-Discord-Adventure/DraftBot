@@ -1,10 +1,10 @@
 import {registerFormat} from "archiver";
-import archiver = require("archiver");
-import fs = require("fs");
-import path = require("path");
 import {DropboxBackup} from "./DropboxBackup";
 import {LocalBackup} from "./LocalBackup";
 import {botConfig} from "../bot";
+import archiver = require("archiver");
+import fs = require("fs");
+import path = require("path");
 
 export interface IDraftBotBackup {
 	name: string;
@@ -60,7 +60,7 @@ export class DraftBotBackup {
 		}
 	}
 
-	public static backupFiles(files: string[], interval: number, archiveBasename: string): void  {
+	public static backupFiles(files: string[], interval: number, archiveBasename: string): void {
 		if (DraftBotBackup._backupInterfaces.length === 0) {
 			return;
 		}

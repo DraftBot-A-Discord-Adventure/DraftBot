@@ -1,10 +1,6 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
+import moment = require("moment");
 
 export class Possibility extends Model {
 	public id!: number;
@@ -40,12 +36,12 @@ export class Possibility extends Model {
 	public createdAt!: Date;
 
 
-	public getText(language: string): string  {
+	public getText(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	Possibility.init({
 		id: {
 			type: DataTypes.INTEGER,

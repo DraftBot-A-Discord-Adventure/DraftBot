@@ -665,7 +665,7 @@ export class Players {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	const data = Data.getModule("models.players");
 
 	Player.init({

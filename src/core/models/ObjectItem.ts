@@ -1,13 +1,10 @@
-import {
-	Sequelize,
-	QueryTypes
-} from "sequelize";
-import fs = require("fs");
+import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {minutesDisplay} from "../utils/TimeUtils";
+import fs = require("fs");
 import moment = require("moment");
 
 export class ObjectItem extends SupportItemModel {
@@ -70,8 +67,8 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM objects
-		               WHERE rarity = :rarity`;
+                       FROM objects
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -91,7 +88,7 @@ export class ObjectItems {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	ObjectItem.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "objects",

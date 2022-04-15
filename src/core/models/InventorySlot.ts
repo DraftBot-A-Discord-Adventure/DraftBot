@@ -1,15 +1,11 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {Weapons} from "./Weapon";
 import {Armors} from "./Armor";
 import {Potions} from "./Potion";
 import {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
+import moment = require("moment");
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;
@@ -35,32 +31,33 @@ export class InventorySlot extends Model {
 			return await Potions.getById(this.itemId);
 		case Constants.ITEM_CATEGORIES.OBJECT:
 			return await ObjectItems.getById(this.itemId);
-		default: return Promise.resolve(null);
+		default:
+			return Promise.resolve(null);
 		}
 	}
 
-	isEquipped(): boolean  {
+	isEquipped(): boolean {
 		return this.slot === 0;
 	}
 
-	isWeapon(): boolean  {
+	isWeapon(): boolean {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.WEAPON;
 	}
 
-	isArmor(): boolean  {
+	isArmor(): boolean {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.ARMOR;
 	}
 
-	isPotion(): boolean  {
+	isPotion(): boolean {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.POTION;
 	}
 
-	isObject(): boolean  {
+	isObject(): boolean {
 		return this.itemCategory === Constants.ITEM_CATEGORIES.OBJECT;
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	InventorySlot.init({
 		playerId: {
 			type: DataTypes.INTEGER,

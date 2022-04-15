@@ -206,7 +206,7 @@ export class Guilds {
 
 	static async getGuildLevelMean() {
 		const query = `SELECT AVG(level) as avg
-		               FROM Guilds`;
+                       FROM Guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT
@@ -215,7 +215,7 @@ export class Guilds {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	const guildsData = Data.getModule("models.guilds");
 
 	Guild.init({

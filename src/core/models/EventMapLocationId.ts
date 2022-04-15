@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import moment = require("moment");
 
 export class EventMapLocationId extends Model {
@@ -15,11 +11,7 @@ export class EventMapLocationId extends Model {
 	public createdAt!: Date;
 }
 
-export class EventMapLocationIds {
-
-}
-
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	EventMapLocationId.init({
 		eventId: {
 			type: DataTypes.INTEGER,

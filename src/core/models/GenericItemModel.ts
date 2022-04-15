@@ -19,14 +19,13 @@ export abstract class GenericItemModel extends Model {
 
 	public createdAt!: Date;
 
-
 	abstract categoryName: string;
 
 	protected abstract toFieldObject(language: string, maxStatsValue: number): EmbedField;
 
 	public abstract toString(language: string, maxStatsValue: number): string;
 
-	public getRarityTranslation(language: string): string  {
+	public getRarityTranslation(language: string): string {
 		return Translations.getModule("items", language).getFromArray("rarities", this.rarity);
 	}
 

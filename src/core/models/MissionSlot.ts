@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import Mission from "./Mission";
 import moment = require("moment");
 
@@ -68,7 +64,7 @@ export class MissionSlots {
 	}
 }
 
-export function initModel(sequelize: Sequelize): void  {
+export function initModel(sequelize: Sequelize): void {
 	MissionSlot.init({
 		id: {
 			type: DataTypes.INTEGER,
