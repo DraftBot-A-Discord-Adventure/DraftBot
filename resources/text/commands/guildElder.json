@@ -11,7 +11,7 @@
 			"successElderAddTitle": "{pseudo} est le nouvel aîné de la guilde {guildName} !",
 			"successElderAdd": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande `guildelder`, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec `guildelderremove`.",
 			"elderAddCancelled": "Vous ne serez pas l'aîné de la guilde `{guildName}` !",
-			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde {guildName} car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
+			"guildDestroy": "Vous ne pouvez pas promouvoir un membre de la guilde {guildName} car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
 		},
 		"en": {
 			"cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
@@ -24,7 +24,7 @@
 			"successElderAddTitle": "{pseudo} is the new guild elder of {guildName} !",
 			"successElderAdd": "Elder's job is to help the leader manage the guild. Therefore you must select him with caution ! But rest assured if you aren't satisfied of your elder you can replace him with command guildelder, or if you have a dictator soul, you can definitely remove him with guildelderremove.",
 			"elderAddCancelled": "You will not be the guild elder {guildName} !",
-			"guildDestroy": "You can't join the guild {guildName} because it has been deleted, or you have been kicked of it."
+			"guildDestroy": "You can't add an elder to the guild {guildName} because it has been deleted, or you have been kicked of it."
 		}
 	}
 }
