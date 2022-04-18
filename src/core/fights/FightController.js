@@ -15,7 +15,7 @@ const FightActionResult = require("./FightActionResult.js");
  * @param {boolean} friendly
  * @returns {Promise<void>}
  */
-class Fight {
+class FightController {
 
 
 	/**
@@ -77,7 +77,7 @@ class Fight {
 		// load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
-			await this.fighters[i].consumePotionIfNeeded(this.message, this.language);
+			await this.fighters[i].consumePotionIfNeeded(this.fightView.channel, this.fightView.language);
 			BlockingUtils.blockPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
 
@@ -265,7 +265,7 @@ class Fight {
 
 	/**
 	 * Get summarize embed message
-	 * @param {Fight} fight
+	 * @param {FightController} fight
 	 * @param {Fighter} attacker
 	 * @param {Fighter} defender
 	 * @return {Promise<DraftBotEmbed>}
@@ -637,7 +637,7 @@ class Fight {
 		default:
 			return;
 		}
-		const actionName = Fight.actionToName(action);
+		const actionName = FightController.actionToName(action);
 		if (!attacker.attacksList[actionName]) {
 			attacker.attacksList[actionName] = {
 				success: 0,
@@ -768,4 +768,4 @@ class Fight {
 	}
 }
 
-module.exports = Fight;
+module.exports = FightController;

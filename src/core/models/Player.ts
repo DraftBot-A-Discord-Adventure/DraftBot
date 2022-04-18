@@ -25,6 +25,7 @@ import Weapon from "./Weapon";
 import Armor from "./Armor";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
+import {playerActiveObjects} from "./PlayerActiveObjects";
 import moment = require("moment");
 
 export class Player extends Model {
@@ -496,7 +497,7 @@ export class Player extends Model {
 	/**
 	 * Return the current active items a player hold
 	 */
-	public async getMainSlotsItems() {
+	public async getMainSlotsItems() : Promise<playerActiveObjects> {
 		return {
 			weapon: <Weapon>(await this.getMainWeaponSlot().getItem()),
 			armor: <Armor>(await this.getMainArmorSlot().getItem()),

@@ -9,14 +9,11 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CacheType, CommandInteraction, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
-import Weapon from "../../core/models/Weapon";
-import Armor from "../../core/models/Armor";
-import Potion from "../../core/models/Potion";
-import ObjectItem from "../../core/models/ObjectItem";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
 import MissionSlot from "../../core/models/MissionSlot";
 import PetEntity from "../../core/models/PetEntity";
+import {playerActiveObjects} from "../../core/models/PlayerActiveObjects";
 
 
 /**
@@ -54,7 +51,7 @@ async function getInformationField(profileModule: TranslationModule, askedEntity
 		}];
 }
 
-async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: { weapon: Weapon; potion: Potion; armor: Armor; object: ObjectItem }) {
+async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects) {
 	return {
 		name: profileModule.get("statistique.fieldName"),
 		value: profileModule.format("statistique.fieldValue", {
