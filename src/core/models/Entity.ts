@@ -38,6 +38,10 @@ export class Entity extends Model {
 
 	public Player: Player;
 
+	public async getPlayerActiveObjects(): Promise<playerActiveObjects> {
+		return await this.Player.getMainSlotsItems();
+	}
+
 	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const attackItemValue = playerActiveObjects.weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
@@ -108,6 +112,9 @@ export class Entity extends Model {
 		}
 	}
 
+	/**
+	 * get the string that mention the user
+	 */
 	public getMention(): string {
 		return "<@" + this.discordUserId + ">";
 	}
