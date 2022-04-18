@@ -144,7 +144,7 @@ async function updateMissionsOfEntity(entity: Entity, interaction: CommandIntera
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("pettransfer")
-		.setDescription("Leave your pet in the guild shelter and optionnally take one back")
+		.setDescription("Leave your pet in the guild shelter and optionally take one back")
 		.addIntegerOption(option => option.setName("shelterposition")
 			.setDescription("The position of the pet in the shelter you want to switch with")
 			.setRequired(false)
@@ -153,13 +153,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY],
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		allowEffects: [Constants.EFFECT.SMILEY]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

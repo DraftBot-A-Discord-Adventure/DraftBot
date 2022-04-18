@@ -17,13 +17,8 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the shelter of your guild"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: true,
-		userPermission: null
+		guildRequired: true
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

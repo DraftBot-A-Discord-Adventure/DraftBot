@@ -41,7 +41,7 @@ export const commandInfo: ICommand = {
 		.setName("givebadge")
 		.setDescription("Give a badge to a given user (badge manager only)")
 		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to give a baadge")
+			.setDescription("The user you want to give a badge")
 			.setRequired(true))
 		.addStringOption(option => option.setName("badge")
 			.setDescription("The badge to give")
@@ -49,13 +49,7 @@ export const commandInfo: ICommand = {
 			.addChoices(getAllBadgesForOptions())) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
 		userPermission: Constants.ROLES.USER.BADGE_MANAGER
 	},
-	mainGuildCommand: true,
-	slashCommandPermissions: null
+	mainGuildCommand: true
 };

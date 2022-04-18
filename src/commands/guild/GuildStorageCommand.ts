@@ -67,13 +67,8 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the guild's storage"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: true,
-		userPermission: null
+		guildRequired: true
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

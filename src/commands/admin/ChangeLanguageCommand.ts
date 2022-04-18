@@ -34,13 +34,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Change the server's main language") as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
 		userPermission: Constants.ROLES.USER.ADMINISTRATOR
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };
