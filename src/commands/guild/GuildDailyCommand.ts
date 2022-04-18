@@ -20,7 +20,7 @@ import {ICommand} from "../ICommand";
 import {GuildDailyConstants} from "../../core/constants/GuildDailyConstants";
 
 type GuildLike = { guild: Guild, members: Entity[] };
-type StringInfos = { language: string, interaction: CommandInteraction, embed: DraftBotEmbed };
+type StringInfos = {interaction: CommandInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 
 const linkToFunction = getMapOfAllRewardCommands();
@@ -91,7 +91,7 @@ async function awardPersonnalXpToMembers(guildLike: GuildLike, stringInfos: Stri
 	const xpWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addExperience(xpWon, member, stringInfos.interaction.channel, stringInfos.language));
+	await genericAwardingFunction(guildLike.members, member => member.Player.addExperience(xpWon, member, stringInfos.interaction.channel, guildDailyModule.language));
 	stringInfos.embed.setDescription(guildDailyModule.format("personalXP", {
 		xp: xpWon
 	}));
@@ -103,7 +103,7 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
 	const xpGuildWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await guildLike.guild.addExperience(xpGuildWon, stringInfos.interaction.channel, stringInfos.language);
+	await guildLike.guild.addExperience(xpGuildWon, stringInfos.interaction.channel, guildDailyModule.language);
 	await guildLike.guild.save();
 	stringInfos.embed.setDescription(guildDailyModule.format("guildXP", {
 		xp: xpGuildWon
@@ -116,7 +116,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 	const moneyWon = fixed ? GuildDailyConstants.FIXED_MONEY : RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney(member, moneyWon, stringInfos.interaction.channel, stringInfos.language));
+	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney(member, moneyWon, stringInfos.interaction.channel, guildDailyModule.language));
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
 	}));
@@ -162,7 +162,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.effect !== Constants.EFFECT.DEAD) {
-			await member.setHealth(await member.getMaxHealth(), stringInfos.interaction.channel, stringInfos.language);
+			await member.setHealth(await member.getMaxHealth(), stringInfos.interaction.channel, guildDailyModule.language);
 		}
 	});
 	stringInfos.embed.setDescription(guildDailyModule.get("fullHeal"));
@@ -184,7 +184,7 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.effect !== Constants.EFFECT.DEAD) {
-			await member.addHealth(healthWon, stringInfos.interaction.channel, stringInfos.language);
+			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
 		}
 	});
 	stringInfos.embed.setDescription(guildDailyModule.format("partialHeal", {
@@ -198,7 +198,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.currentEffectFinished()) {
-			await member.addHealth(healthWon, stringInfos.interaction.channel, stringInfos.language);
+			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
 		}
 		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
 			await Maps.removeEffect(member.Player);
@@ -238,7 +238,7 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
 			guildName: guild.name
 		}));
 	const guildLike: GuildLike = {guild, members};
-	const stringInfos: StringInfos = {language, interaction, embed};
+	const stringInfos: StringInfos = {interaction, embed};
 
 	/*
 	Here is the fun part !
