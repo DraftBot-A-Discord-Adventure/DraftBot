@@ -64,7 +64,6 @@ export const commandInfo: ICommand = {
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		userPermission: null
 	},
 	mainGuildCommand: false
 };
