@@ -11,11 +11,8 @@ import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
 import {CommandInteraction, Message, TextBasedChannel} from "discord.js";
 import {Classes} from "./Class";
-import Armor from "./Armor";
-import Weapon from "./Weapon";
-import Potion from "./Potion";
-import ObjectItem from "./ObjectItem";
 import {MissionsController} from "../missions/MissionsController";
+import {playerActiveObjects} from "./PlayerActiveObjects";
 import moment = require("moment");
 
 export class Entity extends Model {
@@ -41,8 +38,7 @@ export class Entity extends Model {
 
 	public Player: Player;
 
-
-	public async getCumulativeAttack(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
+	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const attackItemValue = playerActiveObjects.weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
 			? playerClass.getAttackValue(this.Player.level) : playerActiveObjects.weapon.getAttack();
@@ -51,7 +47,7 @@ export class Entity extends Model {
 		return attack > 0 ? attack : 0;
 	}
 
-	public async getCumulativeDefense(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
+	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const defenseItemValue = playerActiveObjects.armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
 			? playerClass.getDefenseValue(this.Player.level) : playerActiveObjects.armor.getDefense();
@@ -60,7 +56,7 @@ export class Entity extends Model {
 		return defense > 0 ? defense : 0;
 	}
 
-	public async getCumulativeSpeed(playerActiveObjects: { weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem }) {
+	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const speedItemValue = playerActiveObjects.object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
 			? playerClass.getSpeedValue(this.Player.level) + Math.round(playerActiveObjects.object.getSpeed() / 2)
