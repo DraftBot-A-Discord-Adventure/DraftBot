@@ -175,13 +175,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Give the full list of all items in the bot (admin only)"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
-	mainGuildCommand: true,
-	slashCommandPermissions: null
+	mainGuildCommand: true
 };

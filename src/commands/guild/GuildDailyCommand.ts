@@ -329,13 +329,9 @@ export const commandInfo: ICommand = {
 		.setDescription("Recolt the daily reward of your guild"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
 		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: null,
-		guildRequired: true,
-		userPermission: null
+		guildRequired: true
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };

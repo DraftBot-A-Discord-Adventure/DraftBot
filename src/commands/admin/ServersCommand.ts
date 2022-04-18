@@ -52,13 +52,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Give the full list of all servers where the bot is present (admin only)"),
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
 		userPermission: Constants.ROLES.USER.BOT_OWNER
 	},
-	mainGuildCommand: true,
-	slashCommandPermissions: null
+	mainGuildCommand: true
 };

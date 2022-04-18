@@ -279,14 +279,8 @@ export const commandInfo: ICommand = {
 		.setDescription("Feed your pet with the guild's food or your personnal food"),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY],
-		requiredLevel: null,
-		disallowEffects: null,
-		guildPermissions: null,
-		guildRequired: null,
-		userPermission: null
+		allowEffects: [Constants.EFFECT.SMILEY]
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };
 

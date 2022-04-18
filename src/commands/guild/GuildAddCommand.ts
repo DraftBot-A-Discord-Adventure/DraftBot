@@ -77,18 +77,7 @@ function getEndCallbackGuildAdd(inviter: InviterUserInformations, invited: Invit
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const guildAddModule = Translations.getModule("commands.guildAdd", language);
 	const invitedEntity = await Entities.getByOptions(interaction);
-	if (!invitedEntity) {
-		// no user provided
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildAddModule.get("cannotGetInvitedUser"),
-			false,
-			interaction
-		);
-		return;
-	}
+
 	if (invitedEntity.Player.level < Constants.GUILD.REQUIRED_LEVEL) {
 		// invited user is low level
 		await sendErrorMessage(
@@ -172,17 +161,12 @@ export const commandInfo: ICommand = {
 		.setDescription("Recruit a new member to the guild")
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to add in your guild")
-			.setRequired(false)
+			.setRequired(true)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: null,
-		requiredLevel: null,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
-		guildRequired: true,
-		userPermission: null
+		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER
 	},
-	mainGuildCommand: false,
-	slashCommandPermissions: null
+	mainGuildCommand: false
 };
