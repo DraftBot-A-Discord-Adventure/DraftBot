@@ -24,7 +24,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				userInformation.guild = null;
 			}
 			if (userInformation.guild === null) {
-				// guild is destroyed
+				// guild was destroyed since the command was launched
 				return sendErrorMessage(
 					interaction.user,
 					interaction.channel,
@@ -34,6 +34,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			}
 
 			if (userInformation.guild.elderId === userInformation.entity.id) {
+				// the elder of the guild is leaving
 				userInformation.guild.elderId = null;
 			}
 
@@ -41,6 +42,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				// the chief of the guild is leaving
 				if (userInformation.guild.elderId) {
 					// an elder can recover the guild
+
 					// TODO : Refaire le sysème de logs
 					// log(elder.discordUserId + " becomes the chief of  " + guild.name);
 
@@ -50,8 +52,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 						content: guildLeaveModule.format("newChiefTitle", {
 							guild: userInformation.guild.name
 						})
-					}
-					);
+					});
 				}
 				else {
 					// no one can recover the guild.
@@ -60,6 +61,8 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
 			}
+
+			userInformation.entity.Player.guildId = null;
 
 			await Promise.all([
 				userInformation.guild.save(),
@@ -116,7 +119,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(guildLeaveModule.format("leaveDesc", {
 			guildName: guild.name
 		})) as DraftBotValidateReactionMessage;
-	let elder: Entity;
+	let elder: Entity = null;
 	if (entity.id === guild.chiefId) {
 		elder = await Entities.getById(guild.elderId);
 		if (elder) {
@@ -134,7 +137,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	await validationEmbed.reply(interaction, (collector) => {
 		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildLeave", collector);
-		if (elder) {
+		if (elder && entity.id === guild.chiefId) {
 			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, "chiefGuildLeave", collector);
 		}
 	});
@@ -147,7 +150,6 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
 		guildRequired: true
 	},
 	mainGuildCommand: false

@@ -20,58 +20,55 @@ import {ICommand} from "../ICommand";
 import {GuildDailyConstants} from "../../core/constants/GuildDailyConstants";
 
 type GuildLike = { guild: Guild, members: Entity[] };
-type StringInfos = {interaction: CommandInteraction, embed: DraftBotEmbed };
+type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 
 const linkToFunction = getMapOfAllRewardCommands();
 
+
+async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string) {
+	const pet = await PetEntities.generateRandomPetEntity(guild.level);
+	await pet.save();
+	await (await GuildPets.addPet(guild.id, pet.id)).save();
+	embed.setDescription(embed.description + "\n\n" + guildDailyModule.format("pet", {
+		emote: pet.getPetEmote(),
+		pet: pet.getPetTypeName(language)
+	}));
+	// TODO REFACTOR LES LOGS
+	// log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
+}
+
 /**
- * Allow to claim a daily guild reward
+ * Rewards the members of the guild and sends the reward embed
+ * @param guild
+ * @param members
+ * @param language
  * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- * @param forcedReward
+ * @param rewardType
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, forcedReward: string = null): Promise<void> {
+async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
-	if (await sendBlockedErrorInteraction(interaction, language)) {
-		return;
-	}
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const embed: DraftBotEmbed = new DraftBotEmbed()
+		.setTitle(guildDailyModule.format("rewardTitle", {
+			guildName: guild.name
+		}));
+	const guildLike: GuildLike = {guild, members};
+	const stringInfos: StringInfos = {interaction, embed};
 
-	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
-	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildDailyModule.format("coolDown", {
-				coolDownTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
-				time: minutesDisplay(hoursToMinutes(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
-			}),
-			false,
-			interaction);
-		return;
-	}
+	/*
+	Here is the fun part !
+	First collect the function which is associated to the given reward (linkToFunction.get(rewardType))
+	Then call this function using the prepared parameters above
+	And Voilà ! You rewarded all the members of the guild according to rewardType !
+	*/
+	await linkToFunction.get(rewardType)(guildLike, stringInfos, guildDailyModule);
 
-	const members = await Entities.getByGuild(guild.id);
-	for (const member of members) {
-		if (await BlockingUtils.getPlayerBlockingReason(member.discordUserId) === "fight") {
-			continue;
-		}
-		if (await sendBlockedError(await draftBotClient.users.fetch(member.discordUserId), interaction.channel, language)) {
-			return;
-		}
+	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
+		await awardGuildWithNewPet(guild, embed, guildDailyModule, language);
 	}
 
-	guild.lastDailyAt = new Date(interaction.createdTimestamp);
-	await guild.save();
-
-	const rewardType = forcedReward ?? generateRandomProperty(guild);
-
-	const embed = await rewardPlayersOfTheGuild(guild, members, language, interaction, rewardType);
-
-	await notifyAndUpdatePlayers(members, interaction, language, guildDailyModule, embed);
+	await interaction.reply({embeds: [embed]});
+	return embed;
 }
 
 /**
@@ -87,7 +84,24 @@ async function genericAwardingFunction(members: Entity[], awardingFunctionForAMe
 	}
 }
 
-async function awardPersonnalXpToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
+async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
+	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
+	await genericAwardingFunction(guildLike.members, async member => {
+		if (member.Player.currentEffectFinished()) {
+			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
+		}
+		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
+			await Maps.removeEffect(member.Player);
+		}
+	});
+	stringInfos.embed.setDescription(guildDailyModule.format("alterationHeal", {
+		healthWon: healthWon
+	}));
+	// TODO REFACTOR LES LOGS
+	// log("GuildDaily of guild " + guild.name + ": got alteration heal");
+}
+
+async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const xpWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
@@ -142,6 +156,17 @@ async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, g
 	// log("GuildDaily of guild " + guild.name + ": got common food");
 }
 
+async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
+	await genericAwardingFunction(guildLike.members, async member => {
+		if (member.Player.effect !== Constants.EFFECT.DEAD) {
+			await member.setHealth(await member.getMaxHealth(), stringInfos.interaction.channel, guildDailyModule.language);
+		}
+	});
+	stringInfos.embed.setDescription(guildDailyModule.get("fullHeal"));
+	// TODO REFACTOR LES LOGS
+	// log("GuildDaily of guild " + guild.name + ": got full heal");
+}
+
 async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
@@ -157,17 +182,6 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
 	// TODO REFACTOR LES LOGS
 	// log("GuildDaily of guild " + guild.name + ": got the badge");
-}
-
-async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
-	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.effect !== Constants.EFFECT.DEAD) {
-			await member.setHealth(await member.getMaxHealth(), stringInfos.interaction.channel, guildDailyModule.language);
-		}
-	});
-	stringInfos.embed.setDescription(guildDailyModule.get("fullHeal"));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got full heal");
 }
 
 async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
@@ -194,66 +208,22 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 	// log("GuildDaily of guild " + guild.name + ": got partial heal");
 }
 
-async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
-	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.currentEffectFinished()) {
-			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
-		}
-		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
-			await Maps.removeEffect(member.Player);
-		}
-	});
-	stringInfos.embed.setDescription(guildDailyModule.format("alterationHeal", {
-		healthWon: healthWon
-	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got alteration heal");
-}
-
-async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string) {
-	const pet = await PetEntities.generateRandomPetEntity(guild.level);
-	await pet.save();
-	await (await GuildPets.addPet(guild.id, pet.id)).save();
-	embed.setDescription(embed.description + "\n\n" + guildDailyModule.format("pet", {
-		emote: pet.getPetEmote(),
-		pet: pet.getPetTypeName(language)
-	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
-}
-
 /**
- * Rewards the members of the guild and sends the reward embed
- * @param guild
- * @param members
- * @param language
- * @param interaction
- * @param rewardType
+ * Map all possible rewards to the corresponding rewarding function
  */
-async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
-	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
-	const embed: DraftBotEmbed = new DraftBotEmbed()
-		.setTitle(guildDailyModule.format("rewardTitle", {
-			guildName: guild.name
-		}));
-	const guildLike: GuildLike = {guild, members};
-	const stringInfos: StringInfos = {interaction, embed};
-
-	/*
-	Here is the fun part !
-	First collect the function which is associated to the given reward (linkToFunction.get(rewardType))
-	Then call this function using the prepared parameters above
-	And Voilà ! You rewarded all the members of the guild according to rewardType !
-	*/
-	await linkToFunction.get(rewardType)(guildLike, stringInfos, guildDailyModule);
-
-	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
-		await awardGuildWithNewPet(guild, embed, guildDailyModule, language);
-	}
-
-	await interaction.reply({embeds: [embed]});
-	return embed;
+function getMapOfAllRewardCommands() {
+	const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>>();
+	linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonalXpToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
+	linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
+	linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+	linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
+	linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
+	return linkToFunction;
 }
 
 /**
@@ -264,7 +234,7 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
  * @param guildDailyModule
  * @param embed
  */
-async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: any) {
+async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed) {
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
 		await MissionsController.update(member.discordUserId, interaction.channel, language, "guildDaily");
@@ -305,22 +275,54 @@ function generateRandomProperty(guild: Guild): string {
 	throw new Error("Erreur generateRandomProperty : nombre property invalide");
 }
 
+
 /**
- * Map all possible rewards to the corresponding rewarding function
+ * Allow to claim a daily guild reward
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ * @param forcedReward
  */
-function getMapOfAllRewardCommands() {
-	const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>>();
-	linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonnalXpToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
-	linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
-	linkToFunction.set(Constants.REWARD_TYPES.FIXED_MONEY, awardFixedMoneyToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
-	return linkToFunction;
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, forcedReward: string = null): Promise<void> {
+	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
+	if (await sendBlockedErrorInteraction(interaction, language)) {
+		return;
+	}
+	const guild = await Guilds.getById(entity.Player.guildId);
+
+	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
+	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			language,
+			guildDailyModule.format("coolDown", {
+				coolDownTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
+				time: minutesDisplay(hoursToMinutes(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
+			}),
+			false,
+			interaction);
+		return;
+	}
+
+	const members = await Entities.getByGuild(guild.id);
+	for (const member of members) {
+		if (await BlockingUtils.getPlayerBlockingReason(member.discordUserId) === "fight") {
+			continue;
+		}
+		if (await sendBlockedError(await draftBotClient.users.fetch(member.discordUserId), interaction.channel, language)) {
+			return;
+		}
+	}
+
+	guild.lastDailyAt = new Date(interaction.createdTimestamp);
+	await guild.save();
+
+	const rewardType = forcedReward ?? generateRandomProperty(guild);
+
+	const embed = await rewardPlayersOfTheGuild(guild, members, language, interaction, rewardType);
+
+	await notifyAndUpdatePlayers(members, interaction, language, guildDailyModule, embed);
 }
 
 export const commandInfo: ICommand = {
