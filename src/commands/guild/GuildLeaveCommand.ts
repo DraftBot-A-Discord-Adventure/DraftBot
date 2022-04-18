@@ -119,7 +119,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	let elder: Entity;
 	if (entity.id === guild.chiefId) {
 		elder = await Entities.getById(guild.elderId);
-		if (elder.id) {
+		if (elder) {
 			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDescWithElder", {
 				guildName: guild.name,
 				elderName: await elder.Player.getPseudo(language)
