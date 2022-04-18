@@ -8,13 +8,11 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {escapeUsername} from "../../core/utils/StringUtils";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
-function getEndCallbackGuildLeave(userInformation : UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
+function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(userInformation.entity.discordUserId);
 		if (msg.isValidated()) {
@@ -35,37 +33,59 @@ function getEndCallbackGuildLeave(userInformation : UserInformation, interaction
 				);
 			}
 
-			if (userInformation.guild.elderId === entity.Player.id) {
-				guild.elderId = null;
+			if (userInformation.guild.elderId === userInformation.entity.id) {
+				userInformation.guild.elderId = null;
+			}
+
+			if (userInformation.entity.id === userInformation.guild.chiefId) {
+				// the chief of the guild is leaving
+				if (userInformation.guild.elderId) {
+					// an elder can recover the guild
+					// TODO : Refaire le sysème de logs
+					// log(elder.discordUserId + " becomes the chief of  " + guild.name);
+
+					userInformation.guild.chiefId = userInformation.guild.elderId;
+					userInformation.guild.elderId = null;
+					interaction.channel.send({
+						content: guildLeaveModule.format("newChiefTitle", {
+							guild: userInformation.guild.name
+						})
+					}
+					);
+				}
+				else {
+					// no one can recover the guild.
+					// TODO : Refaire le sysème de logs
+					// log(guild.name +	" has been destroyed");
+					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
+				}
 			}
 
 			await Promise.all([
-				inviter.guild.save(),
-				invited.invitedEntity.save(),
-				invited.invitedEntity.Player.save()
+				userInformation.guild.save(),
+				userInformation.entity.save(),
+				userInformation.entity.Player.save()
 			]);
 
-			await MissionsController.update(invited.invitedEntity.discordUserId, commandInformations.interaction.channel, commandInformations.language, "joinGuild");
-			await MissionsController.update(invited.invitedEntity.discordUserId, commandInformations.interaction.channel, commandInformations.language, "guildLevel", inviter.guild.level, null, true);
 
-			return commandInformations.interaction.followUp({
+			return interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setAuthor(
-							guildAddModule.format("successTitle", {
-								pseudo: escapeUsername(invited.invitedUser.username),
-								guildName: inviter.guild.name
+							guildLeaveModule.format("successTitle", {
+								pseudo: await userInformation.entity.Player.getPseudo(guildLeaveModule.language),
+								guildName: userInformation.guild.name
 							}),
-							invited.invitedUser.displayAvatarURL()
+							interaction.user.displayAvatarURL()
 						)
-						.setDescription(guildAddModule.get("invitationSuccess"))
+						.setDescription(guildLeaveModule.get("leavingSuccess"))
 				]
 			});
 		}
 
 		// the user chose to stay in the guild or did not respond
-		return sendErrorMessage(invited.invitedUser, commandInformations.interaction.channel, commandInformations.language,
-			guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
+		return sendErrorMessage(interaction.user, interaction.channel, guildLeaveModule.language,
+			guildLeaveModule.get("leavingCancelled"), true);
 	};
 }
 
@@ -83,23 +103,41 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const guildLeaveModule = Translations.getModule("commands.guildLeave", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
-	const elder = guild.elderId ? await Entities.getById(guild.elderId) : null;
+
 
 	const endCallback = getEndCallbackGuildLeave(
 		{guild, entity},
-		{invitedEntity, invitedUser},
-		{interaction, language},
+		interaction,
 		guildLeaveModule
 	);
 
-	const validationEmbed = new DraftBotValidateReactionMessage(invitedUser, endCallback)
-		.formatAuthor(guildAddModule.get("invitationTitle"), invitedUser)
-		.setDescription(guildAddModule.format("invitation", {
+	const validationEmbed = new DraftBotValidateReactionMessage(interaction.user, endCallback)
+		.formatAuthor(guildLeaveModule.get("leaveTitle"), interaction.user)
+		.setDescription(guildLeaveModule.format("leaveDesc", {
 			guildName: guild.name
 		})) as DraftBotValidateReactionMessage;
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, "guildAdd", collector));
+	let elder: Entity;
+	if (entity.id === guild.chiefId) {
+		elder = await Entities.getById(guild.elderId);
+		if (elder.id) {
+			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDescWithElder", {
+				guildName: guild.name,
+				elderName: await elder.Player.getPseudo(language)
+			}));
+		}
+		else {
+			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDesc", {
+				guildName: guild.name
+			}));
+		}
+	}
 
-
+	await validationEmbed.reply(interaction, (collector) => {
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildLeave", collector);
+		if (elder) {
+			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, "chiefGuildLeave", collector);
+		}
+	});
 }
 
 export const commandInfo: ICommand = {
