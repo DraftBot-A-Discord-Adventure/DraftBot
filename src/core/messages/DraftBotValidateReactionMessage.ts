@@ -14,8 +14,9 @@ export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
 	 * @param validateCallback
 	 * @param refuseCallback
 	 */
-	constructor(allowedUser: User,
-		endCallback: (msg: DraftBotReactionMessage) => void,
+	constructor(
+		allowedUser: User,
+		endCallback: (msg: DraftBotReactionMessage) => void | Promise<void>,
 		validateCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null,
 		refuseCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null
 	) {
@@ -25,7 +26,7 @@ export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
 				new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, refuseCallback)
 			],
 			allowedUser ? [allowedUser.id] : null,
-			endCallback,
+			endCallback as (msg: DraftBotReactionMessage) => void,
 			0,
 			!allowedUser,
 			0
