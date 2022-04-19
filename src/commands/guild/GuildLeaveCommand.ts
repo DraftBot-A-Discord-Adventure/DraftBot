@@ -25,12 +25,13 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			}
 			if (userInformation.guild === null) {
 				// guild was destroyed since the command was launched
-				return sendErrorMessage(
+				sendErrorMessage(
 					interaction.user,
 					interaction.channel,
 					guildLeaveModule.language,
 					guildLeaveModule.get("guildDestroy")
 				);
+				return;
 			}
 
 			if (userInformation.guild.elderId === userInformation.entity.id) {
@@ -71,7 +72,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			]);
 
 
-			return interaction.followUp({
+			interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setAuthor(
@@ -84,10 +85,11 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 						.setDescription(guildLeaveModule.get("leavingSuccess"))
 				]
 			});
+			return;
 		}
 
 		// the user chose to stay in the guild or did not respond
-		return sendErrorMessage(interaction.user, interaction.channel, guildLeaveModule.language,
+		sendErrorMessage(interaction.user, interaction.channel, guildLeaveModule.language,
 			guildLeaveModule.get("leavingCancelled"), true);
 	};
 }

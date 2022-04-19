@@ -29,7 +29,7 @@ const linkToFunction = getMapOfAllRewardCommands();
 async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string) {
 	const pet = await PetEntities.generateRandomPetEntity(guild.level);
 	await pet.save();
-	await (await GuildPets.addPet(guild.id, pet.id)).save();
+	await GuildPets.addPet(guild.id, pet.id).save();
 	embed.setDescription(embed.description + "\n\n" + guildDailyModule.format("pet", {
 		emote: pet.getPetEmote(),
 		pet: pet.getPetTypeName(language)
