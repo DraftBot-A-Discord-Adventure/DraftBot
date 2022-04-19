@@ -3,8 +3,9 @@ import {DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 
 export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
-	constructor(items: ChoiceItem[], userId: string, callback: (item: any) => void, cancelCallback: (msg: DraftBotListChoiceMessage) => void) {
+	constructor(items: ChoiceItem[], userId: string, callback: (item: any) => void | Promise<void>, cancelCallback: (msg: DraftBotListChoiceMessage) => void) {
 		const reactions: DraftBotReaction[] = [];
+		callback = callback as (item: any) => void;
 		let desc = "";
 		for (let i = 0; i < 10 && i < items.length; ++i) {
 			reactions.push(new DraftBotReaction(

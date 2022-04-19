@@ -115,9 +115,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		(item: itemObject) => {
-			sellEmbedCallback(entity, interaction, item, tr).then(() => null, () => null);
-		},
+		(item: itemObject) => sellEmbedCallback(entity, interaction, item, tr),
 		(endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId);
 			if (endMessage.isCanceled()) {
