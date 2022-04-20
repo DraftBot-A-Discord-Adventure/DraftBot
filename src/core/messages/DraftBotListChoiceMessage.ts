@@ -2,16 +2,18 @@ import {DraftBotReactionMessage} from "./DraftBotReactionMessage";
 import {DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 
+type itemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
+
 export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
-	constructor(items: ChoiceItem[], userId: string, callback: (item: any) => void | Promise<void>, cancelCallback: (msg: DraftBotListChoiceMessage) => void) {
+	constructor(items: ChoiceItem[], userId: string, callback: (item: itemObject) => void | Promise<void>, cancelCallback: (msg: DraftBotListChoiceMessage) => void) {
 		const reactions: DraftBotReaction[] = [];
-		callback = callback as (item: any) => void;
+		const callbackToCall = callback as (item: itemObject) => Promise<void>;
 		let desc = "";
 		for (let i = 0; i < 10 && i < items.length; ++i) {
 			reactions.push(new DraftBotReaction(
 				Constants.REACTIONS.NUMBERS[i + 1],
 				() => {
-					callback(items[i].item);
+					callbackToCall(items[i].item).then(() => null, () => null);
 					this.collector.stop();
 				}
 			));
