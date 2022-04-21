@@ -15,7 +15,11 @@ import {TranslationModule, Translations} from "../../core/Translations";
 type InvitedUserInformations = { invitedUser: User, invitedEntity: Entity };
 type InviterUserInformations = { guild: Guild, entity: Entity };
 
-function getEndCallbackGuildAdd(inviter: InviterUserInformations, invited: InvitedUserInformations, interaction: CommandInteraction, guildAddModule: TranslationModule) {
+function getEndCallbackGuildAdd(
+	inviter: InviterUserInformations,
+	invited: InvitedUserInformations,
+	interaction: CommandInteraction,
+	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId);
 		if (msg.isValidated()) {
@@ -46,7 +50,7 @@ function getEndCallbackGuildAdd(inviter: InviterUserInformations, invited: Invit
 			await MissionsController.update(invited.invitedEntity.discordUserId, interaction.channel, guildAddModule.language, "joinGuild");
 			await MissionsController.update(invited.invitedEntity.discordUserId, interaction.channel, guildAddModule.language, "guildLevel", inviter.guild.level, null, true);
 
-			return interaction.followUp({
+			interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setAuthor(
@@ -59,10 +63,11 @@ function getEndCallbackGuildAdd(inviter: InviterUserInformations, invited: Invit
 						.setDescription(guildAddModule.get("invitationSuccess"))
 				]
 			});
+			return;
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(invited.invitedUser, interaction.channel, guildAddModule.language,
+		sendErrorMessage(invited.invitedUser, interaction.channel, guildAddModule.language,
 			guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
 	};
 }
