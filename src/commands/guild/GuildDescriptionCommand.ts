@@ -9,10 +9,9 @@ import {Constants} from "../../core/Constants";
 import {checkNameString} from "../../core/utils/StringUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {Data, DataModule} from "../../core/Data";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
-type InformationModules = { guildDescriptionModule: TranslationModule, guildDescriptionData: DataModule }
+type InformationModules = { guildDescriptionModule: TranslationModule }
 
 /**
  * Create validation message to change guild description
@@ -42,7 +41,7 @@ function endCallbackGuildCreateValidationMessage(
 			interaction.followUp({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(informationModules.guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
-					.setDescription(informationModules.guildDescriptionModule.format("descriptionChanged", {}))]
+					.setDescription(informationModules.guildDescriptionModule.get("descriptionChanged"))]
 			});
 			return;
 		}
@@ -90,7 +89,6 @@ async function createValidationEmbedGuildDesc(
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const guildDescriptionModule = Translations.getModule("commands.guildDescription", language);
-	const guildDescriptionData = Data.getModule("commands.guildDescription");
 
 	const guildDescription = interaction.options.getString("description");
 
@@ -109,13 +107,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, guildDescription, interaction, language, {
-		guildDescriptionModule,
-		guildDescriptionData
+		guildDescriptionModule
 	});
 
 	await createValidationEmbedGuildDesc(interaction, endCallback, guildDescription, entity, {
-		guildDescriptionModule,
-		guildDescriptionData
+		guildDescriptionModule
 	});
 
 }
