@@ -10,6 +10,7 @@ import {MissionsController} from "../missions/MissionsController";
 import {Entities} from "./Entity";
 import {Constants} from "../Constants";
 import {getFoodIndexOf} from "../utils/FoodUtils";
+import Player from "./Player";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -59,6 +60,36 @@ export class Guild extends Model {
 				Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
 			) - Constants.XP.MINUS
 		);
+	}
+
+	/**
+	 * completely destroy a guild from the database
+	 */
+	public async completelyDestroyAndDeleteFromTheDatabase() {
+		const petsToDestroy: Promise<void>[] = [];
+		const petsEntitiesToDestroy: Promise<void>[] = [];
+		for (const pet of this.GuildPets) {
+			petsToDestroy.push(pet.destroy());
+			petsEntitiesToDestroy.push(pet.PetEntity.destroy());
+		}
+		await Promise.all([
+			Player.update(
+				{guildId: null},
+				{
+					where: {
+						guildId: this.id
+					}
+				}
+			),
+			Guild.destroy({
+				where: {
+					id: this.id
+				}
+			}),
+			petsToDestroy,
+			petsEntitiesToDestroy
+		]);
+
 	}
 
 	public setExperience(experience: number): void {
