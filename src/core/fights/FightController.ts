@@ -2,6 +2,7 @@ import {Fighter} from "./Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
+import {FightConstants} from "../constants/FightConstants";
 
 export class FightController {
 
@@ -22,6 +23,10 @@ export class FightController {
 		this.friendly = friendly;
 	}
 
+	/**
+	 * start a fight
+	 * @public
+	 */
 	public async startFight() {
 		// make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
@@ -35,15 +40,68 @@ export class FightController {
 			this.invertFighters();
 		}
 		this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
+		this.state = FightState.RUNNING;
+		await this.nextTurn();
+	}
+
+	/**
+	 * Get the playing fighter or null if the fight is not running
+	 * @return {Fighter|null}
+	 */
+	getPlayingFighter() {
+		return this.state === FightState.RUNNING ? this.fighters[(this.turn - 1) % 2] : null;
+	}
+
+	/**
+	 * execute a turn of a fight
+	 * @private
+	 */
+	private async nextTurn() {
+		this.turn++;
+		if (this.hadEnded()) {
+			await this.endFight();
+			return;
+		}
+		const playing = this.getPlayingFighter();
+
+		await this.scrollIfNeeded();
+		this.endedByTime = true;
+		if (playing.chargeTurns === 0) {
+			await this.useAction(playing.chargeAct, true);
+		}
+		else if (playing.chargeTurns > 0) {
+			await this.nextTurn();
+		}
+		else {
+			await this.summarizeFight();
+			await this.sendTurnIndications();
+		}
 	}
 
 	/**
 	 * Change who is the player 1 and who is the player 2.
 	 * The player 1 start the fight.
+	 * @private
 	 */
 	private invertFighters() {
 		const temp = this.fighters[0];
 		this.fighters[0] = this.fighters[1];
 		this.fighters[1] = temp;
+	}
+
+	/**
+	 * check if a fight has ended or not
+	 * @private
+	 */
+	private hadEnded() {
+		return this.turn >= FightConstants.MAX_TURNS;
+	}
+
+	/**
+	 * End the fight
+	 * @private
+	 */
+	private endFight() {
+		this.state = FightState.FINISHED;
 	}
 }

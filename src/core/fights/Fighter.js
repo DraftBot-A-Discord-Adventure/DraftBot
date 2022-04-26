@@ -18,7 +18,7 @@ class Fighter {
 		this.friendly = friendly;
 		this.entity = entity;
 		this.attacksList = {};
-		this.quickAttack = -1;
+		this.isCharging = false;
 	}
 
 	/**

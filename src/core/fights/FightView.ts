@@ -27,4 +27,22 @@ export class FightView {
 			})
 		}).then();
 	}
+
+	/**
+	 * Scroll the messages down if needed
+	 * @return {Promise<void>}
+	 */
+	async scrollIfNeeded() {
+		const messages = await this.channel.messages.fetch({limit: 1});
+		if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
+			for (let i = 0; i < this.actionMessages.length; ++i) {
+				const content = (await this.message.channel.messages.fetch(this.actionMessages[i].id)).content;
+				await this.actionMessages[i].delete();
+				this.actionMessages[i] = await this.message.channel.send({content: content});
+			}
+			await this.lastSummary.delete();
+			this.lastSummary = undefined;
+			await this.summarizeFight();
+		}
+	}
 }
