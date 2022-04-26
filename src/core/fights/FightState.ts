@@ -1,6 +1,6 @@
 export enum FightState {
 	NOT_STARTED,
-	STARTED,
+	RUNNING,
 	FINISHED,
 	BUG
 }

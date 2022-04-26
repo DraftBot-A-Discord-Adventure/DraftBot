@@ -17,8 +17,11 @@ export class Fighter {
 
 	private ready: boolean
 
+	private chargingTurn: number
+
 	/**
 	 * get the string that mention the user
+	 * @public
 	 */
 	public getMention() {
 		return this.entity.getMention();
@@ -27,6 +30,7 @@ export class Fighter {
 	/**
 	 * the fighter loads its various stats
 	 * @param friendly true if the fight is friendly
+	 * @public
 	 */
 	public async prepare(friendly: boolean) {
 		const playerActiveObjects: playerActiveObjects = await this.entity.getPlayerActiveObjects();
@@ -42,6 +46,7 @@ export class Fighter {
 	 * @param friendly true if the fight is friendly
 	 * @param channel
 	 * @param language
+	 * @public
 	 */
 	public async consumePotionIfNeeded(friendly: boolean, channel: TextChannel, language: string) {
 		if (friendly || !await this.currentPotionIsAFightPotion()) {
@@ -61,9 +66,23 @@ export class Fighter {
 
 	/**
 	 * Allow a fighter to block itself
+	 * @public
 	 */
 	public block() {
 		BlockingUtils.blockPlayer(this.entity.discordUserId, "fight");
+	}
+
+	/**
+	 * return false if the user does not need to charge its energy
+	 * charge the energy if needed
+	 * @public
+	 */
+	public chargeEnergy() : boolean {
+		if (this.chargingTurn === 0 ){
+			this.chargingTurn --;
+			return true;
+		}
+		return false;
 	}
 
 	/**
