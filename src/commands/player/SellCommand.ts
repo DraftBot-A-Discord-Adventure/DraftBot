@@ -68,7 +68,6 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const money = item.value;
-	console.log("passe ici");
 	await InventorySlot.destroy({
 		where: {
 			playerId: entity.Player.id,
@@ -76,7 +75,6 @@ async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction
 			itemCategory: item.itemCategory
 		}
 	});
-	console.log("passe la");
 	await entity.Player.addMoney(entity, money, interaction.channel, tr.language);
 	await entity.Player.save();
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
