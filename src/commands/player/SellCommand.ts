@@ -44,14 +44,17 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 	if (value !== 0) {
 		choiceItems.push(new ChoiceItem(
 			tr.format("sellField", {
-				name, value, moneyIcon: Constants.REACTIONS.MONEY_ICON
-			}), itemObject));
+				name: itemObject.name,
+				value: value,
+				moneyIcon: Constants.REACTIONS.MONEY_ICON
+			}), itemObject.itemObject));
 	}
 	else {
 		choiceItems.push(new ChoiceItem(
 			tr.format("throwAwayField", {
-				name, throwEmote: Constants.REACTIONS.TRASH
-			}), itemObject));
+				name: itemObject.name,
+				throwEmote: Constants.REACTIONS.TRASH
+			}), itemObject.itemObject));
 	}
 }
 
@@ -65,6 +68,7 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const money = item.value;
+	console.log("passe ici");
 	await InventorySlot.destroy({
 		where: {
 			playerId: entity.Player.id,
@@ -72,6 +76,7 @@ async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction
 			itemCategory: item.itemCategory
 		}
 	});
+	console.log("passe la");
 	await entity.Player.addMoney(entity, money, interaction.channel, tr.language);
 	await entity.Player.save();
 	[entity] = await Entities.getOrRegister(entity.discordUserId);

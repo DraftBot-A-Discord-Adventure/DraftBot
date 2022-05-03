@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
@@ -103,7 +102,7 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
 			item2: otherItemInstance.getName(tr.language)
 		});
 	}
-	return interaction.channel.send({
+	interaction.channel.send({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(tr.get("title"), interaction.user)
 			.setDescription(desc)
@@ -140,7 +139,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Get the items that can be switched or send an error if none
 	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
-		return interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, language, tr.get("noItemToSwitch"))]});
+		sendErrorMessage(interaction.user, interaction.channel, language, tr.get("noItemToSwitch"), false, interaction);
+		return;
 	}
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);
 
