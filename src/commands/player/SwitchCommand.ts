@@ -48,13 +48,13 @@ function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteracti
 	}
 }
 
-async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: any) {
+async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot) {
 	if (otherItem.itemId === 0) {
 		await InventorySlot.destroy({
 			where: {
 				playerId: entity.Player.id,
-				itemCategory: item.item.itemCategory,
-				slot: item.item.slot
+				itemCategory: item.itemCategory,
+				slot: item.slot
 			}
 		});
 	}
@@ -64,13 +64,13 @@ async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: a
 		}, {
 			where: {
 				playerId: entity.Player.id,
-				itemCategory: item.item.itemCategory,
-				slot: item.item.slot
+				itemCategory: item.itemCategory,
+				slot: item.slot
 			}
 		});
 	}
 	await InventorySlot.update({
-		itemId: item.item.itemId
+		itemId: item.itemId
 	}, {
 		where: {
 			playerId: entity.Player.id,
@@ -80,20 +80,22 @@ async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: a
 	});
 }
 
-async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: any, tr: TranslationModule) {
+type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine: string }
+
+async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule) {
 	[entity] = await Entities.getOrRegister(interaction.user.id);
 	if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(entity, interaction);
 	}
 	const otherItem = entity.Player.InventorySlots.filter(slot => slot.isEquipped() && slot.itemCategory === item.item.itemCategory)[0];
 	const otherItemInstance = await otherItem.getItem();
-	await switchItemSlots(otherItem, entity, item);
+	await switchItemSlots(otherItem, entity, item.item);
 	await entity.Player.InventoryInfo.save();
 	let desc;
 	if (otherItem.itemId === 0) {
 		desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
 			item: item.shortName,
-			frenchMasculine: item.FrenchMasculine
+			frenchMasculine: item.frenchMasculine
 		});
 	}
 	else {
@@ -114,7 +116,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		async (item) => await switchItemEmbedCallback(entity, interaction, item, tr),
+		async (item: ItemForCallback) => await switchItemEmbedCallback(entity, interaction, item, tr),
 		async (endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId);
 			if (endMessage.isCanceled()) {
