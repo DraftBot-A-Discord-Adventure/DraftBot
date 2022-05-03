@@ -13,6 +13,11 @@ import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUti
 import {Data} from "../../core/Data";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 
+/**
+ * Collect all the stored items and prepare them for the main embed
+ * @param toSwitchItems
+ * @param language
+ */
 async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string) {
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
@@ -30,6 +35,11 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
 	return choiceItems;
 }
 
+/**
+ * If needed, increase the time to wait for the next daily
+ * @param entity
+ * @param interaction
+ */
 function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction) {
 	const dailyData = Data.getModule("commands.daily");
 	const switchData = Data.getModule("commands.switch");
@@ -48,6 +58,12 @@ function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteracti
 	}
 }
 
+/**
+ * Switch the 2 given items in the inventory
+ * @param otherItem
+ * @param entity
+ * @param item
+ */
 async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot) {
 	if (otherItem.itemId === 0) {
 		await InventorySlot.destroy({
@@ -82,6 +98,13 @@ async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: I
 
 type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine: string }
 
+/**
+ * Callback of the switch command
+ * @param entity
+ * @param interaction
+ * @param item
+ * @param tr
+ */
 async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule) {
 	[entity] = await Entities.getOrRegister(interaction.user.id);
 	if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
@@ -112,6 +135,13 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
 	});
 }
 
+/**
+ * Prepare and send the main embed with all the choices
+ * @param choiceItems
+ * @param interaction
+ * @param entity
+ * @param tr
+ */
 async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, entity: Entity, tr: TranslationModule) {
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
@@ -129,6 +159,12 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "switch", collector));
 }
 
+/**
+ * Main function : Switch a main item with one of the inventory
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	// Error if blocked
 	if (await sendBlockedErrorInteraction(interaction, language)) {
