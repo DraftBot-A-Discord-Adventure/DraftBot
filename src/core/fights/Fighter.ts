@@ -20,6 +20,13 @@ export class Fighter {
 
 	private chargingTurn: number
 
+	public constructor(entity: Entity) {
+		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null};
+		this.entity = entity;
+		this.ready = false;
+		this.chargingTurn = 0;
+	}
+
 	/**
 	 * get the string that mention the user
 	 * @public
@@ -33,7 +40,7 @@ export class Fighter {
 	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
-	public async prepare(friendly: boolean) {
+	public async loadStats(friendly: boolean) {
 		const playerActiveObjects: playerActiveObjects = await this.entity.getPlayerActiveObjects();
 		this.stats.fightPoints = friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
 		this.stats.maxFightPoint = await this.entity.getMaxCumulativeHealth();

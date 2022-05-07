@@ -32,7 +32,6 @@ export class FightController {
 	public async startFight() {
 		// make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
-			await this.fighters[i].prepare(this.friendly);
 			await this.fighters[i].consumePotionIfNeeded(this.friendly, this.fightView.channel, this.fightView.language);
 			this.fighters[i].block();
 		}

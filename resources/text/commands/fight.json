@@ -33,7 +33,6 @@
 				"canceled": "Votre demande de combat a bien été annulée.",
 				"onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
 				"levelTooLow": {
-					"direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"cantFightStatus": {
