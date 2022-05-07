@@ -1,7 +1,8 @@
 import {FightController} from "./FightController";
-import {TextChannel} from "discord.js";
+import {Message, TextChannel} from "discord.js";
 import {Fighter} from "./Fighter";
-import {TranslationModule} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 export class FightView {
 
@@ -12,6 +13,17 @@ export class FightView {
 	private fightController: FightController;
 
 	private fightTranslationModule: TranslationModule;
+
+	private lastSummary: Message;
+
+	private actionMessages: Message[];
+
+	public constructor(channel: TextChannel, language: string, fightController: FightController) {
+		this.channel = channel;
+		this.language = language;
+		this.fightController = fightController;
+		this.fightTranslationModule = Translations.getModule("commands.fight", language);
+	}
 
 
 	/**
@@ -29,20 +41,48 @@ export class FightView {
 	}
 
 	/**
-	 * Scroll the messages down if needed
+	 *  summarize current fight status
+	 */
+	async displayFightStatus() {
+		await this.scrollIfNeeded();
+		const playingFighter = this.fightController.getPlayingFighter();
+		const defendingFighter = this.fightController.getDefendingFighter();
+		if (this.lastSummary === undefined) {
+			this.lastSummary = await this.channel.send({embeds: [await this.getSummarizeEmbed(playingFighter, defendingFighter)]});
+		}
+		else {
+			await this.lastSummary.edit({embeds: [await this.getSummarizeEmbed(playingFighter, defendingFighter)]});
+		}
+	}
+
+	/**
+	 * Scroll the messages down if needed before fight display status
 	 * @return {Promise<void>}
 	 */
-	async scrollIfNeeded() {
+	private async scrollIfNeeded() {
 		const messages = await this.channel.messages.fetch({limit: 1});
 		if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
-				const content = (await this.message.channel.messages.fetch(this.actionMessages[i].id)).content;
+				const content = (await this.channel.messages.fetch(this.actionMessages[i].id)).content;
 				await this.actionMessages[i].delete();
-				this.actionMessages[i] = await this.message.channel.send({content: content});
+				this.actionMessages[i] = await this.channel.send({content: content});
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
-			await this.summarizeFight();
 		}
+	}
+
+	/**
+	 * Get summarize embed message
+	 * @param {Fighter} attacker
+	 * @param {Fighter} defender
+	 * @return {Promise<DraftBotEmbed>}
+	 */
+	private async getSummarizeEmbed(attacker: Fighter, defender: Fighter) {
+		return new DraftBotEmbed()
+			.setTitle(this.fightTranslationModule.get("summarize.title"))
+			.setDescription(this.fightTranslationModule.get("summarize.intro") +
+				await attacker.getStringDisplay(this.fightTranslationModule) + "\n\n" +
+				await defender.getStringDisplay(this.fightTranslationModule));
 	}
 }

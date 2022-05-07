@@ -3,6 +3,7 @@ import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
+import {TextChannel} from "discord.js";
 
 export class FightController {
 
@@ -16,11 +17,12 @@ export class FightController {
 
 	private friendly: boolean;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean) {
+	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
 		this.state = FightState.NOT_STARTED;
 		this.turn = 0;
 		this.friendly = friendly;
+		this.fightView = new FightView(channel, language, this);
 	}
 
 	/**
@@ -48,8 +50,16 @@ export class FightController {
 	 * Get the playing fighter or null if the fight is not running
 	 * @return {Fighter|null}
 	 */
-	getPlayingFighter() {
+	public getPlayingFighter() {
 		return this.state === FightState.RUNNING ? this.fighters[(this.turn - 1) % 2] : null;
+	}
+
+	/**
+	 * Get the defending fighter or null if the fight is not running
+	 * @return {Fighter|null}
+	 */
+	public getDefendingFighter() {
+		return this.state === FightState.RUNNING ? this.fighters[this.turn % 2] : null;
 	}
 
 	/**
@@ -63,19 +73,8 @@ export class FightController {
 			return;
 		}
 		const playing = this.getPlayingFighter();
-
-		await this.scrollIfNeeded();
-		this.endedByTime = true;
-		if (playing.chargeTurns === 0) {
-			await this.useAction(playing.chargeAct, true);
-		}
-		else if (playing.chargeTurns > 0) {
-			await this.nextTurn();
-		}
-		else {
-			await this.summarizeFight();
-			await this.sendTurnIndications();
-		}
+		await this.fightView.displayFightStatus();
+		playing.play();
 	}
 
 	/**
@@ -104,4 +103,5 @@ export class FightController {
 	private endFight() {
 		this.state = FightState.FINISHED;
 	}
+
 }
