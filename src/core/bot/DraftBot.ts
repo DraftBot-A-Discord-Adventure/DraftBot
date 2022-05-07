@@ -57,7 +57,6 @@ export class DraftBot {
 		});
 		await require("../Database").init(this.isMainShard);
 		await CommandsManager.register(draftBotClient);
-		await require("../fights/Attack").init();
 		if (this.config.TEST_MODE === true) {
 			await require("../CommandsTest").init();
 		}
