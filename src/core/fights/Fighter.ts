@@ -6,6 +6,7 @@ import {Tags} from "../models/Tag";
 import Potion from "../models/Potion";
 import {MissionsController} from "../missions/MissionsController";
 import {countNbOfPotions} from "../utils/ItemUtils";
+import {TranslationModule} from "../Translations";
 
 type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number }
 
@@ -77,9 +78,9 @@ export class Fighter {
 	 * charge the energy if needed
 	 * @public
 	 */
-	public chargeEnergy() : boolean {
-		if (this.chargingTurn === 0 ){
-			this.chargingTurn --;
+	public chargeEnergy(): boolean {
+		if (this.chargingTurn === 0) {
+			this.chargingTurn--;
 			return true;
 		}
 		return false;
@@ -91,6 +92,30 @@ export class Fighter {
 	 */
 	private async currentPotionIsAFightPotion() {
 		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
+	}
+
+	/**
+	 * Return a display of the player in a string format
+	 * @param fightTranslationModule
+	 */
+	public async getStringDisplay(fightTranslationModule: TranslationModule): Promise<string> {
+		return fightTranslationModule.format("summarize.attacker", {
+			pseudo: await this.entity.Player.getPseudo(fightTranslationModule.language),
+			charging: this.chargingTurn > 0 ? fightTranslationModule.get("actions.chargingEmote") : ""
+		}) +
+			fightTranslationModule.format("summarize.stats", {
+				power: this.stats.fightPoints,
+				attack: this.stats.attack,
+				defense: this.stats.defense,
+				speed: this.stats.speed
+			});
+	}
+
+	/**
+	 * execute one turn
+	 */
+	public play() {
+		console.log("im playing");
 	}
 }
 
