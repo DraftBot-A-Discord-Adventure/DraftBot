@@ -11,9 +11,15 @@ export abstract class FightConstants {
 
 	static readonly FIGHT_ERROR = {
 		NONE: "none",
-		WRONG_LEVEL: "error.noFightPoints",
+		WRONG_LEVEL: "error.levelTooLow",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
 		OCCUPIED: "error.occupied",
-		NO_FIGHT_POINTS: "error.levelTooLow"
+		NO_FIGHT_POINTS: "error.noFightPoints"
 	};
+
+	// duration of the menu that search for an opponent in miliseconds
+	static ASKING_MENU_DURATION = 120;
+
+	// number of reaction the bot will accept before closing a fight request due to spam.
+	static SPAM_PROTECTION_MAX_REACTION_AMOUNT = 2
 }
