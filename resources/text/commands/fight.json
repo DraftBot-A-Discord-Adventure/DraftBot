@@ -1,6 +1,7 @@
 {
 	"translations": {
 		"fr": {
+			"fightAskingTitle" : "{pseudo}, a lancé une demande de combat.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
 			"wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
 			"friendly": " **amical**",
@@ -10,7 +11,7 @@
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
+				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
 				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
@@ -153,6 +154,7 @@
 			}
 		},
 		"en": {
+			"fightAskingTitle" : "{pseudo}, is asking for a fight.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} wants to {friendly}fight! To duel them, click the emote below!",
 			"wantsToFightSomeone": ":crossed_swords: | {player} {friendly}challenges {opponent}! To accept or not, click the emote below!",
 			"friendly": "**friendly** ",

@@ -9,6 +9,9 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {DraftBotReactionMessage} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 
 /**
  * Check if an entity is allowed to fight
@@ -43,7 +46,68 @@ function sendError(interaction: CommandInteraction, fightTranslationModule: Tran
 		pseudo: entity.getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
-	sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.format(errorTranslationName, replacements), true, interaction);
+	sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.format(errorTranslationName, replacements), false, interaction);
+}
+
+function refuseCallback() {
+	console.log("cancel");
+}
+
+function validateCallback() {
+	console.log("validate");
+}
+
+function endCallbackFight(askingEntity: Entity, respondingEntity: Entity | null, interaction: CommandInteraction, fightTranslationModule: TranslationModule, executeCommand1: executeCommand) {
+
+	return async (msg: DraftBotValidateReactionMessage) => {
+		BlockingUtils.unblockPlayer(askingEntity.discordUserId);
+
+		if (true) {
+			// the collector ended due to spam, do nothing
+			return;
+		}
+		if (respondingEntity) {
+			await sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.get("error.noOneAvailable"), false);
+		}
+		else {
+			await sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.get("error.opponentNotAvailable"), false);
+		}
+		refuseCallback();
+	};
+}
+
+
+/**
+ * get the string that display the information about the fight for the menu
+ * @param askingFighter
+ * @param friendly
+ * @param respondingEntity
+ * @param fightTranslationModule
+ * @param respondingFighter
+ */
+async function getFightDescription(askingFighter: Fighter, friendly: boolean, respondingEntity: Entity | null, fightTranslationModule: TranslationModule, respondingFighter: Fighter | null) {
+	let fightAskingDescription;
+	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
+	if (!respondingEntity) {
+		fightAskingDescription = fightTranslationModule.format("wantsToFightAnyone", {
+			friendly: friendly ? fightTranslationModule.get("friendly") : "",
+			player: askingFighter.getMention()
+		});
+	}
+	else {
+		fightAskingDescription = fightTranslationModule.format("wantsToFightSomeone", {
+			friendly: friendly ? fightTranslationModule.get("friendly") : "",
+			player: askingFighter.getMention(),
+			opponent: respondingFighter.getMention()
+		});
+		promises.push(respondingFighter.loadStats(friendly));
+	}
+	await Promise.all(promises);
+	fightAskingDescription += "\n\n" + await askingFighter.getStringDisplay(fightTranslationModule);
+	if (respondingEntity) {
+		fightAskingDescription += "\n" + await respondingFighter.getStringDisplay(fightTranslationModule);
+	}
+	return fightAskingDescription;
 }
 
 /** ï
@@ -56,12 +120,12 @@ function sendError(interaction: CommandInteraction, fightTranslationModule: Tran
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 
 	const askingFighter = new Fighter(entity);
-	const respondingEntity = await Entities.getByOptions(interaction);
-	const respondingFighter: Fighter = new Fighter(respondingEntity);
+	const respondingEntity: Entity | null = await Entities.getByOptions(interaction);
+	const respondingFighter: Fighter | null = new Fighter(respondingEntity);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (respondingEntity && entity.discordUserId === respondingEntity.discordUserId) {
 		// the user is trying to fight himself
-		sendErrorMessage(interaction.user, interaction.channel, language, fightTranslationModule.get("error.fightHimself"), true, interaction);
+		sendErrorMessage(interaction.user, interaction.channel, language, fightTranslationModule.get("error.fightHimself"), false, interaction);
 		return;
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);
@@ -76,31 +140,20 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			return;
 		}
 	}
-	let msg;
-	const spamCount = 0;
-	const spammers = [];
 	BlockingUtils.blockPlayer(entity.discordUserId, "fight");
-	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
-	if (!respondingEntity) {
-		msg = fightTranslationModule.format("wantsToFightAnyone", {
-			friendly: friendly ? fightTranslationModule.get("friendly") : "",
-			player: askingFighter.getMention()
-		});
-	}
-	else {
-		msg = fightTranslationModule.format("wantsToFightSomeone", {
-			friendly: friendly ? fightTranslationModule.get("friendly") : "",
-			player: askingFighter.getMention(),
-			opponent: respondingFighter.getMention()
-		});
-		promises.push(respondingFighter.loadStats(friendly));
-	}
-	await Promise.all(promises);
-	msg += "\n\n" + await askingFighter.getStringDisplay(fightTranslationModule);
-	if (respondingEntity) {
-		msg += "\n" + await respondingFighter.getStringDisplay(fightTranslationModule);
-	}
-	interaction.reply(msg);
+	const fightAskingDescription = await getFightDescription(askingFighter, friendly, respondingEntity, fightTranslationModule, respondingFighter);
+
+	const endCallback = endCallbackFight(
+		entity, respondingEntity, interaction, fightTranslationModule, this
+	);
+
+	const validationEmbed = new DraftBotReactionMessage([
+		new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, validateCallback),
+		new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, refuseCallback)
+	], null, endCallback, FightConstants.SPAM_PROTECTION_MAX_REACTION_AMOUNT, true, FightConstants.ASKING_MENU_DURATION)
+		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)
+		.setDescription(fightAskingDescription) as DraftBotValidateReactionMessage;
+	await validationEmbed.reply(interaction);
 }
 
 export const commandInfo: ICommand = {
