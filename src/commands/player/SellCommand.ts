@@ -44,14 +44,17 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 	if (value !== 0) {
 		choiceItems.push(new ChoiceItem(
 			tr.format("sellField", {
-				name, value, moneyIcon: Constants.REACTIONS.MONEY_ICON
-			}), itemObject));
+				name: itemObject.name,
+				value: value,
+				moneyIcon: Constants.REACTIONS.MONEY_ICON
+			}), itemObject.itemObject));
 	}
 	else {
 		choiceItems.push(new ChoiceItem(
 			tr.format("throwAwayField", {
-				name, throwEmote: Constants.REACTIONS.TRASH
-			}), itemObject));
+				name: itemObject.name,
+				throwEmote: Constants.REACTIONS.TRASH
+			}), itemObject.itemObject));
 	}
 }
 

@@ -22,5 +22,6 @@
 			"hospitalBonus": "🕥 You have moved up {value}",
 			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in `{time}`."
 		}
-	}
+	},
+	"timeBetweenDailies" : 22
 }
