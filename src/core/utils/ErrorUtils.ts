@@ -102,6 +102,13 @@ export const effectsErrorMeTextValue = function(user: User, language: string, en
 	return errorMessageObject;
 };
 
+export function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
+	if (isCancelling) {
+		return interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, language, reason, true)]});
+	}
+	return interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, language, reason, false)], ephemeral: true});
+}
+
 export function sendErrorMessage(user: User, channel: TextBasedChannel, language: string, reason: string, isCancelling = false, interaction: CommandInteraction = null) {
 	if (interaction) {
 		if (isCancelling) {
