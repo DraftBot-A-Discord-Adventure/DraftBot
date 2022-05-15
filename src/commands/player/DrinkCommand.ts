@@ -4,7 +4,6 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Entities, Entity} from "../../core/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Data} from "../../core/Data";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {Tags} from "../../core/models/Tag";
 import Potion from "../../core/models/Potion";
