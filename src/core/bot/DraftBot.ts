@@ -139,7 +139,7 @@ export class DraftBot {
 			await PetEntity.update(
 				{
 					lovePoints: sequelize.literal(
-						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
+						"CASE WHEN lovePoints - 4 < 0 THEN 0 ELSE lovePoints - 4 END"
 					)
 				},
 				{
