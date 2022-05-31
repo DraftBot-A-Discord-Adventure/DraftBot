@@ -1,30 +1,28 @@
 {
 	"translations": {
 		"fr": {
-			"cannotGetElderUser": "Veuillez mentionner un joueur existant. Ex : `guildelder @user#0000`",
-			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"notInTheGuild": "Ce joueur n'appartient pas à votre guilde.",
 			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
 			"chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'aîné.",
+			"alreadyElder": "Le joueur est déjà aîné de votre guilde.",
 			"elderAddTitle": "{pseudo}, confirmez-vous votre choix ?",
 			"elderAdd": ":question: {elder} deviendra l'aîné de la guilde `{guildName}`.",
 			"successElderAddTitle": "{pseudo} est le nouvel aîné de la guilde {guildName} !",
 			"successElderAdd": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande `guildelder`, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec `guildelderremove`.",
-			"elderAddCancelled": "Vous ne serez pas l'aîné de la guilde `{guildName}` !",
-			"guildDestroy": "Vous ne pouvez pas promouvoir un membre de la guilde {guildName} car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
+			"elderAddCancelled": "L'aîné n'a pas été promu.",
+			"problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
 		},
 		"en": {
-			"cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
-			"notInAguild": "You have to be in a guild to use this command.",
 			"notInTheGuild": "This player is not in your guild.",
-			"notChiefError": "You have to be a guild leader to use this command.",
+			"notChiefError": "You must be the guild's chief to use this command.",
 			"chiefError": "Being the chief of the guild, you can't be the elder.",
-			"elderAddTitle": "{pseudo}, do you confirm your choice ?",
+			"alreadyElder": "The player is already an elder of your guild.",
+			"elderAddTitle": "{pseudo}, confirm your choice?",
 			"elderAdd": ":question: {elder} will become the elder of the guild {guildName}.",
-			"successElderAddTitle": "{pseudo} is the new guild elder of {guildName} !",
-			"successElderAdd": "Elder's job is to help the leader manage the guild. Therefore you must select him with caution ! But rest assured if you aren't satisfied of your elder you can replace him with command guildelder, or if you have a dictator soul, you can definitely remove him with guildelderremove.",
-			"elderAddCancelled": "You will not be the guild elder {guildName} !",
-			"guildDestroy": "You can't add an elder to the guild {guildName} because it has been deleted, or you have been kicked of it."
+			"successElderAddTitle": "{pseudo} is the new guild elder of {guildName}!",
+			"successElderAdd": "The elder is responsible for the guild management. He must be chosen with caution! But don't worry, if you are not satisfied with your elder, you can replace him with the command `guildelder`, or if you have an authoritarian spirit, you can remove him with `guildelderremove`.",
+			"elderAddCancelled": "The elder has not been promoted.",
+			"problemWhilePromoting": "A problem occurred while promoting the player."
 		}
 	}
 }
