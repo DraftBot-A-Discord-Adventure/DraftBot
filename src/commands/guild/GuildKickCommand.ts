@@ -1,7 +1,7 @@
 import {Entities, Entity} from "../../core/models/Entity";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Guilds} from "../../core/models/Guild";
+import {Guild, Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -9,7 +9,110 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {Translations} from "../../core/Translations";
+import {TranslationModule, Translations} from "../../core/Translations";
+
+type EntityInformation = { entity: Entity, guild: Guild }
+type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
+
+async function getValidationCallback(entityInformation: EntityInformation, textInformation: TextInformation) {
+	const kickedEntity = await Entities.getByOptions(textInformation.interaction);
+	return async (validateMessage: DraftBotValidateReactionMessage) => {
+		BlockingUtils.unblockPlayer(entityInformation.entity.discordUserId);
+		if (validateMessage.isValidated()) {
+			let kickedGuild;
+			try {
+				kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
+			}
+			catch (error) {
+				kickedGuild = null;
+			}
+
+			if (kickedGuild === null) {
+				// not the same guild
+				sendErrorMessage(
+					textInformation.interaction.user,
+					textInformation.interaction.channel,
+					textInformation.language,
+					textInformation.guildKickModule.get("notInTheGuild")
+				);
+				return;
+			}
+			kickedEntity.Player.guildId = null;
+			if (entityInformation.guild.elderId === kickedEntity.id) {
+				entityInformation.guild.elderId = null;
+			}
+
+			await Promise.all([entityInformation.guild.save(), kickedEntity.save(), kickedEntity.Player.save()]);
+
+			const embed = new DraftBotEmbed();
+			embed.setAuthor(textInformation.guildKickModule.format("successTitle", {
+				kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language),
+				guildName: entityInformation.guild.name
+			}))
+				.setDescription(textInformation.guildKickModule.get("kickSuccess"));
+			await MissionsController.update(kickedEntity.discordUserId, textInformation.interaction.channel, textInformation.language, "guildLevel", 0, null, true);
+			textInformation.interaction.followUp({embeds: [embed]});
+			return;
+		}
+
+		// Cancel the kick
+		sendErrorMessage(
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.language,
+			textInformation.guildKickModule.format("kickCancelled", {kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language)}),
+			true);
+	};
+}
+
+async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity) {
+	if (kickedEntity === null) {
+		// no user provided
+		sendErrorMessage(
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.language,
+			textInformation.guildKickModule.get("cannotGetKickedUser"),
+			false,
+			textInformation.interaction
+		);
+		return true;
+	}
+	let kickedGuild;
+	// search for a user's guild
+	try {
+		kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
+	}
+	catch (error) {
+		kickedGuild = null;
+	}
+
+	if (kickedGuild === null || kickedGuild.id !== entityInformation.guild.id) {
+		// not the same guild
+		sendErrorMessage(
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.language,
+			textInformation.guildKickModule.get("notInTheGuild"),
+			false,
+			textInformation.interaction
+		);
+		return true;
+	}
+
+	if (kickedEntity.id === entityInformation.entity.id) {
+		sendErrorMessage(
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.language,
+			textInformation.guildKickModule.get("excludeHimself"),
+			false,
+			textInformation.interaction
+		);
+		return true;
+	}
+	return false;
+}
 
 /**
  * Allow to kick a member from a guild
@@ -22,105 +125,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const guildKickModule = Translations.getModule("commands.guildKick", language);
-	let kickedEntity = await Entities.getByOptions(interaction);
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (kickedEntity === null) {
-		// no user provided
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildKickModule.get("cannotGetKickedUser"),
-			false,
-			interaction
-		);
-		return;
-	}
-	let kickedGuild;
-	// search for a user's guild
-	try {
-		kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
-	}
-	catch (error) {
-		kickedGuild = null;
-	}
+	const kickedEntity = await Entities.getByOptions(interaction);
 
-	if (kickedGuild === null || kickedGuild.id !== guild.id) {
-		// not the same guild
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildKickModule.get("notInTheGuild"),
-			false,
-			interaction
-		);
+	if (await isNotEligible({entity, guild}, {interaction, guildKickModule, language}, kickedEntity)) {
 		return;
 	}
 
-	if (kickedEntity.id === entity.id) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildKickModule.get("excludeHimself"),
-			false,
-			interaction
-		);
-		return;
-	}
-
-	const endCallback = async (validateMessage: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
-		if (validateMessage.isValidated()) {
-			try {
-				kickedEntity = await Entities.getByOptions(interaction);
-				kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
-			}
-			catch (error) {
-				kickedEntity = null;
-				kickedGuild = null;
-			}
-
-			if (kickedGuild === null || kickedEntity === null) {
-				// not the same guild
-				sendErrorMessage(
-					interaction.user,
-					interaction.channel,
-					language,
-					guildKickModule.get("notInTheGuild")
-				);
-				return;
-			}
-			kickedEntity.Player.guildId = null;
-			if (guild.elderId === kickedEntity.id) {
-				guild.elderId = null;
-			}
-
-			await Promise.all([guild.save(), kickedEntity.save(), kickedEntity.Player.save()]);
-
-			const embed = new DraftBotEmbed();
-			embed.setAuthor(guildKickModule.format("successTitle", {
-				kickedPseudo: await kickedEntity.Player.getPseudo(language),
-				guildName: guild.name
-			}));
-			embed.setDescription(guildKickModule.get("kickSuccess"));
-			await MissionsController.update(kickedEntity.discordUserId, interaction.channel, language, "guildLevel", 0, null, true);
-			interaction.followUp({embeds: [embed]});
-			return;
-		}
-
-		// Cancel the kick
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildKickModule.format("kickCancelled", {kickedPseudo: await kickedEntity.Player.getPseudo(language)}),
-			true);
-	};
 	const validationEmbed = await new DraftBotValidateReactionMessage(
 		interaction.user,
-		endCallback
+		await getValidationCallback({entity, guild}, {interaction, guildKickModule, language})
 	)
 		.formatAuthor(guildKickModule.get("kickTitle"), interaction.user)
 		.setDescription(guildKickModule.format("kick", {
