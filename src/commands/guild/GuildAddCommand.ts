@@ -12,12 +12,12 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 
-type InvitedUserInformations = { invitedUser: User, invitedEntity: Entity };
-type InviterUserInformations = { guild: Guild, entity: Entity };
+type InvitedUserInformation = { invitedUser: User, invitedEntity: Entity };
+type InviterUserInformation = { guild: Guild, entity: Entity };
 
 function getEndCallbackGuildAdd(
-	inviter: InviterUserInformations,
-	invited: InvitedUserInformations,
+	inviter: InviterUserInformation,
+	invited: InvitedUserInformation,
 	interaction: CommandInteraction,
 	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
 	return async (msg: DraftBotValidateReactionMessage) => {
