@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities, Entity} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import Player, {Players} from "../../core/models/Player";
+import {Players} from "../../core/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
@@ -58,7 +58,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const members = await Entities.getByGuild(guild.id);
 
-	const chief = await Player.findOne({where: {id: guild.chiefId}});
+	const chief = (await Entities.getById(guild.chiefId)).Player;
 
 	let membersInfos = "";
 
