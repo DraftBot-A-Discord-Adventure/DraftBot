@@ -13,6 +13,14 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 type PersonInformation = { user: User, entity: Entity };
 
+/**
+ * callback for the reaction collector
+ * @param chief
+ * @param elder
+ * @param guild
+ * @param interaction
+ * @param guildElderModule
+ */
 function getEndCallbackGuildElder(
 	chief: PersonInformation,
 	elder: Entity,
@@ -22,10 +30,8 @@ function getEndCallbackGuildElder(
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(chief.entity.discordUserId);
 		if (msg.isValidated()) {
-			// check if the elder is still in the guild
-			// TODO: MAKE THIS WORK !!!
 			const elderUpdated = await Entities.getById(elder.id);
-			if (elder.Player.guildId === elderUpdated.Player.guildId) {
+			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
 				return sendErrorMessage(
 					chief.user,
 					interaction.channel,
@@ -67,6 +73,56 @@ function getEndCallbackGuildElder(
 }
 
 /**
+ * Check if the elder is eligible
+ * @param elderGuild
+ * @param guild
+ * @param interaction
+ * @param guildElderModule
+ * @param elderEntity
+ */
+function checkElderEligibility(elderGuild: Guild, guild: Guild, interaction: CommandInteraction, guildElderModule: TranslationModule, elderEntity: Entity): boolean {
+	// check if the elder is in the right guild
+	if (elderGuild === null || elderGuild.id !== guild.id) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			guildElderModule.language,
+			guildElderModule.get("notInTheGuild"),
+			false,
+			interaction
+		);
+		return false;
+	}
+
+	// chief cannot be the elder
+	if (guild.chiefId === elderEntity.id) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			guildElderModule.language,
+			guildElderModule.get("chiefError"),
+			false,
+			interaction
+		);
+		return false;
+	}
+
+	// check if the elder is already an elder
+	if (elderGuild.elderId === elderEntity.id) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			guildElderModule.language,
+			guildElderModule.get("alreadyElder"),
+			false,
+			interaction
+		);
+		return false;
+	}
+	return true;
+}
+
+/**
  * Allow to display the promote a user to become an elder
  * @param interaction
  * @param language
@@ -81,49 +137,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const elderGuild = await Guilds.getById(elderEntity.Player.guildId);
 
-	// check if the elder is in the right guild
-	if (elderGuild === null || elderGuild.id !== guild.id) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildElderModule.get("notInTheGuild"),
-			false,
-			interaction
-		);
-
-	}
-
-	// chief cannot be the elder
-	if (guild.chiefId === elderEntity.id) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildElderModule.get("chiefError"),
-			false,
-			interaction
-		);
+	// check if the elder is eligible
+	const eligible: boolean = checkElderEligibility(elderGuild, guild, interaction, guildElderModule, elderEntity);
+	if (!eligible) {
 		return;
 	}
 
-	// check if the elder is already an elder
-	if (elderGuild.elderId === elderEntity.id) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			language,
-			guildElderModule.get("alreadyElder"),
-			false,
-			interaction
-		);
-	}
-	const chiefPersonInformation: PersonInformation = {
-		user: interaction.user,
-		entity: entity
-	};
 	const endCallback = getEndCallbackGuildElder(
-		chiefPersonInformation,
+		{
+			user: interaction.user,
+			entity: entity
+		},
 		elderEntity,
 		guild,
 		interaction,
@@ -131,7 +155,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	);
 
 	const elderAddEmbed = new DraftBotValidateReactionMessage(
-		interaction.user, endCallback).formatAuthor(guildElderModule.get("elderAddTitle"), chiefPersonInformation.user)
+		interaction.user, endCallback).formatAuthor(guildElderModule.get("elderAddTitle"), interaction.user)
 		.setDescription(guildElderModule.format("elderAdd", {
 			elder: escapeUsername(await elderEntity.Player.getPseudo(language)),
 			guildName: guild.name
