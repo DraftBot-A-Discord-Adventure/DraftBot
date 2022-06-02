@@ -12,21 +12,20 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 type PersonInformation = { user: User, entity: Entity };
+type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
 
 /**
  * callback for the reaction collector
  * @param chief
  * @param elder
  * @param guild
- * @param interaction
- * @param guildElderModule
+ * @param textInformation
  */
 function getEndCallbackGuildElder(
 	chief: PersonInformation,
 	elder: Entity,
 	guild: Guild,
-	interaction: CommandInteraction,
-	guildElderModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
+	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => void {
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(chief.entity.discordUserId);
 		if (msg.isValidated()) {
@@ -34,9 +33,9 @@ function getEndCallbackGuildElder(
 			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
 				return sendErrorMessage(
 					chief.user,
-					interaction.channel,
-					guildElderModule.language,
-					guildElderModule.get("problemWhilePromoting"),
+					textInformation.interaction.channel,
+					textInformation.guildElderModule.language,
+					textInformation.guildElderModule.get("problemWhilePromoting"),
 					true
 				);
 			}
@@ -46,17 +45,17 @@ function getEndCallbackGuildElder(
 
 			await guild.save();
 
-			await interaction.followUp({
+			await textInformation.interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setAuthor(
-							guildElderModule.format("successElderAddTitle", {
-								pseudo: escapeUsername(await elder.Player.getPseudo(guildElderModule.language)),
+							textInformation.guildElderModule.format("successElderAddTitle", {
+								pseudo: escapeUsername(await elder.Player.getPseudo(textInformation.guildElderModule.language)),
 								guildName: guild.name
 							}),
 							chief.user.displayAvatarURL()
 						)
-						.setDescription(guildElderModule.get("successElderAdd"))
+						.setDescription(textInformation.guildElderModule.get("successElderAdd"))
 				]
 			});
 			return;
@@ -65,9 +64,9 @@ function getEndCallbackGuildElder(
 		// Cancel the creation
 		return sendErrorMessage(
 			chief.user,
-			interaction.channel,
-			guildElderModule.language,
-			guildElderModule.get("elderAddCancelled"),
+			textInformation.interaction.channel,
+			textInformation.guildElderModule.language,
+			textInformation.guildElderModule.get("elderAddCancelled"),
 			true);
 	};
 }
@@ -76,20 +75,19 @@ function getEndCallbackGuildElder(
  * Check if the elder is eligible
  * @param elderGuild
  * @param guild
- * @param interaction
- * @param guildElderModule
+ * @param textInformation
  * @param elderEntity
  */
-function checkElderEligibility(elderGuild: Guild, guild: Guild, interaction: CommandInteraction, guildElderModule: TranslationModule, elderEntity: Entity): boolean {
+function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderEntity: Entity): boolean {
 	// check if the elder is in the right guild
 	if (elderGuild === null || elderGuild.id !== guild.id) {
 		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			guildElderModule.language,
-			guildElderModule.get("notInTheGuild"),
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.guildElderModule.language,
+			textInformation.guildElderModule.get("notInTheGuild"),
 			false,
-			interaction
+			textInformation.interaction
 		);
 		return false;
 	}
@@ -97,12 +95,12 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, interaction: Com
 	// chief cannot be the elder
 	if (guild.chiefId === elderEntity.id) {
 		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			guildElderModule.language,
-			guildElderModule.get("chiefError"),
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.guildElderModule.language,
+			textInformation.guildElderModule.get("chiefError"),
 			false,
-			interaction
+			textInformation.interaction
 		);
 		return false;
 	}
@@ -110,12 +108,12 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, interaction: Com
 	// check if the elder is already an elder
 	if (elderGuild.elderId === elderEntity.id) {
 		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
-			guildElderModule.language,
-			guildElderModule.get("alreadyElder"),
+			textInformation.interaction.user,
+			textInformation.interaction.channel,
+			textInformation.guildElderModule.language,
+			textInformation.guildElderModule.get("alreadyElder"),
 			false,
-			interaction
+			textInformation.interaction
 		);
 		return false;
 	}
@@ -138,7 +136,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const elderGuild = await Guilds.getById(elderEntity.Player.guildId);
 
 	// check if the elder is eligible
-	const eligible: boolean = checkElderEligibility(elderGuild, guild, interaction, guildElderModule, elderEntity);
+	const eligible: boolean = checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderEntity);
 	if (!eligible) {
 		return;
 	}
@@ -150,8 +148,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		},
 		elderEntity,
 		guild,
-		interaction,
-		guildElderModule
+		{
+			interaction,
+			guildElderModule
+		}
 	);
 
 	const elderAddEmbed = new DraftBotValidateReactionMessage(
