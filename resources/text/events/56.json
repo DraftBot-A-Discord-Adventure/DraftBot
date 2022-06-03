@@ -1,229 +1,233 @@
 {
 	"map_location_ids": [
-		  1
-	  ],
-	"tags": ["meetGruffo"],
+		1
+	],
+	"tags": [
+		"meetGruffo"
+	],
 	"translations": {
-		  "fr": "⚗️ Vous approchez la Plage Sentinelle, l'air frais emplit vos poumons et l'odeur iodée de la mer atteint vos narines. À mesure que vous avancez, le vent marin se renforce et le bruit des mouettes se fait entendre. Le soleil commence cependant à se coucher, vous devez trouver un endroit sûr pour la nuit. Quelques pas de plus vous permettent de discerner une tente plantée en haut d'une dune. En y entrant, un homme s'appelant Gruffo vous explique être un alchimiste à la recherche d'un cobaye pour tester ses nouvelles substances, en échange d'une somme d'argent conséquente.",
-		  "en": "⚗️ You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea wind strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched at the top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a guinea pig to test his new substances, in exchange for a substantial sum of money."
-	  },
-	  "possibilities": {
-		  "❌": {
-			  "translations": {
-				  "fr": "Refuser la proposition de Gruffo",
-				  "en": "Refuse Gruffo's proposal"
-			  },
-			  "issues": [
-				  {
-					  "translations": {
-						  "fr": "Vous préférez refuser poliment l'offre de Gruffo tout en vous demandant comment trouver un endroit sûr où dormir. En voyant votre mine inquiète, Gruffo vous propose de rester dans sa tente le temps que le soleil se lève. Vous acceptez de bon coeur et vous endormez, serein.",
-						  "en": "You prefer to politely decline Gruffo's offer while wondering how to find a safe place to sleep. Seeing your worried face, Gruffo suggests that you stay in his tent while the sun rises. You accept wholeheartedly and fall asleep, serene."
-					  },
-					  "lostTime": 0,
-					  "health": 15,
-					  "effect": ":sleeping:",
-					  "experience": 220,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Vous refusez de servir de cobaye à l'alchimiste. Celui-ci vous propose alors de réaliser votre propre potion et interloqué par cette nouvelle proposition, vous acceptez. Après quelques recherches, vous finissez par réaliser une décoction translucide. Vous hésitez quelques instants avant de boire votre mélange d'un trait. De longues minutes plus tard, vous êtes pris de vertige et d'hallucinations cocasses où vous voyez votre chère princesse. Presque une heure de repos sera nécessaire pour vous permettre de reprendre votre aventure.",
-						  "en": "You refuse to serve as a guinea pig for the alchemist. He then offers you to make your own potion and taken aback by this new proposal, you accept. After some research, you end up making a translucent liquid. You hesitate a few moments before drinking your mixture all at once. Long minutes later, you are seized with dizziness and funny hallucinations where you see your dear princess. Almost an hour of rest will be necessary to allow you to resume your adventure."
-					  },
-					  "lostTime": 0,
-					  "health": 0,
-					  "effect": ":confounded:",
-					  "experience": 10,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Vous refusez catégoriquement la proposition de l'alchimiste. Celui-ci semble déçu, si bien que vous décidez de converser un moment avec lui. Au fil de la discussion, vous lui demandez d'où lui viennent toutes ses connaissances alchimiques et c'est avec une pointe d'amertume qu'il vous donne le nom de ce célèbre ménestrel connu à travers tout le pays : Périssien. Gruffo ne vous répondra pourtant pas quant à la localisation de son maître. Ne voulant pas insister, vous le remerciez pour cette intéressante conversation et décidez de reprendre votre route.",
-						  "en": "You categorically refuse the alchemist's proposal. He seems disappointed, so you decide to have a chat with him for a while. During the discussion, you ask him where all his alchemical knowledge comes from and it is with a touch of bitterness that he gives you the name of this famous minstrel known throughout the all country: Périssien. However, Gruffo will not answer you about the location of his master. Not wanting to insist, you thank him for this interesting conversation and decide to get back on your way."
-					  },
-					  "lostTime": 10,
-					  "health": 0,
-					  "effect": ":clock2:",
-					  "experience": 25,
-					  "money": 0,
-					  "item": false
-				  }
-			  ]
-		  },
-		  "🍸": {
-			  "translations": {
-				  "fr": "Boire une potion au hasard",
-				  "en": "Drink a random potion"
-			  },
-			  "issues": [
-				  {
-					  "translations": {
-						  "fr": "Non sans une pointe d'inquiétude, vous acceptez la proposition de Gruffo. Celui-ci vous tend une fiole de couleur tannée. Pensant à la compensation financière, vous décidez de la boire d'une traite. Immédiatement, une sensation de brûlure envahit votre gorge. Au bout d'une dizaine de minutes, vous balbutiez, voyez trouble. Vous êtes complètement ivre ! Pris de fortes nausées, vous tentez de porter un coup à Gruffo qui l'esquive aisément. Pas rancunier pour un sou, celui-ci vous installe confortablement sur sa paillasse. Vous harpaillez l'alchimiste de charlatan rabougri pendant un moment avant qu'il ne daigne tenir sa part du marché.",
-						  "en": "Not without a hint of concern, you accept Gruffo's proposal. He gives you a tanned colored vial. Thinking of the financial compensation, you decide to drink it all at once. Immediately, a burning sensation invades your throat. At the end of ten minutes, you stammered, see trouble. You are completely drunk! Seized with strong nausea, you try to strike a blow at Gruffo who easily dodges it. No grudge for a penny, this one makes you comfortable on his bench. You harp the stunted charlatan alchemist for a moment before he deigns to hold his end of the march."
-					  },
-					  "lostTime": 0,
-					  "health": 0,
-					  "effect": ":zany_face:",
-					  "experience": 0,
-					  "money": 200,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Vous acceptez avec impulsivité tout en refusant une quelconque somme d'argent de la part de Gruffo. En effet, participer à une potentielle découverte scientifique vous gonfle d'honneur ! L'alchimiste vous tend une minuscule fiole remplie d'un liquide cramoisi. Une seule gorgée est nécessaire pour en vider le contenu, vous sentez alors une agréable chaleur se répandre dans l'ensemble de votre corps. Vous voilà en bien meilleure forme !",
-						  "en": "You accept impulsively while refusing a sum of money from Gruffo. Indeed, participating in a potential scientific discovery swells you with honor! The alchemist hands you a tiny vial filled with a crimson liquid. It takes only one sip to empty the contents, and you will feel a pleasant warmth spreading throughout your body. Here you are in much better shape!"
-					  },
-					  "lostTime": 0,
-					  "health": 10,
-					  "effect": ":smiley:",
-					  "experience": 350,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Alléché par l'appât du gain, vous acceptez avec enthousiasme la proposition de Gruffo. Vous buvez tranquillement le liquide écarlate que vous tend l'alchimiste. Une fois fait, Gruffo vous lance un regard dépité tout en vous justifiant que son breuvage expérimental est à effet immédiat. Tout en vous promettant que vous ne serez pas malade, il vous jette au dehors de sa tente. Un peu amer de ne pas voir l'ombre d'un sou, vous jugez bon de continuer votre périple.",
-						  "en": "Lured by the greed, you enthusiastically accept Gruffo's proposal. You quietly drink the scarlet liquid handed to you by the alchemist. Once done, Gruffo gives you a disappointed look while justifying that his experimental drink is effective immediately. While promising you that you will not be sick, he throws you out of his tent. A little bitter not to see the shadow of a penny, you feel good to continue your journey."
-					  },
-					  "lostTime": 20,
-					  "health": 0,
-					  "effect": ":clock2:",
-					  "experience": 25,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Avec méfiance et appréhension, vous décidez de boire d'une traite le breuvage couleur saphir que Gruffo vous tend. Immédiatement, un froid glacial saisit l'entièreté de votre corps. Alors que vous apostrophez péniblement Gruffo de charlatan racorni, celui-ci vous installe dans un monceau de couvertures chaudes.",
-						  "en": "With suspicion and apprehension, you decide to drink in one go the sapphire-colored beverage that Gruffo hands you. Immediately, a freezing cold grips your entire body. As you painfully apostrophe Gruffo shriveled charlatan, he settles you into a heap of warm blankets."
-					  },
-					  "lostTime": 0,
-					  "health": -20,
-					  "effect": ":cold_face:",
-					  "experience": 0,
-					  "money": 0,
-					  "item": false
-				  }
-			  ]
-		  },
-		  "⚫": {
-			  "translations": {
-				  "fr": "Boire la potion noire",
-				  "en": "Drink the black potion"
-			  },
-			  "issues": [
-				  {
-					  "translations": {
-						  "fr": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une décoction fumante et noirâtre. Après en voir bu quelques gorgées peu ragoûtantes et avoir patienté ce qui vous semble être une éternité, vous êtes soudain pris de vomissements puis de violentes convulsions. Il vous faudra presque quarante minutes pour reprendre vos esprits afin de poursuivre votre aventure.",
-						  "en": "Considering that it's easy money, you serve as a gruffo guinea pig. This gives you a steaming, blackish liquid. After having drunk a few unsavory sips of it and having waited for what seems like an eternity, you suddenly vomit and then have violent convulsions. It will take you almost forty minutes to come back to your minds to continue your adventure."
-					  },
-					  "lostTime": 0,
-					  "health": -70,
-					  "effect": ":confounded:",
-					  "experience": 0,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une fiole contenant un liquide charbonné. Une fois bu, la décoction vous plonge immédiatement dans un profond sommeil. Vous vous réveillez trois heures plus tard, confortablement installé sur une branche d'un cocotier. Au pied de celui-ci, vous découvrez une bourse émaillée remplie d'or !",
-						  "en": "Considering that this is easy money, you agree to serve as Gruffo's guinea pig. He gives you a vial containing carbonated liquid. Once drunk, the liquid immediately plunges you into a deep sleep. You wake up three hours later, comfortably installed on a branch of a coconut tree. At the foot of it, you discover an enamelled purse filled with gold!"
-					  },
-					  "lostTime": 0,
-					  "health": 0,
-					  "effect": ":sleeping:",
-					  "experience": 120,
-					  "money": 400,
-					  "item": false
-				  }
-			  ]
-		  },
-		  "🏖️": {
-			  "translations": {
-				  "fr": "Ignorer l'alchimiste et aller profiter de la plage",
-				  "en": "Ignore the alchemist and go enjoy the beach"
-			  },
-			  "issues": [
-				  {
-					  "translations": {
-						  "fr": "Vous vous approchez de la mer turquoise avec la ferme intention d'y prendre un bain de minuit. Laissant vos affaires au bord de l'eau, vous allez nager quelques brasses avant de revenir sur le sable. Vous constatez avec colère la disparition d'une partie de votre argent ainsi que la tente du charlatan.",
-						  "en": "You approach the turquoise sea with the firm intention of taking a midnight swim. Leaving your belongings at the water's edge, you will swim a few fathoms before returning to the sand. You see with anger the disappearance of a part of your money as well as the tent of the charlatan."
-					  },
-					  "lostTime": 0,
-					  "health": 0,
-					  "effect": ":smiley:",
-					  "experience": 150,
-					  "money": -100,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "Alors que vous vagabondez dans les rochers, vous apercevez une horde de ces petits crustacés célèbres pour leur grande présence sur cette plage. Vous les observez quelques instants avant de prendre le chemin du retour.",
-						  "en": "As you wander among the rocks, you spot a horde of these little crustaceans famous for their great presence on this beach. You observe them for a few moments before heading back."
-					  },
-					  "lostTime": 0,
-					  "health": 0,
-					  "effect": ":smiley:",
-					  "experience": 150,
-					  "money": 0,
-					  "item": false
-				  },
-				  {
-					  "translations": {
-						  "fr": "N'ayant pas encore mangé, vous décidez de tirer profit des ressources de cette plage afin de remplir un peu votre estomac vide. Tandis que vous fouillez sous une pierre à la recherche de crustacés, un grand oiseau prend son envol et vient attraper le bernard l'ermite que vous veniez d'apercevoir. Surpris, vous faites un mouvement de recul, votre pied dérape et vous vous foulez la cheville dans les rochers.",
-						  "en": "Having not eaten yet, you decide to take advantage of the resources of this beach in order to fill your empty stomach a little. As you search under a stone for crustaceans, a large bird takes flight and catches the hermit crab you just spotted. Startled, you take a step back, your foot slips and you thrust your ankle in the rocks."
-					  },
-					  "lostTime": 0,
-					  "health": -3,
-					  "effect": ":smiley:",
-					  "experience": 0,
-					  "money": 0,
-					  "item": false
-				  }
-			  ]
-		  },
-		  "end": {
+		"fr": "⚗️ Vous approchez la Plage Sentinelle, l'air frais emplit vos poumons et l'odeur iodée de la mer atteint vos narines. À mesure que vous avancez, le vent marin se renforce et le bruit des mouettes se fait entendre. Le soleil commence cependant à se coucher, vous devez trouver un endroit sûr pour la nuit. Quelques pas de plus vous permettent de discerner une tente plantée en haut d'une dune. En y entrant, un homme s'appelant Gruffo vous explique être un alchimiste à la recherche d'un cobaye pour tester ses nouvelles substances, en échange d'une somme d'argent conséquente.",
+		"en": "⚗️ You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea wind strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched at the top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a guinea pig to test his new substances, in exchange for a substantial sum of money."
+	},
+	"possibilities": {
+		"❌": {
+			"translations": {
+				"fr": "Refuser la proposition de Gruffo",
+				"en": "Refuse Gruffo's proposal"
+			},
 			"issues": [
-
-			  {
-				  "translations": {
-					  "fr": "💥 Vous finissez par accepter l'offre alléchante de Gruffo. Celui-ci vous demande de patienter un peu, le temps qu'il vous apporte votre décoction. Alors que vous êtes en train d'étudier attentivement un alambic, un coup puissant s'abat sur votre joli crâne.",
-					  "en": "💥 You end up accepting Gruffo's enticing offer. This one asks you to wait a little, the time it brings you your liquid. While you are carefully studying a still, a powerful blow falls on your pretty skull."
-				 },
-				  "lostTime": 0,
-				  "health": 0,
-				  "effect": ":confounded:",
-				  "experience": 10,
-				  "money": 0,
-				  "item": false
-			  },
-			  {
-				  "translations": {
-					  "fr": "😶 Devant votre air inerte, Gruffo s'impatiente et vous jette au dehors de sa tente, non sans vous avoir facturé le temps que vous venez de lui faire perdre. Vous reprenez votre route sans tarder !",
-					  "en": "😶 In front of your inert air, Gruffo gets impatient and throws you out of his tent, making you pay for his wasted time. You get back on your road without any delay !"
-				  },
-				  "lostTime": 0,
-				  "health": 0,
-				  "effect": ":smiley:",
-				  "experience": 150,
-				  "money": -225,
-				  "item": false
-			  },
-			  {
-				  "translations": {
-					  "fr": "🍵 Devant votre incapacité à vous décider, Gruffo n'insiste pas et vous offre une tasse de thé noir. Vous discutez de nombreuses minutes de tout, sauf d'alchimie ! Vous reprenez votre chemin alors que la lune éclaire timidement la plage.",
-					  "en": "🍵 Faced with your inability to make up your mind, Gruffo does not insist and offers you a cup of black tea. You discuss for many minutes everything except alchemy! You resume your way as the moon shyly lights up the beach."
-				  },
-				  "lostTime": 20,
-				  "health": 5,
-				  "effect": ":clock2:",
-				  "experience": 225,
-				  "money": 0,
-				  "item": false
-			  }
-		    ]
-	    }
+				{
+					"translations": {
+						"fr": "Vous préférez refuser poliment l'offre de Gruffo tout en vous demandant comment trouver un endroit sûr où dormir. En voyant votre mine inquiète, Gruffo vous propose de rester dans sa tente le temps que le soleil se lève. Vous acceptez de bon coeur et vous endormez, serein.",
+						"en": "You prefer to politely decline Gruffo's offer while wondering how to find a safe place to sleep. Seeing your worried face, Gruffo suggests that you stay in his tent while the sun rises. You accept wholeheartedly and fall asleep, serene."
+					},
+					"lostTime": 0,
+					"health": 15,
+					"effect": ":sleeping:",
+					"experience": 220,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous refusez de servir de cobaye à l'alchimiste. Celui-ci vous propose alors de réaliser votre propre potion et interloqué par cette nouvelle proposition, vous acceptez. Après quelques recherches, vous finissez par réaliser une décoction translucide. Vous hésitez quelques instants avant de boire votre mélange d'un trait. De longues minutes plus tard, vous êtes pris de vertige et d'hallucinations cocasses où vous voyez votre chère princesse. Presque une heure de repos sera nécessaire pour vous permettre de reprendre votre aventure.",
+						"en": "You refuse to serve as a guinea pig for the alchemist. He then offers you to make your own potion and taken aback by this new proposal, you accept. After some research, you end up making a translucent liquid. You hesitate a few moments before drinking your mixture all at once. Long minutes later, you are seized with dizziness and funny hallucinations where you see your dear princess. Almost an hour of rest will be necessary to allow you to resume your adventure."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":confounded:",
+					"experience": 10,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous refusez catégoriquement la proposition de l'alchimiste. Celui-ci semble déçu, si bien que vous décidez de converser un moment avec lui. Au fil de la discussion, vous lui demandez d'où lui viennent toutes ses connaissances alchimiques et c'est avec une pointe d'amertume qu'il vous donne le nom de ce célèbre ménestrel connu à travers tout le pays : Périssien. Gruffo ne vous répondra pourtant pas quant à la localisation de son maître. Ne voulant pas insister, vous le remerciez pour cette intéressante conversation et décidez de reprendre votre route.",
+						"en": "You categorically refuse the alchemist's proposal. He seems disappointed, so you decide to have a chat with him for a while. During the discussion, you ask him where all his alchemical knowledge comes from and it is with a touch of bitterness that he gives you the name of this famous minstrel known throughout the all country: Périssien. However, Gruffo will not answer you about the location of his master. Not wanting to insist, you thank him for this interesting conversation and decide to get back on your way."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🍸": {
+			"translations": {
+				"fr": "Boire une potion au hasard",
+				"en": "Drink a random potion"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Non sans une pointe d'inquiétude, vous acceptez la proposition de Gruffo. Celui-ci vous tend une fiole de couleur tannée. Pensant à la compensation financière, vous décidez de la boire d'une traite. Immédiatement, une sensation de brûlure envahit votre gorge. Au bout d'une dizaine de minutes, vous balbutiez, voyez trouble. Vous êtes complètement ivre ! Pris de fortes nausées, vous tentez de porter un coup à Gruffo qui l'esquive aisément. Pas rancunier pour un sou, celui-ci vous installe confortablement sur sa paillasse. Vous harpaillez l'alchimiste de charlatan rabougri pendant un moment avant qu'il ne daigne tenir sa part du marché.",
+						"en": "Not without a hint of concern, you accept Gruffo's proposal. He gives you a tanned colored vial. Thinking of the financial compensation, you decide to drink it all at once. Immediately, a burning sensation invades your throat. At the end of ten minutes, you stammered, see trouble. You are completely drunk! Seized with strong nausea, you try to strike a blow at Gruffo who easily dodges it. No grudge for a penny, this one makes you comfortable on his bench. You harp the stunted charlatan alchemist for a moment before he deigns to hold his end of the march."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":zany_face:",
+					"experience": 0,
+					"money": 200,
+					"item": false,
+					"tags": [
+						"drinkAlcohol"
+					]
+				},
+				{
+					"translations": {
+						"fr": "Vous acceptez avec impulsivité tout en refusant une quelconque somme d'argent de la part de Gruffo. En effet, participer à une potentielle découverte scientifique vous gonfle d'honneur ! L'alchimiste vous tend une minuscule fiole remplie d'un liquide cramoisi. Une seule gorgée est nécessaire pour en vider le contenu, vous sentez alors une agréable chaleur se répandre dans l'ensemble de votre corps. Vous voilà en bien meilleure forme !",
+						"en": "You accept impulsively while refusing a sum of money from Gruffo. Indeed, participating in a potential scientific discovery swells you with honor! The alchemist hands you a tiny vial filled with a crimson liquid. It takes only one sip to empty the contents, and you will feel a pleasant warmth spreading throughout your body. Here you are in much better shape!"
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Alléché par l'appât du gain, vous acceptez avec enthousiasme la proposition de Gruffo. Vous buvez tranquillement le liquide écarlate que vous tend l'alchimiste. Une fois fait, Gruffo vous lance un regard dépité tout en vous justifiant que son breuvage expérimental est à effet immédiat. Tout en vous promettant que vous ne serez pas malade, il vous jette au dehors de sa tente. Un peu amer de ne pas voir l'ombre d'un sou, vous jugez bon de continuer votre périple.",
+						"en": "Lured by the greed, you enthusiastically accept Gruffo's proposal. You quietly drink the scarlet liquid handed to you by the alchemist. Once done, Gruffo gives you a disappointed look while justifying that his experimental drink is effective immediately. While promising you that you will not be sick, he throws you out of his tent. A little bitter not to see the shadow of a penny, you feel good to continue your journey."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Avec méfiance et appréhension, vous décidez de boire d'une traite le breuvage couleur saphir que Gruffo vous tend. Immédiatement, un froid glacial saisit l'entièreté de votre corps. Alors que vous apostrophez péniblement Gruffo de charlatan racorni, celui-ci vous installe dans un monceau de couvertures chaudes.",
+						"en": "With suspicion and apprehension, you decide to drink in one go the sapphire-colored beverage that Gruffo hands you. Immediately, a freezing cold grips your entire body. As you painfully apostrophe Gruffo shriveled charlatan, he settles you into a heap of warm blankets."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":cold_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"⚫": {
+			"translations": {
+				"fr": "Boire la potion noire",
+				"en": "Drink the black potion"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une décoction fumante et noirâtre. Après en voir bu quelques gorgées peu ragoûtantes et avoir patienté ce qui vous semble être une éternité, vous êtes soudain pris de vomissements puis de violentes convulsions. Il vous faudra presque quarante minutes pour reprendre vos esprits afin de poursuivre votre aventure.",
+						"en": "Considering that it's easy money, you serve as a gruffo guinea pig. This gives you a steaming, blackish liquid. After having drunk a few unsavory sips of it and having waited for what seems like an eternity, you suddenly vomit and then have violent convulsions. It will take you almost forty minutes to come back to your minds to continue your adventure."
+					},
+					"lostTime": 0,
+					"health": -70,
+					"effect": ":confounded:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une fiole contenant un liquide charbonné. Une fois bu, la décoction vous plonge immédiatement dans un profond sommeil. Vous vous réveillez trois heures plus tard, confortablement installé sur une branche d'un cocotier. Au pied de celui-ci, vous découvrez une bourse émaillée remplie d'or !",
+						"en": "Considering that this is easy money, you agree to serve as Gruffo's guinea pig. He gives you a vial containing carbonated liquid. Once drunk, the liquid immediately plunges you into a deep sleep. You wake up three hours later, comfortably installed on a branch of a coconut tree. At the foot of it, you discover an enamelled purse filled with gold!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sleeping:",
+					"experience": 120,
+					"money": 400,
+					"item": false
+				}
+			]
+		},
+		"🏖️": {
+			"translations": {
+				"fr": "Ignorer l'alchimiste et aller profiter de la plage",
+				"en": "Ignore the alchemist and go enjoy the beach"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous approchez de la mer turquoise avec la ferme intention d'y prendre un bain de minuit. Laissant vos affaires au bord de l'eau, vous allez nager quelques brasses avant de revenir sur le sable. Vous constatez avec colère la disparition d'une partie de votre argent ainsi que la tente du charlatan.",
+						"en": "You approach the turquoise sea with the firm intention of taking a midnight swim. Leaving your belongings at the water's edge, you will swim a few fathoms before returning to the sand. You see with anger the disappearance of a part of your money as well as the tent of the charlatan."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": -100,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Alors que vous vagabondez dans les rochers, vous apercevez une horde de ces petits crustacés célèbres pour leur grande présence sur cette plage. Vous les observez quelques instants avant de prendre le chemin du retour.",
+						"en": "As you wander among the rocks, you spot a horde of these little crustaceans famous for their great presence on this beach. You observe them for a few moments before heading back."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "N'ayant pas encore mangé, vous décidez de tirer profit des ressources de cette plage afin de remplir un peu votre estomac vide. Tandis que vous fouillez sous une pierre à la recherche de crustacés, un grand oiseau prend son envol et vient attraper le bernard l'ermite que vous veniez d'apercevoir. Surpris, vous faites un mouvement de recul, votre pied dérape et vous vous foulez la cheville dans les rochers.",
+						"en": "Having not eaten yet, you decide to take advantage of the resources of this beach in order to fill your empty stomach a little. As you search under a stone for crustaceans, a large bird takes flight and catches the hermit crab you just spotted. Startled, you take a step back, your foot slips and you thrust your ankle in the rocks."
+					},
+					"lostTime": 0,
+					"health": -3,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "💥 Vous finissez par accepter l'offre alléchante de Gruffo. Celui-ci vous demande de patienter un peu, le temps qu'il vous apporte votre décoction. Alors que vous êtes en train d'étudier attentivement un alambic, un coup puissant s'abat sur votre joli crâne.",
+						"en": "💥 You end up accepting Gruffo's enticing offer. This one asks you to wait a little, the time it brings you your liquid. While you are carefully studying a still, a powerful blow falls on your pretty skull."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":confounded:",
+					"experience": 10,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "😶 Devant votre air inerte, Gruffo s'impatiente et vous jette au dehors de sa tente, non sans vous avoir facturé le temps que vous venez de lui faire perdre. Vous reprenez votre route sans tarder !",
+						"en": "😶 In front of your inert air, Gruffo gets impatient and throws you out of his tent, making you pay for his wasted time. You get back on your road without any delay !"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": -225,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "🍵 Devant votre incapacité à vous décider, Gruffo n'insiste pas et vous offre une tasse de thé noir. Vous discutez de nombreuses minutes de tout, sauf d'alchimie ! Vous reprenez votre chemin alors que la lune éclaire timidement la plage.",
+						"en": "🍵 Faced with your inability to make up your mind, Gruffo does not insist and offers you a cup of black tea. You discuss for many minutes everything except alchemy! You resume your way as the moon shyly lights up the beach."
+					},
+					"lostTime": 20,
+					"health": 5,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

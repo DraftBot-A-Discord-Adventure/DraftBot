@@ -91,7 +91,10 @@
 					"effect": ":zany_face:",
 					"experience": 0,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags": [
+						"drinkAlcohol"
+					]
 				}
 			]
 		},
