@@ -4,21 +4,24 @@ export abstract class SpaceConstants {
 		"Hamseroïde",
 		"Starlink",
 		"Hamseroïde",
-		"mindustroide",
-		"thermaride",
+		"Mindustroide",
+		"Thermaride",
 		"Gangstéroïde",
 		"Gédézémauroïde",
 		"81-PUP-377",
 		"666-42-69-16.5",
-		"banaeroid",
+		"Banaeroid",
 		"Rollercosteroïde",
 		"R2D2ledroïde",
-		"gros caillou",
+		"Gros Caillou",
 		"Astranarion",
-		"marsienroïde",
+		"Marsienroïde",
 		"Gédézémauroïde",
 		"Caillou",
-		"Gros Caillou"];
+		"Gros Caillou",
+		"QQ-47-3NU7",
+		"@setéroïde",
+		"Chulxubub"];
 
 	static readonly MINIMUM_DISTANCE: number = 1;
 

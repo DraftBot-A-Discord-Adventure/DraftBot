@@ -105,13 +105,18 @@ export class SpaceUtils {
 				});
 				res.on("end", () => {
 					const parsedAnswer = JSON.parse(data);
-					if (parsedAnswer.near_earth_objects[today]) {
-						// eslint-disable-next-line camelcase
-						parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
+					try {
+						if (parsedAnswer.near_earth_objects[today]) {
+							// eslint-disable-next-line camelcase
+							parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
+						}
+						this.cachedNeoFeedDate = today;
+						this.cachedNeoFeed = parsedAnswer;
+						resolve(parsedAnswer.near_earth_objects);
 					}
-					this.cachedNeoFeedDate = today;
-					this.cachedNeoFeed = parsedAnswer;
-					resolve(parsedAnswer.near_earth_objects);
+					catch (e) {
+						resolve([]);
+					}
 				});
 			});
 		});
