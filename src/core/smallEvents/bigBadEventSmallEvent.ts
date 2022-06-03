@@ -9,6 +9,7 @@ import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
+import {MissionsController} from "../missions/MissionsController";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -35,6 +36,11 @@ export const smallEvent: SmallEvent = {
 				alteEmoji: seFallen.alte
 			}));
 			await Maps.applyEffect(entity.Player, seFallen.alte);
+			if (seFallen.tags) {
+				for (let i = 0; i < seFallen.tags.length; i++) {
+					await MissionsController.update(entity.discordUserId, interaction.channel, language, seFallen.tags[i], 1, {tags: seFallen.tags});
+				}
+			}
 			break;
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
