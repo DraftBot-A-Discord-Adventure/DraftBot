@@ -48,11 +48,17 @@ export class Guild extends Model {
 	public GuildPets: GuildPet[];
 
 
+	/**
+	 * update the lastDailyAt date
+	 */
 	public updateLastDailyAt(): void {
 		const moment = require("moment");
 		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	}
 
+	/**
+	 * get the experience needed to level up
+	 */
 	public getExperienceNeededToLevelUp(): number {
 		return (
 			Math.round(
@@ -92,6 +98,10 @@ export class Guild extends Model {
 
 	}
 
+	/**
+	 * set the guild's experience
+	 * @param experience
+	 */
 	public setExperience(experience: number): void {
 		if (experience > 0) {
 			this.experience = experience;
@@ -101,6 +111,12 @@ export class Guild extends Model {
 		}
 	}
 
+	/**
+	 * add experience to the guild
+	 * @param experience the experience to add
+	 * @param channel the channel where the display will be done
+	 * @param language the language to use to display the message
+	 */
 	public async addExperience(experience: number, channel: TextBasedChannel, language: string) {
 		if (this.isAtMaxLevel()) {
 			return;
@@ -119,10 +135,18 @@ export class Guild extends Model {
 		}
 	}
 
+	/**
+	 * check if the guild need to level up
+	 */
 	public needLevelUp(): boolean {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	}
 
+	/**
+	 * level up the guild if needed
+	 * @param channel the channel where the display will be done
+	 * @param language the language to use to display the message
+	 */
 	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
@@ -151,14 +175,23 @@ export class Guild extends Model {
 		}
 	}
 
+	/**
+	 * get the guild's elder id
+	 */
 	public getElderId(): number {
 		return this.elderId;
 	}
 
+	/**
+	 * get the guild's chief id
+	 */
 	public getChiefId(): number {
 		return this.chiefId;
 	}
 
+	/**
+	 * check if the pet shelter is full
+	 */
 	public isPetShelterFull(): boolean {
 		if (!this.GuildPets) {
 			return true;
@@ -166,14 +199,27 @@ export class Guild extends Model {
 		return this.GuildPets.length >= Data.getModule("models.pets").getNumber("slots");
 	}
 
+	/**
+	 * check if the guild is at max level
+	 */
 	public isAtMaxLevel(): boolean {
 		return this.level >= Constants.GUILD.MAX_LEVEL;
 	}
 
+	/**
+	 * check the states of the guild storage for a given food type
+	 * @param selectedItemType the food type to check
+	 * @param quantity the quantity that need to be available
+	 */
 	public isStorageFullFor(selectedItemType: string, quantity: number): boolean {
 		return this.getDataValue(selectedItemType) + quantity > Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)];
 	}
 
+	/**
+	 * add food to the guild storage
+	 * @param selectedItemType the food type to add
+	 * @param quantity the quantity to add
+	 */
 	public addFood(selectedItemType: string, quantity: number): void {
 		this.setDataValue(selectedItemType, this.getDataValue(selectedItemType) + quantity);
 		if (this.isStorageFullFor(selectedItemType, 0)) {
