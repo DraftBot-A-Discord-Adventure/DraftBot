@@ -38,6 +38,15 @@ function getEndCallbackGuildAdd(
 					guildAddModule.get("guildDestroy")
 				);
 			}
+			if ((await Entities.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
+				sendErrorMessage(
+					interaction.user,
+					interaction.channel,
+					guildAddModule.language,
+					guildAddModule.get("guildFull")
+				);
+				return;
+			}
 			invited.invitedEntity.Player.guildId = inviter.guild.id;
 			inviter.guild.updateLastDailyAt();
 
