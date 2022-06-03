@@ -16,6 +16,7 @@
 			"hospital": ":clock1030: | Les membres de la guilde ont avancé de {timeMoved}h.",
 			"partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
 			"alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+			"alterationNoHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
 			"petFood": ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
 			"pet": "{emote} | Un familier rejoint le refuge de la guilde: **{pet}**",
 			"coolDown": "La récompense de guilde n'est disponible qu'une fois toutes les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Temps avant la prochaine récompense : {time}."

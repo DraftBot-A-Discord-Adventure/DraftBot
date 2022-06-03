@@ -94,7 +94,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 			await Maps.removeEffect(member.Player);
 		}
 	});
-	stringInfos.embed.setDescription(guildDailyModule.format("alterationHeal", {
+	stringInfos.embed.setDescription(guildDailyModule.format(healthWon > 0 ? "alterationHeal" : "alterationNoHeal", {
 		healthWon: healthWon
 	}));
 	// TODO REFACTOR LES LOGS
