@@ -48,7 +48,7 @@ function getEndCallbackGuildAdd(
 				return;
 			}
 			invited.invitedEntity.Player.guildId = inviter.guild.id;
-			inviter.guild.updateLastDailyAt();
+			await inviter.guild.updateLastDailyAt();
 
 			await Promise.all([
 				inviter.guild.save(),

@@ -39,6 +39,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// log("Player " + interaction.user + " asked the map");
 }
 
+/**
+ * Get the map image link with the cursor on the player position
+ * @param player Player
+ */
 async function getStrMapWithCursor(player: Player) {
 	const destMap = await player.getDestination();
 	const depMap = await player.getPreviousMap();
