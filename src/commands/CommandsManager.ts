@@ -433,7 +433,7 @@ export class CommandsManager {
 					new DraftBotErrorEmbed(
 						interaction.user,
 						tr.language,
-						tr.get("blockedContext.cooldown")
+						Translations.getModule("error", tr.language).get("blockedContext.cooldown")
 					)
 				]
 			}).then();

@@ -35,9 +35,7 @@ export const smallEvent: SmallEvent = {
 		interaction.reply({embeds: [seEmbed], fetchReply: true}).then(async (sentMessage) => {
 			const waitTime = SpaceConstants.WAIT_TIME_BEFORE_SEARCH;
 			const t0 = performance.now();
-			if (botConfig.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY)).length < 2) {
-				keysList = keysList.filter(e => e !== "neoWS");
-			}
+			await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
 			const specificEvent = RandomUtils.draftbotRandom.pick(keysList);
 			eval(`${specificEvent}(spaceTranslationModule)`).then((replacements: Record<string, unknown>) => {
 				const specific = format(spaceTranslationModule.getRandom("specific." + specificEvent), replacements);
@@ -67,7 +65,14 @@ export const smallEvent: SmallEvent = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function neoWS(): Promise<Record<string, unknown>> {
-	const neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
+	let neoWSFeed;
+	try {
+		neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
+	}
+	catch (e) {
+		// Si erreur durant récup data api
+		neoWSFeed = [];
+	}
 	// check if the list contains an object
 	if (neoWSFeed.length > 0) {
 		const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed.near_earth_objects);
