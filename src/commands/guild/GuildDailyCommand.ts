@@ -40,19 +40,17 @@ async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDai
 
 /**
  * Rewards the members of the guild and sends the reward embed
- * @param guild
- * @param members
+ * @param guildLike
  * @param language
  * @param interaction
  * @param rewardType
  */
-async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
+async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	const embed: DraftBotEmbed = new DraftBotEmbed()
 		.setTitle(guildDailyModule.format("rewardTitle", {
-			guildName: guild.name
+			guildName: guildLike.guild.name
 		}));
-	const guildLike: GuildLike = {guild, members};
 	const stringInfos: StringInfos = {interaction, embed};
 
 	/*
@@ -63,8 +61,8 @@ async function rewardPlayersOfTheGuild(guild: Guild, members: Entity[], language
 	*/
 	await linkToFunction.get(rewardType)(guildLike, stringInfos, guildDailyModule);
 
-	if (!guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
-		await awardGuildWithNewPet(guild, embed, guildDailyModule, language);
+	if (!guildLike.guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
+		await awardGuildWithNewPet(guildLike.guild, embed, guildDailyModule, language);
 	}
 
 	await interaction.reply({embeds: [embed]});
@@ -92,14 +90,23 @@ async function genericAwardingFunction(members: Entity[], awardingFunctionForAMe
  */
 async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
+	let sumHeal = 0;
+	let noAlteHeal = true;
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.currentEffectFinished()) {
+			const healthBefore = member.health;
 			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
+			sumHeal += member.health - healthBefore;
 		}
 		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
+			noAlteHeal = false;
 			await Maps.removeEffect(member.Player);
 		}
 	});
+	if (sumHeal === 0 && healthWon !== 0 && noAlteHeal) {
+		// Pas de heal donné : don de money
+		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+	}
 	stringInfos.embed.setDescription(guildDailyModule.format(healthWon > 0 ? "alterationHeal" : "alterationNoHeal", {
 		healthWon: healthWon
 	}));
@@ -149,12 +156,11 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
  * @param guildLike
  * @param stringInfos
  * @param guildDailyModule
- * @param fixed
  */
-async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule, fixed = false) {
-	const moneyWon = fixed ? GuildDailyConstants.FIXED_MONEY : RandomUtils.randInt(
+async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
+	const moneyWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
-		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
+		GuildDailyConstants.MAXIMAL_MONEY + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney(member, moneyWon, stringInfos.interaction.channel, guildDailyModule.language));
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
@@ -171,8 +177,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
  */
 async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	if (guildLike.guild.commonFood + GuildDailyConstants.FIXED_PET_FOOD > Constants.GUILD.MAX_COMMON_PET_FOOD) {
-		await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
-		return;
+		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
 	guildLike.guild.commonFood += GuildDailyConstants.FIXED_PET_FOOD;
 	await Promise.all([guildLike.guild.save()]);
@@ -190,11 +195,18 @@ async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, g
  * @param guildDailyModule
  */
 async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
+	let sumHeal = 0;
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.effect !== Constants.EFFECT.DEAD) {
+			const healthBefore = member.health;
 			await member.setHealth(await member.getMaxHealth(), stringInfos.interaction.channel, guildDailyModule.language);
+			sumHeal += member.health - healthBefore;
 		}
 	});
+	if (sumHeal === 0) {
+		// Pas de heal donné : don de money
+		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+	}
 	stringInfos.embed.setDescription(guildDailyModule.get("fullHeal"));
 	// TODO REFACTOR LES LOGS
 	// log("GuildDaily of guild " + guild.name + ": got full heal");
@@ -215,8 +227,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 	});
 	if (membersThatOwnTheBadge === guildLike.members.length) {
 		// everybody already has the badge, give something else instead
-		await healEveryMember(guildLike, stringInfos, guildDailyModule);
-		return;
+		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
 	// TODO REFACTOR LES LOGS
@@ -247,11 +258,19 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
  */
 async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
+	let sumHeal = 0;
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.effect !== Constants.EFFECT.DEAD) {
+			const healthBefore = member.health;
 			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
+			sumHeal += member.health - healthBefore;
 		}
 	});
+
+	if (sumHeal === 0) {
+		// Pas de heal donné : don de money
+		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+	}
 	stringInfos.embed.setDescription(guildDailyModule.format("partialHeal", {
 		healthWon: healthWon
 	}));
@@ -264,15 +283,15 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
  */
 function getMapOfAllRewardCommands() {
 	const linkToFunction = new Map<string,(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>>();
-	linkToFunction.set(Constants.REWARD_TYPES.PERSONAL_XP, awardPersonalXpToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.GUILD_XP, awardGuildXp);
-	linkToFunction.set(Constants.REWARD_TYPES.MONEY, awardMoneyToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.PET_FOOD, awardCommonFood);
-	linkToFunction.set(Constants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
-	linkToFunction.set(Constants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
-	linkToFunction.set(Constants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PERSONAL_XP, awardPersonalXpToMembers);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.GUILD_XP, awardGuildXp);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.MONEY, awardMoneyToMembers);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PET_FOOD, awardCommonFood);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
 	return linkToFunction;
 }
 
@@ -370,7 +389,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const rewardType = forcedReward ?? generateRandomProperty(guild);
 
-	const embed = await rewardPlayersOfTheGuild(guild, members, language, interaction, rewardType);
+	const embed = await rewardPlayersOfTheGuild({guild, members}, language, interaction, rewardType);
 
 	await notifyAndUpdatePlayers(members, interaction, language, guildDailyModule, embed);
 }

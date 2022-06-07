@@ -1,5 +1,17 @@
 export abstract class GuildDailyConstants {
 
+	static readonly REWARD_TYPES = {
+		PERSONAL_XP: "personalXP",
+		GUILD_XP: "guildXP",
+		HOSPITAL: "hospital",
+		MONEY: "money",
+		BADGE: "badge",
+		FULL_HEAL: "fullHeal",
+		PARTIAL_HEAL: "partialHeal",
+		ALTERATION: "alterationHeal",
+		PET_FOOD: "petFood"
+	};
+
 	static readonly MINIMAL_XP = 20;
 
 	static readonly MAXIMAL_XP = 80;
@@ -11,8 +23,6 @@ export abstract class GuildDailyConstants {
 	static readonly MAXIMAL_MONEY = 300;
 
 	static readonly MONEY_MULTIPLIER = 4;
-
-	static readonly FIXED_MONEY = 350;
 
 	static readonly FIXED_PET_FOOD = 5;
 
