@@ -50,9 +50,10 @@ export const smallEvent: SmallEvent = {
 
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.SPECIAL);
-		const multiplier = RandomUtils.randInt(1, 10) === 10 ? 5 : 0.6;
+		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
-		const gender = RandomUtils.randInt(0, 1);
+		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
+		console.log(gender);
 		const translationShop = Translations.getModule("smallEvents.shop", language);
 		const endCallback = callbackShopSmallEvent(entity, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
 		await new DraftBotValidateReactionMessage(
