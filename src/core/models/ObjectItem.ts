@@ -25,7 +25,7 @@ export class ObjectItem extends SupportItemModel {
 				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
-			if (isNaN(maxStatsValue)) {
+			if (isNaN(maxStatsValue ) || !maxStatsValue) {
 				maxStatsValue = Infinity;
 			}
 			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
