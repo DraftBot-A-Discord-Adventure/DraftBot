@@ -53,7 +53,6 @@ export const smallEvent: SmallEvent = {
 		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
-		console.log(gender);
 		const translationShop = Translations.getModule("smallEvents.shop", language);
 		const endCallback = callbackShopSmallEvent(entity, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
 		await new DraftBotValidateReactionMessage(
