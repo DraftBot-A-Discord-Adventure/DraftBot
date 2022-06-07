@@ -5,7 +5,7 @@ import {CommandsManager} from "../../../CommandsManager";
 import {GuildDailyConstants} from "../../../../core/constants/GuildDailyConstants";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
-Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
+Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += `\n - ${v[1]}`); // eslint-disable-line no-return-assign
 module.exports.commandInfo = {
 	name: "guildreward",
 	aliases: ["greward"],
