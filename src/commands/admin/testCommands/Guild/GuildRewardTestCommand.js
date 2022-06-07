@@ -2,10 +2,10 @@ import {Entities} from "../../../../core/models/Entity";
 import Guild from "../../../../core/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandsManager} from "../../../CommandsManager";
-import {Constants} from "../../../../core/Constants";
+import {GuildDailyConstants} from "../../../../core/constants/GuildDailyConstants";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
-Object.entries(Constants.REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
+Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
 module.exports.commandInfo = {
 	name: "guildreward",
 	aliases: ["greward"],
@@ -33,9 +33,7 @@ const guildRewardTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur greward : vous n'êtes pas dans une guilde !");
 	}
 
-	const rewardValues = Object.keys(Constants.REWARD_TYPES).map(function(key) {
-		return Constants.REWARD_TYPES[key];
-	});
+	const rewardValues = Object.values(GuildDailyConstants.REWARD_TYPES);
 	if (!rewardValues.includes(args[0])) {
 		throw new Error("Erreur greward : reward donné n'existe pas. Veuillez vous référer à la commande \"test help greward\" pour plus d'informations");
 	}
