@@ -3,7 +3,7 @@ import Entity, {Entities} from "../../core/models/Entity";
 import {Guild, Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -25,6 +25,7 @@ type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: 
  * @param sellerInformations
  */
 async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
+	// TODO : Check si la guilde est lvl 100 -> annuler la commande car pas de feature
 	if (!sellerInformations.pet) {
 		await sendErrorMessage(
 			textInformations.interaction.user,
@@ -63,6 +64,19 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
 		);
 		return true;
 	}
+
+	if (sellerInformations.guild.isAtMaxLevel()) {
+		await sendErrorMessage(
+			textInformations.interaction.user,
+			textInformations.interaction.channel,
+			textInformations.petSellModule.language,
+			textInformations.petSellModule.get("guildAtMaxLevel"),
+			false,
+			textInformations.interaction
+		);
+		return true;
+	}
+
 	return false;
 }
 
@@ -173,6 +187,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
  * @param buyerInformations
  */
 async function petSell(textInformations: TextInformations, sellerInformations: SellerInformations, buyerInformations: BuyerInformations) {
+	BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(textInformations.petSellModule.get("confirmEmbed.author"), buyerInformations.user)
 		.setDescription(
@@ -198,6 +213,7 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 	});
 
 	BlockingUtils.blockPlayerWithCollector(buyerInformations.buyer.discordUserId, "petSellConfirm", confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(sellerInformations.entity.discordUserId, "petSellConfirm", confirmCollector);
 	confirmCollector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
 			confirmCollector.stop();
@@ -214,6 +230,7 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 			await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
 		}
 		BlockingUtils.unblockPlayer(buyerInformations.buyer.discordUserId);
+		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 	});
 	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
 }
@@ -236,7 +253,8 @@ async function manageAcceptReaction(buyerInformations: BuyerInformations, seller
 		return true;
 	}
 	buyerInformations.buyer = await Entities.getByDiscordUserId(buyerInformations.user.id);
-	if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY) {
+	if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
+		await sendBlockedError(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language)) {
 		buyerInformations.buyer = null;
 		return false;
 	}
@@ -312,12 +330,13 @@ function manageCollectedAnswers(collector: ReactionCollector, sellerInformations
 	const buyer: Entity = null;
 	collector.on("collect", async (reaction: MessageReaction, user: User) => {
 		const buyerInformations: BuyerInformations = {user, buyer};
+		collectorManagement.reaction = reaction;
 		await checkReactionBroadcastCollector(buyerInformations, sellerInformations, textInformations, collectorManagement);
 	});
 
 	collector.on("end", async function() {
-		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 		if (!collectorManagement.gotAnAnswer && buyer === null) {
+			BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 			await sendErrorMessage(
 				textInformations.interaction.user,
 				textInformations.interaction.channel,
