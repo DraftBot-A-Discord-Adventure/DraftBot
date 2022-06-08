@@ -17,16 +17,15 @@ import {RandomUtils} from "../../core/utils/RandomUtils";
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
 type BuyerInformations = { buyer: Entity, user: User };
-type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: string[] }
+type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: string[], collector: ReactionCollector, reaction: MessageReaction }
 
 /**
  * Check if the requirements for selling the pet are fullfiled
  * @param textInformations
- * @param pet
- * @param petCost
+ * @param sellerInformations
  */
-async function missingRequirementsToSellPet(textInformations: TextInformations, pet: PetEntity, petCost: number) {
-	if (!pet) {
+async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
+	if (!sellerInformations.pet) {
 		await sendErrorMessage(
 			textInformations.interaction.user,
 			textInformations.interaction.channel,
@@ -38,7 +37,7 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
 		return true;
 	}
 
-	if (pet.isFeisty()) {
+	if (sellerInformations.pet.isFeisty()) {
 		await sendErrorMessage(
 			textInformations.interaction.user,
 			textInformations.interaction.channel,
@@ -50,7 +49,7 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
 		return true;
 	}
 
-	if (petCost < PetSellConstants.SELL_PRICE_MIN || petCost > PetSellConstants.SELL_PRICE_MAX) {
+	if (sellerInformations.petCost < PetSellConstants.SELL_PRICE_MIN || sellerInformations.petCost > PetSellConstants.SELL_PRICE_MAX) {
 		await sendErrorMessage(
 			textInformations.interaction.user,
 			textInformations.interaction.channel,
@@ -70,11 +69,9 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
 /**
  * Send a broadcast sell request and returns the message
  * @param textInformations
- * @param petCost
- * @param guild
- * @param pet
+ * @param sellerInformations
  */
-async function broadcastSellRequest(textInformations: TextInformations, petCost: number, guild: Guild, pet: PetEntity) {
+async function broadcastSellRequest(textInformations: TextInformations, sellerInformations: SellerInformations) {
 	return await textInformations.interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
@@ -82,16 +79,16 @@ async function broadcastSellRequest(textInformations: TextInformations, petCost:
 				.setDescription(
 					textInformations.petSellModule.format("sellMessage.description", {
 						author: escapeUsername(textInformations.interaction.user.username),
-						price: petCost,
-						guildMaxLevel: guild.isAtMaxLevel()
+						price: sellerInformations.petCost,
+						guildMaxLevel: sellerInformations.guild.isAtMaxLevel()
 					})
 				)
 				.addFields([{
 					name: textInformations.petSellModule.get("petFieldName"),
 					value: Translations.getModule("commands.profile", textInformations.petSellModule.language).format("pet.fieldValue", {
-						rarity: pet.PetModel.getRarityDisplay(),
-						emote: pet.getPetEmote(),
-						nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(textInformations.petSellModule.language)
+						rarity: sellerInformations.pet.PetModel.getRarityDisplay(),
+						emote: sellerInformations.pet.getPetEmote(),
+						nickname: sellerInformations.pet.nickname ? sellerInformations.pet.nickname : sellerInformations.pet.getPetTypeName(textInformations.petSellModule.language)
 					}),
 					inline: false
 				}])
@@ -268,46 +265,65 @@ async function manageDenyReaction(buyerInformations: BuyerInformations, sellerIn
 }
 
 /**
+ * Check the collected reaction from the broadcast request
+ * @param buyerInformations
+ * @param sellerInformations
+ * @param textInformations
+ * @param collectorManagement
+ */
+async function checkReactionBroadcastCollector(
+	buyerInformations: BuyerInformations,
+	sellerInformations: SellerInformations,
+	textInformations: TextInformations,
+	collectorManagement: CollectorManagement) {
+	switch (collectorManagement.reaction.emoji.name) {
+	case Constants.MENU_REACTION.ACCEPT:
+		if (!await manageAcceptReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
+			return;
+		}
+		collectorManagement.gotAnAnswer = true;
+		break;
+	case Constants.MENU_REACTION.DENY:
+		if (!await manageDenyReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
+			return;
+		}
+		collectorManagement.gotAnAnswer = true;
+		break;
+	default:
+		return;
+	}
+	collectorManagement.collector.stop();
+}
+
+/**
  * Manage the answers to the broadcasted request
  * @param collector
  * @param sellerInformations
  * @param textInformations
  */
 function manageCollectedAnswers(collector: ReactionCollector, sellerInformations: SellerInformations, textInformations: TextInformations) {
-	const collectorManagement: CollectorManagement = {spamCount: 0, spammers: [], gotAnAnswer: false};
+	const collectorManagement: CollectorManagement = {
+		spamCount: 0,
+		spammers: [],
+		gotAnAnswer: false,
+		collector: collector,
+		reaction: null
+	};
 	const buyer: Entity = null;
 	collector.on("collect", async (reaction: MessageReaction, user: User) => {
 		const buyerInformations: BuyerInformations = {user, buyer};
-		switch (reaction.emoji.name) {
-		case Constants.MENU_REACTION.ACCEPT:
-			if (!await manageAcceptReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
-				return;
-			}
-			collectorManagement.gotAnAnswer = true;
-			break;
-		case Constants.MENU_REACTION.DENY:
-			if (!await manageDenyReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
-				return;
-			}
-			collectorManagement.gotAnAnswer = true;
-			break;
-		default:
-			return;
-		}
-		collector.stop();
+		await checkReactionBroadcastCollector(buyerInformations, sellerInformations, textInformations, collectorManagement);
 	});
 
 	collector.on("end", async function() {
 		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
-		if (!collectorManagement.gotAnAnswer) {
-			if (buyer === null) {
-				await sendErrorMessage(
-					textInformations.interaction.user,
-					textInformations.interaction.channel,
-					textInformations.petSellModule.language,
-					textInformations.petSellModule.get("errors.noOneAvailable")
-				);
-			}
+		if (!collectorManagement.gotAnAnswer && buyer === null) {
+			await sendErrorMessage(
+				textInformations.interaction.user,
+				textInformations.interaction.channel,
+				textInformations.petSellModule.language,
+				textInformations.petSellModule.get("errors.noOneAvailable")
+			);
 		}
 	});
 }
@@ -347,19 +363,20 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const textInformations = {interaction, petSellModule};
+	const sellerInformations = {entity, pet, guild, petCost};
 
-	if (await missingRequirementsToSellPet(textInformations, pet, petCost)) {
+	if (await missingRequirementsToSellPet(textInformations, sellerInformations)) {
 		return;
 	}
 
-	const sellMessage = await broadcastSellRequest(textInformations, petCost, guild, pet);
+	const sellMessage = await broadcastSellRequest(textInformations, sellerInformations);
 
 	const collector = sellMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => !user.bot,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petSell", collector);
-	manageCollectedAnswers(collector, {entity, pet, guild, petCost}, textInformations);
+	manageCollectedAnswers(collector, sellerInformations, textInformations);
 	await Promise.all([sellMessage.react(Constants.MENU_REACTION.ACCEPT), sellMessage.react(Constants.MENU_REACTION.DENY)]);
 }
 
