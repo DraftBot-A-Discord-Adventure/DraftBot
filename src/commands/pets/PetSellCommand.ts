@@ -128,8 +128,8 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("noMoney"));
 		return;
 	}
-	const MIN_XP = Math.floor(sellerInformations.petCost / (1000 / 50));
-	const MAX_XP = Math.floor(sellerInformations.petCost / (1000 / 450));
+	const MIN_XP = Math.floor(sellerInformations.petCost / PetSellConstants.MIN_XP_DIVIDER);
+	const MAX_XP = Math.floor(sellerInformations.petCost / PetSellConstants.MAX_XP_DIVIDER);
 	const toAdd = Math.floor(RandomUtils.randInt(MIN_XP, MAX_XP + 1));
 	await sellerInformations.guild.addExperience(toAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
 
@@ -231,7 +231,7 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 async function manageAcceptReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
 	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
 		collectorManagement.spamCount++;
-		if (collectorManagement.spamCount < 3) {
+		if (collectorManagement.spamCount < PetSellConstants.MAX_SPAM_COUNT_SELLER) {
 			await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.canSellYourself"));
 			return false;
 		}
