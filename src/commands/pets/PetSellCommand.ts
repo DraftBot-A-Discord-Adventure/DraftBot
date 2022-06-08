@@ -15,8 +15,9 @@ import PetEntity from "../../core/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
-type SellerInformations = { entity: Entity, pet: PetEntity };
+type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
 type BuyerInformations = { buyer: Entity, user: User };
+type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: string[] }
 
 /**
  * Check if the requirements for selling the pet are fullfiled
@@ -103,12 +104,10 @@ async function broadcastSellRequest(textInformations: TextInformations, petCost:
 /**
  * Does the action of selling the pet from the seller to the buyer
  * @param buyerInformations
- * @param guild
- * @param textInformations
- * @param petCost
  * @param sellerInformations
+ * @param textInformations
  */
-async function executeTheTransaction(buyerInformations: BuyerInformations, guild: Guild, textInformations: TextInformations, petCost: number, sellerInformations: SellerInformations) {
+async function executeTheTransaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations) {
 	let buyerGuild;
 	try {
 		buyerGuild = await Guilds.getById(buyerInformations.buyer.Player.guildId);
@@ -116,7 +115,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, guild
 	catch (error) {
 		buyerGuild = null;
 	}
-	if (buyerGuild && buyerGuild.id === guild.id) {
+	if (buyerGuild && buyerGuild.id === sellerInformations.guild.id) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sameGuild"));
 		return;
 	}
@@ -125,29 +124,29 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, guild
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("havePet"));
 		return;
 	}
-	if (petCost > buyerInformations.buyer.Player.money) {
+	if (sellerInformations.petCost > buyerInformations.buyer.Player.money) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("noMoney"));
 		return;
 	}
-	const MIN_XP = Math.floor(petCost / (1000 / 50));
-	const MAX_XP = Math.floor(petCost / (1000 / 450));
+	const MIN_XP = Math.floor(sellerInformations.petCost / (1000 / 50));
+	const MAX_XP = Math.floor(sellerInformations.petCost / (1000 / 450));
 	const toAdd = Math.floor(RandomUtils.randInt(MIN_XP, MAX_XP + 1));
-	await guild.addExperience(toAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
+	await sellerInformations.guild.addExperience(toAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
 
-	await guild.save();
+	await sellerInformations.guild.save();
 	buyerInformations.buyer.Player.petId = sellerInformations.pet.id;
-	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -petCost, textInformations.interaction.channel, textInformations.petSellModule.language);
+	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -sellerInformations.petCost, textInformations.interaction.channel, textInformations.petSellModule.language);
 	await buyerInformations.buyer.Player.save();
 	sellerInformations.entity.Player.petId = null;
 	await sellerInformations.entity.Player.save();
 	sellerInformations.pet.lovePoints = Constants.PETS.BASE_LOVE;
 	await sellerInformations.pet.save();
-	if (!guild.isAtMaxLevel()) {
+	if (!sellerInformations.guild.isAtMaxLevel()) {
 		const guildXpEmbed = new DraftBotEmbed();
 		const gdModule = Translations.getModule("commands.guildDaily", textInformations.petSellModule.language);
 		guildXpEmbed.setTitle(
 			gdModule.format("rewardTitle", {
-				guildName: guild.name
+				guildName: sellerInformations.guild.name
 			})
 		);
 		guildXpEmbed.setDescription(
@@ -175,17 +174,15 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, guild
  * @param textInformations
  * @param sellerInformations
  * @param buyerInformations
- * @param petCost
  */
-async function petSell(textInformations: TextInformations, sellerInformations: SellerInformations, buyerInformations: BuyerInformations, petCost: number) {
-	const guild = await Guilds.getById(sellerInformations.entity.Player.guildId);
+async function petSell(textInformations: TextInformations, sellerInformations: SellerInformations, buyerInformations: BuyerInformations) {
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(textInformations.petSellModule.get("confirmEmbed.author"), buyerInformations.user)
 		.setDescription(
 			textInformations.petSellModule.format("confirmEmbed.description", {
 				emote: sellerInformations.pet.getPetEmote(),
 				pet: sellerInformations.pet.nickname ? sellerInformations.pet.nickname : sellerInformations.pet.getPetTypeName(textInformations.petSellModule.language),
-				price: petCost
+				price: sellerInformations.petCost
 			})
 		);
 
@@ -212,7 +209,7 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 		}
 		if (reaction.emoji.name === Constants.MENU_REACTION.ACCEPT) {
 			confirmCollector.stop();
-			await executeTheTransaction(buyerInformations, guild, textInformations, petCost, sellerInformations);
+			await executeTheTransaction(buyerInformations, sellerInformations, textInformations);
 		}
 	});
 	confirmCollector.on("end", async (reaction) => {
@@ -225,50 +222,74 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 }
 
 /**
+ * Manage the acceptation of the broadcast request
+ * @param buyerInformations
+ * @param sellerInformations
+ * @param textInformations
+ * @param collectorManagement
+ */
+async function manageAcceptReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
+	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
+		collectorManagement.spamCount++;
+		if (collectorManagement.spamCount < 3) {
+			await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.canSellYourself"));
+			return false;
+		}
+		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.spam"));
+		return true;
+	}
+	buyerInformations.buyer = await Entities.getByDiscordUserId(buyerInformations.user.id);
+	if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY) {
+		buyerInformations.buyer = null;
+		return false;
+	}
+	await petSell(textInformations, sellerInformations, buyerInformations);
+	return true;
+}
+
+/**
+ * Manage the denial reaction of the broadcast request
+ * @param buyerInformations
+ * @param sellerInformations
+ * @param textInformations
+ * @param collectorManagement
+ */
+async function manageDenyReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
+	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
+		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
+		return true;
+	}
+	if (collectorManagement.spammers.includes(buyerInformations.user.id)) {
+		return false;
+	}
+	collectorManagement.spammers.push(buyerInformations.user.id);
+	await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.onlyInitiator"));
+	return false;
+}
+
+/**
  * Manage the answers to the broadcasted request
  * @param collector
  * @param sellerInformations
  * @param textInformations
- * @param petCost
  */
-function manageCollectedAnswers(collector: ReactionCollector, sellerInformations: SellerInformations, textInformations: TextInformations, petCost: number) {
-	let spamCount = 0;
-	const spammers: string[] = [];
-	let buyer: Entity = null;
-	let gotAnAnswer = false;
+function manageCollectedAnswers(collector: ReactionCollector, sellerInformations: SellerInformations, textInformations: TextInformations) {
+	const collectorManagement: CollectorManagement = {spamCount: 0, spammers: [], gotAnAnswer: false};
+	const buyer: Entity = null;
 	collector.on("collect", async (reaction: MessageReaction, user: User) => {
+		const buyerInformations: BuyerInformations = {user, buyer};
 		switch (reaction.emoji.name) {
 		case Constants.MENU_REACTION.ACCEPT:
-			if (user.id === sellerInformations.entity.discordUserId) {
-				spamCount++;
-				if (spamCount < 3) {
-					await sendErrorMessage(user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.canSellYourself"));
-					return;
-				}
-				await sendErrorMessage(user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.spam"));
-				gotAnAnswer = true;
-				break;
-			}
-			buyer = await Entities.getByDiscordUserId(user.id);
-			if (buyer.Player.effect === Constants.EFFECT.BABY) {
-				buyer = null;
+			if (!await manageAcceptReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
 				return;
 			}
-			await petSell(textInformations, sellerInformations, {user, buyer}, petCost);
+			collectorManagement.gotAnAnswer = true;
 			break;
 		case Constants.MENU_REACTION.DENY:
-			if (user.id === sellerInformations.entity.discordUserId) {
-				await sendErrorMessage(user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
-			}
-			else {
-				if (spammers.includes(user.id)) {
-					return;
-				}
-				spammers.push(user.id);
-				await sendErrorMessage(user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.onlyInitiator"));
+			if (!await manageDenyReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
 				return;
 			}
-			gotAnAnswer = true;
+			collectorManagement.gotAnAnswer = true;
 			break;
 		default:
 			return;
@@ -278,7 +299,7 @@ function manageCollectedAnswers(collector: ReactionCollector, sellerInformations
 
 	collector.on("end", async function() {
 		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
-		if (!gotAnAnswer) {
+		if (!collectorManagement.gotAnAnswer) {
 			if (buyer === null) {
 				await sendErrorMessage(
 					textInformations.interaction.user,
@@ -338,7 +359,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petSell", collector);
-	manageCollectedAnswers(collector, {entity, pet}, textInformations, petCost);
+	manageCollectedAnswers(collector, {entity, pet, guild, petCost}, textInformations);
 	await Promise.all([sellMessage.react(Constants.MENU_REACTION.ACCEPT), sellMessage.react(Constants.MENU_REACTION.DENY)]);
 }
 
