@@ -236,7 +236,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 	});
 
 	collector.on("end", async (collected) => {
-		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length - 1)];
+		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
 		await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
