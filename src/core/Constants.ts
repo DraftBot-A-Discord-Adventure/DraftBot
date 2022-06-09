@@ -263,9 +263,24 @@ export abstract class Constants {
 			":confounded:": "😖",
 			":scream:": "😱"
 		},
+		ERROR_TEXT: {
+			":baby:": "Baby",
+			":smiley:": "Fine",
+			":skull:": "Dead",
+			":sleeping:": "Sleeping",
+			":zany_face:": "Drunk",
+			":cold_face:": "Frozen",
+			":head_bandage:": "Hurt",
+			":sick:": "Sick",
+			":lock:": "Locked",
+			":dizzy_face:": "Injured",
+			":clock2:": "Occupied",
+			":drooling_face:": "Starving",
+			":confounded:": "Confounded",
+			":scream:": "Scared"
+		},
 		BABY: ":baby:",
 		SMILEY: ":smiley:",
-		AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
 		DEAD: ":skull:",
 		SLEEPING: ":sleeping:",
 		DRUNK: ":zany_face:",

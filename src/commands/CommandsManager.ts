@@ -8,7 +8,6 @@ import {
 	GuildMember,
 	GuildResolvable,
 	Message,
-	TextBasedChannel,
 	User
 } from "discord.js";
 
@@ -30,12 +29,99 @@ import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
+import {effectsErrorMeTextValue} from "../core/utils/ErrorUtils";
 
-declare const effectsErrorMe: (user: User, channel: TextBasedChannel, language: string, entity: Entity, effect: string) => Promise<void>;
 declare const canPerformCommand: (member: GuildMember, interaction: CommandInteraction, language: string, permission: string) => Promise<boolean>;
+
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
+
+	static async effectErrorMe(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
+		const entity = await Entities.getByDiscordUserId(user.id);
+		const textValues = await effectsErrorMeTextValue(interaction.user, tr.language, entity);
+		const embed = new DraftBotEmbed().setErrorColor()
+			.formatAuthor(textValues.title, user)
+			.setDescription(textValues.description);
+		shouldReply ? await interaction.reply({embeds: [embed], ephemeral: true})
+			: await interaction.channel.send({embeds: [embed]});
+	}
+
+	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, interaction: CommandInteraction, tr: TranslationModule, shouldReply = false) {
+		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
+		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
+			interaction.reply({
+				embeds: [new DraftBotErrorEmbed(
+					user,
+					tr.language,
+					Translations.getModule("error", tr.language).format("levelTooLow", {
+						level: commandInfo.requirements.requiredLevel
+					})
+				)]
+			}).then();
+			return false;
+		}
+
+		if (commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
+			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).then();
+			return false;
+		}
+
+		if (commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
+			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).then();
+			return false;
+		}
+
+		if (await canPerformCommand(interaction.member as GuildMember, interaction, tr.language, commandInfo.requirements.userPermission) !== true) {
+			return false;
+		}
+
+		if (commandInfo.requirements.guildRequired) {
+			let guild;
+
+			try {
+				guild = await Guilds.getById(entity.Player.guildId);
+			}
+			catch (error) {
+				guild = null;
+			}
+
+			if (guild === null) {
+				// not in a guild
+				interaction.reply({
+					embeds: [new DraftBotErrorEmbed(
+						interaction.user,
+						tr.language,
+						tr.get("notInAGuild")
+					)]
+				}).then();
+				return false;
+			}
+
+			let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
+
+			if (entity.id === guild.getElderId()) {
+				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
+			}
+			if (entity.id === guild.getChiefId()) {
+				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
+			}
+
+			if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
+				interaction.reply({
+					embeds: [
+						new DraftBotErrorEmbed(
+							user,
+							tr.language,
+							tr.get("notAuthorizedError")
+						)
+					]
+				}).then();
+				return false;
+			}
+		}
+		return true;
+	}
 
 	static async register(client: Client): Promise<void> {
 		const categories = await readdir("dist/src/commands");
@@ -355,76 +441,8 @@ export class CommandsManager {
 		}
 
 		const [entity] = await Entities.getOrRegister(interaction.user.id);
-		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
-			interaction.reply({
-				embeds: [new DraftBotErrorEmbed(
-					interaction.user,
-					tr.language,
-					Translations.getModule("error", tr.language).format("levelTooLow", {
-						level: commandInfo.requirements.requiredLevel
-					})
-				)]
-			}).then();
+		if (!await this.userCanPerformCommand(commandInfo, entity, interaction, tr, true)) {
 			return;
-		}
-
-		if (commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
-			effectsErrorMe(interaction.user, interaction.channel, tr.language, entity, entity.Player.effect).then();
-			return;
-		}
-
-		if (commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
-			effectsErrorMe(interaction.user, interaction.channel, tr.language, entity, entity.Player.effect).then();
-			return;
-		}
-
-		if (await canPerformCommand(interaction.member as GuildMember, interaction, tr.language, commandInfo.requirements.userPermission) !== true) {
-			return;
-		}
-
-		if (commandInfo.requirements.guildRequired) {
-			let guild;
-
-			try {
-				guild = await Guilds.getById(entity.Player.guildId);
-			}
-			catch (error) {
-				guild = null;
-			}
-
-			if (guild === null) {
-				// not in a guild
-				interaction.reply({
-					embeds: [new DraftBotErrorEmbed(
-						interaction.user,
-						tr.language,
-						tr.get("notInAGuild")
-					)]
-				}).then();
-				return;
-			}
-
-			let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
-
-			if (entity.id === guild.getElderId()) {
-				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
-			}
-			if (entity.id === guild.getChiefId()) {
-				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
-			}
-
-			if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
-				interaction.reply({
-					embeds: [
-						new DraftBotErrorEmbed(
-							interaction.user,
-							tr.language,
-							tr.get("notAuthorizedError")
-						)
-					]
-				}).then();
-				return;
-			}
 		}
 
 		if (await BlockingUtils.isPlayerSpamming(interaction.user.id)) {

@@ -145,7 +145,7 @@ const sendTravelPath = async function(entity: Entity, interaction: CommandIntera
 	travelEmbed.addField(tr.get("startPoint"), (await entity.Player.getPreviousMap()).getDisplayName(language), true);
 	travelEmbed.addField(tr.get("endPoint"), (await entity.Player.getDestination()).getDisplayName(language), true);
 	if (effect !== null) {
-		const errorMessageObject = effectsErrorMeTextValue(interaction.user, language, entity, effect);
+		const errorMessageObject = await effectsErrorMeTextValue(interaction.user, language, entity);
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
 	else {
