@@ -25,7 +25,6 @@ type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: 
  * @param sellerInformations
  */
 async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
-	// TODO : Check si la guilde est lvl 100 -> annuler la commande car pas de feature
 	if (!sellerInformations.pet) {
 		await sendErrorMessage(
 			textInformations.interaction.user,
@@ -250,6 +249,7 @@ async function manageAcceptReaction(buyerInformations: BuyerInformations, seller
 			return false;
 		}
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.spam"));
+		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 		return true;
 	}
 	buyerInformations.buyer = await Entities.getByDiscordUserId(buyerInformations.user.id);
@@ -272,6 +272,7 @@ async function manageAcceptReaction(buyerInformations: BuyerInformations, seller
 async function manageDenyReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
 	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
+		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
 		return true;
 	}
 	if (collectorManagement.spammers.includes(buyerInformations.user.id)) {

@@ -27,7 +27,7 @@
 				"onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
 				"noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
 			},
-			"guildAtMaxLevel": "Votre guilde est au niveau maximal, vous ne pouvez pas vendre de familier dû à un manque de fonctionnalité, veuillez nous excusez pour la gêne occasionnée."
+			"guildAtMaxLevel": "Votre guilde est niveau 100 et ne peut donc pas recevoir d'XP de guilde. Nous vous invitons à échanger des familiers en utilisant la commande `pettrade`."
 		},
 		"en": {
 			"sameGuild": "You can't buy this pet, because the seller is part of your guild.",
@@ -56,7 +56,7 @@
 				"onlyInitiator": "Only the initiator of the sale can cancel it!",
 				"noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been cancelled."
 			},
-			"guildAtMaxLevel": "Your guild is at maximum level, you cannot sell pets due to a lack of functionality, we apologize for the inconvenience caused."
+			"guildAtMaxLevel": "Your guild is level 100 and therefore cannot receive guild XP. We invite you to trade pets using the `pettrade` command."
 		}
 	}
 }
