@@ -33,10 +33,19 @@ import {effectsErrorMeTextValue} from "../core/utils/ErrorUtils";
 
 declare const canPerformCommand: (member: GuildMember, interaction: CommandInteraction, language: string, permission: string) => Promise<boolean>;
 
+type UserEntity = { user: User, entity: Entity };
+type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
+	/**
+	 * Sends an error about a non-desired effect
+	 * @param user
+	 * @param tr
+	 * @param interaction
+	 * @param shouldReply
+	 */
 	static async effectErrorMe(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
 		const entity = await Entities.getByDiscordUserId(user.id);
 		const textValues = await effectsErrorMeTextValue(interaction.user, tr.language, entity);
@@ -47,8 +56,20 @@ export class CommandsManager {
 			: await interaction.channel.send({embeds: [embed]});
 	}
 
-	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, interaction: CommandInteraction, tr: TranslationModule, shouldReply = false) {
+	/**
+	 * Check if the given entity can perform the command in commandInfo
+	 * @param commandInfo
+	 * @param entity
+	 * @param interaction
+	 * @param tr
+	 * @param shouldReply
+	 */
+	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, {
+		interaction,
+		tr
+	}: TextInformations, shouldReply = false) {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
+		const userEntity = {user, entity};
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
 			interaction.reply({
 				embeds: [new DraftBotErrorEmbed(
@@ -62,13 +83,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
-			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).then();
-			return false;
-		}
-
-		if (commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
-			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).then();
+		if (this.effectRequirementsFailed(commandInfo, userEntity, {interaction, tr}, shouldReply)) {
 			return false;
 		}
 
@@ -77,46 +92,7 @@ export class CommandsManager {
 		}
 
 		if (commandInfo.requirements.guildRequired) {
-			let guild;
-
-			try {
-				guild = await Guilds.getById(entity.Player.guildId);
-			}
-			catch (error) {
-				guild = null;
-			}
-
-			if (guild === null) {
-				// not in a guild
-				interaction.reply({
-					embeds: [new DraftBotErrorEmbed(
-						interaction.user,
-						tr.language,
-						tr.get("notInAGuild")
-					)]
-				}).then();
-				return false;
-			}
-
-			let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
-
-			if (entity.id === guild.getElderId()) {
-				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
-			}
-			if (entity.id === guild.getChiefId()) {
-				userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
-			}
-
-			if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
-				interaction.reply({
-					embeds: [
-						new DraftBotErrorEmbed(
-							user,
-							tr.language,
-							tr.get("notAuthorizedError")
-						)
-					]
-				}).then();
+			if (await this.missingRequirementsForGuild(commandInfo, {user, entity}, interaction, tr)) {
 				return false;
 			}
 		}
@@ -263,6 +239,85 @@ export class CommandsManager {
 		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);
 		reactionMessage.setDescription(dataModule.getString("dm.messageSupport"));
 		await reactionMessage.send(message.channel);
+	}
+
+	/**
+	 * Check if the guild's requirements are fulfilled for this command
+	 * @param commandInfo
+	 * @param user
+	 * @param entity
+	 * @param interaction
+	 * @param tr
+	 */
+	private static async missingRequirementsForGuild(commandInfo: ICommand, {
+		user,
+		entity
+	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule) {
+		let guild;
+		try {
+			guild = await Guilds.getById(entity.Player.guildId);
+		}
+		catch (error) {
+			guild = null;
+		}
+
+		if (guild === null) {
+			// not in a guild
+			interaction.reply({
+				embeds: [new DraftBotErrorEmbed(
+					interaction.user,
+					tr.language,
+					tr.get("notInAGuild")
+				)]
+			}).then();
+			return false;
+		}
+
+		let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
+
+		if (entity.id === guild.getElderId()) {
+			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
+		}
+		if (entity.id === guild.getChiefId()) {
+			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
+		}
+
+		if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
+			interaction.reply({
+				embeds: [
+					new DraftBotErrorEmbed(
+						user,
+						tr.language,
+						tr.get("notAuthorizedError")
+					)
+				]
+			}).then();
+			return false;
+		}
+	}
+
+	/**
+	 * Check if the effect is authorized for this commandInfo
+	 * @param commandInfo
+	 * @param user
+	 * @param entity
+	 * @param interaction
+	 * @param tr
+	 * @param shouldReply
+	 * @private
+	 */
+	private static effectRequirementsFailed(
+		commandInfo: ICommand,
+		{user, entity}: UserEntity,
+		{interaction, tr}: TextInformations,
+		shouldReply: boolean) {
+		if (!entity.Player.currentEffectFinished() &&
+			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
+				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
+			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).finally(() => null);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -441,7 +496,7 @@ export class CommandsManager {
 		}
 
 		const [entity] = await Entities.getOrRegister(interaction.user.id);
-		if (!await this.userCanPerformCommand(commandInfo, entity, interaction, tr, true)) {
+		if (!await this.userCanPerformCommand(commandInfo, entity, {interaction, tr}, true)) {
 			return;
 		}
 

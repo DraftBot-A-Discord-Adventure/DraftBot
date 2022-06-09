@@ -15,6 +15,9 @@ import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
+// eslint-disable-next-line prefer-const
+let commandInfo: ICommand;
+
 /**
  * Check if both traders are in a valid state to trade their pet
  * @param traderAndPet1
@@ -28,7 +31,10 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 		await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.get("cantTradeSelf"), false, interaction);
 		return true;
 	}
-	if (!await CommandsManager.userCanPerformCommand(commandInfo, traderAndPet2.trader, interaction, Translations.getModule("bot", petTradeModule.language), true)) {
+	if (!await CommandsManager.userCanPerformCommand(commandInfo, traderAndPet2.trader, {
+		interaction,
+		tr: Translations.getModule("bot", petTradeModule.language)
+	}, true)) {
 		return true;
 	}
 	if (await sendBlockedError(traderAndPet2.user, interaction.channel, petTradeModule.language, interaction)) {
@@ -56,18 +62,17 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
  * @param petTradeModule
  */
 async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	await MissionsController.update(
-		tradersAndPets[i].trader.discordUserId,
-		interaction.channel,
-		petTradeModule.language,
-		"tamedPet", 1,
-		{loveLevel: tradersAndPets[1 - i].pet.getLoveLevelNumber()});
-	await MissionsController.update(
-		tradersAndPets[i].trader.discordUserId,
-		interaction.channel,
-		petTradeModule.language,
-		"trainedPet", 1,
-		{loveLevel: tradersAndPets[1 - i].pet.getLoveLevelNumber()});
+	async function checkLoveLevelMission(missionName: string) {
+		await MissionsController.update(
+			tradersAndPets[i].trader.discordUserId,
+			interaction.channel,
+			petTradeModule.language,
+			missionName, 1,
+			{loveLevel: tradersAndPets[1 - i].pet.getLoveLevelNumber()});
+	}
+
+	await checkLoveLevelMission("tamedPet");
+	await checkLoveLevelMission("trainedPet");
 	await MissionsController.update(
 		tradersAndPets[i].trader.discordUserId,
 		interaction.channel,
@@ -118,33 +123,23 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
 
 /**
  * Returns the callback if one of the traders refuse to trade
- * @param traderAndPet1
- * @param traderAndPet2
+ * @param tradersAndPets
  * @param interaction
  * @param petTradeModule
+ * @param hasResponded
  */
-function getTradeRefusedCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: CommandInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
 	return async (tradeMessage: DraftBotTradeMessage) => {
-		BlockingUtils.unblockPlayer(traderAndPet1.trader.discordUserId);
-		BlockingUtils.unblockPlayer(traderAndPet2.trader.discordUserId);
-		await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.format("tradeCanceled", {
-			trader: tradeMessage.trader1Accepted === false ? traderAndPet1.user : traderAndPet2.user
-		}), true);
-	};
-}
-
-/**
- * Returns the callback if one of the traders doesn't respond in time to the message
- * @param traderAndPet1
- * @param traderAndPet2
- * @param interaction
- * @param petTradeModule
- */
-function getTradeNoResponseCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	return async () => {
-		BlockingUtils.unblockPlayer(traderAndPet1.trader.discordUserId);
-		BlockingUtils.unblockPlayer(traderAndPet2.trader.discordUserId);
-		await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
+		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId);
+		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId);
+		if (hasResponded) {
+			await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.format("tradeCanceled", {
+				trader: tradeMessage.trader1Accepted === false ? tradersAndPets[0].user : tradersAndPets[1].user
+			}), true);
+		}
+		else {
+			await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
+		}
 	};
 }
 
@@ -156,12 +151,13 @@ function getTradeNoResponseCallback(traderAndPet1: TraderAndPet, traderAndPet2: 
  * @param petTradeModule
  */
 async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	const tradeMessage = await new DraftBotTradeMessage(
+	const tradersAndPets = [traderAndPet1, traderAndPet2];
+	const tradeMessage = new DraftBotTradeMessage(
 		traderAndPet1.user,
 		traderAndPet2.user,
-		getTradeSuccessCallback(traderAndPet1, traderAndPet2, interaction, petTradeModule),
-		getTradeRefusedCallback(traderAndPet1, traderAndPet2, interaction, petTradeModule),
-		getTradeNoResponseCallback(traderAndPet1, traderAndPet2, interaction, petTradeModule)
+		getTradeSuccessCallback(traderAndPet1, traderAndPet2, interaction, petTradeModule) as () => void,
+		getTradeUnsuccessfulCallback(tradersAndPets, interaction, petTradeModule, true) as (msg: DraftBotTradeMessage) => void,
+		getTradeUnsuccessfulCallback(tradersAndPets, interaction, petTradeModule, false) as (msg: DraftBotTradeMessage) => void
 	)
 		.formatAuthor(petTradeModule.get("tradeTitle"), traderAndPet1.user)
 		.setDescription(petTradeModule.format("tradeDescription", {
@@ -169,7 +165,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 			trader2: traderAndPet2.user
 		}))
 		.setFooter(petTradeModule.get("warningTradeReset")) as DraftBotTradeMessage;
-	for (const traderAndPet of [traderAndPet1, traderAndPet2]) {
+	for (const traderAndPet of tradersAndPets) {
 		tradeMessage.addField(petTradeModule.format("petOfTrader", {
 			trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)
 		}), traderAndPet.pet.getPetDisplay(petTradeModule.language), true);
@@ -206,7 +202,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await createAndSendTradeMessage(traderAndPet1, traderAndPet2, interaction, petTradeModule);
 }
 
-export const commandInfo: ICommand = {
+commandInfo = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("pettrade")
 		.setDescription("Trade your pet with someone else")
@@ -219,3 +215,5 @@ export const commandInfo: ICommand = {
 	},
 	mainGuildCommand: false
 };
+
+export default commandInfo;
