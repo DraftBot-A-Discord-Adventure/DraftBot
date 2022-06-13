@@ -52,13 +52,18 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 }
 
 /**
- * Refresh the missions of the trader to accomodate the trade success
+ * Refresh the missions of the trader to accommodate the trade success
  * @param tradersAndPets
  * @param i
  * @param interaction
  * @param petTradeModule
  */
 async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+
+	/**
+	 * check if the mission is finished from its name
+	 * @param missionName
+	 */
 	async function checkLoveLevelMission(missionName: string) {
 		await MissionsController.update(
 			tradersAndPets[i].trader.discordUserId,

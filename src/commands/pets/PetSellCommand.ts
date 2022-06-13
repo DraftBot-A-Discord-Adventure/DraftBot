@@ -21,7 +21,7 @@ type BuyerInformations = { buyer: Entity, user: User };
 type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: string[], collector: ReactionCollector, reaction: MessageReaction }
 
 /**
- * Check if the requirements for selling the pet are fullfiled
+ * Check if the requirements for selling the pet are fulfilled
  * @param textInformations
  * @param sellerInformations
  */
@@ -113,25 +113,28 @@ async function broadcastSellRequest(textInformations: TextInformations, sellerIn
 }
 
 /**
+ * calculate the amount of xp the guild will receive from the price chosen by the user
+ * @param petCost
+ */
+function calculateAmountOfXPToAdd(petCost: number) {
+	const MIN_XP = Math.floor(petCost / PetSellConstants.MIN_XP_DIVIDER);
+	const MAX_XP = Math.floor(petCost / PetSellConstants.MAX_XP_DIVIDER);
+	return Math.floor(RandomUtils.randInt(MIN_XP, MAX_XP + 1));
+}
+
+/**
  * Does the action of selling the pet from the seller to the buyer
  * @param buyerInformations
  * @param sellerInformations
  * @param textInformations
  */
 async function executeTheTransaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations) {
-	let buyerGuild;
-	try {
-		buyerGuild = await Guilds.getById(buyerInformations.buyer.Player.guildId);
-	}
-	catch (error) {
-		buyerGuild = null;
-	}
+	const buyerGuild = await Guilds.getById(buyerInformations.buyer.Player.guildId);
 	if (buyerGuild && buyerGuild.id === sellerInformations.guild.id) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sameGuild"));
 		return;
 	}
-	const buyerPet = buyerInformations.buyer.Player.Pet;
-	if (buyerPet) {
+	if (buyerInformations.buyer.Player.Pet) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("havePet"));
 		return;
 	}
@@ -139,19 +142,19 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("noMoney"));
 		return;
 	}
-	const MIN_XP = Math.floor(sellerInformations.petCost / PetSellConstants.MIN_XP_DIVIDER);
-	const MAX_XP = Math.floor(sellerInformations.petCost / PetSellConstants.MAX_XP_DIVIDER);
-	const toAdd = Math.floor(RandomUtils.randInt(MIN_XP, MAX_XP + 1));
-	await sellerInformations.guild.addExperience(toAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
-
-	await sellerInformations.guild.save();
+	const xpToAdd = calculateAmountOfXPToAdd(sellerInformations.petCost);
+	await sellerInformations.guild.addExperience(xpToAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
 	buyerInformations.buyer.Player.petId = sellerInformations.pet.id;
-	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -sellerInformations.petCost, textInformations.interaction.channel, textInformations.petSellModule.language);
-	await buyerInformations.buyer.Player.save();
 	sellerInformations.entity.Player.petId = null;
-	await sellerInformations.entity.Player.save();
 	sellerInformations.pet.lovePoints = Constants.PETS.BASE_LOVE;
-	await sellerInformations.pet.save();
+	// the money has to be edited before the player is saved to avoid cross writing to the database
+	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -sellerInformations.petCost, textInformations.interaction.channel, textInformations.petSellModule.language);
+	await Promise.all([
+		sellerInformations.guild.save(),
+		buyerInformations.buyer.Player.save(),
+		sellerInformations.entity.Player.save(),
+		sellerInformations.pet.save()
+	]);
 	if (!sellerInformations.guild.isAtMaxLevel()) {
 		const guildXpEmbed = new DraftBotEmbed();
 		const gdModule = Translations.getModule("commands.guildDaily", textInformations.petSellModule.language);
@@ -162,7 +165,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 		);
 		guildXpEmbed.setDescription(
 			gdModule.format("guildXP", {
-				xp: toAdd
+				xp: xpToAdd
 			})
 		);
 		textInformations.interaction.followUp({embeds: [guildXpEmbed]}).then();
