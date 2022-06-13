@@ -20,7 +20,7 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, Message, TextBasedChannel, User} from "discord.js";
-import {effectsErrorMeTextValue, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {effectsErrorTextValue, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
@@ -145,7 +145,7 @@ const sendTravelPath = async function(entity: Entity, interaction: CommandIntera
 	travelEmbed.addField(tr.get("startPoint"), (await entity.Player.getPreviousMap()).getDisplayName(language), true);
 	travelEmbed.addField(tr.get("endPoint"), (await entity.Player.getDestination()).getDisplayName(language), true);
 	if (effect !== null) {
-		const errorMessageObject = await effectsErrorMeTextValue(interaction.user, language, entity);
+		const errorMessageObject = await effectsErrorTextValue(interaction.user, language, entity);
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
 	else {
