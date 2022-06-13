@@ -148,7 +148,7 @@ export class CommandsManager {
 				return;
 			}
 
-			CommandsManager.handleCommand(interaction as CommandInteraction);
+			void CommandsManager.handleCommand(interaction as CommandInteraction);
 		});
 
 		client.on("messageCreate", async message => {
