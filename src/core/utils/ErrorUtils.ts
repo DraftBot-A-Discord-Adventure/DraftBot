@@ -23,7 +23,7 @@ export const sendBlockedErrorInteraction = async function(interaction: CommandIn
 	return false;
 };
 
-export const effectsErrorMeTextValue = async function(user: User, language: string, entity: Entity): Promise<{ title: string, description: string }> {
+export const effectsErrorTextValue = async function(user: User, language: string, entity: Entity): Promise<{ title: string, description: string }> {
 	const startString = user.id === entity.discordUserId ? "titleMe" : "player";
 	const stringEnd = Constants.EFFECT.ERROR_TEXT[entity.Player.effect as keyof typeof Constants.EFFECT.ERROR_TEXT];
 	const tr = Translations.getModule("error", language);

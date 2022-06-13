@@ -29,7 +29,7 @@ import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
-import {effectsErrorMeTextValue} from "../core/utils/ErrorUtils";
+import {effectsErrorTextValue} from "../core/utils/ErrorUtils";
 
 declare const canPerformCommand: (member: GuildMember, interaction: CommandInteraction, language: string, permission: string) => Promise<boolean>;
 
@@ -46,9 +46,9 @@ export class CommandsManager {
 	 * @param interaction
 	 * @param shouldReply
 	 */
-	static async effectErrorMe(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
+	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
 		const entity = await Entities.getByDiscordUserId(user.id);
-		const textValues = await effectsErrorMeTextValue(interaction.user, tr.language, entity);
+		const textValues = await effectsErrorTextValue(interaction.user, tr.language, entity);
 		const embed = new DraftBotEmbed().setErrorColor()
 			.formatAuthor(textValues.title, user)
 			.setDescription(textValues.description);
@@ -314,7 +314,7 @@ export class CommandsManager {
 		if (!entity.Player.currentEffectFinished() &&
 			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
-			CommandsManager.effectErrorMe(user, tr, interaction, shouldReply).finally(() => null);
+			CommandsManager.effectError(user, tr, interaction, shouldReply).finally(() => null);
 			return true;
 		}
 		return false;

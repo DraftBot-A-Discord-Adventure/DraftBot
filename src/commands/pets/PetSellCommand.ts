@@ -13,6 +13,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity from "../../core/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
+import {isBroadcastStillActive} from "../../core/utils/MessageUtils";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
@@ -295,6 +296,9 @@ async function checkReactionBroadcastCollector(
 	sellerInformations: SellerInformations,
 	textInformations: TextInformations,
 	collectorManagement: CollectorManagement) {
+	if (!isBroadcastStillActive(textInformations.interaction, collectorManagement.collector, collectorManagement.reaction, collectorManagement.spamCount)) {
+		return;
+	}
 	switch (collectorManagement.reaction.emoji.name) {
 	case Constants.MENU_REACTION.ACCEPT:
 		if (!await manageAcceptReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {

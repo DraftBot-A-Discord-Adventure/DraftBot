@@ -15,9 +15,6 @@ import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
-// eslint-disable-next-line prefer-const
-let commandInfo: ICommand;
-
 /**
  * Check if both traders are in a valid state to trade their pet
  * @param traderAndPet1
@@ -31,7 +28,7 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 		await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.get("cantTradeSelf"), false, interaction);
 		return true;
 	}
-	if (!await CommandsManager.userCanPerformCommand(commandInfo, traderAndPet2.trader, {
+	if (!await CommandsManager.userCanPerformCommand(CommandsManager.commands.get("pettrade"), traderAndPet2.trader, {
 		interaction,
 		tr: Translations.getModule("bot", petTradeModule.language)
 	}, true)) {
@@ -202,7 +199,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await createAndSendTradeMessage(traderAndPet1, traderAndPet2, interaction, petTradeModule);
 }
 
-commandInfo = {
+export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("pettrade")
 		.setDescription("Trade your pet with someone else")
@@ -215,5 +212,3 @@ commandInfo = {
 	},
 	mainGuildCommand: false
 };
-
-export default commandInfo;
