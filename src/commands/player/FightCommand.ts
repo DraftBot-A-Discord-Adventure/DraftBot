@@ -117,8 +117,9 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
 			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, incomingFighterEntity, true, false);
 			return false;
 		}
-		// lancer le fight
-		const fightController = new FightController(askingFighter, new Fighter(incomingFighterEntity), friendly, interaction.channel, fightTranslationModule.language);
+		const incomingFighter = new Fighter(incomingFighterEntity);
+		await incomingFighter.loadStats(friendly);
+		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
 		await fightController.startFight();
 		return true;
 	};
