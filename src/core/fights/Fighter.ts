@@ -7,8 +7,11 @@ import Potion from "../models/Potion";
 import {MissionsController} from "../missions/MissionsController";
 import {countNbOfPotions} from "../utils/ItemUtils";
 import {TranslationModule} from "../Translations";
+import {FighterStatus} from "./FighterStatus";
 
 type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number }
+
+const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender","summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
 
 export class Fighter {
 
@@ -18,13 +21,19 @@ export class Fighter {
 
 	private ready: boolean
 
-	private chargingTurn: number
+	private status : FighterStatus
+
+	private nextFightActionId: string;
+
+	private fightActionsHistory: string[] ;
 
 	public constructor(entity: Entity) {
 		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null};
 		this.entity = entity;
 		this.ready = false;
-		this.chargingTurn = 0;
+		this.nextFightActionId = "";
+		this.fightActionsHistory = [];
+		this.status = FighterStatus.NOT_STARTED;
 	}
 
 	/**
@@ -81,19 +90,6 @@ export class Fighter {
 	}
 
 	/**
-	 * return false if the user does not need to charge its energy
-	 * charge the energy if needed
-	 * @public
-	 */
-	public chargeEnergy(): boolean {
-		if (this.chargingTurn === 0) {
-			this.chargingTurn--;
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * check if the potion of the fighter is a fight potion
 	 * @private
 	 */
@@ -106,9 +102,10 @@ export class Fighter {
 	 * @param fightTranslationModule
 	 */
 	public async getStringDisplay(fightTranslationModule: TranslationModule): Promise<string> {
-		return fightTranslationModule.format("summarize.attacker", {
+
+		return fightTranslationModule.format(fighterStatusTranslation[this.status], {
 			pseudo: await this.entity.Player.getPseudo(fightTranslationModule.language),
-			charging: this.chargingTurn > 0 ? fightTranslationModule.get("actions.chargingEmote") : ""
+			charging: "" // TODO : add the charging if needed
 		}) +
 			fightTranslationModule.format("summarize.stats", {
 				power: this.stats.fightPoints,
@@ -122,7 +119,8 @@ export class Fighter {
 	 * execute one turn
 	 */
 	public play() {
-		console.log("im playing");
+		// use a simple attack
+
 	}
 }
 
