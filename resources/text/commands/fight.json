@@ -12,8 +12,13 @@
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
 				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
+				"winner": ":crossed_swords: |** Gagnant : {pseudo}** {charging}\n",
+				"loser": ":crossed_swords: |** Perdant : {pseudo}** {charging}\n",
+				"drawer": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
+				"bug": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
@@ -118,10 +123,14 @@
 						"utilise une {attack} ! Elle est PARFAITE !",
 						"utilise une {attack} ! Magistrale !",
 						"réalise une sublime {attack} !",
+						"effectue une {attack} ! Elle est parfaite !",
 						"réalise une {attack} ! L'assaut est absolument dingue !",
 						"assène à son adversaire une {attack} ! Sans pitié !",
+						"effectue une {attack} ! C'est un coup de foudre !",
 						"réalise une {attack} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
-						"choisit une {attack} ! Très bonne initiative !"
+						"choisit une {attack} ! Très bonne initiative !",
+						"effectue une {attack} ! C'est une excellente {attack} !"
+
 					],
 					"notGood": [
 						"effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
@@ -145,7 +154,8 @@
 						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
 						"lance une mauvaise {attack} !",
 						"utilise une {attack} ! Un choix peu judicieux !",
-						"choisit une {attack} ! Mauvaise initiative"
+						"choisit une {attack} ! Mauvaise initiative",
+						"effectue une {attack} ! C'est une mauvaise {attack} !"
 					]
 				},
 				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
@@ -165,8 +175,13 @@
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":crossed_swords: | **Current battle state**\n\n",
-				"attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
-				"defender": ":crossed_swords: |** Defender : {pseudo}**\n",
+				"notStarted": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
+				"attacker": ":crossed_swords: |** Attacker : {pseudo}** {charging}\n",
+				"defender": ":crossed_swords: |** Defender : {pseudo}** {charging}\n",
+				"winner": ":crossed_swords: |** Winner : {pseudo}** {charging}\n",
+				"loser": ":crossed_swords: |** Looser : {pseudo}** {charging}\n",
+				"drawer": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
+				"bug": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
