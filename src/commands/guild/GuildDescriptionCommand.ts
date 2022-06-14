@@ -66,7 +66,7 @@ async function createValidationEmbedGuildDesc(
 	entity: Entity,
 	informationsModule: InformationModules
 ) {
-	const validationMessage = new DraftBotValidateReactionMessage(interaction.user, endCallback)
+	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
 		.formatAuthor(informationsModule.guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
 		.setDescription(
 			informationsModule.guildDescriptionModule.format("changeDescriptionConfirm",
@@ -74,9 +74,8 @@ async function createValidationEmbedGuildDesc(
 					description: askedDescription
 				}
 			))
-		.setFooter(informationsModule.guildDescriptionModule.get("changeDescriptionFooter"), null) as DraftBotValidateReactionMessage;
-
-	await validationMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildDescription", collector));
+		.setFooter(informationsModule.guildDescriptionModule.get("changeDescriptionFooter"), null)
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildDescription", collector));
 
 }
 

@@ -36,7 +36,8 @@ export abstract class Constants {
 			ERROR: "#D92D43",
 			SUCCESSFUL: "#5EAD45"
 		},
-		PROGRESS_BAR_SIZE: 20
+		PROGRESS_BAR_SIZE: 20,
+		MAX_SPAM_COUNT: 3
 	};
 
 	static readonly TOPGG = {

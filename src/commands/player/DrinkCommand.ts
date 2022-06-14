@@ -118,14 +118,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const validateEmbed = new DraftBotValidateReactionMessage(interaction.user, (msg) => drinkPotion(msg as DraftBotValidateReactionMessage, potion))
+	await new DraftBotValidateReactionMessage(interaction.user, (msg) => drinkPotion(msg as DraftBotValidateReactionMessage, potion))
 		.formatAuthor(tr.get("confirmationTitle"), interaction.user)
 		.setDescription(tr.format("confirmation", {
 			potion: potion.getName(language),
 			effect: potion.getNatureTranslation(language)
 		}))
-		.setFooter(tr.get("confirmationFooter")) as DraftBotValidateReactionMessage;
-	await validateEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "drink", collector));
+		.setFooter(tr.get("confirmationFooter"))
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "drink", collector));
 }
 
 export const commandInfo: ICommand = {

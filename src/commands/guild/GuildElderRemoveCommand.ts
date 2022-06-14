@@ -62,7 +62,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const elderRemoveEmbed = new DraftBotValidateReactionMessage(interaction.user, getEndCallbackElderRemoveValidation(entity, guild, guildElderRemoveModule, interaction))
+	await new DraftBotValidateReactionMessage(interaction.user, getEndCallbackElderRemoveValidation(entity, guild, guildElderRemoveModule, interaction))
 		.formatAuthor(guildElderRemoveModule.get("elderRemoveTitle"), interaction.user)
 		.setDescription(
 			guildElderRemoveModule.format("elderRemove",
@@ -70,12 +70,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 					guildName: guild.name
 				}
 			)
-		) as DraftBotValidateReactionMessage;
-
-	await elderRemoveEmbed.reply(
-		interaction,
-		(collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElderRemove", collector)
-	);
+		)
+		.reply(
+			interaction,
+			(collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElderRemove", collector)
+		);
 }
 
 export const commandInfo: ICommand = {

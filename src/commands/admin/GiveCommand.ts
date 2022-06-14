@@ -14,7 +14,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
-import {DraftBotReactionMessage} from "../../core/messages/DraftBotReactionMessage";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function isAMention(variable: string): boolean;
@@ -88,7 +87,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
 	}
 
-	await (new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		interaction.user,
 		async (validateMessage: DraftBotValidateReactionMessage) => {
 			if (validateMessage.isValidated()) {
@@ -151,8 +150,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.setDescription(tr.format("confirmDesc", {
 			item: item.toString(language, 0),
 			usersCount: users.size
-		})) as DraftBotReactionMessage
-	).reply(interaction);
+		}))
+		.reply(interaction);
 }
 
 export const commandInfo: ICommand = {

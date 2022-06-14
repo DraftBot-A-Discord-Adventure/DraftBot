@@ -160,12 +160,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guildAddModule
 	);
 
-	const validationEmbed = new DraftBotValidateReactionMessage(invitedUser, endCallback)
+	new DraftBotValidateReactionMessage(invitedUser, endCallback)
 		.formatAuthor(guildAddModule.get("invitationTitle"), invitedUser)
 		.setDescription(guildAddModule.format("invitation", {
 			guildName: guild.name
-		})) as DraftBotValidateReactionMessage;
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, "guildAdd", collector));
+		}))
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, "guildAdd", collector));
 }
 
 export const commandInfo: ICommand = {

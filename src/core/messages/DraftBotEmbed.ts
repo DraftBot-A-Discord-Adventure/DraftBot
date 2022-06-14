@@ -22,15 +22,15 @@ export class DraftBotEmbed extends MessageEmbed {
 	 * @param title
 	 * @param user
 	 */
-	formatAuthor(title: string, user: User): DraftBotEmbed {
+	formatAuthor(title: string, user: User): this {
 		this.setAuthor(format(title, {
 			pseudo: escapeUsername(user.username)
 		}), user.displayAvatarURL());
 		return this;
 	}
 
-	setErrorColor(): DraftBotEmbed {
-		this.setColor(<HexColorString> Constants.MESSAGES.COLORS.ERROR);
+	setErrorColor(): this {
+		this.setColor(<HexColorString>Constants.MESSAGES.COLORS.ERROR);
 		return this;
 	}
 }

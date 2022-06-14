@@ -153,7 +153,7 @@ function createValidationEmbedGuildCreation(
 					price: informationsModule.guildCreateData.getNumber("guildCreationPrice")
 				}
 			))
-		.setFooter(informationsModule.guildCreateModule.get("buyFooter"), null) as DraftBotValidateReactionMessage;
+		.setFooter(informationsModule.guildCreateModule.get("buyFooter"), null);
 }
 
 
