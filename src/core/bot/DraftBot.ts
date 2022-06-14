@@ -21,6 +21,8 @@ require("../MessageError");
 require("../Tools");
 
 export class DraftBot {
+	public readonly client: Client;
+
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
@@ -29,48 +31,10 @@ export class DraftBot {
 
 	private currLogsCount: number;
 
-	public readonly client: Client;
-
 	constructor(client: Client, config: DraftBotConfig, isMainShard: boolean) {
 		this.client = client;
 		this.config = config;
 		this.isMainShard = isMainShard;
-	}
-
-	async init() {
-		this.handleLogs();
-
-		await require("../JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents", "resources/text/missions"],
-			files: [
-				"config/app.json",
-				"draftbot/package.json",
-				"resources/text/error.json",
-				"resources/text/bot.json",
-				"resources/text/classesValues.json",
-				"resources/text/advices.json",
-				"resources/text/smallEventsIntros.json",
-				"resources/text/items.json",
-				"resources/text/food.json",
-				"resources/text/campaign.json"
-			]
-		});
-		await require("../Database").init(this.isMainShard);
-		await CommandsManager.register(draftBotClient);
-		if (this.config.TEST_MODE === true) {
-			await require("../CommandsTest").init();
-		}
-
-		if (this.isMainShard) { // Do this only if it's the main shard
-			await DraftBotBackup.init();
-			DraftBot.programTopWeekTimeout();
-			DraftBot.programDailyTimeout();
-			setTimeout(
-				DraftBot.fightPowerRegenerationLoop,
-				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
-			);
-			checkMissingTranslations();
-		}
 	}
 
 	static programTopWeekTimeout(): void {
@@ -227,6 +191,42 @@ export class DraftBot {
 			DraftBot.fightPowerRegenerationLoop,
 			Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
 		);
+	}
+
+	async init() {
+		this.handleLogs();
+
+		await require("../JsonReader").init({
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents", "resources/text/missions", "resources/text/messages"],
+			files: [
+				"config/app.json",
+				"draftbot/package.json",
+				"resources/text/error.json",
+				"resources/text/bot.json",
+				"resources/text/classesValues.json",
+				"resources/text/advices.json",
+				"resources/text/smallEventsIntros.json",
+				"resources/text/items.json",
+				"resources/text/food.json",
+				"resources/text/campaign.json"
+			]
+		});
+		await require("../Database").init(this.isMainShard);
+		await CommandsManager.register(draftBotClient);
+		if (this.config.TEST_MODE === true) {
+			await require("../CommandsTest").init();
+		}
+
+		if (this.isMainShard) { // Do this only if it's the main shard
+			await DraftBotBackup.init();
+			DraftBot.programTopWeekTimeout();
+			DraftBot.programDailyTimeout();
+			setTimeout(
+				DraftBot.fightPowerRegenerationLoop,
+				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
+			);
+			checkMissingTranslations();
+		}
 	}
 
 	updateGlobalLogsFile(now: Date): void {

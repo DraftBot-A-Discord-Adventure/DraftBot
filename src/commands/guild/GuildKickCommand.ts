@@ -132,7 +132,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const validationEmbed = await new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		interaction.user,
 		await getValidationCallback({entity, guild}, {interaction, guildKickModule, language})
 	)
@@ -140,8 +140,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(guildKickModule.format("kick", {
 			guildName: guild.name,
 			kickedPseudo: await kickedEntity.Player.getPseudo(language)
-		})) as DraftBotValidateReactionMessage;
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildKick", collector));
+		}))
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildKick", collector));
 }
 
 export const commandInfo: ICommand = {

@@ -7,18 +7,17 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, Message, MessageReaction, ReactionCollector, User} from "discord.js";
+import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity from "../../core/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import {isBroadcastStillActive} from "../../core/utils/MessageUtils";
+import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
 type BuyerInformations = { buyer: Entity, user: User };
-type CollectorManagement = { spamCount: number, gotAnAnswer: boolean, spammers: string[], collector: ReactionCollector, reaction: MessageReaction }
 
 /**
  * Check if the requirements for selling the pet are fulfilled
@@ -78,38 +77,6 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
 	}
 
 	return false;
-}
-
-/**
- * Send a broadcast sell request and returns the message
- * @param textInformations
- * @param sellerInformations
- */
-async function broadcastSellRequest(textInformations: TextInformations, sellerInformations: SellerInformations) {
-	return await textInformations.interaction.reply({
-		embeds: [
-			new DraftBotEmbed()
-				.setTitle(textInformations.petSellModule.get("sellMessage.title"))
-				.setDescription(
-					textInformations.petSellModule.format("sellMessage.description", {
-						author: escapeUsername(textInformations.interaction.user.username),
-						price: sellerInformations.petCost,
-						guildMaxLevel: sellerInformations.guild.isAtMaxLevel()
-					})
-				)
-				.addFields([{
-					name: textInformations.petSellModule.get("petFieldName"),
-					value: Translations.getModule("commands.profile", textInformations.petSellModule.language).format("pet.fieldValue", {
-						rarity: sellerInformations.pet.PetModel.getRarityDisplay(),
-						emote: sellerInformations.pet.getPetEmote(),
-						nickname: sellerInformations.pet.nickname ? sellerInformations.pet.nickname : sellerInformations.pet.getPetTypeName(textInformations.petSellModule.language)
-					}),
-					inline: false
-				}])
-				.setFooter(textInformations.petSellModule.get("sellMessage.footer"))
-		],
-		fetchReply: true
-	}) as Message;
 }
 
 /**
@@ -238,121 +205,27 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
 }
 
-/**
- * Manage the acceptation of the broadcast request
- * @param buyerInformations
- * @param sellerInformations
- * @param textInformations
- * @param collectorManagement
- */
-async function manageAcceptReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
-	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
-		collectorManagement.spamCount++;
-		if (collectorManagement.spamCount < PetSellConstants.MAX_SPAM_COUNT_SELLER) {
-			await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.canSellYourself"));
+function getAcceptCallback(sellerInformations: SellerInformations, textInformations: TextInformations) {
+	return async (user: User) => {
+		const buyerInformations = {user, buyer: await Entities.getByDiscordUserId(user.id)};
+		if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
+			await sendBlockedError(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language)) {
+			buyerInformations.buyer = null;
 			return false;
 		}
-		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.spam"));
-		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
+		await petSell(textInformations, sellerInformations, buyerInformations);
 		return true;
-	}
-	buyerInformations.buyer = await Entities.getByDiscordUserId(buyerInformations.user.id);
-	if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
-		await sendBlockedError(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language)) {
-		buyerInformations.buyer = null;
-		return false;
-	}
-	await petSell(textInformations, sellerInformations, buyerInformations);
-	return true;
-}
-
-/**
- * Manage the denial reaction of the broadcast request
- * @param buyerInformations
- * @param sellerInformations
- * @param textInformations
- * @param collectorManagement
- */
-async function manageDenyReaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations, collectorManagement: CollectorManagement) {
-	if (buyerInformations.user.id === sellerInformations.entity.discordUserId) {
-		await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
-		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
-		return true;
-	}
-	if (collectorManagement.spammers.includes(buyerInformations.user.id)) {
-		return false;
-	}
-	collectorManagement.spammers.push(buyerInformations.user.id);
-	await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("errors.onlyInitiator"));
-	return false;
-}
-
-/**
- * Check the collected reaction from the broadcast request
- * @param buyerInformations
- * @param sellerInformations
- * @param textInformations
- * @param collectorManagement
- */
-async function checkReactionBroadcastCollector(
-	buyerInformations: BuyerInformations,
-	sellerInformations: SellerInformations,
-	textInformations: TextInformations,
-	collectorManagement: CollectorManagement) {
-	if (!isBroadcastStillActive(textInformations.interaction, collectorManagement.collector, collectorManagement.reaction, collectorManagement.spamCount)) {
-		return;
-	}
-	switch (collectorManagement.reaction.emoji.name) {
-	case Constants.MENU_REACTION.ACCEPT:
-		if (!await manageAcceptReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
-			return;
-		}
-		collectorManagement.gotAnAnswer = true;
-		break;
-	case Constants.MENU_REACTION.DENY:
-		if (!await manageDenyReaction(buyerInformations, sellerInformations, textInformations, collectorManagement)) {
-			return;
-		}
-		collectorManagement.gotAnAnswer = true;
-		break;
-	default:
-		return;
-	}
-	collectorManagement.collector.stop();
-}
-
-/**
- * Manage the answers to the broadcasted request
- * @param collector
- * @param sellerInformations
- * @param textInformations
- */
-function manageCollectedAnswers(collector: ReactionCollector, sellerInformations: SellerInformations, textInformations: TextInformations) {
-	const collectorManagement: CollectorManagement = {
-		spamCount: 0,
-		spammers: [],
-		gotAnAnswer: false,
-		collector: collector,
-		reaction: null
 	};
-	const buyer: Entity = null;
-	collector.on("collect", async (reaction: MessageReaction, user: User) => {
-		const buyerInformations: BuyerInformations = {user, buyer};
-		collectorManagement.reaction = reaction;
-		await checkReactionBroadcastCollector(buyerInformations, sellerInformations, textInformations, collectorManagement);
-	});
+}
 
-	collector.on("end", async function() {
-		if (!collectorManagement.gotAnAnswer && buyer === null) {
-			BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
-			await sendErrorMessage(
-				textInformations.interaction.user,
-				textInformations.interaction.channel,
-				textInformations.petSellModule.language,
-				textInformations.petSellModule.get("errors.noOneAvailable")
-			);
-		}
-	});
+function getBroadcastErrorStrings(petSellModule: TranslationModule) {
+	return {
+		errorBroadcastCancelled: petSellModule.get("sellCancelled"),
+		errorSelfAccept: petSellModule.get("errors.canSellYourself"),
+		errorSelfAcceptSpam: petSellModule.get("errors.spam"),
+		errorOtherDeny: petSellModule.get("errors.onlyInitiator"),
+		errorNoAnswer: petSellModule.get("errors.noOneAvailable")
+	};
 }
 
 /**
@@ -396,15 +269,31 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const sellMessage = await broadcastSellRequest(textInformations, sellerInformations);
-
-	const collector = sellMessage.createReactionCollector({
-		filter: (reaction: MessageReaction, user: User) => !user.bot,
-		time: Constants.MESSAGES.COLLECTOR_TIME
-	});
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petSell", collector);
-	manageCollectedAnswers(collector, sellerInformations, textInformations);
-	await Promise.all([sellMessage.react(Constants.MENU_REACTION.ACCEPT), sellMessage.react(Constants.MENU_REACTION.DENY)]);
+	await new DraftBotBroadcastValidationMessage(
+		interaction,
+		language,
+		getAcceptCallback(sellerInformations, textInformations),
+		"petSell",
+		getBroadcastErrorStrings(petSellModule))
+		.setTitle(textInformations.petSellModule.get("sellMessage.title"))
+		.setDescription(
+			textInformations.petSellModule.format("sellMessage.description", {
+				author: escapeUsername(textInformations.interaction.user.username),
+				price: sellerInformations.petCost,
+				guildMaxLevel: sellerInformations.guild.isAtMaxLevel()
+			})
+		)
+		.addFields([{
+			name: textInformations.petSellModule.get("petFieldName"),
+			value: Translations.getModule("commands.profile", textInformations.petSellModule.language).format("pet.fieldValue", {
+				rarity: sellerInformations.pet.PetModel.getRarityDisplay(),
+				emote: sellerInformations.pet.getPetEmote(),
+				nickname: sellerInformations.pet.nickname ? sellerInformations.pet.nickname : sellerInformations.pet.getPetTypeName(textInformations.petSellModule.language)
+			}),
+			inline: false
+		}])
+		.setFooter(textInformations.petSellModule.get("sellMessage.footer"))
+		.reply();
 }
 
 export const commandInfo: ICommand = {

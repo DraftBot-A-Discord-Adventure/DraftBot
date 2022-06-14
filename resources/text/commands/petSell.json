@@ -24,7 +24,7 @@
 			"errors": {
 				"canSellYourself": "Il est impossible de se vendre un familier à soi-même !",
 				"spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
-				"onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
+				"onlyInitiator": "{pseudo}, seul l'initiateur d'une vente peut l'annuler !",
 				"noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
 			},
 			"guildAtMaxLevel": "Votre guilde est niveau 100 et ne peut donc pas recevoir d'XP de guilde. Nous vous invitons à échanger des familiers en utilisant la commande `pettrade`."

@@ -154,14 +154,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	);
 
-	const elderAddEmbed = new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		interaction.user, endCallback).formatAuthor(guildElderModule.get("elderAddTitle"), interaction.user)
 		.setDescription(guildElderModule.format("elderAdd", {
 			elder: escapeUsername(await elderEntity.Player.getPseudo(language)),
 			guildName: guild.name
-		})) as DraftBotValidateReactionMessage;
-
-	await elderAddEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElder", collector));
+		}))
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElder", collector));
 }
 
 export const commandInfo: ICommand = {

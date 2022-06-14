@@ -139,7 +139,7 @@ export const giveItemToPlayer = async function(
 	}
 
 	const itemToReplaceInstance = await itemToReplace.getItem();
-	const validateSell = new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		discordUser,
 		async (msg: DraftBotValidateReactionMessage) => {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
@@ -162,8 +162,8 @@ export const giveItemToPlayer = async function(
 		.formatAuthor(tr.get(item.getCategory() === Constants.ITEM_CATEGORIES.POTION ? "randomItemFooterPotion" : "randomItemFooter"), discordUser)
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
-		})) as DraftBotValidateReactionMessage;
-	await validateSell.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
+		}))
+		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 };
 
 // eslint-disable-next-line max-params

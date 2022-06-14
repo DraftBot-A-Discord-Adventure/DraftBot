@@ -120,7 +120,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.formatAuthor(guildLeaveModule.get("leaveTitle"), interaction.user)
 		.setDescription(guildLeaveModule.format("leaveDesc", {
 			guildName: guild.name
-		})) as DraftBotValidateReactionMessage;
+		}));
 	let elder: Entity = null;
 	if (entity.id === guild.chiefId) {
 		elder = await Entities.getById(guild.elderId);

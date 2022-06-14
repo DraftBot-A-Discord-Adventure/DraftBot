@@ -128,7 +128,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 		.setDescription(petFreeModule.format("confirmDesc", {
 			pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
-		})) as DraftBotValidateReactionMessage;
+		}));
 
 	if (pPet.isFeisty()) {
 		confirmEmbed.setFooter(petFreeModule.get("isFeisty"));
