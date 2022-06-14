@@ -11,6 +11,7 @@ import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {minutesToMilliseconds} from "../../core/utils/TimeUtils";
+import {FightController} from "../../core/fights/FightController";
 
 /**
  * Check if an entity is allowed to fight
@@ -18,7 +19,7 @@ import {minutesToMilliseconds} from "../../core/utils/TimeUtils";
  * @param {boolean} friendly
  * @return error
  */
-async function canFight(entity: Entity, friendly: boolean) {
+async function canFight(entity: Entity, friendly: boolean): Promise<string> {
 	if (entity === null) {
 		return null;
 	}
@@ -38,35 +39,30 @@ async function canFight(entity: Entity, friendly: boolean) {
 	return FightConstants.FIGHT_ERROR.NONE;
 }
 
-function sendError(interaction: CommandInteraction, fightTranslationModule: TranslationModule, error: string, entity: Entity, isAboutSelectedOpponent: boolean) {
+/**
+ * send the error message to the user
+ * @param interaction - the interaction
+ * @param fightTranslationModule - the translation module
+ * @param error - the error message
+ * @param entity - the entity that is checked
+ * @param isAboutSelectedOpponent - true if the error is about the selected opponent
+ * @param replyingError - true if the error is a replying error
+ */
+function sendError(interaction: CommandInteraction, fightTranslationModule: TranslationModule, error: string, entity: Entity, isAboutSelectedOpponent: boolean, replyingError: boolean) {
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
 		pseudo: entity.getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
-	sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.format(errorTranslationName, replacements), false, interaction);
+	sendErrorMessage(
+		interaction.user,
+		interaction.channel,
+		fightTranslationModule.language,
+		fightTranslationModule.format(errorTranslationName, replacements),
+		false,
+		replyingError ? interaction : null);
 }
-
-/* function endCallbackFight(askingEntity: Entity, respondingEntity: Entity | null, interaction: CommandInteraction, fightTranslationModule: TranslationModule, executeCommand: ExecuteCommandType) {
-
-	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(askingEntity.discordUserId);
-
-		if (true) {
-			// the collector ended due to spam, do nothing
-			return;
-		}
-		if (respondingEntity) {
-			await sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.get("error.noOneAvailable"), false);
-		}
-		else {
-			await sendErrorMessage(interaction.user, interaction.channel, fightTranslationModule.language, fightTranslationModule.get("error.opponentNotAvailable"), false);
-		}
-		refuseCallback();
-	};
-} */
-
 
 /**
  * get the string that display the information about the fight for the menu
@@ -101,23 +97,38 @@ async function getFightDescription(askingFighter: Fighter, friendly: boolean, re
 	return fightAskingDescription;
 }
 
-function isEligible(user: User, entity: Entity) {
-	// TODO la condition est bidon, à toi de la remplir par rapport aux besoins de la commande
-	return user.id === entity.discordUserId;
-}
-
-function getAcceptCallback() {
+/**
+ * analyze the result of the fight broadcast collector
+ * @param interaction
+ * @param fightTranslationModule
+ * @param friendly
+ * @param askedEntity
+ * @param askingFighter
+ * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
+ */
+function getAcceptCallback(interaction: CommandInteraction, fightTranslationModule: TranslationModule, friendly: boolean, askedEntity: Entity | null, askingFighter: Fighter) {
 	return async function(user: User) {
-		const incomingFighter = await Entities.getByDiscordUserId(user.id);
-		if (!isEligible(user, incomingFighter)) {
-			// TODO RENVOYER ERREUR POUR PERSONNE
+		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
+		const attackerFightErrorStatus = await canFight(incomingFighterEntity, friendly);
+		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
 			return false;
 		}
-		// TODO LANCER FIGHT
+		if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
+			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, incomingFighterEntity, true, false);
+			return false;
+		}
+		// lancer le fight
+		const fightController = new FightController(askingFighter, new Fighter(incomingFighterEntity), friendly, interaction.channel, fightTranslationModule.language);
+		await fightController.startFight();
 		return true;
 	};
 }
 
+/**
+ * load the customs error messages for the broadcast collector
+ * @param fightTranslationModule - the translation module
+ * @param respondingEntity - the entity that is responding to the fight
+ */
 function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity) {
 	return {
 		errorBroadcastCancelled: fightTranslationModule.get("error.canceled"),
@@ -138,32 +149,32 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 
 	const askingFighter = new Fighter(entity);
-	const respondingEntity: Entity | null = await Entities.getByOptions(interaction);
-	const respondingFighter: Fighter | null = new Fighter(respondingEntity);
+	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
+	const askedFighter: Fighter | null = new Fighter(askedEntity);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
-	if (respondingEntity && entity.discordUserId === respondingEntity.discordUserId) {
+	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
 		sendErrorMessage(interaction.user, interaction.channel, language, fightTranslationModule.get("error.fightHimself"), false, interaction);
 		return;
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, entity, false);
+		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, entity, false, true);
 		return;
 	}
-	if (respondingEntity) {
-		const defenderFightErrorStatus = await canFight(respondingEntity, friendly);
+	if (askedEntity) {
+		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, entity, true);
+			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, entity, true, true);
 			return;
 		}
 	}
-	const fightAskingDescription = await getFightDescription(askingFighter, friendly, respondingEntity, fightTranslationModule, respondingFighter);
+	const fightAskingDescription = await getFightDescription(askingFighter, friendly, askedEntity, fightTranslationModule, askedFighter);
 	await new DraftBotBroadcastValidationMessage(
 		interaction, language,
-		getAcceptCallback(),
+		getAcceptCallback(interaction, fightTranslationModule, friendly, askedEntity, askingFighter),
 		"fight",
-		getBroadcastErrorStrings(fightTranslationModule, respondingEntity),
+		getBroadcastErrorStrings(fightTranslationModule, askedEntity),
 		minutesToMilliseconds(FightConstants.ASKING_MENU_DURATION))
 		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)
 		.setDescription(fightAskingDescription)

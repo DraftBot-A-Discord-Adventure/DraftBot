@@ -1,12 +1,12 @@
 import {FightController} from "./FightController";
-import {Message, TextChannel} from "discord.js";
+import {Message, TextBasedChannel} from "discord.js";
 import {Fighter} from "./Fighter";
 import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 export class FightView {
 
-	public channel: TextChannel;
+	public channel: TextBasedChannel;
 
 	public language: string;
 
@@ -18,7 +18,7 @@ export class FightView {
 
 	private actionMessages: Message[];
 
-	public constructor(channel: TextChannel, language: string, fightController: FightController) {
+	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
 		this.channel = channel;
 		this.language = language;
 		this.fightController = fightController;

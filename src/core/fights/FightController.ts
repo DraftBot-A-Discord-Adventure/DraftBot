@@ -3,21 +3,21 @@ import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 
 export class FightController {
 
-	private fighters: Fighter[];
+	private readonly fighters: Fighter[];
 
-	private fightView: FightView
+	private readonly fightView: FightView
 
 	private state: FightState;
 
 	private turn: number;
 
-	private friendly: boolean;
+	private readonly friendly: boolean;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextChannel, language: string) {
+	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
 		this.state = FightState.NOT_STARTED;
 		this.turn = 0;
