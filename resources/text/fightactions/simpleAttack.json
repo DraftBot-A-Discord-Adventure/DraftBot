@@ -1,0 +1,10 @@
+{
+	"name": "attaque simple",
+	"namePlural": "attaques simples",
+	"emote": ":crossed_swords:",
+	"end": {
+		"succeed": "",
+		"notGood": "",
+		"failed": ""
+	}
+}
