@@ -1,5 +1,5 @@
 import Entity, {Entities} from "../models/Entity";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../models/PlayerActiveObjects";
 import {Tags} from "../models/Tag";
@@ -56,7 +56,7 @@ export class Fighter {
 	 * @param language
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextChannel, language: string) {
+	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string) {
 		if (friendly || !await this.currentPotionIsAFightPotion()) {
 			return;
 		}
