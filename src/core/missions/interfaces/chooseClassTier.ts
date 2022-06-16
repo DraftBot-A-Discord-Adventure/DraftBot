@@ -16,7 +16,7 @@ export const missionInterface: IMission = {
 	},
 
 	async initialNumberDone(player: Player, variant: number): Promise<number> {
-		return (await Classes.getById(player.class)).classgroup >= variant ? 1 : 0;
+		return (await Classes.getById(player.class)).classGroup >= variant ? 1 : 0;
 	},
 
 	updateSaveBlob(): Promise<Buffer> {

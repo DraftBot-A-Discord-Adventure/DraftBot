@@ -1,10 +1,23 @@
 {
-	"name": "attaque simple",
-	"namePlural": "attaques simples",
-	"emote": ":crossed_swords:",
-	"end": {
-		"succeed": "",
-		"notGood": "",
-		"failed": ""
-	}
+	"translations": {
+		"fr": {
+			"name": "attaque simple",
+			"namePlural": "attaques simples",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		},
+		"en": {
+			"name": "simple attack",
+			"namePlural": "simple attacks",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		}
+	},
+	"emote": ":crossed_swords:"
 }

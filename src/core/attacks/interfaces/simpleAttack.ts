@@ -31,6 +31,9 @@ export const fightActionInterface: IFightAction = {
 		return format(chosenString, {
 			attack: Translations.getModule("fightaction.simpleAttack", language).get("name")
 		});
-	}
+	},
 
+	toString(language: string): string {
+		return Translations.getModule("fightaction.simpleAttack", language).get("name");
+	}
 };

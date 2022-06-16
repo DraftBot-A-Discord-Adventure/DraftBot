@@ -8,10 +8,13 @@ import {MissionsController} from "../missions/MissionsController";
 import {countNbOfPotions} from "../utils/ItemUtils";
 import {TranslationModule} from "../Translations";
 import {FighterStatus} from "./FighterStatus";
+import {IFightAction} from "../attacks/IFightAction";
+import Class from "../models/Class";
+import {FightActionController} from "../attacks/FightActionController";
 
 type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number }
 
-const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender","summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
+const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender", "summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
 
 export class Fighter {
 
@@ -21,19 +24,25 @@ export class Fighter {
 
 	private ready: boolean
 
-	private status : FighterStatus
+	private status: FighterStatus
 
 	private nextFightActionId: string;
 
-	private fightActionsHistory: string[] ;
+	private fightActionsHistory: string[];
 
-	public constructor(entity: Entity) {
+	private availableFightAction: Map<string, IFightAction>;
+
+	private readonly class: Class;
+
+	public constructor(entity: Entity, playerClass : Class) {
 		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null};
 		this.entity = entity;
 		this.ready = false;
 		this.nextFightActionId = "";
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
+		this.class = playerClass;
+		this.availableFightAction = FightActionController.listFightActionsFromClass(this.class);
 	}
 
 	/**
@@ -42,6 +51,14 @@ export class Fighter {
 	 */
 	public getMention() {
 		return this.entity.getMention();
+	}
+
+	/**
+	 * set the status of the fighter
+	 * @param newStatus
+	 */
+	setStatus(newStatus: FighterStatus) {
+		this.status = newStatus;
 	}
 
 	/**
@@ -119,8 +136,10 @@ export class Fighter {
 	 * execute one turn
 	 */
 	public play() {
-		// use a simple attack
+		if (this.nextFightActionId !== "") {
 
+		}
+		// Choose action
 	}
 }
 

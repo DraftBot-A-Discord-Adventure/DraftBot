@@ -179,7 +179,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 				), message.channel, language, false);
 				await entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
 				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
-				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, {tier: selectedClass.classgroup});
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, {tier: selectedClass.classGroup});
 				await Promise.all([
 					entity.save(),
 					entity.Player.save()

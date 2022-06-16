@@ -8,4 +8,10 @@ export type IFightAction = {
 	 * @param language - the language of the message
 	 */
 	use(sender: Fighter, receiver: Fighter, language : string): string;
+
+	/**
+	 * return the name of the attack as it will appear in the list of actions
+	 * @param language
+	 */
+	toString(language: string): string;
 }
