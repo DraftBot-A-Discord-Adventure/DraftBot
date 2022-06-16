@@ -19,7 +19,7 @@ type TextInformations = { interaction: CommandInteraction, language: string, unl
  * @param entityCouple
  * @param textInformations
  */
-async function conditionAreFulfiledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations) {
+async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations) {
 	if (!entityCouple.locked) {
 		sendErrorMessage(
 			textInformations.interaction.user,
@@ -162,7 +162,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const lockedEntity = await Entities.getByOptions(interaction);
 	const entityCouple = {unlocker: entity, locked: lockedEntity};
 	const textInformations = {interaction: interaction, language: language, unlockModule: unlockModule};
-	if (!await conditionAreFulfiledForUnlocking(entityCouple, textInformations)) {
+	if (!await conditionAreFulfilledForUnlocking(entityCouple, textInformations)) {
 		return;
 	}
 

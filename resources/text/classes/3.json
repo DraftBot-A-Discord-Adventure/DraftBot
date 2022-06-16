@@ -10,5 +10,8 @@
 	"health": 110,
 	"fightPoint": 245,
 	"price": 5700,
-	"classgroup": 3
+	"classGroup": 3,
+	"fightActionsIds": [
+		"simpleAttack"
+	]
 }

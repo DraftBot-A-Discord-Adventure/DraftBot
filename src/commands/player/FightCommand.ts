@@ -12,6 +12,7 @@ import {Fighter} from "../../core/fights/Fighter";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {minutesToMilliseconds} from "../../core/utils/TimeUtils";
 import {FightController} from "../../core/fights/FightController";
+import {Classes} from "../../core/models/Class";
 
 /**
  * Check if an entity is allowed to fight
@@ -117,7 +118,7 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
 			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, incomingFighterEntity, true, false);
 			return false;
 		}
-		const incomingFighter = new Fighter(incomingFighterEntity);
+		const incomingFighter = new Fighter(incomingFighterEntity,await Classes.getById(incomingFighterEntity.Player.class));
 		await incomingFighter.loadStats(friendly);
 		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
 		await fightController.startFight();
@@ -149,9 +150,9 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 
-	const askingFighter = new Fighter(entity);
+	const askingFighter = new Fighter(entity,await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
-	const askedFighter: Fighter | null = new Fighter(askedEntity);
+	const askedFighter: Fighter | null = new Fighter(askedEntity, await Classes.getById(askedEntity.Player.class));
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself

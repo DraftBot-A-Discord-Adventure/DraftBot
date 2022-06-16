@@ -4,6 +4,7 @@ import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
+import {FighterStatus} from "./FighterStatus";
 
 export class FightController {
 
@@ -85,6 +86,8 @@ export class FightController {
 		const temp = this.fighters[0];
 		this.fighters[0] = this.fighters[1];
 		this.fighters[1] = temp;
+		this.fighters[0].setStatus(FighterStatus.ATTACKER);
+		this.fighters[1].setStatus(FighterStatus.DEFENDER);
 	}
 
 	/**

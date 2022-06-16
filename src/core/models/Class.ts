@@ -1,5 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Translations} from "../Translations";
+import {Data} from "../Data";
 import moment = require("moment");
 
 export class Class extends Model {
@@ -17,7 +18,7 @@ export class Class extends Model {
 
 	public readonly emoji!: string;
 
-	public readonly classgroup!: number;
+	public readonly classGroup!: number;
 
 	public readonly price!: number;
 
@@ -38,7 +39,7 @@ export class Class extends Model {
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
 			price: this.price,
-			classgroup: this.classgroup,
+			classGroup: this.classGroup,
 			fightPoint: this.getMaxCumulativeHealthValue(level)
 		});
 	}
@@ -70,6 +71,10 @@ export class Class extends Model {
 	public getMaxHealthValue(level: number): number {
 		return this.health + level;
 	}
+
+	public getFightActions(): string[] {
+		return Data.getModule(`classes.${this.id}`).getStringArray("fightActionsIds");
+	}
 }
 
 export class Classes {
@@ -84,7 +89,7 @@ export class Classes {
 	static getByGroupId(groupId: number): Promise<Class[]> {
 		return Promise.resolve(Class.findAll({
 			where: {
-				classgroup: groupId
+				classGroup: groupId
 			}
 		}));
 	}
