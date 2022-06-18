@@ -1,0 +1,23 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque rapide",
+			"namePlural": "Attaques rapides",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		},
+		"en": {
+			"name": "Quick attack",
+			"namePlural": "Quick attacks",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		}
+	},
+	"emote": "\uD83D\uDDE1️"
+}

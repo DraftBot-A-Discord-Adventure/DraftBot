@@ -153,15 +153,7 @@ export class FightController {
 	 * @private
 	 */
 	private async checkFightActionHistory(fighter: Fighter) {
-		const playerFightActionsHistory = new Map<string, number>();
-		fighter.fightActionsHistory.forEach((action) => {
-			if (playerFightActionsHistory.has(action)) {
-				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
-			}
-			else {
-				playerFightActionsHistory.set(action, 1);
-			}
-		});
+		const playerFightActionsHistory: Map<string, number> = fighter.getFightActionCount();
 		// iterate on each action in the history
 		for (const [action, count] of playerFightActionsHistory) {
 			await MissionsController.update(fighter.getDiscordId(), this.fightView.channel, this.fightView.language, "fightAttacks",
