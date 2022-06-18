@@ -6,8 +6,9 @@ export type IMission = {
 	/**
 	 * generate a random variant of mission
 	 * @param difficulty - the difficulty of the mission
+	 * @param player - the player from which the mission is generated
 	 */
-	generateRandomVariant(difficulty: MissionDifficulty): Promise<number>;
+	generateRandomVariant(difficulty: MissionDifficulty, player: Player): Promise<number>;
 
 	/**
 	 * check if the params are matching the variant
