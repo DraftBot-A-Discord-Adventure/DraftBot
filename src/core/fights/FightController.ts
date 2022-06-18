@@ -5,6 +5,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
+import {IFightAction} from "../attacks/IFightAction";
+import {FightActionController} from "../attacks/FightActionController";
 
 export class FightController {
 
@@ -41,9 +43,9 @@ export class FightController {
 		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
 			this.invertFighters();
 		}
-		this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
+		await this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
 		this.state = FightState.RUNNING;
-		await this.nextTurn();
+		await this.prepareNextTurn();
 	}
 
 	/**
@@ -63,18 +65,19 @@ export class FightController {
 	}
 
 	/**
-	 * execute a turn of a fight
-	 * @private
+	 * execute the next fight action
 	 */
-	private async nextTurn() {
-		this.turn++;
-		if (this.hadEnded()) {
-			await this.endFight();
-			return;
-		}
-		const playing = this.getPlayingFighter();
-		await this.fightView.displayFightStatus();
-		playing.play();
+	public async executeFightAction(fightAction:IFightAction) {
+		const receivedMessage = fightAction.use(this.getPlayingFighter(),this.getDefendingFighter(), this.fightView.language);
+		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
+	}
+
+	/**
+	 * End the fight
+	 */
+	public endFight() {
+		this.state = FightState.FINISHED;
 	}
 
 	/**
@@ -99,11 +102,21 @@ export class FightController {
 	}
 
 	/**
-	 * End the fight
+	 * execute a turn of a fight
 	 * @private
 	 */
-	private endFight() {
-		this.state = FightState.FINISHED;
+	private async prepareNextTurn() {
+		this.turn++;
+		if (this.hadEnded()) {
+			await this.endFight();
+			return;
+		}
+		await this.fightView.displayFightStatus();
+		if (this.getPlayingFighter().nextFightActionId === null) {
+			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
+		}
+		else {
+			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId));
+		}
 	}
-
 }

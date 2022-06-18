@@ -3,6 +3,7 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../../fights/Fighter";
 import {Translations} from "../../Translations";
 import {format} from "../../utils/StringFormatter";
+import {Data} from "../../Data";
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
@@ -29,11 +30,21 @@ export const fightActionInterface: IFightAction = {
 				: "notGood";
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${retStr}`);
 		return format(chosenString, {
-			attack: Translations.getModule("fightaction.simpleAttack", language).get("name")
+			attack: Translations.getModule("fightactions.simpleAttack", language).get("name")
+		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
+			damages: damageDealt
 		});
 	},
 
 	toString(language: string): string {
-		return Translations.getModule("fightaction.simpleAttack", language).get("name");
+		return Translations.getModule(`fightactions.${this.getName()}`, language).get("name");
+	},
+
+	getEmoji(): string {
+		return Data.getModule(`fightactions.${this.getName()}`).getString("emote");
+	},
+
+	getName(): string {
+		return "simpleAttack";
 	}
 };

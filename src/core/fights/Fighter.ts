@@ -1,5 +1,5 @@
 import Entity, {Entities} from "../models/Entity";
-import {TextBasedChannel} from "discord.js";
+import {TextBasedChannel, User} from "discord.js";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../models/PlayerActiveObjects";
 import {Tags} from "../models/Tag";
@@ -26,23 +26,26 @@ export class Fighter {
 
 	private status: FighterStatus
 
-	private nextFightActionId: string;
+	public nextFightActionId: string;
 
-	private fightActionsHistory: string[];
+	public fightActionsHistory: string[];
 
-	private availableFightAction: Map<string, IFightAction>;
+	public availableFightActions: Map<string, IFightAction>;
 
 	private readonly class: Class;
 
-	public constructor(entity: Entity, playerClass : Class) {
+	private readonly user: User;
+
+	public constructor(user: User, entity: Entity, playerClass: Class) {
 		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null};
 		this.entity = entity;
 		this.ready = false;
-		this.nextFightActionId = "";
+		this.nextFightActionId = null;
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
 		this.class = playerClass;
-		this.availableFightAction = FightActionController.listFightActionsFromClass(this.class);
+		this.availableFightActions = FightActionController.listFightActionsFromClass(this.class);
+		this.user = user;
 	}
 
 	/**
@@ -135,11 +138,32 @@ export class Fighter {
 	/**
 	 * execute one turn
 	 */
-	public play() {
-		if (this.nextFightActionId !== "") {
-
+	public play(): IFightAction {
+		if (this.nextFightActionId !== null) {
+			return FightActionController.getFightActionInterface(this.nextFightActionId);
 		}
 		// Choose action
 	}
-}
 
+	/**
+	 * get the discord id of a fighter
+	 */
+	getDiscordId() {
+		return this.entity.discordUserId;
+	}
+
+	/**
+	 * get the user of a fighter
+	 */
+	getUser() {
+		return this.user;
+	}
+
+	/**
+	 * get the pseudo of a fighter
+	 * @param language
+	 */
+	async getPseudo(language: string) {
+		return await this.entity.Player.getPseudo(language);
+	}
+}

@@ -55,8 +55,9 @@
 				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
+			"actionsOf": "Attaques de {player} :",
 			"actions": {
-				"intro": "{emote} | **{player}** ",
+				"intro": "{emote} | {player} ",
 				"charging": "charge une attaque... `Défense réduite de 40 %`",
 				"chargingEmote": ":zap:",
 				"attacks": {

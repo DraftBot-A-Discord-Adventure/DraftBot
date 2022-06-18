@@ -14,4 +14,14 @@ export type IFightAction = {
 	 * @param language
 	 */
 	toString(language: string): string;
+
+	/**
+	 * return the emoji that is used to represent the action
+	 */
+	getEmoji(): string;
+
+	/**
+	 * return the id / name of the action
+	 */
+	getName(): string;
 }
