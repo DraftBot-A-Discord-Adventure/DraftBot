@@ -10,7 +10,6 @@ import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
-import {minutesToMilliseconds} from "../../core/utils/TimeUtils";
 import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/models/Class";
 
@@ -118,10 +117,10 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
 			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, incomingFighterEntity, true, false);
 			return false;
 		}
-		const incomingFighter = new Fighter(incomingFighterEntity,await Classes.getById(incomingFighterEntity.Player.class));
+		const incomingFighter = new Fighter(user, incomingFighterEntity, await Classes.getById(incomingFighterEntity.Player.class));
 		await incomingFighter.loadStats(friendly);
 		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
-		await fightController.startFight();
+		fightController.startFight().finally(() => null);
 		return true;
 	};
 }
@@ -150,9 +149,9 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 
-	const askingFighter = new Fighter(entity,await Classes.getById(entity.Player.class));
+	const askingFighter = new Fighter(interaction.user, entity,await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
-	const askedFighter: Fighter | null = new Fighter(askedEntity, await Classes.getById(askedEntity.Player.class));
+	const askedFighter: Fighter | null = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
@@ -177,7 +176,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		getAcceptCallback(interaction, fightTranslationModule, friendly, askedEntity, askingFighter),
 		"fight",
 		getBroadcastErrorStrings(fightTranslationModule, askedEntity),
-		minutesToMilliseconds(FightConstants.ASKING_MENU_DURATION))
+		FightConstants.ASKING_MENU_DURATION)
 		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)
 		.setDescription(fightAskingDescription)
 		.reply();

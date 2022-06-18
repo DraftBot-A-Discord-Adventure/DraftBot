@@ -18,8 +18,11 @@ export abstract class FightConstants {
 	};
 
 	// duration of the menu that search for an opponent in miliseconds
-	static ASKING_MENU_DURATION = 2;
+	static ASKING_MENU_DURATION = 120000;
 
 	// number of reaction the bot will accept before closing a fight request due to spam.
-	static SPAM_PROTECTION_MAX_REACTION_AMOUNT = 2
+	static SPAM_PROTECTION_MAX_REACTION_AMOUNT = 2;
+
+	// amount of time a user has to react during a fight
+	static TIME_FOR_ACTION_SELECTION = 45000;
 }

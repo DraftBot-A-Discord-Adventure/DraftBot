@@ -8,7 +8,6 @@ export class FightActionController {
 
 	static listFightActionsFromClass(playerClass: Class): Map<string, IFightAction> {
 		const listActions = new Map<string, IFightAction>();
-		console.log(playerClass.getFightActions());
 		for (const action of playerClass.getFightActions()) {
 			listActions.set(action, this.getFightActionInterface(action));
 		}
