@@ -187,4 +187,20 @@ export class Fighter {
 	suicide() {
 		this.stats.fightPoints = 0;
 	}
+
+	/**
+	 * get a map of the fight actions executed and the amont of time it has been done
+	 */
+	getFightActionCount() {
+		const playerFightActionsHistory = new Map<string, number>();
+		this.fightActionsHistory.forEach((action) => {
+			if (playerFightActionsHistory.has(action)) {
+				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
+			}
+			else {
+				playerFightActionsHistory.set(action, 1);
+			}
+		});
+		return playerFightActionsHistory;
+	}
 }
