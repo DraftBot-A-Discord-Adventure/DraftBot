@@ -5,6 +5,8 @@ import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {IFightAction} from "../attacks/IFightAction";
 import {FightConstants} from "../constants/FightConstants";
+import {MissionsController} from "../missions/MissionsController";
+import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 
 export class FightView {
 
@@ -19,6 +21,8 @@ export class FightView {
 	private lastSummary: Message;
 
 	private readonly actionMessages: Message[];
+
+	private fightLaunchMessage: Message;
 
 	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
 		this.channel = channel;
@@ -76,7 +80,7 @@ export class FightView {
 			}));
 		await this.addFightActionFieldFor(introEmbed, fighter1);
 		await this.addFightActionFieldFor(introEmbed, fighter2);
-		await this.channel.send({
+		this.fightLaunchMessage = await this.channel.send({
 			embeds: [introEmbed]
 		});
 		this.actionMessages.push(await this.channel.send({content: "_ _"}));
@@ -167,13 +171,46 @@ export class FightView {
 		}
 	}
 
-	private getFightActionsToStringOf(fighter: Fighter) : string {
-		const fightActions = fighter.availableFightActions;
-		let actionList = "";
-		for (const [,action] of fightActions) {
-			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
+	/**
+	 * Get send the fight outro message
+	 * @param loser
+	 * @param winner
+	 * @param draw
+	 */
+	async outroFight(loser: Fighter, winner: Fighter, draw: boolean) {
+		if (this.lastSummary !== undefined) {
+			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
-		return actionList;
+		let msg;
+		if (!draw) {
+			msg = this.fightTranslationModule.format("end.win", {
+				winner: winner.getMention(),
+				loser: loser.getMention()
+			});
+		}
+		else {
+			msg = this.fightTranslationModule.format("end.draw", {
+				player1: winner.getMention(),
+				player2: loser.getMention()
+			});
+		}
+		msg += this.fightTranslationModule.format("end.gameStats", {
+			turn: this.fightController.turn,
+			maxTurn: FightConstants.MAX_TURNS,
+			time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - this.fightLaunchMessage.createdTimestamp))
+		});
+
+		for (const fighter of [winner, loser]){
+			msg += this.fightTranslationModule.format("end.fighterStats", {
+				pseudo: await fighter.getPseudo(this.language),
+				health: fighter.stats.fightPoints,
+				maxHealth: fighter.stats.maxFightPoint
+			});
+			await this.checkFightActionHistory(fighter);
+		}
+
+
+		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]});
 	}
 
 	/**
@@ -202,5 +239,32 @@ export class FightView {
 		chooseActionEmbed.formatAuthor(this.fightTranslationModule.format("turnIndicationsTitle", {pseudo: await fighter.getPseudo(this.language)}), fighter.getUser());
 		chooseActionEmbed.setDescription(this.fightTranslationModule.get("turnIndicationsDescription"));
 		return (await this.channel.send({embeds: [chooseActionEmbed]})) as Message;
+	}
+
+	private getFightActionsToStringOf(fighter: Fighter): string {
+		const fightActions = fighter.availableFightActions;
+		let actionList = "";
+		for (const [, action] of fightActions) {
+			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
+		}
+		return actionList;
+	}
+
+	private async checkFightActionHistory(fighter: Fighter) {
+		const playerFightActionsHistory = new Map<string, number>();
+		fighter.fightActionsHistory.forEach((action) => {
+			if (playerFightActionsHistory.has(action)) {
+				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
+			}
+			else {
+				playerFightActionsHistory.set(action, 1);
+			}
+		});
+		// iterate on each action in the history
+		for (const [action, count] of playerFightActionsHistory) {
+			await MissionsController.update(fighter.getDiscordId(), this.channel, this.language, "fightAttacks",
+				count, {attackType: action});
+		}
+
 	}
 }
