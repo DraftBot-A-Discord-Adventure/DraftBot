@@ -166,4 +166,25 @@ export class Fighter {
 	async getPseudo(language: string) {
 		return await this.entity.Player.getPseudo(language);
 	}
+
+	/**
+	 * check if the player is dead
+	 */
+	isDead() {
+		return this.stats.fightPoints <= 0;
+	}
+
+	/**
+	 * check if the player is dead or buggy
+	 */
+	isDeadOrBug() {
+		return this.isDead() || this.status === FighterStatus.BUG;
+	}
+
+	/**
+	 * the name of the function is very clear
+	 */
+	suicide() {
+		this.stats.fightPoints = 0;
+	}
 }
