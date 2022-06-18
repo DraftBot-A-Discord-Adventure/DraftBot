@@ -7,6 +7,8 @@ import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
 import {IFightAction} from "../attacks/IFightAction";
 import {FightActionController} from "../attacks/FightActionController";
+import {BlockingUtils} from "../utils/BlockingUtils";
+import {MissionsController} from "../missions/MissionsController";
 
 export class FightController {
 
@@ -16,7 +18,7 @@ export class FightController {
 
 	private state: FightState;
 
-	private turn: number;
+	turn: number;
 
 	private readonly friendly: boolean;
 
@@ -83,8 +85,53 @@ export class FightController {
 	 * End the fight
 	 */
 	public endFight() {
-		console.log("FIGHT FINI !!");
 		this.state = FightState.FINISHED;
+		const winner = this.getWinner();
+
+		const isADraw = winner === 2;
+
+		for (const fighter of this.fighters) {
+			BlockingUtils.unblockPlayer(fighter.getUser().id);
+		}
+
+		if (isADraw) {
+			console.log("Fight ended; " +
+				`equality between: ${this.fighters[winner].getUser().id} (${this.fighters[winner].stats.fightPoints}/${this.fighters[winner].stats.maxFightPoint}); ` +
+				`and: ${this.fighters[1 - winner].getUser().id} (${this.fighters[1 - winner].stats.fightPoints}/${this.fighters[1 - winner].stats.maxFightPoint}); ` +
+				`turns: ${this.turn}`);
+		}
+		else {
+			console.log("Fight ended; " +
+				`winner: ${this.fighters[winner].getUser().id} (${this.fighters[winner].stats.fightPoints}/${this.fighters[winner].stats.maxFightPoint}); ` +
+				`loser: ${this.fighters[1 - winner].getUser().id} (${this.fighters[1 - winner].stats.fightPoints}/${this.fighters[1 - winner].stats.maxFightPoint}); ` +
+				`turns: ${this.turn}`);
+		}
+		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw).finally(() => null);
+		for (const fighter of this.fighters) {
+			this.manageMissionsOf(fighter).finally(() => null);
+		}
+		if (winner !== 2) {
+			MissionsController.update(this.fighters[winner].getUser().id, this.fightView.channel, this.fightView.language, "fightHealthPercent", 1, {
+				remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
+			}).finally(() => null);
+		}
+	}
+
+	private getWinner(): number {
+		if (this.fighters[0].isDead() === this.fighters[1].isDead()) {
+			return 2;
+		}
+		return this.fighters[0].isDead() ? 1 : 0;
+	}
+
+	private async manageMissionsOf(fighter: Fighter): Promise<void> {
+		if (this.friendly) {
+			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "friendlyFight");
+		}
+		else {
+			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "rankedFight");
+		}
+		await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "anyFight");
 	}
 
 	/**
