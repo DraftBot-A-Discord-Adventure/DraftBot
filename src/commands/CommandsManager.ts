@@ -140,7 +140,7 @@ export class CommandsManager {
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 
 		for (const cmd of setCommands.values()) {
-			this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
+			// this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
 		}
 
 		client.on("interactionCreate", interaction => {
