@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"name": "attaque simple",
+			"name": "Attaque Simple",
 			"namePlural": "attaques simples",
 			"end": {
 				"succeed": "",
@@ -10,7 +10,7 @@
 			}
 		},
 		"en": {
-			"name": "simple attack",
+			"name": "Simple Attack",
 			"namePlural": "simple attacks",
 			"end": {
 				"succeed": "",

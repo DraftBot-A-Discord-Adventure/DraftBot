@@ -151,7 +151,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const askingFighter = new Fighter(interaction.user, entity,await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
-	const askedFighter: Fighter | null = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
@@ -163,12 +162,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, entity, false, true);
 		return;
 	}
+	let askedFighter: Fighter | null;
 	if (askedEntity) {
 		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, entity, true, true);
 			return;
 		}
+		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
 	}
 	const fightAskingDescription = await getFightDescription(askingFighter, friendly, askedEntity, fightTranslationModule, askedFighter);
 	await new DraftBotBroadcastValidationMessage(

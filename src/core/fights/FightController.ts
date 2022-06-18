@@ -23,7 +23,7 @@ export class FightController {
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
 		this.state = FightState.NOT_STARTED;
-		this.turn = 0;
+		this.turn = 1;
 		this.friendly = friendly;
 		this.fightView = new FightView(channel, language, this);
 	}
@@ -67,17 +67,38 @@ export class FightController {
 	/**
 	 * execute the next fight action
 	 */
-	public async executeFightAction(fightAction:IFightAction) {
-		const receivedMessage = fightAction.use(this.getPlayingFighter(),this.getDefendingFighter(), this.fightView.language);
+	public async executeFightAction(fightAction: IFightAction) {
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
+		this.turn++;
+		if (this.hadEnded()) {
+			await this.endFight();
+			return;
+		}
+		await this.prepareNextTurn();
 	}
 
 	/**
 	 * End the fight
 	 */
 	public endFight() {
+		console.log("FIGHT FINI !!");
 		this.state = FightState.FINISHED;
+	}
+
+	/**
+	 * execute a turn of a fight
+	 * @private
+	 */
+	private async prepareNextTurn() {
+		await this.fightView.displayFightStatus();
+		if (this.getPlayingFighter().nextFightActionId === null) {
+			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
+		}
+		else {
+			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId));
+		}
 	}
 
 	/**
@@ -98,25 +119,10 @@ export class FightController {
 	 * @private
 	 */
 	private hadEnded() {
-		return this.turn >= FightConstants.MAX_TURNS;
-	}
-
-	/**
-	 * execute a turn of a fight
-	 * @private
-	 */
-	private async prepareNextTurn() {
-		this.turn++;
-		if (this.hadEnded()) {
-			await this.endFight();
-			return;
-		}
-		await this.fightView.displayFightStatus();
-		if (this.getPlayingFighter().nextFightActionId === null) {
-			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
-		}
-		else {
-			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId));
-		}
+		return (
+			this.turn >= FightConstants.MAX_TURNS ||
+			this.getPlayingFighter().isDeadOrBug() ||
+			this.getDefendingFighter().isDeadOrBug() ||
+			this.state !== FightState.RUNNING);
 	}
 }

@@ -35,15 +35,16 @@ export class FightView {
 	 * @private
 	 */
 	private static getSelectedAction(reaction: Collection<Snowflake, MessageReaction>, actions: Map<string, IFightAction>) {
+		if (!reaction.first()) {
+			return null;
+		}
 		const selectedActionEmoji = reaction.first().emoji.name;
-		let selectedAction;
 		for (const [, action] of actions) {
 			if (action.getEmoji() === selectedActionEmoji) {
-				selectedAction = action;
-				break;
+				return action;
 			}
 		}
-		return selectedAction;
+		return null; // impossible in theory
 	}
 
 	/**
@@ -110,8 +111,10 @@ export class FightView {
 		});
 		collector.on("end", (reaction) => {
 			const selectedAction = FightView.getSelectedAction(reaction, actions);
-			if (selectedAction === undefined) {
+			chooseActionEmbedMessage.delete();
+			if (selectedAction === null) {
 				// USER HASN'T SELECTED AN ACTION
+				fighter.suicide();
 				this.fightController.endFight();
 				return;
 			}
