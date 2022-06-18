@@ -128,7 +128,7 @@ export function initModel(sequelize: Sequelize): void {
 		emoji: {
 			type: DataTypes.TEXT
 		},
-		classgroup: {
+		classGroup: {
 			type: DataTypes.INTEGER
 		},
 		price: {
