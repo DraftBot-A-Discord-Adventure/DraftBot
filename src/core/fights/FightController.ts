@@ -87,9 +87,7 @@ export class FightController {
 	public endFight() {
 		this.state = FightState.FINISHED;
 		const winner = this.getWinner();
-
-		const isADraw = winner === 2;
-
+		const isADraw = this.isADraw();
 		for (const fighter of this.fighters) {
 			BlockingUtils.unblockPlayer(fighter.getUser().id);
 		}
@@ -117,14 +115,29 @@ export class FightController {
 		}
 	}
 
+	/**
+	 * Get the winner of the fight (or null if it's a draw)
+	 * @private
+	 */
 	private getWinner(): number {
-		if (this.fighters[0].isDead() === this.fighters[1].isDead()) {
-			return 2;
-		}
 		return this.fighters[0].isDead() ? 1 : 0;
 	}
 
+	/**
+	 * check if the fight is a draw
+	 * @private
+	 */
+	private isADraw(): boolean {
+		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn >= FightConstants.MAX_TURNS;
+	}
+
+	/**
+	 * manage the mission of a fighter
+	 * @param fighter
+	 * @private
+	 */
 	private async manageMissionsOf(fighter: Fighter): Promise<void> {
+		await this.checkFightActionHistory(fighter);
 		if (this.friendly) {
 			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "friendlyFight");
 		}
@@ -132,6 +145,28 @@ export class FightController {
 			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "rankedFight");
 		}
 		await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "anyFight");
+	}
+
+	/**
+	 * check the fight action history of a fighter
+	 * @param fighter
+	 * @private
+	 */
+	private async checkFightActionHistory(fighter: Fighter) {
+		const playerFightActionsHistory = new Map<string, number>();
+		fighter.fightActionsHistory.forEach((action) => {
+			if (playerFightActionsHistory.has(action)) {
+				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
+			}
+			else {
+				playerFightActionsHistory.set(action, 1);
+			}
+		});
+		// iterate on each action in the history
+		for (const [action, count] of playerFightActionsHistory) {
+			await MissionsController.update(fighter.getDiscordId(), this.fightView.channel, this.fightView.language, "fightAttacks",
+				count, {attackType: action});
+		}
 	}
 
 	/**

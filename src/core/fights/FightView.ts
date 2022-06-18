@@ -5,7 +5,6 @@ import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {IFightAction} from "../attacks/IFightAction";
 import {FightConstants} from "../constants/FightConstants";
-import {MissionsController} from "../missions/MissionsController";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 
 export class FightView {
@@ -200,15 +199,13 @@ export class FightView {
 			time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - this.fightLaunchMessage.createdTimestamp))
 		});
 
-		for (const fighter of [winner, loser]){
+		for (const fighter of [winner, loser]) {
 			msg += this.fightTranslationModule.format("end.fighterStats", {
 				pseudo: await fighter.getPseudo(this.language),
 				health: fighter.stats.fightPoints,
 				maxHealth: fighter.stats.maxFightPoint
 			});
-			await this.checkFightActionHistory(fighter);
 		}
-
 
 		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]});
 	}
@@ -241,6 +238,11 @@ export class FightView {
 		return (await this.channel.send({embeds: [chooseActionEmbed]})) as Message;
 	}
 
+	/**
+	 * Get the list of actions available for the fighter in a displayable format
+	 * @param fighter
+	 * @private
+	 */
 	private getFightActionsToStringOf(fighter: Fighter): string {
 		const fightActions = fighter.availableFightActions;
 		let actionList = "";
@@ -248,23 +250,5 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
-	}
-
-	private async checkFightActionHistory(fighter: Fighter) {
-		const playerFightActionsHistory = new Map<string, number>();
-		fighter.fightActionsHistory.forEach((action) => {
-			if (playerFightActionsHistory.has(action)) {
-				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
-			}
-			else {
-				playerFightActionsHistory.set(action, 1);
-			}
-		});
-		// iterate on each action in the history
-		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(fighter.getDiscordId(), this.channel, this.language, "fightAttacks",
-				count, {attackType: action});
-		}
-
 	}
 }
