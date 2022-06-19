@@ -2,7 +2,7 @@ export enum FighterStatus {
 	NOT_STARTED,
 	ATTACKER,
 	DEFENDER,
-	LOSER	,
+	LOSER,
 	WINNER,
 	DRAWER,
 	BUG

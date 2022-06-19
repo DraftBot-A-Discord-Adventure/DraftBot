@@ -4,11 +4,18 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../attacks/FightActionController";
 import {Classes} from "../../models/Class";
 
-
+/**
+ * get the variant from a fight action id
+ * @param idFightAction
+ */
 function fightActionIdToVariant(idFightAction: string): number {
 	return FightActionController.getAllFightActionsIds().indexOf(idFightAction);
 }
 
+/**
+ * get the fight action id from a variant
+ * @param variant
+ */
 function variantToFightActionId(variant: number): string {
 	return FightActionController.getAllFightActionsIds()[variant];
 }

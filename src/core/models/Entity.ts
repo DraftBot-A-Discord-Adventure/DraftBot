@@ -9,7 +9,7 @@ import MissionSlot from "./MissionSlot";
 import Mission from "./Mission";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
-import {CommandInteraction, Message, TextBasedChannel} from "discord.js";
+import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {Classes} from "./Class";
 import {MissionsController} from "../missions/MissionsController";
 import {playerActiveObjects} from "./PlayerActiveObjects";
@@ -38,10 +38,17 @@ export class Entity extends Model {
 
 	public Player: Player;
 
+	/**
+	 * get the list of all the active objects of the player
+	 */
 	public async getPlayerActiveObjects(): Promise<playerActiveObjects> {
 		return await this.Player.getMainSlotsItems();
 	}
 
+	/**
+	 * calculate the cumulative attack of the player
+	 * @param playerActiveObjects
+	 */
 	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const attackItemValue = playerActiveObjects.weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
@@ -51,6 +58,10 @@ export class Entity extends Model {
 		return attack > 0 ? attack : 0;
 	}
 
+	/**
+	 * calculate the cumulative defense of the player
+	 * @param playerActiveObjects
+	 */
 	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const defenseItemValue = playerActiveObjects.armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
@@ -60,6 +71,10 @@ export class Entity extends Model {
 		return defense > 0 ? defense : 0;
 	}
 
+	/**
+	 * calculate the cumulative speed of the player
+	 * @param playerActiveObjects
+	 */
 	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const speedItemValue = playerActiveObjects.object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
@@ -70,8 +85,11 @@ export class Entity extends Model {
 		return speed > 0 ? speed : 0;
 	}
 
-	public async getCumulativeHealth() {
-		const maxHealth = await this.getMaxCumulativeHealth();
+	/**
+	 * get the player cumulative Health
+	 */
+	public async getCumulativeFightPoint() {
+		const maxHealth = await this.getMaxCumulativeFightPoint();
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
 			fp = 0;
@@ -82,20 +100,39 @@ export class Entity extends Model {
 		return fp;
 	}
 
+	/**
+	 * return the player max health
+	 */
 	public async getMaxHealth() {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxHealthValue(this.Player.level);
 	}
 
-	public async getMaxCumulativeHealth() {
+	/**
+	 * get the player max cumulative fight point
+	 */
+	public async getMaxCumulativeFightPoint() {
 		const playerClass = await Classes.getById(this.Player.class);
-		return playerClass.getMaxCumulativeHealthValue(this.Player.level);
+		return playerClass.getMaxCumulativeFightPointValue(this.Player.level);
 	}
 
+	/**
+	 * add health to the player
+	 * @param health
+	 * @param channel
+	 * @param language
+	 */
 	public async addHealth(health: number, channel: TextBasedChannel, language: string) {
 		await this.setHealth(this.health + health, channel, language);
 	}
 
+	/**
+	 * set the player health
+	 * @param health
+	 * @param channel
+	 * @param language
+	 * @param shouldPokeMission
+	 */
 	public async setHealth(health: number, channel: TextBasedChannel, language: string, shouldPokeMission = true) {
 		const difference = (health > await this.getMaxHealth() ? await this.getMaxHealth() : health < 0 ? 0 : health) - this.health;
 		if (difference > 0 && shouldPokeMission) {
@@ -153,6 +190,10 @@ export class Entities {
 		}
 	}
 
+	/**
+	 * get or create an entity
+	 * @param discordUserId
+	 */
 	static getOrRegister(discordUserId: string): Promise<[Entity, boolean] | null> {
 		return Promise.resolve(Entity.findOrCreate(
 			{
@@ -207,6 +248,10 @@ export class Entities {
 		));
 	}
 
+	/**
+	 * get an entity by guildId
+	 * @param guildId
+	 */
 	static getByGuild(guildId: number): Promise<Entity[]> {
 		return Promise.resolve(Entity.findAll(
 			{
@@ -264,6 +309,10 @@ export class Entities {
 		));
 	}
 
+	/**
+	 * get an entity by discordUserId
+	 * @param discordUserId
+	 */
 	static getByDiscordUserId(discordUserId: string): Promise<Entity | null> {
 		return Promise.resolve(Entity.findOne(
 			{
@@ -317,6 +366,10 @@ export class Entities {
 		));
 	}
 
+	/**
+	 * get an entity by entity id
+	 * @param id
+	 */
 	static getById(id: number): Promise<Entity | null> {
 		return Promise.resolve(Entity.findOne(
 			{
@@ -370,7 +423,12 @@ export class Entities {
 		));
 	}
 
-	static getServerRank(discordId: string, ids: string[]): Promise<{ rank: number }[]> {
+	/**
+	 * get the ranking of the entity compared to a list of entities
+	 * @param discordId
+	 * @param ids - list of discordIds to compare to
+	 */
+	static getRankFromUserList(discordId: string, ids: string[]): Promise<{ rank: number }[]> {
 		const query = "SELECT rank " +
 			"FROM (" +
 			"SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank " +
@@ -387,21 +445,10 @@ export class Entities {
 		});
 	}
 
-	static async getByArgs(args: string[], message: Message) {
-		if (isNaN(Number(args[0]))) {
-			const lastMention = message.mentions.users.last();
-			if (lastMention === undefined) {
-				return [null];
-			}
-			return Entities.getOrRegister(lastMention.id);
-		}
-		const [player] = await Players.getByRank(parseInt(args[0]));
-		if (player === undefined) {
-			return [null];
-		}
-		return [await Entities.getById(player.entityId)];
-	}
-
+	/**
+	 * get an entity from the options of an interaction
+	 * @param interaction
+	 */
 	static async getByOptions(interaction: CommandInteraction): Promise<Entity | null> {
 		const user = interaction.options.getUser("user");
 		if (user) {

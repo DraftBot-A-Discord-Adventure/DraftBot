@@ -7,6 +7,9 @@ import {IFightAction} from "../attacks/IFightAction";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 
+/**
+ * @class FightController
+ */
 export class FightView {
 
 	public channel: TextBasedChannel;

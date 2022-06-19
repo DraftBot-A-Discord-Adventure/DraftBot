@@ -37,6 +37,9 @@ export class DraftBot {
 		this.isMainShard = isMainShard;
 	}
 
+	/**
+	 * launch the program that execute the top week reset
+	 */
 	static programTopWeekTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
@@ -47,24 +50,31 @@ export class DraftBot {
 		setTimeout(DraftBot.topWeekEnd, millisTill);
 	}
 
+	/**
+	 * launch the program that execute the daily tasks
+	 */
 	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			const {programDailyTimeout} = DraftBot;
-			setTimeout(programDailyTimeout, 10000);
+			setTimeout(DraftBot.programDailyTimeout, 10000);
 			return;
 		}
-		const {dailyTimeout} = DraftBot;
-		setTimeout(dailyTimeout, millisTill);
+		setTimeout(DraftBot.dailyTimeout, millisTill);
 	}
 
+	/**
+	 * execute all the daily tasks
+	 */
 	static dailyTimeout(): void {
-		DraftBot.randomPotion();
-		DraftBot.randomLovePointsLoose();
+		DraftBot.randomPotion().finally(() => null);
+		DraftBot.randomLovePointsLoose().finally(() => null);
 		DraftBot.programDailyTimeout();
 	}
 
+	/**
+	 * update the random potion sold in the shop
+	 */
 	static async randomPotion() {
 		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
@@ -97,6 +107,9 @@ export class DraftBot {
 		console.info(`INFO : new potion in shop : ${potion.id}`);
 	}
 
+	/**
+	 * make some pet lose some love points
+	 */
 	static async randomLovePointsLoose() {
 		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
@@ -118,6 +131,9 @@ export class DraftBot {
 		}
 	}
 
+	/**
+	 * End the top week
+	 */
 	static async topWeekEnd() {
 		const winner = await Entity.findOne({
 			include: [
@@ -179,22 +195,28 @@ export class DraftBot {
 		DraftBot.programTopWeekTimeout();
 	}
 
-	static async fightPowerRegenerationLoop() {
+	/**
+	 * update the fight points of the entities that lost some
+	 */
+	static fightPowerRegenerationLoop() {
 		const sequelize = require("sequelize");
-		await Entity.update(
+		Entity.update(
 			{
 				fightPointsLost: sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`
 				)
 			},
 			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
-		);
+		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
-			Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
+			minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
 		);
 	}
 
+	/**
+	 * initialize the bot
+	 */
 	async init() {
 		this.handleLogs();
 
@@ -229,11 +251,10 @@ export class DraftBot {
 
 		if (this.isMainShard) { // Do this only if it's the main shard
 			await DraftBotBackup.init();
-			const {fightPowerRegenerationLoop} = DraftBot;
 			DraftBot.programTopWeekTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(
-				fightPowerRegenerationLoop,
+				DraftBot.fightPowerRegenerationLoop.bind(DraftBot),
 				minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
 			);
 			checkMissingTranslations();

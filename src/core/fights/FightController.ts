@@ -10,6 +10,9 @@ import {FightActionController} from "../attacks/FightActionController";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {MissionsController} from "../missions/MissionsController";
 
+/**
+ * @class FightController
+ */
 export class FightController {
 
 	private readonly fighters: Fighter[];
