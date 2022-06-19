@@ -40,7 +40,7 @@ const TopCommand = async function(message, language, args) {
 		// get all discordID on the server
 		const listId = Array.from((await message.guild.members.fetch()).keys());
 
-		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
+		rankCurrentPlayer = (await Entities.getRankFromUserList(message.author.id, listId))[0].rank;
 
 		const numberOfPlayer = await Entity.count({
 			defaults: {
@@ -89,7 +89,7 @@ const TopCommand = async function(message, language, args) {
 		});
 
 		if (scoreTooLow === 0) {
-			rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
+			rankCurrentPlayer = (await Entities.getRankFromUserList(message.author.id, listId))[0].rank;
 		}
 
 		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.top.getTranslation(language).server, page, scoreTooLow);

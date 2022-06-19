@@ -16,6 +16,9 @@ type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number,
 
 const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender", "summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
 
+/**
+ * @class Fighter
+ */
 export class Fighter {
 
 	public stats: FighterStats
@@ -71,8 +74,8 @@ export class Fighter {
 	 */
 	public async loadStats(friendly: boolean) {
 		const playerActiveObjects: playerActiveObjects = await this.entity.getPlayerActiveObjects();
-		this.stats.fightPoints = friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
-		this.stats.maxFightPoint = await this.entity.getMaxCumulativeHealth();
+		this.stats.fightPoints = friendly ? await this.entity.getMaxCumulativeFightPoint() : await this.entity.getCumulativeFightPoint();
+		this.stats.maxFightPoint = await this.entity.getMaxCumulativeFightPoint();
 		this.stats.attack = await this.entity.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = await this.entity.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = await this.entity.getCumulativeSpeed(playerActiveObjects);

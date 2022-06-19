@@ -205,6 +205,11 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
 }
 
+/**
+ * executed when a potential buyer react to the message
+ * @param sellerInformations
+ * @param textInformations
+ */
 function getAcceptCallback(sellerInformations: SellerInformations, textInformations: TextInformations) {
 	return async (user: User) => {
 		const buyerInformations = {user, buyer: await Entities.getByDiscordUserId(user.id)};
@@ -218,6 +223,10 @@ function getAcceptCallback(sellerInformations: SellerInformations, textInformati
 	};
 }
 
+/**
+ * get the display message corresponding to the errors that can occur
+ * @param petSellModule
+ */
 function getBroadcastErrorStrings(petSellModule: TranslationModule) {
 	return {
 		errorBroadcastCancelled: petSellModule.get("sellCancelled"),

@@ -46,7 +46,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	private readonly _blockingReason: string;
 
 	/**
-	 * Creates a broadcasted validation message
+	 * Creates a broadcast validation message
 	 * @param interaction
 	 * @param language
 	 * @param acceptCallback callback to call when someone accepts the broadcast<br/>
@@ -98,6 +98,10 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		return this._broadcastMessage;
 	}
 
+	/**
+	 * create and manage the collector
+	 * @private
+	 */
 	private async createAndManageCollector() {
 		this._collector = this._broadcastMessage.createReactionCollector({
 			filter: (reaction: MessageReaction, user: User) => !user.bot,
@@ -108,6 +112,10 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		await Promise.all([this._broadcastMessage.react(Constants.MENU_REACTION.ACCEPT), this._broadcastMessage.react(Constants.MENU_REACTION.DENY)]);
 	}
 
+	/**
+	 * manage the collector reactions
+	 * @private
+	 */
 	private manageCollectedAnswers() {
 		this._collector.on("collect", async (reaction: MessageReaction, user: User) => {
 			await this.checkReactionBroadcastCollector(user, reaction);
@@ -126,7 +134,12 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		});
 	}
 
-
+	/**
+	 * check if the reaction is a valid one
+	 * @param user
+	 * @param reaction
+	 * @private
+	 */
 	private async checkReactionBroadcastCollector(user: User, reaction: MessageReaction) {
 		if (!this.isBroadcastStillActive(reaction)) {
 			return;
@@ -150,7 +163,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * Check if a broadcasted message is still active or not (avoid duplicate answers from the bot, for example in spam situation or sync reactions)
+	 * Check if a broadcast message is still active or not (avoid duplicate answers from the bot, for example in spam situation or sync reactions)
 	 * @param reaction
 	 */
 	private isBroadcastStillActive(reaction: MessageReaction): boolean {
@@ -166,6 +179,11 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			(hasMainDenied ? 0 : 1));
 	}
 
+	/**
+	 * Manage the deny reaction
+	 * @param user
+	 * @private
+	 */
 	private async manageDenyReaction(user: User) {
 		if (this._interaction.user.id === user.id) {
 			await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorBroadcastCancelled, true);
@@ -180,6 +198,11 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		return false;
 	}
 
+	/**
+	 * Manage the accept reaction
+	 * @param user
+	 * @private
+	 */
 	private async manageAcceptReaction(user: User) {
 		if (user.id === this._interaction.user.id) {
 			this._spamCount++;
