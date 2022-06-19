@@ -36,10 +36,12 @@ export class FightController {
 	 */
 	public async startFight() {
 		// make the fighters ready
+		const potionsToUse = [];
 		for (let i = 0; i < this.fighters.length; i++) {
-			await this.fighters[i].consumePotionIfNeeded(this.friendly, this.fightView.channel, this.fightView.language);
+			potionsToUse.push(this.fighters[i].consumePotionIfNeeded(this.friendly, this.fightView.channel, this.fightView.language));
 			this.fighters[i].block();
 		}
+		await Promise.all(potionsToUse);
 
 		// the player with the highest speed start the fight
 		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
@@ -75,7 +77,7 @@ export class FightController {
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
 		this.turn++;
 		if (this.hadEnded()) {
-			await this.endFight();
+			this.endFight();
 			return;
 		}
 		await this.prepareNextTurn();
@@ -155,10 +157,12 @@ export class FightController {
 	private async checkFightActionHistory(fighter: Fighter) {
 		const playerFightActionsHistory: Map<string, number> = fighter.getFightActionCount();
 		// iterate on each action in the history
+		const updates = [];
 		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(fighter.getDiscordId(), this.fightView.channel, this.fightView.language, "fightAttacks",
-				count, {attackType: action});
+			updates.push(MissionsController.update(fighter.getDiscordId(), this.fightView.channel, this.fightView.language, "fightAttacks",
+				count, {attackType: action}));
 		}
+		await Promise.all(updates);
 	}
 
 	/**

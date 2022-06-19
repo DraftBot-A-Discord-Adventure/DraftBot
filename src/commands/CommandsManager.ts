@@ -139,9 +139,11 @@ export class CommandsManager {
 		const setCommands = await client.application.commands.set(commandsToSetGuild, botConfig.MAIN_SERVER_ID);
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 
+		// TODO refaire le système de permission asap
+		/*
 		for (const cmd of setCommands.values()) {
-			// this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
-		}
+			this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
+		}*/
 
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || !interaction.inGuild()) {

@@ -4,6 +4,15 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../attacks/FightActionController";
 import {Classes} from "../../models/Class";
 
+
+function fightActionIdToVariant(idFightAction: string): number {
+	return FightActionController.getAllFightActionsIds().indexOf(idFightAction);
+}
+
+function variantToFightActionId(variant: number): string {
+	return FightActionController.getAllFightActionsIds()[variant];
+}
+
 // TODO update la mission de campagne sur les attaques rapides
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
@@ -29,11 +38,3 @@ export const missionInterface: IMission = {
 		return Promise.resolve(null);
 	}
 };
-
-function fightActionIdToVariant(idFightAction: string): number {
-	return FightActionController.getAllFightActionsIds().indexOf(idFightAction);
-}
-
-function variantToFightActionId(variant: number): string {
-	return FightActionController.getAllFightActionsIds()[variant];
-}

@@ -121,11 +121,13 @@ export class FightView {
 				this.fightController.endFight();
 				return;
 			}
-			this.fightController.executeFightAction(selectedAction);
+			this.fightController.executeFightAction(selectedAction).finally(() => null);
 		});
+		const reactions = [];
 		for (const [, action] of actions) {
-			await chooseActionEmbedMessage.react(action.getEmoji());
+			reactions.push( chooseActionEmbedMessage.react(action.getEmoji()));
 		}
+		await Promise.all(reactions);
 	}
 
 	/**
