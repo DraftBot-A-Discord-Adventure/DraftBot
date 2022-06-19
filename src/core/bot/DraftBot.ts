@@ -13,7 +13,7 @@ import Shop from "../models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
-import {getNextDay2AM, getNextSundayMidnight} from "../utils/TimeUtils";
+import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 
 require("colors");
 require("../Constant");
@@ -51,10 +51,12 @@ export class DraftBot {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(DraftBot.programDailyTimeout, 10000);
+			const {programDailyTimeout} = DraftBot;
+			setTimeout(programDailyTimeout, 10000);
 			return;
 		}
-		setTimeout(DraftBot.dailyTimeout, millisTill);
+		const {dailyTimeout} = DraftBot;
+		setTimeout(dailyTimeout, millisTill);
 	}
 
 	static dailyTimeout(): void {
@@ -227,11 +229,12 @@ export class DraftBot {
 
 		if (this.isMainShard) { // Do this only if it's the main shard
 			await DraftBotBackup.init();
+			const {fightPowerRegenerationLoop} = DraftBot;
 			DraftBot.programTopWeekTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(
-				DraftBot.fightPowerRegenerationLoop,
-				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
+				fightPowerRegenerationLoop,
+				minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
 			);
 			checkMissingTranslations();
 		}
