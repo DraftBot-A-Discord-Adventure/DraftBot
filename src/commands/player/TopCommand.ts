@@ -155,6 +155,22 @@ async function displayTop(
 }
 
 /**
+ * Get the page number that will be shown to the user
+ * @param interaction
+ * @param pageMax
+ */
+function getShownPage(interaction: CommandInteraction, pageMax: number) {
+	const page = interaction.options.getInteger("page");
+	if (page < 1 || isNaN(page)) {
+		return 1;
+	}
+	if (page > pageMax) {
+		return pageMax;
+	}
+	return page;
+}
+
+/**
  * Allow to display the rankings of the players
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -162,11 +178,6 @@ async function displayTop(
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	const scoreTooLow = entity.Player.score <= Constants.MINIMAL_PLAYER_SCORE;
-	let page = interaction.options.getInteger("page");
-	if (page < 1 || isNaN(page)) {
-		page = 1;
-	}
-
 	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
 	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
 
@@ -178,9 +189,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const numberOfPlayers = await Entities.getNumberOfPlayingPlayersInList(listDiscordId, timing);
 
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
-	if (page > pageMax) {
-		page = pageMax;
-	}
+
+	const page = getShownPage(interaction, pageMax);
 
 	const rankCurrentPlayer = await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
 
