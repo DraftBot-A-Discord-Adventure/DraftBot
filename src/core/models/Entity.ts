@@ -439,7 +439,7 @@ export class Entities {
 					SELECT entities.discordUserId, (RANK() OVER (ORDER BY players.${scoreLookup} DESC, players.level DESC)) AS rank 
 					FROM entities 
 					INNER JOIN players ON entities.id = players.entityId AND players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-					WHERE entities.discordUserId IN (${ids}))
+					WHERE entities.discordUserId IN (${ids.toString()}))
 					WHERE discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
@@ -464,6 +464,9 @@ export class Entities {
 		return null;
 	}
 
+	/**
+	 * Get all the discord ids stored in the database
+	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
 		const query = "SELECT discordUserId FROM entities";
 		const queryResult = (await Entity.sequelize.query(query, {
@@ -474,16 +477,27 @@ export class Entities {
 		return discordIds;
 	}
 
+	/**
+	 * Get the number of players that are considered playing the game inside the list of ids
+	 * @param listDiscordId
+	 * @param timing
+	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT() as nbPlayers
  						FROM players
  						JOIN entities ON entities.id = players.entityId
  						WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE} 
- 						AND entities.discordUserId IN (${listDiscordId})`;
+ 						AND entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}
 
+	/**
+	 * Get the entities in the list of Ids that will be printed into the top at the given page
+	 * @param listDiscordId
+	 * @param page
+	 * @param timing
+	 */
 	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string) {
 		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
 			? {
