@@ -1,4 +1,6 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {Data} from "../Data";
 import InventorySlot from "./InventorySlot";
 import InventoryInfo from "./InventoryInfo";
@@ -13,6 +15,8 @@ import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {Classes} from "./Class";
 import {MissionsController} from "../missions/MissionsController";
 import {playerActiveObjects} from "./PlayerActiveObjects";
+import {TopConstants} from "../constants/TopConstants";
+import {Constants} from "../Constants";
 import moment = require("moment");
 
 export class Entity extends Model {
@@ -427,22 +431,17 @@ export class Entities {
 	 * get the ranking of the entity compared to a list of entities
 	 * @param discordId
 	 * @param ids - list of discordIds to compare to
+	 * @param timing
 	 */
-	static getRankFromUserList(discordId: string, ids: string[]): Promise<{ rank: number }[]> {
-		const query = "SELECT rank " +
-			"FROM (" +
-			"SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank " +
-			"FROM entities " +
-			"INNER JOIN players ON entities.id = players.entityId AND players.score > 100 " +
-			"WHERE entities.discordUserId IN (:ids)) " +
-			"WHERE discordUserId = :id;";
-		return Entity.sequelize.query(query, {
-			replacements: {
-				ids: ids,
-				id: discordId
-			},
-			type: QueryTypes.SELECT
-		});
+	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
+		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+		const query = `SELECT rank FROM (
+					SELECT entities.discordUserId, (RANK() OVER (ORDER BY players.${scoreLookup} DESC, players.level DESC)) AS rank 
+					FROM entities 
+					INNER JOIN players ON entities.id = players.entityId AND players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+					WHERE entities.discordUserId IN (${ids}))
+					WHERE discordUserId = ${discordId};`;
+		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
 
 	/**
@@ -463,6 +462,61 @@ export class Entities {
 			return await Entities.getById(player.entityId);
 		}
 		return null;
+	}
+
+	static async getAllStoredDiscordIds(): Promise<string[]> {
+		const query = "SELECT discordUserId FROM entities";
+		const queryResult = (await Entity.sequelize.query(query, {
+			type: QueryTypes.SELECT
+		})) as { discordUserId: string }[];
+		const discordIds: string[] = [];
+		queryResult.forEach(res => discordIds.push(res.discordUserId));
+		return discordIds;
+	}
+
+	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
+		const query = `SELECT COUNT() as nbPlayers
+ 						FROM players
+ 						JOIN entities ON entities.id = players.entityId
+ 						WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE} 
+ 						AND entities.discordUserId IN (${listDiscordId})`;
+		const queryResult = await Entity.sequelize.query(query);
+		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+	}
+
+	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string) {
+		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
+			? {
+				score: {
+					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
+				}
+			}
+			: {
+				weeklyScore: {
+					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
+				}
+			};
+		return await Entity.findAll({
+			where: {
+				discordUserId: {
+					[Op.in]: listDiscordId
+				}
+			},
+			include: [{
+				model: Player,
+				as: "Player",
+				where: restrictionsTopEntering
+			}],
+			order: [
+				[{
+					model: Player,
+					as: "Player"
+				}, timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
+			],
+			limit: TopConstants.PLAYERS_BY_PAGE,
+			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+		});
 	}
 }
 

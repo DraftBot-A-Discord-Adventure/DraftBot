@@ -16,7 +16,6 @@ import {Translations} from "../Translations";
 import {TextBasedChannel, TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
-import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
 import {escapeUsername} from "../utils/StringUtils";
@@ -26,6 +25,7 @@ import Armor from "./Armor";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
 import {playerActiveObjects} from "./PlayerActiveObjects";
+import {TopConstants} from "../constants/TopConstants";
 import moment = require("moment");
 
 export class Player extends Model {
@@ -88,12 +88,11 @@ export class Player extends Model {
 
 	public getEntity: () => Entity;
 
-	private pseudo: string;
-
 	public rank?: number = -1;
 
 	public weeklyRank?: number = -1;
 
+	private pseudo: string;
 
 	public addBadge(badge: string): boolean {
 		if (this.badges !== null) {
@@ -306,7 +305,7 @@ export class Player extends Model {
 	}
 
 	public isInactive(): boolean {
-		return this.startTravelDate.valueOf() + minutesToMilliseconds(120) + Data.getModule("commands.top").getNumber("fifth10days") < Date.now();
+		return this.startTravelDate.valueOf() + TopConstants.FIFTEEN_DAYS < Date.now();
 	}
 
 	public currentEffectFinished(): boolean {
@@ -480,6 +479,18 @@ export class Player extends Model {
 		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
 	}
 
+	/**
+	 * Return the current active items a player hold
+	 */
+	public async getMainSlotsItems(): Promise<playerActiveObjects> {
+		return {
+			weapon: <Weapon>(await this.getMainWeaponSlot().getItem()),
+			armor: <Armor>(await this.getMainArmorSlot().getItem()),
+			potion: <Potion>(await this.getMainPotionSlot().getItem()),
+			object: <ObjectItem>(await this.getMainObjectSlot().getItem())
+		};
+	}
+
 	private addWeeklyScore(weeklyScore: number): void {
 		this.weeklyScore += weeklyScore;
 		this.setWeeklyScore(this.weeklyScore);
@@ -492,18 +503,6 @@ export class Player extends Model {
 		else {
 			this.weeklyScore = 0;
 		}
-	}
-
-	/**
-	 * Return the current active items a player hold
-	 */
-	public async getMainSlotsItems() : Promise<playerActiveObjects> {
-		return {
-			weapon: <Weapon>(await this.getMainWeaponSlot().getItem()),
-			armor: <Armor>(await this.getMainArmorSlot().getItem()),
-			potion: <Potion>(await this.getMainPotionSlot().getItem()),
-			object: <ObjectItem>(await this.getMainObjectSlot().getItem())
-		};
 	}
 }
 
