@@ -116,19 +116,6 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly TOP = {
-		PLAYERS_BY_PAGE: 15,
-		DAYS_BEFORE_INACTIVE: 7
-	};
-
-	static readonly TOP_WEEK = {
-		PLAYERS_BY_PAGE: "15"
-	};
-
-	static readonly TOP_SERV = {
-		PLAYERS_BY_PAGE: "15"
-	};
-
 	static readonly XP = {
 		BASE_VALUE: 325,
 		COEFFICIENT: 1.041,
