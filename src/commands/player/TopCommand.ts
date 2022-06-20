@@ -26,13 +26,13 @@ type TopInformations = {
  */
 async function getBadgeStateOfPlayer(entityToLook: Entity, language: string): Promise<string> {
 	if (Date.now() < entityToLook.Player.effectEndDate.valueOf()) {
-		return entityToLook.Player.effect;
+		return entityToLook.Player.effect + TopConstants.SEPARATOR;
 	}
 	if (entityToLook.Player.isInactive()) {
-		return TopConstants.INACTIVE_BADGE;
+		return TopConstants.INACTIVE_BADGE + TopConstants.SEPARATOR;
 	}
 	if (await Maps.isArrived(entityToLook.Player)) {
-		return (await entityToLook.Player.getDestination()).getEmote(language);
+		return (await entityToLook.Player.getDestination()).getEmote(language) + TopConstants.SEPARATOR;
 	}
 	return "";
 
@@ -69,13 +69,15 @@ function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, entityToLo
  * @param rankCurrentPlayer
  */
 function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number) {
-	return rankCurrentPlayer === 0
+	return rankCurrentPlayer === 1
 		? TopConstants.TOP_POSITION_BADGE.FIRST
-		: rankCurrentPlayer === 1
+		: rankCurrentPlayer === 2
 			? TopConstants.TOP_POSITION_BADGE.SECOND
-			: rankCurrentPlayer === 2
+			: rankCurrentPlayer === 3
 				? TopConstants.TOP_POSITION_BADGE.THIRD
-				: TopConstants.TOP_POSITION_BADGE.BLACK;
+				: rankCurrentPlayer < 6
+					? TopConstants.TOP_POSITION_BADGE.MILITARY
+					: TopConstants.TOP_POSITION_BADGE.BLACK;
 }
 
 /**
@@ -177,9 +179,9 @@ function getShownPage(interaction: CommandInteraction, pageMax: number) {
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	const scoreTooLow = entity.Player.score <= Constants.MINIMAL_PLAYER_SCORE;
 	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
 	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
+	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
 
 	if (scope === TopConstants.SERVER_SCOPE) {
 		interaction.deferReply();
@@ -192,7 +194,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const page = getShownPage(interaction, pageMax);
 
-	const rankCurrentPlayer = await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
+	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
 
 	const entitiesToShow = await Entities.getEntitiesToPrintTop(listDiscordId, page, timing);
 

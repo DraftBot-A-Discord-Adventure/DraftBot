@@ -24,4 +24,6 @@ export abstract class TopConstants {
 	static readonly LINK_CLOCK_FOOTER = "https://i.imgur.com/OpL9WpR.png";
 
 	static readonly FIFTEEN_DAYS = 1296000000;
+
+	static readonly SEPARATOR = " | ";
 }
