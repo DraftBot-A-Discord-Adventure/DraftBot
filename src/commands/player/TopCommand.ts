@@ -20,44 +20,6 @@ type TopInformations = {
 }
 
 /**
- * Allow to display the rankings of the players
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	const scoreTooLow = entity.Player.score <= Constants.MINIMAL_PLAYER_SCORE;
-	let page = interaction.options.getInteger("page");
-	if (page < 1 || isNaN(page)) {
-		page = 1;
-	}
-
-	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
-	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
-
-	if (scope === TopConstants.SERVER_SCOPE) {
-		interaction.deferReply();
-	}
-
-	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Entities.getAllStoredDiscordIds();
-	const numberOfPlayers = await Entities.getNumberOfPlayingPlayersInList(listDiscordId, timing);
-
-	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
-	if (page > pageMax) {
-		page = pageMax;
-	}
-
-	const rankCurrentPlayer = await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
-
-	const entitiesToShow = await Entities.getEntitiesToPrintTop(listDiscordId, page, timing);
-
-	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
-		rankCurrentPlayer,
-		scoreTooLow
-	}, entitiesToShow);
-}
-
-/**
  * Get badge state for a player in the displayed top
  * @param entityToLook
  * @param language
@@ -136,7 +98,6 @@ function getPageOfRank(rank: number) {
  * @param scoreTooLow
  * @param entitiesToShow
  */
-
 async function displayTop(
 	{interaction, language}: TextInformations,
 	{scope, timing, page, numberOfPlayers}: TopInformations,
@@ -191,6 +152,44 @@ async function displayTop(
 	}
 
 	await (scope === TopConstants.SERVER_SCOPE ? interaction.editReply({embeds: [topDisplay]}) : interaction.reply({embeds: [topDisplay]}));
+}
+
+/**
+ * Allow to display the rankings of the players
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+	const scoreTooLow = entity.Player.score <= Constants.MINIMAL_PLAYER_SCORE;
+	let page = interaction.options.getInteger("page");
+	if (page < 1 || isNaN(page)) {
+		page = 1;
+	}
+
+	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
+	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
+
+	if (scope === TopConstants.SERVER_SCOPE) {
+		interaction.deferReply();
+	}
+
+	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Entities.getAllStoredDiscordIds();
+	const numberOfPlayers = await Entities.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+
+	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
+	if (page > pageMax) {
+		page = pageMax;
+	}
+
+	const rankCurrentPlayer = await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
+
+	const entitiesToShow = await Entities.getEntitiesToPrintTop(listDiscordId, page, timing);
+
+	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
+		rankCurrentPlayer,
+		scoreTooLow
+	}, entitiesToShow);
 }
 
 export const commandInfo: ICommand = {

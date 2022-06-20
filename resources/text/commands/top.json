@@ -6,17 +6,11 @@
 			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs !",
 			"endAnyWrongPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endAnyRightPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs !",
-			"maxPage": "Vous avez saisi un numéro de page trop élevé. **Page maximale :** {pageMax}",
 			"lowScore": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous avez un score égal ou inférieur à 100 !",
 			"yourRanking": "Votre classement",
 			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n",
 			"nextReset": "Classement réinitialisé dans {time}"
 		},
-		"en": {
-			"lowScore": ":x: | **{pseudo}**, unfortunately you do not appear in the ranking because your score is below or equal to 100!",
-			"yourRanking": "Your rank",
-			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n",
-			"nextReset": "Next reset: {time}"
-		}
+		"en": {}
 	}
 }
