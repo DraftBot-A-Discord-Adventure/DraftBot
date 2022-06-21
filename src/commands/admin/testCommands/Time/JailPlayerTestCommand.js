@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		mention: typeVariable.MENTION
 	},
 	messageWhenExecuted: "Vous avez enfermé {player} !",
-	description: "Enferme le joueur donné"
+	description: "Enferme le joueur donné",
+	commandTestShouldReply: true
 };
 
 /**

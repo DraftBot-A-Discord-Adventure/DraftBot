@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		badge: typeVariable.EMOJI
 	},
 	messageWhenExecuted: "Vous avez maintenant le badge {badge} !",
-	description: "Donne un badge à votre joueur"
+	description: "Donne un badge à votre joueur",
+	commandTestShouldReply: true
 };
 
 /**

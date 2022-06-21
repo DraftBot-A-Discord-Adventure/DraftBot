@@ -12,7 +12,8 @@ module.exports.commandInfo = {
 		idEnd: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
-	description: "Vous téléporte sur un chemin donné"
+	description: "Vous téléporte sur un chemin donné",
+	commandTestShouldReply: true
 };
 
 /**

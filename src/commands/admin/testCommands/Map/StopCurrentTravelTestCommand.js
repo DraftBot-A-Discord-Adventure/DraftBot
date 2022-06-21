@@ -6,7 +6,8 @@ module.exports.commandInfo = {
 	aliases: ["stravel", "stoptravel"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez arrêté de voyager !",
-	description: "Stoppe le voyage en cours"
+	description: "Stoppe le voyage en cours",
+	commandTestShouldReply: true
 };
 
 /**

@@ -5,7 +5,8 @@ module.exports.commandInfo = {
 	name: "removeplayereffect",
 	aliases: ["rmeffect"],
 	messageWhenExecuted: "Vous n'avez plus d'effets !",
-	description: "Enlève votre effet actuel"
+	description: "Enlève votre effet actuel",
+	commandTestShouldReply: true
 };
 
 /**

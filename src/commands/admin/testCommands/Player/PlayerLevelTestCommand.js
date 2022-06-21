@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		niveau: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
-	description: "Mets votre joueur au niveau donné"
+	description: "Mets votre joueur au niveau donné",
+	commandTestShouldReply: true
 };
 
 /**

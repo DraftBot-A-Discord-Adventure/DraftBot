@@ -10,7 +10,8 @@ module.exports.commandInfo = {
 	aliases: ["destroy"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez été réinitialisé !",
-	description: "Réinitialise votre joueur"
+	description: "Réinitialise votre joueur",
+	commandTestShouldReply: true
 };
 
 /**

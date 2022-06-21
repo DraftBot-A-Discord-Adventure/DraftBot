@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
 import {generateRandomItem, getItemValue, giveItemToPlayer} from "../utils/ItemUtils";
@@ -30,10 +30,10 @@ function callbackShopSmallEvent(
 				);
 				return;
 			}
-			await giveItemToPlayer(entity, randomItem, language, interaction.user, <TextChannel>interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 			// TODO REFACTOR LES LOGS
 			// console.log(entity.discordUserId + " bought an item in a mini shop for " + price);
-			await entity.Player.addMoney(entity, -price, <TextChannel>interaction.channel, language);
+			await entity.Player.addMoney(entity, -price, interaction.channel, language);
 			await entity.Player.save();
 			return;
 		}

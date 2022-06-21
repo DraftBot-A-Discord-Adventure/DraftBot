@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		lovePoints: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
-	description: "Mets le niveau d'amour de votre pet au niveau donné"
+	description: "Mets le niveau d'amour de votre pet au niveau donné",
+	commandTestShouldReply: true
 };
 
 /**

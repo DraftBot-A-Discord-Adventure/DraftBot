@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé votre dernier vote top.gg de {time} minutes !",
-	description: "Avance le dernier vote top.gg de votre joueur d'une durée en minutes donnée"
+	description: "Avance le dernier vote top.gg de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true
 };
 
 /**

@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 	aliases: ["fgo"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
-	description: "Vous passe chef de guilde de force"
+	description: "Vous passe chef de guilde de force",
+	commandTestShouldReply: true
 };
 
 /**

@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Maps} from "../Maps";
 import {format} from "../utils/StringFormatter";
@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss})
 			);
-			await entity.addHealth(-lifeLoss, <TextChannel>interaction.channel, language);
+			await entity.addHealth(-lifeLoss, interaction.channel, language);
 			break;
 		case 1:
 			time = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_TIME_LOST_SMALL,
@@ -42,12 +42,12 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss})
 			);
-			await entity.Player.addMoney(entity, -moneyLoss, <TextChannel>interaction.channel, language);
+			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language);
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " got small bad event.");
-		await entity.Player.killIfNeeded(entity, <TextChannel>interaction.channel, language);
+		await entity.Player.killIfNeeded(entity, interaction.channel, language);
 		await entity.Player.save();
 		await entity.save();
 	}

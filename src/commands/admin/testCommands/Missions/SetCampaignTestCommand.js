@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		"progression": typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
-	description: "Vous mets à une certaine étape de la campagne"
+	description: "Vous mets à une certaine étape de la campagne",
+	commandTestShouldReply: true
 };
 
 /**

@@ -1,4 +1,4 @@
-import {CommandInteraction, MessageEmbed, TextChannel} from "discord.js";
+import {CommandInteraction, MessageEmbed} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Constants} from "../Constants";
@@ -45,7 +45,7 @@ export const smallEvent: SmallEvent = {
 		async function applyMalus(malus: any): Promise<void> {
 			switch (malus.type) {
 			case "life":
-				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
+				await entity.addHealth(-malus.option, interaction.channel, language);
 				console.log(entity.discordUserId + "got a bad level small event and lost" + malus.option + "💔");
 				break;
 			case "time":
@@ -57,13 +57,13 @@ export const smallEvent: SmallEvent = {
 				console.log(entity.discordUserId + "got a bad level small event but didn't lost anything");
 				break;
 			case "end":
-				await entity.addHealth(-malus.option, <TextChannel> interaction.channel, language);
+				await entity.addHealth(-malus.option, interaction.channel, language);
 				console.log(entity.discordUserId + "got a bad level small event and didn't react (" + malus.option + "💔)");
 				break;
 			default:
 				throw new Error("reward type not found");
 			}
-			await entity.Player.killIfNeeded(entity, <TextChannel> interaction.channel, language);
+			await entity.Player.killIfNeeded(entity, interaction.channel, language);
 			await entity.save();
 			await entity.save();
 		}

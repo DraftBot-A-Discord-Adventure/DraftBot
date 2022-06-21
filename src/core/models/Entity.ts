@@ -19,6 +19,11 @@ import {TopConstants} from "../constants/TopConstants";
 import {Constants} from "../Constants";
 import moment = require("moment");
 
+type MissionHealthParameter = {
+	shouldPokeMission: boolean,
+	overHealCountsForMission: boolean
+};
+
 export class Entity extends Model {
 	public readonly id!: number;
 
@@ -125,9 +130,13 @@ export class Entity extends Model {
 	 * @param health
 	 * @param channel
 	 * @param language
+	 * @param missionHealthParameter
 	 */
-	public async addHealth(health: number, channel: TextBasedChannel, language: string) {
-		await this.setHealth(this.health + health, channel, language);
+	public async addHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}) {
+		await this.setHealth(this.health + health, channel, language, missionHealthParameter);
 	}
 
 	/**
@@ -135,11 +144,19 @@ export class Entity extends Model {
 	 * @param health
 	 * @param channel
 	 * @param language
-	 * @param shouldPokeMission
+	 * @param missionHealthParameter
 	 */
-	public async setHealth(health: number, channel: TextBasedChannel, language: string, shouldPokeMission = true) {
-		const difference = (health > await this.getMaxHealth() ? await this.getMaxHealth() : health < 0 ? 0 : health) - this.health;
-		if (difference > 0 && shouldPokeMission) {
+	public async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}) {
+		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission
+			? await this.getMaxHealth()
+			: health < 0
+				? 0
+				: health)
+			- this.health;
+		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
 			await MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference);
 		}
 		if (health < 0) {

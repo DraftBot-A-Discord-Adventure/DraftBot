@@ -2,7 +2,8 @@ module.exports.commandInfo = {
 	name: "fakevote",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez faussement voté !",
-	description: "Effectue un faux vote"
+	description: "Effectue un faux vote",
+	commandTestShouldReply: true
 };
 
 /**

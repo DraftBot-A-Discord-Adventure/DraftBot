@@ -6,7 +6,8 @@ import {Maps} from "../../../../core/Maps";
 module.exports.commandInfo = {
 	name: "mapinfo",
 	messageWhenExecuted: "",
-	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"
+	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
+	commandTestShouldReply: true
 };
 
 /**

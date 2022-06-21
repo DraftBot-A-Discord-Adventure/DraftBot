@@ -14,7 +14,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {randomInt} from "crypto";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {giveFood} from "../../core/utils/GuildUtils";
@@ -112,7 +112,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 			}
 			await giveFood(message.sentMessage.channel, message.language, entity, message.user, name, amount);
 			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
-				await MissionsController.update(entity.discordUserId, <TextChannel>message.sentMessage.channel, language, "buyUltimateSoups", amount);
+				await MissionsController.update(entity.discordUserId, message.sentMessage.channel, language, "buyUltimateSoups", amount);
 			}
 			return true;
 		},

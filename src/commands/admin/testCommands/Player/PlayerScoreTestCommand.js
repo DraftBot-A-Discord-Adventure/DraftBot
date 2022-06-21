@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		score: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
-	description: "Mets le score de votre joueur à la valeur donnée"
+	description: "Mets le score de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

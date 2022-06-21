@@ -108,20 +108,25 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
  * @param fullHeal
  */
 async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule, fullHeal = false) {
-	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
-	let sumHeal = 0;
+	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER) + 1;
+	let someoneNeedsHeal = false;
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.effect !== Constants.EFFECT.DEAD) {
-			const healthBefore = member.health;
-			await member.addHealth(fullHeal ? await member.getMaxHealth() : healthWon, stringInfos.interaction.channel, guildDailyModule.language);
-			sumHeal += member.health - healthBefore;
+		if (member.health !== await member.getMaxHealth()) {
+			someoneNeedsHeal = true;
 		}
 	});
-
-	if (sumHeal === 0) {
+	if (!someoneNeedsHeal) {
 		// Pas de heal donné : don de money
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
+	await genericAwardingFunction(guildLike.members, async member => {
+		if (member.Player.effect !== Constants.EFFECT.DEAD) {
+			await member.addHealth(fullHeal ? await member.getMaxHealth() : healthWon, stringInfos.interaction.channel, guildDailyModule.language, {
+				shouldPokeMission: true,
+				overHealCountsForMission: !fullHeal
+			});
+		}
+	});
 	fullHeal
 		? stringInfos.embed.setDescription(guildDailyModule.get("fullHeal"))
 		: stringInfos.embed.setDescription(guildDailyModule.format("partialHeal", {
@@ -139,20 +144,23 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
  */
 async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
-	let sumHeal = 0;
 	let noAlteHeal = true;
+	let needsHeal = false;
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.currentEffectFinished()) {
-			const healthBefore = member.health;
+		if (member.health !== await member.getMaxHealth()) {
+			needsHeal = true;
+		}
+	});
+	await genericAwardingFunction(guildLike.members, async member => {
+		if (member.Player.currentEffectFinished() && needsHeal) {
 			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
-			sumHeal += member.health - healthBefore;
 		}
 		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
 			noAlteHeal = false;
 			await Maps.removeEffect(member.Player);
 		}
 	});
-	if (sumHeal === 0 && healthWon !== 0 && noAlteHeal) {
+	if (!needsHeal && noAlteHeal) {
 		// Pas de heal donné : don de money
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}

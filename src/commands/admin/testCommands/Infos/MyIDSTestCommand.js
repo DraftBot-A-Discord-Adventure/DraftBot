@@ -4,7 +4,8 @@ module.exports.commandInfo = {
 	name: "myids",
 	commandFormat: "",
 	messageWhenExecuted: "Entity id: {entityId}\nPlayer id: {playerId}",
-	description: "Montre vos IDs d'entité et de joueur"
+	description: "Montre vos IDs d'entité et de joueur",
+	commandTestShouldReply: true
 };
 
 /**

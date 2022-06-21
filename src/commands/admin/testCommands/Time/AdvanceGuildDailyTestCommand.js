@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé votre gd de {time} minutes !",
-	description: "Avance le gd de votre joueur d'une durée en minutes donnée"
+	description: "Avance le gd de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true
 };
 
 /**

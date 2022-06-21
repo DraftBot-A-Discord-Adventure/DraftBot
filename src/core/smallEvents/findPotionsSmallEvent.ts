@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
@@ -19,8 +19,8 @@ export const smallEvent: SmallEvent = {
 			Translations.getModule("smallEvents.findPotions", language).getRandom("intrigue")
 		);
 
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " got a potion from a mini event ");
-		await giveItemToPlayer(entity, randomItem, language, interaction.user, <TextChannel> interaction.channel);
+		await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel);
 	}
 };

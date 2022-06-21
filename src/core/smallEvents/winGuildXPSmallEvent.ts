@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -37,11 +37,11 @@ export const smallEvent: SmallEvent = {
 		);
 		g.experience += xpWon;
 		while (g.needLevelUp()) {
-			await g.levelUpIfNeeded(<TextChannel> interaction.channel, language);
+			await g.levelUpIfNeeded(interaction.channel, language);
 		}
 		await g.save();
 
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + "'guild gained some xp points in a mini event");
 	}
 };

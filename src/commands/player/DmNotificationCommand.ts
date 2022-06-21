@@ -9,7 +9,7 @@ import {Constants} from "../../core/Constants";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 
 /**
- * Activate or desactivate DMs notifications.
+ * Activate or deactivate DMs notifications.
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity

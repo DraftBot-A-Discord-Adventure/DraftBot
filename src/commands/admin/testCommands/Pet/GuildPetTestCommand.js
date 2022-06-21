@@ -14,7 +14,8 @@ module.exports.commandInfo = {
 		sex: typeVariable.STRING
 	},
 	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
-	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés"
+	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
+	commandTestShouldReply: true
 };
 
 /**
@@ -37,7 +38,7 @@ const guildPetTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur guildpet : Plus de place dans le shelter !");
 	}
 
-	if (!["m","f"].includes(args[1])) {
+	if (!["m", "f"].includes(args[1])) {
 		throw new Error("Erreur guildpet : sexe invalide.");
 	}
 	const maxIdPet = await Pets.getMaxId();

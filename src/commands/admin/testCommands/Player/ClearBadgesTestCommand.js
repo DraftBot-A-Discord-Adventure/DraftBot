@@ -4,7 +4,8 @@ module.exports.commandInfo = {
 	name: "clearbadges",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez supprimé vos badges !",
-	description: "Supprime les badges de votre joueur"
+	description: "Supprime les badges de votre joueur",
+	commandTestShouldReply: true
 };
 
 /**

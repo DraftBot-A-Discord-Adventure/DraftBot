@@ -6,7 +6,8 @@ module.exports.commandInfo = {
 	aliases: ["tr"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
-	description: "Réinitialise le parcours que vous effectuez"
+	description: "Réinitialise le parcours que vous effectuez",
+	commandTestShouldReply: true
 };
 
 /**

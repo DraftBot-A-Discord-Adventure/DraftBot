@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
-	description: "Vous bloque pendant un temps en secondes donné"
+	description: "Vous bloque pendant un temps en secondes donné",
+	commandTestShouldReply: true
 };
 
 /**

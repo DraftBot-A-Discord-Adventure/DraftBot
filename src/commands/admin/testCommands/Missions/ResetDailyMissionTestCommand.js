@@ -4,7 +4,8 @@ module.exports.commandInfo = {
 	commandFormat: "",
 	aliases: ["rdm"],
 	messageWhenExecuted: "Votre mission quotidienne a été réinitiliasée !",
-	description: "Permet de réinitialiser la mission quootidienne"
+	description: "Permet de réinitialiser la mission quootidienne",
+	commandTestShouldReply: true
 };
 
 /**

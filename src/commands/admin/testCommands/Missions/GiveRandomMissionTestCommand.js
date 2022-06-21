@@ -12,7 +12,8 @@ export const commandInfo = {
 		difficulty: typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Donne une mission aléatoire"
+	description: "Donne une mission aléatoire",
+	commandTestShouldReply: true
 };
 
 const giveRandomMissionTestCommand = async (language, interaction, args) => {

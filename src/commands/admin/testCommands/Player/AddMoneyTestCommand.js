@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		money: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
-	description: "Ajoute la valeur donnée d'argent à votre joueur"
+	description: "Ajoute la valeur donnée d'argent à votre joueur",
+	commandTestShouldReply: true
 };
 
 /**

@@ -13,7 +13,8 @@ module.exports.commandInfo = {
 		amount: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
-	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné"
+	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
+	commandTestShouldReply: true
 };
 
 /**

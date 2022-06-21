@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 	aliases: ["init"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
-	description: "Initialise votre joueur pour des tests"
+	description: "Initialise votre joueur pour des tests",
+	commandTestShouldReply: true
 };
 
 /**

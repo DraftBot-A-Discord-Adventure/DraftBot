@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 	aliases: ["gid", "mygid"],
 	commandFormat: "",
 	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
-	description: "Renvoie l'id de votre guilde"
+	description: "Renvoie l'id de votre guilde",
+	commandTestShouldReply: true
 };
 
 /**

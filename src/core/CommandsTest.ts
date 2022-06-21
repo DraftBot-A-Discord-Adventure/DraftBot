@@ -114,7 +114,7 @@ export class CommandsTest {
 	static async executeAndAlertUser(
 		language: string,
 		interaction: CommandInteraction,
-		commandTestCurrent: { execute: (arg0: any, arg1: any, arg2: any) => any; commandInfo: { name: string; }; },
+		commandTestCurrent: { execute: (arg0: any, arg1: any, arg2: any) => any; commandInfo: { name: string; commandTestShouldReply: boolean; }; },
 		args: string | string[]) {
 		try {
 
@@ -132,13 +132,11 @@ export class CommandsTest {
 			else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			// TODO : renvoyer en plus de l'exécution de la commande un booléen qui dit si on est censé déjà répondre à la commande, au lieu de faire confiance à discord dans les délais
-			await new Promise(resolve => setTimeout(resolve, 500));
-			if (interaction.replied) {
-				await interaction.channel.send({embeds: [embedTestSuccessful]});
+			if (commandTestCurrent.commandInfo.commandTestShouldReply) {
+				await interaction.reply({embeds: [embedTestSuccessful]});
 			}
 			else {
-				await interaction.reply({embeds: [embedTestSuccessful]});
+				await interaction.channel.send({embeds: [embedTestSuccessful]});
 			}
 		}
 		catch (e) {
