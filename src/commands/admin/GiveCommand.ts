@@ -11,16 +11,15 @@ import {ObjectItem, ObjectItems} from "../../core/models/ObjectItem";
 import {Entities} from "../../core/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 declare function isAMention(variable: string): boolean;
 
 declare function getIdFromMention(variable: string): string;
-
-declare function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void;
 
 declare function idToMention(id: string): string;
 

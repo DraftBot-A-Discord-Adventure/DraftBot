@@ -3,11 +3,10 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {draftBotClient} from "../../core/bot";
 import {Translations} from "../../core/Translations";
-
-declare function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void;
+import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 /**
  * @param interaction

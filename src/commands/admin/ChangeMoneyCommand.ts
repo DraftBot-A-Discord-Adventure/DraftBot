@@ -3,16 +3,15 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 declare function isAMention(variable: string): boolean;
 
 declare function getIdFromMention(variable: string): string;
-
-declare function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void;
 
 /**
  * Allow the bot owner to give money to 1 or more people
