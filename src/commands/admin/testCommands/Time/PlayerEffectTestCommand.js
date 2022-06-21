@@ -2,9 +2,7 @@ import {Entities} from "../../../../core/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {Constants} from "../../../../core/Constants";
 
-const effects = Object.keys(Constants.EFFECT.ERROR_TEXT).filter(function(value) {
-	return [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1;
-});
+const effects = Object.keys(Constants.EFFECT.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";
 effects.forEach(e => {
 	printableEffects = printableEffects.concat(`- ${e.slice(1, -1)}\n`);

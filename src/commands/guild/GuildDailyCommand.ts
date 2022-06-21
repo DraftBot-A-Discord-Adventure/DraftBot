@@ -101,6 +101,20 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 }
 
 /**
+ * Say if someone in the guild needs healing
+ * @param guildLike
+ */
+async function doesSomeoneNeedsHeal(guildLike: GuildLike) {
+	let needsHeal = false;
+	await genericAwardingFunction(guildLike.members, async member => {
+		if (member.health !== await member.getMaxHealth()) {
+			needsHeal = true;
+		}
+	});
+	return needsHeal;
+}
+
+/**
  * Generic function to award a partial heal to every members of a guild
  * @param guildLike
  * @param stringInfos
@@ -109,12 +123,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
  */
 async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule, fullHeal = false) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER) + 1;
-	let someoneNeedsHeal = false;
-	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.health !== await member.getMaxHealth()) {
-			someoneNeedsHeal = true;
-		}
-	});
+	const someoneNeedsHeal = await doesSomeoneNeedsHeal(guildLike);
 	if (!someoneNeedsHeal) {
 		// Pas de heal donné : don de money
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
@@ -145,17 +154,12 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER);
 	let noAlteHeal = true;
-	let needsHeal = false;
-	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.health !== await member.getMaxHealth()) {
-			needsHeal = true;
-		}
-	});
+	const needsHeal = await doesSomeoneNeedsHeal(guildLike);
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.currentEffectFinished() && needsHeal) {
-			await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
+			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
 		}
-		else if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
+		if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
 			noAlteHeal = false;
 			await Maps.removeEffect(member.Player);
 		}
