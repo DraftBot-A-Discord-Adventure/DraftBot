@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Recevez une récompense de guilde sans l'avoir réclamée"
+		},
+		"en": {
+			"desc": "Receive a guild daily reward without asking for it"
+		}
+	},
+	"campaignOnly": true
+}

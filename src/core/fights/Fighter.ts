@@ -100,6 +100,10 @@ export class Fighter {
 		}
 		await this.entity.Player.drinkPotion();
 		await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotion");
+		const potionSlot = await this.entity.Player.getMainPotionSlot();
+		if (potionSlot) {
+			await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotionRarity", 1, { rarity: (await potionSlot.getItem()).rarity });
+		}
 		[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
 		await MissionsController.update(this.entity.discordUserId, channel, language, "havePotions", countNbOfPotions(this.entity.Player), null, true);
 	}

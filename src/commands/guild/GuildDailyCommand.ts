@@ -305,6 +305,9 @@ function getMapOfAllRewardCommands() {
 async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed) {
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
+		if (member.discordUserId !== interaction.user.id) {
+			await MissionsController.update(member.discordUserId, interaction.channel, language, "guildDailyFromSomeoneElse");
+		}
 		await MissionsController.update(member.discordUserId, interaction.channel, language, "guildDaily");
 		if (member.Player.dmNotification && member.discordUserId !== interaction.user.id) {
 			sendDirectMessage(

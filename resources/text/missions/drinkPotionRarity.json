@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Buvez une potion de rareté {variantText} ou supérieure"
+		},
+		"en": {
+			"desc": "Drink a potion of rarity {variantText} or more"
+		}
+	},
+	"campaignOnly": true
+}
