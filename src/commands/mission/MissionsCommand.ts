@@ -22,7 +22,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		entityToLook = entity;
 	}
 
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "commandMission");
+	if (interaction.user.id === entityToLook.discordUserId) {
+		await MissionsController.update(entity.discordUserId, interaction.channel, language, "commandMission");
+	}
 	entity = await Entities.getById(entity.id);
 
 	await Campaign.updateCampaignAndSendMessage(entity, interaction.channel, language);
