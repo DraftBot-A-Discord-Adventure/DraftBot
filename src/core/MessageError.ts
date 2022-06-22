@@ -1,9 +1,8 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {CommandInteraction, GuildMember, Permissions} from "discord.js";
 import {Constants} from "./Constants";
-import { Translations } from "./Translations";
-
-declare const JsonReader: any;
+import {Translations} from "./Translations";
+import {botConfig} from "./bot";
 
 export class MessageError {
 	/**
@@ -16,19 +15,19 @@ export class MessageError {
 	 */
 	static async canPerformCommand(member: GuildMember, interaction: CommandInteraction, language: string, permission: string) {
 		if (permission === Constants.PERMISSION.ROLE.BADGE_MANAGER) {
-			if (!member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(member.id)) {
+			if (!member.roles.cache.has(botConfig.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(member.id)) {
 				return await MessageError.permissionErrorMe(member, interaction, language, permission);
 			}
 		}
 
 		if (permission === Constants.PERMISSION.ROLE.CONTRIBUTORS) {
-			if (!member.roles.cache.has(JsonReader.app.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(member.id)) {
+			if (!member.roles.cache.has(botConfig.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(member.id)) {
 				return await MessageError.permissionErrorMe(member, interaction, language, permission);
 			}
 		}
 
 		if (permission === Constants.PERMISSION.ROLE.SUPPORT) {
-			if (!member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(member.id)) {
+			if (!member.roles.cache.has(botConfig.SUPPORT_ROLE) && !MessageError.isBotOwner(member.id)) {
 				return await MessageError.permissionErrorMe(member, interaction, language, permission);
 			}
 		}
@@ -53,7 +52,7 @@ export class MessageError {
 	 * @return {boolean}
 	 */
 	static isBotOwner(id: string) {
-		return id === JsonReader.app.BOT_OWNER_ID;
+		return id === botConfig.BOT_OWNER_ID;
 	}
 
 	/**
