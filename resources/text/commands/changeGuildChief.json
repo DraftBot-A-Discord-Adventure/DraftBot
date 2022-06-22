@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": {
+			"errors": {
+				"notInTheGuild": "L'utilisateur spécifié ne fait pas partie de la guilde.",
+				"alreadyChief": "L'utilisateur spécifié est déjà le chef de cette guilde.",
+				"unknownGuild": "La guilde spécifiée n'existe pas.",
+				"wrongId": "Il n'existe pas de joueur avec cet identifiant."
+			},
+			"validation": {
+				"title": "{pseudo}, confirmation :",
+				"description": "Voulez-vous vraiment faire de **{user}** ({userID}) le nouveau chef de **{guild}** ?",
+				"canceled": "Commande `changeguildchief` annulée !"
+			},
+			"DM": {
+				"title": "Le chef de votre guilde a été changé",
+				"description": "**{new}** ({newID}) est devenu chef de la guilde **{guild}** à la place de **{old}** ({oldID}) suite à votre demande auprès de l'équipe du bot."
+			},
+			"reply": {
+				"title": "Le chef de la guilde a été changé",
+				"description": "**{new}** ({newID}) est bien devenu chef de la guilde **{guild}** à la place de **{old}** ({oldID})."
+			}
+		},
+		"en": {
+			"errors": {
+				"notInTheGuild": "The specified user is not in the guild.",
+				"alreadyChief": "The specified user is already the leader of the guild.",
+				"unknownGuild": "The specified guild does not exist.",
+				"wrongId": "There is no player with this ID."
+			},
+			"validation": {
+				"title": "{pseudo}, confirmation:",
+				"description": "Are you sure you want to make **{user}** ({userID}) the new leader of **{guild}**?",
+				"canceled": "`changeguildchief` command cancelled!"
+			},
+			"DM": {
+				"title": "Your guild leader has been changed",
+				"description": "**{new}** ({newID}) became leader of the guild **{guild}** instead of **{old}** ({oldID}) after your request to the team of the bot."
+			},
+			"reply": {
+				"title": "The guild leader has been changed",
+				"description": "**{new}** ({newID}) has become leader of the guild **{guild}** instead of **{old}** ({oldID})."
+			}
+		}
+	}
+}
