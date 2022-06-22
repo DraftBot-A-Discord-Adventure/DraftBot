@@ -1,12 +1,9 @@
 import {
-	ApplicationCommand,
 	ApplicationCommandDataResolvable,
-	ApplicationCommandPermissionData,
 	Client,
 	CommandInteraction,
 	GuildChannel,
 	GuildMember,
-	GuildResolvable,
 	Message,
 	User
 } from "discord.js";
@@ -30,8 +27,7 @@ import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue} from "../core/utils/ErrorUtils";
-
-declare const canPerformCommand: (member: GuildMember, interaction: CommandInteraction, language: string, permission: string) => Promise<boolean>;
+import {MessageError} from "../core/MessageError";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -60,8 +56,7 @@ export class CommandsManager {
 	 * Check if the given entity can perform the command in commandInfo
 	 * @param commandInfo
 	 * @param entity
-	 * @param interaction
-	 * @param tr
+	 * @param TextInformations
 	 * @param shouldReply
 	 */
 	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, {
@@ -87,7 +82,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (await canPerformCommand(interaction.member as GuildMember, interaction, tr.language, commandInfo.requirements.userPermission) !== true) {
+		if (await MessageError.canPerformCommand(interaction.member as GuildMember, interaction, tr.language, commandInfo.requirements.userPermission) !== true) {
 			return false;
 		}
 
@@ -320,69 +315,6 @@ export class CommandsManager {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Link permission to the command
-	 * @param commandInfo
-	 * @param cmd
-	 * @private
-	 */
-	private static async enforcePermission(commandInfo: ICommand, cmd: ApplicationCommand<{ guild: GuildResolvable }>) {
-		const perms: ApplicationCommandPermissionData[] = [];
-		if (commandInfo.slashCommandPermissions) {
-			commandInfo.slashCommandPermissions.forEach(value => perms.push(value));
-		}
-		if (commandInfo.requirements.userPermission) {
-			this.setCommandPermissions(commandInfo, perms);
-		}
-		if (perms.length !== 0) {
-			await cmd.permissions.add({
-				guild: botConfig.MAIN_SERVER_ID,
-				permissions: perms
-			});
-		}
-	}
-
-	private static setCommandPermissions(commandInfo: ICommand, perms: ApplicationCommandPermissionData[]) {
-		switch (commandInfo.requirements.userPermission) {
-		case Constants.ROLES.USER.CONTRIBUTORS:
-			perms.push({
-				id: botConfig.CONTRIBUTOR_ROLE,
-				type: "ROLE",
-				permission: true
-			} as ApplicationCommandPermissionData);
-			perms.push({
-				id: botConfig.BOT_OWNER_ID,
-				type: "USER",
-				permission: true
-			} as ApplicationCommandPermissionData);
-			break;
-		case Constants.ROLES.USER.BADGE_MANAGER:
-			perms.push({
-				id: botConfig.BADGE_MANAGER_ROLE,
-				type: "ROLE",
-				permission: true
-			} as ApplicationCommandPermissionData);
-			perms.push({
-				id: botConfig.BOT_OWNER_ID,
-				type: "USER",
-				permission: true
-			} as ApplicationCommandPermissionData);
-			break;
-		case Constants.ROLES.USER.BOT_OWNER:
-			perms.push({
-				id: botConfig.BOT_OWNER_ID,
-				type: "USER",
-				permission: true
-			} as ApplicationCommandPermissionData);
-			break;
-		case Constants.ROLES.USER.ADMINISTRATOR:
-			// Administrator role is filtered when a user enters the command
-			break;
-		default:
-			break;
-		}
 	}
 
 	private static async handleCommand(interaction: CommandInteraction) {

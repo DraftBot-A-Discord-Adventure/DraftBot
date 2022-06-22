@@ -520,4 +520,15 @@ export abstract class Constants {
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 
 	static readonly MINIMAL_PLAYER_SCORE = 100;
+
+	static readonly PERMISSION = {
+		ROLE: {
+			BOT_OWNER: "owner", // is the owner of the bot
+			BADGE_MANAGER: "manager", // has the badge manager role
+			SUPPORT: "support", // has the support role
+			ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+			CONTRIBUTORS: "contributors",
+			ALL: "all"
+		}
+	};
 }
