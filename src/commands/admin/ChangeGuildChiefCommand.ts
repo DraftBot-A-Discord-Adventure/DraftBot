@@ -12,11 +12,18 @@ import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
+/**
+ *Apply the changes due to validation
+ * @param userToPromote
+ * @param guild
+ * @param interaction
+ * @param tr
+ */
 function getEndCallbackChangeChief(
 	userToPromote: Entity,
 	guild: Guild,
 	interaction: CommandInteraction,
-	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
+	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage) => {
 		if (msg.isValidated()) {
 			const formerChief = await Entities.getById(guild.chiefId);
@@ -80,6 +87,13 @@ function getEndCallbackChangeChief(
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.changeGuildChief", language);
 
+	/**
+	 * Checks if the member can become chief
+	 * @param userToPromote
+	 * @param userGuild
+	 * @param guild
+	 * @returns boolean
+	 */
 	function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, guild: Guild | null): boolean {
 
 		if (guild === null) {
