@@ -105,13 +105,12 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
  * @param guildLike
  */
 async function doesSomeoneNeedsHeal(guildLike: GuildLike) {
-	let needsHeal = false;
-	await genericAwardingFunction(guildLike.members, async member => {
+	for (const member of guildLike.members) {
 		if (member.health !== await member.getMaxHealth()) {
-			needsHeal = true;
+			return true;
 		}
-	});
-	return needsHeal;
+	}
+	return false;
 }
 
 /**
@@ -123,8 +122,7 @@ async function doesSomeoneNeedsHeal(guildLike: GuildLike) {
  */
 async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule, fullHeal = false) {
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER) + 1;
-	const someoneNeedsHeal = await doesSomeoneNeedsHeal(guildLike);
-	if (!someoneNeedsHeal) {
+	if (!await doesSomeoneNeedsHeal(guildLike)) {
 		// Pas de heal donné : don de money
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
