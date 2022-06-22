@@ -24,6 +24,7 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 		}
 	}
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, { rarity: potion.rarity });
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionWithoutEffect");
 	interaction.replied ?
 		await sendErrorMessage(interaction.user, interaction.channel, language, tr.get("objectDoNothingError")) :
@@ -32,6 +33,7 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 
 async function checkPotionDrinkMissionValidations(entity: Entity, interaction: CommandInteraction, language: string, potion: Potion) {
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, { rarity: potion.rarity });
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
