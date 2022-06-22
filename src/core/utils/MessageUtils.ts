@@ -31,7 +31,7 @@ export function sendDirectMessage(user: User, title: string, description: string
 }
 
 /**
- * Check if a broadcasted message is still active or not (avoid duplicate answers from the bot, for example in spam situation or sync reactions)
+ * Check if a broadcast message is still active or not (avoid duplicate answers from the bot, for example in spam situation or sync reactions)
  * @param interaction
  * @param collector
  * @param reaction

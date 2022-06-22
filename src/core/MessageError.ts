@@ -14,37 +14,29 @@ export class MessageError {
 	 * @returns {Promise<boolean|*>}
 	 */
 	static async canPerformCommand(member: GuildMember, interaction: CommandInteraction, language: string, permission: string) {
-		if (permission === Constants.PERMISSION.ROLE.BADGE_MANAGER) {
-			if (!member.roles.cache.has(botConfig.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member, interaction, language, permission);
-			}
+		if (this.hasNotPermission(permission, member)) {
+			return await MessageError.permissionErrorMe(member, interaction, language, permission);
 		}
-
-		if (permission === Constants.PERMISSION.ROLE.CONTRIBUTORS) {
-			if (!member.roles.cache.has(botConfig.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member, interaction, language, permission);
-			}
-		}
-
-		if (permission === Constants.PERMISSION.ROLE.SUPPORT) {
-			if (!member.roles.cache.has(botConfig.SUPPORT_ROLE) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member, interaction, language, permission);
-			}
-		}
-
-		if (permission === Constants.PERMISSION.ROLE.ADMINISTRATOR) {
-			if (!member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member, interaction, language, permission);
-			}
-		}
-
-		if (permission === Constants.PERMISSION.ROLE.BOT_OWNER) {
-			if (!MessageError.isBotOwner(member.id)) {
-				return await MessageError.permissionErrorMe(member, interaction, language, permission);
-			}
-		}
-
 		return true;
+	}
+
+	/**
+	 * check if the user has the permission to use the command
+	 * @param {string} permission
+	 * @param {boolean} member
+	 * @private
+	 */
+	private static hasNotPermission(permission: string, member: GuildMember) {
+		return (permission === Constants.PERMISSION.ROLE.BADGE_MANAGER
+				&& !member.roles.cache.has(botConfig.BADGE_MANAGER_ROLE)
+				|| permission === Constants.PERMISSION.ROLE.ADMINISTRATOR
+				&& !member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
+				|| permission === Constants.PERMISSION.ROLE.CONTRIBUTORS
+				&& !member.roles.cache.has(botConfig.CONTRIBUTOR_ROLE)
+				|| permission === Constants.PERMISSION.ROLE.SUPPORT
+				&& !member.roles.cache.has(botConfig.SUPPORT_ROLE)
+				|| permission === Constants.PERMISSION.ROLE.BOT_OWNER)
+			&& !MessageError.isBotOwner(member.id);
 	}
 
 	/**
