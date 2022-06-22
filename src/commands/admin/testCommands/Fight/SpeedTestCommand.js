@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		speed: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {speed} :rocket:!",
-	description: "Mets la vitesse de votre joueur à la valeur donnée"
+	description: "Mets la vitesse de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

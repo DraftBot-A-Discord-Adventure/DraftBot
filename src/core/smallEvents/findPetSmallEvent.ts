@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
@@ -77,7 +77,7 @@ export const smallEvent: SmallEvent = {
 				pet: pet.getPetTypeName(language)
 			}));
 			await interaction.reply({embeds: [seEmbedPetObtention]});
-			await MissionsController.update(entity.discordUserId, <TextChannel>interaction.channel, language, "havePet");
+			await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
 		}
 		console.log(entity.discordUserId + " got find pet event.");
 	}

@@ -224,7 +224,10 @@ export class Player extends Model {
 		}
 
 		if (this.level % 10 === 0) {
-			await entity.setHealth(await entity.getMaxHealth(), channel, language);
+			await entity.setHealth(await entity.getMaxHealth(), channel, language, {
+				shouldPokeMission: true,
+				overHealCountsForMission: false
+			});
 			bonuses.push(tr.get("levelUp.healthRestored"));
 		}
 

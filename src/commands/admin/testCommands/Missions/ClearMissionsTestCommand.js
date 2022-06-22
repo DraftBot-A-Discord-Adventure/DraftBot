@@ -3,7 +3,8 @@ module.exports.commandInfo = {
 	name: "clearMissions",
 	commandFormat: "",
 	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
-	description: "Permet de supprimer toutes ses missions"
+	description: "Permet de supprimer toutes ses missions",
+	commandTestShouldReply: true
 };
 
 /**

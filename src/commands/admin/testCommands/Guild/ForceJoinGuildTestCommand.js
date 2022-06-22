@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		guildToJoin: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
-	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre"
+	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
+	commandTestShouldReply: true
 };
 
 /**

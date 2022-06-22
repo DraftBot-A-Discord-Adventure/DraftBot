@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
@@ -26,10 +26,10 @@ export const smallEvent: SmallEvent = {
 						xp: xpWon
 					})
 			);
-		await entity.Player.addExperience(xpWon, entity, <TextChannel> interaction.channel, language);
+		await entity.Player.addExperience(xpWon, entity, interaction.channel, language);
 		await entity.Player.save();
 		await entity.save();
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " gained some xp points in a mini event");
 	}
 };

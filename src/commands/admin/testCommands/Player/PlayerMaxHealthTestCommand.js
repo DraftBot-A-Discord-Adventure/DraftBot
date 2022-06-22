@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		maxhealth: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {maxhealth} :heart: au maximum !",
-	description: "Mets la vie maximale de votre joueur à la valeur donnée"
+	description: "Mets la vie maximale de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

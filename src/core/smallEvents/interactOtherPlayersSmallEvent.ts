@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity, {Entities} from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
@@ -173,7 +173,7 @@ function getPetName(otherEntity: Entity, language: string) {
 		: "";
 }
 
-async function sendACoin(otherEntity: Entity, channel: TextChannel, language: string, entity: Entity) {
+async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, language: string, entity: Entity) {
 	await otherEntity.Player.addMoney(otherEntity, 1, channel, language);
 	await otherEntity.Player.save();
 	await entity.Player.addMoney(entity, -1, channel, language);
@@ -204,7 +204,7 @@ export const smallEvent: SmallEvent = {
 		const cList: string[] = [];
 		const player = await Players.getById(entity.Player.id);
 		const otherPlayer = await Players.getById(otherEntity.Player.id);
-		await MissionsController.update(entity.discordUserId, <TextChannel> interaction.channel, language, "meetDifferentPlayers", 1, {metPlayerDiscordId: otherEntity.discordUserId});
+		await MissionsController.update(entity.discordUserId, interaction.channel, language, "meetDifferentPlayers", 1, {metPlayerDiscordId: otherEntity.discordUserId});
 		let guild = null;
 		checkTop(otherPlayer, cList);
 		checkBadges(otherEntity, cList);
@@ -272,7 +272,7 @@ export const smallEvent: SmallEvent = {
 					const poorEmbed = new DraftBotEmbed()
 						.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 					if (reaction && reaction.emoji.name === Constants.SMALL_EVENT.COIN_EMOTE) {
-						await sendACoin(otherEntity, <TextChannel> interaction.channel, language, entity);
+						await sendACoin(otherEntity, interaction.channel, language, entity);
 						poorEmbed.setDescription(format(tr.getRandom("poorGiveMoney"), {
 							pseudo: await otherEntity.Player.getPseudo(language)
 						}));

@@ -5,7 +5,8 @@ module.exports.commandInfo = {
 	aliases: ["pf"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez libéré votre pet de force !",
-	description: "Libère votre pet de force, sans prendre en compte le cooldown"
+	description: "Libère votre pet de force, sans prendre en compte le cooldown",
+	commandTestShouldReply: true
 };
 
 /**

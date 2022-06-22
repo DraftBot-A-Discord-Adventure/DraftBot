@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		defense: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {defense} :shield:!",
-	description: "Mets la défense de votre joueur à la valeur donnée"
+	description: "Mets la défense de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

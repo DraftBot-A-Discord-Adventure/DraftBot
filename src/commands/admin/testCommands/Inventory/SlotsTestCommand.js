@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		number: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
-	description: "Change le nombre d'emplacements disponibles pour les armes"
+	description: "Change le nombre d'emplacements disponibles pour les armes",
+	commandTestShouldReply: true
 };
 
 /**
@@ -22,6 +23,9 @@ module.exports.commandInfo = {
 const slotsTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const slots = parseInt(args[1], 10);
+	if (slots >= 5 || slots < 0) {
+		throw Error("Argument slots invalide. Doit être compris entre 0 et 5");
+	}
 	let category;
 
 	switch (parseInt(args[0], 10)) {

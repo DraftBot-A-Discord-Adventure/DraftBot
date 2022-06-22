@@ -12,6 +12,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {DailyConstants} from "../../core/constants/DailyConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -41,11 +42,10 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  * @param interaction
  */
 function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction) {
-	const dailyData = Data.getModule("commands.daily");
 	const switchData = Data.getModule("commands.switch");
-	const nextDailyDate = new Date().setDate(entity.Player.InventoryInfo.lastDailyAt.valueOf() + hoursToMilliseconds(dailyData.getNumber("timeBetweenDailies")));
+	const nextDailyDate = new Date().setDate(entity.Player.InventoryInfo.lastDailyAt.valueOf() + hoursToMilliseconds(DailyConstants.TIME_BETWEEN_DAILIES));
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - interaction.createdAt.valueOf());
-	const maxTime = dailyData.getNumber("timeBetweenDailies") - switchData.getNumber("timeToAdd");
+	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - switchData.getNumber("timeToAdd");
 	if (timeToCheck < 0) {
 		entity.Player.InventoryInfo.updateLastDailyAt();
 		entity.Player.InventoryInfo.editDailyCooldown(-maxTime);

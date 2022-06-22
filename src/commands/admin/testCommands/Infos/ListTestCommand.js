@@ -5,7 +5,8 @@ module.exports.commandInfo = {
 	name: "list",
 	commandFormat: "",
 	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
-	description: "Affiche la liste des commandes tests"
+	description: "Affiche la liste des commandes tests",
+	commandTestShouldReply: true
 };
 
 const CT = require("../../../../core/CommandsTest");

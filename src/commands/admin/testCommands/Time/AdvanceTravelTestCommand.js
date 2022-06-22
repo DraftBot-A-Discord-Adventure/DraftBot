@@ -9,7 +9,8 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé votre voyage de {time} minutes !",
-	description: "Avance votre voyage d'une durée en minutes donnée"
+	description: "Avance votre voyage d'une durée en minutes donnée",
+	commandTestShouldReply: true
 };
 
 /**

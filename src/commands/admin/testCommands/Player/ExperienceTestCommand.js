@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		experience: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {experience} :star: !",
-	description: "Mets l'expérience votre joueur à la valeur donnée"
+	description: "Mets l'expérience votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

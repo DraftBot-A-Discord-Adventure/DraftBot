@@ -10,7 +10,8 @@ module.exports.commandInfo = {
 		level: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Votre guilde est maintenant niveau {level} !",
-	description: "Mets le niveau de votre guilde au niveau donné"
+	description: "Mets le niveau de votre guilde au niveau donné",
+	commandTestShouldReply: true
 };
 
 /**

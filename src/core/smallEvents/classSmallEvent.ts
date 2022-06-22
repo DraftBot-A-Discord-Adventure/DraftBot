@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -46,8 +46,8 @@ export const smallEvent: SmallEvent = {
 				item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.WEAPON);
 				break;
 			}
-			await interaction.reply({ embeds: [seEmbed] });
-			await giveItemToPlayer(entity, item, language, interaction.user, <TextChannel> interaction.channel);
+			await interaction.reply({embeds: [seEmbed]});
+			await giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
 		}
 		else if (classDataModule.getNumberArray("defenseEligible").includes(classId)) {
 			const outRand = RandomUtils.draftbotRandom.integer(0, 2);
@@ -68,37 +68,37 @@ export const smallEvent: SmallEvent = {
 				item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.ARMOR);
 				break;
 			}
-			await interaction.reply({ embeds: [seEmbed] });
-			await giveItemToPlayer(entity, item, language, interaction.user, <TextChannel> interaction.channel);
+			await interaction.reply({embeds: [seEmbed]});
+			await giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
 		}
 		else if (classDataModule.getNumberArray("basicEligible").includes(classId)) {
 			if (RandomUtils.draftbotRandom.bool()) {
 				// winItem
 				seEmbed.setDescription(base + tr.getRandom("basic.winItem"));
-				await interaction.reply({ embeds: [seEmbed] });
-				await giveRandomItem(interaction.user, <TextChannel> interaction.channel, language, entity);
+				await interaction.reply({embeds: [seEmbed]});
+				await giveRandomItem(interaction.user, interaction.channel, language, entity);
 			}
 			else {
 				// winMoney
 				const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
-				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), { money: moneyWon }));
-				await interaction.reply({ embeds: [seEmbed] });
-				await entity.Player.addMoney(entity, moneyWon, <TextChannel> interaction.channel, language);
+				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
+				await interaction.reply({embeds: [seEmbed]});
+				await entity.Player.addMoney(entity, moneyWon, interaction.channel, language);
 			}
 		}
 		else if (classDataModule.getNumberArray("otherEligible").includes(classId)) {
 			if (RandomUtils.draftbotRandom.bool()) {
 				// winItem
 				seEmbed.setDescription(base + tr.getRandom("other.winItem"));
-				await interaction.reply({ embeds: [seEmbed] });
-				await giveRandomItem(interaction.user, <TextChannel> interaction.channel, language, entity);
+				await interaction.reply({embeds: [seEmbed]});
+				await giveRandomItem(interaction.user, interaction.channel, language, entity);
 			}
 			else {
 				// winHealth
 				const healthWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
-				seEmbed.setDescription(base + tr.getRandom("other.winHealth"));
-				await interaction.reply({ embeds: [seEmbed] });
-				await entity.addHealth(healthWon, <TextChannel> interaction.channel, language);
+				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
+				await interaction.reply({embeds: [seEmbed]});
+				await entity.addHealth(healthWon, interaction.channel, language);
 			}
 		}
 		else {

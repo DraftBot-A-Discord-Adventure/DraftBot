@@ -12,6 +12,7 @@ import {giveRandomItem} from "../utils/ItemUtils";
 import {PetEntities, PetEntity} from "../models/PetEntity";
 import {Data} from "../Data";
 import {giveFood} from "../utils/GuildUtils";
+import {getFoodIndexOf} from "../utils/FoodUtils";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -32,7 +33,7 @@ const generatePetEmbed = async function(
 	food: string
 ) {
 	const tr = Translations.getModule("smallEvents.pet", language);
-	const selectedItem: { type: string, emote: string, translations: { fr: { name: string }, en: { name: string } } } = food ? Data.getModule("food").getObject(food) : null;
+	const foodModule = Translations.getModule("food", language);
 	const sentence = tr.getRandom(interaction);
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
@@ -47,7 +48,7 @@ const generatePetEmbed = async function(
 		determinantShift: tr.get("determinant." + pet.sex).charAt(0)
 			.toUpperCase() + tr.get("determinant." + pet.sex).slice(1),
 		amount: amount,
-		food: food ? language === (Constants.LANGUAGE.FRENCH ? selectedItem.translations.fr : selectedItem.translations.en).name.toLowerCase() + " " + selectedItem.emote + " " : "",
+		food: food ? `${foodModule.get(`${food}.name`).toLowerCase()} ${Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(food)]} ` : "",
 		badge: Constants.BADGES.PET_TAMER,
 		feminine: pet.sex === "f" ? "e" : "",
 		randomAnimal: randomAnimal ? randomAnimal.getPetEmote() + " " + randomAnimal.getPetTypeName(language) : "",
@@ -231,7 +232,6 @@ export const smallEvent: SmallEvent = {
 			break;
 		}
 		await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
-
 		await interactionCommand.reply({embeds: [seEmbed]});
 		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, entity, food);
 		console.log(entity.discordUserId + " got a pet interaction");

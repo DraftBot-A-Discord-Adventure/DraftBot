@@ -171,12 +171,14 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 				if (selectedClass.id === playerClass.id) {
 					return sendErrorMessage(message.author, message.channel, language, classTranslations.get("error.sameClass"));
 				}
-				await reaction.first().message.delete();
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
 					entity.health / playerClass.getMaxHealthValue(entity.Player.level) * newClass.getMaxHealthValue(entity.Player.level)
-				), message.channel, language, false);
+				), message.channel, language, {
+					shouldPokeMission: false,
+					overHealCountsForMission: false
+				});
 				await entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
 				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
 				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, {tier: selectedClass.classGroup});

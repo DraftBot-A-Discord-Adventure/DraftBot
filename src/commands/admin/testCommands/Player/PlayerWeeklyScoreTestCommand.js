@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		weeklyscore: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {weeklyscore} points de la semaine !",
-	description: "Mets le score de la semaine de votre joueur à la valeur donnée"
+	description: "Mets le score de la semaine de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

@@ -4,7 +4,8 @@ module.exports.commandInfo = {
 	name: "expireMissions",
 	commandFormat: "",
 	messageWhenExecuted: "Toutes les missions ont expiré",
-	description: "Expire toutes les missions"
+	description: "Expire toutes les missions",
+	commandTestShouldReply: true
 };
 
 /**

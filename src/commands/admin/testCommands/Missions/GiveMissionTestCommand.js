@@ -11,7 +11,8 @@ module.exports.commandInfo = {
 		"difficulty": typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Permet de se donner une mission spécifique"
+	description: "Permet de se donner une mission spécifique",
+	commandTestShouldReply: true
 };
 
 /**
@@ -44,7 +45,7 @@ const giveMissionTestCommand = async (language, interaction, args) => {
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		desc: (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
+		desc: await (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
 		objective: missionSlot.missionObjective
 	});
 };

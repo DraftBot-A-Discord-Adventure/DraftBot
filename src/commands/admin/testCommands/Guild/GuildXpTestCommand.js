@@ -10,7 +10,8 @@ module.exports.commandInfo = {
 		experience: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
-	description: "Mets l'expérience de votre guilde au niveau donné"
+	description: "Mets l'expérience de votre guilde au niveau donné",
+	commandTestShouldReply: true
 };
 
 /**

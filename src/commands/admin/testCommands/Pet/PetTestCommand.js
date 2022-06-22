@@ -11,7 +11,8 @@ module.exports.commandInfo = {
 		sex: typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
-	description: "Vous donne un pet avec un id et un sexe donnés"
+	description: "Vous donne un pet avec un id et un sexe donnés",
+	commandTestShouldReply: true
 };
 
 /**

@@ -5,7 +5,8 @@ module.exports.commandInfo = {
 	aliases: ["suicide"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
-	description: "Vous permet de vous suicider dans le plus grand des calmes"
+	description: "Vous permet de vous suicider dans le plus grand des calmes",
+	commandTestShouldReply: true
 };
 
 /**

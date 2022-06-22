@@ -14,7 +14,8 @@ module.exports.commandInfo = {
 		"item id": typeVariable.INTEGER
 	},
 	messageWhenExecuted: "",
-	description: "Permet de trouver un objet défini"
+	description: "Permet de trouver un objet défini",
+	commandTestShouldReply: true
 };
 
 /**
@@ -52,7 +53,7 @@ const findItemTestCommand = async (language, interaction, args) => {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
+	ItemUtils.giveItemToPlayer(entity, item, language, interaction.user, interaction.channel).finally(() => null);
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };

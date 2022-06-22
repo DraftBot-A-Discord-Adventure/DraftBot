@@ -1,4 +1,4 @@
-import {CommandInteraction, MessageEmbed, TextChannel} from "discord.js";
+import {CommandInteraction, MessageEmbed} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Guilds} from "../models/Guild";
@@ -111,7 +111,7 @@ export const smallEvent: SmallEvent = {
 				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for ultimate soups");
 				break;
 			case "item":
-				await giveItemToPlayer(entity, reward.option, language, interaction.user, <TextChannel> interaction.channel);
+				await giveItemToPlayer(entity, reward.option, language, interaction.user, interaction.channel);
 				console.log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
 				break;
 			case "commonFood":
@@ -122,7 +122,7 @@ export const smallEvent: SmallEvent = {
 				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for common food");
 				break;
 			case "money":
-				await entity.Player.addMoney(entity, reward.option, <TextChannel> interaction.channel, language);
+				await entity.Player.addMoney(entity, reward.option, interaction.channel, language);
 				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "💰");
 				break;
 			default:

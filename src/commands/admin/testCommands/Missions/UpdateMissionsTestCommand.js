@@ -12,7 +12,8 @@ export const commandInfo = {
 		count: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé de {count} vos missions {missionId}",
-	description: "Avance les missions"
+	description: "Avance les missions",
+	commandTestShouldReply: true
 };
 
 const updateMissionsTestCommand = async (language, interaction, args) => {

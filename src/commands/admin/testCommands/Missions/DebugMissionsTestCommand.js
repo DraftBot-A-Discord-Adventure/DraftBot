@@ -6,7 +6,8 @@ module.exports.commandInfo = {
 	aliases: ["debugm", "debm"],
 	commandFormat: "",
 	messageWhenExecuted: "",
-	description: "Affiche des informations sur vos missions"
+	description: "Affiche des informations sur vos missions",
+	commandTestShouldReply: true
 };
 
 /**

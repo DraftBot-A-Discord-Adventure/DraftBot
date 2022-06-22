@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		gem: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
-	description: "Ajoute la valeur donnée de gemmes à votre joueur"
+	description: "Ajoute la valeur donnée de gemmes à votre joueur",
+	commandTestShouldReply: true
 };
 
 /**

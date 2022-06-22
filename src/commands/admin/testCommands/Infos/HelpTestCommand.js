@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		command: typeVariable.STRING
 	},
 	messageWhenExecuted: "",
-	description: "Affiche l'aide pour une commande"
+	description: "Affiche l'aide pour une commande",
+	commandTestShouldReply: true
 };
 
 const CT = require("../../../../core/CommandsTest");

@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		lostPoints: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {lostPoints} fightpointslost !",
-	description: "Mets les fightpointslost de votre joueur à la valeur donnée"
+	description: "Mets les fightpointslost de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

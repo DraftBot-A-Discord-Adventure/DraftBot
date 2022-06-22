@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		health: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
-	description: "Mets la vie de votre joueur à la valeur donnée"
+	description: "Mets la vie de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**

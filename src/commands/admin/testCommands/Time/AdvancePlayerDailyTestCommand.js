@@ -8,7 +8,8 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
-	description: "Avance le daily de votre joueur d'une durée en minutes donnée"
+	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true
 };
 
 /**

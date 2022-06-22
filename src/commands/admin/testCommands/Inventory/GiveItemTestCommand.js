@@ -13,7 +13,8 @@ module.exports.commandInfo = {
 		"item id": typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez reçu {item} !",
-	description: "Permet de se donner un objet"
+	description: "Permet de se donner un objet",
+	commandTestShouldReply: true
 };
 
 /**

@@ -4,7 +4,8 @@ module.exports.commandInfo = {
 	aliases: ["forcetwe"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez effectué une fin de topweek !",
-	description: "Effectue une fin de topweek (action hebdomadaire qui réinitialise le topweek, et qui annonce le gagnant de la semaine)"
+	description: "Effectue une fin de topweek (action hebdomadaire qui réinitialise le topweek, et qui annonce le gagnant de la semaine)",
+	commandTestShouldReply: true
 };
 
 /**

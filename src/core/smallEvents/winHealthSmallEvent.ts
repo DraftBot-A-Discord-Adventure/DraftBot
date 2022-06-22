@@ -1,6 +1,6 @@
 import {SmallEvent} from "./SmallEvent";
 import Entity from "../models/Entity";
-import {CommandInteraction, TextChannel} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
@@ -19,14 +19,14 @@ export const smallEvent: SmallEvent = {
 		);
 		const translationWH = Translations.getModule("smallEvents.winHealth", language);
 		seEmbed.setDescription(
-			Translations.getModule("smallEventsIntros",language).getRandom("intro") +
+			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
 			format(translationWH.getRandom("intrigue"), {
 				health: healthWon
 			})
 		);
-		await entity.addHealth(healthWon, <TextChannel> interaction.channel, language);
+		await entity.addHealth(healthWon, interaction.channel, language);
 		await entity.save();
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " gained some health points in a mini event");
 	}
 };

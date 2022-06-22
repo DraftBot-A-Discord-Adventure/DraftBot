@@ -7,7 +7,8 @@ module.exports.commandInfo = {
 		attack: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {attack} :crossed_swords:!",
-	description: "Mets l'attaque de votre joueur à la valeur donnée"
+	description: "Mets l'attaque de votre joueur à la valeur donnée",
+	commandTestShouldReply: true
 };
 
 /**
