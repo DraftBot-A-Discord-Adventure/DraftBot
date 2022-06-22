@@ -68,7 +68,6 @@ function getEndCallbackChangeChief(
 			return;
 		}
 
-		// Cancel the creation
 		sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("validation.canceled"), true);
 	};
 }
