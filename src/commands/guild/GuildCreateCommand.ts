@@ -78,8 +78,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guildCreateData
 	});
 
-	BlockingUtils.blockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
-
 	const validationEmbed = createValidationEmbedGuildCreation(interaction, endCallback, askedName, {
 		guildCreateModule,
 		guildCreateData

@@ -63,7 +63,7 @@ async function createValidationEmbedGuildDesc(
 	askedDescription: string,
 	entity: Entity,
 	guildDescriptionModule: TranslationModule
-) {
+): Promise<void> {
 	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
 		.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
 		.setDescription(

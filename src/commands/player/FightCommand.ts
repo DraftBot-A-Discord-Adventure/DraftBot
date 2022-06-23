@@ -30,7 +30,7 @@ async function canFight(entity: Entity, friendly: boolean): Promise<string> {
 	if (!entity.Player.currentEffectFinished() && !friendly) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
-	if (await BlockingUtils.getPlayerBlockingReason(entity.discordUserId) !== []) {
+	if ((await BlockingUtils.getPlayerBlockingReason(entity.discordUserId)).length !== 0) {
 		return FightConstants.FIGHT_ERROR.OCCUPIED;
 	}
 	if (await entity.getCumulativeFightPoint() === 0 && !friendly) {
