@@ -241,10 +241,10 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
 		await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
-		await BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
 
-	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
@@ -313,7 +313,7 @@ const doEvent = async (interaction: CommandInteraction, language: string, event:
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 
-	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();

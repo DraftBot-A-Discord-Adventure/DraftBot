@@ -9,7 +9,7 @@ import {escapeUsername} from "./StringUtils";
 
 export const sendBlockedErrorInteraction = async function(interaction: CommandInteraction, language: string) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
-	if (blockingReason !== []) {
+	if (blockingReason.length !== 0) {
 		const tr = Translations.getModule("error", language);
 		await interaction.reply({
 			embeds: [

@@ -53,7 +53,7 @@ export function getErrorReasons(blockingReason: string[], language: string) {
  */
 export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string, interaction: CommandInteraction = null) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
-	if (blockingReason !== []) {
+	if (blockingReason.length !== 0) {
 		await sendErrorMessage(user, channel, language, Translations.getModule("error", language).format("playerBlocked", {
 			context: getErrorReasons(blockingReason, language)
 		}), false, interaction);

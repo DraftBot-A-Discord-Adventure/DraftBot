@@ -118,7 +118,7 @@ export const smallEvent: SmallEvent = {
 		});
 
 
-		await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
 		for (let i = 0; i < emojiLottery.length; ++i) {
 			try {
 				await lotteryIntro.react(emojiLottery[i]);
