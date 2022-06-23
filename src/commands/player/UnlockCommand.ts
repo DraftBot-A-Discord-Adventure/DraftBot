@@ -10,6 +10,7 @@ import {Collection, CommandInteraction, Message, MessageReaction} from "discord.
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformations = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -75,7 +76,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
  */
 function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: TextInformations) {
 	return async (reaction: Collection<string, MessageReaction>) => {
-		BlockingUtils.unblockPlayer(entityCouple.unlocker.discordUserId);
+		BlockingUtils.unblockPlayer(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK);
 		if (reaction.first()) { // a reaction exist
 			const [entityToUnlock] = await Entities.getOrRegister(entityCouple.locked.discordUserId); // released entity
 			const [entityUnlocker] = await Entities.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
@@ -139,7 +140,7 @@ async function sendAndManageUnlockMessage(entityCouple: EntityCouple, textInform
 		max: UnlockConstants.MAX_ACCEPTED_REACTION
 	});
 
-	BlockingUtils.blockPlayerWithCollector(entityCouple.unlocker.discordUserId, "unlock", collector);
+	BlockingUtils.blockPlayerWithCollector(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK, collector);
 
 	collector.on("end", callbackUnlockCommand(entityCouple, textInformations));
 

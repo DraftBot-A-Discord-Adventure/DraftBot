@@ -11,6 +11,7 @@ import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type InvitedUserInformation = { invitedUser: User, invitedEntity: Entity };
 type InviterUserInformation = { guild: Guild, entity: Entity };
@@ -21,7 +22,7 @@ function getEndCallbackGuildAdd(
 	interaction: CommandInteraction,
 	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
 	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId);
+		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
 		if (msg.isValidated()) {
 			try {
 				inviter.guild = await Guilds.getById(inviter.entity.Player.guildId);
@@ -165,7 +166,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(guildAddModule.format("invitation", {
 			guildName: guild.name
 		}))
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, "guildAdd", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD, collector));
 }
 
 export const commandInfo: ICommand = {

@@ -9,6 +9,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * @param entity
@@ -18,7 +19,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
  */
 function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
 	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
 			guild.elderId = null;
 			await Promise.all([guild.save()]);
@@ -73,7 +74,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		)
 		.reply(
 			interaction,
-			(collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElderRemove", collector)
+			(collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE, collector)
 		);
 }
 

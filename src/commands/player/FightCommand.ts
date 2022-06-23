@@ -12,6 +12,7 @@ import {Fighter} from "../../core/fights/Fighter";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/models/Class";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Check if an entity is allowed to fight
@@ -29,7 +30,7 @@ async function canFight(entity: Entity, friendly: boolean): Promise<string> {
 	if (!entity.Player.currentEffectFinished() && !friendly) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
-	if (await BlockingUtils.getPlayerBlockingReason(entity.discordUserId) !== null) {
+	if (await BlockingUtils.getPlayerBlockingReason(entity.discordUserId) !== []) {
 		return FightConstants.FIGHT_ERROR.OCCUPIED;
 	}
 	if (await entity.getCumulativeFightPoint() === 0 && !friendly) {
@@ -149,7 +150,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 
-	const askingFighter = new Fighter(interaction.user, entity,await Classes.getById(entity.Player.class));
+	const askingFighter = new Fighter(interaction.user, entity, await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
@@ -175,7 +176,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await new DraftBotBroadcastValidationMessage(
 		interaction, language,
 		getAcceptCallback(interaction, fightTranslationModule, friendly, askedEntity, askingFighter),
-		"fight",
+		BlockingConstants.REASONS.FIGHT,
 		getBroadcastErrorStrings(fightTranslationModule, askedEntity),
 		FightConstants.ASKING_MENU_DURATION)
 		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)

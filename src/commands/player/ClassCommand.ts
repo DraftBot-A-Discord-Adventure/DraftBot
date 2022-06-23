@@ -10,6 +10,7 @@ import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/Er
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Select a class
@@ -102,16 +103,16 @@ function createClassCollectorAndManageIt(
 		max: 1
 	});
 
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "class", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CLASS, collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
 		if (!reaction.first()) { // the user is afk
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CLASS);
 			return;
 		}
 		if (reaction.first().emoji.name === Constants.MENU_REACTION.DENY) {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CLASS);
 			sendErrorMessage(interaction.user, interaction.channel, language, classTranslations.get("error.leaveClass"), true);
 			return;
 		}
@@ -157,7 +158,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 
 	collector.on("end", async (reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CLASS);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, entity.Player)) {

@@ -10,6 +10,7 @@ import {Guilds} from "../models/Guild";
 import {Constants} from "../Constants";
 import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -36,7 +37,7 @@ export const smallEvent: SmallEvent = {
 		});
 
 		collectorLottery.on("end", async (collected) => {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.LOTTERY);
 
 			if (!collected.first()) {
 				seEmbed.setDescription(seEmbedEmote + translationLottery.get("end"));
@@ -117,7 +118,7 @@ export const smallEvent: SmallEvent = {
 		});
 
 
-		await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "lottery", collectorLottery);
+		await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
 		for (let i = 0; i < emojiLottery.length; ++i) {
 			try {
 				await lotteryIntro.react(emojiLottery[i]);

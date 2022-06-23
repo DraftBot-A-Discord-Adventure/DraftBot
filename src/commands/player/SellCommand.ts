@@ -13,6 +13,7 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBo
 import InventorySlot from "../../core/models/InventorySlot";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type itemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 
@@ -120,7 +121,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 		interaction.user.id,
 		(item: itemObject) => sellEmbedCallback(entity, interaction, item, tr),
 		(endMessage) => {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 			if (endMessage.isCanceled()) {
 				sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("sellCanceled"), true);
 			}
@@ -128,7 +129,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 
 	choiceMessage.formatAuthor(tr.get("titleChoiceEmbed"), interaction.user);
 	choiceMessage.setDescription(tr.get("sellIndication") + "\n\n" + choiceMessage.description);
-	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "sell", collector));
+	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SELL, collector));
 }
 
 /**

@@ -16,6 +16,7 @@ import {GenericItemModel} from "../models/GenericItemModel";
 import Player from "../models/Player";
 import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
@@ -79,7 +80,7 @@ export const giveItemToPlayer = async function(
 				discordUser.id,
 				async (replacedItem: any) => {
 					[entity] = await Entities.getOrRegister(entity.discordUserId);
-					BlockingUtils.unblockPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 					await sellOrKeepItem(
 						entity,
 						false,
@@ -95,7 +96,7 @@ export const giveItemToPlayer = async function(
 					);
 				},
 				async (endMessage: DraftBotListChoiceMessage) => {
-					BlockingUtils.unblockPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 					if (endMessage.isCanceled()) {
 						await sellOrKeepItem(
 							entity,
@@ -117,7 +118,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
+			await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
 			return;
 		}
 	}
@@ -143,7 +144,7 @@ export const giveItemToPlayer = async function(
 		discordUser,
 		async (msg: DraftBotValidateReactionMessage) => {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
-			BlockingUtils.unblockPlayer(discordUser.id);
+			BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
 				entity,
 				!msg.isValidated(),
@@ -163,7 +164,7 @@ export const giveItemToPlayer = async function(
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
 		}))
-		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
+		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
 };
 
 // eslint-disable-next-line max-params

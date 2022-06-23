@@ -14,6 +14,7 @@ import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity from "../../core/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
@@ -157,7 +158,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
  * @param buyerInformations
  */
 async function petSell(textInformations: TextInformations, sellerInformations: SellerInformations, buyerInformations: BuyerInformations) {
-	BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
+	BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId, BlockingConstants.REASONS.PET_SELL);
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(textInformations.petSellModule.get("confirmEmbed.author"), buyerInformations.user)
 		.setDescription(
@@ -182,8 +183,8 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 		max: 1
 	});
 
-	BlockingUtils.blockPlayerWithCollector(buyerInformations.buyer.discordUserId, "petSellConfirm", confirmCollector);
-	BlockingUtils.blockPlayerWithCollector(sellerInformations.entity.discordUserId, "petSellConfirm", confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(buyerInformations.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(sellerInformations.entity.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
 	confirmCollector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
 			confirmCollector.stop();
@@ -199,8 +200,8 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 		if (!reaction.first()) {
 			await sendErrorMessage(buyerInformations.user, textInformations.interaction.channel, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
 		}
-		BlockingUtils.unblockPlayer(buyerInformations.buyer.discordUserId);
-		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId);
+		BlockingUtils.unblockPlayer(buyerInformations.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
+		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
 	});
 	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
 }
@@ -282,7 +283,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		interaction,
 		language,
 		getAcceptCallback(sellerInformations, textInformations),
-		"petSell",
+		BlockingConstants.REASONS.PET_SELL,
 		getBroadcastErrorStrings(petSellModule))
 		.setTitle(textInformations.petSellModule.get("sellMessage.title"))
 		.setDescription(

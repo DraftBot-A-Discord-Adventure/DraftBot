@@ -18,12 +18,13 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});
 		return;
 	}
-	if (await BlockingUtils.getPlayerBlockingReason(idToUnblock) === null) {
+	const blockingReason = await BlockingUtils.getPlayerBlockingReason(idToUnblock);
+	if (blockingReason === []) {
 		await interaction.reply({content: "Not blocked", ephemeral: true});
 		return;
 	}
 	const unblockModule = Translations.getModule("commands.unblock", language);
-	BlockingUtils.unblockPlayer(idToUnblock);
+	blockingReason.forEach(reason => BlockingUtils.unblockPlayer(idToUnblock, reason));
 	await interaction.reply({content: "Unblocked with success", ephemeral: true});
 	const user = await draftBotClient.users.fetch(idToUnblock);
 	const [entity] = await Entities.getOrRegister(idToUnblock);

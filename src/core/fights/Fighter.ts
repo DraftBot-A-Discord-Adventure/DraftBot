@@ -11,6 +11,7 @@ import {FighterStatus} from "./FighterStatus";
 import {IFightAction} from "../attacks/IFightAction";
 import Class from "../models/Class";
 import {FightActionController} from "../attacks/FightActionController";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number }
 
@@ -23,17 +24,17 @@ export class Fighter {
 
 	public stats: FighterStats
 
-	private entity: Entity
-
-	private ready: boolean
-
-	private status: FighterStatus
-
 	public nextFightActionId: string;
 
 	public fightActionsHistory: string[];
 
 	public availableFightActions: Map<string, IFightAction>;
+
+	private entity: Entity
+
+	private ready: boolean
+
+	private status: FighterStatus
 
 	private readonly class: Class;
 
@@ -113,15 +114,7 @@ export class Fighter {
 	 * @public
 	 */
 	public block() {
-		BlockingUtils.blockPlayer(this.entity.discordUserId, "fight");
-	}
-
-	/**
-	 * check if the potion of the fighter is a fight potion
-	 * @private
-	 */
-	private async currentPotionIsAFightPotion() {
-		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
+		BlockingUtils.blockPlayer(this.entity.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -209,5 +202,13 @@ export class Fighter {
 			}
 		});
 		return playerFightActionsHistory;
+	}
+
+	/**
+	 * check if the potion of the fighter is a fight potion
+	 * @private
+	 */
+	private async currentPotionIsAFightPotion() {
+		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
 	}
 }

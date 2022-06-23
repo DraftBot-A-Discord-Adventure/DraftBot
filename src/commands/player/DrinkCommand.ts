@@ -15,6 +15,7 @@ import {replyErrorMessage, sendBlockedErrorInteraction, sendErrorMessage} from "
 import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {hoursToMinutes} from "../../core/utils/TimeUtils";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: CommandInteraction, language: string, tr: TranslationModule) {
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
@@ -24,7 +25,7 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 		}
 	}
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, { rarity: potion.rarity });
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, {rarity: potion.rarity});
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionWithoutEffect");
 	interaction.replied ?
 		await sendErrorMessage(interaction.user, interaction.channel, language, tr.get("objectDoNothingError")) :
@@ -33,7 +34,7 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 
 async function checkPotionDrinkMissionValidations(entity: Entity, interaction: CommandInteraction, language: string, potion: Potion) {
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, { rarity: potion.rarity });
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, {rarity: potion.rarity});
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
@@ -45,7 +46,7 @@ async function checkPotionDrinkMissionValidations(entity: Entity, interaction: C
 
 function drinkPotionCallback(entity: Entity, force: boolean, interaction: CommandInteraction, language: string, tr: TranslationModule, embed: DraftBotEmbed) {
 	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
 		if (force !== null && force === true || validateMessage.isValidated()) {
 			switch (potion.nature) {
 			case Constants.NATURE.NONE:
@@ -127,7 +128,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			effect: potion.getNatureTranslation(language)
 		}))
 		.setFooter(tr.get("confirmationFooter"))
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "drink", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.DRINK, collector));
 }
 
 export const commandInfo: ICommand = {

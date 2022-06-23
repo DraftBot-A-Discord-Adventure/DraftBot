@@ -1,4 +1,4 @@
-import {BlockingUtils} from "./BlockingUtils";
+import {BlockingUtils, getErrorReasons} from "./BlockingUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Translations} from "../Translations";
@@ -9,12 +9,12 @@ import {escapeUsername} from "./StringUtils";
 
 export const sendBlockedErrorInteraction = async function(interaction: CommandInteraction, language: string) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
-	if (blockingReason !== null) {
+	if (blockingReason !== []) {
 		const tr = Translations.getModule("error", language);
 		await interaction.reply({
 			embeds: [
 				new DraftBotErrorEmbed(interaction.user, language, tr.format("playerBlocked", {
-					context: tr.get("blockedContext." + blockingReason)
+					context: getErrorReasons(blockingReason, language)
 				}))
 			]
 		});

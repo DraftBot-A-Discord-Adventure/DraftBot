@@ -10,6 +10,7 @@ import {checkNameString} from "../../core/utils/StringUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type InformationModules = { guildDescriptionModule: TranslationModule }
 
@@ -30,6 +31,7 @@ function endCallbackGuildCreateValidationMessage(
 	language: string,
 	informationModules: InformationModules): (validateMessage: DraftBotValidateReactionMessage) => void {
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 		if (validateMessage.isValidated()) {
 			guild.guildDescription = askedDescription;
 			await Promise.all([
@@ -75,7 +77,7 @@ async function createValidationEmbedGuildDesc(
 				}
 			))
 		.setFooter(informationsModule.guildDescriptionModule.get("changeDescriptionFooter"), null)
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildDescription", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
 
 }
 

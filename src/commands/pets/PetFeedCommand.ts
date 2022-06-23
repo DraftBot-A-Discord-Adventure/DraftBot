@@ -10,6 +10,7 @@ import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/Er
 import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity from "../../core/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Feed your pet !
@@ -101,7 +102,7 @@ async function sendPetFeedMessageAndPrepareCollector(interaction: CommandInterac
 		max: 1
 	});
 
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petFeed", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FEED, collector);
 	return {feedMsg, collector};
 }
 
@@ -131,7 +132,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
 		) {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
 			return sendErrorMessage(
 				interaction.user,
 				interaction.channel,
@@ -143,7 +144,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
 			feedPet(interaction, language, entity, authorPet, item, petFeedModule);
 		}
 	});
@@ -177,7 +178,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY

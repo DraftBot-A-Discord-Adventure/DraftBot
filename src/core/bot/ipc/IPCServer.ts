@@ -4,7 +4,7 @@ import RootIPC = require("node-ipc");
 const spamDelay = 1000;
 
 // The limitTimestamp is the date when the blocking is finished
-const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }> = new Map();
+const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
 const spamPlayers: Map<string, number> = new Map();
 
 export const startIPCServer = (): void => {
@@ -21,7 +21,10 @@ export const startIPCServer = (): void => {
 			ipc.server.on(
 				"block",
 				function(data) {
-					blockedPlayers.set(data.discordId, {
+					if (!blockedPlayers.get(data.discordId)) {
+						blockedPlayers.set(data.discordId, []);
+					}
+					blockedPlayers.get(data.discordId).push({
 						reason: data.reason,
 						limitTimestamp: data.time !== 0 ? Date.now() + data.time : 0
 					});
@@ -30,20 +33,26 @@ export const startIPCServer = (): void => {
 			ipc.server.on(
 				"unblock",
 				function(data) {
-					blockedPlayers.delete(data.discordId);
+					const arrayOfPlayer = blockedPlayers.get(data.discordId);
+					arrayOfPlayer.splice(arrayOfPlayer.indexOf(data.reason));
+					if (arrayOfPlayer.length === 0) {
+						blockedPlayers.delete(data.discordId);
+					}
 				}
 			);
 			ipc.server.on(
 				"isBlocked",
 				function(data, socket) {
 					const blockedPlayer = blockedPlayers.get(data.discordId);
-					let response = null;
+					const response = [];
 					if (blockedPlayer) {
-						if (blockedPlayer.limitTimestamp !== 0 && blockedPlayer.limitTimestamp < Date.now()) {
-							blockedPlayers.delete(data.discordId);
-						}
-						else {
-							response = blockedPlayer.reason;
+						for (const block of blockedPlayer) {
+							if (block.limitTimestamp !== 0 && block.limitTimestamp < Date.now()) {
+								blockedPlayers.delete(data.discordId);
+							}
+							else {
+								response.push(block.reason);
+							}
 						}
 					}
 					ipc.server.emit(socket, "isBlocked", {

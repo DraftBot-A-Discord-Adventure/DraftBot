@@ -14,6 +14,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import PetEntity from "../../core/models/PetEntity";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 function luckyMeat(guild: Guild, pPet: PetEntity) {
 	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
@@ -23,7 +24,7 @@ function luckyMeat(guild: Guild, pPet: PetEntity) {
 
 function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: TranslationModule, interaction: CommandInteraction) {
 	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
 			if (pPet.isFeisty()) {
 				await entity.Player.addMoney(entity, -PetFreeConstants.FREE_FEISTY_COST, interaction.channel, petFreeModule.language);
@@ -134,7 +135,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		confirmEmbed.setFooter(petFreeModule.get("isFeisty"));
 	}
 
-	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "freepet", collector));
+	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));
 }
 
 export const commandInfo: ICommand = {

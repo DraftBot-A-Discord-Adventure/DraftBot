@@ -12,6 +12,7 @@ import {checkNameString} from "../../core/utils/StringUtils";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data, DataModule} from "../../core/Data";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type InformationModules = { guildCreateModule: TranslationModule, guildCreateData: DataModule }
 
@@ -77,14 +78,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guildCreateData
 	});
 
-	BlockingUtils.blockPlayer(entity.discordUserId, "guildCreate");
+	BlockingUtils.blockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
 
 	const validationEmbed = createValidationEmbedGuildCreation(interaction, endCallback, askedName, {
 		guildCreateModule,
 		guildCreateData
 	});
 
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildCreate", collector));
+	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
 }
 
 async function getGuildByName(askedName: string) {
@@ -98,7 +99,7 @@ async function getGuildByName(askedName: string) {
 
 function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, askedName: string, interaction: CommandInteraction, language: string, informationModules: InformationModules) {
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
 		if (validateMessage.isValidated()) {
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {

@@ -9,19 +9,20 @@ import {IFightAction} from "../attacks/IFightAction";
 import {FightActionController} from "../attacks/FightActionController";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {MissionsController} from "../missions/MissionsController";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 /**
  * @class FightController
  */
 export class FightController {
 
+	turn: number;
+
 	private readonly fighters: Fighter[];
 
 	private readonly fightView: FightView
 
 	private state: FightState;
-
-	turn: number;
 
 	private readonly friendly: boolean;
 
@@ -94,7 +95,7 @@ export class FightController {
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
 		for (const fighter of this.fighters) {
-			BlockingUtils.unblockPlayer(fighter.getUser().id);
+			BlockingUtils.unblockPlayer(fighter.getUser().id, BlockingConstants.REASONS.FIGHT);
 		}
 
 		if (isADraw) {
