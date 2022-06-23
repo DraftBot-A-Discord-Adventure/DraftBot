@@ -59,7 +59,7 @@ function endCallbackGuildCreateValidationMessage(
  */
 async function createValidationEmbedGuildDesc(
 	interaction: CommandInteraction,
-	endCallback: (validateMessage: DraftBotValidateReactionMessage) => void,
+	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
 	askedDescription: string,
 	entity: Entity,
 	guildDescriptionModule: TranslationModule
