@@ -29,7 +29,7 @@ function endCallbackGuildCreateValidationMessage(
 	askedDescription: string,
 	interaction: CommandInteraction,
 	language: string,
-	informationModules: InformationModules): (validateMessage: DraftBotValidateReactionMessage) => void {
+	informationModules: InformationModules): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 		if (validateMessage.isValidated()) {
