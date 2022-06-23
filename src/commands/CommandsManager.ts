@@ -101,14 +101,14 @@ export class CommandsManager {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
-			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
+			let commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
+			if (!botConfig.TEST_MODE) {
+				commandsFiles = commandsFiles.filter(command => !command.startsWith("Test"));
+			}
 			for (const commandFile of commandsFiles) {
 				const commandInfo = require(`./${category + "/" + commandFile}`).commandInfo as ICommand;
 				if (!commandInfo || !commandInfo.slashCommandBuilder) {
 					console.error(`Command dist/src/commands/${category + "/" + commandFile} is not a slash command`);
-					continue;
-				}
-				if (commandFile === "TestCommand.ts" && !botConfig.TEST_MODE) {
 					continue;
 				}
 				commandsToRegister.push(commandInfo);
