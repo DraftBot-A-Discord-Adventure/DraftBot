@@ -231,6 +231,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
 
 	collector.on("collect", () => {
 		collector.stop();
@@ -244,7 +245,6 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
 
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
@@ -300,19 +300,18 @@ const destinationChoseMessage = async function(entity: Entity, map: number, user
  * @return {Promise<void>}
  */
 const doEvent = async (interaction: CommandInteraction, language: string, event: BigEvent, entity: Entity, time: number, forcePoints = 0) => {
-	const eventDisplayed = <Message> await interaction.reply({
+	const eventDisplayed = await interaction.reply({
 		content: Translations.getModule("commands.report", language).format("doEvent", {
 			pseudo: interaction.user,
 			event: event.getText(language)
 		}),
 		fetchReply: true
-	});
+	}) as Message;
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
 		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-
 	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 
 	collector.on("collect", async (reaction) => {
@@ -432,7 +431,6 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 	}
 
 	await entity.addHealth(randomPossibility.health, interaction.channel, language);
-
 	await player.addScore(entity, scoreChange, interaction.channel, language);
 	await player.addMoney(entity, moneyChange, interaction.channel, language);
 	await player.addExperience(randomPossibility.experience, entity, interaction.channel, language);
@@ -441,16 +439,16 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 		player.nextEvent = randomPossibility.nextEvent;
 	}
 
-	if (randomPossibility.eventId !== 0) {
-		await player.setLastReportWithEffect(interaction.createdTimestamp, randomPossibility.lostTime, randomPossibility.effect);
-	}
-	else {
-		await player.setLastReportWithEffect(0, randomPossibility.lostTime, randomPossibility.effect);
+	await player.setLastReportWithEffect(
+		randomPossibility.eventId === 0 ? 0 : interaction.createdTimestamp,
+		randomPossibility.lostTime,
+		randomPossibility.effect
+	);
+	if (randomPossibility.item) {
+		await giveRandomItem((await interaction.guild.members.fetch(entity.discordUserId)).user, interaction.channel, language, entity);
 	}
 
-	await giveRandomItem((await interaction.guild.members.fetch(entity.discordUserId)).user, interaction.channel, language, entity);
-
-	if (randomPossibility.oneshot === true) {
+	if (randomPossibility.oneshot) {
 		await entity.setHealth(0, interaction.channel, language);
 	}
 

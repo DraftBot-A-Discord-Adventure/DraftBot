@@ -7,6 +7,13 @@ const spamDelay = 1000;
 const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
 const spamPlayers: Map<string, number> = new Map();
 
+function removeBlockedReason(discordId: string, reason: string) {
+	blockedPlayers.set(discordId, blockedPlayers.get(discordId).filter(v => v.reason !== reason));
+	if (blockedPlayers.get(discordId).length === 0) {
+		blockedPlayers.delete(discordId);
+	}
+}
+
 export const startIPCServer = (): void => {
 	let ipc: InstanceType<typeof IPC> = null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -33,11 +40,7 @@ export const startIPCServer = (): void => {
 			ipc.server.on(
 				"unblock",
 				function(data) {
-					const arrayOfPlayer = blockedPlayers.get(data.discordId);
-					arrayOfPlayer.splice(arrayOfPlayer.indexOf(data.reason));
-					if (arrayOfPlayer.length === 0) {
-						blockedPlayers.delete(data.discordId);
-					}
+					removeBlockedReason(data.discordId, data.reason);
 				}
 			);
 			ipc.server.on(
@@ -48,7 +51,7 @@ export const startIPCServer = (): void => {
 					if (blockedPlayer) {
 						for (const block of blockedPlayer) {
 							if (block.limitTimestamp !== 0 && block.limitTimestamp < Date.now()) {
-								blockedPlayers.delete(data.discordId);
+								removeBlockedReason(data.discordId, block.reason);
 							}
 							else {
 								response.push(block.reason);

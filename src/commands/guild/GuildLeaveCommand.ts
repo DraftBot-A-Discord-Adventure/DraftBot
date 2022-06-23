@@ -114,6 +114,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildLeaveModule = Translations.getModule("commands.guildLeave", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
 
+	if (guild === null) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			language,
+			guildLeaveModule.get("notInAGuild"),
+			false,
+			interaction
+		);
+		return;
+	}
 
 	const endCallback = getEndCallbackGuildLeave(
 		{guild, entity},
