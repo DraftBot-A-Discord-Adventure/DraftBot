@@ -1,25 +1,15 @@
 import {IFightAction} from "../IFightAction";
-import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../../fights/Fighter";
 import {Translations} from "../../Translations";
 import {format} from "../../utils/StringFormatter";
 import {Data} from "../../Data";
+import {FightActionController} from "../FightActionController";
+
+type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
-		const success = RandomUtils.draftbotRandom.realZeroToOneInclusive();
-		let powerChanger = 0.4;
-		if (receiver.stats.speed > sender.stats.speed && success <= 0.4 || receiver.stats.speed < sender.stats.speed && success < 0.9) {
-			powerChanger = 1.2;
-		}
-		else if (receiver.stats.speed > sender.stats.speed && success <= 0.9) {
-			powerChanger = 0.9;
-		}
-		let damageDealt = Math.round(sender.stats.attack * powerChanger - receiver.stats.defense);
-		if (damageDealt < 0) {
-			damageDealt = 0;
-		}
-		damageDealt += RandomUtils.randInt(1, Math.round(sender.stats.attack / 4) + 1);
+		const damageDealt = FightActionController.getAttackDamage(sender.stats.attack, receiver.stats.defense, this.getAttackInfo());
 		receiver.stats.fightPoints -= damageDealt;
 		receiver.stats.fightPoints = receiver.stats.fightPoints > 0 ? receiver.stats.fightPoints : 0;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -46,5 +36,9 @@ export const fightActionInterface: IFightAction = {
 
 	getName(): string {
 		return "simpleAttack";
+	},
+
+	getAttackInfo(): attackInfo {
+		return {minDamage: 50, averageDamage: 100, maxDamage: 150};
 	}
 };

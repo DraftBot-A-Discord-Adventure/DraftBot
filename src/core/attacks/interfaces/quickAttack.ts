@@ -47,5 +47,9 @@ export const fightActionInterface: IFightAction = {
 
 	getName(): string {
 		return "quickAttack";
+	},
+
+	getAttackInfo(): { minDamage: number, averageDamage: number, maxDamage: number } {
+		return {minDamage: 50, averageDamage: 100, maxDamage: 150};
 	}
 };

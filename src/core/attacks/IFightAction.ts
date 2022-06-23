@@ -1,5 +1,7 @@
 import {Fighter} from "../fights/Fighter";
 
+type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
+
 export type IFightAction = {
 	/**
 	 * Use the action the sender chose
@@ -7,7 +9,7 @@ export type IFightAction = {
 	 * @param receiver - the one who undergo the action
 	 * @param language - the language of the message
 	 */
-	use(sender: Fighter, receiver: Fighter, language : string): string;
+	use(sender: Fighter, receiver: Fighter, language: string): string;
 
 	/**
 	 * return the name of the attack as it will appear in the list of actions
@@ -24,4 +26,9 @@ export type IFightAction = {
 	 * return the id / name of the action
 	 */
 	getName(): string;
+
+	/**
+	 * return the damage information of the attack
+	 */
+	getAttackInfo(): attackInfo;
 }

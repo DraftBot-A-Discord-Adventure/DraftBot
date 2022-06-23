@@ -1,7 +1,11 @@
 import {IFightAction} from "./IFightAction";
 import Class from "../models/Class";
+import {FightConstants} from "../constants/FightConstants";
+import {RandomUtils} from "../utils/RandomUtils";
 
 declare const JsonReader: any;
+
+type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 
 export class FightActionController {
 
@@ -24,6 +28,55 @@ export class FightActionController {
 		}
 		return listActions;
 	}
+
+	/**
+	 * get the amount of damage a fight action will deal
+	 * @param attackerStat
+	 * @param defenderStat
+	 * @param attackInfo
+	 */
+	static getAttackDamage(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
+
+		/*
+		 * get the ratio between the attacker and the defender stats (between 0 and 1)
+		 * the value is above 1 if the attacker is more than 70 % stronger than the defender
+		 * the value is below 0 if the attacker is more than 70 % weaker than the defender
+		 */
+		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 70;
+
+		let damage = ratio < 0 ? Math.round(
+			// if the attacker is weaker than the defender, the damage is selected in the under the average damage interval
+			this.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
+		) : Math.round(
+			// if the attacker is stronger than the defender, the damage is selected in the over the average damage interval
+			this.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
+		);
+		// add a random variation of 5% of the damage
+		damage = Math.round(damage + damage * RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
+		// return damage caped between max and min
+		return damage > attackInfo.maxDamage ? attackInfo.maxDamage : damage < attackInfo.minDamage ? attackInfo.minDamage : damage;
+	}
+
+	/**
+	 * this function takes both end of an interval and a percentage and returns the value of the interval
+	 * @param min
+	 * @param max
+	 * @param percentage
+	 */
+	static getIntervalValue(min: number, max: number, percentage: number): number {
+		return min + (max - min) * percentage;
+	}
+
+	/**
+	 * return a value between 0 and 100, (more or less), representing the power of a stat
+	 * here is the formula: f(x) = 100 * tanh(0.0023*x - 0.03) + 3
+	 * (formula by Pokegali)
+	 * @param stat
+	 */
+	static statToStatPower(stat: number): number {
+		return 100 * Math.tanh(0.0023 * stat - 0.03) + 3;
+	}
+
 
 	/**
 	 * get all fight actions ids
