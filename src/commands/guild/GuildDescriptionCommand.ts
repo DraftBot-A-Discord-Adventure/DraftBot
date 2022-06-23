@@ -105,6 +105,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			false,
 			interaction
 		);
+		return;
 	}
 
 	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, guildDescription, interaction, language, {
