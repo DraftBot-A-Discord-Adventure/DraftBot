@@ -12,24 +12,20 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
-type InformationModules = { guildDescriptionModule: TranslationModule }
-
 /**
  * Create validation message to change guild description
  * @param entity
  * @param guild
  * @param askedDescription - New description asked by the user
  * @param interaction - Discord Object
- * @param language - Language of the bot
- * @param informationModules - information module
+ * @param guildDescriptionModule
  */
 function endCallbackGuildCreateValidationMessage(
 	entity: Entity,
 	guild: Guild,
 	askedDescription: string,
 	interaction: CommandInteraction,
-	language: string,
-	informationModules: InformationModules): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
+	guildDescriptionModule: TranslationModule): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 		if (validateMessage.isValidated()) {
@@ -42,14 +38,14 @@ function endCallbackGuildCreateValidationMessage(
 
 			interaction.followUp({
 				embeds: [new DraftBotEmbed()
-					.formatAuthor(informationModules.guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
-					.setDescription(informationModules.guildDescriptionModule.get("descriptionChanged"))]
+					.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
+					.setDescription(guildDescriptionModule.get("descriptionChanged"))]
 			});
 			return;
 		}
 
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildDescriptionModule.get("editCancelled"), true);
+		sendErrorMessage(interaction.user, interaction.channel, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
 	};
 }
 
@@ -59,24 +55,24 @@ function endCallbackGuildCreateValidationMessage(
  * @param endCallback - Function called when user respond to validation message
  * @param askedDescription - The description asked by the user
  * @param entity
- * @param informationsModule - information modules
+ * @param guildDescriptionModule
  */
 async function createValidationEmbedGuildDesc(
 	interaction: CommandInteraction,
 	endCallback: (validateMessage: DraftBotValidateReactionMessage) => void,
 	askedDescription: string,
 	entity: Entity,
-	informationsModule: InformationModules
+	guildDescriptionModule: TranslationModule
 ) {
 	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
-		.formatAuthor(informationsModule.guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
+		.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
 		.setDescription(
-			informationsModule.guildDescriptionModule.format("changeDescriptionConfirm",
+			guildDescriptionModule.format("changeDescriptionConfirm",
 				{
 					description: askedDescription
 				}
 			))
-		.setFooter(informationsModule.guildDescriptionModule.get("changeDescriptionFooter"), null)
+		.setFooter(guildDescriptionModule.get("changeDescriptionFooter"), null)
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
 
 }
@@ -108,13 +104,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, guildDescription, interaction, language, {
-		guildDescriptionModule
-	});
+	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, guildDescription, interaction, guildDescriptionModule);
 
-	await createValidationEmbedGuildDesc(interaction, endCallback, guildDescription, entity, {
-		guildDescriptionModule
-	});
+	await createValidationEmbedGuildDesc(interaction, endCallback, guildDescription, entity, guildDescriptionModule);
 
 }
 
