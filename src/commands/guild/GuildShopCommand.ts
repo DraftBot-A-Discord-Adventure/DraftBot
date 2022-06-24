@@ -19,6 +19,7 @@ import {randomInt} from "crypto";
 import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Displays the guild shop
@@ -61,11 +62,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	))
 		.endCallback(shopEndCallback)
 		.build())
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, "guildShop", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.GUILD_SHOP, collector));
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
-	BlockingUtils.unblockPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.GUILD_SHOP);
 }
 
 function getGuildXPShopItem(guildShopTranslations: TranslationModule) {

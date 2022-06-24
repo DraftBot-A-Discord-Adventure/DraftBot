@@ -23,6 +23,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Displays the shop
@@ -65,11 +66,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.addCategory(inventoryCategory)
 		.endCallback(shopEndCallback)
 		.build())
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, "shop", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.SHOP, collector));
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
-	BlockingUtils.unblockPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
 }
 
 function getPermanentItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>) {
@@ -210,7 +211,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 				.endCallback(async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						BlockingUtils.unblockPlayer(shopMessage.user.id);
+						BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
 						await shopMessage.sentMessage.channel.send({
 							embeds: [new DraftBotErrorEmbed(
 								shopMessage.user,
@@ -237,7 +238,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 							break;
 						}
 					}
-					BlockingUtils.unblockPlayer(shopMessage.user.id);
+					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
 				});
 			let desc = "";
 			for (const category of availableCategories) {
@@ -251,7 +252,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 			const chooseSlotBuilt = chooseSlot.build();
 			chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 			chooseSlotBuilt.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
-			await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "shop", collector));
+			await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SHOP, collector));
 			return Promise.resolve(false);
 		}
 	);

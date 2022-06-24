@@ -10,6 +10,7 @@ import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type EntityInformation = { entity: Entity, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
@@ -17,7 +18,7 @@ type TextInformation = { interaction: CommandInteraction, guildKickModule: Trans
 async function getValidationCallback(entityInformation: EntityInformation, textInformation: TextInformation) {
 	const kickedEntity = await Entities.getByOptions(textInformation.interaction);
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(entityInformation.entity.discordUserId);
+		BlockingUtils.unblockPlayer(entityInformation.entity.discordUserId, BlockingConstants.REASONS.GUILD_KICK);
 		if (validateMessage.isValidated()) {
 			let kickedGuild;
 			try {
@@ -141,7 +142,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			guildName: guild.name,
 			kickedPseudo: await kickedEntity.Player.getPseudo(language)
 		}))
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildKick", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_KICK, collector));
 }
 
 export const commandInfo: ICommand = {

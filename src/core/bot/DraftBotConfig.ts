@@ -5,7 +5,6 @@ export interface DraftBotConfig {
 	SUPPORT_ROLE: string;
 	CONTRIBUTOR_ROLE: string;
 	CONTRIBUTORS_CHANNEL: string;
-	BOT_OWNER_PREFIX: string;
 	MAIN_SERVER_ID: string;
 	CONSOLE_CHANNEL_ID: string;
 	FRENCH_ANNOUNCEMENT_CHANNEL_ID: string;

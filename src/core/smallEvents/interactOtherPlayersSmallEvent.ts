@@ -15,6 +15,7 @@ import {draftBotClient} from "../bot";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 function checkTop(otherPlayer: Player, cList: string[]) {
 	if (otherPlayer.rank === 1) {
@@ -282,14 +283,14 @@ export const smallEvent: SmallEvent = {
 							pseudo: await otherEntity.Player.getPseudo(language)
 						}));
 					}
-					BlockingUtils.unblockPlayer(entity.discordUserId);
+					BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
 					await interaction.channel.send({embeds: [poorEmbed]});
 				})
 				.build()
 				.setTitle(seEmbed.title)
 				.setDescription(seEmbed.description)
 				.setAuthor(seEmbed.author)
-				.reply(interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "report", collector));
+				.reply(interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
 		}
 		else {
 			await interaction.reply({embeds: [seEmbed]});

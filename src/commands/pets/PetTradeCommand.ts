@@ -12,6 +12,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandsManager} from "../CommandsManager";
 import PetEntity from "../../core/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
@@ -90,7 +91,7 @@ async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number
  * @param petTradeModule
  */
 async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId);
+	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 	tradersAndPets[i].trader.Player.petId = tradersAndPets[1 - i].pet.id;
 	tradersAndPets[i].trader.Player.save();
 	tradersAndPets[i].pet.lovePoints -= tradersAndPets[i].pet.PetModel.rarity * PetTradeConstants.POINT_REMOVE_MULTIPLIER;
@@ -132,8 +133,8 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
  */
 function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: CommandInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
 	return async (tradeMessage: DraftBotTradeMessage) => {
-		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId);
-		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId);
+		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
+		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		if (hasResponded) {
 			await sendErrorMessage(interaction.user, interaction.channel, petTradeModule.language, petTradeModule.format("tradeCanceled", {
 				trader: tradeMessage.trader1Accepted === false ? tradersAndPets[0].user : tradersAndPets[1].user
@@ -173,8 +174,8 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 		}), traderAndPet.pet.getPetDisplay(petTradeModule.language), true);
 	}
 	await tradeMessage.reply(interaction, (collector) => {
-		BlockingUtils.blockPlayerWithCollector(traderAndPet1.trader.discordUserId, "petTrade", collector);
-		BlockingUtils.blockPlayerWithCollector(traderAndPet2.trader.discordUserId, "petTrade", collector);
+		BlockingUtils.blockPlayerWithCollector(traderAndPet1.trader.discordUserId, BlockingConstants.REASONS.PET_TRADE, collector);
+		BlockingUtils.blockPlayerWithCollector(traderAndPet2.trader.discordUserId, BlockingConstants.REASONS.PET_TRADE, collector);
 	});
 }
 

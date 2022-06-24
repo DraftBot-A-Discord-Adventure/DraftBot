@@ -123,7 +123,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 
 		this._collector.on("end", async () => {
 			if (!this._gotAnAnswer && this._answerer === null) {
-				BlockingUtils.unblockPlayer(this._interaction.user.id);
+				BlockingUtils.unblockPlayer(this._interaction.user.id, this._blockingReason);
 				await sendErrorMessage(
 					this._interaction.user,
 					this._interaction.channel,
@@ -187,7 +187,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	private async manageDenyReaction(user: User) {
 		if (this._interaction.user.id === user.id) {
 			await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorBroadcastCancelled, true);
-			BlockingUtils.unblockPlayer(user.id);
+			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}
 		if (this._spammers.includes(user.id)) {
@@ -211,7 +211,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 				return false;
 			}
 			await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorSelfAcceptSpam);
-			BlockingUtils.unblockPlayer(user.id);
+			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}
 		if (await this._acceptCallback(user)) {

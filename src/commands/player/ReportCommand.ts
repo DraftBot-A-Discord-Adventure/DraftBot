@@ -25,6 +25,7 @@ import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Initiates a new player on the map
@@ -230,6 +231,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
 
 	collector.on("collect", () => {
 		collector.stop();
@@ -240,10 +242,9 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
 		await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
-		await BlockingUtils.unblockPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
 
-	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "chooseDestination", collector);
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
@@ -299,20 +300,19 @@ const destinationChoseMessage = async function(entity: Entity, map: number, user
  * @return {Promise<void>}
  */
 const doEvent = async (interaction: CommandInteraction, language: string, event: BigEvent, entity: Entity, time: number, forcePoints = 0) => {
-	const eventDisplayed = <Message> await interaction.reply({
+	const eventDisplayed = await interaction.reply({
 		content: Translations.getModule("commands.report", language).format("doEvent", {
 			pseudo: interaction.user,
 			event: event.getText(language)
 		}),
 		fetchReply: true
-	});
+	}) as Message;
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
 		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-
-	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "report", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
@@ -363,7 +363,7 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
 		if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
 			return await interaction.reply({
 				content: tr.format("doPossibility", {
 					pseudo: interaction.user,
@@ -431,7 +431,6 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 	}
 
 	await entity.addHealth(randomPossibility.health, interaction.channel, language);
-
 	await player.addScore(entity, scoreChange, interaction.channel, language);
 	await player.addMoney(entity, moneyChange, interaction.channel, language);
 	await player.addExperience(randomPossibility.experience, entity, interaction.channel, language);
@@ -440,21 +439,16 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 		player.nextEvent = randomPossibility.nextEvent;
 	}
 
-	if (randomPossibility.eventId !== 0) {
-		await player.setLastReportWithEffect(interaction.createdTimestamp, randomPossibility.lostTime, randomPossibility.effect);
-	}
-	else {
-		await player.setLastReportWithEffect(0, randomPossibility.lostTime, randomPossibility.effect);
-	}
-
-	if (randomPossibility.item === true) {
+	await player.setLastReportWithEffect(
+		randomPossibility.eventId === 0 ? 0 : interaction.createdTimestamp,
+		randomPossibility.lostTime,
+		randomPossibility.effect
+	);
+	if (randomPossibility.item) {
 		await giveRandomItem((await interaction.guild.members.fetch(entity.discordUserId)).user, interaction.channel, language, entity);
 	}
-	else {
-		BlockingUtils.unblockPlayer(entity.discordUserId);
-	}
 
-	if (randomPossibility.oneshot === true) {
+	if (randomPossibility.oneshot) {
 		await entity.setHealth(0, interaction.channel, language);
 	}
 
@@ -467,7 +461,7 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 		}
 	}
 
-	BlockingUtils.unblockPlayer(entity.discordUserId);
+	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await interaction.channel.send({content: result});
 
 	if (!await player.killIfNeeded(entity, interaction.channel, language)) {

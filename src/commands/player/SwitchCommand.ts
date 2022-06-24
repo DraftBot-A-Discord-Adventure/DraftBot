@@ -13,6 +13,7 @@ import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUti
 import {Data} from "../../core/Data";
 import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -148,7 +149,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		interaction.user.id,
 		async (item: ItemForCallback) => await switchItemEmbedCallback(entity, interaction, item, tr),
 		async (endMessage) => {
-			BlockingUtils.unblockPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SWITCH);
 			if (endMessage.isCanceled()) {
 				await sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("canceled"), true);
 			}
@@ -156,7 +157,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 
 	choiceMessage.formatAuthor(tr.get("switchTitle"), interaction.user);
 	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
-	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "switch", collector));
+	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SWITCH, collector));
 }
 
 /**

@@ -12,11 +12,11 @@ export class BlockingUtils {
 		BlockingUtils.blockPlayer(discordId, reason, collector.options.time);
 	}
 
-	static unblockPlayer(discordId: string): void {
-		IPCClient.ipcUnblockPlayer(discordId);
+	static unblockPlayer(discordId: string, reason: string): void {
+		IPCClient.ipcUnblockPlayer(discordId, reason);
 	}
 
-	static async getPlayerBlockingReason(discordId: string): Promise<string | null> {
+	static async getPlayerBlockingReason(discordId: string): Promise<string[]> {
 		return await IPCClient.ipcGetBlockedPlayerReason(discordId);
 	}
 
@@ -31,6 +31,19 @@ export class BlockingUtils {
 }
 
 /**
+ * Get all printable blocking reasons from the given blocking reason list
+ * @param blockingReason
+ * @param language
+ */
+export function getErrorReasons(blockingReason: string[], language: string) {
+	let errorReasons = "";
+	blockingReason.forEach(reason => {
+		errorReasons = errorReasons.concat(Translations.getModule("error", language).get("blockedContext." + reason) + ", ");
+	});
+	return errorReasons.slice(0, -2);
+}
+
+/**
  * Send an error if the user is blocked by a command
  * @param {User} user
  * @param {TextBasedChannel} channel
@@ -38,12 +51,12 @@ export class BlockingUtils {
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string, interaction: CommandInteraction = null ) {
+export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string, interaction: CommandInteraction = null) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
-	if (blockingReason !== null) {
+	if (blockingReason.length !== 0) {
 		await sendErrorMessage(user, channel, language, Translations.getModule("error", language).format("playerBlocked", {
-			context: Translations.getModule("error", language).get("blockedContext." + blockingReason)
-		}),false, interaction);
+			context: getErrorReasons(blockingReason, language)
+		}), false, interaction);
 		return true;
 	}
 	return false;

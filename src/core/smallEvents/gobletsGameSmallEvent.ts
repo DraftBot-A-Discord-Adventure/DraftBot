@@ -10,6 +10,7 @@ import {Maps} from "../Maps";
 import {format} from "../utils/StringFormatter";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
+import {BlockingConstants} from "../constants/BlockingConstants";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -92,7 +93,7 @@ export const smallEvent: SmallEvent = {
 				for (let i = 0; i < tr.getObjectSize("intro.goblets"); i++) {
 					currentGoblet = tr.getObject("intro.goblets")[i];
 					if (reactionEmoji === "🔚" || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
-						BlockingUtils.unblockPlayer(entity.discordUserId);
+						BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
 						await applyMalus(malus);
 						await chooseGobletMessage.sentMessage.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name)]});
 						break;
@@ -116,6 +117,6 @@ export const smallEvent: SmallEvent = {
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
 		);
-		await builtEmbed.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "gobletChoose", collector));
+		await builtEmbed.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
 	}
 };

@@ -10,6 +10,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type PersonInformation = { user: User, entity: Entity };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
@@ -27,7 +28,7 @@ function getEndCallbackGuildElder(
 	guild: Guild,
 	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => void {
 	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(chief.entity.discordUserId);
+		BlockingUtils.unblockPlayer(chief.entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER);
 		if (msg.isValidated()) {
 			const elderUpdated = await Entities.getById(elder.id);
 			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
@@ -160,7 +161,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			elder: escapeUsername(await elderEntity.Player.getPseudo(language)),
 			guildName: guild.name
 		}))
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElder", collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER, collector));
 }
 
 export const commandInfo: ICommand = {

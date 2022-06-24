@@ -5,8 +5,6 @@ import moment = require("moment");
 export class Server extends Model {
 	public id!: number;
 
-	public prefix!: string;
-
 	public language!: string;
 
 	public discordGuildId!: string;
@@ -34,10 +32,6 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
-		},
-		prefix: {
-			type: DataTypes.STRING(10), // eslint-disable-line new-cap
-			defaultValue: data.getString("prefix")
 		},
 		language: {
 			type: DataTypes.STRING(2), // eslint-disable-line new-cap

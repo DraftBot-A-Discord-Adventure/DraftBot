@@ -11,7 +11,7 @@ let requestCount = 0;
  * This client sends a message to the server, but it cannot wait for an answer.
  * The solution is to store a callback associated with a packet id and when the server emits an answer with the same packet id we can call the callback
  */
-const blockCallbacks: Map<number, (reason: string) => void> = new Map();
+const blockCallbacks: Map<number, (reason: string[]) => void> = new Map();
 const spamCallbacks: Map<number, (spamming: boolean) => void> = new Map();
 
 export class IPCClient {
@@ -70,11 +70,11 @@ export class IPCClient {
 		ipc.of.draftbot.emit("block", {discordId, reason, time});
 	}
 
-	static ipcUnblockPlayer(discordId: string): void {
-		ipc.of.draftbot.emit("unblock", {discordId});
+	static ipcUnblockPlayer(discordId: string, reason: string): void {
+		ipc.of.draftbot.emit("unblock", {discordId, reason});
 	}
 
-	static ipcGetBlockedPlayerReason(discordId: string): Promise<string> {
+	static ipcGetBlockedPlayerReason(discordId: string): Promise<string[]> {
 		return new Promise(resolve => {
 			blockCallbacks.set(requestCount, (reason) => resolve(reason));
 			ipc.of.draftbot.emit("isBlocked", {packet: requestCount, discordId});

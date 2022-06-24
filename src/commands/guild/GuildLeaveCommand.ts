@@ -9,12 +9,17 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
 function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage) => {
-		BlockingUtils.unblockPlayer(userInformation.entity.discordUserId);
+		BlockingUtils.unblockPlayer(
+			userInformation.entity.discordUserId,
+			userInformation.entity.id === userInformation.guild.chiefId
+				? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
+				: BlockingConstants.REASONS.GUILD_LEAVE);
 		if (msg.isValidated()) {
 			// the user confirmed the choice to leave
 			try {
@@ -109,6 +114,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildLeaveModule = Translations.getModule("commands.guildLeave", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
 
+	if (guild === null) {
+		sendErrorMessage(
+			interaction.user,
+			interaction.channel,
+			language,
+			guildLeaveModule.get("notInAGuild"),
+			false,
+			interaction
+		);
+		return;
+	}
 
 	const endCallback = getEndCallbackGuildLeave(
 		{guild, entity},
@@ -138,9 +154,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	await validationEmbed.reply(interaction, (collector) => {
-		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildLeave", collector);
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_LEAVE, collector);
 		if (elder && entity.id === guild.chiefId) {
-			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, "chiefGuildLeave", collector);
+			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, BlockingConstants.REASONS.CHIEF_GUILD_LEAVE, collector);
 		}
 	});
 }
