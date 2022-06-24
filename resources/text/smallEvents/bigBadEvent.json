@@ -70,7 +70,7 @@
 			"moneyLoss": {
 				"stories": [
 					"vous vous rendez compte que votre sac est déchiré. Après vérification, vous constatez que votre bourse a disparu, vous avez perdu **{moneyLost} :money_with_wings:**.",
-					"vous prenez conscience que votre bourse n’est plus dans votre sac. Vous vous souvenez soudain l’avoir oubliée dans la précédente taverne, vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"vous prenez conscience que votre bourse n'est plus dans votre sac. Vous vous souvenez soudain l'avoir oubliée dans la précédente taverne, vous avez perdu **{moneyLost} :money_with_wings:**.",
 					"des voyageurs passent à côté de vous en vous bousculant, puis vous relèvent en s'excusant grossièrement. Quelques minutes plus tard, vous vous apercevez que votre bourse a disparu, vous avez perdu **{moneyLost} :money_with_wings:**."
 				]
 			}

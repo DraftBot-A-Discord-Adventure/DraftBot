@@ -16,9 +16,9 @@
 		},
 		"en": {
 			"objectDoNothingError": "You consumed the beverage you carried... But it has no effect !",
-			"objectIsActiveDuringFights": "This potion cannot be drunk now. It’ll be used during your next fight!",
+			"objectIsActiveDuringFights": "This potion cannot be drunk now. It'll be used during your next fight!",
 			"noDrinkError": "{pseudo}, hmmm... It didn't work!",
-			"noActiveObjectDescription": "Unfortunately, you don’t have anything to drink in your inventory!",
+			"noActiveObjectDescription": "Unfortunately, you don't have anything to drink in your inventory!",
 			"drinkSuccess": "{pseudo}, you have received your drink reward!",
 			"drinkCanceled": "You haven't drunk your potion!",
 			"healthBonus": "❤️ HP recovered : {value}!",

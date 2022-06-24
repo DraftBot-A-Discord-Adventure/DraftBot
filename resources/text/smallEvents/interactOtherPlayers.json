@@ -135,7 +135,7 @@
 			],
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est {playerDisplay} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
-				"{playerDisplay} vomit dans un buisson, c’est donc ça ce bruit que vous entendez depuis tout à l'heure. Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
+				"{playerDisplay} vomit dans un buisson, c'est donc ça ce bruit que vous entendez depuis tout à l'heure. Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
 				"{playerDisplay} ne peut se retenir et vomi à vos pieds. Vous esquivez de justesse l'attaque et accélerez votre cadence pour vous éloigner du massacre."
 			],
 			":head_bandage:": [
@@ -155,7 +155,7 @@
 			],
 			":sleeping:": [
 				"Vous croisez {playerDisplay} endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil.",
-				"Visiblement {playerDisplay} n’a pas assez dormi la nuit dernière, il est allongé sur le bord de la route.",
+				"Visiblement {playerDisplay} n'a pas assez dormi la nuit dernière, il est allongé sur le bord de la route.",
 				"Le bord de la route semble être un bon endroit afin de se reposer, c'est ce que vous vous dites après avoir vu {playerDisplay} dormir sur le bord de celle-ci."
 			],
 			":cold_face:": [

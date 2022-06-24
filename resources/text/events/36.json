@@ -60,7 +60,7 @@
 				{
 					"translations": {
 						"fr": "Vous arrivez devant la boutique et vous entrez dedans dans le but de voler le bijoutier. Alors que vous vous emparez de l'argent du bijoutier, un garde personnel vous assomme. Vous vous réveillez quelques heures plus tard, le long d'un sentier.",
-						"en": "You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller’s money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+						"en": "You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller's money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
 					},
 					"lostTime": 180,
 					"health": 0,
@@ -140,7 +140,7 @@
 				{
 					"translations": {
 						"fr": "🚶‍ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
-						"en": "🚶 You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
+						"en": "🚶 You wait a long time in this square and then merchants start to settle down. It's your lucky day! It's a market, and apples are cheap. You buy some and go on your way."
 					},
 					"lostTime": 60,
 					"health": 20,

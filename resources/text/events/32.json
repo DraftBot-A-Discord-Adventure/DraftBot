@@ -28,7 +28,7 @@
 				{
 					"translations": {
 						"fr": "Vous décidez d'aller chercher des plantes médicinales dans la forêt, malheureusement vous n'arrivez pas à le soigner, vous décidez de reprendre votre route, la tête baissée.",
-						"en": "You decide to fetch medicinal plants in the forest, unfortunately you can’t cure him, you go back on your way, head down."
+						"en": "You decide to fetch medicinal plants in the forest, unfortunately you can't cure him, you go back on your way, head down."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -40,7 +40,7 @@
 				{
 					"translations": {
 						"fr": "Vous allez chercher de l'aide dans le village le plus proche. Accompagné, vous revenez vers la personne, mais votre accompagnateur décide de vous assommer. A votre réveil, vous trouvez la personne morte et vous êtes dépouillé.",
-						"en": "You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you’re butt-naked."
+						"en": "You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you're butt-naked."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -66,7 +66,7 @@
 		"🔪": {
 			"translations": {
 				"fr": "Achever l'homme pour récupérer son équipement",
-				"en": "Shorten the man’s suffering to steal his equipment"
+				"en": "Shorten the man's suffering to steal his equipment"
 			},
 			"issues": [
 				{
