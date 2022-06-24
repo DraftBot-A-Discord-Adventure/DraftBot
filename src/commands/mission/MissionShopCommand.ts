@@ -10,7 +10,7 @@ import {Constants} from "../../core/Constants";
 import Entity, {Entities} from "../../core/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
@@ -126,7 +126,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
 				.allowUser(message.user)
-				.endCallback(async (missionMessage) => {
+				.endCallback((async (missionMessage) => {
 					const reaction = missionMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
@@ -163,7 +163,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 					}
 					BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 					await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
-				});
+				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
