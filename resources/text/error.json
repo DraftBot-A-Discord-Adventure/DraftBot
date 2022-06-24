@@ -65,7 +65,7 @@
 				"sell": "vente d'un objet",
 				"acceptItem": "choix de garder un objet ou non",
 				"petFeed": "choix d'une nourriture à donner au familier",
-				"freepet": "libération d'un familier",
+				"petFree": "libération d'un familier",
 				"guildElder": "choix de l'aîné",
 				"guildElderRemove": "suppression l'aîné",
 				"petTrade": "échange d'animaux",
