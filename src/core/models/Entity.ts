@@ -176,6 +176,15 @@ export class Entity extends Model {
 	public getMention(): string {
 		return "<@" + this.discordUserId + ">";
 	}
+
+	/**
+	 * get the amount of agility points the player has from his defense and speed stats
+	 * @param defense
+	 * @param speed
+	 */
+	public getAgility(defense: number, speed: number) {
+		return speed * 0.75 - defense * 0.25;
+	}
 }
 
 export class Entities {
@@ -452,12 +461,15 @@ export class Entities {
 	 */
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
-		const query = `SELECT rank FROM (
-					SELECT entities.discordUserId, (RANK() OVER (ORDER BY players.${scoreLookup} DESC, players.level DESC)) AS rank 
-					FROM entities 
-					INNER JOIN players ON entities.id = players.entityId AND players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-					WHERE entities.discordUserId IN (${ids.toString()}))
-					WHERE discordUserId = ${discordId};`;
+		const query = `SELECT rank
+                       FROM (
+                                SELECT entities.discordUserId,
+                                       (RANK() OVER (ORDER BY players.${scoreLookup} DESC, players.level DESC)) AS rank
+                                FROM entities
+                                         INNER JOIN players
+                                                    ON entities.id = players.entityId AND players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+                                WHERE entities.discordUserId IN (${ids.toString()}))
+                       WHERE discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
 
@@ -501,10 +513,10 @@ export class Entities {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT() as nbPlayers
- 						FROM players
- 						JOIN entities ON entities.id = players.entityId
- 						WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE} 
- 						AND entities.discordUserId IN (${listDiscordId.toString()})`;
+                       FROM players
+                                JOIN entities ON entities.id = players.entityId
+                       WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
+                         AND entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

@@ -2,6 +2,7 @@ import {IFightAction} from "./IFightAction";
 import Class from "../models/Class";
 import {FightConstants} from "../constants/FightConstants";
 import {RandomUtils} from "../utils/RandomUtils";
+import {MathUtils} from "../utils/MathUtils";
 
 declare const JsonReader: any;
 
@@ -30,12 +31,29 @@ export class FightActionController {
 	}
 
 	/**
-	 * get the amount of damage a fight action will deal
+	 * get the attack damage for a fight action
+	 * @param attackerStats - array of the stats to use for the attacker
+	 * @param defenderStats - array of the stats to use for the defender
+	 * @param statsEffect - array of ratios to apply to the stats
+	 * @param attackerLevel - the level of the attacker (used to get the bonus ratio)
+	 * @param attackInfo - the attack info of the fight action
+	 */
+	static getAttackDamage(attackerStats: number[], defenderStats: number[], statsEffect: number[], attackerLevel: number, attackInfo: attackInfo): number {
+		const levelBonusRatio = this.getLevelBonusRatio(attackerLevel);
+		let attackDamage = 0;
+		for (let i = 0; i < attackerStats.length; i++) {
+			attackDamage += this.getAttackDamageByStat(attackerStats[i], defenderStats[i], attackInfo) * statsEffect[i];
+		}
+		return Math.round(attackDamage * (1 + levelBonusRatio));
+	}
+
+	/**
+	 * get the amount of damage a fight action will deal from stats
 	 * @param attackerStat
 	 * @param defenderStat
 	 * @param attackInfo
 	 */
-	static getAttackDamage(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
+	private static getAttackDamageByStat(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
 
 		/*
 		 * get the ratio between the attacker and the defender stats (between 0 and 1)
@@ -46,25 +64,15 @@ export class FightActionController {
 
 		let damage = ratio < 0 ? Math.round(
 			// if the attacker is weaker than the defender, the damage is selected in the under the average damage interval
-			this.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
+			MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
 		) : Math.round(
 			// if the attacker is stronger than the defender, the damage is selected in the over the average damage interval
-			this.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
+			MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
 		);
 		// add a random variation of 5% of the damage
 		damage = Math.round(damage + damage * RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		// return damage caped between max and min
 		return damage > attackInfo.maxDamage ? attackInfo.maxDamage : damage < attackInfo.minDamage ? attackInfo.minDamage : damage;
-	}
-
-	/**
-	 * this function takes both end of an interval and a percentage and returns the value of the interval
-	 * @param min
-	 * @param max
-	 * @param percentage
-	 */
-	static getIntervalValue(min: number, max: number, percentage: number): number {
-		return min + (max - min) * percentage;
 	}
 
 	/**
@@ -84,5 +92,14 @@ export class FightActionController {
 	 */
 	static getAllFightActionsIds(): string[] {
 		return Object.keys(JsonReader.fightactions);
+	}
+
+	/**
+	 * get the level bonus ratio for a level
+	 * @private
+	 * @param level - the level of the player
+	 */
+	private static getLevelBonusRatio(level: number) {
+		return MathUtils.getIntervalValue(FightConstants.PLAYER_LEVEL_MINIMAL_MALUS, FightConstants.PLAYER_LEVEL_MAXIMAL_BONUS, level / FightConstants.MAX_PLAYER_LEVEL_FOR_BONUSES) / 100;
 	}
 }

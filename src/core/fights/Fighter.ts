@@ -13,7 +13,9 @@ import Class from "../models/Class";
 import {FightActionController} from "../attacks/FightActionController";
 import {BlockingConstants} from "../constants/BlockingConstants";
 
-type FighterStats = { fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number }
+type FighterStats = {
+	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number, agility: number
+}
 
 const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender", "summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
 
@@ -41,7 +43,7 @@ export class Fighter {
 	private readonly user: User;
 
 	public constructor(user: User, entity: Entity, playerClass: Class) {
-		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null};
+		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null, agility: null};
 		this.entity = entity;
 		this.ready = false;
 		this.nextFightActionId = null;
@@ -80,6 +82,7 @@ export class Fighter {
 		this.stats.attack = await this.entity.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = await this.entity.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = await this.entity.getCumulativeSpeed(playerActiveObjects);
+		this.stats.agility = this.entity.getAgility(this.stats.defense, this.stats.speed);
 	}
 
 	/**
@@ -103,7 +106,7 @@ export class Fighter {
 		await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotion");
 		const potionSlot = this.entity.Player.getMainPotionSlot();
 		if (potionSlot) {
-			await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotionRarity", 1, { rarity: (await potionSlot.getItem()).rarity });
+			await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotionRarity", 1, {rarity: (await potionSlot.getItem()).rarity});
 		}
 		[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
 		await MissionsController.update(this.entity.discordUserId, channel, language, "havePotions", countNbOfPotions(this.entity.Player), null, true);
@@ -202,6 +205,13 @@ export class Fighter {
 			}
 		});
 		return playerFightActionsHistory;
+	}
+
+	/**
+	 * get the player level of the fighter
+	 */
+	getPlayerLevel() {
+		return this.entity.Player.level;
 	}
 
 	/**
