@@ -10,6 +10,9 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
 	let entityToLook = await Entities.getByOptions(interaction);
 	let userToPrint = interaction.user;
 	if (entityToLook !== null) {
@@ -17,10 +20,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	else {
 		entityToLook = entity;
-	}
-
-	if (await sendBlockedError(interaction, language, userToPrint)) {
-		return;
 	}
 
 	if (interaction.user.id === entityToLook.discordUserId) {
