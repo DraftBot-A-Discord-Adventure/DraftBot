@@ -37,4 +37,7 @@ export abstract class FightConstants {
 
 	// above this level a player has a cap on the bonus he gets from the level (the bonus is capped to the above value)
 	static readonly MAX_PLAYER_LEVEL_FOR_BONUSES = 75;
+
+	// multiplier of the damage a fight action will deal if it is a critical hit
+	static CRITICAL_HIT_MULTIPLIER = 1.5;
 }

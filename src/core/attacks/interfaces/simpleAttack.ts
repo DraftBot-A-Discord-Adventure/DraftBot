@@ -6,27 +6,12 @@ import {Data} from "../../Data";
 import {FightActionController} from "../FightActionController";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
+type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
-
-		// generate the arrays of stats that will be used for this attack for the fighters
-		const attackerStats = [
-			sender.stats.attack,
-			sender.stats.agility,
-			sender.stats.speed
-		];
-		const defenderStats = [
-			receiver.stats.defense,
-			receiver.stats.agility,
-			receiver.stats.speed
-		];
-		const statsEffect = [
-			0.8,
-			0.1,
-			0.1
-		];
-		const damageDealt = FightActionController.getAttackDamage(attackerStats, defenderStats, statsEffect, sender.getPlayerLevel(), this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
+		FightActionController.applySecondaryEffects(damageDealt, 5, 10);
 		receiver.stats.fightPoints -= damageDealt;
 		receiver.stats.fightPoints = receiver.stats.fightPoints > 0 ? receiver.stats.fightPoints : 0;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -57,5 +42,23 @@ export const fightActionInterface: IFightAction = {
 
 	getAttackInfo(): attackInfo {
 		return {minDamage: 50, averageDamage: 100, maxDamage: 150};
+	},
+
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+		return {
+			attackerStats: [
+				sender.stats.attack,
+				sender.stats.agility,
+				sender.stats.speed
+			], defenderStats: [
+				receiver.stats.defense,
+				receiver.stats.agility,
+				receiver.stats.speed
+			], statsEffect: [
+				0.8,
+				0.1,
+				0.1
+			]
+		};
 	}
 };

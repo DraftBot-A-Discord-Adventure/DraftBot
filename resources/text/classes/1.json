@@ -13,6 +13,6 @@
 	"classGroup": 1,
 	"fightActionsIds": [
 		"simpleAttack",
-		"quickAttack"
+		"piercingAttack"
 	]
 }

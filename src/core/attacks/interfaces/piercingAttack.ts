@@ -11,7 +11,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		FightActionController.applySecondaryEffects(damageDealt,10,sender.stats.agility > receiver.stats.agility ? 0 : 20);
+		FightActionController.applySecondaryEffects(damageDealt, 5, 10);
 		receiver.stats.fightPoints -= damageDealt;
 		receiver.stats.fightPoints = receiver.stats.fightPoints > 0 ? receiver.stats.fightPoints : 0;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -22,7 +22,7 @@ export const fightActionInterface: IFightAction = {
 				: "notGood";
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${retStr}`);
 		return format(chosenString, {
-			attack: Translations.getModule("fightactions.quickAttack", language).get("name")
+			attack: Translations.getModule("fightactions.piercingAttack", language).get("name")
 		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
@@ -37,27 +37,27 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getName(): string {
-		return "quickAttack";
+		return "piercingAttack";
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 75, maxDamage: 150};
+		return {minDamage: 50, averageDamage: 100, maxDamage: 125};
 	},
 
-	getStatsInfo(sender: Fighter, receiver: Fighter) : statsInfo {
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
 				sender.stats.agility,
 				sender.stats.speed
 			], defenderStats: [
-				receiver.stats.defense,
+				receiver.stats.defense * 0.2,
 				receiver.stats.agility,
 				receiver.stats.speed
 			], statsEffect: [
-				0.5,
-				0.25,
-				0.25
+				0.6,
+				0.2,
+				0.2
 			]
 		};
 	}

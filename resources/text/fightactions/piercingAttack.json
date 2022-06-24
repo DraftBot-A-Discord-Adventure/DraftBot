@@ -1,0 +1,23 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque perçante",
+			"namePlural": "Attaques perçantes",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		},
+		"en": {
+			"name": "Piercing attack",
+			"namePlural": "Piercing attacks",
+			"end": {
+				"succeed": "",
+				"notGood": "",
+				"failed": ""
+			}
+		}
+	},
+	"emote": "\uD83E\uDEA1"
+}

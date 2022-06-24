@@ -12,6 +12,7 @@
 	"price": 150,
 	"classGroup": 0,
 	"fightActionsIds": [
-		"simpleAttack"
+		"simpleAttack",
+		"piercingAttack"
 	]
 }
