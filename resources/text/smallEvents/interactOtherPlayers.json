@@ -174,22 +174,22 @@
 				"Vous voyez {playerDisplay} assez éméché, pour ne pas dire de terme plus fort. Celui-ci semble bien s'amuser... tout seul. Vous faites ce que vous pouvez pour l'ignorer et continuez votre route."
 			],
 			"weapon": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"Un passant vient frimer à côté de vous, c'est {playerDisplay} et il vous montre {prefixItem} {item} !",
-				"Wow ! {playerDisplay} brandit {prefixItem} magnifique{pluralItem} {item} devant vous. Vous reprenez votre chemin étonné."
+				"Wow ! {playerDisplay} brandit {prefixItem2} magnifique{pluralItem} {item} devant vous. Vous reprenez votre chemin étonné."
 			],
 			"armor": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"Un garde vous aborde, c'est {playerDisplay}, il vient vous montrer {prefixItem} {item} !",
 				"{playerDisplay} vous met au défi de tester {prefixItem} {item}, qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
 			],
 			"potion": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"{playerDisplay} vient vous parler, il vient vous montrer {prefixItem} {item} !",
 				"{playerDisplay}, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefixItem} {item}."
 			],
 			"object": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"En parlant avec {playerDisplay}, il vous montre {prefixItem} {item} !",
 				"{playerDisplay}, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement {prefixItem} {item}."
 			],

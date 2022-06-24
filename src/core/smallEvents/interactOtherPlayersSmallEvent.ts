@@ -239,13 +239,17 @@ export const smallEvent: SmallEvent = {
 		default:
 			break;
 		}
-		let prefixItem = "";
+		let prefixItem, prefixItem2 = "";
 		if (item) {
 			if (item.frenchPlural) {
 				prefixItem = "ses";
 			}
 			else if (item.frenchMasculine) {
 				prefixItem = "son";
+			}
+			else if (new RegExp(/\*(?=[AEIOUYÉÈ])/).test(item.fr)) {
+				prefixItem = "son";
+				prefixItem2 = "sa";
 			}
 			else {
 				prefixItem = "sa";
@@ -261,7 +265,8 @@ export const smallEvent: SmallEvent = {
 			guildName: guild ? guild.name : "",
 			item: item ? item.getName(language) : "",
 			pluralItem: item ? item.frenchPlural ? "s" : "" : "",
-			prefixItem: prefixItem
+			prefixItem: prefixItem,
+			prefixItem2: prefixItem2 !== "" ? prefixItem2 : prefixItem
 		}));
 
 		if (characteristic === "poor") {
