@@ -379,7 +379,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const members = await Entities.getByGuild(guild.id);
 	for (const member of members) {
-		if (await BlockingUtils.getPlayerBlockingReason(member.discordUserId) === [BlockingConstants.REASONS.FIGHT]) {
+		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(member.discordUserId);
+		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {
 			continue;
 		}
 		if (await sendBlockedError(await draftBotClient.users.fetch(member.discordUserId), interaction.channel, language)) {

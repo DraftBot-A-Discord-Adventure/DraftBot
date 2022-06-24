@@ -19,7 +19,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return;
 	}
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(idToUnblock);
-	if (blockingReason === []) {
+	if (blockingReason.length === 0) {
 		await interaction.reply({content: "Not blocked", ephemeral: true});
 		return;
 	}

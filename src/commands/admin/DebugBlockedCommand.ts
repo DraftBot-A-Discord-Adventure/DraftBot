@@ -11,7 +11,7 @@ const {BlockingUtils} = require("../../core/utils/BlockingUtils");
  */
 async function executeCommand(interaction: CommandInteraction): Promise<void> {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.options.getString("user"));
-	if (blockingReason === []) {
+	if (blockingReason.length === 0) {
 		await interaction.reply({content: "Not blocked or the id given isn't a right user id", ephemeral: true});
 		return;
 	}
