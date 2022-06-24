@@ -211,7 +211,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 				sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorSelfAccept);
 				return false;
 			}
-			sendErrorMessage(this._interaction.user, this._interaction, this._language, this._translationModule.errorSelfAcceptSpam);
+			sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorSelfAcceptSpam);
 			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}
