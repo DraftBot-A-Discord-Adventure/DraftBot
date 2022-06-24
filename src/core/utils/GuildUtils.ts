@@ -1,6 +1,6 @@
 import {Guilds} from "../models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, User} from "discord.js";
 import Entity from "../models/Entity";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
@@ -9,7 +9,7 @@ import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
 
 export const giveFood = async (
-	channel: TextBasedChannel,
+	interaction: CommandInteraction,
 	language: string,
 	entity: Entity,
 	author: User,
@@ -22,8 +22,8 @@ export const giveFood = async (
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
 		return sendErrorMessage(
-			author,
-			channel,
+			interaction.user,
+			interaction,
 			language,
 			tr.get("fullStock")
 		);
@@ -76,5 +76,5 @@ export const giveFood = async (
 			)
 		);
 	}
-	return channel.send({embeds: [successEmbed]});
+	return interaction.channel.send({embeds: [successEmbed]});
 };

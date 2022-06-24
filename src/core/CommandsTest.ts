@@ -73,6 +73,7 @@ export class CommandsTest {
 			return args.length === 0 ? [true, ""] : [
 				false,
 				new DraftBotErrorEmbed(interaction.user,
+					interaction,
 					Constants.LANGUAGE.FRENCH,
 					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name + "\n\n**Format attendu :** `test " + commandTest.commandInfo.name + "`")
 			];
@@ -83,6 +84,7 @@ export class CommandsTest {
 			return [
 				false,
 				new DraftBotErrorEmbed(interaction.user,
+					interaction,
 					Constants.LANGUAGE.FRENCH,
 					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name +
 					"\n\n**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`")
@@ -93,6 +95,7 @@ export class CommandsTest {
 				return [
 					false,
 					new DraftBotErrorEmbed(interaction.user,
+						interaction,
 						Constants.LANGUAGE.FRENCH,
 						"❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name +
 						"\n\n**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +

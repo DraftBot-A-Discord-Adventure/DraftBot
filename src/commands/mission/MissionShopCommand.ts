@@ -18,7 +18,7 @@ import {getDayNumber} from "../../core/utils/TimeUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
@@ -38,26 +38,26 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		[
 			getMoneyShopItem(shopTranslations),
 			getValuableItemShopItem(shopTranslations),
-			getAThousandPointsShopItem(shopTranslations)
+			getAThousandPointsShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("resTitle")
 	);
 	const utilCategory = new ShopItemCategory(
 		[
-			getSkipMapMissionShopItem(shopTranslations),
-			getValueLovePointsPetShopItem(shopTranslations)
+			getSkipMapMissionShopItem(shopTranslations, interaction),
+			getValueLovePointsPetShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("utilTitle")
 	);
 	const presCategory = new ShopItemCategory(
 		[
-			getBadgeShopItem(shopTranslations)
+			getBadgeShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("presTitle")
 	);
 
 	const shopMessage = await new DraftBotShopMessageBuilder(
-		interaction.user,
+		interaction,
 		shopTranslations.get("title"),
 		language
 	)
@@ -109,7 +109,7 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 	);
 }
 
-function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopItem {
+function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"skipMapMission",
 		translationModule,
@@ -120,6 +120,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 				message.sentMessage.channel.send({
 					embeds: [new DraftBotErrorEmbed(
 						message.user,
+						interaction,
 						message.language,
 						translationModule.get("error.noMissionToSkip")
 					)]
@@ -135,6 +136,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 						await message.sentMessage.channel.send({
 							embeds: [new DraftBotErrorEmbed(
 								message.user,
+								interaction,
 								message.language,
 								translationModule.get("error.canceledPurchase")
 							)]
@@ -229,7 +231,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		});
 }
 
-function getAThousandPointsShopItem(translationModule: TranslationModule): ShopItem {
+function getAThousandPointsShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"1000Points",
 		translationModule,
@@ -239,6 +241,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				message.sentMessage.channel.send({
 					embeds: [new DraftBotErrorEmbed(
 						message.user,
+						interaction,
 						message.language,
 						translationModule.get("error.remainingCooldown")
 					)]
@@ -261,7 +264,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 		});
 }
 
-function getValueLovePointsPetShopItem(translationModule: TranslationModule): ShopItem {
+function getValueLovePointsPetShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"lovePointsValue",
 		translationModule,
@@ -271,6 +274,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 				message.sentMessage.channel.send({
 					embeds: [new DraftBotErrorEmbed(
 						message.user,
+						interaction,
 						message.language,
 						translationModule.get("error.noPet")
 					)]
@@ -295,20 +299,19 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 		});
 }
 
-function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"badge",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge(Constants.BADGES.QUEST_MASTER)) {
-				message.sentMessage.channel.send({
-					embeds: [new DraftBotErrorEmbed(
-						message.user,
-						message.language,
-						translationModule.get("error.alreadyHasItem")
-					)]
-				});
+				sendErrorMessage(
+					message.user,
+					interaction,
+					message.language,
+					translationModule.get("error.alreadyHasItem")
+				);
 				return false;
 			}
 			entity.Player.addBadge(Constants.BADGES.QUEST_MASTER);

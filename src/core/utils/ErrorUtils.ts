@@ -1,5 +1,5 @@
 import {BlockingUtils, getErrorReasons} from "./BlockingUtils";
-import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
@@ -13,7 +13,7 @@ export const sendBlockedErrorInteraction = async function(interaction: CommandIn
 		const tr = Translations.getModule("error", language);
 		await interaction.reply({
 			embeds: [
-				new DraftBotErrorEmbed(interaction.user, language, tr.format("playerBlocked", {
+				new DraftBotErrorEmbed(interaction.user, interaction, language, tr.format("playerBlocked", {
 					context: getErrorReasons(blockingReason, language)
 				}))
 			]
@@ -61,23 +61,16 @@ export const effectsErrorTextValue = async function(user: User, language: string
 	return errorMessageObject;
 };
 
-export function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
-	if (isCancelling) {
-		return interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, language, reason, true)]});
-	}
+export function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string) {
 	return interaction.reply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, language, reason, false)],
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
 		ephemeral: true
 	});
 }
 
-export function sendErrorMessage(user: User, channel: TextBasedChannel, language: string, reason: string, isCancelling = false, interaction: CommandInteraction = null) {
-	if (interaction) {
-		if (isCancelling) {
-			return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, true)]});
-		}
-		return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, false)], ephemeral: true});
-	}
-	return channel.send({embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)]});
+export function sendErrorMessage(user: User, interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
+	return interaction.channel.send({
+		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling)]
+	});
 }
 

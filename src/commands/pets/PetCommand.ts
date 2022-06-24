@@ -5,7 +5,7 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Constants} from "../../core/Constants";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Displays information about a pet
@@ -38,23 +38,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (askedEntity.discordUserId === interaction.user.id) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			tr.get("noPet"),
-			false,
-			interaction
+			tr.get("noPet")
 		);
 	}
 	else {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			tr.get("noPetOther"),
-			false,
-			interaction
+			tr.get("noPetOther")
 		);
 	}
 }

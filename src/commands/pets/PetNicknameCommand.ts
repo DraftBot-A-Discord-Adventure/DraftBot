@@ -5,18 +5,18 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedError(interaction.user, interaction, language)) {
 		return;
 	}
 	const pet = entity.Player.Pet;
 	const petNickTranslations = Translations.getModule("commands.petNickname", language);
 	if (!pet) {
-		await sendErrorMessage(interaction.user, interaction.channel, language, Translations.getModule("commands.pet", language).get("noPet"), false, interaction);
+		replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
 		return;
 	}
 	const petNickname = interaction.options.getString("name");
@@ -27,12 +27,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	else {
 		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
-			await sendErrorMessage(interaction.user, interaction.channel, language,
+			replyErrorMessage(interaction, language,
 				petNickTranslations.get("invalidName") + "\n" +
 				Translations.getModule("error", language).format("nameRules", {
 					min: Constants.PETS.NICKNAME_MIN_LENGTH,
 					max: Constants.PETS.NICKNAME_MAX_LENGTH
-				}),false,interaction);
+				}));
 			return;
 		}
 		successEmbed.setDescription(petNickTranslations.format("success", {

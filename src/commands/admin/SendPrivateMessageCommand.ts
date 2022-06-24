@@ -6,7 +6,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 
 declare function getIdFromMention(variable: string): string;
 
@@ -27,11 +27,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const user = draftBotClient.users.cache.get(userId);
 
 	if (userId === undefined) {
-		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("descError"), false, interaction);
+		replyErrorMessage(interaction, language, dmModule.get("descError"));
 		return;
 	}
 	if (user === undefined) {
-		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("personNotExists"), false, interaction);
+		replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
 		return;
 	}
 	const embed = new DraftBotEmbed()
@@ -45,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return await interaction.reply({embeds: [embed]});
 	}
 	catch {
-		await sendErrorMessage(interaction.user, interaction.channel, language, dmModule.get("errorCannotSend"), false, interaction);
+		replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
 	}
 }
 

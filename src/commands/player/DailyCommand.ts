@@ -5,7 +5,7 @@ import {Maps} from "../../core/Maps";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
 import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
 import ObjectItem from "../../core/models/ObjectItem";
 import {Data} from "../../core/Data";
@@ -27,22 +27,19 @@ function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInt
 	if (activeObject.nature === Constants.NATURE.NONE) {
 		if (activeObject.id !== Data.getModule("models.inventories").getNumber("objectId")) {
 			// there is an object that do nothing in the inventory
-			sendErrorMessage(interaction.user, interaction.channel, language, dailyModule.get("objectDoNothingError"), false, interaction);
+			replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
 			return true;
 		}
 		// there is no object in the inventory
-		sendErrorMessage(interaction.user, interaction.channel, language, dailyModule.get("noActiveObjectdescription"), false, interaction);
+		replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectdescription"));
 		return true;
 	}
 	if ([Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK].indexOf(activeObject.nature) !== -1) {
 		// Those objects are active only during fights
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			dailyModule.get("objectIsActiveDuringFights"),
-			false,
-			interaction
+			dailyModule.get("objectIsActiveDuringFights")
 		);
 		return true;
 	}
@@ -59,16 +56,13 @@ function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInt
 function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule) {
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			dailyModule.format("coolDown", {
 				coolDownTime: DailyConstants.TIME_BETWEEN_DAILIES,
 				time: minutesDisplay(hoursToMinutes(DailyConstants.TIME_BETWEEN_DAILIES - time))
-			}),
-			false,
-			interaction
+			})
 		);
 		return true;
 	}

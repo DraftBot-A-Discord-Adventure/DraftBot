@@ -1,7 +1,8 @@
-import {CommandInteraction, ReactionCollector, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, ReactionCollector, User} from "discord.js";
 import {IPCClient} from "../bot/ipc/IPCClient";
 import {Translations} from "../Translations";
-import {sendErrorMessage} from "./ErrorUtils";
+import {replyErrorMessage} from "./ErrorUtils";
+import {escapeUsername} from "./StringUtils";
 
 export class BlockingUtils {
 	static blockPlayer(discordId: string, reason: string, maxTime = 0): void {
@@ -51,12 +52,19 @@ export function getErrorReasons(blockingReason: string[], language: string) {
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(user: User, channel: TextBasedChannel, language: string, interaction: CommandInteraction = null) {
+export async function sendBlockedError(user: User, interaction: CommandInteraction, language: string) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
-		await sendErrorMessage(user, channel, language, Translations.getModule("error", language).format("playerBlocked", {
-			context: getErrorReasons(blockingReason, language)
-		}), false, interaction);
+		if (user !== interaction.user) {
+			replyErrorMessage(interaction, language, Translations.getModule("error", language).format("anotherPlayerBlocked", {
+				context: getErrorReasons(blockingReason, language),
+				username: escapeUsername(user.username)
+			}));
+			return true;
+		}
+		replyErrorMessage(interaction, language, Translations.getModule("error", language).format("playerBlocked", {
+			context: Translations.getModule("error", language).get("blockedContext." + blockingReason)
+		}));
 		return true;
 	}
 	return false;

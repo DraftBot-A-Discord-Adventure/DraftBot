@@ -26,7 +26,7 @@ import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
-import {effectsErrorTextValue} from "../core/utils/ErrorUtils";
+import {effectsErrorTextValue,replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
 
 type UserEntity = { user: User, entity: Entity };
@@ -69,6 +69,7 @@ export class CommandsManager {
 			interaction.reply({
 				embeds: [new DraftBotErrorEmbed(
 					user,
+					interaction,
 					tr.language,
 					Translations.getModule("error", tr.language).format("levelTooLow", {
 						level: commandInfo.requirements.requiredLevel
@@ -247,7 +248,6 @@ export class CommandsManager {
 	 * @param tr
 	 */
 	private static async missingRequirementsForGuild(commandInfo: ICommand, {
-		user,
 		entity
 	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule) {
 		let guild;
@@ -260,13 +260,11 @@ export class CommandsManager {
 
 		if (guild === null) {
 			// not in a guild
-			interaction.reply({
-				embeds: [new DraftBotErrorEmbed(
-					interaction.user,
-					tr.language,
-					tr.get("notInAGuild")
-				)]
-			}).then();
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("notInAGuild")
+			);
 			return false;
 		}
 
@@ -280,15 +278,11 @@ export class CommandsManager {
 		}
 
 		if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
-			interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						user,
-						tr.language,
-						tr.get("notAuthorizedError")
-					)
-				]
-			}).then();
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("notAuthorizedError")
+			);
 			return false;
 		}
 	}
@@ -349,13 +343,11 @@ export class CommandsManager {
 
 	private static async launchCommand(tr: TranslationModule, interaction: CommandInteraction): Promise<void> {
 		if (resetIsNow()) {
-			interaction.reply({
-				embeds: [new DraftBotErrorEmbed(
-					interaction.user,
-					tr.language,
-					tr.get("resetIsNow")
-				)]
-			}).then();
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("resetIsNow")
+			).then();
 			return;
 		}
 
@@ -435,15 +427,11 @@ export class CommandsManager {
 		}
 
 		if (await BlockingUtils.isPlayerSpamming(interaction.user.id)) {
-			interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						tr.language,
-						Translations.getModule("error", tr.language).get("blockedContext.cooldown")
-					)
-				]
-			}).then();
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				Translations.getModule("error", tr.language).get("blockedContext.cooldown")
+			);
 			return;
 		}
 

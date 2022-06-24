@@ -6,7 +6,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -36,7 +36,7 @@ function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guild
 			return;
 		}
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction.channel, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
+		sendErrorMessage(interaction.user, interaction, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
 	};
 }
 
@@ -52,13 +52,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (guild.elderId === null) {
 		// trying to remove an elder that does not exist
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			guildElderRemoveModule.get("noElderToRemove"),
-			false,
-			interaction
+			guildElderRemoveModule.get("noElderToRemove")
 		);
 		return;
 	}

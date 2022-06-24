@@ -9,7 +9,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {progressBar} from "../../core/utils/StringUtils";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Allow to display the info of a guild
@@ -46,13 +46,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed();
 
 	if (guild === null) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			guildModule.get("noGuildException"),
-			false,
-			interaction
+			guildModule.get("noGuildException")
 		);
 		return;
 	}

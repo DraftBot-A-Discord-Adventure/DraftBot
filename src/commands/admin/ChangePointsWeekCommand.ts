@@ -6,7 +6,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 declare function isAMention(variable: string): boolean;
@@ -22,25 +22,19 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const pointsWeekModule = Translations.getModule("commands.pointsWeek", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			pointsWeekModule.get("errors.tooMuchPeople"),
-			false,
-			interaction
+			pointsWeekModule.get("errors.tooMuchPeople")
 		);
 		return;
 	}
 	const amount = interaction.options.getInteger("amount");
 	if (amount > 10 ** 17) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			pointsWeekModule.get("errors.invalidAmountFormat"),
-			false,
-			interaction
+			pointsWeekModule.get("errors.invalidAmountFormat")
 		);
 		return;
 	}
@@ -48,16 +42,13 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	for (let i = 0; i < usersToChange.length; i++) {
 		const mention = usersToChange[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
 				pointsWeekModule.format("errors.invalidIdOrMention", {
 					position: i + 1,
 					wrongText: usersToChange[i]
-				}),
-				false,
-				interaction
+				})
 			);
 			return;
 		}
@@ -68,16 +59,13 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	for (const user of users) {
 		const entityToEdit = await Entities.getByDiscordUserId(user);
 		if (!entityToEdit) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
 				pointsWeekModule.format("errors.invalidIdOrMentionDoesntExist", {
 					position: usersToChange.indexOf(user) + 1,
 					wrongText: user
-				}),
-				false,
-				interaction
+				})
 			);
 			return;
 		}
@@ -87,13 +75,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 		catch (e) {
 			if (e.message === "mauvais paramètre don points hebdo") {
-				await sendErrorMessage(
-					interaction.user,
-					interaction.channel,
+				replyErrorMessage(
+					interaction,
 					language,
-					pointsWeekModule.get("errors.invalidDonationParameter"),
-					false,
-					interaction
+					pointsWeekModule.get("errors.invalidDonationParameter")
 				);
 				return;
 			}

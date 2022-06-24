@@ -7,7 +7,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -32,7 +32,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				// guild was destroyed since the command was launched
 				sendErrorMessage(
 					interaction.user,
-					interaction.channel,
+					interaction,
 					guildLeaveModule.language,
 					guildLeaveModule.get("guildDestroy")
 				);
@@ -94,7 +94,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 		}
 
 		// the user chose to stay in the guild or did not respond
-		sendErrorMessage(interaction.user, interaction.channel, guildLeaveModule.language,
+		sendErrorMessage(interaction.user, interaction, guildLeaveModule.language,
 			guildLeaveModule.get("leavingCancelled"), true);
 	};
 }
@@ -107,7 +107,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedError(interaction.user, interaction, language)) {
 		return;
 	}
 
@@ -115,13 +115,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	if (guild === null) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			guildLeaveModule.get("notInAGuild"),
-			false,
-			interaction
+			guildLeaveModule.get("notInAGuild")
 		);
 		return;
 	}

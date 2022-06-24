@@ -8,7 +8,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -32,7 +32,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 				// not the same guild
 				sendErrorMessage(
 					textInformation.interaction.user,
-					textInformation.interaction.channel,
+					textInformation.interaction,
 					textInformation.language,
 					textInformation.guildKickModule.get("notInTheGuild")
 				);
@@ -59,7 +59,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 		// Cancel the kick
 		sendErrorMessage(
 			textInformation.interaction.user,
-			textInformation.interaction.channel,
+			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.format("kickCancelled", {kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language)}),
 			true);
@@ -69,13 +69,10 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity) {
 	if (kickedEntity === null) {
 		// no user provided
-		sendErrorMessage(
-			textInformation.interaction.user,
-			textInformation.interaction.channel,
+		replyErrorMessage(
+			textInformation.interaction,
 			textInformation.language,
-			textInformation.guildKickModule.get("cannotGetKickedUser"),
-			false,
-			textInformation.interaction
+			textInformation.guildKickModule.get("cannotGetKickedUser")
 		);
 		return true;
 	}
@@ -90,13 +87,10 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 
 	if (kickedGuild === null || kickedGuild.id !== entityInformation.guild.id) {
 		// not the same guild
-		sendErrorMessage(
-			textInformation.interaction.user,
-			textInformation.interaction.channel,
+		replyErrorMessage(
+			textInformation.interaction,
 			textInformation.language,
-			textInformation.guildKickModule.get("notInTheGuild"),
-			false,
-			textInformation.interaction
+			textInformation.guildKickModule.get("notInTheGuild")
 		);
 		return true;
 	}
@@ -104,11 +98,9 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 	if (kickedEntity.id === entityInformation.entity.id) {
 		sendErrorMessage(
 			textInformation.interaction.user,
-			textInformation.interaction.channel,
+			textInformation.interaction,
 			textInformation.language,
-			textInformation.guildKickModule.get("excludeHimself"),
-			false,
-			textInformation.interaction
+			textInformation.guildKickModule.get("excludeHimself")
 		);
 		return true;
 	}

@@ -11,7 +11,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {Maps} from "../../core/Maps";
 import {countNbOfPotions} from "../../core/utils/ItemUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {replyErrorMessage, sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {hoursToMinutes} from "../../core/utils/TimeUtils";
@@ -28,8 +28,8 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, {rarity: potion.rarity});
 	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionWithoutEffect");
 	interaction.replied ?
-		await sendErrorMessage(interaction.user, interaction.channel, language, tr.get("objectDoNothingError")) :
-		await replyErrorMessage(interaction, language, tr.get("objectDoNothingError"));
+		sendErrorMessage(interaction.user, interaction, language, tr.get("objectDoNothingError")) :
+		replyErrorMessage(interaction, language, tr.get("objectDoNothingError"));
 }
 
 async function checkPotionDrinkMissionValidations(entity: Entity, interaction: CommandInteraction, language: string, potion: Potion) {
@@ -52,8 +52,8 @@ function drinkPotionCallback(entity: Entity, force: boolean, interaction: Comman
 			case Constants.NATURE.NONE:
 				if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
 					interaction.replied ?
-						await sendErrorMessage(interaction.user, interaction.channel, language, tr.get("noActiveObjectDescription")) :
-						await replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
+						sendErrorMessage(interaction.user, interaction, language, tr.get("noActiveObjectDescription")) :
+						replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
 					return;
 				}
 				await drinkNoEffectPotion(entity, potion, interaction, language, tr);
@@ -88,7 +88,7 @@ function drinkPotionCallback(entity: Entity, force: boolean, interaction: Comman
 				await interaction.reply({embeds: [embed]});
 			return;
 		}
-		await sendErrorMessage(interaction.user, interaction.channel, language, Translations.getModule("commands.drink", language).get("drinkCanceled"));
+		sendErrorMessage(interaction.user, interaction, language, Translations.getModule("commands.drink", language).get("drinkCanceled"));
 	};
 }
 
@@ -101,12 +101,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const potion = await entity.Player.getMainPotionSlot().getItem() as Potion;
 
 	if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
-		await replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
+		replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
 		return;
 	}
 	// Those objects are active only during fights
 	if (potion.nature === Constants.NATURE.SPEED || potion.nature === Constants.NATURE.DEFENSE || potion.nature === Constants.NATURE.ATTACK) {
-		await replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
+		replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
 		return;
 	}
 

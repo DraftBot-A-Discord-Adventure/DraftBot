@@ -39,7 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
 	const shopMessage = new DraftBotShopMessageBuilder(
-		interaction.user,
+		interaction,
 		guildShopTranslations.get("title"),
 		language
 	);
@@ -53,10 +53,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	await (await shopMessage.addCategory(new ShopItemCategory(
 		[
-			getFoodShopItem(guildShopTranslations, "commonFood", language, [1, Math.min(5, commonFoodRemainingSlots), Math.min(10, commonFoodRemainingSlots)]),
-			getFoodShopItem(guildShopTranslations, "herbivorousFood", language, [1, Math.min(5, herbivorousFoodRemainingSlots), Math.min(10, herbivorousFoodRemainingSlots)]),
-			getFoodShopItem(guildShopTranslations, "carnivorousFood", language, [1, Math.min(5, carnivorousFoodRemainingSlots), Math.min(10, carnivorousFoodRemainingSlots)]),
-			getFoodShopItem(guildShopTranslations, "ultimateFood", language, [1, Math.min(5, ultimateFoodRemainingSlots)])
+			getFoodShopItem(guildShopTranslations, "commonFood", language, [1, Math.min(5, commonFoodRemainingSlots), Math.min(10, commonFoodRemainingSlots)], interaction),
+			getFoodShopItem(guildShopTranslations, "herbivorousFood", language, [1, Math.min(5, herbivorousFoodRemainingSlots), Math.min(10, herbivorousFoodRemainingSlots)], interaction),
+			getFoodShopItem(guildShopTranslations, "carnivorousFood", language, [1, Math.min(5, carnivorousFoodRemainingSlots), Math.min(10, carnivorousFoodRemainingSlots)], interaction),
+			getFoodShopItem(guildShopTranslations, "ultimateFood", language, [1, Math.min(5, ultimateFoodRemainingSlots)], interaction)
 		],
 		guildShopTranslations.get("foodItem")
 	))
@@ -96,7 +96,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 	);
 }
 
-function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, language: string, amounts: number[]) {
+function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, language: string, amounts: number[], interaction: CommandInteraction) {
 	const foodJson = Translations.getModule("food", language);
 	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(
@@ -108,10 +108,10 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			if (guild.isStorageFullFor(name, amount)) {
-				await message.sentMessage.channel.send({embeds: [new DraftBotErrorEmbed(message.user, language, guildShopTranslations.get("fullStock"))]});
+				await message.sentMessage.channel.send({embeds: [new DraftBotErrorEmbed(message.user, interaction, language, guildShopTranslations.get("fullStock"))]});
 				return false;
 			}
-			await giveFood(message.sentMessage.channel, message.language, entity, message.user, name, amount);
+			await giveFood(interaction, message.language, entity, message.user, name, amount);
 			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
 				await MissionsController.update(entity.discordUserId, message.sentMessage.channel, language, "buyUltimateSoups", amount);
 			}
