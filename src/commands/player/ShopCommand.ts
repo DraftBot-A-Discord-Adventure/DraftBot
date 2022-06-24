@@ -8,7 +8,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getItemValue, giveItemToPlayer, giveRandomItem} from "../../core/utils/ItemUtils";
 import {Constants} from "../../core/Constants";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/models/Potion";
@@ -207,7 +207,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 		async (shopMessage) => {
 			const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
 				.allowUser(shopMessage.user)
-				.endCallback(async (chooseSlotMessage) => {
+				.endCallback((async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
@@ -237,7 +237,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 						}
 					}
 					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-				});
+				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (const category of availableCategories) {
 				chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
