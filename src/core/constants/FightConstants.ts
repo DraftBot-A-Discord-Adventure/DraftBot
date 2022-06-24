@@ -26,5 +26,15 @@ export abstract class FightConstants {
 	// amount of time a user has to react during a fight
 	static readonly TIME_FOR_ACTION_SELECTION = 45000;
 
+	// random variation of the damage a fight action will deal (between -this value and +this value)
 	static readonly DAMAGE_RANDOM_VARIATION = 5;
+
+	// depending on its level a player has a malus or bonus on the damage he deals
+	static readonly PLAYER_LEVEL_MINIMAL_MALUS = -20;
+
+	// depending on its level a player has a malus or bonus on the damage he deals
+	static readonly PLAYER_LEVEL_MAXIMAL_BONUS = 20;
+
+	// above this level a player has a cap on the bonus he gets from the level (the bonus is capped to the above value)
+	static readonly MAX_PLAYER_LEVEL_FOR_BONUSES = 75;
 }
