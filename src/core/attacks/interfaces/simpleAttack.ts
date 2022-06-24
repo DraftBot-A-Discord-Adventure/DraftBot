@@ -9,7 +9,24 @@ type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number 
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
-		const damageDealt = FightActionController.getAttackDamage(sender.stats.attack, receiver.stats.defense, this.getAttackInfo());
+
+		// generate the arrays of stats that will be used for this attack for the fighters
+		const attackerStats = [
+			sender.stats.attack,
+			sender.stats.agility,
+			sender.stats.speed
+		];
+		const defenderStats = [
+			receiver.stats.defense,
+			receiver.stats.agility,
+			receiver.stats.speed
+		];
+		const statsEffect = [
+			0.8,
+			0.1,
+			0.1
+		];
+		const damageDealt = FightActionController.getAttackDamage(attackerStats, defenderStats, statsEffect, sender.getPlayerLevel(), this.getAttackInfo());
 		receiver.stats.fightPoints -= damageDealt;
 		receiver.stats.fightPoints = receiver.stats.fightPoints > 0 ? receiver.stats.fightPoints : 0;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
