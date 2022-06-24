@@ -208,7 +208,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		if (user.id === this._interaction.user.id) {
 			this._spamCount++;
 			if (this._spamCount < Constants.MESSAGES.MAX_SPAM_COUNT) {
-				sendErrorMessage(this._interaction.user, this._interaction, this._language, this._translationModule.errorSelfAccept);
+				sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorSelfAccept);
 				return false;
 			}
 			sendErrorMessage(this._interaction.user, this._interaction, this._language, this._translationModule.errorSelfAcceptSpam);
