@@ -134,7 +134,7 @@ export class Fighter {
 				power: this.stats.fightPoints,
 				attack: this.stats.attack,
 				defense: this.stats.defense,
-				speed: this.stats.speed
+				speed: this.stats.speed + " (" + this.stats.agility + ")"
 			});
 	}
 

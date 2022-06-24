@@ -7,6 +7,7 @@ import {MathUtils} from "../utils/MathUtils";
 declare const JsonReader: any;
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
+type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export class FightActionController {
 
@@ -32,17 +33,18 @@ export class FightActionController {
 
 	/**
 	 * get the attack damage for a fight action
-	 * @param attackerStats - array of the stats to use for the attacker
-	 * @param defenderStats - array of the stats to use for the defender
-	 * @param statsEffect - array of ratios to apply to the stats
+	 * @param statsInfo object containing 3 arrays :
+	 * attackerStats - array of the stats to use for the attacker
+	 * defenderStats - array of the stats to use for the defender
+	 * statsEffect - array of ratios to apply to the stats
 	 * @param attackerLevel - the level of the attacker (used to get the bonus ratio)
 	 * @param attackInfo - the attack info of the fight action
 	 */
-	static getAttackDamage(attackerStats: number[], defenderStats: number[], statsEffect: number[], attackerLevel: number, attackInfo: attackInfo): number {
+	static getAttackDamage(statsInfo: statsInfo, attackerLevel: number, attackInfo: attackInfo): number {
 		const levelBonusRatio = this.getLevelBonusRatio(attackerLevel);
 		let attackDamage = 0;
-		for (let i = 0; i < attackerStats.length; i++) {
-			attackDamage += this.getAttackDamageByStat(attackerStats[i], defenderStats[i], attackInfo) * statsEffect[i];
+		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
+			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
 		return Math.round(attackDamage * (1 + levelBonusRatio));
 	}
@@ -101,5 +103,22 @@ export class FightActionController {
 	 */
 	private static getLevelBonusRatio(level: number) {
 		return MathUtils.getIntervalValue(FightConstants.PLAYER_LEVEL_MINIMAL_MALUS, FightConstants.PLAYER_LEVEL_MAXIMAL_BONUS, level / FightConstants.MAX_PLAYER_LEVEL_FOR_BONUSES) / 100;
+	}
+
+	/**
+	 * execute a critical hit on a fight action (return the damage)
+	 * this function also check if the attack has missed
+	 * @param damageDealt
+	 * @param criticalHitProbability
+	 * @param failureProbability
+	 */
+	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): number {
+		if (RandomUtils.randInt(0, 100) < criticalHitProbability) {
+			damageDealt *= FightConstants.CRITICAL_HIT_MULTIPLIER;
+		}
+		if (RandomUtils.randInt(0, 100) < failureProbability) {
+			damageDealt = 0;
+		}
+		return damageDealt;
 	}
 }

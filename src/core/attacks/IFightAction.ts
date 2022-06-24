@@ -1,6 +1,7 @@
 import {Fighter} from "../fights/Fighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
+type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export type IFightAction = {
 	/**
@@ -31,4 +32,10 @@ export type IFightAction = {
 	 * return the damage information of the attack
 	 */
 	getAttackInfo(): attackInfo;
+
+	/**
+	 * return the statsInfo of the attack
+	 */
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo;
+
 }
