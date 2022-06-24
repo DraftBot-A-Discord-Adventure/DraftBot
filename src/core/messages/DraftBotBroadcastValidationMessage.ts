@@ -186,7 +186,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 */
 	private async manageDenyReaction(user: User) {
 		if (this._interaction.user.id === user.id) {
-			sendErrorMessage(this._interaction.user, this._interaction, this._language, this._translationModule.errorBroadcastCancelled, true);
+			sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorBroadcastCancelled, true);
 			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}
