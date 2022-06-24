@@ -112,7 +112,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const petFreeModule = Translations.getModule("commands.petFree", language);
 
 	const pPet = entity.Player.Pet;
-	if (await cantBeFreed(pPet, interaction, petFreeModule, entity)) {
+	if (cantBeFreed(pPet, interaction, petFreeModule, entity)) {
 		return;
 	}
 

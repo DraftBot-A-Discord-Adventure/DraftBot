@@ -3,7 +3,6 @@ import {DraftBotReaction} from "./DraftBotReaction";
 import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {CommandInteraction, User} from "discord.js";
-import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 import {Entities} from "../models/Entity";
 import {format} from "../utils/StringFormatter";
@@ -153,18 +152,16 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (choseShopItem) {
 			const userMoney = await shopMessage.getUserMoney();
 			if (userMoney < choseShopItem.price) {
-				await shopMessage.sentMessage.channel.send({ embeds: [
-					new DraftBotErrorEmbed(
-						shopMessage.user,
-						shopMessage._interaction,
-						shopMessage._language,
-						format(
-							shopMessage._translationModule.get("error.cannotBuy"),
-							{
-								missingMoney: choseShopItem.price - userMoney
-							}
-						)
-					)]}
+				await sendErrorMessage(
+					shopMessage.user,
+					shopMessage._interaction,
+					shopMessage._language,
+					format(
+						shopMessage._translationModule.get("error.cannotBuy"),
+						{
+							missingMoney: choseShopItem.price - userMoney
+						}
+					)
 				);
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
 			}
@@ -181,13 +178,13 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 							}
 						}
 						else {
-							await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+							await sendErrorMessage(
 								shopMessage.user,
 								shopMessage._interaction,
 								shopMessage.language,
 								shopMessage._translationModule.get("error.canceledPurchase"),
 								true
-							)]});
+							);
 							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 						}
 					}
@@ -221,15 +218,15 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					async (reactionMessage: DraftBotReactionMessage) => {
+					(reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
-						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+						sendErrorMessage(
 							shopMessage.user,
 							shopMessage._interaction,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						)]});
+						);
 						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 					}
 				));

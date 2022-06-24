@@ -260,7 +260,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const textInformations = {interaction, petSellModule};
 	const sellerInformations = {entity, pet, guild, petCost};
 
-	if (await missingRequirementsToSellPet(textInformations, sellerInformations)) {
+	if (missingRequirementsToSellPet(textInformations, sellerInformations)) {
 		return;
 	}
 

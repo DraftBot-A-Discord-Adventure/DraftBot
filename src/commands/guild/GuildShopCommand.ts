@@ -5,7 +5,6 @@ import {
 	ShopItemCategory
 } from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
@@ -16,7 +15,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {randomInt} from "crypto";
-import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -108,7 +107,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			if (guild.isStorageFullFor(name, amount)) {
-				await message.sentMessage.channel.send({embeds: [new DraftBotErrorEmbed(message.user, interaction, language, guildShopTranslations.get("fullStock"))]});
+				await sendErrorMessage(message.user, interaction, language, guildShopTranslations.get("fullStock"));
 				return false;
 			}
 			await giveFood(interaction, message.language, entity, message.user, name, amount);

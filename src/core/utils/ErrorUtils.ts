@@ -11,13 +11,9 @@ export const sendBlockedErrorInteraction = async function(interaction: CommandIn
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
 	if (blockingReason.length !== 0) {
 		const tr = Translations.getModule("error", language);
-		await interaction.reply({
-			embeds: [
-				new DraftBotErrorEmbed(interaction.user, interaction, language, tr.format("playerBlocked", {
-					context: getErrorReasons(blockingReason, language)
-				}))
-			]
-		});
+		replyErrorMessage(interaction, language, tr.format("playerBlocked", {
+			context: getErrorReasons(blockingReason, language)
+		}));
 		return true;
 	}
 	return false;

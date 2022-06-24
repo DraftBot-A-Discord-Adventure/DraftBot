@@ -10,7 +10,7 @@ export class DraftBotErrorEmbed extends DraftBotEmbed {
 		const isOther = interaction.user !== user;
 		super();
 		this.setErrorColor();
-		this.formatAuthor(Translations.getModule("error", language).getFromArray("title", isCancelling ? 1 : isOther ? 2 : 0), interaction ? interaction.user : user);
+		this.formatAuthor(Translations.getModule("error", language).getFromArray("title", isCancelling ? 1 : isOther ? 2 : 0), user);
 		this.setDescription(reason);
 	}
 

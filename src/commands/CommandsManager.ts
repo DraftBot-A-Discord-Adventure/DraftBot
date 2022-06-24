@@ -20,7 +20,6 @@ import {Entities, Entity} from "../core/models/Entity";
 import {Guilds} from "../core/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
-import {DraftBotErrorEmbed} from "../core/messages/DraftBotErrorEmbed";
 import {escapeUsername} from "../core/utils/StringUtils";
 import {Data} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
@@ -66,16 +65,13 @@ export class CommandsManager {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
 		const userEntity = {user, entity};
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
-			interaction.reply({
-				embeds: [new DraftBotErrorEmbed(
-					user,
-					interaction,
-					tr.language,
-					Translations.getModule("error", tr.language).format("levelTooLow", {
-						level: commandInfo.requirements.requiredLevel
-					})
-				)]
-			}).then();
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				Translations.getModule("error", tr.language).format("levelTooLow", {
+					level: commandInfo.requirements.requiredLevel
+				})
+			);
 			return false;
 		}
 
