@@ -9,7 +9,7 @@
 			"leavingCancelled": "Votre départ a été annulé.",
 			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
 			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
-			"newChiefTitle": ":crown: | la guilde **{guild}** à un nouveau chef !",
+			"newChiefTitle": ":crown: | La guilde **{guild}** a un nouveau chef !",
 			"leaveGuildTitle": "Quitter la guilde",
 			"guildDestroy": "Il semblerait que vous ayez déjà quitté la guilde."
 		},

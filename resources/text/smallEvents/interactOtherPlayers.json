@@ -75,7 +75,7 @@
 			],
 			"unranked": [
 				"Vous croisez {playerDisplay}, un joueur qui ne semble pas être classé... Vous repartez en vous demandant ce qui lui a pris de venir ici pour abandonner aussi vite.",
-				"En marchant, vous rencontrez {playerDisplay}, ce joueur ne semble pas bien s'en sortir dans la competition. Vous repartez après lui avoir expliqué les bases du jeu."
+				"En marchant, vous rencontrez {playerDisplay}, ce joueur ne semble pas bien s'en sortir dans la compétition. Vous repartez après lui avoir expliqué les bases du jeu."
 			],
 			"lowerRankThanHim": [
 				"Vous croisez {playerDisplay}, un joueur ayant plus de réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
@@ -101,7 +101,7 @@
 			"poorGiveMoney": [
 				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
 				"C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez rencontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
-				"Voici une bonne action de votre part ! Il repart avec une pièce en plus et donc la possibilité de vivre un peu plus longtemps..."
+				"Voici une bonne action de votre part ! Il repart avec une pièce en plus pour pouvoir acheter son prochain repas."
 			],
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",

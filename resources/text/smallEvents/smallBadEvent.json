@@ -22,7 +22,7 @@
 			"moneyLoss": {
 				"stories": [
 					"traversant une foule, vous sentez une main vous fouiller vivement et alléger vos poches, vous n’avez pas le temps de répliquer que votre détrousseur a disparu. Vous avez perdu **{moneyLost} :money_with_wings:**.",
-					"vous croisez un mendiant vous demandant un peu d’argent pour subvenir à ses besoins. Pris d’un élan de pitié, vous satisfaisez sa demande et lui donnez **{moneyLost} :money_with_wings:**.",
+					"vous croisez un mendiant vous demandant un peu d’argent pour subvenir à ses besoins. Pris d’un élan de pitié, vous satisfaites sa demande et lui donnez **{moneyLost} :money_with_wings:**.",
 					"un homme masqué vous interpelle et vous menace de son arme. Afin qu'il vous laisse la vie sauve, vous lui donnez les **{moneyLost} :money_with_wings:** pièces que vous avez dans la poche, ainsi que les clés de votre charrette.",
 					"vous vous souvenez soudainement avoir oublié votre bourse dans la chambre de la dernière auberge par laquelle vous êtes passé. Vous avez perdu **{moneyLost} :money_with_wings:**.",
 					"vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d’enfants passe et vous dérobe de l’argent. Vous perdez **{moneyLost} :money_with_wings:**."

@@ -27,7 +27,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type.",
+						"fr": "Vous achetez l'un de ses objets à faible valeur, mais au moment où vous le recevez et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur a profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type.",
 						"en": "You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
 					},
 					"lostTime": 0,
