@@ -8,7 +8,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity from "../../core/models/PetEntity";
@@ -203,7 +203,7 @@ function getAcceptCallback(sellerInformations: SellerInformations, textInformati
 	return async (user: User) => {
 		const buyerInformations = {user, buyer: await Entities.getByDiscordUserId(user.id)};
 		if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
-			await sendBlockedError(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language)) {
+			await sendBlockedError(textInformations.interaction, textInformations.petSellModule.language, buyerInformations.user)) {
 			buyerInformations.buyer = null;
 			return false;
 		}
@@ -233,7 +233,7 @@ function getBroadcastErrorStrings(petSellModule: TranslationModule) {
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petSellModule = Translations.getModule("commands.petSell", language);

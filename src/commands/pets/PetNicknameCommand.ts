@@ -10,7 +10,7 @@ import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedError(interaction.user, interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const pet = entity.Player.Pet;

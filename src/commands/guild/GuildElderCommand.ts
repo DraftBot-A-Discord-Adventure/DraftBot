@@ -5,11 +5,11 @@ import {Entities, Entity} from "../../core/models/Entity";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Guild, {Guilds} from "../../core/models/Guild";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type PersonInformation = { user: User, entity: Entity };
@@ -119,7 +119,7 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation:
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const guildElderModule = Translations.getModule("commands.guildElder", language);

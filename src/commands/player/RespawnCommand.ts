@@ -19,7 +19,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);

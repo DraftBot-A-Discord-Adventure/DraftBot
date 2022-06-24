@@ -6,7 +6,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
-import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 /**
  * Activate or deactivate DMs notifications.
@@ -15,7 +15,7 @@ import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const translationsDmn = Translations.getModule("commands.dmNotification", language);
@@ -38,7 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		catch (err) {
 			entity.Player.dmNotification = false;
-			await sendBlockedErrorInteraction(interaction, language);
+			await sendBlockedError(interaction, language);
 		}
 
 	}

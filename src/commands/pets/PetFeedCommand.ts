@@ -1,12 +1,12 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Entity from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity from "../../core/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
@@ -20,7 +20,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const petFeedModule = Translations.getModule("commands.petFeed", language);
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 

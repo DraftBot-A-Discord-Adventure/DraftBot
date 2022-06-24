@@ -4,14 +4,14 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Entity} from "../../core/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {Tags} from "../../core/models/Tag";
 import Potion from "../../core/models/Potion";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Maps} from "../../core/Maps";
 import {countNbOfPotions} from "../../core/utils/ItemUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {hoursToMinutes} from "../../core/utils/TimeUtils";
@@ -93,7 +93,7 @@ function drinkPotionCallback(entity: Entity, force: boolean, interaction: Comman
 }
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 

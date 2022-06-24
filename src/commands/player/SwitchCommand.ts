@@ -5,13 +5,13 @@ import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {Entities, Entity} from "../../core/models/Entity";
 import InventorySlot from "../../core/models/InventorySlot";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -168,7 +168,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	// Error if blocked
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 

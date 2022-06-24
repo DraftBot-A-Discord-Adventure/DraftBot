@@ -52,7 +52,7 @@ export function getErrorReasons(blockingReason: string[], language: string) {
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(user: User, interaction: CommandInteraction, language: string) {
+export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
 		if (user !== interaction.user) {

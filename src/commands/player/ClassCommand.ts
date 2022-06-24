@@ -2,11 +2,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Class, Classes} from "../../core/models/Class";
 import {Entity} from "../../core/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
-import {sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -19,7 +19,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const classTranslations = Translations.getModule("commands.class", language);

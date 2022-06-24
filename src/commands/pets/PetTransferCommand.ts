@@ -6,11 +6,12 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {replyErrorMessage, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import PetEntity from "../../core/models/PetEntity";
+import { sendBlockedError } from "../../core/utils/BlockingUtils";
 
 /**
  * Allow to transfer a pet
@@ -19,7 +20,7 @@ import PetEntity from "../../core/models/PetEntity";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petTransferModule = Translations.getModule("commands.petTransfer", language);

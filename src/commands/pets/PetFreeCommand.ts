@@ -1,12 +1,12 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Entity from "../../core/models/Entity";
 import {Guild, Guilds} from "../../core/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetFreeConstants} from "../../core/constants/PetFreeConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
@@ -106,7 +106,7 @@ function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeMo
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petFreeModule = Translations.getModule("commands.petFree", language);

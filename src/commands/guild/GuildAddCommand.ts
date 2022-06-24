@@ -112,7 +112,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const invitedUser: User = interaction.options.getUser("user");
-	if (await sendBlockedError(invitedUser, interaction, language)) {
+	if (await sendBlockedError(interaction, language, invitedUser)) {
 		return;
 	}
 

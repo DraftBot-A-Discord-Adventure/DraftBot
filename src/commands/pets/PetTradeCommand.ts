@@ -7,7 +7,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {replyErrorMessage, sendBlockedErrorInteraction,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandsManager} from "../CommandsManager";
 import PetEntity from "../../core/models/PetEntity";
@@ -35,7 +35,7 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 	}, true)) {
 		return true;
 	}
-	if (await sendBlockedError(traderAndPet2.user, interaction, petTradeModule.language)) {
+	if (await sendBlockedError(interaction, petTradeModule.language, traderAndPet2.user)) {
 		return true;
 	}
 
@@ -186,7 +186,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
  * @param trader1
  */
 async function executeCommand(interaction: CommandInteraction, language: string, trader1: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petTradeModule = Translations.getModule("commands.petTrade", language);

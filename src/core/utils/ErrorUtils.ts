@@ -1,4 +1,3 @@
-import {BlockingUtils, getErrorReasons} from "./BlockingUtils";
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Translations} from "../Translations";
@@ -6,18 +5,6 @@ import {Constants} from "../Constants";
 import Entity from "../models/Entity";
 import {millisecondsToMinutes, minutesDisplay} from "./TimeUtils";
 import {escapeUsername} from "./StringUtils";
-
-export const sendBlockedErrorInteraction = async function(interaction: CommandInteraction, language: string) {
-	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.user.id);
-	if (blockingReason.length !== 0) {
-		const tr = Translations.getModule("error", language);
-		replyErrorMessage(interaction, language, tr.format("playerBlocked", {
-			context: getErrorReasons(blockingReason, language)
-		}));
-		return true;
-	}
-	return false;
-};
 
 /**
  * Send an error message if the user has an effect
