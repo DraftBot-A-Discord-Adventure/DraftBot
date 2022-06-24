@@ -60,7 +60,7 @@
 				{
 					"translations": {
 						"fr": "Vous prenez fuite en reculant tout doucement, mais vous marchez sur une brindille qui craque. Apeuré, vous commencez à courir à toutes jambes, mais vous tombez par terre et vous écorchez les genoux. Cependant sous l'adrénaline, vous reprenez immédiatement votre folle course.",
-						"en": "You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don’t realize the severity of the wound and keep on running like a lunatic."
+						"en": "You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don't realize the severity of the wound and keep on running like a lunatic."
 					},
 					"lostTime": 0,
 					"health": -5,
@@ -159,7 +159,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous pensez qu'aller dans une église est une bonne option. Vous vous hâtez alors, et arrivez en quelques minutes à l'église que vous aviez dépassé plus tôt. Vous toquez, et êtes accueilli par un prêtre jovial, qui vous fait immédiatement entrer. Vous ne tardez pas à lui parlez de ce que vous avez vu, et il vous répond qu'il pourrait très bien s'agir d'une terrible créature démoniaque aux ordres de Y'ahnor. Impressionné, vous le rejoignez lors de l'Ode aux Trois, la cérémonie où sont célébrés Orthgard, Fenrir, et Iatneh, les dieux protecteurs qui guident l'humanité et lui inspirent les plus grandes inventions et découvertes.",
+						"fr": "Vous pensez qu'aller dans une église est une bonne option. Vous vous hâtez alors, et arrivez en quelques minutes à l'église que vous aviez dépassé plus tôt. Vous toquez, et êtes accueilli par un prêtre jovial, qui vous fait immédiatement entrer. Vous ne tardez pas à lui parler de ce que vous avez vu, et il vous répond qu'il pourrait très bien s'agir d'une terrible créature démoniaque aux ordres de Y'ahnor. Impressionné, vous le rejoignez lors de l'Ode aux Trois, la cérémonie où sont célébrés Orthgard, Fenrir, et Iatneh, les dieux protecteurs qui guident l'humanité et lui inspirent les plus grandes inventions et découvertes.",
 						"en": "You think going to a church is a good option. You hurry and arrive in a few minutes at the church you passed earlier. You knock and are greeted by a jovial priest, who immediately takes you in. You soon tell him about what you saw, and he replies that it could very well be a terrible demonic creature under Y'ahnor's orders. Impressed, you join him in the Ode to the Three, the ceremony where Orthgard, Fenrir, and Iatneh, the protective gods who guide mankind and inspire the greatest inventions and discoveries, are celebrated."
 					},
 					"lostTime": 90,

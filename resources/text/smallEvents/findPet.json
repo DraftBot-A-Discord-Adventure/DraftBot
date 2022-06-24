@@ -8,19 +8,19 @@
 						false
 					],
 					[
-						"vous trouvez un{feminine} **{pet}** qui semble être blessé{feminine}. Malheureusement, ayant déja un compagnon et plus de place au sein de votre guilde pour l’accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
+						"vous trouvez un{feminine} **{pet}** qui semble être blessé{feminine}. Malheureusement, ayant déja un compagnon et plus de place au sein de votre guilde pour l'accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
 						true
 					],
 					[
-						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande.",
+						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l'accueillir, vous {determinant} donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande.",
 						true
 					],
 					[
-						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
+						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l'accueillir, vous {determinant} donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
 						false
 					],
 					[
-						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. Celui-ci refuse et {determinant} laisse partir.",
+						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l'accueillir, vous {determinant} donnez à un marchand qui passe par là. Celui-ci refuse et {determinant} laisse partir.",
 						false
 					]
 				]
@@ -28,7 +28,7 @@
 			"roomInGuild": {
 				"stories": [
 					"vous apercevez un{feminine} **{pet}** perdu{feminine}. Bien que vous ayez déjà un compagnon, vous décidez de {determinant} ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
-					"vous apercevez un{feminine} **{pet}** errant{feminine} qui semble affamé{feminine}. Vous lui donnez donc les restes de votre dernier repas. {nominativeShift} apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous {determinant} laissez aux bon soins de votre guilde.",
+					"vous apercevez un{feminine} **{pet}** errant{feminine} qui semble affamé{feminine}. Vous lui donnez donc les restes de votre dernier repas. {nominativeShift} apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous {determinant} laissez aux bons soins de votre guilde.",
 					"vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener un{feminine} pauvre petit{feminine} **{pet}**. Vous les faites partir, mais {nominative} est trop mal en point. Vous réussissez à {determinant} remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
 				]
 			},

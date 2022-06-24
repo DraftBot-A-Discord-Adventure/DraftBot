@@ -75,7 +75,7 @@
 			],
 			"unranked": [
 				"Vous croisez {playerDisplay}, un joueur qui ne semble pas être classé... Vous repartez en vous demandant ce qui lui a pris de venir ici pour abandonner aussi vite.",
-				"En marchant, vous rencontrez {playerDisplay}, ce joueur ne semble pas bien s'en sortir dans la competition. Vous repartez après lui avoir expliqué les bases du jeu."
+				"En marchant, vous rencontrez {playerDisplay}, ce joueur ne semble pas bien s'en sortir dans la compétition. Vous repartez après lui avoir expliqué les bases du jeu."
 			],
 			"lowerRankThanHim": [
 				"Vous croisez {playerDisplay}, un joueur ayant plus de réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
@@ -101,7 +101,7 @@
 			"poorGiveMoney": [
 				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
 				"C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez rencontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
-				"Voici une bonne action de votre part ! Il repart avec une pièce en plus et donc la possibilité de vivre un peu plus longtemps..."
+				"Voici une bonne action de votre part ! Il repart avec une pièce en plus pour pouvoir acheter son prochain repas."
 			],
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
@@ -135,7 +135,7 @@
 			],
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est {playerDisplay} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
-				"{playerDisplay} vomit dans un buisson, c’est donc ça ce bruit que vous entendez depuis tout à l'heure. Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
+				"{playerDisplay} vomit dans un buisson, c'est donc ça ce bruit que vous entendez depuis tout à l'heure. Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
 				"{playerDisplay} ne peut se retenir et vomi à vos pieds. Vous esquivez de justesse l'attaque et accélerez votre cadence pour vous éloigner du massacre."
 			],
 			":head_bandage:": [
@@ -155,7 +155,7 @@
 			],
 			":sleeping:": [
 				"Vous croisez {playerDisplay} endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil.",
-				"Visiblement {playerDisplay} n’a pas assez dormi la nuit dernière, il est allongé sur le bord de la route.",
+				"Visiblement {playerDisplay} n'a pas assez dormi la nuit dernière, il est allongé sur le bord de la route.",
 				"Le bord de la route semble être un bon endroit afin de se reposer, c'est ce que vous vous dites après avoir vu {playerDisplay} dormir sur le bord de celle-ci."
 			],
 			":cold_face:": [
@@ -174,22 +174,22 @@
 				"Vous voyez {playerDisplay} assez éméché, pour ne pas dire de terme plus fort. Celui-ci semble bien s'amuser... tout seul. Vous faites ce que vous pouvez pour l'ignorer et continuez votre route."
 			],
 			"weapon": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"Un passant vient frimer à côté de vous, c'est {playerDisplay} et il vous montre {prefixItem} {item} !",
-				"Wow ! {playerDisplay} brandit {prefixItem} magnifique{pluralItem} {item} devant vous. Vous reprenez votre chemin étonné."
+				"Wow ! {playerDisplay} brandit {prefixItem2} magnifique{pluralItem} {item} devant vous. Vous reprenez votre chemin étonné."
 			],
 			"armor": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"Un garde vous aborde, c'est {playerDisplay}, il vient vous montrer {prefixItem} {item} !",
 				"{playerDisplay} vous met au défi de tester {prefixItem} {item}, qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
 			],
 			"potion": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"{playerDisplay} vient vous parler, il vient vous montrer {prefixItem} {item} !",
 				"{playerDisplay}, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefixItem} {item}."
 			],
 			"object": [
-				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Vous rencontrez {playerDisplay} qui vous montre {prefixItem2} magnifique{pluralItem} {item}.",
 				"En parlant avec {playerDisplay}, il vous montre {prefixItem} {item} !",
 				"{playerDisplay}, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement {prefixItem} {item}."
 			],
