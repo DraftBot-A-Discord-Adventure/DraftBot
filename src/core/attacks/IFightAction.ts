@@ -38,4 +38,9 @@ export type IFightAction = {
 	 */
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo;
 
+	/*
+	 * return the status of the attack (success, missed, critical)
+	 */
+	getAttackStatus(damageDealt: number, initialDamage: number): string;
+
 }

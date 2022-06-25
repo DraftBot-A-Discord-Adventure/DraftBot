@@ -2,21 +2,11 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque perçante",
-			"namePlural": "Attaques perçantes",
-			"end": {
-				"succeed": "",
-				"notGood": "",
-				"failed": ""
-			}
+			"namePlural": "Attaques perçantes"
 		},
 		"en": {
 			"name": "Piercing attack",
-			"namePlural": "Piercing attacks",
-			"end": {
-				"succeed": "",
-				"notGood": "",
-				"failed": ""
-			}
+			"namePlural": "Piercing attacks"
 		}
 	},
 	"emote": "\uD83E\uDEA1"
