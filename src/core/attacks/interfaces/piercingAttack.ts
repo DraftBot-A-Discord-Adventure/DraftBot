@@ -26,7 +26,7 @@ export const fightActionInterface: IFightAction = {
 			receiver.stats.defense = Math.round(receiver.stats.defense - receiver.stats.defense * reductionAmont / 100);
 			sideEffects = attackTranslationModule.format("actions.sideEffects.defense", {
 				adversary: FightConstants.TARGET.OPPONENT,
-				operator: "-",
+				operator: FightConstants.OPERATOR.MINUS,
 				amount: reductionAmont
 			});
 		}

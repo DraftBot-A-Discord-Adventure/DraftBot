@@ -113,7 +113,10 @@ export class FightActionController {
 	 * @param failureProbability
 	 */
 	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): number {
+		// first we get a random %
 		const randomValue = RandomUtils.randInt(0, 100);
+
+		// then we use this % to determine if the attack has missed or is a critical hit
 		if (randomValue < criticalHitProbability) {
 			return Math.round(damageDealt * FightConstants.CRITICAL_HIT_MULTIPLIER);
 		}
