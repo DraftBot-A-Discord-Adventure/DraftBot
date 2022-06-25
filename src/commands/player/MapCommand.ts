@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entity} from "../../core/models/Entity";
-import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
@@ -15,9 +14,6 @@ import Player from "../../core/models/Player";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
 	const mapModule = Translations.getModule("commands.map", language);
 	const mapEmbed = new DraftBotEmbed()
 		.formatAuthor(mapModule.get("text"), interaction.user);
