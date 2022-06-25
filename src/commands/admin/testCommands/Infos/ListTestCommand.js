@@ -5,7 +5,8 @@ module.exports.commandInfo = {
 	name: "list",
 	commandFormat: "",
 	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
-	description: "Affiche la liste des commandes tests"
+	description: "Affiche la liste des commandes tests",
+	commandTestShouldReply: true
 };
 
 const CT = require("../../../../core/CommandsTest");
@@ -13,12 +14,11 @@ const CT = require("../../../../core/CommandsTest");
 /**
  * Print the whole test command list, filtered by category
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @return {module:"discord.js".MessageEmbed} - The successful message formatted
+ * @param interaction
  */
-const listTestCommand = (language, message) => {
+const listTestCommand = (language, interaction) => {
 	const embedListCommandsTest = new DraftBotEmbed()
-		.formatAuthor(escapeUsername(message.author.username) + ", voici la liste des commandes tests disponibles :", message.author)
+		.formatAuthor(escapeUsername(interaction.user.username) + ", voici la liste des commandes tests disponibles :", interaction.user)
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
 	CT.testCommType.forEach(category => {

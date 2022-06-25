@@ -1,7 +1,7 @@
 import {IMission} from "./IMission";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(): boolean {
+	areParamsMatchingVariantAndSave(): boolean {
 		return true;
 	},
 
@@ -15,5 +15,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(): Promise<number> {
 		return Promise.resolve(0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

@@ -3,7 +3,7 @@
         "fr": {
             "intro": {
                 "intrigue": [
-                    "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s’approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu’elle soit. Pendant que vous oservez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.\n\n"
+                    "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s'approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu'elle soit. Pendant que vous oservez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.\n\n"
                 ],
                 "goblets": [
                     {
@@ -25,16 +25,16 @@
             },
             "results": {
                 "life": [
-                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu’il n’y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu’il n’y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur, malheureusement celui-ci frappe le premier. Vous perdez **{amount}💔**."
+                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur, malheureusement celui-ci frappe le premier. Vous perdez **{amount}💔**."
                 ],
                 "time": [
-                    "Vous soulevez doucement le gobelet {goblet} et découvrez avec plaisir une petite pièce ! Malheureusement, l’homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{amount}🕑** à négocier avec lui avant d'abandonner et de reprendre votre route."
+                    "Vous soulevez doucement le gobelet {goblet} et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{amount}🕑** à négocier avec lui avant d'abandonner et de reprendre votre route."
                 ],
                 "nothing": [
-                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu’il n’y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois."
+                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois."
                 ],
                 "end": [
-                    "Devant votre manque de réaction, l’homme a la mauvaise idée d’essayer de vous voler. Remarquant sa manoeuvre, vous intervenez mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s’enfuir. Vous vous en sortez avec une légère blessure **{amount}💔**."
+                    "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{amount}💔**."
                 ]
             }
         },

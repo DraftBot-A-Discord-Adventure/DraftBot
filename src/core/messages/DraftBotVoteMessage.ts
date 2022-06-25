@@ -1,8 +1,7 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
-import {Client, Role, User} from "discord.js";
+import {Role, User} from "discord.js";
 import {Constants} from "../Constants";
-
-declare const client: Client;
+import {draftBotClient} from "../bot";
 
 /**
  * A embed with for the DiscordBotList votes
@@ -15,7 +14,7 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 	 */
 	constructor(user: User, role: Role) {
 		super();
-		this.setAuthor("SOMEONE HAS VOTED FOR " + client.user.username.toUpperCase() + "", null, DraftBotVoteMessage.getTopGGUrl());
+		this.setAuthor("SOMEONE HAS VOTED FOR " + draftBotClient.user.username.toUpperCase() + "", null, DraftBotVoteMessage.getTopGGUrl());
 		this.setThumbnail(user.avatarURL());
 		let desc = "**" + user.tag + "** is now a " + role.toString() + " for `";
 		if (Constants.TOPGG.ROLE_DURATION === 24) {
@@ -31,6 +30,6 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 	}
 
 	private static getTopGGUrl(): string {
-		return "https://top.gg/bot/" + client.user.id;
+		return "https://top.gg/bot/" + draftBotClient.user.id;
 	}
 }

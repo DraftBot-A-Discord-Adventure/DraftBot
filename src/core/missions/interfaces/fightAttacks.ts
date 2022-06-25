@@ -1,38 +1,47 @@
 import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
-import {Constants} from "../../Constants";
+import {RandomUtils} from "../../utils/RandomUtils";
+import {FightActionController} from "../../attacks/FightActionController";
+import {Classes} from "../../models/Class";
 
+/**
+ * get the variant from a fight action id
+ * @param idFightAction
+ */
+function fightActionIdToVariant(idFightAction: string): number {
+	return FightActionController.getAllFightActionsIds().indexOf(idFightAction);
+}
+
+/**
+ * get the fight action id from a variant
+ * @param variant
+ */
+function variantToFightActionId(variant: number): string {
+	return FightActionController.getAllFightActionsIds()[variant];
+}
+
+// TODO update la mission de campagne sur les attaques rapides
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
-		return params.attackType === variant;
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
+		return params.attackType === variantToFightActionId(variant);
 	},
 
 	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
-		return Promise.resolve(Translations.getModule("commands.fight", language).get("actions.attacks." + actionToName(variant) + (objective > 1 ? ".namePlural" : ".name")));
+		return Promise.resolve(
+			Translations.getModule(`fightactions.${variantToFightActionId(variant)}`, language)
+				.get(objective > 1 ? "namePlural" : "name")
+		);
 	},
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
+	async generateRandomVariant(difficulty, player): Promise<number> {
+		return fightActionIdToVariant(RandomUtils.draftbotRandom.pick((await Classes.getById(player.class)).getFightActions()));
 	},
 
 	initialNumberDone(): Promise<number> {
 		return Promise.resolve(0);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };
-// TODO UTILISER CELLE DE FIGHT QUAND REFACTOR
-function actionToName(action: number) {
-	switch (action) {
-	case Constants.FIGHT.ACTION.SIMPLE_ATTACK:
-		return "simple";
-	case Constants.FIGHT.ACTION.QUICK_ATTACK:
-		return "quick";
-	case Constants.FIGHT.ACTION.ULTIMATE_ATTACK:
-		return "ultimate";
-	case Constants.FIGHT.ACTION.POWERFUL_ATTACK:
-		return "powerful";
-	case Constants.FIGHT.ACTION.BULK_ATTACK:
-		return "bulk";
-	default:
-		return "unknown";
-	}
-}

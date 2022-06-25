@@ -20,7 +20,10 @@
 					},
 					{
 						"sentence": "vous passez non loin d'un marchand, celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulument son contenu. {alteEmoji}",
-						"alte": ":zany_face:"
+						"alte": ":zany_face:",
+						"tags": [
+							"drinkAlcohol"
+						]
 					},
 					{
 						"sentence": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux qu'elle contient. Vous regrettez cela immédiatement. {alteEmoji}",
@@ -67,7 +70,7 @@
 			"moneyLoss": {
 				"stories": [
 					"vous vous rendez compte que votre sac est déchiré. Après vérification, vous constatez que votre bourse a disparu, vous avez perdu **{moneyLost} :money_with_wings:**.",
-					"vous prenez conscience que votre bourse n’est plus dans votre sac. Vous vous souvenez soudain l’avoir oubliée dans la précédente taverne, vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"vous prenez conscience que votre bourse n'est plus dans votre sac. Vous vous souvenez soudain l'avoir oubliée dans la précédente taverne, vous avez perdu **{moneyLost} :money_with_wings:**.",
 					"des voyageurs passent à côté de vous en vous bousculant, puis vous relèvent en s'excusant grossièrement. Quelques minutes plus tard, vous vous apercevez que votre bourse a disparu, vous avez perdu **{moneyLost} :money_with_wings:**."
 				]
 			}
@@ -92,7 +95,10 @@
 					},
 					{
 						"sentence": "you pass not far from a merchant, who's calling you. He offers to give you a liqueur bottle which he cannot sell and does not wish to see it degrade. You accept and empty it along the way, you finish completely drunk and lose **{alteTime} {alteEmoji}**.",
-						"alte": ":zany_face:"
+						"alte": ":zany_face:",
+						"tags": [
+							"drinkAlcohol"
+						]
 					},
 					{
 						"sentence": "you see a bright object while you were walking, you hurry to see what it is and discover a bottle containing a strange fluid. You suddenly feel really thirsty and without noticing it, you drink the whole content of the bottle. You quickly feel ill and get sick for **{alteTime} {alteEmoji}**.",

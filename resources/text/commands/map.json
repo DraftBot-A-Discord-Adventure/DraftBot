@@ -3,14 +3,15 @@
 		"fr": {
 			"text": "Voici la map de DraftBot, {pseudo} !",
 			"descText": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}",
-			"descTextReached": "Vous êtes arrivés à votre destination : **{direction}**"
+			"descTextReached": "Vous êtes arrivés à votre destination : **{direction}**",
+			"URL_WITH_CURSOR": "https://draftbot.com/public/ressources/mapsCursed/{mapLink}map.jpg"
 		},
 		"en": {
 			"text": "There is the map, {pseudo} !",
 			"descText": "Currently, you are going in the direction {particle} **{direction}** : {dirDesc}",
-			"descTextReached": "You have arrived at your destination : **{direction}**"
+			"descTextReached": "You have arrived at your destination : **{direction}**",
+			"URL_WITH_CURSOR": "https://draftbot.com/public/ressources/mapsCursed/{mapLink}map.jpg"
 		}
 	},
-	"URL_WITH_CURSOR": "https://draftbot.com/public/ressources/mapsCursed/{mapLink}map.jpg",
 	"URL": "https://draftbot.com/public/ressources/map.jpg"
 }

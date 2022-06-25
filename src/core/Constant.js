@@ -80,19 +80,6 @@ global.PERMISSION = {
 	}
 };
 
-global.REWARD_TYPES = {
-	PERSONAL_XP: "personalXP",
-	GUILD_XP: "guildXp",
-	HOSPITAL: "hospital",
-	MONEY: "money",
-	FIXED_MONEY: "fixedMoney",
-	BADGE: "badge",
-	FULL_HEAL: "fullHeal",
-	PARTIAL_HEAL: "partialHeal",
-	ALTERATION: "alterationHeal",
-	PET_FOOD: "petFood"
-};
-
 global.ITEMTYPE = {
 	POTION: "potions",
 	WEAPON: "weapons",
@@ -176,12 +163,6 @@ global.QUANTITY = {
 	TEN: "🔟"
 };
 
-global.PETFREE = {
-	MEAT_GIVEN: 1,
-	GIVE_MEAT_PROBABILITY: 0.1,
-	FREE_FEISTY_COST: 1000
-};
-
 global.TOPGG = {
 	BADGE: "🗳️",
 	BADGE_DURATION: 12,
@@ -198,14 +179,7 @@ global.PETS = {
 	MAX_LOVE_POINTS: 100,
 	BASE_LOVE: 10,
 	GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
-	LOVE_LEVELS: [5, 20, 50],
-	SELL: {
-		MIN: 100,
-		MAX: 50000
-	}
-};
-global.UNLOCK = {
-	PRICE_FOR_UNLOCK: 3000
+	LOVE_LEVELS: [5, 20, 50]
 };
 
 global.LOGS = {
@@ -260,18 +234,21 @@ global.TEST_EMBED_COLOR = {
 	ERROR: "#FF0000"
 };
 
-global.ROLES = {
-	GUILD: {
-		NONE: "none",
-		MEMBER: "member",
-		ELDER: "elder",
-		CHIEF: "chief"
+global.typeVariable = {
+	INTEGER: {
+		type: "number",
+		check: (v) => !isNaN(v)
 	},
-	USER: {
-		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
-		BADGE_MANAGER: "manager", // has the badge manager role
-		SUPPORT: "support", // has the support role
-		CONTRIBUTORS: "contributors",
-		BOT_OWNER: "owner" // is the owner of the bot
+	MENTION: {
+		type: "mention",
+		check: (v) => isAMention(v)
+	},
+	EMOJI: {
+		type: "emoji",
+		check: (v) => isAnEmoji(v)
+	},
+	STRING: {
+		type: "string",
+		check: () => false
 	}
 };

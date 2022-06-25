@@ -195,7 +195,7 @@
 					"effect": ":confounded:",
 					"experience": 0,
 					"money": 0,
-					"item": true
+					"item": false
 				},
 				{
 					"translations": {

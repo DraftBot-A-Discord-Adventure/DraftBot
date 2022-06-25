@@ -2,8 +2,8 @@
 	"translations": {
 		"fr": {
 			"dmNotification": {
-				"title" : "🏟️ Notification de guilde :",
-				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
+				"title": "🏟️ Notification de guilde :",
+				"description": "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
 			},
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"rewardTitle": "Récompense de la guilde {guildName} :",
@@ -16,14 +16,15 @@
 			"hospital": ":clock1030: | Les membres de la guilde ont avancé de {timeMoved}h.",
 			"partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
 			"alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+			"alterationNoHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
 			"petFood": ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
 			"pet": "{emote} | Un familier rejoint le refuge de la guilde: **{pet}**",
 			"coolDown": "La récompense de guilde n'est disponible qu'une fois toutes les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Temps avant la prochaine récompense : {time}."
 		},
 		"en": {
 			"dmNotification": {
-				"title" : "🏟️ Guild notification :",
-				"description" : "On the server {serveur}, {pseudo} made a guilddaily."
+				"title": "🏟️ Guild notification :",
+				"description": "On the server {serveur}, {pseudo} made a guilddaily."
 			},
 			"notInAGuild": "You have to be in a guild to use this command.",
 			"rewardTitle": "{guildName} Guild's rewards:",
@@ -39,148 +40,6 @@
 			"petFood": ":candy: {quantity} treats have been added to your guild's inventory.",
 			"pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
 			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
-		}
-	},
-	"minimalXp": 20,
-	"maximalXp": 80,
-	"minimalMoney": 10,
-	"maximalMoney": 300,
-	"fixedMoney": 350,
-	"fixedPetFood": 5,
-	"levelMultiplier": 4,
-	"timeBetweenDailys": 22,
-	"guildChances": {
-		"0": {
-			"personalXP": 0,
-			"guildXp": 0,
-			"money": 970,
-			"fixedMoney": 0,
-			"badge": 0,
-			"fullHeal": 0,
-			"hospital" : 0,
-			"partialHeal": 0,
-			"alterationHeal": 30,
-			"petFood" : 0
-		},
-		"1": {
-			"personalXP": 50,
-			"guildXp": 250,
-			"money": 595,
-			"fixedMoney": 25,
-			"badge": 0,
-			"fullHeal": 2,
-			"hospital" : 3,
-			"partialHeal": 50,
-			"alterationHeal": 20,
-			"petFood": 5
-		},
-		"2": {
-			"personalXP": 50,
-			"guildXp": 250,
-			"money": 530,
-			"fixedMoney": 50,
-			"badge": 0,
-			"fullHeal": 3,
-			"hospital" : 40,
-			"partialHeal": 52,
-			"alterationHeal": 20,
-			"petFood": 5
-		},
-		"3": {
-			"personalXP": 50,
-			"guildXp": 250,
-			"money": 502,
-			"fixedMoney": 75,
-			"badge": 0,
-			"fullHeal": 4,
-			"hospital" : 40,
-			"partialHeal": 54,
-			"alterationHeal": 20,
-			"petFood": 5
-		},
-		"4": {
-			"personalXP": 100,
-			"guildXp": 250,
-			"money": 424,
-			"fixedMoney": 100,
-			"badge": 0,
-			"fullHeal": 5,
-			"hospital" : 40,
-			"partialHeal": 56,
-			"alterationHeal": 20,
-			"petFood": 5
-		},
-		"5": {
-			"personalXP": 100,
-			"guildXp": 250,
-			"money": 376,
-			"fixedMoney": 125,
-			"badge": 10,
-			"fullHeal": 6,
-			"hospital" : 40,
-			"partialHeal": 58,
-			"alterationHeal": 25,
-			"petFood": 10
-		},
-		"6": {
-			"personalXP": 100,
-			"guildXp": 250,
-			"money": 338,
-			"fixedMoney": 150,
-			"badge": 20,
-			"fullHeal": 7,
-			"hospital" : 40,
-			"partialHeal": 60,
-			"alterationHeal": 25,
-			"petFood": 10
-		},
-		"7": {
-			"personalXP": 100,
-			"guildXp": 250,
-			"money": 295,
-			"fixedMoney": 175,
-			"badge": 30,
-			"fullHeal": 8,
-			"hospital" : 40,
-			"partialHeal": 62,
-			"alterationHeal": 30,
-			"petFood": 10
-		},
-		"8": {
-			"personalXP": 150,
-			"guildXp": 250,
-			"money": 202,
-			"fixedMoney": 200,
-			"badge": 40,
-			"fullHeal": 9,
-			"hospital" : 40,
-			"partialHeal": 64,
-			"alterationHeal": 35,
-			"petFood": 10
-		},
-		"9": {
-			"personalXP": 150,
-			"guildXp": 250,
-			"money": 159,
-			"fixedMoney": 225,
-			"badge": 50,
-			"fullHeal": 10,
-			"hospital" : 40,
-			"partialHeal": 66,
-			"alterationHeal": 40,
-			"petFood": 10
-		},
-		"10": {
-			"personalXP": 200,
-			"guildXp": 0,
-			"money": 257,
-			"fixedMoney": 250,
-			"badge": 100,
-			"fullHeal": 15,
-			"hospital" : 40,
-			"partialHeal": 68,
-			"alterationHeal": 60,
-			"petFood": 10
 		}
 	}
 }

@@ -1,13 +1,10 @@
-import {
-	Sequelize,
-	QueryTypes
-} from "sequelize";
-import fs = require("fs");
+import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {minutesDisplay} from "../utils/TimeUtils";
+import fs = require("fs");
 import moment = require("moment");
 
 export class ObjectItem extends SupportItemModel {
@@ -28,7 +25,7 @@ export class ObjectItem extends SupportItemModel {
 				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
-			if (isNaN(maxStatsValue)) {
+			if (isNaN(maxStatsValue) || !maxStatsValue) {
 				maxStatsValue = Infinity;
 			}
 			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
@@ -70,8 +67,8 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM objects
-		               WHERE rarity = :rarity`;
+                       FROM objects
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -91,7 +88,7 @@ export class ObjectItems {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	ObjectItem.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "objects",

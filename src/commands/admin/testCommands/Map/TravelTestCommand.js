@@ -12,19 +12,20 @@ module.exports.commandInfo = {
 		idEnd: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
-	description: "Vous téléporte sur un chemin donné"
+	description: "Vous téléporte sur un chemin donné",
+	commandTestShouldReply: true
 };
 
 /**
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const travelTestCommand = async (language, message, args) => {
+const travelTestCommand = async (language, interaction, args) => {
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
 	if (args[0] > idMaxMap || args[0] <= 0) {
@@ -44,7 +45,7 @@ const travelTestCommand = async (language, message, args) => {
 		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
 	}
 
-	await Maps.startTravel(entity.Player, link, message.createdAt.valueOf());
+	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf());
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),

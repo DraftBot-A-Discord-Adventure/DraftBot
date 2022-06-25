@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque rapide",
+			"namePlural": "Attaques rapides"
+		},
+		"en": {
+			"name": "Quick attack",
+			"namePlural": "Quick attacks"
+		}
+	},
+	"emote": "\uD83D\uDDE1️"
+}

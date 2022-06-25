@@ -11,18 +11,19 @@ module.exports.commandInfo = {
 		"difficulty": typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Permet de se donner une mission spécifique"
+	description: "Permet de se donner une mission spécifique",
+	commandTestShouldReply: true
 };
 
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const giveMissionTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const giveMissionTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const missionId = args[0];
 	if (!JsonReader.missions[missionId]) {
@@ -32,7 +33,10 @@ const giveMissionTestCommand = async (language, message, args) => {
 		throw new Error("Cette mission n'est disponible que pour la campagne !");
 	}
 
-	const difficulty = args[1];
+	let difficulty = args[1];
+	if (difficulty in ["easy", "medium", "hard"]) {
+		difficulty = difficulty[0];
+	}
 	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
@@ -41,7 +45,7 @@ const giveMissionTestCommand = async (language, message, args) => {
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		desc: (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
+		desc: await (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
 		objective: missionSlot.missionObjective
 	});
 };

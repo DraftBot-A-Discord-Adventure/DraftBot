@@ -1,8 +1,8 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {EmbedFieldData} from "discord.js";
-
-declare const JsonReader: any;
-declare function format(s: string, replacement: any): string;
+import {format} from "../utils/StringFormatter";
+import {Translations} from "../Translations";
+import {Data} from "../Data";
 
 /**
  * Shelter embed
@@ -53,33 +53,33 @@ export class DraftBotShelterMessageBuilder {
 	/**
 	 * Creates the {@link DraftBotShelterMessage}
 	 */
-	async build(): Promise<DraftBotShelterMessage> {
-		const tr = JsonReader.commands.guildShelter.getTranslation(this._language);
-		const title = format(tr.embedTitle, {
+	build(): DraftBotShelterMessage {
+		const tr = Translations.getModule("commands.guildShelter", this._language);
+		const title = format(tr.get("embedTitle"), {
 			guild: this._guild.name,
 			count: this._guild.GuildPets.length,
-			max: JsonReader.models.pets.slots
+			max: Data.getModule("models.pets").getNumber("slots")
 		});
-		const thumbnail = JsonReader.commands.guild.icon;
+		const thumbnail = Data.getModule("commands.guild").getString("icon");
 		let description = "";
 		const fields: EmbedFieldData[] = [];
 
 		if (this._guild.GuildPets.length === 0) {
-			description = JsonReader.commands.guildShelter.getTranslation(this._language).noPetMessage;
+			description = tr.get("noPetMessage");
 		}
 		else {
 			for (let i = 0; i < this._guild.GuildPets.length; ++i) {
 				const pet = this._guild.GuildPets[i];
 				fields.push({
 					name: pet.PetEntity.getPetTitle(this._language, i + 1),
-					value: await pet.PetEntity.getPetDisplay(this._language),
+					value: pet.PetEntity.getPetDisplay(this._language),
 					inline: true
 				});
 			}
 		}
 
 		if (this._guild.isPetShelterFull()) {
-			description = JsonReader.commands.guildShelter.getTranslation(this._language).warningFull;
+			description = tr.get("warningFull");
 		}
 
 		return new DraftBotShelterMessage(title, description, fields, thumbnail);

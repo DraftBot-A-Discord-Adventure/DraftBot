@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque sabotage",
+			"namePlural": "Attaques sabotages"
+		},
+		"en": {
+			"name": "Sabotage attack",
+			"namePlural": "Sabotage attacks"
+		}
+	},
+	"emote": "\uD83D\uDEE0️"
+}

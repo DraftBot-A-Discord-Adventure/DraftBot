@@ -3,7 +3,6 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
 import {Guilds} from "./models/Guild";
-import {BlockingUtils} from "./utils/BlockingUtils";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -48,8 +47,7 @@ global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\
 	.test(variable);
 
 module.exports = {
-	isAMention: isAMention,
-	isAnEmoji: isAnEmoji
+	isAMention: isAMention, isAnEmoji: isAnEmoji
 };
 
 /**
@@ -61,8 +59,7 @@ global.sendMessageAttachments = (message, channel) => {
 	message.attachments.forEach((element) => {
 		channel.send({
 			files: [{
-				attachment: element.url,
-				name: element.filename
+				attachment: element.url, name: element.filename
 			}]
 		});
 	});
@@ -75,43 +72,17 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
+ * @param {CommandInteraction} interaction
  */
-global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send({ embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)] });
-
-/**
- * Send a dm to a user
- * @param {module:"discord.js".User} user
- * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
- * @param {String} description - Description of the DM
- * @param {module:"discord.js".color} color - Color of the DM
- * @param {("fr"|"en")} language - Language to use in the response
- */
-global.sendDirectMessage = (user, title, description, color, language) => {
-	try {
-		user.send({ embeds: [new DraftBotEmbed()
-			// Ignore this for now
-			// .setColor(color)
-			.formatAuthor(title, user)
-			.setDescription(description)
-			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter)] });
-		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
+global.sendErrorMessage = function(user, channel, language, reason, isCancelling = false, interaction = null) {
+	if (interaction) {
+		if (isCancelling) {
+			return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, true)]});
+		}
+		return interaction.reply({embeds: [new DraftBotErrorEmbed(user, language, reason, false)], ephemeral: true});
 	}
-	catch (err) {
-		log("user" + user.id + "has closed dms !");
-	}
+	return channel.send({embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)]});
 };
-
-
-/**
- * Send a simple message in a channel
- * @param {module:"discord.js".User} user
- * @param {module:"discord.js".TextChannel} channel
- * @param {String} title - the title of the message
- * @param {String} message - the message
- */
-global.sendSimpleMessage = (user, channel, title, message) => channel.send({ embeds: [new DraftBotEmbed()
-	.formatAuthor(title, user)
-	.setDescription(message)] });
 
 /**
  * @deprecated Use ItemUtils.giveItemToPlayer instead
@@ -142,18 +113,13 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
 	const titleEmbedDestroyPotionMessage = isAutoSell
 		? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
 		: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
-	return await channel.send({ embeds: [
-		new DraftBotEmbed()
+	return await channel.send({
+		embeds: [new DraftBotEmbed()
 			.formatAuthor(titleEmbedDestroyPotionMessage, discordUser)
-			.setDescription(
-				format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-					{
-						item: item.getName(language),
-						frenchMasculine: item.frenchMasculine
-					}
-				)
-			)
-	] }); // potion are not sold (because of exploits and because of logic)
+			.setDescription(format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage, {
+				item: item.getName(language), frenchMasculine: item.frenchMasculine
+			}))]
+	}); // potion are not sold (because of exploits and because of logic)
 };
 
 /**
@@ -260,25 +226,8 @@ global.progressBar = (value, maxValue) => {
  * @return {Number} - The value of the item
  */
 global.getItemValue = function(item) {
+	// todo: raritiesValues a été déplacé dans les constants.ts
 	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + item.getItemAddedValue();
-};
-
-/**
- * Send an error if the user is blocked by a command
- * @param {module:"discord.js".User} user
- * @param {module:"discord.js".TextChannel} channel
- * @param {"fr"|"en"} language
- * @returns {boolean}
- */
-global.sendBlockedError = async function(user, channel, language) {
-	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
-	if (blockingReason !== null) {
-		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-			context: JsonReader.error.getTranslation(language).blockedContext[blockingReason]
-		}));
-		return true;
-	}
-	return false;
 };
 
 /**
@@ -358,17 +307,8 @@ global.getValidationInfos = function(guild) {
 		validation = ":warning:";
 	}
 	return {
-		validation: validation,
-		humans: humans,
-		bots: bots,
-		ratio: ratio
+		validation: validation, humans: humans, bots: bots, ratio: ratio
 	};
-};
-
-global.checkNameString = (name, minLength, maxLength) => {
-	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
-	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
 /**
@@ -383,63 +323,39 @@ global.isStorageFullFor = (selectedItem, quantity, guild) => guild[selectedItem.
 global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	if (isStorageFullFor(selectedItem, quantity, guild)) {
-		return sendErrorMessage(
-			author,
-			message.channel,
-			language,
-			JsonReader.commands.guildShop.getTranslation(language).fullStock
-		);
+		return sendErrorMessage(author, message.channel, language, JsonReader.commands.guildShop.getTranslation(language).fullStock);
 	}
 	guild[selectedItem.type] += quantity;
 	await Promise.all([guild.save()]);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.guildShop.getTranslation(language).success, author);
 	if (quantity === 1) {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.singleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name: selectedItem.translations[language].name
-						.slice(2, -2)
-						.toLowerCase()
-				}
-			)
-		);
+		successEmbed.setDescription(format(JsonReader.commands.guildShop.getTranslation(language).singleSuccessAddFoodDesc, {
+			emote: selectedItem.emote, quantity: quantity, name: selectedItem.translations[language].name
+				.slice(2, -2)
+				.toLowerCase()
+		}));
 	}
 	else {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.multipleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name:
-						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
-							.slice(2, -2)
-							.toLowerCase()
-							.replace(
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0],
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0]
-									.concat("s")
-							)
-							: selectedItem.translations[language].name
-								.slice(2, -2)
-								.toLowerCase()
-				}
-			)
-		);
+		successEmbed.setDescription(format(JsonReader.commands.guildShop.getTranslation(language).multipleSuccessAddFoodDesc, {
+			emote: selectedItem.emote,
+			quantity: quantity,
+			name: selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
+				.slice(2, -2)
+				.toLowerCase()
+				.replace(selectedItem.translations[language].name
+					.slice(2, -2)
+					.toLowerCase()
+					.split(" ")[0], selectedItem.translations[language].name
+					.slice(2, -2)
+					.toLowerCase()
+					.split(" ")[0]
+					.concat("s")) : selectedItem.translations[language].name
+				.slice(2, -2)
+				.toLowerCase()
+		}));
 	}
-	return message.channel.send({ embeds: [successEmbed] });
+	return message.channel.send({embeds: [successEmbed]});
 };
 
 

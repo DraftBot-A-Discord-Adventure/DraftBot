@@ -3,7 +3,7 @@
 		10
 	],
 	"translations": {
-		"fr": "⚔ Vous êtes tellement épuisé que vous avez du mal à marcher. C'est alors que vous apercevez un village, vous êtes sauvé ! Vous arrivez non sans peines jusqu'au village et parvenez à sympathiser avec un groupe de villageois qui acceptent de vous nourrir et vous trouvent un endroit où dormir. Vous pensez bientôt partir, mais l’un des villageois vient vous demander une faveur. Vous faisant miroiter de grandes richesses, l'habitant vous supplie de les débarrasser du châtelain voisin.",
+		"fr": "⚔ Vous êtes tellement épuisé que vous avez du mal à marcher. C'est alors que vous apercevez un village, vous êtes sauvé ! Vous arrivez non sans peine jusqu'au village et parvenez à sympathiser avec un groupe de villageois qui acceptent de vous nourrir et vous trouvent un endroit où dormir. Vous pensez bientôt partir, mais l'un des villageois vient vous demander une faveur. Vous faisant miroiter de grandes richesses, l'habitant vous supplie de les débarrasser du châtelain voisin.",
 		"en": "⚔ You have been so tired that you have trouble walking. This is when you see a village. Saved! Not without pain, you finally arrive to the village. From the sympathy of a group of villagers, you find a place to sleep and food to eat. You plan to leave soon, however, a villager asks you for a favor. Shining you with vast wealth, the villager requests you to help them dethrone the chatelain of the neighboring castle."
 	},
 	"possibilities": {
@@ -27,7 +27,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous et les villageois organisez une rébellion ! Malheureusement, lorsque vous décidez d'attaquer un garde, les villageois trop effrayés ne vous suivent pas et s’enfuient. Votre adversaire vous donne un violent coup de poing qui vous fait tomber à la renverse, le garde en profite pour vous voler votre bourse.",
+						"fr": "Vous et les villageois organisez une rébellion ! Malheureusement, lorsque vous décidez d'attaquer un garde, les villageois trop effrayés ne vous suivent pas et s'enfuient. Votre adversaire vous donne un violent coup de poing qui vous fait tomber à la renverse, le garde en profite pour vous voler votre bourse.",
 						"en": "You and the villagers plan a rebellion ! Unfortunately, when you decide to attack a guard, the villagers are too frightened to follow you and flee. Your opponent gives you a violent strike that knocks you down, the guard takes advantage of the situation to steal your purse."
 					},
 					"lostTime": 0,
@@ -51,7 +51,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous profitez de votre statut de chevalier pour visiter le châtelain, après les introductions, vous lui révélez la raison de votre venue en enfonçant une dague dans le cœur. Les gardes réagissent immédiatement et vous entourent. L’un d’entre eux vous donne un coup d'épée que vous parvenez à esquiver, mais un autre se précipite sur vous et vous transperce de sa lame.",
+						"fr": "Vous profitez de votre statut de chevalier pour visiter le châtelain, après les introductions, vous lui révélez la raison de votre venue en enfonçant une dague dans le cœur. Les gardes réagissent immédiatement et vous entourent. L'un d'entre eux vous donne un coup d'épée que vous parvenez à esquiver, mais un autre se précipite sur vous et vous transperce de sa lame.",
 						"en": "You take advantage of your knight status to visit the castle's lord, after introductions, you reveal the reason of your coming by sticking a dagger in his heart. The guards react immediately and surround you. One of them gives you a sword strike that you manage to dodge, but another rushes at you and pierces you with his blade."
 					},
 					"lostTime": 0,
@@ -63,7 +63,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous tentez d’assiéger le château du seigneur avec le village mais la nuit tombe, vous décidez donc de dormir devant le château. Le seigneur en profite pour sortir avec ses hommes et arrive jusqu’à votre campement, mais un villageois alerte tout le monde. Vous vous précipitez sur le seigneur et le pourfendez d'un agile coup d'épée. Les gardes se rendent et les villageois vous donnent une bourse remplie d'or pour vous remercier de les avoir aidé !",
+						"fr": "Vous tentez d'assiéger le château du seigneur avec le village mais la nuit tombe, vous décidez donc de dormir devant le château. Le seigneur en profite pour sortir avec ses hommes et arrive jusqu'à votre campement, mais un villageois alerte tout le monde. Vous vous précipitez sur le seigneur et le pourfendez d'un agile coup d'épée. Les gardes se rendent et les villageois vous donnent une bourse remplie d'or pour vous remercier de les avoir aidé !",
 						"en": "You try to siege the lord's castle with the village but the night falls, therefore, you decide to sleep in front of the castle. The lord took advantage of the situation to go out with his man and reach the camp, but a villager alerts everyone. You rush on the lord and send him an agile sword strike. The guards surrender and the villagers give you a purse filled with gold to thank you for helping them !"
 					},
 					"lostTime": 0,
@@ -75,7 +75,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous allez voir le seigneur et lui annoncez que son village compte organiser une rébellion. Après avoir longuement discuté, vous parvenez à gagner sa confiance et en profitez pour lui enfoncer une dague dans le cœur. Les gardes loyaux au seigneur se précipitent sur vous et vous immobilisent. L’un d'eux propose de vous exécuter devant le village tout entier pour faire passer le message mais la révolte fait alors rage ! Les villageois finissent par réussir à faire fuir les gardes et vous offrent une large bourse d’or pour vous remercier.",
+						"fr": "Vous allez voir le seigneur et lui annoncez que son village compte organiser une rébellion. Après avoir longuement discuté, vous parvenez à gagner sa confiance et en profitez pour lui enfoncer une dague dans le cœur. Les gardes loyaux au seigneur se précipitent sur vous et vous immobilisent. L'un d'eux propose de vous exécuter devant le village tout entier pour faire passer le message mais la révolte fait alors rage ! Les villageois finissent par réussir à faire fuir les gardes et vous offrent une large bourse d'or pour vous remercier.",
 						"en": "You go see the lord and announce him that his village is planning a rebellion. After a long discussion, you manage to gain his trust and seize the opportunity to pierce his heart with a dagger. The Lord's loyal guards rush on you and immobilize you. One of them propose to execute you in front of the villagers to get the message across, but the rebellion is raging ! The villagers end up making the guards flee and offer you a large purse filled with gold to thank you."
 					},
 					"lostTime": 0,
@@ -87,7 +87,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous allez voir le seigneur et lui annoncez qu'une rébellion s'organise. Après avoir longuement discuté, vous parvenez à gagner sa confiance et lui enfoncez une dague dans le cœur. Les gardes loyaux au dirigeant vous attaquent, mais d’autres qui ne souhaitaient que sa mort vous aident à fuir. De retour au village, on vous offre un peu d’argent et un objet pouvant être utile.",
+						"fr": "Vous allez voir le seigneur et lui annoncez qu'une rébellion s'organise. Après avoir longuement discuté, vous parvenez à gagner sa confiance et lui enfoncez une dague dans le cœur. Les gardes loyaux au dirigeant vous attaquent, mais d'autres qui ne souhaitaient que sa mort vous aident à fuir. De retour au village, on vous offre un peu d'argent et un objet pouvant être utile.",
 						"en": "You go see the Lord and announce him that a rebellion is being planned. After a long discussion, you manage to gain his trust and seize the opportunity to pierce his heart with a dagger. The loyal guards attack you, but other's that only wanted the Lord's death help you flee. Back in the village, we offer you a bit of money and an item that could be useful."
 					},
 					"lostTime": 0,
@@ -119,7 +119,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous allez visiter le seigneur et lui contez la traîtrise régnant dans le village voisin, vous lui annoncez que vous êtes prêt à lui donner le nom des dissidents en échange d’une importante somme d'argent. Il accepte votre offfe et vous le conduisez jusqu'aux traîtres, qu'il exécute sous vos yeux. Sur la route, vous vérifiez la bourse qu'il vous a donné et vous rendez compte qu'elle ne contient que peu de pièces !",
+						"fr": "Vous allez visiter le seigneur et lui contez la traîtrise régnant dans le village voisin, vous lui annoncez que vous êtes prêt à lui donner le nom des dissidents en échange d'une importante somme d'argent. Il accepte votre offfe et vous le conduisez jusqu'aux traîtres, qu'il exécute sous vos yeux. Sur la route, vous vérifiez la bourse qu'il vous a donné et vous rendez compte qu'elle ne contient que peu de pièces !",
 						"en": "You go visit the lord and tell him of the reigning betrayal in the nearby village, you announce him that you are ready to seize it in exchange of a large amount of money. He accepts your offer and you lead him to the traitor who is executed before your eyes. On the road, you verify the purse that he gave you and see that it only contains a small amount of money !"
 					},
 					"lostTime": 0,
@@ -251,7 +251,7 @@
 				},
 				{
 					"translations": {
-						"fr": "🏃 Vous ne réagissez pas, et lorsque votre interlocuteur s’en va, vous fuyez le village pour ne pas avoir d'ennuis avec le seigneur.",
+						"fr": "🏃 Vous ne réagissez pas, et lorsque votre interlocuteur s'en va, vous fuyez le village pour ne pas avoir d'ennuis avec le seigneur.",
 						"en": "🏃 You do not react, and when your interlocutor leaves, you run away from the village so you don't get in trouble with the lord."
 					},
 					"lostTime": 0,

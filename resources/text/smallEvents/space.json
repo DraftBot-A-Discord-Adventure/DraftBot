@@ -53,7 +53,7 @@
 				"il déclare que"
 			],
 			"outro": [
-				"Vous repartez ébahit par cette nouvelle",
+				"Vous repartez ébahi par cette nouvelle",
 				"Vous reprenez votre chemin rêveur",
 				"Vous le remerciez et repartez heureux d'avoir appris cette nouvelle",
 				"Vous le quittez plein d'étoiles dans les yeux",
@@ -96,10 +96,10 @@
 				]
 			},
 			"moonPhases": [
-				"la nouvelle lune",
-				"le premier quartier de la lune",
-				"la pleine lune",
-				"le dernier quartier de la lune"
+				"la nouvelle Lune",
+				"le premier quartier de la Lune",
+				"la pleine Lune",
+				"le dernier quartier de la Lune"
 			],
 			"names": [
 				"Claude",

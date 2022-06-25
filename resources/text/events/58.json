@@ -45,7 +45,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous entrer dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et sentez un sentiment de réconfort émaner en vous. Vous décrivez les effets à l'homme et sortez de la hutte, revigoré.",
+						"fr": "Vous entrez dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et sentez un sentiment de réconfort émaner en vous. Vous décrivez les effets à l'homme et sortez de la hutte, revigoré.",
 						"en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and feel a sense of comfort emanating from you. You describe the effects to the man and come out of the hut, reinvigorated."
 					},
 					"lostTime": 0,
@@ -60,7 +60,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous entrer dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et le recrachez directement mais il semble qu'il reste encore un peu de ce poison au fond de votre gorge. ",
+						"fr": "Vous entrez dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et le recrachez directement mais il semble qu'il reste encore un peu de ce poison au fond de votre gorge. ",
 						"en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some of the poison still in your throat. "
 					},
 					"lostTime": 0,

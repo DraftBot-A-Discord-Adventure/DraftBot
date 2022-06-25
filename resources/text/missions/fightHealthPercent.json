@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagner {objective} combat{objective>1?s:} avec moins de {variantText}% de votre vie restante"
+		},
+		"en": {
+			"desc": "Win {objective} fight{objective>1?s:} with less than {variantText}% of your health remaining"
+		}
+	},
+	"campaignOnly": true
+}

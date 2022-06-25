@@ -3,25 +3,12 @@ import {Translations} from "../Translations";
 import {DataTypes} from "sequelize";
 import {Constants} from "../Constants";
 
+type FieldObject = { name: string, value: string, inline: boolean }
+
 export abstract class SupportItemModel extends GenericItemModel {
 	public readonly power!: number;
 
 	public readonly nature!: number;
-
-
-	protected toFieldObject(language: string, maxStatsValue: number) {
-		const tr = Translations.getModule("items", language);
-		const name = this.getName(language);
-		return {
-			name: tr.get(this.categoryName + ".fieldName"),
-			value: this.id === 0 ? name : tr.format("potions.fieldValue", {
-				name,
-				rarity: this.getRarityTranslation(language),
-				nature: this.getNatureTranslation(language, maxStatsValue)
-			}),
-			inline: false
-		};
-	}
 
 	public toString(language: string, maxStatsValue: number): string {
 		const name = this.getName(language);
@@ -45,6 +32,20 @@ export abstract class SupportItemModel extends GenericItemModel {
 	}
 
 	public abstract getNatureTranslation(language: string, maxStatsValue: number): string;
+
+	protected toFieldObject(language: string, maxStatsValue: number): FieldObject {
+		const tr = Translations.getModule("items", language);
+		const name = this.getName(language);
+		return {
+			name: tr.get(this.categoryName + ".fieldName"),
+			value: this.id === 0 ? name : tr.format("potions.fieldValue", {
+				name,
+				rarity: this.getRarityTranslation(language),
+				nature: this.getNatureTranslation(language, maxStatsValue)
+			}),
+			inline: false
+		};
+	}
 }
 
 export const SupportItemModelAttributes = {

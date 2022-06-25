@@ -38,7 +38,7 @@
 			"healthLoose": "** | :broken_heart: Life lost: ** {health}",
 			"health": "** | :heart: Life gained: ** {health}",
 			"timeLost": "** | :clock10: Time spent: ** {timeLost}",
-			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don’t have any new reports! Come back in a few hours!",
+			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don't have any new reports! Come back in a few hours!",
 			"travellingTitle" : "You are currently moving forward!",
 			"travellingDescriptionWithoutSmallEvent" : "Everything is going well for you. Next stop scheduled in **{time}**.",
 			"travellingDescription" : "Everything is going well since your last adventure {smallEventEmoji}. Next stop scheduled in **{time}**.",

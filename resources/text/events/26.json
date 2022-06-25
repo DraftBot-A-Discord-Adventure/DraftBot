@@ -116,7 +116,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous atteignez le coffret. Vous l'ouvrez et découvrez un sac rempli d'argent.",
+						"fr": "En vous éloignant, vous apercevez au loin un coffret. Après quelques minutes de marche, vous atteignez le coffret. Vous l'ouvrez et découvrez un sac rempli d'argent.",
 						"en": "During your run, you see an open box in the distance. After a few minutes of walking, you discover a bag full of money inside it."
 					},
 					"lostTime": 10,

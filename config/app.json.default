@@ -17,9 +17,6 @@
   "//CONTRIBUTORS_CHANNEL": "Put id of the contributors channel",
   "CONTRIBUTORS_CHANNEL": "",
 
-  "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
-  "BOT_OWNER_PREFIX": "",
-
   "//MAIN_SERVER_ID": "Put id of the discord server where the support will be done",
   "MAIN_SERVER_ID": "",
 

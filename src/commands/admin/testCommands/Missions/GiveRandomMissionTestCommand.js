@@ -12,12 +12,13 @@ export const commandInfo = {
 		difficulty: typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Donne une mission aléatoire"
+	description: "Donne une mission aléatoire",
+	commandTestShouldReply: true
 };
 
-const giveRandomMissionTestCommand = async (language, message, args) => {
+const giveRandomMissionTestCommand = async (language, interaction, args) => {
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	if (!entity.Player.hasEmptyMissionSlot()) {
 		throw new Error("Les slots de mission du joueur sont tous pleins");
 	}

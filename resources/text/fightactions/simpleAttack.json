@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque simple",
+			"namePlural": "Attaques simples"
+		},
+		"en": {
+			"name": "Simple attack",
+			"namePlural": "Simple attacks"
+		}
+	},
+	"emote": "⚔️"
+}

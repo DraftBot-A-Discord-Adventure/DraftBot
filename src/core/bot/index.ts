@@ -1,18 +1,15 @@
 import {DraftBot} from "./DraftBot";
-import {Client, Guild, Intents, Message, TextChannel} from "discord.js";
+import {Client, Guild, Intents, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../models/Server";
 import {IPCClient} from "./ipc/IPCClient";
+import {Constants} from "../Constants";
 
 // TODO changed when Data.ts will be merged
 declare const JsonReader: any;
 // TODO change
 declare const getValidationInfos: any;
-// TODO change
-declare const handlePrivateMessage: any;
-// TODO change
-declare const handleMessage: any;
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -73,7 +70,7 @@ const main = async function() {
 				Intents.FLAGS.GUILD_MEMBERS, // For tops
 				// Intents.FLAGS.GUILD_BANS We don't need to ban or unban
 				// Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS We don't need to create emojis or stickers
-				// Intents.FLAGS.GUILD_INTEGRATIONS Not sure what it is so disable it
+				Intents.FLAGS.GUILD_INTEGRATIONS,
 				// Intents.FLAGS.GUILD_WEBHOOKS We don't need to create webhooks
 				// Intents.FLAGS.GUILD_INVITES We don't need to create or delete invites
 				// Intents.FLAGS.GUILD_VOICE_STATES We don't use voice
@@ -85,7 +82,8 @@ const main = async function() {
 				Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
 				// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
 			],
-			allowedMentions: { parse: ["users", "roles"] },
+			restRequestTimeout: Constants.MAX_TIME_BOT_RESPONSE, // allows the senddata command to succeed
+			allowedMentions: {parse: ["users", "roles"]},
 			partials: ["MESSAGE", "CHANNEL"]
 		}
 	);
@@ -112,7 +110,7 @@ const main = async function() {
 
 	/**
 	 * Get the message when the bot joins or leaves a guild
-	 * @param {module:"discord.js".Guild} guild
+	 * @param {Guild} guild
 	 * @param {boolean} join
 	 * @param {"fr"|"en"} language
 	 * @return {string}
@@ -132,27 +130,9 @@ const main = async function() {
 			});
 	};
 
-	/**
-	 * Will be executed each time the bot see a message
-	 * @param {module:"discord.js".Message} message
-	 * @return {Promise<void>}
-	 */
-	const onDiscordMessage = async (message: Message) => {
-		if (message.author.bot) {
-			return;
-		}
-		if (message.channel.type === "DM") {
-			await handlePrivateMessage(message);
-		}
-		else {
-			await handleMessage(message);
-		}
-	};
-
 	client.on("ready", () => console.log("Client ready"));
 	client.on("guildCreate", onDiscordGuildCreate);
 	client.on("guildDelete", onDiscordGuildDelete);
-	client.on("messageCreate", onDiscordMessage);
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore

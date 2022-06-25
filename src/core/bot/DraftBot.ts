@@ -12,18 +12,17 @@ import {botConfig, draftBotClient, shardId} from "./index";
 import Shop from "../models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../models/Entity";
+import {CommandsManager} from "../../commands/CommandsManager";
+import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 
 require("colors");
 require("../Constant");
 require("../MessageError");
 require("../Tools");
 
-// TODO refactor when TimeUtils will be merged
-declare const getNextSundayMidnight: () => Date;
-// TODO refactor when TimeUtils will be merged
-declare const getNextDay2AM: () => Date;
-
 export class DraftBot {
+	public readonly client: Client;
+
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
@@ -32,53 +31,16 @@ export class DraftBot {
 
 	private currLogsCount: number;
 
-	public readonly client: Client;
-
 	constructor(client: Client, config: DraftBotConfig, isMainShard: boolean) {
 		this.client = client;
 		this.config = config;
 		this.isMainShard = isMainShard;
 	}
 
-	async init() {
-		this.handleLogs();
-
-		await require("../JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents", "resources/text/missions"],
-			files: [
-				"config/app.json",
-				"draftbot/package.json",
-				"resources/text/error.json",
-				"resources/text/bot.json",
-				"resources/text/classesValues.json",
-				"resources/text/advices.json",
-				"resources/text/smallEventsIntros.json",
-				"resources/text/values.json",
-				"resources/text/items.json",
-				"resources/text/food.json",
-				"resources/text/campaign.json"
-			]
-		});
-		await require("../Database").init(this.isMainShard);
-		await require("../Command").init();
-		await require("../fights/Attack").init();
-		if (this.config.TEST_MODE === true) {
-			await require("../CommandsTest").init();
-		}
-
-		if (this.isMainShard) { // Do this only if it's the main shard
-			await DraftBotBackup.init();
-			DraftBot.programTopWeekTimeout();
-			DraftBot.programDailyTimeout();
-			setTimeout(
-				DraftBot.fightPowerRegenerationLoop,
-				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
-			);
-			checkMissingTranslations();
-		}
-	}
-
-	static programTopWeekTimeout() {
+	/**
+	 * launch the program that execute the top week reset
+	 */
+	static programTopWeekTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -88,7 +50,10 @@ export class DraftBot {
 		setTimeout(DraftBot.topWeekEnd, millisTill);
 	}
 
-	static programDailyTimeout() {
+	/**
+	 * launch the program that execute the daily tasks
+	 */
+	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
@@ -98,12 +63,18 @@ export class DraftBot {
 		setTimeout(DraftBot.dailyTimeout, millisTill);
 	}
 
-	static dailyTimeout() {
-		DraftBot.randomPotion();
-		DraftBot.randomLovePointsLoose();
+	/**
+	 * execute all the daily tasks
+	 */
+	static dailyTimeout(): void {
+		DraftBot.randomPotion().finally(() => null);
+		DraftBot.randomLovePointsLoose().finally(() => null);
 		DraftBot.programDailyTimeout();
 	}
 
+	/**
+	 * update the random potion sold in the shop
+	 */
 	static async randomPotion() {
 		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
@@ -118,7 +89,8 @@ export class DraftBot {
 		let i = 0;
 		while (potion[i].id === shopPotion.shopPotionId || potion[i].nature === Constants.NATURE.NONE || potion[i].rarity >= Constants.RARITY.LEGENDARY) {
 			i++;
-		} potion = potion[i];
+		}
+		potion = potion[i];
 
 		await Shop.update(
 			{
@@ -135,6 +107,9 @@ export class DraftBot {
 		console.info(`INFO : new potion in shop : ${potion.id}`);
 	}
 
+	/**
+	 * make some pet lose some love points
+	 */
 	static async randomLovePointsLoose() {
 		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
@@ -142,7 +117,7 @@ export class DraftBot {
 			await PetEntity.update(
 				{
 					lovePoints: sequelize.literal(
-						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
+						"CASE WHEN lovePoints - 4 < 0 THEN 0 ELSE lovePoints - 4 END"
 					)
 				},
 				{
@@ -156,6 +131,9 @@ export class DraftBot {
 		}
 	}
 
+	/**
+	 * End the top week
+	 */
 	static async topWeekEnd() {
 		const winner = await Entity.findOne({
 			include: [
@@ -208,7 +186,7 @@ export class DraftBot {
 				}
 			});
 			winner.Player.addBadge("🎗️");
-			winner.Player.save();
+			await winner.Player.save();
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
@@ -217,23 +195,73 @@ export class DraftBot {
 		DraftBot.programTopWeekTimeout();
 	}
 
-	static async fightPowerRegenerationLoop() {
+	/**
+	 * update the fight points of the entities that lost some
+	 */
+	static fightPowerRegenerationLoop() {
 		const sequelize = require("sequelize");
-		await Entity.update(
+		Entity.update(
 			{
 				fightPointsLost: sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`
 				)
 			},
 			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
-		);
+		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
-			Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
+			minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
 		);
 	}
 
-	updateGlobalLogsFile(now: Date) {
+	/**
+	 * initialize the bot
+	 */
+	async init() {
+		this.handleLogs();
+
+		await require("../JsonReader").init({
+			folders: [
+				"resources/text/commands",
+				"resources/text/models",
+				"resources/text/smallEvents",
+				"resources/text/missions",
+				"resources/text/messages",
+				"resources/text/fightactions",
+				"resources/text/classes"
+			],
+			files: [
+				"config/app.json",
+				"draftbot/package.json",
+				"resources/text/error.json",
+				"resources/text/bot.json",
+				"resources/text/classesValues.json",
+				"resources/text/advices.json",
+				"resources/text/smallEventsIntros.json",
+				"resources/text/items.json",
+				"resources/text/food.json",
+				"resources/text/campaign.json"
+			]
+		});
+		await require("../Database").init(this.isMainShard);
+		await CommandsManager.register(draftBotClient);
+		if (this.config.TEST_MODE === true) {
+			await require("../CommandsTest").init();
+		}
+
+		if (this.isMainShard) { // Do this only if it's the main shard
+			await DraftBotBackup.init();
+			DraftBot.programTopWeekTimeout();
+			DraftBot.programDailyTimeout();
+			setTimeout(
+				DraftBot.fightPowerRegenerationLoop.bind(DraftBot),
+				minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
+			);
+			checkMissingTranslations();
+		}
+	}
+
+	updateGlobalLogsFile(now: Date): void {
 		/* Find first available log file */
 		let i = 1;
 		do {
@@ -251,7 +279,7 @@ export class DraftBot {
 		} while (fs.existsSync(this.currLogsFile));
 	}
 
-	handleLogs() {
+	handleLogs(): void {
 		const now = Date.now();
 		const originalConsoleLog = console.log;
 

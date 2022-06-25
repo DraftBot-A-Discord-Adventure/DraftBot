@@ -3,7 +3,8 @@ module.exports.commandInfo = {
 	name: "dailytimeout",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez effectué un dailytimeout !",
-	description: "Effectue un dailytimeout (action journalière qui actualise la potion du jour et retire des lovePoints des pets)"
+	description: "Effectue un dailytimeout (action journalière qui actualise la potion du jour et retire des lovePoints des pets)",
+	commandTestShouldReply: true
 };
 
 /**

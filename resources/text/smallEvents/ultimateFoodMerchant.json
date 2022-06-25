@@ -2,12 +2,12 @@
     "translations": {
         "fr": {
             "intrigue": [
-                "en observant le paysage alentour, vous ne remarquez pas l’homme qui est devant vous et le bousculez. Vous vous excusez et, l'homme étant fort sympathique, vous êtes rapidement pardonné et engagé dans une discussion. Il se prénomme « Gaspard-Jo », et c’est un marchand de soupe. Par sa grande générosité, il récompense le talent des joueurs qu’il trouve sur son chemin. ",
+                "en observant le paysage alentour, vous ne remarquez pas l'homme qui est devant vous et le bousculez. Vous vous excusez et, l'homme étant fort sympathique, vous êtes rapidement pardonné et engagé dans une discussion. Il se prénomme « Gaspard-Jo », et c'est un marchand de soupe. Par sa grande générosité, il récompense le talent des joueurs qu'il trouve sur son chemin. ",
                 "une petite roulotte avec une cheminée se dirige vers vous. Vous prenez la peine de saluer poliment le marchand, qui, après une rapide discussion durant laquelle vous apprenez qu'il s'appelle « Gaspard-Jo », s'avère vouloir vous récompenser pour vos bonnes actions. "
             ],
             "rewards": {
                 "ultimateFood": [
-                    "Il vous tend plusieurs **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
+                    "Il vous tend **{reward} soupe{reward>1?s:} ultime{reward>1?s:}**, que vous rangez soigneusement."
                 ],
                 "fullUltimateFood": [
                     "Il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de les lui rendre."

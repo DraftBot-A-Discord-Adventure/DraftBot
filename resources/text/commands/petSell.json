@@ -1,9 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"needArgs": "Veuillez préciser un prix pour finaliser la vente : `petsell [prix]`",
 			"sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
-			"needNumber": "Le prix entré semble incorrect. Veuillez indiquer un nombre : `petsell [prix]`",
 			"badPrice": "Le prix doit être supérieur à `{minPrice}\uD83D\uDCB0` et inférieur à `{maxPrice}\uD83D\uDCB0`.",
 			"isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
 			"petFieldName": "Familier vendu :",
@@ -18,7 +16,7 @@
 			},
 			"addPetEmbed": {
 				"author": "{pseudo}, transaction effectuée !",
-				"description": "{emote} **{pet}** vous suit désormais. Occupez vous en bien !"
+				"description": "{emote} **{pet}** vous suit désormais. Occupez-vous en bien !"
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
 			"sellCancelled": "La vente a été annulée !",
@@ -26,14 +24,13 @@
 			"errors": {
 				"canSellYourself": "Il est impossible de se vendre un familier à soi-même !",
 				"spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
-				"onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
+				"onlyInitiator": "{pseudo}, seul l'initiateur d'une vente peut l'annuler !",
 				"noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
-			}
+			},
+			"guildAtMaxLevel": "Votre guilde est niveau 100 et ne peut donc pas recevoir d'XP de guilde. Nous vous invitons à échanger des familiers en utilisant la commande `pettrade`."
 		},
 		"en": {
-			"needArgs": "You have to set a price to conclude the sale: `petsell [price]`",
 			"sameGuild": "You can't buy this pet, because the seller is part of your guild.",
-			"needNumber": "You have to define a number to conclude the sale: `petsell [price]`",
 			"badPrice": "The price must be higher than `{minPrice}\uD83D\uDCB0` and lower than `{maxPrice}\uD83D\uDCB0`",
 			"isFeisty": "You can't sell a feisty pet.",
 			"petFieldName": "Pet sold:",
@@ -58,7 +55,8 @@
 				"spam": "Your sale has been cancelled. Thank you for not spamming the reaction on your sale.",
 				"onlyInitiator": "Only the initiator of the sale can cancel it!",
 				"noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been cancelled."
-			}
+			},
+			"guildAtMaxLevel": "Your guild is level 100 and therefore cannot receive guild XP. We invite you to trade pets using the `pettrade` command."
 		}
 	}
 }

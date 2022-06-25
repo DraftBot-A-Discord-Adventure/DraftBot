@@ -10,5 +10,9 @@
 	"health": 65,
 	"fightPoint": 45,
 	"price": 150,
-	"classgroup": 0
+	"classGroup": 0,
+	"fightActionsIds": [
+		"simpleAttack",
+		"piercingAttack"
+	]
 }

@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"errorBroadcastCancelled": "Votre requête a été annulée.",
+			"errorSelfAccept": "Vous ne pouvez pas accepter votre propre requête",
+			"errorSelfAcceptSpam": "Votre requête a été annulée. Merci de ne pas spam l'acceptation de votre propre requête.",
+			"errorOtherDeny": "{pseudo}, seul l'initiateur de la requête peut l'annuler !",
+			"errorNoAnswer": "Personne n'a répondu à votre requête dans les temps. Votre requête a été annulée."
+		},
+		"en": {
+			"errorBroadcastCancelled": "Your request has been cancelled.",
+			"errorSelfAccept": "You can't accept your own request",
+			"errorSelfAcceptSpam": "Your request has been cancelled. Please do not spam the acceptance of your own request.",
+			"errorOtherDeny": "{pseudo}, only the initiator of the request can cancel it !",
+			"errorNoAnswer": "Nobody has answered to your request in the time. Your request has been cancelled."
+		}
+	}
+}

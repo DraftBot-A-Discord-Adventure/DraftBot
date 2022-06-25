@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import PetEntity from "./PetEntity";
 import moment = require("moment");
 
@@ -17,7 +13,6 @@ export class GuildPet extends Model {
 
 	public createdAt!: Date;
 
-
 	public PetEntity: PetEntity;
 }
 
@@ -27,7 +22,7 @@ export class GuildPets {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	GuildPet.init({
 		id: {
 			type: DataTypes.INTEGER,

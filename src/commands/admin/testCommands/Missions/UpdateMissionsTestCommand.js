@@ -12,17 +12,18 @@ export const commandInfo = {
 		count: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé de {count} vos missions {missionId}",
-	description: "Avance les missions"
+	description: "Avance les missions",
+	commandTestShouldReply: true
 };
 
-const updateMissionsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const updateMissionsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const mission = await Missions.getById(args[0]);
 	if (!mission) {
 		throw new Error("mission id inconnu");
 	}
 	const count = parseInt(args[1]);
-	await MissionsController.update(entity.discordUserId, message.channel, language, args[0], count);
+	await MissionsController.update(entity.discordUserId, interaction.channel, language, args[0], count);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		missionId: args[0],

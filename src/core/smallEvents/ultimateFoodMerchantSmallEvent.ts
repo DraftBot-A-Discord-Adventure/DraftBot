@@ -1,13 +1,4 @@
-/**
- * Main function of small event
- * @param {module:"discord.js".Message} message
- * @param {"fr"|"en"} language
- * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
- *    The description already contains the emote so you have to get it and add your text
- * @returns {Promise<>}
- */
-import {Message, MessageEmbed, TextChannel, User} from "discord.js";
+import {CommandInteraction, MessageEmbed} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {Guilds} from "../models/Guild";
@@ -16,23 +7,23 @@ import {Constants} from "../Constants";
 import {SmallEvent} from "./SmallEvent";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-
-declare function giveFood(message: Message, language: string, entity: any, author: User, food: any, quantity: number): any;
-declare function log(text: string): any;
+import {giveFood} from "../utils/GuildUtils";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
-	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: any, seEmbed: MessageEmbed) {
 
 		async function generateReward(entity: any) {
 			function minRarity(entity: any): number {
 				return Math.floor(5 * Math.tanh(entity.Player.level / 125) + 1);
 			}
+
 			function maxRarity(entity: any): number {
 				return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
 			}
+
 			function ultimateFoodsAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1);
 				if (amount > foodData.getNumber("max.ultimateFood") - currentFoodLevel) {
@@ -40,6 +31,7 @@ export const smallEvent: SmallEvent = {
 				}
 				return amount;
 			}
+
 			function commonFoodAmount(entity: any, currentFoodLevel: number): number {
 				let amount = Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2);
 				if (amount > foodData.getNumber("max.commonFood") - currentFoodLevel) {
@@ -112,26 +104,26 @@ export const smallEvent: SmallEvent = {
 		async function giveReward(reward: any) {
 			switch (reward.type) {
 			case "ultimateFood":
-				await giveFood(message, language, entity, message.author, Data.getModule("food").getString("ultimateFood"), reward.option);
-				log(entity.discordUserId + "got a good level small event and won" + reward.type + "ultimate food");
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option);
+				console.log(entity.discordUserId + "got a good level small event and won" + reward.type + "ultimate food");
 				break;
 			case "fullUltimateFood":
-				log(entity.discordUserId + "got a good level small event but didn't have enough space for ultimate soups");
+				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for ultimate soups");
 				break;
 			case "item":
-				await giveItemToPlayer(entity, reward.option, language, message.author, <TextChannel> message.channel);
-				log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
+				await giveItemToPlayer(entity, reward.option, language, interaction.user, interaction.channel);
+				console.log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
 				break;
 			case "commonFood":
-				await giveFood(message, language, entity, message.author, Data.getModule("food").getString("commonFood"), reward.option);
-				log(entity.discordUserId + "got a good level small event and won" + reward.option + "common food");
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option);
+				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "common food");
 				break;
 			case "fullCommonFood":
-				log(entity.discordUserId + "got a good level small event but didn't have enough space for common food");
+				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for common food");
 				break;
 			case "money":
-				await entity.Player.addMoney(entity, reward.option, message.channel, language);
-				log(entity.discordUserId + "got a good level small event and won" + reward.option + "💰");
+				await entity.Player.addMoney(entity, reward.option, interaction.channel, language);
+				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "💰");
 				break;
 			default:
 				throw new Error("reward type not found");
@@ -140,7 +132,7 @@ export const smallEvent: SmallEvent = {
 		}
 
 		const reward = await generateReward(entity);
-		await message.channel.send({embeds: [generateEmbed(reward)]});
+		await interaction.reply({embeds: [generateEmbed(reward)]});
 		await giveReward(reward);
 	}
 };

@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariant(): boolean {
+	areParamsMatchingVariantAndSave(): boolean {
 		return true;
 	},
 
@@ -16,5 +16,9 @@ export const missionInterface: IMission = {
 
 	initialNumberDone(player: Player): Promise<number> {
 		return Promise.resolve(player.score);
+	},
+
+	updateSaveBlob(): Promise<Buffer> {
+		return Promise.resolve(null);
 	}
 };

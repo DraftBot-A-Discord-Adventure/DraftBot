@@ -1,6 +1,7 @@
 {
 	"translations": {
 		"fr": {
+			"fightAskingTitle": "{pseudo}, a lancé une demande de combat.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
 			"wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
 			"friendly": " **amical**",
@@ -10,9 +11,14 @@
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
+				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
 				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
+				"winner": ":crossed_swords: |** Gagnant : {pseudo}** {charging}\n",
+				"loser": ":crossed_swords: |** Perdant : {pseudo}** {charging}\n",
+				"drawer": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
+				"bug": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
@@ -33,7 +39,6 @@
 				"canceled": "Votre demande de combat a bien été annulée.",
 				"onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
 				"levelTooLow": {
-					"direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"cantFightStatus": {
@@ -50,64 +55,13 @@
 				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
+			"actionsOf": "Attaques de {player} :",
 			"actions": {
-				"intro": "{emote} | **{player}** ",
+				"intro": "{emote} | {player} ",
 				"charging": "charge une attaque... `Défense réduite de 40 %`",
 				"chargingEmote": ":zap:",
-				"attacks": {
-					"quick": {
-						"name": "attaque rapide",
-						"namePlural": "attaques rapides",
-						"emote": ":dagger:",
-						"end": {
-							"succeed": "",
-							"notGood": "",
-							"failed": ""
-						}
-					},
-					"simple": {
-						"name": "attaque simple",
-						"namePlural": "attaques simples",
-						"emote": ":crossed_swords:",
-						"end": {
-							"succeed": "",
-							"notGood": "",
-							"failed": ""
-						}
-					},
-					"powerful": {
-						"name": "attaque puissante",
-						"namePlural": "attaques puissantes",
-						"emote": ":axe:",
-						"end": {
-							"succeed": " `Vitesse réduite de 25 %`",
-							"notGood": " `Vitesse réduite de 25 %`",
-							"failed": " `Vitesse réduite de 10 %`"
-						}
-					},
-					"ultimate": {
-						"name": "attaque ultime",
-						"namePlural": "attaques ultimes",
-						"emote": ":bomb:",
-						"end": {
-							"succeed": "",
-							"notGood": "",
-							"failed": ""
-						}
-					},
-					"bulk": {
-						"name": "attaque bélier",
-						"namePlural": "attaques béliers",
-						"emote": ":firecracker:",
-						"end": {
-							"succeed": " `Dégâts subis: {ownDamages}`",
-							"notGood": "",
-							"failed": " `Dégâts subis: {ownDamages}`"
-						}
-					}
-				},
 				"attacksResults": {
-					"succeed": [
+					"critical": [
 						"effectue une {attack} ! Parfaitement réalisée !",
 						"effectue une {attack} ! Elle est magnifique !",
 						"effectue une superbe {attack} ! Parfaitement réalisée !",
@@ -118,26 +72,29 @@
 						"utilise une {attack} ! Elle est PARFAITE !",
 						"utilise une {attack} ! Magistrale !",
 						"réalise une sublime {attack} !",
+						"effectue une {attack} ! Elle est parfaite !",
 						"réalise une {attack} ! L'assaut est absolument dingue !",
 						"assène à son adversaire une {attack} ! Sans pitié !",
+						"effectue une {attack} ! C'est un coup de foudre !",
 						"réalise une {attack} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
-						"choisit une {attack} ! Très bonne initiative !"
+						"choisit une {attack} ! Très bonne initiative !",
+						"effectue une {attack} ! C'est une excellente {attack} !",
+						"effectue une {attack} ! Coup critique !",
+						"se déchaine sur son adversaire avec une {attack} !"
 					],
-					"notGood": [
-						"effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
-						"réalise une {attack} ! Ça n'était pas le meilleur choix...",
-						"effectue une {attack} ! Mouais...",
+					"normal": [
+						"effectue une {attack} !",
+						"lance une {attack} !",
+						"utilise une {attack} !",
+						"réalise une {attack} !"
+					],
+					"missed": [
 						"réalise une {attack} ! On a vu mieux...",
-						"réalise une {attack} ! C'est pas génial.",
-						"réalise une {attack} absolument pas réussie. (bon c'est pas raté non plus mais c'est vraiment pas ouf)",
-						"effectue une {attack} vraiment moyenne ! Pas ouf !",
-						"effectue une {attack} ! Ça n'est pas très efficace...",
-						"effectue une {attack} ! C'est pas très réussi.",
 						"lance une {attack} ! Médiocre",
-						"utilise une {attack} ! Faiblarde !",
-						"choisit une {attack} ! Le résultat est assez pitoyable."
-					],
-					"failed": [
+						"effectue une {attack} ! C'est pas très réussi.",
+						"effectue une {attack} ! Ça n'est pas très efficace...",
+						"choisit une {attack} ! Le résultat est assez pitoyable.",
+						"réalise une {attack} ! Ça n'était pas le meilleur choix...",
 						"effectue une {attack} ! C'est raté !",
 						"effectue une {attack} ! L'attaque échoue lamentablement !",
 						"effectue une mauvaise {attack} ! Un manque cruel de technique pour le joueur français !",
@@ -145,15 +102,23 @@
 						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
 						"lance une mauvaise {attack} !",
 						"utilise une {attack} ! Un choix peu judicieux !",
-						"choisit une {attack} ! Mauvaise initiative"
+						"choisit une {attack} ! Mauvaise initiative",
+						"effectue une {attack} ! C'est une mauvaise {attack} !"
 					]
 				},
 				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
 				"speedEmote": ":rocket:",
-				"damages": " `Dégâts infligés: {damages}`"
+				"damages": " `Dégâts infligés: {damages}`",
+				"sideEffects": {
+					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
+				}
 			}
 		},
 		"en": {
+			"fightAskingTitle": "{pseudo}, is asking for a fight.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} wants to {friendly}fight! To duel them, click the emote below!",
 			"wantsToFightSomeone": ":crossed_swords: | {player} {friendly}challenges {opponent}! To accept or not, click the emote below!",
 			"friendly": "**friendly** ",
@@ -164,8 +129,13 @@
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":crossed_swords: | **Current battle state**\n\n",
-				"attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
-				"defender": ":crossed_swords: |** Defender : {pseudo}**\n",
+				"notStarted": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
+				"attacker": ":crossed_swords: |** Attacker : {pseudo}** {charging}\n",
+				"defender": ":crossed_swords: |** Defender : {pseudo}** {charging}\n",
+				"winner": ":crossed_swords: |** Winner : {pseudo}** {charging}\n",
+				"loser": ":crossed_swords: |** Looser : {pseudo}** {charging}\n",
+				"drawer": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
+				"bug": ":crossed_swords: |** Fighter : {pseudo}** {charging}\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
@@ -268,20 +238,21 @@
 						"performs a {attack}! It was risky but it worked!",
 						"launches a nice {attack}!",
 						"uses a masterful {attack}!",
-						"chose a {attack}! Really good initiative"
+						"chose a {attack}! Really good initiative",
+						"makes a {attack}! It's a good one!",
+						"makes a {attack}! It's a great one!"
 					],
 					"notGood": [
-						"performed a {attack}! It worked but it wasn't incredible.",
-						"uses a {attack}! Meh...",
-						"makes an unremarkable {attack}! Pretty bad!",
-						"uses a {attack}! It doesn't really have any effect...",
-						"performs a {attack}! It wasn't well done.",
-						"launches a {attack}! Pathetic",
-						"uses a {attack}! Weak!",
-						"opts for a {attack}! The results are pretty pitiful."
+						"makes a {attack}!",
+						"performs a {attack}!"
 					],
 					"failed": [
 						"uses a {attack}! It fails!",
+						"opts for a {attack}! The results are pretty pitiful.",
+						"uses a {attack}! It doesn't really have any effect...",
+						"makes an unremarkable {attack}! Pretty bad!",
+						"performs a {attack}! It wasn't well done.",
+						"launches a {attack}! Pathetic",
 						"uses a {attack}! It fails miserably!",
 						"makes a bad {attack}! A cruel lack of technique from that oaf of a player!",
 						"uses a {attack}! What a lack of judgement!",
@@ -293,7 +264,13 @@
 				},
 				"speed": "increased their speed! `Speed + {speed}`",
 				"speedEmote": ":rocket:",
-				"damages": " `Damage dealt: {damages}`"
+				"damages": " `Damage dealt: {damages}`",
+				"sideEffects": {
+					"defense": " `Defense{adversary>0? of your opponent:}: {operator} {amount} %`",
+					"speed": " `Speed{adversary>0? of your opponent:}: {operator} {amount} %`",
+					"attack": " `Attack{adversary>0? of your opponent:}: {operator} {amount} %`",
+					"energy": " `Fight points healed{adversary>0? of your opponent:}: {operator} {amount}`"
+				}
 			}
 		}
 	}

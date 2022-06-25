@@ -30,7 +30,7 @@ export class DraftBotMissionsMessageBuilder {
 				max: Campaign.getMaxCampaignNumber()
 			}) + "\n" + DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
-				await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, this._language),
+				await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, this._language, campaign.saveBlob),
 				null,
 				campaign.numberDone,
 				campaign.missionObjective
@@ -47,7 +47,7 @@ export class DraftBotMissionsMessageBuilder {
 		else {
 			desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
-				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, this._language),
+				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, this._language, null),
 				tomorrow,
 				this._player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
@@ -63,7 +63,7 @@ export class DraftBotMissionsMessageBuilder {
 			for (const missionSlot of this._player.MissionSlots.filter(slot => !slot.isCampaign())) {
 				desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 					tr,
-					await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, this._language),
+					await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, this._language, missionSlot.saveBlob),
 					missionSlot.expiresAt,
 					missionSlot.numberDone,
 					missionSlot.missionObjective

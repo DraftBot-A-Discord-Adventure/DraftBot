@@ -32,8 +32,12 @@ export abstract class Constants {
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
-			DEFAULT: "NOT_QUITE_BLACK"
-		}
+			DEFAULT: "NOT_QUITE_BLACK",
+			ERROR: "#D92D43",
+			SUCCESSFUL: "#5EAD45"
+		},
+		PROGRESS_BAR_SIZE: 20,
+		MAX_SPAM_COUNT: 3
 	};
 
 	static readonly TOPGG = {
@@ -50,6 +54,15 @@ export abstract class Constants {
 		OBJECT: 3
 	};
 
+	static readonly COMMAND_CATEGORY = {
+		SERVER: "server",
+		UTIL: "util",
+		PLAYER: "player",
+		MISSION: "mission",
+		GUILD: "guild",
+		PET: "pet"
+	};
+
 	static readonly RARITY = {
 		BASIC: 0,
 		COMMON: 1,
@@ -61,6 +74,53 @@ export abstract class Constants {
 		LEGENDARY: 7,
 		MYTHICAL: 8
 	};
+
+	static readonly RARITIES_VALUES = [
+		0, // basic
+		20, // common
+		40, // uncommon
+		100, // exotic
+		250, // rare
+		580, // special
+		1690, // epic
+		5000, // legendary
+		10000 // unique
+	];
+
+	static readonly RARITIES_GENERATOR = {
+		VALUES: [// common
+			4375,// uncommon
+			6875,// exotic
+			8375,// rare
+			9375,// special
+			9875, // epic
+			9975, // legendary
+			9998 // unique
+		],
+		MAX_VALUE: 10000
+	};
+
+	static readonly ITEM_GENERATOR = {
+		"max": "10",
+		"tab": {
+			"1": "weapons",
+			"2": "weapons",
+			"3": "weapons",
+			"4": "armors",
+			"5": "armors",
+			"6": "armors",
+			"7": "objects",
+			"8": "objects",
+			"9": "potions",
+			"10": "potions"
+		}
+	};
+
+	static readonly XP = {
+		BASE_VALUE: 325,
+		COEFFICIENT: 1.041,
+		MINUS: 188
+	}
 
 	static readonly ITEM_NATURE = {
 		NO_EFFECT: 0,
@@ -88,14 +148,22 @@ export abstract class Constants {
 
 	static readonly PETS = {
 		IS_FOOD: 1,
+		NICKNAME_MIN_LENGTH: 3,
+		NICKNAME_MAX_LENGTH: 16,
 		MALE: "m",
 		FEMALE: "f",
-		FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
 		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
 		MAX_LOVE_POINTS: 100,
 		BASE_LOVE: 10,
 		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
 		LOVE_LEVELS: [5, 20, 50],
+		LOVE_LEVEL: {
+			FEISTY: 1,
+			WILD: 2,
+			FEARFUL: 3,
+			TAMED: 4,
+			TRAINED: 5
+		},
 		SELL: {
 			MIN: 100,
 			MAX: 50000
@@ -133,11 +201,22 @@ export abstract class Constants {
 		MIN_GUILD_NAME_SIZE: 2,
 		MIN_DESCRIPTION_LENGTH: 2,
 		MAX_DESCRIPTION_LENGTH: 140,
+		MAX_LEVEL: 100,
 		MAX_COMMON_PET_FOOD: 25,
 		MAX_HERBIVOROUS_PET_FOOD: 15,
 		MAX_CARNIVOROUS_PET_FOOD: 15,
 		MAX_ULTIMATE_PET_FOOD: 5,
-		MAX_LEVEL: 100
+		MAX_PET_FOOD: [
+			25, // Common food
+			15, // Herbivorous food
+			15, // Carnivorous food
+			5 // Ultimate food
+		],
+		PERMISSION_LEVEL: {
+			MEMBER: 1,
+			ELDER: 2,
+			CHIEF: 3
+		}
 	};
 
 	static readonly NATURE = {
@@ -172,9 +251,24 @@ export abstract class Constants {
 			":confounded:": "😖",
 			":scream:": "😱"
 		},
+		ERROR_TEXT: {
+			":baby:": "Baby",
+			":smiley:": "Fine",
+			":skull:": "Dead",
+			":sleeping:": "Sleeping",
+			":zany_face:": "Drunk",
+			":cold_face:": "Frozen",
+			":head_bandage:": "Hurt",
+			":sick:": "Sick",
+			":lock:": "Locked",
+			":dizzy_face:": "Injured",
+			":clock2:": "Occupied",
+			":drooling_face:": "Starving",
+			":confounded:": "Confounded",
+			":scream:": "Scared"
+		},
 		BABY: ":baby:",
 		SMILEY: ":smiley:",
-		AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
 		DEAD: ":skull:",
 		SLEEPING: ":sleeping:",
 		DRUNK: ":zany_face:",
@@ -188,6 +282,8 @@ export abstract class Constants {
 		CONFOUNDED: ":confounded:",
 		SCARED: ":scream:"
 	};
+
+	static readonly DEFAULT_HEALED_EFFECT = ":hospital:"
 
 	static readonly MISSION_SHOP = {
 		RANGE_MISSION_MONEY: 300,
@@ -252,7 +348,8 @@ export abstract class Constants {
 	};
 
 	static readonly PROFILE = {
-		DISPLAY_ALL_BADGE_EMOTE: "🎖️"
+		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
+		MAX_EMOTE_DISPLAY_NUMBER: 10
 	}
 
 	static readonly BADGES = {
@@ -260,7 +357,34 @@ export abstract class Constants {
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
-		PET_TAMER: "💞"
+		PET_TAMER: "💞",
+		LIST: [
+			"🏆",
+			"🏅",
+			"👑",
+			"⚙️",
+			"🥚",
+			"❤️",
+			"🍀",
+			"💸",
+			"🐞",
+			"🎰",
+			"⛑️",
+			"🥇",
+			"🤑",
+			"🌟",
+			"🖋️",
+			"🌍",
+			"🎗️",
+			"🎄",
+			"😂",
+			"💎",
+			"⚔️",
+			"🗳️",
+			"🔖",
+			"💞",
+			"\uD83D\uDC8D"
+		]
 	}
 
 	static readonly SMALL_EVENT = {
@@ -296,6 +420,115 @@ export abstract class Constants {
 		MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT: 30,
 		MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT: 20,
 		BASE_TIME_LOST_GOBLETS_GAME: 1,
-		BASE_HEALTH_LOST_GOBLETS_GAME: 5
+		BASE_HEALTH_LOST_GOBLETS_GAME: 5,
+		COIN_EMOTE: "🪙"
 	}
+
+	static readonly LANGUAGE = {
+		FRENCH: "fr",
+		ENGLISH: "en"
+	}
+
+	static readonly MENU_REACTION = {
+		ACCEPT: "✅",
+		DENY: "❌",
+		FRENCH_FLAG: "🇫🇷",
+		ENGLISH_FLAG: "🇬🇧"
+	};
+
+	static readonly PET_FOOD = {
+		COMMON_FOOD: "commonFood",
+		CARNIVOROUS_FOOD: "carnivorousFood",
+		HERBIVOROUS_FOOD: "herbivorousFood",
+		ULTIMATE_FOOD: "ultimateFood"
+	}
+
+	static readonly ITEMS = {
+		MAPPER: [
+			1,
+			1.5,
+			2.1,
+			2.8,
+			3.6,
+			4.5,
+			5.5,
+			6.6,
+			6.7
+		],
+		SLOTS: {
+			LIMITS: [
+				2,
+				2,
+				4,
+				4
+			],
+			PRICES: [
+				500,
+				1000,
+				2500,
+				7000,
+				12000,
+				17000,
+				25000,
+				30000
+			]
+		}
+	};
+
+	static readonly PET_FOOD_GUILD_SHOP = {
+		TYPE: [
+			"commonFood",
+			"herbivorousFood",
+			"carnivorousFood",
+			"ultimateFood"
+		],
+		EMOTE: [
+			"\uD83C\uDF6C",
+			"\uD83E\uDD6C",
+			"\uD83E\uDD69",
+			"\uD83C\uDF72"
+		],
+		PRICE: [
+			20,
+			250,
+			250,
+			600
+		],
+		EFFECT: [
+			1,
+			3,
+			3,
+			5
+		]
+	};
+
+	static readonly ROLES = {
+		GUILD: {
+			NONE: "none",
+			MEMBER: "member",
+			ELDER: "elder",
+			CHIEF: "chief"
+		},
+		USER: {
+			ADMINISTRATOR: "administrator",
+			BADGE_MANAGER: "manager",
+			CONTRIBUTORS: "contributors",
+			BOT_OWNER: "owner"
+		}
+	};
+
+	static readonly MAX_TIME_BOT_RESPONSE = 30000;
+
+	static readonly MINIMAL_PLAYER_SCORE = 100;
+
+	static readonly PERMISSION = {
+		ROLE: {
+			BOT_OWNER: "owner", // is the owner of the bot
+			BADGE_MANAGER: "manager", // has the badge manager role
+			SUPPORT: "support", // has the support role
+			ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+			CONTRIBUTORS: "contributors",
+			ALL: "all"
+		}
+	};
 }

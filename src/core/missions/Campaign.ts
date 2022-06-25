@@ -2,7 +2,7 @@ import {Data, DataModule} from "../Data";
 import Player from "../models/Player";
 import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 import {MissionsController} from "./MissionsController";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {Missions} from "../models/Mission";
 import Entity from "../models/Entity";
@@ -11,13 +11,6 @@ export class Campaign {
 	private static maxCampaignCache = -1;
 
 	private static campaignModule: DataModule = null;
-
-	private static getDataModule(): DataModule {
-		if (!this.campaignModule) {
-			this.campaignModule = Data.getModule("campaign");
-		}
-		return this.campaignModule;
-	}
 
 	static getMaxCampaignNumber(): number {
 		if (this.maxCampaignCache === -1) {
@@ -30,17 +23,20 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	public static async completeCampaignMissions(player: Player, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+	public static async completeCampaignMissions(player: Player, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
+		let firstMissionChecked = false;
 		while (campaign.isCompleted()) {
-			completedMissions.push(
-				new CompletedMission(
-					campaign.xpToWin,
-					campaign.gemsToWin,
-					campaign.moneyToWin,
-					await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
-					CompletedMissionType.CAMPAIGN)
-			);
+			if (completedCampaign || firstMissionChecked) {
+				completedMissions.push(
+					new CompletedMission(
+						campaign.xpToWin,
+						campaign.gemsToWin,
+						campaign.moneyToWin,
+						await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language, campaign.saveBlob),
+						CompletedMissionType.CAMPAIGN)
+				);
+			}
 			if (this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
 				const prop = Campaign.getDataModule().getObjectFromArray("missions", player.PlayerMissionsInfo.campaignProgression);
 				campaign.missionVariant = prop.missionVariant;
@@ -50,14 +46,16 @@ export class Campaign {
 				campaign.missionId = prop.missionId;
 				campaign.missionObjective = prop.missionObjective;
 				campaign.moneyToWin = prop.moneyToWin;
+				campaign.saveBlob = null;
 				player.PlayerMissionsInfo.campaignProgression++;
 				campaign.Mission = await Missions.getById(campaign.missionId);
 			}
 			else {
 				break;
 			}
+			firstMissionChecked = true;
 		}
-		if (completedMissions.length !== 0) {
+		if (completedMissions.length !== 0 || !completedCampaign) {
 			await campaign.save();
 			await player.PlayerMissionsInfo.save();
 		}
@@ -74,16 +72,23 @@ export class Campaign {
 			return this.updatePlayerCampaign(completedCampaign, player, language);
 		}
 		if (completedCampaign || Campaign.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
-			return await this.completeCampaignMissions(player, campaign, language);
+			return await this.completeCampaignMissions(player, completedCampaign, campaign, language);
 		}
 		return [];
 	}
 
-	public static async updateCampaignAndSendMessage(entity: Entity, channel: TextChannel, language: string) {
+	public static async updateCampaignAndSendMessage(entity: Entity, channel: TextBasedChannel, language: string) {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, false, false, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(entity.discordUserId, entity.Player, completedMissions, channel, language);
 		}
+	}
+
+	private static getDataModule(): DataModule {
+		if (!this.campaignModule) {
+			this.campaignModule = Data.getModule("campaign");
+		}
+		return this.campaignModule;
 	}
 }

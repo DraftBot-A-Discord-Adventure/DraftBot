@@ -1,12 +1,8 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {format} from "../utils/StringFormatter";
 import {MissionDifficulty} from "../missions/MissionDifficulty";
 import {MissionsController} from "../missions/MissionsController";
+import moment = require("moment");
 
 export class Mission extends Model {
 	public id!: string;
@@ -30,10 +26,10 @@ export class Mission extends Model {
 	public createdAt!: Date;
 
 
-	public async formatDescription(objective: number, variant: number, language: string): Promise<string> {
+	public async formatDescription(objective: number, variant: number, language: string, saveBlob: Buffer): Promise<string> {
 		return format(language === "fr" ? this.descFr : this.descEn, {
 			objective,
-			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language),
+			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language, saveBlob),
 			variant
 		});
 	}
@@ -90,7 +86,7 @@ export class Missions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Mission.init({
 		id: {
 			type: DataTypes.TEXT,

@@ -4,18 +4,18 @@ module.exports.commandInfo = {
 	name: "expireMissions",
 	commandFormat: "",
 	messageWhenExecuted: "Toutes les missions ont expiré",
-	description: "Expire toutes les missions"
+	description: "Expire toutes les missions",
+	commandTestShouldReply: true
 };
 
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const expireMissionsTestCommand = async (language, message) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const expireMissionsTestCommand = async (language, interaction) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	for (const mission of entity.Player.MissionSlots) {
 		if (!mission.isCampaign()) {
 			mission.expiresAt = new Date(1);

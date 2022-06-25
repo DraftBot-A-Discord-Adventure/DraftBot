@@ -11,17 +11,19 @@
 			"notEnoughFood": "L'entrepôt de la guilde ne contient pas assez de nourriture de ce type pour nourrir votre familier.",
 			"noPet": "Vous n'avez aucun familier !",
 			"description": {
-				"0": "**{petnick}** ne semble pas avoir aimé...",
-				"1": "**{petnick}** est heureu{typeSuffix} !",
-				"2": "**{petnick}** est très heureu{typeSuffix} !",
-				"3": "**{petnick}** saute de joie !"
+				"commonFood": "**{petnick}** est heureu{typeSuffix} !",
+				"herbivorousFood": "**{petnick}** est très heureu{typeSuffix} !",
+				"carnivorousFood": "**{petnick}** est très heureu{typeSuffix} !",
+				"ultimateFood": "**{petnick}** saute de joie !",
+				"dietFoodFail": "**{petnick}** ne semble pas avoir aimé...",
+				"dietFoodSuccess": "**{petnick}** est très heureu{typeSuffix} !"
 			},
 			"notHungry": "Il semblerait que **{petnick}** n'ait pas faim...",
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat..."
 		},
 		"en": {
 			"embedTitle": "{pseudo}, you offer some food to your pet.",
-			"feedEmbedAuthor": "{pseudo}, choice :",
+			"feedEmbedAuthor": "{pseudo}, choice:",
 			"feedEmbedDescription": "What type of food do you want to give to your pet?",
 			"feedEmbedTitle2": "{pseudo}, confirmation:",
 			"feedEmbedDescription2": "Do you want to buy a Treat for {petnick}? \n\n :candy: Treat | `20 💰`",
@@ -30,10 +32,12 @@
 			"notEnoughFood": "The guild storage doesn't have enough of that food type to feed your pet.",
 			"noPet": "You don't have any pet!",
 			"description": {
-				"0": "**{petnick}** didn't like it!",
-				"1": "**{petnick}** is happy!",
-				"2": "**{petnick}** is very happy!",
-				"3": "**{petnick}** is joyful!"
+				"commonFood": "**{petnick}** is happy!",
+				"herbivorousFood": "**{petnick}** is very happy!",
+				"carnivorousFood": "**{petnick}** is very happy!",
+				"ultimateFood": "**{petnick}** is joyful!",
+				"dietFoodFail": "**{petnick}** didn't like it!",
+				"dietFoodSuccess": "**{petnick}** is very happy!"
 			},
 			"notHungry": "It seems **{petnick}** isn't hungry...",
 			"noMoney": "You don't have enough money to buy that..."
