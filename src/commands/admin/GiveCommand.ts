@@ -31,8 +31,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const tr = Translations.getModule("commands.giveCommand", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
-		sendErrorMessage(
-			interaction.user,
+		replyErrorMessage(
 			interaction,
 			language,
 			tr.get("errors.tooMuchPeople")

@@ -194,8 +194,8 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			return false;
 		}
 		this._spammers.push(user.id);
-		// eslint-disable-next-line max-len
-		sendErrorMessage(this._interaction.user, this._interaction, this._language, format(this._translationModule.errorOtherDeny, {pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()}));
+		sendErrorMessage(this._interaction.user,this._interaction, this._language,
+			format(this._translationModule.errorOtherDeny, {pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()}));
 		return false;
 	}
 

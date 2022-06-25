@@ -1,6 +1,6 @@
 import {Guilds} from "../models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {CommandInteraction, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import Entity from "../models/Entity";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
@@ -12,7 +12,6 @@ export const giveFood = async (
 	interaction: CommandInteraction,
 	language: string,
 	entity: Entity,
-	author: User,
 	selectedFood: string,
 	quantity: number
 ) => {
@@ -31,7 +30,7 @@ export const giveFood = async (
 	guild.addFood(selectedFood, quantity);
 	await Promise.all([guild.save()]);
 	const successEmbed = new DraftBotEmbed()
-		.formatAuthor(tr.get("success"), author);
+		.formatAuthor(tr.get("success"), interaction.user);
 	if (quantity === 1) {
 		successEmbed.setDescription(
 			format(
