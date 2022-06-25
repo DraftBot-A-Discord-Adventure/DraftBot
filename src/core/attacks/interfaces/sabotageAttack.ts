@@ -12,27 +12,16 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, 5);
 		receiver.stats.fightPoints -= damageDealt;
-
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// half of the damage is converted to fight points
-		const healAmount = Math.round(damageDealt / 2);
-		sender.stats.fightPoints += healAmount;
-		const sideEffects = attackTranslationModule.format("actions.sideEffects.energy", {
-			adversary: FightConstants.TARGET.SELF,
-			operator: FightConstants.OPERATOR.PLUS,
-			amount: healAmount
-		});
-
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
 		return format(chosenString, {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
+		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
 	},
@@ -46,11 +35,11 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getName(): string {
-		return "energeticAttack";
+		return "sabotageAttack";
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 60, maxDamage: 90};
+		return {minDamage: 90, averageDamage: 130, maxDamage: 220};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -60,13 +49,13 @@ export const fightActionInterface: IFightAction = {
 				sender.stats.agility,
 				sender.stats.speed
 			], defenderStats: [
-				receiver.stats.defense * 0.2,
+				receiver.stats.attack,
 				receiver.stats.agility,
 				receiver.stats.speed
 			], statsEffect: [
-				0.7,
+				0.75,
 				0.1,
-				0.2
+				0.15
 			]
 		};
 	},

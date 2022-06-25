@@ -13,6 +13,7 @@
 	"classGroup": 0,
 	"fightActionsIds": [
 		"simpleAttack",
-		"quickAttack"
+		"quickAttack",
+		"sabotageAttack"
 	]
 }

@@ -51,9 +51,16 @@ export abstract class FightConstants {
 		MISSED: "missed"
 	};
 
+	// Targets types
 	static readonly TARGET = {
 		SELF: 0,
 		OPPONENT: 1
 	}
+
+	// kind of useless, but I don't care
+	static OPERATOR= {
+		PLUS: "+",
+		MINUS: "-"
+	};
 
 }
