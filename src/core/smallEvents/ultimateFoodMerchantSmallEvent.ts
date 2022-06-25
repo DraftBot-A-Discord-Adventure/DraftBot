@@ -104,7 +104,7 @@ export const smallEvent: SmallEvent = {
 		async function giveReward(reward: any) {
 			switch (reward.type) {
 			case "ultimateFood":
-				await giveFood(interaction.channel, language, entity, interaction.user, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option);
 				console.log(entity.discordUserId + "got a good level small event and won" + reward.type + "ultimate food");
 				break;
 			case "fullUltimateFood":
@@ -115,7 +115,7 @@ export const smallEvent: SmallEvent = {
 				console.log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
 				break;
 			case "commonFood":
-				await giveFood(interaction.channel, language, entity, interaction.user, Constants.PET_FOOD.COMMON_FOOD, reward.option);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option);
 				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "common food");
 				break;
 			case "fullCommonFood":

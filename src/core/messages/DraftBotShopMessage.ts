@@ -2,11 +2,11 @@ import {DraftBotReactionMessage} from "./DraftBotReactionMessage";
 import {DraftBotReaction} from "./DraftBotReaction";
 import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
-import {User} from "discord.js";
-import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
+import {CommandInteraction, User} from "discord.js";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 import {Entities} from "../models/Entity";
 import {format} from "../utils/StringFormatter";
+import {sendErrorMessage} from "../utils/ErrorUtils";
 
 /**
  * Reasons when the shop ends
@@ -38,7 +38,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 
 	private readonly _getUserMoney: (userId: string) => Promise<number>;
 
-	private readonly _user: User;
+	private readonly _interaction: CommandInteraction;
 
 	private readonly _removeUserMoney: (userId: string, amount: number) => Promise<void>;
 
@@ -57,7 +57,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	 * @param shopItemCategories
 	 * @param language
 	 * @param title
-	 * @param user
+	 * @param interaction
 	 * @param currentMoney
 	 * @param getUserMoney
 	 * @param removeUserMoney
@@ -69,7 +69,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		shopItemCategories: ShopItemCategory[],
 		language: string,
 		title: string,
-		user: User,
+		interaction: CommandInteraction,
 		currentMoney: number,
 		getUserMoney: (userId: string) => Promise<number>,
 		removeUserMoney: (userId: string, amount: number) => Promise<void>,
@@ -102,7 +102,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		});
 		super(
 			reactions,
-			[user.id],
+			[interaction.user.id],
 			DraftBotShopMessage.shopCallback,
 			0,
 			false,
@@ -111,7 +111,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		this.setTitle(title);
 		this.setDescription(content);
 		this._getUserMoney = getUserMoney;
-		this._user = user;
+		this._interaction = interaction;
 		this._removeUserMoney = removeUserMoney;
 		this._shopEndCallback = shopEndCallback;
 		this._shopItems = shopItems;
@@ -121,7 +121,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private async getUserMoney(): Promise<number> {
-		return await this._getUserMoney(this._user.id);
+		return await this._getUserMoney(this._interaction.user.id);
 	}
 
 	private getChoseShopItem(): ShopItem {
@@ -135,11 +135,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private async removeUserMoney(amount: number): Promise<void> {
-		return await this._removeUserMoney(this._user.id, amount);
+		return await this._removeUserMoney(this._interaction.user.id, amount);
 	}
 
 	get user(): User {
-		return this._user;
+		return this._interaction.user;
 	}
 
 	get language(): string {
@@ -152,23 +152,22 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (choseShopItem) {
 			const userMoney = await shopMessage.getUserMoney();
 			if (userMoney < choseShopItem.price) {
-				await shopMessage.sentMessage.channel.send({ embeds: [
-					new DraftBotErrorEmbed(
-						shopMessage._user,
-						shopMessage._language,
-						format(
-							shopMessage._translationModule.get("error.cannotBuy"),
-							{
-								missingMoney: choseShopItem.price - userMoney
-							}
-						)
-					)] }
+				await sendErrorMessage(
+					shopMessage.user,
+					shopMessage._interaction,
+					shopMessage._language,
+					format(
+						shopMessage._translationModule.get("error.cannotBuy"),
+						{
+							missingMoney: choseShopItem.price - userMoney
+						}
+					)
 				);
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
 			}
 			else if (choseShopItem.amounts.length === 1 && choseShopItem.amounts[0] === 1) {
-				const confirmBuyMessage = await new DraftBotValidateReactionMessage(
-					shopMessage._user,
+				const confirmBuyMessage = new DraftBotValidateReactionMessage(
+					shopMessage.user,
 					async (reactionMessage) => {
 						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
 						if (validateMessage.isValidated()) {
@@ -179,17 +178,18 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 							}
 						}
 						else {
-							await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+							await sendErrorMessage(
 								shopMessage.user,
+								shopMessage._interaction,
 								shopMessage.language,
 								shopMessage._translationModule.get("error.canceledPurchase"),
 								true
-							)] });
+							);
 							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 						}
 					}
 				);
-				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage._user);
+				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
 				confirmBuyMessage.setDescription(format(shopMessage._translationModule.get("display"), {
 					emote: choseShopItem.emote,
 					name: choseShopItem.name,
@@ -218,18 +218,19 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					async (reactionMessage: DraftBotReactionMessage) => {
+					(reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
-						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+						sendErrorMessage(
 							shopMessage.user,
+							shopMessage._interaction,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						)] });
+						);
 						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 					}
 				));
-				const confirmBuyMessage = await new DraftBotReactionMessage(
+				const confirmBuyMessage = new DraftBotReactionMessage(
 					numberReactions,
 					[shopMessage.user.id],
 					null,
@@ -237,7 +238,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					false,
 					0
 				);
-				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage._user);
+				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
 				let desc = format(shopMessage._translationModule.get("multipleChoice.display"), {
 					emote: choseShopItem.emote,
 					name: choseShopItem.name
@@ -253,12 +254,12 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			}
 		}
 		else {
-			await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+			sendErrorMessage(
 				shopMessage.user,
+				shopMessage._interaction,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
-				true
-			)] });
+				true);
 			if (msg.getFirstReaction()) {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
 			}
@@ -275,7 +276,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 export class DraftBotShopMessageBuilder {
 	private _shopItemCategories: ShopItemCategory[] = [];
 
-	private readonly _user: User;
+	private readonly _interaction: CommandInteraction;
 
 	private readonly _title: string;
 
@@ -303,11 +304,11 @@ export class DraftBotShopMessageBuilder {
 	 * @param language The language of the shop
 	 */
 	constructor(
-		user: User,
+		interaction: CommandInteraction,
 		title: string,
 		language: string
 	) {
-		this._user = user;
+		this._interaction = interaction;
 		this._title = title;
 		this._language = language;
 	}
@@ -376,8 +377,8 @@ export class DraftBotShopMessageBuilder {
 			this._shopItemCategories,
 			this._language,
 			(this._noShoppingCart ? this._title : Constants.REACTIONS.SHOPPING_CART + " " + this._title) + (this._language === "en" ? "" : " ") + ":",
-			this._user,
-			await this._getUserMoney(this._user.id),
+			this._interaction,
+			await this._getUserMoney(this._interaction.user.id),
 			this._getUserMoney,
 			this._removeUserMoney,
 			this._shopEndCallback,

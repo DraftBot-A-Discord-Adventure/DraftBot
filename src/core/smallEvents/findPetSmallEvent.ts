@@ -50,7 +50,7 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, storiesObject[outRand][0]);
 			await interaction.reply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction.channel, language, entity, interaction.user, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1);
 			}
 		}
 		else if (!noRoomInGuild && entity.Player.petId !== null) {

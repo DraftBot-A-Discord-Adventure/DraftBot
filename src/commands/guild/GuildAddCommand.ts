@@ -9,7 +9,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -34,7 +34,7 @@ function getEndCallbackGuildAdd(
 				// guild is destroyed
 				return sendErrorMessage(
 					invited.invitedUser,
-					interaction.channel,
+					interaction,
 					guildAddModule.language,
 					guildAddModule.get("guildDestroy")
 				);
@@ -42,7 +42,7 @@ function getEndCallbackGuildAdd(
 			if ((await Entities.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
 				sendErrorMessage(
 					interaction.user,
-					interaction.channel,
+					interaction,
 					guildAddModule.language,
 					guildAddModule.get("guildFull")
 				);
@@ -77,7 +77,7 @@ function getEndCallbackGuildAdd(
 		}
 
 		// Cancel the creation
-		sendErrorMessage(invited.invitedUser, interaction.channel, guildAddModule.language,
+		sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
 			guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
 	};
 }
@@ -94,9 +94,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (invitedEntity.Player.level < Constants.GUILD.REQUIRED_LEVEL) {
 		// invited user is low level
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			guildAddModule.format("levelTooLow",
 				{
@@ -107,15 +106,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 						? `${Constants.GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
 						: `${Constants.GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
 				}
-			),
-			false,
-			interaction
+			)
 		);
 		return;
 	}
 
 	const invitedUser: User = interaction.options.getUser("user");
-	if (await sendBlockedError(invitedUser, interaction.channel, language, interaction)) {
+	if (await sendBlockedError(interaction, language, invitedUser)) {
 		return;
 	}
 
@@ -130,13 +127,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	if (invitedGuild !== null) {
 		// already in a guild
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			guildAddModule.get("alreadyInAGuild"),
-			false,
-			interaction
+			guildAddModule.get("alreadyInAGuild")
 		);
 		return;
 	}
@@ -145,11 +139,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (members.length === Constants.GUILD.MAX_GUILD_MEMBER) {
 		sendErrorMessage(
 			interaction.user,
-			interaction.channel,
+			interaction,
 			language,
-			guildAddModule.get("guildFull"),
-			false,
-			interaction
+			guildAddModule.get("guildFull")
 		);
 		return;
 	}

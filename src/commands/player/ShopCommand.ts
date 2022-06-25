@@ -8,8 +8,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getItemValue, giveItemToPlayer, giveRandomItem} from "../../core/utils/ItemUtils";
 import {Constants} from "../../core/Constants";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/models/Potion";
@@ -18,10 +17,10 @@ import {Entities, Entity} from "../../core/models/Entity";
 import {Maps} from "../../core/Maps";
 import Shop from "../../core/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -32,7 +31,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  * @param {Entities} entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
@@ -41,9 +40,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const permanentItemsCategory = new ShopItemCategory(
 		[
 			getRandomItemShopItem(shopTranslations),
-			getHealAlterationShopItem(shopTranslations),
+			getHealAlterationShopItem(shopTranslations, interaction),
 			getRegenShopItem(shopTranslations),
-			getBadgeShopItem(shopTranslations)
+			getBadgeShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("permanentItem")
 	);
@@ -52,12 +51,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		shopTranslations.get("dailyItem")
 	);
 	const inventoryCategory = new ShopItemCategory(
-		[getSlotExtensionShopItem(shopTranslations, entity)],
+		[getSlotExtensionShopItem(shopTranslations, entity, interaction)],
 		shopTranslations.get("inventoryCategory")
 	);
 
 	await (await new DraftBotShopMessageBuilder(
-		interaction.user,
+		interaction,
 		shopTranslations.get("title"),
 		language
 	)
@@ -94,14 +93,14 @@ function getRandomItemShopItem(translationModule: TranslationModule) {
 		});
 }
 
-function getHealAlterationShopItem(translationModule: TranslationModule) {
+function getHealAlterationShopItem(translationModule: TranslationModule, interaction: CommandInteraction) {
 	return getPermanentItemShopItem(
 		"healAlterations",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.currentEffectFinished()) {
-				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.nothingToHeal"));
+				sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}
 			if (entity.Player.effect !== Constants.EFFECT.DEAD && entity.Player.effect !== Constants.EFFECT.LOCKED) {
@@ -142,14 +141,14 @@ function getRegenShopItem(translationModule: TranslationModule) {
 	);
 }
 
-function getBadgeShopItem(translationModule: TranslationModule) {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction) {
 	return getPermanentItemShopItem(
 		"badge",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge(Constants.BADGES.RICH_PERSON)) {
-				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.alreadyHasItem"));
+				sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.alreadyHasItem"));
 				return false;
 			}
 			entity.Player.addBadge(Constants.BADGES.RICH_PERSON);
@@ -186,7 +185,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	);
 }
 
-function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity) {
+function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity, interaction: CommandInteraction) {
 	const availableCategories = [0, 1, 2, 3]
 		.filter(itemCategory => entity.Player.InventoryInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
 	if (availableCategories.length === 0) {
@@ -208,17 +207,16 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 		async (shopMessage) => {
 			const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
 				.allowUser(shopMessage.user)
-				.endCallback(async (chooseSlotMessage) => {
+				.endCallback((async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-						await shopMessage.sentMessage.channel.send({
-							embeds: [new DraftBotErrorEmbed(
-								shopMessage.user,
-								shopMessage.language,
-								translationModule.get("error.canceledPurchase")
-							)]
-						});
+						sendErrorMessage(
+							interaction.user,
+							interaction,
+							shopMessage.language,
+							translationModule.get("error.canceledPurchase")
+						);
 						return;
 					}
 					[entity] = await Entities.getOrRegister(shopMessage.user.id);
@@ -239,7 +237,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 						}
 					}
 					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-				});
+				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (const category of availableCategories) {
 				chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));

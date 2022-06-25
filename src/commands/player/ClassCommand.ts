@@ -2,11 +2,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Class, Classes} from "../../core/models/Class";
 import {Entity} from "../../core/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -19,7 +19,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const classTranslations = Translations.getModule("commands.class", language);
@@ -113,12 +113,12 @@ function createClassCollectorAndManageIt(
 		}
 		if (reaction.first().emoji.name === Constants.MENU_REACTION.DENY) {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CLASS);
-			sendErrorMessage(interaction.user, interaction.channel, language, classTranslations.get("error.leaveClass"), true);
+			sendErrorMessage(interaction.user, interaction, language, classTranslations.get("error.leaveClass"), true);
 			return;
 		}
 
 		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
-		await confirmPurchase(classMessage, language, selectedClass, entity, classTranslations);
+		await confirmPurchase(classMessage, language, selectedClass, entity, classTranslations, interaction);
 	});
 }
 
@@ -129,7 +129,7 @@ function createClassCollectorAndManageIt(
  * @param {Entities} entity - The entity that is playing
  * @param classTranslations
  */
-async function confirmPurchase(message: Message, language: string, selectedClass: Class, entity: Entity, classTranslations: TranslationModule) {
+async function confirmPurchase(message: Message, language: string, selectedClass: Class, entity: Entity, classTranslations: TranslationModule, interaction: CommandInteraction) {
 
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(classTranslations.get("confirm"), message.author)
@@ -162,7 +162,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, entity.Player)) {
-					return sendErrorMessage(message.author, message.channel, language,
+					return sendErrorMessage(message.author, interaction, language,
 						classTranslations.format("error.cannotBuy",
 							{
 								missingMoney: selectedClass.price - entity.Player.money
@@ -170,7 +170,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 						));
 				}
 				if (selectedClass.id === playerClass.id) {
-					return sendErrorMessage(message.author, message.channel, language, classTranslations.get("error.sameClass"));
+					return sendErrorMessage(message.author, interaction, language, classTranslations.get("error.sameClass"));
 				}
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
@@ -198,7 +198,7 @@ async function confirmPurchase(message: Message, language: string, selectedClass
 				});
 			}
 		}
-		sendErrorMessage(message.author, message.channel, language, classTranslations.get("error.canceledPurchase"), true);
+		sendErrorMessage(message.author, interaction, language, classTranslations.get("error.canceledPurchase"), true);
 	});
 
 	await Promise.all([

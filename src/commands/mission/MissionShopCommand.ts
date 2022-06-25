@@ -10,15 +10,14 @@ import {Constants} from "../../core/Constants";
 import Entity, {Entities} from "../../core/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**
@@ -28,7 +27,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
@@ -38,26 +37,26 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		[
 			getMoneyShopItem(shopTranslations),
 			getValuableItemShopItem(shopTranslations),
-			getAThousandPointsShopItem(shopTranslations)
+			getAThousandPointsShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("resTitle")
 	);
 	const utilCategory = new ShopItemCategory(
 		[
-			getSkipMapMissionShopItem(shopTranslations),
-			getValueLovePointsPetShopItem(shopTranslations)
+			getSkipMapMissionShopItem(shopTranslations, interaction),
+			getValueLovePointsPetShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("utilTitle")
 	);
 	const presCategory = new ShopItemCategory(
 		[
-			getBadgeShopItem(shopTranslations)
+			getBadgeShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("presTitle")
 	);
 
 	const shopMessage = await new DraftBotShopMessageBuilder(
-		interaction.user,
+		interaction,
 		shopTranslations.get("title"),
 		language
 	)
@@ -109,7 +108,7 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 	);
 }
 
-function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopItem {
+function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"skipMapMission",
 		translationModule,
@@ -117,28 +116,26 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const allMissions = entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 			if (!allMissions.length) {
-				message.sentMessage.channel.send({
-					embeds: [new DraftBotErrorEmbed(
-						message.user,
-						message.language,
-						translationModule.get("error.noMissionToSkip")
-					)]
-				});
+				sendErrorMessage(
+					message.user,
+					interaction,
+					message.language,
+					translationModule.get("error.noMissionToSkip")
+				);
 				return false;
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
 				.allowUser(message.user)
-				.endCallback(async (missionMessage) => {
+				.endCallback((async (missionMessage) => {
 					const reaction = missionMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
-						await message.sentMessage.channel.send({
-							embeds: [new DraftBotErrorEmbed(
-								message.user,
-								message.language,
-								translationModule.get("error.canceledPurchase")
-							)]
-						});
+						await sendErrorMessage(
+							message.user,
+							interaction,
+							message.language,
+							translationModule.get("error.canceledPurchase")
+						);
 						return false;
 					}
 					for (let i = 0; i < allMissions.length; ++i) {
@@ -166,7 +163,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 					}
 					BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 					await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
-				});
+				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
@@ -229,20 +226,19 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		});
 }
 
-function getAThousandPointsShopItem(translationModule: TranslationModule): ShopItem {
+function getAThousandPointsShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"1000Points",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek) {
-				message.sentMessage.channel.send({
-					embeds: [new DraftBotErrorEmbed(
-						message.user,
-						message.language,
-						translationModule.get("error.remainingCooldown")
-					)]
-				});
+				sendErrorMessage(
+					message.user,
+					interaction,
+					message.language,
+					translationModule.get("error.remainingCooldown")
+				);
 				return false;
 			}
 			await entity.Player.addScore(entity, 1000, message.sentMessage.channel, translationModule.language);
@@ -261,20 +257,19 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 		});
 }
 
-function getValueLovePointsPetShopItem(translationModule: TranslationModule): ShopItem {
+function getValueLovePointsPetShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"lovePointsValue",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.petId === null) {
-				message.sentMessage.channel.send({
-					embeds: [new DraftBotErrorEmbed(
-						message.user,
-						message.language,
-						translationModule.get("error.noPet")
-					)]
-				});
+				sendErrorMessage(
+					message.user,
+					interaction,
+					message.language,
+					translationModule.get("error.noPet")
+				);
 				return false;
 			}
 			const sentenceGotten = translationModule.getRandom("items.lovePointsValue.advice." + entity.Player.Pet.getLoveLevelNumber());
@@ -295,20 +290,19 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 		});
 }
 
-function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"badge",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge(Constants.BADGES.QUEST_MASTER)) {
-				message.sentMessage.channel.send({
-					embeds: [new DraftBotErrorEmbed(
-						message.user,
-						message.language,
-						translationModule.get("error.alreadyHasItem")
-					)]
-				});
+				sendErrorMessage(
+					message.user,
+					interaction,
+					message.language,
+					translationModule.get("error.alreadyHasItem")
+				);
 				return false;
 			}
 			entity.Player.addBadge(Constants.BADGES.QUEST_MASTER);

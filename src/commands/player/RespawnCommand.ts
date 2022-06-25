@@ -10,7 +10,7 @@ import {CommandInteraction} from "discord.js";
 import {Data} from "../../core/Data";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Allow a player who is dead to respawn
@@ -19,12 +19,12 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction.user, interaction.channel, language, interaction)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
 	if (entity.Player.effect !== Constants.EFFECT.DEAD) {
-		await sendErrorMessage(interaction.user, interaction.channel, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}), false, interaction);
+		replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
 		return;
 	}
 	const lostScore = Math.round(entity.Player.score * Data.getModule("commands.respawn").getNumber("score_remove_during_respawn"));

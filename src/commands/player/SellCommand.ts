@@ -4,10 +4,9 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {countNbOfPotions, getItemValue, sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import InventorySlot from "../../core/models/InventorySlot";
@@ -123,7 +122,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 		(endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 			if (endMessage.isCanceled()) {
-				sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("sellCanceled"), true);
+				sendErrorMessage(interaction.user, interaction, tr.language, tr.get("sellCanceled"), true);
 			}
 		});
 
@@ -139,7 +138,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
@@ -147,7 +146,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	let toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSellItems.length === 0) {
-		await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, language, tr.get("noItemToSell"))]});
+		replyErrorMessage(interaction, language, tr.get("noItemToSell"));
 		return;
 	}
 	toSellItems = await sortPlayerItemList(toSellItems);

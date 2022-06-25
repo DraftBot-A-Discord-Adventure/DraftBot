@@ -3,7 +3,6 @@ import {format} from "../../core/utils/StringFormatter";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Translations} from "../../core/Translations";
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Armor, Armors} from "../../core/models/Armor";
 import {Weapon, Weapons} from "../../core/models/Weapon";
 import {Potion, Potions} from "../../core/models/Potion";
@@ -14,7 +13,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 declare function isAMention(variable: string): boolean;
@@ -32,9 +31,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const tr = Translations.getModule("commands.giveCommand", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 52) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			tr.get("errors.tooMuchPeople")
 		);
@@ -60,26 +58,20 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		break;
 	}
 	if (item === null) {
-		return await interaction.reply({
-			embeds: [new DraftBotErrorEmbed(interaction.user, language, tr.get("errors.wrongItemId"))],
-			ephemeral: true
-		});
+		return replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
 	}
 
 	const users = new Set<string>();
 	for (let i = 0; i < usersToChange.length; i++) {
 		const mention = usersToChange[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
 				tr.format("errors.invalidIdOrMention", {
 					position: i + 1,
 					wrongText: usersToChange[i]
-				}),
-				false,
-				interaction
+				})
 			);
 			return;
 		}
@@ -132,9 +124,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				});
 			}
 			else {
-				await sendErrorMessage(
+				sendErrorMessage(
 					interaction.user,
-					interaction.channel,
+					interaction,
 					language,
 					tr.get("errors.commandCanceled"),
 					true

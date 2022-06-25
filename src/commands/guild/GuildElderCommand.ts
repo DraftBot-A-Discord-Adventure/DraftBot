@@ -5,11 +5,11 @@ import {Entities, Entity} from "../../core/models/Entity";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Guild, {Guilds} from "../../core/models/Guild";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type PersonInformation = { user: User, entity: Entity };
@@ -34,7 +34,7 @@ function getEndCallbackGuildElder(
 			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
 				return sendErrorMessage(
 					chief.user,
-					textInformation.interaction.channel,
+					textInformation.interaction,
 					textInformation.guildElderModule.language,
 					textInformation.guildElderModule.get("problemWhilePromoting"),
 					true
@@ -65,7 +65,7 @@ function getEndCallbackGuildElder(
 		// Cancel the creation
 		return sendErrorMessage(
 			chief.user,
-			textInformation.interaction.channel,
+			textInformation.interaction,
 			textInformation.guildElderModule.language,
 			textInformation.guildElderModule.get("elderAddCancelled"),
 			true);
@@ -82,39 +82,30 @@ function getEndCallbackGuildElder(
 function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderEntity: Entity): boolean {
 	// check if the elder is in the right guild
 	if (elderGuild === null || elderGuild.id !== guild.id) {
-		sendErrorMessage(
-			textInformation.interaction.user,
-			textInformation.interaction.channel,
+		replyErrorMessage(
+			textInformation.interaction,
 			textInformation.guildElderModule.language,
-			textInformation.guildElderModule.get("notInTheGuild"),
-			false,
-			textInformation.interaction
+			textInformation.guildElderModule.get("notInTheGuild")
 		);
 		return false;
 	}
 
 	// chief cannot be the elder
 	if (guild.chiefId === elderEntity.id) {
-		sendErrorMessage(
-			textInformation.interaction.user,
-			textInformation.interaction.channel,
+		replyErrorMessage(
+			textInformation.interaction,
 			textInformation.guildElderModule.language,
-			textInformation.guildElderModule.get("chiefError"),
-			false,
-			textInformation.interaction
+			textInformation.guildElderModule.get("chiefError")
 		);
 		return false;
 	}
 
 	// check if the elder is already an elder
 	if (elderGuild.elderId === elderEntity.id) {
-		sendErrorMessage(
-			textInformation.interaction.user,
-			textInformation.interaction.channel,
+		replyErrorMessage(
+			textInformation.interaction,
 			textInformation.guildElderModule.language,
-			textInformation.guildElderModule.get("alreadyElder"),
-			false,
-			textInformation.interaction
+			textInformation.guildElderModule.get("alreadyElder")
 		);
 		return false;
 	}
@@ -128,7 +119,7 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation:
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const guildElderModule = Translations.getModule("commands.guildElder", language);

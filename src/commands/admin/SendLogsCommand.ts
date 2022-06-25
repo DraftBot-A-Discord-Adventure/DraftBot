@@ -4,7 +4,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {botConfig} from "../../core/bot";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 
 /**
  * Allow a contributor to get the console logs
@@ -14,9 +14,8 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const sendLogsModule = Translations.getModule("commands.sendLogs", language);
 	if (interaction.channel.id !== botConfig.CONTRIBUTORS_CHANNEL) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			Translations.getModule("error", language).get("notContributorsChannel"));
 		return;
@@ -47,7 +46,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	else {
 		let queriedFile = interaction.options.getString("specificfile");
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
-			await sendErrorMessage(interaction.user, interaction.channel, language, sendLogsModule.get("localFileInclusion"));
+			replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
 			return;
 		}
 		if (!queriedFile.endsWith(".txt")) {
@@ -63,7 +62,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			await interaction.reply({content: "Logs sent !"});
 		}
 		else {
-			await sendErrorMessage(interaction.user, interaction.channel, language, sendLogsModule.get("noLogFile"));
+			replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
 		}
 	}
 }

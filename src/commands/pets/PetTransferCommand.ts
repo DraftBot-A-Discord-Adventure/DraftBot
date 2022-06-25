@@ -6,11 +6,12 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import PetEntity from "../../core/models/PetEntity";
+import { sendBlockedError } from "../../core/utils/BlockingUtils";
 
 /**
  * Allow to transfer a pet
@@ -19,7 +20,7 @@ import PetEntity from "../../core/models/PetEntity";
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petTransferModule = Translations.getModule("commands.petTransfer", language);
@@ -27,7 +28,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const guild = await getGuildOfEntity(entity);
 	if (!guild) {
-		sendErrorMessage(interaction.user, interaction.channel, language, Translations.getModule("commands.guildKick", language).get("notInAguild"), false, interaction);
+		replyErrorMessage(interaction, language, Translations.getModule("commands.guildKick", language).get("notInAguild"));
 		return;
 	}
 
@@ -43,7 +44,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (guildPetCount === 0) {
-		sendErrorMessage(interaction.user, interaction.channel, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"), false, interaction);
+		replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
 		return;
 	}
 	if (shelterPosition > guildPetCount) {
@@ -74,13 +75,13 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 	const playerPet = entity.Player.Pet;
 	const guildPetCount = guild.GuildPets.length;
 	if (!playerPet) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noPetToTransfer"), false, interaction);
+		return replyErrorMessage(interaction, language, petTransferModule.get("noPetToTransfer"));
 	}
 	if (playerPet.isFeisty()) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
+		return replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
 	}
 	if (guildPetCount >= Data.getModule("models.pets").getNumber("slots")) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("noSlotAvailable"), false, interaction);
+		return replyErrorMessage(interaction, language, petTransferModule.get("noSlotAvailable"));
 	}
 	entity.Player.petId = null;
 	entity.Player.save();
@@ -93,11 +94,11 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 
 function sendErrorInvalidPositionShelter(guildPetCount: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule) {
 	if (guildPetCount === 1) {
-		return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("wrongPetNumberSingle"), false, interaction);
+		return replyErrorMessage(interaction, language, petTransferModule.get("wrongPetNumberSingle"));
 	}
-	return sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.format("wrongPetNumberBetween", {
+	return replyErrorMessage(interaction, language, petTransferModule.format("wrongPetNumberBetween", {
 		max: guildPetCount
-	}), false, interaction);
+	}));
 }
 
 async function switchPets(guild: Guild, shelterPosition: any, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity) {
@@ -107,7 +108,7 @@ async function switchPets(guild: Guild, shelterPosition: any, interaction: Comma
 
 	if (playerPet) {
 		if (playerPet.isFeisty()) {
-			sendErrorMessage(interaction.user, interaction.channel, language, petTransferModule.get("isFeisty"), false, interaction);
+			replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
 			return null;
 		}
 		swPet.petEntityId = playerPet.id;

@@ -16,11 +16,11 @@ import {
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/models/Tag";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, Message, TextBasedChannel, User} from "discord.js";
-import {effectsErrorTextValue, sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {effectsErrorTextValue} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
@@ -43,7 +43,7 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 		await initiateNewPlayerOnTheAdventure(entity);
 	}
 
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 

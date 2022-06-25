@@ -5,13 +5,13 @@ import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {Entities, Entity} from "../../core/models/Entity";
 import InventorySlot from "../../core/models/InventorySlot";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
@@ -148,10 +148,10 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		choiceItems,
 		interaction.user.id,
 		async (item: ItemForCallback) => await switchItemEmbedCallback(entity, interaction, item, tr),
-		async (endMessage) => {
+		(endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SWITCH);
 			if (endMessage.isCanceled()) {
-				await sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("canceled"), true);
+				sendErrorMessage(interaction.user, interaction, tr.language, tr.get("canceled"), true);
 			}
 		});
 
@@ -168,7 +168,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	// Error if blocked
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
@@ -178,7 +178,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Get the items that can be switched or send an error if none
 	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
-		sendErrorMessage(interaction.user, interaction.channel, language, tr.get("noItemToSwitch"), false, interaction);
+		replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
 		return;
 	}
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);

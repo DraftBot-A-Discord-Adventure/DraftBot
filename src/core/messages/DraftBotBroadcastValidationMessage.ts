@@ -121,12 +121,12 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			await this.checkReactionBroadcastCollector(user, reaction);
 		});
 
-		this._collector.on("end", async () => {
+		this._collector.on("end", () => {
 			if (!this._gotAnAnswer && this._answerer === null) {
 				BlockingUtils.unblockPlayer(this._interaction.user.id, this._blockingReason);
-				await sendErrorMessage(
+				sendErrorMessage(
 					this._interaction.user,
-					this._interaction.channel,
+					this._interaction,
 					this._language,
 					this._translationModule.errorNoAnswer
 				);
@@ -186,7 +186,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 */
 	private async manageDenyReaction(user: User) {
 		if (this._interaction.user.id === user.id) {
-			await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorBroadcastCancelled, true);
+			sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorBroadcastCancelled, true);
 			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}
@@ -194,7 +194,8 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			return false;
 		}
 		this._spammers.push(user.id);
-		await sendErrorMessage(user, this._interaction.channel, this._language, format(this._translationModule.errorOtherDeny, {pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()}));
+		sendErrorMessage(this._interaction.user,this._interaction, this._language,
+			format(this._translationModule.errorOtherDeny, {pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()}));
 		return false;
 	}
 
@@ -207,10 +208,10 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		if (user.id === this._interaction.user.id) {
 			this._spamCount++;
 			if (this._spamCount < Constants.MESSAGES.MAX_SPAM_COUNT) {
-				await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorSelfAccept);
+				sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorSelfAccept);
 				return false;
 			}
-			await sendErrorMessage(user, this._interaction.channel, this._language, this._translationModule.errorSelfAcceptSpam);
+			sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorSelfAcceptSpam);
 			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
 			return true;
 		}

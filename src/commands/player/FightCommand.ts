@@ -4,7 +4,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage,sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
@@ -56,13 +56,18 @@ function sendError(interaction: CommandInteraction, fightTranslationModule: Tran
 		pseudo: entity.getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
-	sendErrorMessage(
-		interaction.user,
-		interaction.channel,
-		fightTranslationModule.language,
-		fightTranslationModule.format(errorTranslationName, replacements),
-		false,
-		replyingError ? interaction : null);
+	replyingError ?
+		replyErrorMessage(
+			interaction,
+			fightTranslationModule.language,
+			fightTranslationModule.format(errorTranslationName, replacements)
+		)
+		: sendErrorMessage(
+			interaction.user,
+			interaction,
+			fightTranslationModule.language,
+			fightTranslationModule.format(errorTranslationName, replacements)
+		);
 }
 
 /**
@@ -155,7 +160,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
-		sendErrorMessage(interaction.user, interaction.channel, language, fightTranslationModule.get("error.fightHimself"), false, interaction);
+		replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);

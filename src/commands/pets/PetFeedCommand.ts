@@ -1,12 +1,12 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Entity from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity from "../../core/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
@@ -20,34 +20,28 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const petFeedModule = Translations.getModule("commands.petFeed", language);
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
 	const authorPet = entity.Player.Pet;
 	if (!authorPet) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			petFeedModule.get("noPet"),
-			false,
-			interaction
+			petFeedModule.get("noPet")
 		);
 		return;
 	}
 
 	const cooldownTime = entity.Player.Pet.getFeedCooldown();
 	if (cooldownTime > 0) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			petFeedModule.format("notHungry", {
 				petnick: authorPet.displayName(language)
-			}),
-			false,
-			interaction
+			})
 		);
 		return;
 	}
@@ -135,7 +129,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
 			return sendErrorMessage(
 				interaction.user,
-				interaction.channel,
+				interaction,
 				language,
 				petFeedModule.get("cancelFeed"),
 				true
@@ -185,7 +179,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		) {
 			return sendErrorMessage(
 				interaction.user,
-				interaction.channel,
+				interaction,
 				language,
 				petFeedModule.get("cancelFeed"),
 				true
@@ -195,7 +189,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		if (entity.Player.money - 20 < 0) {
 			return sendErrorMessage(
 				interaction.user,
-				interaction.channel,
+				interaction,
 				language,
 				petFeedModule.get("noMoney")
 			);
@@ -236,7 +230,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	if (guild.getDataValue(item) <= 0) {
 		return sendErrorMessage(
 			interaction.user,
-			interaction.channel,
+			interaction,
 			language,
 			petFeedModule.get("notEnoughFood")
 		);

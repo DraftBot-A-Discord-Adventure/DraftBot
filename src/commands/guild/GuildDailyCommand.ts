@@ -2,7 +2,7 @@ import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import Entity, {Entities} from "../../core/models/Entity";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/models/Guild";
 import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -357,23 +357,20 @@ function generateRandomProperty(guild: Guild): string {
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, forcedReward: string = null): Promise<void> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
 	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			guildDailyModule.format("coolDown", {
 				coolDownTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
 				time: minutesDisplay(hoursToMinutes(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
-			}),
-			false,
-			interaction);
+			}));
 		return;
 	}
 
@@ -383,7 +380,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {
 			continue;
 		}
-		if (await sendBlockedError(await draftBotClient.users.fetch(member.discordUserId), interaction.channel, language)) {
+		if (await sendBlockedError(interaction, language, await draftBotClient.users.fetch(member.discordUserId))) {
 			return;
 		}
 	}

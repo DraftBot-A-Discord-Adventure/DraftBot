@@ -2,12 +2,12 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities, Entity} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Collection, CommandInteraction, Message, MessageReaction} from "discord.js";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -24,45 +24,36 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 	if (!entityCouple.locked) {
 		sendErrorMessage(
 			textInformations.interaction.user,
-			textInformations.interaction.channel,
+			textInformations.interaction,
 			textInformations.language,
-			textInformations.unlockModule.get("cannotGetlockedUser"),
-			false,
-			textInformations.interaction
+			textInformations.unlockModule.get("cannotGetlockedUser")
 		);
 		return false;
 	}
 	if (entityCouple.locked.discordUserId === entityCouple.unlocker.discordUserId) {
 		sendErrorMessage(
 			textInformations.interaction.user,
-			textInformations.interaction.channel,
+			textInformations.interaction,
 			textInformations.language,
-			textInformations.unlockModule.get("unlockHimself"),
-			false,
-			textInformations.interaction
+			textInformations.unlockModule.get("unlockHimself")
 		);
 		return false;
 	}
 
 	if (entityCouple.locked.Player.effect !== Constants.EFFECT.LOCKED) {
-		sendErrorMessage(
-			textInformations.interaction.user,
-			textInformations.interaction.channel,
+		replyErrorMessage(
+			textInformations.interaction,
 			textInformations.language,
-			textInformations.unlockModule.get("userNotLocked"),
-			false,
-			textInformations.interaction
+			textInformations.unlockModule.get("userNotLocked")
 		);
 		return false;
 	}
 	if (entityCouple.unlocker.Player.money < UnlockConstants.PRICE_FOR_UNLOCK) {
-		sendErrorMessage(textInformations.interaction.user, textInformations.interaction.channel, textInformations.language,
+		replyErrorMessage(textInformations.interaction, textInformations.language,
 			textInformations.unlockModule.format("noMoney", {
 				money: UnlockConstants.PRICE_FOR_UNLOCK - entityCouple.unlocker.Player.money,
 				pseudo: await entityCouple.locked.Player.getPseudo(textInformations.language)
-			}),
-			false,
-			textInformations.interaction
+			})
 		);
 		return false;
 	}
@@ -104,7 +95,7 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
 				return await textInformations.interaction.followUp({embeds: [successEmbed]});
 			}
 		}
-		await sendErrorMessage(textInformations.interaction.user, textInformations.interaction.channel, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
+		sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
 	};
 }
 
@@ -154,7 +145,7 @@ async function sendAndManageUnlockMessage(entityCouple: EntityCouple, textInform
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 

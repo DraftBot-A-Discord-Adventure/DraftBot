@@ -5,11 +5,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {checkNameString} from "../../core/utils/StringUtils";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data, DataModule} from "../../core/Data";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -23,7 +23,7 @@ type InformationModules = { guildCreateModule: TranslationModule, guildCreateDat
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const guildCreateModule = Translations.getModule("commands.guildCreate", language);
@@ -38,23 +38,20 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	if (guild !== null) {
 		// already in a guild
-		sendErrorMessage(interaction.user, interaction.channel, language, guildCreateModule.get("alreadyInAGuild"), false, interaction);
+		replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
 		return;
 	}
 
 	const askedName = interaction.options.getString("guilds_name");
 
 	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			guildCreateModule.get("invalidName") + "\n" + Translations.getModule("error", language).format("nameRules", {
 				min: Constants.GUILD.MIN_GUILD_NAME_SIZE,
 				max: Constants.GUILD.MAX_GUILD_NAME_SIZE
-			}),
-			false,
-			interaction);
+			}));
 		return;
 	}
 
@@ -62,13 +59,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (guild !== null) {
 		// the name is already used
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			guildCreateModule.get("nameAlreadyUsed"),
-			false,
-			interaction
+			guildCreateModule.get("nameAlreadyUsed")
 		);
 		return;
 	}
@@ -102,10 +96,10 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {
 				// the name is already used
-				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
+				return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
 			}
 			if (entity.Player.money < informationModules.guildCreateData.getNumber("guildCreationPrice")) {
-				return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("notEnoughMoney"));
+				return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("notEnoughMoney"));
 			}
 
 			const newGuild = await Guild.create({
@@ -133,7 +127,7 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(interaction.user, interaction.channel, language, informationModules.guildCreateModule.get("creationCancelled"), true);
+		return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("creationCancelled"), true);
 	};
 }
 

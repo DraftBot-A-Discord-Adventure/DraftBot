@@ -1,12 +1,12 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Entity from "../../core/models/Entity";
 import {Guild, Guilds} from "../../core/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
-import {sendBlockedErrorInteraction, sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetFreeConstants} from "../../core/constants/PetFreeConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
@@ -60,48 +60,39 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 			await interaction.followUp({embeds: [freedEmbed]});
 			return;
 		}
-		await sendErrorMessage(interaction.user, interaction.channel, petFreeModule.language, petFreeModule.get("canceled"), true);
+		sendErrorMessage(interaction.user, interaction, petFreeModule.language, petFreeModule.get("canceled"), true);
 	};
 }
 
-async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity) {
+function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity) {
 	if (!pPet) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			petFreeModule.language,
-			Translations.getModule("commands.pet", petFreeModule.language).get("noPet"),
-			false,
-			interaction
+			Translations.getModule("commands.pet", petFreeModule.language).get("noPet")
 		);
 		return true;
 	}
 
 	const cooldownTime = PetFreeConstants.FREE_COOLDOWN - (new Date().valueOf() - entity.Player.lastPetFree.valueOf());
 	if (cooldownTime > 0) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			petFreeModule.language,
 			petFreeModule.format("cooldown", {
 				time: minutesDisplay(millisecondsToMinutes(cooldownTime))
-			}),
-			false,
-			interaction
+			})
 		);
 		return true;
 	}
 
 	if (pPet.isFeisty() && entity.Player.money < PetFreeConstants.FREE_FEISTY_COST) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			petFreeModule.language,
 			petFreeModule.format("noMoney", {
 				money: PetFreeConstants.FREE_FEISTY_COST - entity.Player.money
-			}),
-			false,
-			interaction
+			})
 		);
 		return true;
 	}
@@ -115,13 +106,13 @@ async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, pet
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petFreeModule = Translations.getModule("commands.petFree", language);
 
 	const pPet = entity.Player.Pet;
-	if (await cantBeFreed(pPet, interaction, petFreeModule, entity)) {
+	if (cantBeFreed(pPet, interaction, petFreeModule, entity)) {
 		return;
 	}
 

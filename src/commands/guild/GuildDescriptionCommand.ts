@@ -1,6 +1,6 @@
 import {CommandInteraction} from "discord.js";
 import {Entity} from "../../core/models/Entity";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/models/Guild";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
@@ -45,7 +45,7 @@ function endCallbackGuildCreateValidationMessage(
 		}
 
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction.channel, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
+		sendErrorMessage(interaction.user, interaction, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
 	};
 }
 
@@ -90,16 +90,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildDescription = interaction.options.getString("description");
 
 	if (!checkNameString(guildDescription, Constants.GUILD.MIN_DESCRIPTION_LENGTH, Constants.GUILD.MAX_DESCRIPTION_LENGTH)) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
 			guildDescriptionModule.format("invalidDescription", {
 				min: Constants.GUILD.MIN_DESCRIPTION_LENGTH,
 				max: Constants.GUILD.MAX_DESCRIPTION_LENGTH
-			}),
-			false,
-			interaction
+			})
 		);
 		return;
 	}

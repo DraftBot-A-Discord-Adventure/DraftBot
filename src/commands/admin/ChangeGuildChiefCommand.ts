@@ -5,7 +5,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/models/Guild";
 import {draftBotClient} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
@@ -75,7 +75,7 @@ function getEndCallbackChangeChief(
 			return;
 		}
 
-		sendErrorMessage(interaction.user, interaction.channel, tr.language, tr.get("validation.canceled"), true);
+		sendErrorMessage(interaction.user, interaction, tr.language, tr.get("validation.canceled"), true);
 	};
 }
 
@@ -97,37 +97,28 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, guild: Guild | null): boolean {
 
 		if (guild === null) {
-			sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
-				tr.get("errors.unknownGuild"),
-				false,
-				interaction
+				tr.get("errors.unknownGuild")
 			);
 			return false;
 		}
 
 		if (!userGuild || userGuild.id !== guild.id) {
-			sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
-				tr.get("errors.notInTheGuild"),
-				false,
-				interaction
+				tr.get("errors.notInTheGuild")
 			);
 			return false;
 		}
 
 		if (guild.chiefId === userToPromote.id) {
-			sendErrorMessage(
-				interaction.user,
-				interaction.channel,
+			replyErrorMessage(
+				interaction,
 				language,
-				tr.get("errors.alreadyChief"),
-				false,
-				interaction
+				tr.get("errors.alreadyChief")
 			);
 			return false;
 		}
@@ -142,13 +133,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		userToPromote = null;
 	}
 	if (!userToPromote) {
-		sendErrorMessage(
-			interaction.user,
-			interaction.channel,
+		replyErrorMessage(
+			interaction,
 			language,
-			tr.get("errors.wrongId"),
-			false,
-			interaction
+			tr.get("errors.wrongId")
 		);
 		return;
 	}

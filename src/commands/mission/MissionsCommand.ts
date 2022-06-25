@@ -7,10 +7,10 @@ import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissio
 import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {sendBlockedErrorInteraction} from "../../core/utils/ErrorUtils";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedErrorInteraction(interaction, language)) {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	let entityToLook = await Entities.getByOptions(interaction);
