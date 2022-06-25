@@ -2,21 +2,11 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque simple",
-			"namePlural": "Attaques simples",
-			"end": {
-				"succeed": "",
-				"notGood": "",
-				"failed": ""
-			}
+			"namePlural": "Attaques simples"
 		},
 		"en": {
 			"name": "Simple attack",
-			"namePlural": "Simple attacks",
-			"end": {
-				"succeed": "",
-				"notGood": "",
-				"failed": ""
-			}
+			"namePlural": "Simple attacks"
 		}
 	},
 	"emote": "⚔️"

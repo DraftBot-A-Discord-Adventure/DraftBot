@@ -113,11 +113,12 @@ export class FightActionController {
 	 * @param failureProbability
 	 */
 	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): number {
-		if (RandomUtils.randInt(0, 100) < criticalHitProbability) {
-			damageDealt *= FightConstants.CRITICAL_HIT_MULTIPLIER;
+		const randomValue = RandomUtils.randInt(0, 100);
+		if (randomValue < criticalHitProbability) {
+			return Math.round(damageDealt * FightConstants.CRITICAL_HIT_MULTIPLIER);
 		}
-		if (RandomUtils.randInt(0, 100) < failureProbability) {
-			damageDealt = 0;
+		if (randomValue < failureProbability + criticalHitProbability) {
+			return Math.round(damageDealt * RandomUtils.draftbotRandom.pick(FightConstants.FAILURE_DIVIDERS));
 		}
 		return damageDealt;
 	}

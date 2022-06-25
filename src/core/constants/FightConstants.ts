@@ -39,5 +39,21 @@ export abstract class FightConstants {
 	static readonly MAX_PLAYER_LEVEL_FOR_BONUSES = 75;
 
 	// multiplier of the damage a fight action will deal if it is a critical hit
-	static CRITICAL_HIT_MULTIPLIER = 1.5;
+	static readonly CRITICAL_HIT_MULTIPLIER = 1.5;
+
+	// divider of the damage a fight action will deal if it is a miss
+	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
+
+	// attack status
+	static readonly ATTACK_STATUS = {
+		CRITICAL: "critical",
+		NORMAL: "normal",
+		MISSED: "missed"
+	};
+
+	static readonly TARGET = {
+		SELF: 0,
+		OPPONENT: 1
+	}
+
 }
