@@ -46,6 +46,8 @@ export class FightActionController {
 		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
+		// add a random variation of 5% of the damage
+		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		return Math.round(attackDamage * (1 + levelBonusRatio));
 	}
 
@@ -64,15 +66,13 @@ export class FightActionController {
 		 */
 		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 70;
 
-		let damage = ratio < 0 ? Math.round(
+		const damage = ratio < 0 ? Math.round(
 			// if the attacker is weaker than the defender, the damage is selected in the under the average damage interval
 			MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
 		) : Math.round(
 			// if the attacker is stronger than the defender, the damage is selected in the over the average damage interval
 			MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
 		);
-		// add a random variation of 5% of the damage
-		damage = Math.round(damage + damage * RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		// return damage caped between max and min
 		return damage > attackInfo.maxDamage ? attackInfo.maxDamage : damage < attackInfo.minDamage ? attackInfo.minDamage : damage;
 	}

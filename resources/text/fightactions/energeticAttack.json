@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque énergique",
+			"namePlural": "Attaques énergiques"
+		},
+		"en": {
+			"name": "Energetic attack",
+			"namePlural": "Energetic attacks"
+		}
+	},
+	"emote": "⚡"
+}

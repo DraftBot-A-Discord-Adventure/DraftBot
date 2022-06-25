@@ -112,7 +112,8 @@
 				"sideEffects": {
 					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`"
+					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
 				}
 			}
 		},
@@ -267,7 +268,8 @@
 				"sideEffects": {
 					"defense": " `Defense{adversary>0? of your opponent:}: {operator} {amount} %`",
 					"speed": " `Speed{adversary>0? of your opponent:}: {operator} {amount} %`",
-					"attack": " `Attack{adversary>0? of your opponent:}: {operator} {amount} %`"
+					"attack": " `Attack{adversary>0? of your opponent:}: {operator} {amount} %`",
+					"energy": " `Fight points healed{adversary>0? of your opponent:}: {operator} {amount}`"
 				}
 			}
 		}
