@@ -55,13 +55,16 @@ export function getErrorReasons(blockingReason: string[], language: string) {
 export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
-		const username = escapeUsername(user.username);
-		const sentence = user !== interaction.user ? "playerBlocked" : "anotherPlayerBlocker";
-
-		replyErrorMessage(interaction, language, Translations.getModule("error", language).format(sentence, {
-			context: getErrorReasons(blockingReason, language),
-			username: username
-		}));
+		replyErrorMessage(
+			interaction,
+			language,
+			Translations.getModule("error", language).format(
+				user === interaction.user ? "playerBlocked" : "anotherPlayerBlocker", {
+					context: getErrorReasons(blockingReason, language),
+					username: escapeUsername(user.username)
+				}
+			)
+		);
 		return true;
 	}
 	return false;
