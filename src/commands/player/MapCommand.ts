@@ -24,7 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		mapModule.format("URL_WITH_CURSOR", {mapLink: strMapLink})
 	);
 	mapEmbed.setDescription(mapModule.format(
-		inReport ? "descTextArrived" : "descText", {
+		inReport ? "descTextReached" : "descText", {
 			direction: destMap.getDisplayName(language),
 			dirDesc: destMap.getDescription(language),
 			particle: destMap.getParticleName(language)
