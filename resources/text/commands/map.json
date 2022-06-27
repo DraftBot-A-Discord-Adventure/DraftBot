@@ -2,7 +2,8 @@
 	"translations": {
 		"fr": {
 			"text": "Voici la map de DraftBot, {pseudo} !",
-			"descText": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}",
+			"descTravel": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}",
+			"descLocation": "Vous êtes actuellement {particle} **{direction}** : {dirDesc}",
 			"descTextReached": "Vous êtes arrivés à votre destination : **{direction}**",
 			"URL_WITH_CURSOR": "https://draftbot.com/public/ressources/mapsCursed/{mapLink}map.jpg"
 		},
