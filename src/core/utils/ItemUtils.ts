@@ -34,7 +34,7 @@ export const giveItemToPlayer = async function(
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(tr.get("randomItemTitle"), discordUser)
-				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, 0) : item.toString(language, null))
+				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, null) : item.toString(language, null))
 		]
 	});
 
@@ -71,7 +71,7 @@ export const giveItemToPlayer = async function(
 			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(
-					(await item.getItem()).toString(language, -1),
+					(await item.getItem()).toString(language, null),
 					item
 				));
 			}
@@ -162,7 +162,7 @@ export const giveItemToPlayer = async function(
 	)
 		.formatAuthor(tr.get(item.getCategory() === Constants.ITEM_CATEGORIES.POTION ? "randomItemFooterPotion" : "randomItemFooter"), discordUser)
 		.setDescription(tr.format("randomItemDesc", {
-			actualItem: itemToReplaceInstance.toString(language)
+			actualItem: itemToReplaceInstance.toString(language, null)
 		}))
 		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
 };
@@ -186,7 +186,7 @@ const sellOrKeepItem = async function(
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
-			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, Infinity) : item.toString(language, -1));
+			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, null) : item.toString(language, null));
 
 		await InventorySlot.update(
 			{

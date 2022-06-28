@@ -10,7 +10,7 @@ export abstract class SupportItemModel extends GenericItemModel {
 
 	public readonly nature!: number;
 
-	public toString(language: string, maxStatsValue: number): string {
+	public toString(language: string, maxStatsValue: number[]): string {
 		const name = this.getName(language);
 		return this.id === 0 ? name : Translations.getModule("items", language).format("potions.fieldValue", {
 			name,
@@ -31,9 +31,9 @@ export abstract class SupportItemModel extends GenericItemModel {
 		return this.nature === Constants.ITEM_NATURE.SPEED ? this.power : 0;
 	}
 
-	public abstract getNatureTranslation(language: string, maxStatsValue: number): string;
+	public abstract getNatureTranslation(language: string, maxStatsValue: number[]): string;
 
-	protected toFieldObject(language: string, maxStatsValue: number): FieldObject {
+	public toFieldObject(language: string, maxStatsValue: number[]): FieldObject {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
