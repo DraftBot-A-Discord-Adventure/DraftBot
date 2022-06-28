@@ -5,6 +5,7 @@ import {format} from "../../utils/StringFormatter";
 import {Data} from "../../Data";
 import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../constants/FightConstants";
+import {FighterAlteration} from "../../fights/FighterAlteration";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -14,6 +15,7 @@ export const fightActionInterface: IFightAction = {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage,10,sender.stats.agility > receiver.stats.agility ? 0 : 20);
 		receiver.stats.fightPoints -= damageDealt;
+		receiver.newAlteration(FighterAlteration.CONFUSED);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);

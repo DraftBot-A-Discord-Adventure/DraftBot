@@ -4,12 +4,17 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../models/PlayerActiveObjects";
 import Potion from "../models/Potion";
 import {checkDrinkPotionMissions} from "../utils/ItemUtils";
-import {TranslationModule} from "../Translations";
+import {MissionsController} from "../missions/MissionsController";
+import {countNbOfPotions} from "../utils/ItemUtils";
+import {TranslationModule, Translations} from "../Translations";
 import {FighterStatus} from "./FighterStatus";
+import {FighterAlteration} from "./FighterAlteration";
 import {IFightAction} from "../attacks/IFightAction";
 import Class from "../models/Class";
 import {FightActionController} from "../attacks/FightActionController";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {FightConstants} from "../constants/FightConstants";
+import {RandomUtils} from "../utils/RandomUtils";
 
 type FighterStats = {
 	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number, agility: number
@@ -22,7 +27,7 @@ const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", 
  */
 export class Fighter {
 
-	public stats: FighterStats
+	public stats: FighterStats;
 
 	public nextFightActionId: string;
 
@@ -32,9 +37,11 @@ export class Fighter {
 
 	public entity: Entity
 
-	private ready: boolean
+	private ready: boolean;
 
-	private status: FighterStatus
+	private alteration: FighterAlteration;
+
+	private status: FighterStatus;
 
 	private readonly class: Class;
 
@@ -139,14 +146,14 @@ export class Fighter {
 	/**
 	 * get the discord id of a fighter
 	 */
-	getDiscordId() {
+	public getDiscordId() {
 		return this.entity.discordUserId;
 	}
 
 	/**
 	 * get the user of a fighter
 	 */
-	getUser() {
+	public getUser() {
 		return this.user;
 	}
 
@@ -154,35 +161,35 @@ export class Fighter {
 	 * get the pseudo of a fighter
 	 * @param language
 	 */
-	async getPseudo(language: string) {
+	public async getPseudo(language: string) {
 		return await this.entity.Player.getPseudo(language);
 	}
 
 	/**
 	 * check if the player is dead
 	 */
-	isDead() {
+	public isDead() {
 		return this.stats.fightPoints <= 0;
 	}
 
 	/**
 	 * check if the player is dead or buggy
 	 */
-	isDeadOrBug() {
+	public isDeadOrBug() {
 		return this.isDead() || this.status === FighterStatus.BUG;
 	}
 
 	/**
 	 * the name of the function is very clear
 	 */
-	suicide() {
+	public suicide() {
 		this.stats.fightPoints = 0;
 	}
 
 	/**
 	 * get a map of the fight actions executed and the amont of time it has been done
 	 */
-	getFightActionCount() {
+	public getFightActionCount() {
 		const playerFightActionsHistory = new Map<string, number>();
 		this.fightActionsHistory.forEach((action) => {
 			if (playerFightActionsHistory.has(action)) {
@@ -198,7 +205,7 @@ export class Fighter {
 	/**
 	 * get the player level of the fighter
 	 */
-	getPlayerLevel() {
+	public getPlayerLevel() {
 		return this.entity.Player.level;
 	}
 
@@ -208,5 +215,76 @@ export class Fighter {
 	 */
 	private async currentPotionIsAFightPotion() {
 		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
+	}
+
+	/**
+	 * Check if the fighter has a fight alteration
+	 */
+	hasFightAlteration(): boolean {
+		return this.alteration !== FighterAlteration.NORMAL;
+	}
+
+	/**
+	 * get the emoji of the fight alteration
+	 */
+	public getAlterationEmoji(): string {
+		return FightConstants.ALTERATION_EMOJI[this.alteration];
+	}
+
+	/**
+	 * execute the effect of the alteration that takes place at the beginning of the turn
+	 * @param language - the language of the message
+	 * @return string - the message to send to the players
+	 */
+	public processFightAlterationStartTurn(language: string): string {
+		const translationModule = Translations.getModule("commands.fight", language);
+		let damage: number;
+		switch (this.alteration) {
+		case FighterAlteration.CONFUSED:
+			this.stats.agility = 0;
+			return translationModule.get("alteration.confused.startTurn");
+		case FighterAlteration.POISONED:
+			damage = Math.round(
+				FightConstants.POISON_DAMAGE_PER_TURN +
+					FightConstants.POISON_DAMAGE_PER_TURN *
+					RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
+			this.stats.fightPoints -= damage;
+			return translationModule.format("alteration.poisoned.startTurn", {
+				damage: damage
+			});
+		default:
+			return "";
+		}
+	}
+
+	/**
+	 * execute the effect of the alteration that takes place at the end of the turn
+	 * @param language - the language of the message
+	 * @return string - the message to send to the players
+	 */
+	public processFightAlterationEndTurn(language: string): string {
+		const translationModule = Translations.getModule("commands.fight", language);
+		switch (this.alteration) {
+		case FighterAlteration.CONFUSED:
+			this.alteration = FighterAlteration.NORMAL;
+			this.stats.agility = this.entity.getAgility(this.stats.defense, this.stats.speed);
+			return translationModule.get("alteration.confused.endTurn");
+		case FighterAlteration.POISONED:
+			if (RandomUtils.randInt(0, 100) < FightConstants.POISON_END_PROBABILITY) {
+				this.alteration = FighterAlteration.NORMAL;
+				return translationModule.get("alteration.poisoned.endTurn");
+			}
+			return FightConstants.CANCEL_ALTERATION_DISPLAY;
+		default:
+			return "";
+		}
+	}
+
+	/**
+	 * Set a new fight alteration to the fighter
+	 * @param alteration - the new fight alteration
+	 */
+	newAlteration(alteration: FighterAlteration) {
+		this.alteration = alteration;
 	}
 }
