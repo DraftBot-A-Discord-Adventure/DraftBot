@@ -7,8 +7,8 @@ import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Armors} from "../models/Armor";
 import {Weapons} from "../models/Weapon";
-import Potion, {Potions} from "../models/Potion";
-import ObjectItem, {ObjectItems} from "../models/ObjectItem";
+import {Potions} from "../models/Potion";
+import {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
 import InventorySlot from "../models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
@@ -34,7 +34,7 @@ export const giveItemToPlayer = async function(
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(tr.get("randomItemTitle"), discordUser)
-				.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, null) : item.toString(language, null))
+				.setDescription(item.toString(language, null))
 		]
 	});
 
@@ -186,7 +186,7 @@ const sellOrKeepItem = async function(
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
-			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, null) : item.toString(language, null));
+			.setDescription(item.toString(language, null));
 
 		await InventorySlot.update(
 			{
