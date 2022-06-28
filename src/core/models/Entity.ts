@@ -18,6 +18,8 @@ import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../constants/TopConstants";
 import {Constants} from "../Constants";
 import moment = require("moment");
+import { BlockingUtils } from "../utils/BlockingUtils";
+import { BlockingConstants } from "../constants/BlockingConstants";
 
 type MissionHealthParameter = {
 	shouldPokeMission: boolean,
@@ -175,6 +177,14 @@ export class Entity extends Model {
 	 */
 	public getMention(): string {
 		return "<@" + this.discordUserId + ">";
+	}
+
+	/**
+     * returns true if the player is currently blocked by a report
+     */
+	public async isInEvent(): Promise<boolean> {
+		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
+		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 
 	/**

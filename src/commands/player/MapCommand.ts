@@ -5,7 +5,6 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Translations} from "../../core/Translations";
-import Player from "../../core/models/Player";
 
 /**
  * Show the map of DraftBot world
@@ -18,13 +17,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const mapEmbed = new DraftBotEmbed()
 		.formatAuthor(mapModule.get("text"), interaction.user);
 
+	const inReport = await entity.isInEvent();
 	const destMap = await entity.Player.getDestination();
-	const strMapLink = await getStrMapWithCursor(entity.Player);
+	const strMapLink = await getStrMapWithCursor(entity, inReport);
 	mapEmbed.setImage(
 		mapModule.format("URL_WITH_CURSOR", {mapLink: strMapLink})
 	);
 	mapEmbed.setDescription(mapModule.format(
-		"descText", {
+		inReport ? "descTextReached" : "descText", {
 			direction: destMap.getDisplayName(language),
 			dirDesc: destMap.getDescription(language),
 			particle: destMap.getParticleName(language)
@@ -37,19 +37,19 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 /**
  * Get the map image link with the cursor on the player position
- * @param player Player
+ * @param entity Entity
  */
-async function getStrMapWithCursor(player: Player) {
-	const destMap = await player.getDestination();
-	const depMap = await player.getPreviousMap();
-	let strMapLink;
+async function getStrMapWithCursor(entity: Entity, inReport: boolean) {
+	const destMap = await entity.Player.getDestination();
+	const depMap = await entity.Player.getPreviousMap();
+	if (inReport) {
+		return destMap.id + "_";
+	}
 	if (destMap.id < depMap.id) {
-		strMapLink = "" + destMap.id + "_" + depMap.id + "_";
+		return destMap.id + "_" + depMap.id + "_";
 	}
-	else {
-		strMapLink = "" + depMap.id + "_" + destMap.id + "_";
-	}
-	return strMapLink;
+	return depMap.id + "_" + destMap.id + "_";
+
 }
 
 export const commandInfo: ICommand = {
