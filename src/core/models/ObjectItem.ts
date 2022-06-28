@@ -14,7 +14,10 @@ export class ObjectItem extends SupportItemModel {
 		return Constants.ITEM_CATEGORIES.OBJECT;
 	}
 
-	getNatureTranslation(language: string, maxStatsValue: number): string {
+	getNatureTranslation(language: string, maxStatsValue: number[] = [Infinity, Infinity, Infinity]): string {
+		if (maxStatsValue === null) {
+			maxStatsValue = [Infinity, Infinity, Infinity];
+		}
 		const tr = Translations.getModule("items", language);
 		if (this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP) {
 			return format(
@@ -24,14 +27,12 @@ export class ObjectItem extends SupportItemModel {
 					powerInMinutes: this.power * 60
 				});
 		}
+		const speedMax = maxStatsValue[2];
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
-			if (isNaN(maxStatsValue) || !maxStatsValue) {
-				maxStatsValue = Infinity;
-			}
-			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
+			const speedDisplay = speedMax >= this.power ? this.power : format(tr.get("nerfDisplay"),
 				{
 					old: this.power,
-					max: Math.round(maxStatsValue + this.power / 2)
+					max: speedMax
 				});
 			return format(
 				tr.getFromArray("objects.natures", this.nature),

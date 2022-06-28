@@ -110,7 +110,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 							await draftBotClient.users.fetch(user),
 							tr.get("dm.title"),
 							tr.format("dm.description", {
-								item: item.toString(language, 0)
+								item: item.toString(language, null)
 							}),
 							null, // Data.getModule("bot").getString("embed.default"),
 							language
@@ -139,7 +139,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			interaction.user
 		)
 		.setDescription(tr.format("confirmDesc", {
-			item: item.toString(language, 0),
+			item: item.toString(language, null),
 			usersCount: users.size
 		}))
 		.reply(interaction);
