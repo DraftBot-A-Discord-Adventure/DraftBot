@@ -76,8 +76,24 @@ export class FightController {
 	 * execute the next fight action
 	 */
 	public async executeFightAction(fightAction: IFightAction) {
+		if (this.getPlayingFighter().hasFightAlteration()) {
+			const alterationStartMessage = this.getPlayingFighter().processFightAlterationStartTurn(this.fightView.language);
+			if (alterationStartMessage !== FightConstants.CANCEL_ALTERATION_DISPLAY) {
+				await this.fightView.updateHistory(this.getPlayingFighter().getAlterationEmoji(), this.getPlayingFighter().getMention(), alterationStartMessage);
+			}
+			if (this.hadEnded()) {
+				this.endFight();
+				return;
+			}
+		}
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		if (this.getPlayingFighter().hasFightAlteration()) {
+			const alterationEndMessage = this.getPlayingFighter().processFightAlterationEndTurn(this.fightView.language);
+			if (alterationEndMessage !== FightConstants.CANCEL_ALTERATION_DISPLAY) {
+				await this.fightView.updateHistory(this.getPlayingFighter().getAlterationEmoji(), this.getPlayingFighter().getMention(), alterationEndMessage);
+			}
+		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
 		this.turn++;
 		if (this.hadEnded()) {
