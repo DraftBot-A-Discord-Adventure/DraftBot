@@ -81,7 +81,7 @@ export class Campaign {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, false, false, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
-			await MissionsController.sendCompletedMissions(entity.discordUserId, entity.Player, completedMissions, channel, language);
+			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
 		}
 	}
 

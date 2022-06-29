@@ -167,7 +167,11 @@ export class Guild extends Model {
 			);
 		await channel.send({embeds: [embed]});
 		for (const member of await Entities.getByGuild(this.id)) {
-			await MissionsController.update(member.discordUserId, channel, language, "guildLevel", this.level, null, true);
+			await MissionsController.update(member, channel, language, {
+				missionId: "guildLevel",
+				count: this.level,
+				set: true
+			});
 		}
 
 		if (this.needLevelUp()) {

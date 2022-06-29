@@ -307,9 +307,9 @@ async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInt
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
 		if (member.discordUserId !== interaction.user.id) {
-			await MissionsController.update(member.discordUserId, interaction.channel, language, "guildDailyFromSomeoneElse");
+			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
 		}
-		await MissionsController.update(member.discordUserId, interaction.channel, language, "guildDaily");
+		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
 		if (member.Player.dmNotification && member.discordUserId !== interaction.user.id) {
 			sendDirectMessage(
 				user,

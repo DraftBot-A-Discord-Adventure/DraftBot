@@ -135,8 +135,8 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 			})
 		);
 	await textInformations.interaction.followUp({embeds: [addPetEmbed]});
-	await MissionsController.update(buyerInformations.buyer.discordUserId, textInformations.interaction.channel, textInformations.petSellModule.language, "havePet");
-	await MissionsController.update(sellerInformations.entity.discordUserId, textInformations.interaction.channel, textInformations.petSellModule.language, "sellOrTradePet");
+	await MissionsController.update(buyerInformations.buyer, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "havePet"});
+	await MissionsController.update(sellerInformations.entity, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "sellOrTradePet"});
 }
 
 /**

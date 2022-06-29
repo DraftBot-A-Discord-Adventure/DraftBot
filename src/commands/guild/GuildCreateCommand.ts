@@ -116,8 +116,12 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 				entity.Player.save()
 			]);
 
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, "joinGuild");
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, "guildLevel", newGuild.level, null, true);
+			await MissionsController.update(entity, interaction.channel, language, {missionId: "joinGuild"});
+			await MissionsController.update(entity, interaction.channel, language, {
+				missionId: "guildLevel",
+				count: newGuild.level,
+				set: true
+			});
 
 			return interaction.followUp({
 				embeds: [new DraftBotEmbed()

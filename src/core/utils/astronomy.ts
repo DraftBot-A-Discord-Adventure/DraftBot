@@ -1370,9 +1370,9 @@ function mean_obliq(time: AstroTime): number {
 	var t = time.tt / 36525;
 	var asec = (
 		((((-0.0000000434 * t
-			- 0.000000576) * t
-			+ 0.00200340) * t
-			- 0.0001831) * t
+						- 0.000000576) * t
+					+ 0.00200340) * t
+				- 0.0001831) * t
 			- 46.836769) * t + 84381.406
 	);
 	return asec / 3600.0;
@@ -1522,28 +1522,28 @@ function CalcMoon(time: AstroTime) {
 	D = PI2 * Frac(0.82736186 + 1236.85308708 * T - 0.00000397 * T2) + DD / ARC;
 	for (I = 1; I <= 4; ++I) {
 		switch (I) {
-			case 1:
-				ARG = L;
-				MAX = 4;
-				FAC = 1.000002208;
-				break;
-			case 2:
-				ARG = LS;
-				MAX = 3;
-				FAC = 0.997504612 - 0.002495388 * T;
-				break;
-			case 3:
-				ARG = F;
-				MAX = 4;
-				FAC = 1.000002708 + 139.978 * DGAM;
-				break;
-			case 4:
-				ARG = D;
-				MAX = 6;
-				FAC = 1.0;
-				break;
-			default:
-				throw `Internal error: I = ${I}`;      // persuade TypeScript that ARG, ... are all initialized before use.
+		case 1:
+			ARG = L;
+			MAX = 4;
+			FAC = 1.000002208;
+			break;
+		case 2:
+			ARG = LS;
+			MAX = 3;
+			FAC = 0.997504612 - 0.002495388 * T;
+			break;
+		case 3:
+			ARG = F;
+			MAX = 4;
+			FAC = 1.000002708 + 139.978 * DGAM;
+			break;
+		case 4:
+			ARG = D;
+			MAX = 6;
+			FAC = 1.0;
+			break;
+		default:
+			throw `Internal error: I = ${I}`;      // persuade TypeScript that ARG, ... are all initialized before use.
 		}
 		SetCO(0, I, 1);
 		SetCO(1, I, Math.cos(ARG) * FAC);
@@ -1738,21 +1738,21 @@ function precession_rot(time: AstroTime, dir: PrecessDirection): RotationMatrix 
 	let eps0 = 84381.406;
 
 	let psia = (((((-0.0000000951 * t
-		+ 0.000132851) * t
-		- 0.00114045) * t
-		- 1.0790069) * t
+					+ 0.000132851) * t
+				- 0.00114045) * t
+			- 1.0790069) * t
 		+ 5038.481507) * t);
 
 	let omegaa = (((((+0.0000003337 * t
-		- 0.000000467) * t
-		- 0.00772503) * t
-		+ 0.0512623) * t
+					- 0.000000467) * t
+				- 0.00772503) * t
+			+ 0.0512623) * t
 		- 0.025754) * t + eps0);
 
 	let chia = (((((-0.0000000560 * t
-		+ 0.000170663) * t
-		- 0.00121197) * t
-		- 2.3814292) * t
+					+ 0.000170663) * t
+				- 0.00121197) * t
+			- 2.3814292) * t
 		+ 10.556403) * t);
 
 	eps0 *= ASEC2RAD;
@@ -1816,9 +1816,9 @@ function sidereal_time(time: AstroTime): number {          // calculates Greenwi
 	const theta = era(time);
 	const st = (eqeq + 0.014506 +
 		((((-0.0000000368 * t
-			- 0.000029956) * t
-			- 0.00000044) * t
-			+ 1.3915817) * t
+						- 0.000029956) * t
+					- 0.00000044) * t
+				+ 1.3915817) * t
 			+ 4612.156534) * t);
 
 	let gst = ((st / 3600 + theta) % 360) / 15;
@@ -1842,7 +1842,8 @@ function inverse_terra(ovec: ArrayVector, st: number): Observer {
 		lat_deg = (z > 0.0) ? +90 : -90;
 		// Elevation is calculated directly from z.
 		height_km = Math.abs(z) - EARTH_POLAR_RADIUS_KM;
-	} else {
+	}
+	else {
 		const stlocl = Math.atan2(y, x);
 		// Calculate exact longitude.
 		lon_deg = (RAD2DEG * stlocl) - (15.0 * st);
@@ -2370,7 +2371,8 @@ export function Horizon(date: FlexibleDateTime, observer: Observer, ra: number, 
 		// Invert the angle to produce degrees eastward from north.
 		az = -RAD2DEG * Math.atan2(pw, pn);
 		if (az < 0) az += 360;
-	} else {
+	}
+	else {
 		// The body is straight up/down, so it does not have an azimuth.
 		// Report an arbitrary but reasonable value.
 		az = 0;
@@ -2400,7 +2402,8 @@ export function Horizon(date: FlexibleDateTime, observer: Observer, ra: number, 
 				if (out_ra < 0) {
 					out_ra += 24;
 				}
-			} else {
+			}
+			else {
 				out_ra = 0;
 			}
 			out_dec = RAD2DEG * Math.atan2(pr[2], proj);
@@ -3215,7 +3218,8 @@ function CalcPluto(time: AstroTime): Vector {
 			sim = CalcPlutoOneWay(PlutoStateTable[PLUTO_NUM_STATES - 1], time.tt, +PLUTO_DT);
 		r = sim.grav.r;
 		bary = sim.bary;
-	} else {
+	}
+	else {
 		const left = ClampIndex((time.tt - seg[0].tt) / PLUTO_DT, PLUTO_NSTEPS - 1);
 		const s1 = seg[left];
 		const s2 = seg[left + 1];
@@ -3664,7 +3668,8 @@ export function GeoVector(body: Body, date: FlexibleDateTime, aberration: boolea
                     (transverse speed of Earth) / (speed of light).
             */
 			earth = CalcVsop(vsop.Earth, ltime);
-		} else {
+		}
+		else {
 			if (!earth) {
 				// No aberration, so calculate Earth's position once, at the time of observation.
 				earth = CalcVsop(vsop.Earth, time);
@@ -3715,16 +3720,16 @@ export function BaryState(body: Body, date: FlexibleDateTime): StateVector {
 
 	// If the caller is asking for one of the major bodies, we can immediately return the answer.
 	switch (body) {
-		case Body.Sun:
-			return ExportState(bary.Sun, time);
-		case Body.Jupiter:
-			return ExportState(bary.Jupiter, time);
-		case Body.Saturn:
-			return ExportState(bary.Saturn, time);
-		case Body.Uranus:
-			return ExportState(bary.Uranus, time);
-		case Body.Neptune:
-			return ExportState(bary.Neptune, time);
+	case Body.Sun:
+		return ExportState(bary.Sun, time);
+	case Body.Jupiter:
+		return ExportState(bary.Jupiter, time);
+	case Body.Saturn:
+		return ExportState(bary.Saturn, time);
+	case Body.Uranus:
+		return ExportState(bary.Uranus, time);
+	case Body.Neptune:
+		return ExportState(bary.Neptune, time);
 	}
 
 	// Otherwise, we need to calculate the heliocentric state of the given body
@@ -3762,7 +3767,8 @@ function QuadInterp(tm: number, dt: number, fa: number, fm: number, fb: number) 
 		}
 		x = -S / R;
 		if (x < -1 || x > +1) return null;  // out of bounds
-	} else {
+	}
+	else {
 		// It really is a parabola. Find roots x1, x2.
 		let u = R * R - 4 * Q * S;
 		if (u <= 0) return null;
@@ -3773,9 +3779,11 @@ function QuadInterp(tm: number, dt: number, fa: number, fm: number, fb: number) 
 		if (-1 <= x1 && x1 <= +1) {
 			if (-1 <= x2 && x2 <= +1) return null;
 			x = x1;
-		} else if (-1 <= x2 && x2 <= +1) {
+		}
+		else if (-1 <= x2 && x2 <= +1) {
 			x = x2;
-		} else {
+		}
+		else {
 			return null;
 		}
 	}
@@ -3831,7 +3839,7 @@ export interface SearchOptions {
  * that the "wrong" event will be found (i.e. not the first event after t1)
  * or even that the function will return `null`, indicating that no event was found.
  *
- * @param {function(AstroTime): number} func
+ * @param {function(AstroTime): number} f
  *      The function to find an ascending zero crossing for.
  *      The function must accept a single parameter of type {@link AstroTime}
  *      and return a numeric value.
@@ -4123,44 +4131,45 @@ function VisualMagnitude(body: Body, phase: number, helio_dist: number, geo_dist
 	// For Mercury and Venus, see:  https://iopscience.iop.org/article/10.1086/430212
 	let c0: number, c1 = 0, c2 = 0, c3 = 0;
 	switch (body) {
-		case Body.Mercury:
-			c0 = -0.60;
-			c1 = +4.98;
-			c2 = -4.88;
-			c3 = +3.02;
-			break;
-		case Body.Venus:
-			if (phase < 163.6) {
-				c0 = -4.47;
-				c1 = +1.03;
-				c2 = +0.57;
-				c3 = +0.13;
-			} else {
-				c0 = 0.98;
-				c1 = -1.02;
-			}
-			break;
-		case Body.Mars:
-			c0 = -1.52;
-			c1 = +1.60;
-			break;
-		case Body.Jupiter:
-			c0 = -9.40;
-			c1 = +0.50;
-			break;
-		case Body.Uranus:
-			c0 = -7.19;
-			c1 = +0.25;
-			break;
-		case Body.Neptune:
-			c0 = -6.87;
-			break;
-		case Body.Pluto:
-			c0 = -1.00;
-			c1 = +4.00;
-			break;
-		default:
-			throw `VisualMagnitude: unsupported body ${body}`;
+	case Body.Mercury:
+		c0 = -0.60;
+		c1 = +4.98;
+		c2 = -4.88;
+		c3 = +3.02;
+		break;
+	case Body.Venus:
+		if (phase < 163.6) {
+			c0 = -4.47;
+			c1 = +1.03;
+			c2 = +0.57;
+			c3 = +0.13;
+		}
+		else {
+			c0 = 0.98;
+			c1 = -1.02;
+		}
+		break;
+	case Body.Mars:
+		c0 = -1.52;
+		c1 = +1.60;
+		break;
+	case Body.Jupiter:
+		c0 = -9.40;
+		c1 = +0.50;
+		break;
+	case Body.Uranus:
+		c0 = -7.19;
+		c1 = +0.25;
+		break;
+	case Body.Neptune:
+		c0 = -6.87;
+		break;
+	case Body.Pluto:
+		c0 = -1.00;
+		c1 = +4.00;
+		break;
+	default:
+		throw `VisualMagnitude: unsupported body ${body}`;
 	}
 
 	const x = phase / 100;
@@ -4304,12 +4313,14 @@ export function Illumination(body: Body, date: FlexibleDateTime): IlluminationIn
 		gc = new Vector(-earth.x, -earth.y, -earth.z, time);
 		hc = new Vector(0, 0, 0, time);
 		phase = 0;      // a placeholder value; the Sun does not have an illumination phase because it emits, rather than reflects, light.
-	} else {
+	}
+	else {
 		if (body === Body.Moon) {
 			// For extra numeric precision, use geocentric moon formula directly.
 			gc = GeoMoon(time);
 			hc = new Vector(earth.x + gc.x, earth.y + gc.y, earth.z + gc.z, time);
-		} else {
+		}
+		else {
 			// For planets, heliocentric vector is most direct to calculate.
 			hc = HelioVector(body, date);
 			gc = new Vector(hc.x - earth.x, hc.y - earth.y, hc.z - earth.z, time);
@@ -4323,13 +4334,16 @@ export function Illumination(body: Body, date: FlexibleDateTime): IlluminationIn
 
 	if (body === Body.Sun) {
 		mag = SUN_MAG_1AU + 5 * Math.log10(geo_dist);
-	} else if (body === Body.Moon) {
+	}
+	else if (body === Body.Moon) {
 		mag = MoonMagnitude(phase, helio_dist, geo_dist);
-	} else if (body === Body.Saturn) {
+	}
+	else if (body === Body.Saturn) {
 		const saturn = SaturnMagnitude(phase, helio_dist, geo_dist, gc, time);
 		mag = saturn.mag;
 		ring_tilt = saturn.ring_tilt;
-	} else {
+	}
+	else {
 		mag = VisualMagnitude(body, phase, helio_dist, geo_dist);
 	}
 
@@ -4603,12 +4617,12 @@ function BodyRadiusAu(body: Body): number {
 	// on the Earth for their radius to matter.
 	// All other bodies are treated as points.
 	switch (body) {
-		case Body.Sun:
-			return SUN_RADIUS_AU;
-		case Body.Moon:
-			return MOON_EQUATORIAL_RADIUS_AU;
-		default:
-			return 0;
+	case Body.Sun:
+		return SUN_RADIUS_AU;
+	case Body.Moon:
+		return MOON_EQUATORIAL_RADIUS_AU;
+	default:
+		return 0;
 	}
 }
 
@@ -4682,10 +4696,12 @@ export function SearchRiseSet(body: Body, observer: Observer, direction: number,
 	if (direction === +1) {
 		ha_before = 12;     // minimum altitude (bottom) happens BEFORE the body rises.
 		ha_after = 0;       // maximum altitude (culmination) happens AFTER the body rises.
-	} else if (direction === -1) {
+	}
+	else if (direction === -1) {
 		ha_before = 0;      // culmination happens BEFORE the body sets.
 		ha_after = 12;      // bottom happens AFTER the body sets.
-	} else {
+	}
+	else {
 		throw `SearchRiseSet: Invalid direction parameter ${direction} -- must be +1 or -1`;
 	}
 
@@ -4700,7 +4716,8 @@ export function SearchRiseSet(body: Body, observer: Observer, direction: number,
 		evt_before = SearchHourAngle(body, observer, ha_before, time_start);
 		time_before = evt_before.time;
 		alt_before = peak_altitude(time_before);
-	} else {
+	}
+	else {
 		// We are before or at the sought event, so we find the next "after" event (bottom/culm),
 		// and use the current time as the "before" event.
 		time_before = time_start;
@@ -4812,7 +4829,8 @@ export function SearchHourAngle(body: Body, observer: Observer, hourAngle: numbe
 			// On the first iteration, always search forward in time.
 			if (delta_sidereal_hours < 0)
 				delta_sidereal_hours += 24;
-		} else {
+		}
+		else {
 			// On subsequent iterations, we make the smallest possible adjustment,
 			// either forward or backward in time.
 			if (delta_sidereal_hours < -12)
@@ -4973,6 +4991,7 @@ export class ElongationEvent {
  * @param {Body} body
  *      The name of the observed body. Not allowed to be `"Earth"`.
  *
+ * @param date
  * @returns {ElongationEvent}
  */
 export function Elongation(body: Body, date: FlexibleDateTime): ElongationEvent {
@@ -4983,7 +5002,8 @@ export function Elongation(body: Body, date: FlexibleDateTime): ElongationEvent 
 	if (lon > 180) {
 		vis = 'morning';
 		lon = 360 - lon;
-	} else {
+	}
+	else {
 		vis = 'evening';
 	}
 	let angle = AngleFromSun(body, time);
@@ -5062,21 +5082,24 @@ export function SearchMaxElongation(body: Body, startDate: FlexibleDateTime): El
 			rlon_lo = +planet.s1;
 			// Search forward for the time t2 when rel lon = +s2.
 			rlon_hi = +planet.s2;
-		} else if (rlon >= +planet.s2 || rlon < -planet.s2) {
+		}
+		else if (rlon >= +planet.s2 || rlon < -planet.s2) {
 			// Seek to the next search window at [-s2, -s1].
 			adjust_days = 0;
 			// Search forward for the time t1 when rel lon = -s2.
 			rlon_lo = -planet.s2;
 			// Search forward for the time t2 when rel lon = -s1.
 			rlon_hi = -planet.s1;
-		} else if (rlon >= 0) {
+		}
+		else if (rlon >= 0) {
 			// rlon must be in the middle of the window [+s1, +s2].
 			// Search BACKWARD for the time t1 when rel lon = +s1.
 			adjust_days = -SynodicPeriod(body) / 4;
 			rlon_lo = +planet.s1;
 			rlon_hi = +planet.s2;
 			// Search forward from t1 to find t2 such that rel lon = +s2.
-		} else {
+		}
+		else {
 			// rlon must be in the middle of the window [-s2, -s1].
 			// Search BACKWARD for the time t1 when rel lon = -s2.
 			adjust_days = -SynodicPeriod(body) / 4;
@@ -5179,21 +5202,24 @@ export function SearchPeakMagnitude(body: Body, startDate: FlexibleDateTime): Il
 			rlon_lo = +s1;
 			// Search forward for the time t2 when rel lon = +s2.
 			rlon_hi = +s2;
-		} else if (rlon >= +s2 || rlon < -s2) {
+		}
+		else if (rlon >= +s2 || rlon < -s2) {
 			// Seek to the next search window at [-s2, -s1].
 			adjust_days = 0;
 			// Search forward for the time t1 when rel lon = -s2.
 			rlon_lo = -s2;
 			// Search forward for the time t2 when rel lon = -s1.
 			rlon_hi = -s1;
-		} else if (rlon >= 0) {
+		}
+		else if (rlon >= 0) {
 			// rlon must be in the middle of the window [+s1, +s2].
 			// Search BACKWARD for the time t1 when rel lon = +s1.
 			adjust_days = -SynodicPeriod(body) / 4;
 			rlon_lo = +s1;
 			// Search forward from t1 to find t2 such that rel lon = +s2.
 			rlon_hi = +s2;
-		} else {
+		}
+		else {
 			// rlon must be in the middle of the window [-s2, -s1].
 			// Search BACKWARD for the time t1 when rel lon = -s2.
 			adjust_days = -SynodicPeriod(body) / 4;
@@ -5443,7 +5469,8 @@ function BruteSearchPlanetApsis(body: Body, startTime: AstroTime): Apsis {
 		const dist = HelioDistance(body, time);
 		if (i === 0) {
 			max_dist = min_dist = dist;
-		} else {
+		}
+		else {
 			if (dist > max_dist) {
 				max_dist = dist;
 				t_max = time;
@@ -5534,12 +5561,14 @@ export function SearchPlanetApsis(body: Body, startTime: AstroTime): Apsis {
 				/* Search the time range for the time when the slope goes from negative to positive. */
 				slope_func = positive_slope;
 				kind = 0;    // perihelion
-			} else if (m1 > 0.0 || m2 < 0.0) {
+			}
+			else if (m1 > 0.0 || m2 < 0.0) {
 				/* We found a maximum-distance event: aphelion. */
 				/* Search the time range for the time when the slope goes from positive to negative. */
 				slope_func = negative_slope;
 				kind = 1;   // aphelion
-			} else {
+			}
+			else {
 				/* This should never happen. It should not be possible for both slopes to be zero. */
 				throw "Internal error with slopes in SearchPlanetApsis";
 			}
@@ -5803,7 +5832,8 @@ export function SphereFromVector(vector: Vector): Spherical {
 			throw 'Zero-length vector not allowed.';
 		lon = 0.0;
 		lat = (vector.z < 0.0) ? -90.0 : +90.0;
-	} else {
+	}
+	else {
 		lon = RAD2DEG * Math.atan2(vector.y, vector.x);
 		if (lon < 0.0)
 			lon += 360.0;
@@ -5942,7 +5972,8 @@ export function Refraction(refraction: string, altitude: number): number {
 			// As altitude approaches -90 (the nadir), the fraction approaches 0 linearly.
 			refr *= (altitude + 90.0) / 89.0;
 		}
-	} else {
+	}
+	else {
 		/* No refraction, or the refraction option is invalid. */
 		refr = 0.0;
 	}
@@ -7647,7 +7678,8 @@ function LocalEclipse(shadow: ShadowInfo, observer: Observer): LocalSolarEclipse
 		total_begin = LocalEclipseTransition(observer, +1.0, local_total_distance, t1, shadow.time);
 		total_end = LocalEclipseTransition(observer, -1.0, local_total_distance, shadow.time, t2);
 		kind = EclipseKindFromUmbra(shadow.k);
-	} else {
+	}
+	else {
 		kind = 'partial';
 	}
 
@@ -7840,16 +7872,16 @@ export function SearchTransit(body: Body, startTime: AstroTime) {
 	// Validate the planet and find its mean radius.
 	let planet_radius_km: number;
 	switch (body) {
-		case Body.Mercury:
-			planet_radius_km = 2439.7;
-			break;
+	case Body.Mercury:
+		planet_radius_km = 2439.7;
+		break;
 
-		case Body.Venus:
-			planet_radius_km = 6051.8;
-			break;
+	case Body.Venus:
+		planet_radius_km = 6051.8;
+		break;
 
-		default:
-			throw `Invalid body: ${body}`;
+	default:
+		throw `Invalid body: ${body}`;
 	}
 
 	let search_time = startTime;

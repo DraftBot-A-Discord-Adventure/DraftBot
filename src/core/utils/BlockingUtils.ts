@@ -47,7 +47,6 @@ export function getErrorReasons(blockingReason: string[], language: string) {
 /**
  * Send an error if the user is blocked by a command
  * @param {User} user
- * @param {TextBasedChannel} channel
  * @param {"fr"|"en"} language
  * @param interaction - optional interaction to reply to
  * @returns {boolean}

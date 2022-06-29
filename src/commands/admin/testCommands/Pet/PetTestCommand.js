@@ -44,7 +44,7 @@ const petTestCommand = async (language, interaction, args) => {
 	await pet.save();
 	entity.Player.petId = pet.id;
 	await entity.Player.save();
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
 
 	[entity] = await Entities.getOrRegister(interaction.user.id); // recall needed to refresh the pet
 	return format(

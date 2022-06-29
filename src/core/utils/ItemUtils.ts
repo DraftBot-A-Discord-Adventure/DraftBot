@@ -39,12 +39,17 @@ export const giveItemToPlayer = async function(
 	});
 
 	if (await entity.Player.giveItem(item) === true) {
-		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+		await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
 		const entityForMC = (await Entities.getOrRegister(entity.discordUserId))[0];
-		await MissionsController.update(entityForMC.discordUserId, channel, language, "havePotions", countNbOfPotions(entityForMC.Player), null, true);
-		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
-			rarity: item.rarity
-		}, true);
+		await MissionsController.update(entityForMC, channel, language, {
+			missionId: "havePotions",
+			count: countNbOfPotions(entityForMC.Player),
+			set: true
+		});
+		await MissionsController.update(entity, channel, language, {
+			missionId: "haveItemRarity",
+			params: {rarity: item.rarity}
+		});
 		return;
 	}
 
@@ -199,9 +204,10 @@ const sellOrKeepItem = async function(
 					playerId: entity.Player.id
 				}
 			});
-		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
-			rarity: item.rarity
-		}, true);
+		await MissionsController.update(entity, channel, language, {
+			missionId: "haveItemRarity",
+			params: {rarity: item.rarity}
+		});
 		await channel.send({embeds: [menuEmbed]});
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
@@ -229,7 +235,10 @@ const sellOrKeepItem = async function(
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
 	await entity.Player.addMoney(entity, money, channel, language);
-	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost", 1, {itemCost: money});
+	await MissionsController.update(entity, channel, language, {
+		missionId: "sellItemWithGivenCost",
+		params: {itemCost: money}
+	});
 	await entity.Player.save();
 	await channel.send({
 		embeds: [
@@ -248,9 +257,13 @@ const sellOrKeepItem = async function(
 				)
 		]
 	});
-	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+	await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
+	await MissionsController.update(entity, channel, language, {
+		missionId: "havePotions",
+		count: countNbOfPotions(entity.Player),
+		set: true
+	});
 };
 
 export const getItemValue = function(item: GenericItemModel): number {

@@ -38,7 +38,10 @@ export const smallEvent: SmallEvent = {
 			await Maps.applyEffect(entity.Player, seFallen.alte);
 			if (seFallen.tags) {
 				for (let i = 0; i < seFallen.tags.length; i++) {
-					await MissionsController.update(entity.discordUserId, interaction.channel, language, seFallen.tags[i], 1, {tags: seFallen.tags});
+					await MissionsController.update(entity, interaction.channel, language, {
+						missionId: seFallen.tags[i],
+						params: {tags: seFallen.tags}
+					});
 				}
 			}
 			break;

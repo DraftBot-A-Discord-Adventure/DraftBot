@@ -19,6 +19,29 @@ export class DraftBotMissionsMessageBuilder {
 		this._language = language;
 	}
 
+	static getMissionDisplay(tr: TranslationModule, description: string, expirationDate: Date, current: number, objective: number): string {
+		return tr.format("missionDisplay", {
+			description,
+			campaign: expirationDate === null,
+			timeBeforeExpiration: expirationDate ? finishInTimeDisplay(expirationDate) : null,
+			progressionDisplay: DraftBotMissionsMessageBuilder.generateDisplayProgression(current, objective),
+			current,
+			objective
+		});
+	}
+
+	private static generateDisplayProgression(current: number, objective: number): string {
+		let progression = current / objective;
+		if (progression < 0) {
+			return "ERROR:PROGRESS_BAR_NEGATIVE";
+		}
+		if (progression > 1) {
+			progression = 1;
+		}
+		const squareToDisplay = Math.floor(progression * 10);
+		return "[" + "■".repeat(squareToDisplay) + "□".repeat(10 - squareToDisplay) + "]";
+	}
+
 	public async build(): Promise<DraftBotEmbed> {
 		const tr = Translations.getModule("commands.missions", this._language);
 		let desc;
@@ -55,7 +78,10 @@ export class DraftBotMissionsMessageBuilder {
 		}
 		const currentMissions = this._player.MissionSlots.filter(slot => !slot.isCampaign());
 
-		desc += "\n\n" + tr.format("currentMissions",{slots: this._player.getMissionSlots() , amountOfMissions: currentMissions.length}) + "\n";
+		desc += "\n\n" + tr.format("currentMissions", {
+			slots: this._player.getMissionSlots(),
+			amountOfMissions: currentMissions.length
+		}) + "\n";
 		if (currentMissions.length === 0) {
 			desc += tr.get("noCurrentMissionsDescription");
 		}
@@ -74,28 +100,5 @@ export class DraftBotMissionsMessageBuilder {
 		msg.formatAuthor(tr.get("title"), this._user);
 		msg.setDescription(desc);
 		return msg;
-	}
-
-	private static getMissionDisplay(tr: TranslationModule, description: string, expirationDate: Date, current: number, objective: number): string {
-		return tr.format("missionDisplay", {
-			description,
-			campaign: expirationDate === null,
-			timeBeforeExpiration: expirationDate ? finishInTimeDisplay(expirationDate) : null,
-			progressionDisplay: DraftBotMissionsMessageBuilder.generateDisplayProgression(current, objective),
-			current,
-			objective
-		});
-	}
-
-	private static generateDisplayProgression(current: number, objective: number): string {
-		let progression = current / objective;
-		if (progression < 0) {
-			return "ERROR:PROGRESS_BAR_NEGATIVE";
-		}
-		if (progression > 1) {
-			progression = 1;
-		}
-		const squareToDisplay = Math.floor(progression * 10);
-		return "[" + "■".repeat(squareToDisplay) + "□".repeat(10 - squareToDisplay) + "]";
 	}
 }

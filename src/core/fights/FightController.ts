@@ -115,8 +115,10 @@ export class FightController {
 			this.manageMissionsOf(fighter).finally(() => null);
 		}
 		if (winner !== 2) {
-			MissionsController.update(this.fighters[winner].getUser().id, this.fightView.channel, this.fightView.language, "fightHealthPercent", 1, {
-				remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
+			MissionsController.update(this.fighters[winner].entity, this.fightView.channel, this.fightView.language, {
+				missionId: "fightHealthPercent", params: {
+					remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
+				}
 			}).finally(() => null);
 		}
 	}
@@ -145,12 +147,12 @@ export class FightController {
 	private async manageMissionsOf(fighter: Fighter): Promise<void> {
 		await this.checkFightActionHistory(fighter);
 		if (this.friendly) {
-			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "friendlyFight");
+			await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "friendlyFight"});
 		}
 		else {
-			await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "rankedFight");
+			await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "rankedFight"});
 		}
-		await MissionsController.update(fighter.getUser().id, this.fightView.channel, this.fightView.language, "anyFight");
+		await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "anyFight"});
 	}
 
 	/**
@@ -163,8 +165,10 @@ export class FightController {
 		// iterate on each action in the history
 		const updates = [];
 		for (const [action, count] of playerFightActionsHistory) {
-			updates.push(MissionsController.update(fighter.getDiscordId(), this.fightView.channel, this.fightView.language, "fightAttacks",
-				count, {attackType: action}));
+			updates.push(MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {
+				missionId: "fightAttacks",
+				count, params: {attackType: action}
+			}));
 		}
 		await Promise.all(updates);
 	}

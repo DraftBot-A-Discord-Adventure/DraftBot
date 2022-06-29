@@ -32,7 +32,7 @@ export class Fighter {
 
 	public availableFightActions: Map<string, IFightAction>;
 
-	private entity: Entity
+	public entity: Entity
 
 	private ready: boolean
 
@@ -99,17 +99,27 @@ export class Fighter {
 		const tagsToVerify = await Tags.findTagsFromObject((await this.entity.Player.getMainPotionSlot().getItem()).id, Potion.name);
 		if (tagsToVerify) {
 			for (let i = 0; i < tagsToVerify.length; i++) {
-				await MissionsController.update(this.entity.discordUserId, channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+				await MissionsController.update(this.entity, channel, language, {
+					missionId: tagsToVerify[i].textTag,
+					params: {tags: tagsToVerify}
+				});
 			}
 		}
 		await this.entity.Player.drinkPotion();
-		await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotion");
+		await MissionsController.update(this.entity, channel, language, {missionId: "drinkPotion"});
 		const potionSlot = this.entity.Player.getMainPotionSlot();
 		if (potionSlot) {
-			await MissionsController.update(this.entity.discordUserId, channel, language, "drinkPotionRarity", 1, {rarity: (await potionSlot.getItem()).rarity});
+			await MissionsController.update(this.entity, channel, language, {
+				missionId: "drinkPotionRarity",
+				params: {rarity: (await potionSlot.getItem()).rarity}
+			});
 		}
 		[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
-		await MissionsController.update(this.entity.discordUserId, channel, language, "havePotions", countNbOfPotions(this.entity.Player), null, true);
+		await MissionsController.update(this.entity, channel, language, {
+			missionId: "havePotions",
+			count: countNbOfPotions(this.entity.Player),
+			set: true
+		});
 	}
 
 	/**

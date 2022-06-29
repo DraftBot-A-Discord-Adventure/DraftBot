@@ -81,8 +81,11 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					overHealCountsForMission: false
 				});
 				await userInformations.entity.Player.addMoney(userInformations.entity, -selectedClass.price, message.channel, classTranslations.language);
-				await MissionsController.update(userInformations.entity.discordUserId, message.channel, classTranslations.language, "chooseClass");
-				await MissionsController.update(userInformations.entity.discordUserId, message.channel, classTranslations.language, "chooseClassTier", 1, {tier: selectedClass.classGroup});
+				await MissionsController.update(userInformations.entity, message.channel, classTranslations.language, {missionId: "chooseClass"});
+				await MissionsController.update(userInformations.entity, message.channel, classTranslations.language, {
+					missionId: "chooseClassTier",
+					params: {tier: selectedClass.classGroup}
+				});
 				await Promise.all([
 					userInformations.entity.save(),
 					userInformations.entity.Player.save()

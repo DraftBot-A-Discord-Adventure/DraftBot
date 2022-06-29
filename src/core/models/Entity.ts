@@ -17,9 +17,9 @@ import {MissionsController} from "../missions/MissionsController";
 import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../constants/TopConstants";
 import {Constants} from "../Constants";
+import {BlockingUtils} from "../utils/BlockingUtils";
+import {BlockingConstants} from "../constants/BlockingConstants";
 import moment = require("moment");
-import { BlockingUtils } from "../utils/BlockingUtils";
-import { BlockingConstants } from "../constants/BlockingConstants";
 
 type MissionHealthParameter = {
 	shouldPokeMission: boolean,
@@ -159,7 +159,7 @@ export class Entity extends Model {
 				: health)
 			- this.health;
 		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
-			await MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference);
+			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
 		}
 		if (health < 0) {
 			this.health = 0;
@@ -180,8 +180,8 @@ export class Entity extends Model {
 	}
 
 	/**
-     * returns true if the player is currently blocked by a report
-     */
+	 * returns true if the player is currently blocked by a report
+	 */
 	public async isInEvent(): Promise<boolean> {
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
 		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);

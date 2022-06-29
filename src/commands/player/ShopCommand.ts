@@ -107,7 +107,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				await Maps.removeEffect(entity.Player);
 				await entity.Player.save();
 			}
-			await MissionsController.update(entity.discordUserId, message.sentMessage.channel, translationModule.language, "recoverAlteration");
+			await MissionsController.update(entity, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("success"), message.user)

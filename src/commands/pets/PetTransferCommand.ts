@@ -11,7 +11,7 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import PetEntity from "../../core/models/PetEntity";
-import { sendBlockedError } from "../../core/utils/BlockingUtils";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 /**
  * Allow to transfer a pet
@@ -137,9 +137,15 @@ function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: Draf
 }
 
 async function updateMissionsOfEntity(entity: Entity, interaction: CommandInteraction, language: string, swPetEntity: PetEntity) {
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "tamedPet", 1, {loveLevel: swPetEntity.getLoveLevelNumber()});
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "trainedPet", 1, {loveLevel: swPetEntity.getLoveLevelNumber()});
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "tamedPet",
+		params: {loveLevel: swPetEntity.getLoveLevelNumber()}
+	});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "trainedPet",
+		params: {loveLevel: swPetEntity.getLoveLevelNumber()}
+	});
 }
 
 export const commandInfo: ICommand = {

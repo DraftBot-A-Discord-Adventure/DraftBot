@@ -78,8 +78,15 @@ async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction
 	await entity.Player.addMoney(entity, money, interaction.channel, tr.language);
 	await entity.Player.save();
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity.discordUserId, interaction.channel, tr.language, "sellItemWithGivenCost", 1, {itemCost: money});
-	await MissionsController.update(entity.discordUserId, interaction.channel, tr.language, "havePotions", countNbOfPotions(entity.Player), null, true);
+	await MissionsController.update(entity, interaction.channel, tr.language, {
+		missionId: "sellItemWithGivenCost",
+		params: {itemCost: money}
+	});
+	await MissionsController.update(entity, interaction.channel, tr.language, {
+		missionId: "havePotions",
+		count: countNbOfPotions(entity.Player),
+		set: true
+	});
 	// TODO : refaire le système de log
 	// log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 	if (money === 0) {
