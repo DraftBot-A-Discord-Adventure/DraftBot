@@ -226,7 +226,7 @@
 		},
 		{
 			"missionId": "fightAttacks",
-			"missionVariant": 0,
+			"missionVariant": 4,
 			"missionObjective": 5,
 			"gemsToWin": 1,
 			"xpToWin": 100,
@@ -306,7 +306,7 @@
 		},
 		{
 			"missionId": "finishWithAttack",
-			"missionVariant": 5,
+			"missionVariant": 4,
 			"missionObjective": 1,
 			"gemsToWin": 4,
 			"xpToWin": 200,

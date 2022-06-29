@@ -20,11 +20,11 @@ module.exports.commandInfo = {
  * @return {String} - The successful message formatted
  */
 const clearMissionsTestCommand = async (language, interaction) => {
-	const e = await Entities.getByDiscordUserId(interaction.user.id);
+	const entity = await Entities.getByDiscordUserId(interaction.user.id);
 	const newDM = await DailyMissions.regenerateDailyMission();
 	await PlayerMissionsInfo.update({
 		dailyMissionNumberDone: 0,
-		lastDailyMissionCompleted: new Date(e.Player.PlayerMissionsInfo.lastDailyMissionCompleted.valueOf() - 86400000)
+		lastDailyMissionCompleted: new Date(entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted.valueOf() - 86400000)
 	}, {where: {}});
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mission: DraftBotMissionsMessageBuilder.getMissionDisplay(
