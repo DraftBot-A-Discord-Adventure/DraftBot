@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {Entities, Entity} from "../../core/models/Entity";
 import BigEvent, {BigEvents} from "../../core/models/BigEvent";
 import {MapLinks} from "../../core/models/MapLink";
@@ -19,13 +18,16 @@ import {Tags} from "../../core/models/Tag";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, Message, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, Message} from "discord.js";
 import {effectsErrorTextValue} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {giveRandomItem} from "../../core/utils/ItemUtils";
+
+type TextInformations = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
 /**
  * Initiates a new player on the map
@@ -137,7 +139,7 @@ const doRandomBigEvent = async function(interaction: CommandInteraction, languag
 		event = await BigEvent.findOne({where: {id: forceSpecificEvent}});
 	}
 	await Maps.stopTravel(entity.Player);
-	return await doEvent(interaction, language, event, entity, time);
+	return await doEvent({interaction, language}, event, entity, time);
 };
 
 /**
@@ -227,7 +229,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
-		await destinationChoseMessage(entity, destinationMaps[0], interaction.user, interaction.channel, language);
+		await destinationChoseMessage(entity, destinationMaps[0], interaction, language);
 		return;
 	}
 
@@ -252,7 +254,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
-		await destinationChoseMessage(entity, mapId, interaction.user, interaction.channel, language);
+		await destinationChoseMessage(entity, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
 
@@ -270,12 +272,13 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
  * Function called to display the direction chosen by a player
  * @param entity
  * @param map
- * @param user
- * @param channel
+ * @param interaction
  * @param language
  * @returns {Promise<void>}
  */
-const destinationChoseMessage = async function(entity: Entity, map: number, user: User, channel: TextBasedChannel, language: string) {
+const destinationChoseMessage = async function(entity: Entity, map: number, interaction: CommandInteraction, language: string) {
+	const user = interaction.user;
+	const channel = interaction.channel;
 	const tr = Translations.getModule("commands.report", language);
 	const typeTr = Translations.getModule("models.maps", language);
 	const mapInstance = await MapLocations.getById(map);
@@ -302,25 +305,23 @@ const destinationChoseMessage = async function(entity: Entity, map: number, user
 };
 
 /**
- * @param {CommandInteraction} interaction - Interaction from the discord server
- * @param {("fr"|"en")} language - Language to use in the response
+ * @param textInformations
  * @param {BigEvent} event
  * @param {Entities} entity
  * @param {Number} time
- * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-const doEvent = async (interaction: CommandInteraction, language: string, event: BigEvent, entity: Entity, time: number, forcePoints = 0) => {
-	const eventDisplayed = await interaction.reply({
-		content: Translations.getModule("commands.report", language).format("doEvent", {
-			pseudo: interaction.user,
-			event: event.getText(language)
+const doEvent = async (textInformations: TextInformations, event: BigEvent, entity: Entity, time: number): Promise<void> => {
+	const eventDisplayed = await textInformations.interaction.reply({
+		content: Translations.getModule("commands.report", textInformations.language).format("doEvent", {
+			pseudo: textInformations.interaction.user,
+			event: event.getText(textInformations.language)
 		}),
 		fetchReply: true
 	}) as Message;
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
-		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
+		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === textInformations.interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
@@ -336,7 +337,7 @@ const doEvent = async (interaction: CommandInteraction, language: string, event:
 				possibilityKey: reaction.emoji.name
 			}
 		});
-		await doPossibility(interaction, language, possibility, entity, time, forcePoints);
+		await doPossibility(textInformations, possibility, entity, time);
 	});
 
 	collector.on("end", async (collected) => {
@@ -347,7 +348,7 @@ const doEvent = async (interaction: CommandInteraction, language: string, event:
 					possibilityKey: "end"
 				}
 			});
-			await doPossibility(interaction, language, possibility, entity, time, forcePoints);
+			await doPossibility(textInformations, possibility, entity, time);
 		}
 	});
 	for (const reaction of reactions) {
@@ -358,132 +359,124 @@ const doEvent = async (interaction: CommandInteraction, language: string, event:
 	}
 };
 
-/**
- * @param {CommandInteraction} interaction - Message from the discord server
- * @param {("fr"|"en")} language - Language to use in the response
- * @param {Possibility} possibility
- * @param {Entities} entity
- * @param {Number} time
- * @param {Number} forcePoints Force a certain number of points to be given instead of random
- * @return {Promise<CommandInteraction>}
- */
-const doPossibility = async (interaction: CommandInteraction, language: string, possibility: Possibility[], entity: Entity, time: number, forcePoints = 0) => {
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	const player = entity.Player;
-	const tr = Translations.getModule("commands.report", language);
+async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility, textInformations: TextInformations, changes: { scoreChange: number, moneyChange: number }) {
+	await entity.addHealth(randomPossibility.health, textInformations.interaction.channel, textInformations.language);
+	await entity.Player.addScore(entity, changes.scoreChange, textInformations.interaction.channel, textInformations.language);
+	await entity.Player.addMoney(entity, changes.moneyChange, textInformations.interaction.channel, textInformations.language);
+	await entity.Player.addExperience(randomPossibility.experience, entity, textInformations.interaction.channel, textInformations.language);
 
-	if (possibility.length === 1) { // Don't do anything if the player ends the first report
-		if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") {
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
-			return await interaction.reply({
-				content: tr.format("doPossibility", {
-					pseudo: interaction.user,
-					result: "",
-					event: possibility[0].getText(language),
-					emoji: "",
-					alte: ""
-				})
-			});
+	if (randomPossibility.nextEvent !== undefined) {
+		entity.Player.nextEvent = randomPossibility.nextEvent;
+	}
+
+	await entity.Player.setLastReportWithEffect(
+		randomPossibility.eventId === 0 ? 0 : textInformations.interaction.createdTimestamp,
+		randomPossibility.lostTime,
+		randomPossibility.effect
+	);
+	if (randomPossibility.item) {
+		await giveRandomItem((await textInformations.interaction.guild.members.fetch(entity.discordUserId)).user, textInformations.interaction.channel, textInformations.language, entity);
+	}
+
+	if (randomPossibility.oneshot) {
+		await entity.setHealth(0, textInformations.interaction.channel, textInformations.language);
+	}
+
+	if (randomPossibility.eventId === 0) {
+		entity.Player.money = 0;
+		entity.Player.score = 0;
+		if (randomPossibility.possibilityKey !== "end") {
+			entity.Player.money = 10;
+			entity.Player.score = 100;
 		}
 	}
+}
 
-	const randomPossibility = RandomUtils.draftbotRandom.pick(possibility);
-	let scoreChange;
-	if (forcePoints !== 0) {
-		scoreChange = forcePoints;
-	}
-	else {
-		scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(entity.Player);
-	}
-	let moneyChange = randomPossibility.money + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
+async function getChanges(time: number, entity: Entity, randomPossibility: Possibility) {
+	const scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(entity.Player);
+	let moneyChange = randomPossibility.money + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + entity.Player.level / 5 - 1));
 	if (randomPossibility.money < 0 && moneyChange > 0) {
 		moneyChange = Math.round(randomPossibility.money / 2);
 	}
+	return {scoreChange, moneyChange};
+}
+
+async function getDescriptionPossibilityResult(time: number, entity: Entity, randomPossibility: Possibility, textInformations: TextInformations) {
+	const changes = await getChanges(time, entity, randomPossibility);
 	let result = "";
-	result += tr.format("points", {score: scoreChange});
-	if (moneyChange !== 0) {
-		result += moneyChange >= 0
-			? tr.format("money", {money: moneyChange})
-			: tr.format("moneyLoose", {money: -moneyChange});
+	result += textInformations.tr.format("points", {score: changes.scoreChange});
+	if (changes.moneyChange !== 0) {
+		result += changes.moneyChange >= 0
+			? textInformations.tr.format("money", {money: changes.moneyChange})
+			: textInformations.tr.format("moneyLoose", {money: -changes.moneyChange});
 	}
 	if (randomPossibility.experience > 0) {
-		result += tr.format("experience", {experience: randomPossibility.experience});
+		result += textInformations.tr.format("experience", {experience: randomPossibility.experience});
 	}
 	if (randomPossibility.health < 0) {
-		result += tr.format("healthLoose", {health: -randomPossibility.health});
+		result += textInformations.tr.format("healthLoose", {health: -randomPossibility.health});
 	}
 	if (randomPossibility.health > 0) {
-		result += tr.format("health", {health: randomPossibility.health});
+		result += textInformations.tr.format("health", {health: randomPossibility.health});
 	}
 	if (randomPossibility.lostTime > 0 && randomPossibility.effect === ":clock2:") {
-		result += tr.format("timeLost", {timeLost: minutesDisplay(randomPossibility.lostTime)});
+		result += textInformations.tr.format("timeLost", {timeLost: minutesDisplay(randomPossibility.lostTime)});
 	}
 	let emojiEnd = randomPossibility.effect !== Constants.EFFECT.SMILEY && randomPossibility.effect !== Constants.EFFECT.OCCUPIED ? " " + randomPossibility.effect : "";
 
 	emojiEnd = randomPossibility.oneshot === true ? " " + Constants.EFFECT.DEAD + " " : emojiEnd;
 
-	if (randomPossibility.possibilityKey === "end") {
-		result = tr.format("doPossibility", {
-			pseudo: interaction.user,
-			result: result,
-			event: randomPossibility.getText(language),
-			emoji: "",
-			alte: emojiEnd
+	await updatePlayerInfos(entity, randomPossibility, textInformations, changes);
+
+	return textInformations.tr.format("doPossibility", {
+		pseudo: textInformations.interaction.user,
+		result: result,
+		event: randomPossibility.getText(textInformations.language),
+		emoji: randomPossibility.possibilityKey === "end" ? "" : randomPossibility.possibilityKey + " ",
+		alte: emojiEnd
+	});
+}
+
+/**
+ * @param textInformations
+ * @param {Possibility} possibility
+ * @param {Entities} entity
+ * @param {Number} time
+ * @return {Promise<CommandInteraction>}
+ */
+const doPossibility = async (textInformations: TextInformations, possibility: Possibility[], entity: Entity, time: number) => {
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
+	const player = entity.Player;
+	textInformations.tr = Translations.getModule("commands.report", textInformations.language);
+
+	if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") { // Don't do anything if the player ends the first report
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
+		return await textInformations.interaction.reply({
+			content: textInformations.tr.format("doPossibility", {
+				pseudo: textInformations.interaction.user,
+				result: "",
+				event: possibility[0].getText(textInformations.language),
+				emoji: "",
+				alte: ""
+			})
 		});
 	}
-	else {
-		result = tr.format("doPossibility", {
-			pseudo: interaction.user,
-			result: result,
-			event: randomPossibility.getText(language),
-			emoji: randomPossibility.possibilityKey + " ",
-			alte: emojiEnd
-		});
-	}
 
-	await entity.addHealth(randomPossibility.health, interaction.channel, language);
-	await player.addScore(entity, scoreChange, interaction.channel, language);
-	await player.addMoney(entity, moneyChange, interaction.channel, language);
-	await player.addExperience(randomPossibility.experience, entity, interaction.channel, language);
-
-	if (randomPossibility.nextEvent !== undefined) {
-		player.nextEvent = randomPossibility.nextEvent;
-	}
-
-	await player.setLastReportWithEffect(
-		randomPossibility.eventId === 0 ? 0 : interaction.createdTimestamp,
-		randomPossibility.lostTime,
-		randomPossibility.effect
-	);
-	if (randomPossibility.item) {
-		await giveRandomItem((await interaction.guild.members.fetch(entity.discordUserId)).user, interaction.channel, language, entity);
-	}
-
-	if (randomPossibility.oneshot) {
-		await entity.setHealth(0, interaction.channel, language);
-	}
-
-	if (randomPossibility.eventId === 0) {
-		player.money = 0;
-		player.score = 0;
-		if (randomPossibility.possibilityKey !== "end") {
-			player.money = 10;
-			player.score = 100;
-		}
-	}
+	const randomPossibility = RandomUtils.draftbotRandom.pick(possibility);
+	const result = await getDescriptionPossibilityResult(time, entity, randomPossibility, textInformations);
 
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
-	const resultMsg = await interaction.channel.send({content: result});
+	const resultMsg = await textInformations.interaction.channel.send({content: result});
 
-	if (!await player.killIfNeeded(entity, interaction.channel, language)) {
-		await chooseDestination(entity, interaction, language, randomPossibility.restrictedMaps);
+	if (!await player.killIfNeeded(entity, textInformations.interaction.channel, textInformations.language)) {
+		await chooseDestination(entity, textInformations.interaction, textInformations.language, randomPossibility.restrictedMaps);
 	}
 
-	await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
+	await MissionsController.update(entity, textInformations.interaction.channel, textInformations.language, {missionId: "doReports"});
 	const tagsToVerify = (await Tags.findTagsFromObject(randomPossibility.id, Possibility.name)).concat(await Tags.findTagsFromObject(randomPossibility.eventId, BigEvent.name));
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity, interaction.channel, language, {
+			await MissionsController.update(entity, textInformations.interaction.channel, textInformations.language, {
 				missionId: tagsToVerify[i].textTag,
 				params: {tags: tagsToVerify}
 			});
