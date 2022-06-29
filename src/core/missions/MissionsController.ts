@@ -9,7 +9,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Data} from "../Data";
 import {Campaign} from "./Campaign";
-import {Entity} from "../models/Entity";
+import {Entities, Entity} from "../models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
 import {draftBotClient} from "../bot";
@@ -65,14 +65,22 @@ export class MissionsController {
 		channel: TextBasedChannel,
 		language: string,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<void> {
-		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(entity.discordUserId), channel, language);
-		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, {
+
+		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplis une autre
+		await entity.save();
+		const [entityTest] = await Entities.getOrRegister(entity.discordUserId);
+
+		await MissionsController.handleExpiredMissions(entityTest.Player, draftBotClient.users.cache.get(entityTest.discordUserId), channel, language);
+		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entityTest.Player, {
 			missionId,
 			count,
 			params,
 			set
 		});
-		await MissionsController.checkCompletedMissions(entity, channel, language, {completedDaily, completedCampaign});
+		await MissionsController.checkCompletedMissions(entityTest, channel, language, {
+			completedDaily,
+			completedCampaign
+		});
 	}
 
 	/**
@@ -264,22 +272,26 @@ export class MissionsController {
 	private static async updateMissionsCounts(player: Player, missionInformations: MissionInformations): Promise<boolean[]> {
 		const missionInterface = this.getMissionInterface(missionInformations.missionId);
 		const completedCampaign = await this.checkMissionSlots(player, missionInterface, missionInformations);
-		const dailyMission = await DailyMissions.getOrGenerate();
-		if (!player.PlayerMissionsInfo.hasCompletedDailyMission() &&
-			dailyMission.missionId === missionInformations.missionId &&
-			missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformations.params, null)) {
-			player.PlayerMissionsInfo.dailyMissionNumberDone += missionInformations.count;
-			if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
-				player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
-			}
-			await player.PlayerMissionsInfo.save();
-			if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
-				player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
-				await player.PlayerMissionsInfo.save();
-				return [true, completedCampaign];
-			}
+		if (player.PlayerMissionsInfo.hasCompletedDailyMission()) {
+			return [false, completedCampaign];
 		}
-		return [player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective, completedCampaign];
+		const dailyMission = await DailyMissions.getOrGenerate();
+		if (dailyMission.missionId !== missionInformations.missionId) {
+			return [false, completedCampaign];
+		}
+		if (!missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformations.params, null)) {
+			return [false, completedCampaign];
+		}
+		player.PlayerMissionsInfo.dailyMissionNumberDone += missionInformations.count;
+		if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+			player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+		}
+		await player.PlayerMissionsInfo.save();
+		if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+			player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
+			await player.PlayerMissionsInfo.save();
+		}
+		return [true, completedCampaign];
 	}
 
 	/**
