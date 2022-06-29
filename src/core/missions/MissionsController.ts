@@ -17,7 +17,7 @@ import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 
-type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: any }, set?: boolean }
+type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {

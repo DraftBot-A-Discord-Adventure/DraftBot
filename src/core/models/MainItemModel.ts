@@ -10,6 +10,12 @@ type Value = {
 	typeValue: string
 }
 
+/**
+ * Get a stat value of an item into its string form
+ * @param tr
+ * @param values
+ * @param value
+ */
 function getStringValueFor(tr: TranslationModule, values: string[], value: Value) {
 	if (value.value !== 0) {
 		values.push(tr.format(value.typeValue, {
@@ -72,10 +78,20 @@ export abstract class MainItemModel extends GenericItemModel {
 		return Math.round(before * 0.5) + this.speed;
 	}
 
+	/**
+	 * Get the multiplier for the item depending on its rarity
+	 * @protected
+	 */
 	protected multiplier(): number {
 		return Data.getModule("items").getNumberFromArray("mapper", this.rarity);
 	}
 
+	/**
+	 * Get the string for the stats of the main item
+	 * @param language
+	 * @param maxStatsValue
+	 * @protected
+	 */
 	protected getValues(language: string, maxStatsValue: number[] = [Infinity, Infinity, Infinity]): string {
 		if (maxStatsValue === null) {
 			maxStatsValue = [Infinity, Infinity, Infinity];

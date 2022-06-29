@@ -134,6 +134,10 @@ export class DraftBotInventoryEmbedBuilder {
 		this._player = player;
 	}
 
+	/**
+	 * Get all items from the player's inventory that are from a certain type
+	 * @param slotType
+	 */
 	async getItemsOfSlotsType(slotType: number): Promise<GenericItemModel[]> {
 		return await Promise.all(this._player.InventorySlots.filter(slot => slot.itemCategory === slotType).map(async function(item) {
 			const newItem = await item.getItem();

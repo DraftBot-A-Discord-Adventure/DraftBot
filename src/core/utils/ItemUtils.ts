@@ -18,6 +18,14 @@ import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 
+export const countNbOfPotions = function(player: Player): number {
+	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
+	for (const slot of player.InventorySlots) {
+		nbPotions += slot.isPotion() ? 1 : 0;
+	}
+	return nbPotions;
+};
+
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: Entity,
@@ -420,12 +428,4 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
 		}
 	}
 	return false;
-};
-
-export const countNbOfPotions = function(player: Player): number {
-	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
-	for (const slot of player.InventorySlots) {
-		nbPotions += slot.isPotion() ? 1 : 0;
-	}
-	return nbPotions;
 };
