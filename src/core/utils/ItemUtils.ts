@@ -31,6 +31,13 @@ export const countNbOfPotions = function(player: Player): number {
 	return nbPotions;
 };
 
+/**
+ * Check the missions of the player corresponding to a drink of a given potion
+ * @param channel
+ * @param language
+ * @param entity
+ * @param potion
+ */
 export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion) {
 	await MissionsController.update(entity, channel, language, {missionId: "drinkPotion"});
 	await MissionsController.update(entity, channel, language, {
