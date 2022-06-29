@@ -279,7 +279,7 @@ async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, languag
  * @param characteristic
  * @param otherEntity
  */
-async function getItemIfNeeded(characteristic: any, otherEntity: Entity) {
+async function getItemIfNeeded(characteristic: string, otherEntity: Entity) {
 	switch (characteristic) {
 	case "weapon":
 		return await otherEntity.Player.getMainWeaponSlot().getItem();
