@@ -115,11 +115,19 @@ export class FightController {
 			this.manageMissionsOf(fighter).finally(() => null);
 		}
 		if (winner !== 2) {
-			MissionsController.update(this.fighters[winner].entity, this.fightView.channel, this.fightView.language, {
-				missionId: "fightHealthPercent", params: {
-					remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
-				}
-			}).finally(() => null);
+			Promise.all([
+				MissionsController.update(this.fighters[winner].entity, this.fightView.channel, this.fightView.language, {
+					missionId: "fightHealthPercent", params: {
+						remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
+					}
+				}),
+				MissionsController.update(this.fighters[winner].entity, this.fightView.channel, this.fightView.language, {
+					missionId: "finishWithAttack",
+					params: {
+						lastAtack: this.fighters[winner].fightActionsHistory.at(-1)
+					}
+				})
+			]).finally(() => null);
 		}
 	}
 

@@ -1,18 +1,24 @@
 import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
-import {Constants} from "../../Constants";
+import {FightActionController} from "../../attacks/FightActionController";
+import {RandomUtils} from "../../utils/RandomUtils";
+import {Classes} from "../../models/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
-		return params.attackType === variant;
+		return params.lastAtack === FightActionController.variantToFightActionId(variant);
 	},
 
 	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
-		return Promise.resolve(Translations.getModule("commands.fight", language).get("actions.attacks." + actionToName(variant) + (objective > 1 ? ".namePlural" : ".name")));
+		return Promise.resolve(
+			Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
+				.get(objective > 1 ? "namePlural" : "name")
+				.toLowerCase()
+		);
 	},
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
+	async generateRandomVariant(difficulty, player): Promise<number> {
+		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick((await Classes.getById(player.class)).getFightActions()));
 	},
 
 	initialNumberDone(): Promise<number> {
@@ -23,20 +29,3 @@ export const missionInterface: IMission = {
 		return Promise.resolve(null);
 	}
 };
-// TODO UTILISER CELLE DE FIGHT QUAND REFACTOR
-function actionToName(action: number) {
-	switch (action) {
-	case Constants.FIGHT.ACTION.SIMPLE_ATTACK:
-		return "simple";
-	case Constants.FIGHT.ACTION.QUICK_ATTACK:
-		return "quick";
-	case Constants.FIGHT.ACTION.ULTIMATE_ATTACK:
-		return "ultimate";
-	case Constants.FIGHT.ACTION.POWERFUL_ATTACK:
-		return "powerful";
-	case Constants.FIGHT.ACTION.BULK_ATTACK:
-		return "bulk";
-	default:
-		return "unknown";
-	}
-}

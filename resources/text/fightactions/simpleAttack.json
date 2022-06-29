@@ -9,5 +9,6 @@
 			"namePlural": "Simple attacks"
 		}
 	},
-	"emote": "⚔️"
+	"emote": "⚔️",
+	"missionVariant": 4
 }

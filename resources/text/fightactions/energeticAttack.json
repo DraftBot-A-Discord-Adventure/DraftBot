@@ -9,5 +9,6 @@
 			"namePlural": "Energetic attacks"
 		}
 	},
-	"emote": "⚡"
+	"emote": "⚡",
+	"missionVariant": 0
 }
