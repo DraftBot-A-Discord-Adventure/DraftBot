@@ -251,6 +251,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		}
 	}
 
+	/**
+	 * Get how much money the user have
+	 * @private
+	 */
 	private async getUserMoney(): Promise<number> {
 		return await this._getUserMoney(this._interaction.user.id);
 	}
@@ -265,6 +269,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return this._shopItems[index];
 	}
 
+	/**
+	 * Remove an amount of money to the user corresponding to the one needed to buy the shop item
+	 * @param amount
+	 * @private
+	 */
 	private async removeUserMoney(amount: number): Promise<void> {
 		return await this._removeUserMoney(this._interaction.user.id, amount);
 	}

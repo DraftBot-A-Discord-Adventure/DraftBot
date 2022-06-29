@@ -42,15 +42,12 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		);
 
 	const confirmMessage = await message.channel.send({embeds: [confirmEmbed]}) as Message;
-	const filterConfirm = (reaction: MessageReaction, user: User) =>
-		(
-			reaction.emoji.name === Constants.MENU_REACTION.ACCEPT
-			|| reaction.emoji.name === Constants.MENU_REACTION.DENY
-		)
-		&& user.id === userInformations.entity.discordUserId;
 
 	const collector = confirmMessage.createReactionCollector({
-		filter: filterConfirm,
+		filter: (reaction: MessageReaction, user: User) => (
+			reaction.emoji.name === Constants.MENU_REACTION.ACCEPT ||
+			reaction.emoji.name === Constants.MENU_REACTION.DENY
+		) && user.id === userInformations.entity.discordUserId,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: 1
 	});

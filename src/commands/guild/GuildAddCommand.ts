@@ -20,69 +20,68 @@ function getEndCallbackGuildAdd(
 	inviter: InviterUserInformation,
 	invited: InvitedUserInformation,
 	interaction: CommandInteraction,
-	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => void {
+	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
-		if (msg.isValidated()) {
-			try {
-				inviter.guild = await Guilds.getById(inviter.entity.Player.guildId);
-			}
-			catch (error) {
-				inviter.guild = null;
-			}
-			if (inviter.guild === null) {
-				// guild is destroyed
-				return sendErrorMessage(
-					invited.invitedUser,
-					interaction,
-					guildAddModule.language,
-					guildAddModule.get("guildDestroy")
-				);
-			}
-			if ((await Entities.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
-				sendErrorMessage(
-					interaction.user,
-					interaction,
-					guildAddModule.language,
-					guildAddModule.get("guildFull")
-				);
-				return;
-			}
-			invited.invitedEntity.Player.guildId = inviter.guild.id;
-			inviter.guild.updateLastDailyAt();
-
-			await Promise.all([
-				inviter.guild.save(),
-				invited.invitedEntity.save(),
-				invited.invitedEntity.Player.save()
-			]);
-
-			await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
-			await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
-				missionId: "guildLevel",
-				count: inviter.guild.level,
-				set: true
-			});
-
-			interaction.followUp({
-				embeds: [
-					new DraftBotEmbed()
-						.setAuthor(
-							guildAddModule.format("successTitle", {
-								pseudo: escapeUsername(invited.invitedUser.username),
-								guildName: inviter.guild.name
-							}),
-							invited.invitedUser.displayAvatarURL()
-						)
-						.setDescription(guildAddModule.get("invitationSuccess"))
-				]
-			});
+		if (!msg.isValidated()) {
+			// Cancel the creation
+			sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
+				guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
+		}
+		try {
+			inviter.guild = await Guilds.getById(inviter.entity.Player.guildId);
+		}
+		catch (error) {
+			inviter.guild = null;
+		}
+		if (inviter.guild === null) {
+			// guild is destroyed
+			sendErrorMessage(
+				invited.invitedUser,
+				interaction,
+				guildAddModule.language,
+				guildAddModule.get("guildDestroy")
+			);
 			return;
 		}
+		if ((await Entities.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
+			sendErrorMessage(
+				interaction.user,
+				interaction,
+				guildAddModule.language,
+				guildAddModule.get("guildFull")
+			);
+			return;
+		}
+		invited.invitedEntity.Player.guildId = inviter.guild.id;
+		inviter.guild.updateLastDailyAt();
 
-		// Cancel the creation
-		sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
-			guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
+		await Promise.all([
+			inviter.guild.save(),
+			invited.invitedEntity.save(),
+			invited.invitedEntity.Player.save()
+		]);
+
+		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
+		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
+			missionId: "guildLevel",
+			count: inviter.guild.level,
+			set: true
+		});
+
+		interaction.followUp({
+			embeds: [
+				new DraftBotEmbed()
+					.setAuthor(
+						guildAddModule.format("successTitle", {
+							pseudo: escapeUsername(invited.invitedUser.username),
+							guildName: inviter.guild.name
+						}),
+						invited.invitedUser.displayAvatarURL()
+					)
+					.setDescription(guildAddModule.get("invitationSuccess"))
+			]
+		});
 	};
 }
 

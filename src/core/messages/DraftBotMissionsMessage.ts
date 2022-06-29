@@ -19,6 +19,14 @@ export class DraftBotMissionsMessageBuilder {
 		this._language = language;
 	}
 
+	/**
+	 * Get the display of the mission
+	 * @param tr
+	 * @param description
+	 * @param expirationDate
+	 * @param current
+	 * @param objective
+	 */
 	static getMissionDisplay(tr: TranslationModule, description: string, expirationDate: Date, current: number, objective: number): string {
 		return tr.format("missionDisplay", {
 			description,
@@ -30,6 +38,12 @@ export class DraftBotMissionsMessageBuilder {
 		});
 	}
 
+	/**
+	 * Get the progression bar corresponding to the progression of the mission
+	 * @param current
+	 * @param objective
+	 * @private
+	 */
 	private static generateDisplayProgression(current: number, objective: number): string {
 		let progression = current / objective;
 		if (progression < 0) {

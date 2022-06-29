@@ -180,11 +180,11 @@ export class PetEntities {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
 		const levelTier = "" + Math.floor(level / 10);
 		const data = Data.getModule("models.pets");
-		let p = RandomUtils.draftbotRandom.realZeroToOneInclusive();
+		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 		let rarity;
 		for (rarity = 1; rarity < 6; ++rarity) {
-			p -= data.getNumber("probabilities." + levelTier + "." + rarity);
-			if (p <= 0) {
+			randomTier -= data.getNumber("probabilities." + levelTier + "." + rarity);
+			if (randomTier <= 0) {
 				break;
 			}
 		}
@@ -202,14 +202,14 @@ export class PetEntities {
 			},
 			order: [Sequelize.fn("RANDOM")]
 		});
-		const r = PetEntity.build({
+		const petEntity = PetEntity.build({
 			petId: pet.id,
 			sex: sex,
 			nickname: null,
 			lovePoints: Constants.PETS.BASE_LOVE
 		});
-		r.PetModel = pet;
-		return r;
+		petEntity.PetModel = pet;
+		return petEntity;
 	}
 
 	static async generateRandomPetEntityNotGuild(): Promise<PetEntity> {
