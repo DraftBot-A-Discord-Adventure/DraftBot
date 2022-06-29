@@ -4,11 +4,12 @@ import {
 	Message,
 	MessageReaction,
 	NewsChannel,
-	ReactionCollector, TextBasedChannel,
+	ReactionCollector,
+	TextBasedChannel,
 	TextChannel,
 	User
 } from "discord.js";
-import { DraftBotReaction } from "./DraftBotReaction";
+import {DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {draftBotClient} from "../bot";
@@ -39,14 +40,9 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	private _reactionsNames: string[];
 
 	/**
-	 * The collector of the message
-	 */
-	private _collector: ReactionCollector = undefined;
-
-	/**
 	 * The callback called when the collector ends. Can be null or undefined
 	 */
-	private readonly _endCallback: (msg: DraftBotReactionMessage) => void;
+	private readonly _endCallback: (msg: DraftBotReactionMessage) => Promise<void>;
 
 	/**
 	 * The max number of reactions the collector allows
@@ -64,12 +60,6 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	private readonly _collectorTime: number;
 
 	/**
-	 * The message sent
-	 * @private
-	 */
-	private _sentMessage: Message;
-
-	/**
 	 * Default constructor
 	 * @param reactions
 	 * @param allowedUsersDiscordIdToReact
@@ -78,17 +68,17 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param anyUserAllowed
 	 * @param collectorTime
 	 */
-	constructor(reactions: DraftBotReaction[],
+	constructor(
+		reactions: DraftBotReaction[],
 		allowedUsersDiscordIdToReact: string[],
-		endCallback: (msg: DraftBotReactionMessage) => void,
+		endCallback: (msg: DraftBotReactionMessage) => (Promise<void> | void),
 		maxReactions: number,
 		anyUserAllowed: boolean,
-		collectorTime: number
-	) {
+		collectorTime: number) {
 		super();
 		this._reactions = reactions;
 		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
-		this._endCallback = endCallback;
+		this._endCallback = endCallback as (msg: DraftBotReactionMessage) => Promise<void>;
 		this._maxReactions = maxReactions;
 		this._anyUserAllowed = anyUserAllowed;
 		this._collectorTime = collectorTime;
@@ -99,12 +89,37 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	}
 
 	/**
+	 * The collector of the message
+	 */
+	private _collector: ReactionCollector = undefined;
+
+	/**
+	 * Returns the message collector
+	 */
+	get collector(): ReactionCollector {
+		return this._collector;
+	}
+
+	/**
+	 * The message sent
+	 * @private
+	 */
+	private _sentMessage: Message;
+
+	/**
+	 * Returns the sent message
+	 */
+	get sentMessage(): Message {
+		return this._sentMessage;
+	}
+
+	/**
 	 * Reply to a command interaction
 	 * @param interaction
 	 * @param collectorCallback
 	 */
 	async reply(interaction: CommandInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
-		this._sentMessage = await interaction.reply({ embeds: [this], fetchReply: true }) as Message;
+		this._sentMessage = await interaction.reply({embeds: [this], fetchReply: true}) as Message;
 		await this.collectAndReact(collectorCallback);
 		return this._sentMessage;
 	}
@@ -115,9 +130,30 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param collectorCallback The callback called when the collector is initialized. Often used to block the player
 	 */
 	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannel, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
-		this._sentMessage = await channel.send({ embeds: [this] });
+		this._sentMessage = await channel.send({embeds: [this]});
 		await this.collectAndReact(collectorCallback);
 		return this._sentMessage;
+	}
+
+	/**
+	 * Stop the collector of the message
+	 */
+	stop(): void {
+		if (!this._collector) {
+			throw MESSAGE_NOT_SENT_ERROR;
+		}
+		this._collector.stop();
+	}
+
+	/**
+	 * Get the first reaction of the message
+	 * Can be undefined or null if there is no reaction
+	 */
+	getFirstReaction(): MessageReaction {
+		if (!this._collector) {
+			throw MESSAGE_NOT_SENT_ERROR;
+		}
+		return this._collector.collected.first();
 	}
 
 	/**
@@ -158,7 +194,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		});
 		this._collector.on("end", () => {
 			if (this._endCallback) {
-				this._endCallback(this);
+				this._endCallback(this).finally(() => null);
 			}
 		});
 		for (const reaction of this._reactions) {
@@ -180,41 +216,6 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			}
 		}
 	}
-
-	/**
-	 * Stop the collector of the message
-	 */
-	stop(): void {
-		if (!this._collector) {
-			throw MESSAGE_NOT_SENT_ERROR;
-		}
-		this._collector.stop();
-	}
-
-	/**
-	 * Get the first reaction of the message
-	 * Can be undefined or null if there is no reaction
-	 */
-	getFirstReaction(): MessageReaction {
-		if (!this._collector) {
-			throw MESSAGE_NOT_SENT_ERROR;
-		}
-		return this._collector.collected.first();
-	}
-
-	/**
-	 * Returns the sent message
-	 */
-	get sentMessage(): Message {
-		return this._sentMessage;
-	}
-
-	/**
-	 * Returns the message collector
-	 */
-	get collector(): ReactionCollector {
-		return this._collector;
-	}
 }
 
 /**
@@ -225,7 +226,7 @@ export class DraftBotReactionMessageBuilder {
 
 	private _allowedUsersDiscordIdToReact: string[] = [];
 
-	private _endCallback: (msg: DraftBotReactionMessage) => void = undefined;
+	private _endCallback: (msg: DraftBotReactionMessage) => Promise<void> | void = undefined;
 
 	private _maxReactions = 0;
 

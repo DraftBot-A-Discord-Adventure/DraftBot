@@ -359,6 +359,13 @@ const doEvent = async (textInformations: TextInformations, event: BigEvent, enti
 	}
 };
 
+/**
+ * Updates the player's information depending on the random possibility drawn
+ * @param entity
+ * @param randomPossibility
+ * @param textInformations
+ * @param changes
+ */
 async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility, textInformations: TextInformations, changes: { scoreChange: number, moneyChange: number }) {
 	await entity.addHealth(randomPossibility.health, textInformations.interaction.channel, textInformations.language);
 	await entity.Player.addScore(entity, changes.scoreChange, textInformations.interaction.channel, textInformations.language);
@@ -392,6 +399,12 @@ async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility,
 	}
 }
 
+/**
+ * Get the changes between before and after the possibility treated
+ * @param time
+ * @param entity
+ * @param randomPossibility
+ */
 async function getChanges(time: number, entity: Entity, randomPossibility: Possibility) {
 	const scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(entity.Player);
 	let moneyChange = randomPossibility.money + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + entity.Player.level / 5 - 1));
@@ -401,6 +414,13 @@ async function getChanges(time: number, entity: Entity, randomPossibility: Possi
 	return {scoreChange, moneyChange};
 }
 
+/**
+ * Get the description of the drawn possibility and update the player
+ * @param time
+ * @param entity
+ * @param randomPossibility
+ * @param textInformations
+ */
 async function getDescriptionPossibilityResult(time: number, entity: Entity, randomPossibility: Possibility, textInformations: TextInformations) {
 	const changes = await getChanges(time, entity, randomPossibility);
 	let result = "";
