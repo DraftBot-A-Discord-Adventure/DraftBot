@@ -51,7 +51,11 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 				guildName: entityInformation.guild.name
 			}))
 				.setDescription(textInformation.guildKickModule.get("kickSuccess"));
-			await MissionsController.update(kickedEntity.discordUserId, textInformation.interaction.channel, textInformation.language, "guildLevel", 0, null, true);
+			await MissionsController.update(kickedEntity, textInformation.interaction.channel, textInformation.language, {
+				missionId: "guildLevel",
+				count: 0,
+				set: true
+			});
 			textInformation.interaction.followUp({embeds: [embed]});
 			return;
 		}

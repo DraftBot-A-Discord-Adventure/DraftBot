@@ -38,6 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 /**
  * Get the map image link with the cursor on the player position
  * @param entity Entity
+ * @param inReport
  */
 async function getStrMapWithCursor(entity: Entity, inReport: boolean) {
 	const destMap = await entity.Player.getDestination();

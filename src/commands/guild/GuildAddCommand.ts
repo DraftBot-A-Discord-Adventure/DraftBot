@@ -57,8 +57,12 @@ function getEndCallbackGuildAdd(
 				invited.invitedEntity.Player.save()
 			]);
 
-			await MissionsController.update(invited.invitedEntity.discordUserId, interaction.channel, guildAddModule.language, "joinGuild");
-			await MissionsController.update(invited.invitedEntity.discordUserId, interaction.channel, guildAddModule.language, "guildLevel", inviter.guild.level, null, true);
+			await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
+			await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
+				missionId: "guildLevel",
+				count: inviter.guild.level,
+				set: true
+			});
 
 			interaction.followUp({
 				embeds: [

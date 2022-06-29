@@ -162,7 +162,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 						}
 					}
 					BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
-					await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+					await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
@@ -208,7 +208,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						.setDescription(translationModule.format("items.money.giveDescription", {amount: calculateGemsToMoneyRatio()})
 						)]
 				});
-			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			return true;
 		});
 }
@@ -221,7 +221,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			await giveItemToPlayer(entity, item, message.language, message.user, message.sentMessage.channel);
-			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			return true;
 		});
 }
@@ -252,7 +252,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 				});
 			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
 			await entity.Player.PlayerMissionsInfo.save();
-			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			return true;
 		});
 }
@@ -285,7 +285,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 					}))
 				]
 			});
-			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			return true;
 		});
 }
@@ -313,7 +313,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 					.setDescription(Constants.BADGES.QUEST_MASTER + " " + translationModule.get("items.badge.name"))
 				]
 			});
-			await MissionsController.update(message.user.id, message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			return true;
 		}
 	);

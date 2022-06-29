@@ -120,24 +120,6 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		this._translationModule = translationModule;
 	}
 
-	private async getUserMoney(): Promise<number> {
-		return await this._getUserMoney(this._interaction.user.id);
-	}
-
-	private getChoseShopItem(): ShopItem {
-		// eslint-disable-next-line max-len
-		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
-		const index: number = this._shopItemReactions.indexOf(emoji);
-		if (index === -1) {
-			return null;
-		}
-		return this._shopItems[index];
-	}
-
-	private async removeUserMoney(amount: number): Promise<void> {
-		return await this._removeUserMoney(this._interaction.user.id, amount);
-	}
-
 	get user(): User {
 		return this._interaction.user;
 	}
@@ -268,6 +250,24 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			}
 		}
 	}
+
+	private async getUserMoney(): Promise<number> {
+		return await this._getUserMoney(this._interaction.user.id);
+	}
+
+	private getChoseShopItem(): ShopItem {
+		// eslint-disable-next-line max-len
+		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
+		const index: number = this._shopItemReactions.indexOf(emoji);
+		if (index === -1) {
+			return null;
+		}
+		return this._shopItems[index];
+	}
+
+	private async removeUserMoney(amount: number): Promise<void> {
+		return await this._removeUserMoney(this._interaction.user.id, amount);
+	}
 }
 
 /**
@@ -282,24 +282,13 @@ export class DraftBotShopMessageBuilder {
 
 	private readonly _language: string;
 
-	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
-
-	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
-		const [entity] = await Entities.getOrRegister(userId);
-		await entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
-		await entity.Player.save();
-	};
-
-	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */
-	};
-
 	private _noShoppingCart = false;
 
 	private _translationPosition = "commands.shop";
 
 	/**
 	 * Default constructor
-	 * @param user The user of the shop
+	 * @param interaction
 	 * @param title The title of the shop
 	 * @param language The language of the shop
 	 */
@@ -385,6 +374,17 @@ export class DraftBotShopMessageBuilder {
 			this._translationPosition
 		);
 	}
+
+	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
+
+	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
+		const [entity] = await Entities.getOrRegister(userId);
+		await entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
+		await entity.Player.save();
+	};
+
+	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */
+	};
 }
 
 /**

@@ -21,32 +21,50 @@ async function drinkNoEffectPotion(entity: Entity, potion: Potion, interaction: 
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+			await MissionsController.update(entity, interaction.channel, language, {
+				missionId: tagsToVerify[i].textTag,
+				params: {tags: tagsToVerify}
+			});
 		}
 	}
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, {rarity: potion.rarity});
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionWithoutEffect");
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "drinkPotion"});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "drinkPotionRarity",
+		params: {rarity: potion.rarity}
+	});
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "drinkPotionWithoutEffect"});
 	interaction.replied ?
 		sendErrorMessage(interaction.user, interaction, language, tr.get("objectDoNothingError")) :
 		replyErrorMessage(interaction, language, tr.get("objectDoNothingError"));
 }
 
 async function checkPotionDrinkMissionValidations(entity: Entity, interaction: CommandInteraction, language: string, potion: Potion) {
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotion");
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "drinkPotionRarity", 1, {rarity: potion.rarity});
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "drinkPotion"});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "drinkPotionRarity",
+		params: {rarity: potion.rarity}
+	});
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+			await MissionsController.update(entity, interaction.channel, language, {
+				missionId: tagsToVerify[i].textTag,
+				params: {tags: tagsToVerify}
+			});
 		}
 	}
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePotions", countNbOfPotions(entity.Player), null, true);
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "havePotions",
+		count: countNbOfPotions(entity.Player),
+		set: true
+	});
 }
 
 function drinkPotionCallback(entity: Entity, force: boolean, interaction: CommandInteraction, language: string, tr: TranslationModule, embed: DraftBotEmbed) {
 	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
+		if (!force) {
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
+		}
 		if (force !== null && force === true || validateMessage.isValidated()) {
 			switch (potion.nature) {
 			case Constants.NATURE.NONE:

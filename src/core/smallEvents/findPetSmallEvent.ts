@@ -77,7 +77,7 @@ export const smallEvent: SmallEvent = {
 				pet: pet.getPetTypeName(language)
 			}));
 			await interaction.reply({embeds: [seEmbedPetObtention]});
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, "havePet");
+			await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
 		}
 		console.log(entity.discordUserId + " got find pet event.");
 	}

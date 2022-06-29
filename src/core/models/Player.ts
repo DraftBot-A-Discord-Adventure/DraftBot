@@ -149,14 +149,14 @@ export class Player extends Model {
 	public async addScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		this.score += score;
 		if (score > 0) {
-			await MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score);
+			await MissionsController.update(entity, channel, language, {missionId: "earnPoints", count: score});
 		}
 		await this.setScore(entity, this.score, channel, language);
 		this.addWeeklyScore(score);
 	}
 
 	public async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(entity.discordUserId, channel, language, "reachScore", score, null, true);
+		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
 		}
@@ -168,7 +168,7 @@ export class Player extends Model {
 	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string): Promise<void> {
 		this.money += money;
 		if (money > 0) {
-			await MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money);
+			await MissionsController.update(entity, channel, language, {missionId: "earnMoney", count: money});
 		}
 		this.setMoney(this.money);
 	}
@@ -260,7 +260,11 @@ export class Player extends Model {
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
 		this.level++;
-		await MissionsController.update(entity.discordUserId, channel, language, "reachLevel", this.level, null, true);
+		await MissionsController.update(entity, channel, language, {
+			missionId: "reachLevel",
+			count: this.level,
+			set: true
+		});
 		const bonuses = await this.getLvlUpReward(language, entity, channel);
 
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {
@@ -468,7 +472,7 @@ export class Player extends Model {
 	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string) {
 		this.experience += xpWon;
 		if (xpWon > 0) {
-			await MissionsController.update(entity.discordUserId, channel, language, "earnXP", xpWon);
+			await MissionsController.update(entity, channel, language, {missionId: "earnXP", count: xpWon});
 		}
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(entity, channel, language);

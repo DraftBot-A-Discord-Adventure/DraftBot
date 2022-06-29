@@ -205,7 +205,10 @@ export const smallEvent: SmallEvent = {
 		const cList: string[] = [];
 		const player = await Players.getById(entity.Player.id);
 		const otherPlayer = await Players.getById(otherEntity.Player.id);
-		await MissionsController.update(entity.discordUserId, interaction.channel, language, "meetDifferentPlayers", 1, {metPlayerDiscordId: otherEntity.discordUserId});
+		await MissionsController.update(entity, interaction.channel, language, {
+			missionId: "meetDifferentPlayers",
+			params: {metPlayerDiscordId: otherEntity.discordUserId}
+		});
 		let guild = null;
 		checkTop(otherPlayer, cList);
 		checkBadges(otherEntity, cList);

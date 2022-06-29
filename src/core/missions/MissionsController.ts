@@ -9,13 +9,15 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Data} from "../Data";
 import {Campaign} from "./Campaign";
-import {Entities, Entity} from "../models/Entity";
+import {Entity} from "../models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
 import {draftBotClient} from "../bot";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
+
+type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: any }, set?: boolean }
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -30,7 +32,7 @@ export class MissionsController {
 
 	/**
 	 * update all the mission of the user
-	 * @param discordUserId
+	 * @param entity
 	 * @param channel
 	 * @param language
 	 * @param missionId
@@ -38,19 +40,17 @@ export class MissionsController {
 	 * @param params
 	 * @param set
 	 */// eslint-disable-next-line max-params
-	static async update(discordUserId: string, channel: TextBasedChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<void> {
-		if (!discordUserId) {
-			console.error("Cannot update mission because discordUserId is not defined");
-			console.error("Data: discordUserId = " + discordUserId + "; channel = " + channel + "; missionId = " + missionId + "; count = " + count + "; params = " + params);
-			return;
-		}
-		const [entity] = await Entities.getOrRegister(discordUserId);
-		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(discordUserId), channel, language);
+	static async update(
+		entity: Entity,
+		channel: TextBasedChannel,
+		language: string,
+		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<void> {
+		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(entity.discordUserId), channel, language);
 		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
-			await MissionsController.sendCompletedMissions(discordUserId, entity.Player, completedMissions, channel, language);
+			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
 		}
 	}
 
@@ -91,10 +91,10 @@ export class MissionsController {
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(discordUserId: string, player: Player, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
+	static async sendCompletedMissions(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
 		await channel.send({
 			embeds: [
-				new DraftBotCompletedMissions(draftBotClient.users.cache.get(discordUserId), completedMissions, language)
+				new DraftBotCompletedMissions(draftBotClient.users.cache.get(entity.discordUserId), completedMissions, language)
 			]
 		});
 	}

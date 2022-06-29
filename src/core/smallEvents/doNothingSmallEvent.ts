@@ -3,6 +3,7 @@ import Entity from "../models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
+import {Data} from "../Data";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -10,8 +11,10 @@ export const smallEvent: SmallEvent = {
 	},
 
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
-		seEmbed.setDescription(seEmbed.description + Translations.getModule("smallEvents.doNothing", language).getRandom("stories"));
-		await interaction.reply({ embeds: [seEmbed] });
+		seEmbed.setDescription(
+			Data.getModule("smallEvents.doNothing").getString("emote") +
+			Translations.getModule("smallEvents.doNothing", language).getRandom("stories"));
+		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " done nothing.");
 	}
 };

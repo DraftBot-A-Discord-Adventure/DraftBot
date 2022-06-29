@@ -196,7 +196,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		}
 		await entity.Player.addMoney(entity, -20, interaction.channel, language);
 		authorPet.hungrySince = new Date();
-		await authorPet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")], entity.discordUserId, interaction.channel, language);
+		await authorPet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")], entity, interaction.channel, language);
 		await Promise.all([
 			authorPet.save(),
 			entity.Player.save()
@@ -245,7 +245,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 		(item === Constants.PET_FOOD.HERBIVOROUS_FOOD || item === Constants.PET_FOOD.CARNIVOROUS_FOOD)
 	) {
 		if (item.includes(pet.PetModel.diet)) {
-			await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity.discordUserId, interaction.channel, language);
+			await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language);
 		}
 		successEmbed.setDescription(
 			petFeedModule.format("description." + (item.includes(pet.PetModel.diet) ? "dietFoodSuccess" : "dietFoodFail"), {
@@ -255,7 +255,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 		);
 	}
 	else {
-		await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity.discordUserId, interaction.channel, language);
+		await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language);
 		successEmbed.setDescription(
 			petFeedModule.format("description." + item, {
 				petnick: pet.displayName(language),

@@ -47,14 +47,14 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "commandReport");
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
 
 	if (!entity.Player.currentEffectFinished()) {
 		return await sendTravelPath(entity, interaction, language, entity.Player.effect);
 	}
 
 	if (entity.Player.effect !== Constants.EFFECT.SMILEY && entity.Player.currentEffectFinished()) {
-		await MissionsController.update(entity.discordUserId, interaction.channel, language, "recoverAlteration");
+		await MissionsController.update(entity, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
 	if (entity.Player.mapLinkId === null) {
@@ -83,13 +83,24 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
  * @param language
  */
 async function completeMissionsBigEvent(entity: Entity, interaction: CommandInteraction, language: string) {
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "travelHours", 1, {
-		travelTime: await entity.Player.getCurrentTripDuration()
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "travelHours", params: {
+			travelTime: await entity.Player.getCurrentTripDuration()
+		}
 	});
 	const endMapId = (await MapLinks.getById(entity.Player.mapLinkId)).endMap;
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "goToPlace", 1, {mapId: endMapId});
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "exploreDifferentPlaces", 1, {placeId: endMapId});
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "fromPlaceToPlace", 1, {mapId: endMapId});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "goToPlace",
+		params: {mapId: endMapId}
+	});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "exploreDifferentPlaces",
+		params: {placeId: endMapId}
+	});
+	await MissionsController.update(entity, interaction.channel, language, {
+		missionId: "fromPlaceToPlace",
+		params: {mapId: endMapId}
+	});
 }
 
 const doRandomBigEvent = async function(interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent: number) {
@@ -468,11 +479,14 @@ const doPossibility = async (interaction: CommandInteraction, language: string, 
 		await chooseDestination(entity, interaction, language, randomPossibility.restrictedMaps);
 	}
 
-	await MissionsController.update(entity.discordUserId, interaction.channel, language, "doReports");
+	await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
 	const tagsToVerify = (await Tags.findTagsFromObject(randomPossibility.id, Possibility.name)).concat(await Tags.findTagsFromObject(randomPossibility.eventId, BigEvent.name));
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity.discordUserId, interaction.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+			await MissionsController.update(entity, interaction.channel, language, {
+				missionId: tagsToVerify[i].textTag,
+				params: {tags: tagsToVerify}
+			});
 		}
 	}
 	await entity.save();
@@ -548,7 +562,7 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 
 				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
 
-				await MissionsController.update(entity.discordUserId, interaction.channel, language, "doReports");
+				await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
 			}
 		}
 		catch (e) {

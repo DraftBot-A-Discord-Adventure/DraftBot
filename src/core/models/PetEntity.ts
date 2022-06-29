@@ -8,6 +8,7 @@ import {Translations} from "../Translations";
 import {TextBasedChannel} from "discord.js";
 import {MissionsController} from "../missions/MissionsController";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
+import {Entity} from "./Entity";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -123,7 +124,7 @@ export class PetEntity extends Model {
 						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
-	public async changeLovePoints(amount: number, discordId: string, channel: TextBasedChannel, language: string): Promise<void> {
+	public async changeLovePoints(amount: number, entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
 		this.lovePoints += amount;
 		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
 			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
@@ -131,8 +132,14 @@ export class PetEntity extends Model {
 		else if (this.lovePoints < 0) {
 			this.lovePoints = 0;
 		}
-		await MissionsController.update(discordId, channel, language, "tamedPet", 1, {loveLevel: this.getLoveLevelNumber()});
-		await MissionsController.update(discordId, channel, language, "trainedPet", 1, {loveLevel: this.getLoveLevelNumber()});
+		await MissionsController.update(entity, channel, language, {
+			missionId: "tamedPet",
+			params: {loveLevel: this.getLoveLevelNumber()}
+		});
+		await MissionsController.update(entity, channel, language, {
+			missionId: "trainedPet",
+			params: {loveLevel: this.getLoveLevelNumber()}
+		});
 	}
 
 	public isFeisty(): boolean {

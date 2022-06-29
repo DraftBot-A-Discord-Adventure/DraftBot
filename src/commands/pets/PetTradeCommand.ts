@@ -67,20 +67,19 @@ async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number
 	 */
 	async function checkLoveLevelMission(missionName: string) {
 		await MissionsController.update(
-			tradersAndPets[i].trader.discordUserId,
+			tradersAndPets[i].trader,
 			interaction.channel,
 			petTradeModule.language,
-			missionName, 1,
-			{loveLevel: tradersAndPets[1 - i].pet.getLoveLevelNumber()});
+			{missionId: missionName, params: {loveLevel: tradersAndPets[1 - i].pet.getLoveLevelNumber()}});
 	}
 
 	await checkLoveLevelMission("tamedPet");
 	await checkLoveLevelMission("trainedPet");
 	await MissionsController.update(
-		tradersAndPets[i].trader.discordUserId,
+		tradersAndPets[i].trader,
 		interaction.channel,
 		petTradeModule.language,
-		"sellOrTradePet");
+		{missionId: "sellOrTradePet"});
 }
 
 /**
