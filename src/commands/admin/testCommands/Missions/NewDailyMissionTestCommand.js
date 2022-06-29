@@ -19,7 +19,7 @@ module.exports.commandInfo = {
  * Set the weapon of the player
  * @return {String} - The successful message formatted
  */
-const clearMissionsTestCommand = async (language, interaction) => {
+const newDailyMissionTestCommand = async (language, interaction) => {
 	const entity = await Entities.getByDiscordUserId(interaction.user.id);
 	const newDM = await DailyMissions.regenerateDailyMission();
 	await PlayerMissionsInfo.update({
@@ -37,4 +37,4 @@ const clearMissionsTestCommand = async (language, interaction) => {
 	});
 };
 
-module.exports.execute = clearMissionsTestCommand;
+module.exports.execute = newDailyMissionTestCommand;
