@@ -263,60 +263,78 @@ export class MissionsController {
 	 */
 	private static async updateMissionsCounts(player: Player, missionInformations: MissionInformations): Promise<boolean[]> {
 		const missionInterface = this.getMissionInterface(missionInformations.missionId);
-		let completedCampaign = false;
-		completedCampaign = await this.checkMissionSlots(player, missionInterface, completedCampaign, missionInformations);
-		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
-			const dailyMission = await DailyMissions.getOrGenerate();
-			if (dailyMission.missionId === missionInformations.missionId) {
-				if (missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformations.params, null)) {
-					player.PlayerMissionsInfo.dailyMissionNumberDone += missionInformations.count;
-					if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
-						player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
-					}
-					await player.PlayerMissionsInfo.save();
-					if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
-						player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
-						await player.PlayerMissionsInfo.save();
-						return [true, completedCampaign];
-					}
-				}
+		const completedCampaign = await this.checkMissionSlots(player, missionInterface, missionInformations);
+		const dailyMission = await DailyMissions.getOrGenerate();
+		if (!player.PlayerMissionsInfo.hasCompletedDailyMission() &&
+			dailyMission.missionId === missionInformations.missionId &&
+			missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformations.params, null)) {
+			player.PlayerMissionsInfo.dailyMissionNumberDone += missionInformations.count;
+			if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+				player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+			}
+			await player.PlayerMissionsInfo.save();
+			if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+				player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
+				await player.PlayerMissionsInfo.save();
+				return [true, completedCampaign];
 			}
 		}
-		return [false, completedCampaign];
+		return [player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective, completedCampaign];
 	}
 
 	/**
 	 * updates the missions located in the mission slots of the player
 	 * @param player
 	 * @param missionInterface
-	 * @param completedCampaign
 	 * @param missionInformations
 	 * @private
 	 */
-	private static async checkMissionSlots(player: Player, missionInterface: IMission, completedCampaign: boolean, missionInformations: MissionInformations) {
-		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionInformations.missionId) {
-				if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
-					&& !mission.hasExpired() && !mission.isCompleted()
-				) {
-					mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
-					if (mission.numberDone > mission.missionObjective) {
-						mission.numberDone = mission.missionObjective;
-					}
-					if (mission.isCampaign() && mission.isCompleted()) {
-						completedCampaign = true;
-					}
-					await mission.save();
-				}
-				if (!mission.isCompleted()) {
-					const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
-					if (saveBlob !== mission.saveBlob) {
-						mission.saveBlob = saveBlob;
-						await mission.save();
-					}
-				}
+	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations) {
+		let completedCampaign = false;
+		for (const mission of player.MissionSlots.filter((mission) => mission.missionId === missionInformations.missionId)) {
+			if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
+				&& !mission.hasExpired() && !mission.isCompleted()
+			) {
+				completedCampaign = await this.updateMission(mission, missionInformations, completedCampaign);
+			}
+			if (!mission.isCompleted()) {
+				await this.updateBlob(missionInterface, mission, missionInformations);
 			}
 		}
+		return completedCampaign;
+	}
+
+	/**
+	 * Updates the mission blob if needed
+	 * @param missionInterface
+	 * @param mission
+	 * @param missionInformations
+	 * @private
+	 */
+	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations) {
+		const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
+		if (saveBlob !== mission.saveBlob) {
+			mission.saveBlob = saveBlob;
+			await mission.save();
+		}
+	}
+
+	/**
+	 * Updates the progression of the mission
+	 * @param mission
+	 * @param missionInformations
+	 * @param completedCampaign
+	 * @private
+	 */
+	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean) {
+		mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
+		if (mission.numberDone > mission.missionObjective) {
+			mission.numberDone = mission.missionObjective;
+		}
+		if (mission.isCampaign() && mission.isCompleted()) {
+			completedCampaign = true;
+		}
+		await mission.save();
 		return completedCampaign;
 	}
 }

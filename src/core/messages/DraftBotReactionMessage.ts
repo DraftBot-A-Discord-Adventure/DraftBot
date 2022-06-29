@@ -265,7 +265,7 @@ export class DraftBotReactionMessageBuilder {
 	 * Set the callback when the message collector ends
 	 * @param callback
 	 */
-	endCallback(callback: (msg: DraftBotReactionMessage) => void): DraftBotReactionMessageBuilder {
+	endCallback(callback: (msg: DraftBotReactionMessage) => Promise<void> | void): DraftBotReactionMessageBuilder {
 		this._endCallback = callback;
 		return this;
 	}
