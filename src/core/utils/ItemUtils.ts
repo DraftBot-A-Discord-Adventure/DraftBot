@@ -7,7 +7,7 @@ import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Armors} from "../models/Armor";
 import {Weapons} from "../models/Weapon";
-import {Potions} from "../models/Potion";
+import Potion, {Potions} from "../models/Potion";
 import {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
 import InventorySlot from "../models/InventorySlot";
@@ -17,13 +17,43 @@ import Player from "../models/Player";
 import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {Tags} from "../models/Tag";
 
+/**
+ * Count how many potions the player have
+ * @param player
+ */
 export const countNbOfPotions = function(player: Player): number {
 	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
 	for (const slot of player.InventorySlots) {
 		nbPotions += slot.isPotion() ? 1 : 0;
 	}
 	return nbPotions;
+};
+
+export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion) {
+	await MissionsController.update(entity, channel, language, {missionId: "drinkPotion"});
+	await MissionsController.update(entity, channel, language, {
+		missionId: "drinkPotionRarity",
+		params: {rarity: potion.rarity}
+	});
+	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
+	if (tagsToVerify) {
+		for (let i = 0; i < tagsToVerify.length; i++) {
+			await MissionsController.update(entity, channel, language, {
+				missionId: tagsToVerify[i].textTag,
+				params: {tags: tagsToVerify}
+			});
+		}
+	}
+	if (potion.nature === Constants.NATURE.NONE) {
+		await MissionsController.update(entity, channel, language, {missionId: "drinkPotionWithoutEffect"});
+	}
+	await MissionsController.update(entity, channel, language, {
+		missionId: "havePotions",
+		count: countNbOfPotions(entity.Player),
+		set: true
+	});
 };
 
 // eslint-disable-next-line max-params

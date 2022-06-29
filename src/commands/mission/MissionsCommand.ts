@@ -1,7 +1,6 @@
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Entities, Entity} from "../../core/models/Entity";
-import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
 import {draftBotClient} from "../../core/bot";
@@ -27,7 +26,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	entity = await Entities.getById(entity.id);
 
-	await Campaign.updateCampaignAndSendMessage(entity, interaction.channel, language);
+	await MissionsController.checkCompletedMissions(entity, interaction.channel, language);
 	if (entityToLook.discordUserId === entity.discordUserId) {
 		[entityToLook] = await Entities.getOrRegister(entityToLook.discordUserId);
 	}

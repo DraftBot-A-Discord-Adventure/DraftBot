@@ -18,6 +18,7 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
+type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -29,29 +30,49 @@ export class MissionsController {
 		}
 	}
 
+	/**
+	 * Check and update the completed missions of the Entity
+	 * @param entity
+	 * @param channel
+	 * @param language
+	 * @param completedDaily
+	 * @param completedCampaign
+	 */
+	static async checkCompletedMissions(
+		entity: Entity,
+		channel: TextBasedChannel,
+		language: string,
+		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
+			completedDaily: false,
+			completedCampaign: false
+		}) {
+		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
+		if (completedMissions.length !== 0) {
+			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
+			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
+		}
+	}
 
 	/**
 	 * update all the mission of the user
 	 * @param entity
 	 * @param channel
 	 * @param language
-	 * @param missionId
-	 * @param count
-	 * @param params
-	 * @param set
-	 */// eslint-disable-next-line max-params
+	 * @param missionInformations
+	 */
 	static async update(
 		entity: Entity,
 		channel: TextBasedChannel,
 		language: string,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<void> {
 		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(entity.discordUserId), channel, language);
-		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
-		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
-		if (completedMissions.length !== 0) {
-			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
-			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
-		}
+		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, {
+			missionId,
+			count,
+			params,
+			set
+		});
+		await MissionsController.checkCompletedMissions(entity, channel, language, {completedDaily, completedCampaign});
 	}
 
 	/**
@@ -236,22 +257,19 @@ export class MissionsController {
 	/**
 	 * update the counts of the different mission the user has
 	 * @param player
-	 * @param missionId
-	 * @param count
-	 * @param params
-	 * @param set
+	 * @param missionInformations
 	 * @private
 	 * @return true if the daily mission is finished and needs to be said to the player
 	 */
-	private static async updateMissionsCounts(player: Player, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean[]> {
-		const missionInterface = this.getMissionInterface(missionId);
+	private static async updateMissionsCounts(player: Player, missionInformations: MissionInformations): Promise<boolean[]> {
+		const missionInterface = this.getMissionInterface(missionInformations.missionId);
 		let completedCampaign = false;
-		completedCampaign = await this.checkMissionSlots(player, missionId, missionInterface, params, set, count, completedCampaign);
+		completedCampaign = await this.checkMissionSlots(player, missionInterface, completedCampaign, missionInformations);
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
-			if (dailyMission.missionId === missionId) {
-				if (missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, params, null)) {
-					player.PlayerMissionsInfo.dailyMissionNumberDone += count;
+			if (dailyMission.missionId === missionInformations.missionId) {
+				if (missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformations.params, null)) {
+					player.PlayerMissionsInfo.dailyMissionNumberDone += missionInformations.count;
 					if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
 						player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
 					}
@@ -270,27 +288,18 @@ export class MissionsController {
 	/**
 	 * updates the missions located in the mission slots of the player
 	 * @param player
-	 * @param missionId
 	 * @param missionInterface
-	 * @param params
-	 * @param set
-	 * @param count
 	 * @param completedCampaign
+	 * @param missionInformations
 	 * @private
 	 */
-	// eslint-disable-next-line max-params
-	private static async checkMissionSlots(player: Player, missionId: string, missionInterface: IMission, params: { [p: string]: any }, set: boolean, count: number, completedCampaign: boolean) {
+	private static async checkMissionSlots(player: Player, missionInterface: IMission, completedCampaign: boolean, missionInformations: MissionInformations) {
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId) {
-				if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, params, mission.saveBlob)
+			if (mission.missionId === missionInformations.missionId) {
+				if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
 					&& !mission.hasExpired() && !mission.isCompleted()
 				) {
-					if (set) {
-						mission.numberDone = count;
-					}
-					else {
-						mission.numberDone += count;
-					}
+					mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
 					if (mission.numberDone > mission.missionObjective) {
 						mission.numberDone = mission.missionObjective;
 					}
@@ -300,7 +309,7 @@ export class MissionsController {
 					await mission.save();
 				}
 				if (!mission.isCompleted()) {
-					const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, params);
+					const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
 					if (saveBlob !== mission.saveBlob) {
 						mission.saveBlob = saveBlob;
 						await mission.save();

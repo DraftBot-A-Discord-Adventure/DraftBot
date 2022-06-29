@@ -1,11 +1,9 @@
-import Entity, {Entities} from "../models/Entity";
+import Entity from "../models/Entity";
 import {TextBasedChannel, User} from "discord.js";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../models/PlayerActiveObjects";
-import {Tags} from "../models/Tag";
 import Potion from "../models/Potion";
-import {MissionsController} from "../missions/MissionsController";
-import {countNbOfPotions} from "../utils/ItemUtils";
+import {checkDrinkPotionMissions} from "../utils/ItemUtils";
 import {TranslationModule} from "../Translations";
 import {FighterStatus} from "./FighterStatus";
 import {IFightAction} from "../attacks/IFightAction";
@@ -96,30 +94,10 @@ export class Fighter {
 		if (friendly || !await this.currentPotionIsAFightPotion()) {
 			return;
 		}
-		const tagsToVerify = await Tags.findTagsFromObject((await this.entity.Player.getMainPotionSlot().getItem()).id, Potion.name);
-		if (tagsToVerify) {
-			for (let i = 0; i < tagsToVerify.length; i++) {
-				await MissionsController.update(this.entity, channel, language, {
-					missionId: tagsToVerify[i].textTag,
-					params: {tags: tagsToVerify}
-				});
-			}
-		}
+		const drankPotion = await this.entity.Player.getMainPotionSlot().getItem() as Potion;
 		await this.entity.Player.drinkPotion();
-		await MissionsController.update(this.entity, channel, language, {missionId: "drinkPotion"});
-		const potionSlot = this.entity.Player.getMainPotionSlot();
-		if (potionSlot) {
-			await MissionsController.update(this.entity, channel, language, {
-				missionId: "drinkPotionRarity",
-				params: {rarity: (await potionSlot.getItem()).rarity}
-			});
-		}
-		[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
-		await MissionsController.update(this.entity, channel, language, {
-			missionId: "havePotions",
-			count: countNbOfPotions(this.entity.Player),
-			set: true
-		});
+		await this.entity.save();
+		await checkDrinkPotionMissions(channel, language, this.entity, drankPotion);
 	}
 
 	/**
