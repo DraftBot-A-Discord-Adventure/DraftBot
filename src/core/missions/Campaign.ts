@@ -2,10 +2,8 @@ import {Data, DataModule} from "../Data";
 import Player from "../models/Player";
 import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 import {MissionsController} from "./MissionsController";
-import {TextBasedChannel} from "discord.js";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {Missions} from "../models/Mission";
-import Entity from "../models/Entity";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -75,14 +73,6 @@ export class Campaign {
 			return await this.completeCampaignMissions(player, completedCampaign, campaign, language);
 		}
 		return [];
-	}
-
-	public static async updateCampaignAndSendMessage(entity: Entity, channel: TextBasedChannel, language: string) {
-		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, false, false, language);
-		if (completedMissions.length !== 0) {
-			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
-			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
-		}
 	}
 
 	private static getDataModule(): DataModule {
