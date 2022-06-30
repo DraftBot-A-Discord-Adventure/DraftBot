@@ -6,7 +6,7 @@ import {Classes} from "../../models/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
-		return params.lastAtack === FightActionController.variantToFightActionId(variant);
+		return params.lastAttack === FightActionController.variantToFightActionId(variant);
 	},
 
 	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {

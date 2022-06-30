@@ -20,6 +20,8 @@ type UserInformations = {
 	pseudo: string
 }
 
+type MaxStatsValues = { attack: number, defense: number, speed: number }
+
 class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 	mainTitle: string;
 
@@ -40,7 +42,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		userInformations: UserInformations,
 		language: string,
 		slots: Slots,
-		maxStatsValue: number[]
+		maxStatsValue: MaxStatsValues
 	) {
 		super(
 			[

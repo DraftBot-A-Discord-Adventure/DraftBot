@@ -10,6 +10,8 @@ type Value = {
 	typeValue: string
 }
 
+type MaxStatsValues = { attack: number, defense: number, speed: number }
+
 /**
  * Get a stat value of an item into its string form
  * @param tr
@@ -43,7 +45,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	public readonly speed!: number;
 
 
-	public toFieldObject(language: string, maxStatsValue: number[]): EmbedField {
+	public toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
@@ -92,25 +94,25 @@ export abstract class MainItemModel extends GenericItemModel {
 	 * @param maxStatsValue
 	 * @protected
 	 */
-	protected getValues(language: string, maxStatsValue: number[] = [Infinity, Infinity, Infinity]): string {
-		if (maxStatsValue === null) {
-			maxStatsValue = [Infinity, Infinity, Infinity];
+	protected getValues(language: string, maxStatsValue: MaxStatsValues = null): string {
+		if (!maxStatsValue) {
+			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
 		}
 		const values: string[] = [];
 		const tr = Translations.getModule("items", language);
 		getStringValueFor(tr, values, {
 			value: this.getAttack(),
-			maxValue: maxStatsValue[0],
+			maxValue: maxStatsValue.attack,
 			typeValue: "attack"
 		});
 		getStringValueFor(tr, values, {
 			value: this.getDefense(),
-			maxValue: maxStatsValue[1],
+			maxValue: maxStatsValue.defense,
 			typeValue: "defense"
 		});
 		getStringValueFor(tr, values, {
 			value: this.getSpeed(),
-			maxValue: maxStatsValue[2],
+			maxValue: maxStatsValue.speed,
 			typeValue: "speed"
 		});
 		return values.join(" ");
