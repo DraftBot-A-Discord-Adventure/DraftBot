@@ -449,10 +449,11 @@ export class Player extends Model {
 
 	public async getMaxStatsValue() {
 		const playerClass = await Classes.getById(this.class);
-		const attackItemValue = playerClass.getAttackValue(this.level);
-		const defenseItemValue = playerClass.getDefenseValue(this.level);
-		const speedItemValue = playerClass.getSpeedValue(this.level);
-		return [attackItemValue, defenseItemValue, speedItemValue];
+		return {
+			attack: playerClass.getAttackValue(this.level),
+			defense: playerClass.getDefenseValue(this.level),
+			speed: playerClass.getSpeedValue(this.level)
+		};
 	}
 
 	/**

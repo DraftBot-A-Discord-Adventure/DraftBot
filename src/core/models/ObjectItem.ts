@@ -7,6 +7,8 @@ import {minutesDisplay} from "../utils/TimeUtils";
 import fs = require("fs");
 import moment = require("moment");
 
+type MaxStatsValues = { attack: number, defense: number, speed: number }
+
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
 
@@ -14,9 +16,9 @@ export class ObjectItem extends SupportItemModel {
 		return Constants.ITEM_CATEGORIES.OBJECT;
 	}
 
-	getNatureTranslation(language: string, maxStatsValue: number[] = [Infinity, Infinity, Infinity]): string {
+	getNatureTranslation(language: string, maxStatsValue: MaxStatsValues = null): string {
 		if (maxStatsValue === null) {
-			maxStatsValue = [Infinity, Infinity, Infinity];
+			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
 		}
 		const tr = Translations.getModule("items", language);
 		if (this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP) {
@@ -27,12 +29,11 @@ export class ObjectItem extends SupportItemModel {
 					powerInMinutes: this.power * 60
 				});
 		}
-		const speedMax = maxStatsValue[2];
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
-			const speedDisplay = speedMax >= this.power ? this.power : format(tr.get("nerfDisplay"),
+			const speedDisplay = maxStatsValue.speed >= this.power ? this.power : format(tr.get("nerfDisplay"),
 				{
 					old: this.power,
-					max: speedMax
+					max: maxStatsValue.speed
 				});
 			return format(
 				tr.getFromArray("objects.natures", this.nature),

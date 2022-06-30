@@ -124,7 +124,7 @@ export class FightController {
 				MissionsController.update(this.fighters[winner].entity, this.fightView.channel, this.fightView.language, {
 					missionId: "finishWithAttack",
 					params: {
-						lastAtack: this.fighters[winner].fightActionsHistory.at(-1)
+						lastAttack: this.fighters[winner].fightActionsHistory.at(-1)
 					}
 				})
 			]).finally(() => null);
