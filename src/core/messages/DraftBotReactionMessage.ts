@@ -42,7 +42,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
 	 * The callback called when the collector ends. Can be null or undefined
 	 */
-	private readonly _endCallback: (msg: DraftBotReactionMessage) => Promise<void>;
+	private readonly _endCallback: (msg: DraftBotReactionMessage) => void;
 
 	/**
 	 * The max number of reactions the collector allows
@@ -78,7 +78,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		super();
 		this._reactions = reactions;
 		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
-		this._endCallback = endCallback as (msg: DraftBotReactionMessage) => Promise<void>;
+		this._endCallback = endCallback as (msg: DraftBotReactionMessage) => void;
 		this._maxReactions = maxReactions;
 		this._anyUserAllowed = anyUserAllowed;
 		this._collectorTime = collectorTime;
@@ -194,7 +194,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		});
 		this._collector.on("end", () => {
 			if (this._endCallback) {
-				this._endCallback(this).finally(() => null);
+				this._endCallback(this);
 			}
 		});
 		for (const reaction of this._reactions) {
