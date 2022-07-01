@@ -198,12 +198,8 @@ export class CommandsManager {
 					for (const attachment of context.attachments) {
 						dmChannel.send({
 							files: [{
-								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-								// @ts-ignore
 								attachment: attachment.url,
-								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-								// @ts-ignore
-								name: attachment.filename
+								name: attachment.name
 							}]
 						});
 					}
