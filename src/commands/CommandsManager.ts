@@ -5,6 +5,8 @@ import {
 	GuildChannel,
 	GuildMember,
 	Message,
+	MessageAttachment,
+	TextBasedChannel,
 	User
 } from "discord.js";
 
@@ -21,15 +23,16 @@ import {Guilds} from "../core/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";
-import {Data} from "../core/Data";
+import {Data, DataModule} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
-import {effectsErrorTextValue,replyErrorMessage} from "../core/utils/ErrorUtils";
+import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
+type ContextType = { mainServerId: string; dmChannelId: string; attachments: MessageAttachment[]; supportAlert: string; };
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -183,10 +186,14 @@ export class CommandsManager {
 		if (!entity.Player.dmNotification) {
 			icon = dataModule.getString("dm.alertIcon");
 		}
-		await draftBotClient.shard.broadcastEval((client, context) => {
+		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			const mainServer = client.guilds.cache.get(context.mainServerId);
 			if (mainServer) {
-				const dmChannel = client.users.cache.get(context.dmChannelId);
+				const dmChannel = client.channels.cache.get(context.dmChannelId) as TextBasedChannel;
+				if (!dmChannel) {
+					console.warn("WARNING : dm channel not on main channel");
+					return;
+				}
 				if (context.attachments.length > 0) {
 					for (const attachment of context.attachments) {
 						dmChannel.send({
@@ -216,11 +223,24 @@ export class CommandsManager {
 			}
 		});
 
-		const reactionMessage = new DraftBotReactionMessageBuilder()
+		await this.sendHelperMessage(message, dataModule);
+	}
+
+	/**
+	 * Sends a message to someone who said something in DM to the bot
+	 * @param message
+	 * @param dataModule
+	 * @private
+	 */
+	private static async sendHelperMessage(message: Message, dataModule: DataModule) {
+		await new DraftBotReactionMessageBuilder()
 			.allowUserId(message.author.id)
 			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
 			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
 			.endCallback((msg) => {
+				if (!msg.getFirstReaction()) {
+					return;
+				}
 				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				const tr = Translations.getModule("bot", language);
 				message.channel.send({
@@ -229,10 +249,10 @@ export class CommandsManager {
 						.setDescription(tr.get("dmHelpMessage"))]
 				});
 			})
-			.build();
-		reactionMessage.formatAuthor(dataModule.getString("dm.titleSupport"), message.author);
-		reactionMessage.setDescription(dataModule.getString("dm.messageSupport"));
-		await reactionMessage.send(message.channel);
+			.build()
+			.formatAuthor(dataModule.getString("dm.titleSupport"), message.author)
+			.setDescription(dataModule.getString("dm.messageSupport"))
+			.send(message.channel);
 	}
 
 	/**
