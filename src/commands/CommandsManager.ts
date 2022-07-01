@@ -186,23 +186,33 @@ export class CommandsManager {
 		if (!entity.Player.dmNotification) {
 			icon = dataModule.getString("dm.alertIcon");
 		}
+		await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
+
+		await this.sendHelperMessage(message, dataModule);
+	}
+
+	/**
+	 * Sends back a message sent in the bot DMs to the support channel
+	 * @param message
+	 * @param dataModule
+	 * @param icon
+	 * @private
+	 */
+	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string) {
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
-			const mainServer = client.guilds.cache.get(context.mainServerId);
-			if (mainServer) {
+			if (client.guilds.cache.get(context.mainServerId)) {
 				const dmChannel = client.channels.cache.get(context.dmChannelId) as TextBasedChannel;
 				if (!dmChannel) {
 					console.warn("WARNING : dm channel not on main channel");
 					return;
 				}
-				if (context.attachments.length > 0) {
-					for (const attachment of context.attachments) {
-						dmChannel.send({
-							files: [{
-								attachment: attachment.url,
-								name: attachment.name
-							}]
-						});
-					}
+				for (const attachment of context.attachments) {
+					dmChannel.send({
+						files: [{
+							attachment: attachment.url,
+							name: attachment.name
+						}]
+					});
 				}
 				dmChannel.send({content: context.supportAlert});
 			}
@@ -218,8 +228,6 @@ export class CommandsManager {
 				}) + message.content
 			}
 		});
-
-		await this.sendHelperMessage(message, dataModule);
 	}
 
 	/**
