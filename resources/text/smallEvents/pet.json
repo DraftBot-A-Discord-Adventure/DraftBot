@@ -122,7 +122,7 @@
 				"After a long walk, you decide to take care of your **{pet}** by stroking {determinant}. This moment spent with {accusative} has strengthened your bond.",
 				"After having left for a few moments, **{pet}** come back with food found further. You decide to give it before it's lost. {nominative} loves you more.",
 				"**{pet}** seems to have engaged a fight with a **{randomAnimal}** ! You decide to defend valiantly {determinant}, therefore, he likes you even more and becomes more trustworthy.",
-				"**{pet}** wants to play, you decide to play with him with {accusative}. This strengthened your ties."
+				"**{pet}** wants to play, you decide to play with {accusative}. This strengthened your ties."
 			],
 			"food": [
 				"**{pet}'s** flair allowed {accusative} to find {food}. You store it and continue your way.",
