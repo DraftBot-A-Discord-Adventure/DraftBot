@@ -9,7 +9,7 @@
 	"speed": 10,
 	"health": 65,
 	"fightPoint": 45,
-	"price": 150,
+	"price": 15,
 	"classGroup": 0,
 	"fightActionsIds": [
 		"simpleAttack",
