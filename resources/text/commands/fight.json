@@ -54,16 +54,6 @@
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
 			"actionsOf": "Attaques de {player} :",
-			"alteration": {
-				"confused": {
-					"startTurn": "est confus !",
-					"endTurn": "n'est plus confus !"
-				},
-				"poisoned": {
-					"startTurn": "subi {damage} points de dégâts par poison !",
-					"endTurn": "n'est plus empoisonné !"
-				}
-			},
 			"actions": {
 				"intro": "{emote} | {player} ",
 				"attacksResults": {
@@ -112,7 +102,7 @@
 						"effectue une {attack} ! C'est une mauvaise {attack} !"
 					]
 				},
-				"damages": " `Dégâts infligés: {damages}`",
+				"damages": " `Dégâts infligés : {damages}`",
 				"sideEffects": {
 					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
@@ -137,16 +127,6 @@
 			"actionsOf": "Actions of {player} :",
 			"actions": {
 				"intro": "{emote} | {player} ",
-				"alteration": {
-					"confused": {
-						"start": "is confused !",
-						"end": "is no longer confused !"
-					},
-					"poisoned": {
-						"start": "is poisoned !",
-						"end": "is no longer poisoned !"
-					}
-				},
 				"attacksResults": {
 					"critical": [
 						"performs a {attack} ! Perfectly done !",

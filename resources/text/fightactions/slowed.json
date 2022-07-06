@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"active": "est ralenti",
+			"inactive": "n'est plus ralenti"
+		},
+		"en": {
+			"active": "is slowed",
+			"inactive": "is no longer slowed"
+		}
+	},
+	"emote": "\uD83E\uDDA5",
+	"missionVariant": 0
+}

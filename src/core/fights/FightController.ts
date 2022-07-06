@@ -5,8 +5,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
-import {IFightAction} from "../attacks/IFightAction";
-import {FightActionController} from "../attacks/FightActionController";
+import {IFightAction} from "../fightActions/IFightAction";
+import {FightActionController} from "../fightActions/FightActionController";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {BlockingConstants} from "../constants/BlockingConstants";
@@ -74,33 +74,21 @@ export class FightController {
 
 	/**
 	 * execute the next fight action
+	 * @param fightAction {IFightAction} the fight action to execute
+	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
-	public async executeFightAction(fightAction: IFightAction) {
-		if (this.getPlayingFighter().hasFightAlteration()) {
-			const alterationStartMessage = this.getPlayingFighter().processFightAlterationStartTurn(this.fightView.language);
-			if (alterationStartMessage !== FightConstants.CANCEL_ALTERATION_DISPLAY) {
-				await this.fightView.updateHistory(this.getPlayingFighter().getAlterationEmoji(), this.getPlayingFighter().getMention(), alterationStartMessage);
-			}
-			if (this.hadEnded()) {
-				this.endFight();
-				return;
-			}
-		}
+	public async executeFightAction(fightAction: IFightAction, endTurn: boolean) {
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
-		if (this.getPlayingFighter().hasFightAlteration()) {
-			const alterationEndMessage = this.getPlayingFighter().processFightAlterationEndTurn(this.fightView.language);
-			if (alterationEndMessage !== FightConstants.CANCEL_ALTERATION_DISPLAY) {
-				await this.fightView.updateHistory(this.getPlayingFighter().getAlterationEmoji(), this.getPlayingFighter().getMention(), alterationEndMessage);
-			}
-		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
-		this.turn++;
 		if (this.hadEnded()) {
 			this.endFight();
 			return;
 		}
-		await this.prepareNextTurn();
+		if (endTurn) {
+			this.turn++;
+			await this.prepareNextTurn();
+		}
 	}
 
 	/**
@@ -202,12 +190,15 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn() {
+		if (this.getPlayingFighter().hasFightAlteration()) {
+			await this.executeFightAction(this.getPlayingFighter().getAlterationFightAction(), false);
+		}
 		await this.fightView.displayFightStatus();
 		if (this.getPlayingFighter().nextFightActionId === null) {
 			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
 		}
 		else {
-			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId));
+			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId), true);
 		}
 	}
 
