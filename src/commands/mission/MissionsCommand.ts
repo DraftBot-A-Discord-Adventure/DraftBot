@@ -3,7 +3,6 @@ import {CommandInteraction} from "discord.js";
 import {Entities, Entity} from "../../core/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
-import {draftBotClient} from "../../core/bot";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -13,11 +12,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	let entityToLook = await Entities.getByOptions(interaction);
-	let userToPrint = interaction.user;
-	if (entityToLook !== null) {
-		userToPrint = await draftBotClient.users.fetch(entityToLook.discordUserId);
-	}
-	else {
+	if (entityToLook === null) {
 		entityToLook = entity;
 	}
 
@@ -33,8 +28,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await interaction.reply({
 		embeds: [
 			await new DraftBotMissionsMessageBuilder(
-				entityToLook.Player,
-				userToPrint,
+				entityToLook,
+				interaction.user,
 				language
 			).build()
 		]

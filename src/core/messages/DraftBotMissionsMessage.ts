@@ -5,16 +5,21 @@ import {TranslationModule, Translations} from "../Translations";
 import {finishInTimeDisplay, getTomorrowMidnight} from "../utils/TimeUtils";
 import {Campaign} from "../missions/Campaign";
 import {User} from "discord.js";
+import Entity from "../models/Entity";
+import { draftBotClient } from "../bot";
 
 export class DraftBotMissionsMessageBuilder {
+	private _entity: Entity;
+
 	private _player: Player;
 
 	private readonly _user: User;
 
 	private readonly _language: string;
 
-	constructor(player: Player, user: User, language: string) {
-		this._player = player;
+	constructor(entity: Entity, user: User, language: string) {
+		this._entity = entity;
+		this._player = entity.Player;
 		this._user = user;
 		this._language = language;
 	}
@@ -111,7 +116,7 @@ export class DraftBotMissionsMessageBuilder {
 			}
 		}
 		const msg = new DraftBotEmbed();
-		msg.formatAuthor(tr.get("title"), this._user);
+		msg.formatAuthor(tr.get("title"), this._user, await draftBotClient.users.fetch(this._entity.discordUserId));
 		msg.setDescription(desc);
 		return msg;
 	}
