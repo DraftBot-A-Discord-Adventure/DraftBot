@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Choisir une classe autre que \"recrue\""
+			"desc": "Choisir une classe autre que 🌿 Recrue"
 		},
 		"en": {
-			"desc": "Choose a class other than \"recruit\""
+			"desc": "Choose a class other than 🌿 Recruit"
 		}
 	},
 	"campaignOnly": true

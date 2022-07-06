@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Explorer {objective} lieu{objective>1?x:}{objective>1? différents:}"
+			"desc": "Explorer {objective} lieu{objective>1?x différents:}"
 		},
 		"en": {
 			"desc": "Explore {objective}{objective>1? different:} place{objective>1?s:}"
