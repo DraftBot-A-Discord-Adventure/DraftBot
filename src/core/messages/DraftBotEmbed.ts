@@ -22,9 +22,9 @@ export class DraftBotEmbed extends MessageEmbed {
 	 * @param title
 	 * @param user
 	 */
-	formatAuthor(title: string, user: User): this {
+	formatAuthor(title: string, user: User, userToLook: User = user): this {
 		this.setAuthor(format(title, {
-			pseudo: escapeUsername(user.username)
+			pseudo: escapeUsername(userToLook.username)
 		}), user.displayAvatarURL());
 		return this;
 	}
