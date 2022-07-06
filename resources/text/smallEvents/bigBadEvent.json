@@ -46,6 +46,10 @@
 						"alte": ":dizzy_face:"
 					},
 					{
+						"sentence": "Un groupe vous arrête, et ses membres exigent que vous leur donniez vos possessions. Vous n'êtes pas intimidé, et brandissez votre arme pour les faire fuir. Cependant, l'un deux prend avantage de la panique générale pour vous assommer, avant de s'enfuir. {alteEmoji}.",
+						"alte": ":head_bandage:"
+					},
+					{
 						"sentence": "vous traversez un chemin quand un troupeau de vaches surgit brusquement. Apeuré par la masse d'animaux qui viens de vous frôler, vous mettez un peu de temps à vous remettre de vos émotions. {alteEmoji}",
 						"alte": ":scream:"
 					},
@@ -134,10 +138,6 @@
 					},
 					{
 						"sentence": "you see a baby bear a few meters away. You decide to go and say hello to him. His mother, seeing you next to his baby, savagely attacks you. You manage to flee, but you're grievously wounded. You lose **{alteTime} {alteEmoji}**.",
-						"alte": ":dizzy_face:"
-					},
-					{
-						"sentence": "you cross a path when a herd of cows suddenly emerges and hustle you, but you were not hurt, more fear than harm. You lose **{alteTime} {alteEmoji}**.",
 						"alte": ":scream:"
 					},
 					{

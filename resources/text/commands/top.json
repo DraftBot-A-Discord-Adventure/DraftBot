@@ -11,6 +11,16 @@
 			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n",
 			"nextReset": "Classement réinitialisé dans {time}"
 		},
-		"en": {}
+		"en": {
+			"topTitle": ":trophy: Display of {alltime?: weekly}{global?: server} top {start} to {end}",
+			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} players ! \n(You are on page {page} / {pageMax})",
+			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} players !",
+			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} players ! \n(You are on page {page} / {pageMax})",
+			"endAnyRightPage": " {badge} **{pseudo}**, you are ranked**{rank}ème** out of a total of {totalPlayer} players !",
+			"lowScore": ":x: | **{pseudo}**, unfortunately you do not appear in the ranking because your score is below or equal to 100!",
+			"yourRanking": "Your rank",
+			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n",
+			"nextReset": "Next reset: {time}"
+		}
 	}
 }

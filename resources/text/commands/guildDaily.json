@@ -37,6 +37,7 @@
 			"hospital": ":clock1030: | Guild's members moved up {timeMoved}h.",
 			"partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
 			"alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
+			"alterationNoHeal": ":hospital: | Guild's members' statuses were reset.",
 			"petFood": ":candy: {quantity} treats have been added to your guild's inventory.",
 			"pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
 			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
