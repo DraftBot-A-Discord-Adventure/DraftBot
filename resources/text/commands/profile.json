@@ -144,6 +144,10 @@
 				"🔖": ":bookmark:  `Class early adopter`",
 				"💞": ":revolving_hearts:  `A player that raised a legendary pet`",
 				"\uD83D\uDC8D": ":ring: `Badge bought in the Missions shop`"
+			},
+			"badgeDisplay": {
+				"title": "List of {pseudo}'s badges",
+				"numberBadge": "\n This player has a total of {badge} badge{badge>1?s:} !"
 			}
 		}
 	},
