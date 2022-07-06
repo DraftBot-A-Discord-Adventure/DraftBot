@@ -77,6 +77,13 @@ export abstract class FightConstants {
 	static POISON_END_PROBABILITY = 25;
 
 	// empty string to register cancellation of an alteration display
-	static CANCEL_ALTERATION_DISPLAY= "";
+	static CANCEL_ALTERATION_DISPLAY = "";
+
+	// file name of the fight actions interfaces for the fight alterations the player can have
+	static ALTERATION_FIGHT_ACTION: string[] = [
+		"alterations/normal",
+		"alterations/slowed",
+		"alterations/poisoned"
+	];
 
 }

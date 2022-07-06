@@ -3,7 +3,7 @@ import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel} from 
 import {Fighter} from "./Fighter";
 import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {IFightAction} from "../attacks/IFightAction";
+import {IFightAction} from "../fightActions/IFightAction";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 
@@ -124,11 +124,11 @@ export class FightView {
 				this.fightController.endFight();
 				return;
 			}
-			this.fightController.executeFightAction(selectedAction).finally(() => null);
+			this.fightController.executeFightAction(selectedAction, true).finally(() => null);
 		});
 		const reactions = [];
 		for (const [, action] of actions) {
-			reactions.push( chooseActionEmbedMessage.react(action.getEmoji()));
+			reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
 		}
 		await Promise.all(reactions);
 	}

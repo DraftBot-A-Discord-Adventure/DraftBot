@@ -4,17 +4,14 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../models/PlayerActiveObjects";
 import Potion from "../models/Potion";
 import {checkDrinkPotionMissions} from "../utils/ItemUtils";
-import {MissionsController} from "../missions/MissionsController";
-import {countNbOfPotions} from "../utils/ItemUtils";
-import {TranslationModule, Translations} from "../Translations";
+import {TranslationModule} from "../Translations";
 import {FighterStatus} from "./FighterStatus";
-import {FighterAlteration} from "./FighterAlteration";
-import {IFightAction} from "../attacks/IFightAction";
+import {FighterAlterationId} from "./FighterAlterationId";
+import {IFightAction} from "../fightActions/IFightAction";
 import Class from "../models/Class";
-import {FightActionController} from "../attacks/FightActionController";
+import {FightActionController} from "../fightActions/FightActionController";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {FightConstants} from "../constants/FightConstants";
-import {RandomUtils} from "../utils/RandomUtils";
 
 type FighterStats = {
 	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number, agility: number
@@ -29,6 +26,8 @@ export class Fighter {
 
 	public stats: FighterStats;
 
+	private statsBackup: FighterStats;
+
 	public nextFightActionId: string;
 
 	public fightActionsHistory: string[];
@@ -39,7 +38,7 @@ export class Fighter {
 
 	private ready: boolean;
 
-	private alteration: FighterAlteration;
+	private alteration: FighterAlterationId;
 
 	private status: FighterStatus;
 
@@ -48,12 +47,28 @@ export class Fighter {
 	private readonly user: User;
 
 	public constructor(user: User, entity: Entity, playerClass: Class) {
-		this.stats = {fightPoints: null, maxFightPoint: null, speed: null, defense: null, attack: null, agility: null};
+		this.stats = {
+			fightPoints: null,
+			maxFightPoint: null,
+			speed: null,
+			defense: null,
+			attack: null,
+			agility: null
+		};
+		this.statsBackup = {
+			fightPoints: null,
+			maxFightPoint: null,
+			speed: null,
+			defense: null,
+			attack: null,
+			agility: null
+		};
 		this.entity = entity;
 		this.ready = false;
 		this.nextFightActionId = null;
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
+		this.alteration = FighterAlterationId.NORMAL;
 		this.class = playerClass;
 		this.availableFightActions = FightActionController.listFightActionsFromClass(this.class);
 		this.user = user;
@@ -113,6 +128,34 @@ export class Fighter {
 	 */
 	public block() {
 		BlockingUtils.blockPlayer(this.entity.discordUserId, BlockingConstants.REASONS.FIGHT);
+	}
+
+	/**
+	 * save the stats of the fighter to the backup stat storage
+	 */
+	public saveStats(): void {
+		this.statsBackup = { ...this.stats};
+	}
+
+	/**
+	 * recover the stats of the fighter from the backup stat storage
+	 */
+	public readSavedStats(): FighterStats {
+		return this.statsBackup;
+	}
+
+	/**
+	 * erase the saved stats of the fighter
+	 */
+	eraseSavedStats() {
+		this.statsBackup = {
+			fightPoints: null,
+			maxFightPoint: null,
+			speed: null,
+			defense: null,
+			attack: null,
+			agility: null
+		};
 	}
 
 	/**
@@ -221,7 +264,7 @@ export class Fighter {
 	 * Check if the fighter has a fight alteration
 	 */
 	hasFightAlteration(): boolean {
-		return this.alteration !== FighterAlteration.NORMAL;
+		return this.alteration !== FighterAlterationId.NORMAL;
 	}
 
 	/**
@@ -231,60 +274,25 @@ export class Fighter {
 		return FightConstants.ALTERATION_EMOJI[this.alteration];
 	}
 
-	/**
-	 * execute the effect of the alteration that takes place at the beginning of the turn
-	 * @param language - the language of the message
-	 * @return string - the message to send to the players
-	 */
-	public processFightAlterationStartTurn(language: string): string {
-		const translationModule = Translations.getModule("commands.fight", language);
-		let damage: number;
-		switch (this.alteration) {
-		case FighterAlteration.CONFUSED:
-			this.stats.agility = 0;
-			return translationModule.get("alteration.confused.startTurn");
-		case FighterAlteration.POISONED:
-			damage = Math.round(
-				FightConstants.POISON_DAMAGE_PER_TURN +
-					FightConstants.POISON_DAMAGE_PER_TURN *
-					RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
-			this.stats.fightPoints -= damage;
-			return translationModule.format("alteration.poisoned.startTurn", {
-				damage: damage
-			});
-		default:
-			return "";
-		}
-	}
-
-	/**
-	 * execute the effect of the alteration that takes place at the end of the turn
-	 * @param language - the language of the message
-	 * @return string - the message to send to the players
-	 */
-	public processFightAlterationEndTurn(language: string): string {
-		const translationModule = Translations.getModule("commands.fight", language);
-		switch (this.alteration) {
-		case FighterAlteration.CONFUSED:
-			this.alteration = FighterAlteration.NORMAL;
-			this.stats.agility = this.entity.getAgility(this.stats.defense, this.stats.speed);
-			return translationModule.get("alteration.confused.endTurn");
-		case FighterAlteration.POISONED:
-			if (RandomUtils.randInt(0, 100) < FightConstants.POISON_END_PROBABILITY) {
-				this.alteration = FighterAlteration.NORMAL;
-				return translationModule.get("alteration.poisoned.endTurn");
-			}
-			return FightConstants.CANCEL_ALTERATION_DISPLAY;
-		default:
-			return "";
-		}
-	}
 
 	/**
 	 * Set a new fight alteration to the fighter
 	 * @param alteration - the new fight alteration
+	 * returns the FighterAlterationId of the fight alteration that was set or kept
 	 */
-	newAlteration(alteration: FighterAlteration) {
-		this.alteration = alteration;
+	newAlteration(alteration: FighterAlterationId): FighterAlterationId {
+		if (this.alteration === FighterAlterationId.NORMAL || alteration === FighterAlterationId.NORMAL) {
+			// il n'y a pas de conflit d'alterations
+			this.alteration = alteration;
+		}
+		return this.alteration;
+	}
+
+	/**
+	 * get the fightAction linked to the alteration of the fighter
+	 */
+	getAlterationFightAction() {
+		const alterationFightActionFileName: string = FightConstants.ALTERATION_FIGHT_ACTION[this.alteration];
+		return FightActionController.getFightActionInterface(alterationFightActionFileName);
 	}
 }
