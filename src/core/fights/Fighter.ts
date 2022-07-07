@@ -40,6 +40,8 @@ export class Fighter {
 
 	private alteration: FighterAlterationId;
 
+	public alterationTurn: number;
+
 	private status: FighterStatus;
 
 	private readonly class: Class;
@@ -69,6 +71,7 @@ export class Fighter {
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
 		this.alteration = FighterAlterationId.NORMAL;
+		this.alterationTurn = 0;
 		this.class = playerClass;
 		this.availableFightActions = FightActionController.listFightActionsFromClass(this.class);
 		this.user = user;
@@ -281,6 +284,9 @@ export class Fighter {
 	 * returns the FighterAlterationId of the fight alteration that was set or kept
 	 */
 	newAlteration(alteration: FighterAlterationId): FighterAlterationId {
+		if (this.alteration === FighterAlterationId.NORMAL || this.alteration === alteration) {
+			this.alterationTurn = 0;
+		}
 		if (this.alteration === FighterAlterationId.NORMAL || alteration === FighterAlterationId.NORMAL) {
 			// il n'y a pas de conflit d'alterations
 			this.alteration = alteration;
