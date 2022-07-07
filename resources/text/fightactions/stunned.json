@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"active": "est étourdi",
+			"noAttack": "est étourdi et ne parvient pas à attaquer",
+			"inactive": "n'est plus étourdi"
+		},
+		"en": {
+			"active": "is stunned",
+			"noAttack": "is stunned and cannot attack",
+			"inactive": "is no longer stunned"
+		}
+	},
+	"emote": "\uD83D\uDE35\u200D\uD83D\uDCAB",
+	"missionVariant": 0
+}

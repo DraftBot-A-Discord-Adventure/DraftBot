@@ -83,7 +83,10 @@ export abstract class FightConstants {
 	static ALTERATION_FIGHT_ACTION: string[] = [
 		"alterations/normal",
 		"alterations/slowed",
-		"alterations/poisoned"
+		"alterations/poisoned",
+		"alterations/stunned"
 	];
+
+	static NO_MOVE_ACTION_ID = "none";
 
 }

@@ -8,9 +8,9 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
+		sender.alterationTurn++;
 		const slowedTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		if (sender.readSavedStats().speed !== null) {
-			// if the sender have a speed saved, it means that it was slowed and we can remove the slow
+		if (sender.alterationTurn > 1) { // this effect heals after one turn
 			sender.stats.speed = sender.readSavedStats().speed;
 			sender.eraseSavedStats();
 			sender.newAlteration(FighterAlterationId.NORMAL);
