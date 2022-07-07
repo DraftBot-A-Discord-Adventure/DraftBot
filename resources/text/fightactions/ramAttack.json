@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque bélier",
+			"namePlural": "Attaques béliers"
+		},
+		"en": {
+			"name": "Ram Attack",
+			"namePlural": "Ram Attacks"
+		}
+	},
+	"emote": "\uD83D\uDC0F",
+	"missionVariant": 0
+}

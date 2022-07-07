@@ -105,6 +105,7 @@
 				"damages": " `Dégâts infligés : {damages}`",
 				"sideEffects": {
 					"newAlteration" : " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
+					"damage": " `Dégâts reçus : {amount}`",
 					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
