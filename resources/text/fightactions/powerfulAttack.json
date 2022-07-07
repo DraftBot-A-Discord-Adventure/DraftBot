@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque puissante",
+			"namePlural": "Attaques puissantes"
+		},
+		"en": {
+			"name": "Powerful Attack",
+			"namePlural": "Powerful Attacks"
+		}
+	},
+	"emote": "\uD83E\uDE93",
+	"missionVariant": 0
+}
