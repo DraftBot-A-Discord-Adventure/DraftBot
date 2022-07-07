@@ -1,27 +1,27 @@
 import {IFightAction} from "../../IFightAction";
 import {Fighter} from "../../../fights/Fighter";
 import {Translations} from "../../../Translations";
-import {format} from "../../../utils/StringFormatter";
 import {Data} from "../../../Data";
-import {FightActionController} from "../../FightActionController";
-import {RandomUtils} from "../../../utils/RandomUtils";
 import {FighterAlterationId} from "../../../fights/FighterAlterationId";
+import {FightConstants} from "../../../constants/FightConstants";
 
-type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
 		sender.alterationTurn++;
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		sender.stats.fightPoints -= damageDealt;
-		const poisonTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		// 1 chance sur 4 d'etre soigné du poison
-		if (RandomUtils.randInt(0, 3) === 0) {
+		const stunnedTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		if (sender.alterationTurn > 1) { // this effect heals after one turn
 			sender.newAlteration(FighterAlterationId.NORMAL);
-			return poisonTranslationModule.get("heal");
+			return stunnedTranslationModule.get("inactive");
 		}
-		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
+
+		// 50% chance to not attack this turn
+		if (Math.random() < 0.5) {
+			sender.nextFightActionId = FightConstants.NO_MOVE_ACTION_ID;
+			return stunnedTranslationModule.get("noAttack");
+		}
+		return stunnedTranslationModule.get("active");
 	},
 
 	getEmoji(): string {
@@ -29,11 +29,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 	},
 
 	getName(): string {
-		return "poisoned";
-	},
-
-	getAttackInfo(): attackInfo {
-		return {minDamage: 20, averageDamage: 30, maxDamage: 40};
+		return "stunned";
 	},
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
