@@ -12,6 +12,7 @@
 	"price": 15200,
 	"classGroup": 3,
 	"fightActionsIds": [
-		"simpleAttack"
+		"simpleAttack",
+		"ramAttack"
 	]
 }
