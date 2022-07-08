@@ -84,6 +84,8 @@
 						"utilise une {attack} !",
 						"réalise une {attack} !"
 					],
+					"maxUses": "tente d'utiliser une {attack}, mais cela échoue !",
+					"charging" : "se prépare à réaliser une {attack} !",
 					"missed": [
 						"réalise une {attack} ! On a vu mieux...",
 						"lance une {attack} ! Médiocre",
@@ -104,7 +106,7 @@
 				},
 				"damages": " `Dégâts infligés : {damages}`",
 				"sideEffects": {
-					"newAlteration" : " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
+					"newAlteration": " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
 					"damage": " `Dégâts reçus : {amount}`",
 					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
@@ -115,7 +117,8 @@
 			"effects": {
 				"stunned": "Étourdi",
 				"paralyzed": "Paralysé",
-				"poisoned": "Empoisonné"
+				"poisoned": "Empoisonné",
+				"slowed": "Ralenti"
 			}
 		},
 		"en": {

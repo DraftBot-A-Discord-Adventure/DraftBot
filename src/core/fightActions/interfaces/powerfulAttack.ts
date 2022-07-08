@@ -31,7 +31,7 @@ export const fightActionInterface: IFightAction = {
 			if (alteration === FighterAlterationId.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.SELF,
-					effect: attackTranslationModule.get("effects.stunned")
+					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
 				});
 				damageDealt *= 1.5;
 			}

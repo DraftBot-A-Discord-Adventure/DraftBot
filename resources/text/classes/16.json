@@ -13,6 +13,7 @@
 	"classGroup": 3,
 	"fightActionsIds": [
 		"simpleAttack",
-		"ramAttack"
+		"ramAttack",
+		"chargeUltimateAttack"
 	]
 }
