@@ -46,16 +46,13 @@ export const fightActionInterface: IFightAction = {
 		return {
 			attackerStats: [
 				sender.stats.attack,
-				sender.stats.agility,
 				sender.stats.speed
 			], defenderStats: [
 				receiver.stats.defense,
-				receiver.stats.agility,
 				receiver.stats.speed
 			], statsEffect: [
 				0.8,
-				0.1,
-				0.1
+				0.2
 			]
 		};
 	},

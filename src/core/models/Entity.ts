@@ -186,15 +186,6 @@ export class Entity extends Model {
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
 		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
-
-	/**
-	 * get the amount of agility points the player has from his defense and speed stats
-	 * @param defense
-	 * @param speed
-	 */
-	public getAgility(defense: number, speed: number) {
-		return speed * 0.75 - defense * 0.25;
-	}
 }
 
 export class Entities {

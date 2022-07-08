@@ -14,7 +14,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {FightConstants} from "../constants/FightConstants";
 
 type FighterStats = {
-	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number, agility: number
+	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number
 }
 
 const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender", "summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
@@ -54,16 +54,14 @@ export class Fighter {
 			maxFightPoint: null,
 			speed: null,
 			defense: null,
-			attack: null,
-			agility: null
+			attack: null
 		};
 		this.statsBackup = {
 			fightPoints: null,
 			maxFightPoint: null,
 			speed: null,
 			defense: null,
-			attack: null,
-			agility: null
+			attack: null
 		};
 		this.entity = entity;
 		this.ready = false;
@@ -105,7 +103,6 @@ export class Fighter {
 		this.stats.attack = await this.entity.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = await this.entity.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = await this.entity.getCumulativeSpeed(playerActiveObjects);
-		this.stats.agility = this.entity.getAgility(this.stats.defense, this.stats.speed);
 	}
 
 	/**
@@ -156,8 +153,7 @@ export class Fighter {
 			maxFightPoint: null,
 			speed: null,
 			defense: null,
-			attack: null,
-			agility: null
+			attack: null
 		};
 	}
 
@@ -175,7 +171,7 @@ export class Fighter {
 				power: this.stats.fightPoints,
 				attack: this.stats.attack,
 				defense: this.stats.defense,
-				speed: this.stats.speed + " (" + this.stats.agility + ")"
+				speed: this.stats.speed
 			});
 	}
 
