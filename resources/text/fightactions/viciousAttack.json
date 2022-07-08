@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque fourbe",
+			"namePlural": "Attaques fourbes"
+		},
+		"en": {
+			"name": "Vicious attack",
+			"namePlural": "Vicious attacks"
+		}
+	},
+	"emote": "\uD83E\uDD77",
+	"missionVariant": 3
+}

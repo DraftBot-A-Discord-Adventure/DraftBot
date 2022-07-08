@@ -12,8 +12,8 @@
 	"price": 20,
 	"classGroup": 0,
 	"fightActionsIds": [
-		"simpleAttack",
 		"quickAttack",
-		"sabotageAttack"
+		"sabotageAttack",
+		"viciousAttack"
 	]
 }
