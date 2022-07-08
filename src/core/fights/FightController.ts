@@ -78,6 +78,9 @@ export class FightController {
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
 	public async executeFightAction(fightAction: IFightAction, endTurn: boolean) {
+		if (endTurn){
+			this.getPlayingFighter().nextFightActionId = null;
+		}
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
@@ -96,6 +99,9 @@ export class FightController {
 	 */
 	public endFight() {
 		this.state = FightState.FINISHED;
+
+		this.checkNegativeFightPoints();
+
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
 		for (const fighter of this.fighters) {
@@ -132,6 +138,19 @@ export class FightController {
 					}
 				})
 			]).finally(() => null);
+		}
+	}
+
+	/**
+	 * check if any of the fighters has negative fight points
+	 * @private
+	 */
+	private checkNegativeFightPoints() {
+		// set the fight points to 0 if any of the fighters have fight points under 0
+		for (const fighter of this.fighters) {
+			if (fighter.stats.fightPoints < 0) {
+				fighter.stats.fightPoints = 0;
+			}
 		}
 	}
 

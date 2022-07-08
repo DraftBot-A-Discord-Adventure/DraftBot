@@ -13,42 +13,26 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 25);
+
+		let failureProbability = 70;
+		// check if the sender has less than 45% of his fight points
+		if (sender.stats.fightPoints < sender.stats.maxFightPoint * 0.45) {
+			failureProbability = 0;
+		}
+
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, failureProbability);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		let sideEffects = "";
 
-		// 75% chance to stun the defender
-		if (Math.random() < 0.75) {
-			const alteration = receiver.newAlteration(FighterAlterationId.STUNNED);
-			if (alteration === FighterAlterationId.STUNNED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-
-		// sender has a 25% chance to be stunned and 75% chance to be hurt by his own attack
-		if (Math.random() < 0.25) {
-			const alteration = sender.newAlteration(FighterAlterationId.STUNNED);
-			if (alteration === FighterAlterationId.STUNNED) {
-				sideEffects += attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.SELF,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-		else {
-			const ownDamage = Math.round(damageDealt * 0.25);
-			sender.stats.fightPoints -= ownDamage;
-			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
-				amount: ownDamage
+		const alteration = receiver.newAlteration(FighterAlterationId.SLOWED);
+		if (alteration === FighterAlterationId.SLOWED) {
+			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
+				adversary: FightConstants.TARGET.OPPONENT,
+				effect: attackTranslationModule.get("effects.slowed").toLowerCase()
 			});
 		}
-
-		damageDealt = Math.round(damageDealt);
 		receiver.stats.fightPoints -= damageDealt;
 
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
@@ -71,24 +55,27 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getName(): string {
-		return "ramAttack";
+		return "ultimateAttack";
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 150, averageDamage: 175, maxDamage: 250};
+		return {minDamage: 100, averageDamage: 300, maxDamage: 350};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.defense,
-				sender.stats.agility
+				sender.stats.attack,
+				sender.stats.agility,
+				sender.stats.speed * 4
 			], defenderStats: [
 				receiver.stats.defense,
-				receiver.stats.agility
+				receiver.stats.agility,
+				receiver.stats.speed
 			], statsEffect: [
-				0.85,
-				0.15
+				0.5,
+				0.2,
+				0.3
 			]
 		};
 	},

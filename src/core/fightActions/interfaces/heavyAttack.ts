@@ -15,19 +15,20 @@ export const fightActionInterface: IFightAction = {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// damage reduced by 80% if the attacker has a lower defense than the receiver
-		damageDealt *= receiver.stats.defense > sender.stats.defense ? 0.3 : 1;
+		// damage reduced by 70% if the attacker has a lower defense than the receiver
+		damageDealt *= receiver.stats.defense > sender.stats.defense / 2 ? 0.3 : 1;
 		damageDealt = Math.round(damageDealt);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		receiver.stats.fightPoints -= damageDealt;
 		let sideEffects = "";
+
 		// 50% chance to stun the defender
 		if (Math.random() < 0.5) {
 			const alteration = receiver.newAlteration(FighterAlterationId.STUNNED);
 			if (alteration === FighterAlterationId.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned")
+					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
 				});
 			}
 		}
