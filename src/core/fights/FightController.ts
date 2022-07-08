@@ -81,7 +81,7 @@ export class FightController {
 		if (endTurn){
 			this.getPlayingFighter().nextFightActionId = null;
 		}
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.fightView.language);
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(),this.turn, this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
 		if (this.hadEnded()) {

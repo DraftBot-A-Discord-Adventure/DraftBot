@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque divine",
+			"namePlural": "Attaques divines"
+		},
+		"en": {
+			"name": "Divine attack",
+			"namePlural": "Divine attacks"
+		}
+	},
+	"emote": "\uD83D\uDE4F",
+	"missionVariant": 0
+}

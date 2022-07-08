@@ -8,7 +8,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: Partial<IFightAction> = {
-	use(sender: Fighter, receiver: Fighter, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
 		const stunnedTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		if (sender.alterationTurn > 1) { // this effect heals after one turn
