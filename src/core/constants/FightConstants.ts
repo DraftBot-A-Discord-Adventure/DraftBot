@@ -87,6 +87,9 @@ export abstract class FightConstants {
 		"alterations/stunned"
 	];
 
-	static NO_MOVE_ACTION_ID = "none";
+	static ACTION_ID = {
+		RESTING: "resting",
+		NO_MOVE: "none"
+	}
 
 }

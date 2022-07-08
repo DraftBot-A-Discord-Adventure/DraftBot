@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"active": "se repose et récupère `{amount} points de combats`"
+		},
+		"en": {
+			"active": "rests and recovers `{amount} fight points`"
+		}
+	},
+	"emote": "\uD83D\uDECF️",
+	"missionVariant": 1
+}
