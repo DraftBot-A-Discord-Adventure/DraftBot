@@ -12,7 +12,7 @@
 	"price": 16900,
 	"classGroup": 3,
 	"fightActionsIds": [
-		"simpleAttack",
+		"quickAttack",
 		"energeticAttack",
 		"chargeChargingAttack"
 	]
