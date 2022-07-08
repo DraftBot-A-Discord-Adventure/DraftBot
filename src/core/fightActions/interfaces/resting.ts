@@ -8,7 +8,7 @@ type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number 
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: Partial<IFightAction> = {
-	use(sender: Fighter, receiver: Fighter, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const noneTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		sender.nextFightActionId = null;
 		const recoveredFightPoints = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());

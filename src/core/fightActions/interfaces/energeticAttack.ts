@@ -10,7 +10,7 @@ type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number 
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: IFightAction = {
-	use(sender: Fighter, receiver: Fighter, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
 		receiver.stats.fightPoints -= damageDealt;
