@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque empoisonnée",
+			"namePlural": "Attaques empoisonnées"
+		},
+		"en": {
+			"name": "Poisonous attack",
+			"namePlural": "Poisonous attacks"
+		}
+	},
+	"emote": "\uD83E\uDDEA",
+	"missionVariant": 0
+}

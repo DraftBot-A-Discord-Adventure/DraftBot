@@ -13,6 +13,7 @@
 	"classGroup": 2,
 	"fightActionsIds": [
 		"simpleAttack",
-		"intenseAttack"
+		"intenseAttack",
+		"poisonousAttack"
 	]
 }

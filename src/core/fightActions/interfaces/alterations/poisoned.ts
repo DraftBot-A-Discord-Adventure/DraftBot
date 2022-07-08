@@ -4,7 +4,6 @@ import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {Data} from "../../../Data";
 import {FightActionController} from "../../FightActionController";
-import {RandomUtils} from "../../../utils/RandomUtils";
 import {FighterAlterationId} from "../../../fights/FighterAlterationId";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
@@ -16,8 +15,8 @@ export const fightActionInterface: Partial<IFightAction> = {
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints -= damageDealt;
 		const poisonTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		// 1 chance sur 4 d'etre soigné du poison
-		if (RandomUtils.randInt(0, 3) === 0) {
+		// 25 % de chance d'être soigné du poison
+		if (Math.random() < 0.25 && sender.alterationTurn > 1) {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return poisonTranslationModule.get("heal");
 		}
