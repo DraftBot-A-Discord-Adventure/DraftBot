@@ -12,7 +12,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage,10,sender.stats.agility > receiver.stats.agility ? 0 : 20);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, sender.stats.speed > receiver.stats.speed ? 0 : 20);
 		receiver.stats.fightPoints -= damageDealt;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
@@ -42,20 +42,17 @@ export const fightActionInterface: IFightAction = {
 		return {minDamage: 25, averageDamage: 75, maxDamage: 150};
 	},
 
-	getStatsInfo(sender: Fighter, receiver: Fighter) : statsInfo {
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
-				sender.stats.agility,
 				sender.stats.speed
 			], defenderStats: [
 				receiver.stats.defense / 2,
-				receiver.stats.agility,
 				receiver.stats.speed
 			], statsEffect: [
 				0.5,
-				0.25,
-				0.25
+				0.5
 			]
 		};
 	},

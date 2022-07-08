@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Boost de la défense",
+			"namePlural": "Boosts de la défense",
+			"active": "se prépare à se défendre... `Défense: + {amount} %`"
+		},
+		"en": {
+			"name": "Defense boost",
+			"namePlural": "Defense boosts",
+			"active": "prepares to defend... `Defense: + {amount} %`"
+		}
+	},
+	"emote": "\uD83D\uDEE1️",
+	"missionVariant": 3
+}
