@@ -19,8 +19,8 @@ export const fightActionInterface: IFightAction = {
 
 		let sideEffects = "";
 
-		// 75% chance to stun the defender
-		if (Math.random() < 0.75) {
+		// 50% chance to stun the defender
+		if (Math.random() < 0.50) {
 			const alteration = receiver.newAlteration(FighterAlterationId.STUNNED);
 			if (alteration === FighterAlterationId.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

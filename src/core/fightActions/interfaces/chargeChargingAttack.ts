@@ -12,18 +12,24 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// the sender has to rest for 1 turn
-		sender.nextFightActionId = FightConstants.ACTION_ID.RESTING;
+		let sideEffects = "";
 
-		// this attack cannot kill the receiver
-		if (receiver.stats.fightPoints - damageDealt <= 0) {
-			damageDealt = receiver.stats.fightPoints - 1;
-		}
-		damageDealt = Math.round(damageDealt);
+		// Increase defense of the sender by 50 %
+		const increaseAmount = 50;
+		sender.stats.defense = Math.round(sender.stats.defense + sender.stats.defense * increaseAmount / 100);
+		sideEffects += attackTranslationModule.format("actions.sideEffects.defense", {
+			adversary: FightConstants.TARGET.SELF,
+			operator: FightConstants.OPERATOR.PLUS,
+			amount: increaseAmount
+		});
+
+		sender.nextFightActionId = "chargingAttack";
+
 		receiver.stats.fightPoints -= damageDealt;
 
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
@@ -32,7 +38,7 @@ export const fightActionInterface: IFightAction = {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()
-		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
+		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
 	},
@@ -46,24 +52,27 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getName(): string {
-		return "intenseAttack";
+		return "chargeChargingAttack";
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 75, averageDamage: 250, maxDamage: 275};
+		return {minDamage: 30, averageDamage: 60, maxDamage: 75};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
-				350 - sender.stats.speed
+				sender.stats.agility,
+				sender.stats.speed
 			], defenderStats: [
-				receiver.stats.defense * 2,
-				350 - receiver.stats.speed
+				receiver.stats.defense,
+				receiver.stats.agility,
+				receiver.stats.speed
 			], statsEffect: [
-				0.8,
-				0.2
+				0.5,
+				0.2,
+				0.3
 			]
 		};
 	},
