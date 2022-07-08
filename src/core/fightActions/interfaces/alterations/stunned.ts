@@ -18,7 +18,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 
 		// 50% chance to not attack this turn
 		if (Math.random() < 0.5) {
-			sender.nextFightActionId = FightConstants.NO_MOVE_ACTION_ID;
+			sender.nextFightActionId = FightConstants.ACTION_ID.NO_MOVE;
 			return stunnedTranslationModule.get("noAttack");
 		}
 		return stunnedTranslationModule.get("active");

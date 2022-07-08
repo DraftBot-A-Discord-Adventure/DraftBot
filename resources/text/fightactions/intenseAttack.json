@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque intense",
+			"namePlural": "Attaques intenses"
+		},
+		"en": {
+			"name": "Intense attack",
+			"namePlural": "Intense attacks"
+		}
+	},
+	"emote": "\uD83D\uDD25",
+	"missionVariant": 0
+}
