@@ -3,4 +3,5 @@ export enum FighterAlterationId {
 	SLOWED,
 	POISONED,
 	STUNNED,
+	CONCENTRATED,
 }

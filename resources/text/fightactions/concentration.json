@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Concentration",
+			"namePlural": "Concentrations",
+			"active": "essai de se concentrer...",
+			"fail": "ne parvient pas à se concentrer !"
+		},
+		"en": {
+			"name": "Concentration",
+			"namePlural": "Concentrations",
+			"active": "is trying to concentrate...",
+			"fail": "can't concentrate !"
+		}
+	},
+	"emote": "\uD83C\uDFAF",
+	"missionVariant": 3
+}
