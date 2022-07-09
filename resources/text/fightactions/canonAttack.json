@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque canon",
+			"namePlural": "Attaques canons"
+		},
+		"en": {
+			"name": "Cannon attack",
+			"namePlural": "Cannon attacks"
+		}
+	},
+	"emote": "\uD83D\uDD2B",
+	"missionVariant": 1
+}

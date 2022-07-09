@@ -15,8 +15,8 @@ export const fightActionInterface: Partial<IFightAction> = {
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints -= damageDealt;
 		const poisonTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		// 25 % de chance d'être soigné du poison
-		if (Math.random() < 0.25 && sender.alterationTurn > 1) {
+		// 35 % de chance d'être soigné du poison
+		if (Math.random() < 0.35 && sender.alterationTurn > 1) {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return poisonTranslationModule.get("heal");
 		}
