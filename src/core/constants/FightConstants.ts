@@ -84,7 +84,8 @@ export abstract class FightConstants {
 		"alterations/normal",
 		"alterations/slowed",
 		"alterations/poisoned",
-		"alterations/stunned"
+		"alterations/stunned",
+		"alterations/concentrated"
 	];
 
 	static ACTION_ID = {
