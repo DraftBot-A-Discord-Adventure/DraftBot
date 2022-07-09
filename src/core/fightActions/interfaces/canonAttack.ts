@@ -5,6 +5,8 @@ import {format} from "../../utils/StringFormatter";
 import {Data} from "../../Data";
 import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../constants/FightConstants";
+import {FighterAlterationId} from "../../fights/FighterAlterationId";
+import {MathUtils} from "../../utils/MathUtils";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -12,18 +14,25 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+
+		// this attack will miss more if the opponent is fast
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(0, 35, (receiver.stats.speed + 20) / 320));
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// the sender has to rest for 1 turn
-		sender.nextFightActionId = FightConstants.ACTION_ID.RESTING;
+		let sideEffects = "";
 
-		// this attack cannot kill the receiver
-		if (receiver.stats.fightPoints - damageDealt <= 0) {
-			damageDealt = receiver.stats.fightPoints - 1;
+		// the receiver has a 15% chance to be slowed
+		if (Math.random() < 0.15) {
+			const alteration = receiver.newAlteration(FighterAlterationId.SLOWED);
+			if (alteration === FighterAlterationId.SLOWED) {
+				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
+					adversary: FightConstants.TARGET.OPPONENT,
+					effect: attackTranslationModule.get("effects.slowed").toLowerCase()
+				});
+			}
 		}
-		damageDealt = Math.round(damageDealt);
+
 		receiver.stats.fightPoints -= damageDealt;
 
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
@@ -32,7 +41,7 @@ export const fightActionInterface: IFightAction = {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()
-		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
+		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
 	},
@@ -46,24 +55,24 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getName(): string {
-		return "intenseAttack";
+		return "canonAttack";
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 50, averageDamage: 180, maxDamage: 225};
+		return {minDamage: 20, averageDamage: 120, maxDamage: 250};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
-				350 - sender.stats.speed
+				120
 			], defenderStats: [
-				receiver.stats.defense * 2,
-				350 - receiver.stats.speed
+				receiver.stats.defense,
+				receiver.stats.speed
 			], statsEffect: [
-				0.8,
-				0.2
+				0.5,
+				0.5
 			]
 		};
 	},
