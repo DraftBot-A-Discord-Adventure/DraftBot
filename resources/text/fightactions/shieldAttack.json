@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque bouclier",
+			"namePlural": "Attaques boucliers"
+		},
+		"en": {
+			"name": "Shield attack",
+			"namePlural": "Shield attacks"
+		}
+	},
+	"emote": "\uD83D\uDEE1️",
+	"missionVariant": 0
+}
