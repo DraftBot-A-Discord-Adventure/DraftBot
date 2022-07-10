@@ -13,6 +13,9 @@ export const fightActionInterface: Partial<IFightAction> = {
 		sender.nextFightActionId = null;
 		const recoveredFightPoints = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints += recoveredFightPoints;
+		if (sender.stats.fightPoints > sender.stats.maxFightPoint) {
+			sender.stats.fightPoints = sender.stats.maxFightPoint;
+		}
 		return noneTranslationModule.format("active", {
 			amount: recoveredFightPoints
 		});
