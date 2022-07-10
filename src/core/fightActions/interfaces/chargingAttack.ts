@@ -19,8 +19,8 @@ export const fightActionInterface: IFightAction = {
 
 		let sideEffects = "";
 
-		// Reduce defense of the sender by 50 %
-		const reduceAmount = 50;
+		// Reduce defense of the sender by 33 %
+		const reduceAmount = 33;
 		sender.stats.defense = Math.round(sender.stats.defense - sender.stats.defense * reduceAmount / 100);
 		sideEffects += attackTranslationModule.format("actions.sideEffects.defense", {
 			adversary: FightConstants.TARGET.SELF,

@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Soin",
+			"namePlural": "Soins",
+			"active": "Se soigne et se protège.",
+			"fail" : "ne parvient pas à soigner."
+		},
+		"en": {
+			"name": "Heal",
+			"namePlural": "Heals",
+			"active": "Heals and protects himself.",
+			"fail" : "cannot heal."
+		}
+	},
+	"emote": "\uD83C\uDFE5",
+	"missionVariant": 0
+}
