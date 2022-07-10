@@ -75,7 +75,7 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 150, averageDamage: 175, maxDamage: 250};
+		return {minDamage: 60, averageDamage: 125, maxDamage: 250};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

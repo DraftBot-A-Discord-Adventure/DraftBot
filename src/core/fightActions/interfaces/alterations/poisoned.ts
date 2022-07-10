@@ -15,7 +15,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints -= damageDealt;
 		const poisonTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		// 35 % de chance d'être soigné du poison
+		// 35 % chance to be healed from the poison (except for the first turn)
 		if (Math.random() < 0.35 && sender.alterationTurn > 1) {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return poisonTranslationModule.get("heal");
@@ -32,18 +32,23 @@ export const fightActionInterface: Partial<IFightAction> = {
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 20, averageDamage: 30, maxDamage: 40};
+		return {minDamage: 10, averageDamage: 25, maxDamage: 45};
 	},
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				receiver.stats.attack // we use the defender's attack because the poison is applied to the attacker
+				receiver.stats.attack,// we use the defender's attack because the poison is applied to the attacker
+				sender.stats.attack,
+				receiver.stats.fightPoints
 			], defenderStats: [
-				0 // poison is not affected by defense
+				100,
+				100,
+				receiver.stats.maxFightPoint
 			], statsEffect: [
-				1
+				0.5,
+				0.1,
+				0.4
 			]
 		};
 	}
