@@ -15,7 +15,7 @@
 		"simpleAttack",
 		"intenseAttack",
 		"poisonousAttack",
-		"canonAttack",
+		"shieldAttack",
 		"defenseBuff"
 	]
 }

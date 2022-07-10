@@ -2,11 +2,11 @@
 	"translations": {
 		"fr": {
 			"heal" : "n'est plus concentré.",
-			"active" : "concentre son pouvoir `Attaque : + 100%` `Vitesse : + 100%`"
+			"active" : "concentre son pouvoir. `Attaque : + 100%` `Vitesse : + 100%`"
 		},
 		"en": {
 			"heal" : "is no longer concentrated.",
-			"active" : "concentrates his power `Attack : + 100%` `Speed : + 100%`"
+			"active" : "concentrates his power. `Attack: + 100%` `Speed: + 100%`"
 		}
 	},
 	"emote": "\uD83E\uDDE0",

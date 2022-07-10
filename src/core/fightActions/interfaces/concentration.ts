@@ -13,14 +13,12 @@ export const fightActionInterface: Partial<IFightAction> = {
 		const alteration = sender.newAlteration(FighterAlterationId.CONCENTRATED);
 
 		if (alteration === FighterAlterationId.CONCENTRATED) {
-			return concentrationTranslationModule.get("fail") + attackTranslationModule.format("actions.sideEffects.newAlteration", {
+			return concentrationTranslationModule.get("active") + attackTranslationModule.format("actions.sideEffects.newAlteration", {
 				adversary: FightConstants.TARGET.SELF,
 				effect: attackTranslationModule.get("effects.concentrated").toLowerCase()
 			});
 		}
 		return concentrationTranslationModule.get("fail");
-
-
 	},
 
 	toString(language: string): string {
