@@ -15,8 +15,7 @@ export const fightActionInterface: IFightAction = {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// damage reduced by 70% if the attacker has a lower defense than the receiver
-		damageDealt *= receiver.stats.defense > sender.stats.defense / 2 ? 0.3 : 1;
+		damageDealt *= receiver.stats.defense < sender.stats.defense / 2 ? 0.1 : 1;
 		damageDealt = Math.round(damageDealt);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		receiver.stats.fightPoints -= damageDealt;
@@ -32,7 +31,6 @@ export const fightActionInterface: IFightAction = {
 				});
 			}
 		}
-
 
 		// Reduce defense of the receiver by 25 %
 		const reductionAmont = 25;
@@ -68,7 +66,7 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 100, averageDamage: 150, maxDamage: 200};
+		return {minDamage: 40, averageDamage: 120, maxDamage: 200};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

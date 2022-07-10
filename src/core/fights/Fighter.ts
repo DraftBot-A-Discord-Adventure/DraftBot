@@ -134,7 +134,7 @@ export class Fighter {
 	 * save the stats of the fighter to the backup stat storage
 	 */
 	public saveStats(): void {
-		this.statsBackup = { ...this.stats};
+		this.statsBackup = {...this.stats};
 	}
 
 	/**
@@ -267,14 +267,6 @@ export class Fighter {
 	}
 
 	/**
-	 * get the emoji of the fight alteration
-	 */
-	public getAlterationEmoji(): string {
-		return FightConstants.ALTERATION_EMOJI[this.alteration];
-	}
-
-
-	/**
 	 * Set a new fight alteration to the fighter
 	 * @param alteration - the new fight alteration
 	 * returns the FighterAlterationId of the fight alteration that was set or kept
@@ -296,5 +288,12 @@ export class Fighter {
 	getAlterationFightAction() {
 		const alterationFightActionFileName: string = FightConstants.ALTERATION_FIGHT_ACTION[this.alteration];
 		return FightActionController.getFightActionInterface(alterationFightActionFileName);
+	}
+
+	/**
+	 * get a random fight action id from the list of available fight actions of the fighter
+	 */
+	getRandomAvailableFightActionId() {
+		return Array.from(this.availableFightActions.keys())[Math.floor(Math.random() * Array.from(this.availableFightActions.keys()).length)];
 	}
 }

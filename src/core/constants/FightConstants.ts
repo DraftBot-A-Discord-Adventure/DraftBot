@@ -63,13 +63,6 @@ export abstract class FightConstants {
 		MINUS: "-"
 	};
 
-	// emojis for fight alteration
-	static ALTERATION_EMOJI = [
-		"🙂", // normal
-		"😵‍💫", // confused
-		"🤢" // poisoned
-	]
-
 	// amount of fight points a player will lose when he is poisoned
 	static POISON_DAMAGE_PER_TURN = 30;
 
@@ -86,7 +79,8 @@ export abstract class FightConstants {
 		"alterations/poisoned",
 		"alterations/stunned",
 		"alterations/concentrated",
-		"alterations/weak"
+		"alterations/weak",
+		"alterations/confused"
 	];
 
 	static ACTION_ID = {
