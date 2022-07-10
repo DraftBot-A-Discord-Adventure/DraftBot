@@ -271,9 +271,19 @@ export class Fighter {
 			this.alterationTurn = 0;
 		}
 		if (this.alteration === FighterAlterationId.NORMAL || alteration === FighterAlterationId.NORMAL) {
-			// il n'y a pas de conflit d'alterations
+			// check for alteration conflict
 			this.alteration = alteration;
 		}
+		return this.alteration;
+	}
+
+	/**
+	 * Set a new fight alteration to the fighter without check for conflict
+	 * @param alteration
+	 */
+	forceAlteration(alteration: FighterAlterationId): FighterAlterationId {
+		this.alteration = alteration;
+		this.alterationTurn = 0;
 		return this.alteration;
 	}
 

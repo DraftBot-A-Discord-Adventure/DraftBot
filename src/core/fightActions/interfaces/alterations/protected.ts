@@ -7,19 +7,19 @@ import {FighterAlterationId} from "../../../fights/FighterAlterationId";
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const slowedTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
-		if (sender.alterationTurn > 1) { // this effect heals after one turn
-			sender.stats.speed = sender.readSavedStats().speed;
+		const protectedTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		if (sender.alterationTurn > 2) { // this effect heals after two turns
+			sender.stats.defense = sender.readSavedStats().defense;
 			sender.eraseSavedStats();
 			sender.newAlteration(FighterAlterationId.NORMAL);
-			return slowedTranslationModule.get("inactive");
+			return protectedTranslationModule.get("inactive");
 		}
 		if (!sender.hasSavedStats()) {
 			sender.saveStats();
-			sender.stats.speed = Math.round(sender.stats.speed * 0.1);
-			return slowedTranslationModule.get("new");
+			sender.stats.defense = Math.round(sender.stats.defense * 1.3);
+			return protectedTranslationModule.get("new");
 		}
-		return slowedTranslationModule.get("active");
+		return protectedTranslationModule.get("active");
 	},
 
 	getEmoji(): string {
@@ -27,6 +27,6 @@ export const fightActionInterface: Partial<IFightAction> = {
 	},
 
 	getName(): string {
-		return "slowed";
+		return "protected";
 	}
 };

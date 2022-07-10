@@ -6,4 +6,5 @@ export enum FighterAlterationId {
 	CONCENTRATED,
 	WEAK,
 	CONFUSED,
+	PROTECTED,
 }

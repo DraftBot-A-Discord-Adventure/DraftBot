@@ -9,14 +9,14 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const noneTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		const restingTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		sender.nextFightActionId = null;
 		const recoveredFightPoints = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints += recoveredFightPoints;
 		if (sender.stats.fightPoints > sender.stats.maxFightPoint) {
 			sender.stats.fightPoints = sender.stats.maxFightPoint;
 		}
-		return noneTranslationModule.format("active", {
+		return restingTranslationModule.format("active", {
 			amount: recoveredFightPoints
 		});
 	},

@@ -14,6 +14,8 @@
 	"fightActionsIds": [
 		"simpleAttack",
 		"piercingAttack",
-		"powerfulAttack"
+		"powerfulAttack",
+		"chargingAttack",
+		"heal"
 	]
 }

@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"heal" : "n'est plus protégé.",
+			"new" : "est protégé. `Défense : + 30%`",
+			"active" : "est protégé."
+		},
+		"en": {
+			"heal" : "is no longer protected.",
+			"new" : "is protected. `Defense : + 30%`",
+			"active" : "is protected."
+		}
+	},
+	"emote": "\uD83D\uDC9E",
+	"missionVariant": 0
+}
