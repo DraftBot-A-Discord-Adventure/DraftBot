@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Gagner {objective} points"
+			"desc": "Gagner {objective} 🎖"
 		},
 		"en": {
-			"desc": "Earn {objective} points"
+			"desc": "Earn {objective} 🎖"
 		}
 	},
 	"campaignOnly": false,

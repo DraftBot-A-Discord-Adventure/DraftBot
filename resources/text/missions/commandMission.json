@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire la commande \"mission\""
+			"desc": "Faire la commande `/mission`"
 		},
 		"en": {
-			"desc": "Execute the command \"mission\""
+			"desc": "Execute the command `/mission`"
 		}
 	},
 	"campaignOnly": true

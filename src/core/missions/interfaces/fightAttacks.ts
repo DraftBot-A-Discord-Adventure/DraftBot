@@ -3,6 +3,7 @@ import {Translations} from "../../Translations";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../attacks/FightActionController";
 import {Classes} from "../../models/Class";
+import { Data } from "../../Data";
 
 // TODO update la mission de campagne sur les attaques rapides
 export const missionInterface: IMission = {
@@ -12,9 +13,10 @@ export const missionInterface: IMission = {
 
 	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
 		return Promise.resolve(
-			Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
-				.get(objective > 1 ? "namePlural" : "name")
-				.toLowerCase()
+			Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
+				.getString("emote") + " "
+				+ Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
+					.get(objective > 1 ? "namePlural" : "name")
 		);
 	},
 
