@@ -16,8 +16,11 @@ export const fightActionInterface: Partial<IFightAction> = {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return slowedTranslationModule.get("inactive");
 		}
-		sender.saveStats();
-		sender.stats.speed = 0;
+		if (!sender.hasSavedStats()) {
+			sender.saveStats();
+			sender.stats.speed = Math.round(sender.stats.speed * 0.1);
+			return slowedTranslationModule.get("new");
+		}
 		return slowedTranslationModule.get("active");
 	},
 

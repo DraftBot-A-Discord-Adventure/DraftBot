@@ -16,9 +16,12 @@ export const fightActionInterface: Partial<IFightAction> = {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return concentratedTranslationModule.get("heal");
 		}
-		sender.saveStats();
-		sender.stats.speed *= 2;
-		sender.stats.attack *= 2;
+		if (!sender.hasSavedStats()) {
+			sender.saveStats();
+			sender.stats.speed *= 2;
+			sender.stats.attack *= 2;
+			return concentratedTranslationModule.get("new");
+		}
 		return concentratedTranslationModule.get("active");
 	},
 

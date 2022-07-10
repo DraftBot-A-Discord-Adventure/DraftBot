@@ -20,6 +20,9 @@ export const fightActionInterface: IFightAction = {
 		// half of the damage is converted to fight points
 		const healAmount = Math.round(damageDealt / 2);
 		sender.stats.fightPoints += healAmount;
+		if (sender.stats.fightPoints > sender.stats.maxFightPoint) {
+			sender.stats.fightPoints = sender.stats.maxFightPoint;
+		}
 		const sideEffects = attackTranslationModule.format("actions.sideEffects.energy", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
@@ -35,25 +38,46 @@ export const fightActionInterface: IFightAction = {
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
-	},
+	}
+	,
 
-	toString(language: string): string {
+	toString(language
+	:
+		string
+	):
+		string {
 		return Translations.getModule(`fightactions.${this.getName()}`, language).get("name");
-	},
+	}
+	,
 
-	getEmoji(): string {
+	getEmoji()
+	:
+		string {
 		return Data.getModule(`fightactions.${this.getName()}`).getString("emote");
-	},
+	}
+	,
 
-	getName(): string {
+	getName()
+	:
+		string {
 		return "energeticAttack";
-	},
+	}
+	,
 
-	getAttackInfo(): attackInfo {
+	getAttackInfo()
+	:
+		attackInfo {
 		return {minDamage: 30, averageDamage: 60, maxDamage: 90};
-	},
+	}
+	,
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	getStatsInfo(sender
+	:
+		Fighter, receiver
+	:
+		Fighter
+	):
+		statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
@@ -66,9 +90,15 @@ export const fightActionInterface: IFightAction = {
 				0.25
 			]
 		};
-	},
+	}
+	,
 
-	getAttackStatus(damageDealt: number, initialDamage: number) {
+	getAttackStatus(damageDealt
+	:
+		number, initialDamage
+	:
+		number
+	) {
 		return damageDealt > initialDamage
 			? FightConstants.ATTACK_STATUS.CRITICAL
 			: damageDealt < initialDamage

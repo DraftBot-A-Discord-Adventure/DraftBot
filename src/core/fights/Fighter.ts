@@ -158,6 +158,19 @@ export class Fighter {
 	}
 
 	/**
+	 * check if a fighter has an active backup of its stats
+	 */
+	hasSavedStats() {
+		return this.statsBackup !== {
+			fightPoints: null,
+			maxFightPoint: null,
+			speed: null,
+			defense: null,
+			attack: null
+		};
+	}
+
+	/**
 	 * Return a display of the player in a string format
 	 * @param fightTranslationModule
 	 */
