@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Bénédiction",
+			"namePlural": "Bénédictions"
+		},
+		"en": {
+			"name": "Blessing",
+			"namePlural": "Blessings"
+		}
+	},
+	"emote": "\uD83D\uDC7C",
+	"missionVariant": 0
+}

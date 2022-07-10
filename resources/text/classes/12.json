@@ -13,7 +13,9 @@
 	"classGroup": 0,
 	"fightActionsIds": [
 		"simpleAttack",
+		"quickAttack",
 		"heavyAttack",
-		"divineAttack"
+		"benediction",
+		"resting"
 	]
 }

@@ -73,25 +73,15 @@ export class FightController {
 	}
 
 	/**
-	 * execute the next fight action
-	 * @param fightAction {IFightAction} the fight action to execute
-	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
+	 * Count the amount of god moves used by both players
+	 * @param sender
+	 * @param receiver
 	 */
-	public async executeFightAction(fightAction: IFightAction, endTurn: boolean) {
-		if (endTurn){
-			this.getPlayingFighter().nextFightActionId = null;
-		}
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(),this.turn, this.fightView.language);
-		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
-		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
-		if (this.hadEnded()) {
-			this.endFight();
-			return;
-		}
-		if (endTurn) {
-			this.turn++;
-			await this.prepareNextTurn();
-		}
+	static getUsedGodMoovs(sender: Fighter, receiver: Fighter) {
+		return sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION).length
+			+ receiver.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION).length
+			+ sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
+			+ receiver.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
 	}
 
 	/**
@@ -232,6 +222,28 @@ export class FightController {
 		this.fighters[1] = temp;
 		this.fighters[0].setStatus(FighterStatus.ATTACKER);
 		this.fighters[1].setStatus(FighterStatus.DEFENDER);
+	}
+
+	/**
+	 * execute the next fight action
+	 * @param fightAction {IFightAction} the fight action to execute
+	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
+	 */
+	public async executeFightAction(fightAction: IFightAction, endTurn: boolean) {
+		if (endTurn) {
+			this.getPlayingFighter().nextFightActionId = null;
+		}
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
+		if (this.hadEnded()) {
+			this.endFight();
+			return;
+		}
+		if (endTurn) {
+			this.turn++;
+			await this.prepareNextTurn();
+		}
 	}
 
 	/**

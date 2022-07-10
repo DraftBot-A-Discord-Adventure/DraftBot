@@ -85,7 +85,9 @@ export abstract class FightConstants {
 
 	static ACTION_ID = {
 		RESTING: "resting",
-		NO_MOVE: "none"
+		NO_MOVE: "none",
+		DIVINE_ATTACK: "divineAttack",
+		BENEDICTION: "benediction"
 	}
 
 }

@@ -56,13 +56,7 @@ export class Fighter {
 			defense: null,
 			attack: null
 		};
-		this.statsBackup = {
-			fightPoints: null,
-			maxFightPoint: null,
-			speed: null,
-			defense: null,
-			attack: null
-		};
+		this.statsBackup = null;
 		this.entity = entity;
 		this.ready = false;
 		this.nextFightActionId = null;
@@ -148,26 +142,14 @@ export class Fighter {
 	 * erase the saved stats of the fighter
 	 */
 	eraseSavedStats() {
-		this.statsBackup = {
-			fightPoints: null,
-			maxFightPoint: null,
-			speed: null,
-			defense: null,
-			attack: null
-		};
+		this.statsBackup = null;
 	}
 
 	/**
 	 * check if a fighter has an active backup of its stats
 	 */
 	hasSavedStats() {
-		return this.statsBackup !== {
-			fightPoints: null,
-			maxFightPoint: null,
-			speed: null,
-			defense: null,
-			attack: null
-		};
+		return this.statsBackup !== null;
 	}
 
 	/**
