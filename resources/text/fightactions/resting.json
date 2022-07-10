@@ -1,9 +1,13 @@
 {
 	"translations": {
 		"fr": {
+			"name": "Repos",
+			"namePlural": "Repos",
 			"active": "se repose et récupère `{amount} points de combats`"
 		},
 		"en": {
+			"name": "Rest",
+			"namePlural": "Rests",
 			"active": "rests and recovers `{amount} fight points`"
 		}
 	},

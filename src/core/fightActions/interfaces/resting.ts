@@ -21,6 +21,10 @@ export const fightActionInterface: Partial<IFightAction> = {
 		});
 	},
 
+	toString(language: string): string {
+		return Translations.getModule(`fightactions.${this.getName()}`, language).get("name");
+	},
+
 	getEmoji(): string {
 		return Data.getModule(`fightactions.${this.getName()}`).getString("emote");
 	},
