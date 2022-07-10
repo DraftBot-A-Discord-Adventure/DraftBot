@@ -7,7 +7,7 @@ import {FightConstants} from "../../constants/FightConstants";
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const healTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		const protectionTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		let sideEffects = "";
 		const alteration = sender.newAlteration(FighterAlterationId.PROTECTED);
@@ -16,18 +16,9 @@ export const fightActionInterface: Partial<IFightAction> = {
 				adversary: FightConstants.TARGET.SELF,
 				effect: attackTranslationModule.get("effects.protected").toLowerCase()
 			});
-			return healTranslationModule.get("active") + sideEffects;
+			return protectionTranslationModule.get("active") + sideEffects;
 		}
-		if (alteration === FighterAlterationId.POISONED || alteration === FighterAlterationId.CONFUSED || alteration === FighterAlterationId.STUNNED) {
-			sender.forceAlteration(FighterAlterationId.PROTECTED);
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.protected").toLowerCase()
-			});
-			return healTranslationModule.get("active") + sideEffects;
-		}
-		return healTranslationModule.get("fail") + sideEffects;
-
+		return protectionTranslationModule.get("fail") + sideEffects;
 	},
 
 	toString(language: string):
@@ -40,6 +31,6 @@ export const fightActionInterface: Partial<IFightAction> = {
 	},
 
 	getName(): string {
-		return "heal";
+		return "protection";
 	}
 };

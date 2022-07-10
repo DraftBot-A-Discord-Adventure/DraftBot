@@ -1,12 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"heal" : "n'est plus protégé.",
+			"inactive" : "n'est plus protégé.",
 			"new" : "est protégé. `Défense : + 30%`",
 			"active" : "est protégé."
 		},
 		"en": {
-			"heal" : "is no longer protected.",
+			"inactive" : "is no longer protected.",
 			"new" : "is protected. `Defense : + 30%`",
 			"active" : "is protected."
 		}

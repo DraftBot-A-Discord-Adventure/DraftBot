@@ -278,16 +278,6 @@ export class Fighter {
 	}
 
 	/**
-	 * Set a new fight alteration to the fighter without check for conflict
-	 * @param alteration
-	 */
-	forceAlteration(alteration: FighterAlterationId): FighterAlterationId {
-		this.alteration = alteration;
-		this.alterationTurn = 0;
-		return this.alteration;
-	}
-
-	/**
 	 * get the fightAction linked to the alteration of the fighter
 	 */
 	getAlterationFightAction() {
