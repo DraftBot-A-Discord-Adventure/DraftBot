@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "n'est plus confus.",
+			"active": "est confus.",
+			"randomAction": "est confus et réalise une action aléatoire.",
+			"damage": "se blesse dans sa confusion. `Dégâts reçus : {damages}`"
+		},
+		"en": {
+			"heal": "is no longer confused.",
+			"active": "is confused.",
+			"randomAction": "is confused and does a random move.",
+			"damage": "hurt himself in its confusion. `Damages received : {damages}`"
+		}
+	},
+	"emote": "\uD83D\uDE35\u200D\uD83D\uDCAB",
+	"missionVariant": 0
+}
