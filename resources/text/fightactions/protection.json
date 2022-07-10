@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Protection",
+			"namePlural": "Protections",
+			"active": "Se protège.",
+			"fail" : "ne parvient pas à protéger."
+		},
+		"en": {
+			"name": "Protection",
+			"namePlural": "Protections",
+			"active": "Protects.",
+			"fail" : "doesn't protect."
+		}
+	},
+	"emote": "\uD83D\uDE45\u200D♂️",
+	"missionVariant": 0
+}
