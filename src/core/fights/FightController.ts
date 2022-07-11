@@ -77,11 +77,13 @@ export class FightController {
 	 * @param sender
 	 * @param receiver
 	 */
-	static getUsedGodMoovs(sender: Fighter, receiver: Fighter) {
-		return sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION).length
-			+ receiver.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION).length
-			+ sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
-			+ receiver.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
+	static getUsedGodMoves(sender: Fighter, receiver: Fighter) {
+		return sender.fightActionsHistory.filter(action =>
+			action === FightConstants.ACTION_ID.BENEDICTION ||
+				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
+			+ receiver.fightActionsHistory.filter(action =>
+				action === FightConstants.ACTION_ID.BENEDICTION ||
+				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
 	}
 
 	/**

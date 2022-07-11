@@ -17,7 +17,7 @@ export const fightActionInterface: IFightAction = {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
-		const usedGodMoovs = FightController.getUsedGodMoovs(sender, receiver);
+		const usedGodMoovs = FightController.getUsedGodMoves(sender, receiver);
 
 		// 1 god move per fight
 		if (usedGodMoovs >= 1) {
