@@ -29,4 +29,6 @@ DROP TABLE players_backup;
 
 ALTER TABLE servers DROP prefix;
 
+ALTER TABLE classes RENAME COLUMN classgroup TO classGroup
+
 -- Down
