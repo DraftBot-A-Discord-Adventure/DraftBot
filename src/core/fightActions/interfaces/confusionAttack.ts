@@ -13,7 +13,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
@@ -27,12 +27,9 @@ export const fightActionInterface: IFightAction = {
 			});
 		}
 
-		damageDealt = Math.round(damageDealt);
 		receiver.stats.fightPoints -= damageDealt;
 
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
+		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()

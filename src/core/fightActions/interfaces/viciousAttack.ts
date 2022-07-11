@@ -15,8 +15,7 @@ export const fightActionInterface: IFightAction = {
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
 
 		// plus l'attaque est utilisée et plus elle est utilisée tard et moins elle est efficace. (pénalité maximale de -80 %)
-		const count = sender.fightActionsHistory.filter(action => action === this.getName()).length + 2;
-		const ratio = (100 - turn * count) / 100;
+		const ratio = (100 - turn * sender.fightActionsHistory.filter(action => action === this.getName()).length + 2) / 100;
 		damageDealt = Math.round(ratio < 0.2 ? 0.2 * damageDealt : damageDealt * ratio);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -24,9 +23,7 @@ export const fightActionInterface: IFightAction = {
 		damageDealt = Math.round(damageDealt);
 		receiver.stats.fightPoints -= damageDealt;
 
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
+		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()

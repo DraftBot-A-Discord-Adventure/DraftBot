@@ -8,7 +8,7 @@ export type IFightAction = {
 	 * Use the action the sender chose
 	 * @param sender - the one who does the action
 	 * @param receiver - the one who undergo the action
-	 * @param turn - the number of the turn
+	 * @param turn - the turn's number
 	 * @param language - the language of the message
 	 */
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string;

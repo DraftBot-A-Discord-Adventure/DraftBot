@@ -9,16 +9,15 @@ export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const protectionTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		let sideEffects = "";
 		const alteration = sender.newAlteration(FighterAlterationId.PROTECTED);
 		if (alteration === FighterAlterationId.PROTECTED) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.protected").toLowerCase()
-			});
-			return protectionTranslationModule.get("active") + sideEffects;
+			return protectionTranslationModule.get("active")
+				+ attackTranslationModule.format("actions.sideEffects.newAlteration", {
+					adversary: FightConstants.TARGET.SELF,
+					effect: attackTranslationModule.get("effects.protected").toLowerCase()
+				});
 		}
-		return protectionTranslationModule.get("fail") + sideEffects;
+		return protectionTranslationModule.get("fail");
 	},
 
 	toString(language: string):

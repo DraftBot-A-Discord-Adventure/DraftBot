@@ -12,7 +12,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
@@ -20,15 +20,9 @@ export const fightActionInterface: IFightAction = {
 		sender.nextFightActionId = FightConstants.ACTION_ID.RESTING;
 
 		// this attack cannot kill the receiver
-		if (receiver.stats.fightPoints - damageDealt <= 0) {
-			damageDealt = receiver.stats.fightPoints - 1;
-		}
-		damageDealt = Math.round(damageDealt);
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.stats.fightPoints -= receiver.stats.fightPoints - damageDealt <= 0 ? receiver.stats.fightPoints - 1 : damageDealt;
 
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
+		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()
@@ -50,7 +44,7 @@ export const fightActionInterface: IFightAction = {
 	},
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 150, maxDamage: 225};
+		return {minDamage: 25, averageDamage: 175, maxDamage: 275};
 	},
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
