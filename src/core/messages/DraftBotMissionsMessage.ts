@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
-import Player from "../models/Player";
 import {DailyMissions} from "../models/DailyMission";
 import {TranslationModule, Translations} from "../Translations";
 import {finishInTimeDisplay, getTomorrowMidnight} from "../utils/TimeUtils";
@@ -11,15 +10,12 @@ import { draftBotClient } from "../bot";
 export class DraftBotMissionsMessageBuilder {
 	private _entity: Entity;
 
-	private _player: Player;
-
 	private readonly _user: User;
 
 	private readonly _language: string;
 
 	constructor(entity: Entity, user: User, language: string) {
 		this._entity = entity;
-		this._player = entity.Player;
 		this._user = user;
 		this._language = language;
 	}
@@ -65,10 +61,10 @@ export class DraftBotMissionsMessageBuilder {
 		const tr = Translations.getModule("commands.missions", this._language);
 		let desc;
 		const dailyMission = await DailyMissions.getOrGenerate();
-		const [campaign] = this._player.MissionSlots.filter(m => m.isCampaign());
+		const [campaign] = this._entity.Player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign.isCompleted()) {
 			desc = tr.format("campaign", {
-				current: this._player.PlayerMissionsInfo.campaignProgression,
+				current: this._entity.Player.PlayerMissionsInfo.campaignProgression,
 				max: Campaign.getMaxCampaignNumber()
 			}) + "\n" + DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
@@ -83,7 +79,7 @@ export class DraftBotMissionsMessageBuilder {
 		}
 		const tomorrow = getTomorrowMidnight();
 		desc += "\n\n" + tr.get("daily") + "\n";
-		if (this._player.PlayerMissionsInfo.hasCompletedDailyMission()) {
+		if (this._entity.Player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			desc += tr.format("dailyFinished", {time: finishInTimeDisplay(tomorrow)});
 		}
 		else {
@@ -91,21 +87,21 @@ export class DraftBotMissionsMessageBuilder {
 				tr,
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, this._language, null),
 				tomorrow,
-				this._player.PlayerMissionsInfo.dailyMissionNumberDone,
+				this._entity.Player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
 			);
 		}
-		const currentMissions = this._player.MissionSlots.filter(slot => !slot.isCampaign());
+		const currentMissions = this._entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 
 		desc += "\n\n" + tr.format("currentMissions", {
-			slots: this._player.getMissionSlots(),
+			slots: this._entity.Player.getMissionSlots(),
 			amountOfMissions: currentMissions.length
 		}) + "\n";
 		if (currentMissions.length === 0) {
 			desc += tr.get("noCurrentMissionsDescription");
 		}
 		else {
-			for (const missionSlot of this._player.MissionSlots.filter(slot => !slot.isCampaign())) {
+			for (const missionSlot of this._entity.Player.MissionSlots.filter(slot => !slot.isCampaign())) {
 				desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 					tr,
 					await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, this._language, missionSlot.saveBlob),
