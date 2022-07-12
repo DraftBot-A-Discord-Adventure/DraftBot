@@ -38,6 +38,9 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		embed.setDescription(textInformations.tr.format("moneyBonus", {value: potion.power}));
 		await entity.Player.addMoney(entity, potion.power, textInformations.interaction.channel, textInformations.tr.language);
 		break;
+	case Constants.NATURE.NONE:
+		embed.setDescription(textInformations.tr.format("noBonus", {value: potion.power}));
+		break;
 	default:
 		break;
 	}
@@ -82,16 +85,9 @@ function drinkPotionCallback(entity: Entity, force: boolean, textInformations: T
 		await checkDrinkPotionMissions(textInformations.interaction.channel, textInformations.tr.language, entity, potion);
 
 		console.log(entity.discordUserId + " drank " + potion.en);
-		if (potion.nature === Constants.NATURE.NONE) {
-			textInformations.interaction.replied ?
-				sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.tr.language, textInformations.tr.get("objectDoNothingError")) :
-				replyErrorMessage(textInformations.interaction, textInformations.tr.language, textInformations.tr.get("objectDoNothingError"));
-		}
-		else {
-			textInformations.interaction.replied ?
-				await textInformations.interaction.channel.send({embeds: [embed]}) :
-				await textInformations.interaction.reply({embeds: [embed]});
-		}
+		textInformations.interaction.replied ?
+			await textInformations.interaction.channel.send({embeds: [embed]}) :
+			await textInformations.interaction.reply({embeds: [embed]});
 	};
 }
 
