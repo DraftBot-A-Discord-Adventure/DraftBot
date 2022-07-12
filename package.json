@@ -50,7 +50,7 @@
 		"dropbox": "10.13.0",
 		"figlet": "1.4.0",
 		"link-module-alias": "1.2.0",
-		"moment": "2.29.2",
+		"moment": "2.29.4",
 		"node-ipc": "10.1.0",
 		"random-js": "2.1.0",
 		"sequelize": "6.8.0",
