@@ -61,8 +61,6 @@ export class MessageError {
 				&& !member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
 				|| permission === Constants.PERMISSION.ROLE.CONTRIBUTORS
 				&& !member.roles.cache.has(botConfig.CONTRIBUTOR_ROLE)
-				|| permission === Constants.PERMISSION.ROLE.SUPPORT
-				&& !member.roles.cache.has(botConfig.SUPPORT_ROLE)
 				|| permission === Constants.PERMISSION.ROLE.BOT_OWNER)
 			&& !MessageError.isBotOwner(member.id);
 	}

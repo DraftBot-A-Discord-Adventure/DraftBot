@@ -2,7 +2,6 @@ export interface DraftBotConfig {
 	DISCORD_CLIENT_TOKEN: string;
 	BOT_OWNER_ID: string;
 	BADGE_MANAGER_ROLE: string;
-	SUPPORT_ROLE: string;
 	CONTRIBUTOR_ROLE: string;
 	CONTRIBUTORS_CHANNEL: string;
 	MAIN_SERVER_ID: string;
