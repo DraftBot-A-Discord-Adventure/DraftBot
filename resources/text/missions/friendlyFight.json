@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Réaliser {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
+			"desc": "Réaliser {objective} combat{objective>1?s:}"
 		},
 		"en": {
-			"desc": "Do {objective} friendly fight{objective>1?s:}"
+			"desc": "Do {objective} fight{objective>1?s:}"
 		}
 	},
 	"campaignOnly": false,
