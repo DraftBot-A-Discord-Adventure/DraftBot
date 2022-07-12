@@ -24,11 +24,14 @@ export class FightView {
 
 	private readonly actionMessages: Message[];
 
+	private lastHistory : string;
+
 	private fightLaunchMessage: Message;
 
 	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
 		this.channel = channel;
 		this.language = language;
+		this.lastHistory = "";
 		this.fightController = fightController;
 		this.fightTranslationModule = Translations.getModule("commands.fight", language);
 		this.actionMessages = [];
@@ -159,19 +162,22 @@ export class FightView {
 			emote,
 			player
 		}) + receivedMessage;
-		if (lastMessage.content.length + messageToSend.length > 1950) {
+		if (this.lastHistory.length + messageToSend.length > 1950) {
 			// message character limit reached : creation of a new message
+			this.lastHistory = messageToSend;
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
 			this.actionMessages.push(await this.channel.send({content: messageToSend}));
 		}
 		else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
+			this.lastHistory = messageToSend;
 			await lastMessage.edit({content: messageToSend});
 		}
 		else {
 			// An history already exists, just append the new action
-			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
+			this.lastHistory += "\n" + messageToSend;
+			await lastMessage.edit({content: `${this.lastHistory}`});
 		}
 	}
 
