@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "⛏ **Pied de biche**",
+		"en": "⛏ **Crowbar**"
+	},
+	"rarity": 5,
+	"power": 64,
+	"nature": 3,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "❤ **Pouvoir de l'amour**",
+		"en": "❤ **Power of love**"
+	},
+	"rarity": 5,
+	"rawAttack": 3,
+	"speed": 23,
+	"defense" : 97,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
