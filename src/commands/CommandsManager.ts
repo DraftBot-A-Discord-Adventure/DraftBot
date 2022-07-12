@@ -179,6 +179,9 @@ export class CommandsManager {
 	}
 
 	static async handlePrivateMessage(message: Message) {
+		if (message.author.id === botConfig.BOT_OWNER_ID) {
+			return;
+		}
 		const [entity] = await Entities.getOrRegister(message.author.id);
 		const dataModule = Data.getModule("bot");
 		let icon = "";
