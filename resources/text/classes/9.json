@@ -13,7 +13,6 @@
 	"classGroup": 1,
 	"fightActionsIds": [
 		"quickAttack",
-		"sabotageAttack",
 		"viciousAttack",
 		"canonAttack",
 		"confusionAttack"

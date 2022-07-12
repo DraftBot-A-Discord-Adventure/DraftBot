@@ -14,8 +14,6 @@
 	"fightActionsIds": [
 		"simpleAttack",
 		"quickAttack",
-		"heavyAttack",
-		"benediction",
 		"resting"
 	]
 }

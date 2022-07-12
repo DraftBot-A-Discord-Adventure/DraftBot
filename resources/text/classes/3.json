@@ -15,7 +15,7 @@
 		"simpleAttack",
 		"piercingAttack",
 		"powerfulAttack",
-		"chargingAttack",
+		"chargeChargingAttack",
 		"protection"
 	]
 }
