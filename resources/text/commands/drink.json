@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"objectDoNothingError": "Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
+			"noBonus": "❌ Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
 			"objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
 			"noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"noActiveObjectDescription": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
@@ -15,7 +15,7 @@
 			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant drinkforce au lieu de drink !"
 		},
 		"en": {
-			"objectDoNothingError": "You consumed the beverage you carried... But it has no effect !",
+			"noBonus": "❌ You consumed the beverage you carried... But it has no effect !",
 			"objectIsActiveDuringFights": "This potion cannot be drunk now. It'll be used during your next fight!",
 			"noDrinkError": "{pseudo}, hmmm... It didn't work!",
 			"noActiveObjectDescription": "Unfortunately, you don't have anything to drink in your inventory!",
