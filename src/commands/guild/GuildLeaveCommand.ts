@@ -17,7 +17,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(
 			userInformation.entity.discordUserId,
-			userInformation.entity.id === userInformation.guild.chiefId
+			userInformation.entity.id === userInformation.guild.chiefId && userInformation.guild.elderId
 				? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
 				: BlockingConstants.REASONS.GUILD_LEAVE);
 		if (msg.isValidated()) {
@@ -151,10 +151,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	await validationEmbed.reply(interaction, (collector) => {
-		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_LEAVE, collector);
 		if (elder && entity.id === guild.chiefId) {
 			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, BlockingConstants.REASONS.CHIEF_GUILD_LEAVE, collector);
+			return;
 		}
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_LEAVE, collector);
 	});
 }
 
