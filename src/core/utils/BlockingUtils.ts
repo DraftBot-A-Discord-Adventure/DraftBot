@@ -58,7 +58,7 @@ export async function sendBlockedError(interaction: CommandInteraction, language
 			interaction,
 			language,
 			Translations.getModule("error", language).format(
-				user === interaction.user ? "playerBlocked" : "anotherPlayerBlocker", {
+				user === interaction.user ? "playerBlocked" : "anotherPlayerBlocked", {
 					context: getErrorReasons(blockingReason, language),
 					username: escapeUsername(user.username)
 				}
