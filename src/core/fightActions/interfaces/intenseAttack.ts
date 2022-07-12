@@ -20,7 +20,7 @@ export const fightActionInterface: IFightAction = {
 		sender.nextFightActionId = FightConstants.ACTION_ID.RESTING;
 
 		// this attack cannot kill the receiver
-		receiver.stats.fightPoints -= receiver.stats.fightPoints - damageDealt <= 0 ? receiver.stats.fightPoints - 1 : damageDealt;
+		receiver.stats.fightPoints = receiver.stats.fightPoints - damageDealt <= 0 ? 1 : receiver.stats.fightPoints - damageDealt;
 
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule("fightactions." + this.getName(), language)

@@ -41,7 +41,7 @@ export const fightActionInterface: IFightAction = {
 			}
 		}
 
-		const failureProbability = 80 - turn * 10 < 10 ? 10 : 80 - turn * 10;
+		const failureProbability = Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7);
 
 
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());

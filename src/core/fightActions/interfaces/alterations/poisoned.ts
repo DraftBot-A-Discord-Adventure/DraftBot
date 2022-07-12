@@ -12,14 +12,14 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
-		sender.stats.fightPoints -= damageDealt;
 		const poisonTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
 		// 35 % chance to be healed from the poison (except for the first turn)
 		if (Math.random() < 0.35 && sender.alterationTurn > 1) {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return poisonTranslationModule.get("heal");
 		}
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
+		sender.stats.fightPoints -= damageDealt;
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	},
 

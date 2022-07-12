@@ -30,7 +30,7 @@ export abstract class FightConstants {
 	static readonly DAMAGE_RANDOM_VARIATION = 5;
 
 	// depending on its level a player has a malus or bonus on the damage he deals
-	static readonly PLAYER_LEVEL_MINIMAL_MALUS = 0;
+	static readonly PLAYER_LEVEL_MINIMAL_MALUS = -55;
 
 	// depending on its level a player has a malus or bonus on the damage he deals
 	static readonly PLAYER_LEVEL_MAXIMAL_BONUS = 55;
