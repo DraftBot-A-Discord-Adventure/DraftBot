@@ -9,7 +9,7 @@ export interface DraftBotConfig {
 	CONSOLE_CHANNEL_ID: string;
 	FRENCH_ANNOUNCEMENT_CHANNEL_ID: string;
 	ENGLISH_ANNOUNCEMENT_CHANNEL_ID: string;
-	SUPPORT_CHANNEL_ID: string;
+	DM_MANAGER_ID: string;
 	ENGLISH_CHANNEL_ID: string;
 	DBL_WEBHOOK_PORT: number;
 	DBL_WEBHOOK_URL: string;
