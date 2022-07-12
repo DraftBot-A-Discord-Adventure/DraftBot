@@ -29,8 +29,8 @@
   "//ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in english",
   "ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "",
 
-  "//SUPPORT_CHANNEL_ID": "Put id of user where bot's received dms will be sent",
-  "SUPPORT_CHANNEL_ID": "",
+  "//DM_MANAGER_ID": "Put id of user where bot's received dms will be sent",
+  "DM_MANAGER_ID": "",
 
   "//ENGLISH_CHANNEL_ID": "Put id of a channel where the bot will always speak in english put 0 here to disable the feature",
   "ENGLISH_CHANNEL_ID": "",

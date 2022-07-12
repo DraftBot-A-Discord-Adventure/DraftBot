@@ -31,7 +31,7 @@ import {MessageError} from "../core/MessageError";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
-type ContextType = { mainServerId: string; botOwnerId: string; attachments: MessageAttachment[]; supportAlert: string; };
+type ContextType = { mainServerId: string; dmManagerID: string; attachments: MessageAttachment[]; supportAlert: string; };
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -179,7 +179,7 @@ export class CommandsManager {
 	}
 
 	static async handlePrivateMessage(message: Message) {
-		if (message.author.id === botConfig.BOT_OWNER_ID) {
+		if (message.author.id === botConfig.DM_MANAGER_ID) {
 			return;
 		}
 		const [entity] = await Entities.getOrRegister(message.author.id);
@@ -203,7 +203,7 @@ export class CommandsManager {
 	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string) {
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			if (client.guilds.cache.get(context.mainServerId)) {
-				const dmChannel = client.users.cache.get(context.botOwnerId);
+				const dmChannel = client.users.cache.get(context.dmManagerID);
 				if (!dmChannel) {
 					console.warn("WARNING : dm channel not on main channel");
 					return;
@@ -221,7 +221,7 @@ export class CommandsManager {
 		}, {
 			context: {
 				mainServerId: botConfig.MAIN_SERVER_ID,
-				botOwnerId: botConfig.BOT_OWNER_ID,
+				dmManagerID: botConfig.DM_MANAGER_ID,
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(dataModule.getString("dm.supportAlert"), {
 					username: escapeUsername(message.author.username),
