@@ -117,6 +117,7 @@ export class MissionsController {
 				CompletedMissionType.DAILY
 			));
 		}
+		await player.save();
 		return completedMissions;
 	}
 

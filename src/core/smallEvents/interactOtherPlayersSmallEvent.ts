@@ -242,9 +242,9 @@ function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
 async function getPlayerDisplay(tr: TranslationModule, otherEntity: Entity, numberOfPlayers: number) {
 	return format(tr.get("playerDisplay"), {
 		pseudo: await otherEntity.Player.getPseudo(tr.language),
-		rank: (await Players.getById(otherEntity.Player.id)).rank > numberOfPlayers ?
+		rank: await Players.getRankById(otherEntity.Player.id) > numberOfPlayers ?
 			Translations.getModule("commands.profile", tr.language).get("ranking.unranked") :
-			(await Players.getById(otherEntity.Player.id)).rank
+			await Players.getRankById(otherEntity.Player.id)
 	});
 }
 
