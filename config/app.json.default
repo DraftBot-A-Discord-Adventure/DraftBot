@@ -8,9 +8,6 @@
   "//BADGE_MANAGER_ROLE": "Put ids of the persons that will be able to manage badges separated by a comma",
   "BADGE_MANAGER_ROLE": "",
 
-  "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
-  "SUPPORT_ROLE": "",
-
   "//CONTRIBUTOR_ROLE": "Put id of the contributors role",
   "CONTRIBUTOR_ROLE": "",
 
