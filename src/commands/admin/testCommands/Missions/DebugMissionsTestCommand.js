@@ -36,7 +36,8 @@ const debugMissionsTestCommand = async (language, interaction) => {
 			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
 				entity.Player.MissionSlots[i].missionVariant, language) +
 				" (id: " + entity.Player.MissionSlots[i].missionId +
-				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
+				")\n-> ID DB: " + entity.Player.MissionSlots[i].id +
+				"\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
 				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
 				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never") +

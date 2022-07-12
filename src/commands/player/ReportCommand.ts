@@ -571,7 +571,7 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 				// Create a template embed
 				const seEmbed = new DraftBotEmbed()
 					.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
-					.setDescription(Data.getModule("smallEvents." + event).getString("emote" + " "));
+					.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
 
 				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
 
