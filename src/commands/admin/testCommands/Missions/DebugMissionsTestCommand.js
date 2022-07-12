@@ -35,14 +35,14 @@ const debugMissionsTestCommand = async (language, interaction) => {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
 			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
 				entity.Player.MissionSlots[i].missionVariant, language) +
-				" (id: " + entity.Player.MissionSlots[i].missionId +
-				")\n-> ID DB: " + entity.Player.MissionSlots[i].id +
-				"\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
-				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
-				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
-				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never") +
-				"\n-> Campaign only: " + entity.Player.MissionSlots[i].Mission.campaignOnly +
-				"\n-> Save blob: " + entity.Player.MissionSlots[i].saveBlob + "\n\n";
+				` (id: ${entity.Player.MissionSlots[i].missionId}
+				)\n-> ID DB: ${entity.Player.MissionSlots[i].id}
+				\n-> Variant: ${entity.Player.MissionSlots[i].missionVariant}
+				\n-> Number done: ${entity.Player.MissionSlots[i].numberDone}
+				\n-> Objective: ${entity.Player.MissionSlots[i].missionObjective}
+				\n-> Expiration date: ${entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never"}
+				\n-> Campaign only: ${entity.Player.MissionSlots[i].Mission.campaignOnly}
+				\n-> Save blob: ${entity.Player.MissionSlots[i].saveBlob}\n\n`;
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);
