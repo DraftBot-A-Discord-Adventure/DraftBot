@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":book: **Harmonica du temps**",
+		"en": ":book: **Harmonica of time**"
+	},
+	"rarity": 6,
+	"power": 0.5,
+	"nature": 5,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

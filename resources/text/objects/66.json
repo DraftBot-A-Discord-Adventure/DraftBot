@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "🌐 **Fibre optique**",
+		"en": "🌐 **Optical fiber**"
+	},
+	"rarity": 4,
+	"power": 56,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
