@@ -163,11 +163,11 @@ const sendTravelPath = async function(entity: Entity, interaction: CommandIntera
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
 	else {
-		let milisecondsBeforeSmallEvent = 0;
+		let milisecondsBeforeSmallEvent = Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		if (entity.Player.PlayerSmallEvents.length !== 0) {
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-			milisecondsBeforeSmallEvent = lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now();
+			milisecondsBeforeSmallEvent += lastTime - Date.now();
 		}
 		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
 		if (milisecondsBeforeSmallEvent >= milisecondsBeforeBigEvent) {
