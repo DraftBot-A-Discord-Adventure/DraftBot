@@ -40,7 +40,7 @@ async function initiateNewPlayerOnTheAdventure(entity: Entity) {
 	await entity.Player.save();
 }
 
-const executeCommand = async (interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent = -1, forceSmallEvent: string = null) => {
+const executeCommand = async (interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent: number = null, forceSmallEvent: string = null) => {
 	if (entity.Player.score === 0 && entity.Player.effect === Constants.EFFECT.BABY) {
 		await initiateNewPlayerOnTheAdventure(entity);
 	}
@@ -50,6 +50,10 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 	}
 
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
+
+	if (forceSpecificEvent || await needBigEvent(entity)) {
+		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
+	}
 
 	if (!entity.Player.currentEffectFinished()) {
 		return await sendTravelPath(entity, interaction, language, entity.Player.effect);
@@ -65,10 +69,6 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, interaction, language, null);
-	}
-
-	if (await needBigEvent(entity)) {
-		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
 	}
 
 	if (forceSmallEvent !== null || needSmallEvent(entity)) {
@@ -109,7 +109,7 @@ const doRandomBigEvent = async function(interaction: CommandInteraction, languag
 	await completeMissionsBigEvent(entity, interaction, language);
 	let time;
 	const reportCommandData = Data.getModule("commands.report");
-	if (forceSpecificEvent === -1) {
+	if (!forceSpecificEvent) {
 		time = millisecondsToMinutes(interaction.createdAt.valueOf() - entity.Player.startTravelDate.valueOf());
 	}
 	else {
@@ -127,7 +127,7 @@ const doRandomBigEvent = async function(interaction: CommandInteraction, languag
 		forceSpecificEvent = entity.Player.nextEvent;
 	}
 
-	if (forceSpecificEvent === -1) {
+	if (forceSpecificEvent === -1 || !forceSpecificEvent) {
 		const map = await entity.Player.getDestination();
 		[event] = await BigEvents.pickEventOnMapType(map);
 		if (!event) {
