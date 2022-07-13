@@ -171,7 +171,7 @@
 		{
 			"missionId": "rankedFight",
 			"missionVariant": 0,
-			"missionObjective": 1,
+			"missionObjective": 5,
 			"gemsToWin": 4,
 			"xpToWin": 250,
 			"moneyToWin": 0
@@ -225,10 +225,10 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "fightAttacks",
-			"missionVariant": 4,
-			"missionObjective": 5,
-			"gemsToWin": 1,
+			"missionId": "rankedFight",
+			"missionVariant": 0,
+			"missionObjective": 10,
+			"gemsToWin": 2,
 			"xpToWin": 100,
 			"moneyToWin": 0
 		},
@@ -305,11 +305,11 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "finishWithAttack",
-			"missionVariant": 4,
-			"missionObjective": 1,
-			"gemsToWin": 4,
-			"xpToWin": 200,
+			"missionId": "rankedFight",
+			"missionVariant": 0,
+			"missionObjective": 15,
+			"gemsToWin": 3,
+			"xpToWin": 125,
 			"moneyToWin": 0
 		},
 		{

@@ -11,7 +11,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 		// amount of times the sender has used the move already in its 5 last moves
 		const streak = sender.fightActionsHistory.slice(-3).filter(action => action === this.getName()).length;
 
-		const defenseBuffArray = [10, 15, 25, 30];
+		const defenseBuffArray = [20, 25, 35, 40];
 
 		sender.stats.defense += Math.round(sender.stats.defense * defenseBuffArray[streak] / 100 + 1) ;
 

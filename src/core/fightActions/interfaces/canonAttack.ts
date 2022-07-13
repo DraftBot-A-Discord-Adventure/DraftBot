@@ -16,7 +16,7 @@ export const fightActionInterface: IFightAction = {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(0, 35, (receiver.stats.speed + 20) / 320));
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.stats.speed + 20) / 320));
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
