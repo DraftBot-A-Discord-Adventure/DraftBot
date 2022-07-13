@@ -104,7 +104,7 @@
 					"money": 0,
 					"experience": 25,
 					"item": false
-				}
+				},
                 {
 					"translations": {
 						"fr": "Vous rencontrez 4 hommes encapuchonnés de noir dans le sous-sol. Après les avoir convaincus de vous laisser vous joindre à eux, ils révèlent leur projet de sacrifier la force vitale des habitants à un démon, ce à quoi vous êtes heureux de participer. Vous êtes sur le point de sacrifier une jeune fille, quand soudain un groupe de gardes vous encercle. Ils vous appréhendent, vous et les autres, vous déshabillent et vous jettent en prison.",
@@ -116,7 +116,7 @@
 					"money": 0,
 					"experience": 0,
 					"item": false
-				},
+				}
 			]
 		},
 		"🔊": {
@@ -159,8 +159,8 @@
 					"effect": ":clock2:",
 					"money": 650,
 					"experience": 125,
-					"item": false,
-				}
+					"item": false
+				},
                 {
 					"translations": {
 						"fr": "Vous tentez de convaincre tout le monde qu'ils sont en danger, mais les gens ne veulent rien savoir et vous ignorent tout simplement. Vous essayez pendant plusieurs heures, et enfin, décidez de les laisser. Vous continuez votre voyage sans vous soucier des gens bornés de ce village.",
@@ -171,8 +171,8 @@
 					"effect": ":clock2:",
 					"money": 0,
 					"experience": 25,
-					"item": false,
-				},
+					"item": false
+				}
 			]
 		},
         "🏃": {
@@ -236,7 +236,7 @@
 				{
 					"translations": {
 						"fr": "🎆 Vous avez choisi de simplement regarder les feux d'artifice et de rester pour voir le village tomber dans le désespoir, appuyé contre un arbre juste à l'extérieur du village. Mais même après minuit, rien ne s'est passé. Il semble que ces prétendus cultistes ne soient qu'une imposture et vous partez.",
-						"en": "🎆 You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed "cultist" are just a fraud and you take your leave."
+						"en": "🎆 You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed \"cultist\" are just a fraud and you take your leave."
 					},
 					"lostTime": 30,
 					"health": 0,
