@@ -41,7 +41,7 @@ export const fightActionInterface: IFightAction = {
 			}
 		}
 		else {
-			const ownDamage = Math.round(damageDealt * 0.25);
+			const ownDamage = Math.round(damageDealt * 0.33);
 			sender.stats.fightPoints -= ownDamage;
 			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
 				amount: ownDamage

@@ -19,12 +19,18 @@ export const fightActionInterface: IFightAction = {
 
 		let sideEffects = "";
 
-		const alteration = receiver.newAlteration(FighterAlterationId.CONFUSED);
-		if (alteration === FighterAlterationId.CONFUSED) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.confused").toLowerCase()
-			});
+		// check how many times the attack appears in the fight action history of the sender
+		const count = sender.fightActionsHistory.filter(action => action === this.getName()).length;
+
+		// if the attack is repeated more than 4 times, there is only 25% chance to make the receiver confused
+		if (Math.random() > 0.25 && count > 4 || count <= 3) {
+			const alteration = receiver.newAlteration(FighterAlterationId.CONFUSED);
+			if (alteration === FighterAlterationId.CONFUSED) {
+				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
+					adversary: FightConstants.TARGET.OPPONENT,
+					effect: attackTranslationModule.get("effects.confused").toLowerCase()
+				});
+			}
 		}
 
 		receiver.stats.fightPoints -= damageDealt;

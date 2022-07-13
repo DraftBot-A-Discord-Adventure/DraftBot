@@ -15,7 +15,8 @@ export const fightActionInterface: IFightAction = {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		damageDealt *= receiver.stats.defense < sender.stats.defense / 2 ? 0.1 : 1;
+		// this attack will do less damage if the opponent has low defense
+		damageDealt *= receiver.stats.defense < sender.stats.defense / 3 ? 0.1 : 1;
 		damageDealt = Math.round(damageDealt);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		receiver.stats.fightPoints -= damageDealt;
