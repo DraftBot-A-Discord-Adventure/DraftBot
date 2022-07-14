@@ -146,8 +146,8 @@ export const giveItemToPlayer = async function(
 					);
 				},
 				async (endMessage: DraftBotListChoiceMessage) => {
-					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 					if (endMessage.isCanceled()) {
+						BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 						await sellOrKeepItem(
 							entity,
 							true,
