@@ -13,21 +13,15 @@ import {Constants} from "../Constants";
  */
 
 export function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void {
-	try {
-		user.send({
-			embeds: [new DraftBotEmbed()
-				.setColor(color as HexColorString)
-				.formatAuthor(title, user)
-				.setDescription(description)
-				.setFooter(Translations.getModule("models.players", language).get("dmEnabledFooter"))]
-		});
-		// TODO REFACTOR LES LOGS
-		// log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
-	}
-	catch (err) {
-		// TODO REFACTOR LES LOGS
-		// log("user" + user.id + "has closed dms !");
-	}
+	user.send({
+		embeds: [new DraftBotEmbed()
+			.setColor(color as HexColorString)
+			.formatAuthor(title, user)
+			.setDescription(description)
+			.setFooter(Translations.getModule("models.players", language).get("dmEnabledFooter"))]
+	}).catch(() => { /* TODO REFACTOR log error if needed */ });
+	// TODO REFACTOR LES LOGS
+	// log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 }
 
 /**
