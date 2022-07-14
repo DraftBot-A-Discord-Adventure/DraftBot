@@ -2,6 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import moment = require("moment");
+import { format } from "../utils/StringFormatter";
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -36,8 +37,8 @@ export class Class extends Model {
 	 * @param level
 	 */
 	public toString(language: string, level: number): string {
-		const tr = Translations.getModule("classesValues", language);
-		return tr.format("fieldsValue", {
+		const data = Data.getModule("classesValues");
+		return format(data.getString("fieldsValue"), {
 			name: this.getName(language),
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
@@ -45,6 +46,17 @@ export class Class extends Model {
 			health: this.health + level,
 			price: this.price,
 			classGroup: this.classGroup,
+			fightPoint: this.getMaxCumulativeFightPointValue(level)
+		});
+	}
+
+	public statsToString(language: string, level: number): string {
+		const data = Data.getModule("classesValues");
+		return format(data.getString("statsDisplay"), {
+			attack: this.getAttackValue(level),
+			defense: this.getDefenseValue(level),
+			speed: this.getSpeedValue(level),
+			health: this.health + level,
 			fightPoint: this.getMaxCumulativeFightPointValue(level)
 		});
 	}

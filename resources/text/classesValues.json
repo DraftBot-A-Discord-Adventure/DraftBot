@@ -1,10 +1,4 @@
 {
-	"translations": {
-		"fr": {
-			"fieldsValue": "{name} : :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :zap: {fightPoint} | :heart: {health}"
-		},
-		"en": {
-			"fieldsValue": "{name} : :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :zap: {fightPoint} | :heart: {health}"
-		}
-	}
+	"fieldsValue": "{name} : :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :zap: {fightPoint} | :heart: {health}",
+	"statsDisplay": ":dagger: {attack} | :shield: {defense} | :rocket: {speed} | :zap: {fightPoint} | :heart: {health}"
 }
