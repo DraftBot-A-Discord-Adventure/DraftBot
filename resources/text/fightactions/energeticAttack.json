@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque énergique",
 			"namePlural": "Attaques énergiques",
-			"description": "Ceci est une description"
+			"description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin."
 		},
 		"en": {
 			"name": "Energetic attack",
 			"namePlural": "Energetic attacks",
-			"description": "Ceci est une description"
+			"description": "Half of the damage of this attack is restored to the user in health."
 		}
 	},
 	"emote": "⚡",

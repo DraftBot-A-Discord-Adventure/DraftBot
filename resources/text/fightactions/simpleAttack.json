@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque simple",
 			"namePlural": "Attaques simples",
-			"description": "Une attaque moyenne."
+			"description": "Une attaque simple."
 		},
 		"en": {
 			"name": "Simple attack",
 			"namePlural": "Simple attacks",
-			"description": "Ceci est une description"
+			"description": "A simple attack."
 		}
 	},
 	"emote": "⚔️",

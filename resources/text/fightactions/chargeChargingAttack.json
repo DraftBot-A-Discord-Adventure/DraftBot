@@ -8,7 +8,7 @@
 		"en": {
 			"name": "Charging attack",
 			"namePlural": "Charging attacks",
-			"description": "Ceci est une description"
+			"description": "Attack for 2 turns. During the first turn, the defender's defense is increased by 50 %. During the second turn, the defender's defense is replaced to its initial level."
 		}
 	},
 	"emote": "\uD83E\uDDF2",

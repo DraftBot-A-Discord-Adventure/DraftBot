@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque divine",
 			"namePlural": "Attaques divines",
-			"description": "Ceci est une description"
+			"description": "La précision de cette attaque augmente avec la durée du combat. Fait partie du groupe des \"actions des dieux\". Échoue si 2 actions des dieux ont déjà été effectuées dans le combat."
 		},
 		"en": {
 			"name": "Divine attack",
 			"namePlural": "Divine attacks",
-			"description": "Ceci est une description"
+			"description": "This attack's precision increases with the duration of the combat. It is part of the \"actions of the gods\". Fails if 2 actions of the gods have already been performed in the combat."
 		}
 	},
 	"emote": "\uD83D\uDE4F",

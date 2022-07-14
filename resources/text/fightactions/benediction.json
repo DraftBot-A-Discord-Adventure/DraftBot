@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Bénédiction",
 			"namePlural": "Bénédictions",
-			"description": "Ceci est une description"
+			"description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux ont déjà été effectuées dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l’augmentation des statistiques est importante."
 		},
 		"en": {
 			"name": "Blessing",
 			"namePlural": "Blessings",
-			"description": "Ceci est une description"
+			"description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats."
 		}
 	},
 	"emote": "\uD83D\uDC7C",

@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque intense",
 			"namePlural": "Attaques intenses",
-			"description": "Ceci est une description"
+			"description": "Ignore une partie de la défense de l’adversaire. N’échoue jamais sur un adversaire plus lent. Fonctionne mieux sur adversaire lent. Force le lanceur à utiliser l’action \"repos\" au tour suivant. Ne peut pas tuer l’adversaire."
 		},
 		"en": {
 			"name": "Intense attack",
 			"namePlural": "Intense attacks",
-			"description": "Ceci est une description"
+			"description": "Ignore a part of the enemy's defense. Never fails on a slower enemy. Works better on slower enemies. Forces the user to use the \"repos\" action next turn. Cannot kill the enemy."
 		}
 	},
 	"emote": "\uD83D\uDD25",

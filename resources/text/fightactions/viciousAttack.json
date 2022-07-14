@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque fourbe",
 			"namePlural": "Attaques fourbes",
-			"description": "Ceci est une description"
+			"description": "Plus l’attaque est utilisée tard et moins elle est efficace. Plus l’attaque est utilisée un grand nombre de fois et moins elle est efficace. Moins le lanceur a de points de combats et plus l’attaque est efficace."
 		},
 		"en": {
 			"name": "Vicious attack",
 			"namePlural": "Vicious attacks",
-			"description": "Ceci est une description"
+			"description": "The later the attack is used, the less effective it is. The more times the attack is used, the less effective it is. The fewer combat points the caster has, the more effective the attack."
 		}
 	},
 	"emote": "\uD83E\uDD77",

@@ -6,8 +6,7 @@
 		},
 		"en": {
 			"name": "Ultimate attack",
-			"namePlural": "Ultimate attacks",
-			"description": "Ceci est une description"
+			"namePlural": "Ultimate attacks"
 		}
 	},
 	"emote": "☄️",

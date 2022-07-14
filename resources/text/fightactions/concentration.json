@@ -5,14 +5,14 @@
 			"namePlural": "Concentrations",
 			"active": "essaie de se concentrer...",
 			"fail": "ne parvient pas à se concentrer !",
-			"description": "Ceci est une description"
+			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" double la vitesse et l’attaque durant 1 tour. "
 		},
 		"en": {
 			"name": "Concentration",
 			"namePlural": "Concentrations",
 			"active": "is trying to concentrate...",
 			"fail": "can't concentrate !",
-			"description": "Ceci est une description"
+			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" doubles the speed and attack duration for 1 turn."
 		}
 	},
 	"emote": "\uD83C\uDFAF",

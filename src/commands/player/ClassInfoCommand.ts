@@ -22,10 +22,10 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const classTranslations = Translations.getModule("commands.classStats", language);
+	const classTranslations = Translations.getModule("commands.classInfo", language);
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 
-	const listEmoji = Data.getModule("commands.classStats").getString("listEmoji");
+	const listEmoji = Data.getModule("commands.classInfo").getString("listEmoji");
 	const emojis: string[] = [];
 	const classesLineDisplay: string[] = [];
 	for (const _class of allClasses) {
@@ -56,7 +56,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			classToShow = await Classes.getByEmoji(reactionEmoji);
 			const newEmbed = new DraftBotEmbed()
 				.setTitle(classTranslations.format("classTitle", {class: classToShow.getName(language)}))
-				.setDescription(classToShow.getDescription(language) + "\n" + classToShow.statsToString(language, entity.Player.level));
+				.setDescription(classToShow.getDescription(language) + "\n" + classToShow.statsToString(language, entity.Player.level) + "\n" + classTranslations.get("descriptionEnd"));
 			addActionsFields(newEmbed, classToShow, language);
 			interaction.editReply({embeds: [newEmbed]});
 		}
@@ -74,8 +74,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("classstats")
-		.setDescription("Display the stats you could have for each class"),
+		.setName("classinfo")
+		.setDescription("Display informations about the classes you can have"),
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,

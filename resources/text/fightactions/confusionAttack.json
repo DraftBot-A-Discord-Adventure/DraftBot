@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque troublante",
 			"namePlural": "Attaques troublantes",
-			"description": "Ceci est une description"
+			"description": "Si l’attaque est utilisée plus de 4 fois la probabilité de rendre confus l’adversaire est divisée par 4. L’altération \"confus\" a une chance de forcer l’adversaire à effectuer une action aléatoire. Il y a une faible chance pour qu’un adversaire confus ne puisse pas attaquer et se blesse dans sa confusion. "
 		},
 		"en": {
 			"name": "Confusion attack",
 			"namePlural": "Confusion attacks",
-			"description": "Ceci est une description"
+			"description": "If the attack is used more than 4 times the probability of making the enemy confused is divided by 4. The alteration \"confused\" has a chance to force the enemy to do an action randomly. There is a low chance for an enemy confused to not attack and hurt itself in its confusion. "
 		}
 	},
 	"emote": "\uD83E\uDD14",
