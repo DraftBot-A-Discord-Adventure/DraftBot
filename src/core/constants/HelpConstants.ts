@@ -50,9 +50,10 @@ export abstract class HelpConstants {
 		PET_TRADE: ["pettrade", "ptrade", "echangepet", "familiertrade", "fechange", "echangeanimal", "echangeanimale"],
 		PET_FEED: ["petfeed", "feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
 		PET_SELL: ["petsell", "psell", "vendrepet", "ventepet", "vendreanimal", "venteaniaml", "vendreanimale", "venteanimale", "vendreanimales", "venteanimales", "venteanimaux", "vendreanimaux"],
-		CLASS_STATS: ["classstats", "cs", "classesstats", "classcompare", "classestats", "classtats", "classstat", "statistiquesclass",
+		CLASS_INFO: ["classinfo", "classInfo", "cs", "classesstats", "classcompare", "classestats", "classtats", "classstat", "statistiquesclass",
 			"statistiquesclasse", "statistiquesclasses", "statistiqueclass", "statistiqueclasse", "statistiqueclasses",
-			"classstatistiques", "classestatistiques", "classesstatistiques", "classstatistique", "classestatistique", "classesstatistique"],
+			"classstatistiques", "classestatistiques", "classesstatistiques", "classstatistique", "classestatistique", "classesstatistique",
+			"classinfos", "classinfosstats", "classesinfo", "classesinfo"],
 		RARITY: ["rarity", "rarities", "rareté", "rarete", "rare"],
 		VOTE: ["vote", "ilovedraftbot", "votes", "voté", "voter", "votés"],
 		IDEA: ["idea", "ideas", "suggestions", "suggestion", "suggest", "idée", "idé", "idées", "idés", "idee", "ide", "idees", "ides"],
@@ -278,7 +279,7 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"pet"
 			},
-		CLASS_STATS:
+		CLASS_INFO:
 			{
 				EMOTE: ":bookmark:",
 				CATEGORY:

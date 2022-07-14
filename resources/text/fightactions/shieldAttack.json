@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque bouclier",
 			"namePlural": "Attaques boucliers",
-			"description": "Ceci est une description"
+			"description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 1 tour."
 		},
 		"en": {
 			"name": "Shield attack",
 			"namePlural": "Shield attacks",
-			"description": "Ceci est une description"
+			"description": "Uses the attacker's shield to attack. The alteration \"disabled\" reduces the attack by 70% for 1 turn."
 		}
 	},
 	"emote": "\uD83D\uDEE1️",

@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque perçante",
 			"namePlural": "Attaques perçantes",
-			"description": "Ceci est une description"
+			"description": "Ignore presque complètement la défense de l’adversaire."
 		},
 		"en": {
 			"name": "Piercing attack",
 			"namePlural": "Piercing attacks",
-			"description": "Ceci est une description"
+			"description": "Ignores almost all the opponent's defense."
 		}
 	},
 	"emote": "\uD83E\uDEA1",

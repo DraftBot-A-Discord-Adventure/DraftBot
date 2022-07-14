@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque bélier",
 			"namePlural": "Attaques béliers",
-			"description": "Ceci est une description"
+			"description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit un tier des dégâts infligés."
 		},
 		"en": {
 			"name": "Ram Attack",
 			"namePlural": "Ram Attacks",
-			"description": "Ceci est une description"
+			"description": "If the attacker is not dazed by the attack, he takes half the damage."
 		}
 	},
 	"emote": "\uD83D\uDC0F",

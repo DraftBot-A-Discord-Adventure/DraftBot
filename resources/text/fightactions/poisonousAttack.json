@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque empoisonnée",
 			"namePlural": "Attaques empoisonnées",
-			"description": "Empoisonne l'adversaire. L’altération « empoisonné » dure au moins un tour et inflige des dégâts à votre adversaire sur la durée."
+			"description": "Empoisonne l'adversaire. L’altération \"empoisonné\" dure au moins un tour et inflige des dégâts à votre adversaire sur la durée."
 		},
 		"en": {
 			"name": "Poisonous attack",
 			"namePlural": "Poisonous attacks",
-			"description": "Ceci est une description"
+			"description": "Poisons the enemy. The \"poisoned\" alteration lasts at least one turn and deals damage to your enemy on the duration."
 		}
 	},
 	"emote": "\uD83E\uDDEA",

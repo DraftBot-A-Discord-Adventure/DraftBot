@@ -8,7 +8,7 @@
 		"en": {
 			"name": "Quick attack",
 			"namePlural": "Quick attacks",
-			"description": "Ceci est une description"
+			"description": "Ignores a part of the opponent's defense. Never fails on a slower opponent. More your opponent is slow, more this attack will do damage."
 		}
 	},
 	"emote": "\uD83D\uDDE1️",

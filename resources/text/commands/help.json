@@ -184,8 +184,8 @@
 					"usage": "petsell <price>",
 					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
-				"CLASS_STATS": {
-					"usage": "classstats",
+				"CLASS_INFO": {
+					"usage": "classinfo",
 					"description": "Permet de lire une comparaison rapide des statistiques des classes qui sont accessible à l'utilisateur effectuant la commande."
 				},
 				"RARITY": {
@@ -406,8 +406,8 @@
 					"usage": "petfeed",
 					"description": "Give some food to your pet."
 				},
-				"CLASS_STATS": {
-					"usage": "classstats",
+				"CLASS_INFO": {
+					"usage": "classinfo",
 					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
 				"RARITY": {
