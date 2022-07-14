@@ -42,3 +42,10 @@ export const checkNameString = function(name: string, minLength: number, maxLeng
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
+/**
+ * Convert a discord id to its corresponding mention
+ * @param id
+ */
+export const discordIdToMention = function(id: string): string {
+	return "<@" + id + ">";
+};

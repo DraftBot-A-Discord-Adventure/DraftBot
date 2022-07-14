@@ -3,10 +3,10 @@ import {format} from "../../core/utils/StringFormatter";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Translations} from "../../core/Translations";
-import {Armor, Armors} from "../../core/models/Armor";
-import {Weapon, Weapons} from "../../core/models/Weapon";
-import {Potion, Potions} from "../../core/models/Potion";
-import {ObjectItem, ObjectItems} from "../../core/models/ObjectItem";
+import {Armors} from "../../core/models/Armor";
+import {Weapons} from "../../core/models/Weapon";
+import {Potions} from "../../core/models/Potion";
+import {ObjectItems} from "../../core/models/ObjectItem";
 import {Entities} from "../../core/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -15,12 +15,11 @@ import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
+import {discordIdToMention} from "../../core/utils/StringUtils";
 
 declare function isAMention(variable: string): boolean;
 
 declare function getIdFromMention(variable: string): string;
-
-declare function idToMention(id: string): string;
 
 /**
  * Allow the bot owner to give an item to somebody
@@ -43,16 +42,16 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	let item: GenericItemModel = null;
 	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
-		item = <Weapon>(itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null);
+		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.ARMOR:
-		item = <Armor>(itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null);
+		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
-		item = <Potion>(itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null);
+		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		item = <ObjectItem>(itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null);
+		item = itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null;
 		break;
 	default:
 		break;
@@ -88,7 +87,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					if (!entityToEdit) {
 						descString += tr.format("giveError.baseText", {
 							user,
-							mention: idToMention(user),
+							mention: discordIdToMention(user),
 							reason: tr.get("giveError.reasons.invalidMention")
 						});
 						continue;
@@ -96,14 +95,14 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					if (!await entityToEdit.Player.giveItem(item)) {
 						descString += tr.format("giveError.baseText", {
 							user,
-							mention: idToMention(user),
+							mention: discordIdToMention(user),
 							reason: tr.get("giveError.reasons.noSpace")
 						});
 						continue;
 					}
 					descString += format(tr.get("giveSuccess"), {
 						user,
-						mention: idToMention(user)
+						mention: discordIdToMention(user)
 					});
 					if (entityToEdit.Player.dmNotification) {
 						sendDirectMessage(

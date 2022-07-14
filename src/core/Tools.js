@@ -7,13 +7,6 @@ import {Guilds} from "./models/Guild";
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
- * @typedef {import('sequelize/types')} DataTypes
- * Convert a discord id into a discord mention
- * @param {Number} id - The role/user id
- */
-global.idToMention = (id) => "<@" + id + ">";
-
-/**
  * Get the id from a mention
  * @param {any} variable
  * @return {String} The id of the mention
