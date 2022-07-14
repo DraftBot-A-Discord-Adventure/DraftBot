@@ -138,9 +138,11 @@ export class MissionsController {
 			await entity.Player.addExperience(completedMission.xpToWin, entity, channel, language);
 			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language);
 		}
-		await entity.Player.PlayerMissionsInfo.save();
-		await entity.Player.save();
-		await entity.save();
+		await Promise.all([
+			entity.Player.PlayerMissionsInfo.save(),
+			entity.Player.save(),
+			entity.save()
+		]);
 	}
 
 	static async handleExpiredMissions(player: Player, user: User, channel: TextBasedChannel, language: string) {
