@@ -140,6 +140,7 @@ export class MissionsController {
 		}
 		await entity.Player.PlayerMissionsInfo.save();
 		await entity.Player.save();
+		await entity.save();
 	}
 
 	static async handleExpiredMissions(player: Player, user: User, channel: TextBasedChannel, language: string) {
