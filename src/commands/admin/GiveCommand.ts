@@ -42,16 +42,16 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	let item: GenericItemModel = null;
 	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
-		item = <Weapon>(itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null);
+		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.ARMOR:
-		item = <Armor>(itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null);
+		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
-		item = <Potion>(itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null);
+		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
 		break;
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		item = <ObjectItem>(itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null);
+		item = itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null;
 		break;
 	default:
 		break;
