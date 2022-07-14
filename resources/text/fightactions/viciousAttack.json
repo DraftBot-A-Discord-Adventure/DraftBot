@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque fourbe",
-			"namePlural": "Attaques fourbes"
+			"namePlural": "Attaques fourbes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Vicious attack",
-			"namePlural": "Vicious attacks"
+			"namePlural": "Vicious attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83E\uDD77",

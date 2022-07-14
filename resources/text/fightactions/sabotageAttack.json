@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque sabotage",
-			"namePlural": "Attaques sabotages"
+			"namePlural": "Attaques sabotages",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Sabotage attack",
-			"namePlural": "Sabotage attacks"
+			"namePlural": "Sabotage attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDEE0️",

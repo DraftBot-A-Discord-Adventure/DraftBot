@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque intense",
-			"namePlural": "Attaques intenses"
+			"namePlural": "Attaques intenses",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Intense attack",
-			"namePlural": "Intense attacks"
+			"namePlural": "Intense attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDD25",

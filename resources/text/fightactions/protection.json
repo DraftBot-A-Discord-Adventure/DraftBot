@@ -4,13 +4,15 @@
 			"name": "Protection",
 			"namePlural": "Protections",
 			"active": "Se protège.",
-			"fail" : "ne parvient pas à protéger."
+			"fail" : "ne parvient pas à protéger.",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Protection",
 			"namePlural": "Protections",
 			"active": "Protects.",
-			"fail" : "doesn't protect."
+			"fail" : "doesn't protect.",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDE45\u200D♂️",

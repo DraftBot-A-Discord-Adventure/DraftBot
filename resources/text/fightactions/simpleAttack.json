@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque simple",
-			"namePlural": "Attaques simples"
+			"namePlural": "Attaques simples",
+			"description": "Une attaque moyenne."
 		},
 		"en": {
 			"name": "Simple attack",
-			"namePlural": "Simple attacks"
+			"namePlural": "Simple attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "⚔️",

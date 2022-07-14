@@ -3,12 +3,14 @@
 		"fr": {
 			"name": "Repos",
 			"namePlural": "Repos",
-			"active": "se repose et récupère `{amount} points de combats`"
+			"active": "se repose et récupère `{amount} points de combats`",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Rest",
 			"namePlural": "Rests",
-			"active": "rests and recovers `{amount} fight points`"
+			"active": "rests and recovers `{amount} fight points`",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDECF️",

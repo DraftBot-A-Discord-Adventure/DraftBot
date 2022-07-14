@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque énergique",
-			"namePlural": "Attaques énergiques"
+			"namePlural": "Attaques énergiques",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Energetic attack",
-			"namePlural": "Energetic attacks"
+			"namePlural": "Energetic attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "⚡",

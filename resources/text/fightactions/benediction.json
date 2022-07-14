@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Bénédiction",
-			"namePlural": "Bénédictions"
+			"namePlural": "Bénédictions",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Blessing",
-			"namePlural": "Blessings"
+			"namePlural": "Blessings",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDC7C",

@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque bouclier",
-			"namePlural": "Attaques boucliers"
+			"namePlural": "Attaques boucliers",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Shield attack",
-			"namePlural": "Shield attacks"
+			"namePlural": "Shield attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDEE1️",

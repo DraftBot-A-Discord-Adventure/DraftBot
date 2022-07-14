@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque chargée",
-			"namePlural": "Attaques chargées"
+			"namePlural": "Attaques chargées",
+			"description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial."
 		},
 		"en": {
 			"name": "Charging attack",
-			"namePlural": "Charging attacks"
+			"namePlural": "Charging attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83E\uDDF2",

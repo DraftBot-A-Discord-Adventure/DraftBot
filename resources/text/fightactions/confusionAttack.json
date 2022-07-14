@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque troublante",
-			"namePlural": "Attaques troublantes"
+			"namePlural": "Attaques troublantes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Confusion attack",
-			"namePlural": "Confusion attacks"
+			"namePlural": "Confusion attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83E\uDD14",

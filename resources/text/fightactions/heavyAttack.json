@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque lourde",
-			"namePlural": "Attaques lourdes"
+			"namePlural": "Attaques lourdes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Heavy attack",
-			"namePlural": "Heavy attacks"
+			"namePlural": "Heavy attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDD28",
