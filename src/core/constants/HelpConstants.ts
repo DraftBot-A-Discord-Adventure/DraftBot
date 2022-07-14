@@ -1,17 +1,12 @@
 export abstract class HelpConstants {
 	static readonly ACCEPTED_SEARCH_WORDS = {
-		PREFIX: ["prefix", "prefixe", "préfixe", "préfix", "changePrefix", "changePréfix", "changePrefixe", "changePréfixe"],
 		PING: ["ping", "mention", "uptime", "shard"],
 		RESPAWN: ["respawn", "rp", "ressusciter", "revivre", "rv", "reset"],
 		PROFILE: ["profile", "profil", "p", "me", "info"],
 		SWITCH: ["switch", "sw", "échanger", "echanger", "échange", "echange"],
 		FIGHT: ["fight", "f", "combat", "duel"],
-		FRIENDLY_FIGHT: ["friendlyfight", "combatamical", "ff", "ca", "fightfriendly", "duelamical"],
 		LANGUAGE: ["language", "langage", "langue", "l", "speak"],
 		TOP: ["top", "classement", "t", "points"],
-		TOP_WEEK: ["topweek", "weekTop", "topSemaine", "semaineTop", "classementSeaine",
-			"semaineClassment", "tw"],
-		TOP_SERVER: ["topserver", "topServeur", "serverTop", "serveurTop", "ts", "st"],
 		HELP: ["help", "h", "aide", "a"],
 		INVENTORY: ["inventory", "inv", "i", "inventaire"],
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],
@@ -67,10 +62,6 @@ export abstract class HelpConstants {
 	};
 
 	static readonly COMMANDS_DATA = {
-		PREFIX: {
-			EMOTE: ":interrobang:",
-			CATEGORY: "server"
-		},
 		PING:
 			{
 				EMOTE: ":ping_pong:",
@@ -96,11 +87,6 @@ export abstract class HelpConstants {
 				EMOTE: ":crossed_swords:",
 				CATEGORY: "player"
 			},
-		FRIENDLY_FIGHT:
-			{
-				EMOTE: ":crossed_swords:",
-				CATEGORY: "player"
-			},
 		HELP:
 			{
 				EMOTE: ":notebook_with_decorative_cover:",
@@ -112,16 +98,6 @@ export abstract class HelpConstants {
 				CATEGORY: "server"
 			},
 		TOP:
-			{
-				EMOTE: ":trophy:",
-				CATEGORY: "player"
-			},
-		TOP_WEEK:
-			{
-				EMOTE: ":trophy:",
-				CATEGORY: "player"
-			},
-		TOP_SERVER:
 			{
 				EMOTE: ":trophy:",
 				CATEGORY: "player"
