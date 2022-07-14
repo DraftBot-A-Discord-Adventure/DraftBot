@@ -256,10 +256,6 @@
 					"description": "Use this command to challenge other players who are on the same server as you. For more information you can use the `/classinfo` command.",
 					"image": "https://media.discordapp.net/attachments/893127023189450812/997204471278997635/unknown.png"
 				},
-				"FRIENDLY_FIGHT": {
-					"usage": "friendlyfight",
-					"description": "Use this command to friendly fight players on the same server as you\n\nIn a friendly fight, you have your maximal life, you don't lose points and you don't use your potion.\n\nFor more information about fights, please use `help fight`."
-				},
 				"HELP": {
 					"usage": "help",
 					"description": ":expressionless:"
@@ -271,14 +267,6 @@
 				"TOP": {
 					"usage": "top [page number]",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
-				},
-				"TOP_WEEK": {
-					"usage": "topweek [page number]",
-					"description": "Displays the general weekly ranking of the game in pages of 15 players. Players in the same server as you are shown with a blue dot."
-				},
-				"TOP_SERVER": {
-					"usage": "topserver [page number]",
-					"description": "Displays this server's ranking of the game in pages of 15 players."
 				},
 				"INVENTORY": {
 					"usage": "inventory",
