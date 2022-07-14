@@ -168,7 +168,11 @@ export class Player extends Model {
 	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string): Promise<void> {
 		this.money += money;
 		if (money > 0) {
-			await MissionsController.update(entity, channel, language, {missionId: "earnMoney", count: money});
+			const newEntity = await MissionsController.update(entity, channel, language, {missionId: "earnMoney", count: money});
+			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
+			// As the money and experience may have changed, we update the models of the caller
+			Object.assign(this, newEntity.Player);
+			Object.assign(entity, newEntity);
 		}
 		this.setMoney(this.money);
 	}
@@ -473,7 +477,11 @@ export class Player extends Model {
 	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string) {
 		this.experience += xpWon;
 		if (xpWon > 0) {
-			await MissionsController.update(entity, channel, language, {missionId: "earnXP", count: xpWon});
+			const newEntity = await MissionsController.update(entity, channel, language, {missionId: "earnXP", count: xpWon});
+			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
+			// As the money and experience may have changed, we update the models of the caller
+			Object.assign(this, newEntity.Player);
+			Object.assign(entity, newEntity);
 		}
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(entity, channel, language);

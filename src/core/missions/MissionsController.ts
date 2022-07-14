@@ -64,10 +64,11 @@ export class MissionsController {
 		entity: Entity,
 		channel: TextBasedChannel,
 		language: string,
-		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<void> {
+		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Entity> {
 
 		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplis une autre
 		await entity.save();
+		await entity.Player.save();
 		const [entityTest] = await Entities.getOrRegister(entity.discordUserId);
 
 		await MissionsController.handleExpiredMissions(entityTest.Player, draftBotClient.users.cache.get(entityTest.discordUserId), channel, language);
@@ -81,6 +82,8 @@ export class MissionsController {
 			completedDaily,
 			completedCampaign
 		});
+
+		return entityTest;
 	}
 
 	/**
