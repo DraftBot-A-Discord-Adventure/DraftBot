@@ -66,29 +66,11 @@ class DBL {
 	static async userDBLVote(user) {
 		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
-		await voter.Player.save();
-		await draftBotClient.shard.broadcastEval(async (client, context) => {
-			const guild = await client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-			if (guild) {
-				let member;
-				if ((member = await guild.members.fetch(context.user)) !== undefined) {
-					try {
-						const roleToAdd = await guild.roles.fetch(context.config.DBL_VOTE_ROLE);
-						await member.roles.add(roleToAdd);
-						await require("core/DBL").programDBLRoleRemoval(context.user);
-					}
-					catch (e) {
-						console.log(e);
-					}
-				}
-				const dUser = await client.users.fetch(context.user);
-				if (dUser === undefined || dUser === null) {
-					return;
-				}
-				(await guild.channels.cache.get(context.config.DBL_LOGS_CHANNEL)).send({embeds: [
-					new (require("core/messages/DraftBotVoteMessage").DraftBotVoteMessage)(dUser, await guild.roles.fetch(context.config.DBL_VOTE_ROLE))
-				]});
-			}
+		voter.Player.save();
+		await draftBotClient.shard.broadcastEval((client, context) => {
+			require("core/DBL")
+				.announceVoteAndGiveRole(client, context)
+				.then();
 		}, {
 			context: {
 				config: botConfig,
