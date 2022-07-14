@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque divine",
-			"namePlural": "Attaques divines"
+			"namePlural": "Attaques divines",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Divine attack",
-			"namePlural": "Divine attacks"
+			"namePlural": "Divine attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDE4F",

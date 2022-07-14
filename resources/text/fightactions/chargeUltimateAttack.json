@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque ultime",
-			"namePlural": "Attaques ultimes"
+			"namePlural": "Attaques ultimes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Ultimate attack",
-			"namePlural": "Ultimate attacks"
+			"namePlural": "Ultimate attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "☄️",

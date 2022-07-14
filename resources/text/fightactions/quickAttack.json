@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque rapide",
-			"namePlural": "Attaques rapides"
+			"namePlural": "Attaques rapides",
+			"description": "Ignore une partie de la défense de votre adversaire. N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts."
 		},
 		"en": {
 			"name": "Quick attack",
-			"namePlural": "Quick attacks"
+			"namePlural": "Quick attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDDE1️",

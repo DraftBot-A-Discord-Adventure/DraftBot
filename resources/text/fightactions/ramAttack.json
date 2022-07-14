@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque bélier",
-			"namePlural": "Attaques béliers"
+			"namePlural": "Attaques béliers",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Ram Attack",
-			"namePlural": "Ram Attacks"
+			"namePlural": "Ram Attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDC0F",

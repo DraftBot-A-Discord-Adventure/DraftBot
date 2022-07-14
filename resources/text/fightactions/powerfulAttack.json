@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque puissante",
-			"namePlural": "Attaques puissantes"
+			"namePlural": "Attaques puissantes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Powerful Attack",
-			"namePlural": "Powerful Attacks"
+			"namePlural": "Powerful Attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83E\uDE93",

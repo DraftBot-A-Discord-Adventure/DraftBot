@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque canon",
-			"namePlural": "Attaques canons"
+			"namePlural": "Attaques canons",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Cannon attack",
-			"namePlural": "Cannon attacks"
+			"namePlural": "Cannon attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83D\uDD2B",

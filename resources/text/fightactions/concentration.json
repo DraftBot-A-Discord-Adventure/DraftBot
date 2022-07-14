@@ -4,13 +4,15 @@
 			"name": "Concentration",
 			"namePlural": "Concentrations",
 			"active": "essaie de se concentrer...",
-			"fail": "ne parvient pas à se concentrer !"
+			"fail": "ne parvient pas à se concentrer !",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Concentration",
 			"namePlural": "Concentrations",
 			"active": "is trying to concentrate...",
-			"fail": "can't concentrate !"
+			"fail": "can't concentrate !",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83C\uDFAF",

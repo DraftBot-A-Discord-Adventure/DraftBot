@@ -2,11 +2,13 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque perçante",
-			"namePlural": "Attaques perçantes"
+			"namePlural": "Attaques perçantes",
+			"description": "Ceci est une description"
 		},
 		"en": {
 			"name": "Piercing attack",
-			"namePlural": "Piercing attacks"
+			"namePlural": "Piercing attacks",
+			"description": "Ceci est une description"
 		}
 	},
 	"emote": "\uD83E\uDEA1",
