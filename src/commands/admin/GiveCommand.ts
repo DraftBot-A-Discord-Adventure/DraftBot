@@ -15,12 +15,11 @@ import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {draftBotClient} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
+import {discordIdToMention} from "../../core/utils/StringUtils";
 
 declare function isAMention(variable: string): boolean;
 
 declare function getIdFromMention(variable: string): string;
-
-declare function idToMention(id: string): string;
 
 /**
  * Allow the bot owner to give an item to somebody
@@ -88,7 +87,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					if (!entityToEdit) {
 						descString += tr.format("giveError.baseText", {
 							user,
-							mention: idToMention(user),
+							mention: discordIdToMention(user),
 							reason: tr.get("giveError.reasons.invalidMention")
 						});
 						continue;
@@ -96,14 +95,14 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					if (!await entityToEdit.Player.giveItem(item)) {
 						descString += tr.format("giveError.baseText", {
 							user,
-							mention: idToMention(user),
+							mention: discordIdToMention(user),
 							reason: tr.get("giveError.reasons.noSpace")
 						});
 						continue;
 					}
 					descString += format(tr.get("giveSuccess"), {
 						user,
-						mention: idToMention(user)
+						mention: discordIdToMention(user)
 					});
 					if (entityToEdit.Player.dmNotification) {
 						sendDirectMessage(
