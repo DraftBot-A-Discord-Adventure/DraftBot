@@ -20,6 +20,10 @@
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Alias",
 			"commands": {
+				"PREFIX": {
+					"usage": "prefix",
+					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
+				},
 				"PING": {
 					"usage": "ping",
 					"description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
@@ -227,6 +231,10 @@
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Aliases",
 			"commands": {
+				"PREFIX": {
+					"usage": "prefix",
+					"description": "This feature was removed from the bot after an updates to discord's features."
+				},
 				"PING": {
 					"usage": "ping",
 					"description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"

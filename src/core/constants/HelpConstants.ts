@@ -1,5 +1,6 @@
 export abstract class HelpConstants {
 	static readonly ACCEPTED_SEARCH_WORDS = {
+		PREFIX: ["prefix", "prefixe", "préfixe", "préfix", "changePrefix", "changePréfix", "changePrefixe", "changePréfixe"],
 		PING: ["ping", "mention", "uptime", "shard"],
 		RESPAWN: ["respawn", "rp", "ressusciter", "revivre", "rv", "reset"],
 		PROFILE: ["profile", "profil", "p", "me", "info"],
@@ -62,6 +63,10 @@ export abstract class HelpConstants {
 	};
 
 	static readonly COMMANDS_DATA = {
+		PREFIX: {
+			EMOTE: ":interrobang:",
+			CATEGORY: "server"
+		},
 		PING:
 			{
 				EMOTE: ":ping_pong:",
