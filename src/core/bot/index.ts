@@ -16,6 +16,10 @@ export let draftBotClient: Client = null;
 export let shardId = -1;
 export const botConfig = loadConfig();
 
+process.on("uncaughtException", function(error) {
+	console.log(error.stack);
+});
+
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
 	// process.exit(1);

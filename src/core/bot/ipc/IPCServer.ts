@@ -13,9 +13,12 @@ const spamPlayers: Map<string, number> = new Map();
  * @param reason
  */
 function removeBlockedReason(discordId: string, reason: string) {
-	blockedPlayers.set(discordId, blockedPlayers.get(discordId).filter(v => v.reason !== reason));
-	if (blockedPlayers.get(discordId).length === 0) {
-		blockedPlayers.delete(discordId);
+	const blockedPlayer = blockedPlayers.get(discordId);
+	if (blockedPlayer) {
+		blockedPlayers.set(discordId, blockedPlayer.filter(v => v.reason !== reason));
+		if (blockedPlayers.get(discordId).length === 0) {
+			blockedPlayers.delete(discordId);
+		}
 	}
 }
 
