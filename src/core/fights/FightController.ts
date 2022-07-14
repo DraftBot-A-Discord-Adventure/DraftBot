@@ -204,6 +204,10 @@ export class FightController {
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().getAlterationFightAction(), false);
 		}
+		if (this.state !== FightState.RUNNING) {
+			// a player was killed by a fight alteration, no need to continue the fight
+			return;
+		}
 		await this.fightView.displayFightStatus();
 		if (this.getPlayingFighter().nextFightActionId === null) {
 			await this.fightView.selectFightActionMenu(this.getPlayingFighter());

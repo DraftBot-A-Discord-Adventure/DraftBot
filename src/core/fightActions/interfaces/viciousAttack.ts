@@ -15,7 +15,7 @@ export const fightActionInterface: IFightAction = {
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
 
 		// plus l'attaque est utilisée et plus elle est utilisée tard et moins elle est efficace. (pénalité maximale de -70 %)
-		const ratio = 11 - turn * (sender.fightActionsHistory.filter(action => action === this.getName()).length + 1) / 10;
+		const ratio = (11 - turn * (sender.fightActionsHistory.filter(action => action === this.getName()).length + 1)) / 10;
 		damageDealt = Math.round(ratio < 0.3 ? 0.3 * damageDealt : damageDealt * ratio);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
