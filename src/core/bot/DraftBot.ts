@@ -20,9 +20,6 @@ require("../Constant");
 require("../MessageError");
 require("../Tools");
 
-export class DraftBot {
-	public readonly client: Client;
-
 export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }) {
 	const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
 	try {
@@ -46,6 +43,8 @@ export async function announceTopWeekWinner(client: Client, context: { config: D
 }
 
 export class DraftBot {
+	public readonly client: Client;
+
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
