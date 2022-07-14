@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Acheter {objective} soupe{objective>1?s:} ultime{objective>1?s:}"
+			"desc": "Acheter au moins {objective} soupe{objective>1?s:} ultime{objective>1?s:}"
 		},
 		"en": {
-			"desc": "Buy {objective} ultimate soup{objective>1?s:}"
+			"desc": "Buy at least {objective} ultimate soup{objective>1?s:}"
 		}
 	},
 	"campaignOnly": true

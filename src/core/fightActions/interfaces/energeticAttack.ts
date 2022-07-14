@@ -41,43 +41,24 @@ export const fightActionInterface: IFightAction = {
 	}
 	,
 
-	toString(language
-	:
-		string
-	):
-		string {
+	toString(language: string): string {
 		return Translations.getModule(`fightactions.${this.getName()}`, language).get("name");
 	}
 	,
 
-	getEmoji()
-	:
-		string {
+	getEmoji(): string {
 		return Data.getModule(`fightactions.${this.getName()}`).getString("emote");
-	}
-	,
+	},
 
-	getName()
-	:
-		string {
+	getName(): string {
 		return "energeticAttack";
-	}
-	,
+	},
 
-	getAttackInfo()
-	:
-		attackInfo {
+	getAttackInfo(): attackInfo {
 		return {minDamage: 30, averageDamage: 60, maxDamage: 90};
-	}
-	,
+	},
 
-	getStatsInfo(sender
-	:
-		Fighter, receiver
-	:
-		Fighter
-	):
-		statsInfo {
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack,
@@ -93,12 +74,7 @@ export const fightActionInterface: IFightAction = {
 	}
 	,
 
-	getAttackStatus(damageDealt
-	:
-		number, initialDamage
-	:
-		number
-	) {
+	getAttackStatus(damageDealt: number, initialDamage: number) {
 		return damageDealt > initialDamage
 			? FightConstants.ATTACK_STATUS.CRITICAL
 			: damageDealt < initialDamage

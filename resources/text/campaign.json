@@ -155,7 +155,7 @@
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
-			"missionObjective": 15,
+			"missionObjective": 20,
 			"gemsToWin": 1,
 			"xpToWin": 50,
 			"moneyToWin": 0
@@ -275,7 +275,7 @@
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
-			"missionObjective": 25,
+			"missionObjective": 40,
 			"gemsToWin": 1,
 			"xpToWin": 50,
 			"moneyToWin": 0

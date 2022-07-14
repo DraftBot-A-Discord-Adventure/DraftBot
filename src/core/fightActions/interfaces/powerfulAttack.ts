@@ -42,7 +42,7 @@ export const fightActionInterface: IFightAction = {
 
 		// Reduce speed of the sender by 15 %
 		const reductionAmont = 15;
-		receiver.stats.speed = Math.round(receiver.stats.speed - receiver.stats.speed * reductionAmont / 100);
+		sender.stats.speed = Math.round(sender.stats.speed - sender.stats.speed * reductionAmont / 100);
 		sideEffects += attackTranslationModule.format("actions.sideEffects.speed", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.MINUS,
