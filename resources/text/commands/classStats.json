@@ -1,12 +1,14 @@
 {
 	"translations": {
 		"fr": {
-			"title": ":bookmark:  **Comparatif des classes :**",
-			"desc": "Voilà la liste des classes disponible pour votre personnage et leur statistiques. Pour obtenir plus d'informations ou selectionner votre classe, effectuez la commande `class`."
+			"listTitle": ":bookmark:  **Comparatif des classes :**",
+			"listDesc": "Voilà la liste des classes disponible pour votre personnage et leur statistiques. Pour obtenir plus d'informations ou selectionner votre classe, effectuez la commande `class`.",
+			"classTitle": "**{class}**"
 		},
 		"en": {
 			"title": ":bookmark:  **Comparing classes:**",
 			"desc": "Here is the list of all availables classes for you and their statistics. To get more information or to select your class, please use the `class` command."
 		}
-	}
+	},
+	"listEmoji": "ℹ️"
 }
