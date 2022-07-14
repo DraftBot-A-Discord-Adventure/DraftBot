@@ -125,6 +125,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			option2 = Constants.PETS.SELL.MAX;
 		}
 
+		if (command === "FIGHT") {
+			helpMessage.setImage(tr.get("commands." + command + ".image"));
+		}
+
 		helpMessage.setDescription(tr.format("commands." + command + ".description", {
 			option1,
 			option2

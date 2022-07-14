@@ -42,11 +42,8 @@
 				},
 				"FIGHT": {
 					"usage": "fight",
-					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nVoici la liste des actions:\n- :crossed_swords: **Attaque simple**: Une attaque moyenne qui a des chances moyennes de réussir.\n- :dagger: **Attaque rapide**: Une attaque qui marche bien si vous êtes plus rapide que votre adversaire.\n- :axe: **Attaque puissante**: Une attaque avec peu de réussite mais qui fait beaucoup de dégâts.\n- :bomb: **Attaque ultime**: Une attaque sur 2 tours, qui est efficace si vous avez perdu de la vie. Elle enlève 2/3 de la vie de votre adversaire.\n- :firecracker: **Attaque bélier**: Attaque qui fait des dégâts à tous les combattants, utile si vous avez plus de défense que votre adversaire.\n- :rocket: **Vitesse**: Augmente la vitesse. Si votre vitesse est supérieure à celle de votre adversaire, vous avez plus de chance de réussir votre attaque sauf pour l'attaque ultime. Plus l'action est utilisée, moins elle est efficace.\n\nLe combat s'arrête quand un joueur n'a plus de vie, ne répond pas au bout de 30 secondes ou que le tour 25 est atteint. Quand un combat se finit, vous allez probablement perdre de l'énergie. Elle se régénèrent avec le temps.\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats"
-				},
-				"FRIENDLY_FIGHT": {
-					"usage": "friendlyfight",
-					"description": "Cette commande permet de lancer un combat amical.\n\nDans un combat amical, vous avez votre vie de combat maximale, vous ne perdez pas de points et vous n'utilisez pas votre potion.\n\nPour plus d'informations à propos des combats, utilisez `help fight`."
+					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
+					"image": "https://media.discordapp.net/attachments/440879632837902346/997117902887080046/unknown.png"
 				},
 				"HELP": {
 					"usage": "help",
@@ -57,16 +54,8 @@
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
 				"TOP": {
-					"usage": "top [numéro de page]",
+					"usage": "top [scope] [timing] [numéro de page]",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
-				},
-				"TOP_WEEK": {
-					"usage": "topweek [numéro de page]",
-					"description": "Affiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
-				},
-				"TOP_SERVER": {
-					"usage": "topserver [numéro de page]",
-					"description": "Affiche le classement du serveur par tranche de 15 joueurs."
 				},
 				"INVENTORY": {
 					"usage": "inventory",
@@ -186,7 +175,7 @@
 				},
 				"CLASS_INFO": {
 					"usage": "classinfo",
-					"description": "Permet de lire une comparaison rapide des statistiques des classes qui sont accessible à l'utilisateur effectuant la commande."
+					"description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
 				},
 				"RARITY": {
 					"usage": "rarity",
@@ -264,7 +253,8 @@
 				},
 				"FIGHT": {
 					"usage": "fight",
-					"description": "Use this command to duel other players on the same server as you.\nFights are turn-based. Each turn, you can choose an action.\n\nHere's the action list:\n- :crossed_swords: **Basic attack**: A balanced attack with a medium success rate.\n- :dagger: **Quick attack**: An attack efficient if you are faster than your opponent.\n- :axe: **Powerful attack**: A low success rate attack, but which deals a lot of damage.\n- :bomb: **Supreme attack**: A 2 turns attack, which is efficient only if your loose life during the fight. When successful, it decreases 2/3 of your opponent's life.\n- :firecracker: **Bulk attack**: A risky attack that does damages to all the fighters, useful if you have more defense than your opponent.\n- :rocket: **Speed**: Increases your speed. Attacks have a higher success rate if your speed is greater than your opponent's one, except for the supreme attack. Moreover, the more you use this action, the less speed you'll get.\n\nThe fight ends when a fighter's life drops to 0, doesn't answer after 30 seconds or when the turn number 25 is reached. When the fight ends, you'll probably lost energy. They will be recovered over time.\nFor more informations you can read the guide : https://guide.draftbot.com/v/en/notions-principale/combats"
+					"description": "Use this command to challenge other players who are on the same server as you. For more information you can use the `/classinfo` command.",
+					"image": "https://media.discordapp.net/attachments/893127023189450812/997204471278997635/unknown.png"
 				},
 				"FRIENDLY_FIGHT": {
 					"usage": "friendlyfight",
