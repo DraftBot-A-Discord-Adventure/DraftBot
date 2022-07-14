@@ -20,10 +20,6 @@
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Alias",
 			"commands": {
-				"PREFIX": {
-					"usage": "prefix",
-					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
-				},
 				"PING": {
 					"usage": "ping",
 					"description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
@@ -54,7 +50,7 @@
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
 				"TOP": {
-					"usage": "top [scope] [timing] [numéro de page]",
+					"usage": "top [portée] [timing] [numéro de page]",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
 				"INVENTORY": {
@@ -82,7 +78,7 @@
 					"description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
 				},
 				"DRINK": {
-					"usage": "drink",
+					"usage": "drink [force]",
 					"description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
 				},
 				"SHOP": {
@@ -90,7 +86,7 @@
 					"description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
 				},
 				"GUILD_CREATE": {
-					"usage": "guildcreate [Nom de guilde]",
+					"usage": "guildcreate [nom de guilde]",
 					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
 				},
 				"GUILD_LEAVE": {
@@ -170,7 +166,7 @@
 					"description": "Donner de la nourriture à votre familier."
 				},
 				"PET_SELL": {
-					"usage": "petsell <price>",
+					"usage": "petsell <prix>",
 					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
 				"CLASS_INFO": {
@@ -231,10 +227,6 @@
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Aliases",
 			"commands": {
-				"PREFIX": {
-					"usage": "prefix",
-					"description": "This feature was removed from the bot after an updates to discord's features."
-				},
 				"PING": {
 					"usage": "ping",
 					"description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
@@ -256,10 +248,6 @@
 					"description": "Use this command to challenge other players who are on the same server as you. For more information you can use the `/classinfo` command.",
 					"image": "https://media.discordapp.net/attachments/893127023189450812/997204471278997635/unknown.png"
 				},
-				"FRIENDLY_FIGHT": {
-					"usage": "friendlyfight",
-					"description": "Use this command to friendly fight players on the same server as you\n\nIn a friendly fight, you have your maximal life, you don't lose points and you don't use your potion.\n\nFor more information about fights, please use `help fight`."
-				},
 				"HELP": {
 					"usage": "help",
 					"description": ":expressionless:"
@@ -269,16 +257,8 @@
 					"description": "Change the language the bot use to french. You can use this command if you are admin of a server."
 				},
 				"TOP": {
-					"usage": "top [page number]",
+					"usage": "top [scope] [timing] [page number]",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
-				},
-				"TOP_WEEK": {
-					"usage": "topweek [page number]",
-					"description": "Displays the general weekly ranking of the game in pages of 15 players. Players in the same server as you are shown with a blue dot."
-				},
-				"TOP_SERVER": {
-					"usage": "topserver [page number]",
-					"description": "Displays this server's ranking of the game in pages of 15 players."
 				},
 				"INVENTORY": {
 					"usage": "inventory",
@@ -305,7 +285,7 @@
 					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
 				"DRINK": {
-					"usage": "drink",
+					"usage": "drink [force]",
 					"description": "This command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight."
 				},
 				"SHOP": {
