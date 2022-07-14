@@ -1,5 +1,6 @@
 import {Entities} from "./models/Entity";
 import {botConfig, draftBotClient} from "./bot";
+import {DraftBotVoteMessage} from "./messages/DraftBotVoteMessage";
 
 const DiscordBotList = require("dblapi.js");
 
@@ -29,6 +30,32 @@ class DBL {
 			console.log("Successfully posted servers to DBL");
 		});
 
+	}
+
+	static async announceVoteAndGiveRole(client, context) {
+		const guild = await client.guilds.cache.get(context.config.MAIN_SERVER_ID);
+		if (guild) {
+			let member;
+			if ((member = await guild.members.fetch(context.user)) !== undefined) {
+				try {
+					const roleToAdd = await guild.roles.fetch(context.config.DBL_VOTE_ROLE);
+					await member.roles.add(roleToAdd);
+					await DBL.programDBLRoleRemoval(context.user);
+				}
+				catch (e) {
+					console.log(e);
+				}
+			}
+			const dUser = await client.users.fetch(context.user);
+			if (dUser === undefined || dUser === null) {
+				return;
+			}
+			(await guild.channels.cache.get(context.config.DBL_LOGS_CHANNEL)).send({
+				embeds: [
+					new DraftBotVoteMessage(dUser, await guild.roles.fetch(context.config.DBL_VOTE_ROLE))
+				]
+			});
+		}
 	}
 
 	/**
@@ -117,5 +144,6 @@ module.exports = {
 	verifyDBLRoles: DBL.verifyDBLRoles,
 	userDBLVote: DBL.userDBLVote,
 	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove,
-	programDBLRoleRemoval: DBL.programDBLRoleRemoval
+	programDBLRoleRemoval: DBL.programDBLRoleRemoval,
+	announceVoteAndGiveRole: DBL.announceVoteAndGiveRole
 };

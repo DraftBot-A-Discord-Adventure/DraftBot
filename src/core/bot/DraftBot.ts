@@ -23,6 +23,29 @@ require("../Tools");
 export class DraftBot {
 	public readonly client: Client;
 
+export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }) {
+	const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
+	try {
+		const message = await (await guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
+			content: context.frSentence
+		});
+		await message.react("🏆");
+	}
+	catch {
+		// Ignore
+	}
+	try {
+		const message = await (await guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
+			content: context.enSentence
+		});
+		await message.react("🏆");
+	}
+	catch {
+		// Ignore
+	}
+}
+
+export class DraftBot {
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
@@ -154,26 +177,10 @@ export class DraftBot {
 			limit: 1
 		});
 		if (winner !== null) {
-			await draftBotClient.shard.broadcastEval(async (client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-				try {
-					const message = await (await guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-						content: context.frSentence
-					});
-					await message.react("🏆");
-				}
-				catch {
-					// Ignore
-				}
-				try {
-					const message = await (await guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-						content: context.enSentence
-					});
-					await message.react("🏆");
-				}
-				catch {
-					// Ignore
-				}
+			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
+				require("core/bot/DraftBot")
+					.announceTopWeekWinner(client, context)
+					.then();
 			}, {
 				context: {
 					config: botConfig,
