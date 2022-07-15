@@ -9,11 +9,12 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {hoursToMilliseconds, millisecondsToHours} from "../../core/utils/TimeUtils";
+import {millisecondsToHours} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import moment = require("moment");
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -44,7 +45,7 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  */
 function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction) {
 	const switchData = Data.getModule("commands.switch");
-	const nextDailyDate = new Date().setDate(entity.Player.InventoryInfo.lastDailyAt.valueOf() + hoursToMilliseconds(DailyConstants.TIME_BETWEEN_DAILIES));
+	const nextDailyDate = moment(entity.Player.InventoryInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - interaction.createdAt.valueOf());
 	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - switchData.getNumber("timeToAdd");
 	if (timeToCheck < 0) {
