@@ -516,16 +516,16 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needSmallEvent = function(entity: Entity) {
+function needSmallEvent(entity: Entity) {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 		const lastTime = lastMiniEvent.time > entity.Player.startTravelDate.valueOf() ? lastMiniEvent.time : entity.Player.startTravelDate.valueOf();
 		return Date.now() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
 	return Date.now() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-};
+}
 
-const executeSmallEvent = async (interaction: CommandInteraction, language: string, entity: Entity, forced: string) => {
+async function executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, forced: string) {
 
 	// Pick random event
 	let event: string;
@@ -588,7 +588,7 @@ const executeSmallEvent = async (interaction: CommandInteraction, language: stri
 
 	// Save
 	await PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, Date.now()).save();
-};
+}
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
