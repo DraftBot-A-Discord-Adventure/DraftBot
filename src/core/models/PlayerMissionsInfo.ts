@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../utils/TimeUtils";
 import moment = require("moment");
+import Entity from "./Entity";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -31,8 +32,9 @@ export class PlayerMissionsInfo extends Model {
 			}, {where: {}});
 	}
 
-	public addGems(amount: number): void {
+	public async addGems(amount: number, entity: Entity): Promise<void> {
 		this.gems += amount;
+		await entity.Player.PlayerMissionsInfo.save();
 	}
 }
 
