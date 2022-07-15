@@ -41,7 +41,7 @@ async function initiateNewPlayerOnTheAdventure(entity: Entity) {
 }
 
 /* ---------------------------------------------------------------
-											SMALL EVENTS FUNCTIONS
+SMALL EVENTS FUNCTIONS
 --------------------------------------------------------------- */
 
 /**
