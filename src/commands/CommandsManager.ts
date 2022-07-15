@@ -129,15 +129,8 @@ export class CommandsManager {
 			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 		}
 
-		await client.application.commands.set([]);
 		const setCommands = await client.application.commands.set(commandsToSetGuild, botConfig.MAIN_SERVER_ID);
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
-
-		// TODO refaire le système de permission asap
-		/*
-		for (const cmd of setCommands.values()) {
-			this.enforcePermission(this.commands.get(cmd.name), cmd).then(() => console.log("Permissions of command " + cmd.name + " set"));
-		}*/
 
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || !interaction.inGuild()) {
@@ -205,7 +198,7 @@ export class CommandsManager {
 			if (client.guilds.cache.get(context.mainServerId)) {
 				const dmChannel = client.users.cache.get(context.dmManagerID);
 				if (!dmChannel) {
-					console.warn("WARNING : dm channel not on main channel");
+					console.warn("WARNING : could not find a place to forward the DM message.");
 					return;
 				}
 				for (const attachment of context.attachments) {
