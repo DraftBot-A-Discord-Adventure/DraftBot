@@ -169,12 +169,9 @@ export class FightController {
 	 */
 	private async manageMissionsOf(fighter: Fighter): Promise<void> {
 		await this.checkFightActionHistory(fighter);
-		if (this.friendly) {
-			await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "friendlyFight"});
-		}
-		else {
-			await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "rankedFight"});
-		}
+		// TODO : REDO WHEN RANKED FIGHTS ARE IMPLEMENTED
+		await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "friendlyFight"});
+		await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "rankedFight"});
 		await MissionsController.update(fighter.entity, this.fightView.channel, this.fightView.language, {missionId: "anyFight"});
 	}
 
