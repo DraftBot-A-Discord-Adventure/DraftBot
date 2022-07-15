@@ -12,7 +12,7 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 			reactions.push(new DraftBotReaction(
 				Constants.REACTIONS.NUMBERS[i + 1],
 				() => {
-					callbackToCall(items[i].item).then(() => null, () => null);
+					callbackToCall(items[i].item);
 					this.collector.stop();
 				}
 			));
