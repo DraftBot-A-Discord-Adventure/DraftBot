@@ -128,6 +128,13 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 	};
 }
 
+/**
+ * Ask the player confirmation
+ * @param entity
+ * @param interaction
+ * @param item
+ * @param tr
+ */
 function itemChoiceValidation(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 	new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(entity, interaction, item, tr))

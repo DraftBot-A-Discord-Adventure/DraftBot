@@ -88,7 +88,7 @@ const getUserGems = async (userId: string): Promise<number> => {
  */
 async function removeUserGems(userId: string, amount: number): Promise<void> {
 	const entity = await Entities.getByDiscordUserId(userId);
-	entity.Player.PlayerMissionsInfo.addGems(-amount, entity);
+	await entity.Player.PlayerMissionsInfo.addGems(-amount, entity);
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
@@ -139,7 +139,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 					}
 					for (let i = 0; i < allMissions.length; ++i) {
 						if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
-							removeUserGems(entity.discordUserId, parseInt(translationModule.get("items.skipMapMission.price"), 10));
+							await removeUserGems(entity.discordUserId, parseInt(translationModule.get("items.skipMapMission.price"), 10));
 							await entity.Player.PlayerMissionsInfo.save();
 							await message.sentMessage.channel.send({
 								embeds: [

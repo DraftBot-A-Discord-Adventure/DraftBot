@@ -11,8 +11,8 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 		for (let i = 0; i < 10 && i < items.length; ++i) {
 			reactions.push(new DraftBotReaction(
 				Constants.REACTIONS.NUMBERS[i + 1],
-				() => {
-					callbackToCall(items[i].item);
+				async () => {
+					await callbackToCall(items[i].item);
 					this.collector.stop();
 				}
 			));
