@@ -1,0 +1,60 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Explorer {objective} lieu{objective>1?x différents:}"
+		},
+		"en": {
+			"desc": "Explore {objective}{objective>1? different:} place{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1,
+			2
+		],
+		"hard": [
+			3,
+			4
+		]
+	},
+	"objectives": [
+		3,
+		5,
+		10,
+		15,
+		20
+	],
+	"gems": [
+		3,
+		7,
+		0,
+		0,
+		0
+	],
+	"xp": [
+		75,
+		150,
+		250,
+		325,
+		400
+	],
+	"money": [
+		100,
+		200,
+		300,
+		400,
+		550
+	],
+	"expirations": [
+		24,
+		24,
+		72,
+		108,
+		168
+	],
+	"dailyIndexes": [0,1]
+}

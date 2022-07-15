@@ -10,5 +10,12 @@
 	"health": 30,
 	"fightPoint": -15,
 	"price": 2950,
-	"classgroup": 2
+	"classGroup": 2,
+	"fightActionsIds": [
+		"quickAttack",
+		"sabotageAttack",
+		"viciousAttack",
+		"canonAttack",
+		"confusionAttack"
+	]
 }

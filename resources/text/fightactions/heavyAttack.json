@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque lourde",
+			"namePlural": "Attaques lourdes",
+			"description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins d’un tier de la défense de l’attaquant."
+		},
+		"en": {
+			"name": "Heavy attack",
+			"namePlural": "Heavy attacks",
+			"description": "The damage of this attack is reduced by 90% if the defender has less than one third of the attacker's defense."
+		}
+	},
+	"emote": "\uD83D\uDD28",
+	"missionVariant": 12
+}

@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import Mission from "./Mission";
 import moment = require("moment");
 
@@ -30,6 +26,8 @@ export class MissionSlot extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
+
+	public saveBlob!: Buffer;
 
 
 	public Mission: Mission;
@@ -66,7 +64,7 @@ export class MissionSlots {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	MissionSlot.init({
 		id: {
 			type: DataTypes.INTEGER,
@@ -109,6 +107,10 @@ export function initModel(sequelize: Sequelize) {
 		createdAt: {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		},
+		saveBlob: {
+			type: DataTypes.BLOB,
+			defaultValue: null
 		}
 	}, {
 		sequelize,

@@ -1,11 +1,32 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} {variantText} dans un combat"
+			"desc": "Faire {objective} {variantText} dans des combats"
 		},
 		"en": {
-			"desc": "Do {objective} {variantText} in a fight"
+			"desc": "Do {objective} {variantText} in fights"
 		}
 	},
-	"campaignOnly": true
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [0],
+		"medium": [0],
+		"hard": [0]
+	},
+	"objectives": [
+		1
+	],
+	"gems": [
+		2
+	],
+	"money": [
+		25
+	],
+	"xp": [
+		20
+	],
+	"expirations": [
+		24
+	],
+	"dailyIndexes": []
 }

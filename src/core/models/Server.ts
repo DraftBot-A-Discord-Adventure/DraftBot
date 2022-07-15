@@ -1,19 +1,13 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Data} from "../Data";
+import moment = require("moment");
 
 export class Server extends Model {
 	public id!: number;
 
-	public prefix!: string;
-
 	public language!: string;
 
-	public discordGuildId!: number;
+	public discordGuildId!: string;
 
 	public updatedAt!: Date;
 
@@ -21,7 +15,7 @@ export class Server extends Model {
 }
 
 export class Servers {
-	static async getOrRegister(discordGuildId: number) {
+	static async getOrRegister(discordGuildId: string) {
 		return await Server.findOrCreate({
 			where: {
 				discordGuildId: discordGuildId
@@ -30,7 +24,7 @@ export class Servers {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	const data = Data.getModule("models.servers");
 
 	Server.init({
@@ -38,10 +32,6 @@ export function initModel(sequelize: Sequelize) {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
-		},
-		prefix: {
-			type: DataTypes.STRING(10), // eslint-disable-line new-cap
-			defaultValue: data.getString("prefix")
 		},
 		language: {
 			type: DataTypes.STRING(2), // eslint-disable-line new-cap

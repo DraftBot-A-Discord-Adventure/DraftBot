@@ -1,10 +1,9 @@
 import {format, Replacements} from "./utils/StringFormatter";
-import {Random} from "random-js";
+import {RandomUtils} from "./utils/RandomUtils";
 
 declare const JsonReader: any;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
-declare const draftbotRandom: Random;
 
 export class TranslationModule {
 	private readonly _module: string;
@@ -17,6 +16,10 @@ export class TranslationModule {
 		this._module = module;
 		this._moduleTranslationObject = TranslationModule.getTranslationObject(module.split("."), language);
 		this._language = language;
+	}
+
+	get language(): string {
+		return this._language;
 	}
 
 	private static getTranslationObject(modulePath: string[], language: string): any {
@@ -37,28 +40,7 @@ export class TranslationModule {
 		return lastObject[language];
 	}
 
-	get language(): string {
-		return this._language;
-	}
-
-	private getTranslationObject(translation: string): unknown {
-		if (!this._moduleTranslationObject) {
-			console.warn("Trying to use an invalid translation module: " + this._module);
-			return "ERR:MODULE_NOT_FOUND";
-		}
-		const translationPath = translation.split(".");
-		let lastObject = this._moduleTranslationObject;
-		for (const path of translationPath) {
-			if (!(path in lastObject)) {
-				console.warn("Trying to use an invalid translation: " + path + " in module " + this._module);
-				return "ERR:TRANSLATION_NOT_FOUND";
-			}
-			lastObject = lastObject[path];
-		}
-		return lastObject;
-	}
-
-	format(translation: string, replacements: Replacements) {
+	format(translation: string, replacements: Replacements): string {
 		return format(this.get(translation), replacements);
 	}
 
@@ -80,7 +62,41 @@ export class TranslationModule {
 	}
 
 	getRandom(translation: string): string {
-		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
+		return RandomUtils.draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
+	}
+
+	public getObject(translation: string): any[] {
+		return <any[]> this.getTranslationObject(translation);
+	}
+
+	getObjectSize(translation: string): number {
+		const object = this.getTranslationObject(translation);
+		if (typeof object === "object") {
+			return Object.keys(object).length;
+		}
+		console.warn("Trying to use an invalid translation object: " + translation + " in module " + this._module);
+		return 0;
+	}
+
+	public getKeys(translation: string): string[] {
+		return Object.keys(this.getTranslationObject(translation));
+	}
+
+	private getTranslationObject(translation: string): unknown {
+		if (!this._moduleTranslationObject) {
+			console.warn("Trying to use an invalid translation module: " + this._module);
+			return "ERR:MODULE_NOT_FOUND";
+		}
+		const translationPath = translation.split(".");
+		let lastObject = this._moduleTranslationObject;
+		for (const path of translationPath) {
+			if (!(path in lastObject)) {
+				console.warn("Trying to use an invalid translation: " + path + " in module " + this._module);
+				return "ERR:TRANSLATION_NOT_FOUND";
+			}
+			lastObject = lastObject[path];
+		}
+		return lastObject;
 	}
 }
 

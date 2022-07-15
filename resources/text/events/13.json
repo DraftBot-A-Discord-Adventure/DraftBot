@@ -9,7 +9,7 @@
 	"possibilities": {
 		"🏠": {
 			"translations": {
-				"fr": "Aller à l’auberge.",
+				"fr": "Aller à l'auberge.",
 				"en": "Go to the inn."
 			},
 			"issues": [
@@ -59,7 +59,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Il n’y a rien d’intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
+						"fr": "Il n'y a rien d'intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
 						"en": "There's nothing interesting in this forge... You quickly leave the place and continue on your way."
 					},
 					"lostTime": 0,

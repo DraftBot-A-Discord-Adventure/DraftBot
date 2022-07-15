@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque énergique",
+			"namePlural": "Attaques énergiques",
+			"description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin."
+		},
+		"en": {
+			"name": "Energetic attack",
+			"namePlural": "Energetic attacks",
+			"description": "Half of the damage of this attack is restored to the user in health."
+		}
+	},
+	"emote": "⚡",
+	"missionVariant": 11
+}

@@ -10,5 +10,12 @@
 	"health": 100,
 	"fightPoint": 350,
 	"price": 15200,
-	"classgroup": 3
+	"classGroup": 3,
+	"fightActionsIds": [
+		"simpleAttack",
+		"ramAttack",
+		"chargeUltimateAttack",
+		"shieldAttack",
+		"divineAttack"
+	]
 }

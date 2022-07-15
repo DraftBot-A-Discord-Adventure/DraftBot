@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque puissante",
+			"namePlural": "Attaques puissantes",
+			"description": "Cette attaque a 25 % de chance de faire +50% de dégâts, au prix d’un étourdissement de l’attaquant. Après 3 utilisations, les dégâts de l’attaque sont réduits de 70%."
+		},
+		"en": {
+			"name": "Powerful Attack",
+			"namePlural": "Powerful Attacks",
+			"description": "This attack has 25% chance to do +50% damage, at the cost of a stun. After 3 uses, the damage is reduced by 70%."
+		}
+	},
+	"emote": "\uD83E\uDE93",
+	"missionVariant": 18
+}

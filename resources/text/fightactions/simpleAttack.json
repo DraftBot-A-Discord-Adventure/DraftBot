@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque simple",
+			"namePlural": "Attaques simples",
+			"description": "Une attaque simple."
+		},
+		"en": {
+			"name": "Simple attack",
+			"namePlural": "Simple attacks",
+			"description": "A simple attack."
+		}
+	},
+	"emote": "⚔️",
+	"missionVariant": 26
+}

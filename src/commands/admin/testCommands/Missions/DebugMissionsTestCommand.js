@@ -6,18 +6,19 @@ module.exports.commandInfo = {
 	aliases: ["debugm", "debm"],
 	commandFormat: "",
 	messageWhenExecuted: "",
-	description: "Affiche des informations sur vos missions"
+	description: "Affiche des informations sur vos missions",
+	commandTestShouldReply: true
 };
 
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Message} message - Message from the discord server
+ * @param interaction
  * @return {String} - The successful message formatted
  */
-const debugMissionsTestCommand = async (language, message) => {
+const debugMissionsTestCommand = async (language, interaction) => {
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
@@ -34,16 +35,18 @@ const debugMissionsTestCommand = async (language, message) => {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
 			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
 				entity.Player.MissionSlots[i].missionVariant, language) +
-				" (id: " + entity.Player.MissionSlots[i].missionId +
-				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
-				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
-				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
-				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never") +
-				"\n-> Campaign only: " + entity.Player.MissionSlots[i].Mission.campaignOnly + "\n\n";
+				` (id: ${entity.Player.MissionSlots[i].missionId}
+				)\n-> ID DB: ${entity.Player.MissionSlots[i].id}
+				\n-> Variant: ${entity.Player.MissionSlots[i].missionVariant}
+				\n-> Number done: ${entity.Player.MissionSlots[i].numberDone}
+				\n-> Objective: ${entity.Player.MissionSlots[i].missionObjective}
+				\n-> Expiration date: ${entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never"}
+				\n-> Campaign only: ${entity.Player.MissionSlots[i].Mission.campaignOnly}
+				\n-> Save blob: ${entity.Player.MissionSlots[i].saveBlob}\n\n`;
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);
-	message.channel.send({embeds: [embed]});
+	return embed;
 };
 
 module.exports.execute = debugMissionsTestCommand;

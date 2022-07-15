@@ -9,6 +9,11 @@
 	"speed": 40,
 	"health": 10,
 	"fightPoint": -25,
-	"price": 200,
-	"classgroup": 0
+	"price": 20,
+	"classGroup": 0,
+	"fightActionsIds": [
+		"quickAttack",
+		"viciousAttack",
+		"confusionAttack"
+	]
 }

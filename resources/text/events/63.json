@@ -1,0 +1,290 @@
+{
+	"map_location_ids": [
+		6
+	],
+	"translations": {
+		"fr": "🦹 Après un certain temps, vous arrivez enfin dans le village de Boug-Coton où une rumeur cours que des créatures maléfiques sont à l'œuvre... Après avoir enquêté sur les lieux pendant quelques jours, vous trouvez enfin une piste. Les témoignages des habitants font état de bruits étranges et des silhouettes noires encapuchonnées ont été aperçues entrant et sortant du sous-sol d'un grenier à grains. Il semblerait qu'un sombre rituel soit en cours de préparation...",
+		"en": "🦹 After some time, you finally arrive at Boug-Coton village where some supposed unholy creatures or cultists are at work... After investigating the place for a couple of days, you finally find a lead. There are reports of weird sounds and sightings of black hooded figures entering and leaving the granary's basement. It seems these men, heretics, are to prepare a dark ritual in a basement beneath the granary."
+	},
+	"possibilities": {
+		"⚔️": {
+			"translations": {
+				"fr": "Affronter les silhouettes",
+				"en": "Face the cultists"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous rendez dans le sous-sol du grenier et tombez nez à nez avec des personnages en robe noire se tenant en cercle. Couverts de de plumes et du sang partout. Alors que vous essayez d'en frapper un, vous hésitez. Ces hommes ne sont que d'ordinaires parieurs de combats de coqs et non des bêtes. Mais les hommes vous remarquent, et par peur, se liguent contre vous, vous renverse et prennent rapidement la fuite.",
+						"en": "Some black robed figures are standing in a circle with feathers and blood everywhere. When attempting to strike one down, you hesitate. As these men are just ordinary cockfight betters and no cultists. But the men notice you , and out of fear, all gang up on you, bringing you down and afterwards legging it."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":confounded:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "En entrant dans la pièce, une mortifiante odeur de pourriture vous submerge. Du sang et des détritus sont répandus dans toute la pièce et une sorte de brume rouge se propage. Tout a probablement commencé à pourrir il y a plusieurs jours. Vous ne supportez ni la vue ni l'odeur et vous fuyez l'endroit avec un sentiment d'écoeurement profond.",
+						"en": "Upon entering the room a stench of mortifying rot washes over you. Blood and gore is spread all around the room and some sort of red mist creeps around. Everything probably began to rot days ago. You can't stand the sight nor smell and flee from the place feeling sickened to the core."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sick:",
+					"money": 0,
+					"experience": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "En ouvrant la porte, vous découvrez trois formes vêtues de noir sur le point de sacrifier une jeune fille. Vous dégainez rapidement votre lame et abattez les coupables. En jetant la lame tachée de sang de côté, vous sauvez la demoiselle en détresse et la faites sortir. Le lendemain, vous êtes célébré comme un héros et un protecteur du mal.",
+						"en": "When opening the door, you find three black robed shapes about to sacrifice a maiden. You quickly draw your blade and cut these unworthy sub-humans down. Casting the blood stained blade aside, you rescue the damsel in distress and get her outside. The next day, you are celebrated as a hero and protector from evil."
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 600,
+					"experience": 125,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "En descendant les escaliers, vous vous retrouvez entouré de statues en bois aux formes étranges, tordues dans une attitude grossière, de mystérieuses horreurs faites de bois. Mais il n'y a personne. Après avoir enquêté dans la pièce effrayante, vous trouvez une boîte avec quelque chose à l'intérieur...",
+						"en": "Upon entering the downstairs', you find yourself surrounded by oddly shaped wooden statues, twisted in some crude demeanour, horrors of the unknown made of wood. But there are no cultists. After investigating the creepy room, you find a box with something inside..."
+					},
+					"lostTime": 45,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 325,
+					"item": true
+				}
+			]
+		},
+		"😈": {
+			"translations": {
+				"fr": "Tenter de retrouver les silhouettes afin de les aider.",
+				"en": "Try to find the cultists to help them."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous trouvez des personnages vêtus de noir dans ledit sous-sol. Il semble qu'il ne s'agisse pas de bêtes, mais de gens ordinaires qui parient sur des combats de coqs. Vous les rejoignez et pariez sur le coq rouge, qui, au final, a perdu. Ce qui vous rendra plus léger de quelques pièces.",
+						"en": "You find some black clothed figures in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the red painted gamecock, which, in the end, lost. Rendering you a few coins lighter."
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": -165,
+					"experience": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Vous trouvez des personnages vêtus de noir dans ledit sous-sol. Il semble qu'il ne s'agisse pas de bêtes, mais de gens ordinaires qui parient sur des combats de coqs. Vous les rejoignez et pariez sur le coq bleu, qui a gagné. Plus riche de quelques pièces, vous laissez les hommes à leurs jeux et vous partez.",
+						"en": "You find some black clothed figures in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the blue painted gamecock, which actually won in the end. A few coins richer, you leave the men to their games and depart."
+					},
+					"lostTime": 30,
+					"health": 15,
+					"effect": ":clock2:",
+					"money": 165,
+					"experience": 325,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous rencontrez 4 hommes encapuchonnés de noir dans le sous-sol. Après les avoir convaincus de vous laisser vous joindre à eux, ils révèlent leur projet de sacrifier la force vitale des habitants en l'honneur d'un démon qu'ils vénèrent. Espérant tirer profit de leur savoir, vous répondez être heureux de participer. Vous et les bêtes sauvages que vous venez de rencontrer sacrifiez une femme et quelques animaux. De plus, vous répandez leurs entrailles dans toute la pièce. Mais rien ne se passe. Après avoir perdu votre temps, vous partez, furieux...",
+						"en": "You meet 4 black hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' life force to a Devil they worship, which you happily help with. You and the cultists sacrifice a girl and some animals. In addition you spread their innards all around the room. But nothing happens. After wasting your time you angrily stomp away..."
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 25,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous rencontrez 4 hommes encapuchonnés de noir dans le sous-sol. Après les avoir convaincus de vous laisser vous joindre à eux, ils révèlent leur projet de sacrifier la force vitale des habitants en l'honneur d'un démon qu'ils vénèrent. Espérant tirer profit de leur savoir, vous répondez être heureux de participer. Vous et les bêtes sauvages que vous venez de rencontrer sacrifiez une femme et quelques animaux. De plus, vous répandez leurs entrailles dans toute la pièce. Mais rien ne se passe. Ce n'est que lorsque vous ressortez de la pièce que vous tombez nez à nez avec des gardes...",
+						"en": "You meet 4 black hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' life force to a devil, which you happily help with. You are about to sacrifice a maiden, when suddenly a load of guards swarm you. They apprehend you and the others, strip you down, and throw you in jail."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":lock:",
+					"money": 0,
+					"experience": 0,
+					"item": false
+				}
+			]
+		},
+		"🔊": {
+			"translations": {
+				"fr": "Révéler à tous ce qu'il en est",
+				"en": "Tell everyone about it"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Sans le vérifier vous-même, vous commencez à courir dans le village comme un fou, en hurlant à tout le monde qu'ils vont mourir s'ils restent. Une panique générale s'ensuit et tout le monde commence à quitter le périmètre. Mais au bout d'un certain temps, rien ne se passe et certains ne sont pas très contents de votre mauvaise farce. Ils se liguent contre vous, vous frappent, et vous volent.",
+						"en": "Without checking it out yourself, you start running around the village like a madman, telling everyone that they would die if they stayed. A wide spread panic ensues and everyone starts leaving the perimeter. But after some time nothing happens and some aren't very pleased with your wicked prank. They gang up on you, beat you up, and rob you."
+					},
+					"lostTime": 0,
+					"health": -45,
+					"effect": ":smiley:",
+					"money": -250,
+					"experience": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Après une courte enquête, vous apportez aux gardes locaux la localisation des malfaiteurs. Ils suivent votre conseil et, après quelques minutes, un autre garde s'approche de vous. Il semble que des hérétiques étaient sur le point de tuer une jeune fille et, grâce à votre conseil, elle a été sauvée. Il vous tend une petite pochette avant de vous serrer la main.",
+						"en": "You tell the guards that there are some evil doers hiding beneath the granary plotting something. They follow up on your tip and investigate. Some minutes pass and another guard approaches you. It seems there were some heretics about to kill a fair maiden and, thanks to your hint, she was saved. He hands you a small pouch, shakes your hand, and departs afterwards."
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 300,
+					"experience": 125,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Après avoir annoncé à tout le monde le sombre malheur qui s'apprête à frapper le village, chacun remballe ses affaires et reste juste à l'extérieur dans la forêt. Quand soudain un tremblement de terre se produit et la panique s'installe. Vous aidez les gardes à calmer les gens, qui, après un certain temps, se calment. On vous remercie chaleureusement pour l'avertissement.",
+						"en": "After telling everyone about the dark misfortune that is about to hit the village, everyone packs up their stuff and stays just outside of it in the forest. When suddenly an earthquake hits and panic ensues. You help the guards with calming the masses, which, after some time, quiet down. You are thanked for the warning and given some coin."
+					},
+					"lostTime": 60,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 450,
+					"experience": 125,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous tentez de convaincre tout le monde qu'ils sont en danger, mais les gens ne veulent rien savoir et vous ignorent tout simplement. Vous essayez pendant plusieurs heures, et enfin, décidez de les laisser. Vous continuez votre voyage sans vous soucier des gens bornés de ce village.",
+						"en": "You attempt to convince everyone that they are in danger, but the folks are having none of it and simply ignore you. You try for several hours and then decide to let it rest. Continuing on your journey without a care about the stubborn people from the village."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 25,
+					"item": false
+				}
+			]
+		},
+		"🏃": {
+			"translations": {
+				"fr": "Partir d'ici rapidement",
+				"en": "Get quickly out of there"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Même après avoir découvert ces sombres machinations, vous décidez d'abandonner les gens sans défense et de les laisser à leur sort.",
+						"en": "Even after uncovering the dark machinations you decide to abandon the helpless folks and leave them to their demise."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"money": 0,
+					"experience": 150,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous partez en courant, sans savoir quand le village entier sera avalé par la mort si il l'est. Dans votre fuite précipitée, vous trébuchez et tombez dans un fossé.",
+						"en": "You sprint out of there, unknowing when the whole village is swallowed by death. In your hasty escape, you trip and fall down a ditch."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":confounded:",
+					"money": 0,
+					"experience": 10,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Après avoir quitté le village en courant, vous faites une courte pause pour reprendre votre souffle. Ce faisant, vous êtes approché par des personnages armés et vêtus de noir. On dirait qu'ils n'ont pas aimé vous voir fouiner dans le village. Ils sortent leur armes et attaquent. Vous prenant au dépourvu et épuisé, ils vous battent jusqu'à l'inconscience.",
+						"en": "After dashing out of the village you take a short rest to catch your breath. While doing so, you are approached by some armed black robed figures. It seems they didn't like you snooping around the village. They draw their arms and attack. Catching you off guard and exhausted, they beat you unconscious."
+					},
+					"lostTime": 0,
+					"health": -45,
+					"effect": ":dizzy_face:",
+					"money": 0,
+					"experience": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous réussissez à sortir vivant de ce maudit village. Après un certain temps, vous tombez sur une belle parcelle de terre vierge. Vous pouvez voir une chute d'eau et de multiples animaux carnivores apprivoisés. Vous décidez de méditer sous le flot de l'eau qui tombe. Après une heure, vous vous sentez redynamisé et continuez votre voyage.",
+						"en": "You make it out of the cursed village alive. After some time, you stumble upon a beautiful piece of untouched land. You can see a waterfall and multiple tame carnivores. You decide to commune with nature and meditate under the stream of falling water. After an hour you feel energized and continue your journey."
+					},
+					"lostTime": 60,
+					"health": 50,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 225,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🎆 Vous avez choisi de simplement regarder les feux d'artifice et de rester pour voir le village tomber dans le désespoir, appuyé contre un arbre juste à l'extérieur du village. Mais même après minuit, rien ne s'est passé. Il semble que ces prétendus bêtes ne soient qu'une imposture et vous partez.",
+						"en": "🎆 You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed \"cultist\" are just a fraud and you take your leave."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 25,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "🍺 Vous décidez de surveiller le grenier depuis la taverne locale, mais vous vous laissez distraire par une délicieuse bière. Vous êtes ivre mort et perdez vos esprits. En vous réveillant, vous remarquez qu'ils ont simplement jeté votre corps inconscient sur la route et que vous avez quelques pièces de monnaie en moins.",
+						"en": "🍺 You decide to watch the granary from the local tavern, but get distracted by some delicious ale and beer. You get black out drunk and lose your spirits. Upon waking up, you notice that they simply tossed your unconscious body onto the road and that you are a few coins lighter."
+					},
+					"lostTime": 0,
+					"health": -5,
+					"effect": ":zany_face:",
+					"money": -75,
+					"experience": 0,
+					"item": false,
+					"tags": [
+						"drinkAlcohol"
+					]
+				},
+				{
+					"translations": {
+						"fr": "🗯️ Décidant de ne rien faire, vous entrez dans la taverne locale et louez une chambre pour la nuit. Mais pendant votre sommeil, des personnages vêtus de noir vous attaquent, vous frappent pour vous soumettre et vous voler. Ils vous laissent en sang sur le sol et vous avertissent de ne plus jamais fouiner dans leurs affaires...",
+						"en": "🗯️ Deciding not to do anything you enter the local tavern and rent a room for the night. But during your slumber, black clothed figures attack you, beating you into submission and robbing you. They leave you bleeding on the floor and warn you to never snoop around in their affairs again, or else..."
+					},
+					"lostTime": 0,
+					"health": -30,
+					"effect": ":smiley:",
+					"money": -100,
+					"experience": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "💡 Puisque vous êtes déjà sur place, réflexion faite : pourquoi ne pas aller acheter des objets ? Vous flânez dans le marché local, et vous arrêtez chez le forgeron et armurier local. Au bout d'un certain temps, vous trouvez quelque chose.",
+						"en": "💡 Since you are already there, you think to yourself, why not go buy some supplies? You wander around the local market, visit the local black- and armour smith. After some time, you actually find something."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": -50,
+					"experience": 325,
+					"item": true
+				}
+			]
+		}
+	}
+}

@@ -68,7 +68,6 @@ class DBL {
 		voter.Player.topggVoteAt = new Date();
 		voter.Player.save();
 		await draftBotClient.shard.broadcastEval((client, context) => {
-			console.log(require("core/DBL"));
 			require("core/DBL")
 				.announceVoteAndGiveRole(client, context)
 				.then();

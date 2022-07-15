@@ -14,9 +14,9 @@
 				"vous trouvez une petite ferme avec un feu de cheminée récemment éteint, vous vous dépêchez de voler quelques légumes avant que les propriétaires ne reviennent et vous les mangez. Vous gagnez **{health} :heart:**.",
 				"vous rencontrez un moine avec qui vous discutez, celui-ci impressionné par votre quête de la princesse décide de vous dédier une prière. Vous gagnez **{health} :heart:**.",
 				"vous trouvez quelques fraises des bois ! Après vous être régalé, vous poursuivez votre route. Vous gagnez **{health} :heart:**.",
-				"vous apercevez un paquet abandonné au sol, vous l’ouvrez et y découvrez des vivres que vous mangez avant de reprendre votre route. Vous gagnez **{health} :heart:**.",
+				"vous apercevez un paquet abandonné au sol, vous l'ouvrez et y découvrez des vivres que vous mangez avant de reprendre votre route. Vous gagnez **{health} :heart:**.",
 				"vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{health} :heart:**.",
-				"vous croisez un vieillard qui dit posséder un élixir qu’il serait prêt à vous céder gratuitement. Curieux, vous l’acceptez et le buvez. Vous gagnez **{health} :heart:**.",
+				"vous croisez un vieillard qui dit posséder un élixir qu'il serait prêt à vous céder gratuitement. Curieux, vous l'acceptez et le buvez. Vous gagnez **{health} :heart:**.",
 				"vous trouvez une gourde d'eau dans une charrette abandonnée. Vous buvez l'eau et vous vous sentez mieux. Vous gagnez **{health} :heart:**"
 			]
 		},
@@ -42,7 +42,7 @@
 		}
 	},
 	"rarity": 3,
-	"emote": ":heart: "
+	"emote": ":heart:"
 }
 
 

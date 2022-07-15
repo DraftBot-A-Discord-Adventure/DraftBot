@@ -155,7 +155,7 @@
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
-			"missionObjective": 15,
+			"missionObjective": 20,
 			"gemsToWin": 1,
 			"xpToWin": 50,
 			"moneyToWin": 0
@@ -171,7 +171,7 @@
 		{
 			"missionId": "rankedFight",
 			"missionVariant": 0,
-			"missionObjective": 1,
+			"missionObjective": 5,
 			"gemsToWin": 4,
 			"xpToWin": 250,
 			"moneyToWin": 0
@@ -225,10 +225,10 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "fightAttacks",
+			"missionId": "rankedFight",
 			"missionVariant": 0,
-			"missionObjective": 5,
-			"gemsToWin": 1,
+			"missionObjective": 10,
+			"gemsToWin": 2,
 			"xpToWin": 100,
 			"moneyToWin": 0
 		},
@@ -275,7 +275,7 @@
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
-			"missionObjective": 25,
+			"missionObjective": 40,
 			"gemsToWin": 1,
 			"xpToWin": 50,
 			"moneyToWin": 0
@@ -305,11 +305,11 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "finishWithAttack",
-			"missionVariant": 5,
-			"missionObjective": 1,
-			"gemsToWin": 4,
-			"xpToWin": 200,
+			"missionId": "rankedFight",
+			"missionVariant": 0,
+			"missionObjective": 15,
+			"gemsToWin": 3,
+			"xpToWin": 125,
 			"moneyToWin": 0
 		},
 		{
@@ -318,6 +318,86 @@
 			"missionObjective": 1,
 			"gemsToWin": 2,
 			"xpToWin": 100,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "meetDifferentPlayers",
+			"missionVariant": 0,
+			"missionObjective": 5,
+			"gemsToWin": 3,
+			"xpToWin": 80,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "buyUltimateSoups",
+			"missionVariant": 0,
+			"missionObjective": 2,
+			"gemsToWin": 1,
+			"xpToWin": 120,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "sellOrTradePet",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 5,
+			"xpToWin": 175,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "fightHealthPercent",
+			"missionVariant": 20,
+			"missionObjective": 1,
+			"gemsToWin": 7,
+			"xpToWin": 250,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "exploreDifferentPlaces",
+			"missionVariant": 0,
+			"missionObjective": 10,
+			"gemsToWin": 4,
+			"xpToWin": 150,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "drinkPotionWithoutEffect",
+			"missionVariant": 0,
+			"missionObjective": 3,
+			"gemsToWin": 1,
+			"xpToWin": 25,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "chooseClassTier",
+			"missionVariant": 2,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 100,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "fromPlaceToPlace",
+			"missionVariant": 27286600,
+			"missionObjective": 1,
+			"gemsToWin": 6,
+			"xpToWin": 120,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "guildDailyFromSomeoneElse",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 3,
+			"xpToWin": 85,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "drinkPotionRarity",
+			"missionVariant": 4,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 55,
 			"moneyToWin": 0
 		}
 	]

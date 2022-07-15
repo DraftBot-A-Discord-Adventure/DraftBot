@@ -1,10 +1,6 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../utils/RandomUtils";
+import moment = require("moment");
 
 export class MapLink extends Model {
 	public readonly id!: number;
@@ -61,7 +57,7 @@ export class MapLinks {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	MapLink.init({
 		id: {
 			type: DataTypes.INTEGER,

@@ -1,11 +1,7 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Data} from "../Data";
 import * as fs from "fs";
+import moment = require("moment");
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -56,7 +52,7 @@ export class Pets {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Pet.init({
 		id: {
 			type: DataTypes.INTEGER,

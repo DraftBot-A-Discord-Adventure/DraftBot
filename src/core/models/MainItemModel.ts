@@ -1,8 +1,34 @@
 import {DataTypes} from "sequelize";
 import {Data} from "../Data";
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {GenericItemModel} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
+
+type Value = {
+	maxValue: number,
+	value: number,
+	typeValue: string
+}
+
+type MaxStatsValues = { attack: number, defense: number, speed: number }
+
+/**
+ * Get a stat value of an item into its string form
+ * @param tr
+ * @param values
+ * @param value
+ */
+function getStringValueFor(tr: TranslationModule, values: string[], value: Value) {
+	if (value.value !== 0) {
+		values.push(tr.format(value.typeValue, {
+			value: value.maxValue >= value.value ? value.value : tr.format("nerfDisplay",
+				{
+					old: value.value,
+					max: value.maxValue
+				})
+		}));
+	}
+}
 
 export abstract class MainItemModel extends GenericItemModel {
 
@@ -19,7 +45,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	public readonly speed!: number;
 
 
-	protected toFieldObject(language: string, maxStatsValue: number): EmbedField {
+	public toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
@@ -33,7 +59,7 @@ export abstract class MainItemModel extends GenericItemModel {
 		};
 	}
 
-	public toString(language: string) {
+	public toString(language: string): string {
 		const tr = Translations.getModule("items", language);
 		if (this.id === 0) {
 			return this.getName(language);
@@ -46,49 +72,50 @@ export abstract class MainItemModel extends GenericItemModel {
 			});
 	}
 
-	protected multiplier(): number {
-		return Data.getModule("items").getNumberFromArray("mapper", this.rarity);
-	}
-
-	protected getValues(language: string, maxStatsValue: number | null = null): string {
-		const values = [];
-		const tr = Translations.getModule("items", language);
-
-		if (this.getAttack() !== 0) {
-			values.push(tr.format("attack", {
-				attack: this.getAttack()
-			}));
-		}
-
-		if (this.getDefense() !== 0) {
-			if (isNaN(maxStatsValue) || !maxStatsValue) {
-				maxStatsValue = Infinity;
-			}
-			const defenseDisplay = maxStatsValue >= this.getDefense() ? this.getDefense() : tr.format("nerfDisplay",
-				{
-					old: this.getDefense(),
-					max: maxStatsValue
-				});
-			values.push(tr.format("defense", {
-				defense: defenseDisplay
-			}));
-		}
-
-		if (this.getSpeed() !== 0) {
-			values.push(tr.format("speed", {
-				speed: this.getSpeed()
-			}));
-		}
-
-		return values.join(" ");
-	}
-
 	public getSpeed(): number {
 		let before = 0;
 		if (this.rawSpeed > 0) {
 			before = 1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawSpeed);
 		}
 		return Math.round(before * 0.5) + this.speed;
+	}
+
+	/**
+	 * Get the multiplier for the item depending on its rarity
+	 * @protected
+	 */
+	protected multiplier(): number {
+		return Data.getModule("items").getNumberFromArray("mapper", this.rarity);
+	}
+
+	/**
+	 * Get the string for the stats of the main item
+	 * @param language
+	 * @param maxStatsValue
+	 * @protected
+	 */
+	protected getValues(language: string, maxStatsValue: MaxStatsValues = null): string {
+		if (!maxStatsValue) {
+			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
+		}
+		const values: string[] = [];
+		const tr = Translations.getModule("items", language);
+		getStringValueFor(tr, values, {
+			value: this.getAttack(),
+			maxValue: maxStatsValue.attack,
+			typeValue: "attack"
+		});
+		getStringValueFor(tr, values, {
+			value: this.getDefense(),
+			maxValue: maxStatsValue.defense,
+			typeValue: "defense"
+		});
+		getStringValueFor(tr, values, {
+			value: this.getSpeed(),
+			maxValue: maxStatsValue.speed,
+			typeValue: "speed"
+		});
+		return values.join(" ");
 	}
 }
 

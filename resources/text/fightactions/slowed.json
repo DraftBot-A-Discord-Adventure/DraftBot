@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"active": "est ralenti.",
+			"new": "est ralenti. `Vitesse : - 90%`",
+			"inactive": "n'est plus ralenti."
+		},
+		"en": {
+			"active": "is slowed.",
+			"new": "is slowed. `Speed: - 90%`",
+			"inactive": "is no longer slowed"
+		}
+	},
+	"emote": "\uD83E\uDDA5",
+	"missionVariant": 27
+}

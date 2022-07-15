@@ -8,17 +8,11 @@
   "//BADGE_MANAGER_ROLE": "Put ids of the persons that will be able to manage badges separated by a comma",
   "BADGE_MANAGER_ROLE": "",
 
-  "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
-  "SUPPORT_ROLE": "",
-
   "//CONTRIBUTOR_ROLE": "Put id of the contributors role",
   "CONTRIBUTOR_ROLE": "",
 
   "//CONTRIBUTORS_CHANNEL": "Put id of the contributors channel",
   "CONTRIBUTORS_CHANNEL": "",
-
-  "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
-  "BOT_OWNER_PREFIX": "",
 
   "//MAIN_SERVER_ID": "Put id of the discord server where the support will be done",
   "MAIN_SERVER_ID": "",
@@ -32,8 +26,8 @@
   "//ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in english",
   "ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "",
 
-  "//SUPPORT_CHANNEL_ID": "Put id of user where bot's received dms will be sent",
-  "SUPPORT_CHANNEL_ID": "",
+  "//DM_MANAGER_ID": "Put id of user where bot's received dms will be sent",
+  "DM_MANAGER_ID": "",
 
   "//ENGLISH_CHANNEL_ID": "Put id of a channel where the bot will always speak in english put 0 here to disable the feature",
   "ENGLISH_CHANNEL_ID": "",

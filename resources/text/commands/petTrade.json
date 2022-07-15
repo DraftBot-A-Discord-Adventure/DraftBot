@@ -1,7 +1,6 @@
 {
 	"translations": {
 		"fr": {
-			"needMention": "Merci de mentionner le joueur avec qui vous voulez échanger.",
 			"tradeTitle": "Échange d'animaux",
 			"tradeDescription": "{trader1} propose à {trader2} d'échanger leurs animaux. Chaque participant doit cliquer sur :white_check_mark: pour accepter ou sur :x: pour annuler.",
 			"cantTradeSelf": "Vous ne pouvez pas échanger avec vous-même !",
@@ -9,10 +8,9 @@
 			"tradeCanceledTime": "L'échange a été annulé car un des participants n'a pas répondu !",
 			"tradeCanceled": "{trader} a annulé l'échange !",
 			"tradeSuccess": "L'échange a été effectué avec succès !",
-			"warningTradeReset": "⚠️ Un familier échangé redeviendra sauvage !"
+			"warningTradeReset": "⚠️ Un familier échangé perdra de l'affection !"
 		},
 		"en": {
-			"needMention": "Please mention the player you want to trade with.",
 			"tradeTitle": "Trade of pets",
 			"tradeDescription": "{trader1} invites {trader2} to trade their pets. Each participant must click on :white_check_mark: to accept or on :x: to cancel.",
 			"cantTradeSelf": "You can't trade with yourself!",
@@ -20,7 +18,7 @@
 			"tradeCanceledTime": "The trade has been canceled because one of the participants didn't answered!",
 			"tradeCanceled": "{trader} canceled the trade!",
 			"tradeSuccess": "Trade done successfully!",
-			"warningTradeReset": "⚠️ A traded pet will become savage!"
+			"warningTradeReset": "⚠️ A traded pet will lose affection!"
 		}
 	}
 }

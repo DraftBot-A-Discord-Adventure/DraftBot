@@ -5,9 +5,10 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
-import {TextChannel} from "discord.js";
+import {TextBasedChannel} from "discord.js";
 import {MissionsController} from "../missions/MissionsController";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
+import {Entity} from "./Entity";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -58,7 +59,7 @@ export class PetEntity extends Model {
 		return this.PetModel["emote" + (this.sex === "m" ? "Male" : "Female") as keyof Pet];
 	}
 
-	public displayName(language: string) {
+	public displayName(language: string): string {
 		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(language);
 		return this.getPetEmote() + " " + displayedName;
 	}
@@ -117,10 +118,32 @@ export class PetEntity extends Model {
 
 	public getLoveLevelNumber(): number {
 		return this.lovePoints === Constants.PETS.MAX_LOVE_POINTS
-			? 5 : this.lovePoints > Constants.PETS.LOVE_LEVELS[2]
-				? 4 : this.lovePoints > Constants.PETS.LOVE_LEVELS[1]
-					? 3 : this.lovePoints > Constants.PETS.LOVE_LEVELS[0]
-						? 2 : 1;
+			? Constants.PETS.LOVE_LEVEL.TRAINED : this.lovePoints > Constants.PETS.LOVE_LEVELS[2]
+				? Constants.PETS.LOVE_LEVEL.TAMED : this.lovePoints > Constants.PETS.LOVE_LEVELS[1]
+					? Constants.PETS.LOVE_LEVEL.FEARFUL : this.lovePoints > Constants.PETS.LOVE_LEVELS[0]
+						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
+	}
+
+	public async changeLovePoints(amount: number, entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
+		this.lovePoints += amount;
+		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
+			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
+		}
+		else if (this.lovePoints < 0) {
+			this.lovePoints = 0;
+		}
+		await MissionsController.update(entity, channel, language, {
+			missionId: "tamedPet",
+			params: {loveLevel: this.getLoveLevelNumber()}
+		});
+		await MissionsController.update(entity, channel, language, {
+			missionId: "trainedPet",
+			params: {loveLevel: this.getLoveLevelNumber()}
+		});
+	}
+
+	public isFeisty(): boolean {
+		return this.getLoveLevelNumber() === Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
 	private getNickname(language: string): string {
@@ -132,22 +155,6 @@ export class PetEntity extends Model {
 		return Translations.getModule("models.pets", language).get(sex)
 			+ " "
 			+ Data.getModule("models.pets").getString(sex + "Emote");
-	}
-
-	public async changeLovePoints(amount: number, discordId: string, channel: TextChannel, language: string): Promise<void> {
-		this.lovePoints += amount;
-		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
-			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
-		}
-		else if (this.lovePoints < 0) {
-			this.lovePoints = 0;
-		}
-		await MissionsController.update(discordId, channel, language, "tamedPet", 1, {loveLevel: this.getLoveLevelNumber()});
-		await MissionsController.update(discordId, channel, language, "trainedPet", 1, {loveLevel: this.getLoveLevelNumber()});
-	}
-
-	public isFeisty(): boolean {
-		return this.getLoveLevelNumber() === 0;
 	}
 }
 
@@ -173,11 +180,11 @@ export class PetEntities {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
 		const levelTier = "" + Math.floor(level / 10);
 		const data = Data.getModule("models.pets");
-		let p = RandomUtils.draftbotRandom.realZeroToOneInclusive();
+		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 		let rarity;
 		for (rarity = 1; rarity < 6; ++rarity) {
-			p -= data.getNumber("probabilities." + levelTier + "." + rarity);
-			if (p <= 0) {
+			randomTier -= data.getNumber("probabilities." + levelTier + "." + rarity);
+			if (randomTier <= 0) {
 				break;
 			}
 		}
@@ -195,14 +202,14 @@ export class PetEntities {
 			},
 			order: [Sequelize.fn("RANDOM")]
 		});
-		const r = PetEntity.build({
+		const petEntity = PetEntity.build({
 			petId: pet.id,
 			sex: sex,
 			nickname: null,
 			lovePoints: Constants.PETS.BASE_LOVE
 		});
-		r.PetModel = pet;
-		return r;
+		petEntity.PetModel = pet;
+		return petEntity;
 	}
 
 	static async generateRandomPetEntityNotGuild(): Promise<PetEntity> {
@@ -251,7 +258,7 @@ export class PetEntities {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	PetEntity.init({
 		id: {
 			type: DataTypes.INTEGER,

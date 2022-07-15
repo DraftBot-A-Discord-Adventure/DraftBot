@@ -1,11 +1,10 @@
 import {registerFormat} from "archiver";
+import {DropboxBackup} from "./DropboxBackup";
+import {LocalBackup} from "./LocalBackup";
+import {botConfig} from "../bot";
 import archiver = require("archiver");
 import fs = require("fs");
 import path = require("path");
-import {DropboxBackup} from "./DropboxBackup";
-import {LocalBackup} from "./LocalBackup";
-
-declare const JsonReader: any;
 
 export interface IDraftBotBackup {
 	name: string;
@@ -41,11 +40,11 @@ export class DraftBotBackup {
 	private static BACKUP_TPM_FOLDER = "backups/tmp";
 
 	public static async init() {
-		if (!JsonReader.app.ENABLED_BACKUPS || JsonReader.app.ENABLED_BACKUPS === "") {
+		if (!botConfig.ENABLED_BACKUPS || botConfig.ENABLED_BACKUPS === "") {
 			return;
 		}
 		registerFormat("zip-encryptable", require("archiver-zip-encryptable"));
-		const enabledBackups = JsonReader.app.ENABLED_BACKUPS.split(",");
+		const enabledBackups = botConfig.ENABLED_BACKUPS.split(",");
 		const backupInterfaces = [new DropboxBackup(), new LocalBackup()];
 		for (const backupInterface of backupInterfaces) {
 			if (enabledBackups.includes(backupInterface.name)) {
@@ -61,7 +60,7 @@ export class DraftBotBackup {
 		}
 	}
 
-	public static backupFiles(files: string[], interval: number, archiveBasename: string) {
+	public static backupFiles(files: string[], interval: number, archiveBasename: string): void {
 		if (DraftBotBackup._backupInterfaces.length === 0) {
 			return;
 		}
@@ -79,7 +78,7 @@ export class DraftBotBackup {
 				const zipPath = DraftBotBackup.BACKUP_TPM_FOLDER + "/" + archiveName;
 				const outputZip = fs.createWriteStream(zipPath);
 				let archive;
-				if (!JsonReader.app.BACKUP_ARCHIVE_PASSWORD || JsonReader.app.BACKUP_ARCHIVE_PASSWORD === "") {
+				if (!botConfig.BACKUP_ARCHIVE_PASSWORD || botConfig.BACKUP_ARCHIVE_PASSWORD === "") {
 					archive = archiver("zip", {
 						zlib: {level: 9}
 					});
@@ -89,7 +88,7 @@ export class DraftBotBackup {
 					// @ts-ignore
 					archive = archiver("zip-encryptable", {
 						zlib: {level: 9},
-						password: JsonReader.app.BACKUP_ARCHIVE_PASSWORD
+						password: botConfig.BACKUP_ARCHIVE_PASSWORD
 					});
 				}
 				archive.pipe(outputZip);

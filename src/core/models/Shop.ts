@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import moment = require("moment");
 
 export class Shop extends Model {
@@ -13,7 +9,7 @@ export class Shop extends Model {
 	public createdAt!: Date;
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Shop.init({
 		shopPotionId: {
 			type: DataTypes.INTEGER,

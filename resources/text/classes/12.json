@@ -9,6 +9,11 @@
 	"speed": 20,
 	"health": 70,
 	"fightPoint": 40,
-	"price": 950,
-	"classgroup": 0
+	"price": 95,
+	"classGroup": 0,
+	"fightActionsIds": [
+		"simpleAttack",
+		"quickAttack",
+		"resting"
+	]
 }

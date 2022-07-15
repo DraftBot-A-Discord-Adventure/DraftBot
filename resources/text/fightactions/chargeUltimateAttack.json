@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque ultime",
+			"namePlural": "Attaques ultimes",
+			"description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat."
+		},
+		"en": {
+			"name": "Ultimate attack",
+			"namePlural": "Ultimate attacks",
+			"description": "Requires a turn to charge the attack. If the attacker has less than 45% of its combat points, this attack cannot fail. If the attacker has more than 45% of its combat points, the precision of this attack is 70. This attack can only be used once per player and per combat."
+		}
+	},
+	"emote": "☄️",
+	"missionVariant": 3
+}

@@ -14,19 +14,20 @@ module.exports.commandInfo = {
 		sex: typeVariable.STRING
 	},
 	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
-	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés"
+	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
+	commandTestShouldReply: true
 };
 
 /**
  * Add a pet in your shelter with id and sex given
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const guildPetTestCommand = async (language, message, args) => {
+const guildPetTestCommand = async (language, interaction, args) => {
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	let guild = await Guilds.getById(entity.Player.guildId);
 	if (guild === null) {
@@ -37,7 +38,7 @@ const guildPetTestCommand = async (language, message, args) => {
 		throw new Error("Erreur guildpet : Plus de place dans le shelter !");
 	}
 
-	if (!["m","f"].includes(args[1])) {
+	if (!["m", "f"].includes(args[1])) {
 		throw new Error("Erreur guildpet : sexe invalide.");
 	}
 	const maxIdPet = await Pets.getMaxId();
@@ -54,7 +55,7 @@ const guildPetTestCommand = async (language, message, args) => {
 	const newPet = guild.GuildPets[guild.GuildPets.length - 1];
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
-			petString: await newPet.PetEntity.getPetDisplay(language)
+			petString: newPet.PetEntity.getPetDisplay(language)
 		}
 	);
 };

@@ -1,38 +1,55 @@
 import {Constants} from "../../core/Constants";
-import {Message, TextChannel, User} from "discord.js";
-import {Entities} from "../../core/models/Entity";
-import {Campaign} from "../../core/missions/Campaign";
+import {CommandInteraction} from "discord.js";
+import {Entities, Entity} from "../../core/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
-declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
+import {ICommand} from "../ICommand";
+import {SlashCommandBuilder} from "@discordjs/builders";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
-export const commandInfo = {
-	name: "missions",
-	aliases: ["m", "mission", "quests", "quest","q"],
-	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
-};
-
-const MissionsCommand = async (message: Message, language: string, args: string[]) => {
-	if (await sendBlockedError(message.author, <TextChannel>message.channel, language)) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
-	let [entity] = await Entities.getByArgs(args, message);
-	if (!entity) {
-		[entity] = await Entities.getOrRegister(message.author.id);
+	let entityToLook = await Entities.getByOptions(interaction);
+	if (entityToLook === null) {
+		entityToLook = entity;
 	}
 
-	await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "commandMission");
+	if (interaction.user.id === entityToLook.discordUserId) {
+		await MissionsController.update(entity, interaction.channel, language, {missionId: "commandMission"});
+	}
 	entity = await Entities.getById(entity.id);
 
-	await Campaign.updateCampaignAndSendMessage(entity, <TextChannel> message.channel, language);
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	message.channel.send({ embeds: [
-		await new DraftBotMissionsMessageBuilder(
-			entity.Player,
-			message.author,
-			language
-		).build()
-	]});
-};
+	await MissionsController.checkCompletedMissions(entity, interaction.channel, language);
+	if (entityToLook.discordUserId === entity.discordUserId) {
+		[entityToLook] = await Entities.getOrRegister(entityToLook.discordUserId);
+	}
+	await interaction.reply({
+		embeds: [
+			await new DraftBotMissionsMessageBuilder(
+				entityToLook,
+				interaction.user,
+				language
+			).build()
+		]
+	});
+}
 
-export const execute = MissionsCommand;
+export const commandInfo: ICommand = {
+	slashCommandBuilder: new SlashCommandBuilder()
+		.setName("missions")
+		.setDescription("Displays the missions of a player")
+		.addUserOption(option => option.setName("user")
+			.setDescription("The user you want to see the inventory")
+			.setRequired(false)
+		)
+		.addNumberOption(option => option.setName("rank")
+			.setDescription("The rank of the player you want to see the inventory")
+			.setRequired(false)) as SlashCommandBuilder,
+	executeCommand,
+	requirements: {
+		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+	},
+	mainGuildCommand: false
+};

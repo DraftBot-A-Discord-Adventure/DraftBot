@@ -1,0 +1,48 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rencontrer {objective} joueur{objective>1?s différents:}"
+		},
+		"en": {
+			"desc": "Meet {objective}{objective>1?différent:} player{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		2,
+		5,
+		8
+	],
+	"gems": [
+		1,
+		0,
+		0
+	],
+	"xp": [
+		25,
+		100,
+		175
+	],
+	"money": [
+		35,
+		50,
+		95
+	],
+	"expirations": [
+		24,
+		48,
+		72
+	],
+	"dailyIndexes": [0]
+}

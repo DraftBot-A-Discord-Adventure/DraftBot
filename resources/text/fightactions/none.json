@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"active": "ne peut pas attaquer"
+		},
+		"en": {
+			"active": "cannot attack"
+		}
+	},
+	"emote": "\uD83D\uDEAB",
+	"missionVariant": 14
+}

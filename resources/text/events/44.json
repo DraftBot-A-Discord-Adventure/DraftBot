@@ -27,7 +27,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l’abris pour la nuit.",
+						"fr": "Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l'abris pour la nuit.",
 						"en": "You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soaked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
 					},
 					"lostTime": 180,
@@ -39,7 +39,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous jetez sur la pierre mais vous êtes trop lent. Le pauvre homme sombre rapidement dans la rivière, emporté par le courant. Vous cherchez aux alentours s’il n’a pas laissé des affaires derrière lui. Vous tombez sur un étrange objet qui scintille.",
+						"fr": "Vous vous jetez sur la pierre mais vous êtes trop lent. Le pauvre homme sombre rapidement dans la rivière, emporté par le courant. Vous cherchez aux alentours s'il n'a pas laissé des affaires derrière lui. Vous tombez sur un étrange objet qui scintille.",
 						"en": "You throw yourself on the rock but you are too slow. The poor soul sinks quickly, carried away by the current. You look around to see if he left any things. You find a strange shiny object."
 					},
 					"lostTime": 15,
@@ -71,7 +71,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous regardez nonchalamment l’homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environ pour voir s’il n’a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
+						"fr": "Vous regardez nonchalamment l'homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environ pour voir s'il n'a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
 						"en": "Apathetically, you watch as the man sinks following his rock. You search around to see if he left any things and find a filled moneybag. You leave, satisfied."
 					},
 					"lostTime": 10,
@@ -83,7 +83,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous vous installez confortablement, vous le voyez changer d’avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusque sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d’un chemin désert et inconnu.",
+						"fr": "Alors que vous vous installez confortablement, vous le voyez changer d'avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusque sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d'un chemin désert et inconnu.",
 						"en": "As you lean back comfortably, you see him change his mind and throw his rock aside. While turning around, he notices you and invites you for dinner. Without asking questions about the previous turn of events, you accept and follow him to his cottage. As you start dining your head feels heavy, your vision gets blurred and you fall into a deep slumber. You wake up many hours later on the side of an empty and unknown road."
 					},
 					"lostTime": 360,
@@ -115,7 +115,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous approchez sans un bruit quand soudain une branche rencontre votre jambe. Vous tombez à la renverse sur le suicidaire et l’entraînez dans votre chute fatale vers les tourbillons glacés de la mort.",
+						"fr": "Vous vous approchez sans un bruit quand soudain une branche rencontre votre jambe. Vous tombez à la renverse sur le suicidaire et l'entraînez dans votre chute fatale vers les tourbillons glacés de la mort.",
 						"en": "You approach quietly when you suddenly trip over an unseen fallen branch. You fall forward onto the suicidal man and bring him with you in your fall towards the cold deadly waters."
 					},
 					"lostTime": 0,
@@ -127,7 +127,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous approchez à pas de loup quand votre pied rompt une branche. Pris de peur, le pauvre homme jette la pierre et la suit. Vous vous relevez alors et découvrez une bourse qu’il a laissé derrière lui.",
+						"fr": "Vous vous approchez à pas de loup quand votre pied rompt une branche. Pris de peur, le pauvre homme jette la pierre et la suit. Vous vous relevez alors et découvrez une bourse qu'il a laissé derrière lui.",
 						"en": "You creep behind the man when a step loudly breaks a stick. Afraid, the poor man throws the rock and follow behind. You get up and find a filled moneybag he left behind."
 					},
 					"lostTime": 0,
@@ -144,7 +144,7 @@
 				{
 					"translations": {
 						"fr": "🚶 Vous passez votre chemin, ne voulant pas être impliqué dans la mort de cet homme. Juste à côté, vous tombez sur un objet abandonné qui lui appartenait sûrement.",
-						"en": "🚶 You leave the scene, wanting to have no part in the man’s fate. Nearby, you stumble upon an abandoned object which probably belonged to the bloke."
+						"en": "🚶 You leave the scene, wanting to have no part in the man's fate. Nearby, you stumble upon an abandoned object which probably belonged to the bloke."
 					},
 					"lostTime": 0,
 					"health": 0,

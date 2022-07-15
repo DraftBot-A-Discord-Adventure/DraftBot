@@ -2,6 +2,8 @@ import {EmbedField} from "discord.js";
 import {Translations} from "../Translations";
 import {Model} from "sequelize";
 
+type MaxStatsValues = { attack: number, defense: number, speed: number }
+
 export abstract class GenericItemModel extends Model {
 	public readonly id!: number;
 
@@ -19,14 +21,13 @@ export abstract class GenericItemModel extends Model {
 
 	public createdAt!: Date;
 
-
 	abstract categoryName: string;
 
-	protected abstract toFieldObject(language: string, maxStatsValue: number): EmbedField;
+	public slot: number;
 
-	public abstract toString(language: string, maxStatsValue: number): string;
+	public abstract toString(language: string, maxStatsValue: MaxStatsValues): string;
 
-	public getRarityTranslation(language: string) {
+	public getRarityTranslation(language: string): string {
 		return Translations.getModule("items", language).getFromArray("rarities", this.rarity);
 	}
 
@@ -43,4 +44,6 @@ export abstract class GenericItemModel extends Model {
 	public abstract getCategory(): number;
 
 	public abstract getItemAddedValue(): number;
+
+	public abstract toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField;
 }

@@ -1,10 +1,6 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import Player from "./Player";
+import moment = require("moment");
 
 export class PlayerSmallEvent extends Model {
 	public readonly id!: number;
@@ -46,7 +42,7 @@ export class PlayerSmallEvents {
 		const numberOfSmallEventsDone = player.PlayerSmallEvents.length;
 		const tripDuration = await player.getCurrentTripDuration();
 		let somme = 0;
-		for (let i = 1 ; i <= numberOfSmallEventsDone; i++){
+		for (let i = 1; i <= numberOfSmallEventsDone; i++) {
 			// By Pokegali Le sang (et romain22222 pour sa tentative)
 			// vive la tangente hyperbolique
 			const init = 75 + ((tripDuration - 1) / 2) ** 2;
@@ -60,7 +56,7 @@ export class PlayerSmallEvents {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	PlayerSmallEvent.init({
 		id: {
 			type: DataTypes.INTEGER,

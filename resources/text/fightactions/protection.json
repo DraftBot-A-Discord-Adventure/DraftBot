@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Protection",
+			"namePlural": "Protections",
+			"active": "Se protège.",
+			"fail" : "ne parvient pas à protéger.",
+			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense."
+		},
+		"en": {
+			"name": "Protection",
+			"namePlural": "Protections",
+			"active": "Protects.",
+			"fail" : "doesn't protect.",
+			"description": "Fails if you use this action while you have an alteration of state. The alteration \"protected\" lasts 3 turns and prevents you from being victim of another alteration while providing a 30% boost to your defense."
+		}
+	},
+	"emote": "\uD83D\uDE45\u200D♂️",
+	"missionVariant": 20
+}

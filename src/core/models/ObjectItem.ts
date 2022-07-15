@@ -1,14 +1,13 @@
-import {
-	Sequelize,
-	QueryTypes
-} from "sequelize";
-import fs = require("fs");
+import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {minutesDisplay} from "../utils/TimeUtils";
+import fs = require("fs");
 import moment = require("moment");
+
+type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -17,7 +16,10 @@ export class ObjectItem extends SupportItemModel {
 		return Constants.ITEM_CATEGORIES.OBJECT;
 	}
 
-	getNatureTranslation(language: string, maxStatsValue: number): string {
+	getNatureTranslation(language: string, maxStatsValue: MaxStatsValues = null): string {
+		if (maxStatsValue === null) {
+			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
+		}
 		const tr = Translations.getModule("items", language);
 		if (this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP) {
 			return format(
@@ -28,13 +30,10 @@ export class ObjectItem extends SupportItemModel {
 				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
-			if (isNaN(maxStatsValue)) {
-				maxStatsValue = Infinity;
-			}
-			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
+			const speedDisplay = maxStatsValue.speed >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
 				{
 					old: this.power,
-					max: Math.round(maxStatsValue + this.power / 2)
+					max: maxStatsValue.speed * 2
 				});
 			return format(
 				tr.getFromArray("objects.natures", this.nature),
@@ -70,8 +69,8 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM objects
-		               WHERE rarity = :rarity`;
+                       FROM objects
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -91,7 +90,7 @@ export class ObjectItems {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	ObjectItem.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "objects",

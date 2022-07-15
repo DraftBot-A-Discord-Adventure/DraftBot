@@ -4,8 +4,7 @@ import fs = require("fs");
 import ListFolderResult = files.ListFolderResult;
 import FileMetadataReference = files.FileMetadataReference;
 import SpaceAllocationIndividual = users.SpaceAllocationIndividual;
-
-declare const JsonReader: any;
+import {botConfig} from "../bot";
 
 export class DropboxBackup implements IDraftBotBackup {
 	name = "DROPBOX";
@@ -23,12 +22,12 @@ export class DropboxBackup implements IDraftBotBackup {
 	}
 
 	async create(): Promise<boolean> {
-		if (!JsonReader.app.DROPBOX_TOKEN || JsonReader.app.DROPBOX_TOKEN === "") {
+		if (!botConfig.DROPBOX_TOKEN || botConfig.DROPBOX_TOKEN === "") {
 			console.log("Dropbox access token not set so there will not be any database remote backup");
 			return Promise.resolve(false);
 		}
 		const dropbox = new Dropbox({
-			accessToken: JsonReader.app.DROPBOX_TOKEN
+			accessToken: botConfig.DROPBOX_TOKEN
 		});
 		try {
 			await dropbox.usersGetSpaceUsage();

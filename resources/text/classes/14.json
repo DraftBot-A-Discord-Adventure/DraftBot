@@ -10,5 +10,12 @@
 	"health": 80,
 	"fightPoint": 130,
 	"price": 9800,
-	"classgroup": 2
+	"classGroup": 2,
+	"fightActionsIds": [
+		"simpleAttack",
+		"quickAttack",
+		"heavyAttack",
+		"benediction",
+		"resting"
+	]
 }

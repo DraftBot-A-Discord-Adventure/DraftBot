@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque sabotage",
+			"namePlural": "Attaques sabotages",
+			"description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque."
+		},
+		"en": {
+			"name": "Sabotage attack",
+			"namePlural": "Sabotage attacks",
+			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack."
+		}
+	},
+	"emote": "\uD83D\uDEE0️",
+	"missionVariant": 24
+}

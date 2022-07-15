@@ -83,12 +83,32 @@ export class DataModule {
 		return RandomUtils.draftbotRandom.pick(<number[]> dataObj);
 	}
 
+	public getRandomStringFromArray(path: string): string {
+		const dataObj = this.getDataObject(path, false);
+		if (!dataObj) {
+			return "";
+		}
+		return RandomUtils.draftbotRandom.pick(<string[]> dataObj);
+	}
+
 	public getListSize(path: string): number {
 		return (<unknown[]> this.getDataObject(path)).length;
 	}
 
 	public getObjectFromArray(path: string, index: number): { [key: string]: any } {
 		return (<{ [key: string]: any }[]> this.getDataObject(path))[index];
+	}
+
+	public getObject(path: string): any {
+		return this.getDataObject(path);
+	}
+
+	public getStringArray(path: string): string[] {
+		return <string[]> this.getDataObject(path);
+	}
+
+	public getNumberArray(path: string): number[] {
+		return <number[]> this.getDataObject(path);
 	}
 }
 
@@ -101,5 +121,9 @@ export class Data {
 		const dataModule = new DataModule(module);
 		dataModulesCache[moduleKey] = dataModule;
 		return dataModule;
+	}
+
+	static getKeys(path: string): string[] {
+		return Object.keys(JsonReader[path]);
 	}
 }

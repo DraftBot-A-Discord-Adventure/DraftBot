@@ -1,63 +1,52 @@
-/**
- * Main function of small event
- * @param {module:"discord.js".Message} message
- * @param {"fr"|"en"} language
- * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
- *    The description already contains the emote so you have to get it and add your text
- * @returns {Promise<>}
- */
-import {Message, MessageEmbed} from "discord.js";
+import {CommandInteraction, Message, MessageEmbed} from "discord.js";
 import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
-import {Random} from "random-js";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
 import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
 import {SmallEvent} from "./SmallEvent";
-
-declare const draftbotRandom: Random;
-declare const JsonReader: any;
-declare function format(s: string, replacement: any): string;
+import {format} from "../utils/StringFormatter";
+import {botConfig} from "../bot";
+import {RandomUtils} from "../utils/RandomUtils";
+import Entity from "../models/Entity";
+import {SpaceConstants} from "../constants/SpaceConstants";
 
 export const smallEvent: SmallEvent = {
-	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
-		let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: MessageEmbed) {
+		let keysList = Translations.getModule("smallEvents.space", language).getKeys("specific");
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");
 		}
 
-		const translationModule = Translations.getModule("smallEvents.space", language);
-		const name = translationModule.getRandom("names");
+		const spaceTranslationModule = Translations.getModule("smallEvents.space", language);
+		const name = spaceTranslationModule.getRandom("names");
 		const seIntro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		const intro = format(translationModule.getRandom("intro"), {name});
-		const searchAction = translationModule.getRandom("searchAction");
-		const search = translationModule.getRandom("search");
-		const actionIntro = translationModule.getRandom("actionIntro");
-		const action = translationModule.getRandom("action");
-		const outro = translationModule.getRandom("outro");
+		const intro = format(spaceTranslationModule.getRandom("intro"), {name});
+		const searchAction = spaceTranslationModule.getRandom("searchAction");
+		const search = spaceTranslationModule.getRandom("search");
+		const actionIntro = spaceTranslationModule.getRandom("actionIntro");
+		const action = spaceTranslationModule.getRandom("action");
+		const outro = spaceTranslationModule.getRandom("outro");
 
 		const baseDescription = seEmbed.description;
-		const messageBefore = format(translationModule.get("before_search_format"), {
+		const messageBefore = format(spaceTranslationModule.get("before_search_format"), {
 			seIntro, intro, searchAction, search
 		});
 		seEmbed.setDescription(baseDescription + messageBefore);
-		message.channel.send({embeds: [seEmbed]}).then(async (sentMessage) => {
-			const waitTime = 5000;
+		interaction.reply({embeds: [seEmbed], fetchReply: true}).then(async (sentMessage) => {
+			const waitTime = SpaceConstants.WAIT_TIME_BEFORE_SEARCH;
 			const t0 = performance.now();
-			if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {
-				keysList = keysList.filter(e => e !== "neoWS");
-			}
-			const specificEvent = draftbotRandom.pick(keysList);
-			eval(`${specificEvent}(translationModule)`).then((replacements: Record<string, unknown>) => {
-				const specific = format(translationModule.getRandom("specific." + specificEvent), replacements);
+			await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
+			const specificEvent = RandomUtils.draftbotRandom.pick(keysList);
+			eval(`${specificEvent}(spaceTranslationModule)`).then((replacements: Record<string, unknown>) => {
+				const specific = format(spaceTranslationModule.getRandom("specific." + specificEvent), replacements);
 				const t1 = performance.now();
 				const timeLeft = waitTime - (t1 - t0);
-				const messageAfter = format(translationModule.get("after_search_format"), {
+				const messageAfter = format(spaceTranslationModule.get("after_search_format"), {
 					seIntro, intro, searchAction, search, actionIntro, action, outro, specific
 				});
 				const callBack = async () => {
 					seEmbed.setDescription(baseDescription + messageAfter);
-					await sentMessage.edit({embeds: [seEmbed]});
+					await (sentMessage as Message).edit({embeds: [seEmbed]});
 				};
 				if (timeLeft <= 0) {
 					callBack().then();
@@ -76,13 +65,30 @@ export const smallEvent: SmallEvent = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function neoWS(): Promise<Record<string, unknown>> {
-	const neoWSFeed = await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY);
-	const randomObject: NearEarthObject = draftbotRandom.pick(neoWSFeed.near_earth_objects);
+	let neoWSFeed;
+	try {
+		neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
+	}
+	catch (e) {
+		// Si erreur durant récup data api
+		neoWSFeed = [];
+	}
+	// check if the list contains an object
+	if (neoWSFeed.length > 0) {
+		const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed.near_earth_objects);
+		return Promise.resolve({
+			count: neoWSFeed.near_earth_objects.length,
+			randomObjectName: randomObject.name,
+			randomObjectDistance: Math.floor(parseInt(randomObject.close_approach_data[0].miss_distance.kilometers) / 1000000),
+			randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
+		});
+	}
+	// if the list is empty, return a random invented object
 	return Promise.resolve({
-		count: neoWSFeed.near_earth_objects.length,
-		randomObjectName: randomObject.name,
-		randomObjectDistance: Math.floor(parseInt(randomObject.close_approach_data[0].miss_distance.kilometers) / 1000000),
-		randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
+		count: 1,
+		randomObjectName: RandomUtils.draftbotRandom.pick(SpaceConstants.INVENTED_ASTEROIDS_NAMES),
+		randomObjectDistance: RandomUtils.draftbotRandom.integer(SpaceConstants.MINIMUM_DISTANCE, SpaceConstants.MAXIMUM_DISTANCE),
+		randomObjectDiameter: RandomUtils.draftbotRandom.integer(SpaceConstants.MINIMUM_DIAMETER, SpaceConstants.MAXIMUM_DIAMETER)
 	});
 }
 
@@ -109,14 +115,14 @@ function nextFullMoon(): Promise<Record<string, unknown>> {
 		nextDegrees = MoonPhase(currDate);
 		days++;
 	}
-	return Promise.resolve({ days });
+	return Promise.resolve({days});
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function nextPartialLunarEclipse(): Promise<Record<string, unknown>> {
 	// eslint-disable-next-line new-cap
 	let eclipse = SearchLunarEclipse(new Date());
-	for (;;) {
+	for (; ;) {
 		if (eclipse.kind === "partial") {
 			break;
 		}
@@ -132,7 +138,7 @@ function nextPartialLunarEclipse(): Promise<Record<string, unknown>> {
 function nextTotalLunarEclipse(): Promise<Record<string, unknown>> {
 	// eslint-disable-next-line new-cap
 	let eclipse = SearchLunarEclipse(new Date());
-	for (;;) {
+	for (; ;) {
 		if (eclipse.kind === "total") {
 			break;
 		}

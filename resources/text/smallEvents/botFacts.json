@@ -4,10 +4,10 @@
 			"stories": [
 				"vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {botFact} vous reprenez votre route.",
 				"vous croisez un paysan en charrette semblant enjoué. Intrigué face à son attitude, vous le questionnez à propos de sa bonne humeur. Il vous explique que {botFact} vous reprenez votre route.",
-				"vous apercevez le campement d’un aventurier au bord d’un sentier. Vous vous arrêtez un instant pour lui demander conseil sur le chemin à suivre et celui-ci vous pointe en retour la bonne direction en ajoutant que {botFact} vous reprenez la route.",
+				"vous apercevez le campement d'un aventurier au bord d'un sentier. Vous vous arrêtez un instant pour lui demander conseil sur le chemin à suivre et celui-ci vous pointe en retour la bonne direction en ajoutant que {botFact} vous reprenez la route.",
 				"vous voyez un panneau d'informations. Sur celui-ci, plusieurs affiches sont accrochées et évoquent des fêtes et autres évènements alentours. L'une d'elles parle du récent discours du roi, qui racontait que {botFact} vous continuez votre chemin.",
 				"vous croisez un attroupement de personnes et entendez parmi les bruits de la foule un orateur annonçant que {botFact} vous continuez votre chemin sans écouter la suite de ses dires.",
-				"vous apercevez au loin un mendiant adossé contre le tronc d’un arbre, en vous approchant pour lui donner une pièce vous entendez ses propos étranges, celui-ci répète en boucle que {botFact} vous vous éloignez au plus vite de cet individu suspect."
+				"vous apercevez au loin un mendiant adossé contre le tronc d'un arbre, en vous approchant pour lui donner une pièce vous entendez ses propos étranges, celui-ci répète en boucle que {botFact} vous vous éloignez au plus vite de cet individu suspect."
 			],
 			"possiblesInfos": {
 				"nbMeanPoints": "d'après un comptage des points effectué récemment par les organisateurs, les candidats ont en moyenne un score de **{infoNumber} :medal:**. Encouragé par cette nouvelle,",
@@ -54,7 +54,7 @@
 		}
 	},
 	"rarity": 2,
-	"emote": ":white_flower: "
+	"emote": ":white_flower:"
 }
 
 

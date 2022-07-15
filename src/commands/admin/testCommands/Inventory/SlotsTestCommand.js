@@ -9,19 +9,23 @@ module.exports.commandInfo = {
 		number: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
-	description: "Change le nombre d'emplacements disponibles pour les armes"
+	description: "Change le nombre d'emplacements disponibles pour les armes",
+	commandTestShouldReply: true
 };
 
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const slotsTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	const slots = parseInt(args[1],10);
+const slotsTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const slots = parseInt(args[1], 10);
+	if (slots >= 5 || slots < 0) {
+		throw Error("Argument slots invalide. Doit être compris entre 0 et 5");
+	}
 	let category;
 
 	switch (parseInt(args[0], 10)) {
@@ -45,7 +49,7 @@ const slotsTestCommand = async (language, message, args) => {
 		break;
 	}
 
-	entity.Player.InventoryInfo.save();
+	await entity.Player.InventoryInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		slot: slots,

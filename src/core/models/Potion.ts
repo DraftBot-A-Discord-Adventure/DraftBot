@@ -1,13 +1,10 @@
-import {
-	Sequelize,
-	QueryTypes
-} from "sequelize";
-import fs = require("fs");
+import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import ObjectItem from "./ObjectItem";
+import fs = require("fs");
 import moment = require("moment");
 
 export class Potion extends SupportItemModel {
@@ -26,7 +23,7 @@ export class Potion extends SupportItemModel {
 	}
 
 	public getSimplePotionName(language: string): string {
-		return this.getName(language).substr(this.getName(language).indexOf(" ") + 1)
+		return this.getName(language).slice(this.getName(language).indexOf(" ") + 1)
 			.replace(/\*\*/g, "");
 	}
 
@@ -64,8 +61,8 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-		               FROM potions
-		               WHERE rarity = :rarity`;
+                       FROM potions
+                       WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
@@ -85,7 +82,7 @@ export class Potions {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Potion.init(SupportItemModelAttributes, {
 		sequelize,
 		tableName: "potions",

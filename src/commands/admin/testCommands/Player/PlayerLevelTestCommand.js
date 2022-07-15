@@ -8,23 +8,24 @@ module.exports.commandInfo = {
 		niveau: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
-	description: "Mets votre joueur au niveau donné"
+	description: "Mets votre joueur au niveau donné",
+	commandTestShouldReply: true
 };
 
 /**
  * Set the level of the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const playerLevelTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const playerLevelTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	if (args[0] <= 0 || args[0] > 1000) {
 		throw new Error("Erreur level : niveau donné doit être compris entre 1 et 1000 !");
 	}
-	entity.Player.level = parseInt(args[0],10);
-	entity.Player.save();
+	entity.Player.level = parseInt(args[0], 10);
+	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {level: entity.Player.level});
 };

@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque chargée",
+			"namePlural": "Attaques chargées"
+		},
+		"en": {
+			"name": "Charging attack",
+			"namePlural": "Charging attacks"
+		}
+	},
+	"emote": "\uD83E\uDDF2",
+	"missionVariant": 4
+}

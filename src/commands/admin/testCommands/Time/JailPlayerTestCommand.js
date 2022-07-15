@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "jailplayer",
@@ -8,19 +9,18 @@ module.exports.commandInfo = {
 		mention: typeVariable.MENTION
 	},
 	messageWhenExecuted: "Vous avez enfermé {player} !",
-	description: "Enferme le joueur donné"
+	description: "Enferme le joueur donné",
+	commandTestShouldReply: true
 };
-
-import {Maps} from "../../../../core/Maps";
 
 /**
  * Jail the given player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const jailPlayerTestCommand = async (language, message, args) => {
+const jailPlayerTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(getIdFromMention(args[0]));
 	await Maps.applyEffect(entity.Player, ":lock:");
 	await entity.Player.save();

@@ -1,10 +1,8 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {Translations} from "../Translations";
+import {Data} from "../Data";
 import moment = require("moment");
+import { format } from "../utils/StringFormatter";
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -21,7 +19,7 @@ export class Class extends Model {
 
 	public readonly emoji!: string;
 
-	public readonly classgroup!: number;
+	public readonly classGroup!: number;
 
 	public readonly price!: number;
 
@@ -33,50 +31,106 @@ export class Class extends Model {
 
 	public createdAt!: Date;
 
+	/**
+	 * display the information of the class
+	 * @param language
+	 * @param level
+	 */
 	public toString(language: string, level: number): string {
-		const tr = Translations.getModule("classesValues", language);
-		return tr.format("fieldsValue", {
+		const data = Data.getModule("classesValues");
+		return format(data.getString("fieldsValue"), {
 			name: this.getName(language),
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
 			price: this.price,
-			classgroup: this.classgroup,
-			fightPoint: this.getMaxCumulativeHealthValue(level)
+			classGroup: this.classGroup,
+			fightPoint: this.getMaxCumulativeFightPointValue(level)
 		});
 	}
 
+	public statsToString(language: string, level: number): string {
+		const data = Data.getModule("classesValues");
+		return format(data.getString("statsDisplay"), {
+			attack: this.getAttackValue(level),
+			defense: this.getDefenseValue(level),
+			speed: this.getSpeedValue(level),
+			health: this.health + level,
+			fightPoint: this.getMaxCumulativeFightPointValue(level)
+		});
+	}
+
+	/**
+	 * get the name of the class in the given language
+	 * @param language
+	 */
 	public getName(language: string): string {
 		return language === "fr" ? this.fr : this.en;
 	}
 
+	/**
+	 * get the description of the class in the given language
+	 * @param language
+	 */
 	public getDescription(language: string): string {
 		return Translations.getModule("commands.class", language).get("description." + this.id);
 	}
 
+	/**
+	 * get the attack value of the class in the given level
+	 * @param level
+	 */
 	public getAttackValue(level: number): number {
 		return Math.round(this.attack + this.attack / 100 * level / 4 * level / 10);
 	}
 
+	/**
+	 * get the defense value of the class in the given level
+	 * @param level
+	 */
 	public getDefenseValue(level: number): number {
 		return Math.round(this.defense + this.defense / 100 * level / 4 * level / 10);
 	}
 
+	/**
+	 * get the speed value of the class in the given level
+	 * @param level
+	 */
 	public getSpeedValue(level: number): number {
 		return Math.round(this.speed + this.speed / 100 * level / 4 * level / 10);
 	}
 
-	public getMaxCumulativeHealthValue(level: number): number {
+	/**
+	 * get the max cumulative fight point value of the class in the given level
+	 * @param level
+	 */
+	public getMaxCumulativeFightPointValue(level: number): number {
 		return Math.round(this.fightPoint + 10 * level + level / 4 * level / 8);
 	}
 
+	/**
+	 * get the max health value of the class in the given level
+	 * @param level
+	 */
 	public getMaxHealthValue(level: number): number {
 		return this.health + level;
+	}
+
+	/**
+	 * get the fight actions of the class
+	 */
+	public getFightActions(): string[] {
+		return Data.getModule(`classes.${this.id}`).getStringArray("fightActionsIds");
 	}
 }
 
 export class Classes {
+
+	/**
+	 * get the class by its id
+	 * @param id
+	 */
 	static getById(id: number): Promise<Class | null> {
 		return Promise.resolve(Class.findOne({
 			where: {
@@ -85,14 +139,22 @@ export class Classes {
 		}));
 	}
 
+	/**
+	 * get the class by its group id
+	 * @param groupId
+	 */
 	static getByGroupId(groupId: number): Promise<Class[]> {
 		return Promise.resolve(Class.findAll({
 			where: {
-				classgroup: groupId
+				classGroup: groupId
 			}
 		}));
 	}
 
+	/**
+	 * get the class by its emoji
+	 * @param emoji
+	 */
 	static getByEmoji(emoji: string): Promise<Class | null> {
 		return Promise.resolve(Class.findOne({
 			where: {
@@ -102,7 +164,7 @@ export class Classes {
 	}
 }
 
-export function initModel(sequelize: Sequelize) {
+export function initModel(sequelize: Sequelize): void {
 	Class.init({
 		id: {
 			type: DataTypes.INTEGER,
@@ -127,7 +189,7 @@ export function initModel(sequelize: Sequelize) {
 		emoji: {
 			type: DataTypes.TEXT
 		},
-		classgroup: {
+		classGroup: {
 			type: DataTypes.INTEGER
 		},
 		price: {

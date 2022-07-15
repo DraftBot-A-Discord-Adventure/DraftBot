@@ -10,5 +10,12 @@
 	"health": 0,
 	"fightPoint": -50,
 	"price": 16900,
-	"classgroup": 3
+	"classGroup": 3,
+	"fightActionsIds": [
+		"quickAttack",
+		"energeticAttack",
+		"chargeChargingAttack",
+		"piercingAttack",
+		"concentration"
+	]
 }

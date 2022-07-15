@@ -8,7 +8,7 @@
 					"vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui, vous voyez que la potion volée semble être utile pour votre prochain combat..."
 				],
 				"winObject": [
-					"vous décidez de vous adosser à un arbre. En vous asseyant, vous sentez une douleur vive qui vous transperse le dos. Vous vous relevez à la vitesse d'un éclair et découvrez ce qui vous a égratigné :",
+					"vous décidez de vous adosser à un arbre. En vous asseyant, vous sentez une douleur vive qui vous transperce le dos. Vous vous relevez à la vitesse d'un éclair et découvrez ce qui vous a égratigné :",
 					"vous entendez soudainement un boucan infernal avancer vers vous, vous avez tout juste le temps de vous jeter sur le côté quand une horde de chevaliers vous dépasse au grand galop, en les regardant s'éloigner vous apercevez une besace tomber de l'un des chevaux. En la ramassant vous y découvrez...",
 					"un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à attaquer."
 				],
@@ -38,9 +38,9 @@
 			"basic": {
 				"winItem": [
 					"des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez briévement et continuez votre périple.",
-					"vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous leurs accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
+					"vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous le leur accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
 					"une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le menacez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
-					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous vous frayez un chemin à travers le groupe et découvrez un objet ensanglanté, sans quoi la foule autour l'aurait déjà touché. Vous repartez comme si de rien n'était avec l’objet en votre possession."
+					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous vous frayez un chemin à travers le groupe et découvrez un objet ensanglanté, sans quoi la foule autour l'aurait déjà touché. Vous repartez comme si de rien n'était avec l'objet en votre possession."
 				],
 				"winMoney": [
 					"vous marchez sur une petite butte et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{money} :moneybag:**.",
@@ -132,7 +132,7 @@
 	"basicEligible": [0,1,2,3,12,13,14,15],
 	"otherEligible": [17],
 	"rarity": 4,
-	"emote": ":bookmark:  "
+	"emote": ":bookmark:"
 }
 
 

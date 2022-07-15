@@ -8,20 +8,21 @@ module.exports.commandInfo = {
 		time: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
-	description: "Avance le daily de votre joueur d'une durée en minutes donnée"
+	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true
 };
 
 /**
  * Quick travel your daily of a given time
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advancePlayerDailyTestCommand = async (language, message, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+const advancePlayerDailyTestCommand = async (language, interaction, args) => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	entity.Player.InventoryInfo.lastDailyAt -= parseInt(args[0]) * 60000;
-	entity.Player.InventoryInfo.save();
+	await entity.Player.InventoryInfo.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 

@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque canon",
+			"namePlural": "Attaques canons",
+			"description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent."
+		},
+		"en": {
+			"name": "Cannon attack",
+			"namePlural": "Cannon attacks",
+			"description": "The precision of this attack decreases on fast enemies. A bonus damage is added to this attack if the enemy is very slow."
+		}
+	},
+	"emote": "\uD83D\uDD2B",
+	"missionVariant": 1
+}

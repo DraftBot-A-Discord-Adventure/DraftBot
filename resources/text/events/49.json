@@ -71,7 +71,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard, alors que vous vérifiez comment se porte la frêle créature, vous découvrez un amas sanglant au fond de votre sac, le bernard l'hermite s'est fait écrasé par le contenu de votre sac, vous passez une dizaine de minutes à nettoyer votre sac et repartez.",
+						"fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard, alors que vous vérifiez comment se porte la frêle créature, vous découvrez un amas sanglant au fond de votre sac, le bernard l'hermite s'est fait écraser par le contenu de votre sac, vous passez une dizaine de minutes à nettoyer votre sac et repartez.",
 						"en": "You decide to take the little creature with you. A few hours later, as you check how the frail creature is feeling, you discover a bloody heap deep in your bag, the hermit crab has been crushed by the contents of your bag, you spend about ten minutes cleaning your bag and leave."
 					},
 					"lostTime": 10,
@@ -155,7 +155,7 @@
 				},
 				{
 					"translations": {
-						"fr": "🐚 Vous continuez sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
+						"fr": "🐚 Vous continuez votre route sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
 						"en": "🐚 You continue without paying attention to the creature, clumsy, you step in a hole and twist your ankle. You will need to heal yourself."
 					},
 					"lostTime": 60,

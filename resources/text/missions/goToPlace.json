@@ -4,7 +4,7 @@
 			"desc": "Voyager jusqu'{variantText}"
 		},
 		"en": {
-			"desc": "Go to this place: {variantText}"
+			"desc": "Go to {variantText}"
 		}
 	},
 	"campaignOnly": false,

@@ -9,7 +9,7 @@
 			"healthDaily": "❤️ Vie gagnée : {value} !",
 			"moneyBonus": "💰 Argent gagné : {value} !",
 			"hospitalBonus": "🕥 Vous avez avancé de {value}",
-			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez dans : \n `{time}`."
+			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez dans `{time}`."
 		},
 		"en": {
 			"objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
@@ -20,8 +20,7 @@
 			"healthDaily": "❤️ HP recovered : {value}!",
 			"moneyBonus": "💰 Money Earned: {value} !",
 			"hospitalBonus": "🕥 You have moved up {value}",
-			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in : \n `{time}`."
+			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in `{time}`."
 		}
-	},
-	"timeBetweenDailys" : 22
+	}
 }
