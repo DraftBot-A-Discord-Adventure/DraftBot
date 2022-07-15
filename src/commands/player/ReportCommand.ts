@@ -40,6 +40,89 @@ async function initiateNewPlayerOnTheAdventure(entity: Entity) {
 	await entity.Player.save();
 }
 
+/* ---------------------------------------------------------------
+											SMALL EVENTS FUNCTIONS
+--------------------------------------------------------------- */
+
+/**
+ * Returns if the entity reached a stopping point (= small event)
+ * @param {Entities} entity
+ * @returns {boolean}
+ */
+function needSmallEvent(entity: Entity) {
+	if (entity.Player.PlayerSmallEvents.length !== 0) {
+		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+		const lastTime = lastMiniEvent.time > entity.Player.startTravelDate.valueOf() ? lastMiniEvent.time : entity.Player.startTravelDate.valueOf();
+		return Date.now() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+	}
+	return Date.now() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+}
+
+async function executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, forced: string) {
+
+	// Pick random event
+	let event: string;
+	if (forced === null) {
+		const keys = Data.getKeys("smallEvents");
+		let totalSmallEventsRarity = 0;
+		const updatedKeys = [];
+		for (let i = 0; i < keys.length; ++i) {
+			const file = require(require.resolve("../../core/smallEvents/" + keys[i] + "SmallEvent.js"));
+			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
+				await interaction.reply({content: keys[i] + " doesn't contain a canBeExecuted function"});
+				return;
+			}
+			if (await file.smallEvent.canBeExecuted(entity)) {
+				updatedKeys.push(keys[i]);
+				totalSmallEventsRarity += Data.getModule("smallEvents." + keys[i]).getNumber("rarity");
+			}
+		}
+		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity);
+		let cumul = 0;
+		for (let i = 0; i < updatedKeys.length; ++i) {
+			cumul += Data.getModule("smallEvents." + updatedKeys[i]).getNumber("rarity");
+			if (cumul >= randomNb) {
+				event = updatedKeys[i];
+				break;
+			}
+		}
+	}
+	else {
+		event = forced;
+	}
+
+	// Execute the event
+	const filename = event + "SmallEvent.js";
+	try {
+		const smallEventModule = require.resolve("../../core/smallEvents/" + filename);
+		try {
+			const smallEvent: SmallEvent = require(smallEventModule).smallEvent;
+			if (!smallEvent.executeSmallEvent) {
+				await interaction.reply({content: filename + " doesn't contain an executeSmallEvent function"});
+			}
+			else {
+				// Create a template embed
+				const seEmbed = new DraftBotEmbed()
+					.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
+					.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
+
+				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
+
+				await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
+			}
+		}
+		catch (e) {
+			console.error(e);
+		}
+	}
+	catch (e) {
+		await interaction.reply({content: filename + " doesn't exist"});
+	}
+
+	// Save
+	await PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, Date.now()).save();
+}
+
 const executeCommand = async (interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent: number = null, forceSmallEvent: string = null) => {
 	if (entity.Player.score === 0 && entity.Player.effect === Constants.EFFECT.BABY) {
 		await initiateNewPlayerOnTheAdventure(entity);
@@ -50,6 +133,10 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 	}
 
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
+
+	if (forceSmallEvent !== null || needSmallEvent(entity)) {
+		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
+	}
 
 	if (forceSpecificEvent || await needBigEvent(entity)) {
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
@@ -69,10 +156,6 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, interaction, language, null);
-	}
-
-	if (forceSmallEvent !== null || needSmallEvent(entity)) {
-		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}
 
 	return await sendTravelPath(entity, interaction, language, null);
@@ -505,89 +588,6 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
 	await entity.save();
 	await player.save();
 	return resultMsg;
-};
-
-/* ---------------------------------------------------------------
-											SMALL EVENTS FUNCTIONS
---------------------------------------------------------------- */
-
-/**
- * Returns if the entity reached a stopping point (= small event)
- * @param {Entities} entity
- * @returns {boolean}
- */
-const needSmallEvent = function(entity: Entity) {
-	if (entity.Player.PlayerSmallEvents.length !== 0) {
-		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		const lastTime = lastMiniEvent.time > entity.Player.startTravelDate.valueOf() ? lastMiniEvent.time : entity.Player.startTravelDate.valueOf();
-		return Date.now() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-	}
-	return Date.now() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-};
-
-const executeSmallEvent = async (interaction: CommandInteraction, language: string, entity: Entity, forced: string) => {
-
-	// Pick random event
-	let event: string;
-	if (forced === null) {
-		const keys = Data.getKeys("smallEvents");
-		let totalSmallEventsRarity = 0;
-		const updatedKeys = [];
-		for (let i = 0; i < keys.length; ++i) {
-			const file = require(require.resolve("../../core/smallEvents/" + keys[i] + "SmallEvent.js"));
-			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
-				await interaction.reply({content: keys[i] + " doesn't contain a canBeExecuted function"});
-				return;
-			}
-			if (await file.smallEvent.canBeExecuted(entity)) {
-				updatedKeys.push(keys[i]);
-				totalSmallEventsRarity += Data.getModule("smallEvents." + keys[i]).getNumber("rarity");
-			}
-		}
-		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity);
-		let cumul = 0;
-		for (let i = 0; i < updatedKeys.length; ++i) {
-			cumul += Data.getModule("smallEvents." + updatedKeys[i]).getNumber("rarity");
-			if (cumul >= randomNb) {
-				event = updatedKeys[i];
-				break;
-			}
-		}
-	}
-	else {
-		event = forced;
-	}
-
-	// Execute the event
-	const filename = event + "SmallEvent.js";
-	try {
-		const smallEventModule = require.resolve("../../core/smallEvents/" + filename);
-		try {
-			const smallEvent: SmallEvent = require(smallEventModule).smallEvent;
-			if (!smallEvent.executeSmallEvent) {
-				await interaction.reply({content: filename + " doesn't contain an executeSmallEvent function"});
-			}
-			else {
-				// Create a template embed
-				const seEmbed = new DraftBotEmbed()
-					.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
-					.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
-
-				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
-
-				await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
-			}
-		}
-		catch (e) {
-			console.error(e);
-		}
-	}
-	catch (e) {
-		await interaction.reply({content: filename + " doesn't exist"});
-	}
-
-	// Save
-	await PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, Date.now()).save();
 };
 
 export const commandInfo: ICommand = {

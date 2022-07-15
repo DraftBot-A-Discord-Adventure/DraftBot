@@ -13,6 +13,7 @@ import InventorySlot from "../../core/models/InventorySlot";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {GenericItemModel} from "../../core/models/GenericItemModel";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
 type itemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 
@@ -65,54 +66,86 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
  * @param item the item that has been selected
  * @param tr
  */
-async function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	const money = item.value;
-	await InventorySlot.destroy({
-		where: {
-			playerId: entity.Player.id,
-			slot: item.slot,
-			itemCategory: item.itemCategory
+function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
+	return async (validateMessage: DraftBotValidateReactionMessage) => {
+		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM);
+		if (!validateMessage.isValidated()) {
+			sendErrorMessage(
+				interaction.user,
+				interaction,
+				tr.language,
+				tr.get("sellCanceled"),
+				true
+			);
+			return;
 		}
-	});
-	await entity.Player.addMoney(entity, money, interaction.channel, tr.language);
-	await entity.Player.save();
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity, interaction.channel, tr.language, {
-		missionId: "sellItemWithGivenCost",
-		params: {itemCost: money}
-	});
-	await MissionsController.update(entity, interaction.channel, tr.language, {
-		missionId: "havePotions",
-		count: countNbOfPotions(entity.Player),
-		set: true
-	});
-	// TODO : refaire le système de log
-	// log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
-	if (money === 0) {
+		[entity] = await Entities.getOrRegister(entity.discordUserId);
+		const money = item.value;
+		await InventorySlot.destroy({
+			where: {
+				playerId: entity.Player.id,
+				slot: item.slot,
+				itemCategory: item.itemCategory
+			}
+		});
+		await entity.Player.addMoney(entity, money, interaction.channel, tr.language);
+		await entity.Player.save();
+		[entity] = await Entities.getOrRegister(entity.discordUserId);
+		await MissionsController.update(entity, interaction.channel, tr.language, {
+			missionId: "sellItemWithGivenCost",
+			params: {itemCost: money}
+		});
+		await MissionsController.update(entity, interaction.channel, tr.language, {
+			missionId: "havePotions",
+			count: countNbOfPotions(entity.Player),
+			set: true
+		});
+		// TODO : refaire le système de log
+		// log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
+		if (money === 0) {
+			await interaction.channel.send({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(tr.get("potionDestroyedTitle"), interaction.user)
+					.setDescription(
+						tr.format("potionDestroyedMessage", {
+							item: item.name,
+							frenchMasculine: item.frenchMasculine
+						})
+					)]
+			});
+			return;
+		}
 		await interaction.channel.send({
 			embeds: [new DraftBotEmbed()
-				.formatAuthor(tr.get("potionDestroyedTitle"), interaction.user)
-				.setDescription(
-					tr.format("potionDestroyedMessage", {
+				.formatAuthor(tr.get("soldMessageTitle"), interaction.user)
+				.setDescription(tr.format("soldMessage",
+					{
 						item: item.name,
-						frenchMasculine: item.frenchMasculine
-					})
-				)]
+						money: money
+					}
+				))]
 		});
-		return;
-	}
-	await interaction.channel.send({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(tr.get("soldMessageTitle"), interaction.user)
-			.setDescription(tr.format("soldMessage",
-				{
-					item: item.name,
-					money: money
-				}
-			))]
-	});
+	};
 }
+
+/**
+ * Ask the player confirmation
+ * @param entity
+ * @param interaction
+ * @param item
+ * @param tr
+ */
+function itemChoiceValidation(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
+	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
+	new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(entity, interaction, item, tr))
+		.formatAuthor(tr.get("sellTitle"), interaction.user)
+		.setDescription(tr.format("confirmSell", {
+			item: item.name,
+			money: item.value
+		}))
+		.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM, collector));
+}
+
 
 /**
  * Sell menu embed
@@ -125,7 +158,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		(item: itemObject) => sellEmbedCallback(entity, interaction, item, tr),
+		(item: itemObject) => itemChoiceValidation(entity, interaction, item, tr),
 		(endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 			if (endMessage.isCanceled()) {

@@ -6,6 +6,7 @@ import {ICommand} from "../ICommand";
 import Entity, {Entities} from "../../core/models/Entity";
 import {Constants} from "../../core/Constants";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
+import { draftBotClient } from "../../core/bot";
 
 /**
  * Displays information about a pet
@@ -25,12 +26,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (pet) {
 		return await interaction.reply({
 			embeds: [new DraftBotEmbed()
-				.setAuthor(
-					tr.format("embedTitle", {
-						pseudo: await entity.Player.getPseudo(language)
-					}),
-					interaction.user.displayAvatarURL()
-				)
+				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedEntity.discordUserId))
 				.setDescription(
 					pet.getPetDisplay(language)
 				)]
