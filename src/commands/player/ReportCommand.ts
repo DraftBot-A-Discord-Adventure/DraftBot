@@ -51,6 +51,10 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
 
+	if (forceSmallEvent !== null || needSmallEvent(entity)) {
+		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
+	}
+
 	if (forceSpecificEvent || await needBigEvent(entity)) {
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
 	}
@@ -69,10 +73,6 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, interaction, language, null);
-	}
-
-	if (forceSmallEvent !== null || needSmallEvent(entity)) {
-		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}
 
 	return await sendTravelPath(entity, interaction, language, null);
