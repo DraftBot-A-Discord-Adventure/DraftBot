@@ -4,7 +4,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {replyErrorMessage,sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
@@ -163,14 +163,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	const attackerFightErrorStatus = await canFight(entity, friendly);
+	// todo replace true by friendly when implemented
+	const attackerFightErrorStatus = await canFight(entity, true);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, entity, false, true);
 		return;
 	}
 	let askedFighter: Fighter | null;
 	if (askedEntity) {
-		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
+		// todo replace true by friendly when implemented
+		const defenderFightErrorStatus = await canFight(askedEntity, true);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, entity, true, true);
 			return;
