@@ -329,6 +329,7 @@ async function sendAndManagePoorInteraction(textInformations: TextInformations, 
 	await new DraftBotReactionMessageBuilder()
 		.allowUser(textInformations.interaction.user)
 		.addReaction(new DraftBotReaction(Constants.SMALL_EVENT.COIN_EMOTE))
+		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()
@@ -348,7 +349,6 @@ async function sendAndManagePoorInteraction(textInformations: TextInformations, 
 			await textInformations.interaction.channel.send({embeds: [poorEmbed]});
 		})
 		.build()
-		.setTitle(seEmbed.title)
 		.setDescription(seEmbed.description)
 		.setAuthor(seEmbed.author)
 		.reply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
