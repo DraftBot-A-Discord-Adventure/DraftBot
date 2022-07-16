@@ -3,7 +3,7 @@
         "fr": {
             "intro": {
                 "intrigue": [
-                    "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s'approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu'elle soit. Pendant que vous oservez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.\n\n"
+                    "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s'approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu'elle soit. Pendant que vous observez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.\n\n"
                 ],
                 "goblets": [
                     {
@@ -12,7 +12,7 @@
                         "emoji": "🐲"
                     },
                     {
-                        "desc": "Le plus grand des trois, d'une matière que vous parvenez pas à identifiez\n",
+                        "desc": "Le plus grand des trois, d'une matière que vous parvenez pas à identifier\n",
                         "name": "le plus grand",
                         "emoji": "🪣"
                     },

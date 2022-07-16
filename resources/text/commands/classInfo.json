@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"listTitle": ":bookmark:  **Comparatif des classes :**",
-			"listDesc": "Voilà la liste des classes disponible pour votre personnage et leur statistiques. Pour obtenir plus d'informations, sélectionnez une classe ci-dessous. Pour choisir une nouvelle classe, effectuez la commande `/class`.",
+			"listDesc": "Voilà la liste des classes disponibles pour votre personnage et leurs statistiques. Pour obtenir plus d'informations, sélectionnez une classe ci-dessous. Pour choisir une nouvelle classe, effectuez la commande `/class`.",
 			"classTitle": "**{class}**",
 			"descriptionEnd": "\n\n**Liste des attaques disponibles pour cette classe :**"
 		},
