@@ -49,11 +49,18 @@ async function canFight(entity: Entity, friendly: boolean): Promise<string> {
  * @param isAboutSelectedOpponent - true if the error is about the selected opponent
  * @param replyingError - true if the error is a replying error
  */
-function sendError(interaction: CommandInteraction, fightTranslationModule: TranslationModule, error: string, entity: Entity, isAboutSelectedOpponent: boolean, replyingError: boolean) {
+async function sendError(
+	interaction: CommandInteraction,
+	fightTranslationModule: TranslationModule,
+	error: string,
+	isAboutSelectedOpponent: boolean,
+	replyingError: boolean,
+	user = interaction.user
+) {
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
-		pseudo: entity.getMention()
+		pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
 	replyingError ?
@@ -63,7 +70,7 @@ function sendError(interaction: CommandInteraction, fightTranslationModule: Tran
 			fightTranslationModule.format(errorTranslationName, replacements)
 		)
 		: sendErrorMessage(
-			interaction.user,
+			user,
 			interaction,
 			fightTranslationModule.language,
 			fightTranslationModule.format(errorTranslationName, replacements)
@@ -120,7 +127,7 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
 			return false;
 		}
 		if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, incomingFighterEntity, true, false);
+			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, false, user);
 			return false;
 		}
 		const incomingFighter = new Fighter(user, incomingFighterEntity, await Classes.getById(incomingFighterEntity.Player.class));
@@ -153,8 +160,8 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * @param entity
  * @param friendly true if the fight is friendly
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
-
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = true): Promise<void> {
+// TODO remplace friendly = true by false when implemented
 	const askingFighter = new Fighter(interaction.user, entity, await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
@@ -163,18 +170,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	// todo replace true by friendly when implemented
-	const attackerFightErrorStatus = await canFight(entity, true);
+	const attackerFightErrorStatus = await canFight(entity, friendly);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, entity, false, true);
+		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
 	let askedFighter: Fighter | null;
 	if (askedEntity) {
-		// todo replace true by friendly when implemented
-		const defenderFightErrorStatus = await canFight(askedEntity, true);
+		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, entity, true, true);
+			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;
 		}
 		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
