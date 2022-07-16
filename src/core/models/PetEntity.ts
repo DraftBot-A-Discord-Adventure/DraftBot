@@ -118,9 +118,9 @@ export class PetEntity extends Model {
 
 	public getLoveLevelNumber(): number {
 		return this.lovePoints === Constants.PETS.MAX_LOVE_POINTS
-			? Constants.PETS.LOVE_LEVEL.TRAINED : this.lovePoints > Constants.PETS.LOVE_LEVELS[2]
-				? Constants.PETS.LOVE_LEVEL.TAMED : this.lovePoints > Constants.PETS.LOVE_LEVELS[1]
-					? Constants.PETS.LOVE_LEVEL.FEARFUL : this.lovePoints > Constants.PETS.LOVE_LEVELS[0]
+			? Constants.PETS.LOVE_LEVEL.TRAINED : this.lovePoints >= Constants.PETS.LOVE_LEVELS[2]
+				? Constants.PETS.LOVE_LEVEL.TAMED : this.lovePoints >= Constants.PETS.LOVE_LEVELS[1]
+					? Constants.PETS.LOVE_LEVEL.FEARFUL : this.lovePoints >= Constants.PETS.LOVE_LEVELS[0]
 						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
