@@ -134,12 +134,12 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
 
-	if (forceSmallEvent !== null || needSmallEvent(entity)) {
-		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
-	}
-
 	if (forceSpecificEvent || await needBigEvent(entity)) {
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
+	}
+
+	if (forceSmallEvent || needSmallEvent(entity)) {
+		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}
 
 	if (!entity.Player.currentEffectFinished()) {
