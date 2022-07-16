@@ -27,6 +27,7 @@ function getEndCallbackGuildAdd(
 			// Cancel the creation
 			sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
 				guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
+			return;
 		}
 		try {
 			inviter.guild = await Guilds.getById(inviter.entity.Player.guildId);
@@ -69,7 +70,7 @@ function getEndCallbackGuildAdd(
 			set: true
 		});
 
-		interaction.followUp({
+		interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.setAuthor(
