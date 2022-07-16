@@ -401,6 +401,11 @@
 				"You meet {playerDisplay}, which seems running in your direction. Indeed, this one is chased by bandits, wishing of his money. You support him part of the way before he regain his calm. Once reassured, you leave him and continue your way.",
 				"You see far {playerDisplay}, running as fast as possible to escape a pack of wolves, you haste to help him and retreat those wild beasts",
 				"You meet {playerDisplay}. He seems panicked. You ask him what makes him in all its forms. He tells you he was being chased by a dragon, but he managed to escape, losing some hairs by the way"
+			],
+			":clock2:": [
+				"You see {playerDisplay} and try to discuss with him, but he explains you that he's busy. That’s not a problem, you’ll talk next time and you each continue on your way.",
+				"In your journey, you find {playerDisplay} who seems very busy... You try to converse with him in vain, himself asking instead if you can help him complete his task.",
+				"On your way, you meet {playerDisplay} who seems very busy. You try to find out more, vainly, before going back to your journey."
 			]
 		}
 	},
