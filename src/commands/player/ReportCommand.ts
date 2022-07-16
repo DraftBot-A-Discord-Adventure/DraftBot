@@ -52,7 +52,7 @@ SMALL EVENTS FUNCTIONS
 function needSmallEvent(entity: Entity) {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		const lastTime = lastMiniEvent.time > entity.Player.startTravelDate.valueOf() ? lastMiniEvent.time : entity.Player.startTravelDate.valueOf();
+		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 		return Date.now() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
 	return Date.now() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;

@@ -21,9 +21,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;
-	if (interaction.options.getString("guild_s_name")) {
+	if (interaction.options.getString("name")) {
 		try {
-			guild = await Guilds.getByName(interaction.options.getString("guild_s_name"));
+			guild = await Guilds.getByName(interaction.options.getString("name"));
 		}
 		catch (error) {
 			guild = null;
