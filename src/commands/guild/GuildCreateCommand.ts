@@ -42,7 +42,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const askedName = interaction.options.getString("guilds_name");
+	const askedName = interaction.options.getString("name");
 
 	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
 		replyErrorMessage(
@@ -158,7 +158,7 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("guildcreate")
 		.setDescription("Creates a new guild")
-		.addStringOption(option => option.setName("guilds_name")
+		.addStringOption(option => option.setName("name")
 			.setDescription("The name of the new guild")
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
