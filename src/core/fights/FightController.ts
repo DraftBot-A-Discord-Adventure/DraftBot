@@ -159,7 +159,7 @@ export class FightController {
 	 * @private
 	 */
 	private isADraw(): boolean {
-		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn >= FightConstants.MAX_TURNS;
+		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn > FightConstants.MAX_TURNS && !(this.fighters[0].isDead() || this.fighters[1].isDead());
 	}
 
 	/**
