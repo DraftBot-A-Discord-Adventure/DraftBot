@@ -127,7 +127,7 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
 			return false;
 		}
 		if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-			sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, false, user);
+			await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, false, user);
 			return false;
 		}
 		const incomingFighter = new Fighter(user, incomingFighterEntity, await Classes.getById(incomingFighterEntity.Player.class));
@@ -172,14 +172,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-		sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
+		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
 	let askedFighter: Fighter | null;
 	if (askedEntity) {
 		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
-			sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
+			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;
 		}
 		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
