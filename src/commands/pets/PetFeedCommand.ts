@@ -202,7 +202,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			entity.Player.save()
 		]);
 		const feedSuccessEmbed = new DraftBotEmbed();
-		feedSuccessEmbed.setDescription(petFeedModule.format("description.1", {
+		feedSuccessEmbed.setDescription(petFeedModule.format("description.commonFood", {
 			petnick: authorPet.displayName(language),
 			typeSuffix: authorPet.sex === Constants.PETS.FEMALE ? "se" : "x"
 		}));
