@@ -53,9 +53,9 @@
 		},
 		"en": {
 			"nerfDisplay": "~~{old}~~ {max}",
-			"attack": ":dagger: {attack}",
-			"defense": ":shield: {defense}",
-			"speed": ":rocket: {speed}",
+			"attack": ":dagger: {value}",
+			"defense": ":shield: {value}",
+			"speed": ":rocket: {value}",
 			"weapons": {
 				"fieldName": "Weapon :",
 				"fieldValue": "{name} | {rarity} | {values}"

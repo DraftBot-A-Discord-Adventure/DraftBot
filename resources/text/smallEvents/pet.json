@@ -135,7 +135,7 @@
 				"**{pet}** is in good shape. You ride on his back for a few minutes and you win **{amount}** min** :clock2:.",
 				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount}** min** :clock2:.",
 				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} min** :clock2:.",
-				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount}** min** :clock2:.",
+				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount} min** :clock2:.",
 				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
 			],
 			"points": [

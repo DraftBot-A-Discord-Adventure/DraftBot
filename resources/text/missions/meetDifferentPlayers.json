@@ -4,7 +4,7 @@
 			"desc": "Rencontrer {objective} joueur{objective>1?s différents:}"
 		},
 		"en": {
-			"desc": "Meet {objective}{objective>1?différent:} player{objective>1?s:}"
+			"desc": "Meet {objective} {objective>1?different:} player{objective>1?s:}"
 		}
 	},
 	"campaignOnly": false,
