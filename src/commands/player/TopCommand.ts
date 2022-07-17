@@ -184,7 +184,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
 
 	if (scope === TopConstants.SERVER_SCOPE) {
-		interaction.deferReply();
+		await interaction.deferReply();
 	}
 
 	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Entities.getAllStoredDiscordIds();
