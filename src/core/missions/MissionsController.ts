@@ -158,6 +158,7 @@ export class MissionsController {
 			missionsExpiredDesc += "- " + await mission.Mission.formatDescription(
 				mission.missionObjective, mission.missionVariant, language, mission.saveBlob) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
 		}
+		await player.save();
 		await channel.send({
 			embeds: [
 				new DraftBotEmbed()
