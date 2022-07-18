@@ -98,7 +98,6 @@ const main = async function() {
 	const onDiscordGuildCreate = async (guild: Guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
-		await (await guild.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID) as TextChannel).send({content: msg});
 		console.log(msg);
 	};
 
@@ -108,7 +107,6 @@ const main = async function() {
 	const onDiscordGuildDelete = async (guild: Guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
-		await ((await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)) as TextChannel).send({content: msg});
 		console.log(msg);
 	};
 
