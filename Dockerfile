@@ -14,9 +14,7 @@ RUN mkdir ./config
 
 # Install the packages (yarn is already in the node image, don't need to install it)
 RUN yarn install
-
-# Bundle app source
-COPY . .
+RUN yarn run tsc
 
 # Command used to start the app
 CMD [ "yarn", "dockerStart" ]
