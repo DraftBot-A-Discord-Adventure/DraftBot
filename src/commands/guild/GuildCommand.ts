@@ -148,7 +148,7 @@ export const commandInfo: ICommand = {
 			.setDescription("The user you want to see the guild")
 			.setRequired(false)
 		)
-		.addStringOption(option => option.setName("guild_s_name")
+		.addStringOption(option => option.setName("name")
 			.setDescription("The name of the guild to display")
 			.setRequired(false)
 		)
