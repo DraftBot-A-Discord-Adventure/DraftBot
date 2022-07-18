@@ -24,7 +24,9 @@ _Before creating your own instance, please note that you can add the bot to your
 
 Only the code available in the "release" tab is considered "stable".
 
-## Here is a short start guide. (windows)
+## Without docker
+
+### Here is a short start guide. (windows)
 
 - install git : https://git-scm.com/download/win
 - download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
@@ -35,7 +37,7 @@ Only the code available in the "release" tab is considered "stable".
 - Edit the file app.json with the correct data
 - Launch the bot : `yarn start`
 
-## Here is the same guide for linux (or if you have a git terminal on Windows)
+### Here is the same guide for linux (or if you have a git terminal on Windows)
 
 - install git : `apt-get install git`
 - download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
@@ -46,10 +48,20 @@ Only the code available in the "release" tab is considered "stable".
 - Edit the file app.json with the correct data
 - Launch the bot : `yarn start`
 
-# Updating the bot
+### Updating the bot
 
 - Be sure to use `yarn install` and `yarn start` each time you update the bot.
 - Migrations will run automatically, but be sure to check them as they are created for our database, they may cause issues in yours.
+
+## With docker
+
+Make sure to have docker installed on your machine.
+
+### Compile the docker image
+
+In the project folder (previously downloaded with git), run:
+
+`docker build . -t draftbot/draftbot`
 
 # Screenshots
 
