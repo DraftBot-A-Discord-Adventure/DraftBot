@@ -1,5 +1,6 @@
 import {
 	ApplicationCommandDataResolvable,
+	CacheType,
 	Client,
 	CommandInteraction,
 	GuildChannel,
@@ -326,6 +327,11 @@ export class CommandsManager {
 		return false;
 	}
 
+	/**
+	 * checks for the maintenance mode
+	 * @param interaction the interaction to reply to
+	 * @private
+	 */
 	private static async handleCommand(interaction: CommandInteraction) {
 		const [server] = await Server.findOrCreate({
 			where: {
@@ -356,6 +362,12 @@ export class CommandsManager {
 		await CommandsManager.launchCommand(tr, interaction);
 	}
 
+	/**
+	 * Launch a command
+	 * @param tr - Translation module
+	 * @param interaction - Command interaction that has to be launched
+	 * @private
+	 */
 	private static async launchCommand(tr: TranslationModule, interaction: CommandInteraction): Promise<void> {
 		if (resetIsNow()) {
 			replyErrorMessage(
@@ -372,69 +384,19 @@ export class CommandsManager {
 		const commandInfo = this.commands.get(interaction.command.name);
 
 		if (!commandInfo) {
-			interaction.reply({
-				content: "It seems that this command doesn't exist in the bot... Please report it to the DraftBot's staff"
-			}).then();
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("command404")
+			);
 			console.error("Command \"" + interaction.command.name + "\" is not registered");
 			return;
 		}
 
-		const channel = interaction.channel as GuildChannel;
-
-		if (!channel.permissionsFor(draftBotClient.user).serialize().SEND_MESSAGES) {
-			try {
-				interaction.user.send({
-					content:
-						tr.get("noSpeakPermission")
-				}).then();
-			}
-			catch (err) {
-				console.log("No perms to show i can't react in server / channel : " + interaction.guild.id + "/" + channel.id);
-			}
+		if (!await this.hasChannelPermission(interaction, tr)) {
 			return;
 		}
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().ADD_REACTIONS) {
-			try {
-				interaction.user.send({
-					content: tr.get("noReacPermission")
-				}).then();
-			}
-			catch (err) {
-				interaction.channel.send({
-					content: tr.get("noReacPermission")
-				}).then();
-			}
-			return;
-		}
-
-		if (!channel.permissionsFor(draftBotClient.user).serialize().EMBED_LINKS) {
-			try {
-				interaction.user.send({
-					content: tr.get("noEmbedPermission")
-				}).then();
-			}
-			catch (err) {
-				interaction.channel.send({
-					content: tr.get("noEmbedPermission")
-				}).then();
-			}
-			return;
-		}
-
-		if (!channel.permissionsFor(draftBotClient.user).serialize().ATTACH_FILES) {
-			try {
-				interaction.user.send({
-					content: tr.get("noFilePermission")
-				}).then();
-			}
-			catch (err) {
-				interaction.channel.send({
-					content: tr.get("noFilePermission")
-				}).then();
-			}
-			return;
-		}
 
 		const [entity] = await Entities.getOrRegister(interaction.user.id);
 		if (!await this.userCanPerformCommand(commandInfo, entity, {interaction, tr}, true)) {
@@ -452,8 +414,68 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		// TODO: REFAIRE LES LOGS
 		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
 		await commandInfo.executeCommand(interaction, tr.language, entity);
+	}
+
+	/**
+	 * Check if the bot has every needed permission in the channel where the command is launched
+	 * @param interaction - Command interaction that has to be launched
+	 * @param tr - Translation module
+	 * @private
+	 */
+	private static async hasChannelPermission(interaction: CommandInteraction<CacheType>, tr: TranslationModule) {
+		const channel = interaction.channel as GuildChannel;
+
+		if (!channel.permissionsFor(draftBotClient.user).serialize().VIEW_CHANNEL) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noChannelAccess")
+			);
+			console.log("No way to access the channel where the command has been executed : " + interaction.guild.id + "/" + channel.id);
+			return false;
+		}
+
+		if (!channel.permissionsFor(draftBotClient.user).serialize().SEND_MESSAGES) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noSpeakPermission")
+			);
+			console.log("No perms to show i can't speak in server / channel : " + interaction.guild.id + "/" + channel.id);
+			return false;
+		}
+
+		if (!channel.permissionsFor(draftBotClient.user).serialize().ADD_REACTIONS) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noReacPermission")
+			);
+			console.log("No perms to show i can't react in server / channel : " + interaction.guild.id + "/" + channel.id);
+			return false;
+		}
+
+		if (!channel.permissionsFor(draftBotClient.user).serialize().EMBED_LINKS) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noEmbedPermission")
+			);
+			console.log("No perms to show i can't embed in server / channel : " + interaction.guild.id + "/" + channel.id);
+			return false;
+		}
+
+		if (!channel.permissionsFor(draftBotClient.user).serialize().ATTACH_FILES) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noFilePermission")
+			);
+			console.log("No perms to show i can't attach files in server / channel : " + interaction.guild.id + "/" + channel.id);
+			return false;
+		}
+		return true;
 	}
 }
