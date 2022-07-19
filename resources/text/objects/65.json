@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":book: **Harmonica du temps**",
-		"en": ":book: **Harmonica of time**"
+		"fr": "Harmonica du temps",
+		"en": "Harmonica of time"
 	},
+	"emote": ":notes:",
 	"rarity": 6,
 	"power": 0.5,
 	"nature": 5,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "⛏ **Pied de biche**",
-		"en": "⛏ **Crowbar**"
+		"fr": "Pied de biche",
+		"en": "Crowbar"
 	},
+	"emote": ":pick:",
 	"rarity": 5,
 	"power": 64,
 	"nature": 3,

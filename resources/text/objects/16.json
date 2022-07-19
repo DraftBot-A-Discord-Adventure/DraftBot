@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":heartpulse: **Receptacle de cœur**",
-		"en": ":heartpulse: **Heart container**"
+		"fr": "Receptacle de cœur",
+		"en": "Heart container"
 	},
+	"emote": ":heartpulse:",
 	"rarity": 5,
 	"power": 6,
 	"nature": 1,

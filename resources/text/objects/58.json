@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDE90 **Anneaux de défense**",
-		"en": "\uD83E\uDE90 **Defense rings**"
+		"fr": "Anneaux de défense",
+		"en": "Defense rings"
 	},
+	"emote": ":ringed_planet:",
 	"rarity": 8,
 	"power": 151,
 	"nature": 4,

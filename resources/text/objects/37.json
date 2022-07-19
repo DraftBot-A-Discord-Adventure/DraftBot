@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":skier: **Skis glissants**",
-		"en": ":skier: **Slippery skis**"
+		"fr": "Skis glissants",
+		"en": "Slippery skis"
 	},
+	"emote": ":skier:",
 	"rarity": 5,
 	"power": 63,
 	"nature": 2,

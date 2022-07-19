@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":candle: **Vieille bougie**",
-		"en": ":candle: **Old candle**"
+		"fr": "Vieille bougie",
+		"en": "Old candle"
 	},
+	"emote": ":candle:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 0,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🧸 **Ours en peluche**",
-		"en": "🧸 **Teddy bear**"
+		"fr": "Ours en peluche",
+		"en": "Teddy bear"
 	},
+	"emote": ":teddy_bear:",
 	"rarity": 2,
 	"power": 14,
 	"nature": 4,

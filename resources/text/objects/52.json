@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDDFC **Savon glissant**",
-		"en": "\uD83E\uDDFC **Swiping soap**"
+		"fr": "Savon glissant",
+		"en": "Swiping soap"
 	},
+	"emote": ":soap:",
 	"rarity": 2,
 	"power": 7,
 	"nature": 2,

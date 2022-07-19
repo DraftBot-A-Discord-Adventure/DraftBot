@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDDF9 **Nimbus 2000**",
-		"en": "\uD83E\uDDF9 **Nimbus 2000**"
+		"fr": "Nimbus 2000",
+		"en": "Nimbus 2000"
 	},
+	"emote": ":broom:",
 	"rarity": 8,
 	"power": 151,
 	"nature": 2,

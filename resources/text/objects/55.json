@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83D\uDCB0 **Bourse du voleur**",
-		"en": "\uD83C\uDF96️ **Big Wallet**"
+		"fr": "Bourse du voleur",
+		"en": "Big Wallet"
 	},
+	"emote": ":moneybag:",
 	"rarity": 3,
 	"power": 94,
 	"nature": 6,

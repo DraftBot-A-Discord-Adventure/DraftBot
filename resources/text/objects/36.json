@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":adhesive_bandage: **Pansement**",
-		"en": ":adhesive_bandage: **Bandage**"
+		"fr": "Pansement",
+		"en": "Bandage"
 	},
+	"emote": ":adhesive_bandage:",
 	"rarity": 4,
 	"power": 4,
 	"nature": 1,

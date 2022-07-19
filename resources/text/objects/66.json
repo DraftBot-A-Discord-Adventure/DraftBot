@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🌐 **Fibre optique**",
-		"en": "🌐 **Optical fiber**"
+		"fr": "Fibre optique",
+		"en": "Optical fiber"
 	},
+	"emote": ":globe_with_meridians:",
 	"rarity": 4,
 	"power": 56,
 	"nature": 2,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":rosette: **Fleur de l'espoir**",
-		"en": ":rosette: **Hope flower**"
+		"fr": "Fleur de l'espoir",
+		"en": "Hope flower"
 	},
+	"emote": ":rosette:",
 	"rarity": 7,
 	"power": 105,
 	"nature": 2,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":amphora: **Pot en terre cuite**",
-		"en": ":amphora: **Terracotta pot**"
+		"fr": "Pot en terre cuite",
+		"en": "Terracotta pot"
 	},
+	"emote": ":amphora:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 2,

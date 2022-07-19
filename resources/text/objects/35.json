@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":magnet: **Aimant**",
-		"en": ":magnet: **Magnet**"
+		"fr": "Aimant",
+		"en": "Magnet"
 	},
+	"emote": ":magnet:",
 	"rarity": 7,
 	"power": 386,
 	"nature": 6,

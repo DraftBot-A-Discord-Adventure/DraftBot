@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":squeeze_bottle: **Gel Hydro-Alcoolique**",
-		"en": ":squeeze_bottle: **Hydro-Alcoholic Gel**"
+		"fr": "Gel Hydro-Alcoolique",
+		"en": "Hydro-Alcoholic Gel"
 	},
+	"emote": ":squeeze_bottle:",
 	"rarity": 6,
 	"power": 7,
 	"nature": 1,

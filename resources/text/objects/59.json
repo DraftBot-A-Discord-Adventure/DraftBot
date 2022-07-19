@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83C\uDF6B **Chocobrie**",
-		"en": "\uD83C\uDF6B **Chocobrie**"
+		"fr": "Chocobrie",
+		"en": "Chocobrie"
 	},
+	"emote": ":chocolate_bar:",
 	"rarity": 5,
 	"power": 5,
 	"nature": 1,

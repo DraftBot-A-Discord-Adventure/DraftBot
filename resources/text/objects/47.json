@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":book: **Kyuran**",
-		"en": ":book: **Kyuran**"
+		"fr": "Kyuran",
+		"en": "Kyuran"
 	},
+	"emote": ":book:",
 	"rarity": 6,
 	"power": 0.75,
 	"nature": 5,
