@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:GreenPotion:548221043618086921> **Potion morvique**",
-		"en": "<:GreenPotion:548221043618086921> **Snotty potion**"
+		"fr": "Potion morvique",
+		"en": "Snotty potion"
 	},
+	"emote": "<:GreenPotion:548221043618086921>",
+	"fallbackEmote": ":beverage_box:",
 	"rarity": 2,
 	"power": 1,
 	"nature": 1,

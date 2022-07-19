@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🪅 **Friandwill**",
-		"en": "🪅 **Friandwill**"
+		"fr": "Friandwill",
+		"en": "Friandwill"
 	},
+	"emote": ":piñata:",
 	"rarity": 2,
 	"power": 15,
 	"nature": 1,

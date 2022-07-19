@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍷 **Vin rouge**",
-		"en": "🍷 **Red wine**"
+		"fr": "Vin rouge",
+		"en": "Red wine"
 	},
+	"emote": ":wine_glass:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 0,
