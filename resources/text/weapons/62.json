@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🦠 **Bio-Arme**",
-		"en": "🦠 **Biological weapon**"
+		"fr": "Bio-Arme",
+		"en": "Biological weapon"
 	},
+	"emote": ":microbe:",
 	"rarity": 7,
 	"rawAttack": 4,
 	"frenchMasculine": 0,

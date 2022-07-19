@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bouquet: **Bouquet de roses**",
-		"en": ":bouquet: **Rose Bouquet**"
+		"fr": "Bouquet de roses",
+		"en": "Rose Bouquet"
 	},
+	"emote": ":bouquet:",
 	"rarity": 1,
 	"rawAttack": 1,
 	"frenchMasculine": 1,

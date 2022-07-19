@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🪒 **Rasoir**",
-		"en": "🪒 **Razor**"
+		"fr": "Rasoir",
+		"en": "Razor"
 	},
+	"emote": ":razor:",
 	"rarity": 1,
 	"rawAttack": 10,
 	"frenchMasculine": 1,

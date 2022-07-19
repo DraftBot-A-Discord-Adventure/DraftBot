@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":banana: **Banane**",
-		"en": ":banana: **Banana**"
+		"fr": "Banane",
+		"en": "Banana"
 	},
+	"emote": ":banana:",
 	"rarity": 4,
 	"rawAttack": 1,
 	"frenchMasculine": 0,

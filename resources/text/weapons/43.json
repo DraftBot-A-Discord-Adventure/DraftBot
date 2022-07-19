@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":cucumber: **Cornichon**",
-		"en": ":cucumber: **Pickle**"
+		"fr": "Cornichon",
+		"en": "Pickle"
 	},
+	"emote": ":cucumber:",
 	"rarity": 1,
 	"rawAttack": 1,
 	"frenchMasculine": 1,

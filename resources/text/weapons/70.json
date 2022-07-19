@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":gun: **Pistolet pan pan QQ**",
-		"en": ":gun: **Gun pan pan QQ**"
+		"fr": "Pistolet pan pan QQ",
+		"en": "Gun pan pan QQ"
 	},
+	"emote": ":gun:",
 	"rarity": 7,
 	"rawAttack": 3,
 	"frenchMasculine": 1,

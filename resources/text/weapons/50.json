@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🏹 **Arc de novice**",
-		"en": "🏹 **Novice bow**"
+		"fr": "Arc de novice",
+		"en": "Novice bow"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 3,
 	"rawAttack": 9,
 	"defense": -10,

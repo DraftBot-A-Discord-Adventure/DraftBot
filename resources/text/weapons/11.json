@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":gun: **Pistolet vide**",
-		"en": ":gun: **Unloaded gun**"
+		"fr": "Pistolet vide",
+		"en": "Unloaded gun"
 	},
+	"emote": ":gun:",
 	"rarity": 4,
 	"rawAttack": 1,
 	"frenchMasculine": 1,

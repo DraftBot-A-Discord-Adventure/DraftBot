@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "❄️ **Boule de neige**",
-		"en": "❄️ **Snowball**"
+		"fr": "Boule de neige",
+		"en": "Snowball"
 	},
+	"emote": ":snowflake:",
 	"rarity": 1,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

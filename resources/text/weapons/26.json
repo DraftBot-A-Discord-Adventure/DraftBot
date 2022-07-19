@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":field_hockey: **Crosse**",
-		"en": ":field_hockey: **Hockey stick**"
+		"fr": "Crosse",
+		"en": "Hockey stick"
 	},
+	"emote": ":field_hockey:",
 	"rarity": 1,
 	"rawAttack": 7,
 	"frenchMasculine": 0,

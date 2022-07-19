@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Paire de dagues**",
-		"en": ":crossed_swords: **Pair of daggers**"
+		"fr": "Paire de dagues",
+		"en": "Pair of daggers"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 4,
 	"rawAttack": 10,
 	"frenchMasculine": 0,

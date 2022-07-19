@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée en fer**",
-		"en": ":crossed_swords: **Iron sword**"
+		"fr": "Épée en fer",
+		"en": "Iron sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 4,
 	"rawAttack": 8,
 	"frenchMasculine": 0,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🏹 **Arc du héros**",
-		"en": "🏹 **Heroe bow**"
+		"fr": "Arc du héros",
+		"en": "Heroe bow"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 7,
 	"rawAttack": 8,
 	"defense": -35,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🧱 **Brique**",
-		"en": "🧱 **Brick**"
+		"fr": "Brique",
+		"en": "Brick"
 	},
+	"emote": ":bricks:",
 	"rarity": 3,
 	"rawAttack": 1,
 	"frenchMasculine": 0,

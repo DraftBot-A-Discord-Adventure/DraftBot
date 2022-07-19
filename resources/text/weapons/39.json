@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épées doubles**",
-		"en": ":crossed_swords: **Double swords**"
+		"fr": "Épées doubles",
+		"en": "Double swords"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 5,
 	"rawAttack": 10,
 	"attack" : 10,

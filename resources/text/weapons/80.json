@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83C\uDF86 **Sceptre à 100 sorts**",
-		"en": "\uD83C\uDF86 **100 spell scepter**"
+		"fr": "Sceptre à 100 sorts",
+		"en": "100 spell scepter"
 	},
+	"emote": ":fireworks:",
 	"rarity": 8,
 	"rawAttack": 5,
 	"speed" : 50,

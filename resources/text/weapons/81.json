@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83D\uDDE1️️ **Exagide**",
-		"en": "\uD83D\uDDE1️ **Exagide**"
+		"fr": "Exagide",
+		"en": "Exagide"
 	},
+	"emote": ":dagger:",
 	"rarity": 6,
 	"rawAttack": 5,
 	"defense" : 30,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bomb: **Bombe**",
-		"en": ":bomb: **Bomb**"
+		"fr": "Bombe",
+		"en": "Bomb"
 	},
+	"emote": ":bomb:",
 	"rarity": 5,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

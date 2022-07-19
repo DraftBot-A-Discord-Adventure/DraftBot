@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":knife: **Couteau simple**",
-		"en": ":knife: **Basic knife**"
+		"fr": "Couteau simple",
+		"en": "Basic knife"
 	},
+	"emote": ":knife:",
 	"rarity": 2,
 	"rawAttack": 7,
 	"frenchMasculine": 1,

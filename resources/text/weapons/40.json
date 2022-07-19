@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée en diamant**",
-		"en": ":crossed_swords: **Diamond sword**"
+		"fr": "Épée en diamant",
+		"en": "Diamond sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 7,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

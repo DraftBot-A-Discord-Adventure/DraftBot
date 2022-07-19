@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":wrench: **Clé rouillée**",
-		"en": ":wrench: **Rusty key**"
+		"fr": "Clé rouillée",
+		"en": "Rusty key"
 	},
+	"emote": ":wrench:",
 	"rarity": 1,
 	"rawAttack": 3,
 	"frenchMasculine": 0,

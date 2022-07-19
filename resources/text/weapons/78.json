@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDEC2 **Pouvoir de l'amitié**",
-		"en": "\uD83E\uDEC2 **Power of friendship**"
+		"fr": "Pouvoir de l'amitié",
+		"en": "Power of friendship"
 	},
+	"emote": ":people_hugging:",
 	"rarity": 3,
 	"rawAttack": 3,
 	"speed": 15,

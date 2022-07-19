@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":zap: **Foudre de Zeus**",
-		"en": ":zap: **Zeus's lightning bolt**"
+		"fr": "Foudre de Zeus",
+		"en": "Zeus's lightning bolt"
 	},
+	"emote": ":zap:",
 	"rarity": 6,
 	"rawAttack": 8,
 	"frenchMasculine": 0,
