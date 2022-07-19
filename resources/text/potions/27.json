@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍼 **Biberon**",
-		"en": "🍼 **Baby bottle**"
+		"fr": "Biberon",
+		"en": "Baby bottle"
 	},
+	"emote": ":baby_bottle:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 1,

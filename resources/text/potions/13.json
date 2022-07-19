@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:DarkPotion:548221047187439710> **Potion bleue**",
-		"en": "<:DarkPotion:548221047187439710> **Blue potion**"
+		"fr": "Potion bleue",
+		"en": "Blue potion"
 	},
+	"emote": "<:DarkPotion:548221047187439710>",
+	"fallbackEmote": ":alembic:",
 	"rarity": 2,
 	"power": 25,
 	"nature": 4,

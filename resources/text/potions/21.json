@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:PurplePotion:548221048768954418> **Potion de vitesse**",
-		"en": "<:PurplePotion:548221048768954418> **Speed potion**"
+		"fr": "Potion de vitesse",
+		"en": "Speed potion"
 	},
+	"emote": "<:PurplePotion:548221048768954418>",
+	"fallbackEmote": ":cocktail:",
 	"rarity": 5,
 	"power": 200,
 	"nature": 2,

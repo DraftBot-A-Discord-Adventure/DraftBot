@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:BubbleGreenPotion:548221041940365353> **Potion douteuse**",
-		"en": "<:BubbleGreenPotion:548221041940365353> **Suspicious potion**"
+		"fr": "Potion douteuse",
+		"en": "Suspicious potion"
 	},
+	"emote": "<:BubbleGreenPotion:548221041940365353>",
+	"fallbackEmote": ":test_tube:",
 	"rarity": 1,
 	"power": 0,
 	"nature": 0,

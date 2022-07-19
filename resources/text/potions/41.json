@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:BubbleGreenPotion:548221041940365353> **Jus de chaussettes**",
-		"en": "<:BubbleGreenPotion:548221041940365353> **Socks juice**"
+		"fr": "Jus de chaussettes",
+		"en": "Socks juice"
 	},
+	"emote": "<:BubbleGreenPotion:548221041940365353>",
+	"fallbackEmote": ":test_tube:",
 	"rarity": 2,
 	"power": 15,
 	"nature": 2,

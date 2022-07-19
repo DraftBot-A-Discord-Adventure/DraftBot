@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:LovePotion:548221051063107594> **Bizous'koup**",
-		"en": "<:LovePotion:548221051063107594> **Bizous'koup**"
+		"fr": "Bizous'koup",
+		"en": "Bizous'koup"
 	},
+	"emote": "<:LovePotion:548221051063107594>",
+	"fallbackEmote": ":heart:",
 	"rarity": 5,
 	"power": 70,
 	"nature": 1,

@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:GreenPotion:548221043618086921> **Potion ultime**",
-		"en": "<:GreenPotion:548221043618086921> **Ultimate potion**"
+		"fr": "Potion ultime",
+		"en": "Ultimate potion"
 	},
+	"emote": "<:GreenPotion:548221043618086921>",
+	"fallbackEmote": ":beverage_box:",
 	"rarity": 7,
 	"power": 20,
 	"nature": 5,

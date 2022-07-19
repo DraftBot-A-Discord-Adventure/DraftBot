@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍵 **Jus**",
-		"en": "🍵  **Juice**"
+		"fr": "Jus",
+		"en": "Juice"
 	},
+	"emote": ":tea:",
 	"rarity": 4,
 	"power": 1,
 	"nature": 5,

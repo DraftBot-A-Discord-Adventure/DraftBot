@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥜 **Huile de noix**",
-		"en": "🥜 **Nut oil**"
+		"fr": "Huile de noix",
+		"en": "Nut oil"
 	},
+	"emote": ":peanuts:",
 	"rarity": 5,
 	"power": 169,
 	"nature": 4,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "☠️ **Potion de la mort qui tue**",
-		"en": "☠️ **Potion of the death that kills**"
+		"fr": "Potion de la mort qui tue",
+		"en": "Potion of the death that kills"
 	},
+	"emote": ":skull_crossbones:",
 	"rarity": 8,
 	"power": 40,
 	"nature": 5,

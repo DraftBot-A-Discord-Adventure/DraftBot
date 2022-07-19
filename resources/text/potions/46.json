@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🌶️ **Huile de ghost pepper**",
-		"en": "🌶️ **Ghost pepper oil**"
+		"fr": "Huile de ghost pepper",
+		"en": "Ghost pepper oil"
 	},
+	"emote": ":hot_pepper:",
 	"rarity": 7,
 	"power": 243,
 	"nature": 3,

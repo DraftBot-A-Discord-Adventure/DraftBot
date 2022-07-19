@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🫕 **Fondue hivernale**",
-		"en": "🫕 **Winter fondue**"
+		"fr": "Fondue hivernale",
+		"en": "Winter fondue"
 	},
+	"emote": ":fondue:",
 	"rarity": 1,
 	"power": 3,
 	"nature": 1,
