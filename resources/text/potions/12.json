@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:DarkPotion:548221047187439710> **Potion foncée**",
-		"en": "<:DarkPotion:548221047187439710> **Dark potion**"
+		"fr": "Potion foncée",
+		"en": "Dark potion"
 	},
+	"emote": "<:DarkPotion:548221047187439710>",
+	"fallbackEmote": ":alembic:",
 	"rarity": 4,
 	"power": 90,
 	"nature": 4,

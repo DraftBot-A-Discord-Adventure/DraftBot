@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍺 **Breuvage du courage**",
-		"en": "🍺 ️**Courage concoction**"
+		"fr": "Breuvage du courage",
+		"en": "Courage concoction"
 	},
+	"emote": ":beer:",
 	"rarity": 3,
 	"power": 69,
 	"nature": 4,

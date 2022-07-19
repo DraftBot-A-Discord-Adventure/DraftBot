@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:LovePotion:548221051063107594> **Potion de guérison**",
-		"en": "<:LovePotion:548221051063107594> **Regeneration potion**"
+		"fr": "Potion de guérison",
+		"en": "Regeneration potion"
 	},
+	"emote": "<:LovePotion:548221051063107594>",
+	"fallbackEmote": ":heart:",
 	"rarity": 5,
 	"power": 80,
 	"nature": 1,
