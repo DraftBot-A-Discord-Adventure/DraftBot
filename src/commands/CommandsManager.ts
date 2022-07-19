@@ -141,9 +141,35 @@ export class CommandsManager {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
-			await this.checkCommandFromCategory(category, commandsToRegister);
-		}
-		return commandsToRegister;
+
+			void CommandsManager.handleCommand(interaction as CommandInteraction);
+		});
+
+		client.on("messageCreate", async message => {
+
+			// ignore all bot messages and own messages
+			if (message.author.bot || message.author.id === draftBotClient.user.id) {
+				return;
+			}
+
+			if (message.channel.type === "DM") {
+				await CommandsManager.handlePrivateMessage(message);
+			}
+			else {
+				const [server] = await Server.findOrCreate({
+					where: {
+						discordGuildId: message.guild.id
+					}
+				});
+
+				if (message.content.startsWith("<@" + client.user.id + ">")) {
+					message.channel.send({
+						content:
+							Translations.getModule("bot", server.language).get("mentionHelp")
+					}).then();
+				}
+			}
+		});
 	}
 
 	/**
