@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83D\uDC22 **Carapace de Franklin**",
-		"en": "\uD83D\uDC22 **Franklin's shell**"
+		"fr": "Carapace de Franklin",
+		"en": "Franklin's shell"
 	},
+	"emote": ":turtle:",
 	"rarity": 2,
 	"rawDefense": 10,
 	"speed": -10,

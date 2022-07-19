@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier de lynel**",
-		"en": ":shield: **Lynel's shield**"
+		"fr": "Bouclier de lynel",
+		"en": "Lynel's shield"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 9,
 	"frenchMasculine": 1,

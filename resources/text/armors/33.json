@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Scutum**",
-		"en": ":shield: **Scutum**"
+		"fr": "Scutum",
+		"en": "Scutum"
 	},
+	"emote": ":shield:",
 	"rarity": 2,
 	"rawDefense": 6,
 	"frenchMasculine": 1,

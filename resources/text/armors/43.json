@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDEA3 **Seau en métal**",
-		"en": "\uD83E\uDD65 **Iron bucket**"
+		"fr": "Seau en métal",
+		"en": "Iron bucket"
 	},
+	"emote": ":bucket:",
 	"rarity": 2,
 	"rawDefense": 1,
 	"frenchMasculine": 1,

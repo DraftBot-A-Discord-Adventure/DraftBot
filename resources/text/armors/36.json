@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier à pointes**",
-		"en": ":shield: **Spike shield**"
+		"fr": "Bouclier à pointes",
+		"en": "Spike shield"
 	},
+	"emote": ":shield:",
 	"rarity": 8,
 	"rawDefense": 7,
 	"attack": 15,

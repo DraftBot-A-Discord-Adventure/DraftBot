@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier de la solitude**",
-		"en": ":shield: **Shield of solitude**"
+		"fr": "Bouclier de la solitude",
+		"en": "Shield of solitude"
 	},
+	"emote": ":shield:",
 	"rarity": 3,
 	"rawDefense": 7,
 	"frenchMasculine": 1,

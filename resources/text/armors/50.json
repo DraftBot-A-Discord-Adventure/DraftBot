@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":lab_coat: **Blouse de protection**",
-		"en": ":lab_coat: **Lab coat**"
+		"fr": "Blouse de protection",
+		"en": "Lab coat"
 	},
+	"emote": ":lab_coat:",
 	"rarity": 1,
 	"rawDefense": 1,
 	"speed": 15,

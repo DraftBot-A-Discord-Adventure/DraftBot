@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier en fer**",
-		"en": ":shield: **Iron shield**"
+		"fr": "Bouclier en fer",
+		"en": "Iron shield"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 5,
 	"frenchMasculine": 1,

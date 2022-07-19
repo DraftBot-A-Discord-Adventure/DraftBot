@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Rondache**",
-		"en": ":shield: **Rondache**"
+		"fr": "Rondache",
+		"en": "Rondache"
 	},
+	"emote": ":shield:",
 	"rarity": 3,
 	"rawDefense": 5,
 	"frenchMasculine": 0,

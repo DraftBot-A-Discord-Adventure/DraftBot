@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDDE5 **Manteau**",
-		"en": "\uD83E\uDDE5 **Coat**"
+		"fr": "Manteau",
+		"en": "Coat"
 	},
+	"emote": "",
 	"rarity": 1,
 	"rawDefense": 1,
 	"frenchMasculine": 1,

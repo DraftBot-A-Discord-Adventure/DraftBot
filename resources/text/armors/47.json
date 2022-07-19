@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83C\uDFEF **Forteresse japonaise**",
-		"en": "\uD83C\uDFEF **Japanese fortress**"
+		"fr": "Forteresse japonaise",
+		"en": "Japanese fortress"
 	},
+	"emote": ":japanese_castle:",
 	"rarity": 6,
 	"rawDefense": 12,
 	"attack" : 50,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDE96 **Casque de guerre**",
-		"en": "\uD83E\uDE96  **War helmet**"
+		"fr": "Casque de guerre",
+		"en": "War helmet"
 	},
+	"emote": ":military_helmet:",
 	"rarity": 1,
 	"rawDefense": 10,
 	"defense" : 9,

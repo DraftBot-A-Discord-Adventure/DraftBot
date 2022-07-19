@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Lumière de node**",
-		"en": ":shield: **Node's light**"
+		"fr": "Lumière de node",
+		"en": "Node's light"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 7,
 	"frenchMasculine": 0,

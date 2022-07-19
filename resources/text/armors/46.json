@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":window: **Plexiglas**",
-		"en": ":window: **Plexiglas**"
+		"fr": "Plexiglas",
+		"en": "Plexiglas"
 	},
+	"emote": ":window:",
 	"rarity": 4,
 	"rawDefense": 3,
 	"attack" : 10,

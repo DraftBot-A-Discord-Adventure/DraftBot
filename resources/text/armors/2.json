@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":helmet_with_cross: **Casque de sécurité**",
-		"en": ":helmet_with_cross: **Security helmet**"
+		"fr": "Casque de sécurité",
+		"en": "Security helmet"
 	},
+	"emote": ":helmet_with_cross:",
 	"rarity": 1,
 	"rawDefense": 6,
 	"frenchMasculine": 1,

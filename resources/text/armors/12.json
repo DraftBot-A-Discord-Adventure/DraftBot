@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier de maître**",
-		"en": ":shield: **Master shield**"
+		"fr": "Bouclier de maître",
+		"en": "Master shield"
 	},
+	"emote": ":shield:",
 	"rarity": 7,
 	"rawDefense": 7,
 	"frenchMasculine": 1,

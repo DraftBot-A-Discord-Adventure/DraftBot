@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":high_brightness: **Bouclier solaire**",
-		"en": ":high_brightness: **Solar shield**"
+		"fr": "Bouclier solaire",
+		"en": "Solar shield"
 	},
+	"emote": ":high_brightness:",
 	"rarity": 6,
 	"rawDefense": 7,
 	"frenchMasculine": 1,

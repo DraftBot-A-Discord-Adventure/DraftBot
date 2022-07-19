@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":martial_arts_uniform: **Kimono de maître**",
-		"en": ":martial_arts_uniform: **Master's kimono**"
+		"fr": "Kimono de maître",
+		"en": "Master's kimono"
 	},
+	"emote": ":martial_arts_uniform:",
 	"rarity": 6,
 	"rawDefense": 5,
 	"frenchMasculine": 1,
