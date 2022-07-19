@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crystal_ball: **Boule de verre magique**",
-		"en": ":crystal_ball: **Magic glass ball**"
+		"fr": "Boule de verre magique",
+		"en": "Magic glass ball"
 	},
+	"emote": ":crystal_ball:",
 	"rarity": 3,
 	"power": 25,
 	"nature": 2,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":blue_book: **Livre d'incantations Volume 2**",
-		"en": ":blue_book: **Spellbook volume 2**"
+		"fr": "Livre d'incantations Volume 2",
+		"en": "Spellbook volume 2"
 	},
+	"emote": ":blue_book:",
 	"rarity": 2,
 	"power": 15,
 	"nature": 3,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83D\uDC60 **Chaussures à talon**",
-		"en": "\uD83D\uDC60 **High heel shoes**"
+		"fr": "Chaussures à talon",
+		"en": "High heel shoes"
 	},
+	"emote": ":high_heel:",
 	"rarity": 1,
 	"power": 10,
 	"nature": 3,

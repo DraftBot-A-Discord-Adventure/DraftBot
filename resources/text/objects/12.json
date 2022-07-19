@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":new_moon: **Bout d'obsidienne**",
-		"en": ":new_moon: **Piece of obsidian**"
+		"fr": "Bout d'obsidienne",
+		"en": "Piece of obsidian"
 	},
+	"emote": ":new_moon:",
 	"rarity": 4,
 	"power": 42,
 	"nature": 4,

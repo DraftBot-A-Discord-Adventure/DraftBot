@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":orange_square: **Amulette de Midas**",
-		"en": ":orange_square: **Midas Amulett**"
+		"fr": "Amulette de Midas",
+		"en": "Midas Amulett"
 	},
+	"emote": ":orange_square:",
 	"rarity": 7,
 	"power": 342,
 	"nature": 6,

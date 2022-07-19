@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":oil: **Baril métallique**",
-		"en": ":oil: **Metal barrel**"
+		"fr": "Baril métallique",
+		"en": "Metal barrel"
 	},
+	"emote": ":oil:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 0,

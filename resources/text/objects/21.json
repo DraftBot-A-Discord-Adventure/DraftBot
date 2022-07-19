@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":prayer_beads: **Chapelet mythique**",
-		"en": ":prayer_beads: **Mythical rosary**"
+		"fr": "Chapelet mythique",
+		"en": "Mythical rosary"
 	},
+	"emote": ":prayer_beads:",
 	"rarity": 3,
 	"power": 3,
 	"nature": 1,

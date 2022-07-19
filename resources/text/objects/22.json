@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":flag_black: **Drapeau de la mort**",
-		"en": ":flag_black: **Death flag**"
+		"fr": "Drapeau de la mort",
+		"en": "Death flag"
 	},
+	"emote": ":flag_black:",
 	"rarity": 6,
 	"power": 85,
 	"nature": 3,

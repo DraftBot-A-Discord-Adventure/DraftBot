@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":chains: **Chaines magiques**",
-		"en": ":chains: **Magic Chain**"
+		"fr": "Chaines magiques",
+		"en": "Magic Chain"
 	},
+	"emote": ":chains:",
 	"rarity": 5,
 	"power": 207,
 	"nature": 6,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":office: **Multinationale**",
-		"en": ":office: **Multinational company**"
+		"fr": "Multinationale",
+		"en": "Multinational company"
 	},
+	"emote": ":office:",
 	"rarity": 8,
 	"power": 401,
 	"nature": 6,

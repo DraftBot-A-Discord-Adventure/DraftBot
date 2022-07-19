@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":banana: **Banan'ase split**",
-		"en": ":banana: **Banan'ase split**"
+		"fr": "Banan'ase split",
+		"en": "Banan'ase split"
 	},
+	"emote": ":banana:",
 	"rarity": 6,
 	"power": 9,
 	"nature": 1,

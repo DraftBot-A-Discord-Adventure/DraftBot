@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🎃 **Citrouille**",
-		"en": "🎃 **Jack-o'-lantern**"
+		"fr": "Citrouille",
+		"en": "Jack-o'-lantern"
 	},
+	"emote": ":jack_o_lantern:",
 	"rarity": 2,
 	"power": 15,
 	"nature": 4,

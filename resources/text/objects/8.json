@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":four_leaf_clover: **Feuille de vent**",
-		"en": ":four_leaf_clover: **Leaf in the wind**"
+		"fr": "Feuille de vent",
+		"en": "Leaf in the wind"
 	},
+	"emote": ":four_leaf_clover:",
 	"rarity": 4,
 	"power": 41,
 	"nature": 2,

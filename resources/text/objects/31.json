@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "😹 **Chat aux yeux lasers mignon**",
-		"en": "😹 **Cute cat with laser-throwing eyes**"
+		"fr": "Chat aux yeux lasers mignon",
+		"en": "Cute cat with laser-throwing eyes"
 	},
+	"emote": ":joy_cat:",
 	"rarity": 5,
 	"power": 57,
 	"nature": 3,

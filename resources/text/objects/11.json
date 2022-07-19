@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":angel_tone3: **Bénédiction du ciel**",
-		"en": ":angel_tone3: **Sky's blessing**"
+		"fr": "Bénédiction du ciel",
+		"en": "Sky's blessing"
 	},
+	"emote": ":angel_tone3:",
 	"rarity": 7,
 	"power": 15,
 	"nature": 1,

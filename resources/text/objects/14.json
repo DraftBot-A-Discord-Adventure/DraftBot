@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":apple: **Pomme rouge**",
-		"en": ":apple: **Red Apple**"
+		"fr": "Pomme rouge",
+		"en": "Red Apple"
 	},
+	"emote": ":apple:",
 	"rarity": 2,
 	"power": 1,
 	"nature": 1,

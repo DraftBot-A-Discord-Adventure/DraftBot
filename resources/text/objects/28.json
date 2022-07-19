@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":guitar: **Guitare terrifiante**",
-		"en": ":guitar: **Terrifying guitar**"
+		"fr": "Guitare terrifiante",
+		"en": "Terrifying guitar"
 	},
+	"emote": ":guitar:",
 	"rarity": 8,
 	"power": 137,
 	"nature": 3,

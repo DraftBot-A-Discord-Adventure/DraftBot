@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "💳 **Carte bancaire**",
-		"en": "💳 **Credit card**"
+		"fr": "Carte bancaire",
+		"en": "Credit card"
 	},
+	"emote": ":credit_card:",
 	"rarity": 6,
 	"power": 294,
 	"nature": 6,

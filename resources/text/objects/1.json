@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":flag_white: **Drapeau de la paix**",
-		"en": ":flag_white: **Peace flag**"
+		"fr": "Drapeau de la paix",
+		"en": "Peace flag"
 	},
+	"emote": ":flag_white:",
 	"rarity": 7,
 	"power": 14,
 	"nature": 1,
