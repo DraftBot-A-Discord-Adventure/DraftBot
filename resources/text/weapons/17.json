@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":wrench: **Masse**",
-		"en": ":wrench: **Sledgehammer**"
+		"fr": "Masse",
+		"en": "Sledgehammer"
 	},
+	"emote": ":wrench:",
 	"rarity": 3,
 	"rawAttack": 5,
 	"speed" :-10,

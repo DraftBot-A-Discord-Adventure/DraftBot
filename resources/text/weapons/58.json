@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🔖 **Gros livre**",
-		"en": "🔖 **Big book**"
+		"fr": "Gros livre",
+		"en": "Big book"
 	},
+	"emote": ":bookmark:",
 	"rarity": 2,
 	"rawAttack": 8,
 	"frenchMasculine": 1,

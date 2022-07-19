@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":dagger: **Dague fragile**",
-		"en": ":dagger: **Fragile Dagger**"
+		"fr": "Dague fragile",
+		"en": "Fragile Dagger"
 	},
+	"emote": ":dagger:",
 	"rarity": 3,
 	"rawAttack": 6,
 	"frenchMasculine": 0,

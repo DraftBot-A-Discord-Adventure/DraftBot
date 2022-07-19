@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🏹 **Arc de soldat**",
-		"en": "🏹 **Soldier bow**"
+		"fr": "Arc de soldat",
+		"en": "Soldier bow"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 4,
 	"rawAttack": 7,
 	"defense": -20,

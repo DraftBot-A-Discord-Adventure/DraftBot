@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍴 **Fourchettecouteau**",
-		"en": "🍴 **Fork and knife**"
+		"fr": "Fourchettecouteau",
+		"en": "Fork and knife"
 	},
+	"emote": ":fork_and_knife:",
 	"rarity": 1,
 	"rawAttack": 2,
 	"frenchMasculine": 0,

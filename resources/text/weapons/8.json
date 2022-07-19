@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":pushpin: **Percingasiteur**",
-		"en": ":pushpin: **Knightfest**"
+		"fr": "Percingasiteur",
+		"en": "Knightfest"
 	},
+	"emote": ":pushpin:",
 	"rarity": 2,
 	"rawAttack": 2,
 	"frenchMasculine": 1,

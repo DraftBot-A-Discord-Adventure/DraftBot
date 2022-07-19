@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83C\uDF02 **Parapluie de grand-mère**",
-		"en": "\uD83C\uDF02 **Umbrella**"
+		"fr": "Parapluie de grand-mère",
+		"en": "Umbrella"
 	},
+	"emote": ":closed_umbrella:",
 	"rarity": 2,
 	"rawAttack": 6,
 	"defense" : 10,

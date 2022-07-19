@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée de maître**",
-		"en": ":crossed_swords: **Master sword**"
+		"fr": "Épée de maître",
+		"en": "Master sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 7,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

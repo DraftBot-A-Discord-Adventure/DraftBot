@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée de débutant**",
-		"en": ":crossed_swords: **Beginner's sword**"
+		"fr": "Épée de débutant",
+		"en": "Beginner's sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 4,
 	"rawAttack": 6,
 	"frenchMasculine": 0,

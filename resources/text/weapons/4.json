@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow: **Transperceur**",
-		"en": ":bow_and_arrow: **Wolfslayer**"
+		"fr": "Transperceur",
+		"en": "Wolfslayer"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 2,
 	"rawAttack": 4,
 	"frenchMasculine": 1,

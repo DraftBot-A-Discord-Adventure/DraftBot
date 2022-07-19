@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée royale**",
-		"en": ":crossed_swords: **Royal sword**"
+		"fr": "Épée royale",
+		"en": "Royal sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 6,
 	"rawAttack": 9,
 	"frenchMasculine": 1,

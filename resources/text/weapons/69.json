@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Ines'word**",
-		"en": ":crossed_swords: **Ines'word**"
+		"fr": "Ines'word",
+		"en": "Ines'word"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 6,
 	"rawAttack": 5,
 	"frenchMasculine": 0,

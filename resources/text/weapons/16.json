@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":pick: **Pioche**",
-		"en": ":pick: **Pickaxe**"
+		"fr": "Pioche",
+		"en": "Pickaxe"
 	},
+	"emote": ":pick:",
 	"rarity": 3,
 	"rawAttack": 5,
 	"frenchMasculine": 0,

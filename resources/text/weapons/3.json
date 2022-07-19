@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":cricket: **Assomoire**",
-		"en": ":cricket: **Bludgeon**"
+		"fr": "Assomoire",
+		"en": "Bludgeon"
 	},
+	"emote": ":cricket:",
 	"rarity": 2,
 	"rawAttack": 4,
 	"frenchMasculine": 1,

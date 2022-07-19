@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":dagger: **Dague**",
-		"en": ":dagger: **Dagger**"
+		"fr": "Dague",
+		"en": "Dagger"
 	},
+	"emote": ":dagger:",
 	"rarity": 4,
 	"rawAttack": 9,
 	"frenchMasculine": 1,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":tools: **Outils usés**",
-		"en": ":tools: **Used tools**"
+		"fr": "Outils usés",
+		"en": "Used tools"
 	},
+	"emote": ":tools:",
 	"rarity": 1,
 	"rawAttack": 3,
 	"frenchMasculine": 1,

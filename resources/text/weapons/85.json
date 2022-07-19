@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "❤ **Pouvoir de l'amour**",
-		"en": "❤ **Power of love**"
+		"fr": "Pouvoir de l'amour",
+		"en": "Power of love"
 	},
+	"emote": ":heart:",
 	"rarity": 5,
 	"rawAttack": 3,
 	"speed": 23,

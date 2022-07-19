@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":right_facing_fist: **Poing renforcé**",
-		"en": ":right_facing_fist: **Reinforced fist**"
+		"fr": "Poing renforcé",
+		"en": "Reinforced fist"
 	},
+	"emote": ":right_facing_fist:",
 	"rarity": 1,
 	"rawAttack": 6,
 	"frenchMasculine": 1,
