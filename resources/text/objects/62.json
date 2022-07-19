@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":eye: **Œil de Fatalis**",
-		"en": ":eye: **Fatalis' eye**"
+		"fr": "Œil de Fatalis",
+		"en": "Fatalis' eye"
 	},
+	"emote": ":eye:",
 	"rarity": 8,
 	"power": 134,
 	"nature": 3,

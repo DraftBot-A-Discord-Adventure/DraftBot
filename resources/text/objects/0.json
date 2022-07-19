@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":black_large_square:  **Emplacement libre**",
-		"en": ":black_large_square: **Unused space**"
+		"fr": "Emplacement libre",
+		"en": "Unused space"
 	},
+	"emote": ":black_large_square:",
 	"rarity": 0,
 	"power": 1,
 	"nature": 0,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":key2: **Clé rouillée**",
-		"en": ":key2: **Rusty key**"
+		"fr": "Clé rouillée",
+		"en": "Rusty key"
 	},
+	"emote": ":key2:",
 	"rarity": 1,
 	"power": 25,
 	"nature": 6,

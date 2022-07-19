@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":gem: **Diamant Kéraunique**",
-		"en": ":gem: **Keratinized diamond**"
+		"fr": "Diamant Kéraunique",
+		"en": "Keratinized diamond"
 	},
+	"emote": ":gem:",
 	"rarity": 7,
 	"power": 132,
 	"nature": 3,

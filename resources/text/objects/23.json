@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":fleur_de_lis: **Fleur royale**",
-		"en": ":fleur_de_lis: **Royal flower**"
+		"fr": "Fleur royale",
+		"en": "Royal flower"
 	},
+	"emote": ":fleur_de_lis:",
 	"rarity": 5,
 	"power": 59,
 	"nature": 4,

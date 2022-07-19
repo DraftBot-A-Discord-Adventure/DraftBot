@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":orange_book: **Livre d'incantations Volume 3**",
-		"en": ":orange_book: **Spellbook volume 3**"
+		"fr": "Livre d'incantations Volume 3",
+		"en": "Spellbook volume 3"
 	},
+	"emote": ":orange_book:",
 	"rarity": 3,
 	"power": 25,
 	"nature": 4,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":amphora: **Urne ornée du minotaure**",
-		"en": ":amphora: **Ornated minotaur's urn**"
+		"fr": "Urne ornée du minotaure",
+		"en": "Ornated minotaur's urn"
 	},
+	"emote": ":amphora:",
 	"rarity": 6,
 	"power": 256,
 	"nature": 6,

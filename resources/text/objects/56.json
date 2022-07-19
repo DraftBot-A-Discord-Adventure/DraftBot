@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83C\uDFB0 **Machine à sous**",
-		"en": "\uD83C\uDFB0 **Slot machine**"
+		"fr": "Machine à sous",
+		"en": "Slot machine"
 	},
+	"emote": ":slot_machine:",
 	"rarity": 4,
 	"power": 142,
 	"nature": 6,

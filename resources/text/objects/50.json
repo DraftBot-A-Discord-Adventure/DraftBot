@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDD7E **Bottes de Pégase**",
-		"en": "\uD83E\uDD7E **Pegasus Boots**"
+		"fr": "Bottes de Pégase",
+		"en": "Pegasus Boots"
 	},
+	"emote": ":hiking_boot:",
 	"rarity": 7,
 	"power": 108,
 	"nature": 2,

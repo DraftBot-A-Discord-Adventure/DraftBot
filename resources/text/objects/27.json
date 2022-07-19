@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":saxophone: **Saxo magique**",
-		"en": ":saxophone: **Magic sax**"
+		"fr": "Saxo magique",
+		"en": "Magic sax"
 	},
+	"emote": ":saxophone:",
 	"rarity": 8,
 	"power": 16,
 	"nature": 1,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":stars: **Etoile filante**",
-		"en": ":stars: **Shooting star**"
+		"fr": "Etoile filante",
+		"en": "Shooting star"
 	},
+	"emote": ":stars:",
 	"rarity": 7,
 	"power": 1.25,
 	"nature": 5,

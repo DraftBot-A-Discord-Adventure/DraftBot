@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":diamond_shape_with_a_dot_inside: **Pouvoir de Nayru**",
-		"en": ":diamond_shape_with_a_dot_inside: **Power of Nayru**"
+		"fr": "Pouvoir de Nayru",
+		"en": "Power of Nayru"
 	},
+	"emote": ":diamond_shape_with_a_dot_inside:",
 	"rarity": 4,
 	"power": 38,
 	"nature": 3,

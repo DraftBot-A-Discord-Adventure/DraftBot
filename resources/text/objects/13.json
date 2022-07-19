@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":fallen_leaf: **Feuilles mortes**",
-		"en": ":fallen_leaf: **Dead leaves**"
+		"fr": "Feuilles mortes",
+		"en": "Dead leaves"
 	},
+	"emote": ":fallen_leaf:",
 	"rarity": 1,
 	"power": 1,
 	"nature": 0,
