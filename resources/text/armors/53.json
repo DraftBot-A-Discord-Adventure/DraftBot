@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Égide contrefaite**",
-		"en": ":shield: **Counterfeit aegis**"
+		"fr": "Égide contrefaite",
+		"en": "Counterfeit aegis"
 	},
+	"emote": ":shield:",
 	"rarity": 1,
 	"rawDefense": 5,
 	"attack": 6,

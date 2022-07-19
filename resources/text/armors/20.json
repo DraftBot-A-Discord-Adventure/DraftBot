@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":family_mmgb: **Bouclier humain**",
-		"en": ":family_mmgb: **Human shield**"
+		"fr": "Bouclier humain",
+		"en": "Human shield"
 	},
+	"emote": ":family_mmgb:",
 	"rarity": 7,
 	"rawDefense": 9,
 	"frenchMasculine": 1,

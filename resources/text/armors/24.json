@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier de gladiateur**",
-		"en": ":shield: **Gladiator's shield**"
+		"fr": "Bouclier de gladiateur",
+		"en": "Gladiator's shield"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 6,
 	"frenchMasculine": 1,

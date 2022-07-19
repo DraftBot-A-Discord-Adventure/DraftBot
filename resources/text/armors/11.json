@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier de débutant**",
-		"en": ":shield: **Beginner's shield**"
+		"fr": "Bouclier de débutant",
+		"en": "Beginner's shield"
 	},
+	"emote": ":shield:",
 	"rarity": 1,
 	"rawDefense": 2,
 	"frenchMasculine": 1,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":black_large_square: **Pas de bouclier ni d'armure**",
-		"en": ":black_large_square: **No shield or armor**"
+		"fr": "Pas de bouclier ni d'armure",
+		"en": "No shield or armor"
 	},
+	"emote": ":black_large_square:",
 	"rarity": 0,
 	"rawDefense": 0,
 	"frenchMasculine": 0,

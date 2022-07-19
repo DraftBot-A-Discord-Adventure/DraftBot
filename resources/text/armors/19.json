@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":safety_vest: **Veste de sécurité**",
-		"en": ":safety_vest: **Security jacket**"
+		"fr": "Veste de sécurité",
+		"en": "Security jacket"
 	},
+	"emote": ":safety_vest:",
 	"rarity": 2,
 	"rawDefense": 5,
 	"frenchMasculine": 0,

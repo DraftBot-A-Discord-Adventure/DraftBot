@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":fencer: **Armure de fer**",
-		"en": ":fencer: **Iron armor**"
+		"fr": "Armure de fer",
+		"en": "Iron armor"
 	},
+	"emote": ":fencer:",
 	"rarity": 6,
 	"rawDefense": 7,
 	"frenchMasculine": 0,

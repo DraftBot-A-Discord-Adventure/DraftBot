@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":sparkle: **Champ de force**",
-		"en": ":sparkle: **Force field**"
+		"fr": "Champ de force",
+		"en": "Force field"
 	},
+	"emote": ":sparkle:",
 	"rarity": 5,
 	"rawDefense": 8,
 	"frenchMasculine": 1,

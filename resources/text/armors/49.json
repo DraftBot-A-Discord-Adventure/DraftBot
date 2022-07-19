@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDDE5 **Doudoune de combat**",
-		"en": "\uD83E\uDDE5 **Fighting coat**"
+		"fr": "Doudoune de combat",
+		"en": "Fighting coat"
 	},
+	"emote": ":coat:",
 	"rarity": 2,
 	"rawDefense": 9,
 	"speed": 10,
