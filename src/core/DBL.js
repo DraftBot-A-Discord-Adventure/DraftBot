@@ -8,13 +8,13 @@ class DBL {
 	static dbl;
 
 	static startDBLWebhook() {
-		if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0 || !JsonReader.app.DBL_TOKEN) {
+		if (botConfig.DBL_WEBHOOK_URL === "" || botConfig.DBL_WEBHOOK_PORT === 0 || !botConfig.DBL_TOKEN) {
 			console.info("DBL Webhook not configured, skipped.");
 			return;
 		}
-		this.dbl = new DiscordBotList(JsonReader.app.DBL_TOKEN, {
-			webhookPort: JsonReader.app.DBL_WEBHOOK_PORT,
-			webhookPath: JsonReader.app.DBL_WEBHOOK_URL,
+		this.dbl = new DiscordBotList(botConfig.DBL_TOKEN, {
+			webhookPort: botConfig.DBL_WEBHOOK_PORT,
+			webhookPath: botConfig.DBL_WEBHOOK_URL,
 			statsInterval: TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
 		}, client);
 		this.dbl.webhook.on("vote", async (vote) => {
@@ -101,9 +101,9 @@ class DBL {
 		if (new Date().valueOf() - entity.Player.topggVoteAt.valueOf() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
 			return;
 		}
-		const member = await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)).members.fetch(userId);
+		const member = await (await client.guilds.cache.get(botConfig.MAIN_SERVER_ID)).members.fetch(userId);
 		try {
-			await member.roles.remove(JsonReader.app.DBL_VOTE_ROLE);
+			await member.roles.remove(botConfig.DBL_VOTE_ROLE);
 		}
 		catch (e) {
 			console.log(e);
@@ -111,10 +111,10 @@ class DBL {
 	}
 
 	static async verifyDBLRoles() {
-		const guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
+		const guild = await client.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		const members = guild.members.cache.entries();
 		for (const member of members) {
-			if (await member[1].roles.cache.has(JsonReader.app.DBL_VOTE_ROLE)) {
+			if (await member[1].roles.cache.has(botConfig.DBL_VOTE_ROLE)) {
 				await DBL.programDBLRoleRemoval(member[1].id);
 			}
 		}

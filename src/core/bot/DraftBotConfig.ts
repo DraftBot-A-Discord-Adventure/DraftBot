@@ -1,3 +1,6 @@
+import { parse } from "toml";
+import * as fs from "fs";
+
 export interface DraftBotConfig {
 	DISCORD_CLIENT_TOKEN: string;
 	BOT_OWNER_ID: string;
@@ -24,5 +27,29 @@ export interface DraftBotConfig {
 }
 
 export const loadConfig = function(): DraftBotConfig {
-	return require("../../../../config/app.json") as DraftBotConfig;
+	const config = parse(fs.readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
+	return {
+		BACKUP_ARCHIVE_PASSWORD: config.backups.archive_password,
+		BADGE_MANAGER_ROLE: config.discord.roles.badge_manager_ids,
+		BOT_OWNER_ID: config.discord.users.owner_id,
+		CONSOLE_CHANNEL_ID: config.discord.channels.console_channel_id,
+		CONTRIBUTORS_CHANNEL: config.discord.channels.contributor_channel,
+		CONTRIBUTOR_ROLE: config.discord.roles.contributor_role_id,
+		DBL_LOGS_CHANNEL: config.discord_bot_list.channel_id,
+		DBL_TOKEN: config.discord_bot_list.token,
+		DBL_VOTE_ROLE: config.discord_bot_list.vote_role_id,
+		DBL_WEBHOOK_PORT: config.discord_bot_list.webhook_port,
+		DBL_WEBHOOK_URL: config.discord_bot_list.webhook_url,
+		DISCORD_CLIENT_TOKEN: config.discord.general.token,
+		DM_MANAGER_ID: config.discord.users.dm_manager_id,
+		DROPBOX_TOKEN: config.backups.dropbox_token,
+		ENABLED_BACKUPS: config.backups.enabled,
+		ENGLISH_ANNOUNCEMENT_CHANNEL_ID: config.discord.channels.english_announcements_channel_id,
+		ENGLISH_CHANNEL_ID: config.discord.channels.english_channel_id,
+		FRENCH_ANNOUNCEMENT_CHANNEL_ID: config.discord.channels.french_announcements_channel_id,
+		MAIN_SERVER_ID: config.discord.general.main_server_id,
+		MODE_MAINTENANCE: config.bot.maintenance,
+		NASA_API_KEY: config.others.nasa_api_key,
+		TEST_MODE: config.bot.test_mode
+	};
 };

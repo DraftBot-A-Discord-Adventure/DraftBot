@@ -237,7 +237,6 @@ export class DraftBot {
 				"resources/text/classes"
 			],
 			files: [
-				"config/app.json",
 				"draftbot/package.json",
 				"resources/text/error.json",
 				"resources/text/bot.json",
