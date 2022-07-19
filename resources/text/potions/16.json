@@ -4,7 +4,7 @@
 		"en": "Snotty potion"
 	},
 	"emote": "<:GreenPotion:548221043618086921>",
-	"fallbackEmote": ":beverage_box:",
+	"fallbackEmote": "🧃",
 	"rarity": 2,
 	"power": 1,
 	"nature": 1,

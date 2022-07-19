@@ -4,7 +4,7 @@
 		"en": "Expired potion"
 	},
 	"emote": "<:DarkPotion:548221047187439710>",
-	"fallbackEmote": ":alembic:",
+	"fallbackEmote": "⚗️",
 	"rarity": 1,
 	"power": 1,
 	"nature": 0,
