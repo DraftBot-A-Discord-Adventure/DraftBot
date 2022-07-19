@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":boxing_glove: **Gant de boxe**",
-		"en": ":boxing_glove: **Boxing glove**"
+		"fr": "Gant de boxe",
+		"en": "Boxing glove"
 	},
+	"emote": ":boxing_glove:",
 	"rarity": 1,
 	"rawAttack": 8,
 	"frenchMasculine": 1,

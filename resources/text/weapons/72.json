@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":soccer: **Ballon de fluxball**",
-		"en": ":soccer: **Ball of fluxball**"
+		"fr": "Ballon de fluxball",
+		"en": "Ball of fluxball"
 	},
+	"emote": ":soccer:",
 	"rarity": 1,
 	"rawAttack": 5,
 	"frenchMasculine": 1,

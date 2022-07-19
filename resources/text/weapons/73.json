@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":axe: **Ashoir**",
-		"en": ":axe: **Ashoir**"
+		"fr": "Ashoir",
+		"en": "Ashoir"
 	},
+	"emote": ":axe:",
 	"rarity": 4,
 	"rawAttack": 10,
 	"speed": -10,

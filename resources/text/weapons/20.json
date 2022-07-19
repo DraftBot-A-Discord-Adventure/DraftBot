@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":herb: **Branche souple**",
-		"en": ":herb: **Flexible branch**"
+		"fr": "Branche souple",
+		"en": "Flexible branch"
 	},
+	"emote": ":herb:",
 	"rarity": 1,
 	"rawAttack": 1,
 	"frenchMasculine": 0,

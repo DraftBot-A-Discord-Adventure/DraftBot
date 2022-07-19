@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow: **Arc**",
-		"en": ":bow_and_arrow: **Bow**"
+		"fr": "Arc",
+		"en": "Bow"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 5,
 	"rawAttack": 9,
 	"defense": -30,

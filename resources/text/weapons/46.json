@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bookmark: **Vieux grimoire**",
-		"en": ":bookmark: **Old grimoire**"
+		"fr": "Vieux grimoire",
+		"en": "Old grimoire"
 	},
+	"emote": ":bookmark:",
 	"rarity": 6,
 	"rawAttack": 1,
 	"frenchMasculine": 1,

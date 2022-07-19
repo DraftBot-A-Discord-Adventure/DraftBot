@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "💣 **Bombe atomique**",
-		"en": "💣 **Atomic bomb**"
+		"fr": "Bombe atomique",
+		"en": "Atomic bomb"
 	},
+	"emote": ":bomb:",
 	"rarity": 8,
 	"rawAttack": 10,
 	"attack": 20,

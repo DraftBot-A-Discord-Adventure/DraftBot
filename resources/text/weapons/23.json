@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":cooking: **Poêle**",
-		"en": ":cooking: **Pan**"
+		"fr": "Poêle",
+		"en": "Pan"
 	},
+	"emote": ":cooking:",
 	"rarity": 5,
 	"rawAttack": 3,
 	"frenchMasculine": 0,

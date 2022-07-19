@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée sharpness 4**",
-		"en": ":crossed_swords: **Sharpness 4 sword**"
+		"fr": "Épée sharpness 4",
+		"en": "Sharpness 4 sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 5,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

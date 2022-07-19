@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDE83 **Boomerang**",
-		"en": "\uD83E\uDE83 **Boomerang**"
+		"fr": "Boomerang",
+		"en": "Boomerang"
 	},
+	"emote": ":boomerang:",
 	"rarity": 3,
 	"rawAttack": 8,
 	"speed": 20,

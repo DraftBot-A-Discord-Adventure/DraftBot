@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDD2C **Injures**",
-		"en": "\uD83E\uDD2C **Insults**"
+		"fr": "Injures",
+		"en": "Insults"
 	},
+	"emote": ":face_with_symbols_over_mouth:",
 	"rarity": 1,
 	"rawAttack": 9,
 	"frenchMasculine": 0,

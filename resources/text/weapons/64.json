@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🕯️ **Brûleur**",
-		"en": "🕯️ **Burner**"
+		"fr": "Brûleur",
+		"en": "Burner"
 	},
+	"emote": ":candle:",
 	"rarity": 4,
 	"rawAttack": 5,
 	"frenchMasculine": 1,

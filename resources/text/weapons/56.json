@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🗡️ **Épée Kokiri**",
-		"en": "🗡️ **Kokiri sword**"
+		"fr": "Épée Kokiri",
+		"en": "Kokiri sword"
 	},
+	"emote": ":dagger:",
 	"rarity": 6,
 	"rawAttack": 4,
 	"frenchMasculine": 0,

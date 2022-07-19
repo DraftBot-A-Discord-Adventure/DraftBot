@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "💉 **Seringue**",
-		"en": "💉 **Syringe**"
+		"fr": "Seringue",
+		"en": "Syringe"
 	},
+	"emote": ":syringe:",
 	"rarity": 4,
 	"rawAttack": 2,
 	"frenchMasculine": 0,

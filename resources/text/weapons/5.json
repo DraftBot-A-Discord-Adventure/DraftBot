@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":hammer: **Marteau**",
-		"en": ":hammer: **Hammer**"
+		"fr": "Marteau",
+		"en": "Hammer"
 	},
+	"emote": ":hammer:",
 	"rarity": 1,
 	"rawAttack": 5,
 	"frenchMasculine": 1,

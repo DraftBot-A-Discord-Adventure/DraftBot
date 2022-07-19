@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":punch: **Poing**",
-		"en": ":punch: **Fist**"
+		"fr": "Poing",
+		"en": "Fist"
 	},
+	"emote": ":punch:",
 	"rarity": 0,
 	"rawAttack": 0,
 	"frenchMasculine": 1,

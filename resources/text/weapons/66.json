@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "⚔️ **Beat Saber**",
-		"en": "⚔️ **Beat Saber**"
+		"fr": "Beat Saber",
+		"en": "Beat Saber"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 6,
 	"rawAttack": 5,
 	"frenchMasculine": 1,

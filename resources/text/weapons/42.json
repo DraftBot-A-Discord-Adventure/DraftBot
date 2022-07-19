@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":gun: **Pistolet chargé**",
-		"en": ":gun: **Loaded gun**"
+		"fr": "Pistolet chargé",
+		"en": "Loaded gun"
 	},
+	"emote": ":gun:",
 	"rarity": 6,
 	"rawAttack": 10,
 	"frenchMasculine": 1,

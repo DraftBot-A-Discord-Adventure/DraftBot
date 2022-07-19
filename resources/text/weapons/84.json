@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":screwdriver: **Tournevis sonique**",
-		"en": ":screwdriver: **Sonic screwdriver**"
+		"fr": ":screwdriver: Tournevis sonique",
+		"en": ":screwdriver: Sonic screwdriver"
 	},
+	"emote": "",
 	"rarity": 6,
 	"rawAttack": 3,
     "speed": 35,

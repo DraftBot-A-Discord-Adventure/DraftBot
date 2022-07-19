@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":cricket: **Bâton**",
-		"en": ":cricket: **Stick**"
+		"fr": "Bâton",
+		"en": "Stick"
 	},
+	"emote": ":cricket:",
 	"rarity": 1,
 	"rawAttack": 2,
 	"frenchMasculine": 1,

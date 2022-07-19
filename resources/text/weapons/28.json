@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":hammer: **Marteau de combat**",
-		"en": ":hammer: **Battle hammer**"
+		"fr": "Marteau de combat",
+		"en": "Battle hammer"
 	},
+	"emote": ":hammer:",
 	"rarity": 5,
 	"rawAttack": 5,
 	"speed": -10,

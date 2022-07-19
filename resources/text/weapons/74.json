@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":comet: **Âme du démon**",
-		"en": ":comet: **Devil's Soul**"
+		"fr": "Âme du démon",
+		"en": "Devil's Soul"
 	},
+	"emote": ":comet:",
 	"rarity": 7,
 	"rawAttack": 8,
 	"frenchMasculine": 0,

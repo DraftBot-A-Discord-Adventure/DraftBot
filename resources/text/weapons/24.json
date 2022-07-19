@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":scissors: **Ciseaux**",
-		"en": ":scissors: **Scissors**"
+		"fr": "Ciseaux",
+		"en": "Scissors"
 	},
+	"emote": ":scissors:",
 	"rarity": 3,
 	"rawAttack": 2,
 	"frenchMasculine": 1,

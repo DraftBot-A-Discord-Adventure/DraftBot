@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🏹 **Arc de chevalier**",
-		"en": "🏹 **Knight bow**"
+		"fr": "Arc de chevalier",
+		"en": "Knight bow"
 	},
+	"emote": ":bow_and_arrow:",
 	"rarity": 5,
 	"rawAttack": 7,
 	"defense": -30,

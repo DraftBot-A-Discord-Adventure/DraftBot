@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée en bois**",
-		"en": ":crossed_swords: **Wooden sword**"
+		"fr": "Épée en bois",
+		"en": "Wooden sword"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 2,
 	"rawAttack": 5,
 	"frenchMasculine": 0,

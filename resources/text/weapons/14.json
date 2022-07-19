@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":guitar: **Guitare lourde**",
-		"en": ":guitar: **Heavy Guitar**"
+		"fr": "Guitare lourde",
+		"en": "Heavy Guitar"
 	},
+	"emote": ":guitar:",
 	"rarity": 2,
 	"rawAttack": 1,
 	"speed" : -10,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDD3F **Sabotage de l'oxygène**",
-		"en": "\uD83E\uDD3F **Oxygen sabotage**"
+		"fr": "Sabotage de l'oxygène",
+		"en": "Oxygen sabotage"
 	},
+	"emote": ":diving_mask:",
 	"rarity": 8,
 	"rawAttack": 9,
 	"frenchMasculine": 1,

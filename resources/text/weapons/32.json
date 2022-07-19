@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":fishing_pole_and_fish: **Canne à pêche de débutant**",
-		"en": ":fishing_pole_and_fish: **Beginner's fishing rod**"
+		"fr": "Canne à pêche de débutant",
+		"en": "Beginner's fishing rod"
 	},
+	"emote": ":fishing_pole_and_fish:",
 	"rarity": 2,
 	"rawAttack": 3,
 	"frenchMasculine": 0,

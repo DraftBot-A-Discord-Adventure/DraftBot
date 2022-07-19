@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Épée de Ragnell**",
-		"en": ":crossed_swords: **Sword of Ragnell**"
+		"fr": "Épée de Ragnell",
+		"en": "Sword of Ragnell"
 	},
+	"emote": ":crossed_swords:",
 	"rarity": 7,
 	"rawAttack": 5,
 	"frenchMasculine": 0,
