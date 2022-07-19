@@ -1,6 +1,7 @@
 {
 	"translations": {
 		"fr": {
+			"nameDisplay": "{emote} **{name}**",
 			"nerfDisplay": "~~{old}~~ {max}",
 			"attack": ":dagger: {value}",
 			"defense": ":shield: {value}",
@@ -52,6 +53,7 @@
 			]
 		},
 		"en": {
+			"nameDisplay": "{emote} **{name}**",
 			"nerfDisplay": "~~{old}~~ {max}",
 			"attack": ":dagger: {value}",
 			"defense": ":shield: {value}",

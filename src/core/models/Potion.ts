@@ -22,15 +22,6 @@ export class Potion extends SupportItemModel {
 			});
 	}
 
-	public getSimplePotionName(language: string): string {
-		return this.getName(language).slice(this.getName(language).indexOf(" ") + 1)
-			.replace(/\*\*/g, "");
-	}
-
-	public getEmoji(): string {
-		return this.fr.split(" ")[0];
-	}
-
 	public isFightPotion(): boolean {
 		return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
 			this.getDefense() !== 0;

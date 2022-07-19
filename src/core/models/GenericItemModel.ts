@@ -1,6 +1,7 @@
 import {EmbedField} from "discord.js";
 import {Translations} from "../Translations";
 import {Model} from "sequelize";
+import { draftBotClient } from "../bot";
 
 type MaxStatsValues = { attack: number, defense: number, speed: number }
 
@@ -12,6 +13,10 @@ export abstract class GenericItemModel extends Model {
 	public readonly fr!: string;
 
 	public readonly en!: string;
+
+	public readonly emote!: string;
+
+	public readonly fallbackEmote: string;
 
 	public readonly frenchMasculine!: boolean;
 
@@ -32,7 +37,23 @@ export abstract class GenericItemModel extends Model {
 	}
 
 	public getName(language: string): string {
+		return Translations.getModule("items", language).format("nameDisplay", {
+			emote: this.getEmote(),
+			name: language === "fr" ? this.fr : this.en
+		});
+	}
+
+	public getSimpleName(language: string): string {
 		return language === "fr" ? this.fr : this.en;
+	}
+
+	public getEmote(): string {
+		let emote = this.emote;
+		if (new RegExp(/:[0-9]/).test(this.emote)) {
+			emote = draftBotClient.emojis.cache.has(this.emote.split(":")[2].split(">")[0])
+				? this.emote : this.fallbackEmote;
+		}
+		return emote;
 	}
 
 	public abstract getAttack(): number;
