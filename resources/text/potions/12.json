@@ -4,7 +4,7 @@
 		"en": "Dark potion"
 	},
 	"emote": "<:DarkPotion:548221047187439710>",
-	"fallbackEmote": ":alembic:",
+	"fallbackEmote": "⚗️",
 	"rarity": 4,
 	"power": 90,
 	"nature": 4,

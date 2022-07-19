@@ -4,7 +4,7 @@
 		"en": "Suspicious potion"
 	},
 	"emote": "<:BubbleGreenPotion:548221041940365353>",
-	"fallbackEmote": ":test_tube:",
+	"fallbackEmote": "🧪",
 	"rarity": 1,
 	"power": 0,
 	"nature": 0,
