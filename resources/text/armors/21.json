@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":mechanical_arm: **Bras mécanique**",
-		"en": ":mechanical_arm: **Mecanical arm**"
+		"fr": "Bras mécanique",
+		"en": "Mecanical arm"
 	},
+	"emote": ":mechanical_arm:",
 	"rarity": 5,
 	"rawDefense": 6,
 	"frenchMasculine": 1,

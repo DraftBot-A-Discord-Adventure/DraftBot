@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier en vibranium**",
-		"en": ":shield: **Vibranium shield**"
+		"fr": "Bouclier en vibranium",
+		"en": "Vibranium shield"
 	},
+	"emote": ":shield:",
 	"rarity": 8,
 	"rawDefense": 10,
 	"frenchMasculine": 1,

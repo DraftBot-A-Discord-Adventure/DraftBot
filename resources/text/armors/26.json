@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":rugby_football: **Bouclier de Brennus**",
-		"en": ":rugby_football: **Brennus shield**"
+		"fr": "Bouclier de Brennus",
+		"en": "Brennus shield"
 	},
+	"emote": ":rugby_football:",
 	"rarity": 2,
 	"rawDefense": 7,
 	"frenchMasculine": 1,

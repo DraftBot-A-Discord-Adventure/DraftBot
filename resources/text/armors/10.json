@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier lourd**",
-		"en": ":shield: **Heavy shield**"
+		"fr": "Bouclier lourd",
+		"en": "Heavy shield"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 4,
 	"frenchMasculine": 1,

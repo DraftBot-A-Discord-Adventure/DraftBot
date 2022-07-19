@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":bricks: **Mur**",
-		"en": ":bricks: **Wall**"
+		"fr": "Mur",
+		"en": "Wall"
 	},
+	"emote": ":bricks:",
 	"rarity": 5,
 	"rawDefense": 10,
 	"attack" : -20,

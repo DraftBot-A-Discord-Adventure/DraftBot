@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":closed_umbrella: **Parapluie d'auto défense**",
-		"en": ":closed_umbrella: **Self-defense umbrella**"
+		"fr": "Parapluie d'auto défense",
+		"en": "Self-defense umbrella"
 	},
+	"emote": ":closed_umbrella:",
 	"rarity": 3,
 	"rawDefense": 3,
 	"frenchMasculine": 1,

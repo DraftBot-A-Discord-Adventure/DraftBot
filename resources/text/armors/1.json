@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":eye_in_speech_bubble: **Bouclier déflecteur Engi**",
-		"en": ":eye_in_speech_bubble: **Engi's Deflector shield**"
+		"fr": "Bouclier déflecteur Engi",
+		"en": "Engi's Deflector shield"
 	},
+	"emote": ":eye_in_speech_bubble:",
 	"rarity": 7,
 	"rawDefense": 8,
 	"frenchMasculine": 1,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield:  **Conventions de Genève**",
-		"en": ":shield:  **Geneva Conventions**"
+		"fr": "Conventions de Genève",
+		"en": "Geneva Conventions"
 	},
+	"emote": ":shield:",
 	"rarity": 7,
 	"rawDefense": 10,
 	"attack": -40,

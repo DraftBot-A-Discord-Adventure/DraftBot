@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":kimono: **Kimono renforcé**",
-		"en": ":kimono: **Reinforced kimono**"
+		"fr": "Kimono renforcé",
+		"en": "Reinforced kimono"
 	},
+	"emote": ":kimono:",
 	"rarity": 5,
 	"rawDefense": 2,
 	"frenchMasculine": 1,

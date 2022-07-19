@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier en bois**",
-		"en": ":shield: **Wooden shield**"
+		"fr": "Bouclier en bois",
+		"en": "Wooden shield"
 	},
+	"emote": ":shield:",
 	"rarity": 2,
 	"rawDefense": 3,
 	"frenchMasculine": 1,

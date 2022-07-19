@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":chess_pawn: **Rangée de pions**",
-		"en": ":chess_pawn: **Pawns lane**"
+		"fr": "Rangée de pions",
+		"en": "Pawns lane"
 	},
+	"emote": ":chess_pawn:",
 	"rarity": 5,
 	"rawDefense": 7,
 	"attack": -15,

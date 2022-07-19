@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "\uD83E\uDE99 **Jurisprudence**",
-		"en": "\uD83E\uDE99 **Jurisprudence**"
+		"fr": "Jurisprudence",
+		"en": "Jurisprudence"
 	},
+	"emote": ":coin:",
 	"rarity": 6,
 	"rawDefense": 4,
 	"attack": 45,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": ":shield: **Bouclier rouillé**",
-		"en": ":shield: **Rusted shield**"
+		"fr": "Bouclier rouillé",
+		"en": "Rusted shield"
 	},
+	"emote": ":shield:",
 	"rarity": 4,
 	"rawDefense": 2,
 	"frenchMasculine": 1,
