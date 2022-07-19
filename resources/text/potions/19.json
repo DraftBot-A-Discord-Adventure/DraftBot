@@ -4,7 +4,7 @@
 		"en": "Strength potion"
 	},
 	"emote": "<:PurplePotion:548221048768954418>",
-	"fallbackEmote": ":cocktail:",
+	"fallbackEmote": "🍸",
 	"rarity": 3,
 	"power": 45,
 	"nature": 3,

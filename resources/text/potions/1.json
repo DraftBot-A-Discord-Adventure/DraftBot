@@ -4,7 +4,7 @@
 		"en": "Red potion"
 	},
 	"emote": "<:Potion:548219908736155658>",
-	"fallbackEmote": ":wine_glass:",
+	"fallbackEmote": "🍷",
 	"rarity": 5,
 	"power": 53,
 	"nature": 1,

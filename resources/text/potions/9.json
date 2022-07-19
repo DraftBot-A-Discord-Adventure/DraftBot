@@ -4,7 +4,7 @@
 		"en": "Foul potion"
 	},
 	"emote": "<:BubbleGreenPotion:548221041940365353>",
-	"fallbackEmote": ":test_tube:",
+	"fallbackEmote": "🧪",
 	"rarity": 1,
 	"power": 7,
 	"nature": 1,
