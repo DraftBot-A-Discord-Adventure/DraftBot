@@ -171,8 +171,8 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	const potion = await Potions.getById(shopPotion.shopPotionId);
 
 	return new ShopItem(
-		potion.getEmoji(),
-		potion.getSimplePotionName(translationModule.language) + " **| "
+		potion.getEmote(),
+		potion.getSimpleName(translationModule.language) + " **| "
 		+ potion.getRarityTranslation(translationModule.language) + " | "
 		+ potion.getNatureTranslation(translationModule.language) + "** ",
 		Math.round(getItemValue(potion) * 0.7),

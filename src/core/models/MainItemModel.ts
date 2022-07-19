@@ -159,6 +159,12 @@ export const MainItemModelAttributes = {
 	en: {
 		type: DataTypes.TEXT
 	},
+	emote: {
+		type: DataTypes.TEXT
+	},
+	fallbackEmote: {
+		type: DataTypes.TEXT
+	},
 	updatedAt: {
 		type: DataTypes.DATE,
 		defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
