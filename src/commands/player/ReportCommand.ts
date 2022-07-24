@@ -189,6 +189,7 @@ async function completeMissionsBigEvent(entity: Entity, interaction: CommandInte
 }
 
 const doRandomBigEvent = async function(interaction: CommandInteraction, language: string, entity: Entity, forceSpecificEvent: number) {
+	await interaction.deferReply();
 	await completeMissionsBigEvent(entity, interaction, language);
 	let time;
 	const reportCommandData = Data.getModule("commands.report");
@@ -395,12 +396,11 @@ const destinationChoseMessage = async function(entity: Entity, map: number, inte
  * @return {Promise<void>}
  */
 const doEvent = async (textInformations: TextInformations, event: BigEvent, entity: Entity, time: number): Promise<void> => {
-	const eventDisplayed = await textInformations.interaction.reply({
+	const eventDisplayed = await textInformations.interaction.editReply({
 		content: Translations.getModule("commands.report", textInformations.language).format("doEvent", {
 			pseudo: textInformations.interaction.user,
 			event: event.getText(textInformations.language)
-		}),
-		fetchReply: true
+		})
 	}) as Message;
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
@@ -554,7 +554,7 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
 
 	if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") { // Don't do anything if the player ends the first report
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
-		return await textInformations.interaction.reply({
+		return await textInformations.interaction.channel.send({
 			content: textInformations.tr.format("doPossibility", {
 				pseudo: textInformations.interaction.user,
 				result: "",
