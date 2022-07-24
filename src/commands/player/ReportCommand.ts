@@ -97,19 +97,15 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		const smallEventModule = require.resolve("../../core/smallEvents/" + filename);
 		try {
 			const smallEvent: SmallEvent = require(smallEventModule).smallEvent;
-			if (!smallEvent.executeSmallEvent) {
-				await interaction.reply({content: filename + " doesn't contain an executeSmallEvent function"});
-			}
-			else {
-				// Create a template embed
-				const seEmbed = new DraftBotEmbed()
-					.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
-					.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
 
-				await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
+			// Create a template embed
+			const seEmbed = new DraftBotEmbed()
+				.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
+				.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
 
-				await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
-			}
+			await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
+
+			await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
 		}
 		catch (e) {
 			console.error(e);
