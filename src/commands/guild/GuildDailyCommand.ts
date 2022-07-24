@@ -66,7 +66,7 @@ async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, i
 		await awardGuildWithNewPet(guildLike.guild, embed, guildDailyModule, language);
 	}
 
-	await interaction.reply({embeds: [embed]});
+	await interaction.editReply({embeds: [embed]});
 	return embed;
 }
 
@@ -385,6 +385,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	}
 
+	await interaction.deferReply();
 	guild.lastDailyAt = new Date(interaction.createdTimestamp);
 	await guild.save();
 
