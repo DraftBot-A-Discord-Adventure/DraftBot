@@ -124,6 +124,12 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		return this._sentMessage;
 	}
 
+	async editReply(interaction: CommandInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+		this._sentMessage = await interaction.editReply({embeds: [this]}) as Message;
+		await this.collectAndReact(collectorCallback);
+		return this._sentMessage;
+	}
+
 	/**
 	 * Send the message to a channel
 	 * @param channel

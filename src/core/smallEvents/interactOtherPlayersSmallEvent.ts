@@ -351,7 +351,7 @@ async function sendAndManagePoorInteraction(textInformations: TextInformations, 
 		.build()
 		.setDescription(seEmbed.description)
 		.setAuthor(seEmbed.author)
-		.reply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
+		.editReply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
 }
 
 /**
@@ -427,6 +427,7 @@ export const smallEvent: SmallEvent = {
 		}));
 
 		if (characteristic === "poor") {
+			await interaction.deferReply();
 			await sendAndManagePoorInteraction({interaction, tr}, otherEntity, entity, seEmbed);
 		}
 		else {
