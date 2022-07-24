@@ -22,8 +22,7 @@ type TextInformations = { interaction: CommandInteraction, language: string, unl
  */
 async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations) {
 	if (!entityCouple.locked) {
-		sendErrorMessage(
-			textInformations.interaction.user,
+		replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
 			textInformations.unlockModule.get("cannotGetlockedUser")
@@ -31,8 +30,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 		return false;
 	}
 	if (entityCouple.locked.discordUserId === entityCouple.unlocker.discordUserId) {
-		sendErrorMessage(
-			textInformations.interaction.user,
+		replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
 			textInformations.unlockModule.get("unlockHimself")
