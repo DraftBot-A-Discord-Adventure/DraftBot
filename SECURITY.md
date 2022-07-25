@@ -10,3 +10,5 @@
 ## Reporting a Vulnerability
 
 Use the bot's discord server if you find any security breach.
+
+https://discord.gg/draftbot

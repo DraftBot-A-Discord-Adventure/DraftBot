@@ -1,0 +1,46 @@
+name: 🐛Bug Report
+description: Signaler un bug
+title: "[BUG]: "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de prendre le temps de réaliser un rapport de bug.
+  - type: checkboxes
+    id: new-bug
+    attributes:
+      label: Le bug n'a t-il pas déjà été signalé ?
+      description: Veuillez vérifier qu'une issue n'existe pas déjà pour le bug que vous signalez.
+      options:
+      - label: J'ai vérifié et je n'ai pas trouvé d'issue pour ce problème.
+        required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Description du bug.
+      description: Décrivez le soucis que vous avez rencontré.
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Reproduction du bug.
+      description: Décrivez toutes les étapes à suivre pour reproduire le bug.
+      placeholder: Décrivez les étapes sous forme de liste.
+    validations:
+      required: true
+  - type: dropdown
+    id: versions
+    attributes:
+      label: Dans quelle condition le bug a-t-il été trouvé ?
+      description: Dites nous dans quel conditions le bug a été rencontré.
+      multiple: true
+      options:
+       - Sur le serveur officiel du bot avec le bot officiel.
+       - Sur le serveur officiel du bot avec un bot bêta.
+       - Sur un serveur perso avec le bot officiel.
+       - Sur une instance personelle du bot.
+    validations:
+      required: true
