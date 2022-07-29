@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Merci de prendre le temps de réaliser un rapport de bug.
+        Merci de prendre le temps de réaliser un rapport de bug. Si vous avez besoin d'aide supplémentaire, rejoignez nous sur discord ! https://discord.gg/draftbot
   - type: checkboxes
     id: new-bug
     attributes:
@@ -20,7 +20,7 @@ body:
     id: bug-description
     attributes:
       label: Description du bug.
-      description: Décrivez le soucis que vous avez rencontré.
+      description: Décrivez le soucis que vous avez rencontré. N'hésitez pas à inclure des captures d'écran du bug.
     validations:
       required: true
   - type: textarea
@@ -28,7 +28,7 @@ body:
     attributes:
       label: Reproduction du bug.
       description: Décrivez toutes les étapes à suivre pour reproduire le bug.
-      placeholder: Décrivez les étapes sous forme de liste.
+      placeholder: Décrivez les étapes sous forme de liste. Écrivez cette liste comme si il s'agissait d'un mode d'emploi pour refaire le bug à tous les coups.
     validations:
       required: true
   - type: dropdown
