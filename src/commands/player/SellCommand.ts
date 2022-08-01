@@ -139,7 +139,7 @@ function itemChoiceValidation(entity: Entity, interaction: CommandInteraction, i
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 	new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(entity, interaction, item, tr))
 		.formatAuthor(tr.get("sellTitle"), interaction.user)
-		.setDescription(tr.format("confirmSell", {
+		.setDescription(tr.format(item.itemCategory === Constants.ITEM_CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
 			item: item.name,
 			money: item.value
 		}))
