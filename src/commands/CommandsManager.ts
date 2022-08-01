@@ -131,15 +131,13 @@ export class CommandsManager {
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 	}
 
-	/**
-	 * Get all the commands to register to discord
-	 */
-	static async getAllCommandsToRegister(): Promise<ICommand[]> {
-		const categories = await readdir("dist/src/commands");
-		const commandsToRegister: ICommand[] = [];
-		for (const category of categories) {
-			if (category.endsWith(".js") || category.endsWith(".js.map")) {
-				continue;
+		client.on("interactionCreate", async interaction => {
+			if (!interaction.isCommand()) {
+				return;
+			}
+			if (!interaction.inGuild()) {
+				// TODO when discord adds user's language in interaction: replace "en"
+				await interaction.reply(Translations.getModule("error", "en").get("notInDM"));
 			}
 
 			void CommandsManager.handleCommand(interaction as CommandInteraction);
