@@ -56,14 +56,14 @@ export const smallEvent: SmallEvent = {
 		else if (!noRoomInGuild && entity.Player.petId !== null) {
 			// Place le pet dans la guilde
 			await pet.save();
-			await (await GuildPets.addPet(entity.Player.guildId, pet.id)).save();
+			await GuildPets.addPet(entity.Player.guildId, pet.id).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
-			interaction.channel.send({embeds: [seEmbed]});
+			interaction.reply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
 			}));
-			await interaction.reply({embeds: [seEmbedPetObtention]});
+			await interaction.channel.send({embeds: [seEmbedPetObtention]});
 		}
 		else {
 			// Place le pet avec le joueur
@@ -71,12 +71,12 @@ export const smallEvent: SmallEvent = {
 			entity.Player.petId = pet.id;
 			await entity.Player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
-			interaction.channel.send({embeds: [seEmbed]});
+			interaction.reply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
 			}));
-			await interaction.reply({embeds: [seEmbedPetObtention]});
+			await interaction.channel.send({embeds: [seEmbedPetObtention]});
 			await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
 		}
 		console.log(entity.discordUserId + " got find pet event.");
