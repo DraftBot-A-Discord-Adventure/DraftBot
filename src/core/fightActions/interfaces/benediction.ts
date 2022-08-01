@@ -12,8 +12,6 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-
-
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
@@ -35,13 +33,13 @@ export const fightActionInterface: IFightAction = {
 		let sideEffects = "";
 		const buff = turn < 15 ? Math.round(1.67 * turn) : 25;
 
-		sender.stats.defense = Math.round(sender.stats.defense - sender.stats.defense * buff / 100);
+		sender.stats.defense = Math.round(sender.stats.defense + sender.stats.defense * buff / 100);
 		sideEffects += attackTranslationModule.format("actions.sideEffects.defense", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
 			amount: buff
 		});
-		sender.stats.attack = Math.round(sender.stats.attack - sender.stats.attack * buff / 100);
+		sender.stats.attack = Math.round(sender.stats.attack + sender.stats.attack * buff / 100);
 		sideEffects += attackTranslationModule.format("actions.sideEffects.attack", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
