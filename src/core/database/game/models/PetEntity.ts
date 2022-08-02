@@ -1,15 +1,16 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import Pet from "./Pet";
-import {Constants} from "../Constants";
-import {RandomUtils} from "../utils/RandomUtils";
-import {Data} from "../Data";
-import {format} from "../utils/StringFormatter";
-import {Translations} from "../Translations";
+import {Constants} from "../../../Constants";
+import {RandomUtils} from "../../../utils/RandomUtils";
+import {Data} from "../../../Data";
+import {format} from "../../../utils/StringFormatter";
+import {Translations} from "../../../Translations";
 import {TextBasedChannel} from "discord.js";
-import {MissionsController} from "../missions/MissionsController";
-import {finishInTimeDisplay} from "../utils/TimeUtils";
+import {MissionsController} from "../../../missions/MissionsController";
+import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {Entity} from "./Entity";
 import moment = require("moment");
+import {draftBotInstance} from "../../../bot";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -200,7 +201,7 @@ export class PetEntities {
 			where: {
 				rarity: rarity
 			},
-			order: [Sequelize.fn("RANDOM")]
+			order: [draftBotInstance.gameDatabase.sequelize.random()]
 		});
 		const petEntity = PetEntity.build({
 			petId: pet.id,
@@ -297,6 +298,14 @@ export function initModel(sequelize: Sequelize): void {
 
 	PetEntity.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	PetEntity.hasOne(Pet, {
+		foreignKey: "id",
+		sourceKey: "petId",
+		as: "PetModel"
 	});
 }
 

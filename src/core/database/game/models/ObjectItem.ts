@@ -1,9 +1,9 @@
 import {QueryTypes, Sequelize} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
-import {format} from "../utils/StringFormatter";
-import {Translations} from "../Translations";
-import {minutesDisplay} from "../utils/TimeUtils";
+import {format} from "../../../utils/StringFormatter";
+import {Translations} from "../../../Translations";
+import {minutesDisplay} from "../../../utils/TimeUtils";
 import fs = require("fs");
 import moment = require("moment");
 

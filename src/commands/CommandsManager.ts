@@ -13,13 +13,13 @@ import {
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
-import Server from "../core/models/Server";
+import Server from "../core/database/game/models/Server";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import {botConfig, draftBotClient} from "../core/bot";
 import {Constants} from "../core/Constants";
 import {TranslationModule, Translations} from "../core/Translations";
-import {Entities, Entity} from "../core/models/Entity";
-import {Guilds} from "../core/models/Guild";
+import {Entities, Entity} from "../core/database/game/models/Entity";
+import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";

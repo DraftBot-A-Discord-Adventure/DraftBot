@@ -2,7 +2,7 @@ import {CommandInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {millisecondsToMinutes, minutesDisplay} from "./TimeUtils";
 import {escapeUsername} from "./StringUtils";
 

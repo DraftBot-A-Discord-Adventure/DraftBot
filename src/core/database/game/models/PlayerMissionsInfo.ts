@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../utils/TimeUtils";
+import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import moment = require("moment");
 import Entity from "./Entity";
 

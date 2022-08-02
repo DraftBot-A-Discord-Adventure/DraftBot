@@ -63,6 +63,12 @@ In the project folder (previously downloaded with git), run:
 
 `docker build . -t draftbot/draftbot`
 
+### Install a database
+
+sqlite doesn't work with a docker image, so you probably want to create a mariadb database with the following command :
+
+` docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v D:/draftbot/database:/var/lib/mysql -p 3306:3306 mariadb:latest`
+
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/56274541/120916573-ad599000-c6aa-11eb-9e6f-ccc804bc63b2.png)

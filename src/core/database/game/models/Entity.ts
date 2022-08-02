@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import {Data} from "../Data";
+import {Data} from "../../../Data";
 import InventorySlot from "./InventorySlot";
 import InventoryInfo from "./InventoryInfo";
 import PetEntity from "./PetEntity";
@@ -13,12 +11,12 @@ import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
 import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {Classes} from "./Class";
-import {MissionsController} from "../missions/MissionsController";
+import {MissionsController} from "../../../missions/MissionsController";
 import {playerActiveObjects} from "./PlayerActiveObjects";
-import {TopConstants} from "../constants/TopConstants";
-import {Constants} from "../Constants";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {BlockingConstants} from "../constants/BlockingConstants";
+import {TopConstants} from "../../../constants/TopConstants";
+import {Constants} from "../../../Constants";
+import {BlockingUtils} from "../../../utils/BlockingUtils";
+import {BlockingConstants} from "../../../constants/BlockingConstants";
 import moment = require("moment");
 
 type MissionHealthParameter = {
@@ -226,7 +224,7 @@ export class Entities {
 			],
 			PlayerMissionsInfo: {},
 			MissionSlots: [
-				require("../../../../resources/text/campaign.json").missions[0]
+				require("resources/text/campaign.json").missions[0]
 			]
 		}
 	}
@@ -626,6 +624,13 @@ export function initModel(sequelize: Sequelize): void {
 
 	Entity.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	Entity.hasOne(Player, {
+		foreignKey: "entityId",
+		as: "Player"
 	});
 }
 

@@ -1,14 +1,14 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {Players} from "../models/Player";
-import {PetEntities} from "../models/PetEntity";
-import {Guilds} from "../models/Guild";
-import {Classes} from "../models/Class";
+import {Players} from "../database/game/models/Player";
+import {PetEntities} from "../database/game/models/PetEntity";
+import {Guilds} from "../database/game/models/Guild";
+import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
 
 export const smallEvent: SmallEvent = {

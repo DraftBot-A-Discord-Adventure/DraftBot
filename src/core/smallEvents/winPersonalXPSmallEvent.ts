@@ -1,5 +1,5 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {RandomUtils} from "../utils/RandomUtils";

@@ -1,6 +1,6 @@
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
 import {ICommand} from "../ICommand";

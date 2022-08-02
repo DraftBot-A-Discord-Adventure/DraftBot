@@ -54,4 +54,12 @@ export function initModel(sequelize: Sequelize): void {
 	});
 }
 
+export function setAssociations(): void {
+	GuildPet.hasOne(PetEntity, {
+		foreignKey: "id",
+		sourceKey: "petEntityId",
+		as: "PetEntity"
+	});
+}
+
 export default GuildPet;

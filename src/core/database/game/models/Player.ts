@@ -5,28 +5,29 @@ import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import InventoryInfo from "./InventoryInfo";
-import {Data} from "../Data";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {Constants} from "../Constants";
+import {Data} from "../../../Data";
+import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
+import {Constants} from "../../../Constants";
 import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
-import {MapLinks} from "./MapLink";
+import MapLink, {MapLinks} from "./MapLink";
 import Entity from "./Entity";
-import {Translations} from "../Translations";
+import {Translations} from "../../../Translations";
 import {TextBasedChannel, TextChannel} from "discord.js";
-import {Maps} from "../Maps";
-import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
+import {Maps} from "../../../Maps";
+import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel} from "./GenericItemModel";
-import {MissionsController} from "../missions/MissionsController";
-import {escapeUsername} from "../utils/StringUtils";
-import {draftBotClient} from "../bot";
+import {MissionsController} from "../../../missions/MissionsController";
+import {escapeUsername} from "../../../utils/StringUtils";
+import {draftBotClient} from "../../../bot";
 import Weapon from "./Weapon";
 import Armor from "./Armor";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
 import {playerActiveObjects} from "./PlayerActiveObjects";
-import {TopConstants} from "../constants/TopConstants";
+import {TopConstants} from "../../../constants/TopConstants";
 import moment = require("moment");
+import Guild from "./Guild";
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -780,6 +781,61 @@ export function initModel(sequelize: Sequelize): void {
 
 	Player.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	Player.belongsTo(Entity, {
+		foreignKey: "entityId",
+		as: "Entity"
+	});
+
+	Player.belongsTo(Guild, {
+		foreignKey: "guildId",
+		as: "Guild"
+	});
+
+	Player.belongsTo(Guild, {
+		foreignKey: "id",
+		targetKey: "chiefId",
+		as: "Chief"
+	});
+
+	Player.hasMany(InventorySlot, {
+		foreignKey: "playerId",
+		as: "InventorySlots"
+	});
+
+	Player.hasOne(InventoryInfo, {
+		foreignKey: "playerId",
+		as: "InventoryInfo"
+	});
+
+	Player.hasOne(PetEntity, {
+		foreignKey: "id",
+		sourceKey: "petId",
+		as: "Pet"
+	});
+
+	Player.hasOne(MapLink, {
+		foreignKey: "id",
+		sourceKey: "mapLinkId",
+		as: "MapLink"
+	});
+
+	Player.hasMany(PlayerSmallEvent, {
+		foreignKey: "playerId",
+		as: "PlayerSmallEvents"
+	});
+
+	Player.hasMany(MissionSlot, {
+		foreignKey: "playerId",
+		as: "MissionSlots"
+	});
+
+	Player.hasOne(PlayerMissionsInfo, {
+		foreignKey: "playerId",
+		as: "PlayerMissionsInfo"
 	});
 }
 

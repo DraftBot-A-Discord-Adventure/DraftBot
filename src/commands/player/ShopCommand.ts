@@ -11,11 +11,11 @@ import {Constants} from "../../core/Constants";
 import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
-import {Potions} from "../../core/models/Potion";
-import {Entities, Entity} from "../../core/models/Entity";
+import {Potions} from "../../core/database/game/models/Potion";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 
 import {Maps} from "../../core/Maps";
-import Shop from "../../core/models/Shop";
+import Shop from "../../core/database/game/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";

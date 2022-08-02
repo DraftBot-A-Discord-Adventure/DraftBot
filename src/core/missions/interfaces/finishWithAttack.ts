@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
 import {FightActionController} from "../../fightActions/FightActionController";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {Classes} from "../../models/Class";
+import {Classes} from "../../database/game/models/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {

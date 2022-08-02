@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {Entities, Entity} from "../../core/models/Entity";
-import Guild, {Guilds} from "../../core/models/Guild";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";

@@ -1,5 +1,5 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -9,7 +9,7 @@ import {format} from "../utils/StringFormatter";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {Constants} from "../Constants";
 import {giveRandomItem} from "../utils/ItemUtils";
-import {PetEntities, PetEntity} from "../models/PetEntity";
+import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
 import {Data} from "../Data";
 import {giveFood} from "../utils/GuildUtils";
 import {getFoodIndexOf} from "../utils/FoodUtils";

@@ -38,6 +38,23 @@ english_announcements_channel_id = ""
 english_channel_id = ""
 
 
+[database]
+# Type of database to use : mariadb or sqlite
+type = ""
+
+[database.mariadb]
+# The host (ip or DNS) of the database
+host = "127.0.0.1"
+# The port of the database
+port = 3306
+# The user of the database
+user = ""
+# The password of the user of the database
+password = ""
+# The root password, used to create the databases
+root_password = ""
+
+
 [discord_bot_list]
 # Put the port of the DBL Webhook
 webhook_port = 0

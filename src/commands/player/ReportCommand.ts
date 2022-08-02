@@ -1,11 +1,11 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entities, Entity} from "../../core/models/Entity";
-import BigEvent, {BigEvents} from "../../core/models/BigEvent";
-import {MapLinks} from "../../core/models/MapLink";
-import {MapLocations} from "../../core/models/MapLocation";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
+import BigEvent, {BigEvents} from "../../core/database/game/models/BigEvent";
+import {MapLinks} from "../../core/database/game/models/MapLink";
+import {MapLocations} from "../../core/database/game/models/MapLocation";
 import {Maps} from "../../core/Maps";
-import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
-import Possibility from "../../core/models/Possibility";
+import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
+import Possibility from "../../core/database/game/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
 import {
@@ -14,7 +14,7 @@ import {
 	minutesDisplay,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
-import {Tags} from "../../core/models/Tag";
+import {Tags} from "../../core/database/game/models/Tag";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";

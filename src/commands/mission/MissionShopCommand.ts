@@ -7,7 +7,7 @@ import {
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
-import Entity, {Entities} from "../../core/models/Entity";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";

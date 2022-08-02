@@ -1,5 +1,5 @@
 import {MissionDifficulty} from "./MissionDifficulty";
-import Player from "../models/Player";
+import Player from "../database/game/models/Player";
 
 export type IMission = {
 

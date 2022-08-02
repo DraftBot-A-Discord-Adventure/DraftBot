@@ -1,4 +1,4 @@
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";

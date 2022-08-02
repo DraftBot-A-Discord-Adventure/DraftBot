@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../fightActions/FightActionController";
-import {Classes} from "../../models/Class";
+import {Classes} from "../../database/game/models/Class";
 import { Data } from "../../Data";
 
 // TODO update la mission de campagne sur les attaques rapides

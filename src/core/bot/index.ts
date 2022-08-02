@@ -2,7 +2,7 @@ import {DraftBot} from "./DraftBot";
 import {Client, Guild, Intents, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
-import {Servers} from "../models/Server";
+import {Servers} from "../database/game/models/Server";
 import {IPCClient} from "./ipc/IPCClient";
 import {Constants} from "../Constants";
 import {Data} from "../Data";

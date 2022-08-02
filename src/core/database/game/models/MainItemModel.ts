@@ -1,6 +1,6 @@
 import {DataTypes} from "sequelize";
-import {Data} from "../Data";
-import {TranslationModule, Translations} from "../Translations";
+import {Data} from "../../../Data";
+import {TranslationModule, Translations} from "../../../Translations";
 import {GenericItemModel} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
 
@@ -168,9 +168,9 @@ export const MainItemModelAttributes = {
 		defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 	},
 	frenchMasculine: {
-		type: DataTypes.INTEGER
+		type: DataTypes.BOOLEAN
 	},
 	frenchPlural: {
-		type: DataTypes.INTEGER
+		type: DataTypes.BOOLEAN
 	}
 };

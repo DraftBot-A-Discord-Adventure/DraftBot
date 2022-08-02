@@ -1,9 +1,10 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 import Possibility from "./Possibility";
 import MapLocation from "./MapLocation";
 import * as fs from "fs";
 import moment = require("moment");
+import {botConfig} from "../../../bot";
 
 export class BigEvent extends Model {
 	public readonly id!: number;
@@ -39,7 +40,7 @@ export class BigEvent extends Model {
 
 export class BigEvents {
 	static async pickEventOnMapType(map: MapLocation): Promise<BigEvent[]> {
-		const query = `SELECT *
+		const query = `SELECT events.*
                        FROM events
                                 LEFT JOIN event_map_location_ids eml ON events.id = eml.eventId
                        WHERE events.id > 0
@@ -51,7 +52,7 @@ export class BigEvents {
                                  (SELECT COUNT(*)
                                   FROM event_map_location_ids
                                   WHERE event_map_location_ids.mapLocationId = eml.mapLocationId) = 0)))
-                       ORDER BY RANDOM()
+                       ORDER BY ${botConfig.DATABASE_TYPE === "sqlite" ? "RANDOM()" : "RAND()"}
                        LIMIT 1;`;
 		return await MapLocation.sequelize.query(query, {
 			model: BigEvent,
@@ -95,7 +96,7 @@ export function initModel(sequelize: Sequelize): void {
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		restrictedMaps: {
-			type: DataTypes.TEXT
+			type: DataTypes.INTEGER
 		}
 	}, {
 		sequelize,
@@ -105,6 +106,13 @@ export function initModel(sequelize: Sequelize): void {
 
 	BigEvent.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	BigEvent.hasMany(Possibility, {
+		foreignKey: "eventId",
+		as: "Possibilities"
 	});
 }
 

@@ -1,8 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../utils/TimeUtils";
-import {MissionsController} from "../missions/MissionsController";
+import {datesAreOnSameDay} from "../../../utils/TimeUtils";
+import {MissionsController} from "../../../missions/MissionsController";
 import Mission from "./Mission";
-import {Data} from "../Data";
+import {Data} from "../../../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 
 export class DailyMission extends Model {
@@ -124,6 +124,14 @@ export function initModel(sequelize: Sequelize): void {
 
 	DailyMission.beforeSave(instance => {
 		instance.updatedAt = new Date();
+	});
+}
+
+export function setAssociations(): void {
+	DailyMission.hasOne(Mission, {
+		sourceKey: "missionId",
+		foreignKey: "id",
+		as: "Mission"
 	});
 }
 

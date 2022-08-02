@@ -1,5 +1,5 @@
-import Class, {Classes} from "../../core/models/Class";
-import {Entity} from "../../core/models/Entity";
+import Class, {Classes} from "../../core/database/game/models/Class";
+import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";

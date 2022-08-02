@@ -1,9 +1,9 @@
-import {Entity} from "../../core/models/Entity";
+import {Entity} from "../../core/database/game/models/Entity";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import Guild, {Guilds} from "../../core/models/Guild";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";

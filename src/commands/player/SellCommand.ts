@@ -1,4 +1,4 @@
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
@@ -9,9 +9,9 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {countNbOfPotions, getItemValue, sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
-import InventorySlot from "../../core/models/InventorySlot";
+import InventorySlot from "../../core/database/game/models/InventorySlot";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {GenericItemModel} from "../../core/models/GenericItemModel";
+import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 

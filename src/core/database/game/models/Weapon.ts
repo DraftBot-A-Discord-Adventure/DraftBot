@@ -1,5 +1,5 @@
 import {QueryTypes, Sequelize} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
 import fs = require("fs");
 import moment = require("moment");

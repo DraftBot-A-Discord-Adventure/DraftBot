@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity, {Entities} from "../../core/models/Entity";
-import {Guild, Guilds} from "../../core/models/Guild";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
+import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -11,7 +11,7 @@ import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
-import PetEntity from "../../core/models/PetEntity";
+import PetEntity from "../../core/database/game/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";

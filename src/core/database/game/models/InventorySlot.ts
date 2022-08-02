@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 import {Weapons} from "./Weapon";
 import {Armors} from "./Armor";
 import {Potions} from "./Potion";

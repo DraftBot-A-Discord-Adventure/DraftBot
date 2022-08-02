@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/models/Entity";
-import {Guilds} from "../../core/models/Guild";
+import Entity from "../../core/database/game/models/Entity";
+import {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -8,7 +8,7 @@ import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
-import PetEntity from "../../core/models/PetEntity";
+import PetEntity from "../../core/database/game/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 

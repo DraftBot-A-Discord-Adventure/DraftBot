@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import Player from "../../models/Player";
+import Player from "../../database/game/models/Player";
 import {countNbOfPotions} from "../../utils/ItemUtils";
 
 export const missionInterface: IMission = {

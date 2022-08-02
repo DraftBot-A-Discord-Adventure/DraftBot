@@ -1,4 +1,4 @@
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -11,7 +11,7 @@ import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {FightController} from "../../core/fights/FightController";
-import {Classes} from "../../core/models/Class";
+import {Classes} from "../../core/database/game/models/Class";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 /**

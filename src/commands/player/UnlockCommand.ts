@@ -1,5 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 
 import {Maps} from "../../core/Maps";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";

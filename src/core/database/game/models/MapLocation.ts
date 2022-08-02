@@ -1,8 +1,9 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {Translations} from "../Translations";
+import {Translations} from "../../../Translations";
 import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import moment = require("moment");
+import {botConfig, draftBotInstance} from "../../../bot";
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -89,7 +90,7 @@ export class MapLocations {
 
 	static async getRandomGotoableMap(): Promise<MapLocation> {
 		return await MapLocation.findOne({
-			order: [Sequelize.fn("RANDOM")],
+			order: [draftBotInstance.gameDatabase.sequelize.random()],
 			where: {canBeGoToPlaceMissionDestination: true}
 		});
 	}
@@ -130,7 +131,9 @@ export class MapLocations {
 
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
 		const query = "SELECT discordUserId FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :playerId AND players.mapLinkId IN (" +
-			"SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)) ORDER BY RANDOM();";
+			"SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)) ORDER BY " +
+			(botConfig.DATABASE_TYPE === "sqlite" ? "RANDOM()" : "RAND()")
+			+ ";";
 		return await MapLocation.sequelize.query(query, {
 			replacements: {
 				mapId: mapId,

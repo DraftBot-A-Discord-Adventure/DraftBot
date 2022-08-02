@@ -1,15 +1,15 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {Data} from "../Data";
+import {Data} from "../../../Data";
 import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {TextBasedChannel} from "discord.js";
-import {Translations} from "../Translations";
-import {MissionsController} from "../missions/MissionsController";
+import {Translations} from "../../../Translations";
+import {MissionsController} from "../../../missions/MissionsController";
 import {Entities} from "./Entity";
-import {Constants} from "../Constants";
-import {getFoodIndexOf} from "../utils/FoodUtils";
+import {Constants} from "../../../Constants";
+import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
 import moment = require("moment");
 
@@ -365,6 +365,24 @@ export function initModel(sequelize: Sequelize): void {
 
 	Guild.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	Guild.hasMany(Player, {
+		foreignKey: "guildId",
+		as: "Members"
+	});
+
+	Guild.hasOne(Player, {
+		foreignKey: "id",
+		sourceKey: "chiefId",
+		as: "Chief"
+	});
+
+	Guild.hasMany(GuildPet, {
+		foreignKey: "guildId",
+		as: "GuildPets"
 	});
 }
 

@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 import moment = require("moment");
+import BigEvent from "./BigEvent";
 
 export class Possibility extends Model {
 	public id!: number;
@@ -104,6 +105,13 @@ export function initModel(sequelize: Sequelize): void {
 
 	Possibility.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	Possibility.belongsTo(BigEvent, {
+		foreignKey: "eventId",
+		as: "Event"
 	});
 }
 

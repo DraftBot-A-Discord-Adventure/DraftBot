@@ -1,8 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {format} from "../utils/StringFormatter";
-import {MissionDifficulty} from "../missions/MissionDifficulty";
-import {MissionsController} from "../missions/MissionsController";
+import {format} from "../../../utils/StringFormatter";
+import {MissionDifficulty} from "../../../missions/MissionDifficulty";
+import {MissionsController} from "../../../missions/MissionsController";
 import moment = require("moment");
+import {draftBotInstance} from "../../../bot";
 
 export class Mission extends Model {
 	public id!: string;
@@ -44,7 +45,7 @@ export class Missions {
 					campaignOnly: false,
 					canBeEasy: true
 				},
-				order: [Sequelize.fn("RANDOM")]
+				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		case MissionDifficulty.MEDIUM:
 			return await Mission.findOne({
@@ -52,7 +53,7 @@ export class Missions {
 					campaignOnly: false,
 					canBeMedium: true
 				},
-				order: [Sequelize.fn("RANDOM")]
+				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		case MissionDifficulty.HARD:
 			return await Mission.findOne({
@@ -60,7 +61,7 @@ export class Missions {
 					campaignOnly: false,
 					canBeHard: true
 				},
-				order: [Sequelize.fn("RANDOM")]
+				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		default:
 			return null;
@@ -73,7 +74,7 @@ export class Missions {
 				campaignOnly: false,
 				canBeDaily: true
 			},
-			order: [Sequelize.fn("RANDOM")]
+			order: [draftBotInstance.gameDatabase.sequelize.random()]
 		});
 	}
 

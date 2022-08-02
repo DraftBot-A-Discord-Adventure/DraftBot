@@ -1,6 +1,7 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../utils/RandomUtils";
 import moment = require("moment");
+import MapLocation from "./MapLocation";
 
 export class MapLink extends Model {
 	public readonly id!: number;
@@ -90,6 +91,20 @@ export function initModel(sequelize: Sequelize): void {
 
 	MapLink.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
+	});
+}
+
+export function setAssociations(): void {
+	MapLink.hasOne(MapLocation, {
+		foreignKey: "id",
+		sourceKey: "startMap",
+		as: "StartMap"
+	});
+
+	MapLink.hasOne(MapLocation, {
+		foreignKey: "id",
+		sourceKey: "endMap",
+		as: "EndMap"
 	});
 }
 

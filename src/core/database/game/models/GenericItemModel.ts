@@ -1,5 +1,5 @@
 import {EmbedField} from "discord.js";
-import {Translations} from "../Translations";
+import {Translations} from "../../../Translations";
 import {Model} from "sequelize";
 
 type MaxStatsValues = { attack: number, defense: number, speed: number }

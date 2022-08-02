@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Data} from "../Data";
+import {Data} from "../../../Data";
 import * as fs from "fs";
 import moment = require("moment");
 

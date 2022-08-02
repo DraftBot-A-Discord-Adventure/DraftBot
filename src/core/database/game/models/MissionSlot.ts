@@ -123,4 +123,12 @@ export function initModel(sequelize: Sequelize): void {
 	});
 }
 
+export function setAssociations(): void {
+	MissionSlot.hasOne(Mission, {
+		sourceKey: "missionId",
+		foreignKey: "id",
+		as: "Mission"
+	});
+}
+
 export default MissionSlot;

@@ -1,7 +1,7 @@
 import {GenericItemModel} from "./GenericItemModel";
-import {Translations} from "../Translations";
+import {Translations} from "../../../Translations";
 import {DataTypes} from "sequelize";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Constants";
 
 type FieldObject = { name: string, value: string, inline: boolean }
 type MaxStatsValues = { attack: number, defense: number, speed: number }

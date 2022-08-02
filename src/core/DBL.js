@@ -1,4 +1,4 @@
-import {Entities} from "./models/Entity";
+import {Entities} from "./database/game/models/Entity";
 import {botConfig, draftBotClient} from "./bot";
 import {DraftBotVoteMessage} from "./messages/DraftBotVoteMessage";
 

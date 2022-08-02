@@ -1,4 +1,4 @@
-import Entity, {Entities} from "../../core/models/Entity";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -10,7 +10,7 @@ import {Constants} from "../../core/Constants";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandsManager} from "../CommandsManager";
-import PetEntity from "../../core/models/PetEntity";
+import PetEntity from "../../core/database/game/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 

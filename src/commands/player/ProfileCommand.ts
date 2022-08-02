@@ -1,8 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Class, {Classes} from "../../core/models/Class";
-import {Entities, Entity} from "../../core/models/Entity";
-import Guild, {Guilds} from "../../core/models/Guild";
-import {Players} from "../../core/models/Player";
+import Class, {Classes} from "../../core/database/game/models/Class";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
+import {Players} from "../../core/database/game/models/Player";
 import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
@@ -11,9 +11,9 @@ import {CacheType, CommandInteraction, Message, MessageReaction} from "discord.j
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
-import MissionSlot from "../../core/models/MissionSlot";
-import PetEntity from "../../core/models/PetEntity";
-import {playerActiveObjects} from "../../core/models/PlayerActiveObjects";
+import MissionSlot from "../../core/database/game/models/MissionSlot";
+import PetEntity from "../../core/database/game/models/PetEntity";
+import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
 
 
 /**
