@@ -1,0 +1,18 @@
+{
+    "translations": {
+        "fr": {
+            "success": {
+                "specific": "Commande `/{command}` reload.",
+                "all": "Toutes les commandes ont été reload."
+            },
+            "notFound": "Command `/{command}` non trouvée."
+        },
+        "en": {
+            "success": {
+                "specific": "Command `/{command}` reloaded.",
+                "all": "Every command has been reloaded."
+            },
+            "notFound": "Command {command} not found."
+        }
+    }
+}
