@@ -1,31 +1,39 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "level",
+			"fullName": "niveaux",
+			"valueToEdit": "level",
 			"title": "{pseudo}, vous avez changé le niveau d'un ou plusieurs joueurs !",
-			"desc": "{player} est maintenant niveau {level}\n",
+			"desc": "{player} est maintenant niveau {value}\n",
 			"errors": {
-				"invalidAmountFormat": "Montant invalide !",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `/level <set|add> <amount> [mentions]`",
 				"tooMuchPeople": "Modification du niveau sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
 			},
 			"dm": {
 				"title": "{pseudo}, votre niveau a été éditée par un administrateur !",
-				"description": "Vous avez {levelGained>=0?gagné:perdu} {levelGained} niveaux !"
+				"description": "Vous avez {valueGained>=0?gagné:perdu} {valueGained} niveau{valueGained>1?x:}{valueGained<-1?x:} !"
 			}
 		},
 		"en": {
+			"commandName": "level",
+			"fullName": "levels",
+			"valueToEdit": "level",
 			"title": "{pseudo}, you changed the level of one or more players!",
 			"desc": "{player} now is level {level}\n",
 			"errors": {
 				"invalidAmountFormat": "Invalid amount!",
 				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `/level <set|add> <amount> [mentions]`",
 				"tooMuchPeople": "Modification of the level on too much users. Please limit your command to 50 users."
 			},
 			"dm": {
 				"title": "{pseudo}, your level has been edited by an administrator!",
-				"description": "You {levelGained>=0?won:lost} {levelGained} levels!"
+				"description": "You {valueGained>=0?won:lost} {valueGained} level{valueGained>1?s:}{valueGained<-1?s:}!"
 			}
 		}
 	}
