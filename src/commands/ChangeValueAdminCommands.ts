@@ -1,0 +1,165 @@
+import {ICommand} from "./ICommand";
+import {Constants} from "../core/Constants";
+import {SlashCommandBuilder} from "@discordjs/builders";
+import Entity, {Entities} from "../core/models/Entity";
+import {CacheType, CommandInteraction} from "discord.js";
+import {TranslationModule, Translations} from "../core/Translations";
+import {replyErrorMessage} from "../core/utils/ErrorUtils";
+import {sendDirectMessage} from "../core/utils/MessageUtils";
+import {draftBotClient} from "../core/bot";
+import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
+import Player from "../core/models/Player";
+
+declare function isAMention(variable: string): boolean;
+
+declare function getIdFromMention(variable: string): string;
+
+export class ChangeValueAdminCommands {
+	/**
+	 * Get the commandInfo from the given commandName
+	 * @param commandName
+	 * @param editFunction
+	 */
+	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction<CacheType>) => void): ICommand {
+		const executeCommand = this.executeCommandfrom(commandName, editFunction);
+		const changeValueModule = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
+		return {
+			slashCommandBuilder: new SlashCommandBuilder()
+				.setName(changeValueModule.get("commandName"))
+				.setDescription(`Give ${changeValueModule.get("fullName")} to one or more players (admin only)`)
+				.addStringOption(option => option.setName("mode")
+					.setDescription("Add / Set")
+					.setRequired(true)
+					.addChoices([["Add", "add"], ["Set", "set"]]))
+				.addIntegerOption(option => option.setName("amount")
+					.setDescription(`The amount of ${changeValueModule.get("fullName")} to give`)
+					.setRequired(true))
+				.addStringOption(option => option.setName("users")
+					.setDescription("The users' ids affected by the command (example : 'id1 id2 id3')")
+					.setRequired(true)) as SlashCommandBuilder,
+			executeCommand,
+			requirements: {
+				userPermission: Constants.ROLES.USER.BOT_OWNER
+			},
+			mainGuildCommand: true
+		};
+	}
+
+	/**
+	 * Get all the users called by the command
+	 * @param usersToChange
+	 * @param interaction
+	 * @param changeValueModule
+	 * @private
+	 */
+	static getConcernedUsers(usersToChange: string[], interaction: CommandInteraction, changeValueModule: TranslationModule): Set<string> {
+		const users = new Set<string>();
+		for (let i = 0; i < usersToChange.length; i++) {
+			const mention = usersToChange[i];
+			if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
+				replyErrorMessage(
+					interaction,
+					changeValueModule.language,
+					changeValueModule.format("errors.invalidIdOrMention", {
+						position: i + 1,
+						wrongText: usersToChange[i]
+					})
+				);
+				return null;
+			}
+			users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
+		}
+		return users;
+	}
+
+	/**
+	 * Get the command to execute from the commandName
+	 * @param commandName
+	 * @param editFunction
+	 * @private
+	 */
+	private static executeCommandfrom(
+		commandName: string,
+		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction) => void
+	): (interaction: CommandInteraction, language: string) => Promise<void> {
+		return async (interaction: CommandInteraction, language: string): Promise<void> => {
+			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
+			const amount = interaction.options.getInteger("amount");
+			if (amount > 10 ** 17) {
+				replyErrorMessage(
+					interaction,
+					language,
+					changeValueModule.get("errors.invalidAmountFormat")
+				);
+				return;
+			}
+			const usersToChange = interaction.options.getString("users").split(" ");
+			if (usersToChange.length > 50) {
+				replyErrorMessage(
+					interaction,
+					language,
+					changeValueModule.get("errors.tooMuchPeople")
+				);
+				return;
+			}
+
+			const users = this.getConcernedUsers(usersToChange, interaction, changeValueModule);
+			if (!users) {
+				return;
+			}
+
+			let descString = "";
+			for (const user of users) {
+				const entityToEdit = await Entities.getByDiscordUserId(user);
+				if (!entityToEdit) {
+					replyErrorMessage(
+						interaction,
+						language,
+						changeValueModule.format("errors.invalidIdOrMentionDoesntExist", {
+							position: usersToChange.indexOf(user) + 1,
+							wrongText: user
+						})
+					);
+					return;
+				}
+				const valueBefore = entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player];
+				try {
+					editFunction(entityToEdit, amount, interaction);
+				}
+				catch (e) {
+					if (e.message !== "wrong parameter") {
+						console.error(e.stack);
+						return;
+					}
+					replyErrorMessage(
+						interaction,
+						language,
+						changeValueModule.get("errors.invalidDonationParameter")
+					);
+					return;
+				}
+				await entityToEdit.Player.save();
+				descString += changeValueModule.format("desc", {
+					player: entityToEdit.getMention(),
+					value: entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player]
+				});
+				if (entityToEdit.Player.dmNotification) {
+					sendDirectMessage(
+						await draftBotClient.users.fetch(user),
+						changeValueModule.get("dm.title"),
+						changeValueModule.format("dm.description", {
+							valueGained: entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
+						}),
+						null,
+						language
+					);
+				}
+			}
+			await interaction.reply({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(changeValueModule.get("title"), interaction.user)
+					.setDescription(descString)]
+			});
+		};
+	}
+}

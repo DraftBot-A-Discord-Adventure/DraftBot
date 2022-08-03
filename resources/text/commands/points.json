@@ -1,10 +1,12 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "points",
+			"fullName": "points",
+			"valueToEdit": "score",
 			"title": "{pseudo}, vous avez changé le score d'un ou plusieurs joueurs !",
-			"desc": "{player} a maintenant {points} point{points>1?s:}\n",
+			"desc": "{player} a maintenant {value} point{value>1?s:}\n",
 			"errors": {
-				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
@@ -13,14 +15,16 @@
 			},
 			"dm": {
 				"title": "{pseudo}, vos points ont été édités par un administrateur !",
-				"description": "Vous avez {pointsGained>=0?gagné:perdu} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:} !"
+				"description": "Vous avez {valueGained>=0?gagné:perdu} {valueGained} point{valueGained>1?s:}{valueGained<-1?s:} !"
 			}
 		},
 		"en": {
+			"commandName": "points",
+			"fullName": "points",
+			"valueToEdit": "score",
 			"title": "{pseudo}, you changed the score of one or more players!",
-			"desc": "{player} now has {points} point{points>1?s:}\n",
+			"desc": "{player} now has {value} point{value>1?s:}\n",
 			"errors": {
-				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
@@ -29,7 +33,7 @@
 			},
 			"dm": {
 				"title": "{pseudo}, your points has been edited by an administrator!",
-				"description": "You {pointsGained>=0?won:lost} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:}!"
+				"description": "You {valueGained>=0?won:lost} {valueGained} point{valueGained>1?s:}{valueGained<-1?s:}!"
 			}
 		}
 	}
