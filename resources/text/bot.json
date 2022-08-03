@@ -43,8 +43,6 @@
 	},
 	"activity": "🌍 - Draftbot.com !",
 	"startStatus": ":robot: **DraftBot** - v{version} - Shard {shardId}",
-	"reboot": "DraftBot",
-	"br": "############################################\n",
 	"dm": {
 		"supportAlert": ":love_letter: | **Nouveau message privé reçu !** \n`Auteur: {username} {alertIcon}(id : {id})`\n\n>>> ",
 		"titleSupport": "{pseudo}, welcome to the DraftBot Assistance Program.",

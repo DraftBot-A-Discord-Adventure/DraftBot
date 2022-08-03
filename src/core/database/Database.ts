@@ -4,9 +4,8 @@ import {SequelizeStorage, Umzug} from "umzug";
 import {Constants} from "../Constants";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {promises} from "fs";
-const sequelizeLogger = require("sequelize/lib/utils/logger");
-
-const mariadb = require("mariadb");
+import {createConnection} from "mariadb";
+import {logger as sequelizeLogger} from "sequelize/types/lib/utils/logger";
 
 export abstract class Database {
 	/**
@@ -47,7 +46,7 @@ export abstract class Database {
 			});
 			break;
 		case "mariadb":
-			mariadbConnection = await mariadb.createConnection({
+			mariadbConnection = await createConnection({
 				host: botConfig.MARIADB_HOST,
 				port: botConfig.MARIADB_PORT,
 				user: "root",
@@ -133,7 +132,7 @@ export abstract class Database {
 	}
 
 	private static replaceWarningLogger() {
-		sequelizeLogger.logger.warn = function(message: unknown) {
+		sequelizeLogger.warn = function(message: string) {
 			if (
 				message ===
 				"Unknown attributes (Player) passed to defaults option of findOrCreate"

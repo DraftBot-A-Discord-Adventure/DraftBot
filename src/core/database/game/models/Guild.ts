@@ -52,8 +52,7 @@ export class Guild extends Model {
 	 * update the lastDailyAt date
 	 */
 	public updateLastDailyAt(): void {
-		const moment = require("moment");
-		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
+		this.lastDailyAt = new Date();
 	}
 
 	/**

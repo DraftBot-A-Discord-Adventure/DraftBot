@@ -35,8 +35,8 @@ class DBL {
 	static async announceVoteAndGiveRole(client, context) {
 		const guild = await client.guilds.cache.get(context.config.MAIN_SERVER_ID);
 		if (guild) {
-			let member;
-			if ((member = await guild.members.fetch(context.user)) !== undefined) {
+			const member = await guild.members.fetch(context.user);
+			if (member) {
 				try {
 					const roleToAdd = await guild.roles.fetch(context.config.DBL_VOTE_ROLE);
 					await member.roles.add(roleToAdd);
@@ -47,7 +47,7 @@ class DBL {
 				}
 			}
 			const dUser = await client.users.fetch(context.user);
-			if (dUser === undefined || dUser === null) {
+			if (!dUser) {
 				return;
 			}
 			(await guild.channels.cache.get(context.config.DBL_LOGS_CHANNEL)).send({
@@ -85,7 +85,7 @@ class DBL {
 	 */
 	static async getTimeBeforeDBLRoleRemove(userId) {
 		const [user] = await Entities.getOrRegister(userId);
-		if (user === undefined || user === null) {
+		if (!user) {
 			return -1;
 		}
 		return user.Player.topggVoteAt.valueOf() + TOPGG.ROLE_DURATION * 60 * 60 * 1000 - new Date();

@@ -41,14 +41,9 @@ process.on("message", async (message: any) => {
 			console.log("Launched main shard");
 		}
 
-		const botDataModule = Data.getModule("bot");
-		require("figlet")(botDataModule.getString("reboot"), (err: any, data: any) => {
-			if (data) {
-				console.log(data.red);
-				console.log(botDataModule.getString("br"));
-			}
-		});
+		console.log("############################################");
 
+		const botDataModule = Data.getModule("bot");
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
