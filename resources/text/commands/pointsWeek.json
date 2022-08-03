@@ -1,10 +1,12 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "pointsw",
+			"fullName": "points hebdomadaires",
+			"valueToEdit": "weeklyScore",
 			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueurs !",
-			"desc": "{player} a maintenant {pointsw} point{pointsw>1?s:} hebdomadaire{pointsw>1?s:}\n",
+			"desc": "{player} a maintenant {value} point{value>1?s:} hebdomadaire{value>1?s:}\n",
 			"errors": {
-				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
@@ -13,12 +15,15 @@
 			},
 			"dm": {
 				"title": "{pseudo}, vos points hebdomadaires ont été édités par un administrateur !",
-				"description": "Vous avez {pointsWGained>=0?gagné:perdu} {pointsWGained} point{pointsWGained>1?s:}{pointsWGained<-1?s:} hebdomadaire{pointsWGained>1?s:}{pointsWGained<-1?s:} !"
+				"description": "Vous avez {valueGained>=0?gagné:perdu} {valueGained} point{valueGained>1?s:}{valueGained<-1?s:} hebdomadaire{valueGained>1?s:}{valueGained<-1?s:} !"
 			}
 		},
 		"en": {
+			"commandName": "pointsw",
+			"fullName": "weekly points",
+			"valueToEdit": "weeklyScore",
 			"title": "{pseudo}, you changed the week score of one or more players!",
-			"desc": "{player} now has {pointsw} week point{points>1?s:}\n",
+			"desc": "{player} now has {value} week point{value>1?s:}\n",
 			"errors": {
 				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
@@ -29,7 +34,7 @@
 			},
 			"dm": {
 				"title": "{pseudo}, your week points has been edited by an administrator!",
-				"description": "You {pointsWGained>=0?won:lost} {pointsWGained} week point{pointsWGained>1?s:}{pointsWGained<-1?s:}!"
+				"description": "You {valueGained>=0?won:lost} {valueGained} week point{valueGained>1?s:}{valueGained<-1?s:}!"
 			}
 		}
 	}

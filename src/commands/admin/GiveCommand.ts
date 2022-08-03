@@ -16,10 +16,7 @@ import {draftBotClient} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {discordIdToMention} from "../../core/utils/StringUtils";
-
-declare function isAMention(variable: string): boolean;
-
-declare function getIdFromMention(variable: string): string;
+import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 
 /**
  * Allow the bot owner to give an item to somebody
@@ -29,7 +26,7 @@ declare function getIdFromMention(variable: string): string;
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.giveCommand", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
-	if (usersToChange.length > 52) {
+	if (usersToChange.length > 50) {
 		replyErrorMessage(
 			interaction,
 			language,
@@ -60,22 +57,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
 	}
 
-	const users = new Set<string>();
-	for (let i = 0; i < usersToChange.length; i++) {
-		const mention = usersToChange[i];
-		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-			replyErrorMessage(
-				interaction,
-				language,
-				tr.format("errors.invalidIdOrMention", {
-					position: i + 1,
-					wrongText: usersToChange[i]
-				})
-			);
-			return;
-		}
-		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
-	}
+	const users = ChangeValueAdminCommands.getConcernedUsers(usersToChange, interaction, tr);
 
 	await new DraftBotValidateReactionMessage(
 		interaction.user,

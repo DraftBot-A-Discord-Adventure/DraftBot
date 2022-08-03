@@ -13,7 +13,6 @@
 				}
 			},
 			"errors": {
-				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>give <category [0-3]> <item id> [mentions]`",
 				"tooMuchPeople": "Give d'objet sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande.",
 				"unknownCategory": "Catégorie inconnue. Elle doit être en 0 et 3",
 				"wrongItemId": "Aucun objet n'existe dans cette catégorie avec cet id",
@@ -38,7 +37,6 @@
 				}
 			},
 			"errors": {
-				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>give <category [0-3]> <item id> [mentions]`",
 				"tooMuchPeople": "Give of item on too much users. Please limit your command to 50 users.",
 				"unknownCategory": "Unknown category. It must be between 0 and 3",
 				"wrongItemId": "No item exists in this category with this id",
