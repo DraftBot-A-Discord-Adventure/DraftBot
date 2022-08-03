@@ -1,5 +1,5 @@
 import { parse } from "toml";
-import * as fs from "fs";
+import {readFileSync} from "fs";
 
 export interface DraftBotConfig {
 	DISCORD_CLIENT_TOKEN: string;
@@ -33,7 +33,7 @@ export interface DraftBotConfig {
 }
 
 export const loadConfig = function(): DraftBotConfig {
-	const config = parse(fs.readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
+	const config = parse(readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
 	return {
 		BACKUP_ARCHIVE_PASSWORD: config.backups.archive_password,
 		BADGE_MANAGER_ROLE: config.discord.roles.badge_manager_ids,

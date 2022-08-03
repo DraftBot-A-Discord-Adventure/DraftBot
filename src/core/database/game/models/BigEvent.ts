@@ -2,9 +2,9 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import Possibility from "./Possibility";
 import MapLocation from "./MapLocation";
-import * as fs from "fs";
 import moment = require("moment");
 import {botConfig} from "../../../bot";
+import {readdir} from "fs";
 
 export class BigEvent extends Model {
 	public readonly id!: number;
@@ -21,8 +21,8 @@ export class BigEvent extends Model {
 
 	public getPossibilities: () => Possibility[];
 
-	public async getReactions(): Promise<string[]> {
-		const possibilities = await this.getPossibilities();
+	public getReactions(): string[] {
+		const possibilities = this.getPossibilities();
 		const reactions = [];
 		for (const possibility of possibilities) {
 			if (reactions.indexOf(possibility.possibilityKey) === -1) {
@@ -66,7 +66,7 @@ export class BigEvents {
 
 	static getIdMaxEvents() {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/events/", (err, files) => {
+			readdir("resources/text/events/", (err, files) => {
 				err ? reject(err) : resolve(files.length);
 			}
 			);
@@ -89,11 +89,11 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		},
 		restrictedMaps: {
 			type: DataTypes.INTEGER

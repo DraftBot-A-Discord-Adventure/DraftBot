@@ -3,6 +3,7 @@ import {Data} from "../../../Data";
 import {TranslationModule, Translations} from "../../../Translations";
 import {GenericItemModel} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
+import moment = require("moment");
 
 type Value = {
 	maxValue: number,
@@ -161,11 +162,11 @@ export const MainItemModelAttributes = {
 	},
 	updatedAt: {
 		type: DataTypes.DATE,
-		defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 	},
 	createdAt: {
 		type: DataTypes.DATE,
-		defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 	},
 	frenchMasculine: {
 		type: DataTypes.BOOLEAN

@@ -14,5 +14,5 @@ export abstract class PlayerConstants {
 		":scream:": 600000,
 		":clock2:": 0,
 		":baby:": 0
-	}
+	};
 }

@@ -114,7 +114,7 @@ class DBL {
 		const guild = await client.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		const members = guild.members.cache.entries();
 		for (const member of members) {
-			if (await member[1].roles.cache.has(botConfig.DBL_VOTE_ROLE)) {
+			if (member[1].roles.cache.has(botConfig.DBL_VOTE_ROLE)) {
 				await DBL.programDBLRoleRemoval(member[1].id);
 			}
 		}

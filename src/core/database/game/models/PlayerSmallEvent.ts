@@ -74,13 +74,11 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")()
-				.format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")()
-				.format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,

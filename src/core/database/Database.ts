@@ -1,9 +1,9 @@
 import {Sequelize} from "sequelize";
 import {botConfig} from "../bot";
 import {SequelizeStorage, Umzug} from "umzug";
-import * as fs from "fs";
 import {Constants} from "../Constants";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
+import {promises} from "fs";
 const sequelizeLogger = require("sequelize/lib/utils/logger");
 
 const mariadb = require("mariadb");
@@ -109,8 +109,8 @@ export abstract class Database {
 	 * @private
 	 */
 	private async initModels(): Promise<void> {
-		const modelsFiles = await fs.promises.readdir(__dirname + "/" + this.databaseName + "/models");
-		const models: { initModel: (sequelize: Sequelize) => Promise<void>, setAssociations: () => void }[] = [];
+		const modelsFiles = await promises.readdir(__dirname + "/" + this.databaseName + "/models");
+		const models: { initModel: (sequelize: Sequelize) => Promise<void>, setAssociations: () => Promise<void> }[] = [];
 
 		for (const modelFile of modelsFiles) {
 			const modelSplit = modelFile.split(".");
@@ -133,7 +133,7 @@ export abstract class Database {
 	}
 
 	private static replaceWarningLogger() {
-		sequelizeLogger.logger.warn = function(message: any) {
+		sequelizeLogger.logger.warn = function(message: unknown) {
 			if (
 				message ===
 				"Unknown attributes (Player) passed to defaults option of findOrCreate"

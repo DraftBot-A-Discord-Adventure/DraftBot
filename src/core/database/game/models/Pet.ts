@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Data} from "../../../Data";
-import * as fs from "fs";
 import moment = require("moment");
+import {readdir} from "fs";
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -44,7 +44,7 @@ export class Pets {
 
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/pets/", (err, files) => {
+			readdir("resources/text/pets/", (err, files) => {
 				err ? reject(err) : resolve(files.length - 1);
 			}
 			);
@@ -86,11 +86,11 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,

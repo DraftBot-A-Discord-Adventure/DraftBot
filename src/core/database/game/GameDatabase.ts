@@ -1,7 +1,6 @@
 import {Database} from "../Database";
 import {DataTypes} from "sequelize";
 import Tag from "./models/Tag";
-import * as fs from "fs";
 import BigEvent from "./models/BigEvent";
 import EventMapLocationId from "./models/EventMapLocationId";
 import Possibility from "./models/Possibility";
@@ -19,6 +18,7 @@ import Potion from "./models/Potion";
 import Class from "./models/Class";
 import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
+import {promises} from "fs";
 
 type EventJson = { id: string, [key: string]: any };
 
@@ -103,7 +103,7 @@ export class GameDatabase extends Database {
 		for (const model of models) {
 			await model.model.destroy({ truncate: true });
 
-			const files = await fs.promises.readdir(
+			const files = await promises.readdir(
 				`resources/text/${model.folder.toLowerCase()}`
 			);
 
@@ -137,8 +137,7 @@ export class GameDatabase extends Database {
 						const tagContent = {
 							textTag: fileContent.tags[i],
 							idObject: fileContent.id,
-							// eslint-disable-next-line no-prototype-builtins
-							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
+							typeObject: model.model.name ?? "ERRORNONAME"
 						};
 						tagsToInsert.push(tagContent);
 					}
@@ -156,7 +155,7 @@ export class GameDatabase extends Database {
 		await Possibility.destroy({ truncate: true });
 		await Mission.destroy({ truncate: true });
 
-		const missionFiles = await fs.promises.readdir("resources/text/missions");
+		const missionFiles = await promises.readdir("resources/text/missions");
 		const missions = [];
 		for (const file of missionFiles) {
 			const fileName = file.split(".")[0];
@@ -172,7 +171,7 @@ export class GameDatabase extends Database {
 		}
 		await Mission.bulkCreate(missions);
 
-		const files = await fs.promises.readdir("resources/text/events");
+		const files = await promises.readdir("resources/text/events");
 		const eventsContent = [];
 		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
@@ -270,7 +269,26 @@ export class GameDatabase extends Database {
 		console.warn("Error while loading event " + event.id + ": " + message);
 	}
 
-	private static isEventValid(event: EventJson) {
+	private static checkEventEnd(event: EventJson, possibilityKey: string) {
+		if (Object.keys(event.possibilities[possibilityKey])
+			.includes("translations")) {
+			GameDatabase.sendEventLoadError(event,
+				"Key present in possibility " +
+				possibilityKey +
+				": ");
+			return false;
+		}
+		if (!Object.keys(event.possibilities[possibilityKey])
+			.includes("issues")) {
+			GameDatabase.sendEventLoadError(event,
+				"Key missing in possibility " +
+				possibilityKey +
+				": ");
+			return false;
+		}
+	}
+
+	private static checkEventRootKeys(event: EventJson) {
 		const eventFields = ["translations", "possibilities"];
 		for (let i = 0; i < eventFields.length; ++i) {
 			if (!Object.keys(event)
@@ -296,7 +314,42 @@ export class GameDatabase extends Database {
 				}
 			}
 		}
-		let endPresent = false;
+	}
+
+	private static checkPossibilityKeys(event: EventJson, possibilityKey: string) {
+		const possibilityFields = [
+			"translations",
+			"issues"
+		];
+		for (let i = 0; i < possibilityFields.length; ++i) {
+			if (!Object.keys(event.possibilities[possibilityKey])
+				.includes(possibilityFields[i])) {
+				GameDatabase.sendEventLoadError(event,
+					"Key missing in possibility " +
+					possibilityKey +
+					": ");
+				return false;
+			}
+		}
+		if (event.possibilities[possibilityKey].translations.fr === undefined) {
+			GameDatabase.sendEventLoadError(
+				event,
+				"French translation missing in possibility " +
+				possibilityKey
+			);
+			return false;
+		}
+		if (event.possibilities[possibilityKey].translations.en === undefined) {
+			GameDatabase.sendEventLoadError(
+				event,
+				"English translation missing in possibility " +
+				possibilityKey
+			);
+			return false;
+		}
+	}
+
+	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: { [key: string]: unknown, restrictedMaps: string, effect: string }) {
 		const issuesFields = [
 			"lostTime",
 			"health",
@@ -306,109 +359,78 @@ export class GameDatabase extends Database {
 			"item",
 			"translations"
 		];
-		const possibilityFields = [
-			"translations",
-			"issues"
-		];
+		for (let i = 0; i < issuesFields.length; ++i) {
+			if (!Object.keys(issue)
+				.includes(issuesFields[i])) {
+				GameDatabase.sendEventLoadError(
+					event,
+					"Key missing in possibility " +
+					possibilityKey + " " +
+					": " +
+					issuesFields[i]
+				);
+				return false;
+			}
+		}
+		if (issue.lostTime < 0) {
+			GameDatabase.sendEventLoadError(
+				event,
+				"Lost time must be positive in issue " +
+				possibilityKey + " "
+			);
+			return false;
+		}
+		if (
+			issue.lostTime > 0 &&
+			issue.effect !== Constants.EFFECT.OCCUPIED
+		) {
+			GameDatabase.sendEventLoadError(
+				event,
+				"Time lost and no clock2 effect in issue " +
+				possibilityKey + " "
+			);
+			return false;
+		}
+		if (!Object.keys(PlayerConstants.EFFECT_MALUS).includes(issue.effect)) {
+			GameDatabase.sendEventLoadError(
+				event,
+				"Unknown effect \"" +
+				issue.effect +
+				"\" in issue " +
+				possibilityKey + " "
+			);
+			return false;
+		}
+		if (issue.restricted_map !== undefined) {
+			const types = issue.restrictedMaps.split(",");
+			for (let i = 0; i < types.length; ++i) {
+				if (!MapConstants.TYPES.includes(types[i])) {
+					GameDatabase.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
+					return false;
+				}
+			}
+		}
+	}
+
+	private static isEventValid(event: EventJson) {
+		if (!GameDatabase.checkEventRootKeys(event)) {
+			return false;
+		}
+
+		let endPresent = false;
 		for (const possibilityKey of Object.keys(event.possibilities)) {
 			if (possibilityKey === "end") {
 				endPresent = true;
-				if (Object.keys(event.possibilities[possibilityKey])
-					.includes(possibilityFields[0])) {
-					GameDatabase.sendEventLoadError(event,
-						"Key present in possibility " +
-						possibilityKey +
-						": ");
-					return false;
-				}
-				if (!Object.keys(event.possibilities[possibilityKey])
-					.includes(possibilityFields[1])) {
-					GameDatabase.sendEventLoadError(event,
-						"Key missing in possibility " +
-						possibilityKey +
-						": ");
+				if (!GameDatabase.checkEventEnd(event, possibilityKey)) {
 					return false;
 				}
 			}
-			else {
-				for (let i = 0; i < possibilityFields.length; ++i) {
-					if (!Object.keys(event.possibilities[possibilityKey])
-						.includes(possibilityFields[i])) {
-						GameDatabase.sendEventLoadError(event,
-							"Key missing in possibility " +
-							possibilityKey +
-							": ");
-						return false;
-					}
-				}
-				if (event.possibilities[possibilityKey].translations.fr === undefined) {
-					GameDatabase.sendEventLoadError(
-						event,
-						"French translation missing in possibility " +
-						possibilityKey
-					);
-					return false;
-				}
-				if (event.possibilities[possibilityKey].translations.en === undefined) {
-					GameDatabase.sendEventLoadError(
-						event,
-						"English translation missing in possibility " +
-						possibilityKey
-					);
-					return false;
-				}
+			else if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
+				return false;
 			}
 			for (const issue of event.possibilities[possibilityKey].issues) {
-				for (let i = 0; i < issuesFields.length; ++i) {
-					if (!Object.keys(issue)
-						.includes(issuesFields[i])) {
-						GameDatabase.sendEventLoadError(
-							event,
-							"Key missing in possibility " +
-							possibilityKey + " " +
-							": " +
-							issuesFields[i]
-						);
-						return false;
-					}
-				}
-				if (issue.lostTime < 0) {
-					GameDatabase.sendEventLoadError(
-						event,
-						"Lost time must be positive in issue " +
-						possibilityKey + " "
-					);
+				if (!GameDatabase.checkPossibilityIssues(event, possibilityKey, issue)) {
 					return false;
-				}
-				if (
-					issue.lostTime > 0 &&
-					issue.effect !== Constants.EFFECT.OCCUPIED
-				) {
-					GameDatabase.sendEventLoadError(
-						event,
-						"Time lost and no clock2 effect in issue " +
-						possibilityKey + " "
-					);
-					return false;
-				}
-				if (!Object.keys(PlayerConstants.EFFECT_MALUS).includes(issue.effect)) {
-					GameDatabase.sendEventLoadError(
-						event,
-						"Unknown effect \"" +
-						issue.effect +
-						"\" in issue " +
-						possibilityKey + " "
-					);
-					return false;
-				}
-				if (issue.restricted_map !== undefined) {
-					const types = issue.restrictedMaps.split(",");
-					for (let i = 0; i < types.length; ++i) {
-						if (!MapConstants.TYPES.includes(types[i])) {
-							GameDatabase.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
-							return false;
-						}
-					}
 				}
 			}
 		}

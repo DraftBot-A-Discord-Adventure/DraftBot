@@ -2,6 +2,7 @@ import {GenericItemModel} from "./GenericItemModel";
 import {Translations} from "../../../Translations";
 import {DataTypes} from "sequelize";
 import {Constants} from "../../../Constants";
+import moment = require("moment");
 
 type FieldObject = { name: string, value: string, inline: boolean }
 type MaxStatsValues = { attack: number, defense: number, speed: number }
@@ -75,13 +76,11 @@ export const SupportItemModelAttributes = {
 	},
 	updatedAt: {
 		type: DataTypes.DATE,
-		defaultValue: require("moment")()
-			.format("YYYY-MM-DD HH:mm:ss")
+		defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 	},
 	createdAt: {
 		type: DataTypes.DATE,
-		defaultValue: require("moment")()
-			.format("YYYY-MM-DD HH:mm:ss")
+		defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 	},
 	frenchMasculine: {
 		type: DataTypes.INTEGER
