@@ -5,7 +5,7 @@
 			"noPet": "Vous n'avez aucun familier !",
 			"noPetOther": "Cette personne n'a aucun familier !",
 			"isFeisty": "Vous ne pouvez pas échanger de familier fielleux.",
-			"isFeistyOther": "Le familier de cette personne est fielleux, vous ne pouvez donc pas lui échanger"
+			"isFeistyOther": "Le familier de cette personne est fielleux, vous ne pouvez donc pas lui échanger."
 		},
 		"en": {
 			"embedTitle": "{pseudo}'s pet:",
