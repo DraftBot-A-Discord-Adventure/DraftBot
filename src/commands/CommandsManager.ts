@@ -29,7 +29,6 @@ import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionM
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
-import {containsSpecificUserMention} from "../core/utils/MessageUtils";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -132,44 +131,6 @@ export class CommandsManager {
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 	}
 
-		client.on("interactionCreate", async interaction => {
-			if (!interaction.isCommand()) {
-				return;
-			}
-			if (!interaction.inGuild()) {
-				// TODO when discord adds user's language in interaction: replace "en"
-				await interaction.reply(Translations.getModule("error", "en").get("notInDM"));
-			}
-
-			void CommandsManager.handleCommand(interaction as CommandInteraction);
-		});
-
-		client.on("messageCreate", async message => {
-
-			// ignore all bot messages and own messages
-			if (message.author.bot || message.author.id === draftBotClient.user.id) {
-				return;
-			}
-
-			if (message.channel.type === "DM") {
-				await CommandsManager.handlePrivateMessage(message);
-			}
-			else {
-				const [server] = await Server.findOrCreate({
-					where: {
-						discordGuildId: message.guild.id
-					}
-				});
-
-				if (containsSpecificUserMention(message, draftBotClient.user)) {
-					message.channel.send({
-						content:
-							Translations.getModule("bot", server.language).get("mentionHelp")
-					}).then();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Execute a command from the player
@@ -184,7 +145,7 @@ export class CommandsManager {
 	}
 
 	/**
-	 * execute all the important checks upon receiving a private message
+	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
 	static async handlePrivateMessage(message: Message) {
@@ -556,5 +517,20 @@ export class CommandsManager {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Get the list of commands to register
+	 */
+	public static async getAllCommandsToRegister() {
+		const categories = await readdir("dist/src/commands");
+		const commandsToRegister: ICommand[] = [];
+		for (const category of categories) {
+			if (category.endsWith(".js") || category.endsWith(".js.map")) {
+				continue;
+			}
+			await this.checkCommandFromCategory(category, commandsToRegister);
+		}
+		return commandsToRegister;
 	}
 }
