@@ -26,7 +26,7 @@ export function sendDirectMessage(user: User, title: string, description: string
 }
 
 /**
- * check if a given message contains a mention of a user
+ * Check if a given message contains a mention of a user
  * @param message - the message to check
  * @param user - the user to check
  */
