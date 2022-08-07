@@ -35,11 +35,11 @@
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une {food}. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],
 			"gainTime": [
-				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
-				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{amount} min** :clock2:.",
-				"**{pet}** semble être pressé{feminine}, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
-				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} min** :clock2:.",
-				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
+				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} Min** :hourglass:.",
+				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{amount} Min** :hourglass:.",
+				"**{pet}** semble être pressé{feminine}, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} Min** :hourglass:.",
+				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} Min** :hourglass:.",
+				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} Min** :hourglass: sur votre trajet."
 			],
 			"points": [
 				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquer. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
@@ -63,11 +63,11 @@
 				"En voulant jouer avec **{pet}**, vous {accusative} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous délaisse de **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
-				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} min** :clock2:.",
-				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
-				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
-				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} min** :clock2: sur votre trajet.",
-				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
+				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} Min** :clock2:.",
+				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} Min** :clock2:.",
+				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} Min** :clock2: sur votre trajet.",
+				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} Min** :clock2: sur votre trajet.",
+				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} Min** :clock2:."
 			],
 			"petFlee": [
 				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais...",
@@ -127,16 +127,16 @@
 			"food": [
 				"**{pet}'s** flair allowed {accusative} to find {food}. You store it and continue your way.",
 				"**{pet}** looks with insistence to the ground and decides to dig a hole. What was your surprise when you saw it out {food} !",
-				"**{pet}** smells with insistence towards a bush. You decide to take a look and see {determinant} coming back with **{food}** in his mouth !",
+				"**{pet}** smells with insistence towards a bush. You decide to take a look and see {determinant} coming back with {food} in {determinant} mouth !",
 				"You see **{pet}** suddenly jump into the water. What was your surprise when {determinant} came out with {food} !",
 				"After taking a short break on your journey, you see **{pet}** returning with a {food}. It seems that {nominative} stole it to a merchant. You decide to leave before he notices it."
 			],
 			"gainTime": [
-				"**{pet}** is in good shape. You ride on his back for a few minutes and you win **{amount}** min** :clock2:.",
-				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount}** min** :clock2:.",
-				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} min** :clock2:.",
-				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount} min** :clock2:.",
-				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
+				"**{pet}** is in good shape. You ride on his back for a few minutes and you win **{amount}** Min** :hourglass:.",
+				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount} Min** :hourglass:.",
+				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} Min** :hourglass:.",
+				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount} Min** :hourglass:.",
+				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} Min** :hourglass: on your travel."
 			],
 			"points": [
 				"People seeing you with **{pet}** do not fail to notice you. This enhances your reputation and you gain **{amount}** :medal:.",
@@ -160,11 +160,11 @@
 				"While wanting to play with **{pet}**, you {accusative} strike a blow. Wounded, you take him to a groomer to {determinant} heal. Afetr healing {feminine}, he charges you **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
-				"By dint of recalling **{pet}** so that {nominative} remains close to you, you loose in total **{amount} min** :clock2:.",
-				"You feel that **{pet}** doesn't want to move, you decide even tho to pull {déterminant} with force. By his fault, you loose **{amount} min** :clock2:.",
-				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}** ! You flee with {accusative}. This chase made you loose **{amount} min** :clock2: on your travel.",
-				"As you enter a village, you hear a rumor about a pet that looks like **{pet}** that would attack villagers. When seeing you, the villagers become scared of you and your creature, therefore, your are immediately hunted out of the village. This misadventure cause you to loose **{amount} min** :clock2: on your travel.",
-				"**{pet}** stares at the ground and decides to dig a hole. {nominative} gets a sealed chest out. After multiple attempts, you manage to open it up, unfortunately, it is empty. This misadventure made you loose **{amount} min** :clock2:."
+				"By dint of recalling **{pet}** so that {nominative} remains close to you, you loose in total **{amount} Min** :clock2:.",
+				"You feel that **{pet}** doesn't want to move, you decide even tho to pull {déterminant} with force. By his fault, you loose **{amount} Min** :clock2:.",
+				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}** ! You flee with {accusative}. This chase made you loose **{amount} Min** :clock2: on your travel.",
+				"As you enter a village, you hear a rumor about a pet that looks like **{pet}** that would attack villagers. When seeing you, the villagers become scared of you and your creature, therefore, your are immediately hunted out of the village. This misadventure cause you to loose **{amount} Min** :clock2: on your travel.",
+				"**{pet}** stares at the ground and decides to dig a hole. {nominative} gets a sealed chest out. After multiple attempts, you manage to open it up, unfortunately, it is empty. This misadventure made you loose **{amount} Min** :clock2:."
 			],
 			"petFlee": [
 				"**{pet}** doesn't respect you anymore and runs away in the horizon. You don't manage to find {determinant} and lose {determinant} forever...",

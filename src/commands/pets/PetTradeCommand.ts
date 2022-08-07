@@ -45,7 +45,7 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 			return true;
 		}
 		if (traderAndPet.pet.isFeisty()) {
-			replyErrorMessage(interaction, petTradeModule.language, petModule.get("isFeisty"));
+			replyErrorMessage(interaction, petTradeModule.language, petModule.get(traderAndPet === traderAndPet1 ? "isFeisty" : "isFeistyOther"));
 			return true;
 		}
 	}

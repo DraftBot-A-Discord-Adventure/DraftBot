@@ -14,7 +14,7 @@
 				],
 				"winWeapon": [
 					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une arme qu'il n'utilise plus :",
-					"vous voyez dans le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+					"vous voyez sur le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
 					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
 				]
 			},
@@ -31,7 +31,7 @@
 				],
 				"winArmor": [
 					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une armure qu'il n'utilise plus :",
-					"vous voyez dans le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+					"vous voyez sur le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
 					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
 				]
 			},

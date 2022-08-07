@@ -15,7 +15,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous vous rendez dans le sous-sol du grenier et tombez nez à nez avec des personnages en robe noire se tenant en cercle. Couverts de de plumes et du sang partout. Alors que vous essayez d'en frapper un, vous hésitez. Ces hommes ne sont que d'ordinaires parieurs de combats de coqs et non des bêtes. Mais les hommes vous remarquent, et par peur, se liguent contre vous, vous renverse et prennent rapidement la fuite.",
+						"fr": "Vous vous rendez dans le sous-sol du grenier et tombez nez à nez avec des personnages en robe noire se tenant en cercle. Couverts de plumes et du sang partout. Alors que vous essayez d'en frapper un, vous hésitez. Ces hommes ne sont que d'ordinaires parieurs de combats de coqs et non des bêtes. Mais les hommes vous remarquent, et par peur, se liguent contre vous, vous renverse et prennent rapidement la fuite.",
 						"en": "Some black robed figures are standing in a circle with feathers and blood everywhere. When attempting to strike one down, you hesitate. As these men are just ordinary cockfight betters and no cultists. But the men notice you , and out of fear, all gang up on you, bringing you down and afterwards legging it."
 					},
 					"lostTime": 0,
@@ -79,7 +79,7 @@
 					"effect": ":clock2:",
 					"money": -165,
 					"experience": 0,
-					"item": true
+					"item": false
 				},
 				{
 					"translations": {

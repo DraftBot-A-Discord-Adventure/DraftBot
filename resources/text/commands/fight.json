@@ -37,6 +37,7 @@
 				"canceled": "Votre demande de combat a bien été annulée.",
 				"onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
 				"levelTooLow": {
+					"direct": "Vous devez atteindre le **LVL {level}** avant de combattre !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"cantFightStatus": {
@@ -162,6 +163,7 @@
 				"canceled": "Your fighting request has been successfully cancelled.",
 				"onlyInitiator": " {pseudo}, only the fighting requester can cancel their request!",
 				"levelTooLow": {
+					"direct": "You need to be **LVL {level}** if you want to fight!",
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
 				},
 				"cantFightStatus": {
