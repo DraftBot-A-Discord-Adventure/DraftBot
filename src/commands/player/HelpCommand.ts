@@ -8,27 +8,40 @@ import {Constants} from "../../core/Constants";
 
 function getCommandByCategories() {
 	const commandsDataList = HelpConstants.COMMANDS_DATA;
-	const serverCommands = [], utilCommands = [], playerCommands = [],
-		missionCommands = [], guildCommands = [], petCommands = [];
+	const serverCommands: string[] = [], utilCommands: string[] = [], playerCommands: string[] = [],
+		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
 	for (const commandData of Object.entries(commandsDataList)) {
 		switch (commandData[1].CATEGORY) {
 		case Constants.COMMAND_CATEGORY.SERVER:
-			serverCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			serverCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
 			break;
 		case Constants.COMMAND_CATEGORY.UTIL:
-			utilCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			utilCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
 			break;
 		case Constants.COMMAND_CATEGORY.PLAYER:
-			playerCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			playerCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
+			break;
 			break;
 		case Constants.COMMAND_CATEGORY.MISSION:
-			missionCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			missionCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
 			break;
 		case Constants.COMMAND_CATEGORY.GUILD:
-			guildCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			guildCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
 			break;
 		case Constants.COMMAND_CATEGORY.PET:
-			petCommands.push(commandData[0].toLowerCase().replace("_", ""));
+			petCommands.push(commandData[0].toLowerCase().split("")
+				.filter(l => l !== "_")
+				.join(""));
 			break;
 		default:
 			break;
