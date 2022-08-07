@@ -27,7 +27,6 @@ function getCommandByCategories() {
 				.filter(l => l !== "_")
 				.join(""));
 			break;
-			break;
 		case Constants.COMMAND_CATEGORY.MISSION:
 			missionCommands.push(commandData[0].toLowerCase().split("")
 				.filter(l => l !== "_")
