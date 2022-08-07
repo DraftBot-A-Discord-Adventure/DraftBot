@@ -29,6 +29,7 @@ import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionM
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
+import {containsSpecificUserMention} from "../core/utils/MessageUtils";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -160,7 +161,7 @@ export class CommandsManager {
 					}
 				});
 
-				if (message.content.startsWith("<@" + client.user.id + ">")) {
+				if (containsSpecificUserMention(message, draftBotClient.user)) {
 					message.channel.send({
 						content:
 							Translations.getModule("bot", server.language).get("mentionHelp")
@@ -183,7 +184,7 @@ export class CommandsManager {
 	}
 
 	/**
-	 * Handle private messages
+	 * execute all the important checks upon receiving a private message
 	 * @param message
 	 */
 	static async handlePrivateMessage(message: Message) {
