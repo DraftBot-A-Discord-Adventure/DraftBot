@@ -199,7 +199,7 @@
 				"Vous rencontrez {playerDisplay}. Celui-ci semble complètement paniqué. Vous lui demandez ce qui le met dans tout ses états. Il vous raconte qu'il vient de se faire poursuivre par un dragon, mais qu'il a réussi à s'en sortir, perdant quelques poils au passage."
 			],
 			":clock2:": [
-				"Vous apercevez {playerDisplay} et l'invitez à discuter mais celui-ci vous explique qu'il est occupé. ce n'est que partie remise et vous continuez chacun votre route.",
+				"Vous apercevez {playerDisplay} et l'invitez à discuter mais celui-ci vous explique qu'il est occupé. Ce n'est que partie remise et vous continuez chacun votre route.",
 				"Dans votre traversée, vous trouvez {playerDisplay} qui est bien occupé... Vous tentez de converser un peu avec lui en vain, demandant plutôt à ce que vous l'aidiez dans son occupation.",
 				"Sur votre chemin, vous rencontrez {playerDisplay} qui semble fort occupé. Vous tentez d'en savoir plus, en vain, avant de poursuivre votre route."
 			]

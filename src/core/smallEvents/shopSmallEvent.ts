@@ -59,15 +59,17 @@ export const smallEvent: SmallEvent = {
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
 			endCallback
-		).setDescription(seEmbed.description
-			+ format(
-				translationShop.getRandom("intro." + gender)
-				+ translationShop.get("end"), {
-					name: translationShop.getRandom("names." + gender),
-					item: randomItem.toString(language, null),
-					price: price,
-					type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
-				}))
+		)
+			.setAuthor(seEmbed.author)
+			.setDescription(seEmbed.description
+				+ format(
+					translationShop.getRandom("intro." + gender)
+					+ translationShop.get("end"), {
+						name: translationShop.getRandom("names." + gender),
+						item: randomItem.toString(language, null),
+						price: price,
+						type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
+					}))
 			.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}
 };
