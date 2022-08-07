@@ -25,16 +25,16 @@
             },
             "results": {
                 "life": [
-                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur, malheureusement celui-ci frappe le premier. Vous perdez **{amount}💔**."
+                    "Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur, malheureusement celui-ci frappe le premier. Vous perdez **{amount} :broken_heart:**."
                 ],
                 "time": [
-                    "Vous soulevez doucement le gobelet {goblet} et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{amount}🕑** à négocier avec lui avant d'abandonner et de reprendre votre route."
+                    "Vous soulevez doucement le gobelet {goblet} et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{amount} :clock2:** à négocier avec lui avant d'abandonner et de reprendre votre route."
                 ],
                 "nothing": [
                     "Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois."
                 ],
                 "end": [
-                    "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{amount}💔**."
+                    "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{amount} :broken_heart:**."
                 ]
             }
         },
