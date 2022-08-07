@@ -1,4 +1,4 @@
-import {CommandInteraction, HexColorString, MessageReaction, ReactionCollector, User} from "discord.js";
+import {CommandInteraction, HexColorString, Message, MessageReaction, ReactionCollector, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
@@ -19,10 +19,25 @@ export function sendDirectMessage(user: User, title: string, description: string
 			.formatAuthor(title, user)
 			.setDescription(description)
 			.setFooter(Translations.getModule("models.players", language).get("dmEnabledFooter"))]
-	}).catch(() => { /* TODO REFACTOR log error if needed */ });
+	}).catch(() => { /* TODO REFACTOR log error if needed */
+	});
 	// TODO REFACTOR LES LOGS
 	// log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 }
+
+/**
+ * check if a given message contains a mention of a user
+ * @param message - the message to check
+ * @param user - the user to check
+ */
+export function containsSpecificUserMention(message: Message, user: User): boolean {
+	return !message.content ||
+	message.content.length === 0 ||
+	message.content.includes("@here") ||
+	message.content.includes("@everyone") ||
+	message.type === "REPLY" ? false : message.mentions.has(user.id);
+}
+
 
 /**
  * Check if a broadcast message is still active or not (avoid duplicate answers from the bot, for example in spam situation or sync reactions)
