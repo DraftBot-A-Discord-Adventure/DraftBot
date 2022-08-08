@@ -1,24 +1,19 @@
 /**
- * Display a time in a human readable format
+ * Display a time in a human-readable format
  * @param minutes - the time in minutes
+ * @param longVersion - is the display with/without full notation
  */
-export const minutesDisplay = function(minutes: number): string {
-	minutes = Math.floor(minutes);
+
+import {Constants} from "../Constants";
+
+export const minutesDisplay = function(minutes: number, language = ""): string {
 	const hours = Math.floor(minutes / 60);
-	minutes %= 60;
-
-	let display;
-	if (hours > 0) {
-		display = hours + " H " + minutes + " Min";
-	}
-	else if (minutes !== 0) {
-		display = minutes + " Min";
-	}
-	else {
-		display = "< 1 Min";
-	}
-
-	return display;
+	minutes = Math.floor(minutes % 60);
+	const display = [
+		hours > 0 ? `${hours} ${language !== "" ? `${language === Constants.LANGUAGE.FRENCH ? "heure" : "hour"}${hours > 1 ? "s" : ""}` : "H"}` : "",
+		minutes > 0 ? `${minutes} ${language !== "" ? `minute${minutes > 1 ? "s" : ""}` : "Min"}` : ""
+	].filter(v => v !== "").join(" ");
+	return display === "" ? "< 1 Min" : display;
 };
 
 /**

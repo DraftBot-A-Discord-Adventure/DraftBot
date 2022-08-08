@@ -362,6 +362,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 
+	if (!guild) {
+		return;
+	}
+
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
 	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
 		replyErrorMessage(
