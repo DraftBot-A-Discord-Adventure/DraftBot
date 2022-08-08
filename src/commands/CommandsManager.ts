@@ -87,7 +87,7 @@ export class CommandsManager {
 		}
 
 		if (commandInfo.requirements.guildRequired) {
-			if (await this.missingRequirementsForGuild(commandInfo, {user, entity}, interaction, tr)) {
+			if (!await this.missingRequirementsForGuild(commandInfo, {user, entity}, interaction, tr)) {
 				return false;
 			}
 		}
@@ -161,6 +161,21 @@ export class CommandsManager {
 		await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
 
 		await this.sendHelperMessage(message, dataModule);
+	}
+
+	/**
+	 * Get the list of commands to register
+	 */
+	public static async getAllCommandsToRegister() {
+		const categories = await readdir("dist/src/commands");
+		const commandsToRegister: ICommand[] = [];
+		for (const category of categories) {
+			if (category.endsWith(".js") || category.endsWith(".js.map")) {
+				continue;
+			}
+			await this.checkCommandFromCategory(category, commandsToRegister);
+		}
+		return commandsToRegister;
 	}
 
 	/**
@@ -341,6 +356,7 @@ export class CommandsManager {
 			);
 			return false;
 		}
+		return true;
 	}
 
 	/**
@@ -517,20 +533,5 @@ export class CommandsManager {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Get the list of commands to register
-	 */
-	public static async getAllCommandsToRegister() {
-		const categories = await readdir("dist/src/commands");
-		const commandsToRegister: ICommand[] = [];
-		for (const category of categories) {
-			if (category.endsWith(".js") || category.endsWith(".js.map")) {
-				continue;
-			}
-			await this.checkCommandFromCategory(category, commandsToRegister);
-		}
-		return commandsToRegister;
 	}
 }
