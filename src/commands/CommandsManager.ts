@@ -119,7 +119,7 @@ export class CommandsManager {
 			if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
 				commandInfo.slashCommandBuilder.setDefaultPermission(false);
 			}
-			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+			if (commandInfo.mainGuildCommand || !botConfig.TEST_MODE) { // ATTENTION TEMPORAIRE TODO
 				commandsToSetGuild.push(commandInfo.slashCommandBuilder.toJSON());
 			}
 			else {
@@ -148,18 +148,20 @@ export class CommandsManager {
 	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
-	static async handlePrivateMessage(message: Message) {
-		if (message.author.id === botConfig.DM_MANAGER_ID) {
+	static async handlePrivateMessage(message: Message | CommandInteraction) {
+		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
+		if (author === botConfig.DM_MANAGER_ID) {
 			return;
 		}
-		const [entity] = await Entities.getOrRegister(message.author.id);
+		const [entity] = await Entities.getOrRegister(author);
 		const dataModule = Data.getModule("bot");
 		let icon = "";
 		if (!entity.Player.dmNotification) {
 			icon = dataModule.getString("dm.alertIcon");
 		}
-		await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
-
+		if (message instanceof Message) {
+			await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
+		}
 		await this.sendHelperMessage(message, dataModule);
 	}
 
@@ -235,7 +237,11 @@ export class CommandsManager {
 	 */
 	private static manageInteractionCreate(client: Client) {
 		client.on("interactionCreate", interaction => {
-			if (!interaction.isCommand() || !interaction.inGuild()) {
+			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
+				return;
+			}
+			if (interaction.channel.type === "DM") {
+				CommandsManager.handlePrivateMessage(interaction as CommandInteraction).finally(() => null);
 				return;
 			}
 			void CommandsManager.handleCommand(interaction as CommandInteraction);
@@ -287,9 +293,10 @@ export class CommandsManager {
 	 * @param dataModule
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message, dataModule: DataModule) {
-		await new DraftBotReactionMessageBuilder()
-			.allowUserId(message.author.id)
+	private static async sendHelperMessage(message: Message | CommandInteraction, dataModule: DataModule) {
+		const author = message instanceof CommandInteraction ? message.user : message.author;
+		const helpMessage = await new DraftBotReactionMessageBuilder()
+			.allowUserId(author.id)
 			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
 			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
 			.endCallback((msg) => {
@@ -300,14 +307,14 @@ export class CommandsManager {
 				const tr = Translations.getModule("bot", language);
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
-						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(message.author.username)}), message.author)
+						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(author.username)}), author)
 						.setDescription(tr.get("dmHelpMessage"))]
 				});
 			})
 			.build()
-			.formatAuthor(dataModule.getString("dm.titleSupport"), message.author)
-			.setDescription(dataModule.getString("dm.messageSupport"))
-			.send(message.channel);
+			.formatAuthor(dataModule.getString("dm.titleSupport"), author)
+			.setDescription(message instanceof CommandInteraction ? dataModule.getString("dm.interactionSupport") : dataModule.getString("dm.messageSupport"));
+		message instanceof Message ? helpMessage.send(message.channel) : helpMessage.reply(message);
 	}
 
 	/**
