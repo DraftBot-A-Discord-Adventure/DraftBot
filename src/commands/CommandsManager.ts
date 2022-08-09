@@ -209,7 +209,7 @@ export class CommandsManager {
 	private static manageMessageCreate(client: Client) {
 		client.on("messageCreate", async message => {
 			// ignore all bot messages and own messages
-			if (message.author.bot || message.author.id === draftBotClient.user.id) {
+			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
 				return;
 			}
 			if (message.channel.type === "DM") {
@@ -221,7 +221,10 @@ export class CommandsManager {
 					discordGuildId: message.guild.id
 				}
 			});
-			if (message.mentions.has(client.user)) {
+			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === "REPLY") {
+				return;
+			}
+			if (message.mentions.has(client.user.id)) {
 				message.channel.send({
 					content:
 						Translations.getModule("bot", server.language).get("mentionHelp")
@@ -238,6 +241,21 @@ export class CommandsManager {
 	private static manageInteractionCreate(client: Client) {
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
+				return;
+			}
+			if (!interaction.channel) {
+				Server.findOrCreate({
+					where: {
+						discordGuildId: interaction.guild.id
+					}
+				}).then(serverAnswer => {
+					const server = serverAnswer[0];
+					replyErrorMessage(
+						interaction,
+						server.language,
+						Translations.getModule("bot", server.language).get("noChannelAccess")
+					).finally(() => null);
+				});
 				return;
 			}
 			if (interaction.channel.type === "DM") {
