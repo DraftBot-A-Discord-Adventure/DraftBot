@@ -243,6 +243,21 @@ export class CommandsManager {
 			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
 				return;
 			}
+			if (!interaction.channel) {
+				Server.findOrCreate({
+					where: {
+						discordGuildId: interaction.guild.id
+					}
+				}).then(serverAnswer => {
+					const server = serverAnswer[0];
+					replyErrorMessage(
+						interaction,
+						server.language,
+						Translations.getModule("bot", server.language).get("noChannelAccess")
+					).finally(() => null);
+				});
+				return;
+			}
 			if (interaction.channel.type === "DM") {
 				CommandsManager.handlePrivateMessage(interaction as CommandInteraction).finally(() => null);
 				return;
