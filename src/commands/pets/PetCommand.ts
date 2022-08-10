@@ -3,10 +3,10 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import Entity, {Entities} from "../../core/models/Entity";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {Constants} from "../../core/Constants";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import { draftBotClient } from "../../core/bot";
+import {draftBotClient} from "../../core/bot";
 
 /**
  * Displays information about a pet

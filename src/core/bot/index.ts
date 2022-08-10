@@ -2,12 +2,12 @@ import {DraftBot} from "./DraftBot";
 import {Client, Guild, Intents, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
-import {Servers} from "../models/Server";
+import {Servers} from "../database/game/models/Server";
 import {IPCClient} from "./ipc/IPCClient";
 import {Constants} from "../Constants";
+import {Data} from "../Data";
+import {Translations} from "../Translations";
 
-// TODO changed when Data.ts will be merged
-declare const JsonReader: any;
 // TODO change
 declare const getValidationInfos: any;
 
@@ -41,27 +41,25 @@ process.on("message", async (message: any) => {
 			console.log("Launched main shard");
 		}
 
-		require("figlet")(JsonReader.bot.reboot, (err: any, data: any) => {
-			console.log(data.red);
-			console.log(JsonReader.bot.br.grey);
-		});
+		console.log("############################################");
 
-		const guild = await draftBotClient.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
+		const botDataModule = Data.getModule("bot");
+		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild) {
-			(await guild.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID) as TextChannel)
+			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
-					content: format(JsonReader.bot.startStatus, {
-						version: JsonReader.package.version,
+					content: format(botDataModule.getString("startStatus"), {
+						version: Data.getModule("package").getString("version"),
 						shardId
 					})
 				})
 				.catch(console.error);
 			const dbl = await require("../DBL");
-			dbl.verifyDBLRoles();
+			await dbl.verifyDBLRoles();
 			dbl.startDBLWebhook();
 		}
 		draftBotClient.user
-			.setActivity(JsonReader.bot.activity);
+			.setActivity(botDataModule.getString("activity"));
 	}
 });
 
@@ -96,7 +94,7 @@ const main = async function() {
 	 * Will be executed each time the bot join a new server
 	 */
 	const onDiscordGuildCreate = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
+		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
 		console.log(msg);
 	};
@@ -105,7 +103,7 @@ const main = async function() {
 	 * Will be executed each time the bot leave a server
 	 */
 	const onDiscordGuildDelete = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
+		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
 		console.log(msg);
 	};
@@ -121,8 +119,8 @@ const main = async function() {
 		const {validation, humans, bots, ratio} = getValidationInfos(guild);
 		return format(
 			join
-				? JsonReader.bot.getTranslation(language).joinGuild
-				: JsonReader.bot.getTranslation(language).leaveGuild,
+				? Translations.getModule("bot", language).get("joinGuild")
+				: Translations.getModule("bot", language).get("leaveGuild"),
 			{
 				guild: guild,
 				humans: humans,

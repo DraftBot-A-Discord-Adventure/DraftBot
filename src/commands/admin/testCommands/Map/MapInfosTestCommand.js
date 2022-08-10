@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {Entities} from "../../../../core/models/Entity";
-import {MapLocations} from "../../../../core/models/MapLocation";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {

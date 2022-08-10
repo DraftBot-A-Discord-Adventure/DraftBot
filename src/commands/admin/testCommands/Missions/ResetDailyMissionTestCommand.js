@@ -1,4 +1,4 @@
-const {Entities} = require("../../../../core/models/Entity");
+const {Entities} = require("../../../../core/database/game/models/Entity");
 module.exports.commandInfo = {
 	name: "resetDailyMission",
 	commandFormat: "",

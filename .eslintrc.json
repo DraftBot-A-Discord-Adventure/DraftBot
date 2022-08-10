@@ -58,7 +58,7 @@
 				"lines-between-class-members": "warn",
 				"max-depth": ["warn", 5],
 				"max-len": ["warn", 200],
-				"max-lines": ["warn", 800],
+				"max-lines": ["warn", 1000],
 				"max-lines-per-function": "off",
 				"max-params": ["warn", 6],
 				"new-cap": "warn",

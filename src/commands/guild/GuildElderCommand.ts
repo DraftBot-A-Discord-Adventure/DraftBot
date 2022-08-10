@@ -1,10 +1,10 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Guild, {Guilds} from "../../core/models/Guild";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {escapeUsername} from "../../core/utils/StringUtils";

@@ -1,6 +1,6 @@
-import {Entities} from "../../../../core/models/Entity";
-import {PetEntities} from "../../../../core/models/PetEntity";
-import {Pets} from "../../../../core/models/Pet";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {Pets} from "../../../../core/database/game/models/Pet";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 
 module.exports.commandInfo = {

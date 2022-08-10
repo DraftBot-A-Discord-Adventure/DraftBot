@@ -1,6 +1,6 @@
-import MapLink, {MapLinks} from "./models/MapLink";
-import {MapLocations} from "./models/MapLocation";
-import Player from "./models/Player";
+import MapLink, {MapLinks} from "./database/game/models/MapLink";
+import {MapLocations} from "./database/game/models/MapLocation";
+import Player from "./database/game/models/Player";
 import {Constants} from "./Constants";
 import {
 	hoursToMilliseconds,
@@ -10,7 +10,7 @@ import {
 	minutesToMilliseconds
 } from "./utils/TimeUtils";
 import {Data} from "./Data";
-import {PlayerSmallEvents} from "./models/PlayerSmallEvent";
+import {PlayerSmallEvents} from "./database/game/models/PlayerSmallEvent";
 
 export class Maps {
 

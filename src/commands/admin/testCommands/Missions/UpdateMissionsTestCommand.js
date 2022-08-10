@@ -1,7 +1,7 @@
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
-import {Missions} from "../../../../core/models/Mission";
+import {Missions} from "../../../../core/database/game/models/Mission";
 
 export const commandInfo = {
 	name: "updateMissions",

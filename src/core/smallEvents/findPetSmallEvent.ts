@@ -1,12 +1,12 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
-import {PetEntities, PetEntity} from "../models/PetEntity";
-import {Guilds} from "../models/Guild";
-import {GuildPets} from "../models/GuildPet";
+import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
+import {Guilds} from "../database/game/models/Guild";
+import {GuildPets} from "../database/game/models/GuildPet";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Constants} from "../Constants";

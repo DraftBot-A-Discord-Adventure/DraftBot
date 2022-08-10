@@ -1,5 +1,5 @@
 const {CommandsManager} = require("../../../CommandsManager");
-const {Entities} = require("../../../../core/models/Entity");
+const {Entities} = require("../../../../core/database/game/models/Entity");
 let stringDesc = "Force un type de mini event parmis ceux-ci :\n";
 Object.keys(JsonReader.smallEvents).forEach(seName => {
 	stringDesc += "\n - " + seName;

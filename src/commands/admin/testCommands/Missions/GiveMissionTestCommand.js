@@ -1,6 +1,6 @@
 const {format} = require("../../../../core/utils/StringFormatter");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
-const {Entities} = require("../../../../core/models/Entity");
+const {Entities} = require("../../../../core/database/game/models/Entity");
 const {MissionDifficulty} = require("../../../../core/missions/MissionDifficulty");
 module.exports.commandInfo = {
 	name: "giveMission",

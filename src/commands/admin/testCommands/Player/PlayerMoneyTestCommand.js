@@ -1,4 +1,4 @@
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 module.exports.commandInfo = {
 	name: "playermoney",

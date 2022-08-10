@@ -1,6 +1,6 @@
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
-import {MapLinks} from "../../../../core/models/MapLink";
+import {MapLinks} from "../../../../core/database/game/models/MapLink";
 
 module.exports.commandInfo = {
 	name: "initplayer",

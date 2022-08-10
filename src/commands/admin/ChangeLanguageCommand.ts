@@ -1,4 +1,4 @@
-import {Servers} from "../../core/models/Server";
+import {Servers} from "../../core/database/game/models/Server";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
