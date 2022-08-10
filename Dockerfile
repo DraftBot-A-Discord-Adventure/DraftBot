@@ -9,7 +9,6 @@ COPY package.json yarn.lock tsconfig.json ./
 COPY src/ ./src
 COPY test/ ./test
 COPY resources/ ./resources
-COPY database/migrations/ ./database/migrations/
 RUN mkdir ./config
 
 # Install the packages (yarn is already in the node image, don't need to install it)
