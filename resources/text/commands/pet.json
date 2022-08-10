@@ -11,7 +11,8 @@
 			"embedTitle": "{pseudo}'s pet:",
 			"noPet": "You don't have a pet!",
 			"noPetOther": "This person doesn't have a pet!",
-			"isFeisty": "You can't trade a feisty pet."
+			"isFeisty": "You can't trade a feisty pet.",
+			"isFeistyOther": "This player's pet is feisty, you cannot trade with him."
 		}
 	}
 }
