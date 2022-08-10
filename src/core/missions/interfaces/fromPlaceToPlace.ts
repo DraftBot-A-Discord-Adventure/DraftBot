@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import {MapLocations} from "../../models/MapLocation";
+import {MapLocations} from "../../database/game/models/MapLocation";
 import {Translations} from "../../Translations";
 import {hoursToMilliseconds} from "../../utils/TimeUtils";
 

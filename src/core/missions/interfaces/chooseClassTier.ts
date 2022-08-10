@@ -1,6 +1,6 @@
 import {IMission} from "../IMission";
-import Player from "../../models/Player";
-import {Classes} from "../../models/Class";
+import Player from "../../database/game/models/Player";
+import {Classes} from "../../database/game/models/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {

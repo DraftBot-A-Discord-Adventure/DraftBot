@@ -1,9 +1,9 @@
 import {Data, DataModule} from "../Data";
-import Player from "../models/Player";
-import MissionSlot, {MissionSlots} from "../models/MissionSlot";
+import Player from "../database/game/models/Player";
+import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {MissionsController} from "./MissionsController";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
-import {Missions} from "../models/Mission";
+import {Missions} from "../database/game/models/Mission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;

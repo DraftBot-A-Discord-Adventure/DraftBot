@@ -1,6 +1,6 @@
 import {ICommand} from "../ICommand";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
-import Entity from "../../core/models/Entity";
+import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 
 /**

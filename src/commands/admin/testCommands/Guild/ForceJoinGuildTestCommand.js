@@ -1,5 +1,5 @@
-import {Entities} from "../../../../core/models/Entity";
-import Guild from "../../../../core/models/Guild";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import Guild from "../../../../core/database/game/models/Guild";
 
 module.exports.commandInfo = {
 	name: "forcejoinguild",

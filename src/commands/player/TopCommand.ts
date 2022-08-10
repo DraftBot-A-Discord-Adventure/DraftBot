@@ -1,5 +1,5 @@
 import {Maps} from "../../core/Maps";
-import Entity, {Entities} from "../../core/models/Entity";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";

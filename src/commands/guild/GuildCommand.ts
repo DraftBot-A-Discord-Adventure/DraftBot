@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entities, Entity} from "../../core/models/Entity";
-import {Guilds} from "../../core/models/Guild";
-import {Players} from "../../core/models/Player";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
+import {Guilds} from "../../core/database/game/models/Guild";
+import {Players} from "../../core/database/game/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";

@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import {MapLocations} from "../../models/MapLocation";
+import {MapLocations} from "../../database/game/models/MapLocation";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {

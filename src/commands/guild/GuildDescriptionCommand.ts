@@ -1,7 +1,7 @@
 import {CommandInteraction} from "discord.js";
-import {Entity} from "../../core/models/Entity";
+import {Entity} from "../../core/database/game/models/Entity";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
-import Guild, {Guilds} from "../../core/models/Guild";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
