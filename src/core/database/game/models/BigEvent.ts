@@ -19,10 +19,10 @@ export class BigEvent extends Model {
 
 	public createdAt!: Date;
 
-	public getPossibilities: () => Possibility[];
+	public getPossibilities: () => Promise<Possibility[]>;
 
-	public getReactions(): string[] {
-		const possibilities = this.getPossibilities();
+	public async getReactions(): Promise<string[]> {
+		const possibilities = await this.getPossibilities();
 		const reactions = [];
 		for (const possibility of possibilities) {
 			if (reactions.indexOf(possibility.possibilityKey) === -1) {

@@ -19,7 +19,7 @@ import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
-import {draftBotClient} from "../../../bot";
+import {botConfig, draftBotClient} from "../../../bot";
 import Weapon from "./Weapon";
 import Armor from "./Armor";
 import Potion from "./Potion";
@@ -534,8 +534,8 @@ export class Players {
 		const query = `SELECT *
                        FROM (SELECT id,
                                     RANK() OVER (ORDER BY score desc, level desc) rank
-                             FROM players)
-                       WHERE id = :id`;
+                             FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players) subquery
+                       WHERE subquery.id = :id`;
 		return (<[{ rank: number }]> await Player.sequelize.query(query, {
 			replacements: {
 				id: id
@@ -549,8 +549,8 @@ export class Players {
                        FROM (SELECT entityId,
                                     RANK() OVER (ORDER BY score desc, level desc)       rank,
                                     RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                             FROM players)
-                       WHERE rank = :rank`;
+                             FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players) subquery
+                       WHERE subquery.rank = :rank`;
 		return await Player.sequelize.query(query, {
 			replacements: {
 				rank: rank
@@ -564,8 +564,8 @@ export class Players {
                        FROM (SELECT id,
                                     RANK() OVER (ORDER BY score desc, level desc)       rank,
                                     RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                             FROM players)
-                       WHERE id = :id`;
+                             FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players) subquery
+                       WHERE subquery.id = :id`;
 		return <Player><unknown>(await Player.sequelize.query(query, {
 			replacements: {
 				id: id
@@ -576,7 +576,7 @@ export class Players {
 
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -590,7 +590,7 @@ export class Players {
 
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -604,7 +604,7 @@ export class Players {
 
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE effect = ":baby:"`;
 		return (<{ count: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -613,7 +613,7 @@ export class Players {
 
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return (<{ count: number }[]>(await Player.sequelize.query(query, {
 			replacements: {
@@ -625,7 +625,7 @@ export class Players {
 
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -639,7 +639,7 @@ export class Players {
 
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -653,7 +653,7 @@ export class Players {
 
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE score > :minimalPlayerScore`;
 		return (<{ sum: number }[]>(await Player.sequelize.query(query, {
 			replacements: {
@@ -665,7 +665,7 @@ export class Players {
 
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
-                       FROM Players`;
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players`;
 		return (<{ max: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].max;
@@ -673,7 +673,7 @@ export class Players {
 
 	static async getNbPlayersWithClass(classEntity: Class) {
 		const query = `SELECT COUNT(*) as count
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE class = :class
                          AND score > :minimalPlayerScore`;
 		return Math.round(
