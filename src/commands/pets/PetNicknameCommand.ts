@@ -1,4 +1,4 @@
-import {Entity} from "../../core/models/Entity";
+import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";

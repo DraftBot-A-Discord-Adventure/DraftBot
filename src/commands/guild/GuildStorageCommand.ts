@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/models/Entity";
-import {Guild, Guilds} from "../../core/models/Guild";
+import {Entity} from "../../core/database/game/models/Entity";
+import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {Data} from "../../core/Data";

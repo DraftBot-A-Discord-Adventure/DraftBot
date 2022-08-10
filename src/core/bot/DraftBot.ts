@@ -1,7 +1,7 @@
-import Potion from "../models/Potion";
-import PetEntity from "../models/PetEntity";
-import Player from "../models/Player";
-import PlayerMissionsInfo from "../models/PlayerMissionsInfo";
+import Potion from "../database/game/models/Potion";
+import PetEntity from "../database/game/models/PetEntity";
+import Player from "../database/game/models/Player";
+import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
 import {Client, TextChannel} from "discord.js";
@@ -9,11 +9,12 @@ import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, shardId} from "./index";
-import Shop from "../models/Shop";
+import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
+import {GameDatabase} from "../database/game/GameDatabase";
 
 require("colors");
 require("../Constant");
@@ -45,6 +46,8 @@ export async function announceTopWeekWinner(client: Client, context: { config: D
 export class DraftBot {
 	public readonly client: Client;
 
+	public readonly gameDatabase: GameDatabase;
+
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
@@ -57,6 +60,7 @@ export class DraftBot {
 		this.client = client;
 		this.config = config;
 		this.isMainShard = isMainShard;
+		this.gameDatabase = new GameDatabase();
 	}
 
 	/**
@@ -237,7 +241,6 @@ export class DraftBot {
 				"resources/text/classes"
 			],
 			files: [
-				"config/app.json",
 				"draftbot/package.json",
 				"resources/text/error.json",
 				"resources/text/bot.json",
@@ -249,7 +252,7 @@ export class DraftBot {
 				"resources/text/campaign.json"
 			]
 		});
-		await require("../Database").init(this.isMainShard);
+		await this.gameDatabase.init(this.isMainShard);
 		await CommandsManager.register(draftBotClient);
 		if (this.config.TEST_MODE === true) {
 			await require("../CommandsTest").init();

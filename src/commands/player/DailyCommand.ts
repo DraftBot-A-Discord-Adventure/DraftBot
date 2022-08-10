@@ -1,5 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/models/Entity";
+import {Entity} from "../../core/database/game/models/Entity";
 
 import {Maps} from "../../core/Maps";
 import {ICommand} from "../ICommand";
@@ -7,12 +7,12 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
-import ObjectItem from "../../core/models/ObjectItem";
+import ObjectItem from "../../core/database/game/models/ObjectItem";
 import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import { sendBlockedError } from "../../core/utils/BlockingUtils";
+import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 type EntityInformations = { entity: Entity, activeObject: ObjectItem };
 type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };

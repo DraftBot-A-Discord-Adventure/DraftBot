@@ -1,5 +1,5 @@
 import {CommandInteraction} from "discord.js";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 export interface SmallEvent {

@@ -5,19 +5,19 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListCho
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
-import {Armors} from "../models/Armor";
-import {Weapons} from "../models/Weapon";
-import Potion, {Potions} from "../models/Potion";
-import {ObjectItems} from "../models/ObjectItem";
-import Entity, {Entities} from "../models/Entity";
-import InventorySlot from "../models/InventorySlot";
+import {Armors} from "../database/game/models/Armor";
+import {Weapons} from "../database/game/models/Weapon";
+import Potion, {Potions} from "../database/game/models/Potion";
+import {ObjectItems} from "../database/game/models/ObjectItem";
+import Entity, {Entities} from "../database/game/models/Entity";
+import InventorySlot from "../database/game/models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
-import {GenericItemModel} from "../models/GenericItemModel";
-import Player from "../models/Player";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import Player from "../database/game/models/Player";
 import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {Tags} from "../models/Tag";
+import {Tags} from "../database/game/models/Tag";
 
 /**
  * Count how many potions the player have

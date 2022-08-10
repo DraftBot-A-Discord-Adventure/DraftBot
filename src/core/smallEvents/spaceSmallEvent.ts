@@ -7,7 +7,7 @@ import {SmallEvent} from "./SmallEvent";
 import {format} from "../utils/StringFormatter";
 import {botConfig} from "../bot";
 import {RandomUtils} from "../utils/RandomUtils";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {SpaceConstants} from "../constants/SpaceConstants";
 
 export const smallEvent: SmallEvent = {

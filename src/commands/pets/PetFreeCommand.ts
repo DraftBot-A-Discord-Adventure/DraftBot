@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/models/Entity";
-import {Guild, Guilds} from "../../core/models/Guild";
+import Entity from "../../core/database/game/models/Entity";
+import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -13,7 +13,7 @@ import {millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils"
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import PetEntity from "../../core/models/PetEntity";
+import PetEntity from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 function luckyMeat(guild: Guild, pPet: PetEntity) {

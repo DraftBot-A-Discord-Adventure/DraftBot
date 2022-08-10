@@ -1,4 +1,4 @@
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {Constants} from "../../../../core/Constants";
 

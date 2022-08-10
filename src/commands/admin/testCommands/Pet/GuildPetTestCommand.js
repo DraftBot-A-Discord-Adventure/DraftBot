@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/models/Entity";
-import {GuildPets} from "../../../../core/models/GuildPet";
-import {PetEntities} from "../../../../core/models/PetEntity";
-import {Guilds} from "../../../../core/models/Guild";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {GuildPets} from "../../../../core/database/game/models/GuildPet";
+import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {Guilds} from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
-import {Pets} from "../../../../core/models/Pet";
+import {Pets} from "../../../../core/database/game/models/Pet";
 
 module.exports.commandInfo = {
 	name: "guildpet",

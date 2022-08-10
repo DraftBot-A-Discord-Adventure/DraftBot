@@ -1,6 +1,6 @@
-import {BigEvents} from "../../../../core/models/BigEvent";
+import {BigEvents} from "../../../../core/database/game/models/BigEvent";
 import {CommandsManager} from "../../../CommandsManager";
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 module.exports.commandInfo = {
 	name: "forcereport",

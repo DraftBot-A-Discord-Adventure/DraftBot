@@ -1,5 +1,5 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
@@ -10,7 +10,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {TranslationModule, Translations} from "../Translations";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {sendErrorMessage} from "../utils/ErrorUtils";
-import {GenericItemModel} from "../models/GenericItemModel";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
 
 function callbackShopSmallEvent(

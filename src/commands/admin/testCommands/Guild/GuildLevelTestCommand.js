@@ -1,5 +1,5 @@
-import {Entities} from "../../../../core/models/Entity";
-import Guild from "../../../../core/models/Guild";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 
 module.exports.commandInfo = {

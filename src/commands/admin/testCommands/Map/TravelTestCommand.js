@@ -1,6 +1,6 @@
-import {Entities} from "../../../../core/models/Entity";
-import {MapLocations} from "../../../../core/models/MapLocation";
-import {MapLinks} from "../../../../core/models/MapLink";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {MapLocations} from "../../../../core/database/game/models/MapLocation";
+import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/Maps";
 
 module.exports.commandInfo = {

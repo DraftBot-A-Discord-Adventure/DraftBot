@@ -1,10 +1,10 @@
-import {DailyMissions} from "../../../../core/models/DailyMission";
+import {DailyMissions} from "../../../../core/database/game/models/DailyMission";
 import {format} from "../../../../core/utils/StringFormatter";
 import {DraftBotMissionsMessageBuilder} from "../../../../core/messages/DraftBotMissionsMessage";
 import {Translations} from "../../../../core/Translations";
 import {getTomorrowMidnight} from "../../../../core/utils/TimeUtils";
-import PlayerMissionsInfo from "../../../../core/models/PlayerMissionsInfo";
-import {Entities} from "../../../../core/models/Entity";
+import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 module.exports.commandInfo = {
 	name: "newDailyMissions",

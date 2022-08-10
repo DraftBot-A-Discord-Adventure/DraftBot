@@ -1,5 +1,5 @@
 import {IFightAction} from "./IFightAction";
-import Class from "../models/Class";
+import Class from "../database/game/models/Class";
 import {FightConstants} from "../constants/FightConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {MathUtils} from "../utils/MathUtils";
