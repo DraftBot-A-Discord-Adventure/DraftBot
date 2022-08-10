@@ -1,4 +1,4 @@
-import {Entities, Entity} from "../../core/models/Entity";
+import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -6,7 +6,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
-import Guild, {Guilds} from "../../core/models/Guild";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {draftBotClient} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";

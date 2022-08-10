@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/models/Entity";
-import {GuildPets} from "../../core/models/GuildPet";
-import {Guild, Guilds} from "../../core/models/Guild";
+import Entity from "../../core/database/game/models/Entity";
+import {GuildPets} from "../../core/database/game/models/GuildPet";
+import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -10,7 +10,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
-import PetEntity from "../../core/models/PetEntity";
+import PetEntity from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 
 /**

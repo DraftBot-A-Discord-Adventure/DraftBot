@@ -6,8 +6,8 @@ import {
 } from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
-import Entity, {Entities} from "../../core/models/Entity";
-import {Guilds} from "../../core/models/Guild";
+import Entity, {Entities} from "../../core/database/game/models/Entity";
+import {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";

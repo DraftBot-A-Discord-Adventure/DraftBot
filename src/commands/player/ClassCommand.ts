@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Class, Classes} from "../../core/models/Class";
-import {Entity} from "../../core/models/Entity";
+import {Class, Classes} from "../../core/database/game/models/Class";
+import {Entity} from "../../core/database/game/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -8,7 +8,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
-import Player from "../../core/models/Player";
+import Player from "../../core/database/game/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 

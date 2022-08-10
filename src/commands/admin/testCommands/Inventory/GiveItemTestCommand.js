@@ -1,9 +1,9 @@
 import {Constants} from "../../../../core/Constants";
-import {Armors} from "../../../../core/models/Armor";
-import {Weapons} from "../../../../core/models/Weapon";
-import {Potions} from "../../../../core/models/Potion";
-import {ObjectItems} from "../../../../core/models/ObjectItem";
-import {Entities} from "../../../../core/models/Entity";
+import {Armors} from "../../../../core/database/game/models/Armor";
+import {Weapons} from "../../../../core/database/game/models/Weapon";
+import {Potions} from "../../../../core/database/game/models/Potion";
+import {ObjectItems} from "../../../../core/database/game/models/ObjectItem";
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 module.exports.commandInfo = {
 	name: "giveitem",

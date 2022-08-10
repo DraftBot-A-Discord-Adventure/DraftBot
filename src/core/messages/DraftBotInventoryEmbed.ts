@@ -4,8 +4,8 @@ import {Constants} from "../Constants";
 import {TranslationModule, Translations} from "../Translations";
 import {EmbedField, User} from "discord.js";
 import {format} from "../utils/StringFormatter";
-import Player from "../models/Player";
-import {GenericItemModel} from "../models/GenericItemModel";
+import Player from "../database/game/models/Player";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
 
 type Slots = {
 	weapons: GenericItemModel[],

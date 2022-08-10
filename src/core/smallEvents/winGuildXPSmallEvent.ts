@@ -1,11 +1,11 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../models/Entity";
+import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {Guilds} from "../models/Guild";
+import {Guilds} from "../database/game/models/Guild";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {Constants} from "../Constants";
 

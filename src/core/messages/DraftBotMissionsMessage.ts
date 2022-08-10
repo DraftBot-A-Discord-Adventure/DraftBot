@@ -1,11 +1,11 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
-import {DailyMissions} from "../models/DailyMission";
+import {DailyMissions} from "../database/game/models/DailyMission";
 import {TranslationModule, Translations} from "../Translations";
 import {finishInTimeDisplay, getTomorrowMidnight} from "../utils/TimeUtils";
 import {Campaign} from "../missions/Campaign";
 import {User} from "discord.js";
-import Entity from "../models/Entity";
-import { draftBotClient } from "../bot";
+import Entity from "../database/game/models/Entity";
+import {draftBotClient} from "../bot";
 
 export class DraftBotMissionsMessageBuilder {
 	private _entity: Entity;

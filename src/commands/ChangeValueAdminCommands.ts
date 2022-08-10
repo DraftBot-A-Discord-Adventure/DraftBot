@@ -1,14 +1,14 @@
 import {ICommand} from "./ICommand";
 import {Constants} from "../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import Entity, {Entities} from "../core/models/Entity";
+import Entity, {Entities} from "../core/database/game/models/Entity";
 import {CacheType, CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../core/Translations";
 import {replyErrorMessage} from "../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../core/utils/MessageUtils";
 import {draftBotClient} from "../core/bot";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
-import Player from "../core/models/Player";
+import Player from "../core/database/game/models/Player";
 
 declare function isAMention(variable: string): boolean;
 

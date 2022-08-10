@@ -1,14 +1,14 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity, {Entities} from "../models/Entity";
+import Entity, {Entities} from "../database/game/models/Entity";
 import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
-import {Guild, Guilds} from "../models/Guild";
-import Player, {Players} from "../models/Player";
-import {MapLocations} from "../models/MapLocation";
+import {Guild, Guilds} from "../database/game/models/Guild";
+import Player, {Players} from "../database/game/models/Player";
+import {MapLocations} from "../database/game/models/MapLocation";
 import {MissionsController} from "../missions/MissionsController";
-import {Classes} from "../models/Class";
+import {Classes} from "../database/game/models/Class";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {TranslationModule, Translations} from "../Translations";
 import {draftBotClient} from "../bot";
@@ -16,7 +16,7 @@ import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {GenericItemModel} from "../models/GenericItemModel";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
 
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 

@@ -1,7 +1,7 @@
 import {CommandInteraction, MessageEmbed} from "discord.js";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
-import {Guilds} from "../models/Guild";
+import {Guilds} from "../database/game/models/Guild";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 import {SmallEvent} from "./SmallEvent";

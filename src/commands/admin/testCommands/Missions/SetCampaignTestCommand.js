@@ -1,4 +1,4 @@
-const {Entities} = require("../../../../core/models/Entity");
+const {Entities} = require("../../../../core/database/game/models/Entity");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
 module.exports.commandInfo = {
 	name: "setCampaign",

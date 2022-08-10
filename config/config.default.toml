@@ -1,0 +1,82 @@
+[bot]
+# Boolean to tell if the bot is under maintenance or not
+maintenance = false
+# Boolean to tell if the bot is under test mode
+test_mode = false
+
+
+[discord]
+
+[discord.general]
+# Bot discord token
+token = ""
+# Put id of the discord server where the announcements will be done etc.
+main_server_id = ""
+
+[discord.users]
+# The bot will use this to check if you can use admins commands
+owner_id = ""
+# Put id of the user where bot's received dms will be sent
+dm_manager_id = ""
+
+[discord.roles]
+# Put the id of the contributors role
+contributor_role_id = ""
+# Put id of the which will be able to manage badges
+badge_manager_ids = ""
+
+[discord.channels]
+# Put id of the contributors channel
+contributor_channel = ""
+# Put id of the channel where the main status messages from the bot will be sent
+console_channel_id = ""
+# Put id of the channel where important public announcement will be sent in french
+french_announcements_channel_id = ""
+# Put id of the channel where important public announcement will be sent in english
+english_announcements_channel_id = ""
+# Put id of a channel where the bot will always speak in english, leave empty to disable the feature
+english_channel_id = ""
+
+
+[database]
+# Type of database to use : mariadb or sqlite
+type = ""
+
+[database.mariadb]
+# The host (ip or DNS) of the database
+host = "127.0.0.1"
+# The port of the database
+port = 3306
+# The user of the database
+user = ""
+# The password of the user of the database
+password = ""
+# The root password, used to create the databases
+root_password = ""
+
+
+[discord_bot_list]
+# Put the port of the DBL Webhook
+webhook_port = 0
+# Put the url of the DBL Webhook. Choose a difficult URL to avoid it being found
+webhook_url = "/secret_url"
+# Put the id of the role won by a vote on DBL
+vote_role_id = ""
+# Put the channel id of the vote logs
+channel_id = ""
+# Put the DBL server token
+token = ""
+
+
+[backups]
+# Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g. LOCAL,DROPBOX)
+enabled = ""
+# Zip backup archive password
+archive_password = ""
+# The dropbox token used to backup the database
+dropbox_token = ""
+
+
+[others]
+# The API key for the nasa API
+nasa_api_key = ""

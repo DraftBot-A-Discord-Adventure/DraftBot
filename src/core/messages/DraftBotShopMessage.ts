@@ -4,7 +4,7 @@ import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
-import {Entities} from "../models/Entity";
+import {Entities} from "../database/game/models/Entity";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 

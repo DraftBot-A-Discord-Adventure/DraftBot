@@ -5,7 +5,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
-import {Entities} from "../models/Entity";
+import {Entities} from "../database/game/models/Entity";
 
 type BroadcastTranslationModuleLike = {
 	errorBroadcastCancelled: string,

@@ -1,5 +1,5 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {Entities} from "../../../../core/models/Entity";
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 module.exports.commandInfo = {
 	name: "debugMissions",

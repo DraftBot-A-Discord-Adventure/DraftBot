@@ -531,4 +531,8 @@ export abstract class Constants {
 			ALL: "all"
 		}
 	};
+
+	static readonly DATABASE = {
+		GAME_DATA: "draftbot_game_data"
+	}
 }

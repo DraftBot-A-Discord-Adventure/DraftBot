@@ -2,8 +2,8 @@ import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../fightActions/FightActionController";
-import {Classes} from "../../models/Class";
-import { Data } from "../../Data";
+import {Classes} from "../../database/game/models/Class";
+import {Data} from "../../Data";
 
 // TODO update la mission de campagne sur les attaques rapides
 export const missionInterface: IMission = {
@@ -15,8 +15,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve(
 			Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
 				.getString("emote") + " "
-				+ Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
-					.get(objective > 1 ? "namePlural" : "name")
+			+ Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
+				.get(objective > 1 ? "namePlural" : "name")
 		);
 	},
 

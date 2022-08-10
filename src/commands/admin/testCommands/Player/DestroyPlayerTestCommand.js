@@ -1,9 +1,9 @@
-import InventoryInfo from "../../../../core/models/InventoryInfo";
-import Entity, {Entities} from "../../../../core/models/Entity";
-import InventorySlot from "../../../../core/models/InventorySlot";
-import Player from "../../../../core/models/Player";
-import MissionSlot from "../../../../core/models/MissionSlot";
-import PlayerMissionsInfo from "../../../../core/models/PlayerMissionsInfo";
+import InventoryInfo from "../../../../core/database/game/models/InventoryInfo";
+import Entity, {Entities} from "../../../../core/database/game/models/Entity";
+import InventorySlot from "../../../../core/database/game/models/InventorySlot";
+import Player from "../../../../core/database/game/models/Player";
+import MissionSlot from "../../../../core/database/game/models/MissionSlot";
+import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 module.exports.commandInfo = {
 	name: "destroyplayer",
