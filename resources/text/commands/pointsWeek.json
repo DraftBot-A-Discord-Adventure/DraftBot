@@ -25,7 +25,6 @@
 			"title": "{pseudo}, you changed the week score of one or more players!",
 			"desc": "{player} now has {value} week point{value>1?s:}\n",
 			"errors": {
-				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
