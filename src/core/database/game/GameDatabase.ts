@@ -191,7 +191,6 @@ export class GameDatabase extends Database {
 				}
 			}
 		}
-
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibility.bulkCreate(possibilitiesContent);
@@ -219,6 +218,7 @@ export class GameDatabase extends Database {
 				": ");
 			return false;
 		}
+		return true;
 	}
 
 	private static checkEventRootKeys(event: EventJson) {
@@ -247,6 +247,7 @@ export class GameDatabase extends Database {
 				}
 			}
 		}
+		return true;
 	}
 
 	private static checkPossibilityKeys(event: EventJson, possibilityKey: string) {
@@ -280,6 +281,7 @@ export class GameDatabase extends Database {
 			);
 			return false;
 		}
+		return true;
 	}
 
 	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: { [key: string]: unknown, restrictedMaps: string, effect: string }) {
@@ -343,6 +345,7 @@ export class GameDatabase extends Database {
 				}
 			}
 		}
+		return true;
 	}
 
 	private static isEventValid(event: EventJson) {

@@ -398,7 +398,7 @@ const doEvent = async (textInformations: TextInformations, event: BigEvent, enti
 			event: event.getText(textInformations.language)
 		})
 	}) as Message;
-	const reactions = event.getReactions();
+	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
 		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === textInformations.interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
