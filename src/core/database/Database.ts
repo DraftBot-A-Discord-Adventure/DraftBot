@@ -5,7 +5,6 @@ import {Constants} from "../Constants";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
-import {logger as sequelizeLogger} from "sequelize/types/lib/utils/logger";
 
 export abstract class Database {
 	/**
@@ -30,7 +29,8 @@ export abstract class Database {
 	}
 
 	private static replaceWarningLogger() {
-		sequelizeLogger.warn = function(message: string) {
+		console.log("CECI EST TEMPORAIRE");
+		/* sequelizeLogger.warn = function(message: string) {
 			if (
 				message ===
 				"Unknown attributes (Player) passed to defaults option of findOrCreate"
@@ -38,7 +38,7 @@ export abstract class Database {
 				return;
 			}
 			console.warn(`(sequelize) Warning: ${message}`);
-		};
+		}; */
 	}
 
 	/**

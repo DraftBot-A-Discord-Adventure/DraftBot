@@ -70,7 +70,7 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.TEXT
 		},
 		time: {
-			type: DataTypes.INTEGER
+			type: DataTypes.BIGINT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

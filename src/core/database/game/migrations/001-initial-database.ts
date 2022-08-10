@@ -610,7 +610,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		},
 		time: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: false
 		},
 		updatedAt: DataTypes.DATE,
@@ -682,7 +682,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		},
 		lostTime: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: false
 		},
 		health: {
