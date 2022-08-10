@@ -53,7 +53,7 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.STRING(32) // eslint-disable-line new-cap
 		},
 		lostTime: {
-			type: DataTypes.INTEGER
+			type: DataTypes.BIGINT
 		},
 		health: {
 			type: DataTypes.INTEGER
