@@ -50,6 +50,14 @@ const itemAttributes = {
 		type: DataTypes.BOOLEAN,
 		allowNull: false
 	},
+	emote: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	fallbackEmote: {
+		type: DataTypes.STRING,
+		allowNull: true
+	},
 	updatedAt: DataTypes.DATE,
 	createdAt: DataTypes.DATE
 };
@@ -88,11 +96,19 @@ const supportItemAttributes = {
 		type: DataTypes.INTEGER,
 		allowNull: false
 	},
+	emote: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	fallbackEmote: {
+		type: DataTypes.STRING,
+		allowNull: true
+	},
 	updatedAt: DataTypes.DATE,
 	createdAt: DataTypes.DATE
 };
 
-export async function up({ context }: { context: QueryInterface }): Promise<void> {
+export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes);
 	await context.createTable("classes", {
 		id: {
