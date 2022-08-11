@@ -1,5 +1,5 @@
 import {Database} from "../Database";
-import {DataTypes} from "sequelize";
+import {BulkCreateOptions, DataTypes, DestroyOptions} from "sequelize";
 import Tag from "./models/Tag";
 import BigEvent from "./models/BigEvent";
 import EventMapLocationId from "./models/EventMapLocationId";
@@ -20,7 +20,36 @@ import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
 
-type EventJson = { id: string, [key: string]: any };
+type IssueType = {
+	[key: string]: unknown,
+	restrictedMaps: string,
+	effect: string
+}
+
+type EventJson = {
+	id: string,
+	possibilities?: {
+		[key: string]: {
+			translations?: {
+				fr?: string,
+				en?: string
+			},
+			issues?: IssueType[]
+		}
+	},
+	translations?: {
+		[key: string]: {
+			fr?: string,
+			en?: string
+		}
+	}
+	restrictedMaps?: string
+};
+type ModelType = {
+	destroy: (options?: DestroyOptions<unknown>) => Promise<number>;
+	name: string;
+	bulkCreate: (records: readonly unknown[], options?: BulkCreateOptions<unknown>) => unknown;
+}
 
 export class GameDatabase extends Database {
 
@@ -28,7 +57,7 @@ export class GameDatabase extends Database {
 		super("game");
 	}
 
-	private static async populateJsonFilesTables(models: { model: any, folder: string }[]) {
+	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]) {
 
 		await Tag.destroy({truncate: true});
 
@@ -65,7 +94,7 @@ export class GameDatabase extends Database {
 					}
 				}
 				if (fileContent.tags) {
-					// If theres tags, populate them into the database
+					// If there's tags, populate them into the database
 					for (let i = 0; i < fileContent.tags.length; i++) {
 						const tagContent = {
 							textTag: fileContent.tags[i],
@@ -143,7 +172,7 @@ export class GameDatabase extends Database {
 				}
 			}
 			if (fileContent.tags) {
-				// If theres tags, populate them into the database
+				// If there's tags, populate them into the database
 				for (let i = 0; i < fileContent.tags.length; i++) {
 					const tagContent = {
 						textTag: fileContent.tags[i],
@@ -176,7 +205,7 @@ export class GameDatabase extends Database {
 						restrictedMaps: possibility.restrictedMaps
 					};
 					if (possibility.tags) {
-						// If theres tags, populate them into the database
+						// If there's tags, populate them into the database
 						for (let i = 0; i < possibility.tags.length; i++) {
 							const tagContent = {
 								textTag: possibility.tags[i],
@@ -284,7 +313,7 @@ export class GameDatabase extends Database {
 		return true;
 	}
 
-	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: { [key: string]: unknown, restrictedMaps: string, effect: string }) {
+	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: IssueType) {
 		const issuesFields = [
 			"lostTime",
 			"health",
@@ -382,23 +411,24 @@ export class GameDatabase extends Database {
 
 	private static async verifyMaps() {
 		const dict: { [key: string]: MapLocation } = {};
-		for (const map of await MapLocation.findAll()) {
-			dict[map.id] = map;
+		for (const mapl of await MapLocation.findAll()) {
+			dict[mapl.id] = mapl;
 		}
 		const keys = Object.keys(dict);
+		const dirs: (keyof MapLocation)[] = ["northMap", "southMap", "westMap", "eastMap"] as unknown as (keyof MapLocation)[];
 		for (const key of keys) {
-			const map: any = dict[key];
+			const map = dict[key];
 			if (!MapConstants.TYPES.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
-			for (const dir1 of ["northMap", "southMap", "westMap", "eastMap"]) {
+			for (const dir1 of dirs) {
 				if (map[dir1]) {
-					const otherMap: any = dict[map[dir1]];
+					const otherMap = dict[map[dir1]];
 					if (otherMap.id === map.id) {
 						console.error("Map " + map.id + " is connected to itself");
 					}
 					let valid = false;
-					for (const dir2 of ["northMap", "southMap", "westMap", "eastMap"]) {
+					for (const dir2 of dirs) {
 						if (otherMap[dir2] === map.id) {
 							valid = true;
 							break;
