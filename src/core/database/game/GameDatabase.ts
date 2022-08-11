@@ -72,7 +72,7 @@ export class GameDatabase extends Database {
 			const filesContent = [];
 			for (const file of files) {
 				const fileName = file.split(".")[0];
-				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
+				const fileContent = await import(`resources/text/${model.folder.toLowerCase()}/${file}`);
 				fileContent.id = fileName;
 				if (fileContent.translations) {
 					if (

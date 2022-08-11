@@ -225,7 +225,7 @@ export class Entities {
 			],
 			PlayerMissionsInfo: {},
 			MissionSlots: [
-				require("resources/text/campaign.json").missions[0]
+				Data.getModule("campaign").getStringFromArray("missions", 0)
 			]
 		}
 	}
