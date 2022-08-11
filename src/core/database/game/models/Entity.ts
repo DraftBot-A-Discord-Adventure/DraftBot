@@ -19,6 +19,7 @@ import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
 import {botConfig} from "../../../bot";
 import moment = require("moment");
+import missionJson = require("resources/text/campaign.json");
 
 type MissionHealthParameter = {
 	shouldPokeMission: boolean,
@@ -225,7 +226,7 @@ export class Entities {
 			],
 			PlayerMissionsInfo: {},
 			MissionSlots: [
-				Data.getModule("campaign").getStringFromArray("missions", 0)
+				missionJson.missions[0]
 			]
 		}
 	}

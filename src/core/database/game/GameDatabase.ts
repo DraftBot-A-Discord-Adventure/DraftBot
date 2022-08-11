@@ -121,7 +121,7 @@ export class GameDatabase extends Database {
 		const missions = [];
 		for (const file of missionFiles) {
 			const fileName = file.split(".")[0];
-			const fileContent = require(`resources/text/missions/${file}`);
+			const fileContent = await import(`resources/text/missions/${file}`);
 			fileContent.id = fileName;
 			fileContent.descEn = fileContent.translations.en.desc;
 			fileContent.descFr = fileContent.translations.fr.desc;
@@ -141,7 +141,7 @@ export class GameDatabase extends Database {
 		const reportTranslationsEn = Translations.getModule("commands.report", "en");
 		for (const file of files) {
 			const fileName = file.split(".")[0];
-			const fileContent = require(`resources/text/events/${file}`);
+			const fileContent = await import(`resources/text/events/${file}`);
 
 			fileContent.id = fileName;
 
