@@ -360,9 +360,9 @@ export class Player extends Model {
 
 	public async getNbPlayersOnYourMap(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM Players
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}Players
                        WHERE (mapLinkId = :link OR mapLinkId = :linkInverse)
-                         AND score > 100`;
+                         AND score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
 		return Math.round(
 			(<{ count: number }[]>(await Player.sequelize.query(query, {
@@ -577,12 +577,9 @@ export class Players {
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
-				replacements: {
-					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -591,12 +588,9 @@ export class Players {
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
-				replacements: {
-					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -614,11 +608,8 @@ export class Players {
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{ count: number }[]>(await Player.sequelize.query(query, {
-			replacements: {
-				minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-			},
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -626,12 +617,9 @@ export class Players {
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
-				replacements: {
-					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -640,12 +628,9 @@ export class Players {
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
-				replacements: {
-					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-				},
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -654,11 +639,8 @@ export class Players {
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
-                       WHERE score > :minimalPlayerScore`;
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{ sum: number }[]>(await Player.sequelize.query(query, {
-			replacements: {
-				minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
-			},
 			type: QueryTypes.SELECT
 		})))[0].sum;
 	}
@@ -675,12 +657,11 @@ export class Players {
 		const query = `SELECT COUNT(*) as count
                        FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players
                        WHERE class = :class
-                         AND score > :minimalPlayerScore`;
+                         AND score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ count: number }[]>(await Player.sequelize.query(query, {
 				replacements: {
-					class: classEntity.id,
-					minimalPlayerScore: Constants.MINIMAL_PLAYER_SCORE
+					class: classEntity.id
 				},
 				type: QueryTypes.SELECT
 			})))[0].count

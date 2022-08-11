@@ -28,26 +28,10 @@ export abstract class Database {
 		this.databaseName = databaseName;
 	}
 
-	private static replaceWarningLogger() {
-		console.log("CECI EST TEMPORAIRE");
-		/* sequelizeLogger.warn = function(message: string) {
-			if (
-				message ===
-				"Unknown attributes (Player) passed to defaults option of findOrCreate"
-			) {
-				return;
-			}
-			console.warn(`(sequelize) Warning: ${message}`);
-		}; */
-	}
-
 	/**
 	 * Initialize the database. Must be called after the constructor
 	 */
 	public async init(isMainShard: boolean): Promise<void> {
-		// Replace the sequelize logger
-		Database.replaceWarningLogger();
-
 		// Connect to the database
 		await this.connectDatabase();
 
