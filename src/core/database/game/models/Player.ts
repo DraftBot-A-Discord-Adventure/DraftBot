@@ -87,7 +87,7 @@ export class Player extends Model {
 
 	public PlayerMissionsInfo: PlayerMissionsInfo;
 
-	public getEntity: () => Entity;
+	public getEntity: () => Promise<Entity>;
 
 	public rank?: number = -1;
 

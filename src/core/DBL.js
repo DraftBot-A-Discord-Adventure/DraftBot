@@ -113,11 +113,13 @@ class DBL {
 	static async verifyDBLRoles() {
 		const guild = await client.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		const members = guild.members.cache.entries();
+		const removalToWait = [];
 		for (const member of members) {
 			if (member[1].roles.cache.has(botConfig.DBL_VOTE_ROLE)) {
-				await DBL.programDBLRoleRemoval(member[1].id);
+				removalToWait.push(DBL.programDBLRoleRemoval(member[1].id));
 			}
 		}
+		Promise.all(removalToWait).finally(() => null);
 	}
 }
 
