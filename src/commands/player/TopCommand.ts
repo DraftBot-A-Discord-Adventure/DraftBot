@@ -189,7 +189,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Entities.getAllStoredDiscordIds();
 	const numberOfPlayers = await Entities.getNumberOfPlayingPlayersInList(listDiscordId, timing);
-
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
 
 	const page = getShownPage(interaction, pageMax);

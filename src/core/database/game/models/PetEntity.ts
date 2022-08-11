@@ -9,7 +9,7 @@ import {TextBasedChannel} from "discord.js";
 import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {Entity} from "./Entity";
-import {draftBotInstance} from "../../../bot";
+import {botConfig, draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -219,8 +219,8 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM pet_entities
-                       WHERE lovePoints = 100`;
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
+                       WHERE lovePoints = ${Constants.PETS.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -228,19 +228,16 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM pet_entities
-                       WHERE lovePoints <= :feistyLvl`;
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
+                       WHERE lovePoints <= ${Constants.PETS.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
-			type: QueryTypes.SELECT,
-			replacements: {
-				feistyLvl: Constants.PETS.LOVE_LEVELS[0]
-			}
+			type: QueryTypes.SELECT
 		})))[0]["count"];
 	}
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM pet_entities
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
                        WHERE sex = :sex`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
@@ -252,7 +249,7 @@ export class PetEntities {
 
 	static async getNbPets() {
 		const query = `SELECT COUNT(*) as count
-                       FROM pet_entities`;
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];

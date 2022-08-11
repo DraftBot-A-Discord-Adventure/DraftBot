@@ -107,30 +107,45 @@ export class DraftBot {
 		const shopPotion = await Shop.findOne({
 			attributes: ["shopPotionId"]
 		});
-		let potion;
-
-		potion = await Potion.findAll({
-			order: sequelize.literal("random()")
-		});
-		let i = 0;
-		while (potion[i].id === shopPotion.shopPotionId || potion[i].nature === Constants.NATURE.NONE || potion[i].rarity >= Constants.RARITY.LEGENDARY) {
-			i++;
-		}
-		potion = potion[i];
-
-		await Shop.update(
-			{
-				shopPotionId: potion.id
-			},
-			{
-				where: {
-					shopPotionId: {
-						[sequelize.Op.col]: "shop.shopPotionId"
-					}
+		if (shopPotion) {
+			Potion.findAll({
+				order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
+			}).then(async potions => {
+				let i = 0;
+				while (potions[i].id === shopPotion.shopPotionId || potions[i].nature === Constants.NATURE.NONE || potions[i].rarity >= Constants.RARITY.LEGENDARY) {
+					i++;
 				}
+				await Shop.update(
+					{
+						shopPotionId: potions[i].id
+					},
+					{
+						where: {
+							shopPotionId: {
+								[sequelize.Op.col]: "shop.shopPotionId"
+							}
+						}
+					}
+				);
+				console.info(`INFO : new potion in shop : ${potions[i].id}`);
+			});
+			return;
+		}
+		console.log("WARN : no potion in shop");
+		Potion.findAll({
+			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
+		}).then(async potions => {
+			let i = 0;
+			while (potions[i].nature === Constants.NATURE.NONE || potions[i].rarity >= Constants.RARITY.LEGENDARY) {
+				i++;
 			}
-		);
-		console.info(`INFO : new potion in shop : ${potion.id}`);
+			await Shop.create(
+				{
+					shopPotionId: potions[i].id
+				}
+			);
+			console.info(`INFO : new potion in shop : ${potions[i].id}`);
+		});
 	}
 
 	/**
@@ -392,6 +407,9 @@ export class DraftBot {
 		};
 		const originalConsoleWarn = console.warn;
 		console.warn = function(message, optionalParams) {
+			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
+				return;
+			}
 			addConsoleLog(message);
 			originalConsoleWarn(
 				message,
