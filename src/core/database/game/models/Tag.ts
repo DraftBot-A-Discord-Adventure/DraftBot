@@ -1,4 +1,5 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {botConfig} from "../../../bot";
 import moment = require("moment");
 
 export class Tag extends Model {
@@ -18,7 +19,7 @@ export class Tag extends Model {
 export class Tags {
 	static findTagsFromObject(idObject: number, model: string): Promise<Tag[]> {
 		const query = `SELECT *
-                       FROM tags
+                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}tags
                        WHERE idObject = :idObject
                          AND typeObject = :typeObject`;
 		return Tag.sequelize.query(query, {

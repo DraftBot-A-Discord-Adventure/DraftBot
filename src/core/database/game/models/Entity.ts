@@ -17,6 +17,7 @@ import {TopConstants} from "../../../constants/TopConstants";
 import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
+import {botConfig} from "../../../bot";
 import moment = require("moment");
 
 type MissionHealthParameter = {
@@ -470,15 +471,16 @@ export class Entities {
 	 */
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT rank
                        FROM (
-                                SELECT entities.discordUserId,
-                                       (RANK() OVER (ORDER BY players.${scoreLookup} DESC, players.level DESC)) AS rank
-                                FROM entities
-                                         INNER JOIN players
-                                                    ON entities.id = players.entityId AND players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-                                WHERE entities.discordUserId IN (${ids.toString()}))
-                       WHERE discordUserId = ${discordId};`;
+                                SELECT ${formatDatabaseType}entities.discordUserId,
+                                       (RANK() OVER (ORDER BY ${formatDatabaseType}players.${scoreLookup} DESC, ${formatDatabaseType}players.level DESC)) AS rank
+                                FROM ${formatDatabaseType}entities
+                                         INNER JOIN ${formatDatabaseType}players
+										 ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId AND ${formatDatabaseType}players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+                                WHERE ${formatDatabaseType}entities.discordUserId IN (${ids.toString()})) subquery
+                       WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
 
@@ -506,7 +508,7 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = "SELECT discordUserId FROM entities";
+		const query = `SELECT discordUserId FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}entities`;
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
@@ -521,11 +523,12 @@ export class Entities {
 	 * @param timing
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
-		const query = `SELECT COUNT() as nbPlayers
-                       FROM players
-                                JOIN entities ON entities.id = players.entityId
-                       WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
-                         AND entities.discordUserId IN (${listDiscordId.toString()})`;
+		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
+		const query = `SELECT COUNT(*) as nbPlayers
+                       FROM ${formatDatabaseType}players
+                       		JOIN ${formatDatabaseType}entities ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId
+                       WHERE ${formatDatabaseType}players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
+                         AND ${formatDatabaseType}entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

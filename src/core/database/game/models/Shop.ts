@@ -29,6 +29,8 @@ export function initModel(sequelize: Sequelize): void {
 		freezeTableName: true
 	});
 
+	Shop.removeAttribute("id");
+
 	Shop.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
 	});
