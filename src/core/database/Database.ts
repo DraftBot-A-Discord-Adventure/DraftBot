@@ -104,14 +104,14 @@ export abstract class Database {
 	 * @private
 	 */
 	private async initModels(): Promise<void> {
-		const modelsFiles = await promises.readdir(__dirname + "/" + this.databaseName + "/models");
+		const modelsFiles = await promises.readdir(`${__dirname}/${this.databaseName}/models`);
 		const models: { initModel: (sequelize: Sequelize) => Promise<void>, setAssociations: () => Promise<void> }[] = [];
 
 		for (const modelFile of modelsFiles) {
 			const modelSplit = modelFile.split(".");
 			const modelName = modelSplit[0];
 			if (modelSplit[1] === "js" && modelSplit.length === 2) {
-				const model = require("./" + this.databaseName + "/models/" + modelName);
+				const model = await import(`./${this.databaseName}/models/${modelName}`);
 				models.push(model);
 				if (model.initModel) {
 					await model.initModel(this.sequelize);
