@@ -110,12 +110,13 @@ export abstract class Database {
 		for (const modelFile of modelsFiles) {
 			const modelSplit = modelFile.split(".");
 			const modelName = modelSplit[0];
-			if (modelSplit[1] === "js" && modelSplit.length === 2) {
-				const model = await import(`./${this.databaseName}/models/${modelName}`);
-				models.push(model);
-				if (model.initModel) {
-					await model.initModel(this.sequelize);
-				}
+			if (modelSplit[1] !== "js" || modelSplit.length !== 2) {
+				continue;
+			}
+			const model = await import(`./${this.databaseName}/models/${modelName}`);
+			models.push(model);
+			if (model.initModel) {
+				await model.initModel(this.sequelize);
 			}
 		}
 
