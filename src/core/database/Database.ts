@@ -108,16 +108,7 @@ export abstract class Database {
 		const models: { initModel: (sequelize: Sequelize) => Promise<void>, setAssociations: () => Promise<void> }[] = [];
 
 		for (const modelFile of modelsFiles) {
-			const modelSplit = modelFile.split(".");
-			const modelName = modelSplit[0];
-			if (modelSplit[1] !== "js" || modelSplit.length !== 2) {
-				continue;
-			}
-			const model = await import(`./${this.databaseName}/models/${modelName}`);
-			models.push(model);
-			if (model.initModel) {
-				await model.initModel(this.sequelize);
-			}
+			await this.initModelFromFile(modelFile, models);
 		}
 
 		// Do it after because models need to be initialized before setting associations
@@ -125,6 +116,25 @@ export abstract class Database {
 			if (model.setAssociations) {
 				await model.setAssociations();
 			}
+		}
+	}
+
+	/**
+	 * Initialize a model from its model file
+	 * @param modelFile
+	 * @param models
+	 * @private
+	 */
+	private async initModelFromFile(modelFile: string, models: { initModel: (sequelize: Sequelize) => Promise<void>; setAssociations: () => Promise<void> }[]) {
+		const modelSplit = modelFile.split(".");
+		const modelName = modelSplit[0];
+		if (modelSplit[1] !== "js" || modelSplit.length !== 2) {
+			return;
+		}
+		const model = await import(`./${this.databaseName}/models/${modelName}`);
+		models.push(model);
+		if (model.initModel) {
+			await model.initModel(this.sequelize);
 		}
 	}
 }
