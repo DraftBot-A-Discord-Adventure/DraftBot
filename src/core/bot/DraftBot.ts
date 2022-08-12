@@ -107,17 +107,21 @@ export class DraftBot {
 		const shopPotion = await Shop.findOne({
 			attributes: ["shopPotionId"]
 		});
-		if (shopPotion) {
-			Potion.findAll({
-				order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
-			}).then(async potions => {
-				let i = 0;
-				while (potions[i].id === shopPotion.shopPotionId || potions[i].nature === Constants.NATURE.NONE || potions[i].rarity >= Constants.RARITY.LEGENDARY) {
-					i++;
+		Potion.findAll({
+			where: {
+				nature: {
+					ne: Constants.NATURE.NONE
+				},
+				rarity: {
+					lt: Constants.RARITY.LEGENDARY
 				}
+			},
+			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
+		}).then(async potions => {
+			if (shopPotion) {
 				await Shop.update(
 					{
-						shopPotionId: potions[i].id
+						shopPotionId: potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id
 					},
 					{
 						where: {
@@ -127,24 +131,17 @@ export class DraftBot {
 						}
 					}
 				);
-				console.info(`INFO : new potion in shop : ${potions[i].id}`);
-			});
-			return;
-		}
-		console.log("WARN : no potion in shop");
-		Potion.findAll({
-			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
-		}).then(async potions => {
-			let i = 0;
-			while (potions[i].nature === Constants.NATURE.NONE || potions[i].rarity >= Constants.RARITY.LEGENDARY) {
-				i++;
+				console.info(`INFO : new potion in shop : ${potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id}`);
 			}
-			await Shop.create(
-				{
-					shopPotionId: potions[i].id
-				}
-			);
-			console.info(`INFO : new potion in shop : ${potions[i].id}`);
+			else {
+				console.log("WARN : no potion in shop");
+				await Shop.create(
+					{
+						shopPotionId: potions[0].id
+					}
+				);
+				console.info(`INFO : new potion in shop : ${potions[0].id}`);
+			}
 		});
 	}
 
@@ -303,6 +300,9 @@ export class DraftBot {
 		} while (fs.existsSync(this.currLogsFile));
 	}
 
+	/**
+	 * Handle the managment of the logs
+	 */
 	handleLogs(): void {
 		const originalConsoleError = console.error;
 
@@ -322,6 +322,12 @@ export class DraftBot {
 		global.log = addConsoleLog;
 	}
 
+	/**
+	 * Overwrite the global logs of typescript
+	 * @param addConsoleLog
+	 * @param originalConsoleError
+	 * @private
+	 */
 	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void) {
 		/* Console override */
 		const originalConsoleLog = console.log;
@@ -337,6 +343,12 @@ export class DraftBot {
 		console.trace = this.getLogEquivalent(addConsoleLog, originalConsoleTrace);
 	}
 
+	/**
+	 * Get the equivalent function for a given type of log
+	 * @param addConsoleLog
+	 * @param originalConsoleX
+	 * @private
+	 */
 	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: unknown[]) => void) {
 		return function(message: string, optionalParams: (...data: unknown[]) => void) {
 			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
@@ -350,6 +362,11 @@ export class DraftBot {
 		};
 	}
 
+	/**
+	 * Get the function to add log to the logfile
+	 * @param thisInstance
+	 * @private
+	 */
 	private functionToAddLogToFile(thisInstance: this) {
 		return function(message: string) {
 			if (!message) {
@@ -395,6 +412,11 @@ export class DraftBot {
 		};
 	}
 
+	/**
+	 * Manage the logfiles
+	 * @param originalConsoleError
+	 * @private
+	 */
 	private manageLogs(originalConsoleError: (...data: unknown[]) => void) {
 		/* Create log folder and remove old logs (> 7 days) */
 		if (!fs.existsSync("logs")) {
@@ -405,6 +427,11 @@ export class DraftBot {
 		}
 	}
 
+	/**
+	 * Remove the older logfiles to free space
+	 * @param originalConsoleError
+	 * @private
+	 */
 	private removeOlderLogs(originalConsoleError: (...data: unknown[]) => void) {
 		return function(err: NodeJS.ErrnoException, files: string[]) {
 			if (err) {
