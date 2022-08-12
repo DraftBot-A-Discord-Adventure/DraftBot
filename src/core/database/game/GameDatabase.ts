@@ -289,13 +289,14 @@ export class GameDatabase extends Database {
 			GameDatabase.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restrictedMaps !== undefined) {
-			const types: string[] = event.restrictedMaps.split(",");
-			for (let i = 0; i < types.length; ++i) {
-				if (!MapConstants.TYPES.includes(types[i])) {
-					GameDatabase.sendEventLoadError(event, "Event map type doesn't exist");
-					return false;
-				}
+		if (event.restrictedMaps === undefined) {
+			return true;
+		}
+		const types: string[] = event.restrictedMaps.split(",");
+		for (let i = 0; i < types.length; ++i) {
+			if (!MapConstants.TYPES.includes(types[i])) {
+				GameDatabase.sendEventLoadError(event, "Event map type doesn't exist");
+				return false;
 			}
 		}
 		return true;
@@ -308,6 +309,9 @@ export class GameDatabase extends Database {
 	 * @private
 	 */
 	private static checkPossibilityKeys(event: EventJson, possibilityKey: string) {
+		if (possibilityKey === "end") {
+			return GameDatabase.checkEventEnd(event, possibilityKey);
+		}
 		const possibilityFields = [
 			"translations",
 			"issues"
@@ -403,15 +407,8 @@ export class GameDatabase extends Database {
 			return false;
 		}
 
-		let endPresent = false;
 		for (const possibilityKey of Object.keys(event.possibilities)) {
-			if (possibilityKey === "end") {
-				endPresent = true;
-				if (!GameDatabase.checkEventEnd(event, possibilityKey)) {
-					return false;
-				}
-			}
-			else if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
+			if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
 				return false;
 			}
 			for (const issue of event.possibilities[possibilityKey].issues) {
@@ -420,7 +417,8 @@ export class GameDatabase extends Database {
 				}
 			}
 		}
-		if (!endPresent) {
+
+		if (!Object.keys(event.possibilities).includes("end")) {
 			GameDatabase.sendEventLoadError(
 				event,
 				"End possibility is not present"
@@ -447,24 +445,36 @@ export class GameDatabase extends Database {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
 			for (const dir1 of dirs) {
-				if (!map[dir1]) {
-					continue;
-				}
-				const otherMap = dict[map[dir1]];
-				if (otherMap.id === map.id) {
-					console.error("Map " + map.id + " is connected to itself");
-				}
-				let valid = false;
-				for (const dir2 of dirs) {
-					if (otherMap[dir2] === map.id) {
-						valid = true;
-						break;
-					}
-				}
-				if (!valid) {
-					console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
-				}
+				this.checkLinkOfMap(map, dir1, dict, dirs);
 			}
+		}
+	}
+
+	/**
+	 * Check the given link of a given MapLocation
+	 * @param map
+	 * @param dir1
+	 * @param dict
+	 * @param dirs
+	 * @private
+	 */
+	private static checkLinkOfMap(map: MapLocation, dir1: keyof MapLocation, dict: { [key: string]: MapLocation }, dirs: (keyof MapLocation)[]) {
+		if (!map[dir1]) {
+			return;
+		}
+		const otherMap = dict[map[dir1]];
+		if (otherMap.id === map.id) {
+			console.error("Map " + map.id + " is connected to itself");
+		}
+		let valid = false;
+		for (const dir2 of dirs) {
+			if (otherMap[dir2] === map.id) {
+				valid = true;
+				break;
+			}
+		}
+		if (!valid) {
+			console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
 		}
 	}
 
