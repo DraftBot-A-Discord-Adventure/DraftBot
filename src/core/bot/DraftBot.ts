@@ -322,7 +322,7 @@ export class DraftBot {
 		global.log = addConsoleLog;
 	}
 
-	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: any[]) => void) {
+	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void) {
 		/* Console override */
 		const originalConsoleLog = console.log;
 		const originalConsoleWarn = console.warn;
@@ -337,8 +337,8 @@ export class DraftBot {
 		console.trace = this.getLogEquivalent(addConsoleLog, originalConsoleTrace);
 	}
 
-	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: any[]) => void) {
-		return function(message: string, optionalParams: (...data: any[]) => void) {
+	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: unknown[]) => void) {
+		return function(message: string, optionalParams: (...data: unknown[]) => void) {
 			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
 				return;
 			}
@@ -395,43 +395,47 @@ export class DraftBot {
 		};
 	}
 
-	private manageLogs(originalConsoleError: (...data: any[]) => void) {
+	private manageLogs(originalConsoleError: (...data: unknown[]) => void) {
 		/* Create log folder and remove old logs (> 7 days) */
 		if (!fs.existsSync("logs")) {
 			fs.mkdirSync("logs");
 		}
 		else {
-			fs.readdir("logs", function(err, files) {
-				if (err) {
-					return;
-				}
-				files.forEach(function(file) {
-					const parts = file.split("-");
-					if (parts.length >= 5) {
-						if (
-							Date.now() -
-							new Date(
-								parseInt(parts[1]),
-								parseInt(parts[2]) - 1,
-								parseInt(parts[3])
-							).valueOf() >
-							7 * 24 * 60 * 60 * 1000
-						) {
-							// 7 days
-							fs.unlink("logs/" + file, function(err: Error) {
-								if (err !== undefined && err !== null) {
-									originalConsoleError(
-										"Error while deleting logs/" +
-										file +
-										": " +
-										err
-									);
-								}
-							});
-						}
-					}
-				});
-			});
+			fs.readdir("logs", this.removeOlderLogs(originalConsoleError));
 		}
+	}
+
+	private removeOlderLogs(originalConsoleError: (...data: unknown[]) => void) {
+		return function(err: NodeJS.ErrnoException, files: string[]) {
+			if (err) {
+				return;
+			}
+			files.forEach(function(file) {
+				const parts = file.split("-");
+				if (parts.length >= 5) {
+					if (
+						Date.now() -
+						new Date(
+							parseInt(parts[1]),
+							parseInt(parts[2]) - 1,
+							parseInt(parts[3])
+						).valueOf() >
+						7 * 24 * 60 * 60 * 1000
+					) {
+						// 7 days
+						fs.unlink("logs/" + file, function(err: Error) {
+							if (err !== undefined && err !== null) {
+								originalConsoleError(
+									"Error while deleting logs/" +
+									file +
+									": " +
+									err
+								);
+							}
+						});
+					}
+				}
+			});
+		};
 	}
 }
