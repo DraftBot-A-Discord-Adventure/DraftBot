@@ -273,13 +273,8 @@ export class GameDatabase extends Database {
 	 * @private
 	 */
 	private static checkEventRootKeys(event: EventJson) {
-		const eventFields = ["translations", "possibilities"];
-		for (let i = 0; i < eventFields.length; ++i) {
-			if (!Object.keys(event)
-				.includes(eventFields[i])) {
-				GameDatabase.sendEventLoadError(event, "Key missing: " + eventFields[i]);
-				return false;
-			}
+		if (!GameDatabase.checkEventMainKeys(event)) {
+			return false;
 		}
 		if (event.translations.fr === undefined) {
 			GameDatabase.sendEventLoadError(event, "French translation missing");
@@ -289,17 +284,7 @@ export class GameDatabase extends Database {
 			GameDatabase.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restrictedMaps === undefined) {
-			return true;
-		}
-		const types: string[] = event.restrictedMaps.split(",");
-		for (let i = 0; i < types.length; ++i) {
-			if (!MapConstants.TYPES.includes(types[i])) {
-				GameDatabase.sendEventLoadError(event, "Event map type doesn't exist");
-				return false;
-			}
-		}
-		return true;
+		return event.restrictedMaps === undefined ? true : GameDatabase.checkRestrictedMaps(event);
 	}
 
 	/**
@@ -408,13 +393,8 @@ export class GameDatabase extends Database {
 		}
 
 		for (const possibilityKey of Object.keys(event.possibilities)) {
-			if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
+			if (!GameDatabase.checkPossibilityRecursively(event, possibilityKey)) {
 				return false;
-			}
-			for (const issue of event.possibilities[possibilityKey].issues) {
-				if (!GameDatabase.checkPossibilityIssues(event, possibilityKey, issue)) {
-					return false;
-				}
 			}
 		}
 
@@ -518,6 +498,58 @@ export class GameDatabase extends Database {
 				return false;
 			}
 		}
+		return true;
+	}
+
+	/**
+	 * Check if the main keys of an event are here
+	 * @param event
+	 * @private
+	 */
+	private static checkEventMainKeys(event: EventJson) {
+		const eventFields = ["translations", "possibilities"];
+		for (let i = 0; i < eventFields.length; ++i) {
+			if (!Object.keys(event)
+				.includes(eventFields[i])) {
+				GameDatabase.sendEventLoadError(event, "Key missing: " + eventFields[i]);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Check if the restricted maps of an event are valid
+	 * @param event
+	 * @private
+	 */
+	private static checkRestrictedMaps(event: EventJson) {
+		const types: string[] = event.restrictedMaps.split(",");
+		for (let i = 0; i < types.length; ++i) {
+			if (!MapConstants.TYPES.includes(types[i])) {
+				GameDatabase.sendEventLoadError(event, "Event map type doesn't exist");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Check a possibility of an event and its issues
+	 * @param event
+	 * @param possibilityKey
+	 * @private
+	 */
+	private static checkPossibilityRecursively(event: EventJson, possibilityKey: string) {
+		if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
+			return false;
+		}
+		for (const issue of event.possibilities[possibilityKey].issues) {
+			if (!GameDatabase.checkPossibilityIssues(event, possibilityKey, issue)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
