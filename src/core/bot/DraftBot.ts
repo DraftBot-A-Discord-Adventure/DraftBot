@@ -304,57 +304,54 @@ export class DraftBot {
 	}
 
 	handleLogs(): void {
-		const now = Date.now();
-		const originalConsoleLog = console.log;
+		const originalConsoleError = console.error;
 
 		if (this.isMainShard) {
-			/* Create log folder and remove old logs (> 7 days) */
-			if (!fs.existsSync("logs")) {
-				fs.mkdirSync("logs");
-			}
-			else {
-				fs.readdir("logs", function(err, files) {
-					if (err) {
-						return;
-					}
-					files.forEach(function(file) {
-						const parts = file.split("-");
-						if (parts.length >= 5) {
-							if (
-								now -
-								new Date(
-									parseInt(parts[1]),
-									parseInt(parts[2]) - 1,
-									parseInt(parts[3])
-								).valueOf() >
-								7 * 24 * 60 * 60 * 1000
-							) {
-								// 7 days
-								fs.unlink("logs/" + file, function(err: Error) {
-									if (err !== undefined && err !== null) {
-										originalConsoleError(
-											"Error while deleting logs/" +
-											file +
-											": " +
-											err
-										);
-									}
-								});
-							}
-						}
-					});
-				});
-			}
+			this.manageLogs(originalConsoleError);
 		}
 
 		this.updateGlobalLogsFile(new Date());
 		this.currLogsCount = 0;
 
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const thisInstance = this;
+		const addConsoleLog = this.functionToAddLogToFile(this);
 
-		/* Add log to file */
-		const addConsoleLog = function(message: any) {
+		this.overwriteGlobalLogs(addConsoleLog, originalConsoleError);
+
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		global.log = addConsoleLog;
+	}
+
+	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: any[]) => void) {
+		/* Console override */
+		const originalConsoleLog = console.log;
+		const originalConsoleWarn = console.warn;
+		const originalConsoleInfo = console.info;
+		const originalConsoleDebug = console.debug;
+		const originalConsoleTrace = console.trace;
+		console.log = this.getLogEquivalent(addConsoleLog, originalConsoleLog);
+		console.warn = this.getLogEquivalent(addConsoleLog, originalConsoleWarn);
+		console.info = this.getLogEquivalent(addConsoleLog, originalConsoleInfo);
+		console.debug = this.getLogEquivalent(addConsoleLog, originalConsoleDebug);
+		console.error = this.getLogEquivalent(addConsoleLog, originalConsoleError);
+		console.trace = this.getLogEquivalent(addConsoleLog, originalConsoleTrace);
+	}
+
+	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: any[]) => void) {
+		return function(message: string, optionalParams: (...data: any[]) => void) {
+			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
+				return;
+			}
+			addConsoleLog(message);
+			originalConsoleX(
+				message,
+				optionalParams === undefined ? "" : optionalParams
+			);
+		};
+	}
+
+	private functionToAddLogToFile(thisInstance: this) {
+		return function(message: string) {
 			if (!message) {
 				return;
 			}
@@ -393,64 +390,48 @@ export class DraftBot {
 				}
 			}
 			catch (e) {
-				console.error("Cannot write to log file: " + e);
+				console.error(`Cannot write to log file: ${e}`);
 			}
 		};
+	}
 
-		/* Console override */
-		console.log = function(message, optionalParams) {
-			addConsoleLog(message);
-			originalConsoleLog(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-		const originalConsoleWarn = console.warn;
-		console.warn = function(message, optionalParams) {
-			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
-				return;
-			}
-			addConsoleLog(message);
-			originalConsoleWarn(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-		const originalConsoleInfo = console.info;
-		console.info = function(message, optionalParams) {
-			addConsoleLog(message);
-			originalConsoleInfo(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-		const originalConsoleDebug = console.debug;
-		console.debug = function(message, optionalParams) {
-			addConsoleLog(message);
-			originalConsoleDebug(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-		const originalConsoleError = console.error;
-		console.error = function(message, optionalParams) {
-			addConsoleLog(message);
-			originalConsoleError(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-		const originalConsoleTrace = console.trace;
-		console.trace = function(message, optionalParams) {
-			addConsoleLog(message);
-			originalConsoleTrace(
-				message,
-				optionalParams === undefined ? "" : optionalParams
-			);
-		};
-
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		global.log = addConsoleLog;
+	private manageLogs(originalConsoleError: (...data: any[]) => void) {
+		/* Create log folder and remove old logs (> 7 days) */
+		if (!fs.existsSync("logs")) {
+			fs.mkdirSync("logs");
+		}
+		else {
+			fs.readdir("logs", function(err, files) {
+				if (err) {
+					return;
+				}
+				files.forEach(function(file) {
+					const parts = file.split("-");
+					if (parts.length >= 5) {
+						if (
+							Date.now() -
+							new Date(
+								parseInt(parts[1]),
+								parseInt(parts[2]) - 1,
+								parseInt(parts[3])
+							).valueOf() >
+							7 * 24 * 60 * 60 * 1000
+						) {
+							// 7 days
+							fs.unlink("logs/" + file, function(err: Error) {
+								if (err !== undefined && err !== null) {
+									originalConsoleError(
+										"Error while deleting logs/" +
+										file +
+										": " +
+										err
+									);
+								}
+							});
+						}
+					}
+				});
+			});
+		}
 	}
 }
