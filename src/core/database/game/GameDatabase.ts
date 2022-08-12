@@ -57,6 +57,11 @@ export class GameDatabase extends Database {
 		super("game");
 	}
 
+	/**
+	 * Populate the tables with the corresponding JSON ressources
+	 * @param models
+	 * @private
+	 */
 	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]) {
 
 		await Tag.destroy({truncate: true});
@@ -226,10 +231,22 @@ export class GameDatabase extends Database {
 		await Tag.bulkCreate(tagsToInsert);
 	}
 
+	/**
+	 * Sends an error if something has gone wrong during the check of a BigEvent
+	 * @param event
+	 * @param message
+	 * @private
+	 */
 	private static sendEventLoadError(event: EventJson, message: string) {
 		console.warn("Error while loading event " + event.id + ": " + message);
 	}
 
+	/**
+	 * Check the end part of a BigEvent
+	 * @param event
+	 * @param possibilityKey
+	 * @private
+	 */
 	private static checkEventEnd(event: EventJson, possibilityKey: string) {
 		if (Object.keys(event.possibilities[possibilityKey])
 			.includes("translations")) {
@@ -250,6 +267,11 @@ export class GameDatabase extends Database {
 		return true;
 	}
 
+	/**
+	 * Check the keys of a BigEvent
+	 * @param event
+	 * @private
+	 */
 	private static checkEventRootKeys(event: EventJson) {
 		const eventFields = ["translations", "possibilities"];
 		for (let i = 0; i < eventFields.length; ++i) {
@@ -279,6 +301,12 @@ export class GameDatabase extends Database {
 		return true;
 	}
 
+	/**
+	 * Check the keys of a possibility
+	 * @param event
+	 * @param possibilityKey
+	 * @private
+	 */
 	private static checkPossibilityKeys(event: EventJson, possibilityKey: string) {
 		const possibilityFields = [
 			"translations",
@@ -313,6 +341,13 @@ export class GameDatabase extends Database {
 		return true;
 	}
 
+	/**
+	 * Check the issues of a possibility
+	 * @param event
+	 * @param possibilityKey
+	 * @param issue
+	 * @private
+	 */
 	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: IssueType) {
 		const issuesFields = [
 			"lostTime",
@@ -323,18 +358,8 @@ export class GameDatabase extends Database {
 			"item",
 			"translations"
 		];
-		for (let i = 0; i < issuesFields.length; ++i) {
-			if (!Object.keys(issue)
-				.includes(issuesFields[i])) {
-				GameDatabase.sendEventLoadError(
-					event,
-					"Key missing in possibility " +
-					possibilityKey + " " +
-					": " +
-					issuesFields[i]
-				);
-				return false;
-			}
+		if (!GameDatabase.checkPossibilityIssuesKey(issuesFields, event, possibilityKey, issue)) {
+			return false;
 		}
 		if (issue.lostTime < 0) {
 			GameDatabase.sendEventLoadError(
@@ -365,18 +390,14 @@ export class GameDatabase extends Database {
 			);
 			return false;
 		}
-		if (issue.restricted_map !== undefined) {
-			const types = issue.restrictedMaps.split(",");
-			for (let i = 0; i < types.length; ++i) {
-				if (!MapConstants.TYPES.includes(types[i])) {
-					GameDatabase.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
-					return false;
-				}
-			}
-		}
-		return true;
+		return issue.restricted_map === undefined || GameDatabase.checkPossibilityIssuesRestrictedMap(event, possibilityKey, issue);
 	}
 
+	/**
+	 * Check the validity of a BigEvent
+	 * @param event
+	 * @private
+	 */
 	private static isEventValid(event: EventJson) {
 		if (!GameDatabase.checkEventRootKeys(event)) {
 			return false;
@@ -409,6 +430,10 @@ export class GameDatabase extends Database {
 		return true;
 	}
 
+	/**
+	 * Check the MapLocation links
+	 * @private
+	 */
 	private static async verifyMaps() {
 		const dict: { [key: string]: MapLocation } = {};
 		for (const mapl of await MapLocation.findAll()) {
@@ -422,26 +447,73 @@ export class GameDatabase extends Database {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
 			for (const dir1 of dirs) {
-				if (map[dir1]) {
-					const otherMap = dict[map[dir1]];
-					if (otherMap.id === map.id) {
-						console.error("Map " + map.id + " is connected to itself");
+				if (!map[dir1]) {
+					continue;
+				}
+				const otherMap = dict[map[dir1]];
+				if (otherMap.id === map.id) {
+					console.error("Map " + map.id + " is connected to itself");
+				}
+				let valid = false;
+				for (const dir2 of dirs) {
+					if (otherMap[dir2] === map.id) {
+						valid = true;
+						break;
 					}
-					let valid = false;
-					for (const dir2 of dirs) {
-						if (otherMap[dir2] === map.id) {
-							valid = true;
-							break;
-						}
-					}
-					if (!valid) {
-						console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
-					}
+				}
+				if (!valid) {
+					console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
 				}
 			}
 		}
 	}
 
+	/**
+	 * Check the keys of the issues of a possibility
+	 * @param issuesFields
+	 * @param event
+	 * @param possibilityKey
+	 * @param issue
+	 * @private
+	 */
+	private static checkPossibilityIssuesKey(issuesFields: string[], event: EventJson, possibilityKey: string, issue: IssueType) {
+		for (let i = 0; i < issuesFields.length; ++i) {
+			if (!Object.keys(issue)
+				.includes(issuesFields[i])) {
+				GameDatabase.sendEventLoadError(
+					event,
+					"Key missing in possibility " +
+					possibilityKey + " " +
+					": " +
+					issuesFields[i]
+				);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Check the restricted_map of the issues of a possibility
+	 * @param event
+	 * @param possibilityKey
+	 * @param issue
+	 * @private
+	 */
+	private static checkPossibilityIssuesRestrictedMap(event: EventJson, possibilityKey: string, issue: IssueType) {
+		const types = issue.restrictedMaps.split(",");
+		for (let i = 0; i < types.length; ++i) {
+			if (!MapConstants.TYPES.includes(types[i])) {
+				GameDatabase.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Initialize a GameDatabase instance
+	 * @param isMainShard
+	 */
 	async init(isMainShard: boolean): Promise<void> {
 		await this.connectDatabase();
 
