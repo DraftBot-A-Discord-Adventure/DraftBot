@@ -84,12 +84,12 @@ export class Maps {
 		player.effectDuration = 0;
 		player.effectEndDate = new Date();
 		if (remainingTime > 0) {
-			this.advanceTime(player, millisecondsToMinutes(remainingTime));
+			await this.advanceTime(player, millisecondsToMinutes(remainingTime));
 		}
 		await player.save();
 	}
 
-	static advanceTime(player: Player, time: number): void {
+	static async advanceTime(player: Player, time: number): Promise<void> {
 		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
 			if (t >= player.effectEndDate.valueOf() - Date.now()) {
@@ -102,7 +102,7 @@ export class Maps {
 		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
 		if (lastSmallEvent) {
 			lastSmallEvent.time -= t;
-			lastSmallEvent.save().then();
+			await lastSmallEvent.save();
 		}
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() - t);
 	}
