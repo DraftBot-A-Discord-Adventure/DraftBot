@@ -88,10 +88,10 @@ async function activateDailyItem(
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(
 			textInformations.dailyModule.format("hospitalBonus", {
-				value: minutesDisplay(hoursToMinutes(entityInformations.activeObject.power))
+				value: minutesDisplay(entityInformations.activeObject.power)
 			})
 		);
-		await Maps.advanceTime(entityInformations.entity.Player, hoursToMinutes(entityInformations.activeObject.power));
+		await Maps.advanceTime(entityInformations.entity.Player, entityInformations.activeObject.power);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.dailyModule.format("moneyBonus", {value: entityInformations.activeObject.power}));

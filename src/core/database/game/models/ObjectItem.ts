@@ -26,7 +26,7 @@ export class ObjectItem extends SupportItemModel {
 			return format(
 				tr.getFromArray("objects.natures", this.nature),
 				{
-					power: minutesDisplay(this.power * 60, language)
+					power: minutesDisplay(this.power, language)
 				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
