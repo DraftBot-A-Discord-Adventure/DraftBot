@@ -518,7 +518,7 @@ async function getDescriptionPossibilityResult(time: number, entity: Entity, ran
 	if (randomPossibility.health > 0) {
 		result += textInformations.tr.format("health", {health: randomPossibility.health});
 	}
-	if (randomPossibility.lostTime > 0 && randomPossibility.effect === ":clock2:") {
+	if (randomPossibility.lostTime > 0 && randomPossibility.effect === Constants.EFFECT.OCCUPIED) {
 		result += textInformations.tr.format("timeLost", {timeLost: minutesDisplay(randomPossibility.lostTime)});
 	}
 	let emojiEnd = randomPossibility.effect !== Constants.EFFECT.SMILEY && randomPossibility.effect !== Constants.EFFECT.OCCUPIED ? " " + randomPossibility.effect : "";
