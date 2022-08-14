@@ -12,7 +12,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
-import {hoursToMinutes} from "../../core/utils/TimeUtils";
+import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 
 type TextInformations = { tr: TranslationModule, interaction: CommandInteraction }
@@ -31,8 +31,8 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		await entity.addHealth(potion.power, textInformations.interaction.channel, textInformations.tr.language);
 		break;
 	case Constants.NATURE.HOSPITAL:
-		embed.setDescription(textInformations.tr.format("hospitalBonus", {value: potion.power}));
-		await Maps.advanceTime(entity.Player, hoursToMinutes(potion.power));
+		embed.setDescription(textInformations.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformations.tr.language)}));
+		await Maps.advanceTime(entity.Player, potion.power);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.tr.format("moneyBonus", {value: potion.power}));
