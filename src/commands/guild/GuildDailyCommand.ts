@@ -270,7 +270,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
  */
 async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const timeAdvanced = Math.round(guildLike.guild.level * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => Maps.advanceTime(member.Player, hoursToMinutes(timeAdvanced)));
+	await genericAwardingFunction(guildLike.members, async member => await Maps.advanceTime(member.Player, hoursToMinutes(timeAdvanced)));
 	stringInfos.embed.setDescription(guildDailyModule.format("hospital", {
 		timeMoved: timeAdvanced
 	}));

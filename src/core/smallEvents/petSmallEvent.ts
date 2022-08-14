@@ -192,7 +192,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "gainTime":
 			amount = RandomUtils.randInt(5, 20);
-			Maps.advanceTime(entity.Player, amount);
+			await Maps.advanceTime(entity.Player, amount);
 			await entity.Player.save();
 			break;
 		case "points":

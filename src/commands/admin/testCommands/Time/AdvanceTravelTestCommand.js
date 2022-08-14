@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
+import {format} from "../../../../core/utils/StringFormatter";
 
 module.exports.commandInfo = {
 	name: "advancetravel",
@@ -22,7 +23,7 @@ module.exports.commandInfo = {
  */
 const advanceTravelTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	Maps.advanceTime(entity.Player, parseInt(args[0]));
+	await Maps.advanceTime(entity.Player, parseInt(args[0]));
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
