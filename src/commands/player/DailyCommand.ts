@@ -91,7 +91,7 @@ async function activateDailyItem(
 				value: minutesDisplay(hoursToMinutes(entityInformations.activeObject.power))
 			})
 		);
-		Maps.advanceTime(entityInformations.entity.Player, hoursToMinutes(entityInformations.activeObject.power));
+		await Maps.advanceTime(entityInformations.entity.Player, hoursToMinutes(entityInformations.activeObject.power));
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.dailyModule.format("moneyBonus", {value: entityInformations.activeObject.power}));
