@@ -12,7 +12,7 @@ export const minutesDisplay = function(minutes: number, language = ""): string {
 	const display = [
 		hours > 0 ? `${hours} ${language !== "" ? `${language === Constants.LANGUAGE.FRENCH ? "heure" : "hour"}${hours > 1 ? "s" : ""}` : "H"}` : "",
 		minutes > 0 ? `${minutes} ${language !== "" ? `minute${minutes > 1 ? "s" : ""}` : "Min"}` : ""
-	].filter(v => v !== "").join(" ");
+	].filter(v => v !== "").join(language === "" ? " " : language === Constants.LANGUAGE.FRENCH ? " et " : " and ");
 	return display === "" ? "< 1 Min" : display;
 };
 

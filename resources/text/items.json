@@ -23,7 +23,7 @@
 					":rocket: Vitesse + {power} pendant le prochain combat",
 					":crossed_swords: Attaque + {power} pendant le prochain combat",
 					":shield: Défense + {power} pendant le prochain combat",
-					":clock1030: Avance le temps de {power} heure{power>1?s:}",
+					":clock1030: Avance le temps de {power}",
 					":moneybag: Argent + {power}"
 				]
 			},

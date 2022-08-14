@@ -9,7 +9,7 @@
 			"drinkCanceled": "Vous n'avez pas bu votre potion !",
 			"healthBonus": "❤️ Vie gagnée : {value} !",
 			"moneyBonus": "💰 Argent gagné : {value} !",
-			"hospitalBonus": "🕥 Vous avez avancé de {value} heure{value>1?s:} !",
+			"hospitalBonus": "🕥 Vous avez avancé de {value} !",
 			"confirmationTitle": "{pseudo}, confirmation :",
 			"confirmation": "Êtes-vous sûr de vouloir boire votre {potion} ({effect}) ?",
 			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant drinkforce au lieu de drink !"
