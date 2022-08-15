@@ -15,6 +15,7 @@ import Entity from "../database/game/models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
+import {Op} from "sequelize";
 
 require("colors");
 require("../Constant");
@@ -110,10 +111,10 @@ export class DraftBot {
 		Potion.findAll({
 			where: {
 				nature: {
-					ne: Constants.NATURE.NONE
+					[Op.ne]: Constants.NATURE.NONE
 				},
 				rarity: {
-					lt: Constants.RARITY.LEGENDARY
+					[Op.lt]: Constants.RARITY.LEGENDARY
 				}
 			},
 			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
