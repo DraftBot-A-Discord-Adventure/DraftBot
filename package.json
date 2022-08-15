@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"start": "tsc && node dist/src/index.js",
-		"postinstall": "tsc && link-module-alias",
+		"postinstall": "link-module-alias",
 		"test": "tsc && jest dist/test",
 		"eslint": "eslint src test",
 		"eslintFix": "eslint src test --fix",
@@ -24,8 +24,6 @@
 	"_moduleAliases": {
 		"draftbot": ".",
 		"config": "./config",
-		"core": "./dist/src/core",
-		"commands": "./dist/src/commands",
 		"resources": "./resources"
 	},
 	"jest": {
