@@ -20,7 +20,7 @@ export class ChangeValueAdminCommands {
 	 * @param commandName
 	 * @param editFunction
 	 */
-	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction<CacheType>) => void): ICommand {
+	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction<CacheType>, language: string) => void): ICommand {
 		const executeCommand = this.executeCommandfrom(commandName, editFunction);
 		const changeValueModule = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
 		return {
@@ -80,7 +80,7 @@ export class ChangeValueAdminCommands {
 	 */
 	private static executeCommandfrom(
 		commandName: string,
-		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction) => void
+		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void
 	): (interaction: CommandInteraction, language: string) => Promise<void> {
 		return async (interaction: CommandInteraction, language: string): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
@@ -124,7 +124,7 @@ export class ChangeValueAdminCommands {
 				}
 				const valueBefore = entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player];
 				try {
-					editFunction(entityToEdit, amount, interaction);
+					editFunction(entityToEdit, amount, interaction, language);
 				}
 				catch (e) {
 					if (e.message !== "wrong parameter") {

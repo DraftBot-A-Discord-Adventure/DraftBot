@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "playersuicide",
@@ -18,7 +19,10 @@ module.exports.commandInfo = {
 const playerSuicideTestCommand = async (language, interaction) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
-	entity.health = 0;
+	await entity.addHealth(-entity.health, interaction.channel, language, NumberChangeReason.TEST, {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	});
 	await entity.Player.killIfNeeded(entity, interaction.channel, language);
 	await Promise.all([entity.save(), entity.Player.save()]);
 
