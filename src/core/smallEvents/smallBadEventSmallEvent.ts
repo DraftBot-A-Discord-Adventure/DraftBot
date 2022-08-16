@@ -27,7 +27,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss})
 			);
-			await entity.addHealth(-lifeLoss, interaction.channel, language);
+			await entity.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
 		case 1:
 			time = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_TIME_LOST_SMALL,

@@ -6,6 +6,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {Translations} from "../Translations";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -24,7 +25,7 @@ export const smallEvent: SmallEvent = {
 				health: healthWon
 			})
 		);
-		await entity.addHealth(healthWon, interaction.channel, language);
+		await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.save();
 		await interaction.reply({embeds: [seEmbed]});
 		console.log(entity.discordUserId + " gained some health points in a mini event");

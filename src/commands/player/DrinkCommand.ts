@@ -29,7 +29,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 	switch (potion.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformations.tr.format("healthBonus", {value: potion.power}));
-		await entity.addHealth(potion.power, textInformations.interaction.channel, textInformations.tr.language);
+		await entity.addHealth(potion.power, textInformations.interaction.channel, textInformations.tr.language, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(textInformations.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformations.tr.language)}));

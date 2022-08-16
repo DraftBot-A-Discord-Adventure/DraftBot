@@ -1,6 +1,9 @@
 import {Database} from "../Database";
 import {LogsPlayerMoney} from "./models/LogsPlayerMoney";
 import {LogsPlayer} from "./models/LogsPlayer";
+import {LogsPlayerHealth} from "./models/LogsPlayerHealth";
+import {LogsPlayerExperience} from "./models/LogsPlayerExperience";
+import {CreateOptions, Model} from "sequelize";
 
 export enum NumberChangeReason {
 	// Admin
@@ -34,6 +37,7 @@ export enum NumberChangeReason {
 	SHOP,
 	CLASS,
 	UNLOCK,
+	LEVEL_UP
 }
 
 export class LogsDatabase extends Database {
@@ -43,13 +47,30 @@ export class LogsDatabase extends Database {
 	}
 
 	public logMoneyChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return this.logNumberChange(discordId, value, reason, LogsPlayerMoney);
+	}
+
+	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return this.logNumberChange(discordId, value, reason, LogsPlayerHealth);
+	}
+
+	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return this.logNumberChange(discordId, value, reason, LogsPlayerExperience);
+	}
+
+	public logNumberChange(
+		discordId: string,
+		value: number,
+		reason: NumberChangeReason,
+		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
+	): Promise<void> {
 		return new Promise((resolve) => {
 			LogsPlayer.findOrCreate({
 				where: {
 					discordId: discordId
 				}
 			}).then(([logsPlayer]) =>
-				LogsPlayerMoney.create({
+				model.create({
 					playerId: logsPlayer.id,
 					value,
 					reason,

@@ -84,7 +84,7 @@ async function activateDailyItem(
 	switch (entityInformations.activeObject.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformations.dailyModule.format("healthDaily", {value: entityInformations.activeObject.power}));
-		await entityInformations.entity.addHealth(entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language);
+		await entityInformations.entity.addHealth(entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(

@@ -125,7 +125,7 @@ function getRegenShopItem(translationModule: TranslationModule) {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.setHealth(await entity.getMaxHealth(), message.sentMessage.channel, translationModule.language, {
+			await entity.addHealth(await entity.getMaxHealth() - entity.health, message.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
