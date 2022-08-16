@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "playerscore",
@@ -24,7 +25,7 @@ const playerScoreTestCommand = async (language, interaction, args) => {
 	if (args[0] < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
 	}
-	await entity.Player.setScore(entity, parseInt(args[0], 10), interaction.channel, language);
+	await entity.Player.addScore(entity, parseInt(args[0], 10) - entity.Player.score, interaction.channel, language, NumberChangeReason.TEST);
 	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {score: entity.Player.score});
