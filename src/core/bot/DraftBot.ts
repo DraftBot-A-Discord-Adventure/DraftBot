@@ -16,6 +16,7 @@ import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {Op} from "sequelize";
+import {LogsDatabase} from "../database/logs/LogsDatabase";
 
 require("colors");
 require("../Constant");
@@ -49,6 +50,8 @@ export class DraftBot {
 
 	public readonly gameDatabase: GameDatabase;
 
+	public readonly logsDatabase: LogsDatabase;
+
 	private config: DraftBotConfig;
 
 	private currLogsFile: string;
@@ -62,6 +65,7 @@ export class DraftBot {
 		this.config = config;
 		this.isMainShard = isMainShard;
 		this.gameDatabase = new GameDatabase();
+		this.logsDatabase = new LogsDatabase();
 	}
 
 	/**
@@ -266,6 +270,7 @@ export class DraftBot {
 			]
 		});
 		await this.gameDatabase.init(this.isMainShard);
+		await this.logsDatabase.init(this.isMainShard);
 		await CommandsManager.register(draftBotClient);
 		if (this.config.TEST_MODE === true) {
 			await require("../CommandsTest").init();

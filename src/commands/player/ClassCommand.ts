@@ -11,6 +11,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/database/game/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type UserInformations = { user: User, entity: Entity }
 
@@ -77,7 +78,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
-				await userInformations.entity.Player.addMoney(userInformations.entity, -selectedClass.price, message.channel, classTranslations.language);
+				await userInformations.entity.Player.addMoney(userInformations.entity, -selectedClass.price, message.channel, classTranslations.language, NumberChangeReason.CLASS);
 				await MissionsController.update(userInformations.entity, message.channel, classTranslations.language, {missionId: "chooseClass"});
 				await MissionsController.update(userInformations.entity, message.channel, classTranslations.language, {
 					missionId: "chooseClassTier",

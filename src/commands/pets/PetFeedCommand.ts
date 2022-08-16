@@ -11,6 +11,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Feed your pet !
@@ -194,7 +195,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 				petFeedModule.get("noMoney")
 			);
 		}
-		await entity.Player.addMoney(entity, -20, interaction.channel, language);
+		await entity.Player.addMoney(entity, -20, interaction.channel, language, NumberChangeReason.PET_FEED);
 		authorPet.hungrySince = new Date();
 		await authorPet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")], entity, interaction.channel, language);
 		await Promise.all([

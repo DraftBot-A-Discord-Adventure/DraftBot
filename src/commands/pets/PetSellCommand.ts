@@ -15,6 +15,7 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
@@ -104,7 +105,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 	sellerInformations.entity.Player.petId = null;
 	sellerInformations.pet.lovePoints = Constants.PETS.BASE_LOVE;
 	// the money has to be edited before the player is saved to avoid cross writing to the database
-	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -sellerInformations.petCost, textInformations.interaction.channel, textInformations.petSellModule.language);
+	await buyerInformations.buyer.Player.addMoney(buyerInformations.buyer, -sellerInformations.petCost, textInformations.interaction.channel, textInformations.petSellModule.language, NumberChangeReason.PET_SELL);
 	await Promise.all([
 		sellerInformations.guild.save(),
 		buyerInformations.buyer.Player.save(),

@@ -10,6 +10,7 @@ import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -48,7 +49,7 @@ export const smallEvent: SmallEvent = {
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
 			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
-			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language);
+			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});

@@ -7,6 +7,7 @@ import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage
 import {Entities} from "../database/game/models/Entity";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 /**
  * Reasons when the shop ends
@@ -388,7 +389,7 @@ export class DraftBotShopMessageBuilder {
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
 		const [entity] = await Entities.getOrRegister(userId);
-		await entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
+		await entity.Player.addMoney(entity, -amount, null, "", NumberChangeReason.SHOP); // It is negative so we don't care about the channel and language
 		await entity.Player.save();
 	};
 

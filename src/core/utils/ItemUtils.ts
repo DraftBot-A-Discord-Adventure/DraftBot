@@ -18,6 +18,7 @@ import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {Tags} from "../database/game/models/Tag";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 /**
  * Count how many potions the player have
@@ -279,7 +280,7 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	await entity.Player.addMoney(entity, money, channel, language);
+	await entity.Player.addMoney(entity, money, channel, language, NumberChangeReason.ITEM_SELL);
 	await MissionsController.update(entity, channel, language, {
 		missionId: "sellItemWithGivenCost",
 		params: {itemCost: money}
