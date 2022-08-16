@@ -269,6 +269,7 @@ export class Player extends Model {
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
+		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
 		this.level++;
 		await MissionsController.update(entity, channel, language, {
 			missionId: "reachLevel",
@@ -287,9 +288,7 @@ export class Player extends Model {
 		msg += bonuses[bonuses.length - 1];
 		await channel.send({content: msg});
 
-		if (this.needLevelUp()) {
-			return this.levelUpIfNeeded(entity, channel, language);
-		}
+		return this.levelUpIfNeeded(entity, channel, language);
 	}
 
 	public async setLastReportWithEffect(time: number, timeMalus: number, effectMalus: string): Promise<void> {
@@ -479,9 +478,11 @@ export class Player extends Model {
 	 * @param entity
 	 * @param channel
 	 * @param language
+	 * @param reason
 	 */
-	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string) {
+	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string, reason: NumberChangeReason) {
 		this.experience += xpWon;
+		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, reason).then();
 		if (xpWon > 0) {
 			const newEntity = await MissionsController.update(entity, channel, language, {
 				missionId: "earnXP",
@@ -492,9 +493,8 @@ export class Player extends Model {
 			Object.assign(this, newEntity.Player);
 			Object.assign(entity, newEntity);
 		}
-		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(entity, channel, language);
-		}
+
+		await this.levelUpIfNeeded(entity, channel, language);
 	}
 
 	/**

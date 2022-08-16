@@ -13,6 +13,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {Data, DataModule} from "../../core/Data";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type InformationModules = { guildCreateModule: TranslationModule, guildCreateData: DataModule }
 
@@ -108,7 +109,7 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 			});
 
 			entity.Player.guildId = newGuild.id;
-			await entity.Player.addMoney(entity, -informationModules.guildCreateData.getNumber("guildCreationPrice"), interaction.channel, language);
+			await entity.Player.addMoney(entity, -informationModules.guildCreateData.getNumber("guildCreationPrice"), interaction.channel, language, NumberChangeReason.GUILD_CREATE);
 			newGuild.updateLastDailyAt();
 			newGuild.save();
 			await Promise.all([

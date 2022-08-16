@@ -19,6 +19,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Displays the mission shop
@@ -198,7 +199,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), message.sentMessage.channel, translationModule.language);
+			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), message.sentMessage.channel, translationModule.language, NumberChangeReason.MISSION_SHOP);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
