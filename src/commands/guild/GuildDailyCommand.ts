@@ -129,10 +129,16 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 	}
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.effect !== Constants.EFFECT.DEAD) {
-			await member.addHealth(fullHeal ? await member.getMaxHealth() : healthWon, stringInfos.interaction.channel, guildDailyModule.language, {
-				shouldPokeMission: true,
-				overHealCountsForMission: !fullHeal
-			});
+			await member.addHealth(
+				fullHeal ? await member.getMaxHealth() : healthWon,
+				stringInfos.interaction.channel,
+				guildDailyModule.language,
+				NumberChangeReason.GUILD_DAILY,
+				{
+					shouldPokeMission: true,
+					overHealCountsForMission: !fullHeal
+				}
+			);
 		}
 	});
 	fullHeal
@@ -156,7 +162,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	const needsHeal = await doesSomeoneNeedsHeal(guildLike);
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.Player.currentEffectFinished() && needsHeal) {
-			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language);
+			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 		}
 		if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
 			noAlteHeal = false;

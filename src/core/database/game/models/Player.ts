@@ -27,8 +27,8 @@ import ObjectItem from "./ObjectItem";
 import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
 import Guild from "./Guild";
-import moment = require("moment");
 import {NumberChangeReason} from "../../logs/LogsDatabase";
+import moment = require("moment");
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -234,7 +234,7 @@ export class Player extends Model {
 		}
 
 		if (this.level % 10 === 0) {
-			await entity.setHealth(await entity.getMaxHealth(), channel, language, {
+			await entity.addHealth(await entity.getMaxHealth() - entity.health, channel, language, NumberChangeReason.LEVEL_UP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});

@@ -447,7 +447,7 @@ const doEvent = async (textInformations: TextInformations, event: BigEvent, enti
  * @param changes
  */
 async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility, textInformations: TextInformations, changes: { scoreChange: number, moneyChange: number }) {
-	await entity.addHealth(randomPossibility.health, textInformations.interaction.channel, textInformations.language);
+	await entity.addHealth(randomPossibility.health, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 	await entity.Player.addScore(entity, changes.scoreChange, textInformations.interaction.channel, textInformations.language);
 	await entity.Player.addMoney(entity, changes.moneyChange, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 	await entity.Player.addExperience(randomPossibility.experience, entity, textInformations.interaction.channel, textInformations.language);
@@ -466,7 +466,7 @@ async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility,
 	}
 
 	if (randomPossibility.oneshot) {
-		await entity.setHealth(0, textInformations.interaction.channel, textInformations.language);
+		await entity.addHealth(-entity.health, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 	}
 
 	if (randomPossibility.eventId === 0) {

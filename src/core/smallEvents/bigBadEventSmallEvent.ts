@@ -28,7 +28,7 @@ export const smallEvent: SmallEvent = {
 		case 0:
 			lifeLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
 			seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
-			await entity.addHealth(-lifeLoss, interaction.channel, language);
+			await entity.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
 		case 1:
 			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];

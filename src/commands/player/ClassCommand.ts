@@ -72,9 +72,9 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 				}
 				userInformations.entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(userInformations.entity.Player.class);
-				await userInformations.entity.setHealth(Math.round(
+				await userInformations.entity.addHealth(Math.round(
 					userInformations.entity.health / playerClass.getMaxHealthValue(userInformations.entity.Player.level) * newClass.getMaxHealthValue(userInformations.entity.Player.level)
-				), message.channel, classTranslations.language, {
+				) - userInformations.entity.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
