@@ -17,9 +17,10 @@ import {TopConstants} from "../../../constants/TopConstants";
 import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
-import {botConfig} from "../../../bot";
+import {botConfig, draftBotInstance} from "../../../bot";
 import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
+import {NumberChangeReason} from "../../logs/LogsDatabase";
 
 type MissionHealthParameter = {
 	shouldPokeMission: boolean,
@@ -142,13 +143,15 @@ export class Entity extends Model {
 	 * @param health
 	 * @param channel
 	 * @param language
+	 * @param reason
 	 * @param missionHealthParameter
 	 */
-	public async addHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+	public async addHealth(health: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}) {
 		await this.setHealth(this.health + health, channel, language, missionHealthParameter);
+		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
 	}
 
 	/**
@@ -158,7 +161,7 @@ export class Entity extends Model {
 	 * @param language
 	 * @param missionHealthParameter
 	 */
-	public async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}) {

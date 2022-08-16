@@ -29,9 +29,13 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		}
 	});
 	await context.createTable("players_money", logsPlayerNumberAttributes);
+	await context.createTable("players_health", logsPlayerNumberAttributes);
+	await context.createTable("players_experience", logsPlayerNumberAttributes);
 }
 
 export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players");
 	await context.dropTable("players_money");
+	await context.dropTable("players_health");
+	await context.dropTable("players_experience");
 }

@@ -175,7 +175,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "gainLife":
 			amount = RandomUtils.randInt(1, 5);
-			await entity.addHealth(amount, interactionCommand.channel, language);
+			await entity.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.save();
 			break;
 		case "gainLove":
@@ -206,7 +206,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "loseLife":
 			amount = RandomUtils.randInt(1, 5);
-			await entity.addHealth(-amount, interactionCommand.channel, language);
+			await entity.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.save();
 			break;
 		case "loseMoney":

@@ -99,7 +99,7 @@ export const smallEvent: SmallEvent = {
 				const healthWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
 				await interaction.reply({embeds: [seEmbed]});
-				await entity.addHealth(healthWon, interaction.channel, language);
+				await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else {
