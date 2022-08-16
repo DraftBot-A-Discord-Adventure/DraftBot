@@ -450,7 +450,8 @@ async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility,
 	await entity.addHealth(randomPossibility.health, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 	await entity.Player.addScore(entity, changes.scoreChange, textInformations.interaction.channel, textInformations.language);
 	await entity.Player.addMoney(entity, changes.moneyChange, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
-	await entity.Player.addExperience(randomPossibility.experience, entity, textInformations.interaction.channel, textInformations.language);
+	await entity.Player.addExperience(randomPossibility.experience, entity, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT
+	);
 
 	if (randomPossibility.nextEvent !== undefined) {
 		entity.Player.nextEvent = randomPossibility.nextEvent;

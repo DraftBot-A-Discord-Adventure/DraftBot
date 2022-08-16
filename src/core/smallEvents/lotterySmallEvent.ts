@@ -70,7 +70,7 @@ export const smallEvent: SmallEvent = {
 				const coeff = dataLottery.getNumber("coeff." + collected.first().emoji.name);
 				switch (reward) {
 				case Constants.LOTTERY_REWARD_TYPES.XP:
-					await player.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, interaction.channel, language);
+					await player.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.MONEY:
 					await player.addMoney(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
