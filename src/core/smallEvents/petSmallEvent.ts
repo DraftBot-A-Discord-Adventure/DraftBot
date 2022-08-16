@@ -13,6 +13,7 @@ import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
 import {Data} from "../Data";
 import {giveFood} from "../utils/GuildUtils";
 import {getFoodIndexOf} from "../utils/FoodUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -169,7 +170,7 @@ export const smallEvent: SmallEvent = {
 		switch (interaction) {
 		case "money":
 			amount = RandomUtils.randInt(20, 70);
-			await entity.Player.addMoney(entity, amount, interactionCommand.channel, language);
+			await entity.Player.addMoney(entity, amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.Player.save();
 			break;
 		case "gainLife":
@@ -210,7 +211,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "loseMoney":
 			amount = RandomUtils.randInt(20, 70);
-			await entity.Player.addMoney(entity, -amount, interactionCommand.channel, language);
+			await entity.Player.addMoney(entity, -amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.Player.save();
 			break;
 		case "loseTime":

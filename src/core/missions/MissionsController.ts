@@ -16,6 +16,7 @@ import {draftBotClient} from "../bot";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -136,7 +137,7 @@ export class MissionsController {
 		for (const completedMission of completedMissions) {
 			await entity.Player.PlayerMissionsInfo.addGems(completedMission.gemsToWin, entity);
 			await entity.Player.addExperience(completedMission.xpToWin, entity, channel, language);
-			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language);
+			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language, NumberChangeReason.MISSION_FINISHED);
 		}
 	}
 

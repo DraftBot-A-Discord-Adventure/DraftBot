@@ -12,6 +12,7 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 function callbackShopSmallEvent(
 	entity: Entity,
@@ -34,7 +35,7 @@ function callbackShopSmallEvent(
 			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 			// TODO REFACTOR LES LOGS
 			// console.log(entity.discordUserId + " bought an item in a mini shop for " + price);
-			await entity.Player.addMoney(entity, -price, interaction.channel, language);
+			await entity.Player.addMoney(entity, -price, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.Player.save();
 			return;
 		}

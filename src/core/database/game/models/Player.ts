@@ -19,7 +19,7 @@ import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
-import {botConfig, draftBotClient} from "../../../bot";
+import {botConfig, draftBotClient, draftBotInstance} from "../../../bot";
 import Weapon from "./Weapon";
 import Armor from "./Armor";
 import Potion from "./Potion";
@@ -28,6 +28,7 @@ import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
 import Guild from "./Guild";
 import moment = require("moment");
+import {NumberChangeReason} from "../../logs/LogsDatabase";
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -156,7 +157,7 @@ export class Player extends Model {
 		this.addWeeklyScore(score);
 	}
 
-	public async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
+	private async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
@@ -166,7 +167,7 @@ export class Player extends Model {
 		}
 	}
 
-	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string): Promise<void> {
+	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.money += money;
 		if (money > 0) {
 			const newEntity = await MissionsController.update(entity, channel, language, {
@@ -179,9 +180,10 @@ export class Player extends Model {
 			Object.assign(entity, newEntity);
 		}
 		this.setMoney(this.money);
+		draftBotInstance.logsDatabase.logMoneyChange(entity.discordUserId, this.money, reason).then();
 	}
 
-	public setMoney(money: number): void {
+	private setMoney(money: number): void {
 		if (money > 0) {
 			this.money = money;
 		}

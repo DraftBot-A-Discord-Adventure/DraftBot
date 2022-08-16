@@ -15,6 +15,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 function luckyMeat(guild: Guild, pPet: PetEntity) {
 	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
@@ -27,7 +28,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
 			if (pPet.isFeisty()) {
-				await entity.Player.addMoney(entity, -PetFreeConstants.FREE_FEISTY_COST, interaction.channel, petFreeModule.language);
+				await entity.Player.addMoney(entity, -PetFreeConstants.FREE_FEISTY_COST, interaction.channel, petFreeModule.language, NumberChangeReason.PET_FREE);
 			}
 			pPet.destroy();
 			entity.Player.petId = null;

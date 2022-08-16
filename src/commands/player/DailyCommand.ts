@@ -13,6 +13,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type EntityInformations = { entity: Entity, activeObject: ObjectItem };
 type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -95,7 +96,7 @@ async function activateDailyItem(
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.dailyModule.format("moneyBonus", {value: entityInformations.activeObject.power}));
-		await entityInformations.entity.Player.addMoney(entityInformations.entity, entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language);
+		await entityInformations.entity.Player.addMoney(entityInformations.entity, entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language, NumberChangeReason.DAILY);
 		break;
 	default:
 		break;

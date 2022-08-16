@@ -7,6 +7,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -32,7 +33,7 @@ export const smallEvent: SmallEvent = {
 		else {
 			// money win
 			const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
-			await entity.Player.addMoney(entity, moneyWon, interaction.channel, language);
+			await entity.Player.addMoney(entity, moneyWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			seEmbed.setDescription(base + format(tr.get("moneyWin"), {money: moneyWon}) + "\n\n" + tr.get("thanksFooter"));
 			await interaction.reply({embeds: [seEmbed]});
 		}

@@ -8,6 +8,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {minutesDisplay} from "../utils/TimeUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -42,7 +43,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss})
 			);
-			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language);
+			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});
