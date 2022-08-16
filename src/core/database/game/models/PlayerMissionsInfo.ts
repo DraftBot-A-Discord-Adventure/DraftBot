@@ -2,6 +2,8 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import Entity from "./Entity";
 import moment = require("moment");
+import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {draftBotInstance} from "../../../bot";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -31,9 +33,10 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public async addGems(amount: number, entity: Entity): Promise<void> {
+	public async addGems(amount: number, entity: Entity, reason: NumberChangeReason): Promise<void> {
 		this.gems += amount;
 		await entity.Player.PlayerMissionsInfo.save();
+		draftBotInstance.logsDatabase.logGemsChange(entity.discordUserId, this.gems, reason).then();
 	}
 }
 

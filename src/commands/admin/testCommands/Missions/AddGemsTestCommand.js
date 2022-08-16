@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "addgem",
@@ -20,7 +21,7 @@ module.exports.commandInfo = {
  */
 const addGemsTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0]));
+	await entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0]), entity, NumberChangeReason.TEST);
 	await entity.Player.PlayerMissionsInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});
