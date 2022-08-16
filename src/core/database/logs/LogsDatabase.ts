@@ -40,7 +40,8 @@ export enum NumberChangeReason {
 	SHOP,
 	CLASS,
 	UNLOCK,
-	LEVEL_UP
+	LEVEL_UP,
+	RESPAWN
 }
 
 export class LogsDatabase extends Database {
@@ -59,6 +60,30 @@ export class LogsDatabase extends Database {
 
 	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return this.logNumberChange(discordId, value, reason, LogsPlayerExperience);
+	}
+
+	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return this.logNumberChange(discordId, value, reason, LogsPlayerScore);
+	}
+
+	public logGemsChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return this.logNumberChange(discordId, value, reason, LogsPlayerGems);
+	}
+
+	public logLevelChange(discordId: string, level: number): Promise<void> {
+		return new Promise((resolve) => {
+			LogsPlayer.findOrCreate({
+				where: {
+					discordId: discordId
+				}
+			}).then(([logsPlayer]) =>
+				LogsPlayerLevel.create({
+					playerId: logsPlayer.id,
+					level,
+					date: Math.trunc(Date.now() / 1000)
+				}).then(() => resolve())
+			);
+		});
 	}
 
 	public logNumberChange(

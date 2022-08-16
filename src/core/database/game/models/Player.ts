@@ -148,12 +148,13 @@ export class Player extends Model {
 		) - Constants.XP.MINUS;
 	}
 
-	public async addScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
+	public async addScore(entity: Entity, score: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.score += score;
 		if (score > 0) {
 			await MissionsController.update(entity, channel, language, {missionId: "earnPoints", count: score});
 		}
 		await this.setScore(entity, this.score, channel, language);
+		draftBotInstance.logsDatabase.logScoreChange(entity.discordUserId, this.score, reason).then();
 		this.addWeeklyScore(score);
 	}
 

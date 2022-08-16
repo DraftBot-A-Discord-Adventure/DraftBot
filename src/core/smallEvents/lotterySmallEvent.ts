@@ -80,7 +80,7 @@ export const smallEvent: SmallEvent = {
 					await guild.save();
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.POINTS:
-					await player.addScore(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, interaction.channel, language);
+					await player.addScore(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					break;
 				default:
 					throw new Error("lottery reward type not found");
