@@ -4,6 +4,9 @@ import {LogsPlayer} from "./models/LogsPlayer";
 import {LogsPlayerHealth} from "./models/LogsPlayerHealth";
 import {LogsPlayerExperience} from "./models/LogsPlayerExperience";
 import {CreateOptions, Model} from "sequelize";
+import {LogsPlayerLevel} from "./models/LogsPlayerLevel";
+import {LogsPlayerScore} from "./models/LogsPlayerScore";
+import {LogsPlayerGems} from "./models/LogsPlayerGems";
 
 export enum NumberChangeReason {
 	// Admin

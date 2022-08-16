@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "experience",
@@ -25,7 +26,7 @@ const experienceTestCommand = async (language, interaction, args) => {
 	if (args[0] < 0 || args[0] > maxXp) {
 		throw new Error("Erreur experience : expérience donnée doit être comprise entre 0 et " + maxXp + " !");
 	}
-	entity.Player.experience = parseInt(args[0], 10);
+	await entity.Player.addExperience(parseInt(args[0], 10) - entity.Player.experience, entity, interaction.channel, language, NumberChangeReason.TEST);
 	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: entity.Player.experience});

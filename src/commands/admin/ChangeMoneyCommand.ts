@@ -2,6 +2,7 @@ import {ICommand} from "../ICommand";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Change the money of a player
@@ -9,12 +10,12 @@ import {CommandInteraction} from "discord.js";
  * @param amount
  * @param interaction
  */
-function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction) {
+function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) {
 	if (interaction.options.getString("mode") === "set") {
-		entityToEdit.Player.money = amount;
+		entityToEdit.Player.addMoney(entityToEdit, amount - entityToEdit.Player.money, interaction.channel, language, NumberChangeReason.ADMIN).then();
 	}
 	else if (interaction.options.getString("mode") === "add") {
-		entityToEdit.Player.money += amount;
+		entityToEdit.Player.addMoney(entityToEdit, amount, interaction.channel, language, NumberChangeReason.ADMIN).then();
 	}
 	else {
 		throw new Error("wrong parameter");

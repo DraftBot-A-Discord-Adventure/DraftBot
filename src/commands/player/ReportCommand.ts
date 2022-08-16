@@ -471,11 +471,11 @@ async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility,
 	}
 
 	if (randomPossibility.eventId === 0) {
-		entity.Player.money = 0;
-		entity.Player.score = 0;
+		await entity.Player.addMoney(entity, -entity.Player.money, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
+		await entity.Player.addScore(entity, -entity.Player.score, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 		if (randomPossibility.possibilityKey !== "end") {
-			entity.Player.money = 10;
-			entity.Player.score = 100;
+			await entity.Player.addMoney(entity, 10 - entity.Player.money, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
+			await entity.Player.addScore(entity, 100 - entity.Player.score, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT);
 		}
 	}
 }

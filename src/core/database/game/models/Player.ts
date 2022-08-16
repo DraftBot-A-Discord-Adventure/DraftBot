@@ -271,6 +271,7 @@ export class Player extends Model {
 		this.experience -= xpNeeded;
 		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
 		this.level++;
+		draftBotInstance.logsDatabase.logLevelChange(entity.discordUserId, this.level).then();
 		await MissionsController.update(entity, channel, language, {
 			missionId: "reachLevel",
 			count: this.level,

@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {draftBotInstance} from "../../../../core/bot";
 
 module.exports.commandInfo = {
 	name: "playerlevel",
@@ -25,6 +26,7 @@ const playerLevelTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur level : niveau donné doit être compris entre 1 et 1000 !");
 	}
 	entity.Player.level = parseInt(args[0], 10);
+	draftBotInstance.logsDatabase.logLevelChange(entity.discordUserId, entity.Player.level).then();
 	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {level: entity.Player.level});
