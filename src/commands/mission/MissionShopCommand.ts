@@ -89,7 +89,7 @@ const getUserGems = async (userId: string): Promise<number> => {
  */
 async function removeUserGems(userId: string, amount: number): Promise<void> {
 	const entity = await Entities.getByDiscordUserId(userId);
-	await entity.Player.PlayerMissionsInfo.addGems(-amount, entity);
+	await entity.Player.PlayerMissionsInfo.addGems(-amount, entity, NumberChangeReason.MISSION_SHOP);
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
@@ -241,7 +241,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 				);
 				return false;
 			}
-			await entity.Player.addScore(entity, 1000, message.sentMessage.channel, translationModule.language);
+			await entity.Player.addScore(entity, 1000, message.sentMessage.channel, translationModule.language, NumberChangeReason.MISSION_SHOP);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
