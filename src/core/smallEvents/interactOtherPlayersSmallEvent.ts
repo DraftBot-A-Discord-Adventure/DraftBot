@@ -17,6 +17,7 @@ import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -268,9 +269,9 @@ function getPetName(otherEntity: Entity, language: string) {
  * @param entity
  */
 async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, language: string, entity: Entity) {
-	await otherEntity.Player.addMoney(otherEntity, 1, channel, language);
+	await otherEntity.Player.addMoney(otherEntity, 1, channel, language, NumberChangeReason.RECEIVE_COIN);
 	await otherEntity.Player.save();
-	await entity.Player.addMoney(entity, -1, channel, language);
+	await entity.Player.addMoney(entity, -1, channel, language, NumberChangeReason.SMALL_EVENT);
 	await entity.Player.save();
 }
 

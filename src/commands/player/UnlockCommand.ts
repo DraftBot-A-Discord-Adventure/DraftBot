@@ -11,6 +11,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformations = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -71,7 +72,7 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
 			const [entityUnlocker] = await Entities.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entityToUnlock.Player);
-				await entityUnlocker.Player.addMoney(entityUnlocker, -UnlockConstants.PRICE_FOR_UNLOCK, textInformations.interaction.channel, textInformations.language);
+				await entityUnlocker.Player.addMoney(entityUnlocker, -UnlockConstants.PRICE_FOR_UNLOCK, textInformations.interaction.channel, textInformations.language, NumberChangeReason.UNLOCK);
 				await Promise.all([
 					entityToUnlock.save(),
 					entityToUnlock.Player.save(),

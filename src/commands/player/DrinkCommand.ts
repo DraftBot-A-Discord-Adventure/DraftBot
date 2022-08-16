@@ -14,6 +14,7 @@ import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 type TextInformations = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -36,7 +37,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.tr.format("moneyBonus", {value: potion.power}));
-		await entity.Player.addMoney(entity, potion.power, textInformations.interaction.channel, textInformations.tr.language);
+		await entity.Player.addMoney(entity, potion.power, textInformations.interaction.channel, textInformations.tr.language, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.NONE:
 		embed.setDescription(textInformations.tr.format("noBonus", {value: potion.power}));

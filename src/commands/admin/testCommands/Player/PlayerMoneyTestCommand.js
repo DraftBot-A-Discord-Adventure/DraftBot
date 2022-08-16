@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "playermoney",
@@ -24,7 +25,7 @@ const playerMoneyTestCommand = async (language, interaction, args) => {
 	if (args[0] < 0) {
 		throw new Error("Erreur money : argent donné inférieur à 0 interdit !");
 	}
-	entity.Player.money = parseInt(args[0], 10);
+	await entity.Player.addMoney(entity, parseInt(args[0], 10) - entity.Player.money, interaction.channel, language, NumberChangeReason.TEST);
 	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});

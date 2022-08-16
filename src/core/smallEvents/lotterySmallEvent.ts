@@ -11,6 +11,7 @@ import {Constants} from "../Constants";
 import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -72,7 +73,7 @@ export const smallEvent: SmallEvent = {
 					await player.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, interaction.channel, language);
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.MONEY:
-					await player.addMoney(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, interaction.channel, language);
+					await player.addMoney(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
 					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language);
@@ -99,7 +100,7 @@ export const smallEvent: SmallEvent = {
 			}
 			// eslint-disable-next-line no-dupe-else-if
 			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name))) {
-				await player.addMoney(entity, -175, interaction.channel, language);
+				await player.addMoney(entity, -175, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 				await player.save();
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
 					lostTime: dataLottery.getNumber("lostTime")
