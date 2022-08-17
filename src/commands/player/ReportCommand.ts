@@ -419,6 +419,7 @@ const doEvent = async (textInformations: TextInformations, event: BigEvent, enti
 				possibilityKey: reaction.emoji.name
 			}
 		});
+		console.log(possibility);
 		await doPossibility(textInformations, possibility, entity, time);
 	});
 
@@ -460,7 +461,6 @@ async function updatePlayerInfos(entity: Entity, randomPossibility: Possibility,
 	}
 
 	await entity.Player.setLastReportWithEffect(
-		randomPossibility.eventId === 0 ? 0 : textInformations.interaction.createdTimestamp,
 		randomPossibility.lostTime,
 		randomPossibility.effect
 	);

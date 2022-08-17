@@ -14,6 +14,10 @@ import {LogsSmallEvent} from "./models/LogsSmallEvent";
 import {LogsPlayerSmallEvents} from "./models/LogsPlayerSmallEvents";
 import {LogsPossibility} from "./models/LogsPossibility";
 import {LogsPlayerPossibilities} from "./models/LogsPlayerPossibilities";
+import {LogsAlteration} from "./models/LogsAlteration";
+import {Constants} from "../../Constants";
+import {LogsPlayerStandardAlteration} from "./models/LogsPlayerStandardAlteration";
+import {LogsPlayerOccupiedAlteration} from "./models/LogsPlayerOccupiedAlteration";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -93,33 +97,7 @@ export class LogsDatabase extends Database {
 					playerId: player.id,
 					level,
 					date: Math.trunc(Date.now() / 1000)
-				}, { transaction });
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	private logNumberChange(
-		discordId: string,
-		value: number,
-		reason: NumberChangeReason,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
-					where: {
-						discordId
-					},
-					transaction
-				});
-				await model.create({
-					playerId: player.id,
-					value,
-					reason,
-					date: Math.trunc(Date.now() / 1000)
-				}, { transaction });
+				}, {transaction});
 				await transaction.commit();
 				resolve();
 			});
@@ -152,7 +130,7 @@ export class LogsDatabase extends Database {
 					serverId: server.id,
 					commandId: command.id,
 					date: Math.trunc(Date.now() / 1000)
-				}, { transaction });
+				}, {transaction});
 				await transaction.commit();
 				resolve();
 			});
@@ -178,7 +156,7 @@ export class LogsDatabase extends Database {
 					playerId: player.id,
 					smallEventId: smallEvent.id,
 					date: Math.trunc(Date.now() / 1000)
-				}, { transaction });
+				}, {transaction});
 				await transaction.commit();
 				resolve();
 			});
@@ -207,7 +185,68 @@ export class LogsDatabase extends Database {
 					bigEventId: eventId,
 					possibilityId: possibility.id,
 					date: Math.trunc(Date.now() / 1000)
-				}, { transaction });
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logAlteration(discordId: string, alteration: string, duration = 0): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				switch (alteration) {
+				case Constants.EFFECT.OCCUPIED:
+					await LogsPlayerOccupiedAlteration.create({
+						playerId: player.id,
+						duration,
+						date: Math.trunc(Date.now() / 1000)
+					}, {transaction});
+					break;
+				default:
+					await LogsPlayerStandardAlteration.create({
+						playerId: player.id,
+						alterationId: (await LogsAlteration.findOrCreate({
+							where: {
+								alteration: alteration
+							},
+							transaction
+						}))[0].id,
+						date: Math.trunc(Date.now() / 1000)
+					}, {transaction});
+				}
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	private logNumberChange(
+		discordId: string,
+		value: number,
+		reason: NumberChangeReason,
+		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
+	): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				await model.create({
+					playerId: player.id,
+					value,
+					reason,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
 				await transaction.commit();
 				resolve();
 			});

@@ -11,6 +11,7 @@ import {
 } from "./utils/TimeUtils";
 import {Data} from "./Data";
 import {PlayerSmallEvents} from "./database/game/models/PlayerSmallEvent";
+import {draftBotInstance} from "./bot";
 
 export class Maps {
 
@@ -76,6 +77,7 @@ export class Maps {
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
+		draftBotInstance.logsDatabase.logAlteration((await player.getEntity()).discordUserId, effect, time).then();
 	}
 
 	static async removeEffect(player: Player): Promise<void> {

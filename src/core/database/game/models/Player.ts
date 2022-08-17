@@ -158,16 +158,6 @@ export class Player extends Model {
 		this.addWeeklyScore(score);
 	}
 
-	private async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
-		if (score > 0) {
-			this.score = score;
-		}
-		else {
-			this.score = 0;
-		}
-	}
-
 	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.money += money;
 		if (money > 0) {
@@ -182,15 +172,6 @@ export class Player extends Model {
 		}
 		this.setMoney(this.money);
 		draftBotInstance.logsDatabase.logMoneyChange(entity.discordUserId, this.money, reason).then();
-	}
-
-	private setMoney(money: number): void {
-		if (money > 0) {
-			this.money = money;
-		}
-		else {
-			this.money = 0;
-		}
 	}
 
 	public async getPseudo(language: string): Promise<string> {
@@ -293,10 +274,10 @@ export class Player extends Model {
 		return this.levelUpIfNeeded(entity, channel, language);
 	}
 
-	public async setLastReportWithEffect(time: number, timeMalus: number, effectMalus: string): Promise<void> {
-		this.startTravelDate = new Date(time);
+	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
+		this.effect = effectMalus;
+		this.effectDuration = timeMalus;
 		await this.save();
-		await Maps.applyEffect(this, effectMalus, timeMalus);
 	}
 
 	public async killIfNeeded(entity: Entity, channel: TextBasedChannel, language: string): Promise<boolean> {
@@ -516,6 +497,25 @@ export class Player extends Model {
 			potion: <Potion>(await this.getMainPotionSlot().getItem()),
 			object: <ObjectItem>(await this.getMainObjectSlot().getItem())
 		};
+	}
+
+	private async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
+		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
+		if (score > 0) {
+			this.score = score;
+		}
+		else {
+			this.score = 0;
+		}
+	}
+
+	private setMoney(money: number): void {
+		if (money > 0) {
+			this.money = money;
+		}
+		else {
+			this.money = 0;
+		}
 	}
 
 	private addWeeklyScore(weeklyScore: number): void {
