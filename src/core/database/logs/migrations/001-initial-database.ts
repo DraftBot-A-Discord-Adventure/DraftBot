@@ -145,6 +145,45 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("alteration", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		alteration: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_standard_alteration", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		alterationId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_occupied_alteration", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		duration: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -152,14 +191,17 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_money");
 	await context.dropTable("players_health");
 	await context.dropTable("players_experience");
-	await context.dropTable("players_level");
 	await context.dropTable("players_score");
 	await context.dropTable("players_gems");
+	await context.dropTable("players_level");
 	await context.dropTable("commands");
 	await context.dropTable("players_commands");
 	await context.dropTable("servers");
 	await context.dropTable("small_events");
 	await context.dropTable("players_small_events");
-	await context.dropTable("players_big_events");
 	await context.dropTable("players_possibilities");
+	await context.dropTable("possibilities");
+	await context.dropTable("alteration");
+	await context.dropTable("players_standard_alteration");
+	await context.dropTable("players_occupied_alteration");
 }
