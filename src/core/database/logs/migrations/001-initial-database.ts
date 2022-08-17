@@ -112,17 +112,36 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_big_events", {
+	await context.createTable("players_possibilities", {
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
+		},
+		possibilityId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("possibilities", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
 		},
 		bigEventId: {
 			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
-		date: {
-			type: DataTypes.INTEGER.UNSIGNED,
+		emote: {
+			type: DataTypes.STRING(1), // eslint-disable-line new-cap
+			allowNull: true // null for end
+		},
+		issueIndex: {
+			type: DataTypes.INTEGER,
 			allowNull: false
 		}
 	});
@@ -142,4 +161,5 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("small_events");
 	await context.dropTable("players_small_events");
 	await context.dropTable("players_big_events");
+	await context.dropTable("players_possibilities");
 }

@@ -395,7 +395,6 @@ const destinationChoseMessage = async function(entity: Entity, map: number, inte
  * @return {Promise<void>}
  */
 const doEvent = async (textInformations: TextInformations, event: BigEvent, entity: Entity, time: number): Promise<void> => {
-	draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, event.id).then();
 	const eventDisplayed = await textInformations.interaction.editReply({
 		content: Translations.getModule("commands.report", textInformations.language).format("doEvent", {
 			pseudo: textInformations.interaction.user,
@@ -566,7 +565,9 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
 		});
 	}
 
-	const randomPossibility = RandomUtils.draftbotRandom.pick(possibility);
+	const randomPossibilityIndex = RandomUtils.randInt(0, possibility.length);
+	const randomPossibility = possibility[randomPossibilityIndex];
+	draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, randomPossibility.eventId, randomPossibility.possibilityKey, randomPossibilityIndex).then();
 	const result = await getDescriptionPossibilityResult(time, entity, randomPossibility, textInformations);
 
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);

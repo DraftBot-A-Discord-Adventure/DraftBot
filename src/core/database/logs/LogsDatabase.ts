@@ -12,7 +12,8 @@ import {LogsCommand} from "./models/LogsCommand";
 import {LogsPlayerCommands} from "./models/LogsPlayerCommands";
 import {LogsSmallEvent} from "./models/LogsSmallEvent";
 import {LogsPlayerSmallEvents} from "./models/LogsPlayerSmallEvents";
-import {LogsPlayerBigEvents} from "./models/LogsPlayerBigEvents";
+import {LogsPossibility} from "./models/LogsPossibility";
+import {LogsPlayerPossibilities} from "./models/LogsPlayerPossibilities";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -184,7 +185,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logBigEvent(discordId: string, eventId: number): Promise<void> {
+	public logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayer.findOrCreate({
@@ -193,9 +194,18 @@ export class LogsDatabase extends Database {
 					},
 					transaction
 				});
-				await LogsPlayerBigEvents.create({
+				const [possibility] = await LogsPossibility.findOrCreate({
+					where: {
+						bigEventId: eventId,
+						emote: possibilityEmote === "end" ? null : possibilityEmote,
+						issueIndex
+					},
+					transaction
+				});
+				await LogsPlayerPossibilities.create({
 					playerId: player.id,
 					bigEventId: eventId,
+					possibilityId: possibility.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, { transaction });
 				await transaction.commit();
