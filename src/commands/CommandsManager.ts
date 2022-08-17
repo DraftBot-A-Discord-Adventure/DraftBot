@@ -15,7 +15,7 @@ import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
 import Server from "../core/database/game/models/Server";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
-import {botConfig, draftBotClient} from "../core/bot";
+import {botConfig, draftBotClient, draftBotInstance} from "../core/bot";
 import {Constants} from "../core/Constants";
 import {TranslationModule, Translations} from "../core/Translations";
 import {Entities, Entity} from "../core/database/game/models/Entity";
@@ -495,7 +495,7 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
+		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.command.name).then();
 		await commandInfo.executeCommand(interaction, tr.language, entity);
 	}
 

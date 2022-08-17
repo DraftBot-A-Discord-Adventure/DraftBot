@@ -1,10 +1,11 @@
-import {Sequelize} from "sequelize";
+import {Sequelize, Transaction} from "sequelize";
 import {botConfig} from "../bot";
 import {SequelizeStorage, Umzug} from "umzug";
 import {Constants} from "../Constants";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
+import TYPES = Transaction.TYPES;
 
 export abstract class Database {
 	/**
@@ -61,7 +62,8 @@ export abstract class Database {
 			this.sequelize = new Sequelize({
 				dialect: "sqlite",
 				storage: "database/" + this.databaseName + ".sqlite",
-				logging: false
+				logging: false,
+				transactionType: TYPES.IMMEDIATE
 			});
 			break;
 		case "mariadb":
