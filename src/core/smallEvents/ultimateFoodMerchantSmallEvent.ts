@@ -8,6 +8,7 @@ import {SmallEvent} from "./SmallEvent";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveFood} from "../utils/GuildUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -105,25 +106,19 @@ export const smallEvent: SmallEvent = {
 			switch (reward.type) {
 			case "ultimateFood":
 				await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option);
-				console.log(entity.discordUserId + "got a good level small event and won" + reward.type + "ultimate food");
 				break;
 			case "fullUltimateFood":
-				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for ultimate soups");
 				break;
 			case "item":
 				await giveItemToPlayer(entity, reward.option, language, interaction.user, interaction.channel);
-				console.log(entity.discordUserId + "got a good level small event and won" + reward.option.en.name);
 				break;
 			case "commonFood":
 				await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option);
-				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "common food");
 				break;
 			case "fullCommonFood":
-				console.log(entity.discordUserId + "got a good level small event but didn't have enough space for common food");
 				break;
 			case "money":
-				await entity.Player.addMoney(entity, reward.option, interaction.channel, language);
-				console.log(entity.discordUserId + "got a good level small event and won" + reward.option + "💰");
+				await entity.Player.addMoney(entity, reward.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 				break;
 			default:
 				throw new Error("reward type not found");

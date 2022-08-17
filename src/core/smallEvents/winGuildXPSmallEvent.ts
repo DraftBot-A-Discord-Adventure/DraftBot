@@ -42,6 +42,5 @@ export const smallEvent: SmallEvent = {
 		await g.save();
 
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + "'guild gained some xp points in a mini event");
 	}
 };

@@ -15,6 +15,5 @@ export const smallEvent: SmallEvent = {
 			Data.getModule("smallEvents.doNothing").getString("emote") +
 			Translations.getModule("smallEvents.doNothing", language).getRandom("stories"));
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " done nothing.");
 	}
 };

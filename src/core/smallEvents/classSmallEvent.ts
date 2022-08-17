@@ -107,6 +107,5 @@ export const smallEvent: SmallEvent = {
 		}
 
 		await entity.Player.save();
-		console.log(entity.discordUserId + " got class small event.");
 	}
 };

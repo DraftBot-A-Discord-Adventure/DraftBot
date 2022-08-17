@@ -27,6 +27,7 @@ import {SmallEvent} from "../../core/smallEvents/SmallEvent";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type TextInformations = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
@@ -104,6 +105,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 				.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
 				.setDescription(Data.getModule("smallEvents." + event).getString("emote") + " ");
 
+			draftBotInstance.logsDatabase.logSmallEvent(entity.discordUserId, event).then();
 			await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
 
 			await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
@@ -393,6 +395,7 @@ const destinationChoseMessage = async function(entity: Entity, map: number, inte
  * @return {Promise<void>}
  */
 const doEvent = async (textInformations: TextInformations, event: BigEvent, entity: Entity, time: number): Promise<void> => {
+	draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, event.id).then();
 	const eventDisplayed = await textInformations.interaction.editReply({
 		content: Translations.getModule("commands.report", textInformations.language).format("doEvent", {
 			pseudo: textInformations.interaction.user,

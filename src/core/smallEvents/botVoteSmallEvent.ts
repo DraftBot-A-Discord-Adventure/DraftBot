@@ -38,6 +38,5 @@ export const smallEvent: SmallEvent = {
 			await interaction.reply({embeds: [seEmbed]});
 		}
 		await entity.Player.save();
-		console.log(entity.discordUserId + " got botVote small event.");
 	}
 };
