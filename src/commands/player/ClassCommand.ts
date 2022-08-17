@@ -12,6 +12,7 @@ import Player from "../../core/database/game/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type UserInformations = { user: User, entity: Entity }
 
@@ -88,8 +89,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					userInformations.entity.save(),
 					userInformations.entity.Player.save()
 				]);
-				// TODO REFACTOR LOGS
-				// log(entity.discordUserId + " bought the class " + newClass.en);
+				draftBotInstance.logsDatabase.logPlayerClassChange(userInformations.entity.discordUserId, newClass.id).then();
 				return message.channel.send({
 					embeds: [
 						new DraftBotEmbed()

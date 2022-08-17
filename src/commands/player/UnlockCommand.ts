@@ -12,6 +12,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformations = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -79,8 +80,7 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
 					entityUnlocker.save(),
 					entityUnlocker.Player.save()
 				]);
-				// TODO REFACTOR LES LOGS
-				// log(entityToUnlock.discordUserId + " has been released by" + interaction.user.id);
+				draftBotInstance.logsDatabase.logUnlocks(entityUnlocker.discordUserId, entityToUnlock.discordUserId).then();
 				const successEmbed = new DraftBotEmbed()
 					.setAuthor(
 						textInformations.unlockModule.format("unlockedTitle", {
