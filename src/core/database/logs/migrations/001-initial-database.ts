@@ -184,6 +184,34 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("unlocks", {
+		buyerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		releasedId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_class_changes", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		classId: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -204,4 +232,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("alteration");
 	await context.dropTable("players_standard_alteration");
 	await context.dropTable("players_occupied_alteration");
+	await context.dropTable("unlocks");
+	await context.dropTable("players_class_changes");
 }
