@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "initplayer",
@@ -28,7 +29,7 @@ const initPlayerTestCommand = async (language, interaction) => {
 	entity.Player.effectEndDate = Date.now();
 	entity.Player.effectDuration = 0;
 	await Maps.removeEffect(entity.Player);
-	await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), 0);
+	await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST);
 	entity.Player.startTravelDate = new Date();
 	await entity.Player.save();
 

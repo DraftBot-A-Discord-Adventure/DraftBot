@@ -280,13 +280,13 @@ export class Player extends Model {
 		await this.save();
 	}
 
-	public async killIfNeeded(entity: Entity, channel: TextBasedChannel, language: string): Promise<boolean> {
+	public async killIfNeeded(entity: Entity, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
 		if (entity.health > 0) {
 			return false;
 		}
 		// TODO new logger
 		// log("This user is dead : " + entity.discordUserId);
-		await Maps.applyEffect(entity.Player, Constants.EFFECT.DEAD);
+		await Maps.applyEffect(entity.Player, Constants.EFFECT.DEAD, 0, reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
 
