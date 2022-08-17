@@ -145,7 +145,7 @@ async function finishResolvingSpecialInteractions(interaction: string, interacti
 		await giveFood(interactionCommand, language, entity, food, 1);
 		break;
 	case "loseLife":
-		await entity.Player.killIfNeeded(entity, interactionCommand.channel, language);
+		await entity.Player.killIfNeeded(entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	default:
 		break;
@@ -216,7 +216,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "loseTime":
 			amount = RandomUtils.randInt(5, 20);
-			await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, amount);
+			await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, amount, NumberChangeReason.SMALL_EVENT);
 			await entity.Player.save();
 			break;
 		case "petFlee":

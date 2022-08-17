@@ -5,6 +5,8 @@ export class LogsPlayerStandardAlteration extends Model {
 
 	public readonly alterationId!: number;
 
+	public readonly reason!: number;
+
 	public readonly date!: Date;
 }
 
@@ -16,6 +18,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		alterationId: {
 			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
 			allowNull: false
 		},
 		date: {

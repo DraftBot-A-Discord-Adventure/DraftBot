@@ -12,6 +12,7 @@ import {
 import {Data} from "./Data";
 import {PlayerSmallEvents} from "./database/game/models/PlayerSmallEvent";
 import {draftBotInstance} from "./bot";
+import {NumberChangeReason} from "./database/logs/LogsDatabase";
 
 export class Maps {
 
@@ -65,7 +66,7 @@ export class Maps {
 	}
 
 
-	static async applyEffect(player: Player, effect: string, time = 0): Promise<void> {
+	static async applyEffect(player: Player, effect: string, time: number, reason: NumberChangeReason): Promise<void> {
 		await this.removeEffect(player);
 		player.effect = effect;
 		if (effect === Constants.EFFECT.OCCUPIED) {
@@ -77,7 +78,7 @@ export class Maps {
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
-		draftBotInstance.logsDatabase.logAlteration((await player.getEntity()).discordUserId, effect, time).then();
+		draftBotInstance.logsDatabase.logAlteration((await player.getEntity()).discordUserId, effect, reason, time).then();
 	}
 
 	static async removeEffect(player: Player): Promise<void> {
@@ -114,14 +115,15 @@ export class Maps {
 	 * @param {Players} player
 	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
+	 * @param reason
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player: Player, newLink: MapLink, time: number): Promise<void> {
+	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason): Promise<void> {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 		if (player.effect !== Constants.EFFECT.SMILEY) {
-			await Maps.applyEffect(player, player.effect, player.effectDuration);
+			await Maps.applyEffect(player, player.effect, player.effectDuration, reason);
 		}
 	}
 

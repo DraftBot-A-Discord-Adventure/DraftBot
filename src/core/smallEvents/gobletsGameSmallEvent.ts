@@ -50,7 +50,7 @@ export const smallEvent: SmallEvent = {
 				await entity.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 				break;
 			case "time":
-				await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, malus.option);
+				await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, malus.option, NumberChangeReason.SMALL_EVENT);
 				malus.option = minutesDisplay(malus.option);
 				break;
 			case "nothing":
@@ -61,7 +61,7 @@ export const smallEvent: SmallEvent = {
 			default:
 				throw new Error("reward type not found");
 			}
-			await entity.Player.killIfNeeded(entity, interaction.channel, language);
+			await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.save();
 			await entity.save();
 		}

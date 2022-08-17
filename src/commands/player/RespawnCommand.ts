@@ -43,7 +43,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await entity.Player.getPreviousMapId(),
 		await entity.Player.getDestinationId()
 	);
-	await Maps.startTravel(entity.Player, newlink, interaction.createdAt.valueOf());
+	await Maps.startTravel(entity.Player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN);
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 

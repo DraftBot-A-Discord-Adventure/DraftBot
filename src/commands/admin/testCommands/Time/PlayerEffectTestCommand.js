@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {Constants} from "../../../../core/Constants";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 const effects = Object.keys(Constants.EFFECT.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";
@@ -31,7 +32,7 @@ const playerEffectTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const effectMalus = ":" + args[0] + ":";
 	if (JsonReader.models.players.effectMalus[effectMalus]) {
-		await Maps.applyEffect(entity.Player, effectMalus);
+		await Maps.applyEffect(entity.Player, effectMalus, 0, NumberChangeReason.TEST);
 		await entity.Player.save();
 		return format(module.exports.commandInfo.messageWhenExecuted, {effect: effectMalus});
 	}

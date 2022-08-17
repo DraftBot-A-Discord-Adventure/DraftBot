@@ -23,7 +23,7 @@ const playerSuicideTestCommand = async (language, interaction) => {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	});
-	await entity.Player.killIfNeeded(entity, interaction.channel, language);
+	await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.TEST);
 	await Promise.all([entity.save(), entity.Player.save()]);
 
 	return module.exports.commandInfo.messageWhenExecuted;
