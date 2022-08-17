@@ -22,7 +22,7 @@ export function initModel(sequelize: Sequelize): void {
 			allowNull: false
 		},
 		emote: {
-			type: DataTypes.STRING(1), // eslint-disable-line new-cap
+			type: DataTypes.STRING(5), // eslint-disable-line new-cap
 			allowNull: true // null for end
 		},
 		issueIndex: {

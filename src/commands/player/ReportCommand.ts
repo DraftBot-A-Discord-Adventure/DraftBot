@@ -553,6 +553,7 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
 	textInformations.tr = Translations.getModule("commands.report", textInformations.language);
 
 	if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") { // Don't do anything if the player ends the first report
+		draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, possibility[0].eventId, possibility[0].possibilityKey, 0).then();
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
 		return await textInformations.interaction.channel.send({
 			content: textInformations.tr.format("doPossibility", {
