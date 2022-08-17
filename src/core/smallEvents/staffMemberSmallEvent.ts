@@ -22,7 +22,5 @@ export const smallEvent: SmallEvent = {
 				sentence: tr.get("members." + key)
 			}));
 		await interaction.reply({ embeds: [seEmbed] });
-
-		console.log(entity.discordUserId + " met a staff member.");
 	}
 };

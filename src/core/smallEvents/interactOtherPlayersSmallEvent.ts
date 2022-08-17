@@ -434,7 +434,5 @@ export const smallEvent: SmallEvent = {
 		else {
 			await interaction.reply({embeds: [seEmbed]});
 		}
-
-		console.log(entity.discordUserId + " interacted with a player");
 	}
 };

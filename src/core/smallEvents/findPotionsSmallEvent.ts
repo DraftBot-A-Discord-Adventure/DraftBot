@@ -20,7 +20,6 @@ export const smallEvent: SmallEvent = {
 		);
 
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " got a potion from a mini event ");
 		await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel);
 	}
 };

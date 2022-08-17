@@ -1,25 +1,25 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsServer extends Model {
+export class LogsSmallEvent extends Model {
 	public readonly id!: number;
 
-	public readonly discordId!: string;
+	public readonly name!: string;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsServer.init({
+	LogsSmallEvent.init({
 		id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.TINYINT.UNSIGNED,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		discordId: {
-			type: DataTypes.STRING(20), // eslint-disable-line new-cap
+		name: {
+			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "servers",
+		tableName: "small_events",
 		freezeTableName: true,
 		timestamps: false
 	});

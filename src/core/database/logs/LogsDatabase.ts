@@ -10,8 +10,14 @@ import {LogsPlayerGems} from "./models/LogsPlayerGems";
 import {LogsServer} from "./models/LogsServer";
 import {LogsCommand} from "./models/LogsCommand";
 import {LogsPlayerCommands} from "./models/LogsPlayerCommands";
+import {LogsSmallEvent} from "./models/LogsSmallEvent";
+import {LogsPlayerSmallEvents} from "./models/LogsPlayerSmallEvents";
+import {LogsPlayerBigEvents} from "./models/LogsPlayerBigEvents";
 
 export enum NumberChangeReason {
+	// Default value. Used to detect missing parameters in functions
+	NULL,
+
 	// Admin
 	TEST,
 	ADMIN,
@@ -151,4 +157,51 @@ export class LogsDatabase extends Database {
 			});
 		});
 	}
+
+	public logSmallEvent(discordId: string, name: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				const [smallEvent] = await LogsSmallEvent.findOrCreate({
+					where: {
+						name
+					},
+					transaction
+				});
+				await LogsPlayerSmallEvents.create({
+					playerId: player.id,
+					smallEventId: smallEvent.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, { transaction });
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logBigEvent(discordId: string, eventId: number): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				await LogsPlayerBigEvents.create({
+					playerId: player.id,
+					bigEventId: eventId,
+					date: Math.trunc(Date.now() / 1000)
+				}, { transaction });
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
 }
