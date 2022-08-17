@@ -18,6 +18,8 @@ import {LogsAlteration} from "./models/LogsAlteration";
 import {Constants} from "../../Constants";
 import {LogsPlayerStandardAlteration} from "./models/LogsPlayerStandardAlteration";
 import {LogsPlayerOccupiedAlteration} from "./models/LogsPlayerOccupiedAlteration";
+import {LogsUnlocks} from "./models/LogsUnlocks";
+import {LogsPlayerClassChanges} from "./models/LogsPlayerClassChanges";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -227,6 +229,52 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [buyer] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId: buyerDiscordId
+					},
+					transaction
+				});
+				const [released] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId: releasedDiscordId
+					},
+					transaction
+				});
+				await LogsUnlocks.create({
+					buyerId: buyer.id,
+					releasedId: released.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logPlayerClassChange(discordId: string, classId: number): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsPlayerClassChanges.create({
+					playerId: player.id,
+					classId,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
 	private logNumberChange(
 		discordId: string,
 		value: number,
@@ -252,5 +300,4 @@ export class LogsDatabase extends Database {
 			});
 		});
 	}
-
 }
