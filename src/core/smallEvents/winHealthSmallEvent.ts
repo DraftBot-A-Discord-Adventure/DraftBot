@@ -28,6 +28,5 @@ export const smallEvent: SmallEvent = {
 		await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.save();
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " gained some health points in a mini event");
 	}
 };

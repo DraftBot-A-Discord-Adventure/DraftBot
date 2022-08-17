@@ -3,7 +3,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsPlayer extends Model {
 	public readonly id!: number;
 
-	public readonly discordId!: number;
+	public readonly discordId!: string;
 }
 
 export function initModel(sequelize: Sequelize): void {

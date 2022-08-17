@@ -27,6 +27,5 @@ export const smallEvent: SmallEvent = {
 		);
 
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " advanced " + timeAdvanced + "minutes from a small event.");
 	}
 };

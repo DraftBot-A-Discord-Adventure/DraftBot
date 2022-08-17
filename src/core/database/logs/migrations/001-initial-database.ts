@@ -87,6 +87,45 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("small_events", {
+		id: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_small_events", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		smallEventId: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_big_events", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		bigEventId: {
+			type: DataTypes.SMALLINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -100,4 +139,7 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("commands");
 	await context.dropTable("players_commands");
 	await context.dropTable("servers");
+	await context.dropTable("small_events");
+	await context.dropTable("players_small_events");
+	await context.dropTable("players_big_events");
 }

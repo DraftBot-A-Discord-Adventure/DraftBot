@@ -22,7 +22,6 @@ export const smallEvent: SmallEvent = {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
 		const seEmbedEmote = seEmbed.description;
 		seEmbed.setDescription(seEmbed.description + translationLottery.get("intro"));
-		console.log(entity.discordUserId + " got a mini-event lottery.");
 
 		const player = entity.Player;
 		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true}) as Message;
@@ -66,7 +65,6 @@ export const smallEvent: SmallEvent = {
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
-				console.log(entity.discordUserId + " got " + reward + " in smallEvent lottery");
 				const coeff = dataLottery.getNumber("coeff." + collected.first().emoji.name);
 				switch (reward) {
 				case Constants.LOTTERY_REWARD_TYPES.XP:

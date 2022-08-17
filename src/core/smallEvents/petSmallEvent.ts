@@ -235,6 +235,5 @@ export const smallEvent: SmallEvent = {
 		await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 		await interactionCommand.reply({embeds: [seEmbed]});
 		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, entity, food);
-		console.log(entity.discordUserId + " got a pet interaction");
 	}
 };

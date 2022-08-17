@@ -53,7 +53,6 @@ export const smallEvent: SmallEvent = {
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " got big bad event.");
 		await entity.Player.killIfNeeded(entity, interaction.channel, language);
 		await entity.Player.save();
 		await entity.save();

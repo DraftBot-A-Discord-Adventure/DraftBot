@@ -33,8 +33,6 @@ function callbackShopSmallEvent(
 				return;
 			}
 			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
-			// TODO REFACTOR LES LOGS
-			// console.log(entity.discordUserId + " bought an item in a mini shop for " + price);
 			await entity.Player.addMoney(entity, -price, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			await entity.Player.save();
 			return;

@@ -31,6 +31,5 @@ export const smallEvent: SmallEvent = {
 		await entity.Player.save();
 		await entity.save();
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " gained some xp points in a mini event");
 	}
 };
