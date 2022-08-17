@@ -28,6 +28,7 @@ export enum NumberChangeReason {
 	// Admin
 	TEST,
 	ADMIN,
+	DEBUG,
 
 	// Events
 	BIG_EVENT,
@@ -57,7 +58,7 @@ export enum NumberChangeReason {
 	CLASS,
 	UNLOCK,
 	LEVEL_UP,
-	RESPAWN
+	RESPAWN,
 }
 
 export class LogsDatabase extends Database {
@@ -194,7 +195,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logAlteration(discordId: string, alteration: string, duration = 0): Promise<void> {
+	public logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayer.findOrCreate({
@@ -207,7 +208,8 @@ export class LogsDatabase extends Database {
 				case Constants.EFFECT.OCCUPIED:
 					await LogsPlayerOccupiedAlteration.create({
 						playerId: player.id,
-						duration,
+						duration: duration,
+						reason: reason,
 						date: Math.trunc(Date.now() / 1000)
 					}, {transaction});
 					break;
@@ -220,6 +222,7 @@ export class LogsDatabase extends Database {
 							},
 							transaction
 						}))[0].id,
+						reason,
 						date: Math.trunc(Date.now() / 1000)
 					}, {transaction});
 				}

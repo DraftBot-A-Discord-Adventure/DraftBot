@@ -165,6 +165,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
@@ -177,6 +181,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		duration: {
 			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
 			allowNull: false
 		},
 		date: {

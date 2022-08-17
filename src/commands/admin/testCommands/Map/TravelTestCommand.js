@@ -2,6 +2,7 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/Maps";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "travel",
@@ -45,7 +46,7 @@ const travelTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
 	}
 
-	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf());
+	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),

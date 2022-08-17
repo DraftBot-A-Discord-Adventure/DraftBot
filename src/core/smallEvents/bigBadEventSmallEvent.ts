@@ -36,7 +36,7 @@ export const smallEvent: SmallEvent = {
 				alteTime: minutesDisplay(millisecondsToMinutes(Data.getModule("models.players").getNumber("effectMalus." + seFallen.alte))),
 				alteEmoji: seFallen.alte
 			}));
-			await Maps.applyEffect(entity.Player, seFallen.alte);
+			await Maps.applyEffect(entity.Player, seFallen.alte, 0, NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
 				for (let i = 0; i < seFallen.tags.length; i++) {
 					await MissionsController.update(entity, interaction.channel, language, {
@@ -53,7 +53,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});
-		await entity.Player.killIfNeeded(entity, interaction.channel, language);
+		await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 		await entity.save();
 	}

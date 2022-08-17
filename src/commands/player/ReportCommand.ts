@@ -150,7 +150,7 @@ const executeCommand = async (interaction: CommandInteraction, language: string,
 	}
 
 	if (entity.Player.mapLinkId === null) {
-		return await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf());
+		return await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
@@ -311,7 +311,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 
 	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
+		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
 		await destinationChoseMessage(entity, destinationMaps[0], interaction, language);
 		return;
 	}
@@ -336,7 +336,7 @@ const chooseDestination = async function(entity: Entity, interaction: CommandInt
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
-		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf());
+		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
 		await destinationChoseMessage(entity, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
@@ -419,7 +419,6 @@ const doEvent = async (textInformations: TextInformations, event: BigEvent, enti
 				possibilityKey: reaction.emoji.name
 			}
 		});
-		console.log(possibility);
 		await doPossibility(textInformations, possibility, entity, time);
 	});
 
@@ -574,7 +573,7 @@ const doPossibility = async (textInformations: TextInformations, possibility: Po
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await textInformations.interaction.channel.send({content: result});
 
-	if (!await player.killIfNeeded(entity, textInformations.interaction.channel, textInformations.language)) {
+	if (!await player.killIfNeeded(entity, textInformations.interaction.channel, textInformations.language, NumberChangeReason.BIG_EVENT)) {
 		await chooseDestination(entity, textInformations.interaction, textInformations.language, randomPossibility.restrictedMaps);
 	}
 

@@ -61,7 +61,7 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await Maps.applyEffect(player, Constants.EFFECT.OCCUPIED, dataLottery.getNumber("lostTime"));
+				await Maps.applyEffect(player, Constants.EFFECT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
