@@ -7,6 +7,9 @@ import {CreateOptions, Model} from "sequelize";
 import {LogsPlayerLevel} from "./models/LogsPlayerLevel";
 import {LogsPlayerScore} from "./models/LogsPlayerScore";
 import {LogsPlayerGems} from "./models/LogsPlayerGems";
+import {LogsServer} from "./models/LogsServer";
+import {LogsCommand} from "./models/LogsCommand";
+import {LogsPlayerCommands} from "./models/LogsPlayerCommands";
 
 export enum NumberChangeReason {
 	// Admin
@@ -72,39 +75,80 @@ export class LogsDatabase extends Database {
 
 	public logLevelChange(discordId: string, level: number): Promise<void> {
 		return new Promise((resolve) => {
-			LogsPlayer.findOrCreate({
-				where: {
-					discordId: discordId
-				}
-			}).then(([logsPlayer]) =>
-				LogsPlayerLevel.create({
-					playerId: logsPlayer.id,
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsPlayerLevel.create({
+					playerId: player.id,
 					level,
 					date: Math.trunc(Date.now() / 1000)
-				}).then(() => resolve())
-			);
+				}, { transaction });
+				await transaction.commit();
+				resolve();
+			});
 		});
 	}
 
-	public logNumberChange(
+	private logNumberChange(
 		discordId: string,
 		value: number,
 		reason: NumberChangeReason,
 		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
 	): Promise<void> {
 		return new Promise((resolve) => {
-			LogsPlayer.findOrCreate({
-				where: {
-					discordId: discordId
-				}
-			}).then(([logsPlayer]) =>
-				model.create({
-					playerId: logsPlayer.id,
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				await model.create({
+					playerId: player.id,
 					value,
 					reason,
 					date: Math.trunc(Date.now() / 1000)
-				}).then(() => resolve())
-			);
+				}, { transaction });
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayer.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				const [server] = await LogsServer.findOrCreate({
+					where: {
+						discordId: serverId
+					},
+					transaction
+				});
+				const [command] = await LogsCommand.findOrCreate({
+					where: {
+						commandName
+					},
+					transaction
+				});
+				await LogsPlayerCommands.create({
+					playerId: player.id,
+					serverId: server.id,
+					commandId: command.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, { transaction });
+				await transaction.commit();
+				resolve();
+			});
 		});
 	}
 }

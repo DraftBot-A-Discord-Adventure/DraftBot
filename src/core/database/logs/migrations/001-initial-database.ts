@@ -34,13 +34,56 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("players_score", logsPlayerNumberAttributes);
 	await context.createTable("players_gems", logsPlayerNumberAttributes);
 	await context.createTable("players_level", {
-		playerId: DataTypes.INTEGER,
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
 		level: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("commands", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		commandName: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_commands", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		serverId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		commandId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("servers", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		discordId: {
+			type: DataTypes.STRING(20), // eslint-disable-line new-cap
 			allowNull: false
 		}
 	});
@@ -54,4 +97,7 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_level");
 	await context.dropTable("players_score");
 	await context.dropTable("players_gems");
+	await context.dropTable("commands");
+	await context.dropTable("players_commands");
+	await context.dropTable("servers");
 }

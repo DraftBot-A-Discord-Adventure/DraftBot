@@ -1,20 +1,26 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPlayerLevel extends Model {
+export class LogsPlayerCommands extends Model {
 	public readonly playerId!: number;
 
-	public readonly level!: number;
+	public readonly serverId!: number;
+
+	public readonly commandId!: number;
 
 	public readonly date!: Date;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayerLevel.init({
+	LogsPlayerCommands.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		level: {
+		serverId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		commandId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
@@ -24,10 +30,10 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "players_level",
+		tableName: "players_commands",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsPlayerLevel.removeAttribute("id");
+	LogsPlayerCommands.removeAttribute("id");
 }
