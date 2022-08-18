@@ -1,20 +1,6 @@
 import {DataTypes, QueryInterface} from "sequelize";
-
-export const logsPlayerNumberAttributes = {
-	playerId: DataTypes.INTEGER,
-	value: {
-		type: DataTypes.INTEGER,
-		allowNull: false
-	},
-	reason: {
-		type: DataTypes.TINYINT.UNSIGNED,
-		allowNull: false
-	},
-	date: {
-		type: DataTypes.INTEGER.UNSIGNED,
-		allowNull: false
-	}
-};
+import {logsItemAttributes} from "../models/LogsItems";
+import {logsPlayersNumbersAttributes} from "../models/LogsPlayersNumbers";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("players", {
@@ -28,11 +14,11 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_money", logsPlayerNumberAttributes);
-	await context.createTable("players_health", logsPlayerNumberAttributes);
-	await context.createTable("players_experience", logsPlayerNumberAttributes);
-	await context.createTable("players_score", logsPlayerNumberAttributes);
-	await context.createTable("players_gems", logsPlayerNumberAttributes);
+	await context.createTable("players_money", logsPlayersNumbersAttributes);
+	await context.createTable("players_health", logsPlayersNumbersAttributes);
+	await context.createTable("players_experience", logsPlayersNumbersAttributes);
+	await context.createTable("players_score", logsPlayersNumbersAttributes);
+	await context.createTable("players_gems", logsPlayersNumbersAttributes);
 	await context.createTable("players_level", {
 		playerId: {
 			type: DataTypes.INTEGER,
@@ -392,6 +378,15 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+
+	await context.createTable("items_gains_armor", logsItemAttributes);
+	await context.createTable("items_gains_object", logsItemAttributes);
+	await context.createTable("items_gains_potion", logsItemAttributes);
+	await context.createTable("items_gains_weapon", logsItemAttributes);
+	await context.createTable("items_sells_armor", logsItemAttributes);
+	await context.createTable("items_sells_object", logsItemAttributes);
+	await context.createTable("items_sells_potion", logsItemAttributes);
+	await context.createTable("items_sells_weapon", logsItemAttributes);
 }
 
 export async function down(context: QueryInterface): Promise<void> {
