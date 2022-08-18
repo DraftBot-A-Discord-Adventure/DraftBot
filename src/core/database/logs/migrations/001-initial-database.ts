@@ -220,7 +220,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_vote", {
+	await context.createTable("players_votes", {
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
@@ -252,5 +252,5 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_occupied_alteration");
 	await context.dropTable("unlocks");
 	await context.dropTable("players_class_changes");
-	await context.dropTable("players_vote");
+	await context.dropTable("players_votes");
 }

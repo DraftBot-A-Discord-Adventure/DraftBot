@@ -282,30 +282,16 @@ export class LogsDatabase extends Database {
 	public logVote(discordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				await LogsPlayerVote.create({
-					playerId: (await LogsPlayer.findOrCreate({
-						where: {
-							discordId: discordId
-						},
-						transaction
-					}))[0].id,
-					date: Math.trunc(Date.now() / 1000)
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logPlayer(discordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayer.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
+				await LogsPlayerVote.create({
+					playerId: player.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
 				await transaction.commit();
 				resolve();
 			});
