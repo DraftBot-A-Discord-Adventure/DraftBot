@@ -78,7 +78,7 @@ export class Maps {
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
-		draftBotInstance.logsDatabase.logAlteration((await player.getEntity()).discordUserId, effect, reason, time).then();
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logAlteration(entity.discordUserId, effect, reason, time).then());
 	}
 
 	static async removeEffect(player: Player): Promise<void> {
@@ -125,6 +125,7 @@ export class Maps {
 		if (player.effect !== Constants.EFFECT.SMILEY) {
 			await Maps.applyEffect(player, player.effect, player.effectDuration, reason);
 		}
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logNewTravel(entity.discordUserId, newLink).then());
 	}
 
 	/**

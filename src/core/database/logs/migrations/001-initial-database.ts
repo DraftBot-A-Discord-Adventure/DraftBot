@@ -250,6 +250,35 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("maplinks", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		start: {
+			type: DataTypes.SMALLINT.UNSIGNED,
+			allowNull: false
+		},
+		end: {
+			type: DataTypes.SMALLINT.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_travels", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		mapLinkId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -275,4 +304,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_votes");
 	await context.dropTable("servers_joins");
 	await context.dropTable("servers_quits");
+	await context.dropTable("maplinks");
+	await context.dropTable("players_travels");
 }
