@@ -374,6 +374,24 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("players_15_best_topweek", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		position: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		},
+		topWeekScore: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -408,4 +426,5 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("missions_finished");
 	await context.dropTable("missions_found");
 	await context.dropTable("missions_campaign_progresses");
+	await context.dropTable("players_15_best_topweek");
 }
