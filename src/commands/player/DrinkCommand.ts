@@ -33,7 +33,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(textInformations.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformations.tr.language)}));
-		await Maps.advanceTime(entity.Player, potion.power);
+		await Maps.advanceTime(entity.Player, potion.power, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformations.tr.format("moneyBonus", {value: potion.power}));

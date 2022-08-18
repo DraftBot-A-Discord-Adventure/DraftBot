@@ -37,7 +37,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		entity.Player.save()
 	]);
 
-	await Maps.removeEffect(entity.Player);
+	await Maps.removeEffect(entity.Player, NumberChangeReason.RESPAWN);
 	await Maps.stopTravel(entity.Player);
 	const newlink = await MapLinks.getLinkByLocations(
 		await entity.Player.getPreviousMapId(),

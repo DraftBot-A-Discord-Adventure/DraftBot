@@ -418,6 +418,24 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("items_sells_object", logsItemAttributes);
 	await context.createTable("items_sells_potion", logsItemAttributes);
 	await context.createTable("items_sells_weapon", logsItemAttributes);
+	await context.createTable("players_timewarps", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		time: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -461,4 +479,5 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("items_sells_object");
 	await context.dropTable("items_sells_potion");
 	await context.dropTable("items_sells_weapon");
+	await context.dropTable("players_timewarps");
 }

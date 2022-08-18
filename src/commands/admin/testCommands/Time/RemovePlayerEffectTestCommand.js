@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 module.exports.commandInfo = {
 	name: "removeplayereffect",
@@ -18,7 +19,7 @@ module.exports.commandInfo = {
 const removePlayerEffectTestCommand = async (language, interaction) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
-	await Maps.removeEffect(entity.Player);
+	await Maps.removeEffect(entity.Player, NumberChangeReason.TEST);
 	await entity.Player.save();
 };
 
