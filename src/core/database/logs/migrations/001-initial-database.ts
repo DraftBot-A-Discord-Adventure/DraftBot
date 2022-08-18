@@ -436,22 +436,22 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("pets", {
+	await context.createTable("pet_entities", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		inGameId: {
-			type: DataTypes.INTEGER,
+		gameId: {
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		},
 		petId: {
-			type: DataTypes.SMALLINT,
+			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
-		sex: {
-			type: DataTypes.STRING(1), // eslint-disable-line new-cap
+		isFemale: {
+			type: DataTypes.BOOLEAN,
 			allowNull: false
 		},
 		isDeleted: {
@@ -464,7 +464,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		name: DataTypes.STRING(16), // eslint-disable-line new-cap
+		name: {
+			type: DataTypes.STRING(16), // eslint-disable-line new-cap
+			allowNull: true
+		},
 		date: {
 			type: DataTypes.DATE,
 			allowNull: false
@@ -514,4 +517,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("items_sells_potion");
 	await context.dropTable("items_sells_weapon");
 	await context.dropTable("players_timewarps");
+	await context.dropTable("pet_entities");
+	await context.dropTable("pet_nicknames");
 }
