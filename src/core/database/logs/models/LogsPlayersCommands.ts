@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPlayerCommands extends Model {
+export class LogsPlayersCommands extends Model {
 	public readonly playerId!: number;
 
 	public readonly serverId!: number;
@@ -11,7 +11,7 @@ export class LogsPlayerCommands extends Model {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayerCommands.init({
+	LogsPlayersCommands.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
@@ -35,5 +35,5 @@ export function initModel(sequelize: Sequelize): void {
 		timestamps: false
 	});
 
-	LogsPlayerCommands.removeAttribute("id");
+	LogsPlayersCommands.removeAttribute("id");
 }

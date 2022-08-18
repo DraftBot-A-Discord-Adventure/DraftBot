@@ -1,25 +1,25 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsCommand extends Model {
+export class LogsAlterations extends Model {
 	public readonly id!: number;
 
-	public readonly commandName!: string;
+	public readonly alteration!: string;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsCommand.init({
+	LogsAlterations.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		commandName: {
+		alteration: {
 			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "commands",
+		tableName: "alterations",
 		freezeTableName: true,
 		timestamps: false
 	});
