@@ -1,23 +1,21 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPlayerPossibilities extends Model {
+export class LogsPlayersClassChanges extends Model {
 	public readonly playerId!: number;
 
-	public readonly bigEventId!: number;
-
-	public readonly possibilityId!: number;
+	public readonly classId!: number;
 
 	public readonly date!: Date;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayerPossibilities.init({
+	LogsPlayersClassChanges.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		possibilityId: {
-			type: DataTypes.INTEGER,
+		classId: {
+			type: DataTypes.TINYINT.UNSIGNED,
 			allowNull: false
 		},
 		date: {
@@ -26,10 +24,10 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "players_possibilities",
+		tableName: "players_class_changes",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsPlayerPossibilities.removeAttribute("id");
+	LogsPlayersClassChanges.removeAttribute("id");
 }

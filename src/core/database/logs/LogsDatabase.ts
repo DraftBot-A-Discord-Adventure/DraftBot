@@ -1,28 +1,28 @@
 import {Database} from "../Database";
-import {LogsPlayerMoney} from "./models/LogsPlayerMoney";
-import {LogsPlayer} from "./models/LogsPlayer";
-import {LogsPlayerHealth} from "./models/LogsPlayerHealth";
-import {LogsPlayerExperience} from "./models/LogsPlayerExperience";
+import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
+import {LogsPlayers} from "./models/LogsPlayers";
+import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
+import {LogsPlayersExperience} from "./models/LogsPlayersExperience";
 import {CreateOptions, Model} from "sequelize";
-import {LogsPlayerLevel} from "./models/LogsPlayerLevel";
-import {LogsPlayerScore} from "./models/LogsPlayerScore";
-import {LogsPlayerGems} from "./models/LogsPlayerGems";
-import {LogsServer} from "./models/LogsServer";
-import {LogsCommand} from "./models/LogsCommand";
-import {LogsPlayerCommands} from "./models/LogsPlayerCommands";
-import {LogsSmallEvent} from "./models/LogsSmallEvent";
-import {LogsPlayerSmallEvents} from "./models/LogsPlayerSmallEvents";
-import {LogsPossibility} from "./models/LogsPossibility";
-import {LogsPlayerPossibilities} from "./models/LogsPlayerPossibilities";
-import {LogsAlteration} from "./models/LogsAlteration";
+import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
+import {LogsPlayersScore} from "./models/LogsPlayersScore";
+import {LogsPlayersGems} from "./models/LogsPlayersGems";
+import {LogsServers} from "./models/LogsServers";
+import {LogsCommands} from "./models/LogsCommands";
+import {LogsPlayersCommands} from "./models/LogsPlayersCommands";
+import {LogsSmallEvents} from "./models/LogsSmallEvents";
+import {LogsPlayersSmallEvents} from "./models/LogsPlayersSmallEvents";
+import {LogsPossibilities} from "./models/LogsPossibilities";
+import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
+import {LogsAlterations} from "./models/LogsAlterations";
 import {Constants} from "../../Constants";
-import {LogsPlayerStandardAlteration} from "./models/LogsPlayerStandardAlteration";
-import {LogsPlayerOccupiedAlteration} from "./models/LogsPlayerOccupiedAlteration";
+import {LogsPlayersStandardAlterations} from "./models/LogsPlayersStandardAlterations";
+import {LogsPlayersOccupiedAlterations} from "./models/LogsPlayersOccupiedAlterations";
 import {LogsUnlocks} from "./models/LogsUnlocks";
-import {LogsPlayerClassChanges} from "./models/LogsPlayerClassChanges";
-import {LogsPlayerVote} from "./models/LogsPlayerVote";
-import {LogsServerJoin} from "./models/LogsServerJoin";
-import {LogsServerQuit} from "./models/LogsServerQuit";
+import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
+import {LogsPlayersVotes} from "./models/LogsPlayersVotes";
+import {LogsServersJoins} from "./models/LogsServersJoins";
+import {LogsServersQuits} from "./models/LogsServersQuits";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -71,35 +71,35 @@ export class LogsDatabase extends Database {
 	}
 
 	public logMoneyChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayerMoney);
+		return this.logNumberChange(discordId, value, reason, LogsPlayersMoney);
 	}
 
 	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayerHealth);
+		return this.logNumberChange(discordId, value, reason, LogsPlayersHealth);
 	}
 
 	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayerExperience);
+		return this.logNumberChange(discordId, value, reason, LogsPlayersExperience);
 	}
 
 	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayerScore);
+		return this.logNumberChange(discordId, value, reason, LogsPlayersScore);
 	}
 
 	public logGemsChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayerGems);
+		return this.logNumberChange(discordId, value, reason, LogsPlayersGems);
 	}
 
 	public logLevelChange(discordId: string, level: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
-				await LogsPlayerLevel.create({
+				await LogsPlayersLevel.create({
 					playerId: player.id,
 					level,
 					date: Math.trunc(Date.now() / 1000)
@@ -113,25 +113,25 @@ export class LogsDatabase extends Database {
 	public logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
 					},
 					transaction
 				});
-				const [server] = await LogsServer.findOrCreate({
+				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: serverId
 					},
 					transaction
 				});
-				const [command] = await LogsCommand.findOrCreate({
+				const [command] = await LogsCommands.findOrCreate({
 					where: {
 						commandName
 					},
 					transaction
 				});
-				await LogsPlayerCommands.create({
+				await LogsPlayersCommands.create({
 					playerId: player.id,
 					serverId: server.id,
 					commandId: command.id,
@@ -146,19 +146,19 @@ export class LogsDatabase extends Database {
 	public logSmallEvent(discordId: string, name: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
 					},
 					transaction
 				});
-				const [smallEvent] = await LogsSmallEvent.findOrCreate({
+				const [smallEvent] = await LogsSmallEvents.findOrCreate({
 					where: {
 						name
 					},
 					transaction
 				});
-				await LogsPlayerSmallEvents.create({
+				await LogsPlayersSmallEvents.create({
 					playerId: player.id,
 					smallEventId: smallEvent.id,
 					date: Math.trunc(Date.now() / 1000)
@@ -172,13 +172,13 @@ export class LogsDatabase extends Database {
 	public logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
 					},
 					transaction
 				});
-				const [possibility] = await LogsPossibility.findOrCreate({
+				const [possibility] = await LogsPossibilities.findOrCreate({
 					where: {
 						bigEventId: eventId,
 						emote: possibilityEmote === "end" ? null : possibilityEmote,
@@ -186,7 +186,7 @@ export class LogsDatabase extends Database {
 					},
 					transaction
 				});
-				await LogsPlayerPossibilities.create({
+				await LogsPlayersPossibilities.create({
 					playerId: player.id,
 					bigEventId: eventId,
 					possibilityId: possibility.id,
@@ -201,7 +201,7 @@ export class LogsDatabase extends Database {
 	public logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
 					},
@@ -209,7 +209,7 @@ export class LogsDatabase extends Database {
 				});
 				switch (alteration) {
 				case Constants.EFFECT.OCCUPIED:
-					await LogsPlayerOccupiedAlteration.create({
+					await LogsPlayersOccupiedAlterations.create({
 						playerId: player.id,
 						duration: duration,
 						reason: reason,
@@ -217,9 +217,9 @@ export class LogsDatabase extends Database {
 					}, {transaction});
 					break;
 				default:
-					await LogsPlayerStandardAlteration.create({
+					await LogsPlayersStandardAlterations.create({
 						playerId: player.id,
-						alterationId: (await LogsAlteration.findOrCreate({
+						alterationId: (await LogsAlterations.findOrCreate({
 							where: {
 								alteration: alteration
 							},
@@ -238,13 +238,13 @@ export class LogsDatabase extends Database {
 	public logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [buyer] = await LogsPlayer.findOrCreate({
+				const [buyer] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: buyerDiscordId
 					},
 					transaction
 				});
-				const [released] = await LogsPlayer.findOrCreate({
+				const [released] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: releasedDiscordId
 					},
@@ -264,13 +264,13 @@ export class LogsDatabase extends Database {
 	public logPlayerClassChange(discordId: string, classId: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
-				await LogsPlayerClassChanges.create({
+				await LogsPlayersClassChanges.create({
 					playerId: player.id,
 					classId,
 					date: Math.trunc(Date.now() / 1000)
@@ -284,13 +284,13 @@ export class LogsDatabase extends Database {
 	public logVote(discordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
-				await LogsPlayerVote.create({
+				await LogsPlayersVotes.create({
 					playerId: player.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
@@ -303,13 +303,13 @@ export class LogsDatabase extends Database {
 	public logServerJoin(discordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServer.findOrCreate({
+				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
-				await LogsServerJoin.create({
+				await LogsServersJoins.create({
 					serverId: server.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
@@ -322,13 +322,13 @@ export class LogsDatabase extends Database {
 	public logServerQuit(discordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServer.findOrCreate({
+				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: discordId
 					},
 					transaction
 				});
-				await LogsServerQuit.create({
+				await LogsServersQuits.create({
 					serverId: server.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
@@ -346,7 +346,7 @@ export class LogsDatabase extends Database {
 	): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayer.findOrCreate({
+				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
 					},

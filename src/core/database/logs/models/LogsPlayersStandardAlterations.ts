@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPlayerStandardAlteration extends Model {
+export class LogsPlayersStandardAlterations extends Model {
 	public readonly playerId!: number;
 
 	public readonly alterationId!: number;
@@ -11,7 +11,7 @@ export class LogsPlayerStandardAlteration extends Model {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayerStandardAlteration.init({
+	LogsPlayersStandardAlterations.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
@@ -30,10 +30,10 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "players_standard_alteration",
+		tableName: "players_standard_alterations",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsPlayerStandardAlteration.removeAttribute("id");
+	LogsPlayersStandardAlterations.removeAttribute("id");
 }

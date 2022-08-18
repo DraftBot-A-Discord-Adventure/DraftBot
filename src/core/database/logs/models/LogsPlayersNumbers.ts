@@ -1,6 +1,6 @@
 import {DataTypes, Model} from "sequelize";
 
-export abstract class LogsPlayerNumber extends Model {
+export abstract class LogsPlayersNumbers extends Model {
 	public readonly playerId!: number;
 
 	public readonly value!: number;
@@ -10,7 +10,7 @@ export abstract class LogsPlayerNumber extends Model {
 	public readonly date!: Date;
 }
 
-export const logsPlayerNumberAttributes = {
+export const logsPlayersNumbersAttributes = {
 	playerId: DataTypes.INTEGER,
 	value: {
 		type: DataTypes.INTEGER,

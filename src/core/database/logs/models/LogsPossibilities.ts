@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPossibility extends Model {
+export class LogsPossibilities extends Model {
 	public readonly id!: number;
 
 	public readonly bigEventId!: number;
@@ -11,7 +11,7 @@ export class LogsPossibility extends Model {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPossibility.init({
+	LogsPossibilities.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,

@@ -145,7 +145,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("alteration", {
+	await context.createTable("alterations", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -156,7 +156,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_standard_alteration", {
+	await context.createTable("players_standard_alterations", {
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
@@ -174,7 +174,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_occupied_alteration", {
+	await context.createTable("players_occupied_alterations", {
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
