@@ -406,6 +406,48 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logItemGain(discordId: string, item: GenericItemModel) {
+		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		switch (item.categoryName) {
+		case "weapons":
+			itemCategoryDatabase = LogsItemGainsWeapon;
+			break;
+		case "armors":
+			itemCategoryDatabase = LogsItemGainsArmor;
+			break;
+		case "objects":
+			itemCategoryDatabase = LogsItemGainsObject;
+			break;
+		case "potions":
+			itemCategoryDatabase = LogsItemGainsPotion;
+			break;
+		default:
+			break;
+		}
+		return this.logItem(discordId, item, itemCategoryDatabase);
+	}
+
+	public logItemSell(discordId: string, item: GenericItemModel) {
+		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		switch (item.categoryName) {
+		case "weapons":
+			itemCategoryDatabase = LogsItemSellsWeapon;
+			break;
+		case "armors":
+			itemCategoryDatabase = LogsItemSellsArmor;
+			break;
+		case "objects":
+			itemCategoryDatabase = LogsItemSellsObject;
+			break;
+		case "potions":
+			itemCategoryDatabase = LogsItemSellsPotion;
+			break;
+		default:
+			break;
+		}
+		return this.logItem(discordId, item, itemCategoryDatabase);
+	}
+
 	private logPlayerAndNumber(
 		discordId: string,
 		valueFieldName: string,
@@ -512,50 +554,6 @@ export class LogsDatabase extends Database {
 				resolve();
 			});
 		});
-	}
-
-	public logItemGain(discordId: string, item: GenericItemModel) {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
-		switch (item.categoryName) {
-		case "weapons":
-			itemCategoryDatabase = LogsItemGainsWeapon;
-			break;
-		case "armors":
-			itemCategoryDatabase = LogsItemGainsArmor;
-			break;
-		case "objects":
-			itemCategoryDatabase = LogsItemGainsObject;
-			break;
-		case "potions":
-			itemCategoryDatabase = LogsItemGainsPotion;
-			break;
-		default:
-			break;
-		}
-		return new Promise(() => {
-			this.logItem(discordId, item, itemCategoryDatabase);
-		});
-	}
-
-	public logItemSell(discordId: string, item: GenericItemModel) {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
-		switch (item.categoryName) {
-		case "weapons":
-			itemCategoryDatabase = LogsItemSellsWeapon;
-			break;
-		case "armors":
-			itemCategoryDatabase = LogsItemSellsArmor;
-			break;
-		case "objects":
-			itemCategoryDatabase = LogsItemSellsObject;
-			break;
-		case "potions":
-			itemCategoryDatabase = LogsItemSellsPotion;
-			break;
-		default:
-			break;
-		}
-		return this.logItem(discordId, item, itemCategoryDatabase);
 	}
 
 	private logItem(discordId: string, item: GenericItemModel, model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }) {
