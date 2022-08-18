@@ -15,6 +15,7 @@ import {GenericItemModel} from "../../core/database/game/models/GenericItemModel
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type itemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 
@@ -80,6 +81,13 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 			);
 			return;
 		}
+		InventorySlot.findOne({
+			where: {
+				playerId: entity.Player.id,
+				slot: item.slot,
+				itemCategory: item.itemCategory
+			}
+		}).then(async item => await draftBotInstance.logsDatabase.logItemSell(entity.discordUserId, await item.getItem()));
 		[entity] = await Entities.getOrRegister(entity.discordUserId);
 		const money = item.value;
 		await InventorySlot.destroy({
