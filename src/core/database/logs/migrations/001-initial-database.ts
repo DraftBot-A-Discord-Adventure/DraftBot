@@ -230,6 +230,26 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("servers_joins", {
+		serverId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("servers_quits", {
+		serverId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -253,4 +273,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("unlocks");
 	await context.dropTable("players_class_changes");
 	await context.dropTable("players_votes");
+	await context.dropTable("servers_joins");
+	await context.dropTable("servers_quits");
 }
