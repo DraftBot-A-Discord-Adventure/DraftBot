@@ -198,7 +198,7 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				require("./DraftBot")
+				require("../../../../dist/src/core/bot/Draftbot")
 					.announceTopWeekWinner(client, context)
 					.then();
 			}, {
