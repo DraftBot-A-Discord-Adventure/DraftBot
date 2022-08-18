@@ -8,7 +8,7 @@ import {Client, TextChannel} from "discord.js";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
-import {botConfig, draftBotClient, shardId} from "./index";
+import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
 import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../database/game/models/Entity";
@@ -100,6 +100,7 @@ export class DraftBot {
 	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().finally(() => null);
+		draftBotInstance.logsDatabase.log15BestTopweek().then();
 		DraftBot.programDailyTimeout();
 	}
 
@@ -178,6 +179,7 @@ export class DraftBot {
 	 * End the top week
 	 */
 	static async topWeekEnd() {
+		draftBotInstance.logsDatabase.log15BestTopweek().then();
 		const winner = await Entity.findOne({
 			include: [
 				{

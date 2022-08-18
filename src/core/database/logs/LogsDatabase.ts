@@ -33,6 +33,9 @@ import {LogsMissionsDailyFinished} from "./models/LogsMissionsDailyFinished";
 import {LogsMissionsDaily} from "./models/LogsMissionsDaily";
 import {LogsMissionsCampaignProgresses} from "./models/LogsMissionsCampaignProgresses";
 import {LogsMissions} from "./models/LogsMissions";
+import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
+import {Entities} from "../game/models/Entity";
+import {TopConstants} from "../../constants/TopConstants";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -304,6 +307,96 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logServerJoin(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [server] = await LogsServers.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsServersJoins.create({
+					serverId: server.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logServerQuit(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [server] = await LogsServers.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsServersQuits.create({
+					serverId: server.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayers.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				const [maplinkLog] = await LogsMapLinks.findOrCreate({
+					where: {
+						start: mapLink.startMap,
+						end: mapLink.endMap
+					},
+					transaction
+				});
+				await LogsPlayersTravels.create({
+					playerId: player.id,
+					mapLinkId: maplinkLog.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public log15BestTopweek(): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
+				const now = Math.trunc(Date.now() / 1000);
+				for (let i = 0; i < entities.length; i++) {
+					const [player] = await LogsPlayers.findOrCreate({
+						where: {
+							discordId: entities[i].discordUserId
+						},
+						transaction
+					});
+					await LogsPlayers15BestTopweek.create({
+						playerId: player.id,
+						position: i + 1,
+						topWeekScore: entities[i].Player.weeklyScore,
+						date: now
+					}, {transaction});
+					resolve();
+				}
+				await transaction.commit();
+			});
+		});
+	}
+
 	private logPlayerAndNumber(
 		discordId: string,
 		valueFieldName: string,
@@ -378,71 +471,6 @@ export class LogsDatabase extends Database {
 				await model.create({
 					playerId: player.id,
 					missionId: mission.id,
-					date: Math.trunc(Date.now() / 1000)
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logServerJoin(discordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServers.findOrCreate({
-					where: {
-						discordId: discordId
-					},
-					transaction
-				});
-				await LogsServersJoins.create({
-					serverId: server.id,
-					date: Math.trunc(Date.now() / 1000)
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logServerQuit(discordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServers.findOrCreate({
-					where: {
-						discordId: discordId
-					},
-					transaction
-				});
-				await LogsServersQuits.create({
-					serverId: server.id,
-					date: Math.trunc(Date.now() / 1000)
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [player] = await LogsPlayers.findOrCreate({
-					where: {
-						discordId: discordId
-					},
-					transaction
-				});
-				const [maplinkLog] = await LogsMapLinks.findOrCreate({
-					where: {
-						start: mapLink.startMap,
-						end: mapLink.endMap
-					},
-					transaction
-				});
-				await LogsPlayersTravels.create({
-					playerId: player.id,
-					mapLinkId: maplinkLog.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
 				await transaction.commit();
