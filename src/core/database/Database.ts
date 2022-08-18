@@ -81,7 +81,8 @@ export abstract class Database {
 				dialect: "mariadb",
 				host: botConfig.MARIADB_HOST,
 				port: botConfig.MARIADB_PORT,
-				logging: false
+				logging: false,
+				transactionType: TYPES.IMMEDIATE
 			});
 			await this.sequelize.authenticate();
 			await this.sequelize.query("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';");
