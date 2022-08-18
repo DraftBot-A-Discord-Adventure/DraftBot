@@ -23,6 +23,9 @@ import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
 import {LogsPlayersVotes} from "./models/LogsPlayersVotes";
 import {LogsServersJoins} from "./models/LogsServersJoins";
 import {LogsServersQuits} from "./models/LogsServersQuits";
+import MapLink from "../game/models/MapLink";
+import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
+import {LogsMapLinks} from "./models/LogsMapLinks";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -330,6 +333,33 @@ export class LogsDatabase extends Database {
 				});
 				await LogsServersQuits.create({
 					serverId: server.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayers.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				const [maplinkLog] = await LogsMapLinks.findOrCreate({
+					where: {
+						start: mapLink.startMap,
+						end: mapLink.endMap
+					},
+					transaction
+				});
+				await LogsPlayersTravels.create({
+					playerId: player.id,
+					mapLinkId: maplinkLog.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
 				await transaction.commit();

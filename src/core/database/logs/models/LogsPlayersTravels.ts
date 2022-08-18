@@ -1,14 +1,20 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsServerJoin extends Model {
-	public readonly serverId!: number;
+export class LogsPlayersTravels extends Model {
+	public readonly playerId!: number;
+
+	public readonly mapLinkId!: number;
 
 	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsServerJoin.init({
-		serverId: {
+	LogsPlayersTravels.init({
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		mapLinkId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
@@ -18,10 +24,10 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "servers_joins",
+		tableName: "players_travels",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsServerJoin.removeAttribute("id");
+	LogsPlayersTravels.removeAttribute("id");
 }
