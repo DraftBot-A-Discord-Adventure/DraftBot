@@ -1,5 +1,5 @@
 import {Entities} from "./database/game/models/Entity";
-import {botConfig, draftBotClient} from "./bot";
+import {botConfig, draftBotClient, draftBotInstance} from "./bot";
 import {DraftBotVoteMessage} from "./messages/DraftBotVoteMessage";
 
 const DiscordBotList = require("dblapi.js");
@@ -67,8 +67,9 @@ class DBL {
 		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
 		voter.Player.save();
+		draftBotInstance.logsDatabase.logVote(user).then();
 		await draftBotClient.shard.broadcastEval((client, context) => {
-			require("./DBL")
+			require("../../../../dist/src/core/DBL")
 				.announceVoteAndGiveRole(client, context)
 				.then();
 		}, {
