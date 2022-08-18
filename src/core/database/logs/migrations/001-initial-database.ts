@@ -1,6 +1,38 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {logsItemAttributes} from "../models/LogsItems";
-import {logsPlayersNumbersAttributes} from "../models/LogsPlayersNumbers";
+
+const logsPlayersNumbersAttributes = {
+	playerId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	value: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	reason: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		allowNull: false
+	},
+	date: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	}
+};
+
+const logsItemAttributes = {
+	playerId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	itemId: {
+		type: DataTypes.SMALLINT.UNSIGNED,
+		allowNull: false
+	},
+	date: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	}
+};
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("players", {
@@ -378,7 +410,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-
 	await context.createTable("items_gains_armor", logsItemAttributes);
 	await context.createTable("items_gains_object", logsItemAttributes);
 	await context.createTable("items_gains_potion", logsItemAttributes);
@@ -422,4 +453,12 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("missions_found");
 	await context.dropTable("missions_campaign_progresses");
 	await context.dropTable("players_15_best_topweek");
+	await context.dropTable("items_gains_armor");
+	await context.dropTable("items_gains_object");
+	await context.dropTable("items_gains_potion");
+	await context.dropTable("items_gains_weapon");
+	await context.dropTable("items_sells_armor");
+	await context.dropTable("items_sells_object");
+	await context.dropTable("items_sells_potion");
+	await context.dropTable("items_sells_weapon");
 }
