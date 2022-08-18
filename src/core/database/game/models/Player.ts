@@ -426,6 +426,13 @@ export class Player extends Model {
 	}
 
 	public async drinkPotion() {
+		InventorySlot.findOne({
+			where: {
+				playerId: this.id,
+				slot: 0,
+				itemCategory: Constants.ITEM_CATEGORIES.POTION
+			}
+		}).then(async item => await draftBotInstance.logsDatabase.logItemSell((await this.getEntity()).discordUserId, await item.getItem()));
 		await InventorySlot.update(
 			{
 				itemId: Data.getModule("models.inventories").getNumber("potionId")
