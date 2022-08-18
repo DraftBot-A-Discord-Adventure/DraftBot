@@ -96,6 +96,7 @@ const main = async function() {
 	const onDiscordGuildCreate = async (guild: Guild) => {
 		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
+		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
 	};
 
@@ -105,6 +106,7 @@ const main = async function() {
 	const onDiscordGuildDelete = async (guild: Guild) => {
 		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
+		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
 	};
 

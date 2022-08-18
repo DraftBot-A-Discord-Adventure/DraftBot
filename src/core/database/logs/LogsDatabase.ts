@@ -21,6 +21,8 @@ import {LogsPlayerOccupiedAlteration} from "./models/LogsPlayerOccupiedAlteratio
 import {LogsUnlocks} from "./models/LogsUnlocks";
 import {LogsPlayerClassChanges} from "./models/LogsPlayerClassChanges";
 import {LogsPlayerVote} from "./models/LogsPlayerVote";
+import {LogsServerJoin} from "./models/LogsServerJoin";
+import {LogsServerQuit} from "./models/LogsServerQuit";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -290,6 +292,44 @@ export class LogsDatabase extends Database {
 				});
 				await LogsPlayerVote.create({
 					playerId: player.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logServerJoin(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [server] = await LogsServer.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsServerJoin.create({
+					serverId: server.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logServerQuit(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [server] = await LogsServer.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
+				await LogsServerQuit.create({
+					serverId: server.id,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
 				await transaction.commit();
