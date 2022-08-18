@@ -11,7 +11,10 @@ export abstract class LogsPlayersNumbers extends Model {
 }
 
 export const logsPlayersNumbersAttributes = {
-	playerId: DataTypes.INTEGER,
+	playerId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
 	value: {
 		type: DataTypes.INTEGER,
 		allowNull: false
