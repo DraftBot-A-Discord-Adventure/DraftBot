@@ -12,7 +12,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
-import {draftBotClient} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {discordIdToMention} from "../../core/utils/StringUtils";
@@ -97,6 +97,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 							language
 						);
 					}
+					draftBotInstance.logsDatabase.logItemGain(entityToEdit.discordUserId, item).then();
 				}
 				await interaction.followUp({
 					embeds: [new DraftBotEmbed()

@@ -19,6 +19,7 @@ import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {Tags} from "../database/game/models/Tag";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {draftBotInstance} from "../bot";
 
 /**
  * Count how many potions the player have
@@ -96,6 +97,7 @@ export const giveItemToPlayer = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
+		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
 		return;
 	}
 
@@ -254,6 +256,7 @@ const sellOrKeepItem = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
+		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, itemToReplaceInstance).then();
 		await channel.send({embeds: [menuEmbed]});
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
@@ -286,6 +289,7 @@ const sellOrKeepItem = async function(
 		params: {itemCost: money}
 	});
 	await entity.Player.save();
+	draftBotInstance.logsDatabase.logItemSell(entity.discordUserId, item).then();
 	await channel.send({
 		embeds: [
 			new DraftBotEmbed()

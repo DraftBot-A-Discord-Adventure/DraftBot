@@ -3,7 +3,7 @@ import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
 import {LogsPlayersExperience} from "./models/LogsPlayersExperience";
-import {CreateOptions, Model} from "sequelize";
+import {CreateOptions, Model, Transaction} from "sequelize";
 import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
 import {LogsPlayersScore} from "./models/LogsPlayersScore";
 import {LogsPlayersGems} from "./models/LogsPlayersGems";
@@ -36,6 +36,15 @@ import {LogsMissions} from "./models/LogsMissions";
 import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
 import {Entities} from "../game/models/Entity";
 import {TopConstants} from "../../constants/TopConstants";
+import {LogsItemGainsArmor} from "./models/LogsItemsGainsArmor";
+import {GenericItemModel} from "../game/models/GenericItemModel";
+import {LogsItemGainsObject} from "./models/LogsItemsGainsObject";
+import {LogsItemGainsPotion} from "./models/LogsItemsGainsPotion";
+import {LogsItemGainsWeapon} from "./models/LogsItemsGainsWeapon";
+import {LogsItemSellsArmor} from "./models/LogsItemsSellsArmor";
+import {LogsItemSellsObject} from "./models/LogsItemsSellsObject";
+import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
+import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -501,6 +510,69 @@ export class LogsDatabase extends Database {
 				}, {transaction});
 				await transaction.commit();
 				resolve();
+			});
+		});
+	}
+
+	public logItemGain(discordId: string, item: GenericItemModel) {
+		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		switch (item.categoryName) {
+		case "weapons":
+			itemCategoryDatabase = LogsItemGainsWeapon;
+			break;
+		case "armors":
+			itemCategoryDatabase = LogsItemGainsArmor;
+			break;
+		case "objects":
+			itemCategoryDatabase = LogsItemGainsObject;
+			break;
+		case "potions":
+			itemCategoryDatabase = LogsItemGainsPotion;
+			break;
+		default:
+			break;
+		}
+		return new Promise(() => {
+			this.logItem(discordId, item, itemCategoryDatabase);
+		});
+	}
+
+	public logItemSell(discordId: string, item: GenericItemModel) {
+		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		switch (item.categoryName) {
+		case "weapons":
+			itemCategoryDatabase = LogsItemSellsWeapon;
+			break;
+		case "armors":
+			itemCategoryDatabase = LogsItemSellsArmor;
+			break;
+		case "objects":
+			itemCategoryDatabase = LogsItemSellsObject;
+			break;
+		case "potions":
+			itemCategoryDatabase = LogsItemSellsPotion;
+			break;
+		default:
+			break;
+		}
+		return this.logItem(discordId, item, itemCategoryDatabase);
+	}
+
+	private logItem(discordId: string, item: GenericItemModel, model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction: Transaction) => {
+				const [player] = await LogsPlayers.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				await model.create({
+					playerId: player.id,
+					itemId: item.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
 			});
 		});
 	}
