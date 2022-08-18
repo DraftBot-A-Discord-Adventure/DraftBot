@@ -20,6 +20,7 @@ import {LogsPlayerStandardAlteration} from "./models/LogsPlayerStandardAlteratio
 import {LogsPlayerOccupiedAlteration} from "./models/LogsPlayerOccupiedAlteration";
 import {LogsUnlocks} from "./models/LogsUnlocks";
 import {LogsPlayerClassChanges} from "./models/LogsPlayerClassChanges";
+import {LogsPlayerVote} from "./models/LogsPlayerVote";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -272,6 +273,39 @@ export class LogsDatabase extends Database {
 					classId,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logVote(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsPlayerVote.create({
+					playerId: (await LogsPlayer.findOrCreate({
+						where: {
+							discordId: discordId
+						},
+						transaction
+					}))[0].id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
+	}
+
+	public logPlayer(discordId: string): Promise<void> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsPlayer.findOrCreate({
+					where: {
+						discordId: discordId
+					},
+					transaction
+				});
 				await transaction.commit();
 				resolve();
 			});

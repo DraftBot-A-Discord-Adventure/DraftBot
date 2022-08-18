@@ -480,6 +480,7 @@ export class CommandsManager {
 
 
 		const [entity] = await Entities.getOrRegister(interaction.user.id);
+		await draftBotInstance.logsDatabase.logPlayer(interaction.user.id);
 		if (!await this.userCanPerformCommand(commandInfo, entity, {interaction, tr}, true)) {
 			return;
 		}
