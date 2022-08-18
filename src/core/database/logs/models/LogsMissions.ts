@@ -1,31 +1,37 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsMapLinks extends Model {
+export class LogsMissions extends Model {
 	public readonly id!: number;
 
-	public readonly start!: number;
+	public readonly name!: string;
 
-	public readonly end!: number;
+	public readonly variant!: number;
+
+	public readonly objective!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsMapLinks.init({
+	LogsMissions.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		start: {
-			type: DataTypes.SMALLINT.UNSIGNED,
+		name: {
+			type: DataTypes.STRING,
 			allowNull: false
 		},
-		end: {
-			type: DataTypes.SMALLINT.UNSIGNED,
+		variant: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		objective: {
+			type: DataTypes.INTEGER,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "map_links",
+		tableName: "missions",
 		freezeTableName: true,
 		timestamps: false
 	});

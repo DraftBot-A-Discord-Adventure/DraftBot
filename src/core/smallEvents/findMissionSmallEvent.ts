@@ -13,7 +13,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.findMission", language);
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		const missionSlot = await MissionsController.addRandomMissionToPlayer(entity.Player, MissionsController.getRandomDifficulty(entity.Player));
+		const missionSlot = await MissionsController.addRandomMissionToPlayer(entity, MissionsController.getRandomDifficulty(entity.Player));
 		seEmbed.setDescription(
 			seEmbed.description
 			+ intro

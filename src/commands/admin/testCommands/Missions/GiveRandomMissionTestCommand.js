@@ -26,7 +26,7 @@ const giveRandomMissionTestCommand = async (language, interaction, args) => {
 	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
-	const missionSlot = await MissionsController.addRandomMissionToPlayer(entity.Player,
+	const missionSlot = await MissionsController.addRandomMissionToPlayer(entity,
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 	const mission = await Missions.getById(missionSlot.missionId);
 
