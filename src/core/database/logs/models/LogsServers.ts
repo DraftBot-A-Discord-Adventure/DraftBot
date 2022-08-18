@@ -1,13 +1,13 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsServer extends Model {
+export class LogsServers extends Model {
 	public readonly id!: number;
 
 	public readonly discordId!: string;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsServer.init({
+	LogsServers.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
