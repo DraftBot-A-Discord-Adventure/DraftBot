@@ -8,6 +8,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
+import { draftBotInstance } from "../../core/bot";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	if (await sendBlockedError(interaction, language)) {
@@ -42,6 +43,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	pet.nickname = petNickname;
 	await pet.save();
+	draftBotInstance.logsDatabase.logPetNickname(pet).then();
 	await interaction.reply({embeds: [successEmbed]});
 }
 
