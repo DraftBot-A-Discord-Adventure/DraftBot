@@ -167,7 +167,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 		}
 		if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
 			noAlteHeal = false;
-			await Maps.removeEffect(member.Player);
+			await Maps.removeEffect(member.Player, NumberChangeReason.GUILD_DAILY);
 		}
 	});
 	if (!needsHeal && noAlteHeal) {
@@ -277,7 +277,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
  */
 async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) {
 	const timeAdvanced = Math.round(guildLike.guild.level * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, async member => await Maps.advanceTime(member.Player, hoursToMinutes(timeAdvanced)));
+	await genericAwardingFunction(guildLike.members, async member => await Maps.advanceTime(member.Player, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
 	stringInfos.embed.setDescription(guildDailyModule.format("hospital", {
 		timeMoved: timeAdvanced
 	}));

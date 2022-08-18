@@ -45,10 +45,15 @@ import {LogsItemSellsArmor} from "./models/LogsItemsSellsArmor";
 import {LogsItemSellsObject} from "./models/LogsItemsSellsObject";
 import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
 import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
+import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
 	NULL,
+
+	// Value to use if you don't want to log the information, SHOULDN'T APPEAR IN THE DATABASE
+	// You MUST also comment why you use this constant where you use it
+	IGNORE,
 
 	// Admin
 	TEST,
@@ -446,6 +451,30 @@ export class LogsDatabase extends Database {
 			break;
 		}
 		return this.logItem(discordId, item, itemCategoryDatabase);
+	}
+
+	public logTimewarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
+		if (reason === NumberChangeReason.IGNORE) {
+			return;
+		}
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [player] = await LogsPlayers.findOrCreate({
+					where: {
+						discordId
+					},
+					transaction
+				});
+				await LogsPlayersTimewarps.create({
+					playerId: player.id,
+					time,
+					reason,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+				resolve();
+			});
+		});
 	}
 
 	private logPlayerAndNumber(
