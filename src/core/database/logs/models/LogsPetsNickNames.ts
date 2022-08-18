@@ -14,7 +14,10 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		name: DataTypes.SMALLINT,
+		name: {
+			type: DataTypes.STRING(16), // eslint-disable-line new-cap
+			allowNull: true
+		},
 		date: {
 			type: DataTypes.DATE,
 			allowNull: false

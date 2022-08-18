@@ -47,8 +47,8 @@ import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
 import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
 import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
 import PetEntity from "../game/models/PetEntity";
-import {LogsPets} from "./models/LogsPets";
 import {LogsPetsNickNames} from "./models/LogsPetsNickNames";
+import {LogsPetEntities} from "./models/LogsPetEntities";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -93,6 +93,8 @@ export enum NumberChangeReason {
 	LEVEL_UP,
 	RESPAWN,
 }
+
+type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
 
 export class LogsDatabase extends Database {
 
@@ -480,12 +482,21 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	private logPlayerAndNumber(
-		discordId: string,
-		valueFieldName: string,
-		value: number,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
+	public logPetNickname(petRenamed: PetEntity) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const pet = await this.findOrCreatePetEntity(petRenamed);
+				await LogsPetsNickNames.create({
+					petId: pet.id,
+					name: petRenamed.nickname,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	private logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayers.findOrCreate({
@@ -506,10 +517,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	private logSimplePlayerDate(
-		discordId: string,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
+	private logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayers.findOrCreate({
@@ -528,18 +536,12 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	private logMissionChange(
-		discordId: string,
-		missionId: string,
-		variant: number,
-		objective: number,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
+	private logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayers.findOrCreate({
 					where: {
-						discordId: discordId
+						discordId
 					},
 					transaction
 				});
@@ -562,12 +564,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	private logNumberChange(
-		discordId: string,
-		value: number,
-		reason: NumberChangeReason,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
+	private logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayers.findOrCreate({
@@ -607,26 +604,20 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logPetNickname(petRenamed: PetEntity) {
-		return new Promise(() => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [pet] = await LogsPets.findOrCreate({
+	private findOrCreatePetEntity(petEntity: PetEntity): Promise<LogsPetEntities> {
+		return new Promise((resolve) => {
+			this.sequelize.transaction().then(async (transaction: Transaction) => {
+				const logPetEntity = (await LogsPetEntities.findOrCreate({
 					where: {
-						inGameId: petRenamed.id
-					},
-					defaults: {
-						petId: petRenamed.petId,
-						sex: petRenamed.sex,
+						gameId: petEntity.id,
+						petId: petEntity.petId,
+						isFemale: petEntity.sex === Constants.PETS.FEMALE,
 						isDeleted: false
 					},
 					transaction
-				});
-				await LogsPetsNickNames.create({
-					petId: pet.id,
-					name: petRenamed.nickname,
-					date: Math.trunc(Date.now() / 1000)
-				}, {transaction});
+				}))[0];
 				await transaction.commit();
+				resolve(logPetEntity);
 			});
 		});
 	}
