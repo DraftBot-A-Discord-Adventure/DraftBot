@@ -5,6 +5,7 @@ import Mission from "./Mission";
 import {Data} from "../../../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import moment = require("moment");
+import {draftBotInstance} from "../../../bot";
 
 export class DailyMission extends Model {
 	public readonly id!: number;
@@ -78,6 +79,7 @@ export class DailyMissions {
 			dailyMission.lastDate = new Date();
 			await dailyMission.save();
 		}
+		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective).then();
 		return await this.queryDailyMission();
 	}
 }

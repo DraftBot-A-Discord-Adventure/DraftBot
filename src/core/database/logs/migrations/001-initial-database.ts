@@ -250,7 +250,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("maplinks", {
+	await context.createTable("map_links", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -272,6 +272,101 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		mapLinkId: {
 			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		variant: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		objective: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_daily", {
+		missionId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_daily_finished", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_failed", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		missionId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_finished", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		missionId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_found", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		missionId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("missions_campaign_progresses", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		number: {
+			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
 		date: {
@@ -304,6 +399,13 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_votes");
 	await context.dropTable("servers_joins");
 	await context.dropTable("servers_quits");
-	await context.dropTable("maplinks");
+	await context.dropTable("map_links");
 	await context.dropTable("players_travels");
+	await context.dropTable("missions");
+	await context.dropTable("missions_daily");
+	await context.dropTable("missions_daily_finished");
+	await context.dropTable("missions_failed");
+	await context.dropTable("missions_finished");
+	await context.dropTable("missions_found");
+	await context.dropTable("missions_campaign_progresses");
 }
