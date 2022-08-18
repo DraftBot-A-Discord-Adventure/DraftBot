@@ -105,7 +105,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				return false;
 			}
 			if (entity.Player.effect !== Constants.EFFECT.DEAD && entity.Player.effect !== Constants.EFFECT.LOCKED) {
-				await Maps.removeEffect(entity.Player);
+				await Maps.removeEffect(entity.Player, NumberChangeReason.SHOP);
 				await entity.Player.save();
 			}
 			await MissionsController.update(entity, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});

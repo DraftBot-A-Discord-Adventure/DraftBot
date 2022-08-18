@@ -28,7 +28,7 @@ const initPlayerTestCommand = async (language, interaction) => {
 	entity.Player.badges = null;
 	entity.Player.effectEndDate = Date.now();
 	entity.Player.effectDuration = 0;
-	await Maps.removeEffect(entity.Player);
+	await Maps.removeEffect(entity.Player, NumberChangeReason.TEST);
 	await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST);
 	entity.Player.startTravelDate = new Date();
 	await entity.Player.save();

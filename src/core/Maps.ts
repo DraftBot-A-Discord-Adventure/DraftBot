@@ -67,7 +67,8 @@ export class Maps {
 
 
 	static async applyEffect(player: Player, effect: string, time: number, reason: NumberChangeReason): Promise<void> {
-		await this.removeEffect(player);
+		// Reason is IGNORE here because you don't want to log a timewarp when you get an alteration
+		await this.removeEffect(player, NumberChangeReason.IGNORE);
 		player.effect = effect;
 		if (effect === Constants.EFFECT.OCCUPIED) {
 			player.effectDuration = time;
@@ -81,18 +82,18 @@ export class Maps {
 		player.getEntity().then(entity => draftBotInstance.logsDatabase.logAlteration(entity.discordUserId, effect, reason, time).then());
 	}
 
-	static async removeEffect(player: Player): Promise<void> {
+	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
 		const remainingTime = player.effectRemainingTime();
 		player.effect = Constants.EFFECT.SMILEY;
 		player.effectDuration = 0;
 		player.effectEndDate = new Date();
 		if (remainingTime > 0) {
-			await this.advanceTime(player, millisecondsToMinutes(remainingTime));
+			await this.advanceTime(player, millisecondsToMinutes(remainingTime), reason);
 		}
 		await player.save();
 	}
 
-	static async advanceTime(player: Player, time: number): Promise<void> {
+	static async advanceTime(player: Player, time: number, reason: NumberChangeReason): Promise<void> {
 		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
 			if (t >= player.effectEndDate.valueOf() - Date.now()) {
@@ -108,6 +109,7 @@ export class Maps {
 			await lastSmallEvent.save();
 		}
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() - t);
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimewarp(entity.discordUserId, time, reason));
 	}
 
 	/**

@@ -6,6 +6,7 @@ import {Translations} from "../Translations";
 import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -15,7 +16,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 
-		await Maps.advanceTime(entity.Player, timeAdvanced);
+		await Maps.advanceTime(entity.Player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 
 		seEmbed.setDescription(
