@@ -256,7 +256,7 @@ const sellOrKeepItem = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
-		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, itemToReplaceInstance).then();
+		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
 		await channel.send({embeds: [menuEmbed]});
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
