@@ -1,32 +1,34 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPets extends Model {
+export class LogsPetEntities extends Model {
 	public readonly id!: number;
 
-	public readonly inGameId!: number;
+	public readonly gameId!: number;
 
 	public readonly petId!: number;
 
-	public readonly isDeleted: boolean;
+	public readonly isFemale!: boolean;
+
+	public readonly isDeleted!: boolean;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPets.init({
+	LogsPetEntities.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		inGameId: {
-			type: DataTypes.INTEGER,
+		gameId: {
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		},
 		petId: {
-			type: DataTypes.SMALLINT,
+			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
-		sex: {
-			type: DataTypes.STRING,
+		isFemale: {
+			type: DataTypes.BOOLEAN,
 			allowNull: false
 		},
 		isDeleted: {
@@ -35,7 +37,7 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "pets",
+		tableName: "pet_entities",
 		freezeTableName: true,
 		timestamps: false
 	});
