@@ -18,7 +18,7 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "players_vote",
+		tableName: "players_votes",
 		freezeTableName: true,
 		timestamps: false
 	});
