@@ -46,6 +46,9 @@ import {LogsItemSellsObject} from "./models/LogsItemsSellsObject";
 import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
 import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
 import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
+import PetEntity from "../game/models/PetEntity";
+import {LogsPets} from "./models/LogsPets";
+import {LogsPetsNickNames} from "./models/LogsPetsNickNames";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -536,7 +539,7 @@ export class LogsDatabase extends Database {
 			this.sequelize.transaction().then(async (transaction) => {
 				const [player] = await LogsPlayers.findOrCreate({
 					where: {
-						discordId
+						discordId: discordId
 					},
 					transaction
 				});
@@ -597,6 +600,30 @@ export class LogsDatabase extends Database {
 				await model.create({
 					playerId: player.id,
 					itemId: item.id,
+					date: Math.trunc(Date.now() / 1000)
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logPetNickname(petRenamed: PetEntity) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const [pet] = await LogsPets.findOrCreate({
+					where: {
+						inGameId: petRenamed.id
+					},
+					defaults: {
+						petId: petRenamed.petId,
+						sex: petRenamed.sex,
+						isDeleted: false
+					},
+					transaction
+				});
+				await LogsPetsNickNames.create({
+					petId: pet.id,
+					name: petRenamed.nickname,
 					date: Math.trunc(Date.now() / 1000)
 				}, {transaction});
 				await transaction.commit();
