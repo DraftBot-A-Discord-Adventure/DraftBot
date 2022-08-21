@@ -34,6 +34,21 @@ const logsItemAttributes = {
 	}
 };
 
+const logsShopLoggingAttributes = {
+	playerId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	shopItem: {
+		type: DataTypes.TINYINT,
+		allowNull: false
+	},
+	date: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	}
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("players", {
 		id: {
@@ -520,6 +535,15 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("classical_shop_buyouts", logsShopLoggingAttributes);
+	await context.createTable("guild_shop_buyouts", {
+		...logsShopLoggingAttributes,
+		amount: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		}
+	});
+	await context.createTable("mission_shop_buyouts", logsShopLoggingAttributes);
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -569,4 +593,7 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("guilds");
 	await context.dropTable("guilds_kicks");
 	await context.dropTable("daily_potions");
+	await context.dropTable("classical_shop_buyouts");
+	await context.dropTable("guild_shop_buyouts");
+	await context.dropTable("mission_shop_buyouts");
 }

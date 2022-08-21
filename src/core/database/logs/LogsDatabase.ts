@@ -54,6 +54,10 @@ import {LogsGuilds} from "./models/LogsGuilds";
 import {Player} from "../game/models/Player";
 import {LogsGuildsKicks} from "./models/LogsGuildsKicks";
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
+import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
+import {LogsGuildShopBuyouts} from "./models/LogsGuildShopBuyouts";
+import {LogsMissionShopBuyouts} from "./models/LogsMissionShopBuyouts";
+import {getFoodIndexOf} from "../../utils/FoodUtils";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -97,6 +101,25 @@ export enum NumberChangeReason {
 	UNLOCK,
 	LEVEL_UP,
 	RESPAWN,
+}
+
+export enum ShopItemType {
+	DAILY_POTION,
+	RANDOM_ITEM,
+	ALTERATION_HEAL,
+	FULL_REGEN,
+	SLOT_EXTENSION,
+	BADGE,
+	COMMON_FOOD,
+	HERBIVOROUS_FOOD,
+	CARNIVOROUS_FOOD,
+	ULTIMATE_FOOD,
+	MONEY,
+	TREASURE,
+	POINTS,
+	MISSION_SKIP,
+	PET_INFORMATION,
+	GUILD_XP,
 }
 
 type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
@@ -490,6 +513,65 @@ export class LogsDatabase extends Database {
 			this.sequelize.transaction().then(async (transaction) => {
 				await LogsDailyPotions.create({
 					potionId,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logClassicalShopBuyout(discordId: string, shopItem: ShopItemType) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPlayer = await this.findOrCreatePlayer(discordId);
+				await LogsClassicalShopBuyouts.create({
+					playerId: logPlayer.id,
+					shopItem,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildShopBuyout(discordId: string, shopItem: ShopItemType) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPlayer = await this.findOrCreatePlayer(discordId);
+				await LogsGuildShopBuyouts.create({
+					playerId: logPlayer.id,
+					shopItem,
+					amount: 1,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number) {
+		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés avec les items du shop de guilde, décalés de 6
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPlayer = await this.findOrCreatePlayer(discordId);
+				await LogsGuildShopBuyouts.create({
+					playerId: logPlayer.id,
+					shopItem,
+					amount,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logMissionShopBuyout(discordId: string, shopItem: ShopItemType) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPlayer = await this.findOrCreatePlayer(discordId);
+				await LogsMissionShopBuyouts.create({
+					playerId: logPlayer.id,
+					shopItem,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
