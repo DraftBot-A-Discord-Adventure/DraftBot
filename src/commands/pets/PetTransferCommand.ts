@@ -12,6 +12,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
+import {draftBotInstance} from "../../core/bot";
 
 /**
  * Allow to transfer a pet
@@ -89,6 +90,7 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: playerPet.getPetEmote() + " " + (playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language))
 	}));
+	draftBotInstance.logsDatabase.logPetTransfer(playerPet, null).then();
 	return interaction.reply({embeds: [confirmEmbed]});
 }
 
@@ -134,6 +136,7 @@ function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: Draf
 			pet: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
+	draftBotInstance.logsDatabase.logPetTransfer(playerPet, swPetEntity).then();
 }
 
 async function updateMissionsOfEntity(entity: Entity, interaction: CommandInteraction, language: string, swPetEntity: PetEntity) {

@@ -5,6 +5,7 @@ import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 module.exports.commandInfo = {
 	name: "removeplayereffect",
 	aliases: ["rmeffect"],
+	commandFormat: "",
 	messageWhenExecuted: "Vous n'avez plus d'effets !",
 	description: "Enlève votre effet actuel",
 	commandTestShouldReply: true
