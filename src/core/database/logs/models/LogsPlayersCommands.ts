@@ -7,7 +7,7 @@ export class LogsPlayersCommands extends Model {
 
 	public readonly commandId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

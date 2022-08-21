@@ -5,7 +5,7 @@ export class LogsMissionsCampaignProgresses extends Model {
 
 	public readonly number!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

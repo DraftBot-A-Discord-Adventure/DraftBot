@@ -5,7 +5,7 @@ export class LogsPlayersLevel extends Model {
 
 	public readonly level!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
