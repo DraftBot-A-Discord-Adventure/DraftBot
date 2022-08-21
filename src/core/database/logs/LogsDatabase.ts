@@ -53,6 +53,7 @@ import {Guild} from "../game/models/Guild";
 import {LogsGuilds} from "./models/LogsGuilds";
 import {Player} from "../game/models/Player";
 import {LogsGuildsKicks} from "./models/LogsGuildsKicks";
+import {LogsDailyPotions} from "./models/LogsDailyPotions";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -477,6 +478,18 @@ export class LogsDatabase extends Database {
 				await LogsGuildsKicks.create({
 					guildId: logGuild.id,
 					kickedPlayer: kickedPlayer.id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logDailyPotion(potionId: number) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsDailyPotions.create({
+					potionId,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
