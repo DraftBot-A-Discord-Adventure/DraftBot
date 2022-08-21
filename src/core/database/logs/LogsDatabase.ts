@@ -60,6 +60,8 @@ import {LogsMissionShopBuyouts} from "./models/LogsMissionShopBuyouts";
 import {getFoodIndexOf} from "../../utils/FoodUtils";
 import {LogsDailyTimeouts} from "./models/LogsDailyTimeouts";
 import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
+import {GuildDailyConstants} from "../../constants/GuildDailyConstants";
+import {LogsGuildsDailies} from "./models/LogsGuildsDailies";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -596,6 +598,21 @@ export class LogsDatabase extends Database {
 				await LogsMissionShopBuyouts.create({
 					playerId: logPlayer.id,
 					shopItem,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildDaily(guild: Guild, rewardResult: string) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuild = await this.findOrCreateGuild(guild);
+				const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
+				await LogsGuildsDailies.create({
+					guildId: logGuild.id,
+					reward,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
