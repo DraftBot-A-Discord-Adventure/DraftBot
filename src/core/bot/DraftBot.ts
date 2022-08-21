@@ -124,10 +124,12 @@ export class DraftBot {
 			},
 			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
 		}).then(async potions => {
+			let potionId: number;
 			if (shopPotion) {
+				potionId = potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id;
 				await Shop.update(
 					{
-						shopPotionId: potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id
+						shopPotionId: potionId
 					},
 					{
 						where: {
@@ -137,17 +139,18 @@ export class DraftBot {
 						}
 					}
 				);
-				console.info(`INFO : new potion in shop : ${potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id}`);
 			}
 			else {
+				potionId = potions[0].id;
 				console.log("WARN : no potion in shop");
 				await Shop.create(
 					{
 						shopPotionId: potions[0].id
 					}
 				);
-				console.info(`INFO : new potion in shop : ${potions[0].id}`);
 			}
+			console.info(`INFO : new potion in shop : ${potionId}`);
+			draftBotInstance.logsDatabase.logDailyPotion(potionId).then();
 		});
 	}
 
