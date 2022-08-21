@@ -5,7 +5,7 @@ export class LogsMissionsFailed extends Model {
 
 	public readonly missionId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

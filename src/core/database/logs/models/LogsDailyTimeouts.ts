@@ -1,27 +1,19 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsMissionsDaily extends Model {
-	public readonly missionId!: number;
-
+export class LogsDailyTimeouts extends Model {
 	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsMissionsDaily.init({
-		missionId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
+	LogsDailyTimeouts.init({
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "missions_daily",
+		tableName: "daily_timeouts",
 		freezeTableName: true,
 		timestamps: false
-	});
-
-	LogsMissionsDaily.removeAttribute("id");
+	}).removeAttribute("id");
 }

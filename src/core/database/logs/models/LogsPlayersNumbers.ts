@@ -7,7 +7,7 @@ export abstract class LogsPlayersNumbers extends Model {
 
 	public readonly reason!: string;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export const logsPlayersNumbersAttributes = {

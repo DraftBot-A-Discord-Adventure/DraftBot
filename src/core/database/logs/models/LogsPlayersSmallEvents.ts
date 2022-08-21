@@ -5,7 +5,7 @@ export class LogsPlayersSmallEvents extends Model {
 
 	public readonly smallEventId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

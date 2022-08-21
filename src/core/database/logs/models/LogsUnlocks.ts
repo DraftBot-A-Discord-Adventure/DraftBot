@@ -5,7 +5,7 @@ export class LogsUnlocks extends Model {
 
 	public readonly releasedId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

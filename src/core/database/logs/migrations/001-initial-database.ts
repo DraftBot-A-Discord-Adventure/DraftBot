@@ -544,6 +544,18 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		}
 	});
 	await context.createTable("mission_shop_buyouts", logsShopLoggingAttributes);
+	await context.createTable("daily_timeouts", {
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("top_week_ends", {
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -596,4 +608,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("classical_shop_buyouts");
 	await context.dropTable("guild_shop_buyouts");
 	await context.dropTable("mission_shop_buyouts");
+	await context.dropTable("daily_timeouts");
+	await context.dropTable("top_week_ends");
 }
