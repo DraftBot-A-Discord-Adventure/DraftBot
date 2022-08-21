@@ -19,6 +19,8 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {ShopItemType} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Displays the guild shop
@@ -90,6 +92,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 						}))]
 			}
 			);
+			draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
 			return true;
 		}
 	);
@@ -117,6 +120,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 					count: amount
 				});
 			}
+			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(entity.discordUserId, name, amount).then();
 			return true;
 		},
 		amounts
