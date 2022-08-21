@@ -469,7 +469,44 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: true
 		},
 		date: {
-			type: DataTypes.DATE,
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("guilds", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		gameId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		chiefId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		isDeleted: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false
+		}
+	});
+	await context.createTable("guilds_kicks", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		kickedPlayer: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		}
 	});
@@ -519,4 +556,6 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("players_timewarps");
 	await context.dropTable("pet_entities");
 	await context.dropTable("pet_nicknames");
+	await context.dropTable("guilds");
+	await context.dropTable("guilds_kicks");
 }
