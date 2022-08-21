@@ -7,7 +7,7 @@ export class LogsPlayersPossibilities extends Model {
 
 	public readonly possibilityId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

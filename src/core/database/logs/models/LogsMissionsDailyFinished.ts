@@ -3,7 +3,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsMissionsDailyFinished extends Model {
 	public readonly playerId!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

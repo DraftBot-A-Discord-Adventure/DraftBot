@@ -58,6 +58,8 @@ import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
 import {LogsGuildShopBuyouts} from "./models/LogsGuildShopBuyouts";
 import {LogsMissionShopBuyouts} from "./models/LogsMissionShopBuyouts";
 import {getFoodIndexOf} from "../../utils/FoodUtils";
+import {LogsDailyTimeouts} from "./models/LogsDailyTimeouts";
+import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -558,6 +560,28 @@ export class LogsDatabase extends Database {
 					playerId: logPlayer.id,
 					shopItem,
 					amount,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logDailyTimeout() {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsDailyTimeouts.create({
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logTopWeekEnd() {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsTopWeekEnd.create({
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();

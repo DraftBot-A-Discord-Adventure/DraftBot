@@ -7,7 +7,7 @@ export class LogsPlayersStandardAlterations extends Model {
 
 	public readonly reason!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

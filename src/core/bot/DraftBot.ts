@@ -101,6 +101,7 @@ export class DraftBot {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().finally(() => null);
 		draftBotInstance.logsDatabase.log15BestTopweek().then();
+		draftBotInstance.logsDatabase.logDailyTimeout().then();
 		DraftBot.programDailyTimeout();
 	}
 
@@ -225,6 +226,7 @@ export class DraftBot {
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
 		DraftBot.programTopWeekTimeout();
+		draftBotInstance.logsDatabase.logTopWeekEnd().then();
 	}
 
 	/**
