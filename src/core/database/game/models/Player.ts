@@ -577,12 +577,12 @@ export class Players {
                                     RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                              FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players) subquery
                        WHERE subquery.id = :id`;
-		return <Player><unknown>(await Player.sequelize.query(query, {
+		return (await Player.sequelize.query<Player>(query, {
 			replacements: {
 				id: id
 			},
 			type: QueryTypes.SELECT
-		}));
+		}))[0] as Player;
 	}
 
 	static async getNbMeanPoints(): Promise<number> {

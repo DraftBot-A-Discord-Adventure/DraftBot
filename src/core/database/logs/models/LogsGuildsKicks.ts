@@ -1,30 +1,30 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPetsNickNames extends Model {
-	public readonly petId!: number;
+export class LogsGuildsKicks extends Model {
+	public readonly guildId!: number;
 
-	public readonly name: string;
+	public readonly kickedPlayer: number;
 
 	public readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPetsNickNames.init({
-		petId: {
+	LogsGuildsKicks.init({
+		guildId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		name: {
-			type: DataTypes.STRING(16), // eslint-disable-line new-cap
-			allowNull: true
+		kickedPlayer: {
+			type: DataTypes.INTEGER,
+			allowNull: false
 		},
 		date: {
-			type: DataTypes.DATE,
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "pet_nicknames",
+		tableName: "guilds_kicks",
 		freezeTableName: true,
 		timestamps: false
 	}).removeAttribute("id");

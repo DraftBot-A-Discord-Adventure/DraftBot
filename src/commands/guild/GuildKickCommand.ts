@@ -11,6 +11,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type EntityInformation = { entity: Entity, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
@@ -38,6 +39,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 				);
 				return;
 			}
+			draftBotInstance.logsDatabase.logGuildKick(kickedGuild, kickedEntity.discordUserId).then();
 			kickedEntity.Player.guildId = null;
 			if (entityInformation.guild.elderId === kickedEntity.id) {
 				entityInformation.guild.elderId = null;
