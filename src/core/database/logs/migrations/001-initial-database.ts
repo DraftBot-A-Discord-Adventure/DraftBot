@@ -570,6 +570,20 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("pets_transfers", {
+		playerPetId: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		guildPetId: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down(context: QueryInterface): Promise<void> {
@@ -625,4 +639,5 @@ export async function down(context: QueryInterface): Promise<void> {
 	await context.dropTable("daily_timeouts");
 	await context.dropTable("top_week_ends");
 	await context.dropTable("guilds_dailies");
+	await context.dropTable("pets_transfers");
 }

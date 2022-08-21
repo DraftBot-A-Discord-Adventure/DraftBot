@@ -62,6 +62,7 @@ import {LogsDailyTimeouts} from "./models/LogsDailyTimeouts";
 import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
 import {GuildDailyConstants} from "../../constants/GuildDailyConstants";
 import {LogsGuildsDailies} from "./models/LogsGuildsDailies";
+import {LogsPetsTransfers} from "./models/LogsPetsTransfers";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -613,6 +614,21 @@ export class LogsDatabase extends Database {
 				await LogsGuildsDailies.create({
 					guildId: logGuild.id,
 					reward,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logPetTransfer(guildPet: PetEntity, playerPet: PetEntity) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuildPet = guildPet ? await this.findOrCreatePetEntity(guildPet) : null;
+				const logPlayerPet = playerPet ? await this.findOrCreatePetEntity(playerPet) : null;
+				await LogsPetsTransfers.create({
+					playerPetId: logPlayerPet ? logPlayerPet.id : null,
+					guildPetId: logGuildPet ? logGuildPet.id : null,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
