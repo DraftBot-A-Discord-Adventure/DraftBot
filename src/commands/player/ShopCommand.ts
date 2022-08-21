@@ -23,7 +23,8 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 /**
  * Displays the shop
@@ -90,6 +91,7 @@ function getRandomItemShopItem(translationModule: TranslationModule) {
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			await giveRandomItem(message.user, message.sentMessage.channel, message.language, entity);
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.RANDOM_ITEM).then();
 			return true;
 		});
 }
@@ -114,6 +116,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 					.formatAuthor(translationModule.get("success"), message.user)
 					.setDescription(translationModule.get("permanentItems.healAlterations.give"))]
 			});
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.ALTERATION_HEAL).then();
 			return true;
 		}
 	);
@@ -137,6 +140,7 @@ function getRegenShopItem(translationModule: TranslationModule) {
 						.setDescription(translationModule.get("permanentItems.regen.give"))
 				]
 			});
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.FULL_REGEN).then();
 			return true;
 		}
 	);
@@ -160,6 +164,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 					.setDescription(Constants.BADGES.RICH_PERSON + " " + translationModule.get("permanentItems.badge.name"))
 				]
 			});
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.BADGE).then();
 			return true;
 		}
 	);
@@ -181,6 +186,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			await giveItemToPlayer(entity, potion, translationModule.language, discordUser, channel);
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			return true;
 		}
 	);
@@ -238,6 +244,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 						}
 					}
 					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
+					draftBotInstance.logsDatabase.logClassicalShopBuyout(shopMessage.user.id, ShopItemType.SLOT_EXTENSION).then();
 				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (const category of availableCategories) {

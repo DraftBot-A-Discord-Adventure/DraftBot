@@ -19,7 +19,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 /**
  * Displays the mission shop
@@ -163,6 +164,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 					}
 					BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 					await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+					draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MISSION_SKIP).then();
 				}) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
@@ -209,6 +211,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						)]
 				});
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MONEY).then();
 			return true;
 		});
 }
@@ -222,6 +225,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			await giveItemToPlayer(entity, item, message.language, message.user, message.sentMessage.channel);
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.TREASURE).then();
 			return true;
 		});
 }
@@ -253,6 +257,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
 			await entity.Player.PlayerMissionsInfo.save();
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.POINTS).then();
 			return true;
 		});
 }
@@ -286,6 +291,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 				]
 			});
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.PET_INFORMATION).then();
 			return true;
 		});
 }
@@ -314,6 +320,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 				]
 			});
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.BADGE).then();
 			return true;
 		}
 	);
