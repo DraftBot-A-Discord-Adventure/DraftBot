@@ -6,7 +6,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
-import {draftBotClient} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {RandomUtils} from "../../core/utils/RandomUtils";
@@ -26,7 +26,6 @@ type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 
 const linkToFunction = getMapOfAllRewardCommands();
-
 
 async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string) {
 	const pet = await PetEntities.generateRandomPetEntity(guild.level);
@@ -98,8 +97,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got " + moneyWon + fixed ? "fixed" : "" + " money");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.MONEY).then();
 }
 
 /**
@@ -147,8 +145,7 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 		: stringInfos.embed.setDescription(guildDailyModule.format("partialHeal", {
 			healthWon: healthWon
 		}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got partial heal");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, fullHeal ? GuildDailyConstants.REWARD_TYPES.FULL_HEAL : GuildDailyConstants.REWARD_TYPES.PARTIAL_HEAL).then();
 }
 
 /**
@@ -177,8 +174,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	stringInfos.embed.setDescription(guildDailyModule.format(healthWon > 0 ? "alterationHeal" : "alterationNoHeal", {
 		healthWon: healthWon
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got alteration heal");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.ALTERATION).then();
 }
 
 /**
@@ -195,8 +191,7 @@ async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: Strin
 	stringInfos.embed.setDescription(guildDailyModule.format("personalXP", {
 		xp: xpWon
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got " + xpWon + " personal xp");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.PERSONAL_XP).then();
 }
 
 /**
@@ -214,8 +209,7 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
 	stringInfos.embed.setDescription(guildDailyModule.format("guildXP", {
 		xp: xpGuildWon
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got " + xpGuildWon + " guild xp");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.GUILD_XP).then();
 }
 
 /**
@@ -233,8 +227,7 @@ async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, g
 	stringInfos.embed.setDescription(guildDailyModule.format("petFood", {
 		quantity: GuildDailyConstants.FIXED_PET_FOOD
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got common food");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.PET_FOOD).then();
 }
 
 /**
@@ -265,8 +258,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got the badge");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
 }
 
 /**
@@ -281,8 +273,7 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
 	stringInfos.embed.setDescription(guildDailyModule.format("hospital", {
 		timeMoved: timeAdvanced
 	}));
-	// TODO REFACTOR LES LOGS
-	// log("GuildDaily of guild " + guild.name + ": got moved up");
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.HOSPITAL).then();
 }
 
 /**
