@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
+import {draftBotInstance} from "../../../../core/bot";
 
 module.exports.commandInfo = {
 	name: "forceguildowner",
@@ -23,6 +24,7 @@ const forceGuildOwnerTestCommand = async (language, interaction) => {
 	if (guild === null) {
 		throw new Error("Erreur forceguildowner : vous n'êtes pas dans une guilde !");
 	}
+	draftBotInstance.logsDatabase.logGuildChiefChange(guild, entity.Player.id).then();
 	guild.chiefId = entity.Player.id;
 	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {gName: guild.name});
