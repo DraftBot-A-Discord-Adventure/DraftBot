@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {draftBotInstance} from "../../../../core/bot";
 
 module.exports.commandInfo = {
 	name: "petfree",
@@ -20,6 +21,8 @@ const petFreeTestCommand = async (language, interaction) => {
 	if (entity.Player.petId === null) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
+	draftBotInstance.logsDatabase.logPetFree(entity.Player.Pet).then();
+	entity.Player.Pet.destroy();
 	entity.Player.petId = null;
 	entity.Player.save();
 	return module.exports.commandInfo.messageWhenExecuted;

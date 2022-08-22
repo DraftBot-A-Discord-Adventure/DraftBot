@@ -42,6 +42,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 
 			if (userInformation.guild.elderId === userInformation.entity.id) {
 				// the elder of the guild is leaving
+				draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId).then();
 				userInformation.guild.elderId = null;
 			}
 
@@ -50,10 +51,9 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				if (userInformation.guild.elderId) {
 					// an elder can recover the guild
 
-					// TODO : Refaire le sysème de logs
-					// log(elder.discordUserId + " becomes the chief of  " + guild.name);
-
+					draftBotInstance.logsDatabase.logGuildChiefChange(userInformation.guild, userInformation.guild.elderId).then();
 					userInformation.guild.chiefId = userInformation.guild.elderId;
+					draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId).then();
 					userInformation.guild.elderId = null;
 					interaction.channel.send({
 						content: guildLeaveModule.format("newChiefTitle", {
@@ -63,7 +63,6 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				}
 				else {
 					// no one can recover the guild.
-					draftBotInstance.logsDatabase.logGuildDestroy(userInformation.guild).then();
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
 			}

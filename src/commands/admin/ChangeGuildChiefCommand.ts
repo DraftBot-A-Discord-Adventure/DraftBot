@@ -7,7 +7,7 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {draftBotClient} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
@@ -43,12 +43,14 @@ function getEndCallbackChangeChief(
 					tr.language
 				);
 			}
-
+			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
 			formerChief.Player.guildId = null;
 
 			if (guild.elderId === userToPromote.id) {
+				draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 				guild.elderId = null;
 			}
+			draftBotInstance.logsDatabase.logGuildChiefChange(guild, userToPromote.id).then();
 			guild.chiefId = userToPromote.id;
 
 			await Promise.all([

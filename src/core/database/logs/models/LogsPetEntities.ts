@@ -9,7 +9,7 @@ export class LogsPetEntities extends Model {
 
 	public readonly isFemale!: boolean;
 
-	public readonly isDeleted!: boolean;
+	public isDeleted!: boolean;
 }
 
 export function initModel(sequelize: Sequelize): void {

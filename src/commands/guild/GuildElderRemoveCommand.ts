@@ -10,6 +10,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 /**
  * @param entity
@@ -21,6 +22,7 @@ function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guild
 	return async (msg: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
+			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 			guild.elderId = null;
 			await Promise.all([guild.save()]);
 
