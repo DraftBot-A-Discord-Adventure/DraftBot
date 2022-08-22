@@ -65,6 +65,9 @@ import {LogsGuildsDailies} from "./models/LogsGuildsDailies";
 import {LogsPetsTransfers} from "./models/LogsPetsTransfers";
 import {LogsGuildsLeaves} from "./models/LogsGuildsLeaves";
 import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
+import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
+import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
+import {LogsPetsFrees} from "./models/LogsPetsFrees";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -653,27 +656,74 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logGuildDestroy(guild: Guild) {
+	public async logGuildDestroy(guild: Guild) {
+		const logGuild = await this.findOrCreateGuild(guild);
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await this.findOrCreateGuild(guild);
 				for (const member of await Entities.getByGuild(guild.id)) {
-					await this.logGuildLeave(guild, member.discordUserId);
+					if (member.id !== guild.chiefId) {
+						await this.logGuildLeave(guild, member.discordUserId);
+					}
 				}
-				// TODO log les pets du shelter freed
+				for (const guildPet of guild.GuildPets) {
+					await this.logPetFree(guildPet.PetEntity);
+				}
 				await LogsGuildsDestroys.create({
 					guildId: logGuild.id,
 					date: LogsDatabase.getDate()
 				}, {transaction});
-				await LogsGuilds.update({
-					isDeleted: true
-				},
-				{
-					where: {
-						id: logGuild.id
-					},
-					transaction
-				});
+				logGuild.isDeleted = true;
+				await logGuild.save({fields: ["isDeleted"]});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildElderRemove(guild: Guild, removedPlayerId: number) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuild = await this.findOrCreateGuild(guild);
+				await LogsGuildsEldersRemoves.create({
+					guildId: logGuild.id,
+					removedElder: (await this.findOrCreatePlayer(
+						(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId
+					)).id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public async logGuildChiefChange(guild: Guild, newChiefId: number) {
+		const logGuild = await this.findOrCreateGuild(guild);
+		const logNewChiefId = (await this.findOrCreatePlayer(
+			(await (await Player.findOne({where: {id: newChiefId}})).getEntity()).discordUserId
+		)).id;
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsGuildsChiefsChanges.create({
+					guildId: logGuild.id,
+					newChief: logNewChiefId,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				logGuild.chiefId = logNewChiefId;
+				await logGuild.save({fields: ["chiefId"]});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logPetFree(freedPet: PetEntity) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPetEntity = await this.findOrCreatePetEntity(freedPet);
+				await LogsPetsFrees.create({
+					petId: logPetEntity.id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				logPetEntity.isDeleted = true;
+				await logPetEntity.save({fields: ["isDeleted"]});
 				await transaction.commit();
 			});
 		});

@@ -5,11 +5,11 @@ export class LogsGuilds extends Model {
 
 	public readonly gameId!: number;
 
-	public readonly name!: string;
+	public name!: string;
 
-	public readonly chiefId!: number;
+	public chiefId!: number;
 
-	public readonly isDeleted!: boolean;
+	public isDeleted!: boolean;
 }
 
 export function initModel(sequelize: Sequelize): void {

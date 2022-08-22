@@ -11,7 +11,7 @@ import {Entities} from "./Entity";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
-import {botConfig} from "../../../bot";
+import {botConfig, draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -72,6 +72,7 @@ export class Guild extends Model {
 	 * completely destroy a guild from the database
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase() {
+		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
 		const petsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<void>[] = [];
 		for (const pet of this.GuildPets) {
