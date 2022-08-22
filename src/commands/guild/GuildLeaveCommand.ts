@@ -10,6 +10,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
@@ -62,11 +63,12 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				}
 				else {
 					// no one can recover the guild.
-					// TODO : Refaire le sysème de logs
-					// log(guild.name +	" has been destroyed");
+					draftBotInstance.logsDatabase.logGuildDestroy(userInformation.guild).then();
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
 			}
+
+			draftBotInstance.logsDatabase.logGuildLeave(userInformation.guild, userInformation.entity.discordUserId).then();
 
 			userInformation.entity.Player.guildId = null;
 

@@ -63,6 +63,8 @@ import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
 import {GuildDailyConstants} from "../../constants/GuildDailyConstants";
 import {LogsGuildsDailies} from "./models/LogsGuildsDailies";
 import {LogsPetsTransfers} from "./models/LogsPetsTransfers";
+import {LogsGuildsLeaves} from "./models/LogsGuildsLeaves";
+import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -631,6 +633,47 @@ export class LogsDatabase extends Database {
 					guildPetId: logGuildPet ? logGuildPet.id : null,
 					date: LogsDatabase.getDate()
 				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildLeave(guild: Guild, leftDiscordId: string) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuild = await this.findOrCreateGuild(guild);
+				const leftPlayer = await this.findOrCreatePlayer(leftDiscordId);
+				await LogsGuildsLeaves.create({
+					guildId: logGuild.id,
+					leftPlayer: leftPlayer.id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildDestroy(guild: Guild) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuild = await this.findOrCreateGuild(guild);
+				for (const member of await Entities.getByGuild(guild.id)) {
+					await this.logGuildLeave(guild, member.discordUserId);
+				}
+				// TODO log les pets du shelter freed
+				await LogsGuildsDestroys.create({
+					guildId: logGuild.id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await LogsGuilds.update({
+					isDeleted: true
+				},
+				{
+					where: {
+						id: logGuild.id
+					},
+					transaction
+				});
 				await transaction.commit();
 			});
 		});
