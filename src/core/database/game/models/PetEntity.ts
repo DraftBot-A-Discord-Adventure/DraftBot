@@ -25,6 +25,8 @@ export class PetEntity extends Model {
 
 	public hungrySince!: Date;
 
+	public creationDate!: Date;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -278,6 +280,10 @@ export function initModel(sequelize: Sequelize): void {
 		hungrySince: {
 			type: DataTypes.DATE,
 			defaultValue: null
+		},
+		creationDate: {
+			type: DataTypes.DATE,
+			defaultValue: DataTypes.NOW
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
