@@ -41,6 +41,8 @@ export class Guild extends Model {
 
 	public elderId!: number;
 
+	public creationDate!: Date;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -349,6 +351,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		elderId: {
 			type: DataTypes.INTEGER
+		},
+		creationDate: {
+			type: DataTypes.DATE,
+			defaultValue: DataTypes.NOW
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
