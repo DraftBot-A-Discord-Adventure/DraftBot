@@ -72,6 +72,7 @@ import {FightController} from "../../fights/FightController";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
 import {LogsFightsActions} from "./models/LogsFightsActions";
+import GuildPet from "../game/models/GuildPet";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -137,6 +138,14 @@ export enum ShopItemType {
 }
 
 type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+
+type GuildLikeType = {
+	id: number,
+	name: string,
+	creationDate: Date,
+	chiefId: number,
+	guildPets: GuildPet[]
+}
 
 export class LogsDatabase extends Database {
 
@@ -645,7 +654,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logGuildLeave(guild: Guild, leftDiscordId: string) {
+	public logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const logGuild = await this.findOrCreateGuild(guild);
@@ -661,16 +670,23 @@ export class LogsDatabase extends Database {
 	}
 
 	public async logGuildDestroy(guild: Guild) {
-		const logGuild = await this.findOrCreateGuild(guild);
+		const guildInfos: GuildLikeType = {
+			id: guild.id,
+			name: guild.name,
+			creationDate: guild.creationDate,
+			chiefId: guild.chiefId,
+			guildPets: guild.GuildPets
+		};
+		const logGuild = await this.findOrCreateGuild(guildInfos);
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
-				for (const member of await Entities.getByGuild(guild.id)) {
-					if (member.id !== guild.chiefId) {
-						await this.logGuildLeave(guild, member.discordUserId);
+				for (const member of await Entities.getByGuild(guildInfos.id)) {
+					if (member.id !== guildInfos.chiefId) {
+						this.logGuildLeave(guildInfos, member.discordUserId).then();
 					}
 				}
-				for (const guildPet of guild.GuildPets) {
-					await this.logPetFree(guildPet.PetEntity);
+				for (const guildPet of guildInfos.guildPets) {
+					this.logPetFree(guildPet.PetEntity).then();
 				}
 				await LogsGuildsDestroys.create({
 					guildId: logGuild.id,
@@ -889,7 +905,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	private findOrCreateGuild(guild: Guild): Promise<LogsGuilds> {
+	private findOrCreateGuild(guild: Guild | GuildLikeType): Promise<LogsGuilds> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction: Transaction) => {
 				const logGuild = (await LogsGuilds.findOrCreate({
