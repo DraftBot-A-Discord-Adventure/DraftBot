@@ -74,7 +74,7 @@ export class Guild extends Model {
 	 * completely destroy a guild from the database
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase() {
-		await draftBotInstance.logsDatabase.logGuildDestroy(this);
+		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
 		const petsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<void>[] = [];
 		for (const pet of this.GuildPets) {
