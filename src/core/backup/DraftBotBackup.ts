@@ -54,12 +54,6 @@ export class DraftBotBackup {
 		}
 	}
 
-	private static async addBackupInterface(backupInterface: IDraftBotBackup) {
-		if (await backupInterface.create()) {
-			DraftBotBackup._backupInterfaces.push(backupInterface);
-		}
-	}
-
 	public static backupFiles(files: string[], interval: number, archiveBasename: string): void {
 		if (DraftBotBackup._backupInterfaces.length === 0) {
 			return;
@@ -158,11 +152,17 @@ export class DraftBotBackup {
 		return Promise.resolve(true);
 	}
 
+	private static async addBackupInterface(backupInterface: IDraftBotBackup) {
+		if (await backupInterface.create()) {
+			DraftBotBackup._backupInterfaces.push(backupInterface);
+		}
+	}
+
 	private static convertToBackupFiles(simpleBackupFiles: IBackupFileSimple[]): IBackupFile[] {
 		const backupFiles: IBackupFile[] = [];
 		for (const simpleBackupFile of simpleBackupFiles) {
 			const filename = path.parse(simpleBackupFile.path).base;
-			const splitBaseName = filename.split(/[-](.+)/);
+			const splitBaseName = filename.split(/-(.+)/);
 			const splitExtension = splitBaseName[1].split(/[.]/);
 			const splitDate = splitExtension[0].split(/[-TZ]/);
 			backupFiles.push({

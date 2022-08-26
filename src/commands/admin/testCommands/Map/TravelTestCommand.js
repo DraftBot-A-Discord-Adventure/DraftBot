@@ -3,6 +3,7 @@ import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Teleport you on a given path

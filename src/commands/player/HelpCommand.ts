@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CacheType, CommandInteraction} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
@@ -49,7 +49,7 @@ function getCommandByCategories() {
 	return {serverCommands, utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
 }
 
-function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction<CacheType>) {
+function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction) {
 	const {
 		serverCommands,
 		utilCommands,

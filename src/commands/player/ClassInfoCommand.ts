@@ -58,17 +58,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				.setTitle(classTranslations.format("classTitle", {class: classToShow.getName(language)}))
 				.setDescription(classToShow.getDescription(language) + "\n" + classToShow.statsToString(language, entity.Player.level) + "\n" + classTranslations.get("descriptionEnd"));
 			addActionsFields(newEmbed, classToShow, language);
-			interaction.editReply({embeds: [newEmbed]});
+			await interaction.editReply({embeds: [newEmbed]});
 		}
 
 		if (reactionEmoji === listEmoji) {
-			interaction.editReply({embeds: [baseEmbed]});
+			await interaction.editReply({embeds: [baseEmbed]});
 		}
 	});
 
-	reply.react(listEmoji);
+	await reply.react(listEmoji);
 	for (const emoji of emojis) {
-		reply.react(emoji);
+		await reply.react(emoji);
 	}
 }
 

@@ -2,6 +2,7 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {Constants} from "../../../../core/Constants";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {format} from "../../../../core/utils/StringFormatter";
 
 const effects = Object.keys(Constants.EFFECT.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";

@@ -103,7 +103,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.currentEffectFinished()) {
-				sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
+				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}
 			if (entity.Player.effect !== Constants.EFFECT.DEAD && entity.Player.effect !== Constants.EFFECT.LOCKED) {
@@ -153,7 +153,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge(Constants.BADGES.RICH_PERSON)) {
-				sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.alreadyHasItem"));
+				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.alreadyHasItem"));
 				return false;
 			}
 			entity.Player.addBadge(Constants.BADGES.RICH_PERSON);
@@ -218,7 +218,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-						sendErrorMessage(
+						await sendErrorMessage(
 							interaction.user,
 							interaction,
 							shopMessage.language,

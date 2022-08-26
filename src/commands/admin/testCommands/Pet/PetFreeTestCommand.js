@@ -13,9 +13,9 @@ const petFreeTestCommand = async (language, interaction) => {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
 	draftBotInstance.logsDatabase.logPetFree(entity.Player.Pet).then();
-	entity.Player.Pet.destroy();
+	await entity.Player.Pet.destroy();
 	entity.Player.petId = null;
-	entity.Player.save();
+	await entity.Player.save();
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 

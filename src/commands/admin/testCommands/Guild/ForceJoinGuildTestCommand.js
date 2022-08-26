@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Set your new guild

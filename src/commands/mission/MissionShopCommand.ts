@@ -117,7 +117,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const allMissions = entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 			if (!allMissions.length) {
-				sendErrorMessage(
+				await sendErrorMessage(
 					message.user,
 					interaction,
 					message.language,
@@ -237,7 +237,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek) {
-				sendErrorMessage(
+				await sendErrorMessage(
 					message.user,
 					interaction,
 					message.language,
@@ -269,7 +269,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.petId === null) {
-				sendErrorMessage(
+				await sendErrorMessage(
 					message.user,
 					interaction,
 					message.language,
@@ -303,7 +303,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge(Constants.BADGES.QUEST_MASTER)) {
-				sendErrorMessage(
+				await sendErrorMessage(
 					message.user,
 					interaction,
 					message.language,

@@ -1,7 +1,8 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
-import pet, {Pets} from "../../../../core/database/game/models/Pet";
+import {Pets} from "../../../../core/database/game/models/Pet";
 import {MissionsController} from "../../../../core/missions/MissionsController";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Give you a pet with id and sex given

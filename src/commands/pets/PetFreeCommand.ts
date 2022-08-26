@@ -32,10 +32,10 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 				await entity.Player.addMoney(entity, -PetFreeConstants.FREE_FEISTY_COST, interaction.channel, petFreeModule.language, NumberChangeReason.PET_FREE);
 			}
 			draftBotInstance.logsDatabase.logPetFree(pPet).then();
-			pPet.destroy();
+			await pPet.destroy();
 			entity.Player.petId = null;
 			entity.Player.lastPetFree = new Date();
-			entity.Player.save();
+			await entity.Player.save();
 			const freedEmbed = new DraftBotEmbed()
 				.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 				.setDescription(petFreeModule.format("petFreed", {
@@ -56,20 +56,20 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 
 			if (guild !== null && luckyMeat(guild, pPet)) {
 				guild.carnivorousFood += PetFreeConstants.MEAT_GIVEN;
-				guild.save();
+				await guild.save();
 				freedEmbed.setDescription(freedEmbed.description + "\n\n" + petFreeModule.get("giveMeat"));
 			}
 
 			await interaction.followUp({embeds: [freedEmbed]});
 			return;
 		}
-		sendErrorMessage(interaction.user, interaction, petFreeModule.language, petFreeModule.get("canceled"), true);
+		await sendErrorMessage(interaction.user, interaction, petFreeModule.language, petFreeModule.get("canceled"), true);
 	};
 }
 
-function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity) {
+async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity) {
 	if (!pPet) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			petFreeModule.language,
 			Translations.getModule("commands.pet", petFreeModule.language).get("noPet")
@@ -79,7 +79,7 @@ function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeMo
 
 	const cooldownTime = PetFreeConstants.FREE_COOLDOWN - (new Date().valueOf() - entity.Player.lastPetFree.valueOf());
 	if (cooldownTime > 0) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			petFreeModule.language,
 			petFreeModule.format("cooldown", {
@@ -90,7 +90,7 @@ function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeMo
 	}
 
 	if (pPet.isFeisty() && entity.Player.money < PetFreeConstants.FREE_FEISTY_COST) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			petFreeModule.language,
 			petFreeModule.format("noMoney", {
@@ -115,7 +115,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const petFreeModule = Translations.getModule("commands.petFree", language);
 
 	const pPet = entity.Player.Pet;
-	if (cantBeFreed(pPet, interaction, petFreeModule, entity)) {
+	if (await cantBeFreed(pPet, interaction, petFreeModule, entity)) {
 		return;
 	}
 

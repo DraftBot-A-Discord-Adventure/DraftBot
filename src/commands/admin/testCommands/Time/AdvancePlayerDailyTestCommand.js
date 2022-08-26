@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Quick travel your daily of a given time

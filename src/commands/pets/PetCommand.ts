@@ -34,14 +34,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (askedEntity.discordUserId === interaction.user.id) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			tr.get("noPet")
 		);
 	}
 	else {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			tr.get("noPetOther")

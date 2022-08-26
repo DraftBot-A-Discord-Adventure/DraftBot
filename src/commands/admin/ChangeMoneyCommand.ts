@@ -9,6 +9,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  * @param entityToEdit
  * @param amount
  * @param interaction
+ * @param language
  */
 function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) {
 	if (interaction.options.getString("mode") === "set") {

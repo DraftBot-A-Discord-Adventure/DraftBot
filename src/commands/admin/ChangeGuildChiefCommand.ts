@@ -61,7 +61,7 @@ function getEndCallbackChangeChief(
 				formerChief.Player.save()
 			]);
 
-			interaction.followUp({
+			await interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(tr.get("reply.title"), interaction.user)
@@ -77,7 +77,7 @@ function getEndCallbackChangeChief(
 			return;
 		}
 
-		sendErrorMessage(interaction.user, interaction, tr.language, tr.get("validation.canceled"), true);
+		await sendErrorMessage(interaction.user, interaction, tr.language, tr.get("validation.canceled"), true);
 	};
 }
 
@@ -135,7 +135,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		userToPromote = null;
 	}
 	if (!userToPromote) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			tr.get("errors.wrongId")
@@ -152,7 +152,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	const endCallback = getEndCallbackChangeChief(userToPromote, guild, interaction, tr);
 
-	new DraftBotValidateReactionMessage(interaction.user, endCallback)
+	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
 		.formatAuthor(tr.get("validation.title"), interaction.user)
 		.setDescription(tr.format("validation.description", {
 			userID: userToPromote.discordUserId,

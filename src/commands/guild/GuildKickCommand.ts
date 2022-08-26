@@ -31,7 +31,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 
 			if (kickedGuild === null) {
 				// not the same guild
-				sendErrorMessage(
+				await sendErrorMessage(
 					textInformation.interaction.user,
 					textInformation.interaction,
 					textInformation.language,
@@ -48,22 +48,25 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 			await Promise.all([entityInformation.guild.save(), kickedEntity.save(), kickedEntity.Player.save()]);
 
 			const embed = new DraftBotEmbed();
-			embed.setAuthor(textInformation.guildKickModule.format("successTitle", {
-				kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language),
-				guildName: entityInformation.guild.name
-			}))
+			embed.setAuthor({
+				name: textInformation.guildKickModule.format("successTitle", {
+					kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language),
+					guildName: entityInformation.guild.name
+				}),
+				iconURL: textInformation.interaction.user.displayAvatarURL()
+			})
 				.setDescription(textInformation.guildKickModule.get("kickSuccess"));
 			await MissionsController.update(kickedEntity, textInformation.interaction.channel, textInformation.language, {
 				missionId: "guildLevel",
 				count: 0,
 				set: true
 			});
-			textInformation.interaction.followUp({embeds: [embed]});
+			await textInformation.interaction.followUp({embeds: [embed]});
 			return;
 		}
 
 		// Cancel the kick
-		sendErrorMessage(
+		await sendErrorMessage(
 			textInformation.interaction.user,
 			textInformation.interaction,
 			textInformation.language,
@@ -75,7 +78,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity) {
 	if (kickedEntity === null) {
 		// no user provided
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.get("cannotGetKickedUser")
@@ -93,7 +96,7 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 
 	if (kickedGuild === null || kickedGuild.id !== entityInformation.guild.id) {
 		// not the same guild
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.get("notInTheGuild")
@@ -102,7 +105,7 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 	}
 
 	if (kickedEntity.id === entityInformation.entity.id) {
-		sendErrorMessage(
+		await sendErrorMessage(
 			textInformation.interaction.user,
 			textInformation.interaction,
 			textInformation.language,

@@ -44,15 +44,15 @@ export const effectsErrorTextValue = async function(user: User, language: string
 	return errorMessageObject;
 };
 
-export function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string) {
-	return interaction.reply({
+export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string) {
+	return await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
 		ephemeral: true
 	});
 }
 
-export function sendErrorMessage(user: User, interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
-	return interaction.channel.send({
+export async function sendErrorMessage(user: User, interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
+	return await interaction.channel.send({
 		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling)]
 	});
 }

@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Show your entity's and player's IDs

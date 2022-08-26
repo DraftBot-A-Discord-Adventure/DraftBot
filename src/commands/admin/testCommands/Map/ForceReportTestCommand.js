@@ -1,6 +1,7 @@
 import {BigEvents} from "../../../../core/database/game/models/BigEvent";
 import {CommandsManager} from "../../../CommandsManager";
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {format} from "../../../../core/utils/StringFormatter";
 
 const CT = require("../../../../core/CommandsTest");
 

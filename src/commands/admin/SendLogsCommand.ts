@@ -14,7 +14,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const sendLogsModule = Translations.getModule("commands.sendLogs", language);
 	if (interaction.channel.id !== botConfig.CONTRIBUTORS_CHANNEL) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			Translations.getModule("error", language).get("notContributorsChannel"));
@@ -46,7 +46,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	else {
 		let queriedFile = interaction.options.getString("specificfile");
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
-			replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
+			await replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
 			return;
 		}
 		if (!queriedFile.endsWith(".txt")) {
@@ -62,7 +62,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			await interaction.reply({content: "Logs sent !"});
 		}
 		else {
-			replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
+			await replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
 		}
 	}
 }

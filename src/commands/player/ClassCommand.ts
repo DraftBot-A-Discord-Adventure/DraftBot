@@ -61,7 +61,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, userInformations.entity.Player)) {
-					return sendErrorMessage(userInformations.user, interaction, classTranslations.language,
+					return await sendErrorMessage(userInformations.user, interaction, classTranslations.language,
 						classTranslations.format("error.cannotBuy",
 							{
 								missingMoney: selectedClass.price - userInformations.entity.Player.money
@@ -69,7 +69,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 						));
 				}
 				if (selectedClass.id === playerClass.id) {
-					return sendErrorMessage(userInformations.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
+					return await sendErrorMessage(userInformations.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
 				}
 				userInformations.entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(userInformations.entity.Player.class);
@@ -99,7 +99,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 				});
 			}
 		}
-		sendErrorMessage(userInformations.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"), true);
+		await sendErrorMessage(userInformations.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"), true);
 	});
 
 	await Promise.all([
@@ -165,7 +165,7 @@ function createClassCollectorAndManageIt(
 	collector.on("collect", async (reaction) => {
 		collector.stop();
 		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
-			sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.get("error.leaveClass"), true);
+			await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.get("error.leaveClass"), true);
 			return;
 		}
 		await confirmPurchase(
@@ -191,7 +191,7 @@ async function addClassEmbedReactions(allClasses: Class[], classMessage: Message
 		await classMessage.react(allClasses[k].emoji);
 		classEmojis.set(allClasses[k].emoji, k);
 	}
-	classMessage.react(Constants.MENU_REACTION.DENY);
+	await classMessage.react(Constants.MENU_REACTION.DENY);
 }
 
 /**

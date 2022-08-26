@@ -25,7 +25,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
 	if (entity.Player.effect !== Constants.EFFECT.DEAD) {
-		replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
+		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
 		return;
 	}
 	const lostScore = Math.round(entity.Player.score * Data.getModule("commands.respawn").getNumber("score_remove_during_respawn"));

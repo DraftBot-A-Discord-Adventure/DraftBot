@@ -25,7 +25,7 @@ function callbackShopSmallEvent(
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {
 			if (entity.Player.money < price) {
-				sendErrorMessage(interaction.user, interaction, language,
+				await sendErrorMessage(interaction.user, interaction, language,
 					translationShop.format("error.cannotBuy", {
 						missingMoney: price - entity.Player.money
 					})
@@ -37,7 +37,7 @@ function callbackShopSmallEvent(
 			await entity.Player.save();
 			return;
 		}
-		sendErrorMessage(interaction.user, interaction, language,
+		await sendErrorMessage(interaction.user, interaction, language,
 			Translations.getModule("commands.shop", language).get("error.canceledPurchase"), true
 		);
 	};
@@ -59,7 +59,10 @@ export const smallEvent: SmallEvent = {
 			interaction.user,
 			endCallback
 		)
-			.setAuthor(seEmbed.author)
+			.setAuthor({
+				name: seEmbed.author.name,
+				iconURL: interaction.user.displayAvatarURL()
+			})
 			.setDescription(seEmbed.description
 				+ format(
 					translationShop.getRandom("intro." + gender)
