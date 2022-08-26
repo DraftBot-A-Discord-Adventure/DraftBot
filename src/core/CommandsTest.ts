@@ -186,7 +186,7 @@ export class CommandsTest {
 	}
 
 	static getTestCommand(commandName: string) {
-		const commandTestCurrent = CommandsTest.testCommandsArray[commandName];
+		const commandTestCurrent = CommandsTest.testCommandsArray[commandName.toLowerCase()];
 		if (commandTestCurrent === undefined) {
 			throw new Error("Commande Test non définie : " + commandName);
 		}

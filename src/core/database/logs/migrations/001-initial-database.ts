@@ -493,6 +493,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		creationTimestamp: {
 			type: DataTypes.INTEGER,
 			allowNull: false
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
 		}
 	});
 	await context.createTable("guilds_kicks", {
