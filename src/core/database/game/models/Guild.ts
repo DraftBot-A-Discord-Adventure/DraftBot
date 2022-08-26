@@ -11,7 +11,7 @@ import {Entities} from "./Entity";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -290,7 +290,7 @@ export class Guilds {
 
 	static async getGuildLevelMean() {
 		const query = `SELECT AVG(level) as avg
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}Guilds`;
+                       FROM draftbot_game.Guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT

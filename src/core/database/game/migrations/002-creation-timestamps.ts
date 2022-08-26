@@ -31,7 +31,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await petEntityModel.update({ creationDate: Sequelize.literal("createdAt") }, { where: {} });
 }
 
-export async function down(context: QueryInterface): Promise<void> {
+export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("guilds", "creationDate");
 	await context.removeColumn("pet_entities", "creationDate");
 }

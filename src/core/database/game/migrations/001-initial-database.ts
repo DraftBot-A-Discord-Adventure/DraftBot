@@ -781,7 +781,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("weapons", itemAttributes);
 }
 
-export async function down(context: QueryInterface): Promise<void> {
+export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("armors");
 	await context.dropTable("classes");
 	await context.dropTable("daily_mission");

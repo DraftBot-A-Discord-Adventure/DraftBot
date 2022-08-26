@@ -1,15 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "playersuicide",
-	aliases: ["suicide"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
-	description: "Vous permet de vous suicider dans le plus grand des calmes",
-	commandTestShouldReply: true
-};
-
 /**
  * Kill yourself
  * @param {("fr"|"en")} language - Language to use in the response
@@ -29,4 +20,12 @@ const playerSuicideTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = playerSuicideTestCommand;
+module.exports.commandInfo = {
+	name: "playersuicide",
+	aliases: ["suicide"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
+	description: "Vous permet de vous suicider dans le plus grand des calmes",
+	commandTestShouldReply: true,
+	execute: playerSuicideTestCommand
+};

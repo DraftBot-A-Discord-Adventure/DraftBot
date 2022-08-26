@@ -3,13 +3,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {Maps} from "../../../../core/Maps";
 
-module.exports.commandInfo = {
-	name: "mapinfo",
-	messageWhenExecuted: "",
-	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
-	commandTestShouldReply: true
-};
-
 /**
  * Give you informations about the map you are on
  * @param {("fr"|"en")} language - Language to use in the response
@@ -57,4 +50,10 @@ const mapInfosTestCommand = async (language, interaction) => {
 	return mapEmbed;
 };
 
-module.exports.execute = mapInfosTestCommand;
+module.exports.commandInfo = {
+	name: "mapinfo",
+	messageWhenExecuted: "",
+	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
+	commandTestShouldReply: true,
+	execute: mapInfosTestCommand
+};

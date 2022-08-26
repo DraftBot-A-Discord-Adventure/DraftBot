@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "experience",
-	aliases: ["xp"],
-	commandFormat: "<experience>",
-	typeWaited: {
-		experience: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {experience} :star: !",
-	description: "Mets l'expérience votre joueur à la valeur donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the experience of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -32,4 +20,15 @@ const experienceTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: entity.Player.experience});
 };
 
-module.exports.execute = experienceTestCommand;
+module.exports.commandInfo = {
+	name: "experience",
+	aliases: ["xp"],
+	commandFormat: "<experience>",
+	typeWaited: {
+		experience: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {experience} :star: !",
+	description: "Mets l'expérience votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: experienceTestCommand
+};

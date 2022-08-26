@@ -1,15 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 
-module.exports.commandInfo = {
-	name: "stopcurrenttravel",
-	aliases: ["stravel", "stoptravel"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez arrêté de voyager !",
-	description: "Stoppe le voyage en cours",
-	commandTestShouldReply: true
-};
-
 /**
  * Stop your current travel
  * @param {("fr"|"en")} language - Language to use in the response
@@ -28,4 +19,12 @@ const stopCurrentTravelTestCommand = async (language, interaction) => {
 
 };
 
-module.exports.execute = stopCurrentTravelTestCommand;
+module.exports.commandInfo = {
+	name: "stopcurrenttravel",
+	aliases: ["stravel", "stoptravel"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez arrêté de voyager !",
+	description: "Stoppe le voyage en cours",
+	commandTestShouldReply: true,
+	execute: stopCurrentTravelTestCommand
+};

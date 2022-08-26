@@ -1,11 +1,3 @@
-module.exports.commandInfo = {
-	name: "fakevote",
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez faussement voté !",
-	description: "Effectue un faux vote",
-	commandTestShouldReply: true
-};
-
 /**
  * Simulate a topgg vote
  * @param {("fr"|"en")} language - Language to use in the response
@@ -18,4 +10,11 @@ const fakeVoteTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = fakeVoteTestCommand;
+module.exports.commandInfo = {
+	name: "fakevote",
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez faussement voté !",
+	description: "Effectue un faux vote",
+	commandTestShouldReply: true,
+	execute: fakeVoteTestCommand
+};

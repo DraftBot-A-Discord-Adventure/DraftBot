@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 node_modules/
-/database/*.sqlite
 config/config.toml
 *.iml
 logs/*

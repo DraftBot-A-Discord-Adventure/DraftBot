@@ -5,16 +5,6 @@ Object.keys(JsonReader.smallEvents).forEach(seName => {
 	stringDesc += "\n - " + seName;
 });
 
-module.exports.commandInfo = {
-	name: "smallEvent",
-	commandFormat: "<seName>",
-	typeWaited: {
-		seName: typeVariable.STRING
-	},
-	messageWhenExecuted: "Mini event `{name}` forcé !",
-	description: stringDesc
-};
-
 /**
  * Force an small event with a given event name
  * @param {("fr"|"en")} language - Language to use in the response
@@ -31,4 +21,13 @@ const smallEventTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {name: args[0]});
 };
 
-module.exports.execute = smallEventTestCommand;
+module.exports.commandInfo = {
+	name: "smallEvent",
+	commandFormat: "<seName>",
+	typeWaited: {
+		seName: typeVariable.STRING
+	},
+	messageWhenExecuted: "Mini event `{name}` forcé !",
+	description: stringDesc,
+	execute: smallEventTestCommand
+};

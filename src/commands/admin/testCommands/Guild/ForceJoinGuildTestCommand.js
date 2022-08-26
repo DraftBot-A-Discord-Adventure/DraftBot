@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 
-module.exports.commandInfo = {
-	name: "forcejoinguild",
-	aliases: ["fjg"],
-	commandFormat: "<guildToJoin>",
-	typeWaited: {
-		guildToJoin: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
-	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
-	commandTestShouldReply: true
-};
-
 /**
  * Set your new guild
  * @param {("fr"|"en")} language - Language to use in the response
@@ -57,4 +45,15 @@ const forceJoinGuildTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {guildToJoin: guildToJoin.name});
 };
 
-module.exports.execute = forceJoinGuildTestCommand;
+module.exports.commandInfo = {
+	name: "forcejoinguild",
+	aliases: ["fjg"],
+	commandFormat: "<guildToJoin>",
+	typeWaited: {
+		guildToJoin: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
+	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
+	commandTestShouldReply: true,
+	execute: forceJoinGuildTestCommand
+};

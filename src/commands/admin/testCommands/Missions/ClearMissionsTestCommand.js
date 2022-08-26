@@ -1,11 +1,4 @@
 const {Entities} = require("../../../../core/database/game/models/Entity");
-module.exports.commandInfo = {
-	name: "clearMissions",
-	commandFormat: "",
-	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
-	description: "Permet de supprimer toutes ses missions",
-	commandTestShouldReply: true
-};
 
 /**
  * Set the weapon of the player
@@ -25,4 +18,11 @@ const clearMissionsTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = clearMissionsTestCommand;
+module.exports.commandInfo = {
+	name: "clearMissions",
+	commandFormat: "",
+	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
+	description: "Permet de supprimer toutes ses missions",
+	commandTestShouldReply: true,
+	execute: clearMissionsTestCommand
+};

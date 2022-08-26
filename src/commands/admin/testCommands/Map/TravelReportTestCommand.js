@@ -1,15 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 
-module.exports.commandInfo = {
-	name: "travelreport",
-	aliases: ["tr"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
-	description: "Réinitialise le parcours que vous effectuez",
-	commandTestShouldReply: true
-};
-
 /**
  * Reset your current travel
  * @param {("fr"|"en")} language - Language to use in the response
@@ -31,4 +22,12 @@ const travelReportTestCommand = async (language, interaction) => {
 
 };
 
-module.exports.execute = travelReportTestCommand;
+module.exports.commandInfo = {
+	name: "travelreport",
+	aliases: ["tr"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
+	description: "Réinitialise le parcours que vous effectuez",
+	commandTestShouldReply: true,
+	execute: travelReportTestCommand
+};

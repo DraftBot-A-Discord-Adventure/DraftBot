@@ -1,3 +1,5 @@
+import {isAMention, isAnEmoji} from "./utils/StringUtils";
+
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
@@ -532,7 +534,22 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly DATABASE = {
-		GAME_DATA: "draftbot_game_data"
+	static readonly TEST_VAR_TYPES = {
+		INTEGER: {
+			type: "number",
+			check: (v: number) => !isNaN(v)
+		},
+		MENTION: {
+			type: "mention",
+			check: (v: string) => isAMention(v)
+		},
+		EMOJI: {
+			type: "emoji",
+			check: (v: string) => isAnEmoji(v)
+		},
+		STRING: {
+			type: "string",
+			check: () => false
+		}
 	}
 }

@@ -2,17 +2,6 @@ import {BigEvents} from "../../../../core/database/game/models/BigEvent";
 import {CommandsManager} from "../../../CommandsManager";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "forcereport",
-	aliases: ["fr", "forcer"],
-	commandFormat: "<id>",
-	typeWaited: {
-		id: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Event {id} forcé !",
-	description: "Force un rapport donné"
-};
-
 const CT = require("../../../../core/CommandsTest");
 
 /**
@@ -33,4 +22,14 @@ const forceReportTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});
 };
 
-module.exports.execute = forceReportTestCommand;
+module.exports.commandInfo = {
+	name: "forcereport",
+	aliases: ["fr", "forcer"],
+	commandFormat: "<id>",
+	typeWaited: {
+		id: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Event {id} forcé !",
+	description: "Force un rapport donné",
+	execute: forceReportTestCommand
+};

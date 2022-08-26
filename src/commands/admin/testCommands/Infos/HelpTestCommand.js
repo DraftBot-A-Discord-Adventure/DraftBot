@@ -1,17 +1,5 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 
-module.exports.commandInfo = {
-	name: "help",
-	aliases: ["h"],
-	commandFormat: "<command>",
-	typeWaited: {
-		command: typeVariable.STRING
-	},
-	messageWhenExecuted: "",
-	description: "Affiche l'aide pour une commande",
-	commandTestShouldReply: true
-};
-
 const CT = require("../../../../core/CommandsTest");
 
 /**
@@ -62,4 +50,15 @@ const helpTestCommand = async (language, interaction, args) => {
 	return embedHelpTest;
 };
 
-module.exports.execute = helpTestCommand;
+module.exports.commandInfo = {
+	name: "help",
+	aliases: ["h"],
+	commandFormat: "<command>",
+	typeWaited: {
+		command: typeVariable.STRING
+	},
+	messageWhenExecuted: "",
+	description: "Affiche l'aide pour une commande",
+	commandTestShouldReply: true,
+	execute: helpTestCommand
+};

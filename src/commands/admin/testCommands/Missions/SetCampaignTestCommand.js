@@ -1,15 +1,5 @@
 const {Entities} = require("../../../../core/database/game/models/Entity");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
-module.exports.commandInfo = {
-	name: "setCampaign",
-	commandFormat: "<progression>",
-	typeWaited: {
-		"progression": typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
-	description: "Vous mets à une certaine étape de la campagne",
-	commandTestShouldReply: true
-};
 
 /**
  * Set the weapon of the player
@@ -41,4 +31,14 @@ const setCampaignTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = setCampaignTestCommand;
+module.exports.commandInfo = {
+	name: "setCampaign",
+	commandFormat: "<progression>",
+	typeWaited: {
+		"progression": typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
+	description: "Vous mets à une certaine étape de la campagne",
+	commandTestShouldReply: true,
+	execute: setCampaignTestCommand
+};

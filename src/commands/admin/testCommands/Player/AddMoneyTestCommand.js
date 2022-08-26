@@ -1,17 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "addmoney",
-	commandFormat: "<money>",
-	typeWaited: {
-		money: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
-	description: "Ajoute la valeur donnée d'argent à votre joueur",
-	commandTestShouldReply: true
-};
-
 /**
  * Add money to the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,4 +16,14 @@ const addMoneyTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});
 };
 
-module.exports.execute = addMoneyTestCommand;
+module.exports.commandInfo = {
+	name: "addmoney",
+	commandFormat: "<money>",
+	typeWaited: {
+		money: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
+	description: "Ajoute la valeur donnée d'argent à votre joueur",
+	commandTestShouldReply: true,
+	execute: addMoneyTestCommand
+};

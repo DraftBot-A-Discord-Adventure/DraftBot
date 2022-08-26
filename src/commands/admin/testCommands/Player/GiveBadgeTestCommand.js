@@ -1,16 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "givebadge",
-	commandFormat: "<badge>",
-	typeWaited: {
-		badge: typeVariable.EMOJI
-	},
-	messageWhenExecuted: "Vous avez maintenant le badge {badge} !",
-	description: "Donne un badge à votre joueur",
-	commandTestShouldReply: true
-};
-
 /**
  * Give a badge to your player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -26,4 +15,14 @@ const giveBadgeTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {badge: args[0]});
 };
 
-module.exports.execute = giveBadgeTestCommand;
+module.exports.commandInfo = {
+	name: "givebadge",
+	commandFormat: "<badge>",
+	typeWaited: {
+		badge: typeVariable.EMOJI
+	},
+	messageWhenExecuted: "Vous avez maintenant le badge {badge} !",
+	description: "Donne un badge à votre joueur",
+	commandTestShouldReply: true,
+	execute: giveBadgeTestCommand
+};

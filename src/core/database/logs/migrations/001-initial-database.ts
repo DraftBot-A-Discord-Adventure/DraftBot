@@ -461,16 +461,8 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		},
-		petId: {
-			type: DataTypes.SMALLINT.UNSIGNED,
-			allowNull: false
-		},
-		isFemale: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		isDeleted: {
-			type: DataTypes.BOOLEAN,
+		creationTimestamp: {
+			type: DataTypes.INTEGER,
 			allowNull: false
 		}
 	});
@@ -498,16 +490,8 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		chiefId: {
+		creationTimestamp: {
 			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		isDeleted: {
-			type: DataTypes.BOOLEAN,
 			allowNull: false
 		}
 	});
@@ -648,7 +632,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 }
 
-export async function down(context: QueryInterface): Promise<void> {
+export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("players");
 	await context.dropTable("players_money");
 	await context.dropTable("players_health");

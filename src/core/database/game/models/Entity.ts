@@ -17,7 +17,7 @@ import {TopConstants} from "../../../constants/TopConstants";
 import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
 import {NumberChangeReason} from "../../logs/LogsDatabase";
@@ -475,15 +475,14 @@ export class Entities {
 	 */
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
-		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT rank
                        FROM (
-                                SELECT ${formatDatabaseType}entities.discordUserId,
-                                       (RANK() OVER (ORDER BY ${formatDatabaseType}players.${scoreLookup} DESC, ${formatDatabaseType}players.level DESC)) AS rank
-                                FROM ${formatDatabaseType}entities
-                                         INNER JOIN ${formatDatabaseType}players
-										 ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId AND ${formatDatabaseType}players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-                                WHERE ${formatDatabaseType}entities.discordUserId IN (${ids.toString()})) subquery
+                                SELECT draftbot_game.entities.discordUserId,
+                                       (RANK() OVER (ORDER BY draftbot_game.players.${scoreLookup} DESC, draftbot_game.players.level DESC)) AS rank
+                                FROM draftbot_game.entities
+                                         INNER JOIN draftbot_game.players
+										 ON draftbot_game.entities.id = draftbot_game.players.entityId AND draftbot_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+                                WHERE draftbot_game.entities.discordUserId IN (${ids.toString()})) subquery
                        WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
@@ -512,7 +511,7 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = `SELECT discordUserId FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}entities`;
+		const query = "SELECT discordUserId FROM draftbot_game.entities";
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
@@ -527,12 +526,11 @@ export class Entities {
 	 * @param timing
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
-		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT COUNT(*) as nbPlayers
-                       FROM ${formatDatabaseType}players
-                       		JOIN ${formatDatabaseType}entities ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId
-                       WHERE ${formatDatabaseType}players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
-                         AND ${formatDatabaseType}entities.discordUserId IN (${listDiscordId.toString()})`;
+                       FROM draftbot_game.players
+                       		JOIN draftbot_game.entities ON draftbot_game.entities.id = draftbot_game.players.entityId
+                       WHERE draftbot_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
+                         AND draftbot_game.entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

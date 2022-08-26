@@ -5,18 +5,6 @@ import {Potions} from "../../../../core/database/game/models/Potion";
 import {ObjectItems} from "../../../../core/database/game/models/ObjectItem";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "giveitem",
-	commandFormat: "<category [0-3]> <item id>",
-	typeWaited: {
-		"category [0-3]": typeVariable.INTEGER,
-		"item id": typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez reçu {item} !",
-	description: "Permet de se donner un objet",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -60,4 +48,15 @@ const giveItemTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = giveItemTestCommand;
+module.exports.commandInfo = {
+	name: "giveitem",
+	commandFormat: "<category [0-3]> <item id>",
+	typeWaited: {
+		"category [0-3]": typeVariable.INTEGER,
+		"item id": typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez reçu {item} !",
+	description: "Permet de se donner un objet",
+	commandTestShouldReply: true,
+	execute: giveItemTestCommand
+};

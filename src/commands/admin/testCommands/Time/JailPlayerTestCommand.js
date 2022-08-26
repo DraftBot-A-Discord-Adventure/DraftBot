@@ -3,18 +3,6 @@ import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {Constants} from "../../../../core/Constants";
 
-module.exports.commandInfo = {
-	name: "jailplayer",
-	aliases: ["jail"],
-	commandFormat: "<mention>",
-	typeWaited: {
-		mention: typeVariable.MENTION
-	},
-	messageWhenExecuted: "Vous avez enfermé {player} !",
-	description: "Enferme le joueur donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Jail the given player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -29,4 +17,15 @@ const jailPlayerTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {player: args[0]});
 };
 
-module.exports.execute = jailPlayerTestCommand;
+module.exports.commandInfo = {
+	name: "jailplayer",
+	aliases: ["jail"],
+	commandFormat: "<mention>",
+	typeWaited: {
+		mention: typeVariable.MENTION
+	},
+	messageWhenExecuted: "Vous avez enfermé {player} !",
+	description: "Enferme le joueur donné",
+	commandTestShouldReply: true,
+	execute: jailPlayerTestCommand
+};

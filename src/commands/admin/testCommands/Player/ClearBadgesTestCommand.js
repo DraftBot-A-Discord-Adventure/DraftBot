@@ -1,13 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "clearbadges",
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez supprimé vos badges !",
-	description: "Supprime les badges de votre joueur",
-	commandTestShouldReply: true
-};
-
 /**
  * Delete all badges of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -22,4 +14,11 @@ const clearBadgesTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = clearBadgesTestCommand;
+module.exports.commandInfo = {
+	name: "clearbadges",
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez supprimé vos badges !",
+	description: "Supprime les badges de votre joueur",
+	commandTestShouldReply: true,
+	execute: clearBadgesTestCommand
+};

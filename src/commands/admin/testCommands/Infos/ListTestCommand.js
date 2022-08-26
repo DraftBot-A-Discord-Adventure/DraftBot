@@ -1,14 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {escapeUsername} from "../../../../core/utils/StringUtils";
 
-module.exports.commandInfo = {
-	name: "list",
-	commandFormat: "",
-	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
-	description: "Affiche la liste des commandes tests",
-	commandTestShouldReply: true
-};
-
 const CT = require("../../../../core/CommandsTest");
 
 /**
@@ -25,7 +17,7 @@ const listTestCommand = (language, interaction) => {
 		const allTestCommInCate = CT.getAllCommandsFromCategory(category);
 		let stringForThisCategory = "";
 		allTestCommInCate.forEach(testCommand => {
-			stringForThisCategory += testCommand.commandInfo.name + " • ";
+			stringForThisCategory += testCommand.name + " • ";
 		});
 		embedListCommandsTest.addField(
 			"**" + category + "**",
@@ -35,4 +27,11 @@ const listTestCommand = (language, interaction) => {
 	return embedListCommandsTest;
 };
 
-module.exports.execute = listTestCommand;
+module.exports.commandInfo = {
+	name: "list",
+	commandFormat: "",
+	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
+	description: "Affiche la liste des commandes tests",
+	commandTestShouldReply: true,
+	execute: listTestCommand
+};
