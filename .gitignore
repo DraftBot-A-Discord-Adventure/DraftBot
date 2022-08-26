@@ -10,3 +10,4 @@ package-lock.json
 /dist/
 dist/
 backups/
+/database/mariadb/
