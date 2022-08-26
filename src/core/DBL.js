@@ -66,7 +66,7 @@ class DBL {
 	static async userDBLVote(user) {
 		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
-		voter.Player.save();
+		await voter.Player.save();
 		draftBotInstance.logsDatabase.logVote(user).then();
 		await draftBotClient.shard.broadcastEval((client, context) => {
 			require("../../../../dist/src/core/DBL")

@@ -7,7 +7,7 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CacheType, CommandInteraction, Message, MessageReaction} from "discord.js";
+import {CommandInteraction, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
@@ -136,7 +136,7 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, language:
 	};
 }
 
-function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction<CacheType>) {
+function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction) {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.format("timeLeft.fieldValue", {
@@ -188,7 +188,7 @@ async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: strin
  * @param titleEffect
  * @param language
  */
-async function generateFields(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction<CacheType>, titleEffect: string, language: string) {
+async function generateFields(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction, titleEffect: string, language: string) {
 	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
 	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
 	const rank = await Players.getRankById(askedEntity.Player.id);

@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {draftBotInstance} from "../../../../core/bot";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Set the level of the player

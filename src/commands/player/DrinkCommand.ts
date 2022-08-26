@@ -66,7 +66,7 @@ function drinkPotionCallback(entity: Entity, force: boolean, textInformations: T
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
 		}
 		if (!force && !validateMessage.isValidated()) {
-			sendErrorMessage(
+			await sendErrorMessage(
 				textInformations.interaction.user,
 				textInformations.interaction,
 				textInformations.tr.language,
@@ -77,8 +77,8 @@ function drinkPotionCallback(entity: Entity, force: boolean, textInformations: T
 		}
 		if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
 			textInformations.interaction.replied ?
-				sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription")) :
-				replyErrorMessage(textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription"));
+				await sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription")) :
+				await replyErrorMessage(textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription"));
 			return;
 		}
 
@@ -101,12 +101,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const potion = await entity.Player.getMainPotionSlot().getItem() as Potion;
 
 	if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
-		replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
+		await replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
 		return;
 	}
 	// Those objects are active only during fights
 	if (potion.nature === Constants.NATURE.SPEED || potion.nature === Constants.NATURE.DEFENSE || potion.nature === Constants.NATURE.ATTACK) {
-		replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
+		await replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
 		return;
 	}
 

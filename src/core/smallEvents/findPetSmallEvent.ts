@@ -58,7 +58,7 @@ export const smallEvent: SmallEvent = {
 			await pet.save();
 			await GuildPets.addPet(entity.Player.guildId, pet.id).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
-			interaction.reply({embeds: [seEmbed]});
+			await interaction.reply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
@@ -71,7 +71,7 @@ export const smallEvent: SmallEvent = {
 			entity.Player.petId = pet.id;
 			await entity.Player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
-			interaction.reply({embeds: [seEmbed]});
+			await interaction.reply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)

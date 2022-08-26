@@ -36,7 +36,7 @@ function endCallbackGuildCreateValidationMessage(
 				guild.save()
 			]);
 
-			interaction.followUp({
+			await interaction.followUp({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
 					.setDescription(guildDescriptionModule.get("descriptionChanged"))]
@@ -45,7 +45,7 @@ function endCallbackGuildCreateValidationMessage(
 		}
 
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
+		await sendErrorMessage(interaction.user, interaction, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
 	};
 }
 
@@ -90,7 +90,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildDescription = interaction.options.getString("description");
 
 	if (!checkNameString(guildDescription, Constants.GUILD.MIN_DESCRIPTION_LENGTH, Constants.GUILD.MAX_DESCRIPTION_LENGTH)) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildDescriptionModule.format("invalidDescription", {

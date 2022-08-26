@@ -72,7 +72,7 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 	return async (validateMessage: DraftBotValidateReactionMessage) => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM);
 		if (!validateMessage.isValidated()) {
-			sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
 				interaction,
 				tr.language,
@@ -144,9 +144,9 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
  * @param item
  * @param tr
  */
-function itemChoiceValidation(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
+async function itemChoiceValidation(entity: Entity, interaction: CommandInteraction, item: itemObject, tr: TranslationModule) {
 	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
-	new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(entity, interaction, item, tr))
+	await new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(entity, interaction, item, tr))
 		.formatAuthor(tr.get("sellTitle"), interaction.user)
 		.setDescription(tr.format(item.itemCategory === Constants.ITEM_CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
 			item: item.name,
@@ -167,11 +167,11 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		(item: itemObject) => itemChoiceValidation(entity, interaction, item, tr),
-		(endMessage) => {
+		async (item: itemObject) => await itemChoiceValidation(entity, interaction, item, tr),
+		async (endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SELL);
 			if (endMessage.isCanceled()) {
-				sendErrorMessage(interaction.user, interaction, tr.language, tr.get("sellCanceled"), true);
+				await sendErrorMessage(interaction.user, interaction, tr.language, tr.get("sellCanceled"), true);
 			}
 		});
 
@@ -195,7 +195,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	let toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSellItems.length === 0) {
-		replyErrorMessage(interaction, language, tr.get("noItemToSell"));
+		await replyErrorMessage(interaction, language, tr.get("noItemToSell"));
 		return;
 	}
 	toSellItems = await sortPlayerItemList(toSellItems);

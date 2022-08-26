@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Quick travel your gd of a given time

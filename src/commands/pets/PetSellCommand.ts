@@ -26,9 +26,9 @@ type BuyerInformations = { buyer: Entity, user: User };
  * @param textInformations
  * @param sellerInformations
  */
-function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
+async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
 	if (!sellerInformations.pet) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.petSellModule.language,
 			Translations.getModule("commands.pet", textInformations.petSellModule.language).get("noPet")
@@ -37,7 +37,7 @@ function missingRequirementsToSellPet(textInformations: TextInformations, seller
 	}
 
 	if (sellerInformations.pet.isFeisty()) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.petSellModule.language,
 			textInformations.petSellModule.get("isFeisty")
@@ -46,7 +46,7 @@ function missingRequirementsToSellPet(textInformations: TextInformations, seller
 	}
 
 	if (sellerInformations.petCost < PetSellConstants.SELL_PRICE_MIN || sellerInformations.petCost > PetSellConstants.SELL_PRICE_MAX) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.petSellModule.language,
 			textInformations.petSellModule.format("badPrice", {
@@ -58,7 +58,7 @@ function missingRequirementsToSellPet(textInformations: TextInformations, seller
 	}
 
 	if (sellerInformations.guild.isAtMaxLevel()) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.petSellModule.language,
 			textInformations.petSellModule.get("guildAtMaxLevel")
@@ -88,15 +88,15 @@ function calculateAmountOfXPToAdd(petCost: number) {
 async function executeTheTransaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations) {
 	const buyerGuild = await Guilds.getById(buyerInformations.buyer.Player.guildId);
 	if (buyerGuild && buyerGuild.id === sellerInformations.guild.id) {
-		sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sameGuild"));
+		await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sameGuild"));
 		return;
 	}
 	if (buyerInformations.buyer.Player.Pet) {
-		sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("havePet"));
+		await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("havePet"));
 		return;
 	}
 	if (sellerInformations.petCost > buyerInformations.buyer.Player.money) {
-		sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("noMoney"));
+		await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("noMoney"));
 		return;
 	}
 	const xpToAdd = calculateAmountOfXPToAdd(sellerInformations.petCost);
@@ -183,7 +183,7 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 	confirmCollector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
 			confirmCollector.stop();
-			sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
+			await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
 			return;
 		}
 		if (reaction.emoji.name === Constants.MENU_REACTION.ACCEPT) {
@@ -191,9 +191,9 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
 			await executeTheTransaction(buyerInformations, sellerInformations, textInformations);
 		}
 	});
-	confirmCollector.on("end", (reaction) => {
+	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first()) {
-			sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
+			await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sellCancelled"), true);
 		}
 		BlockingUtils.unblockPlayer(buyerInformations.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
 		BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
@@ -256,7 +256,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	if (guild === null) {
 		// not in a guild
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			petSellModule.language,
 			Translations.getModule("commands.guildAdd", petSellModule.language).get("notInAguild")
@@ -267,7 +267,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const textInformations = {interaction, petSellModule};
 	const sellerInformations = {entity, pet, guild, petCost};
 
-	if (missingRequirementsToSellPet(textInformations, sellerInformations)) {
+	if (await missingRequirementsToSellPet(textInformations, sellerInformations)) {
 		return;
 	}
 

@@ -141,7 +141,10 @@ export class CommandsTest {
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
 				embedTestSuccessful = new DraftBotEmbed()
-					.setAuthor("Commande test " + testCommand.name + " exécutée :", interaction.user.displayAvatarURL())
+					.setAuthor({
+						name: `Commande test ${testCommand.name} exécutée :`,
+						iconURL: interaction.user.displayAvatarURL()
+					})
 					.setDescription(messageToDisplay)
 					.setColor(<HexColorString>Constants.MESSAGES.COLORS.SUCCESSFUL);
 			}

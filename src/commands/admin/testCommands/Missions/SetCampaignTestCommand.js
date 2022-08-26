@@ -1,5 +1,6 @@
 const {Entities} = require("../../../../core/database/game/models/Entity");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Set the weapon of the player

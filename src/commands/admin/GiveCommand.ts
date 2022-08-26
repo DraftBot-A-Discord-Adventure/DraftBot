@@ -27,7 +27,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const tr = Translations.getModule("commands.giveCommand", language);
 	const usersToChange = interaction.options.getString("users").split(" ");
 	if (usersToChange.length > 50) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			tr.get("errors.tooMuchPeople")
@@ -57,7 +57,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
 	}
 
-	const users = ChangeValueAdminCommands.getConcernedUsers(usersToChange, interaction, tr);
+	const users = await ChangeValueAdminCommands.getConcernedUsers(usersToChange, interaction, tr);
 
 	await new DraftBotValidateReactionMessage(
 		interaction.user,
@@ -106,7 +106,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				});
 			}
 			else {
-				sendErrorMessage(
+				await sendErrorMessage(
 					interaction.user,
 					interaction,
 					language,

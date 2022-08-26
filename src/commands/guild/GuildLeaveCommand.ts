@@ -31,7 +31,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			}
 			if (userInformation.guild === null) {
 				// guild was destroyed since the command was launched
-				sendErrorMessage(
+				await sendErrorMessage(
 					interaction.user,
 					interaction,
 					guildLeaveModule.language,
@@ -42,7 +42,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 
 			if (userInformation.guild.elderId === userInformation.entity.id) {
 				// the elder of the guild is leaving
-				draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId).then();
+				await draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId);
 				userInformation.guild.elderId = null;
 			}
 
@@ -51,9 +51,9 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				if (userInformation.guild.elderId) {
 					// an elder can recover the guild
 
-					draftBotInstance.logsDatabase.logGuildChiefChange(userInformation.guild, userInformation.guild.elderId).then();
+					await draftBotInstance.logsDatabase.logGuildChiefChange(userInformation.guild, userInformation.guild.elderId);
 					userInformation.guild.chiefId = userInformation.guild.elderId;
-					draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId).then();
+					await draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId);
 					userInformation.guild.elderId = null;
 					interaction.channel.send({
 						content: guildLeaveModule.format("newChiefTitle", {
@@ -78,16 +78,16 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			]);
 
 
-			interaction.followUp({
+			await interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
-						.setAuthor(
-							guildLeaveModule.format("successTitle", {
+						.setAuthor({
+							name: guildLeaveModule.format("successTitle", {
 								pseudo: await userInformation.entity.Player.getPseudo(guildLeaveModule.language),
 								guildName: userInformation.guild.name
 							}),
-							interaction.user.displayAvatarURL()
-						)
+							iconURL: interaction.user.displayAvatarURL()
+						})
 						.setDescription(guildLeaveModule.get("leavingSuccess"))
 				]
 			});
@@ -95,7 +95,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 		}
 
 		// the user chose to stay in the guild or did not respond
-		sendErrorMessage(interaction.user, interaction, guildLeaveModule.language,
+		await sendErrorMessage(interaction.user, interaction, guildLeaveModule.language,
 			guildLeaveModule.get("leavingCancelled"), true);
 	};
 }
@@ -116,7 +116,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	if (guild === null) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildLeaveModule.get("notInAGuild")

@@ -29,7 +29,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const guild = await getGuildOfEntity(entity);
 	if (!guild) {
-		replyErrorMessage(interaction, language, Translations.getModule("commands.guildKick", language).get("notInAguild"));
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.guildKick", language).get("notInAguild"));
 		return;
 	}
 
@@ -45,11 +45,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (guildPetCount === 0) {
-		replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
 		return;
 	}
 	if (shelterPosition > guildPetCount) {
-		sendErrorInvalidPositionShelter(guildPetCount, interaction, language, petTransferModule);
+		await sendErrorInvalidPositionShelter(guildPetCount, interaction, language, petTransferModule);
 		return;
 	}
 
@@ -85,7 +85,7 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 		return replyErrorMessage(interaction, language, petTransferModule.get("noSlotAvailable"));
 	}
 	entity.Player.petId = null;
-	entity.Player.save();
+	await entity.Player.save();
 	await (await GuildPets.addPet(guild.id, playerPet.id)).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: playerPet.getPetEmote() + " " + (playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language))
@@ -110,7 +110,7 @@ async function switchPets(guild: Guild, shelterPosition: any, interaction: Comma
 
 	if (playerPet) {
 		if (playerPet.isFeisty()) {
-			replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
+			await replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
 			return null;
 		}
 		swPet.petEntityId = playerPet.id;

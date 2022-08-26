@@ -8,7 +8,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
-import { draftBotInstance } from "../../core/bot";
+import {draftBotInstance} from "../../core/bot";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
 	if (await sendBlockedError(interaction, language)) {
@@ -17,7 +17,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const pet = entity.Player.Pet;
 	const petNickTranslations = Translations.getModule("commands.petNickname", language);
 	if (!pet) {
-		replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
 		return;
 	}
 	const petNickname = interaction.options.getString("name");
@@ -28,7 +28,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	else {
 		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
-			replyErrorMessage(interaction, language,
+			await replyErrorMessage(interaction, language,
 				petNickTranslations.get("invalidName") + "\n" +
 				Translations.getModule("error", language).format("nameRules", {
 					min: Constants.PETS.NICKNAME_MIN_LENGTH,

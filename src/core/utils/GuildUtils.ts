@@ -20,7 +20,7 @@ export const giveFood = async (
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
-		return sendErrorMessage(
+		return await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,

@@ -39,14 +39,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	if (guild !== null) {
 		// already in a guild
-		replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
+		await replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
 		return;
 	}
 
 	const askedName = interaction.options.getString("name");
 
 	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildCreateModule.get("invalidName") + "\n" + Translations.getModule("error", language).format("nameRules", {
@@ -60,7 +60,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (guild !== null) {
 		// the name is already used
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildCreateModule.get("nameAlreadyUsed")
@@ -97,10 +97,10 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {
 				// the name is already used
-				return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
+				return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
 			}
 			if (entity.Player.money < informationModules.guildCreateData.getNumber("guildCreationPrice")) {
-				return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("notEnoughMoney"));
+				return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("notEnoughMoney"));
 			}
 
 			const newGuild = await Guild.create({
@@ -111,7 +111,7 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 			entity.Player.guildId = newGuild.id;
 			await entity.Player.addMoney(entity, -informationModules.guildCreateData.getNumber("guildCreationPrice"), interaction.channel, language, NumberChangeReason.GUILD_CREATE);
 			newGuild.updateLastDailyAt();
-			newGuild.save();
+			await newGuild.save();
 			await Promise.all([
 				entity.save(),
 				entity.Player.save()
@@ -132,7 +132,7 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("creationCancelled"), true);
+		return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("creationCancelled"), true);
 	};
 }
 

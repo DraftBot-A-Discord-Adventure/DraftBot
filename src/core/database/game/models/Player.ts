@@ -292,7 +292,7 @@ export class Player extends Model {
 
 		const guildMember = await (<TextChannel>channel).guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
-		this.dmNotification ? user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
+		this.dmNotification ? await user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
 			: channel.send({
 				embeds: [new DraftBotEmbed()
 					.setDescription(tr.get("koPM.description"))

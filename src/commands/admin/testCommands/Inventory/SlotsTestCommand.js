@@ -1,5 +1,6 @@
 import {Constants} from "../../../../core/Constants";
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Set the weapon of the player

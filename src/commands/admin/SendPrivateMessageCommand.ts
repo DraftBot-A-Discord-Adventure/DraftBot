@@ -27,11 +27,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const user = draftBotClient.users.cache.get(userId);
 
 	if (userId === undefined) {
-		replyErrorMessage(interaction, language, dmModule.get("descError"));
+		await replyErrorMessage(interaction, language, dmModule.get("descError"));
 		return;
 	}
 	if (user === undefined) {
-		replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
+		await replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
 		return;
 	}
 	const embed = new DraftBotEmbed()
@@ -45,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return await interaction.reply({embeds: [embed]});
 	}
 	catch {
-		replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
+		await replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
 	}
 }
 
