@@ -634,6 +634,74 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("fights_results", {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		player1Id: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		player1Points: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		},
+		player2Id: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		player2Points: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		},
+		turn: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		winner: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		friendly: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("fights_actions", {
+		id: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	});
+	await context.createTable("fights_actions_used", {
+		fightId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		player: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		},
+		actionId: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		},
+		count: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -695,4 +763,7 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("guilds_elders_removes");
 	await context.dropTable("guilds_chiefs_changes");
 	await context.dropTable("pets_frees");
+	await context.dropTable("fights_results");
+	await context.dropTable("fights_actions");
+	await context.dropTable("fights_actions_used");
 }
