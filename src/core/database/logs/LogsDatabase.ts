@@ -832,7 +832,7 @@ export class LogsDatabase extends Database {
 				const logPetEntity = (await LogsPetEntities.findOrCreate({
 					where: {
 						gameId: petEntity.id,
-						creationTime: petEntity.creationDate.valueOf() / 1000.0
+						creationTimestamp: petEntity.creationDate.valueOf() / 1000.0
 					},
 					transaction
 				}))[0];
@@ -848,7 +848,10 @@ export class LogsDatabase extends Database {
 				const logGuild = (await LogsGuilds.findOrCreate({
 					where: {
 						gameId: guild.id,
-						creationTime: guild.creationDate.valueOf() / 1000.0
+						creationTimestamp: guild.creationDate.valueOf() / 1000.0
+					},
+					defaults: {
+						name: guild.name
 					},
 					transaction
 				}))[0];
