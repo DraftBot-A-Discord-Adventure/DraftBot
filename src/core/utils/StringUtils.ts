@@ -49,3 +49,24 @@ export const checkNameString = function(name: string, minLength: number, maxLeng
 export const discordIdToMention = function(id: string): string {
 	return "<@" + id + ">";
 };
+
+/**
+ * Check if the given variable is a Mention
+ * @param {String} variable
+ * @return {boolean}
+ */
+export const isAMention = (variable: string) => {
+	if (typeof variable === "string") {
+		return RegExp(/^<@!?[0-9]{18}>$/)
+			.test(variable);
+	}
+	return false;
+};
+
+/**
+ * Check if the given variable is a Discord Emoji
+ * @param {String} variable
+ * @return {boolean}
+ */
+export const isAnEmoji = (variable: string) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
+	.test(variable);

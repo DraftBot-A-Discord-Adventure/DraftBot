@@ -2,7 +2,7 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Translations} from "../../../Translations";
 import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class MapLocation extends Model {
@@ -73,10 +73,10 @@ export class MapLocation extends Model {
 
 	public async playersCount(originId: number): Promise<number> {
 		const query = `SELECT COUNT(*) as count 
-			FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}players 
+			FROM draftbot_game.players 
 			WHERE mapLinkId IN (
 				SELECT id 
-				FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}map_links 
+				FROM draftbot_game.map_links 
 				WHERE startMap = :id AND endMap = :prevId OR endMap = :id AND startMap = :prevId
 			) ;`;
 		return (<{ count: number }[]>(await MapLocation.sequelize.query(query, {
@@ -107,11 +107,11 @@ export class MapLocations {
 		}
 		if (mapTypes) {
 			const query = `SELECT id
-                           FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}map_locations
+                           FROM draftbot_game.map_locations
                            WHERE type LIKE ':mapTypes'
                              AND id != :blacklistId
                              AND (
-                               id IN (SELECT endMap FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}map_links WHERE startMap = :mapId));`;
+                               id IN (SELECT endMap FROM draftbot_game.map_links WHERE startMap = :mapId));`;
 			return await MapLocation.sequelize.query(query, {
 				type: QueryTypes.SELECT,
 				replacements: {
@@ -122,10 +122,10 @@ export class MapLocations {
 			});
 		}
 		const query = `SELECT id
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}map_locations
+                       FROM draftbot_game.map_locations
                        WHERE id != :blacklistId
                          AND (
-                           id IN (SELECT endMap FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}map_links WHERE startMap = :mapId));`;
+                           id IN (SELECT endMap FROM draftbot_game.map_links WHERE startMap = :mapId));`;
 		return await MapLocation.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -136,17 +136,16 @@ export class MapLocations {
 	}
 
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
-		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT discordUserId 
-			FROM ${formatDatabaseType}players 
-			JOIN ${formatDatabaseType}entities 
-			ON ${formatDatabaseType}players.entityId = ${formatDatabaseType}entities.id 
-			WHERE ${formatDatabaseType}players.id != :playerId 
-			AND ${formatDatabaseType}players.mapLinkId IN (
-				SELECT id from ${formatDatabaseType}map_links 
+			FROM draftbot_game.players 
+			JOIN draftbot_game.entities 
+			ON draftbot_game.players.entityId = draftbot_game.entities.id 
+			WHERE draftbot_game.players.id != :playerId 
+			AND draftbot_game.players.mapLinkId IN (
+				SELECT id from draftbot_game.map_links 
 				WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)
 			) 
-			ORDER BY ${botConfig.DATABASE_TYPE === "sqlite" ? "RANDOM()" : "RAND()"};`;
+			ORDER BY RAND();`;
 		return await MapLocation.sequelize.query(query, {
 			replacements: {
 				mapId: mapId,

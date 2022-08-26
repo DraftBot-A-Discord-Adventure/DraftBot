@@ -1,17 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "addgem",
-	commandFormat: "<gem>",
-	typeWaited: {
-		gem: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
-	description: "Ajoute la valeur donnée de gemmes à votre joueur",
-	commandTestShouldReply: true
-};
-
 /**
  * Add gems to the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,4 +16,14 @@ const addGemsTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});
 };
 
-module.exports.execute = addGemsTestCommand;
+module.exports.commandInfo = {
+	name: "addgem",
+	commandFormat: "<gem>",
+	typeWaited: {
+		gem: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
+	description: "Ajoute la valeur donnée de gemmes à votre joueur",
+	commandTestShouldReply: true,
+	execute: addGemsTestCommand
+};

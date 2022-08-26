@@ -672,8 +672,6 @@ export class LogsDatabase extends Database {
 					guildId: logGuild.id,
 					date: LogsDatabase.getDate()
 				}, {transaction});
-				logGuild.isDeleted = true;
-				await logGuild.save({fields: ["isDeleted"]});
 				await transaction.commit();
 			});
 		});
@@ -707,8 +705,6 @@ export class LogsDatabase extends Database {
 					newChief: logNewChiefId,
 					date: LogsDatabase.getDate()
 				}, {transaction});
-				logGuild.chiefId = logNewChiefId;
-				await logGuild.save({fields: ["chiefId"]});
 				await transaction.commit();
 			});
 		});
@@ -722,8 +718,6 @@ export class LogsDatabase extends Database {
 					petId: logPetEntity.id,
 					date: LogsDatabase.getDate()
 				}, {transaction});
-				logPetEntity.isDeleted = true;
-				await logPetEntity.save({fields: ["isDeleted"]});
 				await transaction.commit();
 			});
 		});
@@ -838,9 +832,7 @@ export class LogsDatabase extends Database {
 				const logPetEntity = (await LogsPetEntities.findOrCreate({
 					where: {
 						gameId: petEntity.id,
-						petId: petEntity.petId,
-						isFemale: petEntity.sex === Constants.PETS.FEMALE,
-						isDeleted: false
+						creationTime: petEntity.creationDate.valueOf() / 1000.0
 					},
 					transaction
 				}))[0];
@@ -856,11 +848,7 @@ export class LogsDatabase extends Database {
 				const logGuild = (await LogsGuilds.findOrCreate({
 					where: {
 						gameId: guild.id,
-						name: guild.name,
-						chiefId: (await this.findOrCreatePlayer(
-							(await (await Player.findOne({where: {id: guild.chiefId}})).getEntity()).discordUserId
-						)).id,
-						isDeleted: false
+						creationTime: guild.creationDate.valueOf() / 1000.0
 					},
 					transaction
 				}))[0];

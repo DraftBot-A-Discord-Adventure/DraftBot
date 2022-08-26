@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "playerhealth",
-	aliases: ["health"],
-	commandFormat: "<health>",
-	typeWaited: {
-		health: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
-	description: "Mets la vie de votre joueur à la valeur donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the health of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -34,4 +22,15 @@ const playerHealthTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {health: entity.health});
 };
 
-module.exports.execute = playerHealthTestCommand;
+module.exports.commandInfo = {
+	name: "playerhealth",
+	aliases: ["health"],
+	commandFormat: "<health>",
+	typeWaited: {
+		health: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
+	description: "Mets la vie de votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: playerHealthTestCommand
+};

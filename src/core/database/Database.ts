@@ -1,8 +1,6 @@
 import {Sequelize, Transaction} from "sequelize";
 import {botConfig} from "../bot";
 import {SequelizeStorage, Umzug} from "umzug";
-import {Constants} from "../Constants";
-import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
 import TYPES = Transaction.TYPES;
@@ -17,10 +15,10 @@ export abstract class Database {
 	 * Umzug instance
 	 * @private
 	 */
-	protected umzug: Umzug;
+	public umzug: Umzug;
 
 	/**
-	 * The database name (used for both sqlite filename and mariadb database name)
+	 * The database name
 	 * @private
 	 */
 	private readonly databaseName: string;
@@ -43,10 +41,6 @@ export abstract class Database {
 		}
 
 		await this.initModels();
-
-		if (botConfig.DATABASE_TYPE === "sqlite") {
-			DraftBotBackup.backupFiles([`database/${this.databaseName}.sqlite`], Constants.BACKUP.DATABASE_BACKUP_INTERVAL, this.databaseName);
-		}
 	}
 
 	protected async connectDatabase(): Promise<void> {
@@ -56,40 +50,25 @@ export abstract class Database {
 		}
 
 		// Initialize the connection
-		let mariadbConnection;
-		switch (botConfig.DATABASE_TYPE.toLowerCase()) {
-		case "sqlite":
-			this.sequelize = new Sequelize({
-				dialect: "sqlite",
-				storage: `database/${this.databaseName}.sqlite`,
-				logging: false,
-				transactionType: TYPES.IMMEDIATE
-			});
-			break;
-		case "mariadb":
-			mariadbConnection = await createConnection({
-				host: botConfig.MARIADB_HOST,
-				port: botConfig.MARIADB_PORT,
-				user: "root",
-				password: botConfig.MARIADB_ROOT_PASSWORD
-			});
-			await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS draftbot_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON draftbot_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
-			await mariadbConnection.end();
+		const mariadbConnection = await createConnection({
+			host: botConfig.MARIADB_HOST,
+			port: botConfig.MARIADB_PORT,
+			user: "root",
+			password: botConfig.MARIADB_ROOT_PASSWORD
+		});
+		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS draftbot_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
+		await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON draftbot_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
+		await mariadbConnection.end();
 
-			this.sequelize = new Sequelize(`draftbot_${this.databaseName}`, botConfig.MARIADB_USER, botConfig.MARIADB_PASSWORD, {
-				dialect: "mariadb",
-				host: botConfig.MARIADB_HOST,
-				port: botConfig.MARIADB_PORT,
-				logging: false,
-				transactionType: TYPES.IMMEDIATE
-			});
-			await this.sequelize.authenticate();
-			await this.sequelize.query("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';");
-			break;
-		default:
-			throw new Error(`Unknown database type: ${botConfig.DATABASE_TYPE}`);
-		}
+		this.sequelize = new Sequelize(`draftbot_${this.databaseName}`, botConfig.MARIADB_USER, botConfig.MARIADB_PASSWORD, {
+			dialect: "mariadb",
+			host: botConfig.MARIADB_HOST,
+			port: botConfig.MARIADB_PORT,
+			logging: false,
+			transactionType: TYPES.IMMEDIATE
+		});
+		await this.sequelize.authenticate();
+		await this.sequelize.query("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';");
 
 		// Create umzug instance. See https://github.com/sequelize/umzug
 		this.umzug = new Umzug({

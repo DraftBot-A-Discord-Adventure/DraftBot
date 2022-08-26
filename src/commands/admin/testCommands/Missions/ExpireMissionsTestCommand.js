@@ -1,13 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "expireMissions",
-	commandFormat: "",
-	messageWhenExecuted: "Toutes les missions ont expiré",
-	description: "Expire toutes les missions",
-	commandTestShouldReply: true
-};
-
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
@@ -25,4 +17,12 @@ const expireMissionsTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = expireMissionsTestCommand;
+module.exports.commandInfo = {
+	name: "expireMissions",
+	commandFormat: "",
+	messageWhenExecuted: "Toutes les missions ont expiré",
+	description: "Expire toutes les missions",
+	commandTestShouldReply: true,
+	execute: expireMissionsTestCommand
+};
+

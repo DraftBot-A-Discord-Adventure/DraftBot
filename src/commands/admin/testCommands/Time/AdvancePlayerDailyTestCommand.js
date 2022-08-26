@@ -1,17 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "advanceplayerdaily",
-	aliases: ["adaily"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
-	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Quick travel your daily of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -26,4 +14,15 @@ const advancePlayerDailyTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-module.exports.execute = advancePlayerDailyTestCommand;
+module.exports.commandInfo = {
+	name: "advanceplayerdaily",
+	aliases: ["adaily"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
+	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: advancePlayerDailyTestCommand
+};

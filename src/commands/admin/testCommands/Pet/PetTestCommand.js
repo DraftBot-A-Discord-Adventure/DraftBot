@@ -1,19 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
-import {Pets} from "../../../../core/database/game/models/Pet";
+import pet, {Pets} from "../../../../core/database/game/models/Pet";
 import {MissionsController} from "../../../../core/missions/MissionsController";
-
-module.exports.commandInfo = {
-	name: "pet",
-	commandFormat: "<id> <sex = m/f>",
-	typeWaited: {
-		id: typeVariable.INTEGER,
-		sex: typeVariable.STRING
-	},
-	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
-	description: "Vous donne un pet avec un id et un sexe donnés",
-	commandTestShouldReply: true
-};
 
 /**
  * Give you a pet with id and sex given
@@ -54,4 +42,15 @@ const petTestCommand = async (language, interaction, args) => {
 	);
 };
 
-module.exports.execute = petTestCommand;
+module.exports.commandInfo = {
+	name: "pet",
+	commandFormat: "<id> <sex = m/f>",
+	typeWaited: {
+		id: typeVariable.INTEGER,
+		sex: typeVariable.STRING
+	},
+	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
+	description: "Vous donne un pet avec un id et un sexe donnés",
+	commandTestShouldReply: true,
+	execute: petTestCommand
+};

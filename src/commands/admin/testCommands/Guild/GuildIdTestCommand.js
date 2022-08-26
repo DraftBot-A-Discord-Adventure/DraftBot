@@ -2,15 +2,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 
-module.exports.commandInfo = {
-	name: "guildid",
-	aliases: ["gid", "mygid"],
-	commandFormat: "",
-	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
-	description: "Renvoie l'id de votre guilde",
-	commandTestShouldReply: true
-};
-
 /**
  * Get your guild's id
  * @param {("fr"|"en")} language - Language to use in the response
@@ -26,4 +17,12 @@ const guildIdTestCommand = async (language, interaction) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {gName: guild.name, idGuild: guild.id});
 };
 
-module.exports.execute = guildIdTestCommand;
+module.exports.commandInfo = {
+	name: "guildid",
+	aliases: ["gid", "mygid"],
+	commandFormat: "",
+	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
+	description: "Renvoie l'id de votre guilde",
+	commandTestShouldReply: true,
+	execute: guildIdTestCommand
+};

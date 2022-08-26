@@ -5,11 +5,7 @@ export class LogsGuilds extends Model {
 
 	public readonly gameId!: number;
 
-	public name!: string;
-
-	public chiefId!: number;
-
-	public isDeleted!: boolean;
+	public readonly creationTimestamp!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -23,16 +19,8 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		chiefId: {
+		creationTimestamp: {
 			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		isDeleted: {
-			type: DataTypes.BOOLEAN,
 			allowNull: false
 		}
 	}, {

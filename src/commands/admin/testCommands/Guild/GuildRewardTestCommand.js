@@ -6,16 +6,6 @@ import {GuildDailyConstants} from "../../../../core/constants/GuildDailyConstant
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += `\n - ${v[1]}`); // eslint-disable-line no-return-assign
-module.exports.commandInfo = {
-	name: "guildreward",
-	aliases: ["greward"],
-	commandFormat: "<reward>",
-	typeWaited: {
-		reward: typeVariable.STRING
-	},
-	messageWhenExecuted: "Reward {reward} forcé !",
-	description: stringDesc
-};
 
 /**
  * Force a gd with a given out
@@ -41,4 +31,14 @@ const guildRewardTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {reward: args[0]});
 };
 
-module.exports.execute = guildRewardTestCommand;
+module.exports.commandInfo = {
+	name: "guildreward",
+	aliases: ["greward"],
+	commandFormat: "<reward>",
+	typeWaited: {
+		reward: typeVariable.STRING
+	},
+	messageWhenExecuted: "Reward {reward} forcé !",
+	description: stringDesc,
+	execute: guildRewardTestCommand
+};

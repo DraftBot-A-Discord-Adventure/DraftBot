@@ -2,18 +2,6 @@ const {format} = require("../../../../core/utils/StringFormatter");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
 const {Entities} = require("../../../../core/database/game/models/Entity");
 const {MissionDifficulty} = require("../../../../core/missions/MissionDifficulty");
-module.exports.commandInfo = {
-	name: "giveMission",
-	aliases: ["gm"],
-	commandFormat: "<mission id> <difficulty>",
-	typeWaited: {
-		"mission id": typeVariable.STRING,
-		"difficulty": typeVariable.STRING
-	},
-	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Permet de se donner une mission spécifique",
-	commandTestShouldReply: true
-};
 
 /**
  * Set the weapon of the player
@@ -50,4 +38,16 @@ const giveMissionTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = giveMissionTestCommand;
+module.exports.commandInfo = {
+	name: "giveMission",
+	aliases: ["gm"],
+	commandFormat: "<mission id> <difficulty>",
+	typeWaited: {
+		"mission id": typeVariable.STRING,
+		"difficulty": typeVariable.STRING
+	},
+	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
+	description: "Permet de se donner une mission spécifique",
+	commandTestShouldReply: true,
+	execute: giveMissionTestCommand
+};

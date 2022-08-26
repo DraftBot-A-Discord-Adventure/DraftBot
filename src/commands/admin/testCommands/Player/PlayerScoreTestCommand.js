@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "playerscore",
-	aliases: ["score"],
-	commandFormat: "<score>",
-	typeWaited: {
-		score: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
-	description: "Mets le score de votre joueur à la valeur donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the score of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -31,4 +19,15 @@ const playerScoreTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {score: entity.Player.score});
 };
 
-module.exports.execute = playerScoreTestCommand;
+module.exports.commandInfo = {
+	name: "playerscore",
+	aliases: ["score"],
+	commandFormat: "<score>",
+	typeWaited: {
+		score: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
+	description: "Mets le score de votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: playerScoreTestCommand
+};

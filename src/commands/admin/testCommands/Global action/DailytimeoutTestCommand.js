@@ -1,11 +1,4 @@
 const {DraftBot} = require("../../../../core/bot/DraftBot");
-module.exports.commandInfo = {
-	name: "dailytimeout",
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez effectué un dailytimeout !",
-	description: "Effectue un dailytimeout (action journalière qui actualise la potion du jour et retire des lovePoints des pets)",
-	commandTestShouldReply: true
-};
 
 /**
  * Do a dailytimeout
@@ -17,4 +10,11 @@ const dailyTimeoutTestCommand = () => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = dailyTimeoutTestCommand;
+module.exports.commandInfo = {
+	name: "dailytimeout",
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez effectué un dailytimeout !",
+	description: "Effectue un dailytimeout (action journalière qui actualise la potion du jour et retire des lovePoints des pets)",
+	commandTestShouldReply: true,
+	execute: dailyTimeoutTestCommand
+};

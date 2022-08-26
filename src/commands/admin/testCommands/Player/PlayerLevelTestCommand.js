@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {draftBotInstance} from "../../../../core/bot";
 
-module.exports.commandInfo = {
-	name: "playerlevel",
-	aliases: ["level", "lvl"],
-	commandFormat: "<niveau>",
-	typeWaited: {
-		niveau: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
-	description: "Mets votre joueur au niveau donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the level of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -32,4 +20,15 @@ const playerLevelTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {level: entity.Player.level});
 };
 
-module.exports.execute = playerLevelTestCommand;
+module.exports.commandInfo = {
+	name: "playerlevel",
+	aliases: ["level", "lvl"],
+	commandFormat: "<niveau>",
+	typeWaited: {
+		niveau: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
+	description: "Mets votre joueur au niveau donné",
+	commandTestShouldReply: true,
+	execute: playerLevelTestCommand
+};

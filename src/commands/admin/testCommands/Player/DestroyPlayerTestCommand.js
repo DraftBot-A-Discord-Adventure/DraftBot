@@ -5,15 +5,6 @@ import Player from "../../../../core/database/game/models/Player";
 import MissionSlot from "../../../../core/database/game/models/MissionSlot";
 import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 
-module.exports.commandInfo = {
-	name: "destroyplayer",
-	aliases: ["destroy"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez été réinitialisé !",
-	description: "Réinitialise votre joueur",
-	commandTestShouldReply: true
-};
-
 /**
  * Reset the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -65,4 +56,12 @@ const destroyPlayerTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = destroyPlayerTestCommand;
+module.exports.commandInfo = {
+	name: "destroyplayer",
+	aliases: ["destroy"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez été réinitialisé !",
+	description: "Réinitialise votre joueur",
+	commandTestShouldReply: true,
+	execute: destroyPlayerTestCommand
+};

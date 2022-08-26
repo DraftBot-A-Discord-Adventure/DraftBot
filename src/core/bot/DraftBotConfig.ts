@@ -24,7 +24,6 @@ export interface DraftBotConfig {
 	BACKUP_ARCHIVE_PASSWORD: string;
 	DROPBOX_TOKEN: string;
 	TEST_MODE: boolean;
-	DATABASE_TYPE: string;
 	MARIADB_HOST: string;
 	MARIADB_USER: string;
 	MARIADB_PASSWORD: string;
@@ -57,11 +56,10 @@ export const loadConfig = function(): DraftBotConfig {
 		MODE_MAINTENANCE: config.bot.maintenance,
 		NASA_API_KEY: config.others.nasa_api_key,
 		TEST_MODE: config.bot.test_mode,
-		DATABASE_TYPE: config.database.type,
-		MARIADB_HOST: config.database.mariadb.host,
-		MARIADB_USER: config.database.mariadb.user,
-		MARIADB_PASSWORD: config.database.mariadb.password,
-		MARIADB_ROOT_PASSWORD: config.database.mariadb.root_password,
-		MARIADB_PORT: config.database.mariadb.port
+		MARIADB_HOST: config.database.host,
+		MARIADB_USER: config.database.user,
+		MARIADB_PASSWORD: config.database.password,
+		MARIADB_ROOT_PASSWORD: config.database.root_password,
+		MARIADB_PORT: config.database.port
 	};
 };

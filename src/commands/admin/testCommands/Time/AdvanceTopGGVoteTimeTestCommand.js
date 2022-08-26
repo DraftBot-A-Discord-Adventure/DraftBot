@@ -1,17 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "advancetopggvotetime",
-	aliases: ["topggatime"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre dernier vote top.gg de {time} minutes !",
-	description: "Avance le dernier vote top.gg de votre joueur d'une durée en minutes donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Quick travel your topgg vote time of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -26,4 +14,15 @@ const advanceTopGGVoteTimeTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-module.exports.execute = advanceTopGGVoteTimeTestCommand;
+module.exports.commandInfo = {
+	name: "advancetopggvotetime",
+	aliases: ["topggatime"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre dernier vote top.gg de {time} minutes !",
+	description: "Avance le dernier vote top.gg de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: advanceTopGGVoteTimeTestCommand
+};
