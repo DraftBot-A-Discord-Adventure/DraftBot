@@ -60,7 +60,7 @@ async function sendError(
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
-		pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()
+		pseudo: (await Entities.getOrRegister(user.id))[0].getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
 	replyingError ?

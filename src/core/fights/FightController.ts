@@ -10,6 +10,7 @@ import {FightActionController} from "../fightActions/FightActionController";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {draftBotInstance} from "../bot";
 
 /**
  * @class FightController
@@ -18,16 +19,19 @@ export class FightController {
 
 	turn: number;
 
-	private readonly fighters: Fighter[];
+	public readonly fighters: Fighter[];
 
 	private readonly fightView: FightView
 
 	private state: FightState;
 
-	private readonly friendly: boolean;
+	public readonly friendly: boolean;
+
+	public readonly fightInitiator: Fighter;
 
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
+		this.fightInitiator = fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
 		this.friendly = friendly;
@@ -92,6 +96,8 @@ export class FightController {
 	public endFight() {
 		this.state = FightState.FINISHED;
 
+		draftBotInstance.logsDatabase.logFight(this).then();
+
 		this.checkNegativeFightPoints();
 
 		const winner = this.getWinner();
@@ -100,18 +106,6 @@ export class FightController {
 			BlockingUtils.unblockPlayer(fighter.getUser().id, BlockingConstants.REASONS.FIGHT);
 		}
 
-		if (isADraw) {
-			console.log("Fight ended; " +
-				`equality between: ${this.fighters[winner].getUser().id} (${this.fighters[winner].stats.fightPoints}/${this.fighters[winner].stats.maxFightPoint}); ` +
-				`and: ${this.fighters[1 - winner].getUser().id} (${this.fighters[1 - winner].stats.fightPoints}/${this.fighters[1 - winner].stats.maxFightPoint}); ` +
-				`turns: ${this.turn}`);
-		}
-		else {
-			console.log("Fight ended; " +
-				`winner: ${this.fighters[winner].getUser().id} (${this.fighters[winner].stats.fightPoints}/${this.fighters[winner].stats.maxFightPoint}); ` +
-				`loser: ${this.fighters[1 - winner].getUser().id} (${this.fighters[1 - winner].stats.fightPoints}/${this.fighters[1 - winner].stats.maxFightPoint}); ` +
-				`turns: ${this.turn}`);
-		}
 		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw).finally(() => null);
 		for (const fighter of this.fighters) {
 			this.manageMissionsOf(fighter).finally(() => null);
@@ -150,7 +144,7 @@ export class FightController {
 	 * Get the winner of the fight (or null if it's a draw)
 	 * @private
 	 */
-	private getWinner(): number {
+	public getWinner(): number {
 		return this.fighters[0].isDead() ? 1 : 0;
 	}
 
@@ -158,7 +152,7 @@ export class FightController {
 	 * check if the fight is a draw
 	 * @private
 	 */
-	private isADraw(): boolean {
+	public isADraw(): boolean {
 		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn >= FightConstants.MAX_TURNS && !(this.fighters[0].isDead() || this.fighters[1].isDead());
 	}
 
