@@ -102,7 +102,7 @@ class DBL {
 		if (new Date().valueOf() - entity.Player.topggVoteAt.valueOf() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
 			return;
 		}
-		const member = await (await client.guilds.cache.get(botConfig.MAIN_SERVER_ID)).members.fetch(userId);
+		const member = await (await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID)).members.fetch(userId);
 		try {
 			await member.roles.remove(botConfig.DBL_VOTE_ROLE);
 		}
@@ -112,7 +112,7 @@ class DBL {
 	}
 
 	static async verifyDBLRoles() {
-		const guild = await client.guilds.cache.get(botConfig.MAIN_SERVER_ID);
+		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		const members = guild.members.cache.entries();
 		const removalToWait = [];
 		for (const member of members) {

@@ -18,7 +18,7 @@ export function sendDirectMessage(user: User, title: string, description: string
 			.setColor(color as HexColorString)
 			.formatAuthor(title, user)
 			.setDescription(description)
-			.setFooter(Translations.getModule("models.players", language).get("dmEnabledFooter"))]
+			.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")})]
 	}).catch(() => { /* TODO REFACTOR log error if needed */
 	});
 	// TODO REFACTOR LES LOGS

@@ -77,7 +77,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		];
 		this.setTitle(this.mainTitle);
 		this.addFields(this.mainFields);
-		this.setFooter(this.mainFooter);
+		this.setFooter({text: this.mainFooter});
 	}
 
 	static reactionCallback = async function(msg: DraftBotReactionMessage): Promise<void> {
@@ -85,12 +85,12 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		if (invMsg.isMainState) {
 			invMsg.setTitle(invMsg.stockTitle);
 			invMsg.fields = invMsg.stockFields;
-			invMsg.setFooter(invMsg.stockFooter);
+			invMsg.setFooter({text: invMsg.stockFooter});
 		}
 		else {
 			invMsg.setTitle(invMsg.mainTitle);
 			invMsg.fields = invMsg.mainFields;
-			invMsg.setFooter(invMsg.mainFooter);
+			invMsg.setFooter({text: invMsg.mainFooter});
 		}
 		invMsg.isMainState = !invMsg.isMainState;
 		await msg.sentMessage.edit({embeds: [invMsg]});

@@ -146,11 +146,12 @@ async function displayTop(
 					pageMax: pageMax
 				}));
 	if (timing === TopConstants.TIMING_WEEKLY) {
-		topDisplay.setFooter(
-			topModule.format("nextReset", {
+		topDisplay.setFooter({
+			text: topModule.format("nextReset", {
 				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
-			}), TopConstants.LINK_CLOCK_FOOTER
-		);
+			}),
+			iconURL: TopConstants.LINK_CLOCK_FOOTER
+		});
 	}
 
 	await (scope === TopConstants.SERVER_SCOPE ? interaction.editReply({embeds: [topDisplay]}) : interaction.reply({embeds: [topDisplay]}));

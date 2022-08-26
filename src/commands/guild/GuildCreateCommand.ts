@@ -151,7 +151,7 @@ function createValidationEmbedGuildCreation(
 					price: informationsModule.guildCreateData.getNumber("guildCreationPrice")
 				}
 			))
-		.setFooter(informationsModule.guildCreateModule.get("buyFooter"), null);
+		.setFooter({text: informationsModule.guildCreateModule.get("buyFooter")});
 }
 
 

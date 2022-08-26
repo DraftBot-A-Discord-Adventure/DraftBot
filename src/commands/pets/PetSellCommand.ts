@@ -294,7 +294,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			}),
 			inline: false
 		}])
-		.setFooter(textInformations.petSellModule.get("sellMessage.footer"))
+		.setFooter({text: textInformations.petSellModule.get("sellMessage.footer")})
 		.reply();
 }
 

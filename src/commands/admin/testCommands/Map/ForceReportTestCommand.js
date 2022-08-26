@@ -19,7 +19,7 @@ const forceReportTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
 	}
 	await CT.getTestCommand("atravel").execute(language, interaction, ["5000"]);
-	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, parseInt(args[0]));
+	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, parseInt(args[0], 10));
 	return format(module.exports.commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});
 };
 
