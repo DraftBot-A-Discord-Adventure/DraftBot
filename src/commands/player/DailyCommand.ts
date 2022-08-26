@@ -25,20 +25,20 @@ type TextInformations = { dailyModule: TranslationModule, interaction: CommandIn
  * @param language
  * @param dailyModule
  */
-function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule) {
+async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule) {
 	if (activeObject.nature === Constants.NATURE.NONE) {
 		if (activeObject.id !== Data.getModule("models.inventories").getNumber("objectId")) {
 			// there is an object that do nothing in the inventory
-			replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
+			await replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
 			return true;
 		}
 		// there is no object in the inventory
-		replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectdescription"));
+		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectdescription"));
 		return true;
 	}
 	if ([Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK].indexOf(activeObject.nature) !== -1) {
 		// Those objects are active only during fights
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			dailyModule.get("objectIsActiveDuringFights")
@@ -125,7 +125,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const activeObject: ObjectItem = await entity.Player.getMainObjectSlot().getItem() as ObjectItem;
 
-	if (isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || dailyNotReady(interaction, entity, language, dailyModule)) {
+	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || dailyNotReady(interaction, entity, language, dailyModule)) {
 		return;
 	}
 

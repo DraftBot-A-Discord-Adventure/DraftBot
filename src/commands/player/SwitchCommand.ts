@@ -149,10 +149,10 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		choiceItems,
 		interaction.user.id,
 		async (item: ItemForCallback) => await switchItemEmbedCallback(entity, interaction, item, tr),
-		(endMessage) => {
+		async (endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SWITCH);
 			if (endMessage.isCanceled()) {
-				sendErrorMessage(interaction.user, interaction, tr.language, tr.get("canceled"), true);
+				await sendErrorMessage(interaction.user, interaction, tr.language, tr.get("canceled"), true);
 			}
 		});
 
@@ -179,7 +179,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Get the items that can be switched or send an error if none
 	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
-		replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
+		await replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
 		return;
 	}
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);

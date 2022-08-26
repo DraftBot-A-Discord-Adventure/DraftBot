@@ -351,7 +351,10 @@ async function sendAndManagePoorInteraction(textInformations: TextInformations, 
 		})
 		.build()
 		.setDescription(seEmbed.description)
-		.setAuthor(seEmbed.author)
+		.setAuthor({
+			name: seEmbed.author.name,
+			iconURL: textInformations.interaction.user.displayAvatarURL()
+		})
 		.editReply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
 }
 

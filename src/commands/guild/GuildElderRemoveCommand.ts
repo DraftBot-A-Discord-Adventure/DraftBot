@@ -28,17 +28,19 @@ function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guild
 
 			const confirmEmbed = new DraftBotEmbed()
 				.setAuthor(
-					guildElderRemoveModule.get("successElderRemoveTitle"),
-					interaction.user.displayAvatarURL()
+					{
+						name: guildElderRemoveModule.get("successElderRemoveTitle"),
+						iconURL: interaction.user.displayAvatarURL()
+					}
 				)
 				.setDescription(
 					guildElderRemoveModule.get("successElderRemove")
 				);
-			interaction.followUp({embeds: [confirmEmbed]});
+			await interaction.followUp({embeds: [confirmEmbed]});
 			return;
 		}
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
+		await sendErrorMessage(interaction.user, interaction, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
 	};
 }
 
@@ -54,7 +56,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (guild.elderId === null) {
 		// trying to remove an elder that does not exist
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildElderRemoveModule.get("noElderToRemove")

@@ -46,7 +46,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed();
 
 	if (guild === null) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildModule.get("noGuildException")

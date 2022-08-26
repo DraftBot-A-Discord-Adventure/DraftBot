@@ -166,13 +166,16 @@ export class MissionsController {
 		await channel.send({
 			embeds: [
 				new DraftBotEmbed()
-					.setAuthor(tr.format(
-						"missionsExpiredTitle",
-						{
-							missionsCount: expiredMissions.length,
-							pseudo: await entity.Player.getPseudo(language)
-						}
-					), user.displayAvatarURL())
+					.setAuthor({
+						name: tr.format(
+							"missionsExpiredTitle",
+							{
+								missionsCount: expiredMissions.length,
+								pseudo: await entity.Player.getPseudo(language)
+							}
+						),
+						iconURL: user.displayAvatarURL()
+					})
 					.setDescription(tr.format(
 						"missionsExpiredDesc",
 						{

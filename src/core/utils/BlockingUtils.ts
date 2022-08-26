@@ -54,7 +54,7 @@ export function getErrorReasons(blockingReason: string[], language: string) {
 export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user) {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			Translations.getModule("error", language).format(

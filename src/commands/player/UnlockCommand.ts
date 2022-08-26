@@ -24,7 +24,7 @@ type TextInformations = { interaction: CommandInteraction, language: string, unl
  */
 async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations) {
 	if (!entityCouple.locked) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
 			textInformations.unlockModule.get("cannotGetlockedUser")
@@ -32,7 +32,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 		return false;
 	}
 	if (entityCouple.locked.discordUserId === entityCouple.unlocker.discordUserId) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
 			textInformations.unlockModule.get("unlockHimself")
@@ -41,7 +41,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 	}
 
 	if (entityCouple.locked.Player.effect !== Constants.EFFECT.LOCKED) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
 			textInformations.unlockModule.get("userNotLocked")
@@ -49,7 +49,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 		return false;
 	}
 	if (entityCouple.unlocker.Player.money < UnlockConstants.PRICE_FOR_UNLOCK) {
-		replyErrorMessage(textInformations.interaction, textInformations.language,
+		await replyErrorMessage(textInformations.interaction, textInformations.language,
 			textInformations.unlockModule.format("noMoney", {
 				money: UnlockConstants.PRICE_FOR_UNLOCK - entityCouple.unlocker.Player.money,
 				pseudo: await entityCouple.locked.Player.getPseudo(textInformations.language)
@@ -82,19 +82,19 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
 				]);
 				draftBotInstance.logsDatabase.logUnlocks(entityUnlocker.discordUserId, entityToUnlock.discordUserId).then();
 				const successEmbed = new DraftBotEmbed()
-					.setAuthor(
-						textInformations.unlockModule.format("unlockedTitle", {
+					.setAuthor({
+						name: textInformations.unlockModule.format("unlockedTitle", {
 							pseudo: await entityToUnlock.Player.getPseudo(textInformations.language)
 						}),
-						textInformations.interaction.user.displayAvatarURL()
-					)
+						iconURL: textInformations.interaction.user.displayAvatarURL()
+					})
 					.setDescription(textInformations.unlockModule.format("unlockSuccess", {
 						pseudo: await entityToUnlock.Player.getPseudo(textInformations.language)
 					}));
 				return await textInformations.interaction.followUp({embeds: [successEmbed]});
 			}
 		}
-		sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
+		await sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
 	};
 }
 

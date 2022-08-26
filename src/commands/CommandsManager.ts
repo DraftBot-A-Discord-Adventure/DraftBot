@@ -1,6 +1,5 @@
 import {
 	ApplicationCommandDataResolvable,
-	CacheType,
 	Client,
 	CommandInteraction,
 	GuildChannel,
@@ -68,7 +67,7 @@ export class CommandsManager {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
 		const userEntity = {user, entity};
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				Translations.getModule("error", tr.language).format("levelTooLow", {
@@ -332,7 +331,7 @@ export class CommandsManager {
 			.build()
 			.formatAuthor(dataModule.getString("dm.titleSupport"), author)
 			.setDescription(message instanceof CommandInteraction ? dataModule.getString("dm.interactionSupport") : dataModule.getString("dm.messageSupport"));
-		message instanceof Message ? helpMessage.send(message.channel) : helpMessage.reply(message);
+		message instanceof Message ? await helpMessage.send(message.channel) : await helpMessage.reply(message);
 	}
 
 	/**
@@ -356,7 +355,7 @@ export class CommandsManager {
 
 		if (guild === null) {
 			// not in a guild
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				tr.get("notInAGuild")
@@ -374,7 +373,7 @@ export class CommandsManager {
 		}
 
 		if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				tr.get("notAuthorizedError")
@@ -485,7 +484,7 @@ export class CommandsManager {
 		}
 
 		if (await BlockingUtils.isPlayerSpamming(interaction.user.id)) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				Translations.getModule("error", tr.language).get("blockedContext.cooldown")
@@ -505,7 +504,7 @@ export class CommandsManager {
 	 * @param tr - Translation module
 	 * @private
 	 */
-	private static async hasChannelPermission(interaction: CommandInteraction<CacheType>, tr: TranslationModule) {
+	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule) {
 		const channel = interaction.channel as GuildChannel;
 
 		if (!channel.permissionsFor(draftBotClient.user).serialize().VIEW_CHANNEL) {

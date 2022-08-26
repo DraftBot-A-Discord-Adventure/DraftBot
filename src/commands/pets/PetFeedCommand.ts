@@ -27,7 +27,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const authorPet = entity.Player.Pet;
 	if (!authorPet) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			petFeedModule.get("noPet")
@@ -37,7 +37,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const cooldownTime = entity.Player.Pet.getFeedCooldown();
 	if (cooldownTime > 0) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			petFeedModule.format("notHungry", {
@@ -122,13 +122,13 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
 
 	// Fetch the choice from the user
-	collector.on("end", (reaction) => {
+	collector.on("end", async (reaction) => {
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
 		) {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			return sendErrorMessage(
+			return await sendErrorMessage(
 				interaction.user,
 				interaction,
 				language,
@@ -140,7 +140,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			feedPet(interaction, language, entity, authorPet, item, petFeedModule);
+			await feedPet(interaction, language, entity, authorPet, item, petFeedModule);
 		}
 	});
 
@@ -178,7 +178,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
 		) {
-			return sendErrorMessage(
+			return await sendErrorMessage(
 				interaction.user,
 				interaction,
 				language,
@@ -188,7 +188,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		}
 
 		if (entity.Player.money - 20 < 0) {
-			return sendErrorMessage(
+			return await sendErrorMessage(
 				interaction.user,
 				interaction,
 				language,
@@ -229,7 +229,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 async function feedPet(interaction: CommandInteraction, language: string, entity: Entity, pet: PetEntity, item: string, petFeedModule: TranslationModule) {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild.getDataValue(item) <= 0) {
-		return sendErrorMessage(
+		return await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,

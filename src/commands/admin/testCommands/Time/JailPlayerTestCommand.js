@@ -2,6 +2,7 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {Constants} from "../../../../core/Constants";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Jail the given player

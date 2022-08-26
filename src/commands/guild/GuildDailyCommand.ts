@@ -366,7 +366,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
 	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildDailyModule.format("coolDown", {

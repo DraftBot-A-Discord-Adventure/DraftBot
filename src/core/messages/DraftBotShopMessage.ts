@@ -201,9 +201,9 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					(reactionMessage: DraftBotReactionMessage) => {
+					async (reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
-						sendErrorMessage(
+						await sendErrorMessage(
 							shopMessage.user,
 							shopMessage._interaction,
 							shopMessage.language,
@@ -233,11 +233,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				desc += "\n\n" + choseShopItem.description + "\n\n" + Constants.REACTIONS.WARNING + " " + shopMessage._translationModule.get("multipleChoice.warning");
 				confirmBuyMessage.setDescription(desc);
-				confirmBuyMessage.send(shopMessage.sentMessage.channel);
+				await confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 		}
 		else {
-			sendErrorMessage(
+			await sendErrorMessage(
 				shopMessage.user,
 				shopMessage._interaction,
 				shopMessage.language,

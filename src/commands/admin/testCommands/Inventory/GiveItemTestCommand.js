@@ -4,6 +4,7 @@ import {Weapons} from "../../../../core/database/game/models/Weapon";
 import {Potions} from "../../../../core/database/game/models/Potion";
 import {ObjectItems} from "../../../../core/database/game/models/ObjectItem";
 import {Entities} from "../../../../core/database/game/models/Entity";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Set the weapon of the player

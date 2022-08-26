@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {format} from "../../../../core/utils/StringFormatter";
 
 /**
  * Add gems to the player

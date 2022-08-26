@@ -64,12 +64,12 @@ async function sendError(
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
 	replyingError ?
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			fightTranslationModule.language,
 			fightTranslationModule.format(errorTranslationName, replacements)
 		)
-		: sendErrorMessage(
+		: await sendErrorMessage(
 			user,
 			interaction,
 			fightTranslationModule.language,
@@ -167,7 +167,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
-		replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
+		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);
