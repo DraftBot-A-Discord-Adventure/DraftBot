@@ -1,15 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {draftBotInstance} from "../../../../core/bot";
 
-module.exports.commandInfo = {
-	name: "petfree",
-	aliases: ["pf"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez libéré votre pet de force !",
-	description: "Libère votre pet de force, sans prendre en compte le cooldown",
-	commandTestShouldReply: true
-};
-
 /**
  * Same as petfree command, but doesn't care about cooldown
  * @param {("fr"|"en")} language - Language to use in the response
@@ -28,4 +19,12 @@ const petFreeTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = petFreeTestCommand;
+module.exports.commandInfo = {
+	name: "petfree",
+	aliases: ["pf"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez libéré votre pet de force !",
+	description: "Libère votre pet de force, sans prendre en compte le cooldown",
+	commandTestShouldReply: true,
+	execute: petFreeTestCommand
+};

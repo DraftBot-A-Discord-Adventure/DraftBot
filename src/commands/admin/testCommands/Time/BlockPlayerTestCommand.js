@@ -2,18 +2,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../core/constants/BlockingConstants";
 
-module.exports.commandInfo = {
-	name: "blockplayer",
-	aliases: ["block"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
-	description: "Vous bloque pendant un temps en secondes donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Block your player for a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -42,4 +30,15 @@ const blockPlayerTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: sec});
 };
 
-module.exports.execute = blockPlayerTestCommand;
+module.exports.commandInfo = {
+	name: "blockplayer",
+	aliases: ["block"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
+	description: "Vous bloque pendant un temps en secondes donné",
+	commandTestShouldReply: true,
+	execute: blockPlayerTestCommand
+};

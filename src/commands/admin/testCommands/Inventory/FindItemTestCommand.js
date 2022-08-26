@@ -6,18 +6,6 @@ import {Potions} from "../../../../core/database/game/models/Potion";
 import {ObjectItems} from "../../../../core/database/game/models/ObjectItem";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "finditem",
-	commandFormat: "<category [0-3]> <item id>",
-	typeWaited: {
-		"category [0-3]": typeVariable.INTEGER,
-		"item id": typeVariable.INTEGER
-	},
-	messageWhenExecuted: "",
-	description: "Permet de trouver un objet défini",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -58,4 +46,15 @@ const findItemTestCommand = async (language, interaction, args) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = findItemTestCommand;
+module.exports.commandInfo = {
+	name: "finditem",
+	commandFormat: "<category [0-3]> <item id>",
+	typeWaited: {
+		"category [0-3]": typeVariable.INTEGER,
+		"item id": typeVariable.INTEGER
+	},
+	messageWhenExecuted: "",
+	description: "Permet de trouver un objet défini",
+	commandTestShouldReply: true,
+	execute: findItemTestCommand
+};

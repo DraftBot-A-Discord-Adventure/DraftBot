@@ -1,23 +1,6 @@
 import {generateRandomRarity} from "../../../../core/utils/ItemUtils";
 import {format} from "../../../../core/utils/StringFormatter";
 
-module.exports.commandInfo = {
-	name: "rarityshot",
-	aliases: ["rs"],
-	commandFormat: "<nbTirages> <rarityMin = 1> <rarityMax = 8>",
-	typeWaited: {
-		nbTirages: typeVariable.INTEGER,
-		rarityMin: typeVariable.INTEGER,
-		rarityMax: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%)," +
-		" {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%)," +
-		" {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%)," +
-		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
-	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax.",
-	commandTestShouldReply: true
-};
-
 /**
  * Do random rarity tries
  * @param {("fr"|"en")} language - Language to use in the response
@@ -63,4 +46,20 @@ const RarityShotTestCommand = (language, _interaction, args) => {
 	});
 };
 
-module.exports.execute = RarityShotTestCommand;
+module.exports.commandInfo = {
+	name: "rarityshot",
+	aliases: ["rs"],
+	commandFormat: "<nbTirages> <rarityMin = 1> <rarityMax = 8>",
+	typeWaited: {
+		nbTirages: typeVariable.INTEGER,
+		rarityMin: typeVariable.INTEGER,
+		rarityMax: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%)," +
+		" {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%)," +
+		" {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%)," +
+		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
+	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax.",
+	commandTestShouldReply: true,
+	execute: RarityShotTestCommand
+};

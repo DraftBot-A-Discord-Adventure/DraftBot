@@ -5,19 +5,6 @@ import {Guilds} from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Pets} from "../../../../core/database/game/models/Pet";
 
-module.exports.commandInfo = {
-	name: "guildpet",
-	aliases: ["gp"],
-	commandFormat: "<id> <sex = m/f>",
-	typeWaited: {
-		id: typeVariable.INTEGER,
-		sex: typeVariable.STRING
-	},
-	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
-	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
-	commandTestShouldReply: true
-};
-
 /**
  * Add a pet in your shelter with id and sex given
  * @param {("fr"|"en")} language - Language to use in the response
@@ -60,4 +47,16 @@ const guildPetTestCommand = async (language, interaction, args) => {
 	);
 };
 
-module.exports.execute = guildPetTestCommand;
+module.exports.commandInfo = {
+	name: "guildpet",
+	aliases: ["gp"],
+	commandFormat: "<id> <sex = m/f>",
+	typeWaited: {
+		id: typeVariable.INTEGER,
+		sex: typeVariable.STRING
+	},
+	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
+	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
+	commandTestShouldReply: true,
+	execute: guildPetTestCommand
+};

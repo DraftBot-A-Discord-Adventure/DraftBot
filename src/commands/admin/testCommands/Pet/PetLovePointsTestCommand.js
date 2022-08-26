@@ -1,17 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "petlovepoints",
-	aliases: ["petlp"],
-	commandFormat: "<lovePoints>",
-	typeWaited: {
-		lovePoints: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
-	description: "Mets le niveau d'amour de votre pet au niveau donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the lovePoints of your pet
  * @param {("fr"|"en")} language - Language to use in the response
@@ -38,4 +26,15 @@ const petLovePointsTestCommand = async (language, interaction, args) => {
 	);
 };
 
-module.exports.execute = petLovePointsTestCommand;
+module.exports.commandInfo = {
+	name: "petlovepoints",
+	aliases: ["petlp"],
+	commandFormat: "<lovePoints>",
+	typeWaited: {
+		lovePoints: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
+	description: "Mets le niveau d'amour de votre pet au niveau donné",
+	commandTestShouldReply: true,
+	execute: petLovePointsTestCommand
+};

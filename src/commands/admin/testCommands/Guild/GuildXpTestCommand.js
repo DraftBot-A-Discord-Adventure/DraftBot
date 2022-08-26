@@ -2,18 +2,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 
-module.exports.commandInfo = {
-	name: "guildxp",
-	aliases: ["gxp"],
-	commandFormat: "<experience>",
-	typeWaited: {
-		experience: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
-	description: "Mets l'expérience de votre guilde au niveau donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Set your guild's experience to the given integer
  * @param {("fr"|"en")} language - Language to use in the response
@@ -41,4 +29,15 @@ const guildXpTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };
 
-module.exports.execute = guildXpTestCommand;
+module.exports.commandInfo = {
+	name: "guildxp",
+	aliases: ["gxp"],
+	commandFormat: "<experience>",
+	typeWaited: {
+		experience: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
+	description: "Mets l'expérience de votre guilde au niveau donné",
+	commandTestShouldReply: true,
+	execute: guildXpTestCommand
+};

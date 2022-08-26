@@ -3,15 +3,6 @@ import {Maps} from "../../../../core/Maps";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "initplayer",
-	aliases: ["init"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez initialisé votre joueur !",
-	description: "Initialise votre joueur pour des tests",
-	commandTestShouldReply: true
-};
-
 /**
  * Initialize the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -43,4 +34,12 @@ const initPlayerTestCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = initPlayerTestCommand;
+module.exports.commandInfo = {
+	name: "initplayer",
+	aliases: ["init"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez initialisé votre joueur !",
+	description: "Initialise votre joueur pour des tests",
+	commandTestShouldReply: true,
+	execute: initPlayerTestCommand
+};

@@ -2,15 +2,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "removeplayereffect",
-	aliases: ["rmeffect"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous n'avez plus d'effets !",
-	description: "Enlève votre effet actuel",
-	commandTestShouldReply: true
-};
-
 /**
  * Remove the effect of your player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -24,4 +15,12 @@ const removePlayerEffectTestCommand = async (language, interaction) => {
 	await entity.Player.save();
 };
 
-module.exports.execute = removePlayerEffectTestCommand;
+module.exports.commandInfo = {
+	name: "removeplayereffect",
+	aliases: ["rmeffect"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous n'avez plus d'effets !",
+	description: "Enlève votre effet actuel",
+	commandTestShouldReply: true,
+	execute: removePlayerEffectTestCommand
+};

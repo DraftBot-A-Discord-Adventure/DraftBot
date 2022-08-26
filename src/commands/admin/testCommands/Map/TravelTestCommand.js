@@ -4,19 +4,6 @@ import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
-module.exports.commandInfo = {
-	name: "travel",
-	aliases: ["tp"],
-	commandFormat: "<idStart> <idEnd>",
-	typeWaited: {
-		idStart: typeVariable.INTEGER,
-		idEnd: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
-	description: "Vous téléporte sur un chemin donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
@@ -54,4 +41,16 @@ const travelTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = travelTestCommand;
+module.exports.commandInfo = {
+	name: "travel",
+	aliases: ["tp"],
+	commandFormat: "<idStart> <idEnd>",
+	typeWaited: {
+		idStart: typeVariable.INTEGER,
+		idEnd: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
+	description: "Vous téléporte sur un chemin donné",
+	commandTestShouldReply: true,
+	execute: travelTestCommand
+};

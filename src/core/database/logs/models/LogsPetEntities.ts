@@ -5,11 +5,7 @@ export class LogsPetEntities extends Model {
 
 	public readonly gameId!: number;
 
-	public readonly petId!: number;
-
-	public readonly isFemale!: boolean;
-
-	public isDeleted!: boolean;
+	public readonly creationTimestamp!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -23,16 +19,8 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		},
-		petId: {
-			type: DataTypes.SMALLINT.UNSIGNED,
-			allowNull: false
-		},
-		isFemale: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		isDeleted: {
-			type: DataTypes.BOOLEAN,
+		creationTimestamp: {
+			type: DataTypes.INTEGER,
 			allowNull: false
 		}
 	}, {

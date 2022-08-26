@@ -1,12 +1,4 @@
 const {Entities} = require("../../../../core/database/game/models/Entity");
-module.exports.commandInfo = {
-	name: "resetDailyMission",
-	commandFormat: "",
-	aliases: ["rdm"],
-	messageWhenExecuted: "Votre mission quotidienne a été réinitiliasée !",
-	description: "Permet de réinitialiser la mission quootidienne",
-	commandTestShouldReply: true
-};
 
 /**
  * Set the weapon of the player
@@ -22,4 +14,12 @@ const resetDailyMissionTextCommand = async (language, interaction) => {
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = resetDailyMissionTextCommand;
+module.exports.commandInfo = {
+	name: "resetDailyMission",
+	commandFormat: "",
+	aliases: ["rdm"],
+	messageWhenExecuted: "Votre mission quotidienne a été réinitiliasée !",
+	description: "Permet de réinitialiser la mission quootidienne",
+	commandTestShouldReply: true,
+	execute: resetDailyMissionTextCommand
+};

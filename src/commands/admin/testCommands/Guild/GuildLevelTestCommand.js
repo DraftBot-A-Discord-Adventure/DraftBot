@@ -2,18 +2,6 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 
-module.exports.commandInfo = {
-	name: "guildlevel",
-	aliases: ["glvl"],
-	commandFormat: "<level>",
-	typeWaited: {
-		level: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde est maintenant niveau {level} !",
-	description: "Mets le niveau de votre guilde au niveau donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Set your guild's level to the given integer
  * @param {("fr"|"en")} language - Language to use in the response
@@ -35,4 +23,15 @@ const guildLevelTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {level: args[0]});
 };
 
-module.exports.execute = guildLevelTestCommand;
+module.exports.commandInfo = {
+	name: "guildlevel",
+	aliases: ["glvl"],
+	commandFormat: "<level>",
+	typeWaited: {
+		level: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde est maintenant niveau {level} !",
+	description: "Mets le niveau de votre guilde au niveau donné",
+	commandTestShouldReply: true,
+	execute: guildLevelTestCommand
+};

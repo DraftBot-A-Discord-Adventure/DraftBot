@@ -1,15 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "debugMissions",
-	aliases: ["debugm", "debm"],
-	commandFormat: "",
-	messageWhenExecuted: "",
-	description: "Affiche des informations sur vos missions",
-	commandTestShouldReply: true
-};
-
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
@@ -49,4 +40,12 @@ const debugMissionsTestCommand = async (language, interaction) => {
 	return embed;
 };
 
-module.exports.execute = debugMissionsTestCommand;
+module.exports.commandInfo = {
+	name: "debugMissions",
+	aliases: ["debugm", "debm"],
+	commandFormat: "",
+	messageWhenExecuted: "",
+	description: "Affiche des informations sur vos missions",
+	commandTestShouldReply: true,
+	execute: debugMissionsTestCommand
+};

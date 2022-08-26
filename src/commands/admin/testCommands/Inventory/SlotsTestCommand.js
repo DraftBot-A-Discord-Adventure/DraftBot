@@ -1,18 +1,6 @@
 import {Constants} from "../../../../core/Constants";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
-module.exports.commandInfo = {
-	name: "slots",
-	commandFormat: "<category [0-3]> <number>",
-	typeWaited: {
-		"category [0-3]": typeVariable.INTEGER,
-		number: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
-	description: "Change le nombre d'emplacements disponibles pour les armes",
-	commandTestShouldReply: true
-};
-
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -57,4 +45,15 @@ const slotsTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = slotsTestCommand;
+module.exports.commandInfo = {
+	name: "slots",
+	commandFormat: "<category [0-3]> <number>",
+	typeWaited: {
+		"category [0-3]": typeVariable.INTEGER,
+		number: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
+	description: "Change le nombre d'emplacements disponibles pour les armes",
+	commandTestShouldReply: true,
+	execute: slotsTestCommand
+};

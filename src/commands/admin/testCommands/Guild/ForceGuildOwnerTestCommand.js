@@ -3,15 +3,6 @@ import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {draftBotInstance} from "../../../../core/bot";
 
-module.exports.commandInfo = {
-	name: "forceguildowner",
-	aliases: ["fgo"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
-	description: "Vous passe chef de guilde de force",
-	commandTestShouldReply: true
-};
-
 /**
  * Force you to be the guild's chief
  * @param {("fr"|"en")} language - Language to use in the response
@@ -30,4 +21,12 @@ const forceGuildOwnerTestCommand = async (language, interaction) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {gName: guild.name});
 };
 
-module.exports.execute = forceGuildOwnerTestCommand;
+module.exports.commandInfo = {
+	name: "forceguildowner",
+	aliases: ["fgo"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
+	description: "Vous passe chef de guilde de force",
+	commandTestShouldReply: true,
+	execute: forceGuildOwnerTestCommand
+};

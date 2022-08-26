@@ -1,18 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 
-module.exports.commandInfo = {
-	name: "advanceguilddaily",
-	aliases: ["agd"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre gd de {time} minutes !",
-	description: "Avance le gd de votre joueur d'une durée en minutes donnée",
-	commandTestShouldReply: true
-};
-
 /**
  * Quick travel your gd of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -31,4 +19,15 @@ const advanceGuildDailyTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-module.exports.execute = advanceGuildDailyTestCommand;
+module.exports.commandInfo = {
+	name: "advanceguilddaily",
+	aliases: ["agd"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre gd de {time} minutes !",
+	description: "Avance le gd de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: advanceGuildDailyTestCommand
+};

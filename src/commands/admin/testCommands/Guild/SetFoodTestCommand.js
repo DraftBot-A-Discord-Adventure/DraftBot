@@ -4,19 +4,6 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {getFoodIndexOf} from "../../../../core/utils/FoodUtils";
 import {Constants} from "../../../../core/Constants";
 
-module.exports.commandInfo = {
-	name: "setfood",
-	aliases: ["sf"],
-	commandFormat: "<foodType> <amount>",
-	typeWaited: {
-		foodType: typeVariable.STRING,
-		amount: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
-	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
-	commandTestShouldReply: true
-};
-
 /**
  * Set le montant d'une ressource de nourriture de la guilde à un montant donné
  * @param {("fr"|"en")} language - Language to use in the response
@@ -38,4 +25,16 @@ const setFoodTestCommand = async (language, interaction, args) => {
 	return format(module.exports.commandInfo.messageWhenExecuted, {amountOfFood: args[0], foodEdited: args[1]});
 };
 
-module.exports.execute = setFoodTestCommand;
+module.exports.commandInfo = {
+	name: "setfood",
+	aliases: ["sf"],
+	commandFormat: "<foodType> <amount>",
+	typeWaited: {
+		foodType: typeVariable.STRING,
+		amount: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
+	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
+	commandTestShouldReply: true,
+	execute: setFoodTestCommand
+};

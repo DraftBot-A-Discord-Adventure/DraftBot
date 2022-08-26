@@ -3,19 +3,6 @@ import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/database/game/models/Mission";
 
-export const commandInfo = {
-	name: "updateMissions",
-	aliases: ["updateMission", "um"],
-	commandFormat: "<mission id> <count>",
-	typeWaited: {
-		"mission id": typeVariable.STRING,
-		count: typeVariable.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé de {count} vos missions {missionId}",
-	description: "Avance les missions",
-	commandTestShouldReply: true
-};
-
 const updateMissionsTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const mission = await Missions.getById(args[0]);
@@ -31,4 +18,16 @@ const updateMissionsTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = updateMissionsTestCommand;
+export const commandInfo = {
+	name: "updateMissions",
+	aliases: ["updateMission", "um"],
+	commandFormat: "<mission id> <count>",
+	typeWaited: {
+		"mission id": typeVariable.STRING,
+		count: typeVariable.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé de {count} vos missions {missionId}",
+	description: "Avance les missions",
+	commandTestShouldReply: true,
+	execute: updateMissionsTestCommand
+};

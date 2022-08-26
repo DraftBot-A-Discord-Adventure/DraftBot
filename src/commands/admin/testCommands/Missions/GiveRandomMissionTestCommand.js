@@ -4,18 +4,6 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/database/game/models/Mission";
 import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
 
-export const commandInfo = {
-	name: "giveRandomMission",
-	aliases: ["grm"],
-	commandFormat: "<difficulty>",
-	typeWaited: {
-		difficulty: typeVariable.STRING
-	},
-	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Donne une mission aléatoire",
-	commandTestShouldReply: true
-};
-
 const giveRandomMissionTestCommand = async (language, interaction, args) => {
 
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
@@ -36,4 +24,15 @@ const giveRandomMissionTestCommand = async (language, interaction, args) => {
 	});
 };
 
-module.exports.execute = giveRandomMissionTestCommand;
+export const commandInfo = {
+	name: "giveRandomMission",
+	aliases: ["grm"],
+	commandFormat: "<difficulty>",
+	typeWaited: {
+		difficulty: typeVariable.STRING
+	},
+	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
+	description: "Donne une mission aléatoire",
+	commandTestShouldReply: true,
+	execute: giveRandomMissionTestCommand
+};

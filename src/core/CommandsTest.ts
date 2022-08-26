@@ -2,14 +2,10 @@ import {CommandInteraction, HexColorString} from "discord.js";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Constants} from "./Constants";
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
+import {isAMention, isAnEmoji} from "./utils/StringUtils";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
-const {Collection} = require("discord.js");
-
-declare function isAMention(v: any): boolean;
-
-declare function isAnEmoji(v: any): boolean;
 
 const typeVariableChecks = [
 	{
@@ -34,11 +30,23 @@ const typeVariableChecks = [
 	}
 ];
 
+export interface ITestCommand {
+	name: string,
+	aliases?: string[],
+	commandFormat: string,
+	typeWaited?: { [argName: string]: { type: string, check: (v: string | number) => boolean } }
+	messageWhenExecuted?: string,
+	description: string,
+	commandTestShouldReply: boolean,
+	execute: (language: string, interaction: CommandInteraction, args: string[]) => Promise<string | void>,
+	category?: string
+}
+
 /**
  * @class
  */
 export class CommandsTest {
-	static testCommandsArray: any;
+	static testCommandsArray: { [commandName: string]: ITestCommand };
 
 	static testCommType: string[];
 
@@ -46,14 +54,19 @@ export class CommandsTest {
 	 * load all the test commands from source files
 	 */
 	static async init() {
-		CommandsTest.testCommandsArray = new Collection();
-		CommandsTest.testCommType = await readdir("src/commands/admin/testCommands");
+		CommandsTest.testCommandsArray = {};
+		CommandsTest.testCommType = await readdir("dist/src/commands/admin/testCommands");
 		CommandsTest.testCommType.forEach(type => {
-			const commandsFiles = readdirSync(`src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const testCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`);
-				testCommand.commandInfo.category = type;
-				CommandsTest.testCommandsArray.set(testCommand.commandInfo.name, testCommand);
+				const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`).commandInfo;
+				testCommand.category = type;
+				CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
+				if (testCommand.aliases) {
+					for (const alias of testCommand.aliases) {
+						this.testCommandsArray[alias.toLowerCase()] = testCommand;
+					}
+				}
 			}
 		});
 	}
@@ -61,24 +74,24 @@ export class CommandsTest {
 	/**
 	 * Say if the given args are the args awaited for the given command
 	 * @param commandTest - The command to test
-	 * @param {any[]} args - The args given to the test
+	 * @param {string[]} args - The args given to the test
 	 * @param interaction
 	 * @return [Boolean,String] - if the test is successful or not, and if not, the reason why
 	 */
 	static isGoodFormat(
-		commandTest: { commandInfo: { typeWaited: { [x: string]: { type: string; }; }; name: string; commandFormat: string; }; },
-		args: string | string[],
+		commandTest: ITestCommand,
+		args: string[],
 		interaction: CommandInteraction): [boolean, string | DraftBotEmbed] {
-		if (commandTest.commandInfo.typeWaited === undefined) {
+		if (commandTest.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
 				new DraftBotErrorEmbed(interaction.user,
 					interaction,
 					Constants.LANGUAGE.FRENCH,
-					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name + "\n\n**Format attendu :** `test " + commandTest.commandInfo.name + "`")
+					"❌ Mauvais format pour la commande test " + commandTest.name + "\n\n**Format attendu :** `test " + commandTest.name + "`")
 			];
 		}
-		const commandTypeKeys = Object.keys(commandTest.commandInfo.typeWaited);
+		const commandTypeKeys = Object.keys(commandTest.typeWaited);
 		const nbArgsWaited = commandTypeKeys.length;
 		if (nbArgsWaited !== args.length) {
 			return [
@@ -86,20 +99,20 @@ export class CommandsTest {
 				new DraftBotErrorEmbed(interaction.user,
 					interaction,
 					Constants.LANGUAGE.FRENCH,
-					"❌ Mauvais format pour la commande test " + commandTest.commandInfo.name +
-					"\n\n**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`")
+					"❌ Mauvais format pour la commande test " + commandTest.name +
+					"\n\n**Format attendu :** `test " + commandTest.name + " " + commandTest.commandFormat + "`")
 			];
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
-			if (commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
+			if (commandTest.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
 				return [
 					false,
 					new DraftBotErrorEmbed(interaction.user,
 						interaction,
 						Constants.LANGUAGE.FRENCH,
-						"❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name +
-						"\n\n**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +
-						"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type + "\n" +
+						"❌ Mauvais argument pour la commande test " + commandTest.name +
+						"\n\n**Format attendu** : `test " + commandTest.name + " " + commandTest.commandFormat + "`\n" +
+						"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.typeWaited[commandTypeKeys[i]].type + "\n" +
 						"**Format reçu** : " + CommandsTest.getTypeOf(args[i]))
 				];
 			}
@@ -111,31 +124,31 @@ export class CommandsTest {
 	 * Execute the test command, and alert the user about its success or its failure
 	 * @param {("fr"|"en")} language - Language to use in the response
 	 * @param interaction
-	 * @param commandTestCurrent - the executed test command
-	 * @param {any[]} args - Additional arguments sent with the test command
+	 * @param testCommand - the executed test command
+	 * @param {string[]} args - Additional arguments sent with the test command
 	 */
 	static async executeAndAlertUser(
 		language: string,
 		interaction: CommandInteraction,
-		commandTestCurrent: { execute: (arg0: any, arg1: any, arg2: any) => any; commandInfo: { name: string; commandTestShouldReply: boolean; }; },
-		args: string | string[]) {
+		testCommand: ITestCommand,
+		args: string[]) {
 		try {
 
-			const messageToDisplay = await commandTestCurrent.execute(language, interaction, args);
+			const messageToDisplay = await testCommand.execute(language, interaction, args);
 			if (!messageToDisplay || messageToDisplay === "") {
 				return;
 			}
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
 				embedTestSuccessful = new DraftBotEmbed()
-					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", interaction.user.displayAvatarURL())
+					.setAuthor("Commande test " + testCommand.name + " exécutée :", interaction.user.displayAvatarURL())
 					.setDescription(messageToDisplay)
 					.setColor(<HexColorString>Constants.MESSAGES.COLORS.SUCCESSFUL);
 			}
 			else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			if (commandTestCurrent.commandInfo.commandTestShouldReply) {
+			if (testCommand.commandTestShouldReply) {
 				await interaction.reply({embeds: [embedTestSuccessful]});
 			}
 			else {
@@ -145,13 +158,13 @@ export class CommandsTest {
 		catch (e) {
 			console.error(e);
 			try {
-				await interaction.reply({content: "**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```"});
+				await interaction.reply({content: "**:x: Une erreur est survenue pendant la commande test " + testCommand.name + "** : ```" + e.stack + "```"});
 			}
 			catch (e2) {
 				await interaction.reply({
 					content:
 						"**:x: Une erreur est survenue pendant la commande test "
-						+ commandTestCurrent.commandInfo.name
+						+ testCommand.name
 						+ "** : (Erreur tronquée car limite de caractères atteinte) " +
 						"```" + e.stack.slice(0, 1850) + "```"
 				});
@@ -159,7 +172,7 @@ export class CommandsTest {
 		}
 	}
 
-	static getTypeOf(variable: any): string {
+	static getTypeOf(variable: string): string {
 		const typeKeys: string[] = [];
 		typeVariableChecks.forEach(value => typeKeys.push(value.name));
 		for (const typeIn of typeKeys) {
@@ -173,8 +186,7 @@ export class CommandsTest {
 	}
 
 	static getTestCommand(commandName: string) {
-		const commandTestCurrent = CommandsTest.testCommandsArray.get(commandName)
-			|| CommandsTest.testCommandsArray.find((cmd: { commandInfo: { aliases: string | string[]; }; }) => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(commandName));
+		const commandTestCurrent = CommandsTest.testCommandsArray[commandName];
 		if (commandTestCurrent === undefined) {
 			throw new Error("Commande Test non définie : " + commandName);
 		}
@@ -182,13 +194,16 @@ export class CommandsTest {
 	}
 
 	static getAllCommandsFromCategory(category: string) {
-		const tabCommandReturn: any[] = [];
-		CommandsTest.testCommandsArray.forEach((command: { commandInfo: { category: string; }; }) => {
-			if (command.commandInfo.category === category) {
-				tabCommandReturn.push(command);
+		const tabCommandReturn: ITestCommand[] = [];
+		for (const testCommand of Object.values(CommandsTest.testCommandsArray)) {
+			if (testCommand.category === category) {
+				tabCommandReturn.push(testCommand);
 			}
+		}
+		// Remove duplicates
+		return tabCommandReturn.filter(function(elem, pos) {
+			return tabCommandReturn.indexOf(elem) === pos;
 		});
-		return tabCommandReturn;
 	}
 }
 

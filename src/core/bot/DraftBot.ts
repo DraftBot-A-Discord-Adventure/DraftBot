@@ -123,7 +123,7 @@ export class DraftBot {
 					[Op.lt]: Constants.RARITY.LEGENDARY
 				}
 			},
-			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
+			order: sequelize.literal("rand()")
 		}).then(async potions => {
 			let potionId: number;
 			if (shopPotion) {

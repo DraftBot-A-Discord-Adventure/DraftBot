@@ -1,7 +1,6 @@
 import {QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
-import {botConfig} from "../../../bot";
 import fs = require("fs");
 import moment = require("moment");
 
@@ -49,7 +48,7 @@ export class Armors {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}armors
+                       FROM draftbot_game.armors
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Armor.sequelize.query(query, {
 			replacements: {
