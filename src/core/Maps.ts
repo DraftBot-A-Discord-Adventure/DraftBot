@@ -22,7 +22,7 @@ export class Maps {
 	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player: Player, restrictedMapType: string): Promise<number[]> {
+	static async getNextPlayerAvailableMaps(player: Player, restrictedMapType: string = null): Promise<number[]> {
 		if (!player.mapLinkId) {
 			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}

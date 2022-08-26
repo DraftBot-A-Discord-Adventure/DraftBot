@@ -19,12 +19,12 @@ const giveRandomMissionTestCommand = async (language, interaction, args) => {
 	const mission = await Missions.getById(missionSlot.missionId);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		desc: await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
+		desc: await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null),
 		objective: missionSlot.missionObjective
 	});
 };
 
-export const commandInfo = {
+module.exports.commandInfo = {
 	name: "giveRandomMission",
 	aliases: ["grm"],
 	commandFormat: "<difficulty>",

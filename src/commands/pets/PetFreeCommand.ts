@@ -126,7 +126,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}));
 
 	if (pPet.isFeisty()) {
-		confirmEmbed.setFooter(petFreeModule.get("isFeisty"));
+		confirmEmbed.setFooter({text: petFreeModule.get("isFeisty")});
 	}
 
 	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));

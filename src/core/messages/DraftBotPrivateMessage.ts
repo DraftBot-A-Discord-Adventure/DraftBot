@@ -7,6 +7,6 @@ export class DraftBotPrivateMessage extends DraftBotEmbed {
 		super();
 		this.formatAuthor(title, user);
 		this.setDescription(description);
-		this.setFooter(Translations.getModule("models.players", language).get("dmEnabledFooter"));
+		this.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
 	}
 }

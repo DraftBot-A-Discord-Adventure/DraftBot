@@ -32,6 +32,7 @@ export class MissionSlot extends Model {
 
 	public Mission: Mission;
 
+	public getMission: () => Promise<Mission>;
 
 	public isCompleted(): boolean {
 		return this.numberDone >= this.missionObjective;

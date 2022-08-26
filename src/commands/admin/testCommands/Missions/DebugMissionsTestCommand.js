@@ -25,7 +25,7 @@ const debugMissionsTestCommand = async (language, interaction) => {
 	else {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
 			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
-				entity.Player.MissionSlots[i].missionVariant, language) +
+				entity.Player.MissionSlots[i].missionVariant, language, null) +
 				` (id: ${entity.Player.MissionSlots[i].missionId}
 				)\n-> ID DB: ${entity.Player.MissionSlots[i].id}
 				\n-> Variant: ${entity.Player.MissionSlots[i].missionVariant}
