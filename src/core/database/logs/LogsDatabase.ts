@@ -68,6 +68,10 @@ import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
 import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
 import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
 import {LogsPetsFrees} from "./models/LogsPetsFrees";
+import {FightController} from "../../fights/FightController";
+import {LogsFightsResults} from "./models/LogsFightsResults";
+import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
+import {LogsFightsActions} from "./models/LogsFightsActions";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -718,6 +722,49 @@ export class LogsDatabase extends Database {
 					petId: logPetEntity.id,
 					date: LogsDatabase.getDate()
 				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logFight(fight: FightController) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const player1 = fight.fightInitiator;
+				const player1Id = (await this.findOrCreatePlayer(player1.entity.discordUserId)).id;
+				const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
+				const player2Id = (await this.findOrCreatePlayer(player2.entity.discordUserId)).id;
+				const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
+				const fightResult = await LogsFightsResults.create({
+					player1Id: player1Id,
+					player1Points: player1.entity.Player.score,
+					player2Id: player2Id,
+					player2Points: player2.entity.Player.score,
+					turn: fight.turn,
+					winner: fight.isADraw() ? 0 : winner,
+					friendly: fight.friendly,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				for (const player of [player1, player2]) {
+					const fightActionsUsed: { [action: string]: number } = {};
+					for (const fightAction of player.fightActionsHistory) {
+						fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
+					}
+					for (const [action, count] of Object.entries(fightActionsUsed)) {
+						const [fightAction] = await LogsFightsActions.findOrCreate({
+							where: {
+								name: action
+							},
+							transaction
+						});
+						await LogsFightsActionsUsed.create({
+							fightId: fightResult.id,
+							player: player === player1 ? 1 : 2,
+							actionId: fightAction.id,
+							count
+						}, {transaction});
+					}
+				}
 				await transaction.commit();
 			});
 		});
