@@ -47,7 +47,7 @@ import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
 import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
 import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
 import PetEntity from "../game/models/PetEntity";
-import {LogsPetsNicknames} from "./models/LogsPetsNickNames";
+import {LogsPetsNicknames} from "./models/LogsPetsNicknames";
 import {LogsPetEntities} from "./models/LogsPetEntities";
 import {Guild} from "../game/models/Guild";
 import {LogsGuilds} from "./models/LogsGuilds";
