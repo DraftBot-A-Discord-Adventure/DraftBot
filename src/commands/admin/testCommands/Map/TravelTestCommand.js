@@ -8,7 +8,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 /**
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
- * @param interaction
+ * @param {CommandInteraction} interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
@@ -37,8 +37,8 @@ const travelTestCommand = async (language, interaction, args) => {
 	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),
-		mapNameEnd: (await MapLocations.getById(args[1])).getDisplayName(language)
+		mapNameStart: (await MapLocations.getById(parseInt(args[0], 10))).getDisplayName(language),
+		mapNameEnd: (await MapLocations.getById(parseInt(args[1]))).getDisplayName(language)
 	});
 };
 

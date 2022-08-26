@@ -20,7 +20,7 @@ const giveItemTestCommand = async (language, interaction, args) => {
 	if (category < 0 || category > 3) {
 		throw Error("Catégorie inconnue. Elle doit être en 0 et 3");
 	}
-	let item = null;
+	let item;
 	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
 		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
@@ -37,7 +37,7 @@ const giveItemTestCommand = async (language, interaction, args) => {
 	default:
 		break;
 	}
-	if (item === null) {
+	if (!item) {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 	if (!await entity.Player.giveItem(item)) {

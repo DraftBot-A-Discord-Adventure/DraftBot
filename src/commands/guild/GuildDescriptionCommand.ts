@@ -72,7 +72,7 @@ async function createValidationEmbedGuildDesc(
 					description: askedDescription
 				}
 			))
-		.setFooter(guildDescriptionModule.get("changeDescriptionFooter"), null)
+		.setFooter({text: guildDescriptionModule.get("changeDescriptionFooter")})
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
 
 }

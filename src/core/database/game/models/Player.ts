@@ -297,7 +297,7 @@ export class Player extends Model {
 				embeds: [new DraftBotEmbed()
 					.setDescription(tr.get("koPM.description"))
 					.setTitle(tr.get("koPM.title"))
-					.setFooter(tr.get("dmDisabledFooter"))]
+					.setFooter({text: tr.get("dmDisabledFooter")})]
 			});
 
 		return true;

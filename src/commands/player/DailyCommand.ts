@@ -55,10 +55,10 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
  * @param language
  * @param dailyModule
  */
-function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule) {
+async function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule) {
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			dailyModule.format("coolDown", {
@@ -125,7 +125,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const activeObject: ObjectItem = await entity.Player.getMainObjectSlot().getItem() as ObjectItem;
 
-	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || dailyNotReady(interaction, entity, language, dailyModule)) {
+	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, entity, language, dailyModule)) {
 		return;
 	}
 

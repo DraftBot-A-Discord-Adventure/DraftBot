@@ -166,7 +166,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 			trader1: traderAndPet1.user,
 			trader2: traderAndPet2.user
 		}))
-		.setFooter(petTradeModule.get("warningTradeReset"));
+		.setFooter({text: petTradeModule.get("warningTradeReset")});
 	for (const traderAndPet of tradersAndPets) {
 		tradeMessage.addField(petTradeModule.format("petOfTrader", {
 			trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)

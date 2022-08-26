@@ -167,7 +167,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			petnick: authorPet.displayName(language)
 		})
 	);
-	feedEmbed.setFooter(petFeedModule.get("feedEmbedFooter"));
+	feedEmbed.setFooter({text: petFeedModule.get("feedEmbedFooter")});
 
 	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
 

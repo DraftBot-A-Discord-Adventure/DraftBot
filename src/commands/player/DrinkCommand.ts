@@ -127,7 +127,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			potion: potion.getName(language),
 			effect: potion.getNatureTranslation(language)
 		}))
-		.setFooter(tr.get("confirmationFooter"))
+		.setFooter({text: tr.get("confirmationFooter")})
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.DRINK, collector));
 }
 
