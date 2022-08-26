@@ -22,6 +22,10 @@ export function initModel(sequelize: Sequelize): void {
 		creationTimestamp: {
 			type: DataTypes.INTEGER,
 			allowNull: false
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
 		}
 	}, {
 		sequelize,
