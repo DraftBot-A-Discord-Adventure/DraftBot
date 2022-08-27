@@ -13,6 +13,7 @@ import {CommandsManager} from "../CommandsManager";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
@@ -114,6 +115,7 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
 		for (let i = 0; i < 2; i++) {
 			await manageATraderAndPet(tradersAndPets, i, interaction, petTradeModule);
 		}
+		draftBotInstance.logsDatabase.logPetTrade(tradersAndPets[0].pet, tradersAndPets[1].pet).then();
 		await interaction.followUp({
 			embeds: [new DraftBotEmbed()
 				.formatAuthor(petTradeModule.get("tradeTitle"), interaction.user)
