@@ -12,6 +12,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type InvitedUserInformation = { invitedUser: User, invitedEntity: Entity };
 type InviterUserInformation = { guild: Guild, entity: Entity };
@@ -62,6 +63,8 @@ function getEndCallbackGuildAdd(
 			invited.invitedEntity.save(),
 			invited.invitedEntity.Player.save()
 		]);
+
+		draftBotInstance.logsDatabase.logGuildJoin(inviter.entity.discordUserId, invited.invitedEntity.discordUserId, inviter.guild).then();
 
 		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
 		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
