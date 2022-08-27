@@ -14,6 +14,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {Data, DataModule} from "../../core/Data";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type InformationModules = { guildCreateModule: TranslationModule, guildCreateData: DataModule }
 
@@ -116,6 +117,8 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 				entity.save(),
 				entity.Player.save()
 			]);
+
+			draftBotInstance.logsDatabase.logGuildCreation(entity.discordUserId, newGuild).then();
 
 			await MissionsController.update(entity, interaction.channel, language, {missionId: "joinGuild"});
 			await MissionsController.update(entity, interaction.channel, language, {
