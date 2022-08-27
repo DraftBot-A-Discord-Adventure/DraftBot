@@ -100,7 +100,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 		return;
 	}
 	const xpToAdd = calculateAmountOfXPToAdd(sellerInformations.petCost);
-	await sellerInformations.guild.addExperience(xpToAdd, textInformations.interaction.channel, textInformations.petSellModule.language);
+	await sellerInformations.guild.addExperience(xpToAdd, textInformations.interaction.channel, textInformations.petSellModule.language, NumberChangeReason.PET_SELL);
 	buyerInformations.buyer.Player.petId = sellerInformations.pet.id;
 	sellerInformations.entity.Player.petId = null;
 	sellerInformations.pet.lovePoints = Constants.PETS.BASE_LOVE;

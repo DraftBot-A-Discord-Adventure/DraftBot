@@ -731,6 +731,38 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("guilds_experiences", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		experience: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("guilds_levels", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		level: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -797,4 +829,6 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("fights_actions_used");
 	await context.dropTable("guilds_creations");
 	await context.dropTable("guilds_joins");
+	await context.dropTable("guilds_experiences");
+	await context.dropTable("guilds_levels");
 }
