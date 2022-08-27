@@ -12,6 +12,7 @@ import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
 import {draftBotInstance} from "../../../bot";
+import {NumberChangeReason} from "../../logs/LogsDatabase";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -105,7 +106,7 @@ export class Guild extends Model {
 	 * set the guild's experience
 	 * @param experience
 	 */
-	public setExperience(experience: number): void {
+	private setExperience(experience: number): void {
 		if (experience > 0) {
 			this.experience = experience;
 		}
@@ -119,8 +120,9 @@ export class Guild extends Model {
 	 * @param experience the experience to add
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
+	 * @param reason The reason of the experience change
 	 */
-	public async addExperience(experience: number, channel: TextBasedChannel, language: string) {
+	public async addExperience(experience: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason) {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
@@ -133,6 +135,7 @@ export class Guild extends Model {
 		}
 		this.experience += experience;
 		this.setExperience(this.experience);
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason).then();
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(channel, language);
 		}
@@ -157,6 +160,8 @@ export class Guild extends Model {
 		const tr = Translations.getModule("models.guilds", language);
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
+		draftBotInstance.logsDatabase.logGuildLevelUp(this).then();
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP).then();
 		const embed = new DraftBotEmbed()
 			.setTitle(
 				tr.format("levelUp.title", {
@@ -177,9 +182,7 @@ export class Guild extends Model {
 			});
 		}
 
-		if (this.needLevelUp()) {
-			await this.levelUpIfNeeded(channel, language);
-		}
+		await this.levelUpIfNeeded(channel, language);
 	}
 
 	/**

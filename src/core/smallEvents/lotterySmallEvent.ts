@@ -74,7 +74,7 @@ export const smallEvent: SmallEvent = {
 					await player.addMoney(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language);
+					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					await guild.save();
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.POINTS:

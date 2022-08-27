@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 /**
  * Set your guild's experience to the given integer
@@ -24,7 +25,7 @@ const guildXpTestCommand = async (language, interaction, args) => {
 	if (guild.isAtMaxLevel()) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");
 	}
-	await guild.addExperience(parseInt(args[0], 10), interaction.channel, language);
+	await guild.addExperience(parseInt(args[0], 10), interaction.channel, language, NumberChangeReason.TEST);
 	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };

@@ -75,6 +75,8 @@ import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
 import {LogsFightsActions} from "./models/LogsFightsActions";
 import {LogsGuildsCreations} from "./models/LogsGuildCreations";
 import {LogsGuildsJoins} from "./models/LogsGuildJoins";
+import {LogsGuildsExperiences} from "./models/LogsGuildsExperiences";
+import {LogsGuildsLevels} from "./models/LogsGuildsLevels";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -805,6 +807,35 @@ export class LogsDatabase extends Database {
 					guildId: guildInstance.id,
 					adderId: adder.id,
 					addedId: added.id,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildExperienceChange(guild: Guild, reason: NumberChangeReason) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsExperiences.create({
+					guildId: guildInstance.id,
+					experience: guild.experience,
+					reason,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildLevelUp(guild: Guild) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsLevels.create({
+					guildId: guildInstance.id,
+					level: guild.level,
 					date: LogsDatabase.getDate()
 				});
 				await transaction.commit();
