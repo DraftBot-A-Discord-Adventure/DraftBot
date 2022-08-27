@@ -204,7 +204,7 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
 	const xpGuildWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await guildLike.guild.addExperience(xpGuildWon, stringInfos.interaction.channel, guildDailyModule.language);
+	await guildLike.guild.addExperience(xpGuildWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 	await guildLike.guild.save();
 	stringInfos.embed.setDescription(guildDailyModule.format("guildXP", {
 		xp: xpGuildWon

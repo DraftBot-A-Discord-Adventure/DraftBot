@@ -20,7 +20,7 @@ import {giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
-import {ShopItemType} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Displays the guild shop
@@ -80,7 +80,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			const xpToAdd = randomInt(50, 450);
-			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language);
+			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
 
 			await guild.save();
 			await message.sentMessage.channel.send({
