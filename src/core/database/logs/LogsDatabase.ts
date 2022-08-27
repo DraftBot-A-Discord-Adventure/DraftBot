@@ -73,6 +73,8 @@ import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
 import {LogsFightsActions} from "./models/LogsFightsActions";
 import GuildPet from "../game/models/GuildPet";
+import {LogsGuildsCreations} from "./models/LogsGuildCreations";
+import {LogsGuildsJoins} from "./models/LogsGuildJoins";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -773,6 +775,38 @@ export class LogsDatabase extends Database {
 						}, {transaction});
 					}
 				}
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsCreations.create({
+					guildId: guildInstance.id,
+					creatorId: creator.id,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId, transaction);
+				const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsJoins.create({
+					guildId: guildInstance.id,
+					adderId: adder.id,
+					addedId: added.id,
+					date: LogsDatabase.getDate()
+				});
 				await transaction.commit();
 			});
 		});
