@@ -531,6 +531,18 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logDailyPotion(potionId: number) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsDailyPotions.create({
+					potionId,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
 	public logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
@@ -539,18 +551,6 @@ export class LogsDatabase extends Database {
 				await LogsGuildsKicks.create({
 					guildId: logGuild.id,
 					kickedPlayer: kickedPlayer.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-			});
-		});
-	}
-
-	public logDailyPotion(potionId: number) {
-		return new Promise(() => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDailyPotions.create({
-					potionId,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
@@ -654,6 +654,15 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				await LogsDatabase.logGuildLeaveTransaction(guild, leftDiscordId, transaction);
+				await transaction.commit();
+			});
+		});
+	}
+
 	public logPetTransfer(guildPet: PetEntity, playerPet: PetEntity): Promise<void> {
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
@@ -664,15 +673,6 @@ export class LogsDatabase extends Database {
 					guildPetId: logGuildPet ? logGuildPet.id : null,
 					date: LogsDatabase.getDate()
 				}, {transaction});
-				await transaction.commit();
-			});
-		});
-	}
-
-	public logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
-		return new Promise(() => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDatabase.logGuildLeaveTransaction(guild, leftDiscordId, transaction);
 				await transaction.commit();
 			});
 		});
@@ -985,5 +985,19 @@ export class LogsDatabase extends Database {
 			petId: logPetEntity.id,
 			date: LogsDatabase.getDate()
 		}, {transaction});
+	}
+
+	public logGuildLevelUp(guild: Guild): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsLevels.create({
+					guildId: guildInstance.id,
+					level: guild.level,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
 	}
 }
