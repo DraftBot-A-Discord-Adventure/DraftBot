@@ -185,7 +185,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
 }
 
-
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("guildcreate")
