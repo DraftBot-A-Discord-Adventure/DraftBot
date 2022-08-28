@@ -180,7 +180,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "gainLove":
 			amount = RandomUtils.randInt(1, 3);
-			await pet.changeLovePoints(amount, entity, interactionCommand.channel, language);
+			await pet.changeLovePoints(amount, entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await pet.save();
 			break;
 		case "food":
@@ -226,7 +226,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		case "loseLove":
 			amount = RandomUtils.randInt(1, 3);
-			await pet.changeLovePoints(-amount, entity, interactionCommand.channel, language);
+			await pet.changeLovePoints(-amount, entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 			await pet.save();
 			break;
 		default:

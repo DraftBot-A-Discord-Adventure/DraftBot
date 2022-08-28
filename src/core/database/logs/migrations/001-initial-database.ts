@@ -806,6 +806,24 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("pets_loves_changes", {
+		petId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		lovePoints: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -877,4 +895,5 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("pets_trades");
 	await context.dropTable("guilds_descriptions_changes");
 	await context.dropTable("guilds_elders_adds");
+	await context.dropTable("pets_loves_changes");
 }

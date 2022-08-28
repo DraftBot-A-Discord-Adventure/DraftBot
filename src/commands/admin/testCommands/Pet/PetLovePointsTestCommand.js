@@ -1,5 +1,6 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 
 /**
  * Set the lovePoints of your pet
@@ -17,7 +18,7 @@ const petLovePointsTestCommand = async (language, interaction, args) => {
 	if (args[0] < 0 || args[0] > 100) {
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
-	await pet.changeLovePoints(parseInt(args[0], 10) - pet.lovePoints, entity, interaction.channel, language);
+	await pet.changeLovePoints(parseInt(args[0], 10) - pet.lovePoints, entity, interaction.channel, language, NumberChangeReason.TEST);
 	await pet.save();
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
