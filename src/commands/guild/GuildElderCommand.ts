@@ -46,7 +46,7 @@ function getEndCallbackGuildElder(
 			guild.elderId = elder.id;
 			await guild.save();
 
-			draftBotInstance.logsDatabase.logGuildElderAdd(guild, elder.id).then();
+			draftBotInstance.logsDatabase.logGuildElderAdd(guild, elder.discordUserId).then();
 
 			await textInformation.interaction.followUp({
 				embeds: [

@@ -806,6 +806,28 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("pet_sells", {
+		petId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		sellerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		buyerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		price: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 	await context.createTable("pets_loves_changes", {
 		petId: {
 			type: DataTypes.INTEGER,
