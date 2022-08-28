@@ -113,7 +113,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 				await sendErrorMessage(message.user, interaction, guildShopTranslations.language, guildShopTranslations.get("fullStock"));
 				return false;
 			}
-			await giveFood(interaction, message.language, entity, name, amount);
+			await giveFood(interaction, message.language, entity, name, amount, NumberChangeReason.SHOP);
 			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
 				await MissionsController.update(entity, message.sentMessage.channel, guildShopTranslations.language, {
 					missionId: "buyUltimateSoups",

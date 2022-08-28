@@ -99,9 +99,8 @@ export class DraftBot {
 	 */
 	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
-		DraftBot.randomLovePointsLoose().finally(() => null);
+		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopweek().then();
-		draftBotInstance.logsDatabase.logDailyTimeout().then();
 		DraftBot.programDailyTimeout();
 	}
 
@@ -158,7 +157,7 @@ export class DraftBot {
 	/**
 	 * make some pet lose some love points
 	 */
-	static async randomLovePointsLoose() {
+	static async randomLovePointsLoose(): Promise<boolean> {
 		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
@@ -176,7 +175,9 @@ export class DraftBot {
 					}
 				}
 			);
+			return true;
 		}
+		return false;
 	}
 
 	/**

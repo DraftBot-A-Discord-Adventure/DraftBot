@@ -533,6 +533,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 	await context.createTable("mission_shop_buyouts", logsShopLoggingAttributes);
 	await context.createTable("daily_timeouts", {
+		petLoveChange: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false
+		},
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
@@ -846,6 +850,28 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("guilds_foods_changes", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		food: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		total: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		reason: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -918,4 +944,5 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("guilds_descriptions_changes");
 	await context.dropTable("guilds_elders_adds");
 	await context.dropTable("pets_loves_changes");
+	await context.dropTable("guilds_foods_changes");
 }

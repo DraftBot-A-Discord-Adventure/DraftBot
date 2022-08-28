@@ -7,13 +7,15 @@ import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
 import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const giveFood = async (
 	interaction: CommandInteraction,
 	language: string,
 	entity: Entity,
 	selectedFood: string,
-	quantity: number
+	quantity: number,
+	reason: NumberChangeReason
 ) => {
 	const tr = Translations.getModule("commands.guildShop", language);
 	const foodModule = Translations.getModule("food", language);
@@ -27,7 +29,7 @@ export const giveFood = async (
 			tr.get("fullStock")
 		);
 	}
-	guild.addFood(selectedFood, quantity);
+	guild.addFood(selectedFood, quantity, reason);
 	await Promise.all([guild.save()]);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(tr.get("success"), interaction.user);
