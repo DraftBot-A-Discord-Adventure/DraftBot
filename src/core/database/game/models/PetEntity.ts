@@ -11,6 +11,7 @@ import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {Entity} from "./Entity";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
+import {NumberChangeReason} from "../../logs/LogsDatabase";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -127,7 +128,7 @@ export class PetEntity extends Model {
 						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
-	public async changeLovePoints(amount: number, entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
+	public async changeLovePoints(amount: number, entity: Entity, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.lovePoints += amount;
 		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
 			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
@@ -135,6 +136,7 @@ export class PetEntity extends Model {
 		else if (this.lovePoints < 0) {
 			this.lovePoints = 0;
 		}
+		draftBotInstance.logsDatabase.logPetLoveChange(this, reason).then();
 		await MissionsController.update(entity, channel, language, {
 			missionId: "tamedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}

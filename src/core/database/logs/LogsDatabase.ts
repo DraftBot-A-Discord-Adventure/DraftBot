@@ -80,6 +80,7 @@ import {LogsGuildsLevels} from "./models/LogsGuildsLevels";
 import {LogsPetsTrades} from "./models/LogsPetsTrades";
 import {LogsGuildsDescriptionChanges} from "./models/LogsGuildsDescriptionChanges";
 import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
+import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -877,6 +878,21 @@ export class LogsDatabase extends Database {
 						(await (await Player.findOne({where: {id: addedPlayerId}})).getEntity()).discordUserId,
 						transaction
 					)).id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logPetLoveChange(petEntity: PetEntity, reason: NumberChangeReason): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
+				await LogsPetsLovesChanges.create({
+					petId: logPet.id,
+					lovePoints: petEntity.lovePoints,
+					reason,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
