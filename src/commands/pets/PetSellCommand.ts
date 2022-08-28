@@ -16,6 +16,7 @@ import {RandomUtils} from "../../core/utils/RandomUtils";
 import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {draftBotInstance} from "../../core/bot";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
@@ -142,6 +143,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 			})
 		);
 	await textInformations.interaction.followUp({embeds: [addPetEmbed]});
+	await draftBotInstance.logsDatabase.logsPetSell(sellerInformations.pet, sellerInformations.entity.discordUserId, buyerInformations.user.id, sellerInformations.petCost);
 	await MissionsController.update(buyerInformations.buyer, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "havePet"});
 	await MissionsController.update(sellerInformations.entity, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "sellOrTradePet"});
 }
