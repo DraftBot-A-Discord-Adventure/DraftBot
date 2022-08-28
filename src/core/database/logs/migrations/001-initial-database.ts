@@ -872,6 +872,34 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("guilds_new_pets", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		petId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("players_new_pets", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		petId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -945,4 +973,7 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("guilds_elders_adds");
 	await context.dropTable("pets_loves_changes");
 	await context.dropTable("guilds_foods_changes");
+	await context.dropTable("guilds_new_pets");
+	await context.dropTable("players_new_pets");
+
 }

@@ -83,6 +83,8 @@ import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
 import {LogsPetsSells} from "./models/LogsPetsSellls";
 import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
 import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
+import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
+import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -916,6 +918,36 @@ export class LogsDatabase extends Database {
 					food,
 					total,
 					reason,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildNewPet(guild: Guild, petEntity: PetEntity): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsNewPets.create({
+					guildId: guildInstance.id,
+					petId: petEntityInstance.id,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
+				const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				await LogsPlayersNewPets.create({
+					playerId: playerInstance.id,
+					petId: petEntityInstance.id,
 					date: LogsDatabase.getDate()
 				});
 				await transaction.commit();
