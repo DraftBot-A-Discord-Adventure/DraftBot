@@ -135,7 +135,7 @@ export class Guild extends Model {
 		}
 		this.experience += experience;
 		this.setExperience(this.experience);
-		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason).then();
+		await draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason);
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(channel, language);
 		}
@@ -160,8 +160,8 @@ export class Guild extends Model {
 		const tr = Translations.getModule("models.guilds", language);
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
-		draftBotInstance.logsDatabase.logGuildLevelUp(this).then();
-		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP).then();
+		await draftBotInstance.logsDatabase.logGuildLevelUp(this);
+		await draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP);
 		const embed = new DraftBotEmbed()
 			.setTitle(
 				tr.format("levelUp.title", {
@@ -229,12 +229,25 @@ export class Guild extends Model {
 	 * add food to the guild storage
 	 * @param selectedItemType the food type to add
 	 * @param quantity the quantity to add
+	 * @param reason change reason
 	 */
-	public addFood(selectedItemType: string, quantity: number): void {
+	public addFood(selectedItemType: string, quantity: number, reason: NumberChangeReason): void {
 		this.setDataValue(selectedItemType, this.getDataValue(selectedItemType) + quantity);
 		if (this.isStorageFullFor(selectedItemType, 0)) {
 			this.setDataValue(selectedItemType, Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
 		}
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(selectedItemType), this.getDataValue(selectedItemType), reason).then();
+	}
+
+	/**
+	 * remove food from the guid storage
+	 * @param item
+	 * @param quantity
+	 * @param reason
+	 */
+	public removeFood(item: string, quantity: number, reason: NumberChangeReason): void {
+		this.setDataValue(item, this.getDataValue(item) - quantity);
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(item), this.getDataValue(item), reason).then();
 	}
 }
 

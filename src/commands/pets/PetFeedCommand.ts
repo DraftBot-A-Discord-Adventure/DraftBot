@@ -239,7 +239,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	const foodIndex = getFoodIndexOf(item);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
-	guild.setDataValue(item, guild.getDataValue(item) - 1);
+	guild.removeFood(item, -1, NumberChangeReason.PET_FEED);
 
 	if (
 		pet.PetModel.diet &&
