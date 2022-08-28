@@ -11,6 +11,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 /**
  * Create validation message to change guild description
@@ -36,10 +37,12 @@ function endCallbackGuildCreateValidationMessage(
 				guild.save()
 			]);
 
+			draftBotInstance.logsDatabase.logGuildDescriptionChange(entity.discordUserId, guild).then();
+
 			await interaction.followUp({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
-					.setDescription(guildDescriptionModule.get("descriptionChanged"))]
+					.setDescription(guildDescriptionModule.get("editSuccessTitle"))]
 			});
 			return;
 		}
@@ -119,7 +122,7 @@ export const commandInfo: ICommand = {
 		allowEffects: null,
 		requiredLevel: null,
 		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: 2,
+		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
 		guildRequired: true,
 		userPermission: null
 	},

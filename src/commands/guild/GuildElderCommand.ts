@@ -11,6 +11,7 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type PersonInformation = { user: User, entity: Entity };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
@@ -43,8 +44,9 @@ function getEndCallbackGuildElder(
 
 			// change the elder
 			guild.elderId = elder.id;
-
 			await guild.save();
+
+			draftBotInstance.logsDatabase.logGuildElderAdd(guild, elder.id).then();
 
 			await textInformation.interaction.followUp({
 				embeds: [

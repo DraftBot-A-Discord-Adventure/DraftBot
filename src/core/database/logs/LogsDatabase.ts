@@ -78,6 +78,8 @@ import {LogsGuildsJoins} from "./models/LogsGuildJoins";
 import {LogsGuildsExperiences} from "./models/LogsGuildsExperiences";
 import {LogsGuildsLevels} from "./models/LogsGuildsLevels";
 import {LogsPetsTrades} from "./models/LogsPetsTrades";
+import {LogsGuildsDescriptionChanges} from "./models/LogsGuildsDescriptionChanges";
+import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -844,6 +846,39 @@ export class LogsDatabase extends Database {
 					reason,
 					date: LogsDatabase.getDate()
 				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildDescriptionChange(discordId: string, guild: Guild) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsDescriptionChanges.create({
+					guildId: guildInstance.id,
+					playerId: player.id,
+					description: guild.guildDescription,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
+	public logGuildElderAdd(guild: Guild, addedPlayerId: number) {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsEldersAdds.create({
+					guildId: logGuild.id,
+					addedElder: (await LogsDatabase.findOrCreatePlayer(
+						(await (await Player.findOne({where: {id: addedPlayerId}})).getEntity()).discordUserId,
+						transaction
+					)).id,
+					date: LogsDatabase.getDate()
+				}, {transaction});
 				await transaction.commit();
 			});
 		});
