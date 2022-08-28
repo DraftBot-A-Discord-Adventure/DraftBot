@@ -777,6 +777,35 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("guilds_descriptions_changes", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		description: DataTypes.STRING,
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
+	await context.createTable("guilds_elders_adds", {
+		guildId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		addedElder: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -846,4 +875,6 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("guilds_experiences");
 	await context.dropTable("guilds_levels");
 	await context.dropTable("pets_trades");
+	await context.dropTable("guilds_descriptions_changes");
+	await context.dropTable("guilds_elders_adds");
 }
