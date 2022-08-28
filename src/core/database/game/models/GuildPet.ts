@@ -1,6 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import PetEntity from "./PetEntity";
 import moment = require("moment");
+import Guild from "./Guild";
+import {draftBotInstance} from "../../../bot";
 
 export class GuildPet extends Model {
 	public readonly id!: number;
@@ -17,8 +19,11 @@ export class GuildPet extends Model {
 }
 
 export class GuildPets {
-	static addPet(guildId: number, petEntityId: number): GuildPet {
-		return GuildPet.build({guildId: guildId, petEntityId: petEntityId});
+	static addPet(guild: Guild, petEntity: PetEntity, logInDatabase: boolean): GuildPet {
+		if (logInDatabase) {
+			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity).then();
+		}
+		return GuildPet.build({guildId: guild.id, petEntityId: petEntity.id});
 	}
 }
 

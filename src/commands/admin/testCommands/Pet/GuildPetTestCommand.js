@@ -36,7 +36,7 @@ const guildPetTestCommand = async (language, interaction, args) => {
 	const pet = PetEntities.createPet(parseInt(args[0]), args[1], null);
 	await pet.save();
 
-	await (await GuildPets.addPet(guild.id, pet.id)).save();
+	await (await GuildPets.addPet(guild, pet, true)).save();
 
 	guild = await Guilds.getById(entity.Player.guildId); // recall needed to refresh the pet
 	const newPet = guild.GuildPets[guild.GuildPets.length - 1];

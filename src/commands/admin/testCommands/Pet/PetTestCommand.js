@@ -31,7 +31,7 @@ const petTestCommand = async (language, interaction, args) => {
 
 	const pet = PetEntities.createPet(parseInt(args[0]), args[1], null);
 	await pet.save();
-	entity.Player.petId = pet.id;
+	entity.Player.setPet(entity, pet);
 	await entity.Player.save();
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
 
