@@ -57,7 +57,7 @@ export const smallEvent: SmallEvent = {
 		else if (!noRoomInGuild && entity.Player.petId !== null) {
 			// Place le pet dans la guilde
 			await pet.save();
-			await GuildPets.addPet(entity.Player.guildId, pet.id).save();
+			await GuildPets.addPet(guild, pet, true).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
 			await interaction.reply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
@@ -69,7 +69,7 @@ export const smallEvent: SmallEvent = {
 		else {
 			// Place le pet avec le joueur
 			await pet.save();
-			entity.Player.petId = pet.id;
+			entity.Player.setPet(entity, pet);
 			await entity.Player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
 			await interaction.reply({embeds: [seEmbed]});

@@ -86,7 +86,7 @@ async function transfertPetToGuild(interaction: CommandInteraction, language: st
 	}
 	entity.Player.petId = null;
 	await entity.Player.save();
-	await (await GuildPets.addPet(guild.id, playerPet.id)).save();
+	await (await GuildPets.addPet(guild, playerPet, false)).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: playerPet.getPetEmote() + " " + (playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language))
 	}));

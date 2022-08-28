@@ -506,6 +506,16 @@ export class Player extends Model {
 		};
 	}
 
+	/**
+	 * Set the pet of the player
+	 * @param entity
+	 * @param petEntity
+	 */
+	public setPet(entity: Entity, petEntity: PetEntity): void {
+		this.petId = petEntity.id;
+		draftBotInstance.logsDatabase.logPlayerNewPet(entity.discordUserId, petEntity).then();
+	}
+
 	private async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
