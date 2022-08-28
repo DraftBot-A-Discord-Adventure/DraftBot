@@ -11,6 +11,7 @@ import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Constants} from "../Constants";
 import {giveFood} from "../utils/GuildUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(entity: Entity): Promise<boolean> {
@@ -50,7 +51,7 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, storiesObject[outRand][0]);
 			await interaction.reply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else if (!noRoomInGuild && entity.Player.petId !== null) {

@@ -105,7 +105,7 @@ export const smallEvent: SmallEvent = {
 		async function giveReward(reward: any) {
 			switch (reward.type) {
 			case "ultimateFood":
-				await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option, NumberChangeReason.SMALL_EVENT);
 				break;
 			case "fullUltimateFood":
 				break;
@@ -113,7 +113,7 @@ export const smallEvent: SmallEvent = {
 				await giveItemToPlayer(entity, reward.option, language, interaction.user, interaction.channel);
 				break;
 			case "commonFood":
-				await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option);
+				await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option, NumberChangeReason.SMALL_EVENT);
 				break;
 			case "fullCommonFood":
 				break;

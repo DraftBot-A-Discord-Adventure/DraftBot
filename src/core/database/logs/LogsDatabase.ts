@@ -82,6 +82,7 @@ import {LogsGuildsDescriptionChanges} from "./models/LogsGuildsDescriptionChange
 import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
 import {LogsPetsSells} from "./models/LogsPetsSellls";
 import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
+import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -607,10 +608,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public logDailyTimeout(): Promise<void> {
+	public logDailyTimeout(petLoveChange: boolean): Promise<void> {
 		return new Promise(() => {
 			this.sequelize.transaction().then(async (transaction) => {
 				await LogsDailyTimeouts.create({
+					petLoveChange,
 					date: LogsDatabase.getDate()
 				}, {transaction});
 				await transaction.commit();
@@ -905,6 +907,22 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public logGuildsFoodChanges(guild: Guild, food: number, total: number, reason: NumberChangeReason): Promise<void> {
+		return new Promise(() => {
+			this.sequelize.transaction().then(async (transaction) => {
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				await LogsGuildsFoodsChanges.create({
+					guildId: guildInstance.id,
+					food,
+					total,
+					reason,
+					date: LogsDatabase.getDate()
+				});
+				await transaction.commit();
+			});
+		});
+	}
+
 	private logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
@@ -1006,7 +1024,7 @@ export class LogsDatabase extends Database {
 		return (await LogsPetEntities.findOrCreate({
 			where: {
 				gameId: petEntity.id,
-				creationTimestamp: petEntity.creationDate.valueOf() / 1000.0
+				creationTimestamp: Math.floor(petEntity.creationDate.valueOf() / 1000.0)
 			},
 			transaction
 		}))[0];
@@ -1016,7 +1034,7 @@ export class LogsDatabase extends Database {
 		return (await LogsGuilds.findOrCreate({
 			where: {
 				gameId: guild.id,
-				creationTimestamp: guild.creationDate.valueOf() / 1000.0
+				creationTimestamp: Math.floor(guild.creationDate.valueOf() / 1000.0)
 			},
 			defaults: {
 				name: guild.name

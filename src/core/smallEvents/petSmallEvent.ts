@@ -142,7 +142,7 @@ async function finishResolvingSpecialInteractions(interaction: string, interacti
 		await giveRandomItem(interactionCommand.user, interactionCommand.channel, language, entity);
 		break;
 	case "food":
-		await giveFood(interactionCommand, language, entity, food, 1);
+		await giveFood(interactionCommand, language, entity, food, 1, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "loseLife":
 		await entity.Player.killIfNeeded(entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
