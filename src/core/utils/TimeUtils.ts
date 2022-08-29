@@ -19,7 +19,7 @@ export const minutesDisplay = function(minutes: number, language = ""): string {
 /**
  * get a date value of tomorrow
  */
-export const getTomorrowMidnight = function() {
+export const getTomorrowMidnight = function(): Date {
 	const tomorrow = new Date();
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	tomorrow.setHours(0, 0, 0, 0);
@@ -75,7 +75,7 @@ export const datesAreOnSameDay = (first: Date, second: Date): boolean =>
  * Display the time before given date in a human readable format
  * @param finishDate - the date to use
  */
-export const finishInTimeDisplay = (finishDate: Date): string => "<t:" + Math.floor(finishDate.valueOf() / 1000).toString() + ":R>";
+export const finishInTimeDisplay = (finishDate: Date): string => `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:R>`;
 finishInTimeDisplay(new Date());
 export const getNextSundayMidnight = (): number => {
 	const now = new Date();
@@ -127,7 +127,7 @@ export const parseTimeDifference = function(date1: number, date2: number, langua
 /**
  * get the date of the next day at 2 am
  */
-export const getNextDay2AM = function() {
+export const getNextDay2AM = function(): Date {
 	const now = new Date();
 	const dateOfReset = new Date();
 	dateOfReset.setHours(1, 59, 59);

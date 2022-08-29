@@ -12,7 +12,7 @@ const spamPlayers: Map<string, number> = new Map();
  * @param discordId
  * @param reason
  */
-function removeBlockedReason(discordId: string, reason: string) {
+function removeBlockedReason(discordId: string, reason: string): void {
 	const blockedPlayer = blockedPlayers.get(discordId);
 	if (blockedPlayer) {
 		blockedPlayers.set(discordId, blockedPlayer.filter(v => v.reason !== reason));
@@ -26,7 +26,7 @@ function removeBlockedReason(discordId: string, reason: string) {
  * Answer to call when you want to block a player from doing another command
  * @param ipc
  */
-function prepareBlockAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"block",
 		function(data: { discordId: string; reason: string; time: number; }) {
@@ -45,7 +45,7 @@ function prepareBlockAnswer(ipc: InstanceType<typeof IPC>) {
  * Answer to call when you want to unblock a player
  * @param ipc
  */
-function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"unblock",
 		function(data: { discordId: string; reason: string; }) {
@@ -58,7 +58,7 @@ function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>) {
  * Get the reasons for why the player is blocked, if exists
  * @param ipc
  */
-function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"isBlocked",
 		function(data: { discordId: string; packet: number; }, socket: unknown) {
@@ -86,7 +86,7 @@ function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>) {
  * Save when the last command has been entered, to avoid spam
  * @param ipc
  */
-function prepareSpamAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareSpamAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"spam",
 		function(data: { discordId: string; }) {
@@ -99,7 +99,7 @@ function prepareSpamAnswer(ipc: InstanceType<typeof IPC>) {
  * Check if the player is spamming
  * @param ipc
  */
-function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"isSpamming",
 		function(data: { discordId: string; packet: number; }, socket: unknown) {
@@ -125,11 +125,11 @@ function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>) {
  * Socket connexion
  * @param ipc
  */
-function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"socket.connected",
 		function(socket: unknown, socketID: string) {
-			ipc.log("client " + socketID + " has connected!");
+			ipc.log(`client ${socketID} has connected!`);
 		}
 	);
 }
@@ -138,11 +138,11 @@ function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>) {
  * Socket deconnexion
  * @param ipc
  */
-function prepareDeconnexionSocketAnswer(ipc: InstanceType<typeof IPC>) {
+function prepareDeconnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"socket.disconnected",
 		function(socket: unknown, destroyedSocketID: string) {
-			ipc.log("client " + destroyedSocketID + " has disconnected!");
+			ipc.log(`client ${destroyedSocketID} has disconnected!`);
 		}
 	);
 }

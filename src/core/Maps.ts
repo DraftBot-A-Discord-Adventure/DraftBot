@@ -74,7 +74,7 @@ export class Maps {
 			player.effectDuration = time;
 		}
 		else {
-			player.effectDuration = millisecondsToMinutes(Data.getModule("models.players").getNumber("effectMalus." + effect));
+			player.effectDuration = millisecondsToMinutes(Data.getModule("models.players").getNumber(`effectMalus.${effect}`));
 		}
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
@@ -160,7 +160,7 @@ export class Maps {
 		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
-		const timeRemainingString = "**[" + remainingHours + "h" + (remainingMinutes < 10 ? "0" : "") + remainingMinutes + "]**";
+		const timeRemainingString = `**[${remainingHours}h${remainingMinutes < 10 ? "0" : ""}${remainingMinutes}]**`;
 		if (percentage > 1) {
 			percentage = 1;
 		}
@@ -187,7 +187,7 @@ export class Maps {
 			}
 		}
 
-		return str + " " + nextMapInstance.getEmote(language);
+		return `${str} ${nextMapInstance.getEmote(language)}`;
 	}
 
 	static async isArrived(player: Player): Promise<boolean> {

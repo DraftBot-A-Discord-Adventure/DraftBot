@@ -25,27 +25,6 @@ export class DataModule {
 		return lastObject;
 	}
 
-	private getDataObject(path: string, warn = true): unknown {
-		if (!this._moduleDataObject) {
-			if (warn) {
-				console.warn("Trying to use an invalid data module: " + this._module);
-			}
-			return null;
-		}
-		const dataPath = path.split(".");
-		let lastObject = this._moduleDataObject;
-		for (const pathSplit of dataPath) {
-			if (!(pathSplit in lastObject)) {
-				if (warn) {
-					console.warn("Trying to use an invalid data: " + path + " in module " + this._module);
-				}
-				return null;
-			}
-			lastObject = lastObject[pathSplit];
-		}
-		return lastObject;
-	}
-
 	public getString(path: string): string {
 		return <string> this.getDataObject(path);
 	}
@@ -80,7 +59,7 @@ export class DataModule {
 		if (!dataObj) {
 			return 0;
 		}
-		return RandomUtils.draftbotRandom.pick(<number[]> dataObj);
+		return RandomUtils.draftbotRandom.pick(<number[]>dataObj);
 	}
 
 	public getRandomStringFromArray(path: string): string {
@@ -88,7 +67,7 @@ export class DataModule {
 		if (!dataObj) {
 			return "";
 		}
-		return RandomUtils.draftbotRandom.pick(<string[]> dataObj);
+		return RandomUtils.draftbotRandom.pick(<string[]>dataObj);
 	}
 
 	public getListSize(path: string): number {
@@ -109,6 +88,27 @@ export class DataModule {
 
 	public getNumberArray(path: string): number[] {
 		return <number[]> this.getDataObject(path);
+	}
+
+	private getDataObject(path: string, warn = true): unknown {
+		if (!this._moduleDataObject) {
+			if (warn) {
+				console.warn(`Trying to use an invalid data module: ${this._module}`);
+			}
+			return null;
+		}
+		const dataPath = path.split(".");
+		let lastObject = this._moduleDataObject;
+		for (const pathSplit of dataPath) {
+			if (!(pathSplit in lastObject)) {
+				if (warn) {
+					console.warn(`Trying to use an invalid data: ${path} in module ${this._module}`);
+				}
+				return null;
+			}
+			lastObject = lastObject[pathSplit];
+		}
+		return lastObject;
 	}
 }
 

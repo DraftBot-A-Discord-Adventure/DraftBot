@@ -1,10 +1,10 @@
 import {Dropbox, files, users} from "dropbox";
 import {IBackupFileSimple, IDraftBotBackup} from "./DraftBotBackup";
+import {botConfig} from "../bot";
 import fs = require("fs");
 import ListFolderResult = files.ListFolderResult;
 import FileMetadataReference = files.FileMetadataReference;
 import SpaceAllocationIndividual = users.SpaceAllocationIndividual;
-import {botConfig} from "../bot";
 
 export class DropboxBackup implements IDraftBotBackup {
 	name = "DROPBOX";
@@ -13,12 +13,12 @@ export class DropboxBackup implements IDraftBotBackup {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async backup(zipPath: string, backupName: string, baseName: string): Promise<void> {
-		console.log("Starting to upload " + backupName + " to dropbox...");
+		console.log(`Starting to upload ${backupName} to dropbox...`);
 		await this._dropbox.filesUpload({
-			path: "/" + backupName,
+			path: `/${backupName}`,
 			contents: fs.readFileSync(zipPath)
 		});
-		console.log("Dropbox backup of \"" + backupName + "\" done");
+		console.log(`Dropbox backup of "${backupName}" done`);
 	}
 
 	async create(): Promise<boolean> {
@@ -33,7 +33,7 @@ export class DropboxBackup implements IDraftBotBackup {
 			await dropbox.usersGetSpaceUsage();
 		}
 		catch (err) {
-			console.error("Unable to connect to Dropbox. Your token may be wrong or the bot is unable to reach the dropbox api : \n" + err.stack);
+			console.error(`Unable to connect to Dropbox. Your token may be wrong or the bot is unable to reach the dropbox api : \n${err.stack}`);
 			return Promise.resolve(false);
 		}
 		this._dropbox = dropbox;
@@ -79,7 +79,7 @@ export class DropboxBackup implements IDraftBotBackup {
 
 	async deleteFile(path: string): Promise<void> {
 		await this._dropbox.filesDeleteV2({
-			path: "/" + path
+			path: `/${path}`
 		});
 		return Promise.resolve();
 	}

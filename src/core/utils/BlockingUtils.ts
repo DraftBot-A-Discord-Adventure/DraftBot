@@ -36,10 +36,10 @@ export class BlockingUtils {
  * @param blockingReason
  * @param language
  */
-export function getErrorReasons(blockingReason: string[], language: string) {
+export function getErrorReasons(blockingReason: string[], language: string): string {
 	let errorReasons = "";
 	blockingReason.forEach(reason => {
-		errorReasons = errorReasons.concat(Translations.getModule("error", language).get("blockedContext." + reason) + ", ");
+		errorReasons = errorReasons.concat(`${Translations.getModule("error", language).get(`blockedContext.${reason}`)}, `);
 	});
 	return errorReasons.slice(0, -2);
 }
@@ -51,7 +51,7 @@ export function getErrorReasons(blockingReason: string[], language: string) {
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user) {
+export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user): Promise<boolean> {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
 		await replyErrorMessage(

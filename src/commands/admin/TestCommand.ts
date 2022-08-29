@@ -36,7 +36,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			commandTestCurrent = await CT.getTestCommand(testCommand);
 		}
 		catch (e) {
-			return interaction.reply({content: ":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```"});
+			return interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
 		}
 		// Third, we check if the test command has the good arguments
 		const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, interaction);
@@ -63,7 +63,6 @@ export const commandInfo: ICommand = {
 			.setDescription("The test command to execute")
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
-	requirements: {
-	},
+	requirements: {},
 	mainGuildCommand: false
 };

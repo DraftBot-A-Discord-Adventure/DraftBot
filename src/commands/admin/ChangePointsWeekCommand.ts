@@ -9,7 +9,7 @@ import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
  * @param amount
  * @param interaction
  */
-function giveWeeklyPointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction) {
+function giveWeeklyPointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction): void {
 	if (interaction.options.getString("mode") === "set") {
 		entityToEdit.Player.weeklyScore = amount;
 	}
