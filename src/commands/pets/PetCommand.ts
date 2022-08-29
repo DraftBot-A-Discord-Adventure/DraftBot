@@ -14,7 +14,7 @@ import {draftBotClient} from "../../core/bot";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
 	if (!askedEntity) {
 		askedEntity = entity;

@@ -4,10 +4,9 @@ import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
 import {minutesDisplay} from "../../../utils/TimeUtils";
+import {MaxStatsValues} from "./GenericItemModel";
 import fs = require("fs");
 import moment = require("moment");
-
-type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";

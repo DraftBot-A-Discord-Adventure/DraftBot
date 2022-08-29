@@ -39,13 +39,13 @@ export class Campaign {
 			}
 			if (this.hasNextCampaign(entity.Player.PlayerMissionsInfo.campaignProgression)) {
 				const prop = Campaign.getDataModule().getObjectFromArray("missions", entity.Player.PlayerMissionsInfo.campaignProgression);
-				campaign.missionVariant = prop.missionVariant;
-				campaign.gemsToWin = prop.gemsToWin;
-				campaign.xpToWin = prop.xpToWin;
-				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(entity.Player, prop.missionVariant);
-				campaign.missionId = prop.missionId;
-				campaign.missionObjective = prop.missionObjective;
-				campaign.moneyToWin = prop.moneyToWin;
+				campaign.missionVariant = prop.missionVariant as number;
+				campaign.gemsToWin = prop.gemsToWin as number;
+				campaign.xpToWin = prop.xpToWin as number;
+				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string).initialNumberDone(entity.Player, prop.missionVariant as number);
+				campaign.missionId = prop.missionId as string;
+				campaign.missionObjective = prop.missionObjective as number;
+				campaign.moneyToWin = prop.moneyToWin as number;
 				campaign.saveBlob = null;
 				entity.Player.PlayerMissionsInfo.campaignProgression++;
 				campaign.Mission = await Missions.getById(campaign.missionId);

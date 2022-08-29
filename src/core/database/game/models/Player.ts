@@ -16,7 +16,7 @@ import {Translations} from "../../../Translations";
 import {TextBasedChannel, TextChannel} from "discord.js";
 import {Maps} from "../../../Maps";
 import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
-import {GenericItemModel} from "./GenericItemModel";
+import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
 import {draftBotClient, draftBotInstance} from "../../../bot";
@@ -116,7 +116,7 @@ export class Player extends Model {
 			.includes(badge);
 	}
 
-	async getDestinationId() {
+	async getDestinationId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.endMap;
 	}
@@ -284,8 +284,6 @@ export class Player extends Model {
 		if (entity.health > 0) {
 			return false;
 		}
-		// TODO new logger
-		// log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, Constants.EFFECT.DEAD, 0, reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
@@ -425,7 +423,7 @@ export class Player extends Model {
 		return false;
 	}
 
-	public async drinkPotion() {
+	public async drinkPotion(): Promise<void> {
 		InventorySlot.findOne({
 			where: {
 				playerId: this.id,
@@ -446,7 +444,7 @@ export class Player extends Model {
 			});
 	}
 
-	public async getMaxStatsValue() {
+	public async getMaxStatsValue(): Promise<MaxStatsValues> {
 		const playerClass = await Classes.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),
@@ -470,7 +468,13 @@ export class Player extends Model {
 	 * @param language
 	 * @param reason
 	 */
-	public async addExperience(xpWon: number, entity: Entity, channel: TextBasedChannel, language: string, reason: NumberChangeReason) {
+	public async addExperience(
+		xpWon: number,
+		entity: Entity,
+		channel: TextBasedChannel,
+		language: string,
+		reason: NumberChangeReason
+	): Promise<void> {
 		this.experience += xpWon;
 		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, reason).then();
 		if (xpWon > 0) {
@@ -674,7 +678,7 @@ export class Players {
 		})))[0].max;
 	}
 
-	static async getNbPlayersWithClass(classEntity: Class) {
+	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
                        FROM draftbot_game.players
                        WHERE class = :class

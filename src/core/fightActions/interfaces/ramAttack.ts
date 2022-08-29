@@ -52,7 +52,7 @@ export const fightActionInterface: IFightAction = {
 		receiver.stats.fightPoints -= damageDealt;
 
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule("fightactions." + this.getName(), language)
+			attack: Translations.getModule(`fightactions.${this.getName()}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {

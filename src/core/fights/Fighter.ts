@@ -26,8 +26,6 @@ export class Fighter {
 
 	public stats: FighterStats;
 
-	private statsBackup: FighterStats;
-
 	public nextFightActionId: string;
 
 	public fightActionsHistory: string[];
@@ -36,11 +34,13 @@ export class Fighter {
 
 	public entity: Entity
 
+	public alterationTurn: number;
+
+	private statsBackup: FighterStats;
+
 	private ready: boolean;
 
 	private alteration: FighterAlterationId;
-
-	public alterationTurn: number;
 
 	private status: FighterStatus;
 
@@ -73,7 +73,7 @@ export class Fighter {
 	 * get the string that mention the user
 	 * @public
 	 */
-	public getMention() {
+	public getMention(): string {
 		return this.entity.getMention();
 	}
 
@@ -81,7 +81,7 @@ export class Fighter {
 	 * set the status of the fighter
 	 * @param newStatus
 	 */
-	setStatus(newStatus: FighterStatus) {
+	setStatus(newStatus: FighterStatus): void {
 		this.status = newStatus;
 	}
 
@@ -90,7 +90,7 @@ export class Fighter {
 	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
-	public async loadStats(friendly: boolean) {
+	public async loadStats(friendly: boolean): Promise<void> {
 		const playerActiveObjects: playerActiveObjects = await this.entity.getPlayerActiveObjects();
 		this.stats.fightPoints = friendly ? await this.entity.getMaxCumulativeFightPoint() : await this.entity.getCumulativeFightPoint();
 		this.stats.maxFightPoint = await this.entity.getMaxCumulativeFightPoint();
@@ -106,7 +106,7 @@ export class Fighter {
 	 * @param language
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string) {
+	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string): Promise<void> {
 		if (friendly || !await this.currentPotionIsAFightPotion()) {
 			return;
 		}
@@ -120,7 +120,7 @@ export class Fighter {
 	 * Allow a fighter to block itself
 	 * @public
 	 */
-	public block() {
+	public block(): void {
 		BlockingUtils.blockPlayer(this.entity.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
@@ -141,14 +141,14 @@ export class Fighter {
 	/**
 	 * erase the saved stats of the fighter
 	 */
-	eraseSavedStats() {
+	eraseSavedStats(): void {
 		this.statsBackup = null;
 	}
 
 	/**
 	 * check if a fighter has an active backup of its stats
 	 */
-	hasSavedStats() {
+	hasSavedStats(): boolean {
 		return this.statsBackup !== null;
 	}
 
@@ -183,14 +183,14 @@ export class Fighter {
 	/**
 	 * get the discord id of a fighter
 	 */
-	public getDiscordId() {
+	public getDiscordId(): string {
 		return this.entity.discordUserId;
 	}
 
 	/**
 	 * get the user of a fighter
 	 */
-	public getUser() {
+	public getUser(): User {
 		return this.user;
 	}
 
@@ -198,35 +198,35 @@ export class Fighter {
 	 * get the pseudo of a fighter
 	 * @param language
 	 */
-	public async getPseudo(language: string) {
+	public async getPseudo(language: string): Promise<string> {
 		return await this.entity.Player.getPseudo(language);
 	}
 
 	/**
 	 * check if the player is dead
 	 */
-	public isDead() {
+	public isDead(): boolean {
 		return this.stats.fightPoints <= 0;
 	}
 
 	/**
 	 * check if the player is dead or buggy
 	 */
-	public isDeadOrBug() {
+	public isDeadOrBug(): boolean {
 		return this.isDead() || this.status === FighterStatus.BUG;
 	}
 
 	/**
 	 * the name of the function is very clear
 	 */
-	public suicide() {
+	public suicide(): void {
 		this.stats.fightPoints = 0;
 	}
 
 	/**
 	 * get a map of the fight actions executed and the amont of time it has been done
 	 */
-	public getFightActionCount() {
+	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
 		this.fightActionsHistory.forEach((action) => {
 			if (playerFightActionsHistory.has(action)) {
@@ -242,16 +242,8 @@ export class Fighter {
 	/**
 	 * get the player level of the fighter
 	 */
-	public getPlayerLevel() {
+	public getPlayerLevel(): number {
 		return this.entity.Player.level;
-	}
-
-	/**
-	 * check if the potion of the fighter is a fight potion
-	 * @private
-	 */
-	private async currentPotionIsAFightPotion() {
-		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
 	}
 
 	/**
@@ -280,7 +272,7 @@ export class Fighter {
 	/**
 	 * get the fightAction linked to the alteration of the fighter
 	 */
-	getAlterationFightAction() {
+	getAlterationFightAction(): IFightAction {
 		const alterationFightActionFileName: string = FightConstants.ALTERATION_FIGHT_ACTION[this.alteration];
 		return FightActionController.getFightActionInterface(alterationFightActionFileName);
 	}
@@ -288,7 +280,15 @@ export class Fighter {
 	/**
 	 * get a random fight action id from the list of available fight actions of the fighter
 	 */
-	getRandomAvailableFightActionId() {
+	getRandomAvailableFightActionId(): string {
 		return Array.from(this.availableFightActions.keys())[Math.floor(Math.random() * Array.from(this.availableFightActions.keys()).length)];
+	}
+
+	/**
+	 * check if the potion of the fighter is a fight potion
+	 * @private
+	 */
+	private async currentPotionIsAFightPotion(): Promise<boolean> {
+		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
 	}
 }

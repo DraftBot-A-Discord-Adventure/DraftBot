@@ -5,7 +5,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
 	if (!askedEntity) {
 		askedEntity = entity;

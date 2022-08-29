@@ -9,7 +9,10 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
-import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
+import {
+	BroadcastTranslationModuleLike,
+	DraftBotBroadcastValidationMessage
+} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/database/game/models/Class";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -56,7 +59,7 @@ async function sendError(
 	isAboutSelectedOpponent: boolean,
 	replyingError: boolean,
 	user = interaction.user
-) {
+): Promise<void> {
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
@@ -85,7 +88,13 @@ async function sendError(
  * @param fightTranslationModule
  * @param respondingFighter
  */
-async function getFightDescription(askingFighter: Fighter, friendly: boolean, respondingEntity: Entity | null, fightTranslationModule: TranslationModule, respondingFighter: Fighter | null) {
+async function getFightDescription(
+	askingFighter: Fighter,
+	friendly: boolean,
+	respondingEntity: Entity | null,
+	fightTranslationModule: TranslationModule,
+	respondingFighter: Fighter | null
+): Promise<string> {
 	let fightAskingDescription;
 	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
 	if (!respondingEntity) {
@@ -103,9 +112,9 @@ async function getFightDescription(askingFighter: Fighter, friendly: boolean, re
 		promises.push(respondingFighter.loadStats(friendly));
 	}
 	await Promise.all(promises);
-	fightAskingDescription += "\n\n" + await askingFighter.getStringDisplay(fightTranslationModule);
+	fightAskingDescription += `\n\n${await askingFighter.getStringDisplay(fightTranslationModule)}`;
 	if (respondingEntity) {
-		fightAskingDescription += "\n" + await respondingFighter.getStringDisplay(fightTranslationModule);
+		fightAskingDescription += `\n${await respondingFighter.getStringDisplay(fightTranslationModule)}`;
 	}
 	return fightAskingDescription;
 }
@@ -120,7 +129,7 @@ async function getFightDescription(askingFighter: Fighter, friendly: boolean, re
  * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
  */
 function getAcceptCallback(interaction: CommandInteraction, fightTranslationModule: TranslationModule, friendly: boolean, askedEntity: Entity | null, askingFighter: Fighter) {
-	return async function(user: User) {
+	return async function(user: User): Promise<boolean> {
 		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
 		const attackerFightErrorStatus = await canFight(incomingFighterEntity, friendly);
 		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
@@ -143,7 +152,7 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
  * @param fightTranslationModule - the translation module
  * @param respondingEntity - the entity that is responding to the fight
  */
-function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity) {
+function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity): BroadcastTranslationModuleLike {
 	return {
 		errorBroadcastCancelled: fightTranslationModule.get("error.canceled"),
 		errorSelfAccept: fightTranslationModule.get("error.fightHimself"),

@@ -8,10 +8,16 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Data} from "../../core/Data";
 
+/**
+ * Add the field containing the available actions for the given class
+ * @param embed
+ * @param classToShow
+ * @param language
+ */
 function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: string): void {
 	for (const action of classToShow.getFightActions()) {
-		const actionTr = Translations.getModule("fightactions." + action, language);
-		embed.addField(Data.getModule("fightactions." + action).getString("emote") + " " + actionTr.get("name"), actionTr.get("description"));
+		const actionTr = Translations.getModule(`fightactions.${action}`, language);
+		embed.addField(`${Data.getModule(`fightactions.${action}`).getString("emote")} ${actionTr.get("name")}`, actionTr.get("description"));
 	}
 }
 
@@ -56,7 +62,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			classToShow = await Classes.getByEmoji(reactionEmoji);
 			const newEmbed = new DraftBotEmbed()
 				.setTitle(classTranslations.format("classTitle", {class: classToShow.getName(language)}))
-				.setDescription(classToShow.getDescription(language) + "\n" + classToShow.statsToString(language, entity.Player.level) + "\n" + classTranslations.get("descriptionEnd"));
+				.setDescription(`${classToShow.getDescription(language)}\n${classToShow.statsToString(language, entity.Player.level)}\n${classTranslations.get("descriptionEnd")}`);
 			addActionsFields(newEmbed, classToShow, language);
 			await interaction.editReply({embeds: [newEmbed]});
 		}

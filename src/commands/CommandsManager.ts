@@ -358,7 +358,7 @@ export class CommandsManager {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
-				tr.get("notInAGuild")
+				Translations.getModule("bot", tr.language).get("notInAGuild")
 			);
 			return false;
 		}

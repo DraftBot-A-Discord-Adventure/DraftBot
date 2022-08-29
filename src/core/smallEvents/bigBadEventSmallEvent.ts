@@ -5,7 +5,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Data} from "../Data";
+import {Data, JsonModule} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
@@ -31,16 +31,16 @@ export const smallEvent: SmallEvent = {
 			await entity.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
 		case 1:
-			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
-			seEmbed.setDescription(base + format(seFallen.sentence, {
-				alteTime: minutesDisplay(millisecondsToMinutes(Data.getModule("models.players").getNumber("effectMalus." + seFallen.alte))),
-				alteEmoji: seFallen.alte
+			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)] as JsonModule;
+			seEmbed.setDescription(base + format(seFallen.sentence as string, {
+				alteTime: minutesDisplay(millisecondsToMinutes(Data.getModule("models.players").getNumber(`effectMalus.${seFallen.alte}`))),
+				alteEmoji: seFallen.alte as string
 			}));
-			await Maps.applyEffect(entity.Player, seFallen.alte, 0, NumberChangeReason.SMALL_EVENT);
+			await Maps.applyEffect(entity.Player, seFallen.alte as string, 0, NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
-				for (let i = 0; i < seFallen.tags.length; i++) {
+				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
 					await MissionsController.update(entity, interaction.channel, language, {
-						missionId: seFallen.tags[i],
+						missionId: (seFallen.tags as string[])[i],
 						params: {tags: seFallen.tags}
 					});
 				}

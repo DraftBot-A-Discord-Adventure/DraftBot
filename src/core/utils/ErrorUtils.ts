@@ -20,7 +20,7 @@ export const effectsErrorTextValue = async function(user: User, language: string
 		title: tr.format(`${startString}Is${stringEnd}`, {
 			askedPseudo: escapeUsername(await entity.Player.getPseudo(language))
 		}),
-		description: entity.Player.effect + " "
+		description: `${entity.Player.effect} `
 	};
 	const timeEffect = minutesDisplay(millisecondsToMinutes(entity.Player.effectRemainingTime()));
 	switch (entity.Player.effect) {
@@ -44,15 +44,21 @@ export const effectsErrorTextValue = async function(user: User, language: string
 	return errorMessageObject;
 };
 
-export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string) {
-	return await interaction.reply({
+export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string): Promise<void> {
+	await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
 		ephemeral: true
 	});
 }
 
-export async function sendErrorMessage(user: User, interaction: CommandInteraction, language: string, reason: string, isCancelling = false) {
-	return await interaction.channel.send({
+export async function sendErrorMessage(
+	user: User,
+	interaction: CommandInteraction,
+	language: string,
+	reason: string,
+	isCancelling = false
+): Promise<void> {
+	await interaction.channel.send({
 		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling)]
 	});
 }

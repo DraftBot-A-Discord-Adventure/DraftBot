@@ -4,7 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.vote", language);
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()

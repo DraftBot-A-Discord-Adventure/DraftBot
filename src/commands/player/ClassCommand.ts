@@ -35,12 +35,11 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(classTranslations.get("confirm"), userInformations.user)
 		.setDescription(
-			"\n\u200b\n" +
-			classTranslations.format("display", {
+			`\n\u200b\n${classTranslations.format("display", {
 				name: selectedClass.toString(classTranslations.language, userInformations.entity.Player.level),
 				price: selectedClass.price,
 				description: selectedClass.getDescription(classTranslations.language)
-			})
+			})}`
 		);
 
 	const confirmMessage = await message.channel.send({embeds: [confirmEmbed]}) as Message;

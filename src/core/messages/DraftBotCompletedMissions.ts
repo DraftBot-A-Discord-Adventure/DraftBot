@@ -57,7 +57,7 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 	}
 
 	private static getMissionDisplay(tr: TranslationModule, completedMission: CompletedMission): string {
-		const missionDisplay = "• " + completedMission.desc;
+		const missionDisplay = `• ${completedMission.desc}`;
 		const rewardDisplays = [];
 		if (completedMission.gemsToWin > 0) {
 			rewardDisplays.push(tr.format("gemsDisplay", {
@@ -77,6 +77,7 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 		if (rewardDisplays.length === 0) {
 			return missionDisplay;
 		}
-		return missionDisplay + " (" + rewardDisplays.join(", ") + ")\n";
+		return `${missionDisplay} (${rewardDisplays.join(", ")})
+`;
 	}
 }

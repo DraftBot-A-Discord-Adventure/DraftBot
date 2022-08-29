@@ -7,7 +7,7 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, Message, MessageReaction} from "discord.js";
+import {CommandInteraction, EmbedFieldData, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import {Data} from "../../core/Data";
@@ -22,7 +22,7 @@ import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveO
  * @param msg
  * @returns {Promise<void>}
  */
-async function displayBadges(entity: Entity, msg: Message) {
+async function displayBadges(entity: Entity, msg: Message): Promise<void> {
 	const badges = entity.Player.badges.split("-");
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
@@ -36,7 +36,7 @@ async function displayBadges(entity: Entity, msg: Message) {
 	}
 }
 
-async function getInformationField(profileModule: TranslationModule, askedEntity: Entity) {
+async function getInformationField(profileModule: TranslationModule, askedEntity: Entity): Promise<EmbedFieldData[]> {
 	return [
 		{
 			name: profileModule.get("information.fieldName"),
@@ -51,7 +51,7 @@ async function getInformationField(profileModule: TranslationModule, askedEntity
 		}];
 }
 
-async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects) {
+async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects): Promise<EmbedFieldData> {
 	return {
 		name: profileModule.get("statistique.fieldName"),
 		value: profileModule.format("statistique.fieldValue", {
@@ -65,7 +65,7 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
 	};
 }
 
-function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot) {
+function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedFieldData {
 	return {
 		name: profileModule.get("mission.fieldName"),
 		value: profileModule.format("mission.fieldValue", {
@@ -81,7 +81,7 @@ function getMissionField(profileModule: TranslationModule, askedEntity: Entity, 
 	};
 }
 
-function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity) {
+function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity): EmbedFieldData {
 	const isUnranked = rank > numberOfPlayers;
 	return {
 		name: profileModule.get("ranking.fieldName"),
@@ -96,7 +96,7 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 	};
 }
 
-function getClassField(profileModule: TranslationModule, playerClass: Class, language: string) {
+function getClassField(profileModule: TranslationModule, playerClass: Class, language: string): EmbedFieldData {
 	return {
 		name: profileModule.get("playerClass.fieldName"),
 		value: profileModule.format("playerClass.fieldValue", {
@@ -106,7 +106,7 @@ function getClassField(profileModule: TranslationModule, playerClass: Class, lan
 	};
 }
 
-function getGuildField(profileModule: TranslationModule, guild: Guild) {
+function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFieldData {
 	return {
 		name: profileModule.get("guild.fieldName"),
 		value: profileModule.format("guild.fieldValue", {
@@ -116,7 +116,7 @@ function getGuildField(profileModule: TranslationModule, guild: Guild) {
 	};
 }
 
-async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string) {
+async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string): Promise<EmbedFieldData> {
 	return {
 		name: profileModule.get("map.fieldName"),
 		value: (await askedEntity.Player.getDestination()).getDisplayName(language),
@@ -124,7 +124,7 @@ async function getLocationField(profileModule: TranslationModule, askedEntity: E
 	};
 }
 
-function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string) {
+function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string): EmbedFieldData {
 	return {
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
@@ -136,7 +136,7 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, language:
 	};
 }
 
-function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction) {
+function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction): EmbedFieldData {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.format("timeLeft.fieldValue", {
@@ -147,7 +147,7 @@ function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity,
 	};
 }
 
-function getNoTimeLeftField(profileModule: TranslationModule) {
+function getNoTimeLeftField(profileModule: TranslationModule): EmbedFieldData {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.get("noTimeLeft.fieldValue"),
@@ -162,12 +162,12 @@ function getNoTimeLeftField(profileModule: TranslationModule) {
  * @param interaction
  * @returns {Promise<void>}
  */
-async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: string, interaction: CommandInteraction) {
+async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: string, interaction: CommandInteraction): Promise<void> {
 	let content = "";
 	const badges = entity.Player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
 	for (const badgeSentence of badges) {
-		content += profileModule.get("badges." + badgeSentence) + "\n";
+		content += profileModule.get(`badges.${badgeSentence}`) + "\n";
 	}
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
@@ -188,7 +188,13 @@ async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: strin
  * @param titleEffect
  * @param language
  */
-async function generateFields(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction, titleEffect: string, language: string) {
+async function generateFields(
+	profileModule: TranslationModule,
+	askedEntity: Entity,
+	interaction: CommandInteraction,
+	titleEffect: string,
+	language: string
+): Promise<{ fields: EmbedFieldData[], titleEffect: string }> {
 	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
 	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
 	const rank = await Players.getRankById(askedEntity.Player.id);
@@ -264,7 +270,7 @@ async function generateFields(profileModule: TranslationModule, askedEntity: Ent
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
 	if (!askedEntity) {
 		askedEntity = entity;
@@ -299,7 +305,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction);
 		}
 		else {
-			reply.channel.send({content: profileModule.get("badges." + reaction.emoji.name)}).then((msg: Message) => {
+			reply.channel.send({content: profileModule.get(`badges.${reaction.emoji.name}`)}).then((msg: Message) => {
 				setTimeout(() => msg.delete(), Data.getModule("commands.profile").getNumber("badgeDescriptionTimeout"));
 			});
 		}

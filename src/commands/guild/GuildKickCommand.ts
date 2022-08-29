@@ -16,9 +16,12 @@ import {draftBotInstance} from "../../core/bot";
 type EntityInformation = { entity: Entity, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
 
-async function getValidationCallback(entityInformation: EntityInformation, textInformation: TextInformation) {
+async function getValidationCallback(
+	entityInformation: EntityInformation,
+	textInformation: TextInformation
+): Promise<(validateMessage: DraftBotValidateReactionMessage) => Promise<void>> {
 	const kickedEntity = await Entities.getByOptions(textInformation.interaction);
-	return async (validateMessage: DraftBotValidateReactionMessage) => {
+	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entityInformation.entity.discordUserId, BlockingConstants.REASONS.GUILD_KICK);
 		if (validateMessage.isValidated()) {
 			let kickedGuild;
@@ -75,7 +78,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 	};
 }
 
-async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity) {
+async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity): Promise<boolean> {
 	if (kickedEntity === null) {
 		// no user provided
 		await replyErrorMessage(

@@ -19,7 +19,7 @@ import {draftBotInstance} from "../../core/bot";
  * @param interaction
  */
 function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
 			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();

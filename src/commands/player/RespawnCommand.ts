@@ -53,8 +53,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			lostScore: lostScore
 		})
 	});
-	// TODO REFAIRE LES LOGS
-	// log(message.author.id + " respawned (" + lostScore + " points lost)");
 
 }
 

@@ -75,7 +75,7 @@ export const smallEvent: SmallEvent = {
 				tr.getRandom("stories"),
 				{
 					botFact: format(
-						tr.get("possiblesInfos." + outReceived),
+						tr.get(`possiblesInfos.${outReceived}`),
 						{
 							infoNumber: result,
 							infoComplement: complement

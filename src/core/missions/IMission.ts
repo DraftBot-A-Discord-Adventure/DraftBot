@@ -16,7 +16,7 @@ export type IMission = {
 	 * @param params - the params of the mission
 	 * @param saveBlob - some binary data to save in the mission
 	 */
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }, saveBlob: Buffer): boolean;
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean;
 
 	/**
 	 * get the format of the variant
@@ -40,5 +40,5 @@ export type IMission = {
 	 * @param saveBlob - the binary data to save
 	 * @param params - identical to the update of the mission
 	 */
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer>;
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer>;
 }

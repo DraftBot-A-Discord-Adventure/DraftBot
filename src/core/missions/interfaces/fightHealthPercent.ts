@@ -1,7 +1,7 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return params.remainingPercent <= variant / 100.0;
 	},
 

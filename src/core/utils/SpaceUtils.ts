@@ -86,16 +86,20 @@ export enum Planet {
 	PLUTO = 8
 }
 
+// eslint-disable-next-line camelcase
+export type NeoWSFeed = { length: number, near_earth_objects: NearEarthObject[] };
+
 export class SpaceUtils {
 	private static cachedNeoFeed: NearEarthObject[] = null;
 
 	private static cachedNeoFeedDate: string = null;
 
-	static getNeoWSFeed(apiKey: string): Promise<any> {
+	static getNeoWSFeed(apiKey: string): Promise<NeoWSFeed> {
 		const today = new Date().toISOString()
 			.slice(0, 10);
 		if (today === this.cachedNeoFeedDate) {
-			return Promise.resolve(this.cachedNeoFeed);
+			// eslint-disable-next-line camelcase
+			return Promise.resolve({length: this.cachedNeoFeed.length, near_earth_objects: this.cachedNeoFeed});
 		}
 		return new Promise((resolve) => {
 			https.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`, res => {
@@ -115,7 +119,7 @@ export class SpaceUtils {
 						resolve(parsedAnswer.near_earth_objects);
 					}
 					catch (e) {
-						resolve([]);
+						resolve(null);
 					}
 				});
 			});

@@ -4,7 +4,7 @@ import {Translations} from "../../Translations";
 export const missionInterface: IMission = {
 	generateRandomVariant: () => Promise.resolve(0),
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: any }) => params.rarity >= variant,
+	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => params.rarity >= variant,
 
 	getVariantFormatVariable: (variant: number, objective: number, language: string) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
 

@@ -62,7 +62,7 @@ export class GameDatabase extends Database {
 	 * @param models
 	 * @private
 	 */
-	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]) {
+	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]): Promise<void> {
 
 		await Tag.destroy({truncate: true});
 
@@ -162,8 +162,8 @@ export class GameDatabase extends Database {
 					});
 				}
 			}
-			fileContent.fr = fileContent.translations.fr + "\n\n";
-			fileContent.en = fileContent.translations.en + "\n\n";
+			fileContent.fr = `${fileContent.translations.fr}\n\n`;
+			fileContent.en = `${fileContent.translations.en}\n\n`;
 			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
 				if (possibilityKey !== "end") {
 					fileContent.fr += format(reportTranslationsFr.get("doChoice"), {
@@ -237,8 +237,8 @@ export class GameDatabase extends Database {
 	 * @param message
 	 * @private
 	 */
-	private static sendEventLoadError(event: EventJson, message: string) {
-		console.warn("Error while loading event " + event.id + ": " + message);
+	private static sendEventLoadError(event: EventJson, message: string): void {
+		console.warn(`Error while loading event ${event.id}: ${message}`);
 	}
 
 	/**
@@ -247,21 +247,17 @@ export class GameDatabase extends Database {
 	 * @param possibilityKey
 	 * @private
 	 */
-	private static checkEventEnd(event: EventJson, possibilityKey: string) {
+	private static checkEventEnd(event: EventJson, possibilityKey: string): boolean {
 		if (Object.keys(event.possibilities[possibilityKey])
 			.includes("translations")) {
 			GameDatabase.sendEventLoadError(event,
-				"Key present in possibility " +
-				possibilityKey +
-				": ");
+				`Key present in possibility ${possibilityKey}: `);
 			return false;
 		}
 		if (!Object.keys(event.possibilities[possibilityKey])
 			.includes("issues")) {
 			GameDatabase.sendEventLoadError(event,
-				"Key missing in possibility " +
-				possibilityKey +
-				": ");
+				`Key missing in possibility ${possibilityKey}: `);
 			return false;
 		}
 		return true;
@@ -272,7 +268,7 @@ export class GameDatabase extends Database {
 	 * @param event
 	 * @private
 	 */
-	private static checkEventRootKeys(event: EventJson) {
+	private static checkEventRootKeys(event: EventJson): boolean {
 		if (!GameDatabase.checkEventMainKeys(event)) {
 			return false;
 		}
@@ -293,7 +289,7 @@ export class GameDatabase extends Database {
 	 * @param possibilityKey
 	 * @private
 	 */
-	private static checkPossibilityKeys(event: EventJson, possibilityKey: string) {
+	private static checkPossibilityKeys(event: EventJson, possibilityKey: string): boolean {
 		if (possibilityKey === "end") {
 			return GameDatabase.checkEventEnd(event, possibilityKey);
 		}
@@ -305,25 +301,21 @@ export class GameDatabase extends Database {
 			if (!Object.keys(event.possibilities[possibilityKey])
 				.includes(possibilityFields[i])) {
 				GameDatabase.sendEventLoadError(event,
-					"Key missing in possibility " +
-					possibilityKey +
-					": ");
+					`Key missing in possibility ${possibilityKey}: `);
 				return false;
 			}
 		}
 		if (event.possibilities[possibilityKey].translations.fr === undefined) {
 			GameDatabase.sendEventLoadError(
 				event,
-				"French translation missing in possibility " +
-				possibilityKey
+				`French translation missing in possibility ${possibilityKey}`
 			);
 			return false;
 		}
 		if (event.possibilities[possibilityKey].translations.en === undefined) {
 			GameDatabase.sendEventLoadError(
 				event,
-				"English translation missing in possibility " +
-				possibilityKey
+				`English translation missing in possibility ${possibilityKey}`
 			);
 			return false;
 		}
@@ -337,7 +329,7 @@ export class GameDatabase extends Database {
 	 * @param issue
 	 * @private
 	 */
-	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: IssueType) {
+	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: IssueType): boolean {
 		const issuesFields = [
 			"lostTime",
 			"health",
@@ -353,8 +345,7 @@ export class GameDatabase extends Database {
 		if (issue.lostTime < 0) {
 			GameDatabase.sendEventLoadError(
 				event,
-				"Lost time must be positive in issue " +
-				possibilityKey + " "
+				`Lost time must be positive in issue ${possibilityKey} `
 			);
 			return false;
 		}
@@ -364,18 +355,14 @@ export class GameDatabase extends Database {
 		) {
 			GameDatabase.sendEventLoadError(
 				event,
-				"Time lost and no clock2 effect in issue " +
-				possibilityKey + " "
+				`Time lost and no clock2 effect in issue ${possibilityKey} `
 			);
 			return false;
 		}
 		if (!Object.keys(PlayerConstants.EFFECT_MALUS).includes(issue.effect)) {
 			GameDatabase.sendEventLoadError(
 				event,
-				"Unknown effect \"" +
-				issue.effect +
-				"\" in issue " +
-				possibilityKey + " "
+				`Unknown effect "${issue.effect}" in issue ${possibilityKey} `
 			);
 			return false;
 		}
@@ -387,7 +374,7 @@ export class GameDatabase extends Database {
 	 * @param event
 	 * @private
 	 */
-	private static isEventValid(event: EventJson) {
+	private static isEventValid(event: EventJson): boolean {
 		if (!GameDatabase.checkEventRootKeys(event)) {
 			return false;
 		}
@@ -412,7 +399,7 @@ export class GameDatabase extends Database {
 	 * Check the MapLocation links
 	 * @private
 	 */
-	private static async verifyMaps() {
+	private static async verifyMaps(): Promise<void> {
 		const dict: { [key: string]: MapLocation } = {};
 		for (const mapl of await MapLocation.findAll()) {
 			dict[mapl.id] = mapl;
@@ -422,7 +409,7 @@ export class GameDatabase extends Database {
 		for (const key of keys) {
 			const map = dict[key];
 			if (!MapConstants.TYPES.includes(map.type)) {
-				console.error("Type of map " + map.id + " doesn't exist");
+				console.error(`Type of map ${map.id} doesn't exist`);
 			}
 			for (const dir1 of dirs) {
 				this.checkLinkOfMap(map, dir1, dict, dirs);
@@ -438,13 +425,13 @@ export class GameDatabase extends Database {
 	 * @param dirs
 	 * @private
 	 */
-	private static checkLinkOfMap(map: MapLocation, dir1: keyof MapLocation, dict: { [key: string]: MapLocation }, dirs: (keyof MapLocation)[]) {
+	private static checkLinkOfMap(map: MapLocation, dir1: keyof MapLocation, dict: { [key: string]: MapLocation }, dirs: (keyof MapLocation)[]): void {
 		if (!map[dir1]) {
 			return;
 		}
 		const otherMap = dict[map[dir1]];
 		if (otherMap.id === map.id) {
-			console.error("Map " + map.id + " is connected to itself");
+			console.error(`Map ${map.id} is connected to itself`);
 		}
 		let valid = false;
 		for (const dir2 of dirs) {
@@ -454,7 +441,7 @@ export class GameDatabase extends Database {
 			}
 		}
 		if (!valid) {
-			console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
+			console.error(`Map ${map.id} is connected to ${otherMap.id} but the latter is not`);
 		}
 	}
 
@@ -466,16 +453,13 @@ export class GameDatabase extends Database {
 	 * @param issue
 	 * @private
 	 */
-	private static checkPossibilityIssuesKey(issuesFields: string[], event: EventJson, possibilityKey: string, issue: IssueType) {
+	private static checkPossibilityIssuesKey(issuesFields: string[], event: EventJson, possibilityKey: string, issue: IssueType): boolean {
 		for (let i = 0; i < issuesFields.length; ++i) {
 			if (!Object.keys(issue)
 				.includes(issuesFields[i])) {
 				GameDatabase.sendEventLoadError(
 					event,
-					"Key missing in possibility " +
-					possibilityKey + " " +
-					": " +
-					issuesFields[i]
+					`Key missing in possibility ${possibilityKey} : ${issuesFields[i]}`
 				);
 				return false;
 			}
@@ -490,11 +474,11 @@ export class GameDatabase extends Database {
 	 * @param issue
 	 * @private
 	 */
-	private static checkPossibilityIssuesRestrictedMap(event: EventJson, possibilityKey: string, issue: IssueType) {
+	private static checkPossibilityIssuesRestrictedMap(event: EventJson, possibilityKey: string, issue: IssueType): boolean {
 		const types = issue.restrictedMaps.split(",");
 		for (let i = 0; i < types.length; ++i) {
 			if (!MapConstants.TYPES.includes(types[i])) {
-				GameDatabase.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
+				GameDatabase.sendEventLoadError(event, `Map type of issue${possibilityKey}  doesn't exist`);
 				return false;
 			}
 		}
@@ -506,12 +490,12 @@ export class GameDatabase extends Database {
 	 * @param event
 	 * @private
 	 */
-	private static checkEventMainKeys(event: EventJson) {
+	private static checkEventMainKeys(event: EventJson): boolean {
 		const eventFields = ["translations", "possibilities"];
 		for (let i = 0; i < eventFields.length; ++i) {
 			if (!Object.keys(event)
 				.includes(eventFields[i])) {
-				GameDatabase.sendEventLoadError(event, "Key missing: " + eventFields[i]);
+				GameDatabase.sendEventLoadError(event, `Key missing: ${eventFields[i]}`);
 				return false;
 			}
 		}
@@ -523,7 +507,7 @@ export class GameDatabase extends Database {
 	 * @param event
 	 * @private
 	 */
-	private static checkRestrictedMaps(event: EventJson) {
+	private static checkRestrictedMaps(event: EventJson): boolean {
 		const types: string[] = event.restrictedMaps.split(",");
 		for (let i = 0; i < types.length; ++i) {
 			if (!MapConstants.TYPES.includes(types[i])) {
@@ -540,7 +524,7 @@ export class GameDatabase extends Database {
 	 * @param possibilityKey
 	 * @private
 	 */
-	private static checkPossibilityRecursively(event: EventJson, possibilityKey: string) {
+	private static checkPossibilityRecursively(event: EventJson, possibilityKey: string): boolean {
 		if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
 			return false;
 		}
@@ -573,8 +557,7 @@ export class GameDatabase extends Database {
 			const maxId: number = await MigrationTable.max("id");
 
 			if (maxId !== 28) {
-				console.error("This version of DraftBot includes a new version of migrations. " +
-					"You have to update the bot to the 3.0.0 version first, and after the migrations, you can upgrade the bot to an older version");
+				console.error("This version of DraftBot includes a new version of migrations. You have to update the bot to the 3.0.0 version first, and after the migrations, you can upgrade the bot to an older version");
 				process.exit();
 			}
 

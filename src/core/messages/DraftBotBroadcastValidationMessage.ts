@@ -7,7 +7,7 @@ import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import {Entities} from "../database/game/models/Entity";
 
-type BroadcastTranslationModuleLike = {
+export type BroadcastTranslationModuleLike = {
 	errorBroadcastCancelled: string,
 	errorSelfAccept: string,
 	errorSelfAcceptSpam: string,
@@ -92,7 +92,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	/**
 	 * Send a broadcast request and returns the message
 	 */
-	async reply() {
+	async reply(): Promise<Message> {
 		this._broadcastMessage = await this._interaction.reply({embeds: [this], fetchReply: true}) as Message;
 		await this.createAndManageCollector();
 		return this._broadcastMessage;
@@ -102,7 +102,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * create and manage the collector
 	 * @private
 	 */
-	private async createAndManageCollector() {
+	private async createAndManageCollector(): Promise<void> {
 		this._collector = this._broadcastMessage.createReactionCollector({
 			filter: (reaction: MessageReaction, user: User) => !user.bot,
 			time: this._collectorTime
@@ -116,7 +116,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * manage the collector reactions
 	 * @private
 	 */
-	private manageCollectedAnswers() {
+	private manageCollectedAnswers(): void {
 		this._collector.on("collect", async (reaction: MessageReaction, user: User) => {
 			await this.checkReactionBroadcastCollector(user, reaction);
 		});
@@ -140,7 +140,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * @param reaction
 	 * @private
 	 */
-	private async checkReactionBroadcastCollector(user: User, reaction: MessageReaction) {
+	private async checkReactionBroadcastCollector(user: User, reaction: MessageReaction): Promise<void> {
 		if (!this.isBroadcastStillActive(reaction)) {
 			return;
 		}
@@ -184,7 +184,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * @param user
 	 * @private
 	 */
-	private async manageDenyReaction(user: User) {
+	private async manageDenyReaction(user: User): Promise<boolean> {
 		if (this._interaction.user.id === user.id) {
 			await sendErrorMessage(user, this._interaction, this._language, this._translationModule.errorBroadcastCancelled, true);
 			BlockingUtils.unblockPlayer(user.id, this._blockingReason);
@@ -204,7 +204,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * @param user
 	 * @private
 	 */
-	private async manageAcceptReaction(user: User) {
+	private async manageAcceptReaction(user: User): Promise<boolean> {
 		if (user.id === this._interaction.user.id) {
 			this._spamCount++;
 			if (this._spamCount < Constants.MESSAGES.MAX_SPAM_COUNT) {
