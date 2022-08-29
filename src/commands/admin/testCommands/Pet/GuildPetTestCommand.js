@@ -30,10 +30,10 @@ const guildPetTestCommand = async (language, interaction, args) => {
 	}
 	const maxIdPet = await Pets.getMaxId();
 	if (args[0] >= maxIdPet || args[0] < 0) {
-		throw new Error("Erreur guildpet : id invalide. L'id doit être compris entre 0 et " + maxIdPet + " !");
+		throw new Error(`Erreur guildpet : id invalide. L'id doit être compris entre 0 et ${maxIdPet} !`);
 	}
 
-	const pet = PetEntities.createPet(parseInt(args[0]), args[1], null);
+	const pet = PetEntities.createPet(parseInt(args[0], 10), args[1], null);
 	await pet.save();
 
 	await (await GuildPets.addPet(guild, pet, true)).save();

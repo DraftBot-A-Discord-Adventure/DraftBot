@@ -29,7 +29,7 @@ const petTestCommand = async (language, interaction, args) => {
 		throw new Error("Erreur pet : id invalide. L'id doit être compris entre 0 et " + maxIdPet + " !");
 	}
 
-	const pet = PetEntities.createPet(parseInt(args[0]), args[1], null);
+	const pet = PetEntities.createPet(parseInt(args[0], 10), args[1], null);
 	await pet.save();
 	entity.Player.setPet(entity, pet);
 	await entity.Player.save();

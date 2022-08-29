@@ -11,7 +11,7 @@ import {format} from "../../../../core/utils/StringFormatter";
  */
 const addMoneyTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await entity.Player.addMoney(entity, parseInt(args[0]), interaction.channel, language, NumberChangeReason.TEST);
+	await entity.Player.addMoney(entity, parseInt(args[0], 10), interaction.channel, language, NumberChangeReason.TEST);
 	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});

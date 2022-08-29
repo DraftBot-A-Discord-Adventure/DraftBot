@@ -22,49 +22,6 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
 /**
- * Feed your pet !
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const petFeedModule = Translations.getModule("commands.petFeed", language);
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
-
-	const authorPet = entity.Player.Pet;
-	if (!authorPet) {
-		await replyErrorMessage(
-			interaction,
-			language,
-			petFeedModule.get("noPet")
-		);
-		return;
-	}
-
-	const cooldownTime = entity.Player.Pet.getFeedCooldown();
-	if (cooldownTime > 0) {
-		await replyErrorMessage(
-			interaction,
-			language,
-			petFeedModule.format("notHungry", {
-				petnick: authorPet.displayName(language)
-			})
-		);
-		return;
-	}
-
-	const guild = await getGuild(entity);
-	if (guild === null) {
-		await withoutGuildPetFeed(language, interaction, entity, authorPet, petFeedModule);
-	}
-	else {
-		await guildUserFeedPet(language, interaction, entity, authorPet, petFeedModule);
-	}
-}
-
-/**
  * Obtiens la guilde du joueur
  * @param entity
  */
@@ -282,6 +239,49 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	return interaction.followUp({embeds: [successEmbed]});
 }
 
+/**
+ * Feed your pet !
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	const petFeedModule = Translations.getModule("commands.petFeed", language);
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+
+	const authorPet = entity.Player.Pet;
+	if (!authorPet) {
+		await replyErrorMessage(
+			interaction,
+			language,
+			petFeedModule.get("noPet")
+		);
+		return;
+	}
+
+	const cooldownTime = entity.Player.Pet.getFeedCooldown();
+	if (cooldownTime > 0) {
+		await replyErrorMessage(
+			interaction,
+			language,
+			petFeedModule.format("notHungry", {
+				petnick: authorPet.displayName(language)
+			})
+		);
+		return;
+	}
+
+	const guild = await getGuild(entity);
+	if (guild === null) {
+		await withoutGuildPetFeed(language, interaction, entity, authorPet, petFeedModule);
+	}
+	else {
+		await guildUserFeedPet(language, interaction, entity, authorPet, petFeedModule);
+	}
+}
+
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("petfeed")
@@ -292,4 +292,3 @@ export const commandInfo: ICommand = {
 	},
 	mainGuildCommand: false
 };
-

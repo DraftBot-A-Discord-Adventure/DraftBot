@@ -74,7 +74,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 	return new ShopItem(
 		guildShopTranslations.get("guildXp.emote"),
 		guildShopTranslations.get("guildXp.name"),
-		parseInt(guildShopTranslations.get("guildXp.price")),
+		parseInt(guildShopTranslations.get("guildXp.price"), 10),
 		guildShopTranslations.get("guildXp.info"),
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);

@@ -15,7 +15,7 @@ const advanceGuildDailyTestCommand = async (language, interaction, args) => {
 	if (guild === null) {
 		throw new Error("Erreur agd : vous n'êtes pas dans une guilde !");
 	}
-	guild.lastDailyAt -= parseInt(args[0]) * 60000;
+	guild.lastDailyAt -= parseInt(args[0], 10) * 60000;
 	await guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };

@@ -11,7 +11,7 @@ import {format} from "../../../../core/utils/StringFormatter";
  */
 const setCampaignTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	const progression = parseInt(args[0]);
+	const progression = parseInt(args[0], 10);
 	const [campaign] = entity.Player.MissionSlots.filter(m => m.isCampaign());
 	const campaignMission = require("../../../../../../resources/text/campaign.json").missions[progression - 1];
 

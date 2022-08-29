@@ -101,7 +101,7 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 	return new ShopItem(
 		translationModule.get(`items.${name}.emote`),
 		translationModule.get(`items.${name}.name`),
-		parseInt(translationModule.get(`items.${name}.price`)),
+		parseInt(translationModule.get(`items.${name}.price`), 10),
 		translationModule.format(`items.${name}.info`,
 			{amount: calculateGemsToMoneyRatio()}
 		),

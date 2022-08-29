@@ -102,7 +102,7 @@ export class DraftBotBackup {
 							await backupInterface.backup(zipPath, archiveName, archiveBasename);
 						}
 						catch (err) {
-							console.error(`An error occurred while backing up files ${files} with ${backupInterface.name} :\n${err.stack}`);
+							console.error(`An error occurred while backing up files ${files} with ${backupInterface.name} :\n${err.stack.toString()}`);
 							if (err.error) {
 								console.error(err.error);
 							}
@@ -113,7 +113,7 @@ export class DraftBotBackup {
 				archive.finalize();
 			}
 			catch (err) {
-				console.error(`An error occurred while backing up files ${files} :\n${err.stack}`);
+				console.error(`An error occurred while backing up files ${files} :\n${err.stack.toString()}`);
 				if (err.error) {
 					console.error(err.error);
 				}
@@ -169,13 +169,13 @@ export class DraftBotBackup {
 				path: simpleBackupFile.path,
 				size: simpleBackupFile.size,
 				date: new Date(
-					parseInt(splitDate[0]),
-					parseInt(splitDate[1]),
-					parseInt(splitDate[2]),
-					parseInt(splitDate[3]),
-					parseInt(splitDate[4]),
-					parseInt(splitDate[5]),
-					parseInt(splitDate[6]))
+					parseInt(splitDate[0], 10),
+					parseInt(splitDate[1], 10),
+					parseInt(splitDate[2], 10),
+					parseInt(splitDate[3], 10),
+					parseInt(splitDate[4], 10),
+					parseInt(splitDate[5], 10),
+					parseInt(splitDate[6], 10))
 			});
 		}
 		return backupFiles;
