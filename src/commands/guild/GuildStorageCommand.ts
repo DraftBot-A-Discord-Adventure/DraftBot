@@ -17,7 +17,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
  * @param {Guild} guild
  * @param {string} food
  */
-function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string) {
+function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string): void {
 	const foodIndex = getFoodIndexOf(food);
 	storageEmbed.addField(
 		translations.format("foodTitle", {

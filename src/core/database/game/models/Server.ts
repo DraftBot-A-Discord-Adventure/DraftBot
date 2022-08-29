@@ -15,12 +15,12 @@ export class Server extends Model {
 }
 
 export class Servers {
-	static async getOrRegister(discordGuildId: string) {
-		return await Server.findOrCreate({
+	static async getOrRegister(discordGuildId: string): Promise<Server> {
+		return (await Server.findOrCreate({
 			where: {
 				discordGuildId: discordGuildId
 			}
-		});
+		}))[0];
 	}
 }
 

@@ -1,11 +1,9 @@
-import {GenericItemModel} from "./GenericItemModel";
+import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {Translations} from "../../../Translations";
 import {DataTypes} from "sequelize";
 import {Constants} from "../../../Constants";
+import {EmbedField} from "discord.js";
 import moment = require("moment");
-
-type FieldObject = { name: string, value: string, inline: boolean }
-type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export abstract class SupportItemModel extends GenericItemModel {
 	public readonly power!: number;
@@ -35,7 +33,7 @@ export abstract class SupportItemModel extends GenericItemModel {
 
 	public abstract getNatureTranslation(language: string, maxStatsValue: MaxStatsValues): string;
 
-	public toFieldObject(language: string, maxStatsValue: MaxStatsValues): FieldObject {
+	public toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {

@@ -32,7 +32,7 @@ import {draftBotInstance} from "../../core/bot";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -70,21 +70,21 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.SHOP, collector));
 }
 
-function shopEndCallback(shopMessage: DraftBotShopMessage) {
+function shopEndCallback(shopMessage: DraftBotShopMessage): void {
 	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
 }
 
-function getPermanentItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>) {
+function getPermanentItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
 	return new ShopItem(
-		translationModule.get("permanentItems." + name + ".emote"),
-		translationModule.get("permanentItems." + name + ".name"),
-		parseInt(translationModule.get("permanentItems." + name + ".price")),
-		translationModule.get("permanentItems." + name + ".info"),
+		translationModule.get(`permanentItems.${name}.emote`),
+		translationModule.get(`permanentItems.${name}.name`),
+		parseInt(translationModule.get(`permanentItems.${name}.price`)),
+		translationModule.get(`permanentItems.${name}.info`),
 		buyCallback
 	);
 }
 
-function getRandomItemShopItem(translationModule: TranslationModule) {
+function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
 	return getPermanentItemShopItem(
 		"randomItem",
 		translationModule,
@@ -96,7 +96,7 @@ function getRandomItemShopItem(translationModule: TranslationModule) {
 		});
 }
 
-function getHealAlterationShopItem(translationModule: TranslationModule, interaction: CommandInteraction) {
+function getHealAlterationShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"healAlterations",
 		translationModule,
@@ -122,7 +122,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 	);
 }
 
-function getRegenShopItem(translationModule: TranslationModule) {
+function getRegenShopItem(translationModule: TranslationModule): ShopItem {
 	return getPermanentItemShopItem(
 		"regen",
 		translationModule,
@@ -146,7 +146,7 @@ function getRegenShopItem(translationModule: TranslationModule) {
 	);
 }
 
-function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction) {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"badge",
 		translationModule,
@@ -161,7 +161,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
-					.setDescription(Constants.BADGES.RICH_PERSON + " " + translationModule.get("permanentItems.badge.name"))
+					.setDescription(`${Constants.BADGES.RICH_PERSON} ${translationModule.get("permanentItems.badge.name")}`)
 				]
 			});
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.BADGE).then();
@@ -170,7 +170,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 	);
 }
 
-async function getDailyPotionShopItem(translationModule: TranslationModule, discordUser: User, channel: TextBasedChannel) {
+async function getDailyPotionShopItem(translationModule: TranslationModule, discordUser: User, channel: TextBasedChannel): Promise<ShopItem> {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
 	});
@@ -178,9 +178,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 
 	return new ShopItem(
 		potion.getEmote(),
-		potion.getSimpleName(translationModule.language) + " **| "
-		+ potion.getRarityTranslation(translationModule.language) + " | "
-		+ potion.getNatureTranslation(translationModule.language) + "** ",
+		`${potion.getSimpleName(translationModule.language)} **| ${potion.getRarityTranslation(translationModule.language)} | ${potion.getNatureTranslation(translationModule.language)}** `,
 		Math.round(getItemValue(potion) * 0.7),
 		translationModule.get("potion.info"),
 		async (message) => {
@@ -192,7 +190,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	);
 }
 
-function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity, interaction: CommandInteraction) {
+function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity, interaction: CommandInteraction): ShopItem {
 	const availableCategories = [0, 1, 2, 3]
 		.filter(itemCategory => entity.Player.InventoryInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
 	if (availableCategories.length === 0) {
@@ -249,15 +247,15 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 			let desc = "";
 			for (const category of availableCategories) {
 				chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
-				desc += Constants.REACTIONS.ITEM_CATEGORIES[category] + " " + format(translationModule.getFromArray("slotCategories", category), {
+				desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
 					available: Constants.ITEMS.SLOTS.LIMITS[category] - entity.Player.InventoryInfo.slotLimitForCategory(category),
 					limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
-				}) + "\n";
+				})}\n`;
 			}
 			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseSlotBuilt = chooseSlot.build();
 			chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
-			chooseSlotBuilt.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
+			chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
 			await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SHOP, collector));
 			return Promise.resolve(false);
 		}

@@ -7,9 +7,7 @@ import {IPCClient} from "./ipc/IPCClient";
 import {Constants} from "../Constants";
 import {Data} from "../Data";
 import {Translations} from "../Translations";
-
-// TODO change
-declare const getValidationInfos: any;
+import {BotUtils} from "../utils/BotUtils";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -25,7 +23,7 @@ process.on("unhandledRejection", function(err: Error) {
 	// process.exit(1);
 });
 
-process.on("message", async (message: any) => {
+process.on("message", async (message: { type: string, data: { shardId: number } }) => {
 	if (!message.type) {
 		return false;
 	}
@@ -63,7 +61,7 @@ process.on("message", async (message: any) => {
 	}
 });
 
-const main = async function() {
+async function main(): Promise<void> {
 	const client = new Client(
 		{
 			restTimeOffset: 0,
@@ -93,22 +91,22 @@ const main = async function() {
 	/**
 	 * Will be executed each time the bot join a new server
 	 */
-	const onDiscordGuildCreate = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
 		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
-	};
+	}
 
 	/**
 	 * Will be executed each time the bot leave a server
 	 */
-	const onDiscordGuildDelete = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
 		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
-	};
+	}
 
 	/**
 	 * Get the message when the bot joins or leaves a guild
@@ -117,8 +115,8 @@ const main = async function() {
 	 * @param {"fr"|"en"} language
 	 * @return {string}
 	 */
-	const getJoinLeaveMessage = (guild: Guild, join: boolean, language: string) => {
-		const {validation, humans, bots, ratio} = getValidationInfos(guild);
+	function getJoinLeaveMessage(guild: Guild, join: boolean, language: string): string {
+		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		return format(
 			join
 				? Translations.getModule("bot", language).get("joinGuild")
@@ -130,7 +128,7 @@ const main = async function() {
 				ratio: ratio,
 				validation: validation
 			});
-	};
+	}
 
 	client.on("ready", () => console.log("Client ready"));
 	client.on("guildCreate", onDiscordGuildCreate);
@@ -144,6 +142,6 @@ const main = async function() {
 	// @ts-ignore
 	global.discord = require("discord.js");
 	await client.login(botConfig.DISCORD_CLIENT_TOKEN);
-};
+}
 
 main().then();

@@ -24,7 +24,7 @@ type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: bo
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
-			return <IMission>(require("./interfaces/" + missionId).missionInterface);
+			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
 		}
 		catch {
 			return require("./DefaultInterface").missionInterface;
@@ -46,7 +46,7 @@ export class MissionsController {
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
 			completedCampaign: false
-		}) {
+		}): Promise<void> {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
@@ -127,7 +127,7 @@ export class MissionsController {
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
+	static async sendCompletedMissions(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
 		await channel.send({
 			embeds: [
 				new DraftBotCompletedMissions(draftBotClient.users.cache.get(entity.discordUserId), completedMissions, language)
@@ -135,7 +135,7 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
+	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
 		for (const completedMission of completedMissions) {
 			await entity.Player.PlayerMissionsInfo.addGems(completedMission.gemsToWin, entity, NumberChangeReason.MISSION_FINISHED);
 			await entity.Player.addExperience(completedMission.xpToWin, entity, channel, language, NumberChangeReason.MISSION_FINISHED);
@@ -143,7 +143,7 @@ export class MissionsController {
 		}
 	}
 
-	static async handleExpiredMissions(entity: Entity, user: User, channel: TextBasedChannel, language: string) {
+	static async handleExpiredMissions(entity: Entity, user: User, channel: TextBasedChannel, language: string): Promise<void> {
 		const expiredMissions: MissionSlot[] = [];
 		for (const mission of entity.Player.MissionSlots) {
 			if (mission.hasExpired()) {
@@ -159,8 +159,9 @@ export class MissionsController {
 		const tr = Translations.getModule("models.missions", language);
 		let missionsExpiredDesc = "";
 		for (const mission of expiredMissions) {
-			missionsExpiredDesc += "- " + await mission.Mission.formatDescription(
-				mission.missionObjective, mission.missionVariant, language, mission.saveBlob) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
+			missionsExpiredDesc += `- ${await mission.Mission.formatDescription(
+				mission.missionObjective, mission.missionVariant, language, mission.saveBlob
+			)} (${mission.numberDone}/${mission.missionObjective})\n`;
 		}
 		await entity.Player.save();
 		await channel.send({
@@ -200,7 +201,7 @@ export class MissionsController {
 				return null;
 			}
 		}
-		const missionData = Data.getModule("missions." + missionId);
+		const missionData = Data.getModule(`missions.${missionId}`);
 		let index;
 		if (!daily) {
 			switch (difficulty) {
@@ -260,7 +261,7 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(entity, mission.id, difficulty, mission);
 	}
 
-	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer) {
+	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string> {
 		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language, saveBlob);
 	}
 
@@ -314,7 +315,7 @@ export class MissionsController {
 	 * @param missionInformations
 	 * @private
 	 */
-	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations) {
+	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations): Promise<boolean> {
 		let completedCampaign = false;
 		for (const mission of player.MissionSlots.filter((mission) => mission.missionId === missionInformations.missionId)) {
 			if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
@@ -336,7 +337,7 @@ export class MissionsController {
 	 * @param missionInformations
 	 * @private
 	 */
-	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations) {
+	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
 		const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
 		if (saveBlob !== mission.saveBlob) {
 			mission.saveBlob = saveBlob;
@@ -351,7 +352,7 @@ export class MissionsController {
 	 * @param completedCampaign
 	 * @private
 	 */
-	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean) {
+	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean): Promise<boolean> {
 		mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
 		if (mission.numberDone > mission.missionObjective) {
 			mission.numberDone = mission.missionObjective;

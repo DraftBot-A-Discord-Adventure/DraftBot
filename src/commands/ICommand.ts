@@ -5,7 +5,7 @@ import Entity from "../core/database/game/models/Entity";
 export interface ICommand {
 	slashCommandBuilder: SlashCommandBuilder,
 
-	executeCommand: (interaction: CommandInteraction, language: string, entity: Entity, ...addedArgs: any) => Promise<void>;
+	executeCommand: (interaction: CommandInteraction, language: string, entity: Entity, ...addedArgs: unknown[]) => Promise<void>;
 
 	requirements: {
 		requiredLevel?: number,

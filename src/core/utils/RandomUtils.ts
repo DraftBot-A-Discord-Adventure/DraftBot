@@ -9,5 +9,5 @@ export class RandomUtils {
 	 * @param max
 	 * @returns a random number between min included and max excluded
 	 */
-	public static randInt = (min: number, max: number) => RandomUtils.draftbotRandom.integer(min, max - 1);
+	public static randInt = (min: number, max: number): number => RandomUtils.draftbotRandom.integer(min, max - 1);
 }

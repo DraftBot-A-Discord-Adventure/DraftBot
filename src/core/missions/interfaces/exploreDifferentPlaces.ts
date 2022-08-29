@@ -3,7 +3,7 @@ import {IMission} from "../IMission";
 export const missionInterface: IMission = {
 	generateRandomVariant: () => Promise.resolve(0),
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: any }, saveBlob: Buffer) => {
+	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }, saveBlob: Buffer) => {
 		if (!saveBlob) {
 			return true;
 		}
@@ -15,10 +15,10 @@ export const missionInterface: IMission = {
 
 	initialNumberDone: () => Promise.resolve(0),
 
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer> {
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer> {
 		if (!saveBlob) {
 			return Promise.resolve(Buffer.from(params.placeId.toString()));
 		}
-		return Promise.resolve(Buffer.concat([saveBlob, Buffer.from("," + params.placeId.toString())]));
+		return Promise.resolve(Buffer.concat([saveBlob, Buffer.from(`,${params.placeId.toString()}`)]));
 	}
 };

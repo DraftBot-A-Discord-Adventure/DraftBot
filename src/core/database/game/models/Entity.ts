@@ -18,9 +18,9 @@ import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
 import {draftBotInstance} from "../../../bot";
+import {NumberChangeReason} from "../../logs/LogsDatabase";
 import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
-import {NumberChangeReason} from "../../logs/LogsDatabase";
 
 type MissionHealthParameter = {
 	shouldPokeMission: boolean,
@@ -61,7 +61,7 @@ export class Entity extends Model {
 	 * calculate the cumulative attack of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.Player.class)).getAttackValue(this.Player.level);
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
@@ -77,7 +77,7 @@ export class Entity extends Model {
 	 * calculate the cumulative defense of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerDefense = (await Classes.getById(this.Player.class)).getDefenseValue(this.Player.level);
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
@@ -93,7 +93,7 @@ export class Entity extends Model {
 	 * calculate the cumulative speed of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerSpeed = (await Classes.getById(this.Player.class)).getSpeedValue(this.Player.level);
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
@@ -110,7 +110,7 @@ export class Entity extends Model {
 	/**
 	 * get the player cumulative Health
 	 */
-	public async getCumulativeFightPoint() {
+	public async getCumulativeFightPoint(): Promise<number> {
 		const maxHealth = await this.getMaxCumulativeFightPoint();
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
@@ -125,7 +125,7 @@ export class Entity extends Model {
 	/**
 	 * return the player max health
 	 */
-	public async getMaxHealth() {
+	public async getMaxHealth(): Promise<number> {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxHealthValue(this.Player.level);
 	}
@@ -133,7 +133,7 @@ export class Entity extends Model {
 	/**
 	 * get the player max cumulative fight point
 	 */
-	public async getMaxCumulativeFightPoint() {
+	public async getMaxCumulativeFightPoint(): Promise<number> {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxCumulativeFightPointValue(this.Player.level);
 	}
@@ -149,9 +149,24 @@ export class Entity extends Model {
 	public async addHealth(health: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
-	}) {
+	}): Promise<void> {
 		await this.setHealth(this.health + health, channel, language, missionHealthParameter);
 		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
+	}
+
+	/**
+	 * get the string that mention the user
+	 */
+	public getMention(): string {
+		return "<@" + this.discordUserId + ">";
+	}
+
+	/**
+	 * returns true if the player is currently blocked by a report
+	 */
+	public async isInEvent(): Promise<boolean> {
+		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
+		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 
 	/**
@@ -164,7 +179,7 @@ export class Entity extends Model {
 	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
-	}) {
+	}): Promise<void> {
 		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission
 			? await this.getMaxHealth()
 			: health < 0
@@ -183,21 +198,6 @@ export class Entity extends Model {
 		else {
 			this.health = health;
 		}
-	}
-
-	/**
-	 * get the string that mention the user
-	 */
-	public getMention(): string {
-		return "<@" + this.discordUserId + ">";
-	}
-
-	/**
-	 * returns true if the player is currently blocked by a report
-	 */
-	public async isInEvent(): Promise<boolean> {
-		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
-		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 }
 
@@ -541,7 +541,7 @@ export class Entities {
 	 * @param page
 	 * @param timing
 	 */
-	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string) {
+	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Entity[]> {
 		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
 			? {
 				score: {

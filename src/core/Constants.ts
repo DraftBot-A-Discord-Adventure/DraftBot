@@ -537,19 +537,19 @@ export abstract class Constants {
 	static readonly TEST_VAR_TYPES = {
 		INTEGER: {
 			type: "number",
-			check: (v: number) => !isNaN(v)
+			check: (v: number): boolean => !isNaN(v)
 		},
 		MENTION: {
 			type: "mention",
-			check: (v: string) => isAMention(v)
+			check: (v: string): boolean => isAMention(v)
 		},
 		EMOJI: {
 			type: "emoji",
-			check: (v: string) => isAnEmoji(v)
+			check: (v: string): boolean => isAnEmoji(v)
 		},
 		STRING: {
 			type: "string",
-			check: () => false
+			check: (): boolean => false
 		}
 	}
 }

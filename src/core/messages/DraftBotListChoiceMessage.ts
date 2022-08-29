@@ -16,7 +16,7 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 					this.collector.stop();
 				}
 			));
-			desc += Constants.REACTIONS.NUMBERS[i + 1] + " - " + items[i].name + "\n";
+			desc += `${Constants.REACTIONS.NUMBERS[i + 1]} - ${items[i].name}\n`;
 		}
 		reactions.push(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 		super(reactions, [userId], cancelCallbackToCall, 0, false, 0);
@@ -42,7 +42,7 @@ export class ChoiceItem {
 		return this._name;
 	}
 
-	get item(): any {
+	get item(): unknown {
 		return this._item;
 	}
 }

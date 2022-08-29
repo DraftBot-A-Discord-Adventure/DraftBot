@@ -22,7 +22,7 @@ function getEndCallbackGuildAdd(
 	invited: InvitedUserInformation,
 	interaction: CommandInteraction,
 	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
 		if (!msg.isValidated()) {
 			// Cancel the creation

@@ -15,7 +15,7 @@ import {draftBotInstance} from "../../core/bot";
 type UserInformation = { guild: Guild, entity: Entity };
 
 function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(
 			userInformation.entity.discordUserId,
 			userInformation.entity.id === userInformation.guild.chiefId && userInformation.guild.elderId
@@ -119,7 +119,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(
 			interaction,
 			language,
-			guildLeaveModule.get("notInAGuild")
+			Translations.getModule("bot", language).get("notInAGuild")
 		);
 		return;
 	}

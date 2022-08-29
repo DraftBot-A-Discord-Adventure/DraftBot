@@ -112,7 +112,7 @@ export abstract class Database {
 	 * @param models
 	 * @private
 	 */
-	private async initModelFromFile(modelFile: string, models: { initModel: (sequelize: Sequelize) => Promise<void>; setAssociations: () => Promise<void> }[]) {
+	private async initModelFromFile(modelFile: string, models: { initModel: (sequelize: Sequelize) => Promise<void>; setAssociations: () => Promise<void> }[]): Promise<void> {
 		const modelSplit = modelFile.split(".");
 		const modelName = modelSplit[0];
 		if (modelSplit[1] !== "js" || modelSplit.length !== 2) {

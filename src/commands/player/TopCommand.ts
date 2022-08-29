@@ -68,7 +68,7 @@ function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, entityToLo
  * Get the badge for the position of the current player
  * @param rankCurrentPlayer
  */
-function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number) {
+function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number): string {
 	return rankCurrentPlayer === 1
 		? TopConstants.TOP_POSITION_BADGE.FIRST
 		: rankCurrentPlayer === 2
@@ -84,7 +84,7 @@ function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number) {
  * Get the page where the rank will appear
  * @param rank
  */
-function getPageOfRank(rank: number) {
+function getPageOfRank(rank: number): number {
 	return Math.ceil(rank / TopConstants.PLAYERS_BY_PAGE);
 }
 
@@ -104,7 +104,7 @@ async function displayTop(
 	{interaction, language}: TextInformations,
 	{scope, timing, page, numberOfPlayers}: TopInformations,
 	{rankCurrentPlayer, scoreTooLow}: PlayerInformations,
-	entitiesToShow: Entity[]) {
+	entitiesToShow: Entity[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
@@ -162,7 +162,7 @@ async function displayTop(
  * @param interaction
  * @param pageMax
  */
-function getShownPage(interaction: CommandInteraction, pageMax: number) {
+function getShownPage(interaction: CommandInteraction, pageMax: number): number {
 	const page = interaction.options.getInteger("page");
 	if (page < 1 || isNaN(page)) {
 		return 1;
@@ -179,7 +179,7 @@ function getShownPage(interaction: CommandInteraction, pageMax: number) {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
 	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
 	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;

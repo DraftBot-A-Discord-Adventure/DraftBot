@@ -21,7 +21,7 @@ function callbackShopSmallEvent(
 	language: string,
 	translationShop: TranslationModule,
 	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => void {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {
 			if (entity.Player.money < price) {
@@ -65,12 +65,12 @@ export const smallEvent: SmallEvent = {
 			})
 			.setDescription(seEmbed.description
 				+ format(
-					translationShop.getRandom("intro." + gender)
+					translationShop.getRandom(`intro.${gender}`)
 					+ translationShop.get("end"), {
-						name: translationShop.getRandom("names." + gender),
+						name: translationShop.getRandom(`names.${gender}`),
 						item: randomItem.toString(language, null),
 						price: price,
-						type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
+						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${translationShop.get(`types.${randomItem.getCategory()}`)}`
 					}))
 			.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}

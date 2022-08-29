@@ -5,18 +5,16 @@ import {FightActionController} from "../../fightActions/FightActionController";
 import {Classes} from "../../database/game/models/Class";
 import {Data} from "../../Data";
 
-// TODO update la mission de campagne sur les attaques rapides
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return params.attackType === FightActionController.variantToFightActionId(variant);
 	},
 
 	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
 		return Promise.resolve(
-			Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
-				.getString("emote") + " "
-			+ Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
-				.get(objective > 1 ? "namePlural" : "name")
+			`${Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
+				.getString("emote")} ${Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
+				.get(objective > 1 ? "namePlural" : "name")}`
 		);
 	},
 

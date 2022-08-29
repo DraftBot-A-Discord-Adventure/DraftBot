@@ -10,7 +10,7 @@ import {HelpConstants} from "../../core/constants/HelpConstants";
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const prefixMessage = new DraftBotEmbed()
 		.setTitle(

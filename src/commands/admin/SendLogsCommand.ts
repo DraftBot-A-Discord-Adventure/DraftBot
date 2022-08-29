@@ -24,7 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const fs = require("fs");
 
 	if (interaction.options.getString("specificfile") === null) {
-		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: any[]): Promise<void> {
+		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
 				return await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
 			}

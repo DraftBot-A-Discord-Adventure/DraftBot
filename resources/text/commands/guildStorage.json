@@ -1,20 +1,18 @@
 {
-	"translations": {
-		"fr": {
-			"embedTitle": "Entrepôt de la guilde {guild}",
-			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-			"foodTitle": "{emote} {foodType}",
-			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
-			"fieldDescKey": "**Nourriture** : ",
-			"fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en n'avez plus, vous pouvez en acheter dans le `guildshop`."
+	"translations" : {
+		"fr" : {
+			"embedTitle" : "Entrepôt de la guilde {guild}",
+			"foodTitle" : "{emote} {foodType}",
+			"foodField" : "**Stock** : {guildFood}/{maxFood}\n",
+			"fieldDescKey" : "**Nourriture** : ",
+			"fieldDescValue" : "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en n'avez plus, vous pouvez en acheter dans le `guildshop`."
 		},
-		"en": {
-			"embedTitle": "{guild}'s guild storage",
-			"notInAGuild": "You have to be in a guild to use this command.",
-			"foodTitle": "{emote} {foodType}",
-			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
-			"fieldDescKey": "**Food** : ",
-			"fieldDescValue": "Food is useful to feed all of your pets. If you don't have any left, you can buy some using `guildshop`."
+		"en" : {
+			"embedTitle" : "{guild}'s guild storage",
+			"foodTitle" : "{emote} {foodType}",
+			"foodField" : "**Stock** : {guildFood}/{maxFood}\n",
+			"fieldDescKey" : "**Food** : ",
+			"fieldDescValue" : "Food is useful to feed all of your pets. If you don't have any left, you can buy some using `guildshop`."
 		}
 	}
 }

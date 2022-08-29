@@ -1,5 +1,5 @@
 import {CommandInteraction, Message, MessageEmbed} from "discord.js";
-import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
+import {NearEarthObject, NeoWSFeed, SpaceUtils} from "../utils/SpaceUtils";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
 import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
@@ -37,14 +37,14 @@ export const smallEvent: SmallEvent = {
 			const t0 = performance.now();
 			await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
 			const specificEvent = RandomUtils.draftbotRandom.pick(keysList);
-			eval(`${specificEvent}(spaceTranslationModule)`).then((replacements: Record<string, unknown>) => {
-				const specific = format(spaceTranslationModule.getRandom("specific." + specificEvent), replacements);
+			eval(`${specificEvent}(spaceTranslationModule)`).then((replacements: Record<string, string | number | boolean>) => {
+				const specific = format(spaceTranslationModule.getRandom(`specific.${specificEvent}`), replacements);
 				const t1 = performance.now();
 				const timeLeft = waitTime - (t1 - t0);
 				const messageAfter = format(spaceTranslationModule.get("after_search_format"), {
 					seIntro, intro, searchAction, search, actionIntro, action, outro, specific
 				});
-				const callBack = async () => {
+				const callBack = async (): Promise<void> => {
 					seEmbed.setDescription(baseDescription + messageAfter);
 					await (sentMessage as Message).edit({embeds: [seEmbed]});
 				};
@@ -65,16 +65,16 @@ export const smallEvent: SmallEvent = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function neoWS(): Promise<Record<string, unknown>> {
-	let neoWSFeed;
+	let neoWSFeed: NeoWSFeed;
 	try {
 		neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
 	}
 	catch (e) {
 		// Si erreur durant récup data api
-		neoWSFeed = [];
+		neoWSFeed = null;
 	}
 	// check if the list contains an object
-	if (neoWSFeed.length > 0) {
+	if (neoWSFeed && neoWSFeed.length > 0) {
 		const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed.near_earth_objects);
 		return Promise.resolve({
 			count: neoWSFeed.near_earth_objects.length,

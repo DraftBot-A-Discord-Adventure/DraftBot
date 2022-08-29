@@ -1,10 +1,18 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Entity from "../../core/database/game/models/Entity";
-import {Guilds} from "../../core/database/game/models/Guild";
+import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
+import {
+	CacheType,
+	CommandInteraction,
+	GuildCacheMessage,
+	Message,
+	MessageReaction,
+	ReactionCollector,
+	User
+} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -60,7 +68,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
  * Obtiens la guilde du joueur
  * @param entity
  */
-async function getGuild(entity: Entity) {
+async function getGuild(entity: Entity): Promise<Guild> {
 	try {
 		return await Guilds.getById(entity.Player.guildId);
 	}
@@ -72,7 +80,7 @@ async function getGuild(entity: Entity) {
 /**
  * Get all food items to use to make the petfeed embed
  */
-function getFoodItems() {
+function getFoodItems(): Map<string, string> {
 	const foodItems = new Map<string, string>();
 	for (const foodItem of Constants.PET_FOOD_GUILD_SHOP.TYPE) {
 		foodItems.set(Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(foodItem)], foodItem);
@@ -86,10 +94,14 @@ function getFoodItems() {
  * @param feedEmbed
  * @param entity
  */
-async function sendPetFeedMessageAndPrepareCollector(interaction: CommandInteraction, feedEmbed: DraftBotEmbed, entity: Entity) {
+async function sendPetFeedMessageAndPrepareCollector(
+	interaction: CommandInteraction,
+	feedEmbed: DraftBotEmbed,
+	entity: Entity
+): Promise<{ feedMsg: Message, collector: ReactionCollector }> {
 	const feedMsg = await interaction.reply({embeds: [feedEmbed], fetchReply: true}) as Message;
 
-	const filterConfirm = (reaction: MessageReaction, user: User) => user.id === entity.discordUserId && reaction.me;
+	const filterConfirm = (reaction: MessageReaction, user: User): boolean => user.id === entity.discordUserId && reaction.me;
 
 	const collector = feedMsg.createReactionCollector({
 		filter: filterConfirm,
@@ -110,7 +122,7 @@ async function sendPetFeedMessageAndPrepareCollector(interaction: CommandInterac
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule) {
+async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
 	const foodItems = getFoodItems();
 
 	const feedEmbed = new DraftBotEmbed()
@@ -159,7 +171,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule) {
+async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
 	const feedEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("feedEmbedTitle2"), interaction.user);
 	feedEmbed.setDescription(
@@ -226,15 +238,16 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
  * @param {*} item
  * @param petFeedModule
  */
-async function feedPet(interaction: CommandInteraction, language: string, entity: Entity, pet: PetEntity, item: string, petFeedModule: TranslationModule) {
+async function feedPet(interaction: CommandInteraction, language: string, entity: Entity, pet: PetEntity, item: string, petFeedModule: TranslationModule): Promise<GuildCacheMessage<CacheType>> {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild.getDataValue(item) <= 0) {
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,
 			petFeedModule.get("notEnoughFood")
 		);
+		return;
 	}
 	const foodIndex = getFoodIndexOf(item);
 	const successEmbed = new DraftBotEmbed()
@@ -249,7 +262,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 			await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
 		}
 		successEmbed.setDescription(
-			petFeedModule.format("description." + (item.includes(pet.PetModel.diet) ? "dietFoodSuccess" : "dietFoodFail"), {
+			petFeedModule.format(`description.${item.includes(pet.PetModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
 				petnick: pet.displayName(language),
 				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
 			})
@@ -258,7 +271,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	else {
 		await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
 		successEmbed.setDescription(
-			petFeedModule.format("description." + item, {
+			petFeedModule.format(`description.${item}`, {
 				petnick: pet.displayName(language),
 				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
 			})

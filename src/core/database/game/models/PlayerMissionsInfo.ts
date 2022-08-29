@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import Entity from "./Entity";
-import moment = require("moment");
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {draftBotInstance} from "../../../bot";
+import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -22,7 +22,7 @@ export class PlayerMissionsInfo extends Model {
 
 	public createdAt!: Date;
 
-	static async resetShopBuyout() {
+	static async resetShopBuyout(): Promise<void> {
 		await PlayerMissionsInfo.update(
 			{
 				hasBoughtPointsThisWeek: false

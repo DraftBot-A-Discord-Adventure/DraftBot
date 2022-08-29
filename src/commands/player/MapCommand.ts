@@ -30,9 +30,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			particle: destMap.getParticleName(language)
 		}));
 	await interaction.reply({embeds: [mapEmbed]});
-
-	// TODO REFACTOR LES LOGS
-	// log("Player " + interaction.user + " asked the map");
 }
 
 /**
@@ -40,16 +37,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
  * @param entity Entity
  * @param inReport
  */
-async function getStrMapWithCursor(entity: Entity, inReport: boolean) {
+async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<string> {
 	const destMap = await entity.Player.getDestination();
 	const depMap = await entity.Player.getPreviousMap();
 	if (inReport) {
-		return destMap.id + "_";
+		return `${destMap.id}_`;
 	}
 	if (destMap.id < depMap.id) {
-		return destMap.id + "_" + depMap.id + "_";
+		return `${destMap.id}_${depMap.id}_`;
 	}
-	return depMap.id + "_" + destMap.id + "_";
+	return `${depMap.id}_${destMap.id}_`;
 
 }
 

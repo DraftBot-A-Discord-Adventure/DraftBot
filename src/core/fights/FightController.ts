@@ -21,13 +21,13 @@ export class FightController {
 
 	public readonly fighters: Fighter[];
 
-	private readonly fightView: FightView
-
-	private state: FightState;
-
 	public readonly friendly: boolean;
 
 	public readonly fightInitiator: Fighter;
+
+	private readonly fightView: FightView
+
+	private state: FightState;
 
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
@@ -39,10 +39,24 @@ export class FightController {
 	}
 
 	/**
+	 * Count the amount of god moves used by both players
+	 * @param sender
+	 * @param receiver
+	 */
+	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
+		return sender.fightActionsHistory.filter(action =>
+			action === FightConstants.ACTION_ID.BENEDICTION ||
+				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
+			+ receiver.fightActionsHistory.filter(action =>
+				action === FightConstants.ACTION_ID.BENEDICTION ||
+				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
+	}
+
+	/**
 	 * start a fight
 	 * @public
 	 */
-	public async startFight() {
+	public async startFight(): Promise<void> {
 		// make the fighters ready
 		const potionsToUse = [];
 		for (let i = 0; i < this.fighters.length; i++) {
@@ -64,7 +78,7 @@ export class FightController {
 	 * Get the playing fighter or null if the fight is not running
 	 * @return {Fighter|null}
 	 */
-	public getPlayingFighter() {
+	public getPlayingFighter(): Fighter {
 		return this.state === FightState.RUNNING ? this.fighters[(this.turn - 1) % 2] : null;
 	}
 
@@ -72,28 +86,14 @@ export class FightController {
 	 * Get the defending fighter or null if the fight is not running
 	 * @return {Fighter|null}
 	 */
-	public getDefendingFighter() {
+	public getDefendingFighter(): Fighter {
 		return this.state === FightState.RUNNING ? this.fighters[this.turn % 2] : null;
-	}
-
-	/**
-	 * Count the amount of god moves used by both players
-	 * @param sender
-	 * @param receiver
-	 */
-	static getUsedGodMoves(sender: Fighter, receiver: Fighter) {
-		return sender.fightActionsHistory.filter(action =>
-			action === FightConstants.ACTION_ID.BENEDICTION ||
-				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
-			+ receiver.fightActionsHistory.filter(action =>
-				action === FightConstants.ACTION_ID.BENEDICTION ||
-				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
 	}
 
 	/**
 	 * End the fight
 	 */
-	public endFight() {
+	public endFight(): void {
 		this.state = FightState.FINISHED;
 
 		draftBotInstance.logsDatabase.logFight(this).then();
@@ -128,19 +128,6 @@ export class FightController {
 	}
 
 	/**
-	 * check if any of the fighters has negative fight points
-	 * @private
-	 */
-	private checkNegativeFightPoints() {
-		// set the fight points to 0 if any of the fighters have fight points under 0
-		for (const fighter of this.fighters) {
-			if (fighter.stats.fightPoints < 0) {
-				fighter.stats.fightPoints = 0;
-			}
-		}
-	}
-
-	/**
 	 * Get the winner of the fight (or null if it's a draw)
 	 * @private
 	 */
@@ -154,6 +141,41 @@ export class FightController {
 	 */
 	public isADraw(): boolean {
 		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn >= FightConstants.MAX_TURNS && !(this.fighters[0].isDead() || this.fighters[1].isDead());
+	}
+
+	/**
+	 * execute the next fight action
+	 * @param fightAction {IFightAction} the fight action to execute
+	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
+	 */
+	public async executeFightAction(fightAction: IFightAction, endTurn: boolean): Promise<void> {
+		if (endTurn) {
+			this.getPlayingFighter().nextFightActionId = null;
+		}
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
+		if (this.hadEnded()) {
+			this.endFight();
+			return;
+		}
+		if (endTurn) {
+			this.turn++;
+			await this.prepareNextTurn();
+		}
+	}
+
+	/**
+	 * check if any of the fighters has negative fight points
+	 * @private
+	 */
+	private checkNegativeFightPoints(): void {
+		// set the fight points to 0 if any of the fighters have fight points under 0
+		for (const fighter of this.fighters) {
+			if (fighter.stats.fightPoints < 0) {
+				fighter.stats.fightPoints = 0;
+			}
+		}
 	}
 
 	/**
@@ -174,7 +196,7 @@ export class FightController {
 	 * @param fighter
 	 * @private
 	 */
-	private async checkFightActionHistory(fighter: Fighter) {
+	private async checkFightActionHistory(fighter: Fighter): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = fighter.getFightActionCount();
 		// iterate on each action in the history
 		const updates = [];
@@ -191,7 +213,7 @@ export class FightController {
 	 * execute a turn of a fight
 	 * @private
 	 */
-	private async prepareNextTurn() {
+	private async prepareNextTurn(): Promise<void> {
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().getAlterationFightAction(), false);
 		}
@@ -213,7 +235,7 @@ export class FightController {
 	 * The player 1 start the fight.
 	 * @private
 	 */
-	private invertFighters() {
+	private invertFighters(): void {
 		const temp = this.fighters[0];
 		this.fighters[0] = this.fighters[1];
 		this.fighters[1] = temp;
@@ -222,32 +244,10 @@ export class FightController {
 	}
 
 	/**
-	 * execute the next fight action
-	 * @param fightAction {IFightAction} the fight action to execute
-	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
-	 */
-	public async executeFightAction(fightAction: IFightAction, endTurn: boolean) {
-		if (endTurn) {
-			this.getPlayingFighter().nextFightActionId = null;
-		}
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
-		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
-		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
-		if (this.hadEnded()) {
-			this.endFight();
-			return;
-		}
-		if (endTurn) {
-			this.turn++;
-			await this.prepareNextTurn();
-		}
-	}
-
-	/**
 	 * check if a fight has ended or not
 	 * @private
 	 */
-	private hadEnded() {
+	private hadEnded(): boolean {
 		return (
 			this.turn >= FightConstants.MAX_TURNS ||
 			this.getPlayingFighter().isDeadOrBug() ||

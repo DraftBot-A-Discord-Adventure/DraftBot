@@ -10,7 +10,7 @@ import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
 import {draftBotInstance} from "../../core/bot";
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -29,11 +29,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	else {
 		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
 			await replyErrorMessage(interaction, language,
-				petNickTranslations.get("invalidName") + "\n" +
-				Translations.getModule("error", language).format("nameRules", {
+				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
 					min: Constants.PETS.NICKNAME_MIN_LENGTH,
 					max: Constants.PETS.NICKNAME_MAX_LENGTH
-				}));
+				})}`);
 			return;
 		}
 		successEmbed.setDescription(petNickTranslations.format("success", {

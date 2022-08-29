@@ -20,7 +20,7 @@ export const fightActionInterface: IFightAction = {
 		// 1 god move per fight
 		if (usedGodMoovs >= 1) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {
-				attack: Translations.getModule("fightactions." + this.getName(), language)
+				attack: Translations.getModule(`fightactions.${this.getName()}`, language)
 					.get("name")
 					.toLowerCase()
 			});
@@ -56,7 +56,7 @@ export const fightActionInterface: IFightAction = {
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
 		return format(chosenString, {
-			attack: Translations.getModule("fightactions." + this.getName(), language)
+			attack: Translations.getModule(`fightactions.${this.getName()}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {

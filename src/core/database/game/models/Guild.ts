@@ -74,7 +74,7 @@ export class Guild extends Model {
 	/**
 	 * completely destroy a guild from the database
 	 */
-	public async completelyDestroyAndDeleteFromTheDatabase() {
+	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
 		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
 		const petsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<void>[] = [];
@@ -103,26 +103,13 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * set the guild's experience
-	 * @param experience
-	 */
-	private setExperience(experience: number): void {
-		if (experience > 0) {
-			this.experience = experience;
-		}
-		else {
-			this.experience = 0;
-		}
-	}
-
-	/**
 	 * add experience to the guild
 	 * @param experience the experience to add
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
 	 * @param reason The reason of the experience change
 	 */
-	public async addExperience(experience: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason) {
+	public async addExperience(experience: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
@@ -247,6 +234,19 @@ export class Guild extends Model {
 		this.setDataValue(item, this.getDataValue(item) - quantity);
 		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(item), this.getDataValue(item), reason).then();
 	}
+
+	/**
+	 * set the guild's experience
+	 * @param experience
+	 */
+	private setExperience(experience: number): void {
+		if (experience > 0) {
+			this.experience = experience;
+		}
+		else {
+			this.experience = 0;
+		}
+	}
 }
 
 export class Guilds {
@@ -302,7 +302,7 @@ export class Guilds {
 		}));
 	}
 
-	static async getGuildLevelMean() {
+	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
                        FROM draftbot_game.Guilds`;
 		return Math.round(

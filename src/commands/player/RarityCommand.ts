@@ -10,7 +10,7 @@ import {Constants} from "../../core/Constants";
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.rarity", language);
 	const maxValue = Constants.RARITIES_GENERATOR.MAX_VALUE;
 	const raritiesGenerator = Constants.RARITIES_GENERATOR.VALUES;

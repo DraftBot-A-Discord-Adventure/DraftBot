@@ -2,7 +2,6 @@ import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
-import {Guilds} from "./database/game/models/Guild";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -288,18 +287,4 @@ global.resetIsNow = function() {
  * Allow to get the validation information of a guild
  * @param {module:"discord.js".Guild} guild - The guild that has to be checked
  */
-global.getValidationInfos = function(guild) {
-	const humans = guild.members.cache.filter(member => !member.user.bot).size;
-	const bots = guild.members.cache.filter(member => member.user.bot).size;
-	const ratio = Math.round(bots / humans * 100);
-	let validation = ":white_check_mark:";
-	if (ratio > 30 || humans < 30 || humans < 100 && ratio > 20) {
-		validation = ":x:";
-	}
-	else if (ratio > 20 || bots > 15 || humans < 100) {
-		validation = ":warning:";
-	}
-	return {
-		validation: validation, humans: humans, bots: bots, ratio: ratio
-	};
-};
+

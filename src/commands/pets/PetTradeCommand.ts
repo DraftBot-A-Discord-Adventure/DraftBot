@@ -24,7 +24,12 @@ type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
  * @param interaction
  * @param petTradeModule
  */
-async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function missingRequirementsForAnyTrader(
+	traderAndPet1: TraderAndPet,
+	traderAndPet2: TraderAndPet,
+	interaction: CommandInteraction,
+	petTradeModule: TranslationModule
+): Promise<boolean> {
 	const petModule = Translations.getModule("commands.pet", petTradeModule.language);
 	if (traderAndPet1.trader.id === traderAndPet2.trader.id) {
 		await replyErrorMessage(interaction, petTradeModule.language, petTradeModule.get("cantTradeSelf"));
@@ -60,13 +65,18 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
  * @param interaction
  * @param petTradeModule
  */
-async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function refreshMissionsOfTrader(
+	tradersAndPets: TraderAndPet[],
+	i: number,
+	interaction: CommandInteraction,
+	petTradeModule: TranslationModule
+): Promise<void> {
 
 	/**
 	 * check if the mission is finished from its name
 	 * @param missionName
 	 */
-	async function checkLoveLevelMission(missionName: string) {
+	async function checkLoveLevelMission(missionName: string): Promise<void> {
 		await MissionsController.update(
 			tradersAndPets[i].trader,
 			interaction.channel,
@@ -90,7 +100,7 @@ async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number
  * @param interaction
  * @param petTradeModule
  */
-async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
 	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 	tradersAndPets[i].trader.Player.petId = tradersAndPets[1 - i].pet.id;
 	await tradersAndPets[i].trader.Player.save();
@@ -110,7 +120,7 @@ async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, in
  * @param petTradeModule
  */
 function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	return async () => {
+	return async (): Promise<void> => {
 		const tradersAndPets = [traderAndPet1, traderAndPet2];
 		for (let i = 0; i < 2; i++) {
 			await manageATraderAndPet(tradersAndPets, i, interaction, petTradeModule);
@@ -133,7 +143,7 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
  * @param hasResponded
  */
 function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: CommandInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
-	return async (tradeMessage: DraftBotTradeMessage) => {
+	return async (tradeMessage: DraftBotTradeMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		if (hasResponded) {
@@ -154,7 +164,7 @@ function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interactio
  * @param interaction
  * @param petTradeModule
  */
-async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
 	const tradersAndPets = [traderAndPet1, traderAndPet2];
 	const tradeMessage = new DraftBotTradeMessage(
 		traderAndPet1.user,

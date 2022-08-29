@@ -9,7 +9,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const restingTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		const restingTranslationModule = Translations.getModule(`fightactions.${this.getName()}`, language);
 
 		const count = sender.fightActionsHistory.filter(action => action === this.getName()).length;
 

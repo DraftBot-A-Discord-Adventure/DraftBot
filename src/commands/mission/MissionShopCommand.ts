@@ -28,7 +28,7 @@ import {draftBotInstance} from "../../core/bot";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -93,16 +93,16 @@ async function removeUserGems(userId: string, amount: number): Promise<void> {
 	await entity.Player.PlayerMissionsInfo.addGems(-amount, entity, NumberChangeReason.MISSION_SHOP);
 }
 
-function shopEndCallback(shopMessage: DraftBotShopMessage) {
+function shopEndCallback(shopMessage: DraftBotShopMessage): void {
 	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 }
 
 function getItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
 	return new ShopItem(
-		translationModule.get("items." + name + ".emote"),
-		translationModule.get("items." + name + ".name"),
-		parseInt(translationModule.get("items." + name + ".price")),
-		translationModule.format("items." + name + ".info",
+		translationModule.get(`items.${name}.emote`),
+		translationModule.get(`items.${name}.name`),
+		parseInt(translationModule.get(`items.${name}.price`)),
+		translationModule.format(`items.${name}.info`,
 			{amount: calculateGemsToMoneyRatio()}
 		),
 		buyCallback
@@ -175,7 +175,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();
 			chooseMissionBuilt.formatAuthor(translationModule.get("items.skipMapMission.giveTitle"), message.user);
-			chooseMissionBuilt.setDescription(translationModule.get("items.skipMapMission.giveDesc") + "\n\n" + desc);
+			chooseMissionBuilt.setDescription(`${translationModule.get("items.skipMapMission.giveDesc")}\n\n${desc}`);
 			await chooseMissionBuilt.send(message.sentMessage.channel);
 			BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MISSION_SHOP, chooseMissionBuilt.collector);
 			return false;
@@ -185,8 +185,8 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 /**
  * Calculate the amount of money the player will have if he buys some with gems
  */
-function calculateGemsToMoneyRatio() {
-	const frac = function(x: number) {
+function calculateGemsToMoneyRatio(): number {
+	const frac = function(x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};
 	return Constants.MISSION_SHOP.BASE_RATIO +
@@ -277,7 +277,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 				);
 				return false;
 			}
-			const sentenceGotten = translationModule.getRandom("items.lovePointsValue.advice." + entity.Player.Pet.getLoveLevelNumber());
+			const sentenceGotten = translationModule.getRandom(`items.lovePointsValue.advice.${entity.Player.Pet.getLoveLevelNumber()}`);
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
@@ -316,7 +316,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.badge.give"), message.user)
-					.setDescription(Constants.BADGES.QUEST_MASTER + " " + translationModule.get("items.badge.name"))
+					.setDescription(`${Constants.BADGES.QUEST_MASTER} ${translationModule.get("items.badge.name")}`)
 				]
 			});
 			await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});

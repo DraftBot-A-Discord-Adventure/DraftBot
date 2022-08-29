@@ -41,6 +41,6 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 	}
 
 	private static getTopGGUrl(): string {
-		return "https://top.gg/bot/" + draftBotClient.user.id;
+		return `https://top.gg/bot/${draftBotClient.user.id}`;
 	}
 }
