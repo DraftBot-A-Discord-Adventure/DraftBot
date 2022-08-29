@@ -18,22 +18,22 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	let total = 0;
 	let result = "";
 
-	function logMapElements(guild: Guild) {
+	function logMapElements(guild: Guild): void {
 		count++;
 		const {validation, humans, bots, ratio} = getValidationInfos(guild);
 		total += humans;
-		result += Translations.getModule("bot", language).format("serverList", {
+		result += `${Translations.getModule("bot", language).format("serverList", {
 			count: count,
 			guild: guild,
 			humans: humans,
 			robots: bots,
 			ratio: ratio,
 			validation: validation
-		}) + "\n";
+		})}\n`;
 	}
 
 	draftBotClient.guilds.cache.forEach(logMapElements);
-	result += "\n" + Translations.getModule("bot", language).format("totalUsersCount", {count: total});
+	result += `\n${Translations.getModule("bot", language).format("totalUsersCount", {count: total})}`;
 	if (result.length > 1800) {
 		fs.appendFileSync(
 			"servers.txt",

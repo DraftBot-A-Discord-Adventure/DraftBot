@@ -23,7 +23,7 @@ require("../Constant");
 require("../MessageError");
 require("../Tools");
 
-export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }) {
+export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }): Promise<void> {
 	const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
 	try {
 		const message = await (await guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
@@ -107,7 +107,7 @@ export class DraftBot {
 	/**
 	 * update the random potion sold in the shop
 	 */
-	static async randomPotion() {
+	static async randomPotion(): Promise<void> {
 		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
 		const shopPotion = await Shop.findOne({
@@ -183,7 +183,7 @@ export class DraftBot {
 	/**
 	 * End the top week
 	 */
-	static async topWeekEnd() {
+	static async topWeekEnd(): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestTopweek().then();
 		const winner = await Entity.findOne({
 			include: [
@@ -233,7 +233,7 @@ export class DraftBot {
 	/**
 	 * update the fight points of the entities that lost some
 	 */
-	static fightPowerRegenerationLoop() {
+	static fightPowerRegenerationLoop(): void {
 		const sequelize = require("sequelize");
 		Entity.update(
 			{
@@ -252,7 +252,7 @@ export class DraftBot {
 	/**
 	 * initialize the bot
 	 */
-	async init() {
+	async init(): Promise<void> {
 		this.handleLogs();
 
 		await require("../JsonReader").init({
@@ -301,15 +301,7 @@ export class DraftBot {
 		let i = 1;
 		do {
 			this.currLogsFile =
-				"logs/logs-" +
-				now.getFullYear() +
-				"-" +
-				("0" + (now.getMonth() + 1)).slice(-2) +
-				"-" +
-				("0" + now.getDate()).slice(-2) +
-				"-shard-" + shardId + "-" +
-				("0" + i).slice(-2) +
-				".txt";
+				`logs/logs-${now.getFullYear()}-${`0${now.getMonth() + 1}`.slice(-2)}-${`0${now.getDate()}`.slice(-2)}-shard-${shardId}-${`0${i}`.slice(-2)}.txt`;
 			i++;
 		} while (fs.existsSync(this.currLogsFile));
 	}
@@ -342,7 +334,7 @@ export class DraftBot {
 	 * @param originalConsoleError
 	 * @private
 	 */
-	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void) {
+	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void): void {
 		/* Console override */
 		const originalConsoleLog = console.log;
 		const originalConsoleWarn = console.warn;
@@ -364,7 +356,7 @@ export class DraftBot {
 	 * @private
 	 */
 	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: unknown[]) => void) {
-		return function(message: string, optionalParams: (...data: unknown[]) => void) {
+		return function(message: string, optionalParams: (...data: unknown[]) => void): void {
 			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
 				return;
 			}
@@ -382,25 +374,12 @@ export class DraftBot {
 	 * @private
 	 */
 	private functionToAddLogToFile(thisInstance: this) {
-		return function(message: string) {
+		return function(message: string): void {
 			if (!message) {
 				return;
 			}
 			const now = new Date();
-			const dateStr =
-				"[" +
-				now.getFullYear() +
-				"/" +
-				("0" + (now.getMonth() + 1)).slice(-2) +
-				"/" +
-				("0" + now.getDate()).slice(-2) +
-				" " +
-				("0" + now.getHours()).slice(-2) +
-				":" +
-				("0" + now.getMinutes()).slice(-2) +
-				":" +
-				("0" + now.getSeconds()).slice(-2) +
-				"] ";
+			const dateStr = `[${now.getFullYear()}/${`0${now.getMonth() + 1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)} ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}] `;
 			try {
 				fs.appendFileSync(
 					thisInstance.currLogsFile,
@@ -431,7 +410,7 @@ export class DraftBot {
 	 * @param originalConsoleError
 	 * @private
 	 */
-	private manageLogs(originalConsoleError: (...data: unknown[]) => void) {
+	private manageLogs(originalConsoleError: (...data: unknown[]) => void): void {
 		/* Create log folder and remove old logs (> 7 days) */
 		if (!fs.existsSync("logs")) {
 			fs.mkdirSync("logs");
@@ -447,7 +426,7 @@ export class DraftBot {
 	 * @private
 	 */
 	private removeOlderLogs(originalConsoleError: (...data: unknown[]) => void) {
-		return function(err: NodeJS.ErrnoException, files: string[]) {
+		return function(err: NodeJS.ErrnoException, files: string[]): void {
 			if (err) {
 				return;
 			}
@@ -464,13 +443,10 @@ export class DraftBot {
 						7 * 24 * 60 * 60 * 1000
 					) {
 						// 7 days
-						fs.unlink("logs/" + file, function(err: Error) {
+						fs.unlink(`logs/${file}`, function(err: Error) {
 							if (err !== undefined && err !== null) {
 								originalConsoleError(
-									"Error while deleting logs/" +
-									file +
-									": " +
-									err
+									`Error while deleting logs/${file}: ${err}`
 								);
 							}
 						});

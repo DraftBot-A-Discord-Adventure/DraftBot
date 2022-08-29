@@ -19,7 +19,7 @@ export class IPCClient {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		ipc = new RootIPC.IPCModule();
-		ipc.config.id = "draftbot" + shardId;
+		ipc.config.id = `draftbot${shardId}`;
 		ipc.config.retry = 1500;
 		ipc.config.silent = true; // You can set this to false in order to debug, it's very useful
 
@@ -27,7 +27,7 @@ export class IPCClient {
 			ipc.of.draftbot.on(
 				"connect",
 				function() {
-					console.log("## Shard " + shardId + " connected to draftbot IPC ##");
+					console.log(`## Shard ${shardId} connected to draftbot IPC ##`);
 				}
 			);
 			ipc.of.draftbot.on(
@@ -42,7 +42,7 @@ export class IPCClient {
 						value(false);
 					});
 					spamCallbacks.clear();
-					console.log("Shard " + shardId + " disconnected from draftbot IPC");
+					console.log(`Shard ${shardId} disconnected from draftbot IPC`);
 				}
 			);
 			ipc.of.draftbot.on(

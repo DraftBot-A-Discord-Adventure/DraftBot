@@ -24,7 +24,7 @@ function getEndCallbackChangeChief(
 	guild: Guild,
 	interaction: CommandInteraction,
 	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		if (msg.isValidated()) {
 			const formerChief = await Entities.getById(guild.chiefId);
 
