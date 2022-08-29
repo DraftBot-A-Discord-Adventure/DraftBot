@@ -135,10 +135,8 @@ export class Guild extends Model {
 		}
 		this.experience += experience;
 		this.setExperience(this.experience);
-		await draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason);
-		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(channel, language);
-		}
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason).then();
+		await this.levelUpIfNeeded(channel, language);
 	}
 
 	/**
@@ -160,8 +158,8 @@ export class Guild extends Model {
 		const tr = Translations.getModule("models.guilds", language);
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
-		await draftBotInstance.logsDatabase.logGuildLevelUp(this);
-		await draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP);
+		draftBotInstance.logsDatabase.logGuildLevelUp(this).then();
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP).then();
 		const embed = new DraftBotEmbed()
 			.setTitle(
 				tr.format("levelUp.title", {

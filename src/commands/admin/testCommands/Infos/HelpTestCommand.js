@@ -17,31 +17,31 @@ const helpTestCommand = async (language, interaction, args) => {
 		throw new Error("Commande inexistante : " + args[0]);
 	}
 	const embedHelpTest = new DraftBotEmbed()
-		.formatAuthor("Commande test : " + helpOnCommand.commandInfo.name, interaction.user)
+		.formatAuthor("Commande test : " + helpOnCommand.name, interaction.user)
 		.addFields(
 			{
 				name: "Description",
-				value: helpOnCommand.commandInfo.description
+				value: helpOnCommand.description
 			},
 			{
 				name: "Utilisation",
-				value: "`test " + helpOnCommand.commandInfo.name + (helpOnCommand.commandInfo.commandFormat === "" ? "" : " " + helpOnCommand.commandInfo.commandFormat) + "`"
+				value: "`test " + helpOnCommand.name + (helpOnCommand.commandFormat === "" ? "" : " " + helpOnCommand.commandFormat) + "`"
 			}
 		)
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
-	if (helpOnCommand.commandInfo.typeWaited !== undefined) {
-		if (Object.keys(helpOnCommand.commandInfo.typeWaited).length !== 0) {
+	if (helpOnCommand.typeWaited !== undefined) {
+		if (Object.keys(helpOnCommand.typeWaited).length !== 0) {
 			let reqArgs = "";
-			Object.keys(helpOnCommand.commandInfo.typeWaited).forEach(arg => {
-				reqArgs += "\n - `<" + arg + ">` : " + helpOnCommand.commandInfo.typeWaited[arg].type;
+			Object.keys(helpOnCommand.typeWaited).forEach(arg => {
+				reqArgs += "\n - `<" + arg + ">` : " + helpOnCommand.typeWaited[arg].type;
 			});
-			embedHelpTest.addField(Object.keys(helpOnCommand.commandInfo.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
+			embedHelpTest.addField(Object.keys(helpOnCommand.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
 		}
 	}
-	if (helpOnCommand.commandInfo.aliases !== undefined) {
-		if (helpOnCommand.commandInfo.aliases.length !== 0) {
+	if (helpOnCommand.aliases !== undefined) {
+		if (helpOnCommand.aliases.length !== 0) {
 			let aliases = "";
-			helpOnCommand.commandInfo.aliases.forEach(alias => {
+			helpOnCommand.aliases.forEach(alias => {
 				aliases += "`" + alias + "`, ";
 			});
 			embedHelpTest.addField("Alias : ", aliases.slice(0, aliases.length - 2));
