@@ -9,25 +9,26 @@ import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
-export const giveFood = async (
+export async function giveFood(
 	interaction: CommandInteraction,
 	language: string,
 	entity: Entity,
 	selectedFood: string,
 	quantity: number,
 	reason: NumberChangeReason
-) => {
+): Promise<void> {
 	const tr = Translations.getModule("commands.guildShop", language);
 	const foodModule = Translations.getModule("food", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,
 			tr.get("fullStock")
 		);
+		return;
 	}
 	guild.addFood(selectedFood, quantity, reason);
 	await Promise.all([guild.save()]);
@@ -77,5 +78,5 @@ export const giveFood = async (
 			)
 		);
 	}
-	return interaction.channel.send({embeds: [successEmbed]});
-};
+	await interaction.channel.send({embeds: [successEmbed]});
+}

@@ -5,7 +5,7 @@ import {TranslationModule, Translations} from "../Translations";
 import {EmbedField, User} from "discord.js";
 import {format} from "../utils/StringFormatter";
 import Player from "../database/game/models/Player";
-import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {GenericItemModel, MaxStatsValues} from "../database/game/models/GenericItemModel";
 
 type Slots = {
 	weapons: GenericItemModel[],
@@ -19,8 +19,6 @@ type UserInformations = {
 	player: Player,
 	pseudo: string
 }
-
-type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 	mainTitle: string;
@@ -37,7 +35,6 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 
 	isMainState = true;
 
-	// eslint-disable-next-line max-params
 	constructor(
 		userInformations: UserInformations,
 		language: string,
@@ -96,7 +93,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		await msg.sentMessage.edit({embeds: [invMsg]});
 	}
 
-	createStockField = function(title: string, tr: TranslationModule, items: any[], slots: number): EmbedField {
+	createStockField(title: string, tr: TranslationModule, items: GenericItemModel[], slots: number): EmbedField {
 		const formattedTitle = format(title, {
 			count: items.length - 1,
 			max: slots - 1
@@ -115,7 +112,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 				value += tr.get("emptySlot");
 			}
 			else {
-				value += search[0].toFieldObject(tr.language).value;
+				value += search[0].toFieldObject(tr.language, null).value;
 			}
 			value += "\n";
 		}
@@ -124,7 +121,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			value,
 			inline: false
 		};
-	};
+	}
 }
 
 export class DraftBotInventoryEmbedBuilder {
@@ -134,7 +131,7 @@ export class DraftBotInventoryEmbedBuilder {
 
 	private readonly _player: Player;
 
-	constructor(user: User, language: string, player: any) {
+	constructor(user: User, language: string, player: Player) {
 		this._user = user;
 		this._language = language;
 		this._player = player;

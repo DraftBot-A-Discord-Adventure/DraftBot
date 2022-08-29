@@ -25,7 +25,7 @@ type TextInformations = { dailyModule: TranslationModule, interaction: CommandIn
  * @param language
  * @param dailyModule
  */
-async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule) {
+async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	if (activeObject.nature === Constants.NATURE.NONE) {
 		if (activeObject.id !== Data.getModule("models.inventories").getNumber("objectId")) {
 			// there is an object that do nothing in the inventory
@@ -55,7 +55,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
  * @param language
  * @param dailyModule
  */
-async function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule) {
+async function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	const time = millisecondsToHours(interaction.createdAt.valueOf() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
 		await replyErrorMessage(
@@ -80,7 +80,7 @@ async function dailyNotReady(interaction: CommandInteraction, entity: Entity, la
 async function activateDailyItem(
 	entityInformations: EntityInformations,
 	embed: DraftBotEmbed,
-	textInformations: TextInformations) {
+	textInformations: TextInformations): Promise<void> {
 	switch (entityInformations.activeObject.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformations.dailyModule.format("healthDaily", {value: entityInformations.activeObject.power}));
@@ -117,7 +117,7 @@ async function activateDailyItem(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -133,7 +133,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await activateDailyItem({entity, activeObject}, embed, {interaction, language, dailyModule});
 	await interaction.reply({embeds: [embed]});
 
-	// TODO REFACTOR LES LOGS
+	// TODO CREER TABLE LOG DAILY
 	// log(entity.discordUserId + " used his daily item " + activeObject.en);
 }
 

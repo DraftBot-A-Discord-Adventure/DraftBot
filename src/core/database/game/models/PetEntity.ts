@@ -10,8 +10,8 @@ import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {Entity} from "./Entity";
 import {draftBotInstance} from "../../../bot";
-import moment = require("moment");
 import {NumberChangeReason} from "../../logs/LogsDatabase";
+import moment = require("moment");
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -251,7 +251,7 @@ export class PetEntities {
 		})))[0]["count"];
 	}
 
-	static async getNbPets() {
+	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
                        FROM draftbot_game.pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {

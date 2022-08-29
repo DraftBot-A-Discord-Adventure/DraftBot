@@ -8,7 +8,7 @@ import {ICommand} from "../ICommand";
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.invite", language);
 	await interaction.reply({content: tr.get("main")});
 }

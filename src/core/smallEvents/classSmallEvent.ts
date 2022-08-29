@@ -25,7 +25,7 @@ export const smallEvent: SmallEvent = {
 		const classId = entity.Player.class;
 		const tr = Translations.getModule("smallEvents.class", language);
 		const classDataModule = Data.getModule("smallEvents.class");
-		const base = seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro") + " ";
+		const base = `${seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro")} `;
 		let item;
 		if (classDataModule.getNumberArray("attackEligible").includes(classId)) {
 			const outRand = RandomUtils.draftbotRandom.integer(0, 2);
@@ -103,7 +103,7 @@ export const smallEvent: SmallEvent = {
 			}
 		}
 		else {
-			console.log("This user has an unknown class : " + entity.discordUserId);
+			console.log(`This user has an unknown class : ${entity.discordUserId}`);
 		}
 
 		await entity.Player.save();

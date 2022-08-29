@@ -40,7 +40,7 @@ export const countNbOfPotions = function(player: Player): number {
  * @param entity
  * @param potion
  */
-export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion) {
+export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion): Promise<void> {
 	await MissionsController.update(entity, channel, language, {missionId: "drinkPotion"});
 	await MissionsController.update(entity, channel, language, {
 		missionId: "drinkPotionRarity",
@@ -103,25 +103,24 @@ export const giveItemToPlayer = async function(
 
 	const category = item.getCategory();
 	const maxSlots = entity.Player.InventoryInfo.slotLimitForCategory(category);
-	let itemToReplace: any;
+	let itemToReplace: InventorySlot;
 	let autoSell = false;
 	if (maxSlots === 1) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: { isEquipped: () => boolean; itemCategory: any; }) => slot.isEquipped() && slot.itemCategory === category)[0];
+		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.isEquipped() && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
 	}
 	else if (maxSlots === 2) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: { slot: number; itemCategory: any; }) => slot.slot === 1 && slot.itemCategory === category)[0];
+		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.slot === 1 && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
 	}
 	else {
-		const items = entity.Player.InventorySlots.filter((slot: { slot: number; itemCategory: any; isEquipped: () => boolean }) => slot.itemCategory === category && !slot.isEquipped());
-		if (items.length === items.filter((slot: { itemId: any; }) => slot.itemId === item.id).length) {
+		const items = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
+		if (items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length) {
 			autoSell = true;
 		}
 		else {
 			const choiceList: ChoiceItem[] = [];
-			// eslint-disable-next-line @typescript-eslint/no-extra-parens
-			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
+			items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(
 					(await item.getItem()).toString(language, null),
@@ -131,7 +130,7 @@ export const giveItemToPlayer = async function(
 			const choiceMessage = await new DraftBotListChoiceMessage(
 				choiceList,
 				discordUser.id,
-				async (replacedItem: any) => {
+				async (replacedItem: InventorySlot) => {
 					[entity] = await Entities.getOrRegister(entity.discordUserId);
 					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 					await sellOrKeepItem(
@@ -233,7 +232,7 @@ const sellOrKeepItem = async function(
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
 	autoSell: boolean
-) {
+): Promise<void> {
 	const tr = Translations.getModule("commands.inventory", language);
 	entity = await Entities.getById(entity.id);
 	if (!keepOriginal) {
@@ -386,7 +385,7 @@ export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON
  * Generate a random itemType
  * @return {Number}
  */
-export const generateRandomItemCategory = function() {
+export const generateRandomItemCategory = function(): number {
 	return RandomUtils.draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
 };
 
@@ -396,7 +395,7 @@ export const generateRandomItemCategory = function() {
  * @param {number} potionType
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL) {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL): Promise<Potion> {
 	if (potionType === null) {
 		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.POTION);
 	}
@@ -411,7 +410,7 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  * @param minRarity
  * @returns {ObjectItem} generated object
  */
-export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL) {
+export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): Promise<GenericItemModel> {
 	if (objectType === null) {
 		return this.generateRandomItem(minRarity, maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
 	}
@@ -426,40 +425,38 @@ export const generateRandomObject = async function(objectType: number = null, mi
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: any) {
-	const item = await generateRandomItem();
-	return await giveItemToPlayer(entity, item, language, discordUser, channel);
+export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: Entity): Promise<void> {
+	await giveItemToPlayer(entity, await generateRandomItem(), language, discordUser, channel);
 };
+
+type TemporarySlotAndItemType = { slot: InventorySlot, item: GenericItemModel };
 
 /**
  * Sort an item slots list by type then price
  * @param items
  */
-export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
-	let itemInstances = await Promise.all(items.map(async function(e) {
-		return [e, await e.getItem()];
+export const sortPlayerItemList = async function(items: InventorySlot[]): Promise<InventorySlot[]> {
+	let itemInstances: TemporarySlotAndItemType[] = await Promise.all(items.map(async function(invSlot) {
+		return {
+			slot: invSlot,
+			item: await invSlot.getItem()
+		};
 	}));
 	itemInstances = itemInstances.sort(
-		(a: any, b: any) => {
-			if (a[0].itemCategory < b[0].itemCategory) {
+		(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
+			if (a.slot.itemCategory < b.slot.itemCategory) {
 				return -1;
 			}
-			if (a[0].itemCategory > b[0].itemCategory) {
+			if (a.slot.itemCategory > b.slot.itemCategory) {
 				return 1;
 			}
-			const aValue = getItemValue(a[1]);
-			const bValue = getItemValue(b[1]);
-			if (aValue > bValue) {
-				return -1;
-			}
-			else if (aValue < bValue) {
-				return 1;
-			}
-			return 0;
+			const aValue = getItemValue(a.item);
+			const bValue = getItemValue(b.item);
+			return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
 		}
 	);
 	return itemInstances.map(function(e) {
-		return e[0];
+		return e.slot;
 	});
 };
 

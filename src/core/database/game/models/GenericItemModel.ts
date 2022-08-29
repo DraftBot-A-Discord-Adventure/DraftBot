@@ -3,7 +3,7 @@ import {Translations} from "../../../Translations";
 import {Model} from "sequelize";
 import {draftBotClient} from "../../../bot";
 
-type MaxStatsValues = { attack: number, defense: number, speed: number }
+export type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export abstract class GenericItemModel extends Model {
 	public readonly id!: number;

@@ -22,7 +22,7 @@ type TextInformations = { interaction: CommandInteraction, language: string, unl
  * @param entityCouple
  * @param textInformations
  */
-async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations) {
+async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations): Promise<boolean> {
 	if (!entityCouple.locked) {
 		await replyErrorMessage(
 			textInformations.interaction,
@@ -65,8 +65,11 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
  * @param entityCouple
  * @param textInformations
  */
-function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: TextInformations) {
-	return async (reaction: Collection<string, MessageReaction>) => {
+function callbackUnlockCommand(
+	entityCouple: EntityCouple,
+	textInformations: TextInformations
+): (reaction: Collection<string, MessageReaction>) => Promise<void> {
+	return async (reaction: Collection<string, MessageReaction>): Promise<void> => {
 		BlockingUtils.unblockPlayer(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK);
 		if (reaction.first()) { // a reaction exist
 			const [entityToUnlock] = await Entities.getOrRegister(entityCouple.locked.discordUserId); // released entity
@@ -91,7 +94,8 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
 					.setDescription(textInformations.unlockModule.format("unlockSuccess", {
 						pseudo: await entityToUnlock.Player.getPseudo(textInformations.language)
 					}));
-				return await textInformations.interaction.followUp({embeds: [successEmbed]});
+				await textInformations.interaction.followUp({embeds: [successEmbed]});
+				return;
 			}
 		}
 		await sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
@@ -102,7 +106,7 @@ function callbackUnlockCommand(entityCouple: EntityCouple, textInformations: Tex
  * Adds the "accept and deny" reactions to the message
  * @param unlockMessage
  */
-async function addReactionsToMessage(unlockMessage: Message) {
+async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 	try {
 		await Promise.all([
 			unlockMessage.react(Constants.MENU_REACTION.ACCEPT),
@@ -121,7 +125,11 @@ async function addReactionsToMessage(unlockMessage: Message) {
  * @param textInformations
  * @param embed
  */
-async function sendAndManageUnlockMessage(entityCouple: EntityCouple, textInformations: TextInformations, embed: DraftBotEmbed) {
+async function sendAndManageUnlockMessage(
+	entityCouple: EntityCouple,
+	textInformations: TextInformations,
+	embed: DraftBotEmbed
+): Promise<void> {
 	const unlockMessage = await textInformations.interaction.reply({embeds: [embed], fetchReply: true}) as Message;
 
 	const collector = unlockMessage.createReactionCollector({
@@ -143,7 +151,7 @@ async function sendAndManageUnlockMessage(entityCouple: EntityCouple, textInform
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

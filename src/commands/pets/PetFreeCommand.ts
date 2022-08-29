@@ -18,14 +18,14 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 
-function luckyMeat(guild: Guild, pPet: PetEntity) {
+function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
 	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
 		&& RandomUtils.draftbotRandom.realZeroToOneInclusive() <= PetFreeConstants.GIVE_MEAT_PROBABILITY
 		&& !pPet.isFeisty();
 }
 
 function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: TranslationModule, interaction: CommandInteraction) {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
 			if (pPet.isFeisty()) {
@@ -39,11 +39,11 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 			const freedEmbed = new DraftBotEmbed()
 				.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 				.setDescription(petFreeModule.format("petFreed", {
-					pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(petFreeModule.language))
+					pet: `${pPet.getPetEmote()} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(petFreeModule.language)}`
 				}));
 
 			if (pPet.isFeisty()) {
-				freedEmbed.setDescription(freedEmbed.description + "\n\n" + petFreeModule.get("wasFeisty"));
+				freedEmbed.setDescription(`${freedEmbed.description}\n\n${petFreeModule.get("wasFeisty")}`);
 			}
 
 			let guild: Guild;
@@ -57,7 +57,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 			if (guild !== null && luckyMeat(guild, pPet)) {
 				guild.carnivorousFood += PetFreeConstants.MEAT_GIVEN;
 				await guild.save();
-				freedEmbed.setDescription(freedEmbed.description + "\n\n" + petFreeModule.get("giveMeat"));
+				freedEmbed.setDescription(`${freedEmbed.description}\n\n${petFreeModule.get("giveMeat")}`);
 			}
 
 			await interaction.followUp({embeds: [freedEmbed]});
@@ -67,7 +67,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 	};
 }
 
-async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity) {
+async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity): Promise<boolean> {
 	if (!pPet) {
 		await replyErrorMessage(
 			interaction,
@@ -122,7 +122,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotValidateReactionMessage(interaction.user, getPetFreeEndCallback(entity, pPet, petFreeModule, interaction))
 		.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 		.setDescription(petFreeModule.format("confirmDesc", {
-			pet: pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language))
+			pet: `${pPet.getPetEmote()} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language)}`
 		}));
 
 	if (pPet.isFeisty()) {

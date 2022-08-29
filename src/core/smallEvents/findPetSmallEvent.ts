@@ -31,7 +31,7 @@ export const smallEvent: SmallEvent = {
 		}
 
 		const petLine = pet.displayName(language);
-		const base = seEmbed.description + " " + Translations.getModule("smallEventsIntros", language).getRandom("intro");
+		const base = `${seEmbed.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
 		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull();
 		const seEmbedPetObtention = seEmbed;
 		const trad = Translations.getModule("smallEvents.findPet", language);
@@ -48,7 +48,7 @@ export const smallEvent: SmallEvent = {
 			);
 			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
-			generatePetEmbed(seEmbed, base, trad, petLine, pet, storiesObject[outRand][0]);
+			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
 			await interaction.reply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
 				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
@@ -83,23 +83,23 @@ export const smallEvent: SmallEvent = {
 	}
 };
 
-const generatePetEmbed = function(seEmbed: DraftBotEmbed, base: string, tr: TranslationModule, petLine: string, pet: PetEntity, text: string) {
+function generatePetEmbed(seEmbed: DraftBotEmbed, base: string, tr: TranslationModule, petLine: string, pet: PetEntity, text: string): void {
 	seEmbed.setDescription(
 		base +
 		format(
 			text, {
 				pet: petLine,
-				nominative: tr.get("nominative." + pet.sex),
-				nominativeShift: tr.get("nominative." + pet.sex).charAt(0)
-					.toUpperCase() + tr.get("nominative." + pet.sex).slice(1),
-				accusative: tr.get("accusative." + pet.sex),
-				accusativeShift: tr.get("accusative." + pet.sex).charAt(0)
-					.toUpperCase() + tr.get("accusative." + pet.sex).slice(1),
-				determinant: tr.get("determinant." + pet.sex),
-				determinantShift: tr.get("determinant." + pet.sex).charAt(0)
-					.toUpperCase() + tr.get("determinant." + pet.sex).slice(1),
+				nominative: tr.get(`nominative.${pet.sex}`),
+				nominativeShift: tr.get(`nominative.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`nominative.${pet.sex}`).slice(1),
+				accusative: tr.get(`accusative.${pet.sex}`),
+				accusativeShift: tr.get(`accusative.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`accusative.${pet.sex}`).slice(1),
+				determinant: tr.get(`determinant.${pet.sex}`),
+				determinantShift: tr.get(`determinant.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`determinant.${pet.sex}`).slice(1),
 				feminine: pet.sex === "f" ? "e" : ""
 			}
 		)
 	);
-};
+}

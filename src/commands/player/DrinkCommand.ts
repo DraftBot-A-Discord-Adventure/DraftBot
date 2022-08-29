@@ -25,7 +25,7 @@ type TextInformations = { tr: TranslationModule, interaction: CommandInteraction
  * @param entity
  * @param textInformations
  */
-async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entity, textInformations: TextInformations) {
+async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entity, textInformations: TextInformations): Promise<void> {
 	switch (potion.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformations.tr.format("healthBonus", {value: potion.power}));
@@ -60,8 +60,13 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
  * @param textInformations
  * @param embed
  */
-function drinkPotionCallback(entity: Entity, force: boolean, textInformations: TextInformations, embed: DraftBotEmbed) {
-	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => {
+function drinkPotionCallback(
+	entity: Entity,
+	force: boolean,
+	textInformations: TextInformations,
+	embed: DraftBotEmbed
+): (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => Promise<void> {
+	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion): Promise<void> => {
 		if (!force) {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
 		}
@@ -85,14 +90,14 @@ function drinkPotionCallback(entity: Entity, force: boolean, textInformations: T
 		await consumePotion(potion, embed, entity, textInformations);
 		await checkDrinkPotionMissions(textInformations.interaction.channel, textInformations.tr.language, entity, potion);
 
-		console.log(entity.discordUserId + " drank " + potion.en);
+		console.log(`${entity.discordUserId} drank ${potion.en}`);
 		textInformations.interaction.replied ?
 			await textInformations.interaction.channel.send({embeds: [embed]}) :
 			await textInformations.interaction.reply({embeds: [embed]});
 	};
 }
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

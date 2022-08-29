@@ -48,7 +48,7 @@ export class MissionSlot extends Model {
 }
 
 export class MissionSlots {
-	static getById(id: number) {
+	static getById(id: number): Promise<MissionSlot> {
 		return Promise.resolve(MissionSlot.findOne(
 			{
 				where: {

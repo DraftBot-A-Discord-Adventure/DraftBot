@@ -28,7 +28,7 @@ function getEndCallbackGuildElder(
 	elder: Entity,
 	guild: Guild,
 	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => void {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(chief.entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER);
 		if (msg.isValidated()) {
 			const elderUpdated = await Entities.getById(elder.id);

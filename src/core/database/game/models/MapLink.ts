@@ -18,7 +18,7 @@ export class MapLink extends Model {
 }
 
 export class MapLinks {
-	static async getRandomLink() {
+	static async getRandomLink(): Promise<MapLink> {
 		const query = "SELECT id FROM map_links;";
 		const linkIds: { id: number }[] = await MapLink.sequelize.query(query, {
 			type: QueryTypes.SELECT

@@ -50,10 +50,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(
 			interaction,
 			language,
-			guildCreateModule.get("invalidName") + "\n" + Translations.getModule("error", language).format("nameRules", {
+			`${guildCreateModule.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
 				min: Constants.GUILD.MIN_GUILD_NAME_SIZE,
 				max: Constants.GUILD.MAX_GUILD_NAME_SIZE
-			}));
+			})}`);
 		return;
 	}
 
@@ -82,7 +82,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
 }
 
-async function getGuildByName(askedName: string) {
+async function getGuildByName(askedName: string): Promise<Guild> {
 	try {
 		return await Guilds.getByName(askedName);
 	}
@@ -91,17 +91,26 @@ async function getGuildByName(askedName: string) {
 	}
 }
 
-function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, askedName: string, interaction: CommandInteraction, language: string, informationModules: InformationModules) {
-	return async (validateMessage: DraftBotValidateReactionMessage) => {
+function endCallbackGuildCreateValidationMessage(
+	entity: Entity,
+	guild: Guild,
+	askedName: string,
+	interaction: CommandInteraction,
+	language: string,
+	informationModules: InformationModules
+): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
+	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
 		if (validateMessage.isValidated()) {
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {
 				// the name is already used
-				return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
+				await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("nameAlreadyUsed"));
+				return;
 			}
 			if (entity.Player.money < informationModules.guildCreateData.getNumber("guildCreationPrice")) {
-				return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("notEnoughMoney"));
+				await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("notEnoughMoney"));
+				return;
 			}
 
 			const newGuild = await Guild.create({
@@ -127,24 +136,25 @@ function endCallbackGuildCreateValidationMessage(entity: Entity, guild: Guild, a
 				set: true
 			});
 
-			return interaction.followUp({
+			await interaction.followUp({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(informationModules.guildCreateModule.get("createTitle"), interaction.user)
 					.setDescription(informationModules.guildCreateModule.format("createSuccess", {guildName: askedName}))]
 			});
+			return;
 		}
 
 		// Cancel the creation
-		return await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("creationCancelled"), true);
+		await sendErrorMessage(interaction.user, interaction, language, informationModules.guildCreateModule.get("creationCancelled"), true);
 	};
 }
 
 function createValidationEmbedGuildCreation(
 	interaction: CommandInteraction,
-	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<any>,
+	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
 	askedName: string,
 	informationsModule: InformationModules
-) {
+): DraftBotValidateReactionMessage {
 	return new DraftBotValidateReactionMessage(interaction.user, endCallback)
 		.formatAuthor(informationsModule.guildCreateModule.get("buyTitle"), interaction.user)
 		.setDescription(

@@ -5,8 +5,7 @@ import {CommandInteraction, Guild} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import * as fs from "fs";
-
-declare function getValidationInfos(guild: Guild): { validation: string, humans: number, bots: number, ratio: number }
+import {BotUtils} from "../../core/utils/BotUtils";
 
 /**
  * Allows an admin to check the server list
@@ -20,7 +19,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	function logMapElements(guild: Guild): void {
 		count++;
-		const {validation, humans, bots, ratio} = getValidationInfos(guild);
+		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		total += humans;
 		result += `${Translations.getModule("bot", language).format("serverList", {
 			count: count,

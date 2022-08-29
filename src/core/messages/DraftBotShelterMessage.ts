@@ -3,6 +3,7 @@ import {EmbedFieldData} from "discord.js";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
+import Guild from "../database/game/models/Guild";
 
 /**
  * Shelter embed
@@ -32,7 +33,7 @@ export class DraftBotShelterMessageBuilder {
 	 * The guild for this shelter
 	 * @private
 	 */
-	private readonly _guild: any;
+	private readonly _guild: Guild;
 
 	/**
 	 * The language to display the shelter
@@ -45,7 +46,7 @@ export class DraftBotShelterMessageBuilder {
 	 * @param guild
 	 * @param language
 	 */
-	constructor(guild: any, language: string) {
+	constructor(guild: Guild, language: string) {
 		this._guild = guild;
 		this._language = language;
 	}

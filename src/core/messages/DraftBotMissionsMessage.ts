@@ -54,7 +54,7 @@ export class DraftBotMissionsMessageBuilder {
 			progression = 1;
 		}
 		const squareToDisplay = Math.floor(progression * 10);
-		return "[" + "■".repeat(squareToDisplay) + "□".repeat(10 - squareToDisplay) + "]";
+		return `[${"■".repeat(squareToDisplay)}${"□".repeat(10 - squareToDisplay)}]`;
 	}
 
 	public async build(): Promise<DraftBotEmbed> {
@@ -63,22 +63,22 @@ export class DraftBotMissionsMessageBuilder {
 		const dailyMission = await DailyMissions.getOrGenerate();
 		const [campaign] = this._entity.Player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign.isCompleted()) {
-			desc = tr.format("campaign", {
+			desc = `${tr.format("campaign", {
 				current: this._entity.Player.PlayerMissionsInfo.campaignProgression,
 				max: Campaign.getMaxCampaignNumber()
-			}) + "\n" + DraftBotMissionsMessageBuilder.getMissionDisplay(
+			})}\n${DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
 				await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, this._language, campaign.saveBlob),
 				null,
 				campaign.numberDone,
 				campaign.missionObjective
-			);
+			)}`;
 		}
 		else {
-			desc = "\n" + tr.get("finishedCampaign");
+			desc = `\n${tr.get("finishedCampaign")}`;
 		}
 		const tomorrow = getTomorrowMidnight();
-		desc += "\n\n" + tr.get("daily") + "\n";
+		desc += `\n\n${tr.get("daily")}\n`;
 		if (this._entity.Player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			desc += tr.format("dailyFinished", {time: finishInTimeDisplay(tomorrow)});
 		}
@@ -93,22 +93,22 @@ export class DraftBotMissionsMessageBuilder {
 		}
 		const currentMissions = this._entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 
-		desc += "\n\n" + tr.format("currentMissions", {
+		desc += `\n\n${tr.format("currentMissions", {
 			slots: this._entity.Player.getMissionSlots(),
 			amountOfMissions: currentMissions.length
-		}) + "\n";
+		})}\n`;
 		if (currentMissions.length === 0) {
 			desc += tr.get("noCurrentMissionsDescription");
 		}
 		else {
 			for (const missionSlot of this._entity.Player.MissionSlots.filter(slot => !slot.isCampaign())) {
-				desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
+				desc += `${DraftBotMissionsMessageBuilder.getMissionDisplay(
 					tr,
 					await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, this._language, missionSlot.saveBlob),
 					missionSlot.expiresAt,
 					missionSlot.numberDone,
 					missionSlot.missionObjective
-				) + "\n\n";
+				)}\n\n`;
 			}
 		}
 		const msg = new DraftBotEmbed();

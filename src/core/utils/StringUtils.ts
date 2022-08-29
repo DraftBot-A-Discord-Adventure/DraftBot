@@ -47,7 +47,7 @@ export const checkNameString = function(name: string, minLength: number, maxLeng
  * @param id
  */
 export const discordIdToMention = function(id: string): string {
-	return "<@" + id + ">";
+	return `<@${id}>`;
 };
 
 /**

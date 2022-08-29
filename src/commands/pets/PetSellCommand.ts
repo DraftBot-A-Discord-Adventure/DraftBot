@@ -13,7 +13,10 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
+import {
+	BroadcastTranslationModuleLike,
+	DraftBotBroadcastValidationMessage
+} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
@@ -27,7 +30,7 @@ type BuyerInformations = { buyer: Entity, user: User };
  * @param textInformations
  * @param sellerInformations
  */
-async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations) {
+async function missingRequirementsToSellPet(textInformations: TextInformations, sellerInformations: SellerInformations): Promise<boolean> {
 	if (!sellerInformations.pet) {
 		await replyErrorMessage(
 			textInformations.interaction,
@@ -74,10 +77,11 @@ async function missingRequirementsToSellPet(textInformations: TextInformations, 
  * calculate the amount of xp the guild will receive from the price chosen by the user
  * @param petCost
  */
-function calculateAmountOfXPToAdd(petCost: number) {
-	const MIN_XP = Math.floor(petCost / PetSellConstants.MIN_XP_DIVIDER);
-	const MAX_XP = Math.floor(petCost / PetSellConstants.MAX_XP_DIVIDER);
-	return Math.floor(RandomUtils.randInt(MIN_XP, MAX_XP + 1));
+function calculateAmountOfXPToAdd(petCost: number): number {
+	return Math.floor(RandomUtils.randInt(
+		Math.floor(petCost / PetSellConstants.MIN_XP_DIVIDER),
+		Math.floor(petCost / PetSellConstants.MAX_XP_DIVIDER) + 1
+	));
 }
 
 /**
@@ -86,7 +90,11 @@ function calculateAmountOfXPToAdd(petCost: number) {
  * @param sellerInformations
  * @param textInformations
  */
-async function executeTheTransaction(buyerInformations: BuyerInformations, sellerInformations: SellerInformations, textInformations: TextInformations) {
+async function executeTheTransaction(
+	buyerInformations: BuyerInformations,
+	sellerInformations: SellerInformations,
+	textInformations: TextInformations
+): Promise<void> {
 	const buyerGuild = await Guilds.getById(buyerInformations.buyer.Player.guildId);
 	if (buyerGuild && buyerGuild.id === sellerInformations.guild.id) {
 		await sendErrorMessage(buyerInformations.user, textInformations.interaction, textInformations.petSellModule.language, textInformations.petSellModule.get("sameGuild"));
@@ -154,7 +162,11 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
  * @param sellerInformations
  * @param buyerInformations
  */
-async function petSell(textInformations: TextInformations, sellerInformations: SellerInformations, buyerInformations: BuyerInformations) {
+async function petSell(
+	textInformations: TextInformations,
+	sellerInformations: SellerInformations,
+	buyerInformations: BuyerInformations
+): Promise<void> {
 	BlockingUtils.unblockPlayer(sellerInformations.entity.discordUserId, BlockingConstants.REASONS.PET_SELL);
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(textInformations.petSellModule.get("confirmEmbed.author"), buyerInformations.user)
@@ -208,8 +220,8 @@ async function petSell(textInformations: TextInformations, sellerInformations: S
  * @param sellerInformations
  * @param textInformations
  */
-function getAcceptCallback(sellerInformations: SellerInformations, textInformations: TextInformations) {
-	return async (user: User) => {
+function getAcceptCallback(sellerInformations: SellerInformations, textInformations: TextInformations): (user: User) => Promise<boolean> {
+	return async (user: User): Promise<boolean> => {
 		const buyerInformations = {user, buyer: await Entities.getByDiscordUserId(user.id)};
 		if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
 			await sendBlockedError(textInformations.interaction, textInformations.petSellModule.language, buyerInformations.user)) {
@@ -225,7 +237,7 @@ function getAcceptCallback(sellerInformations: SellerInformations, textInformati
  * get the display message corresponding to the errors that can occur
  * @param petSellModule
  */
-function getBroadcastErrorStrings(petSellModule: TranslationModule) {
+function getBroadcastErrorStrings(petSellModule: TranslationModule): BroadcastTranslationModuleLike {
 	return {
 		errorBroadcastCancelled: petSellModule.get("sellCancelled"),
 		errorSelfAccept: petSellModule.get("errors.canSellYourself"),
@@ -261,7 +273,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(
 			interaction,
 			petSellModule.language,
-			Translations.getModule("commands.guildAdd", petSellModule.language).get("notInAguild")
+			Translations.getModule("bot", petSellModule.language).get("notInAGuild")
 		);
 		return;
 	}

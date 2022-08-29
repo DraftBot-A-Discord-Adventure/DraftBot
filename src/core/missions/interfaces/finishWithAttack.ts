@@ -5,7 +5,7 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {Classes} from "../../database/game/models/Class";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return params.lastAttack === FightActionController.variantToFightActionId(variant);
 	},
 

@@ -8,7 +8,7 @@ import {botConfig, draftBotInstance} from "../../../../core/bot";
  * Force a topweek end event
  * @return {String} - The successful message formatted
  */
-const execute = async (language: string, interaction: CommandInteraction, args: string[]) => {
+async function execute(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
 	if (interaction.user.id !== botConfig.BOT_OWNER_ID) {
 		throw new Error("You must be the bot owner to perform this action");
 	}
@@ -24,19 +24,19 @@ const execute = async (language: string, interaction: CommandInteraction, args: 
 		database = draftBotInstance.gameDatabase;
 	}
 	else {
-		throw new Error("Unknown database name \"" + databaseName + "\"");
+		throw new Error(`Unknown database name "${databaseName}"`);
 	}
 
 	const maxMigration = (await database.umzug.executed()).length;
 	if (migrationNumber <= 0 || migrationNumber > maxMigration) {
-		throw new Error("Migration number must be between 1 and " + maxMigration);
+		throw new Error(`Migration number must be between 1 and ${maxMigration}`);
 	}
 
-	await database.umzug.down({ step: maxMigration - migrationNumber + 1 });
+	await database.umzug.down({step: maxMigration - migrationNumber + 1});
 	await database.umzug.up();
 
 	return commandInfo.messageWhenExecuted;
-};
+}
 
 export const commandInfo: ITestCommand = {
 	name: "migration",

@@ -40,7 +40,7 @@ export class FightView {
 	 * @param actions
 	 * @private
 	 */
-	private static getSelectedAction(reaction: Collection<Snowflake, MessageReaction>, actions: Map<string, IFightAction>) {
+	private static getSelectedAction(reaction: Collection<Snowflake, MessageReaction>, actions: Map<string, IFightAction>): IFightAction {
 		if (!reaction.first()) {
 			return null;
 		}
@@ -58,7 +58,7 @@ export class FightView {
 	 * @param introEmbed
 	 * @param fighter
 	 */
-	async addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter) {
+	async addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): Promise<void> {
 		introEmbed.addField(
 			this.fightTranslationModule.format("actionsOf", {
 				player: await fighter.getPseudo(this.language)
@@ -73,7 +73,7 @@ export class FightView {
 	 * @param fighter1
 	 * @param fighter2
 	 */
-	async introduceFight(fighter1: Fighter, fighter2: Fighter) {
+	async introduceFight(fighter1: Fighter, fighter2: Fighter): Promise<void> {
 		// ce serait ici qu'il faudrait mettre les attaques ?
 		const introEmbed = new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.format("intro", {
@@ -91,7 +91,7 @@ export class FightView {
 	/**
 	 *  summarize current fight status
 	 */
-	async displayFightStatus() {
+	async displayFightStatus(): Promise<void> {
 		await this.scrollIfNeeded();
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
@@ -107,7 +107,7 @@ export class FightView {
 	 * display a menu that allows a fighter to select an action
 	 * @param fighter
 	 */
-	async selectFightActionMenu(fighter: Fighter) {
+	async selectFightActionMenu(fighter: Fighter): Promise<void> {
 		const actions: Map<string, IFightAction> = fighter.availableFightActions;
 		const chooseActionEmbedMessage = await this.sendChooseActionEmbed(fighter);
 		const collector = chooseActionEmbedMessage.createReactionCollector({
@@ -135,26 +135,12 @@ export class FightView {
 	}
 
 	/**
-	 * Get summarize embed message
-	 * @param {Fighter} attacker
-	 * @param {Fighter} defender
-	 * @return {Promise<DraftBotEmbed>}
-	 */
-	private async getSummarizeEmbed(attacker: Fighter, defender: Fighter) {
-		return new DraftBotEmbed()
-			.setTitle(this.fightTranslationModule.get("summarize.title"))
-			.setDescription(this.fightTranslationModule.get("summarize.intro") +
-				await attacker.getStringDisplay(this.fightTranslationModule) + "\n\n" +
-				await defender.getStringDisplay(this.fightTranslationModule));
-	}
-
-	/**
 	 * Update the fight history
 	 * @param emote
 	 * @param player
 	 * @param receivedMessage
 	 */
-	async updateHistory(emote: string, player: string, receivedMessage: string) {
+	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
 		const lastMessage = this.actionMessages[this.actionMessages.length - 1];
 		const messageToSend = this.fightTranslationModule.format("actions.intro", {
 			emote,
@@ -182,7 +168,7 @@ export class FightView {
 	 * @param winner
 	 * @param draw
 	 */
-	async outroFight(loser: Fighter, winner: Fighter, draw: boolean) {
+	async outroFight(loser: Fighter, winner: Fighter, draw: boolean): Promise<void> {
 		if (this.lastSummary !== undefined) {
 			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
@@ -217,10 +203,23 @@ export class FightView {
 	}
 
 	/**
+	 * Get summarize embed message
+	 * @param {Fighter} attacker
+	 * @param {Fighter} defender
+	 * @return {Promise<DraftBotEmbed>}
+	 */
+	private async getSummarizeEmbed(attacker: Fighter, defender: Fighter): Promise<DraftBotEmbed> {
+		return new DraftBotEmbed()
+			.setTitle(this.fightTranslationModule.get("summarize.title"))
+			.setDescription(`${this.fightTranslationModule.get("summarize.intro") +
+			await attacker.getStringDisplay(this.fightTranslationModule)}\n\n${await defender.getStringDisplay(this.fightTranslationModule)}`);
+	}
+
+	/**
 	 * Scroll the messages down if needed before fight display status
 	 * @return {Promise<void>}
 	 */
-	private async scrollIfNeeded() {
+	private async scrollIfNeeded(): Promise<void> {
 		const messages = await this.channel.messages.fetch({limit: 1});
 		if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
@@ -237,11 +236,11 @@ export class FightView {
 	 * @param fighter
 	 * @private
 	 */
-	private async sendChooseActionEmbed(fighter: Fighter) {
+	private async sendChooseActionEmbed(fighter: Fighter): Promise<Message> {
 		const chooseActionEmbed = new DraftBotEmbed();
 		chooseActionEmbed.formatAuthor(this.fightTranslationModule.format("turnIndicationsTitle", {pseudo: await fighter.getPseudo(this.language)}), fighter.getUser());
 		chooseActionEmbed.setDescription(this.fightTranslationModule.get("turnIndicationsDescription"));
-		return (await this.channel.send({embeds: [chooseActionEmbed]})) as Message;
+		return await this.channel.send({embeds: [chooseActionEmbed]});
 	}
 
 	/**

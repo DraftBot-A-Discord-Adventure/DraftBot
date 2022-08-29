@@ -156,7 +156,7 @@ export class MapLocations {
 		});
 	}
 
-	static async getIdMaxMap() {
+	static async getIdMaxMap(): Promise<number> {
 		return (await readdir("resources/text/maplocations/")).length;
 	}
 }

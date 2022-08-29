@@ -1,7 +1,8 @@
 import {format, Replacements} from "./utils/StringFormatter";
 import {RandomUtils} from "./utils/RandomUtils";
+import {JsonModule} from "./Data";
 
-declare const JsonReader: any;
+declare const JsonReader: JsonModule;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
 
@@ -10,7 +11,7 @@ export class TranslationModule {
 
 	private readonly _language: string;
 
-	private readonly _moduleTranslationObject: any;
+	private readonly _moduleTranslationObject: JsonModule;
 
 	constructor(module: string, language: string) {
 		this._module = module;
@@ -22,22 +23,22 @@ export class TranslationModule {
 		return this._language;
 	}
 
-	private static getTranslationObject(modulePath: string[], language: string): any {
-		let lastObject = JsonReader;
+	private static getTranslationObject(modulePath: string[], language: string): JsonModule {
+		let lastObject: JsonModule = JsonReader;
 		for (const path of modulePath) {
 			if (!(path in lastObject)) {
 				return null;
 			}
-			lastObject = lastObject[path];
+			lastObject = lastObject[path] as JsonModule;
 		}
 		if (!("translations" in lastObject)) {
 			return null;
 		}
-		lastObject = lastObject.translations;
+		lastObject = lastObject.translations as JsonModule;
 		if (!(language in lastObject)) {
 			return null;
 		}
-		return lastObject[language];
+		return lastObject[language] as JsonModule;
 	}
 
 	format(translation: string, replacements: Replacements): string {
@@ -45,7 +46,7 @@ export class TranslationModule {
 	}
 
 	get(translation: string): string {
-		return <string> this.getTranslationObject(translation);
+		return this.getTranslationObject(translation) as string;
 	}
 
 	getFromArray(translation: string, index: number): string {
@@ -62,11 +63,11 @@ export class TranslationModule {
 	}
 
 	getRandom(translation: string): string {
-		return RandomUtils.draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
+		return RandomUtils.draftbotRandom.pick(this.getTranslationObject(translation) as unknown as string[]);
 	}
 
-	public getObject(translation: string): any[] {
-		return <any[]> this.getTranslationObject(translation);
+	public getObject(translation: string): JsonModule[] {
+		return this.getTranslationObject(translation) as unknown as JsonModule[];
 	}
 
 	getObjectSize(translation: string): number {
@@ -82,7 +83,7 @@ export class TranslationModule {
 		return Object.keys(this.getTranslationObject(translation));
 	}
 
-	private getTranslationObject(translation: string): unknown {
+	private getTranslationObject(translation: string): JsonModule | string {
 		if (!this._moduleTranslationObject) {
 			console.warn(`Trying to use an invalid translation module: ${this._module}`);
 			return "ERR:MODULE_NOT_FOUND";
@@ -94,7 +95,7 @@ export class TranslationModule {
 				console.warn(`Trying to use an invalid translation: ${path} in module ${this._module}`);
 				return "ERR:TRANSLATION_NOT_FOUND";
 			}
-			lastObject = lastObject[path];
+			lastObject = lastObject[path] as JsonModule;
 		}
 		return lastObject;
 	}
@@ -112,12 +113,12 @@ export class Translations {
 	}
 }
 
-const getDeepKeys = function(obj: any): string[] {
+const getDeepKeys = function(obj: JsonModule): string[] {
 	let keys: string[] = [];
 	for (const key of Object.keys(obj)) {
 		keys.push(key);
 		if (typeof obj[key] === "object") {
-			const subKeys = getDeepKeys(obj[key]);
+			const subKeys = getDeepKeys(obj[key] as JsonModule);
 			keys = keys.concat(subKeys.map(function(subKeys) {
 				return `${key}.${subKeys}`;
 			}));
@@ -126,21 +127,22 @@ const getDeepKeys = function(obj: any): string[] {
 	return keys;
 };
 
-const checkMissing = function(obj: any, name: string): void {
+const checkMissing = function(obj: JsonModule, name: string): void {
 	if (!obj || typeof obj !== "object" && typeof obj !== "function") {
 		return;
 	}
 	if (obj.translations) {
-		if (obj.translations.fr && !obj.translations.en) {
+		const {en, fr} = obj.translations as JsonModule;
+		if (fr && !en) {
 			console.warn(`${name}: Missing en object translation`);
 			return;
 		}
-		if (!obj.translations.fr && obj.translations.en) {
+		if (!fr && en) {
 			console.warn(`${name}: Missing fr object translation`);
 			return;
 		}
-		const keysFr = getDeepKeys(obj.translations.fr);
-		const keysEn = getDeepKeys(obj.translations.en);
+		const keysFr = getDeepKeys(fr as JsonModule);
+		const keysEn = getDeepKeys(en as JsonModule);
 		const differencesEn = keysFr.filter(key => keysEn.indexOf(key) === -1);
 		const differencesFr = keysEn.filter(key => keysFr.indexOf(key) === -1);
 		for (const diff of differencesEn) {
@@ -152,7 +154,7 @@ const checkMissing = function(obj: any, name: string): void {
 	}
 	else {
 		for (const key of Object.keys(obj)) {
-			checkMissing(obj[key], name === "" ? key : `${name}.${key}`);
+			checkMissing(obj[key] as JsonModule, name === "" ? key : `${name}.${key}`);
 		}
 	}
 };

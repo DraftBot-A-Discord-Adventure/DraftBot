@@ -28,7 +28,7 @@ import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDat
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -66,11 +66,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.GUILD_SHOP, collector));
 }
 
-function shopEndCallback(shopMessage: DraftBotShopMessage) {
+function shopEndCallback(shopMessage: DraftBotShopMessage): void {
 	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.GUILD_SHOP);
 }
 
-function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
+function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem {
 	return new ShopItem(
 		guildShopTranslations.get("guildXp.emote"),
 		guildShopTranslations.get("guildXp.name"),
@@ -98,7 +98,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule) {
 	);
 }
 
-function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: CommandInteraction) {
+function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: CommandInteraction): ShopItem {
 	const foodJson = Translations.getModule("food", guildShopTranslations.language);
 	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(

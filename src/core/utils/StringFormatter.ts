@@ -1,5 +1,5 @@
 export interface Replacements {
-	[key: string]: any
+	[key: string]: string | number | boolean | { toString: () => string }
 }
 
 export enum PlaceholderOperand {
@@ -141,8 +141,8 @@ export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, r
 	let conditionResult = false;
 	const leftValueFloat = parseFloat(placeholder.leftValue);
 	const rightValueFloat = parseFloat(placeholder.rightValue);
-	const leftValue: number = isNaN(leftValueFloat) ? placeholder.leftValue in replacements ? replacements[placeholder.leftValue] : null : leftValueFloat;
-	const rightValue: number = isNaN(rightValueFloat) ? placeholder.rightValue in replacements ? replacements[placeholder.rightValue] : null : rightValueFloat;
+	const leftValue = isNaN(leftValueFloat) ? placeholder.leftValue in replacements ? replacements[placeholder.leftValue] : null : leftValueFloat;
+	const rightValue = isNaN(rightValueFloat) ? placeholder.rightValue in replacements ? replacements[placeholder.rightValue] : null : rightValueFloat;
 	if (leftValue === null || rightValue === null && placeholder.operand !== PlaceholderOperand.BOOL) {
 		return "FORMAT_ERROR:VARIABLE_NOT_IN_REPLACEMENTS";
 	}

@@ -21,7 +21,7 @@ import moment = require("moment");
  * @param toSwitchItems
  * @param language
  */
-async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string) {
+async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string): Promise<ChoiceItem[]> {
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		const itemInstance = await item.getItem();
@@ -43,7 +43,7 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  * @param entity
  * @param interaction
  */
-function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction) {
+function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction): void {
 	const switchData = Data.getModule("commands.switch");
 	const nextDailyDate = moment(entity.Player.InventoryInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - interaction.createdAt.valueOf());
@@ -66,7 +66,7 @@ function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteracti
  * @param entity
  * @param item
  */
-async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot) {
+async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot): Promise<void> {
 	if (otherItem.itemId === 0) {
 		await InventorySlot.destroy({
 			where: {
@@ -107,7 +107,7 @@ type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine
  * @param item
  * @param tr
  */
-async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule) {
+async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule): Promise<void> {
 	[entity] = await Entities.getOrRegister(interaction.user.id);
 	if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(entity, interaction);
@@ -129,7 +129,7 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
 			item2: otherItemInstance.getName(tr.language)
 		});
 	}
-	interaction.channel.send({
+	await interaction.channel.send({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(tr.get("title"), interaction.user)
 			.setDescription(desc)
@@ -144,7 +144,7 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
  * @param entity
  * @param tr
  */
-async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, entity: Entity, tr: TranslationModule) {
+async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, entity: Entity, tr: TranslationModule): Promise<void> {
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
@@ -157,7 +157,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		});
 
 	choiceMessage.formatAuthor(tr.get("switchTitle"), interaction.user);
-	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
+	choiceMessage.setDescription(`${tr.get("switchIndication")}\n\n${choiceMessage.description}`);
 	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SWITCH, collector));
 }
 
@@ -167,7 +167,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
  * @param language
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	// Error if blocked
 	if (await sendBlockedError(interaction, language)) {
 		return;
