@@ -24,21 +24,21 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const fs = require("fs");
 
 	if (interaction.options.getString("specificfile") === null) {
-		fs.readdir("logs", function(err: string, files: any[]) {
+		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: any[]): Promise<void> {
 			if (err) {
-				return interaction.reply({content: "```Unable to scan directory: " + err + "```"});
+				return await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
 			}
 
 			let msg = "```";
-			files.forEach(function(file: string) {
-				msg += file + " (" + fs.statSync("logs/" + file).size / 1000.0 + " ko)" + "\n";
+			for (const file of files) {
+				msg += `${file} (${fs.statSync(`logs/${file}`).size / 1000.0} ko)\n`;
 				if (msg.length > 1800) {
-					interaction.user.send({content: msg + "```"});
+					await interaction.user.send({content: msg + "```"});
 					msg = "```";
 				}
-			});
+			}
 			if (msg !== "```") {
-				interaction.user.send({content: msg + "```"});
+				await interaction.user.send({content: msg + "```"});
 			}
 		});
 		await interaction.reply({content: "Logs list sent !"});
@@ -52,10 +52,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		if (!queriedFile.endsWith(".txt")) {
 			queriedFile += ".txt";
 		}
-		if (fs.existsSync("logs/" + queriedFile)) {
+		if (fs.existsSync(`logs/${queriedFile}`)) {
 			await interaction.user.send({
 				files: [{
-					attachment: "logs/" + queriedFile,
+					attachment: `logs/${queriedFile}`,
 					name: queriedFile
 				}]
 			});

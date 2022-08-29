@@ -98,7 +98,7 @@ export class SpaceUtils {
 			return Promise.resolve(this.cachedNeoFeed);
 		}
 		return new Promise((resolve) => {
-			https.get("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + today + "&end_date=" + today + "&api_key=" + apiKey, res => {
+			https.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`, res => {
 				let data = "";
 				res.on("data", chunk => {
 					data += chunk;

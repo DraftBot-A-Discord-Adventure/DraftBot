@@ -1,19 +1,19 @@
 import {IBackupFileSimple, IDraftBotBackup} from "./DraftBotBackup";
-import fs = require("fs");
 import {Constants} from "../Constants";
+import fs = require("fs");
 
 export class LocalBackup implements IDraftBotBackup {
-	name = "LOCAL";
-
 	private static LOCAL_PATH = "backups";
 
+	name = "LOCAL";
+
 	backup(zipPath: string, backupName: string, baseName: string): Promise<void> {
-		const folder = LocalBackup.LOCAL_PATH + "/" + baseName;
+		const folder = `${LocalBackup.LOCAL_PATH}/${baseName}`;
 		if (!fs.existsSync(folder)) {
 			fs.mkdirSync(folder);
 		}
-		fs.copyFileSync(zipPath, folder + "/" + backupName);
-		console.log("Local backup of \"" + backupName + "\" done");
+		fs.copyFileSync(zipPath, `${folder}/${backupName}`);
+		console.log(`Local backup of "${backupName}" done`);
 		return Promise.resolve();
 	}
 
@@ -27,11 +27,11 @@ export class LocalBackup implements IDraftBotBackup {
 	getAllBackupFiles(): Promise<IBackupFileSimple[]> {
 		const backupFiles: IBackupFileSimple[] = [];
 		const directories = fs.readdirSync(LocalBackup.LOCAL_PATH).filter(function(file) {
-			return fs.statSync(LocalBackup.LOCAL_PATH + "/" + file).isDirectory() && file !== "tmp";
+			return fs.statSync(`${LocalBackup.LOCAL_PATH}/${file}`).isDirectory() && file !== "tmp";
 		});
 		for (const backupDirectory of directories) {
-			for (const file of fs.readdirSync(LocalBackup.LOCAL_PATH + "/" + backupDirectory)) {
-				const path = LocalBackup.LOCAL_PATH + "/" + backupDirectory + "/" + file;
+			for (const file of fs.readdirSync(`${LocalBackup.LOCAL_PATH}/${backupDirectory}`)) {
+				const path = `${LocalBackup.LOCAL_PATH}/${backupDirectory}/${file}`;
 				const stat = fs.statSync(path);
 				if (stat.isFile()) {
 					backupFiles.push({

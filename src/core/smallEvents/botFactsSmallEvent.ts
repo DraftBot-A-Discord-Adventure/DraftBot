@@ -84,7 +84,7 @@ export const smallEvent: SmallEvent = {
 				}
 			)
 		);
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 	}
 };
 
@@ -93,7 +93,7 @@ export const smallEvent: SmallEvent = {
  * @param {("fr"|"en")} language
  * @return {Promise<(*)[]>}
  */
-const getNbPlayersWithGivenClass = async (language: string) => {
+const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
 	const {readdir} = require("fs/promises");
 	const classToCheck = await Classes.getById(parseInt((RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes")) as string)
 		.slice(0, -5), 10));

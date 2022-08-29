@@ -11,7 +11,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  * @param interaction
  * @param language
  */
-function givePointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) {
+function givePointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
 	if (interaction.options.getString("mode") === "set") {
 		entityToEdit.Player.addScore(entityToEdit, amount - entityToEdit.Player.score, interaction.channel, language, NumberChangeReason.ADMIN).then();
 	}

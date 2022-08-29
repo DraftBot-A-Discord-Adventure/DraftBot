@@ -20,7 +20,7 @@ type UserInformations = { user: User, entity: Entity }
  * @param {number} price - The item price
  * @param {Players} player
  */
-const canBuy = function(price: number, player: Player) {
+const canBuy = function(price: number, player: Player): boolean {
 	return player.money >= price;
 };
 
@@ -31,7 +31,7 @@ const canBuy = function(price: number, player: Player) {
  * @param classTranslations
  * @param interaction
  */
-async function confirmPurchase(message: Message, selectedClass: Class, userInformations: UserInformations, classTranslations: TranslationModule, interaction: CommandInteraction) {
+async function confirmPurchase(message: Message, selectedClass: Class, userInformations: UserInformations, classTranslations: TranslationModule, interaction: CommandInteraction): Promise<void> {
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(classTranslations.get("confirm"), userInformations.user)
 		.setDescription(
@@ -116,7 +116,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
  * @param entity
  * @param interaction
  */
-async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, entity: Entity, interaction: CommandInteraction) {
+async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, entity: Entity, interaction: CommandInteraction): Promise<Message> {
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
@@ -152,7 +152,7 @@ function createClassCollectorAndManageIt(
 	classMessage: Message,
 	userInformations: UserInformations,
 	interaction: CommandInteraction,
-	classTranslations: TranslationModule) {
+	classTranslations: TranslationModule): void {
 	const collector = classMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => user.id === userInformations.entity.discordUserId && reaction.me,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
@@ -185,7 +185,7 @@ function createClassCollectorAndManageIt(
  * @param allClasses
  * @param classMessage
  */
-async function addClassEmbedReactions(allClasses: Class[], classMessage: Message) {
+async function addClassEmbedReactions(allClasses: Class[], classMessage: Message): Promise<void> {
 	const classEmojis = new Map();
 	for (let k = 0; k < allClasses.length; k++) {
 		await classMessage.react(allClasses[k].emoji);

@@ -27,7 +27,7 @@ export const progressBar = (value: number, maxValue: number): string => {
 	const emptyProgressText = "—".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
 	const percentageText = Math.floor(percentage * 100) + "%"; // Displaying the percentage of the bar
 
-	return "```[" + progressText + emptyProgressText + "]" + percentageText + "```"; // Creating the bar
+	return `\`\`\`[${progressText}${emptyProgressText}]${percentageText}\`\`\``; // Creating the bar
 };
 
 /**
@@ -55,7 +55,7 @@ export const discordIdToMention = function(id: string): string {
  * @param {String} variable
  * @return {boolean}
  */
-export const isAMention = (variable: string) => {
+export const isAMention = (variable: string): boolean => {
 	if (typeof variable === "string") {
 		return RegExp(/^<@!?[0-9]{18}>$/)
 			.test(variable);
@@ -68,5 +68,5 @@ export const isAMention = (variable: string) => {
  * @param {String} variable
  * @return {boolean}
  */
-export const isAnEmoji = (variable: string) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
+export const isAnEmoji = (variable: string): boolean => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
 	.test(variable);

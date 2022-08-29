@@ -43,7 +43,7 @@ export class CommandsManager {
 	 * @param interaction
 	 * @param shouldReply
 	 */
-	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
+	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false): Promise<void> {
 		const entity = await Entities.getByDiscordUserId(user.id);
 		const textValues = await effectsErrorTextValue(interaction.user, tr.language, entity);
 		const embed = new DraftBotEmbed().setErrorColor()
@@ -63,7 +63,7 @@ export class CommandsManager {
 	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, {
 		interaction,
 		tr
-	}: TextInformations, shouldReply = false) {
+	}: TextInformations, shouldReply = false): Promise<boolean> {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
 		const userEntity = {user, entity};
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
@@ -109,7 +109,7 @@ export class CommandsManager {
 	 * Register all commands at launch
 	 * @param client
 	 */
-	static async registerAllCommands(client: Client) {
+	static async registerAllCommands(client: Client): Promise<void> {
 		const commandsToRegister = await this.getAllCommandsToRegister();
 
 		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
@@ -139,7 +139,7 @@ export class CommandsManager {
 	 * @param entity
 	 * @param argsOfCommand
 	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: unknown[]): Promise<void> {
 		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
 	}
 
@@ -147,7 +147,7 @@ export class CommandsManager {
 	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
-	static async handlePrivateMessage(message: Message | CommandInteraction) {
+	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
 		if (author === botConfig.DM_MANAGER_ID) {
 			return;
@@ -167,7 +167,7 @@ export class CommandsManager {
 	/**
 	 * Get the list of commands to register
 	 */
-	public static async getAllCommandsToRegister() {
+	public static async getAllCommandsToRegister(): Promise<ICommand[]> {
 		const categories = await readdir("dist/src/commands");
 		const commandsToRegister: ICommand[] = [];
 		for (const category of categories) {
@@ -185,13 +185,13 @@ export class CommandsManager {
 	 * @param commandsToRegister
 	 * @private
 	 */
-	private static async checkCommandFromCategory(category: string, commandsToRegister: ICommand[]) {
+	private static async checkCommandFromCategory(category: string, commandsToRegister: ICommand[]): Promise<void> {
 		let commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 		if (!botConfig.TEST_MODE) {
 			commandsFiles = commandsFiles.filter(command => !command.startsWith("Test"));
 		}
 		for (const commandFile of commandsFiles) {
-			const commandInfo = (await import(`./${category + "/" + commandFile}`)).commandInfo as ICommand;
+			const commandInfo = (await import(`./${category}/${commandFile}`)).commandInfo as ICommand;
 			if (!commandInfo || !commandInfo.slashCommandBuilder) {
 				console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 				continue;
@@ -205,7 +205,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static manageMessageCreate(client: Client) {
+	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
 			// ignore all bot messages and own messages
 			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
@@ -237,7 +237,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static manageInteractionCreate(client: Client) {
+	private static manageInteractionCreate(client: Client): void {
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
 				return;
@@ -272,7 +272,7 @@ export class CommandsManager {
 	 * @param icon
 	 * @private
 	 */
-	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string) {
+	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string): Promise<void> {
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			if (client.guilds.cache.get(context.mainServerId)) {
 				const dmChannel = client.users.cache.get(context.dmManagerID);
@@ -310,7 +310,7 @@ export class CommandsManager {
 	 * @param dataModule
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message | CommandInteraction, dataModule: DataModule) {
+	private static async sendHelperMessage(message: Message | CommandInteraction, dataModule: DataModule): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
 		const helpMessage = await new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
@@ -344,7 +344,7 @@ export class CommandsManager {
 	 */
 	private static async missingRequirementsForGuild(commandInfo: ICommand, {
 		entity
-	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule) {
+	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		let guild;
 		try {
 			guild = await Guilds.getById(entity.Player.guildId);
@@ -397,7 +397,7 @@ export class CommandsManager {
 		commandInfo: ICommand,
 		{user, entity}: UserEntity,
 		{interaction, tr}: TextInformations,
-		shouldReply: boolean) {
+		shouldReply: boolean): boolean {
 		if (!entity.Player.currentEffectFinished() &&
 			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
@@ -412,7 +412,7 @@ export class CommandsManager {
 	 * @param interaction the interaction to reply to
 	 * @private
 	 */
-	private static async handleCommand(interaction: CommandInteraction) {
+	private static async handleCommand(interaction: CommandInteraction): Promise<void> {
 		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: interaction.guild.id
@@ -504,7 +504,7 @@ export class CommandsManager {
 	 * @param tr - Translation module
 	 * @private
 	 */
-	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule) {
+	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		const channel = interaction.channel as GuildChannel;
 
 		if (!channel.permissionsFor(draftBotClient.user).serialize().VIEW_CHANNEL) {
@@ -513,7 +513,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noChannelAccess")
 			);
-			console.log("No way to access the channel where the command has been executed : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No way to access the channel where the command has been executed : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -523,7 +523,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noSpeakPermission")
 			);
-			console.log("No perms to show i can't speak in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't speak in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -533,7 +533,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noReacPermission")
 			);
-			console.log("No perms to show i can't react in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't react in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -543,7 +543,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noEmbedPermission")
 			);
-			console.log("No perms to show i can't embed in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't embed in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -553,7 +553,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noFilePermission")
 			);
-			console.log("No perms to show i can't attach files in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't attach files in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 		return true;

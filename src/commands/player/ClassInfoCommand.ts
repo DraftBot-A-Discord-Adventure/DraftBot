@@ -8,7 +8,7 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Data} from "../../core/Data";
 
-function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: string) {
+function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: string): void {
 	for (const action of classToShow.getFightActions()) {
 		const actionTr = Translations.getModule("fightactions." + action, language);
 		embed.addField(Data.getModule("fightactions." + action).getString("emote") + " " + actionTr.get("name"), actionTr.get("description"));

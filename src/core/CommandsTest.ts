@@ -11,22 +11,22 @@ const typeVariableChecks = [
 	{
 		name: "INTEGER",
 		type: "number",
-		check: (v: string) => !isNaN(parseInt(v, 10))
+		check: (v: string): boolean => !isNaN(parseInt(v, 10))
 	},
 	{
 		name: "MENTION",
 		type: "mention",
-		check: (v: string) => isAMention(v)
+		check: (v: string): boolean => isAMention(v)
 	},
 	{
 		name: "EMOJI",
 		type: "emoji",
-		check: (v: string) => isAnEmoji(v)
+		check: (v: string): boolean => isAnEmoji(v)
 	},
 	{
 		name: "STRING",
 		type: "string",
-		check: () => false
+		check: (): boolean => false
 	}
 ];
 
@@ -53,7 +53,7 @@ export class CommandsTest {
 	/**
 	 * load all the test commands from source files
 	 */
-	static async init() {
+	static async init(): Promise<void> {
 		CommandsTest.testCommandsArray = {};
 		CommandsTest.testCommType = await readdir("dist/src/commands/admin/testCommands");
 		CommandsTest.testCommType.forEach(type => {
@@ -88,7 +88,7 @@ export class CommandsTest {
 				new DraftBotErrorEmbed(interaction.user,
 					interaction,
 					Constants.LANGUAGE.FRENCH,
-					"❌ Mauvais format pour la commande test " + commandTest.name + "\n\n**Format attendu :** `test " + commandTest.name + "`")
+					`❌ Mauvais format pour la commande test ${commandTest.name}\n\n**Format attendu :** \`test ${commandTest.name}\``)
 			];
 		}
 		const commandTypeKeys = Object.keys(commandTest.typeWaited);
@@ -99,8 +99,7 @@ export class CommandsTest {
 				new DraftBotErrorEmbed(interaction.user,
 					interaction,
 					Constants.LANGUAGE.FRENCH,
-					"❌ Mauvais format pour la commande test " + commandTest.name +
-					"\n\n**Format attendu :** `test " + commandTest.name + " " + commandTest.commandFormat + "`")
+					`❌ Mauvais format pour la commande test ${commandTest.name}\n\n**Format attendu :** \`test ${commandTest.name} ${commandTest.commandFormat}\``)
 			];
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
@@ -110,10 +109,11 @@ export class CommandsTest {
 					new DraftBotErrorEmbed(interaction.user,
 						interaction,
 						Constants.LANGUAGE.FRENCH,
-						"❌ Mauvais argument pour la commande test " + commandTest.name +
-						"\n\n**Format attendu** : `test " + commandTest.name + " " + commandTest.commandFormat + "`\n" +
-						"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.typeWaited[commandTypeKeys[i]].type + "\n" +
-						"**Format reçu** : " + CommandsTest.getTypeOf(args[i]))
+						`❌ Mauvais argument pour la commande test ${commandTest.name}
+
+**Format attendu** : \`test ${commandTest.name} ${commandTest.commandFormat}\`
+**Format de l'argument** \`<${commandTypeKeys[i]}>\` : ${commandTest.typeWaited[commandTypeKeys[i]].type}
+**Format reçu** : ${CommandsTest.getTypeOf(args[i])}`)
 				];
 			}
 		}
@@ -131,7 +131,7 @@ export class CommandsTest {
 		language: string,
 		interaction: CommandInteraction,
 		testCommand: ITestCommand,
-		args: string[]) {
+		args: string[]): Promise<void> {
 		try {
 
 			const messageToDisplay = await testCommand.execute(language, interaction, args);
@@ -161,15 +161,12 @@ export class CommandsTest {
 		catch (e) {
 			console.error(e);
 			try {
-				await interaction.reply({content: "**:x: Une erreur est survenue pendant la commande test " + testCommand.name + "** : ```" + e.stack + "```"});
+				await interaction.reply({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
 			}
 			catch (e2) {
 				await interaction.reply({
 					content:
-						"**:x: Une erreur est survenue pendant la commande test "
-						+ testCommand.name
-						+ "** : (Erreur tronquée car limite de caractères atteinte) " +
-						"```" + e.stack.slice(0, 1850) + "```"
+						`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
 				});
 			}
 		}
@@ -188,15 +185,15 @@ export class CommandsTest {
 		return typeVariableChecks.find(value => value.name === "STRING").type;
 	}
 
-	static getTestCommand(commandName: string) {
+	static getTestCommand(commandName: string): ITestCommand {
 		const commandTestCurrent = CommandsTest.testCommandsArray[commandName.toLowerCase()];
 		if (commandTestCurrent === undefined) {
-			throw new Error("Commande Test non définie : " + commandName);
+			throw new Error(`Commande Test non définie : ${commandName}`);
 		}
 		return commandTestCurrent;
 	}
 
-	static getAllCommandsFromCategory(category: string) {
+	static getAllCommandsFromCategory(category: string): ITestCommand[] {
 		const tabCommandReturn: ITestCommand[] = [];
 		for (const testCommand of Object.values(CommandsTest.testCommandsArray)) {
 			if (testCommand.category === category) {
