@@ -173,9 +173,9 @@ export class Fighter {
 	/**
 	 * execute one turn
 	 */
-	public play(): IFightAction {
+	public async play(): Promise<IFightAction> {
 		if (this.nextFightActionId !== null) {
-			return FightActionController.getFightActionInterface(this.nextFightActionId);
+			return await FightActionController.getFightActionInterface(this.nextFightActionId);
 		}
 		// Choose action
 	}
@@ -272,9 +272,9 @@ export class Fighter {
 	/**
 	 * get the fightAction linked to the alteration of the fighter
 	 */
-	getAlterationFightAction(): IFightAction {
+	async getAlterationFightAction(): Promise<IFightAction> {
 		const alterationFightActionFileName: string = FightConstants.ALTERATION_FIGHT_ACTION[this.alteration];
-		return FightActionController.getFightActionInterface(alterationFightActionFileName);
+		return await FightActionController.getFightActionInterface(alterationFightActionFileName);
 	}
 
 	/**

@@ -20,7 +20,7 @@ function callbackShopSmallEvent(
 	interaction: CommandInteraction,
 	language: string,
 	translationShop: TranslationModule,
-	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => void {
+	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {

@@ -205,9 +205,7 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				require("../../../../dist/src/core/bot/Draftbot")
-					.announceTopWeekWinner(client, context)
-					.then();
+				import("../../../dist/src/core/bot/Draftbot").then(db => db.announceTopWeekWinner(client, context).then());
 			}, {
 				context: {
 					config: botConfig,
@@ -436,9 +434,9 @@ export class DraftBot {
 					if (
 						Date.now() -
 						new Date(
-							parseInt(parts[1]),
-							parseInt(parts[2]) - 1,
-							parseInt(parts[3])
+							parseInt(parts[1], 10),
+							parseInt(parts[2], 10) - 1,
+							parseInt(parts[3], 10)
 						).valueOf() >
 						7 * 24 * 60 * 60 * 1000
 					) {
@@ -446,7 +444,7 @@ export class DraftBot {
 						fs.unlink(`logs/${file}`, function(err: Error) {
 							if (err !== undefined && err !== null) {
 								originalConsoleError(
-									`Error while deleting logs/${file}: ${err}`
+									`Error while deleting logs/${file}: ${err.toString()}`
 								);
 							}
 						});

@@ -201,7 +201,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					async (reactionMessage: DraftBotReactionMessage) => {
+					async (reactionMessage: DraftBotReactionMessage): Promise<void> => {
 						reactionMessage.stop();
 						await sendErrorMessage(
 							shopMessage.user,

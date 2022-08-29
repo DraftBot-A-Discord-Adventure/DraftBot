@@ -10,17 +10,17 @@ const CT = require("../../../../core/CommandsTest");
  */
 const listTestCommand = (language, interaction) => {
 	const embedListCommandsTest = new DraftBotEmbed()
-		.formatAuthor(escapeUsername(interaction.user.username) + ", voici la liste des commandes tests disponibles :", interaction.user)
+		.formatAuthor(`${escapeUsername(interaction.user.username)}, voici la liste des commandes tests disponibles :`, interaction.user)
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
 	CT.testCommType.forEach(category => {
 		const allTestCommInCate = CT.getAllCommandsFromCategory(category);
 		let stringForThisCategory = "";
 		allTestCommInCate.forEach(testCommand => {
-			stringForThisCategory += testCommand.name + " • ";
+			stringForThisCategory += `${testCommand.name} • `;
 		});
 		embedListCommandsTest.addField(
-			"**" + category + "**",
+			`**${category}**`,
 			stringForThisCategory === "" ? "*Pas de commandes dans cette catégorie*" : stringForThisCategory.slice(0, stringForThisCategory.length - 3)
 		);
 	});

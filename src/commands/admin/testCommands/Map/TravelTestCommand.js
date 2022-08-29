@@ -18,27 +18,27 @@ const travelTestCommand = async (language, interaction, args) => {
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
 	if (args[0] > idMaxMap || args[0] <= 0) {
-		throw new Error("Erreur travel : Map avec idStart inexistante. idStart doit être compris entre 1 et " + idMaxMap);
+		throw new Error(`Erreur travel : Map avec idStart inexistante. idStart doit être compris entre 1 et ${idMaxMap}`);
 	}
 	if (args[1] > idMaxMap || args[1] <= 0) {
-		throw new Error("Erreur travel : Map avec idEnd inexistante. idEnd doit être compris entre 1 et " + idMaxMap);
+		throw new Error(`Erreur travel : Map avec idEnd inexistante. idEnd doit être compris entre 1 et ${idMaxMap}`);
 	}
 
-	const link = await MapLinks.getLinkByLocations(parseInt(args[0]), parseInt(args[1]));
+	const link = await MapLinks.getLinkByLocations(parseInt(args[0], 10), parseInt(args[1], 10));
 	if (!link) {
-		const connectedMapsWithStartLinks = await MapLinks.getLinksByMapStart(parseInt(args[0]));
+		const connectedMapsWithStartLinks = await MapLinks.getLinksByMapStart(parseInt(args[0], 10));
 		const conMapsWthStart = [];
 		for (const l of connectedMapsWithStartLinks) {
 			conMapsWthStart.push(l.endMap);
 		}
-		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
+		throw new Error(`Erreur travel : Maps non reliées. Maps reliées avec la map ${parseInt(args[0], 10)} : ${conMapsWthStart}`);
 	}
 
 	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(parseInt(args[0], 10))).getDisplayName(language),
-		mapNameEnd: (await MapLocations.getById(parseInt(args[1]))).getDisplayName(language)
+		mapNameEnd: (await MapLocations.getById(parseInt(args[1], 10))).getDisplayName(language)
 	});
 };
 

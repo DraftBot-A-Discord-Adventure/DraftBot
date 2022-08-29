@@ -107,7 +107,7 @@ export const smallEvent: SmallEvent = {
 		for (let i = 0; i < tr.getObjectSize("intro.goblets"); i++) {
 			currentGoblet = tr.getObject("intro.goblets")[i];
 			gobletEmoji = currentGoblet.emoji as string;
-			goblets += `${gobletEmoji} ${currentGoblet.desc}`;
+			goblets += `${gobletEmoji} ${currentGoblet.desc as string}`;
 			embed.addReaction(new DraftBotReaction(gobletEmoji));
 		}
 		const builtEmbed = embed.build();

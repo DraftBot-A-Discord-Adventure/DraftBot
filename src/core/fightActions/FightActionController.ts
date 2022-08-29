@@ -16,8 +16,8 @@ export class FightActionController {
 	 * get the fight action interface from a fight action id
 	 * @param fightActionId
 	 */
-	static getFightActionInterface(fightActionId: string): IFightAction {
-		return require(`./interfaces/${fightActionId}`).fightActionInterface as IFightAction;
+	static async getFightActionInterface(fightActionId: string): Promise<IFightAction> {
+		return (await import(`./interfaces/${fightActionId}`)).fightActionInterface as IFightAction;
 	}
 
 	/**
@@ -27,7 +27,7 @@ export class FightActionController {
 	static listFightActionsFromClass(playerClass: Class): Map<string, IFightAction> {
 		const listActions = new Map<string, IFightAction>();
 		for (const action of playerClass.getFightActions()) {
-			listActions.set(action, this.getFightActionInterface(action));
+			this.getFightActionInterface(action).then(fightAction => listActions.set(action, fightAction));
 		}
 		return listActions;
 	}

@@ -75,7 +75,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		let totalSmallEventsRarity = 0;
 		const updatedKeys = [];
 		for (let i = 0; i < keys.length; ++i) {
-			const file = require(require.resolve(`../../core/smallEvents/${keys[i]}SmallEvent.js`));
+			const file = await import(`../../core/smallEvents/${keys[i]}SmallEvent.js`);
 			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
 				await interaction.reply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
 				return;
