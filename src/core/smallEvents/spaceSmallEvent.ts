@@ -79,7 +79,7 @@ async function neoWS(): Promise<Record<string, unknown>> {
 		return Promise.resolve({
 			count: neoWSFeed.near_earth_objects.length,
 			randomObjectName: randomObject.name,
-			randomObjectDistance: Math.floor(parseInt(randomObject.close_approach_data[0].miss_distance.kilometers) / 1000000),
+			randomObjectDistance: Math.floor(parseInt(randomObject.close_approach_data[0].miss_distance.kilometers, 10) / 1000000),
 			randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
 		});
 	}

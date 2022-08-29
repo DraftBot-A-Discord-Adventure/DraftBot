@@ -4,6 +4,19 @@ import {CommandInteraction} from "discord.js";
 import {Database} from "../../../../core/database/Database";
 import {botConfig, draftBotInstance} from "../../../../core/bot";
 
+export const commandInfo: ITestCommand = {
+	name: "migration",
+	commandFormat: "<database> <number>",
+	typeWaited: {
+		database: Constants.TEST_VAR_TYPES.STRING,
+		number: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Migration down puis up effectuée",
+	description: "Effectue une migration down de la base de données puis up à nouveau",
+	commandTestShouldReply: true,
+	execute
+};
+
 /**
  * Force a topweek end event
  * @return {String} - The successful message formatted
@@ -37,16 +50,3 @@ async function execute(language: string, interaction: CommandInteraction, args: 
 
 	return commandInfo.messageWhenExecuted;
 }
-
-export const commandInfo: ITestCommand = {
-	name: "migration",
-	commandFormat: "<database> <number>",
-	typeWaited: {
-		database: Constants.TEST_VAR_TYPES.STRING,
-		number: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Migration down puis up effectuée",
-	description: "Effectue une migration down de la base de données puis up à nouveau",
-	commandTestShouldReply: true,
-	execute
-};

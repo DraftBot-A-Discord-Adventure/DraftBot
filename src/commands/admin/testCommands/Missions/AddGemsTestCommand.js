@@ -11,7 +11,7 @@ import {format} from "../../../../core/utils/StringFormatter";
  */
 const addGemsTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0]), entity, NumberChangeReason.TEST);
+	await entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0], 10), entity, NumberChangeReason.TEST);
 	await entity.Player.PlayerMissionsInfo.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});

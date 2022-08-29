@@ -56,10 +56,10 @@ export class CommandsTest {
 	static async init(): Promise<void> {
 		CommandsTest.testCommandsArray = {};
 		CommandsTest.testCommType = await readdir("dist/src/commands/admin/testCommands");
-		CommandsTest.testCommType.forEach(type => {
+		for (const type of CommandsTest.testCommType) {
 			const commandsFiles = readdirSync(`dist/src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`).commandInfo;
+				const testCommand: ITestCommand = (await import(`../commands/admin/testCommands/${type}/${commandFile}`)).commandInfo;
 				testCommand.category = type;
 				CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
 				if (testCommand.aliases) {
@@ -68,7 +68,7 @@ export class CommandsTest {
 					}
 				}
 			}
-		});
+		}
 	}
 
 	/**

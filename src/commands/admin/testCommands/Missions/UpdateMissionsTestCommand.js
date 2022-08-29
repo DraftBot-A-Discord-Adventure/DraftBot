@@ -9,7 +9,7 @@ const updateMissionsTestCommand = async (language, interaction, args) => {
 	if (!mission) {
 		throw new Error("mission id inconnu");
 	}
-	const count = parseInt(args[1]);
+	const count = parseInt(args[1], 10);
 	await MissionsController.update(entity, interaction.channel, language, {missionId: args[0], count});
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {

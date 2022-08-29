@@ -68,5 +68,5 @@ export const isAMention = (variable: string): boolean => {
  * @param {String} variable
  * @return {boolean}
  */
-export const isAnEmoji = (variable: string): boolean => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
+export const isAnEmoji = (variable: string): boolean => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/giu)
 	.test(variable);

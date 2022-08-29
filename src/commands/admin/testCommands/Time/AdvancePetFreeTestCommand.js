@@ -10,7 +10,7 @@ import {format} from "../../../../core/utils/StringFormatter";
  */
 const advancePetFreeTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.lastPetFree -= parseInt(args[0]) * 60000;
+	entity.Player.lastPetFree -= parseInt(args[0], 10) * 60000;
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };

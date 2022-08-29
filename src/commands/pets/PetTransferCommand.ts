@@ -14,55 +14,6 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotInstance} from "../../core/bot";
 
-/**
- * Allow to transfer a pet
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
-	const petTransferModule = Translations.getModule("commands.petTransfer", language);
-	const playerPet = entity.Player.Pet;
-
-	const guild = await getGuildOfEntity(entity);
-	if (!guild) {
-		await replyErrorMessage(interaction, language, Translations.getModule("bot", language).get("notInAGuild"));
-		return;
-	}
-
-	const guildPetCount = guild.GuildPets.length;
-	const confirmEmbed = new DraftBotEmbed()
-		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
-
-	const shelterPosition = interaction.options.getInteger("shelterposition");
-
-	if (shelterPosition === null) {
-		await transferPetToGuild(interaction, language, petTransferModule, entity, guild, confirmEmbed);
-		return;
-	}
-
-	if (guildPetCount === 0) {
-		await replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
-		return;
-	}
-	if (shelterPosition > guildPetCount) {
-		await sendErrorInvalidPositionShelter(guildPetCount, interaction, language, petTransferModule);
-		return;
-	}
-
-	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, entity);
-	if (swPetEntity === null) {
-		return null;
-	}
-
-	setDescriptionPetTransferEmbed(playerPet, confirmEmbed, petTransferModule, language, swPetEntity);
-	await interaction.reply({embeds: [confirmEmbed]});
-	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
-}
-
 async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 	try {
 		return await Guilds.getById(entity.Player.guildId);
@@ -86,7 +37,7 @@ async function transferPetToGuild(interaction: CommandInteraction, language: str
 	}
 	entity.Player.petId = null;
 	await entity.Player.save();
-	await (await GuildPets.addPet(guild, playerPet, false)).save();
+	await GuildPets.addPet(guild, playerPet, false).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language)}`
 	}));
@@ -150,6 +101,55 @@ async function updateMissionsOfEntity(entity: Entity, interaction: CommandIntera
 		missionId: "trainedPet",
 		params: {loveLevel: swPetEntity.getLoveLevelNumber()}
 	});
+}
+
+/**
+ * Allow to transfer a pet
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+	const petTransferModule = Translations.getModule("commands.petTransfer", language);
+	const playerPet = entity.Player.Pet;
+
+	const guild = await getGuildOfEntity(entity);
+	if (!guild) {
+		await replyErrorMessage(interaction, language, Translations.getModule("bot", language).get("notInAGuild"));
+		return;
+	}
+
+	const guildPetCount = guild.GuildPets.length;
+	const confirmEmbed = new DraftBotEmbed()
+		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
+
+	const shelterPosition = interaction.options.getInteger("shelterposition");
+
+	if (shelterPosition === null) {
+		await transferPetToGuild(interaction, language, petTransferModule, entity, guild, confirmEmbed);
+		return;
+	}
+
+	if (guildPetCount === 0) {
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
+		return;
+	}
+	if (shelterPosition > guildPetCount) {
+		await sendErrorInvalidPositionShelter(guildPetCount, interaction, language, petTransferModule);
+		return;
+	}
+
+	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, entity);
+	if (swPetEntity === null) {
+		return null;
+	}
+
+	setDescriptionPetTransferEmbed(playerPet, confirmEmbed, petTransferModule, language, swPetEntity);
+	await interaction.reply({embeds: [confirmEmbed]});
+	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
 }
 
 export const commandInfo: ICommand = {

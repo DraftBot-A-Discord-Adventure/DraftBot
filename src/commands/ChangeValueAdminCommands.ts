@@ -56,7 +56,7 @@ export class ChangeValueAdminCommands {
 		const users = new Set<string>();
 		for (let i = 0; i < usersToChange.length; i++) {
 			const mention = usersToChange[i];
-			if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
+			if (!isAMention(mention) && (parseInt(mention, 10) < 10 ** 17 || parseInt(mention, 10) >= 10 ** 18)) {
 				await replyErrorMessage(
 					interaction,
 					changeValueModule.language,

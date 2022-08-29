@@ -78,7 +78,7 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
 	return new ShopItem(
 		translationModule.get(`permanentItems.${name}.emote`),
 		translationModule.get(`permanentItems.${name}.name`),
-		parseInt(translationModule.get(`permanentItems.${name}.price`)),
+		parseInt(translationModule.get(`permanentItems.${name}.price`), 10),
 		translationModule.get(`permanentItems.${name}.info`),
 		buyCallback
 	);

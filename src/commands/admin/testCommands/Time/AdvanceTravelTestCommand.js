@@ -12,7 +12,7 @@ import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
  */
 const advanceTravelTestCommand = async (language, interaction, args) => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await Maps.advanceTime(entity.Player, parseInt(args[0]), NumberChangeReason.TEST);
+	await Maps.advanceTime(entity.Player, parseInt(args[0], 10), NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };

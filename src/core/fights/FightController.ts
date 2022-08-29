@@ -215,7 +215,7 @@ export class FightController {
 	 */
 	private async prepareNextTurn(): Promise<void> {
 		if (this.getPlayingFighter().hasFightAlteration()) {
-			await this.executeFightAction(this.getPlayingFighter().getAlterationFightAction(), false);
+			await this.executeFightAction(await this.getPlayingFighter().getAlterationFightAction(), false);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// a player was killed by a fight alteration, no need to continue the fight
@@ -226,7 +226,7 @@ export class FightController {
 			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
 		}
 		else {
-			await this.executeFightAction(FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId), true);
+			await this.executeFightAction(await FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId), true);
 		}
 	}
 
