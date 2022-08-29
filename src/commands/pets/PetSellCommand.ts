@@ -143,7 +143,7 @@ async function executeTheTransaction(buyerInformations: BuyerInformations, selle
 			})
 		);
 	await textInformations.interaction.followUp({embeds: [addPetEmbed]});
-	await draftBotInstance.logsDatabase.logsPetSell(sellerInformations.pet, sellerInformations.entity.discordUserId, buyerInformations.user.id, sellerInformations.petCost);
+	draftBotInstance.logsDatabase.logsPetSell(sellerInformations.pet, sellerInformations.entity.discordUserId, buyerInformations.user.id, sellerInformations.petCost).then();
 	await MissionsController.update(buyerInformations.buyer, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "havePet"});
 	await MissionsController.update(sellerInformations.entity, textInformations.interaction.channel, textInformations.petSellModule.language, {missionId: "sellOrTradePet"});
 }
