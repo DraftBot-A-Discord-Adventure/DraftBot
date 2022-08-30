@@ -1,8 +1,8 @@
-import {ITestCommand} from "../../../../core/CommandsTest";
 import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Database} from "../../../../core/database/Database";
 import {botConfig, draftBotInstance} from "../../../../core/bot";
+import {ITestCommand} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "migration",

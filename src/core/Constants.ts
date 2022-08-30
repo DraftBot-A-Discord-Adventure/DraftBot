@@ -1,4 +1,5 @@
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
+import {HexColorString} from "discord.js";
 
 export abstract class Constants {
 	static readonly REACTIONS = {
@@ -552,4 +553,9 @@ export abstract class Constants {
 			check: (): boolean => false
 		}
 	}
+
+	static readonly TEST_EMBED_COLOR = {
+		SUCCESSFUL: <HexColorString> "#FF8888",
+		ERROR: <HexColorString> "#FF0000"
+	};
 }

@@ -111,6 +111,10 @@ export class Translations {
 		translationModulesCache[moduleKey] = translationModule;
 		return translationModule;
 	}
+
+	static getSubModules(module: string): string[] {
+		return Object.keys(JsonReader);
+	}
 }
 
 const getDeepKeys = function(obj: JsonModule): string[] {
