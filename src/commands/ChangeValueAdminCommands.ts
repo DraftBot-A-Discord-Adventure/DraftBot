@@ -9,10 +9,7 @@ import {sendDirectMessage} from "../core/utils/MessageUtils";
 import {draftBotClient} from "../core/bot";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player from "../core/database/game/models/Player";
-
-declare function isAMention(variable: string): boolean;
-
-declare function getIdFromMention(variable: string): string;
+import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 
 export class ChangeValueAdminCommands {
 	/**

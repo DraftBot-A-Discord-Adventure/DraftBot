@@ -100,8 +100,9 @@ export class DataModule {
 			}
 			return null;
 		}
-		const dataPath = path.split(".").values();
-		dataPath.throw(-1);
+		const dataPath = path.split(".")
+			.slice(0, -1)
+			.values();
 		const end = path.split(".").at(-1);
 		let lastObject = this._moduleDataObject;
 		for (const pathSplit of dataPath) {

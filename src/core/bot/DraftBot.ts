@@ -17,33 +17,12 @@ import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../ut
 import {GameDatabase} from "../database/game/GameDatabase";
 import {Op} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
+import {CommandsTest} from "../CommandsTest";
 
 require("colors");
 require("../Constant");
 require("../MessageError");
 require("../Tools");
-
-export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }): Promise<void> {
-	const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-	try {
-		const message = await (await guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-			content: context.frSentence
-		});
-		await message.react("🏆");
-	}
-	catch {
-		// Ignore
-	}
-	try {
-		const message = await (await guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-			content: context.enSentence
-		});
-		await message.react("🏆");
-	}
-	catch {
-		// Ignore
-	}
-}
 
 export class DraftBot {
 	public readonly client: Client;
@@ -205,7 +184,31 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				import("../../../dist/src/core/bot/Draftbot").then(db => db.announceTopWeekWinner(client, context).then());
+				const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
+				try {
+					guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+						(channel as TextChannel).send({
+							content: context.frSentence
+						}).then(message => {
+							message.react("🏆").then();
+						});
+					});
+				}
+				catch {
+					// Ignore
+				}
+				try {
+					guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+						(channel as TextChannel).send({
+							content: context.enSentence
+						}).then(message => {
+							message.react("🏆").then();
+						});
+					});
+				}
+				catch {
+					// Ignore
+				}
 			}, {
 				context: {
 					config: botConfig,
@@ -279,7 +282,7 @@ export class DraftBot {
 		await this.logsDatabase.init(this.isMainShard);
 		await CommandsManager.register(draftBotClient);
 		if (this.config.TEST_MODE === true) {
-			await require("../CommandsTest").init();
+			await CommandsTest.init();
 		}
 
 		if (this.isMainShard) { // Do this only if it's the main shard
