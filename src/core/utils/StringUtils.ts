@@ -70,3 +70,15 @@ export const isAMention = (variable: string): boolean => {
  */
 export const isAnEmoji = (variable: string): boolean => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/giu)
 	.test(variable);
+
+/**
+ * Get the id from a mention
+ * @param {any} variable
+ * @return {String} The id of the mention
+ */
+export const getIdFromMention = (variable: string): string => {
+	if (typeof variable === "string") {
+		return variable.slice(3, variable.length - 1);
+	}
+	return "";
+};

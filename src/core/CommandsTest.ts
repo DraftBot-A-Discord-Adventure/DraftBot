@@ -38,7 +38,7 @@ export interface ITestCommand {
 	messageWhenExecuted?: string,
 	description: string,
 	commandTestShouldReply: boolean,
-	execute: (language: string, interaction: CommandInteraction, args: string[]) => Promise<string | void>,
+	execute: (language: string, interaction: CommandInteraction, args: string[]) => Promise<string | DraftBotEmbed>,
 	category?: string
 }
 
@@ -81,9 +81,9 @@ export class CommandsTest {
 	static isGoodFormat(
 		commandTest: ITestCommand,
 		args: string[],
-		interaction: CommandInteraction): [boolean, string | DraftBotEmbed] {
+		interaction: CommandInteraction): [boolean, DraftBotEmbed] {
 		if (commandTest.typeWaited === undefined) {
-			return args.length === 0 ? [true, ""] : [
+			return args.length === 0 ? [true, new DraftBotEmbed()] : [
 				false,
 				new DraftBotErrorEmbed(interaction.user,
 					interaction,
@@ -117,7 +117,7 @@ export class CommandsTest {
 				];
 			}
 		}
-		return [true, ""];
+		return [true, new DraftBotEmbed()];
 	}
 
 	/**
@@ -206,6 +206,3 @@ export class CommandsTest {
 		});
 	}
 }
-
-
-module.exports = CommandsTest;

@@ -2,12 +2,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {botConfig} from "../../core/bot";
-
-const CT = require("../../core/CommandsTest");
-
-module.exports.commandInfo = {
-	name: "test"
-};
+import {CommandsTest} from "../../core/CommandsTest";
 
 /**
  * Cheat command for testers
@@ -33,16 +28,16 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 		let commandTestCurrent;
 		try {
-			commandTestCurrent = await CT.getTestCommand(testCommand);
+			commandTestCurrent = await CommandsTest.getTestCommand(testCommand);
 		}
 		catch (e) {
 			return interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
 		}
 		// Third, we check if the test command has the good arguments
-		const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, interaction);
+		const testGoodFormat = CommandsTest.isGoodFormat(commandTestCurrent, argsTest, interaction);
 		if (testGoodFormat[0]) {
 			// Last, we execute the test command
-			await CT.executeAndAlertUser(language, interaction, commandTestCurrent, argsTest);
+			await CommandsTest.executeAndAlertUser(language, interaction, commandTestCurrent, argsTest);
 		}
 		else {
 			try {
