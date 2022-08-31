@@ -8,6 +8,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Add a food storage field for storage embeds
@@ -67,7 +68,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the guild's storage"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true
 	},
 	mainGuildCommand: false

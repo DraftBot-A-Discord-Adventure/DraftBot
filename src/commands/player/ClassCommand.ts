@@ -13,6 +13,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type UserInformations = { user: User, entity: Entity }
 
@@ -222,7 +223,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Allows you to swap your class with another one"),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY],
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY],
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL
 	},
 	mainGuildCommand: false

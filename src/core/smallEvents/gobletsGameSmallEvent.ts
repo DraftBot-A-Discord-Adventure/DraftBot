@@ -13,6 +13,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import Entity from "../database/game/models/Entity";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 type RewardType = { type: string, option: number | string };
 
@@ -48,7 +49,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 		await entity.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, malus.option as number, NumberChangeReason.SMALL_EVENT);
+		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, NumberChangeReason.SMALL_EVENT);
 		malus.option = minutesDisplay(malus.option as number);
 		break;
 	case "nothing":

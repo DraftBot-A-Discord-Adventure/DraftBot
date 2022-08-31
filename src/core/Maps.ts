@@ -9,10 +9,10 @@ import {
 	millisecondsToMinutes,
 	minutesToMilliseconds
 } from "./utils/TimeUtils";
-import {Data} from "./Data";
 import {PlayerSmallEvents} from "./database/game/models/PlayerSmallEvent";
 import {draftBotInstance} from "./bot";
 import {NumberChangeReason} from "./database/logs/LogsDatabase";
+import {EffectsConstants} from "./constants/EffectsConstants";
 
 export class Maps {
 
@@ -70,11 +70,11 @@ export class Maps {
 		// Reason is IGNORE here because you don't want to log a timewarp when you get an alteration
 		await this.removeEffect(player, NumberChangeReason.IGNORE);
 		player.effect = effect;
-		if (effect === Constants.EFFECT.OCCUPIED) {
+		if (effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			player.effectDuration = time;
 		}
 		else {
-			player.effectDuration = millisecondsToMinutes(Data.getModule("models.players").getNumber(`effectMalus.${effect}`));
+			player.effectDuration = EffectsConstants.DURATION[effect as keyof typeof EffectsConstants.DURATION];
 		}
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
@@ -84,7 +84,7 @@ export class Maps {
 
 	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
 		const remainingTime = player.effectRemainingTime();
-		player.effect = Constants.EFFECT.SMILEY;
+		player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
 		player.effectDuration = 0;
 		player.effectEndDate = new Date();
 		if (remainingTime > 0) {
@@ -124,7 +124,7 @@ export class Maps {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
-		if (player.effect !== Constants.EFFECT.SMILEY) {
+		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
 			await Maps.applyEffect(player, player.effect, player.effectDuration, reason);
 		}
 		player.getEntity().then(entity => draftBotInstance.logsDatabase.logNewTravel(entity.discordUserId, newLink).then());
@@ -176,7 +176,7 @@ export class Maps {
 					str += "🧍";
 				}
 				else {
-					str += Constants.EFFECT.EMOJIS[effect as keyof typeof Constants.EFFECT.EMOJIS];
+					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];
 				}
 			}
 			else {

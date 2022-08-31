@@ -7,7 +7,6 @@ import Possibility from "./models/Possibility";
 import Mission from "./models/Mission";
 import {format} from "../../utils/StringFormatter";
 import {Translations} from "../../Translations";
-import {Constants} from "../../Constants";
 import MapLocation from "./models/MapLocation";
 import {MapConstants} from "../../constants/MapConstants";
 import {PlayerConstants} from "../../constants/PlayerConstants";
@@ -19,6 +18,7 @@ import Class from "./models/Class";
 import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
+import {EffectsConstants} from "../../constants/EffectsConstants";
 
 type IssueType = {
 	[key: string]: unknown,
@@ -351,7 +351,7 @@ export class GameDatabase extends Database {
 		}
 		if (
 			issue.lostTime > 0 &&
-			issue.effect !== Constants.EFFECT.OCCUPIED
+			issue.effect !== EffectsConstants.EMOJI_TEXT.OCCUPIED
 		) {
 			GameDatabase.sendEventLoadError(
 				event,

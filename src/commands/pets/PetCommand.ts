@@ -4,9 +4,9 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import Entity, {Entities} from "../../core/database/game/models/Entity";
-import {Constants} from "../../core/Constants";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {draftBotClient} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Displays information about a pet
@@ -63,7 +63,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

@@ -5,8 +5,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
-import {Constants} from "../../core/Constants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Activate or deactivate DMs notifications.
@@ -54,7 +54,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Activates or desactivates the notifications through direct messages"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

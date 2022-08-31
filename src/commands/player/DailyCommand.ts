@@ -14,6 +14,7 @@ import {DailyConstants} from "../../core/constants/DailyConstants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type EntityInformations = { entity: Entity, activeObject: ObjectItem };
 type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -143,7 +144,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Activate your daily item effect"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

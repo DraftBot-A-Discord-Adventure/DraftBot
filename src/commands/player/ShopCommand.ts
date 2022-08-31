@@ -25,6 +25,7 @@ import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Displays the shop
@@ -106,7 +107,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}
-			if (entity.Player.effect !== Constants.EFFECT.DEAD && entity.Player.effect !== Constants.EFFECT.LOCKED) {
+			if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && entity.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 				await Maps.removeEffect(entity.Player, NumberChangeReason.SHOP);
 				await entity.Player.save();
 			}
@@ -268,7 +269,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Shows the main shop in order to buy player related items"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED]
 	},
 	mainGuildCommand: false
 };

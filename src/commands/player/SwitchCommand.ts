@@ -15,6 +15,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import * as moment from "moment";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -199,7 +200,7 @@ export const commandInfo: ICommand = {
 	requirements: {
 		allowEffects: null,
 		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED],
 		guildPermissions: null,
 		guildRequired: null,
 		userPermission: null

@@ -20,6 +20,7 @@ import {ICommand} from "../ICommand";
 import {GuildDailyConstants} from "../../core/constants/GuildDailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type GuildLike = { guild: Guild, members: Entity[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -126,7 +127,7 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.effect !== Constants.EFFECT.DEAD) {
+		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
 			await member.addHealth(
 				fullHeal ? await member.getMaxHealth() : healthWon,
 				stringInfos.interaction.channel,
@@ -161,7 +162,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 		if (member.Player.currentEffectFinished() && needsHeal) {
 			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 		}
-		if (member.Player.effect !== Constants.EFFECT.DEAD && member.Player.effect !== Constants.EFFECT.LOCKED) {
+		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
 			await Maps.removeEffect(member.Player, NumberChangeReason.GUILD_DAILY);
 		}
@@ -404,7 +405,7 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true
 	},
 	mainGuildCommand: false

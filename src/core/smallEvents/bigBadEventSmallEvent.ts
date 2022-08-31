@@ -5,12 +5,12 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
-import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
+import {minutesDisplay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -33,7 +33,7 @@ export const smallEvent: SmallEvent = {
 		case 1:
 			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
 			seEmbed.setDescription(base + format(seFallen.sentence as string, {
-				alteTime: minutesDisplay(millisecondsToMinutes(Data.getModule("models.players").getNumber(`effectMalus.${seFallen.alte as string}`))),
+				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
 				alteEmoji: seFallen.alte as string
 			}));
 			await Maps.applyEffect(entity.Player, seFallen.alte as string, 0, NumberChangeReason.SMALL_EVENT);

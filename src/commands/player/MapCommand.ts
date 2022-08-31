@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Translations} from "../../core/Translations";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Show the map of DraftBot world
@@ -56,7 +56,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the map and the position of the player."),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

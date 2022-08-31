@@ -93,7 +93,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 							tr.format("dm.description", {
 								item: item.toString(language, null)
 							}),
-							null, // Data.getModule("bot").getString("embed.default"),
+							null,
 							language
 						);
 					}
