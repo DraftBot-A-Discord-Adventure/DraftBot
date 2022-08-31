@@ -1,11 +1,10 @@
 import {CommandInteraction} from "discord.js";
-
-const {CommandsManager} = require("../../../CommandsManager");
-const {Entities} = require("../../../../core/database/game/models/Entity");
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
 import {Translations} from "../../../../core/Translations";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {CommandsManager} from "../../../CommandsManager";
 
 let stringDesc: string = null;
 

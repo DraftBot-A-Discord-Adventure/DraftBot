@@ -1,7 +1,6 @@
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
-
-const {Entities} = require("../../../../core/database/game/models/Entity");
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 /**
  * Set the weapon of the player
@@ -12,7 +11,7 @@ const {Entities} = require("../../../../core/database/game/models/Entity");
 const resetDailyMissionTextCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	entity.Player.PlayerMissionsInfo.dailyMissionNumberDone = 0;
-	entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted = 0;
+	entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date(0);
 	await entity.Player.PlayerMissionsInfo.save();
 	return commandInfo.messageWhenExecuted;
 };

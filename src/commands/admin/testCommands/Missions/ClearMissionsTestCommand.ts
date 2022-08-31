@@ -1,7 +1,6 @@
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
-
-const {Entities} = require("../../../../core/database/game/models/Entity");
+import {Entities} from "../../../../core/database/game/models/Entity";
 
 /**
  * Set the weapon of the player

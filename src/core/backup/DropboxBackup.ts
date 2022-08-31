@@ -1,10 +1,10 @@
 import {Dropbox, files, users} from "dropbox";
 import {IBackupFileSimple, IDraftBotBackup} from "./DraftBotBackup";
 import {botConfig} from "../bot";
-import fs = require("fs");
 import ListFolderResult = files.ListFolderResult;
 import FileMetadataReference = files.FileMetadataReference;
 import SpaceAllocationIndividual = users.SpaceAllocationIndividual;
+import {readFileSync} from "fs";
 
 export class DropboxBackup implements IDraftBotBackup {
 	name = "DROPBOX";
@@ -16,7 +16,7 @@ export class DropboxBackup implements IDraftBotBackup {
 		console.log(`Starting to upload ${backupName} to dropbox...`);
 		await this._dropbox.filesUpload({
 			path: `/${backupName}`,
-			contents: fs.readFileSync(zipPath)
+			contents: readFileSync(zipPath)
 		});
 		console.log(`Dropbox backup of "${backupName}" done`);
 	}

@@ -3,7 +3,7 @@ import {Translations} from "../../../Translations";
 import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {draftBotInstance} from "../../../bot";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class MapLocation extends Model {
 	public readonly id!: number;

@@ -5,6 +5,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {botConfig} from "../../core/bot";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
+import * as fs from "fs";
 
 /**
  * Allow a contributor to get the console logs
@@ -20,8 +21,6 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			Translations.getModule("error", language).get("notContributorsChannel"));
 		return;
 	}
-
-	const fs = require("fs");
 
 	if (interaction.options.getString("specificfile") === null) {
 		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {

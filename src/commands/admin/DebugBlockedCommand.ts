@@ -2,8 +2,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-
-const {BlockingUtils} = require("../../core/utils/BlockingUtils");
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
