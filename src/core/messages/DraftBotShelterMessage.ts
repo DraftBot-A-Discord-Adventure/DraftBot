@@ -2,9 +2,9 @@ import {DraftBotEmbed} from "./DraftBotEmbed";
 import {EmbedFieldData} from "discord.js";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
-import {Data} from "../Data";
 import Guild from "../database/game/models/Guild";
 import {PetEntityConstants} from "../constants/PetEntityConstants";
+import {GuildConstants} from "../constants/GuildConstants";
 
 /**
  * Shelter embed
@@ -15,14 +15,13 @@ export class DraftBotShelterMessage extends DraftBotEmbed {
 	 * @param title
 	 * @param description
 	 * @param fields
-	 * @param thumbnail
 	 */
-	constructor(title: string, description: string, fields: EmbedFieldData[], thumbnail: string) {
+	constructor(title: string, description: string, fields: EmbedFieldData[]) {
 		super();
 		this.setTitle(title);
 		this.setDescription(description);
 		this.addFields(fields);
-		this.setThumbnail(thumbnail);
+		this.setThumbnail(GuildConstants.ICON);
 	}
 }
 
@@ -62,7 +61,6 @@ export class DraftBotShelterMessageBuilder {
 			count: this._guild.GuildPets.length,
 			max: PetEntityConstants.SLOTS
 		});
-		const thumbnail = Data.getModule("commands.guild").getString("icon");
 		let description = "";
 		const fields: EmbedFieldData[] = [];
 
@@ -84,6 +82,6 @@ export class DraftBotShelterMessageBuilder {
 			description = tr.get("warningFull");
 		}
 
-		return new DraftBotShelterMessage(title, description, fields, thumbnail);
+		return new DraftBotShelterMessage(title, description, fields);
 	}
 }

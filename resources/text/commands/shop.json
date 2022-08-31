@@ -148,13 +148,5 @@
 			],
 			"slotGive": "You got a new inventory slot!"
 		}
-	},
-	"prices": {
-		"priceItem": 350,
-		"priceStatus": 500,
-		"priceHeal": 3000,
-		"priceBadge": 25000,
-		"priceGuildXp": 1000,
-		"addedValue": 200
 	}
 }

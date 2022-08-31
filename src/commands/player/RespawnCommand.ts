@@ -6,12 +6,12 @@ import {ICommand} from "../ICommand";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
-import {Data} from "../../core/Data";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {RespawnConstants} from "../../core/constants/RespawnConstants";
 
 /**
  * Allow a player who is dead to respawn
@@ -28,7 +28,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
 		return;
 	}
-	const lostScore = Math.round(entity.Player.score * Data.getModule("commands.respawn").getNumber("score_remove_during_respawn"));
+	const lostScore = Math.round(entity.Player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
 	await entity.addHealth(await entity.getMaxHealth() - entity.health, interaction.channel, language, NumberChangeReason.RESPAWN);
 	await entity.Player.addScore(entity, -lostScore, interaction.channel, language, NumberChangeReason.RESPAWN);
 
