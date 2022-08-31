@@ -4,6 +4,8 @@ import {Constants} from "../../../../core/Constants";
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Data} from "../../../../core/Data";
+import MissionSlot from "../../../../core/database/game/models/MissionSlot";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaign",
@@ -28,7 +30,7 @@ const setCampaignTestCommand = async (language: string, interaction: CommandInte
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	const progression = parseInt(args[0], 10);
 	const [campaign] = entity.Player.MissionSlots.filter(m => m.isCampaign());
-	const campaignMission = require("../../../../../../resources/text/campaign.json").missions[progression - 1];
+	const campaignMission = Data.getModule("campaign").getObjectFromArray("missions", progression - 1) as unknown as MissionSlot;
 
 	entity.Player.PlayerMissionsInfo.campaignProgression = progression;
 	campaign.missionId = campaignMission.missionId;
