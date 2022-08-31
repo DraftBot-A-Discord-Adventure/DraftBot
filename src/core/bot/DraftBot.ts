@@ -263,7 +263,6 @@ export class DraftBot {
 				"draftbot/package.json",
 				"resources/text/error.json",
 				"resources/text/bot.json",
-				"resources/text/classesValues.json",
 				"resources/text/advices.json",
 				"resources/text/smallEventsIntros.json",
 				"resources/text/items.json",
