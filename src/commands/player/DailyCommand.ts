@@ -8,13 +8,13 @@ import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
 import ObjectItem from "../../core/database/game/models/ObjectItem";
-import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {InventoryConstants} from "../../core/constants/InventoryConstants";
 
 type EntityInformations = { entity: Entity, activeObject: ObjectItem };
 type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -28,7 +28,7 @@ type TextInformations = { dailyModule: TranslationModule, interaction: CommandIn
  */
 async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	if (activeObject.nature === Constants.NATURE.NONE) {
-		if (activeObject.id !== Data.getModule("models.inventories").getNumber("objectId")) {
+		if (activeObject.id !== InventoryConstants.OBJECT_DEFAULT_ID) {
 			// there is an object that do nothing in the inventory
 			await replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
 			return true;

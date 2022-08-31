@@ -24,6 +24,5 @@
 			"createTitle": "{pseudo}, congratulation!",
 			"createSuccess": "The guild **{guildName}** has been sucessfuly created."
 		}
-	},
-	"guildCreationPrice": 5000
+	}
 }

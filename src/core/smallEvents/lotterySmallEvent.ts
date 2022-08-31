@@ -45,7 +45,7 @@ export const smallEvent: SmallEvent = {
 				return await interaction.channel.send({embeds: [seEmbed]});
 			}
 			if (player.money < 175 && collected.first().emoji.name === emojiLottery[2]) {
-				seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
+				seEmbed.setDescription(`${collected.first().emoji.name} ${translationLottery.get("poor")}`);
 				return await interaction.channel.send({embeds: [seEmbed]});
 			}
 			const malus = emojiLottery[2] === collected.first().emoji.name;
@@ -65,8 +65,8 @@ export const smallEvent: SmallEvent = {
 				await Maps.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
-			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
-				const coeff = dataLottery.getNumber("coeff." + collected.first().emoji.name);
+			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
+				const coeff = dataLottery.getNumber(`coeff.${collected.first().emoji.name}`);
 				switch (reward) {
 				case Constants.LOTTERY_REWARD_TYPES.XP:
 					await player.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
@@ -89,7 +89,7 @@ export const smallEvent: SmallEvent = {
 				const money = Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
 					lostTime: dataLottery.getNumber("lostTime")
-				}) + format(translationLottery.get("rewardTypeText." + reward), {
+				}) + format(translationLottery.get(`rewardTypeText.${reward}`), {
 					money: Math.abs(money),
 					negativeMoney: money < 0,
 					xpWon: Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,
@@ -97,8 +97,7 @@ export const smallEvent: SmallEvent = {
 					pointsWon: Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff
 				});
 			}
-			// eslint-disable-next-line no-dupe-else-if
-			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name))) {
+			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`))) {
 				await player.addMoney(entity, -175, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 				await player.save();
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
@@ -113,15 +112,15 @@ export const smallEvent: SmallEvent = {
 					lostTime: dataLottery.getNumber("lostTime")
 				});
 			}
-			seEmbed.setDescription(collected.first().emoji.name + " " + sentenceReward);
+			seEmbed.setDescription(`${collected.first().emoji.name} ${sentenceReward}`);
 			return await interaction.channel.send({embeds: [seEmbed]});
 		});
 
 
 		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
-		for (let i = 0; i < emojiLottery.length; ++i) {
+		for (const emote of emojiLottery) {
 			try {
-				await lotteryIntro.react(emojiLottery[i]);
+				await lotteryIntro.react(emote);
 			}
 			catch (e) {
 				console.error(e);

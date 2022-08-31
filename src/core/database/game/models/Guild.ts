@@ -1,5 +1,4 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
 import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
@@ -13,6 +12,8 @@ import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
 import {draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {GuildConstants} from "../../../constants/GuildConstants";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -191,7 +192,7 @@ export class Guild extends Model {
 		if (!this.GuildPets) {
 			return true;
 		}
-		return this.GuildPets.length >= Data.getModule("models.pets").getNumber("slots");
+		return this.GuildPets.length >= PetEntityConstants.SLOTS;
 	}
 
 	/**
@@ -314,8 +315,6 @@ export class Guilds {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	const guildsData = Data.getModule("models.guilds");
-
 	Guild.init({
 		id: {
 			type: DataTypes.INTEGER,
@@ -330,31 +329,31 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		score: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("score")
+			defaultValue: GuildConstants.DEFAULT_VALUES.SCORE
 		},
 		level: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("level")
+			defaultValue: GuildConstants.DEFAULT_VALUES.LEVEL
 		},
 		experience: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("experience")
+			defaultValue: GuildConstants.DEFAULT_VALUES.EXPERIENCE
 		},
 		commonFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("commonFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.COMMON_FOOD
 		},
 		carnivorousFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("carnivorousFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.CARNIVOROUS_FOOD
 		},
 		herbivorousFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("herbivorousFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.HERBIVOROUS_FOOD
 		},
 		ultimateFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("ultimateFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.ULTIMATE_FOOD
 		},
 		lastDailyAt: {
 			type: DataTypes.DATE,

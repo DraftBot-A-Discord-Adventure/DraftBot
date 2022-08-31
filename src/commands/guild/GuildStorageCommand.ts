@@ -3,12 +3,12 @@ import {Entity} from "../../core/database/game/models/Entity";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {Data} from "../../core/Data";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Add a food storage field for storage embeds
@@ -50,7 +50,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			guild: guild.name
 		})
 	);
-	storageEmbed.setThumbnail(Data.getModule("commands.guild").getString("icon"));
+	storageEmbed.setThumbnail(GuildConstants.ICON);
 	storageEmbed.addField(
 		translations.get("fieldDescKey"),
 		translations.get("fieldDescValue")

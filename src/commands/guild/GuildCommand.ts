@@ -7,10 +7,10 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
-import {Data} from "../../core/Data";
 import {progressBar} from "../../core/utils/StringUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Allow to display the info of a guild
@@ -93,7 +93,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	}
 
-	embed.setThumbnail(Data.getModule("commands.guild").getString("icon"));
+	embed.setThumbnail(GuildConstants.ICON);
 
 	embed.setTitle(
 		guildModule.format("title", {

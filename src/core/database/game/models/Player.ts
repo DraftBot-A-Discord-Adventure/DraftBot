@@ -5,7 +5,6 @@ import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import InventoryInfo from "./InventoryInfo";
-import {Data} from "../../../Data";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {Constants} from "../../../Constants";
 import Class, {Classes} from "./Class";
@@ -30,6 +29,7 @@ import Guild from "./Guild";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
+import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
 
 export class Player extends Model {
@@ -435,7 +435,7 @@ export class Player extends Model {
 		}).then(async item => await draftBotInstance.logsDatabase.logItemSell((await this.getEntity()).discordUserId, await item.getItem()));
 		await InventorySlot.update(
 			{
-				itemId: Data.getModule("models.inventories").getNumber("potionId")
+				itemId: InventoryConstants.POTION_DEFAULT_ID
 			},
 			{
 				where: {

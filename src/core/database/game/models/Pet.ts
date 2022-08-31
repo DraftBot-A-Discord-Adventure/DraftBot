@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
 import {readdir} from "fs";
 import * as moment from "moment";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -27,9 +27,7 @@ export class Pet extends Model {
 	public createdAt!: Date;
 
 	public getRarityDisplay(): string {
-		return Data.getModule("models.pets")
-			.getString("rarityEmote")
-			.repeat(this.rarity);
+		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
 	}
 }
 
