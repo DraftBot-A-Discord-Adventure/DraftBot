@@ -6,9 +6,10 @@
  */
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {DBL} from "../../../../core/DBL";
 
 const fakeVoteTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	await require("../../../../core/DBL").userDBLVote(interaction.user.id);
+	await DBL.userDBLVote(interaction.user.id);
 	return commandInfo.messageWhenExecuted;
 };
 

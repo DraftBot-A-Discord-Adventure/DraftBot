@@ -2,9 +2,9 @@ import {registerFormat} from "archiver";
 import {DropboxBackup} from "./DropboxBackup";
 import {LocalBackup} from "./LocalBackup";
 import {botConfig} from "../bot";
-import archiver = require("archiver");
-import fs = require("fs");
-import path = require("path");
+import * as fs from "fs";
+import * as archiver from "archiver";
+import * as path from "path";
 
 export interface IDraftBotBackup {
 	name: string;

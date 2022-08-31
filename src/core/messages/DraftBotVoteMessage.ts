@@ -21,7 +21,7 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 			url: DraftBotVoteMessage.getTopGGUrl()
 		});
 		this.setThumbnail(user.avatarURL());
-		let desc = `**${user.tag}** is now a ${role.toString()} for \``;
+		let desc = `**${user.tag}** is now a <@&${role.id}> for \``;
 		if (Constants.TOPGG.ROLE_DURATION === 24) {
 			desc += "1 day";
 		}

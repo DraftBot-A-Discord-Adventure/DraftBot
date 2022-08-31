@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import BigEvent from "./BigEvent";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class Possibility extends Model {
 	public id!: number;

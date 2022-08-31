@@ -3,9 +3,8 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Constants} from "./Constants";
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
-
-const {readdir} = require("fs/promises");
-const {readdirSync} = require("fs");
+import {readdir} from "fs/promises";
+import {readdirSync} from "fs";
 
 const typeVariableChecks = [
 	{

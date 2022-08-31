@@ -4,6 +4,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
+import * as fs from "fs";
 
 /**
  * Allow an admin to list all items
@@ -11,7 +12,6 @@ import {Translations} from "../../core/Translations";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const fs = require("fs");
 	const listItemsModule = Translations.getModule("commands.listItems", language);
 	await interaction.reply({
 		embeds: [
@@ -63,7 +63,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/armors/" + file);
-			const armor = JSON.parse(data);
+			const armor = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
 				string = armor.translations[language] + " - Rareté: " + armor.rarity + " - Défense brute: " + armor.rawDefense;
@@ -89,7 +89,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/weapons/" + file);
-			const weapons = JSON.parse(data);
+			const weapons = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
 				string = weapons.translations[language] + " - Rareté: " + weapons.rarity + " - Attaque brute: " + weapons.rawAttack;
@@ -115,7 +115,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/potions/" + file);
-			const Potions = JSON.parse(data);
+			const Potions = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
 				string = Potions.translations[language] + " - Rareté: " + Potions.rarity + " - Pouvoir: " + Potions.power + " - Nature: " + Potions.nature;
@@ -141,7 +141,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/objects/" + file);
-			const Objects = JSON.parse(data);
+			const Objects = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
 				string = Objects.translations[language] + " - Rareté: " + Objects.rarity + " - Pouvoir: " + Objects.power + " - Nature: " + Objects.nature;

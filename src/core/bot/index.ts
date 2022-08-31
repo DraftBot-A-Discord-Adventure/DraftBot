@@ -8,6 +8,7 @@ import {Constants} from "../Constants";
 import {Data} from "../Data";
 import {Translations} from "../Translations";
 import {BotUtils} from "../utils/BotUtils";
+import {DBL} from "../DBL";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -52,9 +53,8 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 					})
 				})
 				.catch(console.error);
-			const dbl = await require("../DBL");
-			await dbl.verifyDBLRoles();
-			dbl.startDBLWebhook();
+			await DBL.verifyDBLRoles();
+			DBL.startDBLWebhook();
 		}
 		draftBotClient.user
 			.setActivity(botDataModule.getString("activity"));

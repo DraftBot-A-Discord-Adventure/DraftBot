@@ -2,7 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {Translations} from "../../../Translations";
 import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class Class extends Model {
 	public readonly id!: number;
