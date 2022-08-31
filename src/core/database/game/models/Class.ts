@@ -3,6 +3,7 @@ import {Translations} from "../../../Translations";
 import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
 import * as moment from "moment";
+import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -37,8 +38,7 @@ export class Class extends Model {
 	 * @param level
 	 */
 	public toString(language: string, level: number): string {
-		const data = Data.getModule("classesValues");
-		return format(data.getString("fieldsValue"), {
+		return format(ClassInfoConstants.FIELDS_VALUE, {
 			name: this.getName(language),
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
@@ -51,8 +51,7 @@ export class Class extends Model {
 	}
 
 	public statsToString(language: string, level: number): string {
-		const data = Data.getModule("classesValues");
-		return format(data.getString("statsDisplay"), {
+		return format(ClassInfoConstants.STATS_DISPLAY, {
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
