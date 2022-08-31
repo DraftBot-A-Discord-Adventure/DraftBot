@@ -22,6 +22,5 @@
 			"experience": ":star: {xp} / {xpToLevelUp} | Level {level}",
 			"lvlMax": ":star: Maximum level reached!"
 		}
-	},
-	"icon": "https://i.imgur.com/sQHBly4.png"
+	}
 }

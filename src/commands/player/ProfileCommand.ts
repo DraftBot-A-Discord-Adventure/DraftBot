@@ -10,11 +10,11 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, EmbedFieldData, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
-import {Data} from "../../core/Data";
 import MissionSlot from "../../core/database/game/models/MissionSlot";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {ProfileConstants} from "../../core/constants/ProfileConstants";
 
 
 /**
@@ -297,7 +297,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const collector = reply.createReactionCollector({
 		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last().bot,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
-		max: Data.getModule("commands.profile").getNumber("badgeMaxReactNumber")
+		max: ProfileConstants.BADGE_MAXIMUM_REACTION
 	});
 
 	collector.on("collect", async (reaction) => {
@@ -307,7 +307,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		else {
 			reply.channel.send({content: profileModule.get(`badges.${reaction.emoji.name}`)}).then((msg: Message) => {
-				setTimeout(() => msg.delete(), Data.getModule("commands.profile").getNumber("badgeDescriptionTimeout"));
+				setTimeout(() => msg.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 			});
 		}
 	});

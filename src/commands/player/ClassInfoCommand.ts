@@ -8,6 +8,8 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Data} from "../../core/Data";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {ProfileConstants} from "../../core/constants/ProfileConstants";
+import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 
 /**
  * Add the field containing the available actions for the given class
@@ -32,7 +34,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const classTranslations = Translations.getModule("commands.classInfo", language);
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 
-	const listEmoji = Data.getModule("commands.classInfo").getString("listEmoji");
 	const emojis: string[] = [];
 	const classesLineDisplay: string[] = [];
 	for (const _class of allClasses) {
@@ -52,7 +53,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const collector = reply.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => reaction.me && !reaction.users.cache.last().bot && user === interaction.user,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
-		max: Data.getModule("commands.profile").getNumber("badgeMaxReactNumber")
+		max: ProfileConstants.BADGE_MAXIMUM_REACTION
 	});
 
 	collector.on("collect", async (reaction) => {
@@ -68,12 +69,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			await interaction.editReply({embeds: [newEmbed]});
 		}
 
-		if (reactionEmoji === listEmoji) {
+		if (reactionEmoji === ClassInfoConstants.LIST_EMOTE) {
 			await interaction.editReply({embeds: [baseEmbed]});
 		}
 	});
 
-	await reply.react(listEmoji);
+	await reply.react(ClassInfoConstants.LIST_EMOTE);
 	for (const emoji of emojis) {
 		await reply.react(emoji);
 	}

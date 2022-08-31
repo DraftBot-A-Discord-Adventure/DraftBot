@@ -5,7 +5,6 @@ import {format} from "../utils/StringFormatter";
 import {Servers} from "../database/game/models/Server";
 import {IPCClient} from "./ipc/IPCClient";
 import {Constants} from "../Constants";
-import {Data} from "../Data";
 import {Translations} from "../Translations";
 import {BotUtils} from "../utils/BotUtils";
 import {DBL} from "../DBL";
@@ -47,7 +46,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
 					content: format(BotConstants.START_STATUS, {
-						version: Data.getModule("package").getString("version"),
+						version: await BotConstants.VERSION,
 						shardId
 					})
 				})

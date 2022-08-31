@@ -150,7 +150,5 @@
 				"numberBadge": "\n This player has a total of {badge} badge{badge>1?s:} !"
 			}
 		}
-	},
-	"badgeDescriptionTimeout": 20000,
-	"badgeMaxReactNumber": 15
+	}
 }

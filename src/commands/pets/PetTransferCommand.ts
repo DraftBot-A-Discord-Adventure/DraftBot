@@ -8,11 +8,11 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {Data} from "../../core/Data";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {PetEntityConstants} from "../../core/constants/PetEntityConstants";
 
 async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 	try {
@@ -32,7 +32,7 @@ async function transferPetToGuild(interaction: CommandInteraction, language: str
 	if (playerPet.isFeisty()) {
 		return replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
 	}
-	if (guildPetCount >= Data.getModule("models.pets").getNumber("slots")) {
+	if (guildPetCount >= PetEntityConstants.SLOTS) {
 		return replyErrorMessage(interaction, language, petTransferModule.get("noSlotAvailable"));
 	}
 	entity.Player.petId = null;
@@ -160,7 +160,7 @@ export const commandInfo: ICommand = {
 			.setDescription("The position of the pet in the shelter you want to switch with")
 			.setRequired(false)
 			.setMinValue(1)
-			.setMaxValue(Data.getModule("models.pets").getNumber("slots"))
+			.setMaxValue(PetEntityConstants.SLOTS)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
