@@ -15,14 +15,9 @@ import Entity from "../database/game/models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
-import {Op} from "sequelize";
+import {Op, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
-
-require("colors");
-require("../Constant");
-require("../MessageError");
-require("../Tools");
 
 export class DraftBot {
 	public readonly client: Client;
@@ -87,7 +82,6 @@ export class DraftBot {
 	 * update the random potion sold in the shop
 	 */
 	static async randomPotion(): Promise<void> {
-		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
 		const shopPotion = await Shop.findOne({
 			attributes: ["shopPotionId"]
@@ -101,7 +95,7 @@ export class DraftBot {
 					[Op.lt]: Constants.RARITY.LEGENDARY
 				}
 			},
-			order: sequelize.literal("rand()")
+			order: Sequelize.literal("rand()")
 		}).then(async potions => {
 			let potionId: number;
 			if (shopPotion) {
@@ -113,7 +107,7 @@ export class DraftBot {
 					{
 						where: {
 							shopPotionId: {
-								[sequelize.Op.col]: "shop.shopPotionId"
+								[Op.col]: "shop.shopPotionId"
 							}
 						}
 					}
@@ -235,14 +229,13 @@ export class DraftBot {
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(): void {
-		const sequelize = require("sequelize");
 		Entity.update(
 			{
-				fightPointsLost: sequelize.literal(
+				fightPointsLost: Sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`
 				)
 			},
-			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
+			{where: {fightPointsLost: {[Op.not]: 0}}}
 		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,

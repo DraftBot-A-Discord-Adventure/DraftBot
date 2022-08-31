@@ -4,9 +4,7 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
-import {ITestCommand} from "../../../../core/CommandsTest";
-
-const CT = require("../../../../core/CommandsTest");
+import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
 
 /**
  * Force an report with a given event id
@@ -22,7 +20,7 @@ const forceReportTestCommand = async (language: string, interaction: CommandInte
 	if ((eventId > idMaxEvents || eventId <= 0) && args[0] !== "-1") {
 		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
 	}
-	await CT.getTestCommand("atravel").execute(language, interaction, ["5000"]);
+	await CommandsTest.getTestCommand("atravel").execute(language, interaction, ["5000"]);
 	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, parseInt(args[0], 10));
 	return format(commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});
 };

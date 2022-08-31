@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Data} from "../../../Data";
 import {readdir} from "fs";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class Pet extends Model {
 	public readonly id!: number;

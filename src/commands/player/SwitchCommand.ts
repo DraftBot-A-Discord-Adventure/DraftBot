@@ -14,7 +14,7 @@ import {Data} from "../../core/Data";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import moment = require("moment");
+import * as moment from "moment";
 
 /**
  * Collect all the stored items and prepare them for the main embed

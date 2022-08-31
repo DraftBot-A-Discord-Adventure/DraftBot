@@ -8,6 +8,7 @@ import {format} from "../utils/StringFormatter";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {DBL} from "../DBL";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -18,7 +19,7 @@ export const smallEvent: SmallEvent = {
 		const tr = Translations.getModule("smallEvents.botVote", language);
 		const base = `${seEmbed.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
 
-		if (await require("../DBL").getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
+		if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 			// hasn't voted
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
 			await interaction.reply({embeds: [seEmbed]});
