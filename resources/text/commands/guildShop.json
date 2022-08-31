@@ -50,11 +50,5 @@
 			},
 			"successNormal": "{pseudo}, transaction success!"
 		}
-	},
-	"max": {
-		"commonFood": 25,
-		"herbivorousFood": 15,
-		"carnivorousFood": 15,
-		"ultimateFood": 5
 	}
 }
