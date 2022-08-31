@@ -5,6 +5,8 @@ import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Translations} from "../../core/Translations";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {BotConstants} from "../../core/constants/BotConstants";
+import {format} from "../../core/utils/StringFormatter";
 
 /**
  * Show the map of DraftBot world
@@ -21,7 +23,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const destMap = await entity.Player.getDestination();
 	const strMapLink = await getStrMapWithCursor(entity, inReport);
 	mapEmbed.setImage(
-		mapModule.format("URL_WITH_CURSOR", {mapLink: strMapLink})
+		format(BotConstants.MAP_URL_WITH_CURSOR, {mapLink: strMapLink})
 	);
 	mapEmbed.setDescription(mapModule.format(
 		inReport ? "descTextReached" : "descText", {

@@ -29,6 +29,7 @@ import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {ReportConstants} from "../../core/constants/ReportConstants";
 
 type TextInformations = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
@@ -223,17 +224,11 @@ async function doRandomBigEvent(
 ): Promise<void> {
 	await interaction.deferReply();
 	await completeMissionsBigEvent(entity, interaction, language);
-	let time;
-	const reportCommandData = Data.getModule("commands.report");
-	if (!forceSpecificEvent) {
-		time = millisecondsToMinutes(interaction.createdAt.valueOf() - entity.Player.startTravelDate.valueOf());
-	}
-	else {
-		time = reportCommandData.getNumber("timeMaximal") + 1;
-	}
-	const timeLimit = reportCommandData.getNumber("timeLimit");
-	if (time > timeLimit) {
-		time = timeLimit;
+	let time = forceSpecificEvent
+		? ReportConstants.TIME_MAXIMAL + 1
+		: millisecondsToMinutes(interaction.createdAt.valueOf() - entity.Player.startTravelDate.valueOf());
+	if (time > ReportConstants.TIME_LIMIT) {
+		time = ReportConstants.TIME_LIMIT;
 	}
 
 	let event;

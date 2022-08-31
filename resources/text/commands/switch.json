@@ -22,6 +22,5 @@
 			"switchTitle": "{pseudo}, item equip",
 			"switchIndication": "Choose an item to equip in the following list:"
 		}
-	},
-	"timeToAdd" : 0.5
+	}
 }

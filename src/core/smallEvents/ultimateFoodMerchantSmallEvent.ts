@@ -1,6 +1,5 @@
 import {CommandInteraction, MessageEmbed} from "discord.js";
 import {Translations} from "../Translations";
-import {Data, DataModule} from "../Data";
 import Guild, {Guilds} from "../database/game/models/Guild";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
@@ -22,16 +21,15 @@ function maxRarity(entity: Entity): number {
 	return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
 }
 
-function ultimateFoodsAmount(entity: Entity, currentFoodLevel: number, foodData: DataModule): number {
-	return Math.min(Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), foodData.getNumber("max.ultimateFood") - currentFoodLevel);
+function ultimateFoodsAmount(entity: Entity, currentFoodLevel: number): number {
+	return Math.min(Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel, 1);
 }
 
-function commonFoodAmount(entity: Entity, currentFoodLevel: number, foodData: DataModule): number {
-	return Math.min(Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), foodData.getNumber("max.commonFood") - currentFoodLevel, 1);
+function commonFoodAmount(entity: Entity, currentFoodLevel: number): number {
+	return Math.min(Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel, 1);
 }
 
 async function generateReward(entity: Entity): Promise<RewardType> {
-	const foodData = Data.getModule("commands.guildShop");
 	let guild: Guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
@@ -46,9 +44,9 @@ async function generateReward(entity: Entity): Promise<RewardType> {
 		};
 	}
 	if (entity.Player.level >= Constants.SMALL_EVENT.MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT) {
-		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < foodData.getNumber("max.ultimateFood") ? {
+		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < Constants.GUILD.MAX_ULTIMATE_PET_FOOD ? {
 			type: "ultimateFood",
-			option: ultimateFoodsAmount(entity, guild.ultimateFood, foodData)
+			option: ultimateFoodsAmount(entity, guild.ultimateFood)
 		} : {
 			type: "fullUltimateFood",
 			option: 0
@@ -57,10 +55,10 @@ async function generateReward(entity: Entity): Promise<RewardType> {
 			option: await generateRandomItem(maxRarity(entity), null, minRarity(entity))
 		};
 	}
-	if (foodData.getNumber("max.commonFood") > guild.commonFood) {
+	if (Constants.GUILD.MAX_COMMON_PET_FOOD > guild.commonFood) {
 		return {
 			type: "commonFood",
-			option: commonFoodAmount(entity, guild.commonFood, foodData)
+			option: commonFoodAmount(entity, guild.commonFood)
 		};
 	}
 	return {

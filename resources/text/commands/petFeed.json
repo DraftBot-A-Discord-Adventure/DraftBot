@@ -42,6 +42,5 @@
 			"notHungry": "It seems **{petnick}** isn't hungry...",
 			"noMoney": "You don't have enough money to buy that..."
 		}
-	},
-	"defaultsPoints": 6
+	}
 }
