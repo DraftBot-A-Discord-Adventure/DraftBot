@@ -14,7 +14,7 @@ async function executeCommand(interaction: CommandInteraction): Promise<void> {
 		await interaction.reply({content: "Not blocked or the id given isn't a right user id", ephemeral: true});
 		return;
 	}
-	await interaction.reply({content: `Blocking reason: ${blockingReason}`, ephemeral: true});
+	await interaction.reply({content: `Blocking reason: ${blockingReason.toString()}`, ephemeral: true});
 }
 
 export const commandInfo: ICommand = {

@@ -28,7 +28,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 		let commandTestCurrent;
 		try {
-			commandTestCurrent = await CommandsTest.getTestCommand(testCommand);
+			commandTestCurrent = CommandsTest.getTestCommand(testCommand);
 		}
 		catch (e) {
 			return interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
