@@ -20,6 +20,7 @@ import {
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TextInformations = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformations = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
@@ -223,7 +224,7 @@ async function petSell(
 function getAcceptCallback(sellerInformations: SellerInformations, textInformations: TextInformations): (user: User) => Promise<boolean> {
 	return async (user: User): Promise<boolean> => {
 		const buyerInformations = {user, buyer: await Entities.getByDiscordUserId(user.id)};
-		if (buyerInformations.buyer.Player.effect === Constants.EFFECT.BABY ||
+		if (buyerInformations.buyer.Player.effect === EffectsConstants.EMOJI_TEXT.BABY ||
 			await sendBlockedError(textInformations.interaction, textInformations.petSellModule.language, buyerInformations.user)) {
 			buyerInformations.buyer = null;
 			return false;
@@ -321,7 +322,7 @@ export const commandInfo: ICommand = {
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

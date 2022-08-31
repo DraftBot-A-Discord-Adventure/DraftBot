@@ -33,7 +33,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			user,
 			unblockModule.get("title"),
 			unblockModule.get("description"),
-			null, // Data.getModule("bot").getString("embed.default"),
+			null,
 			language
 		);
 	}

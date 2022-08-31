@@ -12,6 +12,7 @@ import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -61,7 +62,7 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await Maps.applyEffect(player, Constants.EFFECT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
+				await Maps.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {

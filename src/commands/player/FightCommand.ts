@@ -1,7 +1,6 @@
 import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -16,6 +15,7 @@ import {
 import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/database/game/models/Class";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Check if an entity is allowed to fight
@@ -215,7 +215,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		requiredLevel: FightConstants.REQUIRED_LEVEL
 	},
 	mainGuildCommand: false

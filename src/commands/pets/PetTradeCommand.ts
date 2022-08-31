@@ -14,6 +14,7 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
@@ -225,7 +226,7 @@ export const commandInfo: ICommand = {
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

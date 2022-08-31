@@ -7,6 +7,7 @@ import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Data} from "../../core/Data";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Add the field containing the available actions for the given class
@@ -85,7 +86,7 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

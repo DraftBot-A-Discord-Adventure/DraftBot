@@ -9,6 +9,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
@@ -56,7 +57,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

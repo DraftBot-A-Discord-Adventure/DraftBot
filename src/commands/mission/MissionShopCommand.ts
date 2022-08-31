@@ -21,6 +21,7 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Displays the mission shop
@@ -332,7 +333,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Shows the mission's shop in order to buy mission related items"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED]
 	},
 	mainGuildCommand: false
 };

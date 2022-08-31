@@ -4,7 +4,6 @@ import {GuildPets} from "../../core/database/game/models/GuildPet";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
@@ -13,6 +12,7 @@ import {Data} from "../../core/Data";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 	try {
@@ -164,7 +164,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

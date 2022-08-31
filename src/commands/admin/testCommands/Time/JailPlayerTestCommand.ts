@@ -6,6 +6,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {getIdFromMention} from "../../../../core/utils/StringUtils";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 
 /**
  * Jail the given player
@@ -16,7 +17,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
  */
 const jailPlayerTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(getIdFromMention(args[0]));
-	await Maps.applyEffect(entity.Player, Constants.EFFECT.LOCKED, 0, NumberChangeReason.TEST);
+	await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.LOCKED, 0, NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(commandInfo.messageWhenExecuted, {player: args[0]});
 };

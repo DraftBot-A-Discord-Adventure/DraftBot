@@ -10,6 +10,7 @@ import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {progressBar} from "../../core/utils/StringUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Allow to display the info of a guild
@@ -157,7 +158,7 @@ export const commandInfo: ICommand = {
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

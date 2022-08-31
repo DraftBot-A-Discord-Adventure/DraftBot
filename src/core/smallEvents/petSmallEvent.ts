@@ -15,6 +15,7 @@ import {giveFood} from "../utils/GuildUtils";
 import {getFoodIndexOf} from "../utils/FoodUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../bot";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -226,7 +227,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseTime":
 		amount = RandomUtils.randInt(5, 20);
-		await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, amount, NumberChangeReason.SMALL_EVENT);
+		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 		break;
 	case "petFlee":

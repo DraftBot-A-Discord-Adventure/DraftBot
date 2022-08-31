@@ -14,6 +14,7 @@ import {Data} from "../../core/Data";
 import MissionSlot from "../../core/database/game/models/MissionSlot";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 
 /**
@@ -333,7 +334,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
 	},
 	mainGuildCommand: false
 };

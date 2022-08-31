@@ -1,7 +1,6 @@
 import {Entities, Entity} from "../../core/database/game/models/Entity";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -11,6 +10,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
@@ -166,7 +166,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Leave your guild"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true
 	},
 	mainGuildCommand: false

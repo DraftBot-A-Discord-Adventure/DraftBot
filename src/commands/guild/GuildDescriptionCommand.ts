@@ -12,6 +12,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Create validation message to change guild description
@@ -121,7 +122,7 @@ export const commandInfo: ICommand = {
 	requirements: {
 		allowEffects: null,
 		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
 		guildRequired: true,
 		userPermission: null

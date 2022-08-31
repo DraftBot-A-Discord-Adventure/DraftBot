@@ -16,6 +16,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type ItemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 type ItemObjectBase = { name: string, value: number, itemObject: ItemObject }
@@ -213,7 +214,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Sell your items"),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

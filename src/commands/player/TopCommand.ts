@@ -9,6 +9,7 @@ import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TextInformations = { interaction: CommandInteraction, language: string };
 type PlayerInformations = { rankCurrentPlayer: number, scoreTooLow: boolean }
@@ -227,7 +228,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
 	},
 	mainGuildCommand: false
 };

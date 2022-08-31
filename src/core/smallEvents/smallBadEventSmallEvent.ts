@@ -9,6 +9,7 @@ import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 export const smallEvent: SmallEvent = {
 	canBeExecuted(): Promise<boolean> {
@@ -35,7 +36,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
 			);
-			await Maps.applyEffect(entity.Player, Constants.EFFECT.OCCUPIED, time, NumberChangeReason.SMALL_EVENT);
+			await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, NumberChangeReason.SMALL_EVENT);
 			break;
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_SMALL,
