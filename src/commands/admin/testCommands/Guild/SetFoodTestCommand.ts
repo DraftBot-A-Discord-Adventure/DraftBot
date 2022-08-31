@@ -6,6 +6,20 @@ import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "setfood",
+	aliases: ["sf"],
+	commandFormat: "<foodType> <amount>",
+	typeWaited: {
+		foodType: Constants.TEST_VAR_TYPES.STRING,
+		amount: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
+	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set le montant d'une ressource de nourriture de la guilde à un montant donné
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,16 +41,4 @@ const setFoodTestCommand = async (language: string, interaction: CommandInteract
 	return format(commandInfo.messageWhenExecuted, {amountOfFood: args[0], foodEdited: args[1]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "setfood",
-	aliases: ["sf"],
-	commandFormat: "<foodType> <amount>",
-	typeWaited: {
-		foodType: Constants.TEST_VAR_TYPES.STRING,
-		amount: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
-	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
-	commandTestShouldReply: true,
-	execute: setFoodTestCommand
-};
+commandInfo.execute = setFoodTestCommand;

@@ -5,6 +5,18 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "addmoney",
+	commandFormat: "<money>",
+	typeWaited: {
+		money: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
+	description: "Ajoute la valeur donnée d'argent à votre joueur",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Add money to the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -20,14 +32,4 @@ const addMoneyTestCommand = async (language: string, interaction: CommandInterac
 	return format(commandInfo.messageWhenExecuted, {money: entity.Player.money});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "addmoney",
-	commandFormat: "<money>",
-	typeWaited: {
-		money: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
-	description: "Ajoute la valeur donnée d'argent à votre joueur",
-	commandTestShouldReply: true,
-	execute: addMoneyTestCommand
-};
+commandInfo.execute = addMoneyTestCommand;

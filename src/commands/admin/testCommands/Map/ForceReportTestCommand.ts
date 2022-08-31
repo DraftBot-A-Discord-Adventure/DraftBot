@@ -6,6 +6,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "forcereport",
+	aliases: ["fr", "forcer"],
+	commandFormat: "<id>",
+	typeWaited: {
+		id: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Event {id} forcé !",
+	description: "Force un rapport donné",
+	commandTestShouldReply: false,
+	execute: null // defined later
+};
+
 /**
  * Force an report with a given event id
  * @param {("fr"|"en")} language - Language to use in the response
@@ -25,15 +38,4 @@ const forceReportTestCommand = async (language: string, interaction: CommandInte
 	return format(commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "forcereport",
-	aliases: ["fr", "forcer"],
-	commandFormat: "<id>",
-	typeWaited: {
-		id: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Event {id} forcé !",
-	description: "Force un rapport donné",
-	execute: forceReportTestCommand,
-	commandTestShouldReply: false
-};
+commandInfo.execute = forceReportTestCommand;

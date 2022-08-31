@@ -6,6 +6,19 @@ import {CommandInteraction, Message} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "blockplayer",
+	aliases: ["block"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
+	description: "Vous bloque pendant un temps en secondes donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Block your player for a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -19,7 +32,10 @@ const blockPlayerTestCommand = async (language: string, interaction: CommandInte
 	if (blockTime <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const messageToReact = <Message> await interaction.reply({content: "je suis un message qui va te bloquer", fetchReply: true});
+	const messageToReact = <Message> await interaction.reply({
+		content: "je suis un message qui va te bloquer",
+		fetchReply: true
+	});
 	const collector = messageToReact.createReactionCollector({
 		filter: () => true,
 		time: blockTime * 1000
@@ -34,15 +50,4 @@ const blockPlayerTestCommand = async (language: string, interaction: CommandInte
 	return format(commandInfo.messageWhenExecuted, {time: blockTime});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "blockplayer",
-	aliases: ["block"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
-	description: "Vous bloque pendant un temps en secondes donné",
-	commandTestShouldReply: true,
-	execute: blockPlayerTestCommand
-};
+commandInfo.execute = blockPlayerTestCommand;

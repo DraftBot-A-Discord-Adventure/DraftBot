@@ -3,6 +3,16 @@ import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "playersuicide",
+	aliases: ["suicide"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
+	description: "Vous permet de vous suicider dans le plus grand des calmes",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Kill yourself
  * @param {("fr"|"en")} language - Language to use in the response
@@ -22,12 +32,4 @@ const playerSuicideTestCommand = async (language: string, interaction: CommandIn
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playersuicide",
-	aliases: ["suicide"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
-	description: "Vous permet de vous suicider dans le plus grand des calmes",
-	commandTestShouldReply: true,
-	execute: playerSuicideTestCommand
-};
+commandInfo.execute = playerSuicideTestCommand;

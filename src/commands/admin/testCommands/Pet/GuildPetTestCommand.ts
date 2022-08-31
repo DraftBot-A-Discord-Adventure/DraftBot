@@ -8,6 +8,20 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "guildpet",
+	aliases: ["gp"],
+	commandFormat: "<id> <sex = m/f>",
+	typeWaited: {
+		id: Constants.TEST_VAR_TYPES.INTEGER,
+		sex: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
+	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Add a pet in your shelter with id and sex given
  * @param {("fr"|"en")} language - Language to use in the response
@@ -51,16 +65,4 @@ const guildPetTestCommand = async (language: string, interaction: CommandInterac
 	);
 };
 
-export const commandInfo: ITestCommand = {
-	name: "guildpet",
-	aliases: ["gp"],
-	commandFormat: "<id> <sex = m/f>",
-	typeWaited: {
-		id: Constants.TEST_VAR_TYPES.INTEGER,
-		sex: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
-	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
-	commandTestShouldReply: true,
-	execute: guildPetTestCommand
-};
+commandInfo.execute = guildPetTestCommand;

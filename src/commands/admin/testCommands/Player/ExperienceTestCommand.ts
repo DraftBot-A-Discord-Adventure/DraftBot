@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "experience",
+	aliases: ["xp"],
+	commandFormat: "<experience>",
+	typeWaited: {
+		experience: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {experience} :star: !",
+	description: "Mets l'expérience votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the experience of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -25,15 +38,4 @@ const experienceTestCommand = async (language: string, interaction: CommandInter
 	return format(commandInfo.messageWhenExecuted, {experience: entity.Player.experience});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "experience",
-	aliases: ["xp"],
-	commandFormat: "<experience>",
-	typeWaited: {
-		experience: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {experience} :star: !",
-	description: "Mets l'expérience votre joueur à la valeur donnée",
-	commandTestShouldReply: true,
-	execute: experienceTestCommand
-};
+commandInfo.execute = experienceTestCommand;

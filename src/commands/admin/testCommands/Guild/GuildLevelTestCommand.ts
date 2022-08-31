@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "guildlevel",
+	aliases: ["glvl"],
+	commandFormat: "<level>",
+	typeWaited: {
+		level: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde est maintenant niveau {level} !",
+	description: "Mets le niveau de votre guilde au niveau donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set your guild's level to the given integer
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,15 +40,4 @@ const guildLevelTestCommand = async (language: string, interaction: CommandInter
 	return format(commandInfo.messageWhenExecuted, {level: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "guildlevel",
-	aliases: ["glvl"],
-	commandFormat: "<level>",
-	typeWaited: {
-		level: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde est maintenant niveau {level} !",
-	description: "Mets le niveau de votre guilde au niveau donné",
-	commandTestShouldReply: true,
-	execute: guildLevelTestCommand
-};
+commandInfo.execute = guildLevelTestCommand;

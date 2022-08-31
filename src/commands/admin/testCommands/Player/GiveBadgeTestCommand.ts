@@ -4,6 +4,18 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "givebadge",
+	commandFormat: "<badge>",
+	typeWaited: {
+		badge: Constants.TEST_VAR_TYPES.EMOJI
+	},
+	messageWhenExecuted: "Vous avez maintenant le badge {badge} !",
+	description: "Donne un badge à votre joueur",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Give a badge to your player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -19,14 +31,4 @@ const giveBadgeTestCommand = async (language: string, interaction: CommandIntera
 	return format(commandInfo.messageWhenExecuted, {badge: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "givebadge",
-	commandFormat: "<badge>",
-	typeWaited: {
-		badge: Constants.TEST_VAR_TYPES.EMOJI
-	},
-	messageWhenExecuted: "Vous avez maintenant le badge {badge} !",
-	description: "Donne un badge à votre joueur",
-	commandTestShouldReply: true,
-	execute: giveBadgeTestCommand
-};
+commandInfo.execute = giveBadgeTestCommand;

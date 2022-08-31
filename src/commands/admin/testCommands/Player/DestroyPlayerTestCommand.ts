@@ -7,6 +7,16 @@ import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMiss
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "destroyplayer",
+	aliases: ["destroy"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez été réinitialisé !",
+	description: "Réinitialise votre joueur",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Reset the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -58,12 +68,4 @@ const destroyPlayerTestCommand = async (language: string, interaction: CommandIn
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "destroyplayer",
-	aliases: ["destroy"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez été réinitialisé !",
-	description: "Réinitialise votre joueur",
-	commandTestShouldReply: true,
-	execute: destroyPlayerTestCommand
-};
+commandInfo.execute = destroyPlayerTestCommand;

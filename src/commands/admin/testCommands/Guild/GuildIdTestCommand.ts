@@ -4,6 +4,16 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "guildid",
+	aliases: ["gid", "mygid"],
+	commandFormat: "",
+	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
+	description: "Renvoie l'id de votre guilde",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Get your guild's id
  * @param {("fr"|"en")} language - Language to use in the response
@@ -19,12 +29,4 @@ const guildIdTestCommand = async (language: string, interaction: CommandInteract
 	return format(commandInfo.messageWhenExecuted, {gName: guild.name, idGuild: guild.id});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "guildid",
-	aliases: ["gid", "mygid"],
-	commandFormat: "",
-	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
-	description: "Renvoie l'id de votre guilde",
-	commandTestShouldReply: true,
-	execute: guildIdTestCommand
-};
+commandInfo.execute = guildIdTestCommand;

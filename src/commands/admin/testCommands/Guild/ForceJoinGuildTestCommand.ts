@@ -5,6 +5,19 @@ import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "forcejoinguild",
+	aliases: ["fjg"],
+	commandFormat: "<guildToJoin>",
+	typeWaited: {
+		guildToJoin: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
+	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set your new guild
  * @param {("fr"|"en")} language - Language to use in the response
@@ -49,15 +62,4 @@ const forceJoinGuildTestCommand = async (language: string, interaction: CommandI
 	return format(commandInfo.messageWhenExecuted, {guildToJoin: guildToJoin.name});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "forcejoinguild",
-	aliases: ["fjg"],
-	commandFormat: "<guildToJoin>",
-	typeWaited: {
-		guildToJoin: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
-	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
-	commandTestShouldReply: true,
-	execute: forceJoinGuildTestCommand
-};
+commandInfo.execute = forceJoinGuildTestCommand;

@@ -7,6 +7,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "pet",
+	commandFormat: "<id> <sex = m/f>",
+	typeWaited: {
+		id: Constants.TEST_VAR_TYPES.INTEGER,
+		sex: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
+	description: "Vous donne un pet avec un id et un sexe donnés",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Give you a pet with id and sex given
  * @param {("fr"|"en")} language - Language to use in the response
@@ -47,15 +60,4 @@ const petTestCommand = async (language: string, interaction: CommandInteraction,
 	);
 };
 
-export const commandInfo: ITestCommand = {
-	name: "pet",
-	commandFormat: "<id> <sex = m/f>",
-	typeWaited: {
-		id: Constants.TEST_VAR_TYPES.INTEGER,
-		sex: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
-	description: "Vous donne un pet avec un id et un sexe donnés",
-	commandTestShouldReply: true,
-	execute: petTestCommand
-};
+commandInfo.execute = petTestCommand;

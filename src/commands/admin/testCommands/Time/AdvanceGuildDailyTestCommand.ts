@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "advanceguilddaily",
+	aliases: ["agd"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre gd de {time} minutes !",
+	description: "Avance le gd de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Quick travel your gd of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -23,15 +36,4 @@ const advanceGuildDailyTestCommand = async (language: string, interaction: Comma
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "advanceguilddaily",
-	aliases: ["agd"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre gd de {time} minutes !",
-	description: "Avance le gd de votre joueur d'une durée en minutes donnée",
-	commandTestShouldReply: true,
-	execute: advanceGuildDailyTestCommand
-};
+commandInfo.execute = advanceGuildDailyTestCommand;

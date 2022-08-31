@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "playerhealth",
+	aliases: ["health"],
+	commandFormat: "<health>",
+	typeWaited: {
+		health: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
+	description: "Mets la vie de votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the health of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,15 +40,4 @@ const playerHealthTestCommand = async (language: string, interaction: CommandInt
 	return format(commandInfo.messageWhenExecuted, {health: entity.health});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playerhealth",
-	aliases: ["health"],
-	commandFormat: "<health>",
-	typeWaited: {
-		health: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
-	description: "Mets la vie de votre joueur à la valeur donnée",
-	commandTestShouldReply: true,
-	execute: playerHealthTestCommand
-};
+commandInfo.execute = playerHealthTestCommand;

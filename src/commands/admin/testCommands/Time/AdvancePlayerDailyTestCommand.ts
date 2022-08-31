@@ -4,6 +4,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "advanceplayerdaily",
+	aliases: ["adaily"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
+	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Quick travel your daily of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -18,15 +31,4 @@ const advancePlayerDailyTestCommand = async (language: string, interaction: Comm
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "advanceplayerdaily",
-	aliases: ["adaily"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
-	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
-	commandTestShouldReply: true,
-	execute: advancePlayerDailyTestCommand
-};
+commandInfo.execute = advancePlayerDailyTestCommand;

@@ -10,6 +10,19 @@ import {ITestCommand} from "../../../../core/CommandsTest";
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += `\n - ${v[1]}`); // eslint-disable-line no-return-assign
 
+export const commandInfo: ITestCommand = {
+	name: "guildreward",
+	aliases: ["greward"],
+	commandFormat: "<reward>",
+	typeWaited: {
+		reward: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Reward {reward} forcé !",
+	description: stringDesc,
+	commandTestShouldReply: false,
+	execute: null // defined later
+};
+
 /**
  * Force a gd with a given out
  * @param {("fr"|"en")} language - Language to use in the response
@@ -34,15 +47,4 @@ const guildRewardTestCommand = async (language: string, interaction: CommandInte
 	return format(commandInfo.messageWhenExecuted, {reward: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "guildreward",
-	aliases: ["greward"],
-	commandFormat: "<reward>",
-	typeWaited: {
-		reward: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Reward {reward} forcé !",
-	description: stringDesc,
-	execute: guildRewardTestCommand,
-	commandTestShouldReply: false
-};
+commandInfo.execute = guildRewardTestCommand;

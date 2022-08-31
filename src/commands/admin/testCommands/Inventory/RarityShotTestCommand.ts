@@ -4,6 +4,24 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "rarityshot",
+	aliases: ["rs"],
+	commandFormat: "<nbTirages> <rarityMin = 1> <rarityMax = 8>",
+	typeWaited: {
+		nbTirages: Constants.TEST_VAR_TYPES.INTEGER,
+		rarityMin: Constants.TEST_VAR_TYPES.INTEGER,
+		rarityMax: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%)," +
+		" {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%)," +
+		" {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%)," +
+		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
+	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax.",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Do random rarity tries
  * @param {("fr"|"en")} language - Language to use in the response
@@ -11,7 +29,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const RarityShotTestCommand = (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const rarityShotTestCommand = (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const nbShots = parseInt(args[0], 10);
 	if (nbShots < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");
@@ -52,20 +70,4 @@ const RarityShotTestCommand = (language: string, interaction: CommandInteraction
 	}));
 };
 
-export const commandInfo: ITestCommand = {
-	name: "rarityshot",
-	aliases: ["rs"],
-	commandFormat: "<nbTirages> <rarityMin = 1> <rarityMax = 8>",
-	typeWaited: {
-		nbTirages: Constants.TEST_VAR_TYPES.INTEGER,
-		rarityMin: Constants.TEST_VAR_TYPES.INTEGER,
-		rarityMax: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%)," +
-		" {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%)," +
-		" {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%)," +
-		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
-	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax.",
-	commandTestShouldReply: true,
-	execute: RarityShotTestCommand
-};
+commandInfo.execute = rarityShotTestCommand;

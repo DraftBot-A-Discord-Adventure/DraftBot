@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "playerscore",
+	aliases: ["score"],
+	commandFormat: "<score>",
+	typeWaited: {
+		score: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
+	description: "Mets le score de votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the score of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -24,15 +37,4 @@ const playerScoreTestCommand = async (language: string, interaction: CommandInte
 	return format(commandInfo.messageWhenExecuted, {score: entity.Player.score});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playerscore",
-	aliases: ["score"],
-	commandFormat: "<score>",
-	typeWaited: {
-		score: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
-	description: "Mets le score de votre joueur à la valeur donnée",
-	commandTestShouldReply: true,
-	execute: playerScoreTestCommand
-};
+commandInfo.execute = playerScoreTestCommand;

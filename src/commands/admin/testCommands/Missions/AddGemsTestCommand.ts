@@ -5,6 +5,18 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "addgem",
+	commandFormat: "<gem>",
+	typeWaited: {
+		gem: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
+	description: "Ajoute la valeur donnée de gemmes à votre joueur",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Add gems to the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -20,14 +32,4 @@ const addGemsTestCommand = async (language: string, interaction: CommandInteract
 	return format(commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "addgem",
-	commandFormat: "<gem>",
-	typeWaited: {
-		gem: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
-	description: "Ajoute la valeur donnée de gemmes à votre joueur",
-	commandTestShouldReply: true,
-	execute: addGemsTestCommand
-};
+commandInfo.execute = addGemsTestCommand;
