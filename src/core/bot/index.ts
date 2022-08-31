@@ -9,6 +9,7 @@ import {Data} from "../Data";
 import {Translations} from "../Translations";
 import {BotUtils} from "../utils/BotUtils";
 import {DBL} from "../DBL";
+import {BotConstants} from "../constants/BotConstants";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -41,13 +42,11 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 		}
 
 		console.log("############################################");
-
-		const botDataModule = Data.getModule("bot");
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
-					content: format(botDataModule.getString("startStatus"), {
+					content: format(BotConstants.START_STATUS, {
 						version: Data.getModule("package").getString("version"),
 						shardId
 					})
@@ -57,7 +56,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			DBL.startDBLWebhook();
 		}
 		draftBotClient.user
-			.setActivity(botDataModule.getString("activity"));
+			.setActivity(BotConstants.ACTIVITY);
 	}
 });
 

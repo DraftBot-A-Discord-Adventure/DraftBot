@@ -22,12 +22,12 @@ import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";
-import {Data, DataModule} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
+import {BotConstants} from "../core/constants/BotConstants";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -152,16 +152,10 @@ export class CommandsManager {
 		if (author === botConfig.DM_MANAGER_ID) {
 			return;
 		}
-		const [entity] = await Entities.getOrRegister(author);
-		const dataModule = Data.getModule("bot");
-		let icon = "";
-		if (!entity.Player.dmNotification) {
-			icon = dataModule.getString("dm.alertIcon");
-		}
 		if (message instanceof Message) {
-			await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
+			await this.sendBackDMMessageToSupportChannel(message, author);
 		}
-		await this.sendHelperMessage(message, dataModule);
+		await this.sendHelperMessage(message);
 	}
 
 	/**
@@ -268,11 +262,11 @@ export class CommandsManager {
 	/**
 	 * Sends back a message sent in the bot DMs to the support channel
 	 * @param message
-	 * @param dataModule
-	 * @param icon
+	 * @param author
 	 * @private
 	 */
-	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string): Promise<void> {
+	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
+		const [entity] = await Entities.getOrRegister(author);
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			if (client.guilds.cache.get(context.mainServerId)) {
 				const dmChannel = client.users.cache.get(context.dmManagerID);
@@ -295,9 +289,9 @@ export class CommandsManager {
 				mainServerId: botConfig.MAIN_SERVER_ID,
 				dmManagerID: botConfig.DM_MANAGER_ID,
 				attachments: Array.from(message.attachments.values()),
-				supportAlert: format(dataModule.getString("dm.supportAlert"), {
+				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
 					username: escapeUsername(message.author.username),
-					alertIcon: icon,
+					alertIcon: entity.Player.dmNotification ? "" : BotConstants.DM.ALERT_ICON,
 					id: message.author.id
 				}) + message.content
 			}
@@ -307,10 +301,9 @@ export class CommandsManager {
 	/**
 	 * Sends a message to someone who said something in DM to the bot
 	 * @param message
-	 * @param dataModule
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message | CommandInteraction, dataModule: DataModule): Promise<void> {
+	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
 		const helpMessage = await new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
@@ -329,8 +322,8 @@ export class CommandsManager {
 				});
 			})
 			.build()
-			.formatAuthor(dataModule.getString("dm.titleSupport"), author)
-			.setDescription(message instanceof CommandInteraction ? dataModule.getString("dm.interactionSupport") : dataModule.getString("dm.messageSupport"));
+			.formatAuthor(BotConstants.DM.TITLE_SUPPORT, author)
+			.setDescription(message instanceof CommandInteraction ? BotConstants.DM.INTERACTION_SUPPORT : BotConstants.DM.MESSAGE_SUPPORT);
 		message instanceof Message ? await helpMessage.send(message.channel) : await helpMessage.reply(message);
 	}
 

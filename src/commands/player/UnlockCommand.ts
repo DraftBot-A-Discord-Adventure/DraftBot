@@ -13,6 +13,7 @@ import {UnlockConstants} from "../../core/constants/UnlockConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformations = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -40,7 +41,7 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 		return false;
 	}
 
-	if (entityCouple.locked.Player.effect !== Constants.EFFECT.LOCKED) {
+	if (entityCouple.locked.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 		await replyErrorMessage(
 			textInformations.interaction,
 			textInformations.language,
@@ -189,7 +190,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

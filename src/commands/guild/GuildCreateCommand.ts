@@ -15,6 +15,7 @@ import {Data, DataModule} from "../../core/Data";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type InformationModules = { guildCreateModule: TranslationModule, guildCreateData: DataModule }
 
@@ -178,7 +179,7 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

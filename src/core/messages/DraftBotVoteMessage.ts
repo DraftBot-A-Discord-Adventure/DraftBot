@@ -3,7 +3,7 @@ import {Role, User} from "discord.js";
 import {Constants} from "../Constants";
 import {draftBotClient} from "../bot";
 import {format} from "../utils/StringFormatter";
-import {Data} from "../Data";
+import {BotConstants} from "../constants/BotConstants";
 
 /**
  * A embed with for the DiscordBotList votes
@@ -29,7 +29,7 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 			desc += Constants.TOPGG.ROLE_DURATION + " hours";
 		}
 		this.setDescription(
-			format(Data.getModule("bot").getString("newVote"), {
+			format(BotConstants.NEW_VOTE, {
 				descStart: desc,
 				voteBadge: Constants.TOPGG.BADGE,
 				badgeDuration: Constants.TOPGG.BADGE_DURATION,

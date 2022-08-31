@@ -3,7 +3,6 @@ import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
@@ -12,6 +11,7 @@ import {Translations} from "../../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Allow a player who is dead to respawn
@@ -24,7 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
-	if (entity.Player.effect !== Constants.EFFECT.DEAD) {
+	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
 		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
 		return;
 	}
@@ -62,7 +62,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Revives you at the cost of points."),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
 	},
 	mainGuildCommand: false
 };

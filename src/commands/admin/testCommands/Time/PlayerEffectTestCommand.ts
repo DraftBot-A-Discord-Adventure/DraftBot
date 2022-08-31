@@ -6,8 +6,9 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {PlayerConstants} from "../../../../core/constants/PlayerConstants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 
-const effects = Object.keys(Constants.EFFECT.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
+const effects = Object.keys(EffectsConstants.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";
 effects.forEach(e => {
 	printableEffects = printableEffects.concat(`- ${e.slice(1, -1)}\n`);

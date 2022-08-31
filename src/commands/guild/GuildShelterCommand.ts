@@ -2,9 +2,9 @@ import {Entity} from "../../core/database/game/models/Entity";
 import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelterMessage";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const guild = await Guilds.getById(entity.Player.guildId);
@@ -17,7 +17,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the shelter of your guild"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true
 	},
 	mainGuildCommand: false

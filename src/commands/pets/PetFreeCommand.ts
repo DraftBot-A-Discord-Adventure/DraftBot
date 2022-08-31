@@ -17,6 +17,7 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
 	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
@@ -138,7 +139,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Get rid of your current pet"),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

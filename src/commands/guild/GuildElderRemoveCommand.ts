@@ -11,6 +11,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * @param entity
@@ -85,7 +86,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Remove the elder of your guild"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true,
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF
 	},

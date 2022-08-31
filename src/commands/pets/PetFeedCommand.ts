@@ -20,6 +20,7 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Obtiens la guilde du joueur
@@ -288,7 +289,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Feed your pet with the guild's food or your personnal food"),
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

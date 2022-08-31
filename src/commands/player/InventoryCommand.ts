@@ -3,7 +3,7 @@ import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
-import {Constants} from "../../core/Constants";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
@@ -30,7 +30,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

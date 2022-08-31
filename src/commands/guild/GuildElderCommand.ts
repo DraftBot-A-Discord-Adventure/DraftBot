@@ -12,6 +12,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type PersonInformation = { user: User, entity: Entity };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
@@ -169,7 +170,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF,
 		guildRequired: true
 	},

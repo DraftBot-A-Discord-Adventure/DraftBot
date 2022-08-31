@@ -21,6 +21,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Displays the guild shop
@@ -133,7 +134,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Shows the guild's shop in order to buy guild related items"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED],
 		guildRequired: true
 	},
 	mainGuildCommand: false

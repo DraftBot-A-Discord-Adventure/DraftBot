@@ -28,6 +28,8 @@ import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
 import Guild from "./Guild";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {EffectsConstants} from "../../../constants/EffectsConstants";
+import {PlayersConstants} from "../../../constants/PlayersConstants";
 import moment = require("moment");
 
 export class Player extends Model {
@@ -99,7 +101,7 @@ export class Player extends Model {
 	public addBadge(badge: string): boolean {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
-				this.badges += "-" + badge;
+				this.badges += `-${badge}`;
 			}
 			else {
 				return false;
@@ -284,7 +286,7 @@ export class Player extends Model {
 		if (entity.health > 0) {
 			return false;
 		}
-		await Maps.applyEffect(entity.Player, Constants.EFFECT.DEAD, 0, reason);
+		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.DEAD, 0, reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
 
@@ -306,10 +308,10 @@ export class Player extends Model {
 	}
 
 	public currentEffectFinished(): boolean {
-		if (this.effect === Constants.EFFECT.DEAD || this.effect === Constants.EFFECT.BABY) {
+		if (this.effect === EffectsConstants.EMOJI_TEXT.DEAD || this.effect === EffectsConstants.EMOJI_TEXT.BABY) {
 			return false;
 		}
-		if (this.effect === Constants.EFFECT.SMILEY) {
+		if (this.effect === EffectsConstants.EMOJI_TEXT.SMILEY) {
 			return true;
 		}
 		if (!this.effectEndDate) {
@@ -320,7 +322,7 @@ export class Player extends Model {
 
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
-		if (Data.getModule("models.players").exists("effectMalus." + this.effect) || this.effect === Constants.EFFECT.OCCUPIED) {
+		if (EffectsConstants.EMOJI_TEXT_LIST.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			if (!this.effectEndDate) {
 				return 0;
 			}
@@ -333,7 +335,7 @@ export class Player extends Model {
 	}
 
 	public checkEffect(): boolean {
-		return [Constants.EFFECT.BABY, Constants.EFFECT.SMILEY, Constants.EFFECT.DEAD].indexOf(this.effect) !== -1;
+		return [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.DEAD].indexOf(this.effect) !== -1;
 	}
 
 	public getLevel(): number {
@@ -695,8 +697,6 @@ export class Players {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	const data = Data.getModule("models.players");
-
 	Player.init({
 		id: {
 			type: DataTypes.INTEGER,
@@ -705,42 +705,42 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		score: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("score")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.SCORE
 		},
 		weeklyScore: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("weeklyScore")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.WEEKLY_SCORE
 		},
 		level: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("level")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.LEVEL
 		},
 		experience: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("experience")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.EXPERIENCE
 		},
 		money: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("money")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.MONEY
 		},
 		class: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("class")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.CLASS
 		},
 		badges: {
 			type: DataTypes.TEXT,
-			defaultValue: null
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.BADGES
 		},
 		entityId: {
 			type: DataTypes.INTEGER
 		},
 		guildId: {
 			type: DataTypes.INTEGER,
-			defaultValue: null
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.GUILD_ID
 		},
 		topggVoteAt: {
 			type: DataTypes.DATE,
-			defaultValue: new Date(0)
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.TOP_GG_VOTE_AT
 		},
 		nextEvent: {
 			type: DataTypes.INTEGER
@@ -750,11 +750,11 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		lastPetFree: {
 			type: DataTypes.DATE,
-			defaultValue: new Date(0)
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.LAST_PET_FREE
 		},
 		effect: {
 			type: DataTypes.STRING(32), // eslint-disable-line new-cap
-			defaultValue: data.getString("effect")
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.EFFECT
 		},
 		effectEndDate: {
 			type: DataTypes.DATE,
@@ -762,14 +762,18 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		effectDuration: {
 			type: DataTypes.INTEGER,
-			defaultValue: 0
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.EFFECT_DURATION
 		},
 		mapLinkId: {
 			type: DataTypes.INTEGER
 		},
 		startTravelDate: {
 			type: DataTypes.DATE,
-			defaultValue: 0
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.START_TRAVEL_DATE
+		},
+		dmNotification: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.DM_NOTIFICATION
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
@@ -778,10 +782,6 @@ export function initModel(sequelize: Sequelize): void {
 		createdAt: {
 			type: DataTypes.DATE,
 			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		dmNotification: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true
 		}
 	}, {
 		sequelize,

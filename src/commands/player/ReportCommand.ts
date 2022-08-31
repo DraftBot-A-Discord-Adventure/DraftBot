@@ -28,6 +28,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TextInformations = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
@@ -38,7 +39,7 @@ type TextInformations = { interaction: CommandInteraction, language: string, tr?
 async function initiateNewPlayerOnTheAdventure(entity: Entity): Promise<void> {
 	entity.Player.mapLinkId = Constants.BEGINNING.START_MAP_LINK;
 	entity.Player.startTravelDate = new Date(Date.now() - hoursToMilliseconds((await MapLinks.getById(entity.Player.mapLinkId)).tripDuration));
-	entity.Player.effect = Constants.EFFECT.SMILEY;
+	entity.Player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
 	await entity.Player.save();
 }
 
@@ -143,7 +144,7 @@ async function executeCommand(
 	forceSpecificEvent: number = null,
 	forceSmallEvent: string = null
 ): Promise<void> {
-	if (entity.Player.score === 0 && entity.Player.effect === Constants.EFFECT.BABY) {
+	if (entity.Player.score === 0 && entity.Player.effect === EffectsConstants.EMOJI_TEXT.BABY) {
 		await initiateNewPlayerOnTheAdventure(entity);
 	}
 
@@ -165,7 +166,7 @@ async function executeCommand(
 		return await sendTravelPath(entity, interaction, language, entity.Player.effect);
 	}
 
-	if (entity.Player.effect !== Constants.EFFECT.SMILEY && entity.Player.currentEffectFinished()) {
+	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && entity.Player.currentEffectFinished()) {
 		await MissionsController.update(entity, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
@@ -592,12 +593,12 @@ async function getDescriptionPossibilityResult(
 	if (randomPossibility.health > 0) {
 		result += textInformations.tr.format("health", {health: randomPossibility.health});
 	}
-	if (randomPossibility.lostTime > 0 && randomPossibility.effect === Constants.EFFECT.OCCUPIED) {
+	if (randomPossibility.lostTime > 0 && randomPossibility.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 		result += textInformations.tr.format("timeLost", {timeLost: minutesDisplay(randomPossibility.lostTime)});
 	}
-	let emojiEnd = randomPossibility.effect !== Constants.EFFECT.SMILEY && randomPossibility.effect !== Constants.EFFECT.OCCUPIED ? ` ${randomPossibility.effect}` : "";
+	let emojiEnd = randomPossibility.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && randomPossibility.effect !== EffectsConstants.EMOJI_TEXT.OCCUPIED ? ` ${randomPossibility.effect}` : "";
 
-	emojiEnd = randomPossibility.oneshot === true ? ` ${Constants.EFFECT.DEAD} ` : emojiEnd;
+	emojiEnd = randomPossibility.oneshot === true ? ` ${EffectsConstants.EMOJI_TEXT.DEAD} ` : emojiEnd;
 
 	await updatePlayerInfos(entity, randomPossibility, textInformations, changes);
 
