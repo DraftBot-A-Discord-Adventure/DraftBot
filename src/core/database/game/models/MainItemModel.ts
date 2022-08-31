@@ -1,8 +1,8 @@
 import {DataTypes} from "sequelize";
-import {Data} from "../../../Data";
 import {TranslationModule, Translations} from "../../../Translations";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
+import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
 
 type Value = {
@@ -84,7 +84,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	 * @protected
 	 */
 	protected multiplier(): number {
-		return Data.getModule("items").getNumberFromArray("mapper", this.rarity);
+		return InventoryConstants.ITEMS_MAPPER[this.rarity];
 	}
 
 	/**
