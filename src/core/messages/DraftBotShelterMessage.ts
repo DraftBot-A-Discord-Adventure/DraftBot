@@ -4,6 +4,7 @@ import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import Guild from "../database/game/models/Guild";
+import {PetEntityConstants} from "../constants/PetEntityConstants";
 
 /**
  * Shelter embed
@@ -59,7 +60,7 @@ export class DraftBotShelterMessageBuilder {
 		const title = format(tr.get("embedTitle"), {
 			guild: this._guild.name,
 			count: this._guild.GuildPets.length,
-			max: Data.getModule("models.pets").getNumber("slots")
+			max: PetEntityConstants.SLOTS
 		});
 		const thumbnail = Data.getModule("commands.guild").getString("icon");
 		let description = "";

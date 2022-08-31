@@ -2,7 +2,6 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import Pet from "./Pet";
 import {Constants} from "../../../Constants";
 import {RandomUtils} from "../../../utils/RandomUtils";
-import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
 import {TextBasedChannel} from "discord.js";
@@ -11,6 +10,7 @@ import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {Entity} from "./Entity";
 import {draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -36,7 +36,7 @@ export class PetEntity extends Model {
 
 
 	public getPetTypeName(language: string): string {
-		const field: string = (this.sex === "m" ? "male" : "female") + "Name" + language.toUpperCase().slice(0, 1) + language.slice(1);
+		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
 		return this.PetModel[field as keyof Pet];
 	}
 
@@ -56,16 +56,16 @@ export class PetEntity extends Model {
 	}
 
 	public getDietDisplay(language: string): string {
-		return Translations.getModule("models.pets", language).get("diet.diet_" + this.PetModel.diet);
+		return Translations.getModule("models.pets", language).get(`diet.diet_${this.PetModel.diet}`);
 	}
 
 	public getPetEmote(): string {
-		return this.PetModel["emote" + (this.sex === "m" ? "Male" : "Female") as keyof Pet];
+		return this.PetModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
 	}
 
 	public displayName(language: string): string {
 		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(language);
-		return this.getPetEmote() + " " + displayedName;
+		return `${this.getPetEmote()} ${displayedName}`;
 	}
 
 	public getPetDisplay(language: string): string {
@@ -156,10 +156,11 @@ export class PetEntity extends Model {
 	}
 
 	private getSexDisplay(language: string): string {
-		const sex = this.sex === "m" ? "male" : "female";
-		return Translations.getModule("models.pets", language).get(sex)
-			+ " "
-			+ Data.getModule("models.pets").getString(sex + "Emote");
+		return `${
+			Translations.getModule("models.pets", language).get(this.sex === "m" ? "male" : "female")
+		} ${
+			this.sex === "m" ? PetEntityConstants.EMOTE.MALE : PetEntityConstants.EMOTE.FEMALE
+		}`;
 	}
 }
 
@@ -183,12 +184,10 @@ export class PetEntities {
 
 	static async generateRandomPetEntity(level: number): Promise<PetEntity> {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
-		const levelTier = "" + Math.floor(level / 10);
-		const data = Data.getModule("models.pets");
 		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 		let rarity;
 		for (rarity = 1; rarity < 6; ++rarity) {
-			randomTier -= data.getNumber("probabilities." + levelTier + "." + rarity);
+			randomTier -= PetEntityConstants.PROBABILITIES[Math.floor(level / 10)][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
@@ -198,7 +197,7 @@ export class PetEntities {
 			rarity = 1;
 			console.log(
 				"Warning ! Pet probabilities are not equal to 1 for level tier " +
-				levelTier
+				Math.floor(level / 10)
 			);
 		}
 		const pet = await Pet.findOne({

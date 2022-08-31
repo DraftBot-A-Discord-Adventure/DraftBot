@@ -24,4 +24,5 @@ export abstract class BotConstants {
 
 	static readonly NEW_VOTE = "{descStart}` and got the badge {voteBadge} for `{badgeDuration} hours` :tada:\n\nYou can vote [here]({voteUrl}) every 12 hours!\n||User ID: {userId}||";
 
+	static readonly VERSION = import("../../../package.json").then(json => json.version);
 }
