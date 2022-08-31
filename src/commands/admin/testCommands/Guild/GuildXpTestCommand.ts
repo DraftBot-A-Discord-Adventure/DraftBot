@@ -6,6 +6,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "guildxp",
+	aliases: ["gxp"],
+	commandFormat: "<experience>",
+	typeWaited: {
+		experience: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
+	description: "Mets l'expérience de votre guilde au niveau donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set your guild's experience to the given integer
  * @param {("fr"|"en")} language - Language to use in the response
@@ -34,15 +47,4 @@ const guildXpTestCommand = async (language: string, interaction: CommandInteract
 	return format(commandInfo.messageWhenExecuted, {experience: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "guildxp",
-	aliases: ["gxp"],
-	commandFormat: "<experience>",
-	typeWaited: {
-		experience: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
-	description: "Mets l'expérience de votre guilde au niveau donné",
-	commandTestShouldReply: true,
-	execute: guildXpTestCommand
-};
+commandInfo.execute = guildXpTestCommand;

@@ -7,6 +7,25 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "giveRandomMission",
+	aliases: ["grm"],
+	commandFormat: "<difficulty>",
+	typeWaited: {
+		difficulty: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
+	description: "Donne une mission aléatoire",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
+/**
+ * Give a random mission
+ * @param language
+ * @param interaction
+ * @param args
+ */
 const giveRandomMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
@@ -27,15 +46,4 @@ const giveRandomMissionTestCommand = async (language: string, interaction: Comma
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "giveRandomMission",
-	aliases: ["grm"],
-	commandFormat: "<difficulty>",
-	typeWaited: {
-		difficulty: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Donne une mission aléatoire",
-	commandTestShouldReply: true,
-	execute: giveRandomMissionTestCommand
-};
+commandInfo.execute = giveRandomMissionTestCommand;

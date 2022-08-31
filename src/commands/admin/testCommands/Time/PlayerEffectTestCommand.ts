@@ -14,6 +14,19 @@ effects.forEach(e => {
 	printableEffects = printableEffects.concat(`- ${e.slice(1, -1)}\n`);
 });
 
+export const commandInfo: ITestCommand = {
+	name: "playereffect",
+	aliases: ["effect"],
+	commandFormat: "<effect>",
+	typeWaited: {
+		effect: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Vous avez maintenant l'effet {effect} !",
+	description: `Mets l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the effect of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -33,15 +46,4 @@ const playerEffectTestCommand = async (language: string, interaction: CommandInt
 
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playereffect",
-	aliases: ["effect"],
-	commandFormat: "<effect>",
-	typeWaited: {
-		effect: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Vous avez maintenant l'effet {effect} !",
-	description: `Mets l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
-	commandTestShouldReply: true,
-	execute: playerEffectTestCommand
-};
+commandInfo.execute = playerEffectTestCommand;

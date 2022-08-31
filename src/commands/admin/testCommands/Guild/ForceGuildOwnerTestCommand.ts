@@ -5,6 +5,16 @@ import {draftBotInstance} from "../../../../core/bot";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "forceguildowner",
+	aliases: ["fgo"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
+	description: "Vous passe chef de guilde de force",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Force you to be the guild's chief
  * @param {("fr"|"en")} language - Language to use in the response
@@ -23,12 +33,4 @@ const forceGuildOwnerTestCommand = async (language: string, interaction: Command
 	return format(commandInfo.messageWhenExecuted, {gName: guild.name});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "forceguildowner",
-	aliases: ["fgo"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
-	description: "Vous passe chef de guilde de force",
-	commandTestShouldReply: true,
-	execute: forceGuildOwnerTestCommand
-};
+commandInfo.execute = forceGuildOwnerTestCommand;

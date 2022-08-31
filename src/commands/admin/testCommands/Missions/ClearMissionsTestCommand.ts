@@ -2,6 +2,15 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Entities} from "../../../../core/database/game/models/Entity";
 
+export const commandInfo: ITestCommand = {
+	name: "clearMissions",
+	commandFormat: "",
+	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
+	description: "Permet de supprimer toutes ses missions",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -20,11 +29,4 @@ const clearMissionsTestCommand = async (language: string, interaction: CommandIn
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "clearMissions",
-	commandFormat: "",
-	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
-	description: "Permet de supprimer toutes ses missions",
-	commandTestShouldReply: true,
-	execute: clearMissionsTestCommand
-};
+commandInfo.execute = clearMissionsTestCommand;

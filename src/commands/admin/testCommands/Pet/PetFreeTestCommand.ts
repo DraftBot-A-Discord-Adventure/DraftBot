@@ -3,6 +3,16 @@ import {draftBotInstance} from "../../../../core/bot";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "petfree",
+	aliases: ["pf"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez libéré votre pet de force !",
+	description: "Libère votre pet de force, sans prendre en compte le cooldown",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Same as petfree command, but doesn't care about cooldown
  * @param {("fr"|"en")} language - Language to use in the response
@@ -21,12 +31,4 @@ const petFreeTestCommand = async (language: string, interaction: CommandInteract
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "petfree",
-	aliases: ["pf"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez libéré votre pet de force !",
-	description: "Libère votre pet de force, sans prendre en compte le cooldown",
-	commandTestShouldReply: true,
-	execute: petFreeTestCommand
-};
+commandInfo.execute = petFreeTestCommand;

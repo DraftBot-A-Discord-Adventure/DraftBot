@@ -9,6 +9,19 @@ import {CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../../../core/database/game/models/GenericItemModel";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "giveitem",
+	commandFormat: "<category [0-3]> <item id>",
+	typeWaited: {
+		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
+		"item id": Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez reçu {item} !",
+	description: "Permet de se donner un objet",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -52,15 +65,4 @@ const giveItemTestCommand = async (language: string, interaction: CommandInterac
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "giveitem",
-	commandFormat: "<category [0-3]> <item id>",
-	typeWaited: {
-		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
-		"item id": Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez reçu {item} !",
-	description: "Permet de se donner un objet",
-	commandTestShouldReply: true,
-	execute: giveItemTestCommand
-};
+commandInfo.execute = giveItemTestCommand;

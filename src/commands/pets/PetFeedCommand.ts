@@ -72,55 +72,6 @@ async function sendPetFeedMessageAndPrepareCollector(
 }
 
 /**
- * Allow a user in a guild to give some food to his pet
- * @param language
- * @param interaction
- * @param entity
- * @param authorPet
- * @param petFeedModule
- * @returns {Promise<void>}
- */
-async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
-	const foodItems = getFoodItems();
-
-	const feedEmbed = new DraftBotEmbed()
-		.formatAuthor(petFeedModule.get("feedEmbedAuthor"), interaction.user);
-	feedEmbed.setDescription(
-		petFeedModule.get("feedEmbedDescription")
-	);
-
-	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
-
-	// Fetch the choice from the user
-	collector.on("end", async (reaction) => {
-		if (
-			!reaction.first() ||
-			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
-		) {
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			return await sendErrorMessage(
-				interaction.user,
-				interaction,
-				language,
-				petFeedModule.get("cancelFeed"),
-				true
-			);
-		}
-
-		if (foodItems.has(reaction.first().emoji.name)) {
-			const item = foodItems.get(reaction.first().emoji.name);
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			await feedPet(interaction, language, entity, authorPet, item, petFeedModule);
-		}
-	});
-
-	for (const foodEmote of Constants.PET_FOOD_GUILD_SHOP.EMOTE) {
-		await feedMsg.react(foodEmote);
-	}
-	await feedMsg.react(Constants.MENU_REACTION.DENY);
-}
-
-/**
  * Allow a user without guild to feed his pet with some candies
  * @param language
  * @param interaction
@@ -238,6 +189,55 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	pet.hungrySince = new Date();
 	await Promise.all([pet.save(), guild.save()]);
 	return interaction.followUp({embeds: [successEmbed]});
+}
+
+/**
+ * Allow a user in a guild to give some food to his pet
+ * @param language
+ * @param interaction
+ * @param entity
+ * @param authorPet
+ * @param petFeedModule
+ * @returns {Promise<void>}
+ */
+async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
+	const foodItems = getFoodItems();
+
+	const feedEmbed = new DraftBotEmbed()
+		.formatAuthor(petFeedModule.get("feedEmbedAuthor"), interaction.user);
+	feedEmbed.setDescription(
+		petFeedModule.get("feedEmbedDescription")
+	);
+
+	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
+
+	// Fetch the choice from the user
+	collector.on("end", async (reaction) => {
+		if (
+			!reaction.first() ||
+			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
+		) {
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
+			return await sendErrorMessage(
+				interaction.user,
+				interaction,
+				language,
+				petFeedModule.get("cancelFeed"),
+				true
+			);
+		}
+
+		if (foodItems.has(reaction.first().emoji.name)) {
+			const item = foodItems.get(reaction.first().emoji.name);
+			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
+			await feedPet(interaction, language, entity, authorPet, item, petFeedModule);
+		}
+	});
+
+	for (const foodEmote of Constants.PET_FOOD_GUILD_SHOP.EMOTE) {
+		await feedMsg.react(foodEmote);
+	}
+	await feedMsg.react(Constants.MENU_REACTION.DENY);
 }
 
 /**

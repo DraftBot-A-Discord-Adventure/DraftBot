@@ -8,6 +8,19 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "finditem",
+	commandFormat: "<category [0-3]> <item id>",
+	typeWaited: {
+		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
+		"item id": Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "",
+	description: "Permet de trouver un objet défini",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -48,15 +61,4 @@ const findItemTestCommand = async (language: string, interaction: CommandInterac
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "finditem",
-	commandFormat: "<category [0-3]> <item id>",
-	typeWaited: {
-		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
-		"item id": Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "",
-	description: "Permet de trouver un objet défini",
-	commandTestShouldReply: true,
-	execute: findItemTestCommand
-};
+commandInfo.execute = findItemTestCommand;

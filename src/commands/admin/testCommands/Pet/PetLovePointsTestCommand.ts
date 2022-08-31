@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "petlovepoints",
+	aliases: ["petlp"],
+	commandFormat: "<lovePoints>",
+	typeWaited: {
+		lovePoints: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
+	description: "Mets le niveau d'amour de votre pet au niveau donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the lovePoints of your pet
  * @param {("fr"|"en")} language - Language to use in the response
@@ -32,15 +45,4 @@ const petLovePointsTestCommand = async (language: string, interaction: CommandIn
 	);
 };
 
-export const commandInfo: ITestCommand = {
-	name: "petlovepoints",
-	aliases: ["petlp"],
-	commandFormat: "<lovePoints>",
-	typeWaited: {
-		lovePoints: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
-	description: "Mets le niveau d'amour de votre pet au niveau donné",
-	commandTestShouldReply: true,
-	execute: petLovePointsTestCommand
-};
+commandInfo.execute = petLovePointsTestCommand;

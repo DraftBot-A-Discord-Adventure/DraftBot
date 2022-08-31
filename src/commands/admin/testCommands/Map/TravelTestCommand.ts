@@ -8,6 +8,20 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "travel",
+	aliases: ["tp"],
+	commandFormat: "<idStart> <idEnd>",
+	typeWaited: {
+		idStart: Constants.TEST_VAR_TYPES.INTEGER,
+		idEnd: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
+	description: "Vous téléporte sur un chemin donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
@@ -47,16 +61,4 @@ const travelTestCommand = async (language: string, interaction: CommandInteracti
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "travel",
-	aliases: ["tp"],
-	commandFormat: "<idStart> <idEnd>",
-	typeWaited: {
-		idStart: Constants.TEST_VAR_TYPES.INTEGER,
-		idEnd: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
-	description: "Vous téléporte sur un chemin donné",
-	commandTestShouldReply: true,
-	execute: travelTestCommand
-};
+commandInfo.execute = travelTestCommand;

@@ -5,6 +5,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "playerlevel",
+	aliases: ["level", "lvl"],
+	commandFormat: "<niveau>",
+	typeWaited: {
+		niveau: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
+	description: "Mets votre joueur au niveau donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the level of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -25,15 +38,4 @@ const playerLevelTestCommand = async (language: string, interaction: CommandInte
 	return format(commandInfo.messageWhenExecuted, {level: entity.Player.level});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playerlevel",
-	aliases: ["level", "lvl"],
-	commandFormat: "<niveau>",
-	typeWaited: {
-		niveau: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant niveau {level} !",
-	description: "Mets votre joueur au niveau donné",
-	commandTestShouldReply: true,
-	execute: playerLevelTestCommand
-};
+commandInfo.execute = playerLevelTestCommand;
