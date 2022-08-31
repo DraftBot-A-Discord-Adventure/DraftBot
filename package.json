@@ -17,7 +17,6 @@
 		"eslint": "eslint src test",
 		"eslintFix": "eslint src test --fix",
 		"tsc": "tsc",
-		"pm2": "tsc && pm2 start pm2.config.js",
 		"yarnInstall": "yarn install",
 		"dockerStart": "node dist/src/index.js"
 	},
