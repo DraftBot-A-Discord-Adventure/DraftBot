@@ -3,6 +3,16 @@ import {Maps} from "../../../../core/Maps";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "travelreport",
+	aliases: ["tr"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
+	description: "Réinitialise le parcours que vous effectuez",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Reset your current travel
  * @param {("fr"|"en")} language - Language to use in the response
@@ -24,12 +34,4 @@ const travelReportTestCommand = async (language: string, interaction: CommandInt
 
 };
 
-export const commandInfo: ITestCommand = {
-	name: "travelreport",
-	aliases: ["tr"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
-	description: "Réinitialise le parcours que vous effectuez",
-	commandTestShouldReply: true,
-	execute: travelReportTestCommand
-};
+commandInfo.execute = travelReportTestCommand;

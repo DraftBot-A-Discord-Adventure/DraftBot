@@ -8,6 +8,16 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "newDailyMissions",
+	aliases: ["ndm"],
+	commandFormat: "",
+	messageWhenExecuted: "La mission quotidienne a changée !\n Mission : {mission}",
+	description: "Permet d'obtenir une nouvelle mission quotidienne",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @return {String} - The successful message formatted
@@ -30,12 +40,4 @@ const newDailyMissionTestCommand = async (language: string, interaction: Command
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "newDailyMissions",
-	aliases: ["ndm"],
-	commandFormat: "",
-	messageWhenExecuted: "La mission quotidienne a changée !\n Mission : {mission}",
-	description: "Permet d'obtenir une nouvelle mission quotidienne",
-	commandTestShouldReply: true,
-	execute: newDailyMissionTestCommand
-};
+commandInfo.execute = newDailyMissionTestCommand;

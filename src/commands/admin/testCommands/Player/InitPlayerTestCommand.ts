@@ -5,6 +5,16 @@ import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "initplayer",
+	aliases: ["init"],
+	commandFormat: "",
+	messageWhenExecuted: "Vous avez initialisé votre joueur !",
+	description: "Initialise votre joueur pour des tests",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Initialize the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -36,12 +46,4 @@ const initPlayerTestCommand = async (language: string, interaction: CommandInter
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "initplayer",
-	aliases: ["init"],
-	commandFormat: "",
-	messageWhenExecuted: "Vous avez initialisé votre joueur !",
-	description: "Initialise votre joueur pour des tests",
-	commandTestShouldReply: true,
-	execute: initPlayerTestCommand
-};
+commandInfo.execute = initPlayerTestCommand;

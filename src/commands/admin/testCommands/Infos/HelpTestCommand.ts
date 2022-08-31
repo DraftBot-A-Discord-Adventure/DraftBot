@@ -3,6 +3,19 @@ import {CommandInteraction} from "discord.js";
 import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
 import {Constants} from "../../../../core/Constants";
 
+export const commandInfo: ITestCommand = {
+	name: "help",
+	aliases: ["h"],
+	commandFormat: "<command>",
+	typeWaited: {
+		command: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "",
+	description: "Affiche l'aide pour une commande",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Help the player about one given test command
  * @param {("fr"|"en")} language - Language to use in the response
@@ -47,15 +60,4 @@ const helpTestCommand = async (language: string, interaction: CommandInteraction
 	return embedHelpTest;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "help",
-	aliases: ["h"],
-	commandFormat: "<command>",
-	typeWaited: {
-		command: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "",
-	description: "Affiche l'aide pour une commande",
-	commandTestShouldReply: true,
-	execute: helpTestCommand
-};
+commandInfo.execute = helpTestCommand;

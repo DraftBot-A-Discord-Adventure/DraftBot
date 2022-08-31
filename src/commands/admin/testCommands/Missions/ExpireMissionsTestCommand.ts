@@ -2,6 +2,15 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "expireMissions",
+	commandFormat: "",
+	messageWhenExecuted: "Toutes les missions ont expiré",
+	description: "Expire toutes les missions",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
@@ -19,12 +28,4 @@ const expireMissionsTestCommand = async (language: string, interaction: CommandI
 	return commandInfo.messageWhenExecuted;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "expireMissions",
-	commandFormat: "",
-	messageWhenExecuted: "Toutes les missions ont expiré",
-	description: "Expire toutes les missions",
-	commandTestShouldReply: true,
-	execute: expireMissionsTestCommand
-};
-
+commandInfo.execute = expireMissionsTestCommand;

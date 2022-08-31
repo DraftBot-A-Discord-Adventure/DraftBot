@@ -8,6 +8,18 @@ import {CommandsManager} from "../../../CommandsManager";
 
 let stringDesc: string = null;
 
+export const commandInfo: ITestCommand = {
+	name: "smallEvent",
+	commandFormat: "<seName>",
+	typeWaited: {
+		seName: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Mini event `{name}` forcé !",
+	description: stringDesc,
+	commandTestShouldReply: false,
+	execute: null // defined later
+};
+
 /**
  * Force an small event with a given event name
  * @param {("fr"|"en")} language - Language to use in the response
@@ -31,14 +43,4 @@ const smallEventTestCommand = async (language: string, interaction: CommandInter
 	return format(commandInfo.messageWhenExecuted, {name: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "smallEvent",
-	commandFormat: "<seName>",
-	typeWaited: {
-		seName: Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Mini event `{name}` forcé !",
-	description: stringDesc,
-	commandTestShouldReply: false,
-	execute: smallEventTestCommand
-};
+commandInfo.execute = smallEventTestCommand;

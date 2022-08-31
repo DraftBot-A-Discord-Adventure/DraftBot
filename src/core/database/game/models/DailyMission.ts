@@ -4,8 +4,8 @@ import {MissionsController} from "../../../missions/MissionsController";
 import Mission from "./Mission";
 import {Data} from "../../../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
-import moment = require("moment");
 import {draftBotInstance} from "../../../bot";
+import moment = require("moment");
 
 export class DailyMission extends Model {
 	public readonly id!: number;
@@ -56,10 +56,19 @@ export class DailyMissions {
 
 	static async regenerateDailyMission(): Promise<DailyMission> {
 		const prop = await MissionsController.generateRandomDailyMissionProperties();
-		const dailyMission = await DailyMissions.queryDailyMission();
-		const missionData = Data.getModule("missions." + prop.mission.id);
-		if (!dailyMission) {
-			await DailyMission.create({
+		let dailyMission = await DailyMissions.queryDailyMission();
+		const missionData = Data.getModule(`missions.${prop.mission.id}`);
+		if (dailyMission) {
+			dailyMission.missionId = prop.mission.id;
+			dailyMission.objective = missionData.getNumberFromArray("objectives", prop.index);
+			dailyMission.variant = prop.variant;
+			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
+			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
+			dailyMission.lastDate = new Date();
+			await dailyMission.save();
+		}
+		else {
+			dailyMission = await DailyMission.create({
 				id: 0,
 				missionId: prop.mission.id,
 				objective: missionData.getNumberFromArray("objectives", prop.index),
@@ -68,16 +77,7 @@ export class DailyMissions {
 				xpToWin: missionData.getNumberFromArray("xp", prop.index),
 				moneyToWin: missionData.getNumberFromArray("money", prop.index),
 				lastDate: new Date()
-			});
-		}
-		else {
-			dailyMission.missionId = prop.mission.id;
-			dailyMission.objective = missionData.getNumberFromArray("objectives", prop.index);
-			dailyMission.variant = prop.variant;
-			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
-			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
-			dailyMission.lastDate = new Date();
-			await dailyMission.save();
+			}, {returning: true});
 		}
 		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective).then();
 		return await this.queryDailyMission();

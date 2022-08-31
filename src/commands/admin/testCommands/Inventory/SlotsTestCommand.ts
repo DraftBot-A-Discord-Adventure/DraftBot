@@ -4,6 +4,19 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "slots",
+	commandFormat: "<category [0-3]> <number>",
+	typeWaited: {
+		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
+		number: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
+	description: "Change le nombre d'emplacements disponibles pour les armes",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -48,15 +61,4 @@ const slotsTestCommand = async (language: string, interaction: CommandInteractio
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "slots",
-	commandFormat: "<category [0-3]> <number>",
-	typeWaited: {
-		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
-		number: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
-	description: "Change le nombre d'emplacements disponibles pour les armes",
-	commandTestShouldReply: true,
-	execute: slotsTestCommand
-};
+commandInfo.execute = slotsTestCommand;

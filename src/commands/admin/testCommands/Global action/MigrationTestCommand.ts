@@ -14,14 +14,14 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Migration down puis up effectuée",
 	description: "Effectue une migration down de la base de données puis up à nouveau",
 	commandTestShouldReply: true,
-	execute
+	execute: null // defined later
 };
 
 /**
  * Force a topweek end event
  * @return {String} - The successful message formatted
  */
-async function execute(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
+async function migrationTestCommand(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
 	if (interaction.user.id !== botConfig.BOT_OWNER_ID) {
 		throw new Error("You must be the bot owner to perform this action");
 	}
@@ -50,3 +50,5 @@ async function execute(language: string, interaction: CommandInteraction, args: 
 
 	return commandInfo.messageWhenExecuted;
 }
+
+commandInfo.execute = migrationTestCommand;

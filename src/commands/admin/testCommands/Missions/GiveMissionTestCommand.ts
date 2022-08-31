@@ -7,6 +7,20 @@ import Mission from "../../../../core/database/game/models/Mission";
 import {format} from "../../../../core/utils/StringFormatter";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "giveMission",
+	aliases: ["gm"],
+	commandFormat: "<mission id> <difficulty>",
+	typeWaited: {
+		"mission id": Constants.TEST_VAR_TYPES.STRING,
+		"difficulty": Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
+	description: "Permet de se donner une mission spécifique",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -18,7 +32,7 @@ const giveMissionTestCommand = async (language: string, interaction: CommandInte
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
 	const missionId = args[0];
-	const mission = await Mission.findOne({ where: { id: missionId } });
+	const mission = await Mission.findOne({where: {id: missionId}});
 	if (!mission) {
 		throw new Error("Id de mission inconnu !");
 	}
@@ -43,16 +57,4 @@ const giveMissionTestCommand = async (language: string, interaction: CommandInte
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "giveMission",
-	aliases: ["gm"],
-	commandFormat: "<mission id> <difficulty>",
-	typeWaited: {
-		"mission id": Constants.TEST_VAR_TYPES.STRING,
-		"difficulty": Constants.TEST_VAR_TYPES.STRING
-	},
-	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
-	description: "Permet de se donner une mission spécifique",
-	commandTestShouldReply: true,
-	execute: giveMissionTestCommand
-};
+commandInfo.execute = giveMissionTestCommand;

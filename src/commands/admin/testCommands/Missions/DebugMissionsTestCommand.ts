@@ -3,6 +3,16 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "debugMissions",
+	aliases: ["debugm", "debm"],
+	commandFormat: "",
+	messageWhenExecuted: "",
+	description: "Affiche des informations sur vos missions",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
@@ -42,12 +52,4 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 	return embed;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "debugMissions",
-	aliases: ["debugm", "debm"],
-	commandFormat: "",
-	messageWhenExecuted: "",
-	description: "Affiche des informations sur vos missions",
-	commandTestShouldReply: true,
-	execute: debugMissionsTestCommand
-};
+commandInfo.execute = debugMissionsTestCommand;

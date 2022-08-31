@@ -7,6 +7,15 @@ import {millisecondsToMinutes, parseTimeDifference} from "../../../../core/utils
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "mapinfo",
+	messageWhenExecuted: "",
+	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
+	commandTestShouldReply: true,
+	commandFormat: "",
+	execute: null // defined later
+};
+
 /**
  * Give you informations about the map you are on
  * @param {("fr"|"en")} language - Language to use in the response
@@ -54,11 +63,4 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 	return mapEmbed;
 };
 
-export const commandInfo: ITestCommand = {
-	name: "mapinfo",
-	messageWhenExecuted: "",
-	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
-	commandTestShouldReply: true,
-	commandFormat: "",
-	execute: mapInfosTestCommand
-};
+commandInfo.execute = mapInfosTestCommand;

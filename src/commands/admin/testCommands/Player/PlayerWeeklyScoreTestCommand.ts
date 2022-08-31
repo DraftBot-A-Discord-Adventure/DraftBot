@@ -4,6 +4,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "playerweeklyscore",
+	aliases: ["weeklyscore"],
+	commandFormat: "<weeklyscore>",
+	typeWaited: {
+		weeklyscore: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez maintenant {weeklyscore} points de la semaine !",
+	description: "Mets le score de la semaine de votre joueur à la valeur donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weeklyscore of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -19,15 +32,4 @@ const playerWeeklyScoreTestCommand = async (language: string, interaction: Comma
 	return format(commandInfo.messageWhenExecuted, {weeklyscore: entity.Player.weeklyScore});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "playerweeklyscore",
-	aliases: ["weeklyscore"],
-	commandFormat: "<weeklyscore>",
-	typeWaited: {
-		weeklyscore: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez maintenant {weeklyscore} points de la semaine !",
-	description: "Mets le score de la semaine de votre joueur à la valeur donnée",
-	commandTestShouldReply: true,
-	execute: playerWeeklyScoreTestCommand
-};
+commandInfo.execute = playerWeeklyScoreTestCommand;

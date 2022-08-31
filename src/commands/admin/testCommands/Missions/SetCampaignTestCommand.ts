@@ -5,6 +5,18 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "setCampaign",
+	commandFormat: "<progression>",
+	typeWaited: {
+		"progression": Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
+	description: "Vous mets à une certaine étape de la campagne",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -35,14 +47,4 @@ const setCampaignTestCommand = async (language: string, interaction: CommandInte
 	});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "setCampaign",
-	commandFormat: "<progression>",
-	typeWaited: {
-		"progression": Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
-	description: "Vous mets à une certaine étape de la campagne",
-	commandTestShouldReply: true,
-	execute: setCampaignTestCommand
-};
+commandInfo.execute = setCampaignTestCommand;

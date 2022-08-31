@@ -8,6 +8,19 @@ import {getIdFromMention} from "../../../../core/utils/StringUtils";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 
+export const commandInfo: ITestCommand = {
+	name: "jailplayer",
+	aliases: ["jail"],
+	commandFormat: "<mention>",
+	typeWaited: {
+		mention: Constants.TEST_VAR_TYPES.MENTION
+	},
+	messageWhenExecuted: "Vous avez enfermé {player} !",
+	description: "Enferme le joueur donné",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Jail the given player
  * @param {("fr"|"en")} language - Language to use in the response
@@ -22,15 +35,4 @@ const jailPlayerTestCommand = async (language: string, interaction: CommandInter
 	return format(commandInfo.messageWhenExecuted, {player: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "jailplayer",
-	aliases: ["jail"],
-	commandFormat: "<mention>",
-	typeWaited: {
-		mention: Constants.TEST_VAR_TYPES.MENTION
-	},
-	messageWhenExecuted: "Vous avez enfermé {player} !",
-	description: "Enferme le joueur donné",
-	commandTestShouldReply: true,
-	execute: jailPlayerTestCommand
-};
+commandInfo.execute = jailPlayerTestCommand;

@@ -6,6 +6,19 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
+export const commandInfo: ITestCommand = {
+	name: "advancetravel",
+	aliases: ["atravel"],
+	commandFormat: "<time>",
+	typeWaited: {
+		time: Constants.TEST_VAR_TYPES.INTEGER
+	},
+	messageWhenExecuted: "Vous avez avancé votre voyage de {time} minutes !",
+	description: "Avance votre voyage d'une durée en minutes donnée",
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
 /**
  * Quick travel your travel of a given time
  * @param {("fr"|"en")} language - Language to use in the response
@@ -20,15 +33,4 @@ const advanceTravelTestCommand = async (language: string, interaction: CommandIn
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
-export const commandInfo: ITestCommand = {
-	name: "advancetravel",
-	aliases: ["atravel"],
-	commandFormat: "<time>",
-	typeWaited: {
-		time: Constants.TEST_VAR_TYPES.INTEGER
-	},
-	messageWhenExecuted: "Vous avez avancé votre voyage de {time} minutes !",
-	description: "Avance votre voyage d'une durée en minutes donnée",
-	commandTestShouldReply: true,
-	execute: advanceTravelTestCommand
-};
+commandInfo.execute = advanceTravelTestCommand;
