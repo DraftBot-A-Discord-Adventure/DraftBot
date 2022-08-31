@@ -28,15 +28,15 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const smallEventTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const smallEventsModules = Translations.getSubModules("smallEvents");
+	const smallEventsModules = Translations.getSubModules();
 	if (stringDesc === null) {
 		stringDesc = "Force un type de mini event parmis ceux-ci :\n";
 		smallEventsModules.forEach(seName => {
-			stringDesc += "\n - " + seName;
+			stringDesc += `\n - ${seName}`;
 		});
 	}
 	if (!smallEventsModules.includes(args[0])) {
-		throw new Error("Erreur smallEvent : le mini-event " + args[0] + " n'existe pas. Veuillez vous référer à la commande \"test help smallEvent\" pour plus d'informations");
+		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, null, args[0]);

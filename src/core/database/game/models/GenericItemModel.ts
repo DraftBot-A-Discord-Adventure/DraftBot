@@ -49,7 +49,7 @@ export abstract class GenericItemModel extends Model {
 
 	public getEmote(): string {
 		let emote = this.emote;
-		if (new RegExp(/:[0-9]/).test(this.emote)) {
+		if (/:[0-9]/u.test(this.emote)) {
 			emote = draftBotClient.emojis.cache.has(this.emote.split(":")[2].split(">")[0])
 				? this.emote : this.fallbackEmote;
 		}

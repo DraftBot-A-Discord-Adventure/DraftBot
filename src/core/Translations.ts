@@ -112,7 +112,7 @@ export class Translations {
 		return translationModule;
 	}
 
-	static getSubModules(module: string): string[] {
+	static getSubModules(): string[] {
 		return Object.keys(JsonReader);
 	}
 }

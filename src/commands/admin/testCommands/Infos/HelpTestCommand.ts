@@ -22,10 +22,10 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const helpTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<DraftBotEmbed> => {
+const helpTestCommand = (language: string, interaction: CommandInteraction, args: string[]): DraftBotEmbed => {
 	let helpOnCommand: ITestCommand;
 	try {
-		helpOnCommand = await CommandsTest.getTestCommand(args[0]);
+		helpOnCommand = CommandsTest.getTestCommand(args[0]);
 	}
 	catch (e) {
 		throw new Error(`Commande inexistante : ${args[0]}`);
@@ -60,4 +60,4 @@ const helpTestCommand = async (language: string, interaction: CommandInteraction
 	return embedHelpTest;
 };
 
-commandInfo.execute = helpTestCommand;
+commandInfo.execute = helpTestCommand as unknown as typeof commandInfo.execute;

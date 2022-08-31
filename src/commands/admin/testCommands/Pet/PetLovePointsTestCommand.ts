@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  */
 const petLovePointsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	const pet = await entity.Player.Pet;
+	const pet = entity.Player.Pet;
 	if (pet === null) {
 		throw new Error("Erreur petlp : vous n'avez pas de pet !");
 	}

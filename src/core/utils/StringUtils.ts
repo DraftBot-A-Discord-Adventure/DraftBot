@@ -5,7 +5,7 @@
 import {Constants} from "../Constants";
 
 export const escapeUsername = function(username: string): string {
-	let fixedName = username.replace(/[*`_|]/g, "");
+	let fixedName = username.replace(/[*`_|]/gu, "");
 	if (fixedName === "") {
 		fixedName = ".";
 	}
@@ -37,8 +37,8 @@ export const progressBar = (value: number, maxValue: number): string => {
  * @param maxLength
  */
 export const checkNameString = function(name: string, minLength: number, maxLength: number): boolean {
-	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+	const regexAllowed = /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/u;
+	const regexSpecialCases = /^[0-9 ]+$|( {2})+/u;
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
@@ -57,8 +57,7 @@ export const discordIdToMention = function(id: string): string {
  */
 export const isAMention = (variable: string): boolean => {
 	if (typeof variable === "string") {
-		return RegExp(/^<@!?[0-9]{18}>$/)
-			.test(variable);
+		return /^<@!?[0-9]{18}>$/u.test(variable);
 	}
 	return false;
 };
@@ -68,8 +67,7 @@ export const isAMention = (variable: string): boolean => {
  * @param {String} variable
  * @return {boolean}
  */
-export const isAnEmoji = (variable: string): boolean => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/giu)
-	.test(variable);
+export const isAnEmoji = (variable: string): boolean => /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/giu.test(variable);
 
 /**
  * Get the id from a mention

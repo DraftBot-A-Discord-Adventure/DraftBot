@@ -201,16 +201,15 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					async (reactionMessage: DraftBotReactionMessage): Promise<void> => {
+					(reactionMessage: DraftBotReactionMessage): void => {
 						reactionMessage.stop();
-						await sendErrorMessage(
+						sendErrorMessage(
 							shopMessage.user,
 							shopMessage._interaction,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						);
-						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
+						).then(() => shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION));
 					}
 				));
 				const confirmBuyMessage = new DraftBotReactionMessage(

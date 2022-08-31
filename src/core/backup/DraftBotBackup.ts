@@ -1,9 +1,9 @@
+import * as archiver from "archiver";
 import {registerFormat} from "archiver";
 import {DropboxBackup} from "./DropboxBackup";
 import {LocalBackup} from "./LocalBackup";
 import {botConfig} from "../bot";
 import * as fs from "fs";
-import * as archiver from "archiver";
 import * as path from "path";
 
 export interface IDraftBotBackup {
@@ -68,7 +68,7 @@ export class DraftBotBackup {
 					fs.mkdirSync(DraftBotBackup.BACKUP_TPM_FOLDER);
 				}
 				const archiveName = `${archiveBasename}-${new Date().toISOString()
-					.replace(new RegExp(/[:.]/, "g"), "-")}.zip`;
+					.replace(/[:.]/gu, "-")}.zip`;
 				const zipPath = `${DraftBotBackup.BACKUP_TPM_FOLDER}/${archiveName}`;
 				const outputZip = fs.createWriteStream(zipPath);
 				let archive;
@@ -102,7 +102,7 @@ export class DraftBotBackup {
 							await backupInterface.backup(zipPath, archiveName, archiveBasename);
 						}
 						catch (err) {
-							console.error(`An error occurred while backing up files ${files} with ${backupInterface.name} :\n${err.stack.toString()}`);
+							console.error(`An error occurred while backing up files ${files.toString()} with ${backupInterface.name} :\n${err.stack}`);
 							if (err.error) {
 								console.error(err.error);
 							}
@@ -113,7 +113,7 @@ export class DraftBotBackup {
 				archive.finalize();
 			}
 			catch (err) {
-				console.error(`An error occurred while backing up files ${files} :\n${err.stack.toString()}`);
+				console.error(`An error occurred while backing up files ${files.toString()} :\n${err.stack}`);
 				if (err.error) {
 					console.error(err.error);
 				}
