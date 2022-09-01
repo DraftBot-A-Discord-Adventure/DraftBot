@@ -30,29 +30,28 @@ async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 /**
  * Transfer your pet to the guild's shelter
  * @param interaction
- * @param language
  * @param petTransferModule
  * @param entity
  * @param guild
  * @param confirmEmbed
  */
-async function transferPetToGuild(interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
+async function transferPetToGuild(interaction: CommandInteraction, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
 	const playerPet = entity.Player.Pet;
 	const guildPetCount = guild.GuildPets.length;
 	if (!playerPet) {
-		return replyErrorMessage(interaction, language, petTransferModule.get("noPetToTransfer"));
+		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noPetToTransfer"));
 	}
 	if (playerPet.isFeisty()) {
-		return replyErrorMessage(interaction, language, petTransferModule.get("isFeisty"));
+		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("isFeisty"));
 	}
 	if (guildPetCount >= PetEntityConstants.SLOTS) {
-		return replyErrorMessage(interaction, language, petTransferModule.get("noSlotAvailable"));
+		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noSlotAvailable"));
 	}
 	entity.Player.petId = null;
 	await entity.Player.save();
 	await GuildPets.addPet(guild, playerPet, false).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
-		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language)}`
+		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(petTransferModule.language)}`
 	}));
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, null).then();
 	return interaction.reply({embeds: [confirmEmbed]});
@@ -173,7 +172,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const shelterPosition = interaction.options.getInteger("shelterposition");
 
 	if (shelterPosition === null) {
-		await transferPetToGuild(interaction, language, petTransferModule, entity, guild, confirmEmbed);
+		await transferPetToGuild(interaction, petTransferModule, entity, guild, confirmEmbed);
 		return;
 	}
 

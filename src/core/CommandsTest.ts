@@ -58,14 +58,7 @@ export class CommandsTest {
 		for (const type of CommandsTest.testCommType) {
 			const commandsFiles = readdirSync(`dist/src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
-				const testCommand: ITestCommand = (await import(`../commands/admin/testCommands/${type}/${commandFile}`)).commandInfo;
-				testCommand.category = type;
-				CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
-				if (testCommand.aliases) {
-					for (const alias of testCommand.aliases) {
-						this.testCommandsArray[alias.toLowerCase()] = testCommand;
-					}
-				}
+				await this.initCommandTestFromCommandFile(type, commandFile);
 			}
 		}
 	}
@@ -203,5 +196,22 @@ export class CommandsTest {
 		return tabCommandReturn.filter(function(elem, pos) {
 			return tabCommandReturn.indexOf(elem) === pos;
 		});
+	}
+
+	/**
+	 * Initialize a test command from its file
+	 * @param type
+	 * @param commandFile
+	 * @private
+	 */
+	private static async initCommandTestFromCommandFile(type: string, commandFile: string): Promise<void> {
+		const testCommand: ITestCommand = (await import(`../commands/admin/testCommands/${type}/${commandFile}`)).commandInfo;
+		testCommand.category = type;
+		CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
+		if (testCommand.aliases) {
+			for (const alias of testCommand.aliases) {
+				this.testCommandsArray[alias.toLowerCase()] = testCommand;
+			}
+		}
 	}
 }

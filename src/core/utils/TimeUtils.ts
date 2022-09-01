@@ -1,6 +1,29 @@
 import {Constants} from "../Constants";
 
 /**
+ * Get the elements to display a remaining time in the given language
+ * @param language
+ */
+function getMinutesDisplayStringConstants(language: string): { hoursDisplay: string; minutesDisplay: string; plural: string; linkWord: string } {
+	return language === "" ? {
+		hoursDisplay: "H",
+		minutesDisplay: "Min",
+		linkWord: " ",
+		plural: ""
+	} : language === Constants.LANGUAGE.FRENCH ? {
+		hoursDisplay: "heure",
+		minutesDisplay: "minute",
+		linkWord: " et ",
+		plural: "s"
+	} : {
+		hoursDisplay: "hour",
+		minutesDisplay: "minute",
+		linkWord: " and ",
+		plural: "s"
+	};
+}
+
+/**
  * Display a time in a human-readable format
  * @param minutes - the time in minutes
  * @param language
@@ -8,10 +31,11 @@ import {Constants} from "../Constants";
 export function minutesDisplay(minutes: number, language = ""): string {
 	const hours = Math.floor(minutes / 60);
 	minutes = Math.floor(minutes % 60);
+	const displayConstantValues = getMinutesDisplayStringConstants(language);
 	const display = [
-		hours > 0 ? `${hours} ${language !== "" ? `${language === Constants.LANGUAGE.FRENCH ? "heure" : "hour"}${hours > 1 ? "s" : ""}` : "H"}` : "",
-		minutes > 0 ? `${minutes} ${language !== "" ? `minute${minutes > 1 ? "s" : ""}` : "Min"}` : ""
-	].filter(v => v !== "").join(language === "" ? " " : language === Constants.LANGUAGE.FRENCH ? " et " : " and ");
+		hours > 0 ? `${hours} ${displayConstantValues.hoursDisplay}${hours > 1 ? displayConstantValues.plural : ""}` : "",
+		minutes > 0 ? `${minutes} ${displayConstantValues.minutesDisplay}${minutes > 1 ? displayConstantValues.plural : ""}` : ""
+	].filter(v => v !== "").join(displayConstantValues.linkWord);
 	return display === "" ? "< 1 Min" : display;
 }
 

@@ -45,8 +45,7 @@ export async function giveFood(
 		.formatAuthor(tr.get("success"), interaction.user);
 	if (quantity === 1) {
 		successEmbed.setDescription(
-			format(
-				tr.get("singleSuccessAddFoodDesc"),
+			format(tr.get("singleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
@@ -59,8 +58,7 @@ export async function giveFood(
 	}
 	else {
 		successEmbed.setDescription(
-			format(
-				tr.get("multipleSuccessAddFoodDesc"),
+			format(tr.get("multipleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
