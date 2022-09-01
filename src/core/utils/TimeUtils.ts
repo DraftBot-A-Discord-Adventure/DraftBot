@@ -1,12 +1,11 @@
+import {Constants} from "../Constants";
+
 /**
  * Display a time in a human-readable format
  * @param minutes - the time in minutes
- * @param longVersion - is the display with/without full notation
+ * @param language
  */
-
-import {Constants} from "../Constants";
-
-export const minutesDisplay = function(minutes: number, language = ""): string {
+export function minutesDisplay(minutes: number, language = ""): string {
 	const hours = Math.floor(minutes / 60);
 	minutes = Math.floor(minutes % 60);
 	const display = [
@@ -14,70 +13,88 @@ export const minutesDisplay = function(minutes: number, language = ""): string {
 		minutes > 0 ? `${minutes} ${language !== "" ? `minute${minutes > 1 ? "s" : ""}` : "Min"}` : ""
 	].filter(v => v !== "").join(language === "" ? " " : language === Constants.LANGUAGE.FRENCH ? " et " : " and ");
 	return display === "" ? "< 1 Min" : display;
-};
+}
 
 /**
  * get a date value of tomorrow
  */
-export const getTomorrowMidnight = function(): Date {
+export function getTomorrowMidnight(): Date {
 	const tomorrow = new Date();
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	tomorrow.setHours(0, 0, 0, 0);
 	return tomorrow;
-};
+}
 
 /**
  * get the day number
  */
-export const getDayNumber = (): number => Math.floor(new Date().valueOf() / 8.64e7);
+export function getDayNumber(): number {
+	return Math.floor(new Date().valueOf() / 8.64e7);
+}
 
 /**
  * convert milliseconds to minutes
  * @param milliseconds
  */
-export const millisecondsToMinutes = (milliseconds: number): number => Math.round(milliseconds / 60000);
+export function millisecondsToMinutes(milliseconds: number): number {
+	return Math.round(milliseconds / 60000);
+}
 
 /**
  * convert minutes to seconds
  * @param minutes
  */
-export const minutesToMilliseconds = (minutes: number): number => minutes * 60000;
+export function minutesToMilliseconds(minutes: number): number {
+	return minutes * 60000;
+}
 
 /**
  * convert hours to milliseconds
  * @param hours
  */
-export const hoursToMilliseconds = (hours: number): number => hours * 3600000;
+export function hoursToMilliseconds(hours: number): number {
+	return hours * 3600000;
+}
 
 /**
  * convert hours to minutes
  * @param hours
  */
-export const hoursToMinutes = (hours: number): number => hours * 60;
+export function hoursToMinutes(hours: number): number {
+	return hours * 60;
+}
 
 /**
  * convert minutes to hours
  * @param milliseconds
  */
-export const millisecondsToHours = (milliseconds: number): number => milliseconds / 3600000;
+export function millisecondsToHours(milliseconds: number): number {
+	return milliseconds / 3600000;
+}
 
 /**
  * check if two dates are the same day
  * @param first - first date
  * @param second - second date
  */
-export const datesAreOnSameDay = (first: Date, second: Date): boolean =>
-	first.getFullYear() === second.getFullYear() &&
-	first.getMonth() === second.getMonth() &&
-	first.getDate() === second.getDate();
+export function datesAreOnSameDay(first: Date, second: Date): boolean {
+	return first.getFullYear() === second.getFullYear() &&
+		first.getMonth() === second.getMonth() &&
+		first.getDate() === second.getDate();
+}
 
 /**
- * Display the time before given date in a human readable format
+ * Display the time before given date in a human-readable format
  * @param finishDate - the date to use
  */
-export const finishInTimeDisplay = (finishDate: Date): string => `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:R>`;
-finishInTimeDisplay(new Date());
-export const getNextSundayMidnight = (): number => {
+export function finishInTimeDisplay(finishDate: Date): string {
+	return `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:R>`;
+}
+
+/**
+ * Get the next week's start
+ */
+export function getNextSundayMidnight(): number {
 	const now = new Date();
 	const dateOfReset = new Date();
 	dateOfReset.setDate(now.getDate() + (7 - now.getDay()) % 7);
@@ -87,12 +104,14 @@ export const getNextSundayMidnight = (): number => {
 		dateOfResetTimestamp += 1000 * 60 * 60 * 24 * 7;
 	}
 	return dateOfResetTimestamp;
-};
+}
 
 /**
  * check if the reset is being done currently
  */
-export const resetIsNow = (): boolean => getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;
+export function resetIsNow(): boolean {
+	return getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;
+}
 
 /**
  * parse the time difference between two dates
@@ -100,7 +119,7 @@ export const resetIsNow = (): boolean => getNextSundayMidnight() - Date.now() <=
  * @param date2 - second date
  * @param language - the language to use
  */
-export const parseTimeDifference = function(date1: number, date2: number, language: string): string {
+export function parseTimeDifference(date1: number, date2: number, language: string): string {
 	if (date1 > date2) {
 		date1 = [date2, date2 = date1][0];
 	}
@@ -122,12 +141,12 @@ export const parseTimeDifference = function(date1: number, date2: number, langua
 	seconds -= minutes * 60;
 	parsed += seconds + " s";
 	return parsed;
-};
+}
 
 /**
  * get the date of the next day at 2 am
  */
-export const getNextDay2AM = function(): Date {
+export function getNextDay2AM(): Date {
 	const now = new Date();
 	const dateOfReset = new Date();
 	dateOfReset.setHours(1, 59, 59);
@@ -135,4 +154,4 @@ export const getNextDay2AM = function(): Date {
 		dateOfReset.setDate(dateOfReset.getDate() + 1);
 	}
 	return new Date(dateOfReset);
-};
+}

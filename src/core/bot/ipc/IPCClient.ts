@@ -14,7 +14,14 @@ let requestCount = 0;
 const blockCallbacks: Map<number, (reason: string[]) => void> = new Map();
 const spamCallbacks: Map<number, (spamming: boolean) => void> = new Map();
 
+/**
+ * Represents the client to manage blocking and unblocking the players on demand
+ */
 export class IPCClient {
+	/**
+	 * Creates a connection to the ipc server
+	 * @param shardId
+	 */
 	static connectToIPCServer(shardId: number): void {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -66,14 +73,29 @@ export class IPCClient {
 		});
 	}
 
+	/**
+	 * Block a player for a given reason and time
+	 * @param discordId
+	 * @param reason
+	 * @param time
+	 */
 	static ipcBlockPlayer(discordId: string, reason: string, time = 0): void {
 		ipc.of.draftbot.emit("block", {discordId, reason, time});
 	}
 
+	/**
+	 * Unblock a player for a given reason
+	 * @param discordId
+	 * @param reason
+	 */
 	static ipcUnblockPlayer(discordId: string, reason: string): void {
 		ipc.of.draftbot.emit("unblock", {discordId, reason});
 	}
 
+	/**
+	 * Get all the reasons for why this player is blocked (empty list means it isnt blocked)
+	 * @param discordId
+	 */
 	static ipcGetBlockedPlayerReason(discordId: string): Promise<string[]> {
 		return new Promise(resolve => {
 			blockCallbacks.set(requestCount, (reason) => resolve(reason));
@@ -82,10 +104,18 @@ export class IPCClient {
 		});
 	}
 
+	/**
+	 * Marks a player as a spammer
+	 * @param discordId
+	 */
 	static ipcSpamBlockPlayer(discordId: string): void {
 		ipc.of.draftbot.emit("spam", {discordId});
 	}
 
+	/**
+	 * Checks if the player is spamming
+	 * @param discordId
+	 */
 	static ipcIsPlayerSpamming(discordId: string): Promise<boolean> {
 		return new Promise(resolve => {
 			spamCallbacks.set(requestCount, (spamming) => resolve(spamming));

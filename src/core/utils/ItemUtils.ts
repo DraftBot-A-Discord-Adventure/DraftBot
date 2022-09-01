@@ -65,6 +65,16 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 	});
 };
 
+/**
+ * Gives an item to a player
+ * @param entity
+ * @param item
+ * @param language
+ * @param discordUser
+ * @param channel
+ * @param resaleMultiplierNew
+ * @param resaleMultiplierActual
+ */
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: Entity,
@@ -120,6 +130,7 @@ export const giveItemToPlayer = async function(
 		}
 		else {
 			const choiceList: ChoiceItem[] = [];
+			// eslint-disable-next-line @typescript-eslint/no-extra-parens
 			items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(
@@ -219,6 +230,20 @@ export const giveItemToPlayer = async function(
 		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
 };
 
+/**
+ * Sells or keep the item depending on the parameters
+ * @param entity
+ * @param keepOriginal
+ * @param discordUser
+ * @param channel
+ * @param language
+ * @param item
+ * @param itemToReplace
+ * @param itemToReplaceInstance
+ * @param resaleMultiplier
+ * @param resaleMultiplierActual
+ * @param autoSell
+ */
 // eslint-disable-next-line max-params
 const sellOrKeepItem = async function(
 	entity: Entity,
@@ -315,10 +340,20 @@ const sellOrKeepItem = async function(
 	});
 };
 
+/**
+ * Get the value of an item
+ * @param item
+ */
 export const getItemValue = function(item: GenericItemModel): number {
 	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
+/**
+ * Generates a random item given its category and the rarity limits
+ * @param maxRarity
+ * @param itemCategory
+ * @param minRarity
+ */
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	if (itemCategory === null) {
