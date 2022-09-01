@@ -7,6 +7,12 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
+/**
+ * Shows the missions of the given entity (default : the one who entered the command)
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;

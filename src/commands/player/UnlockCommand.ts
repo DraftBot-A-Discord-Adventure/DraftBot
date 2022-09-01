@@ -16,44 +16,44 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
-type TextInformations = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
+type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
 
 /**
  * Test if both entities are eligible to the context of the unlock command
  * @param entityCouple
- * @param textInformations
+ * @param textInformation
  */
-async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformations: TextInformations): Promise<boolean> {
+async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, textInformation: TextInformation): Promise<boolean> {
 	if (!entityCouple.locked) {
 		await replyErrorMessage(
-			textInformations.interaction,
-			textInformations.language,
-			textInformations.unlockModule.get("cannotGetlockedUser")
+			textInformation.interaction,
+			textInformation.language,
+			textInformation.unlockModule.get("cannotGetLockedUser")
 		);
 		return false;
 	}
 	if (entityCouple.locked.discordUserId === entityCouple.unlocker.discordUserId) {
 		await replyErrorMessage(
-			textInformations.interaction,
-			textInformations.language,
-			textInformations.unlockModule.get("unlockHimself")
+			textInformation.interaction,
+			textInformation.language,
+			textInformation.unlockModule.get("unlockHimself")
 		);
 		return false;
 	}
 
 	if (entityCouple.locked.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 		await replyErrorMessage(
-			textInformations.interaction,
-			textInformations.language,
-			textInformations.unlockModule.get("userNotLocked")
+			textInformation.interaction,
+			textInformation.language,
+			textInformation.unlockModule.get("userNotLocked")
 		);
 		return false;
 	}
 	if (entityCouple.unlocker.Player.money < UnlockConstants.PRICE_FOR_UNLOCK) {
-		await replyErrorMessage(textInformations.interaction, textInformations.language,
-			textInformations.unlockModule.format("noMoney", {
+		await replyErrorMessage(textInformation.interaction, textInformation.language,
+			textInformation.unlockModule.format("noMoney", {
 				money: UnlockConstants.PRICE_FOR_UNLOCK - entityCouple.unlocker.Player.money,
-				pseudo: await entityCouple.locked.Player.getPseudo(textInformations.language)
+				pseudo: await entityCouple.locked.Player.getPseudo(textInformation.language)
 			})
 		);
 		return false;
@@ -64,11 +64,11 @@ async function conditionAreFulfilledForUnlocking(entityCouple: EntityCouple, tex
 /**
  * Creates the callback used after the unlocker reacted
  * @param entityCouple
- * @param textInformations
+ * @param textInformation
  */
 function callbackUnlockCommand(
 	entityCouple: EntityCouple,
-	textInformations: TextInformations
+	textInformation: TextInformation
 ): (reaction: Collection<string, MessageReaction>) => Promise<void> {
 	return async (reaction: Collection<string, MessageReaction>): Promise<void> => {
 		BlockingUtils.unblockPlayer(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK);
@@ -77,7 +77,7 @@ function callbackUnlockCommand(
 			const [entityUnlocker] = await Entities.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entityToUnlock.Player, NumberChangeReason.UNLOCK);
-				await entityUnlocker.Player.addMoney(entityUnlocker, -UnlockConstants.PRICE_FOR_UNLOCK, textInformations.interaction.channel, textInformations.language, NumberChangeReason.UNLOCK);
+				await entityUnlocker.Player.addMoney(entityUnlocker, -UnlockConstants.PRICE_FOR_UNLOCK, textInformation.interaction.channel, textInformation.language, NumberChangeReason.UNLOCK);
 				await Promise.all([
 					entityToUnlock.save(),
 					entityToUnlock.Player.save(),
@@ -87,19 +87,19 @@ function callbackUnlockCommand(
 				draftBotInstance.logsDatabase.logUnlocks(entityUnlocker.discordUserId, entityToUnlock.discordUserId).then();
 				const successEmbed = new DraftBotEmbed()
 					.setAuthor({
-						name: textInformations.unlockModule.format("unlockedTitle", {
-							pseudo: await entityToUnlock.Player.getPseudo(textInformations.language)
+						name: textInformation.unlockModule.format("unlockedTitle", {
+							pseudo: await entityToUnlock.Player.getPseudo(textInformation.language)
 						}),
-						iconURL: textInformations.interaction.user.displayAvatarURL()
+						iconURL: textInformation.interaction.user.displayAvatarURL()
 					})
-					.setDescription(textInformations.unlockModule.format("unlockSuccess", {
-						pseudo: await entityToUnlock.Player.getPseudo(textInformations.language)
+					.setDescription(textInformation.unlockModule.format("unlockSuccess", {
+						pseudo: await entityToUnlock.Player.getPseudo(textInformation.language)
 					}));
-				await textInformations.interaction.followUp({embeds: [successEmbed]});
+				await textInformation.interaction.followUp({embeds: [successEmbed]});
 				return;
 			}
 		}
-		await sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.language, textInformations.unlockModule.get("unlockCanceled"), true);
+		await sendErrorMessage(textInformation.interaction.user, textInformation.interaction, textInformation.language, textInformation.unlockModule.get("unlockCanceled"), true);
 	};
 }
 
@@ -123,25 +123,25 @@ async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 /**
  * Sends and manage the "unlock" message
  * @param entityCouple
- * @param textInformations
+ * @param textInformation
  * @param embed
  */
 async function sendAndManageUnlockMessage(
 	entityCouple: EntityCouple,
-	textInformations: TextInformations,
+	textInformation: TextInformation,
 	embed: DraftBotEmbed
 ): Promise<void> {
-	const unlockMessage = await textInformations.interaction.reply({embeds: [embed], fetchReply: true}) as Message;
+	const unlockMessage = await textInformation.interaction.reply({embeds: [embed], fetchReply: true}) as Message;
 
 	const collector = unlockMessage.createReactionCollector({
-		filter: (reaction, user) => [Constants.MENU_REACTION.ACCEPT, Constants.MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === textInformations.interaction.user.id,
+		filter: (reaction, user) => [Constants.MENU_REACTION.ACCEPT, Constants.MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === textInformation.interaction.user.id,
 		time: UnlockConstants.COLLECTOR_TIME_FOR_UNLOCK_COLLECTOR,
 		max: UnlockConstants.MAX_ACCEPTED_REACTION
 	});
 
 	BlockingUtils.blockPlayerWithCollector(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK, collector);
 
-	collector.on("end", callbackUnlockCommand(entityCouple, textInformations));
+	collector.on("end", callbackUnlockCommand(entityCouple, textInformation));
 
 	await addReactionsToMessage(unlockMessage);
 }
@@ -161,8 +161,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const lockedEntity = await Entities.getByOptions(interaction);
 	const entityCouple = {unlocker: entity, locked: lockedEntity};
-	const textInformations = {interaction: interaction, language: language, unlockModule: unlockModule};
-	if (!await conditionAreFulfilledForUnlocking(entityCouple, textInformations)) {
+	const textInformation = {interaction: interaction, language: language, unlockModule: unlockModule};
+	if (!await conditionAreFulfilledForUnlocking(entityCouple, textInformation)) {
 		return;
 	}
 
@@ -173,7 +173,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			price: UnlockConstants.PRICE_FOR_UNLOCK
 		}));
 
-	await sendAndManageUnlockMessage(entityCouple, textInformations, embed);
+	await sendAndManageUnlockMessage(entityCouple, textInformation, embed);
 }
 
 export const commandInfo: ICommand = {

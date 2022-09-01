@@ -11,6 +11,9 @@ import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 
+/**
+ * Special class for mass editing player values (admin only)
+ */
 export class ChangeValueAdminCommands {
 	/**
 	 * Get the commandInfo from the given commandName

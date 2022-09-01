@@ -155,7 +155,6 @@ async function itemChoiceValidation(entity: Entity, interaction: CommandInteract
 		.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM, collector));
 }
 
-
 /**
  * Sell menu embed
  * @param choiceItems

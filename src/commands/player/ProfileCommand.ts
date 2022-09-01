@@ -16,7 +16,6 @@ import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveO
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
 
-
 /**
  * Display badges for the given entity
  * @param {Entities} entity
@@ -37,6 +36,11 @@ async function displayBadges(entity: Entity, msg: Message): Promise<void> {
 	}
 }
 
+/**
+ * Get the information field of the profile
+ * @param profileModule
+ * @param askedEntity
+ */
 async function getInformationField(profileModule: TranslationModule, askedEntity: Entity): Promise<EmbedFieldData[]> {
 	return [
 		{
@@ -52,6 +56,12 @@ async function getInformationField(profileModule: TranslationModule, askedEntity
 		}];
 }
 
+/**
+ * Get the statistic field of the profile
+ * @param profileModule
+ * @param askedEntity
+ * @param playerActiveObjects
+ */
 async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects): Promise<EmbedFieldData> {
 	return {
 		name: profileModule.get("statistique.fieldName"),
@@ -66,6 +76,12 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
 	};
 }
 
+/**
+ * Get the mission field of the profile
+ * @param profileModule
+ * @param askedEntity
+ * @param mc
+ */
 function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedFieldData {
 	return {
 		name: profileModule.get("mission.fieldName"),
@@ -82,6 +98,13 @@ function getMissionField(profileModule: TranslationModule, askedEntity: Entity, 
 	};
 }
 
+/**
+ * Get the ranking field of the profile
+ * @param profileModule
+ * @param rank
+ * @param numberOfPlayers
+ * @param askedEntity
+ */
 function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity): EmbedFieldData {
 	const isUnranked = rank > numberOfPlayers;
 	return {
@@ -97,6 +120,12 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 	};
 }
 
+/**
+ * Get the class field of the profile
+ * @param profileModule
+ * @param playerClass
+ * @param language
+ */
 function getClassField(profileModule: TranslationModule, playerClass: Class, language: string): EmbedFieldData {
 	return {
 		name: profileModule.get("playerClass.fieldName"),
@@ -107,6 +136,11 @@ function getClassField(profileModule: TranslationModule, playerClass: Class, lan
 	};
 }
 
+/**
+ * Get the guild field of the profile
+ * @param profileModule
+ * @param guild
+ */
 function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFieldData {
 	return {
 		name: profileModule.get("guild.fieldName"),
@@ -117,6 +151,12 @@ function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFie
 	};
 }
 
+/**
+ * Get the location field of the profile
+ * @param profileModule
+ * @param askedEntity
+ * @param language
+ */
 async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string): Promise<EmbedFieldData> {
 	return {
 		name: profileModule.get("map.fieldName"),
@@ -125,6 +165,12 @@ async function getLocationField(profileModule: TranslationModule, askedEntity: E
 	};
 }
 
+/**
+ * Get the pet field of the profile
+ * @param profileModule
+ * @param pet
+ * @param language
+ */
 function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string): EmbedFieldData {
 	return {
 		name: profileModule.get("pet.fieldName"),
@@ -137,6 +183,12 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, language:
 	};
 }
 
+/**
+ * Get the time left field of the profile
+ * @param profileModule
+ * @param askedEntity
+ * @param interaction
+ */
 function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction): EmbedFieldData {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
@@ -148,6 +200,10 @@ function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity,
 	};
 }
 
+/**
+ * Get the no time left field of the profile
+ * @param profileModule
+ */
 function getNoTimeLeftField(profileModule: TranslationModule): EmbedFieldData {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),

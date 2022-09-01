@@ -14,6 +14,12 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
+/**
+ * Get the callback for the guild leave command
+ * @param userInformation
+ * @param interaction
+ * @param guildLeaveModule
+ */
 function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(

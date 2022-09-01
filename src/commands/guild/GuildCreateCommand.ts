@@ -18,62 +18,9 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildCreateConstants} from "../../core/constants/GuildCreateConstants";
 
 /**
- * Allow to Create a guild
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * Get a guild by its name
+ * @param askedName
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
-	const guildCreateModule = Translations.getModule("commands.guildCreate", language);
-	// search for a user's guild
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-	if (guild !== null) {
-		// already in a guild
-		await replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
-		return;
-	}
-
-	const askedName = interaction.options.getString("name");
-
-	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
-		await replyErrorMessage(
-			interaction,
-			language,
-			`${guildCreateModule.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
-				min: Constants.GUILD.MIN_GUILD_NAME_SIZE,
-				max: Constants.GUILD.MAX_GUILD_NAME_SIZE
-			})}`);
-		return;
-	}
-
-	guild = await getGuildByName(askedName);
-
-	if (guild !== null) {
-		// the name is already used
-		await replyErrorMessage(
-			interaction,
-			language,
-			guildCreateModule.get("nameAlreadyUsed")
-		);
-		return;
-	}
-
-	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, askedName, interaction, language, guildCreateModule);
-
-	const validationEmbed = createValidationEmbedGuildCreation(interaction, endCallback, askedName, guildCreateModule);
-
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
-}
-
 async function getGuildByName(askedName: string): Promise<Guild> {
 	try {
 		return await Guilds.getByName(askedName);
@@ -83,6 +30,15 @@ async function getGuildByName(askedName: string): Promise<Guild> {
 	}
 }
 
+/**
+ * Get the callback for the guild create command
+ * @param entity
+ * @param guild
+ * @param askedName
+ * @param interaction
+ * @param language
+ * @param guildCreateModule
+ */
 function endCallbackGuildCreateValidationMessage(
 	entity: Entity,
 	guild: Guild,
@@ -141,6 +97,13 @@ function endCallbackGuildCreateValidationMessage(
 	};
 }
 
+/**
+ * Get the validation embed for a guild creation
+ * @param interaction
+ * @param endCallback
+ * @param askedName
+ * @param guildCreateModule
+ */
 function createValidationEmbedGuildCreation(
 	interaction: CommandInteraction,
 	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
@@ -157,6 +120,63 @@ function createValidationEmbedGuildCreation(
 				}
 			))
 		.setFooter({text: guildCreateModule.get("buyFooter")});
+}
+
+/**
+ * Allow to Create a guild
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+	const guildCreateModule = Translations.getModule("commands.guildCreate", language);
+	// search for a user's guild
+	let guild;
+	try {
+		guild = await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
+		guild = null;
+	}
+	if (guild !== null) {
+		// already in a guild
+		await replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
+		return;
+	}
+
+	const askedName = interaction.options.getString("name");
+
+	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
+		await replyErrorMessage(
+			interaction,
+			language,
+			`${guildCreateModule.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
+				min: Constants.GUILD.MIN_GUILD_NAME_SIZE,
+				max: Constants.GUILD.MAX_GUILD_NAME_SIZE
+			})}`);
+		return;
+	}
+
+	guild = await getGuildByName(askedName);
+
+	if (guild !== null) {
+		// the name is already used
+		await replyErrorMessage(
+			interaction,
+			language,
+			guildCreateModule.get("nameAlreadyUsed")
+		);
+		return;
+	}
+
+	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, askedName, interaction, language, guildCreateModule);
+
+	const validationEmbed = createValidationEmbedGuildCreation(interaction, endCallback, askedName, guildCreateModule);
+
+	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
 }
 
 

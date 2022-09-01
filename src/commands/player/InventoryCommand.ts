@@ -5,6 +5,12 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
+/**
+ * Shows the inventory of the given player (default player is the one who entered the command)
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	let askedEntity = await Entities.getByOptions(interaction);
 	if (!askedEntity) {

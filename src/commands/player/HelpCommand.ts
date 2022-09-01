@@ -6,6 +6,9 @@ import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 
+/**
+ * Get all commands sorted by categories
+ */
 function getCommandByCategories(): { [key: string]: string[] } {
 	const commandsDataList = HelpConstants.COMMANDS_DATA;
 	const serverCommands: string[] = [], utilCommands: string[] = [], playerCommands: string[] = [],
@@ -49,6 +52,12 @@ function getCommandByCategories(): { [key: string]: string[] } {
 	return {serverCommands, utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
 }
 
+/**
+ * Updates the embed to make a generic help message
+ * @param helpMessage
+ * @param tr
+ * @param interaction
+ */
 function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction): void {
 	const {
 		serverCommands,
@@ -95,6 +104,9 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 	]);
 }
 
+/**
+ * Get all the accepted words when searching the help for the commands
+ */
 function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
 	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {

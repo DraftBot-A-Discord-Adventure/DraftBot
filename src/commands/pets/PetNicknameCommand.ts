@@ -11,6 +11,12 @@ import {checkNameString} from "../../core/utils/StringUtils";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
+/**
+ * Renames your current pet
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;

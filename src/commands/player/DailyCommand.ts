@@ -16,8 +16,8 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 
-type EntityInformations = { entity: Entity, activeObject: ObjectItem };
-type TextInformations = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
+type EntityInformation = { entity: Entity, activeObject: ObjectItem };
+type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
 
 /**
  * Checks if you have a right object you can daily with, and if you don't, sends an error
@@ -34,7 +34,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
 			return true;
 		}
 		// there is no object in the inventory
-		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectdescription"));
+		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
 		return true;
 	}
 	if ([Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK].indexOf(activeObject.nature) !== -1) {
@@ -74,42 +74,42 @@ async function dailyNotReady(interaction: CommandInteraction, entity: Entity, la
 
 /**
  * Activates the daily item
- * @param entityInformations
+ * @param entityInformation
  * @param embed
- * @param textInformations
+ * @param textInformation
  */
 async function activateDailyItem(
-	entityInformations: EntityInformations,
+	entityInformation: EntityInformation,
 	embed: DraftBotEmbed,
-	textInformations: TextInformations): Promise<void> {
-	switch (entityInformations.activeObject.nature) {
+	textInformation: TextInformation): Promise<void> {
+	switch (entityInformation.activeObject.nature) {
 	case Constants.NATURE.HEALTH:
-		embed.setDescription(textInformations.dailyModule.format("healthDaily", {value: entityInformations.activeObject.power}));
-		await entityInformations.entity.addHealth(entityInformations.activeObject.power, textInformations.interaction.channel, textInformations.language, NumberChangeReason.DAILY);
+		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
+		await entityInformation.entity.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(
-			textInformations.dailyModule.format("hospitalBonus", {
-				value: minutesDisplay(entityInformations.activeObject.power)
+			textInformation.dailyModule.format("hospitalBonus", {
+				value: minutesDisplay(entityInformation.activeObject.power)
 			})
 		);
-		await Maps.advanceTime(entityInformations.entity.Player, entityInformations.activeObject.power, NumberChangeReason.DAILY);
+		await Maps.advanceTime(entityInformation.entity.Player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.MONEY:
-		embed.setDescription(textInformations.dailyModule.format("moneyBonus", {value: entityInformations.activeObject.power}));
-		await entityInformations.entity.Player.addMoney(
-			entityInformations.entity,
-			entityInformations.activeObject.power,
-			textInformations.interaction.channel,
-			textInformations.language,
+		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
+		await entityInformation.entity.Player.addMoney(
+			entityInformation.entity,
+			entityInformation.activeObject.power,
+			textInformation.interaction.channel,
+			textInformation.language,
 			NumberChangeReason.DAILY
 		);
 		break;
 	default:
 		break;
 	}
-	entityInformations.entity.Player.InventoryInfo.updateLastDailyAt();
-	await Promise.all([entityInformations.entity.save(), entityInformations.entity.Player.save(), entityInformations.entity.Player.InventoryInfo.save()]);
+	entityInformation.entity.Player.InventoryInfo.updateLastDailyAt();
+	await Promise.all([entityInformation.entity.save(), entityInformation.entity.Player.save(), entityInformation.entity.Player.InventoryInfo.save()]);
 }
 
 /**
