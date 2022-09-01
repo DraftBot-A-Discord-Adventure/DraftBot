@@ -1,8 +1,9 @@
 import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {Database} from "../../../../core/database/Database";
 import {botConfig, draftBotInstance} from "../../../../core/bot";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
+import {GameDatabase} from "../../../../core/database/game/GameDatabase";
 
 export const commandInfo: ITestCommand = {
 	name: "migration",
@@ -17,6 +18,16 @@ export const commandInfo: ITestCommand = {
 	execute: null // defined later
 };
 
+function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase {
+	if (databaseName === "logs") {
+		return draftBotInstance.logsDatabase;
+	}
+	else if (databaseName === "game") {
+		return draftBotInstance.gameDatabase;
+	}
+	throw new Error(`Unknown database name "${databaseName}"`);
+}
+
 /**
  * Force a topweek end event
  * @return {String} - The successful message formatted
@@ -25,20 +36,9 @@ async function migrationTestCommand(language: string, interaction: CommandIntera
 	if (interaction.user.id !== botConfig.BOT_OWNER_ID) {
 		throw new Error("You must be the bot owner to perform this action");
 	}
-
-	const databaseName = args[0];
 	const migrationNumber = parseInt(args[1], 10);
 
-	let database: Database;
-	if (databaseName === "logs") {
-		database = draftBotInstance.logsDatabase;
-	}
-	else if (databaseName === "game") {
-		database = draftBotInstance.gameDatabase;
-	}
-	else {
-		throw new Error(`Unknown database name "${databaseName}"`);
-	}
+	const database = getDatabaseFromName(args[0]);
 
 	const maxMigration = (await database.umzug.executed()).length;
 	if (migrationNumber <= 0 || migrationNumber > maxMigration) {

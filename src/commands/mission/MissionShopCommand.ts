@@ -86,6 +86,61 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 }
 
 /**
+ * Get the end callback of the skip mission shop item
+ * @param message
+ * @param interaction
+ * @param translationModule
+ * @param entity
+ */
+function getEndCallbackSkipMissionShopItem(
+	message: DraftBotShopMessage,
+	interaction: CommandInteraction,
+	translationModule: TranslationModule,
+	entity: Entity
+): (missionMessage: DraftBotShopMessage) => Promise<boolean> {
+	const allMissions = entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
+	return async (missionMessage: DraftBotShopMessage): Promise<boolean> => {
+		const reaction = missionMessage.getFirstReaction();
+		if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
+			BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
+			await sendErrorMessage(
+				message.user,
+				interaction,
+				message.language,
+				translationModule.get("error.canceledPurchase")
+			);
+			return false;
+		}
+		for (let i = 0; i < allMissions.length; ++i) {
+			if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
+				await removeUserGems(entity.discordUserId, parseInt(translationModule.get("items.skipMapMission.price"), 10));
+				await entity.Player.PlayerMissionsInfo.save();
+				await message.sentMessage.channel.send({
+					embeds: [
+						new DraftBotEmbed()
+							.formatAuthor(translationModule.get("items.skipMapMission.successTitle"), message.user)
+							.setDescription(translationModule.format("items.skipMapMission.successDescription", {
+								num: i + 1,
+								missionInfo: await allMissions[i].Mission.formatDescription(
+									allMissions[i].missionObjective,
+									allMissions[i].missionVariant,
+									message.language,
+									allMissions[i].saveBlob
+								)
+							}))
+					]
+				});
+				await allMissions[i].destroy();
+				break;
+			}
+		}
+		BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
+		await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+		draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MISSION_SKIP).then();
+	};
+}
+
+/**
  * Get the shop item for skipping a mission
  * @param translationModule
  * @param interaction
@@ -108,50 +163,15 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
 				.allowUser(message.user)
-				.endCallback((async (missionMessage) => {
-					const reaction = missionMessage.getFirstReaction();
-					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
-						await sendErrorMessage(
-							message.user,
-							interaction,
-							message.language,
-							translationModule.get("error.canceledPurchase")
-						);
-						return false;
-					}
-					for (let i = 0; i < allMissions.length; ++i) {
-						if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
-							await removeUserGems(entity.discordUserId, parseInt(translationModule.get("items.skipMapMission.price"), 10));
-							await entity.Player.PlayerMissionsInfo.save();
-							await message.sentMessage.channel.send({
-								embeds: [
-									new DraftBotEmbed()
-										.formatAuthor(translationModule.get("items.skipMapMission.successTitle"), message.user)
-										.setDescription(translationModule.format("items.skipMapMission.successDescription", {
-											num: i + 1,
-											missionInfo: await allMissions[i].Mission.formatDescription(
-												allMissions[i].missionObjective,
-												allMissions[i].missionVariant,
-												message.language,
-												allMissions[i].saveBlob
-											)
-										}))
-								]
-							});
-							await allMissions[i].destroy();
-							break;
-						}
-					}
-					BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
-					await MissionsController.update(entity, message.sentMessage.channel, message.language, {missionId: "spendGems"});
-					draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MISSION_SKIP).then();
-				}) as (msg: DraftBotReactionMessage) => void);
+				.endCallback(getEndCallbackSkipMissionShopItem(message, interaction, translationModule, entity) as (msg: DraftBotReactionMessage) => void);
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
-				desc += Constants.REACTIONS.NUMBERS[i + 1] + " "
-					+ await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language, allMissions[i].saveBlob) + "\n";
+				desc += `${Constants.REACTIONS.NUMBERS[i + 1]} ${await allMissions[i].Mission.formatDescription(
+					allMissions[i].missionObjective,
+					allMissions[i].missionVariant,
+					message.language,
+					allMissions[i].saveBlob)}\n`;
 			}
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();
