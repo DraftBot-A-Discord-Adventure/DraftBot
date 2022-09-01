@@ -24,58 +24,6 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
- * Displays the mission shop
- * @param interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
- */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
-
-	const shopTranslations = Translations.getModule("commands.missionShop", language);
-
-	const resCategory = new ShopItemCategory(
-		[
-			getMoneyShopItem(shopTranslations),
-			getValuableItemShopItem(shopTranslations),
-			getAThousandPointsShopItem(shopTranslations, interaction)
-		],
-		shopTranslations.get("resTitle")
-	);
-	const utilCategory = new ShopItemCategory(
-		[
-			getSkipMapMissionShopItem(shopTranslations, interaction),
-			getValueLovePointsPetShopItem(shopTranslations, interaction)
-		],
-		shopTranslations.get("utilTitle")
-	);
-	const presCategory = new ShopItemCategory(
-		[
-			getBadgeShopItem(shopTranslations, interaction)
-		],
-		shopTranslations.get("presTitle")
-	);
-
-	const shopMessage = await new DraftBotShopMessageBuilder(
-		interaction,
-		shopTranslations.get("title"),
-		language
-	)
-		.addCategory(resCategory)
-		.addCategory(utilCategory)
-		.addCategory(presCategory)
-		.endCallback(shopEndCallback)
-		.setGetUserMoney(getUserGems)
-		.setRemoveUserMoney(removeUserGems)
-		.setTranslationPosition("commands.missionShop")
-		.build();
-
-	await shopMessage.reply(interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MISSION_SHOP, collector));
-}
-
-/**
  * get the amount of gems a user has
  * @param userId
  */
@@ -94,10 +42,33 @@ async function removeUserGems(userId: string, amount: number): Promise<void> {
 	await entity.Player.PlayerMissionsInfo.addGems(-amount, entity, NumberChangeReason.MISSION_SHOP);
 }
 
+/**
+ * Callback of the mission shop command
+ * @param shopMessage
+ */
 function shopEndCallback(shopMessage: DraftBotShopMessage): void {
 	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 }
 
+/**
+ * Calculate the amount of money the player will have if he buys some with gems
+ */
+function calculateGemsToMoneyRatio(): number {
+	const frac = function(x: number): number {
+		return x >= 0 ? x % 1 : 1 + x % 1;
+	};
+	return Constants.MISSION_SHOP.BASE_RATIO +
+		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
+			frac(100 * Math.sin(100000 * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
+			Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
+}
+
+/**
+ * Creates a shop item for the mission shop
+ * @param name
+ * @param translationModule
+ * @param buyCallback
+ */
 function getItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
 	return new ShopItem(
 		translationModule.get(`items.${name}.emote`),
@@ -110,6 +81,11 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 	);
 }
 
+/**
+ * Get the shop item for skipping a mission
+ * @param translationModule
+ * @param interaction
+ */
 function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"skipMapMission",
@@ -184,18 +160,9 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 }
 
 /**
- * Calculate the amount of money the player will have if he buys some with gems
+ * Get the shop item for buying money for gems
+ * @param translationModule
  */
-function calculateGemsToMoneyRatio(): number {
-	const frac = function(x: number): number {
-		return x >= 0 ? x % 1 : 1 + x % 1;
-	};
-	return Constants.MISSION_SHOP.BASE_RATIO +
-		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
-			frac(100 * Math.sin(100000 * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
-			Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
-}
-
 function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"money",
@@ -217,6 +184,10 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		});
 }
 
+/**
+ * Get the shop item for buying a royal treasure
+ * @param translationModule
+ */
 function getValuableItemShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"valuableItem",
@@ -231,6 +202,11 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		});
 }
 
+/**
+ * Get the shop item for getting the fervor of the court
+ * @param translationModule
+ * @param interaction
+ */
 function getAThousandPointsShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"1000Points",
@@ -263,6 +239,11 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 		});
 }
 
+/**
+ * Get the shop item for looking at the love you entertain with your pet
+ * @param translationModule
+ * @param interaction
+ */
 function getValueLovePointsPetShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"lovePointsValue",
@@ -297,6 +278,11 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 		});
 }
 
+/**
+ * Get the shop item for the badge in the mission shop
+ * @param translationModule
+ * @param interaction
+ */
 function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
 		"badge",
@@ -325,6 +311,58 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 			return true;
 		}
 	);
+}
+
+/**
+ * Displays the mission shop
+ * @param interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+
+	const shopTranslations = Translations.getModule("commands.missionShop", language);
+
+	const resCategory = new ShopItemCategory(
+		[
+			getMoneyShopItem(shopTranslations),
+			getValuableItemShopItem(shopTranslations),
+			getAThousandPointsShopItem(shopTranslations, interaction)
+		],
+		shopTranslations.get("resTitle")
+	);
+	const utilCategory = new ShopItemCategory(
+		[
+			getSkipMapMissionShopItem(shopTranslations, interaction),
+			getValueLovePointsPetShopItem(shopTranslations, interaction)
+		],
+		shopTranslations.get("utilTitle")
+	);
+	const presCategory = new ShopItemCategory(
+		[
+			getBadgeShopItem(shopTranslations, interaction)
+		],
+		shopTranslations.get("presTitle")
+	);
+
+	const shopMessage = await new DraftBotShopMessageBuilder(
+		interaction,
+		shopTranslations.get("title"),
+		language
+	)
+		.addCategory(resCategory)
+		.addCategory(utilCategory)
+		.addCategory(presCategory)
+		.endCallback(shopEndCallback)
+		.setGetUserMoney(getUserGems)
+		.setRemoveUserMoney(removeUserGems)
+		.setTranslationPosition("commands.missionShop")
+		.build();
+
+	await shopMessage.reply(interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MISSION_SHOP, collector));
 }
 
 export const commandInfo: ICommand = {

@@ -17,6 +17,11 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 type EntityInformation = { entity: Entity, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
 
+/**
+ * Get the callback for the guild kick command
+ * @param entityInformation
+ * @param textInformation
+ */
 async function getValidationCallback(
 	entityInformation: EntityInformation,
 	textInformation: TextInformation
@@ -79,6 +84,12 @@ async function getValidationCallback(
 	};
 }
 
+/**
+ * Say if a given player can be kicked from the guild
+ * @param entityInformation
+ * @param textInformation
+ * @param kickedEntity
+ */
 async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity): Promise<boolean> {
 	if (kickedEntity === null) {
 		// no user provided

@@ -128,7 +128,13 @@ async function getFightDescription(
  * @param askingFighter
  * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
  */
-function getAcceptCallback(interaction: CommandInteraction, fightTranslationModule: TranslationModule, friendly: boolean, askedEntity: Entity | null, askingFighter: Fighter) {
+function getAcceptCallback(
+	interaction: CommandInteraction,
+	fightTranslationModule: TranslationModule,
+	friendly: boolean,
+	askedEntity: Entity | null,
+	askingFighter: Fighter
+): (user: User) => Promise<boolean> {
 	return async function(user: User): Promise<boolean> {
 		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
 		const attackerFightErrorStatus = await canFight(incomingFighterEntity, friendly);
@@ -162,7 +168,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
 	};
 }
 
-/** ï
+/**
  * Start a new fight
  * @param interaction
  * @param language - Language to use in the response

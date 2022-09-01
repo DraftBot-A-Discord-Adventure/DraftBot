@@ -14,6 +14,10 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {PetEntityConstants} from "../../core/constants/PetEntityConstants";
 
+/**
+ * Get the guild from a given entity
+ * @param entity
+ */
 async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 	try {
 		return await Guilds.getById(entity.Player.guildId);
@@ -23,6 +27,15 @@ async function getGuildOfEntity(entity: Entity): Promise<Guild> {
 	}
 }
 
+/**
+ * Transfer your pet to the guild's shelter
+ * @param interaction
+ * @param language
+ * @param petTransferModule
+ * @param entity
+ * @param guild
+ * @param confirmEmbed
+ */
 async function transferPetToGuild(interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
 	const playerPet = entity.Player.Pet;
 	const guildPetCount = guild.GuildPets.length;
@@ -45,6 +58,13 @@ async function transferPetToGuild(interaction: CommandInteraction, language: str
 	return interaction.reply({embeds: [confirmEmbed]});
 }
 
+/**
+ * Sends an error for an invalid pet position in the shelter
+ * @param guildPetCount
+ * @param interaction
+ * @param language
+ * @param petTransferModule
+ */
 async function sendErrorInvalidPositionShelter(guildPetCount: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule): Promise<void> {
 	if (guildPetCount === 1) {
 		await replyErrorMessage(interaction, language, petTransferModule.get("wrongPetNumberSingle"));
@@ -55,6 +75,15 @@ async function sendErrorInvalidPositionShelter(guildPetCount: number, interactio
 	}));
 }
 
+/**
+ * Exchange a pet of a guild's member with one in the shelter
+ * @param guild
+ * @param shelterPosition
+ * @param interaction
+ * @param language
+ * @param petTransferModule
+ * @param entity
+ */
 async function switchPets(guild: Guild, shelterPosition: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity): Promise<PetEntity> {
 	const playerPet = entity.Player.Pet;
 	const swPet = guild.GuildPets[shelterPosition - 1];
@@ -76,6 +105,14 @@ async function switchPets(guild: Guild, shelterPosition: number, interaction: Co
 	return swPetEntity;
 }
 
+/**
+ * Write the resulting description of transferring pets to the guild into the embed
+ * @param playerPet
+ * @param confirmEmbed
+ * @param petTransferModule
+ * @param language
+ * @param swPetEntity
+ */
 function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: DraftBotEmbed, petTransferModule: TranslationModule, language: string, swPetEntity: PetEntity): void {
 	if (playerPet) {
 		confirmEmbed.setDescription(petTransferModule.format("confirmSwitch", {
@@ -91,6 +128,13 @@ function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: Draf
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, swPetEntity).then();
 }
 
+/**
+ * Updates the missions of the given player concerning the actions made
+ * @param entity
+ * @param interaction
+ * @param language
+ * @param swPetEntity
+ */
 async function updateMissionsOfEntity(entity: Entity, interaction: CommandInteraction, language: string, swPetEntity: PetEntity): Promise<void> {
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
 	await MissionsController.update(entity, interaction.channel, language, {

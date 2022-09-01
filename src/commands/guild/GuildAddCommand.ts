@@ -18,6 +18,13 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 type InvitedUserInformation = { invitedUser: User, invitedEntity: Entity };
 type InviterUserInformation = { guild: Guild, entity: Entity };
 
+/**
+ * Get the callback for the guild add command
+ * @param inviter
+ * @param invited
+ * @param interaction
+ * @param guildAddModule
+ */
 function getEndCallbackGuildAdd(
 	inviter: InviterUserInformation,
 	invited: InvitedUserInformation,

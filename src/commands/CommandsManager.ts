@@ -33,6 +33,9 @@ type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 type ContextType = { mainServerId: string; dmManagerID: string; attachments: MessageAttachment[]; supportAlert: string; };
 
+/**
+ * The manager for creating and executing classic commands
+ */
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
@@ -129,7 +132,6 @@ export class CommandsManager {
 		const setCommands = await client.application.commands.set(commandsToSetGuild, botConfig.MAIN_SERVER_ID);
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 	}
-
 
 	/**
 	 * Execute a command from the player

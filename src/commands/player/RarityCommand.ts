@@ -6,7 +6,7 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 
 /**
- * Displays the link that allow to send the devs some suggestions
+ * Displays the several rarities that an item can get in the game
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */

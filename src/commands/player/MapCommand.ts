@@ -9,6 +9,24 @@ import {BotConstants} from "../../core/constants/BotConstants";
 import {format} from "../../core/utils/StringFormatter";
 
 /**
+ * Get the map image link with the cursor on the player position
+ * @param entity Entity
+ * @param inReport
+ */
+async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<string> {
+	const destMap = await entity.Player.getDestination();
+	const depMap = await entity.Player.getPreviousMap();
+	if (inReport) {
+		return `${destMap.id}_`;
+	}
+	if (destMap.id < depMap.id) {
+		return `${destMap.id}_${depMap.id}_`;
+	}
+	return `${depMap.id}_${destMap.id}_`;
+
+}
+
+/**
  * Show the map of DraftBot world
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -32,24 +50,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			particle: destMap.getParticleName(language)
 		}));
 	await interaction.reply({embeds: [mapEmbed]});
-}
-
-/**
- * Get the map image link with the cursor on the player position
- * @param entity Entity
- * @param inReport
- */
-async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<string> {
-	const destMap = await entity.Player.getDestination();
-	const depMap = await entity.Player.getPreviousMap();
-	if (inReport) {
-		return `${destMap.id}_`;
-	}
-	if (destMap.id < depMap.id) {
-		return `${destMap.id}_${depMap.id}_`;
-	}
-	return `${depMap.id}_${destMap.id}_`;
-
 }
 
 export const commandInfo: ICommand = {

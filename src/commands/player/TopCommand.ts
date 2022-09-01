@@ -11,9 +11,9 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
-type TextInformations = { interaction: CommandInteraction, language: string };
-type PlayerInformations = { rankCurrentPlayer: number, scoreTooLow: boolean }
-type TopInformations = {
+type TextInformation = { interaction: CommandInteraction, language: string };
+type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
+type TopInformation = {
 	scope: string,
 	timing: string,
 	page: number,
@@ -102,9 +102,9 @@ function getPageOfRank(rank: number): number {
  * @param entitiesToShow
  */
 async function displayTop(
-	{interaction, language}: TextInformations,
-	{scope, timing, page, numberOfPlayers}: TopInformations,
-	{rankCurrentPlayer, scoreTooLow}: PlayerInformations,
+	{interaction, language}: TextInformation,
+	{scope, timing, page, numberOfPlayers}: TopInformation,
+	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
 	entitiesToShow: Entity[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
