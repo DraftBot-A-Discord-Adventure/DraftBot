@@ -51,7 +51,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("dmnotifications")
-		.setDescription("Activates or desactivates the notifications through direct messages"),
+		.setDescription("Activates or deactivates the notifications through direct messages"),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]

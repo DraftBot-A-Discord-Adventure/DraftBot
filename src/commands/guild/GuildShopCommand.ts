@@ -24,6 +24,82 @@ import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDat
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
+ * Callback of the guild shop command
+ * @param shopMessage
+ */
+function shopEndCallback(shopMessage: DraftBotShopMessage): void {
+	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.GUILD_SHOP);
+}
+
+/**
+ * Get the shop item for winning xp
+ * @param guildShopTranslations
+ */
+function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem {
+	return new ShopItem(
+		guildShopTranslations.get("guildXp.emote"),
+		guildShopTranslations.get("guildXp.name"),
+		parseInt(guildShopTranslations.get("guildXp.price"), 10),
+		guildShopTranslations.get("guildXp.info"),
+		async (message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(entity.Player.guildId);
+			const xpToAdd = randomInt(50, 450);
+			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
+
+			await guild.save();
+			await message.sentMessage.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
+						.setDescription(guildShopTranslations.format("guildXp.give", {
+							experience: xpToAdd
+						}))]
+			}
+			);
+			draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
+			return true;
+		}
+	);
+}
+
+/**
+ * Get the shop item for buying a given amount of a given food
+ * @param guildShopTranslations
+ * @param name
+ * @param amounts
+ * @param interaction
+ */
+function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: CommandInteraction): ShopItem {
+	const foodJson = Translations.getModule("food", guildShopTranslations.language);
+	const indexFood = getFoodIndexOf(name);
+	return new ShopItem(
+		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
+		foodJson.get(name + ".name"),
+		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
+		foodJson.get(name + ".info"),
+		async (message, amount) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(entity.Player.guildId);
+			if (guild.isStorageFullFor(name, amount)) {
+				await sendErrorMessage(message.user, interaction, guildShopTranslations.language, guildShopTranslations.get("fullStock"));
+				return false;
+			}
+			await giveFood(interaction, message.language, entity, name, amount, NumberChangeReason.SHOP);
+			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
+				await MissionsController.update(entity, message.sentMessage.channel, guildShopTranslations.language, {
+					missionId: "buyUltimateSoups",
+					count: amount
+				});
+			}
+			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(entity.discordUserId, name, amount).then();
+			return true;
+		},
+		amounts
+	);
+}
+
+/**
  * Displays the guild shop
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -65,67 +141,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.endCallback(shopEndCallback)
 		.build())
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.GUILD_SHOP, collector));
-}
-
-function shopEndCallback(shopMessage: DraftBotShopMessage): void {
-	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.GUILD_SHOP);
-}
-
-function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem {
-	return new ShopItem(
-		guildShopTranslations.get("guildXp.emote"),
-		guildShopTranslations.get("guildXp.name"),
-		parseInt(guildShopTranslations.get("guildXp.price"), 10),
-		guildShopTranslations.get("guildXp.info"),
-		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			const guild = await Guilds.getById(entity.Player.guildId);
-			const xpToAdd = randomInt(50, 450);
-			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
-
-			await guild.save();
-			await message.sentMessage.channel.send({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
-						.setDescription(guildShopTranslations.format("guildXp.give", {
-							experience: xpToAdd
-						}))]
-			}
-			);
-			draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
-			return true;
-		}
-	);
-}
-
-function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: CommandInteraction): ShopItem {
-	const foodJson = Translations.getModule("food", guildShopTranslations.language);
-	const indexFood = getFoodIndexOf(name);
-	return new ShopItem(
-		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
-		foodJson.get(name + ".name"),
-		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
-		foodJson.get(name + ".info"),
-		async (message, amount) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			const guild = await Guilds.getById(entity.Player.guildId);
-			if (guild.isStorageFullFor(name, amount)) {
-				await sendErrorMessage(message.user, interaction, guildShopTranslations.language, guildShopTranslations.get("fullStock"));
-				return false;
-			}
-			await giveFood(interaction, message.language, entity, name, amount, NumberChangeReason.SHOP);
-			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
-				await MissionsController.update(entity, message.sentMessage.channel, guildShopTranslations.language, {
-					missionId: "buyUltimateSoups",
-					count: amount
-				});
-			}
-			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(entity.discordUserId, name, amount).then();
-			return true;
-		},
-		amounts
-	);
 }
 
 export const commandInfo: ICommand = {

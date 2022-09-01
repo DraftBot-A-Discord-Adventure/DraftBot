@@ -29,6 +29,13 @@ type FunctionRewardType = (guildLike: GuildLike, stringInfos: StringInfos, guild
 
 const linkToFunction = getMapOfAllRewardCommands();
 
+/**
+ * Reward the guild with a new pet if they are lucky
+ * @param guild
+ * @param embed
+ * @param guildDailyModule
+ * @param language
+ */
 async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string): Promise<void> {
 	const pet = await PetEntities.generateRandomPetEntity(guild.level);
 	await pet.save();
@@ -344,7 +351,6 @@ function generateRandomProperty(guild: Guild): string {
 	}
 	throw new Error("Erreur generateRandomProperty : nombre property invalide");
 }
-
 
 /**
  * Allow to claim a daily guild reward

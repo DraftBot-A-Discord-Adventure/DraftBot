@@ -19,12 +19,24 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
+/**
+ * Say if you win a meat for freeing your pet
+ * @param guild
+ * @param pPet
+ */
 function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
 	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
 		&& RandomUtils.draftbotRandom.realZeroToOneInclusive() <= PetFreeConstants.GIVE_MEAT_PROBABILITY
 		&& !pPet.isFeisty();
 }
 
+/**
+ * Get the callback for the pet free command
+ * @param entity
+ * @param pPet
+ * @param petFreeModule
+ * @param interaction
+ */
 function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: TranslationModule, interaction: CommandInteraction) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
@@ -68,6 +80,13 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 	};
 }
 
+/**
+ * Says if the pet can be freed or not
+ * @param pPet
+ * @param interaction
+ * @param petFreeModule
+ * @param entity
+ */
 async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity): Promise<boolean> {
 	if (!pPet) {
 		await replyErrorMessage(

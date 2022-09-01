@@ -83,7 +83,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("classinfo")
-		.setDescription("Display informations about the classes you can have"),
+		.setDescription("Display information about the classes you can have"),
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,

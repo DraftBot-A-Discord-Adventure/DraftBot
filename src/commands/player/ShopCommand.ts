@@ -13,7 +13,6 @@ import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/database/game/models/Potion";
 import {Entities, Entity} from "../../core/database/game/models/Entity";
-
 import {Maps} from "../../core/Maps";
 import Shop from "../../core/database/game/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -28,53 +27,19 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
- * Displays the shop
- * @param {CommandInteraction} interaction
- * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entities} entity
+ * Callback of the shop command
+ * @param shopMessage
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	if (await sendBlockedError(interaction, language)) {
-		return;
-	}
-
-	const shopTranslations = Translations.getModule("commands.shop", language);
-
-	const permanentItemsCategory = new ShopItemCategory(
-		[
-			getRandomItemShopItem(shopTranslations),
-			getHealAlterationShopItem(shopTranslations, interaction),
-			getRegenShopItem(shopTranslations),
-			getBadgeShopItem(shopTranslations, interaction)
-		],
-		shopTranslations.get("permanentItem")
-	);
-	const dailyItemsCategory = new ShopItemCategory(
-		[await getDailyPotionShopItem(shopTranslations, interaction.user, interaction.channel)],
-		shopTranslations.get("dailyItem")
-	);
-	const inventoryCategory = new ShopItemCategory(
-		[getSlotExtensionShopItem(shopTranslations, entity, interaction)],
-		shopTranslations.get("inventoryCategory")
-	);
-
-	await (await new DraftBotShopMessageBuilder(
-		interaction,
-		shopTranslations.get("title"),
-		language
-	)
-		.addCategory(dailyItemsCategory)
-		.addCategory(permanentItemsCategory)
-		.addCategory(inventoryCategory)
-		.endCallback(shopEndCallback)
-		.build())
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.SHOP, collector));
-}
-
 function shopEndCallback(shopMessage: DraftBotShopMessage): void {
 	BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
 }
 
+/**
+ * Get the structure of a permanent shop item
+ * @param name
+ * @param translationModule
+ * @param buyCallback
+ */
 function getPermanentItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
 	return new ShopItem(
 		translationModule.get(`permanentItems.${name}.emote`),
@@ -85,6 +50,10 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
 	);
 }
 
+/**
+ * Get the shop item for getting a random item
+ * @param translationModule
+ */
 function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
 	return getPermanentItemShopItem(
 		"randomItem",
@@ -97,6 +66,11 @@ function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
 		});
 }
 
+/**
+ * Get the shop item for healing from an alteration
+ * @param translationModule
+ * @param interaction
+ */
 function getHealAlterationShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"healAlterations",
@@ -123,6 +97,10 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 	);
 }
 
+/**
+ * Get the shop item for regenerating to full life
+ * @param translationModule
+ */
 function getRegenShopItem(translationModule: TranslationModule): ShopItem {
 	return getPermanentItemShopItem(
 		"regen",
@@ -147,6 +125,11 @@ function getRegenShopItem(translationModule: TranslationModule): ShopItem {
 	);
 }
 
+/**
+ * Get the shop item for the money mouth badge
+ * @param translationModule
+ * @param interaction
+ */
 function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"badge",
@@ -171,6 +154,12 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 	);
 }
 
+/**
+ * Get the shop item for getting the daily potion
+ * @param translationModule
+ * @param discordUser
+ * @param channel
+ */
 async function getDailyPotionShopItem(translationModule: TranslationModule, discordUser: User, channel: TextBasedChannel): Promise<ShopItem> {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
@@ -191,6 +180,12 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	);
 }
 
+/**
+ * Get the shop item for extending your inventory
+ * @param translationModule
+ * @param entity
+ * @param interaction
+ */
 function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity, interaction: CommandInteraction): ShopItem {
 	const availableCategories = [0, 1, 2, 3]
 		.filter(itemCategory => entity.Player.InventoryInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
@@ -261,6 +256,50 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 			return Promise.resolve(false);
 		}
 	);
+}
+
+/**
+ * Displays the shop
+ * @param {CommandInteraction} interaction
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {Entities} entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+
+	const shopTranslations = Translations.getModule("commands.shop", language);
+
+	const permanentItemsCategory = new ShopItemCategory(
+		[
+			getRandomItemShopItem(shopTranslations),
+			getHealAlterationShopItem(shopTranslations, interaction),
+			getRegenShopItem(shopTranslations),
+			getBadgeShopItem(shopTranslations, interaction)
+		],
+		shopTranslations.get("permanentItem")
+	);
+	const dailyItemsCategory = new ShopItemCategory(
+		[await getDailyPotionShopItem(shopTranslations, interaction.user, interaction.channel)],
+		shopTranslations.get("dailyItem")
+	);
+	const inventoryCategory = new ShopItemCategory(
+		[getSlotExtensionShopItem(shopTranslations, entity, interaction)],
+		shopTranslations.get("inventoryCategory")
+	);
+
+	await (await new DraftBotShopMessageBuilder(
+		interaction,
+		shopTranslations.get("title"),
+		language
+	)
+		.addCategory(dailyItemsCategory)
+		.addCategory(permanentItemsCategory)
+		.addCategory(inventoryCategory)
+		.endCallback(shopEndCallback)
+		.build())
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(interaction.user.id, BlockingConstants.REASONS.SHOP, collector));
 }
 
 export const commandInfo: ICommand = {
