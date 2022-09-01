@@ -10,6 +10,7 @@ import {PetEntities} from "../database/game/models/PetEntity";
 import {Guilds} from "../database/game/models/Guild";
 import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
+import {readdir} from "fs/promises";
 
 /**
  * Gives how many players have a random class
@@ -17,7 +18,6 @@ import {Constants} from "../Constants";
  * @return {Promise<(*)[]>}
  */
 const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
-	const {readdir} = require("fs/promises");
 	const classToCheck = await Classes.getById(parseInt((RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes")) as string)
 		.slice(0, -5), 10));
 	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);

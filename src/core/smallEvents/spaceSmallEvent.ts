@@ -157,6 +157,9 @@ export const smallEvent: SmallEvent = {
 				const messageAfter = format(spaceTranslationModule.get("after_search_format"), {
 					seIntro, intro, searchAction, search, actionIntro, action, outro, specific
 				});
+				/**
+				 * Callback of the space small event
+				 */
 				const callBack = async (): Promise<void> => {
 					seEmbed.setDescription(baseDescription + messageAfter);
 					await (sentMessage as Message).edit({embeds: [seEmbed]});
