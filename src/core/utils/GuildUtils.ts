@@ -9,6 +9,15 @@ import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
+/**
+ * Gives food to a given guild / player
+ * @param interaction
+ * @param language
+ * @param entity
+ * @param selectedFood
+ * @param quantity
+ * @param reason
+ */
 export async function giveFood(
 	interaction: CommandInteraction,
 	language: string,

@@ -1,6 +1,12 @@
 import {Random} from "random-js/dist/Random";
 
+/**
+ * Functions concerning pseudo-randomness
+ */
 export class RandomUtils {
+	/**
+	 * redefining the random js library
+	 */
 	public static draftbotRandom: Random = new (require("random-js")).Random();
 
 	/**

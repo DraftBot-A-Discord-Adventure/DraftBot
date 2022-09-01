@@ -2,7 +2,6 @@
  * Math functions
  */
 export class MathUtils {
-
 	/**
 	 * this function takes both end of an interval and a percentage and returns the value of the interval
 	 * @param min

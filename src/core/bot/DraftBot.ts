@@ -19,6 +19,9 @@ import {Op, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
 
+/**
+ * The main class of the bot, manages the bot in general
+ */
 export class DraftBot {
 	public readonly client: Client;
 
@@ -289,6 +292,10 @@ export class DraftBot {
 		}
 	}
 
+	/**
+	 * Updates the global log files
+	 * @param now
+	 */
 	updateGlobalLogsFile(now: Date): void {
 		/* Find first available log file */
 		let i = 1;
@@ -372,6 +379,7 @@ export class DraftBot {
 				return;
 			}
 			const now = new Date();
+			// eslint-disable-next-line max-len
 			const dateStr = `[${now.getFullYear()}/${`0${now.getMonth() + 1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)} ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}] `;
 			try {
 				fs.appendFileSync(
