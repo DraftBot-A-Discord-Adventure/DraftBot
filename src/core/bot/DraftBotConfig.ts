@@ -34,6 +34,9 @@ export interface DraftBotConfig {
 	MARIADB_PORT: number;
 }
 
+/**
+ * Loads the config from the config file
+ */
 export function loadConfig(): DraftBotConfig {
 	const config = parse(readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
 	return {

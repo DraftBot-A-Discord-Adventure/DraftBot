@@ -4,9 +4,15 @@ import {Constants} from "./Constants";
 import {TextChannel} from "discord.js";
 import * as DBLAPI from "dblapi.js";
 
+/**
+ * DBL is an API that allows players to vote for rewards in game
+ */
 export class DBL {
 	static dbl: DBLAPI;
 
+	/**
+	 * Starts the DBL webhook and initiates the several actions it should make depending on the situation
+	 */
 	static startDBLWebhook(): void {
 		if (botConfig.DBL_WEBHOOK_URL === "" || botConfig.DBL_WEBHOOK_PORT === 0 || !botConfig.DBL_TOKEN) {
 			console.info("DBL Webhook not configured, skipped.");
@@ -91,11 +97,19 @@ export class DBL {
 		return user.Player.topggVoteAt.valueOf() + Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - Date.now();
 	}
 
+	/**
+	 * Programs when you should remove the vote role of a user
+	 * @param userId
+	 */
 	static async programDBLRoleRemoval(userId: string): Promise<void> {
 		const time = await DBL.getTimeBeforeDBLRoleRemove(userId);
 		setTimeout(DBL.removeDBLRole.bind(null, userId), time < 0 ? 0 : time);
 	}
 
+	/**
+	 * Removes the vote role of a given user
+	 * @param userId
+	 */
 	static async removeDBLRole(userId: string): Promise<void> {
 		const [entity] = await Entities.getOrRegister(userId);
 		if (new Date().valueOf() - entity.Player.topggVoteAt.valueOf() < Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
@@ -110,6 +124,9 @@ export class DBL {
 		}
 	}
 
+	/**
+	 * Verify each member and remove the vote role to those who aren't eligible anymore
+	 */
 	static async verifyDBLRoles(): Promise<void> {
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		const members = await guild.members.fetch();
