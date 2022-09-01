@@ -11,10 +11,20 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {DBL} from "../DBL";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Gives a reward to those who voted, and shows where to vote if you haven't voted
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botVote", language);
 		const base = `${seEmbed.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;

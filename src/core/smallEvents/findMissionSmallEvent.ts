@@ -6,10 +6,20 @@ import {Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * You must have an empty mission slot to have this small event
+	 */
 	canBeExecuted(entity: Entity): Promise<boolean> {
 		return Promise.resolve(entity.Player.hasEmptyMissionSlot());
 	},
 
+	/**
+	 * Find a new mission
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.findMission", language);
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -22,6 +32,6 @@ export const smallEvent: SmallEvent = {
 			+ await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, missionSlot.saveBlob)
 			+ "**"
 		);
-		await interaction.reply({ embeds: [seEmbed] });
+		await interaction.reply({embeds: [seEmbed]});
 	}
 };

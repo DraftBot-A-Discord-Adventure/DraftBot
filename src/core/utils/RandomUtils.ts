@@ -1,4 +1,4 @@
-import {Random} from "random-js/dist/Random";
+import {Random} from "random-js";
 
 /**
  * Functions concerning pseudo-randomness
@@ -7,7 +7,7 @@ export class RandomUtils {
 	/**
 	 * redefining the random js library
 	 */
-	public static draftbotRandom: Random = new (require("random-js")).Random();
+	public static draftbotRandom: Random = new Random();
 
 	/**
 	 * Generates a random number between min included and max excluded

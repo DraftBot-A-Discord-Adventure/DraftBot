@@ -9,6 +9,9 @@ process.on("unhandledRejection", function(err: Error) {
 
 const shardCount = "auto";
 
+/**
+ * Function executed when the bot starts : Creates the shards and starts the IPC server
+ */
 function main(): void {
 	startIPCServer();
 
