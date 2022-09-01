@@ -81,7 +81,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 	 * Callback of when you switch from the main inventory to the reserve
 	 * @param msg
 	 */
-	static async reactionCallback(msg: DraftBotReactionMessage): Promise<void> {
+	static async reactionCallback(this: void, msg: DraftBotReactionMessage): Promise<void> {
 		const invMsg: DraftBotInventoryEmbed = msg as DraftBotInventoryEmbed;
 		if (invMsg.isMainState) {
 			invMsg.setTitle(invMsg.stockTitle);

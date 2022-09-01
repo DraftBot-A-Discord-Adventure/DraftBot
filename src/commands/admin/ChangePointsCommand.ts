@@ -13,10 +13,22 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  */
 function givePointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
 	if (interaction.options.getString("mode") === "set") {
-		entityToEdit.Player.addScore(entityToEdit, amount - entityToEdit.Player.score, interaction.channel, language, NumberChangeReason.ADMIN).then();
+		entityToEdit.Player.addScore({
+			entity: entityToEdit,
+			amount: amount - entityToEdit.Player.score,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.ADMIN
+		}).then();
 	}
 	else if (interaction.options.getString("mode") === "add") {
-		entityToEdit.Player.addScore(entityToEdit, amount, interaction.channel, language, NumberChangeReason.ADMIN).then();
+		entityToEdit.Player.addScore({
+			entity: entityToEdit,
+			amount: amount,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.ADMIN
+		}).then();
 	}
 	else {
 		throw new Error("wrong parameter");

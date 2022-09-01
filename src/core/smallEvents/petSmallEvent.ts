@@ -209,7 +209,13 @@ async function managePickedPetInteraction(
 		break;
 	case "points":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addScore(entity, amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await entity.Player.addScore({
+			entity,
+			amount,
+			channel: interactionCommand.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		await entity.Player.save();
 		break;
 	case "badge":
