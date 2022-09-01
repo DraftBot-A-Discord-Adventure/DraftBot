@@ -381,9 +381,7 @@ export function initModel(sequelize: Sequelize): void {
 		sequelize,
 		tableName: "guilds",
 		freezeTableName: true
-	});
-
-	Guild.beforeSave(instance => {
+	}).beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
 	});
 }

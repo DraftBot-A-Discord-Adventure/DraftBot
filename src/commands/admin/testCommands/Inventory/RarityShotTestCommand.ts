@@ -22,20 +22,10 @@ export const commandInfo: ITestCommand = {
 	execute: null // defined later
 };
 
-/**
- * Do random rarity tries
- * @param {("fr"|"en")} language - Language to use in the response
- * @param interaction
- * @param {String[]} args=[] - Additional arguments sent with the command
- * @return {String} - The successful message formatted
- */
-const rarityShotTestCommand = (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const nbShots = parseInt(args[0], 10);
+function checkShotValues(nbShots: number, min: number, max: number): void {
 	if (nbShots < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");
 	}
-	const min = parseInt(args[1], 10);
-	const max = parseInt(args[2], 10);
 	if (min > max) {
 		throw new Error("Erreur rarityshot : borne min inférieure à borne max !");
 	}
@@ -45,6 +35,20 @@ const rarityShotTestCommand = (language: string, interaction: CommandInteraction
 	if (max > 8 || max < 1) {
 		throw new Error("Erreur rarityshot : borne max hors valeur (valeurs autorisées : 1 à 8) !");
 	}
+}
+
+/**
+ * Do random rarity tries
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param interaction
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ * @return {String} - The successful message formatted
+ */
+const rarityShotTestCommand = (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+	const nbShots = parseInt(args[0], 10);
+	const min = parseInt(args[1], 10);
+	const max = parseInt(args[2], 10);
+	checkShotValues(nbShots, min, max);
 	const tab = [0, 0, 0, 0, 0, 0, 0, 0];
 	for (let i = 0; i < nbShots; i++) {
 		tab[generateRandomRarity(min, max) - 1]++;

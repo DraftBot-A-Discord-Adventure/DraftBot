@@ -180,6 +180,59 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	);
 }
 
+function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, translationModule: TranslationModule, entity: Entity, price: number, availableCategories: number[]) {
+	return async (shopMessage: DraftBotShopMessage): Promise<boolean> => {
+		const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
+			.allowUser(shopMessage.user)
+			.endCallback((async (chooseSlotMessage) => {
+				const reaction = chooseSlotMessage.getFirstReaction();
+				if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
+					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
+					await sendErrorMessage(
+						interaction.user,
+						interaction,
+						shopMessage.language,
+						translationModule.get("error.canceledPurchase")
+					);
+					return;
+				}
+				[entity] = await Entities.getOrRegister(shopMessage.user.id);
+				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
+					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
+						await entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP);
+						await entity.Player.save();
+						entity.Player.InventoryInfo.addSlotForCategory(i);
+						await entity.Player.InventoryInfo.save();
+						await shopMessage.sentMessage.channel.send({
+							embeds: [
+								new DraftBotEmbed()
+									.formatAuthor(translationModule.get("success"), shopMessage.user)
+									.setDescription(translationModule.get("slotGive"))
+							]
+						});
+						break;
+					}
+				}
+				BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
+				draftBotInstance.logsDatabase.logClassicalShopBuyout(shopMessage.user.id, ShopItemType.SLOT_EXTENSION).then();
+			}) as (msg: DraftBotReactionMessage) => void);
+		let desc = "";
+		for (const category of availableCategories) {
+			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
+			desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
+				available: Constants.ITEMS.SLOTS.LIMITS[category] - entity.Player.InventoryInfo.slotLimitForCategory(category),
+				limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
+			})}\n`;
+		}
+		chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
+		const chooseSlotBuilt = chooseSlot.build();
+		chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
+		chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
+		await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SHOP, collector));
+		return Promise.resolve(false);
+	};
+}
+
 /**
  * Get the shop item for extending your inventory
  * @param translationModule
@@ -192,10 +245,8 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 	if (availableCategories.length === 0) {
 		return null;
 	}
-	const totalSlots = entity.Player.InventoryInfo.weaponSlots
-		+ entity.Player.InventoryInfo.armorSlots
-		+ entity.Player.InventoryInfo.potionSlots
-		+ entity.Player.InventoryInfo.objectSlots;
+	const totalSlots = entity.Player.InventoryInfo.weaponSlots + entity.Player.InventoryInfo.armorSlots
+		+ entity.Player.InventoryInfo.potionSlots + entity.Player.InventoryInfo.objectSlots;
 	const price = Constants.ITEMS.SLOTS.PRICES[totalSlots - 4];
 	if (!price) {
 		return null;
@@ -205,56 +256,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 		translationModule.get("slotsExtension"),
 		price,
 		translationModule.get("slotsExtensionInfo"),
-		async (shopMessage) => {
-			const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
-				.allowUser(shopMessage.user)
-				.endCallback((async (chooseSlotMessage) => {
-					const reaction = chooseSlotMessage.getFirstReaction();
-					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-						await sendErrorMessage(
-							interaction.user,
-							interaction,
-							shopMessage.language,
-							translationModule.get("error.canceledPurchase")
-						);
-						return;
-					}
-					[entity] = await Entities.getOrRegister(shopMessage.user.id);
-					for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
-						if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-							await entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP);
-							await entity.Player.save();
-							entity.Player.InventoryInfo.addSlotForCategory(i);
-							await entity.Player.InventoryInfo.save();
-							await shopMessage.sentMessage.channel.send({
-								embeds: [
-									new DraftBotEmbed()
-										.formatAuthor(translationModule.get("success"), shopMessage.user)
-										.setDescription(translationModule.get("slotGive"))
-								]
-							});
-							break;
-						}
-					}
-					BlockingUtils.unblockPlayer(shopMessage.user.id, BlockingConstants.REASONS.SHOP);
-					draftBotInstance.logsDatabase.logClassicalShopBuyout(shopMessage.user.id, ShopItemType.SLOT_EXTENSION).then();
-				}) as (msg: DraftBotReactionMessage) => void);
-			let desc = "";
-			for (const category of availableCategories) {
-				chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
-				desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
-					available: Constants.ITEMS.SLOTS.LIMITS[category] - entity.Player.InventoryInfo.slotLimitForCategory(category),
-					limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
-				})}\n`;
-			}
-			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
-			const chooseSlotBuilt = chooseSlot.build();
-			chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
-			chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
-			await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SHOP, collector));
-			return Promise.resolve(false);
-		}
+		getBuySlotExtensionShopItemCallback(interaction, translationModule, entity, price, availableCategories)
 	);
 }
 

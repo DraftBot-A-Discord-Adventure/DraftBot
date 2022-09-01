@@ -115,12 +115,8 @@ export const giveItemToPlayer = async function(
 	const maxSlots = entity.Player.InventoryInfo.slotLimitForCategory(category);
 	let itemToReplace: InventorySlot;
 	let autoSell = false;
-	if (maxSlots === 1) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.isEquipped() && slot.itemCategory === category)[0];
-		autoSell = itemToReplace.itemId === item.id;
-	}
-	else if (maxSlots === 2) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.slot === 1 && slot.itemCategory === category)[0];
+	if (maxSlots < 3) {
+		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
 	}
 	else {
@@ -264,7 +260,6 @@ const sellOrKeepItem = async function(
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
 			.setDescription(item.toString(language, null));
-
 		await InventorySlot.update(
 			{
 				itemId: item.id
@@ -290,10 +285,7 @@ const sellOrKeepItem = async function(
 		await channel.send({
 			embeds: [
 				new DraftBotEmbed()
-					.formatAuthor(
-						autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
-							: trSell.get("potionDestroyedTitle"),
-						discordUser)
+					.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "potionDestroyedTitle"), discordUser)
 					.setDescription(
 						format(trSell.get("potionDestroyedMessage"),
 							{
@@ -317,10 +309,7 @@ const sellOrKeepItem = async function(
 	await channel.send({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(
-					autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
-						: trSell.get("soldMessageTitle"),
-					discordUser)
+				.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "soldMessageTitle"), discordUser)
 				.setDescription(
 					format(trSell.get("soldMessage"),
 						{
