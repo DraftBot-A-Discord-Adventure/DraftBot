@@ -14,7 +14,7 @@ type Slots = {
 	objects: GenericItemModel[]
 }
 
-type UserInformations = {
+type UserInformation = {
 	user: User,
 	player: Player,
 	pseudo: string
@@ -36,7 +36,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 	isMainState = true;
 
 	constructor(
-		userInformations: UserInformations,
+		userInformation: UserInformation,
 		language: string,
 		slots: Slots,
 		maxStatsValue: MaxStatsValues
@@ -49,14 +49,14 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 					DraftBotInventoryEmbed.reactionCallback
 				)
 			],
-			[userInformations.user.id],
+			[userInformation.user.id],
 			null,
 			0,
 			false,
 			0
 		);
 		const trInventory = Translations.getModule("commands.inventory", language);
-		this.mainTitle = trInventory.format("title", {pseudo: userInformations.pseudo});
+		this.mainTitle = trInventory.format("title", {pseudo: userInformation.pseudo});
 		this.mainFields = [
 			slots.weapons.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue),
 			slots.armors.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue),
@@ -64,20 +64,24 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			slots.objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue)
 		];
 		this.mainFooter = trInventory.format("clickStock", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
-		this.stockTitle = trInventory.format("stockTitle", {pseudo: userInformations.pseudo});
+		this.stockTitle = trInventory.format("stockTitle", {pseudo: userInformation.pseudo});
 		this.stockFooter = trInventory.format("clickMainInventory", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
 		this.stockFields = [
-			this.createStockField(trInventory.get("weapons"), trInventory, slots.weapons, userInformations.player.InventoryInfo.weaponSlots),
-			this.createStockField(trInventory.get("armors"), trInventory, slots.armors, userInformations.player.InventoryInfo.armorSlots),
-			this.createStockField(trInventory.get("potions"), trInventory, slots.potions, userInformations.player.InventoryInfo.potionSlots),
-			this.createStockField(trInventory.get("objects"), trInventory, slots.objects, userInformations.player.InventoryInfo.objectSlots)
+			this.createStockField(trInventory.get("weapons"), trInventory, slots.weapons, userInformation.player.InventoryInfo.weaponSlots),
+			this.createStockField(trInventory.get("armors"), trInventory, slots.armors, userInformation.player.InventoryInfo.armorSlots),
+			this.createStockField(trInventory.get("potions"), trInventory, slots.potions, userInformation.player.InventoryInfo.potionSlots),
+			this.createStockField(trInventory.get("objects"), trInventory, slots.objects, userInformation.player.InventoryInfo.objectSlots)
 		];
 		this.setTitle(this.mainTitle);
 		this.addFields(this.mainFields);
 		this.setFooter({text: this.mainFooter});
 	}
 
-	static reactionCallback = async function(msg: DraftBotReactionMessage): Promise<void> {
+	/**
+	 * Callback of when you switch from the main inventory to the reserve
+	 * @param msg
+	 */
+	static async reactionCallback(msg: DraftBotReactionMessage): Promise<void> {
 		const invMsg: DraftBotInventoryEmbed = msg as DraftBotInventoryEmbed;
 		if (invMsg.isMainState) {
 			invMsg.setTitle(invMsg.stockTitle);
@@ -93,6 +97,13 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		await msg.sentMessage.edit({embeds: [invMsg]});
 	}
 
+	/**
+	 * Creates the field for the reserve for a given type of item
+	 * @param title
+	 * @param tr
+	 * @param items
+	 * @param slots
+	 */
 	createStockField(title: string, tr: TranslationModule, items: GenericItemModel[], slots: number): EmbedField {
 		const formattedTitle = format(title, {
 			count: items.length - 1,

@@ -506,7 +506,7 @@ export class LogsDatabase extends Database {
 		});
 	}
 
-	public log15BestTopweek(): Promise<void> {
+	public log15BestTopWeek(): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
@@ -547,7 +547,7 @@ export class LogsDatabase extends Database {
 		return this.logItem(discordId, item, itemCategoryDatabase);
 	}
 
-	public logTimewarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
+	public logTimeWarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
 		if (reason === NumberChangeReason.IGNORE) {
 			return;
 		}

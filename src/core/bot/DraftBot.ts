@@ -77,7 +77,7 @@ export class DraftBot {
 	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
-		draftBotInstance.logsDatabase.log15BestTopweek().then();
+		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		DraftBot.programDailyTimeout();
 	}
 
@@ -160,7 +160,7 @@ export class DraftBot {
 	 * End the top week
 	 */
 	static async topWeekEnd(): Promise<void> {
-		draftBotInstance.logsDatabase.log15BestTopweek().then();
+		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Entity.findOne({
 			include: [
 				{

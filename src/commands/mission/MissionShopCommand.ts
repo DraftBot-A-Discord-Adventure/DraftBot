@@ -54,6 +54,10 @@ function shopEndCallback(shopMessage: DraftBotShopMessage): void {
  * Calculate the amount of money the player will have if he buys some with gems
  */
 function calculateGemsToMoneyRatio(): number {
+	/**
+	 * Returns the decimal part of a number
+	 * @param x
+	 */
 	const frac = function(x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};

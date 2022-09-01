@@ -109,7 +109,7 @@ export class Maps {
 			await lastSmallEvent.save();
 		}
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() - t);
-		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimewarp(entity.discordUserId, time, reason));
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimeWarp(entity.discordUserId, time, reason));
 	}
 
 	/**

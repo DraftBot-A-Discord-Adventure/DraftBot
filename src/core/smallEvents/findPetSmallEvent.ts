@@ -13,6 +13,36 @@ import {Constants} from "../Constants";
 import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
+/**
+ * Generates the resulting embed of the new pet's collect
+ * @param seEmbed
+ * @param base
+ * @param tr
+ * @param petLine
+ * @param pet
+ * @param text
+ */
+function generatePetEmbed(seEmbed: DraftBotEmbed, base: string, tr: TranslationModule, petLine: string, pet: PetEntity, text: string): void {
+	seEmbed.setDescription(
+		base +
+		format(
+			text, {
+				pet: petLine,
+				nominative: tr.get(`nominative.${pet.sex}`),
+				nominativeShift: tr.get(`nominative.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`nominative.${pet.sex}`).slice(1),
+				accusative: tr.get(`accusative.${pet.sex}`),
+				accusativeShift: tr.get(`accusative.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`accusative.${pet.sex}`).slice(1),
+				determinant: tr.get(`determinant.${pet.sex}`),
+				determinantShift: tr.get(`determinant.${pet.sex}`).charAt(0)
+					.toUpperCase() + tr.get(`determinant.${pet.sex}`).slice(1),
+				feminine: pet.sex === "f" ? "e" : ""
+			}
+		)
+	);
+}
+
 export const smallEvent: SmallEvent = {
 	/**
 	 * No restrictions on who can do it
@@ -92,24 +122,3 @@ export const smallEvent: SmallEvent = {
 		}
 	}
 };
-
-function generatePetEmbed(seEmbed: DraftBotEmbed, base: string, tr: TranslationModule, petLine: string, pet: PetEntity, text: string): void {
-	seEmbed.setDescription(
-		base +
-		format(
-			text, {
-				pet: petLine,
-				nominative: tr.get(`nominative.${pet.sex}`),
-				nominativeShift: tr.get(`nominative.${pet.sex}`).charAt(0)
-					.toUpperCase() + tr.get(`nominative.${pet.sex}`).slice(1),
-				accusative: tr.get(`accusative.${pet.sex}`),
-				accusativeShift: tr.get(`accusative.${pet.sex}`).charAt(0)
-					.toUpperCase() + tr.get(`accusative.${pet.sex}`).slice(1),
-				determinant: tr.get(`determinant.${pet.sex}`),
-				determinantShift: tr.get(`determinant.${pet.sex}`).charAt(0)
-					.toUpperCase() + tr.get(`determinant.${pet.sex}`).slice(1),
-				feminine: pet.sex === "f" ? "e" : ""
-			}
-		)
-	);
-}
