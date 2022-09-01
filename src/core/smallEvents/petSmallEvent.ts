@@ -248,10 +248,20 @@ async function managePickedPetInteraction(
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Interact with your pet
+	 * @param interactionCommand
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interactionCommand: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		if (!entity.Player.Pet) {
 			// the player does not have a pet : do nothing

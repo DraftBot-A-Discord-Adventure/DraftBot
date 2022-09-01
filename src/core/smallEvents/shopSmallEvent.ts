@@ -14,6 +14,15 @@ import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
+/**
+ * Get the callback of the shop small event
+ * @param entity
+ * @param price
+ * @param interaction
+ * @param language
+ * @param translationShop
+ * @param randomItem
+ */
 function callbackShopSmallEvent(
 	entity: Entity,
 	price: number,
@@ -44,10 +53,20 @@ function callbackShopSmallEvent(
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Find a merchant who sells you a random item at a cheap price (or is it)
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.SPECIAL);
 		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;

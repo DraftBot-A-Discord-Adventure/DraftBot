@@ -10,10 +10,20 @@ import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {Constants} from "../Constants";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Gives XP to the player's guild, or do the doNothing small event if you are not in a guild
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const g = await Guilds.getById(entity.Player.guildId);
 		if (g === null || g.isAtMaxLevel()) {

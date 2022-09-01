@@ -11,11 +11,36 @@ import {Guilds} from "../database/game/models/Guild";
 import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
 
+/**
+ * Gives how many players have a random class
+ * @param {("fr"|"en")} language
+ * @return {Promise<(*)[]>}
+ */
+const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
+	const {readdir} = require("fs/promises");
+	const classToCheck = await Classes.getById(parseInt((RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes")) as string)
+		.slice(0, -5), 10));
+	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);
+	let sentence = Constants.LANGUAGE.FRENCH ? " joueur" : " player";
+	sentence += nbPlayersWithThisClass > 1 ? "s" : "";
+	return [nbPlayersWithThisClass + sentence, language === Constants.LANGUAGE.FRENCH ? classToCheck.fr : classToCheck.en];
+};
+
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Throw a random, verified, fact to the player
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botFacts", language);
 
@@ -86,19 +111,4 @@ export const smallEvent: SmallEvent = {
 		);
 		await interaction.reply({embeds: [seEmbed]});
 	}
-};
-
-/**
- * Gives how many players have a random class
- * @param {("fr"|"en")} language
- * @return {Promise<(*)[]>}
- */
-const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
-	const {readdir} = require("fs/promises");
-	const classToCheck = await Classes.getById(parseInt((RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes")) as string)
-		.slice(0, -5), 10));
-	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);
-	let sentence = Constants.LANGUAGE.FRENCH ? " joueur" : " player";
-	sentence += nbPlayersWithThisClass > 1 ? "s" : "";
-	return [nbPlayersWithThisClass + sentence, language === Constants.LANGUAGE.FRENCH ? classToCheck.fr : classToCheck.en];
 };

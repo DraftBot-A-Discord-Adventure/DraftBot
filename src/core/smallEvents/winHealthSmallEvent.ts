@@ -9,10 +9,20 @@ import {Translations} from "../Translations";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Heal the player with a random amount of life
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const healthWon = RandomUtils.draftbotRandom.integer(
 			Constants.SMALL_EVENT.MINIMUM_HEALTH_WON,

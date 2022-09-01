@@ -7,10 +7,20 @@ import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 
 export const smallEvent: SmallEvent = {
-	canBeExecuted(entity: Entity): Promise<boolean> {
-		return Promise.resolve(entity.Player.hasEmptyMissionSlot());
+	/**
+	 * No restrictions on who can do it
+	 */
+	canBeExecuted(): Promise<boolean> {
+		return Promise.resolve(true);
 	},
 
+	/**
+	 * Find a new potion
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.POTION);
 		seEmbed.setDescription(
