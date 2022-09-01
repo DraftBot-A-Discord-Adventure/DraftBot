@@ -9,10 +9,20 @@ import {format} from "../utils/StringFormatter";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Advance the time of the entity
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 

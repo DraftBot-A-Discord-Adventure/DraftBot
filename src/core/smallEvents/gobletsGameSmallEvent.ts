@@ -17,6 +17,11 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 
 type RewardType = { type: string, option: number | string };
 
+/**
+ * Generates the malus the entity will outcome
+ * @param entity
+ * @param malus
+ */
 function generateMalus(entity: Entity, malus: string): RewardType {
 	switch (malus) {
 	case "life":
@@ -43,6 +48,13 @@ function generateMalus(entity: Entity, malus: string): RewardType {
 	}
 }
 
+/**
+ * Apply the malus the entity drawn
+ * @param malus
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	switch (malus.type) {
 	case "life":
@@ -65,6 +77,13 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 	await entity.save();
 }
 
+/**
+ * Generates the resulting message of the (dubious) game
+ * @param malus
+ * @param goblet
+ * @param seEmbed
+ * @param tr
+ */
 function generateEndMessage(malus: RewardType, goblet: string, seEmbed: MessageEmbed, tr: TranslationModule): MessageEmbed {
 	seEmbed.setDescription(format(tr.getRandom(`results.${malus.type}`), {
 		amount: malus.option,
@@ -74,10 +93,20 @@ function generateEndMessage(malus: RewardType, goblet: string, seEmbed: MessageE
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Makes a (dubious) game of find the ball under the goblets with a stranger
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: MessageEmbed) {
 		const tr = Translations.getModule("smallEvents.gobletsGame", language);
 		const data = Data.getModule("smallEvents.gobletsGame");

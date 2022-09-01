@@ -19,7 +19,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
-type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
+type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
 /**
  * Check top interactions
@@ -172,7 +172,7 @@ function checkPet(otherEntity: Entity, cList: string[]): void {
  * @param guild
  * @param cList
  */
-async function checkGuildResponsabilities(otherEntity: Entity, guild: Guild, cList: string[]): Promise<Guild> {
+async function checkGuildResponsibilities(otherEntity: Entity, guild: Guild, cList: string[]): Promise<Guild> {
 	if (otherEntity.Player.guildId) {
 		guild = await Guilds.getById(otherEntity.Player.guildId);
 		if (guild.chiefId === otherEntity.Player.id) {
@@ -320,46 +320,46 @@ function getPrefixes(item: GenericItemModel): { [key: string]: string } {
 
 /**
  * Send and manage the poor interaction
- * @param textInformations
+ * @param textInformation
  * @param otherEntity
  * @param entity
  * @param seEmbed
  */
 async function sendAndManagePoorInteraction(
-	textInformations: TextInformations,
+	textInformation: TextInformation,
 	otherEntity: Entity,
 	entity: Entity,
 	seEmbed: DraftBotEmbed
 ): Promise<void> {
 	await new DraftBotReactionMessageBuilder()
-		.allowUser(textInformations.interaction.user)
+		.allowUser(textInformation.interaction.user)
 		.addReaction(new DraftBotReaction(Constants.SMALL_EVENT.COIN_EMOTE))
 		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()
-				.formatAuthor(Translations.getModule("commands.report", textInformations.tr.language).get("journal"), textInformations.interaction.user);
+				.formatAuthor(Translations.getModule("commands.report", textInformation.tr.language).get("journal"), textInformation.interaction.user);
 			if (reaction && reaction.emoji.name === Constants.SMALL_EVENT.COIN_EMOTE) {
-				await sendACoin(otherEntity, textInformations.interaction.channel, textInformations.tr.language, entity);
-				poorEmbed.setDescription(format(textInformations.tr.getRandom("poorGiveMoney"), {
-					pseudo: await otherEntity.Player.getPseudo(textInformations.tr.language)
+				await sendACoin(otherEntity, textInformation.interaction.channel, textInformation.tr.language, entity);
+				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorGiveMoney"), {
+					pseudo: await otherEntity.Player.getPseudo(textInformation.tr.language)
 				}));
 			}
 			else {
-				poorEmbed.setDescription(format(textInformations.tr.getRandom("poorDontGiveMoney"), {
-					pseudo: await otherEntity.Player.getPseudo(textInformations.tr.language)
+				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorDontGiveMoney"), {
+					pseudo: await otherEntity.Player.getPseudo(textInformation.tr.language)
 				}));
 			}
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
-			await textInformations.interaction.channel.send({embeds: [poorEmbed]});
+			await textInformation.interaction.channel.send({embeds: [poorEmbed]});
 		})
 		.build()
 		.setDescription(seEmbed.description)
 		.setAuthor({
 			name: seEmbed.author.name,
-			iconURL: textInformations.interaction.user.displayAvatarURL()
+			iconURL: textInformation.interaction.user.displayAvatarURL()
 		})
-		.editReply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
+		.editReply(textInformation.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
 }
 
 /**
@@ -389,7 +389,7 @@ async function getAvailableInteractions(
 	checkRanking(otherPlayer, numberOfPlayers, cList, player);
 	checkMoney(otherEntity, cList, entity);
 	checkPet(otherEntity, cList);
-	guild = await checkGuildResponsabilities(otherEntity, guild, cList);
+	guild = await checkGuildResponsibilities(otherEntity, guild, cList);
 	cList.push("class");
 	checkEffects(otherEntity, tr, cList);
 	checkInventory(otherEntity, cList);
@@ -397,10 +397,20 @@ async function getAvailableInteractions(
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Interact with another player on the road
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const numberOfPlayers = await Player.count({
 			where: {

@@ -14,10 +14,20 @@ import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
-	canBeExecuted(entity: Entity): Promise<boolean> {
-		return Promise.resolve(entity.Player.hasEmptyMissionSlot());
+	/**
+	 * No restrictions on who can do it
+	 */
+	canBeExecuted(): Promise<boolean> {
+		return Promise.resolve(true);
 	},
 
+	/**
+	 * Find a fresh new pet
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const pet = await PetEntities.generateRandomPetEntityNotGuild();
 		let guild;
