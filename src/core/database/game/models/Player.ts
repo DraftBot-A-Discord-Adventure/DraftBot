@@ -32,6 +32,14 @@ import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
 
+export type EditValueParameters = {
+	entity: Entity,
+	amount: number,
+	channel: TextBasedChannel,
+	language: string,
+	reason: NumberChangeReason
+}
+
 export class Player extends Model {
 	public readonly id!: number;
 
@@ -150,14 +158,17 @@ export class Player extends Model {
 		) - Constants.XP.MINUS;
 	}
 
-	public async addScore(entity: Entity, score: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
-		this.score += score;
-		if (score > 0) {
-			await MissionsController.update(entity, channel, language, {missionId: "earnPoints", count: score});
+	public async addScore(parameters: EditValueParameters): Promise<void> {
+		this.score += parameters.amount;
+		if (parameters.amount > 0) {
+			await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+				missionId: "earnPoints",
+				count: parameters.amount
+			});
 		}
-		await this.setScore(entity, this.score, channel, language);
-		draftBotInstance.logsDatabase.logScoreChange(entity.discordUserId, this.score, reason).then();
-		this.addWeeklyScore(score);
+		await this.setScore(parameters.entity, this.score, parameters.channel, parameters.language);
+		draftBotInstance.logsDatabase.logScoreChange(parameters.entity.discordUserId, this.score, parameters.reason).then();
+		this.addWeeklyScore(parameters.amount);
 	}
 
 	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {

@@ -246,7 +246,13 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 				);
 				return false;
 			}
-			await entity.Player.addScore(entity, 1000, message.sentMessage.channel, translationModule.language, NumberChangeReason.MISSION_SHOP);
+			await entity.Player.addScore({
+				entity,
+				amount: 1000,
+				channel: message.sentMessage.channel,
+				language: translationModule.language,
+				reason: NumberChangeReason.MISSION_SHOP
+			});
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{

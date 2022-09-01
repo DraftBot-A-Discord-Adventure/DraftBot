@@ -31,7 +31,13 @@ const playerScoreTestCommand = async (language: string, interaction: CommandInte
 	if (score < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
 	}
-	await entity.Player.addScore(entity, score - entity.Player.score, interaction.channel, language, NumberChangeReason.TEST);
+	await entity.Player.addScore({
+		entity: entity,
+		amount: score - entity.Player.score,
+		channel: interaction.channel,
+		language,
+		reason: NumberChangeReason.TEST
+	});
 	await entity.Player.save();
 
 	return format(commandInfo.messageWhenExecuted, {score: entity.Player.score});

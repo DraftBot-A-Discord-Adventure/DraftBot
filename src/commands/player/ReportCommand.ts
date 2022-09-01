@@ -362,7 +362,13 @@ async function updatePlayerInfos(
 	changes: { scoreChange: number, moneyChange: number }
 ): Promise<void> {
 	await entity.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
-	await entity.Player.addScore(entity, changes.scoreChange, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+	await entity.Player.addScore({
+		entity: entity,
+		amount: changes.scoreChange,
+		channel: textInformation.interaction.channel,
+		language: textInformation.language,
+		reason: NumberChangeReason.BIG_EVENT
+	});
 	await entity.Player.addMoney(entity, changes.moneyChange, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	await entity.Player.addExperience(randomPossibility.experience, entity, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT
 	);
@@ -385,10 +391,22 @@ async function updatePlayerInfos(
 
 	if (randomPossibility.eventId === 0) {
 		await entity.Player.addMoney(entity, -entity.Player.money, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
-		await entity.Player.addScore(entity, -entity.Player.score, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+		await entity.Player.addScore({
+			entity: entity,
+			amount: -entity.Player.score,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.BIG_EVENT
+		});
 		if (randomPossibility.possibilityKey !== "end") {
 			await entity.Player.addMoney(entity, 10 - entity.Player.money, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
-			await entity.Player.addScore(entity, 100 - entity.Player.score, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+			await entity.Player.addScore({
+				entity: entity,
+				amount: 100 - entity.Player.score,
+				channel: textInformation.interaction.channel,
+				language: textInformation.language,
+				reason: NumberChangeReason.BIG_EVENT
+			});
 		}
 	}
 }
