@@ -1,6 +1,9 @@
 import {parse} from "toml";
 import {readFileSync} from "fs";
 
+/**
+ * Represents the main constants of the bot
+ */
 export interface DraftBotConfig {
 	DISCORD_CLIENT_TOKEN: string;
 	BOT_OWNER_ID: string;
@@ -31,7 +34,7 @@ export interface DraftBotConfig {
 	MARIADB_PORT: number;
 }
 
-export const loadConfig = function(): DraftBotConfig {
+export function loadConfig(): DraftBotConfig {
 	const config = parse(readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
 	return {
 		BACKUP_ARCHIVE_PASSWORD: config.backups.archive_password,
@@ -62,4 +65,4 @@ export const loadConfig = function(): DraftBotConfig {
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port
 	};
-};
+}

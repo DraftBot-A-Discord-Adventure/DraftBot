@@ -135,10 +135,10 @@ function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 }
 
 /**
- * Socket deconnexion
+ * Socket disconnection
  * @param ipc
  */
-function prepareDeconnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
+function prepareDisconnectionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"socket.disconnected",
 		function(socket: unknown, destroyedSocketID: string) {
@@ -147,7 +147,10 @@ function prepareDeconnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	);
 }
 
-export const startIPCServer = (): void => {
+/**
+ * Starts the IPC server
+ */
+export function startIPCServer(): void {
 	let ipc: InstanceType<typeof IPC> = null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
@@ -164,9 +167,9 @@ export const startIPCServer = (): void => {
 			prepareSpamAnswer(ipc);
 			prepareIsSpammingAnswer(ipc);
 			prepareConnexionSocketAnswer(ipc);
-			prepareDeconnexionSocketAnswer(ipc);
+			prepareDisconnectionSocketAnswer(ipc);
 		}
 	);
 
 	ipc.server.start();
-};
+}

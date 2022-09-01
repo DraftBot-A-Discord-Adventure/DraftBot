@@ -44,6 +44,12 @@ export const effectsErrorTextValue = async function(user: User, language: string
 	return errorMessageObject;
 };
 
+/**
+ * Reply to an interaction with a given error
+ * @param interaction
+ * @param language
+ * @param reason
+ */
 export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string): Promise<void> {
 	await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
@@ -51,6 +57,14 @@ export async function replyErrorMessage(interaction: CommandInteraction, languag
 	});
 }
 
+/**
+ * Sends an error message
+ * @param user
+ * @param interaction
+ * @param language
+ * @param reason
+ * @param isCancelling
+ */
 export async function sendErrorMessage(
 	user: User,
 	interaction: CommandInteraction,

@@ -4,31 +4,62 @@ import {Translations} from "../Translations";
 import {replyErrorMessage} from "./ErrorUtils";
 import {escapeUsername} from "./StringUtils";
 
+/**
+ * Functions to call when you want to manage the blocking of a player
+ */
 export class BlockingUtils {
+	/**
+	 * Block a player with a given reason and time
+	 * @param discordId
+	 * @param reason
+	 * @param maxTime
+	 */
 	static blockPlayer(discordId: string, reason: string, maxTime = 0): void {
 		IPCClient.ipcBlockPlayer(discordId, reason, maxTime);
 	}
 
+	/**
+	 * Block a player with a given discord collector
+	 * @param discordId
+	 * @param reason
+	 * @param collector
+	 */
 	static blockPlayerWithCollector(discordId: string, reason: string, collector: ReactionCollector): void {
 		BlockingUtils.blockPlayer(discordId, reason, collector.options.time);
 	}
 
+	/**
+	 * Unblock a player for a given reason
+	 * @param discordId
+	 * @param reason
+	 */
 	static unblockPlayer(discordId: string, reason: string): void {
 		IPCClient.ipcUnblockPlayer(discordId, reason);
 	}
 
+	/**
+	 * Gets why this player is blocked (empty list means it isn't blocked)
+	 * @param discordId
+	 */
 	static async getPlayerBlockingReason(discordId: string): Promise<string[]> {
 		return await IPCClient.ipcGetBlockedPlayerReason(discordId);
 	}
 
+	/**
+	 * Block a player for spamming
+	 * @param discordId
+	 */
 	static spamBlockPlayer(discordId: string): void {
 		IPCClient.ipcSpamBlockPlayer(discordId);
 	}
 
+	/**
+	 * Checks if a player is spamming
+	 * @param discordId
+	 */
 	static async isPlayerSpamming(discordId: string): Promise<boolean> {
 		return await IPCClient.ipcIsPlayerSpamming(discordId);
 	}
-
 }
 
 /**

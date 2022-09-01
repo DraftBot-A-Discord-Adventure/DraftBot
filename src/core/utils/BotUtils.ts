@@ -2,7 +2,14 @@ import {Guild} from "discord.js";
 
 export type ValidationInfos = { validation: string, humans: number, bots: number, ratio: number }
 
+/**
+ * Functions that are used from the bots perspective
+ */
 export class BotUtils {
+	/**
+	 * Get the server's stats of a given guild
+	 * @param guild
+	 */
 	static getValidationInfos(guild: Guild): ValidationInfos {
 		const humans = guild.members.cache.filter(member => !member.user.bot).size;
 		const bots = guild.members.cache.filter(member => member.user.bot).size;

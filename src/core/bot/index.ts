@@ -59,6 +59,9 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 	}
 });
 
+/**
+ * The main function of the bot : makes the bot start
+ */
 async function main(): Promise<void> {
 	const client = new Client(
 		{
