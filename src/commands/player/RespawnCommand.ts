@@ -30,7 +30,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const lostScore = Math.round(entity.Player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
 	await entity.addHealth(await entity.getMaxHealth() - entity.health, interaction.channel, language, NumberChangeReason.RESPAWN);
-	await entity.Player.addScore(entity, -lostScore, interaction.channel, language, NumberChangeReason.RESPAWN);
+	await entity.Player.addScore({
+		entity,
+		amount: -lostScore,
+		channel: interaction.channel,
+		language: language,
+		reason: NumberChangeReason.RESPAWN
+	});
 
 	await Promise.all([
 		entity.save(),
