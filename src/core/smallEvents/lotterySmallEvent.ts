@@ -75,39 +75,33 @@ export const smallEvent: SmallEvent = {
 				await Maps.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
+			const editValuesParams = {
+				entity,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			};
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
 				const coeff = dataLottery.getNumber(`coeff.${collected.first().emoji.name}`);
 				switch (reward) {
 				case Constants.LOTTERY_REWARD_TYPES.XP:
-					await player.addExperience({
-						entity,
-						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,
-						channel: interaction.channel,
-						language,
-						reason: NumberChangeReason.SMALL_EVENT
-					});
+					await player.addExperience(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff
+					}));
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.MONEY:
-					await player.addMoney({
-						entity,
-						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff,
-						channel: interaction.channel,
-						language,
-						reason: NumberChangeReason.SMALL_EVENT
-					});
+					await player.addMoney(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff
+					}));
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
 					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					await guild.save();
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.POINTS:
-					await player.addScore({
-						entity,
-						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff,
-						channel: interaction.channel,
-						language,
-						reason: NumberChangeReason.SMALL_EVENT
-					});
+					await player.addScore(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff
+					}));
 					break;
 				default:
 					throw new Error("lottery reward type not found");
@@ -126,13 +120,9 @@ export const smallEvent: SmallEvent = {
 				});
 			}
 			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`))) {
-				await player.addMoney({
-					entity,
-					amount: -175,
-					channel: interaction.channel,
-					language,
-					reason: NumberChangeReason.SMALL_EVENT
-				});
+				await player.addMoney(Object.assign(editValuesParams, {
+					amount: -175
+				}));
 				await player.save();
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
 					lostTime: dataLottery.getNumber("lostTime")
