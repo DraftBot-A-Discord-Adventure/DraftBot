@@ -85,6 +85,7 @@ import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
 import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
 import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
 import {EffectsConstants} from "../../constants/EffectsConstants";
+import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
@@ -1062,6 +1063,10 @@ export class LogsDatabase extends Database {
 				resolve();
 			});
 		});
+	}
+
+	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
+		await this.logItem(discordId, item, LogsPlayersDailies);
 	}
 
 	private logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {

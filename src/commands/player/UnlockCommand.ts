@@ -14,6 +14,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {log} from "console";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -121,8 +122,7 @@ async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 		]);
 	}
 	catch (e) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while reaction to unlock message: " + e);
+		log(`Error while reaction to unlock message: ${e}`);
 	}
 }
 

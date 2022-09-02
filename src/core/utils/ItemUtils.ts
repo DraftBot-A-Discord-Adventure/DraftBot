@@ -22,6 +22,14 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../bot";
 
 /**
+ * Get the value of an item
+ * @param item
+ */
+export const getItemValue = function(item: GenericItemModel): number {
+	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
+};
+
+/**
  * Count how many potions the player have
  * @param player
  */
@@ -358,14 +366,6 @@ export const giveItemToPlayer = async function(
 			actualItem: itemToReplaceInstance.toString(language, null)
 		}))
 		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
-};
-
-/**
- * Get the value of an item
- * @param item
- */
-export const getItemValue = function(item: GenericItemModel): number {
-	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
 };
 
 /**

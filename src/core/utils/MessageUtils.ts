@@ -1,3 +1,4 @@
+import {error, log} from "console";
 import {HexColorString, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -17,8 +18,8 @@ export function sendDirectMessage(user: User, title: string, description: string
 			.formatAuthor(title, user)
 			.setDescription(description)
 			.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")})]
-	}).catch(() => { /* TODO REFACTOR log error if needed */
+	}).catch(() => {
+		error(`Can't send dm to user ${user.id}`);
 	});
-	// TODO REFACTOR LES LOGS
-	// log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
+	log(`Dm sent to ${user.id}, title : ${title}, description : ${description}`);
 }

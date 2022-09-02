@@ -900,6 +900,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("players_dailies", logsItemAttributes);
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {

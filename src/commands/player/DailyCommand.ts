@@ -15,6 +15,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
+import {draftBotInstance} from "../../core/bot";
 
 type EntityInformation = { entity: Entity, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -134,8 +135,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await activateDailyItem({entity, activeObject}, embed, {interaction, language, dailyModule});
 	await interaction.reply({embeds: [embed]});
 
-	// TODO CREER TABLE LOG DAILY
-	// log(entity.discordUserId + " used his daily item " + activeObject.en);
+	draftBotInstance.logsDatabase.logPlayerDaily(entity.discordUserId, activeObject).then();
 }
 
 export const commandInfo: ICommand = {

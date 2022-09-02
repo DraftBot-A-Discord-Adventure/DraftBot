@@ -15,6 +15,7 @@ import PetEntity from "../../core/database/game/models/PetEntity";
 import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
+import {log} from "console";
 
 /**
  * Display badges for the given entity
@@ -282,8 +283,7 @@ async function generateFields(
 		}
 	}
 	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting class of player for profile: " + error);
+		log(`Error while getting class of player for profile: ${error}`);
 	}
 
 	try {
@@ -293,8 +293,7 @@ async function generateFields(
 		}
 	}
 	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting guild of player for profile: " + error);
+		log(`Error while getting guild of player for profile: ${error}`);
 	}
 
 	try {
@@ -304,8 +303,7 @@ async function generateFields(
 		}
 	}
 	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting map of player for profile: " + error);
+		log(`Error while getting map of player for profile: ${error}`);
 	}
 
 	try {
@@ -315,8 +313,7 @@ async function generateFields(
 		}
 	}
 	catch (error) {
-		// TODO REFACTOR LES LOGS
-		// log("Error while getting pet of player for profile: " + error);
+		log(`Error while getting pet of player for profile: ${error}`);
 	}
 	return {fields, titleEffect};
 }
