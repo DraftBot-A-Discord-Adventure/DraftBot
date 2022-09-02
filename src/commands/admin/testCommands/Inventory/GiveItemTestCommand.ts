@@ -1,13 +1,9 @@
 import {Constants} from "../../../../core/Constants";
-import {Armors} from "../../../../core/database/game/models/Armor";
-import {Weapons} from "../../../../core/database/game/models/Weapon";
-import {Potions} from "../../../../core/database/game/models/Potion";
-import {ObjectItems} from "../../../../core/database/game/models/ObjectItem";
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
-import {GenericItemModel} from "../../../../core/database/game/models/GenericItemModel";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "giveitem",
@@ -36,30 +32,13 @@ const giveItemTestCommand = async (language: string, interaction: CommandInterac
 	if (category < 0 || category > 3) {
 		throw Error("Catégorie inconnue. Elle doit être en 0 et 3");
 	}
-	let item: GenericItemModel;
-	switch (category) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
-		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
-		break;
-	case Constants.ITEM_CATEGORIES.ARMOR:
-		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
-		break;
-	case Constants.ITEM_CATEGORIES.POTION:
-		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
-		break;
-	case Constants.ITEM_CATEGORIES.OBJECT:
-		item = itemId <= await ObjectItems.getMaxId() && itemId > 0 ? await ObjectItems.getById(itemId) : null;
-		break;
-	default:
-		break;
-	}
+	const item = await getItemByIdAndCategory(itemId, category);
 	if (!item) {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 	if (!await entity.Player.giveItem(item)) {
 		throw Error("Aucun emplacement libre dans l'inventaire");
 	}
-
 	return format(commandInfo.messageWhenExecuted, {
 		item: item.toString(language, null)
 	});

@@ -22,6 +22,12 @@ export const commandInfo: ITestCommand = {
 	execute: null // defined later
 };
 
+/**
+ * Checks if the given values are eligible for a rarity shot
+ * @param nbShots
+ * @param min
+ * @param max
+ */
 function checkShotValues(nbShots: number, min: number, max: number): void {
 	if (nbShots < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");

@@ -498,3 +498,26 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
 	}
 	return false;
 };
+
+function getCategoryModelByName(category: number): { getMaxId: () => Promise<number>, getById: (itemId: number) => Promise<GenericItemModel> } {
+	switch (category) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		return Weapons;
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		return Armors;
+	case Constants.ITEM_CATEGORIES.POTION:
+		return Potions;
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		return ObjectItems;
+	default:
+		return null;
+	}
+}
+
+export async function getItemByIdAndCategory(itemId: number, category: number): Promise<GenericItemModel> {
+	const categoryModel = getCategoryModelByName(category);
+	if (!categoryModel) {
+		return null;
+	}
+	return itemId <= await categoryModel.getMaxId() && itemId > 0 ? await categoryModel.getById(itemId) : null;
+}
