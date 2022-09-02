@@ -35,7 +35,13 @@ const petLovePointsTestCommand = async (language: string, interaction: CommandIn
 	if (lovePoints < 0 || lovePoints > 100) {
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
-	await pet.changeLovePoints(lovePoints - pet.lovePoints, entity, interaction.channel, language, NumberChangeReason.TEST);
+	await pet.changeLovePoints({
+		entity,
+		amount: lovePoints - pet.lovePoints,
+		channel: interaction.channel,
+		language,
+		reason: NumberChangeReason.TEST
+	});
 	await pet.save();
 	return format(
 		commandInfo.messageWhenExecuted, {

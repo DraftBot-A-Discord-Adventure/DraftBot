@@ -362,27 +362,15 @@ async function updatePlayerInfos(
 	changes: { scoreChange: number, moneyChange: number }
 ): Promise<void> {
 	await entity.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
-	await entity.Player.addScore({
+	const valuesToEditParameters = {
 		entity,
-		amount: changes.scoreChange,
 		channel: textInformation.interaction.channel,
 		language: textInformation.language,
 		reason: NumberChangeReason.BIG_EVENT
-	});
-	await entity.Player.addMoney({
-		entity,
-		amount: changes.moneyChange,
-		channel: textInformation.interaction.channel,
-		language: textInformation.language,
-		reason: NumberChangeReason.BIG_EVENT
-	});
-	await entity.Player.addExperience({
-		entity,
-		amount: randomPossibility.experience,
-		channel: textInformation.interaction.channel,
-		language: textInformation.language,
-		reason: NumberChangeReason.BIG_EVENT
-	});
+	};
+	await entity.Player.addScore(Object.assign(valuesToEditParameters, {amount: changes.scoreChange}));
+	await entity.Player.addMoney(Object.assign(valuesToEditParameters, {amount: changes.moneyChange}));
+	await entity.Player.addExperience(Object.assign(valuesToEditParameters, {amount: randomPossibility.experience}));
 
 	if (randomPossibility.nextEvent !== undefined) {
 		entity.Player.nextEvent = randomPossibility.nextEvent;

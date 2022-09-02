@@ -178,16 +178,16 @@ async function managePickedPetInteraction(
 	let interaction = pickRandomInteraction(entity.Player.Pet);
 	let amount = 0;
 	let food = null;
+	const editValueChanges = {
+		entity,
+		channel: interactionCommand.channel,
+		language,
+		reason: NumberChangeReason.SMALL_EVENT
+	};
 	switch (interaction) {
 	case "money":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney({
-			entity,
-			amount,
-			channel: interactionCommand.channel,
-			language,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
+		await entity.Player.addMoney(Object.assign(editValueChanges, {amount}));
 		await entity.Player.save();
 		break;
 	case "gainLife":
@@ -197,7 +197,7 @@ async function managePickedPetInteraction(
 		break;
 	case "gainLove":
 		amount = RandomUtils.randInt(1, 3);
-		await pet.changeLovePoints(amount, entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await pet.changeLovePoints(Object.assign(editValueChanges, {amount}));
 		await pet.save();
 		break;
 	case "food":
@@ -215,13 +215,7 @@ async function managePickedPetInteraction(
 		break;
 	case "points":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addScore({
-			entity,
-			amount,
-			channel: interactionCommand.channel,
-			language,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
+		await entity.Player.addScore(Object.assign(editValueChanges, {amount}));
 		await entity.Player.save();
 		break;
 	case "badge":
@@ -234,13 +228,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseMoney":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney({
-			entity,
-			amount: -amount,
-			channel: interactionCommand.channel,
-			language,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
+		await entity.Player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
 		await entity.Player.save();
 		break;
 	case "loseTime":
@@ -256,7 +244,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseLove":
 		amount = RandomUtils.randInt(1, 3);
-		await pet.changeLovePoints(-amount, entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await pet.changeLovePoints(Object.assign(editValueChanges, {amount: -amount}));
 		await pet.save();
 		break;
 	default:
