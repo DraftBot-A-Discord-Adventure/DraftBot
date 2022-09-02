@@ -22,13 +22,13 @@ function giveLevelsTo(entityToEdit: Entity, amount: number, interaction: Command
 	else {
 		throw new Error("wrong parameter");
 	}
-	entityToEdit.Player.addExperience(
-		Math.floor(entityToEdit.Player.getExperienceNeededToLevelUp() * ratioExpCurrentLevel) - entityToEdit.Player.experience,
-		entityToEdit,
-		interaction.channel,
+	entityToEdit.Player.addExperience({
+		entity: entityToEdit,
+		amount: Math.floor(entityToEdit.Player.getExperienceNeededToLevelUp() * ratioExpCurrentLevel) - entityToEdit.Player.experience,
+		channel: interaction.channel,
 		language,
-		NumberChangeReason.ADMIN
-	).then();
+		reason: NumberChangeReason.ADMIN
+	}).then();
 }
 
 export const commandInfo: ICommand = ChangeValueAdminCommands.getCommandInfo("level", giveLevelsTo);

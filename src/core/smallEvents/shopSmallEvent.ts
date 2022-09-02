@@ -42,7 +42,13 @@ function callbackShopSmallEvent(
 				return;
 			}
 			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
-			await entity.Player.addMoney(entity, -price, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			await entity.Player.addMoney({
+				entity,
+				amount: -price,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
 			await entity.Player.save();
 			return;
 		}

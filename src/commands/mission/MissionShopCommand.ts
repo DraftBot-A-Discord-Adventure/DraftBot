@@ -193,7 +193,13 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), message.sentMessage.channel, translationModule.language, NumberChangeReason.MISSION_SHOP);
+			await entity.Player.addMoney({
+				entity,
+				amount: calculateGemsToMoneyRatio(),
+				channel: message.sentMessage.channel,
+				language: translationModule.language,
+				reason: NumberChangeReason.MISSION_SHOP
+			});
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{

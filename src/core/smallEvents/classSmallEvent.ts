@@ -94,7 +94,13 @@ export const smallEvent: SmallEvent = {
 				const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
 				await interaction.reply({embeds: [seEmbed]});
-				await entity.Player.addMoney(entity, moneyWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+				await entity.Player.addMoney({
+					entity,
+					amount: moneyWon,
+					channel: interaction.channel,
+					language,
+					reason: NumberChangeReason.SMALL_EVENT
+				});
 			}
 		}
 		else if (classDataModule.getNumberArray("otherEligible").includes(classId)) {

@@ -268,9 +268,21 @@ function getPetName(otherEntity: Entity, language: string): string {
  * @param entity
  */
 async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, language: string, entity: Entity): Promise<void> {
-	await otherEntity.Player.addMoney(otherEntity, 1, channel, language, NumberChangeReason.RECEIVE_COIN);
+	await otherEntity.Player.addMoney({
+		entity: otherEntity,
+		amount: 1,
+		channel,
+		language,
+		reason: NumberChangeReason.RECEIVE_COIN
+	});
 	await otherEntity.Player.save();
-	await entity.Player.addMoney(entity, -1, channel, language, NumberChangeReason.SMALL_EVENT);
+	await entity.Player.addMoney({
+		entity,
+		amount: -1,
+		channel,
+		language,
+		reason: NumberChangeReason.SMALL_EVENT
+	});
 	await entity.Player.save();
 }
 

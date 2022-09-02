@@ -299,7 +299,13 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	await entity.Player.addMoney(entity, money, channel, language, NumberChangeReason.ITEM_SELL);
+	await entity.Player.addMoney({
+		entity,
+		amount: money,
+		channel,
+		language,
+		reason: NumberChangeReason.ITEM_SELL
+	});
 	await MissionsController.update(entity, channel, language, {
 		missionId: "sellItemWithGivenCost",
 		params: {itemCost: money}

@@ -171,20 +171,20 @@ export class Player extends Model {
 		this.addWeeklyScore(parameters.amount);
 	}
 
-	public async addMoney(entity: Entity, money: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
-		this.money += money;
-		if (money > 0) {
-			const newEntity = await MissionsController.update(entity, channel, language, {
+	public async addMoney(parameters: EditValueParameters): Promise<void> {
+		this.money += parameters.amount;
+		if (parameters.amount > 0) {
+			const newEntity = await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
 				missionId: "earnMoney",
-				count: money
+				count: parameters.amount
 			});
 			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
 			// As the money and experience may have changed, we update the models of the caller
 			Object.assign(this, newEntity.Player);
-			Object.assign(entity, newEntity);
+			Object.assign(parameters.entity, newEntity);
 		}
 		this.setMoney(this.money);
-		draftBotInstance.logsDatabase.logMoneyChange(entity.discordUserId, this.money, reason).then();
+		draftBotInstance.logsDatabase.logMoneyChange(parameters.entity.discordUserId, this.money, parameters.reason).then();
 	}
 
 	public async getPseudo(language: string): Promise<string> {
@@ -475,33 +475,23 @@ export class Player extends Model {
 
 	/**
 	 * give experience to a player
-	 * @param xpWon
-	 * @param entity
-	 * @param channel
-	 * @param language
-	 * @param reason
+	 * @param parameters
 	 */
-	public async addExperience(
-		xpWon: number,
-		entity: Entity,
-		channel: TextBasedChannel,
-		language: string,
-		reason: NumberChangeReason
-	): Promise<void> {
-		this.experience += xpWon;
-		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, reason).then();
-		if (xpWon > 0) {
-			const newEntity = await MissionsController.update(entity, channel, language, {
+	public async addExperience(parameters: EditValueParameters): Promise<void> {
+		this.experience += parameters.amount;
+		draftBotInstance.logsDatabase.logExperienceChange(parameters.entity.discordUserId, this.experience, parameters.reason).then();
+		if (parameters.amount > 0) {
+			const newEntity = await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
 				missionId: "earnXP",
-				count: xpWon
+				count: parameters.amount
 			});
 			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
 			// As the money and experience may have changed, we update the models of the caller
 			Object.assign(this, newEntity.Player);
-			Object.assign(entity, newEntity);
+			Object.assign(parameters.entity, newEntity);
 		}
 
-		await this.levelUpIfNeeded(entity, channel, language);
+		await this.levelUpIfNeeded(parameters.entity, parameters.channel, parameters.language);
 	}
 
 	/**

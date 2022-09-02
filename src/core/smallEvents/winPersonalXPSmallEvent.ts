@@ -37,7 +37,13 @@ export const smallEvent: SmallEvent = {
 						xp: xpWon
 					})
 			);
-		await entity.Player.addExperience(xpWon, entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await entity.Player.addExperience({
+			entity,
+			amount: xpWon,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		await entity.Player.save();
 		await entity.save();
 		await interaction.reply({embeds: [seEmbed]});
