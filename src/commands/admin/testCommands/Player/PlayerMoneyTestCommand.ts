@@ -31,7 +31,13 @@ const playerMoneyTestCommand = async (language: string, interaction: CommandInte
 	if (money < 0) {
 		throw new Error("Erreur money : argent donné inférieur à 0 interdit !");
 	}
-	await entity.Player.addMoney(entity, money - entity.Player.money, interaction.channel, language, NumberChangeReason.TEST);
+	await entity.Player.addMoney({
+		entity,
+		amount: money - entity.Player.money,
+		channel: interaction.channel,
+		language,
+		reason: NumberChangeReason.TEST
+	});
 	await entity.Player.save();
 
 	return format(commandInfo.messageWhenExecuted, {money: entity.Player.money});

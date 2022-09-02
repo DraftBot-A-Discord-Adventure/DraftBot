@@ -26,7 +26,13 @@ export const commandInfo: ITestCommand = {
  */
 const addMoneyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await entity.Player.addMoney(entity, parseInt(args[0], 10), interaction.channel, language, NumberChangeReason.TEST);
+	await entity.Player.addMoney({
+		entity,
+		amount: parseInt(args[0], 10),
+		channel: interaction.channel,
+		language,
+		reason: NumberChangeReason.TEST
+	});
 	await entity.Player.save();
 
 	return format(commandInfo.messageWhenExecuted, {money: entity.Player.money});

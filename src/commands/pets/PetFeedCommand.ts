@@ -116,7 +116,13 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 				petFeedModule.get("noMoney")
 			);
 		}
-		await entity.Player.addMoney(entity, -20, interaction.channel, language, NumberChangeReason.PET_FEED);
+		await entity.Player.addMoney({
+			entity,
+			amount: -20,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.PET_FEED
+		});
 		authorPet.hungrySince = new Date();
 		await authorPet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
 		await Promise.all([

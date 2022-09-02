@@ -181,7 +181,13 @@ async function managePickedPetInteraction(
 	switch (interaction) {
 	case "money":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney(entity, amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await entity.Player.addMoney({
+			entity,
+			amount,
+			channel: interactionCommand.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		await entity.Player.save();
 		break;
 	case "gainLife":
@@ -228,7 +234,13 @@ async function managePickedPetInteraction(
 		break;
 	case "loseMoney":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney(entity, -amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await entity.Player.addMoney({
+			entity,
+			amount: -amount,
+			channel: interactionCommand.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		await entity.Player.save();
 		break;
 	case "loseTime":

@@ -100,7 +100,13 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 	const moneyWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_MONEY + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney(member, moneyWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY));
+	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney({
+		entity: member,
+		amount: moneyWon,
+		channel: stringInfos.interaction.channel,
+		language: guildDailyModule.language,
+		reason: NumberChangeReason.GUILD_DAILY
+	}));
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
 	}));
@@ -194,7 +200,13 @@ async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: Strin
 	const xpWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addExperience(xpWon, member, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY));
+	await genericAwardingFunction(guildLike.members, member => member.Player.addExperience({
+		entity: member,
+		amount: xpWon,
+		channel: stringInfos.interaction.channel,
+		language: guildDailyModule.language,
+		reason: NumberChangeReason.GUILD_DAILY
+	}));
 	stringInfos.embed.setDescription(guildDailyModule.format("personalXP", {
 		xp: xpWon
 	}));

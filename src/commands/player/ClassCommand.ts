@@ -79,7 +79,13 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
-				await userInformation.entity.Player.addMoney(userInformation.entity, -selectedClass.price, message.channel, classTranslations.language, NumberChangeReason.CLASS);
+				await userInformation.entity.Player.addMoney({
+					entity: userInformation.entity,
+					amount: -selectedClass.price,
+					channel: message.channel,
+					language: classTranslations.language,
+					reason: NumberChangeReason.CLASS
+				});
 				await MissionsController.update(userInformation.entity, message.channel, classTranslations.language, {missionId: "chooseClass"});
 				await MissionsController.update(userInformation.entity, message.channel, classTranslations.language, {
 					missionId: "chooseClassTier",

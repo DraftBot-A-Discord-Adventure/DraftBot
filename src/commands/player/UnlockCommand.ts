@@ -77,7 +77,13 @@ function callbackUnlockCommand(
 			const [entityUnlocker] = await Entities.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entityToUnlock.Player, NumberChangeReason.UNLOCK);
-				await entityUnlocker.Player.addMoney(entityUnlocker, -UnlockConstants.PRICE_FOR_UNLOCK, textInformation.interaction.channel, textInformation.language, NumberChangeReason.UNLOCK);
+				await entityUnlocker.Player.addMoney({
+					entity: entityUnlocker,
+					amount: -UnlockConstants.PRICE_FOR_UNLOCK,
+					channel: textInformation.interaction.channel,
+					language: textInformation.language,
+					reason: NumberChangeReason.UNLOCK
+				});
 				await Promise.all([
 					entityToUnlock.save(),
 					entityToUnlock.Player.save(),

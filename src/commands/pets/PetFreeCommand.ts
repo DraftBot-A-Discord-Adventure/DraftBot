@@ -42,7 +42,13 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
 			if (pPet.isFeisty()) {
-				await entity.Player.addMoney(entity, -PetFreeConstants.FREE_FEISTY_COST, interaction.channel, petFreeModule.language, NumberChangeReason.PET_FREE);
+				await entity.Player.addMoney({
+					entity,
+					amount: -PetFreeConstants.FREE_FEISTY_COST,
+					channel: interaction.channel,
+					language: petFreeModule.language,
+					reason: NumberChangeReason.PET_FREE
+				});
 			}
 			draftBotInstance.logsDatabase.logPetFree(pPet).then();
 			await pPet.destroy();

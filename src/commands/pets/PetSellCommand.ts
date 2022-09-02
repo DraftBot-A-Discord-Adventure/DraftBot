@@ -115,13 +115,13 @@ async function executeTheTransaction(
 	sellerInformation.entity.Player.petId = null;
 	sellerInformation.pet.lovePoints = Constants.PETS.BASE_LOVE;
 	// the money has to be edited before the player is saved to avoid cross writing to the database
-	await buyerInformation.buyer.Player.addMoney(
-		buyerInformation.buyer,
-		-sellerInformation.petCost,
-		textInformation.interaction.channel,
-		textInformation.petSellModule.language,
-		NumberChangeReason.PET_SELL
-	);
+	await buyerInformation.buyer.Player.addMoney({
+		entity: buyerInformation.buyer,
+		amount: -sellerInformation.petCost,
+		channel: textInformation.interaction.channel,
+		language: textInformation.petSellModule.language,
+		reason: NumberChangeReason.PET_SELL
+	});
 	await Promise.all([
 		sellerInformation.guild.save(),
 		buyerInformation.buyer.Player.save(),

@@ -59,7 +59,13 @@ export const smallEvent: SmallEvent = {
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
 			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
-			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			await entity.Player.addMoney({
+				entity,
+				amount: -moneyLoss,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});

@@ -37,7 +37,13 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
-		await entity.Player.addMoney(entity, potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
+		await entity.Player.addMoney({
+			entity,
+			amount: potion.power,
+			channel: textInformation.interaction.channel,
+			language: textInformation.tr.language,
+			reason: NumberChangeReason.DRINK
+		});
 		break;
 	case Constants.NATURE.NONE:
 		embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));

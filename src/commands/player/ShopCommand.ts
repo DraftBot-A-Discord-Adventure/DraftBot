@@ -199,7 +199,13 @@ function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, tr
 				[entity] = await Entities.getOrRegister(shopMessage.user.id);
 				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-						await entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP);
+						await entity.Player.addMoney({
+							entity,
+							amount: -price,
+							channel: shopMessage.sentMessage.channel,
+							language: translationModule.language,
+							reason: NumberChangeReason.SHOP
+						});
 						await entity.Player.save();
 						entity.Player.InventoryInfo.addSlotForCategory(i);
 						await entity.Player.InventoryInfo.save();

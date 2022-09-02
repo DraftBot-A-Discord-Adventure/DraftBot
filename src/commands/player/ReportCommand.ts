@@ -363,15 +363,26 @@ async function updatePlayerInfos(
 ): Promise<void> {
 	await entity.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	await entity.Player.addScore({
-		entity: entity,
+		entity,
 		amount: changes.scoreChange,
 		channel: textInformation.interaction.channel,
 		language: textInformation.language,
 		reason: NumberChangeReason.BIG_EVENT
 	});
-	await entity.Player.addMoney(entity, changes.moneyChange, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
-	await entity.Player.addExperience(randomPossibility.experience, entity, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT
-	);
+	await entity.Player.addMoney({
+		entity,
+		amount: changes.moneyChange,
+		channel: textInformation.interaction.channel,
+		language: textInformation.language,
+		reason: NumberChangeReason.BIG_EVENT
+	});
+	await entity.Player.addExperience({
+		entity,
+		amount: randomPossibility.experience,
+		channel: textInformation.interaction.channel,
+		language: textInformation.language,
+		reason: NumberChangeReason.BIG_EVENT
+	});
 
 	if (randomPossibility.nextEvent !== undefined) {
 		entity.Player.nextEvent = randomPossibility.nextEvent;
@@ -390,7 +401,13 @@ async function updatePlayerInfos(
 	}
 
 	if (randomPossibility.eventId === 0) {
-		await entity.Player.addMoney(entity, -entity.Player.money, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+		await entity.Player.addMoney({
+			entity,
+			amount: -entity.Player.money,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.BIG_EVENT
+		});
 		await entity.Player.addScore({
 			entity: entity,
 			amount: -entity.Player.score,
@@ -399,7 +416,13 @@ async function updatePlayerInfos(
 			reason: NumberChangeReason.BIG_EVENT
 		});
 		if (randomPossibility.possibilityKey !== "end") {
-			await entity.Player.addMoney(entity, 10 - entity.Player.money, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+			await entity.Player.addMoney({
+				entity,
+				amount: 10 - entity.Player.money,
+				channel: textInformation.interaction.channel,
+				language: textInformation.language,
+				reason: NumberChangeReason.BIG_EVENT
+			});
 			await entity.Player.addScore({
 				entity: entity,
 				amount: 100 - entity.Player.score,
