@@ -321,12 +321,8 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		name: {
-			type: DataTypes.STRING(32) // eslint-disable-line new-cap
-		},
-		guildDescription: {
-			type: DataTypes.STRING(300) // eslint-disable-line new-cap
-		},
+		name: DataTypes.STRING(32), // eslint-disable-line new-cap
+		guildDescription: DataTypes.STRING(300), // eslint-disable-line new-cap
 		score: {
 			type: DataTypes.INTEGER,
 			defaultValue: GuildConstants.DEFAULT_VALUES.SCORE
@@ -359,12 +355,8 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.DATE,
 			defaultValue: null
 		},
-		chiefId: {
-			type: DataTypes.INTEGER
-		},
-		elderId: {
-			type: DataTypes.INTEGER
-		},
+		chiefId: DataTypes.INTEGER,
+		elderId: DataTypes.INTEGER,
 		creationDate: {
 			type: DataTypes.DATE,
 			defaultValue: DataTypes.NOW

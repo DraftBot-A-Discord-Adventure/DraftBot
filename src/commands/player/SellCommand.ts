@@ -119,8 +119,7 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 		});
 		if (money === 0) {
 			await interaction.channel.send({
-				embeds: [new DraftBotEmbed()
-					.formatAuthor(tr.get("potionDestroyedTitle"), interaction.user)
+				embeds: [new DraftBotEmbed().formatAuthor(tr.get("potionDestroyedTitle"), interaction.user)
 					.setDescription(
 						tr.format("potionDestroyedMessage", {
 							item: item.name,
@@ -131,12 +130,11 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 			return;
 		}
 		await interaction.channel.send({
-			embeds: [new DraftBotEmbed()
-				.formatAuthor(tr.get("soldMessageTitle"), interaction.user)
+			embeds: [new DraftBotEmbed().formatAuthor(tr.get("soldMessageTitle"), interaction.user)
 				.setDescription(tr.format("soldMessage",
 					{
 						item: item.name,
-						money: money
+						money
 					}
 				))]
 		});
