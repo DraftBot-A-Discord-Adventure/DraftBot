@@ -116,15 +116,19 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 				petFeedModule.get("noMoney")
 			);
 		}
-		await entity.Player.addMoney({
+		const editValueChanges = {
 			entity,
-			amount: -20,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.PET_FEED
-		});
+		};
+		await entity.Player.addMoney(Object.assign(editValueChanges, {
+			amount: -20
+		}));
 		authorPet.hungrySince = new Date();
-		await authorPet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
+		await authorPet.changeLovePoints(Object.assign(editValueChanges, {
+			amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")]
+		}));
 		await Promise.all([
 			authorPet.save(),
 			entity.Player.save()
@@ -168,13 +172,19 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
 	guild.removeFood(item, -1, NumberChangeReason.PET_FEED);
-
+	const editValueChanges = {
+		entity,
+		amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex],
+		channel: interaction.channel,
+		language,
+		reason: NumberChangeReason.PET_FEED
+	};
 	if (
 		pet.PetModel.diet &&
 		(item === Constants.PET_FOOD.HERBIVOROUS_FOOD || item === Constants.PET_FOOD.CARNIVOROUS_FOOD)
 	) {
 		if (item.includes(pet.PetModel.diet)) {
-			await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
+			await pet.changeLovePoints(editValueChanges);
 		}
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item.includes(pet.PetModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
@@ -184,7 +194,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 		);
 	}
 	else {
-		await pet.changeLovePoints(Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex], entity, interaction.channel, language, NumberChangeReason.PET_FEED);
+		await pet.changeLovePoints(editValueChanges);
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item}`, {
 				petnick: pet.displayName(language),

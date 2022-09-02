@@ -1,6 +1,6 @@
 import {TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
@@ -66,6 +66,83 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 };
 
 /**
+ * Manage more than 2 item to choose to keep in the inventory
+ * @param items
+ * @param discordUser
+ * @param entity
+ * @param channel
+ * @param item
+ * @param resaleMultiplier
+ * @param resaleMultiplierActual
+ * @param tr
+ */
+// eslint-disable-next-line max-params
+async function manageMoreThan2ItemsSwitching(
+	items: InventorySlot[],
+	discordUser: User,
+	entity: Entity,
+	channel: TextBasedChannel,
+	item: GenericItemModel,
+	resaleMultiplier: number,
+	resaleMultiplierActual: number,
+	tr: TranslationModule
+): Promise<void> {
+	const choiceList: ChoiceItem[] = [];
+	// eslint-disable-next-line @typescript-eslint/no-extra-parens
+	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
+	for (const item of items) {
+		choiceList.push(new ChoiceItem(
+			(await item.getItem()).toString(tr.language, null),
+			item
+		));
+	}
+	const choiceMessage = await new DraftBotListChoiceMessage(
+		choiceList,
+		discordUser.id,
+		async (replacedItem: InventorySlot) => {
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+			await sellOrKeepItem(
+				entity,
+				false,
+				discordUser,
+				channel,
+				tr.language,
+				item,
+				replacedItem,
+				await replacedItem.getItem(),
+				resaleMultiplier,
+				resaleMultiplierActual,
+				false
+			);
+		},
+		async (endMessage: DraftBotListChoiceMessage) => {
+			if (endMessage.isCanceled()) {
+				BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+				await sellOrKeepItem(
+					entity,
+					true,
+					discordUser,
+					channel,
+					tr.language,
+					item,
+					null,
+					null,
+					resaleMultiplier,
+					resaleMultiplierActual,
+					false
+				);
+			}
+		}
+	);
+	choiceMessage.formatAuthor(
+		tr.get("chooseItemToReplaceTitle"),
+		discordUser
+	);
+	await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
+}
+
+/**
  * Gives an item to a player
  * @param entity
  * @param item
@@ -125,59 +202,7 @@ export const giveItemToPlayer = async function(
 			autoSell = true;
 		}
 		else {
-			const choiceList: ChoiceItem[] = [];
-			// eslint-disable-next-line @typescript-eslint/no-extra-parens
-			items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-			for (const item of items) {
-				choiceList.push(new ChoiceItem(
-					(await item.getItem()).toString(language, null),
-					item
-				));
-			}
-			const choiceMessage = await new DraftBotListChoiceMessage(
-				choiceList,
-				discordUser.id,
-				async (replacedItem: InventorySlot) => {
-					[entity] = await Entities.getOrRegister(entity.discordUserId);
-					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-					await sellOrKeepItem(
-						entity,
-						false,
-						discordUser,
-						channel,
-						language,
-						item,
-						replacedItem,
-						await replacedItem.getItem(),
-						resaleMultiplier,
-						resaleMultiplierActual,
-						false
-					);
-				},
-				async (endMessage: DraftBotListChoiceMessage) => {
-					if (endMessage.isCanceled()) {
-						BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-						await sellOrKeepItem(
-							entity,
-							true,
-							discordUser,
-							channel,
-							language,
-							item,
-							null,
-							null,
-							resaleMultiplier,
-							resaleMultiplierActual,
-							false
-						);
-					}
-				}
-			);
-			choiceMessage.formatAuthor(
-				tr.get("chooseItemToReplaceTitle"),
-				discordUser
-			);
-			await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
+			await manageMoreThan2ItemsSwitching(items, discordUser, entity, channel, item, resaleMultiplier, resaleMultiplierActual, tr);
 			return;
 		}
 	}
@@ -490,6 +515,11 @@ export const sortPlayerItemList = async function(items: InventorySlot[]): Promis
 	});
 };
 
+/**
+ * Checks if the given inventory slots have an item with a rarity of at least the given rarity
+ * @param slots
+ * @param rarity
+ */
 export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
 	for (const slot of slots) {
 		if ((await slot.getItem()).rarity >= rarity) {
@@ -499,6 +529,10 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
 	return false;
 };
 
+/**
+ * Get a portion of the model corresponding to the category number
+ * @param category
+ */
 function getCategoryModelByName(category: number): { getMaxId: () => Promise<number>, getById: (itemId: number) => Promise<GenericItemModel> } {
 	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
@@ -514,6 +548,11 @@ function getCategoryModelByName(category: number): { getMaxId: () => Promise<num
 	}
 }
 
+/**
+ * Get an item by its id and its category number
+ * @param itemId
+ * @param category
+ */
 export async function getItemByIdAndCategory(itemId: number, category: number): Promise<GenericItemModel> {
 	const categoryModel = getCategoryModelByName(category);
 	if (!categoryModel) {
