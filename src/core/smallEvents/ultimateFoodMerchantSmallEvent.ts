@@ -132,7 +132,13 @@ async function giveReward(reward: RewardType, interaction: CommandInteraction, l
 	case "fullCommonFood":
 		break;
 	case "money":
-		await entity.Player.addMoney(entity, reward.option as number, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await entity.Player.addMoney({
+			entity,
+			amount: reward.option as number,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		break;
 	default:
 		throw new Error("reward type not found");

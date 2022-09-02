@@ -44,7 +44,13 @@ export const smallEvent: SmallEvent = {
 		else {
 			// money win
 			const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
-			await entity.Player.addMoney(entity, moneyWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			await entity.Player.addMoney({
+				entity,
+				amount: moneyWon,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
 			seEmbed.setDescription(`${base + format(tr.get("moneyWin"), {money: moneyWon})}\n\n${tr.get("thanksFooter")}`);
 			await interaction.reply({embeds: [seEmbed]});
 		}

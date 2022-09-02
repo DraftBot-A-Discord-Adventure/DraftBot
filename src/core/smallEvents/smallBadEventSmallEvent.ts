@@ -54,7 +54,13 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss})
 			);
-			await entity.Player.addMoney(entity, -moneyLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			await entity.Player.addMoney({
+				entity,
+				amount: -moneyLoss,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
 			break;
 		}
 		await interaction.reply({embeds: [seEmbed]});

@@ -13,10 +13,22 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  */
 function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
 	if (interaction.options.getString("mode") === "set") {
-		entityToEdit.Player.addMoney(entityToEdit, amount - entityToEdit.Player.money, interaction.channel, language, NumberChangeReason.ADMIN).then();
+		entityToEdit.Player.addMoney({
+			entity: entityToEdit,
+			amount: amount - entityToEdit.Player.money,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.ADMIN
+		}).then();
 	}
 	else if (interaction.options.getString("mode") === "add") {
-		entityToEdit.Player.addMoney(entityToEdit, amount, interaction.channel, language, NumberChangeReason.ADMIN).then();
+		entityToEdit.Player.addMoney({
+			entity: entityToEdit,
+			amount: amount,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.ADMIN
+		}).then();
 	}
 	else {
 		throw new Error("wrong parameter");

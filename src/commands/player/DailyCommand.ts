@@ -97,13 +97,13 @@ async function activateDailyItem(
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
-		await entityInformation.entity.Player.addMoney(
-			entityInformation.entity,
-			entityInformation.activeObject.power,
-			textInformation.interaction.channel,
-			textInformation.language,
-			NumberChangeReason.DAILY
-		);
+		await entityInformation.entity.Player.addMoney({
+			entity: entityInformation.entity,
+			amount: entityInformation.activeObject.power,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.DAILY
+		});
 		break;
 	default:
 		break;

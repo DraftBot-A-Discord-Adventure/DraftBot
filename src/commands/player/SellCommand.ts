@@ -99,7 +99,13 @@ function sellEmbedCallback(entity: Entity, interaction: CommandInteraction, item
 				itemCategory: item.itemCategory
 			}
 		});
-		await entity.Player.addMoney(entity, money, interaction.channel, tr.language, NumberChangeReason.ITEM_SELL);
+		await entity.Player.addMoney({
+			entity,
+			amount: money,
+			channel: interaction.channel,
+			language: tr.language,
+			reason: NumberChangeReason.ITEM_SELL
+		});
 		await entity.Player.save();
 		[entity] = await Entities.getOrRegister(entity.discordUserId);
 		await MissionsController.update(entity, interaction.channel, tr.language, {

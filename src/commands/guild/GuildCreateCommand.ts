@@ -67,7 +67,13 @@ function endCallbackGuildCreateValidationMessage(
 			});
 
 			entity.Player.guildId = newGuild.id;
-			await entity.Player.addMoney(entity, -GuildCreateConstants.PRICE, interaction.channel, language, NumberChangeReason.GUILD_CREATE);
+			await entity.Player.addMoney({
+				entity,
+				amount: -GuildCreateConstants.PRICE,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.GUILD_CREATE
+			});
 			newGuild.updateLastDailyAt();
 			await newGuild.save();
 			await Promise.all([

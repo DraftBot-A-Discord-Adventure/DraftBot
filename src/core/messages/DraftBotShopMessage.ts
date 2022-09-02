@@ -388,7 +388,13 @@ export class DraftBotShopMessageBuilder {
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
 		const [entity] = await Entities.getOrRegister(userId);
-		await entity.Player.addMoney(entity, -amount, null, "", NumberChangeReason.SHOP); // It is negative so we don't care about the channel and language
+		await entity.Player.addMoney({
+			entity,
+			amount: -amount,
+			channel: null, // It is negative, so we don't care about the channel and language
+			language: "",
+			reason: NumberChangeReason.SHOP
+		});
 		await entity.Player.save();
 	};
 
