@@ -3,9 +3,9 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsGuildsKicks extends Model {
 	public readonly guildId!: number;
 
-	public readonly kickedPlayer: number;
+	public readonly kickedPlayer!: number;
 
-	public readonly date: number;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

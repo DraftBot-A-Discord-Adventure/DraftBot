@@ -1,44 +1,44 @@
 {
-	"translations" : {
-		"fr" : {
-			"dmNotification" : {
-				"title" : "🏟️ Notification de guilde :",
-				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
+	"translations": {
+		"fr": {
+			"dmNotification": {
+				"title": "🏟️ Notification de guilde :",
+				"description": "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
 			},
-			"rewardTitle" : "Récompense de la guilde {guildName} :",
-			"personalXP" : ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
-			"guildXP" : ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
-			"money" : ":moneybag: | Les membres de la guilde ont reçu `{money} 💰`.",
-			"item" : ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
-			"badge" : ":gem: | Les membres de la guilde ont reçu un badge.",
-			"fullHeal" : ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
-			"hospital" : ":clock1030: | Les membres de la guilde ont avancé de {timeMoved}h.",
-			"partialHeal" : ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
-			"alterationHeal" : ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
-			"alterationNoHeal" : ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
-			"petFood" : ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
-			"pet" : "{emote} | Un familier rejoint le refuge de la guilde: **{pet}**",
-			"coolDown" : "La récompense de guilde n'est disponible qu'une fois toutes les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Temps avant la prochaine récompense : {time}."
+			"rewardTitle": "Récompense de la guilde {guildName} :",
+			"personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
+			"guildXP": ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
+			"money": ":moneybag: | Les membres de la guilde ont reçu `{money} 💰`.",
+			"item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
+			"badge": ":gem: | Les membres de la guilde ont reçu un badge.",
+			"fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
+			"hospital": ":clock1030: | Les membres de la guilde ont avancé de {timeMoved}h.",
+			"partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
+			"alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+			"alterationNoHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
+			"petFood": ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
+			"pet": "{emote} | Un familier rejoint le refuge de la guilde: **{pet}**",
+			"coolDown": "La récompense de guilde n'est disponible qu'une fois toutes les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Temps avant la prochaine récompense : {time}."
 		},
-		"en" : {
-			"dmNotification" : {
-				"title" : "🏟️ Guild notification :",
-				"description" : "On the server {serveur}, {pseudo} made a guilddaily."
+		"en": {
+			"dmNotification": {
+				"title": "🏟️ Guild notification :",
+				"description": "On the server {serveur}, {pseudo} made a guilddaily."
 			},
-			"rewardTitle" : "{guildName} Guild's rewards:",
-			"personalXP" : ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
-			"guildXP" : ":star: | Guild has received some xp. `+ {xp} ⭐`",
-			"money" : ":moneybag: | Guild's members received `{money} 💰`.",
-			"item" : ":gift: | Guild's members received a random object.",
-			"badge" : ":gem: | Guild's members received a badge.",
-			"fullHeal" : ":heartpulse: | Guild's members were fully healed.",
-			"hospital" : ":clock1030: | Guild's members moved up {timeMoved}h.",
-			"partialHeal" : ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
-			"alterationHeal" : ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
-			"alterationNoHeal" : ":hospital: | Guild's members' statuses were reset.",
-			"petFood" : ":candy: {quantity} treats have been added to your guild's inventory.",
-			"pet" : "{emote} | A pet joins the guild's shelter: **{pet}**",
-			"coolDown" : "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
+			"rewardTitle": "{guildName} Guild's rewards:",
+			"personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
+			"guildXP": ":star: | Guild has received some xp. `+ {xp} ⭐`",
+			"money": ":moneybag: | Guild's members received `{money} 💰`.",
+			"item": ":gift: | Guild's members received a random object.",
+			"badge": ":gem: | Guild's members received a badge.",
+			"fullHeal": ":heartpulse: | Guild's members were fully healed.",
+			"hospital": ":clock1030: | Guild's members moved up {timeMoved}h.",
+			"partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
+			"alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
+			"alterationNoHeal": ":hospital: | Guild's members' statuses were reset.",
+			"petFood": ":candy: {quantity} treats have been added to your guild's inventory.",
+			"pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
+			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
 		}
 	}
 }
