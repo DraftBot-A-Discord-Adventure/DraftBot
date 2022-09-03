@@ -183,9 +183,10 @@ export class PetEntities {
 	static async generateRandomPetEntity(level: number): Promise<PetEntity> {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
 		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
+		const levelTier = Math.floor(level / 10);
 		let rarity;
 		for (rarity = 1; rarity < 6; ++rarity) {
-			randomTier -= PetEntityConstants.PROBABILITIES[Math.floor(level / 10)][rarity - 1];
+			randomTier -= PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
@@ -195,7 +196,7 @@ export class PetEntities {
 			rarity = 1;
 			console.log(
 				"Warning ! Pet probabilities are not equal to 1 for level tier " +
-				Math.floor(level / 10)
+				levelTier
 			);
 		}
 		const pet = await Pet.findOne({

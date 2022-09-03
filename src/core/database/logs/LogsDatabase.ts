@@ -79,7 +79,7 @@ import {LogsGuildsLevels} from "./models/LogsGuildsLevels";
 import {LogsPetsTrades} from "./models/LogsPetsTrades";
 import {LogsGuildsDescriptionChanges} from "./models/LogsGuildsDescriptionChanges";
 import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
-import {LogsPetsSells} from "./models/LogsPetsSellls";
+import {LogsPetsSells} from "./models/LogsPetsSells";
 import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
 import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
 import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";

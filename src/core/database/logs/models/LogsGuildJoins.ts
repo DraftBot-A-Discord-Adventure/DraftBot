@@ -7,7 +7,7 @@ export class LogsGuildsJoins extends Model {
 
 	public readonly addedId!: number;
 
-	public readonly date: number;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
