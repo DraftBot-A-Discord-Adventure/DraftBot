@@ -5,7 +5,7 @@ export class LogsPetsNicknames extends Model {
 
 	public readonly name: string;
 
-	public readonly date: number;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

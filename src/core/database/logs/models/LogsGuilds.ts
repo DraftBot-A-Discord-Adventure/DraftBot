@@ -6,6 +6,8 @@ export class LogsGuilds extends Model {
 	public readonly gameId!: number;
 
 	public readonly creationTimestamp!: number;
+
+	public readonly name!: string;
 }
 
 export function initModel(sequelize: Sequelize): void {

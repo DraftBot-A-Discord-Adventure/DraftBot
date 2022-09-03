@@ -3,8 +3,6 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsPlayersPossibilities extends Model {
 	public readonly playerId!: number;
 
-	public readonly bigEventId!: number;
-
 	public readonly possibilityId!: number;
 
 	public readonly date!: number;

@@ -3,7 +3,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsPetsFrees extends Model {
 	public readonly petId!: number;
 
-	public readonly date: number;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

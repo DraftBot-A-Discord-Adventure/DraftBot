@@ -1,26 +1,26 @@
 {
-	"translations" : {
-		"fr" : {
-			"alreadyInAGuild" : "Le joueur invité a déjà rejoint une guilde.",
-			"guildDestroy" : "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci.",
-			"invitationTitle" : "{pseudo}, vous êtes invité à rejoindre une guilde !",
-			"invitation" : ":question: Souhaitez vous rejoindre la guilde `{guildName}` ?",
-			"successTitle" : "{pseudo} a rejoint la guilde {guildName} !",
-			"invitationSuccess" : "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
-			"invitationCancelled" : "Vous n'avez pas rejoint la guilde `{guildName}` !",
-			"guildFull" : "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
-			"levelTooLow" : "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} avant de pouvoir vous rejoindre !"
+	"translations": {
+		"fr": {
+			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
+			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci.",
+			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
+			"invitation": ":question: Souhaitez vous rejoindre la guilde `{guildName}` ?",
+			"successTitle": "{pseudo} a rejoint la guilde {guildName} !",
+			"invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+			"invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
+			"guildFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
+			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} avant de pouvoir vous rejoindre !"
 		},
-		"en" : {
-			"alreadyInAGuild" : "The player you are inviting is already in a guild.",
-			"guildDestroy" : "You can't join the guild because it has been deleted, or you have been kicked of it.",
-			"invitationTitle" : "{pseudo}, you are invited to join a guild!",
-			"invitation" : ":question: Do you want to join the guild `{guildName}`?",
-			"successTitle" : "{pseudo} joined the guild {guildName}!",
-			"invitationSuccess" : "The cooldown before the next guild daily reward has been reset.",
-			"invitationCancelled" : "You did not join the guild `{guildName}`!",
-			"guildFull" : "Your guild is full.",
-			"levelTooLow" : "{pseudo}, you must be **LVL {level}** to join a guild. Come back later!"
+		"en": {
+			"alreadyInAGuild": "The player you are inviting is already in a guild.",
+			"guildDestroy": "You can't join the guild because it has been deleted, or you have been kicked of it.",
+			"invitationTitle": "{pseudo}, you are invited to join a guild!",
+			"invitation": ":question: Do you want to join the guild `{guildName}`?",
+			"successTitle": "{pseudo} joined the guild {guildName}!",
+			"invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
+			"invitationCancelled": "You did not join the guild `{guildName}`!",
+			"guildFull": "Your guild is full.",
+			"levelTooLow": "{pseudo}, you must be **LVL {level}** to join a guild. Come back later!"
 		}
 	}
 }
