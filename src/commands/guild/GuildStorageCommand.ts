@@ -20,17 +20,17 @@ import {GuildConstants} from "../../core/constants/GuildConstants";
  */
 function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: TranslationModule, foodModule: TranslationModule, guild: Guild, food: string): void {
 	const foodIndex = getFoodIndexOf(food);
-	storageEmbed.addField(
-		translations.format("foodTitle", {
+	storageEmbed.addFields({
+		name: translations.format("foodTitle", {
 			foodType: foodModule.get(food + ".name"),
 			emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[foodIndex]
 		}),
-		translations.format("foodField", {
+		value: translations.format("foodField", {
 			guildFood: guild.getDataValue(food),
 			maxFood: Constants.GUILD.MAX_PET_FOOD[foodIndex]
 		}),
-		true
-	);
+		inline: true
+	});
 }
 
 /**
@@ -51,10 +51,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		})
 	);
 	storageEmbed.setThumbnail(GuildConstants.ICON);
-	storageEmbed.addField(
-		translations.get("fieldDescKey"),
-		translations.get("fieldDescValue")
-	);
+	storageEmbed.addFields({
+		name: translations.get("fieldDescKey"),
+		value: translations.get("fieldDescValue")
+	});
 	for (const food of Constants.PET_FOOD_GUILD_SHOP.TYPE) {
 		addFoodStorageField(storageEmbed, translations, foodModule, guild, food);
 	}

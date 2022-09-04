@@ -22,10 +22,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return;
 	}
 
-	if (interaction.options.getString("specificfile") === null) {
+	if (interaction.options.get("specificfile") === null) {
 		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
-				return await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
+				await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
+				return;
 			}
 
 			let msg = "```";
@@ -43,7 +44,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await interaction.reply({content: "Logs list sent !"});
 	}
 	else {
-		let queriedFile = interaction.options.getString("specificfile");
+		let queriedFile = interaction.options.get("specificfile").value as string;
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
 			return;

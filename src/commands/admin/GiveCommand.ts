@@ -85,7 +85,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.giveCommand", language);
-	const usersToChange = interaction.options.getString("users").split(" ");
+	const usersToChange = (interaction.options.get("users").value as string).split(" ");
 	if (usersToChange.length > 50) {
 		await replyErrorMessage(
 			interaction,
@@ -94,8 +94,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		);
 		return;
 	}
-	const category = interaction.options.getInteger("category");
-	const itemId = interaction.options.getInteger("itemid");
+	const category = interaction.options.get("category").value as number;
+	const itemId = interaction.options.get("itemid").value as number;
 	const item = await getItemByIdAndCategory(itemId, category);
 	if (item === null) {
 		return replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
@@ -125,12 +125,13 @@ export const commandInfo: ICommand = {
 		.addIntegerOption(option => option.setName("category")
 			.setDescription("the category of the item to give")
 			.setRequired(true)
-			.addChoices([
-				["Weapon", Constants.ITEM_CATEGORIES.WEAPON],
-				["Armor", Constants.ITEM_CATEGORIES.ARMOR],
-				["Potion", Constants.ITEM_CATEGORIES.POTION],
-				["Object", Constants.ITEM_CATEGORIES.OBJECT]
-			]))
+			.addChoices(
+				{ name: "Weapon", value: Constants.ITEM_CATEGORIES.WEAPON },
+				{ name: "Armor", value: Constants.ITEM_CATEGORIES.ARMOR },
+				{ name: "Potion", value: Constants.ITEM_CATEGORIES.POTION },
+				{ name: "Object", value: Constants.ITEM_CATEGORIES.OBJECT }
+			)
+		)
 		.addIntegerOption(option => option.setName("itemid")
 			.setDescription("The id of the item to give")
 			.setRequired(true))

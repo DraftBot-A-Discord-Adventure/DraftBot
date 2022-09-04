@@ -30,7 +30,11 @@ export class ChangeValueAdminCommands {
 				.addStringOption(option => option.setName("mode")
 					.setDescription("Add / Set")
 					.setRequired(true)
-					.addChoices([["Add", "add"], ["Set", "set"]]))
+					.addChoices(
+						{ name: "Add", value: "add" },
+						{ name: "Set", value: "set" }
+					)
+				)
 				.addIntegerOption(option => option.setName("amount")
 					.setDescription(`The amount of ${changeValueModule.get("fullName")} to give`)
 					.setRequired(true))
@@ -84,7 +88,7 @@ export class ChangeValueAdminCommands {
 	): (interaction: CommandInteraction, language: string) => Promise<void> {
 		return async (interaction: CommandInteraction, language: string): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
-			const amount = interaction.options.getInteger("amount");
+			const amount = interaction.options.get("amount").value as number;
 			if (amount > 10 ** 17) {
 				await replyErrorMessage(
 					interaction,
@@ -93,7 +97,7 @@ export class ChangeValueAdminCommands {
 				);
 				return;
 			}
-			const usersToChange = interaction.options.getString("users").split(" ");
+			const usersToChange = (interaction.options.get("users").value as string).split(" ");
 			if (usersToChange.length > 50) {
 				await replyErrorMessage(
 					interaction,

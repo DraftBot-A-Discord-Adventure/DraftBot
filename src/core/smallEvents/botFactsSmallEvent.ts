@@ -44,7 +44,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botFacts", language);
 
-		const base = seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
+		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
 
 		const outReceived = RandomUtils.draftbotRandom.pick(tr.getKeys("possiblesInfos"));
 		let result;

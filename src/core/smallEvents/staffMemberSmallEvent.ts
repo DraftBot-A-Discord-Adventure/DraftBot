@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 		const keys = tr.getKeys("members");
 		const key = keys[RandomUtils.randInt(0, keys.length)];
 		seEmbed.setDescription(
-			`${seEmbed.description} ${format(tr.getRandom("context"), {
+			`${seEmbed.data.description} ${format(tr.getRandom("context"), {
 				pseudo: key,
 				sentence: tr.get(`members.${key}`)
 			})}`);

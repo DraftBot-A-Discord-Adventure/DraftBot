@@ -129,7 +129,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	let userToPromote;
 	try {
-		userToPromote = await Entities.getByDiscordUserId(interaction.options.getString("id"));
+		userToPromote = await Entities.getByDiscordUserId(interaction.options.get("id").value as string);
 	}
 	catch {
 		userToPromote = null;
@@ -143,7 +143,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return;
 	}
 
-	const guild = await Guilds.getByName(interaction.options.getString("guild"));
+	const guild = await Guilds.getByName(interaction.options.get("guild").value as string);
 	const userGuild = await Guilds.getById(userToPromote.Player.guildId);
 
 	if (!checkMemberEligibility(userToPromote, userGuild, guild)) {

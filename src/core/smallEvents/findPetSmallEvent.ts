@@ -71,7 +71,7 @@ export const smallEvent: SmallEvent = {
 		}
 
 		const petLine = pet.displayName(language);
-		const base = `${seEmbed.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
+		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
 		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull();
 		const seEmbedPetObtention = seEmbed;
 		const trad = Translations.getModule("smallEvents.findPet", language);

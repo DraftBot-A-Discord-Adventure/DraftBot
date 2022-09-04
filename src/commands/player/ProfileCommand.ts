@@ -7,7 +7,7 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, EmbedFieldData, Message, MessageReaction} from "discord.js";
+import {CommandInteraction, EmbedField, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import MissionSlot from "../../core/database/game/models/MissionSlot";
@@ -42,7 +42,7 @@ async function displayBadges(entity: Entity, msg: Message): Promise<void> {
  * @param profileModule
  * @param askedEntity
  */
-async function getInformationField(profileModule: TranslationModule, askedEntity: Entity): Promise<EmbedFieldData[]> {
+async function getInformationField(profileModule: TranslationModule, askedEntity: Entity): Promise<EmbedField[]> {
 	return [
 		{
 			name: profileModule.get("information.fieldName"),
@@ -63,7 +63,7 @@ async function getInformationField(profileModule: TranslationModule, askedEntity
  * @param askedEntity
  * @param playerActiveObjects
  */
-async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects): Promise<EmbedFieldData> {
+async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects): Promise<EmbedField> {
 	return {
 		name: profileModule.get("statistique.fieldName"),
 		value: profileModule.format("statistique.fieldValue", {
@@ -83,7 +83,7 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
  * @param askedEntity
  * @param mc
  */
-function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedFieldData {
+function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedField {
 	return {
 		name: profileModule.get("mission.fieldName"),
 		value: profileModule.format("mission.fieldValue", {
@@ -106,7 +106,7 @@ function getMissionField(profileModule: TranslationModule, askedEntity: Entity, 
  * @param numberOfPlayers
  * @param askedEntity
  */
-function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity): EmbedFieldData {
+function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity): EmbedField {
 	const isUnranked = rank > numberOfPlayers;
 	return {
 		name: profileModule.get("ranking.fieldName"),
@@ -127,7 +127,7 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
  * @param playerClass
  * @param language
  */
-function getClassField(profileModule: TranslationModule, playerClass: Class, language: string): EmbedFieldData {
+function getClassField(profileModule: TranslationModule, playerClass: Class, language: string): EmbedField {
 	return {
 		name: profileModule.get("playerClass.fieldName"),
 		value: profileModule.format("playerClass.fieldValue", {
@@ -142,7 +142,7 @@ function getClassField(profileModule: TranslationModule, playerClass: Class, lan
  * @param profileModule
  * @param guild
  */
-function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFieldData {
+function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedField {
 	return {
 		name: profileModule.get("guild.fieldName"),
 		value: profileModule.format("guild.fieldValue", {
@@ -158,7 +158,7 @@ function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFie
  * @param askedEntity
  * @param language
  */
-async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string): Promise<EmbedFieldData> {
+async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string): Promise<EmbedField> {
 	return {
 		name: profileModule.get("map.fieldName"),
 		value: (await askedEntity.Player.getDestination()).getDisplayName(language),
@@ -172,7 +172,7 @@ async function getLocationField(profileModule: TranslationModule, askedEntity: E
  * @param pet
  * @param language
  */
-function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string): EmbedFieldData {
+function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string): EmbedField {
 	return {
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
@@ -190,7 +190,7 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, language:
  * @param askedEntity
  * @param interaction
  */
-function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction): EmbedFieldData {
+function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction): EmbedField {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.format("timeLeft.fieldValue", {
@@ -205,7 +205,7 @@ function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity,
  * Get the no time left field of the profile
  * @param profileModule
  */
-function getNoTimeLeftField(profileModule: TranslationModule): EmbedFieldData {
+function getNoTimeLeftField(profileModule: TranslationModule): EmbedField {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.get("noTimeLeft.fieldValue"),
@@ -252,7 +252,7 @@ async function generateFields(
 	interaction: CommandInteraction,
 	titleEffect: string,
 	language: string
-): Promise<{ fields: EmbedFieldData[], titleEffect: string }> {
+): Promise<{ fields: EmbedField[], titleEffect: string }> {
 	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
 	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
 	const rank = await Players.getRankById(askedEntity.Player.id);

@@ -18,7 +18,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	entity.Player.badges = null;
 	await entity.Player.save();
 
-	return await interaction.reply({
+	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(Translations.getModule("commands.resetBadgeCommand", language).get("resetSuccess"), interaction.user)
 			.setDescription(

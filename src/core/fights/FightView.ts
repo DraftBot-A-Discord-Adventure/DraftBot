@@ -59,13 +59,13 @@ export class FightView {
 	 * @param fighter
 	 */
 	async addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): Promise<void> {
-		introEmbed.addField(
-			this.fightTranslationModule.format("actionsOf", {
+		introEmbed.addFields({
+			name: this.fightTranslationModule.format("actionsOf", {
 				player: await fighter.getPseudo(this.language)
 			}),
-			this.getFightActionsToStringOf(fighter),
-			true
-		);
+			value: this.getFightActionsToStringOf(fighter),
+			inline: true
+		});
 	}
 
 	/**

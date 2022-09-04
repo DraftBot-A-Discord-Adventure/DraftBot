@@ -46,8 +46,7 @@ export abstract class Constants {
 	static readonly TOPGG = {
 		BADGE: "🗳️",
 		BADGE_DURATION: 12,
-		ROLE_DURATION: 24,
-		DBL_SERVER_COUNT_UPDATE_TIME: 1800000
+		ROLE_DURATION: 24
 	};
 
 	static readonly ITEM_CATEGORIES = {

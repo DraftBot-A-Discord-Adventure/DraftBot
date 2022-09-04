@@ -48,14 +48,14 @@ const helpTestCommand = (language: string, interaction: CommandInteraction, args
 		Object.keys(helpOnCommand.typeWaited).forEach(arg => {
 			reqArgs += `\n - \`<${arg}>\` : ${helpOnCommand.typeWaited[arg].type}`;
 		});
-		embedHelpTest.addField(Object.keys(helpOnCommand.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
+		embedHelpTest.addFields({ name: Object.keys(helpOnCommand.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", value: reqArgs });
 	}
 	if (helpOnCommand.aliases && helpOnCommand.aliases.length !== 0) {
 		let aliases = "";
 		helpOnCommand.aliases.forEach(alias => {
 			aliases += `\`${alias}\`, `;
 		});
-		embedHelpTest.addField("Alias : ", aliases.slice(0, aliases.length - 2));
+		embedHelpTest.addFields({ name: "Alias : ", value: aliases.slice(0, aliases.length - 2) });
 	}
 	return embedHelpTest;
 };

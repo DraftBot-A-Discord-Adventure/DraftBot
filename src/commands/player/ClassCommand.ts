@@ -128,21 +128,23 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 		.setDescription(classTranslations.get("desc"));
 
 	for (let k = 0; k < allClasses.length; k++) {
-		embedClassMessage.addField(allClasses[k].getName(language),
-			classTranslations.format("classMainDisplay",
+		embedClassMessage.addFields({
+			name: allClasses[k].getName(language),
+			value: classTranslations.format("classMainDisplay",
 				{
 					description: allClasses[k].getDescription(language),
 					price: allClasses[k].price
 				}
-			), false
-		);
+			)
+		});
 	}
 
-	embedClassMessage.addField(
-		classTranslations.get("moneyQuantityTitle"),
-		classTranslations.format("moneyQuantity", {
+	embedClassMessage.addFields({
+		name: classTranslations.get("moneyQuantityTitle"),
+		value: classTranslations.format("moneyQuantity", {
 			money: entity.Player.money
-		}));
+		})
+	});
 	// Creating class message
 	return await interaction.reply({embeds: [embedClassMessage], fetchReply: true}) as Message;
 }

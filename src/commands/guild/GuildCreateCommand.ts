@@ -153,7 +153,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const askedName = interaction.options.getString("name");
+	const askedName = interaction.options.get("name").value as string;
 
 	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
 		await replyErrorMessage(

@@ -13,7 +13,7 @@ import {sendDirectMessage} from "../../core/utils/MessageUtils";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const idToUnblock = interaction.options.getString("discordid");
+	const idToUnblock = interaction.options.get("discordid").value as string;
 	if (await Entities.getByDiscordUserId(idToUnblock) === null) {
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});
 		return;

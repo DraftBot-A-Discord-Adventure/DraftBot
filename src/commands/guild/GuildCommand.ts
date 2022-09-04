@@ -22,9 +22,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;
-	if (interaction.options.getString("name")) {
+	if (interaction.options.get("name")) {
 		try {
-			guild = await Guilds.getByName(interaction.options.getString("name"));
+			guild = await Guilds.getByName(interaction.options.get("name").value as string);
 		}
 		catch (error) {
 			guild = null;
@@ -112,16 +112,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			)
 		);
 	}
-	embed.addField(
-		guildModule.format("members", {
+	embed.addFields({
+		name: guildModule.format("members", {
 			memberCount: members.length,
 			maxGuildMembers: Constants.GUILD.MAX_GUILD_MEMBER
 		}),
-		membersInfos
-	);
+		value: membersInfos
+	});
 	if (!guild.isAtMaxLevel()) {
-		embed.addField(
-			guildModule.format(
+		embed.addFields({
+			name: guildModule.format(
 				"experience",
 				{
 					xp: guild.experience,
@@ -129,14 +129,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 					level: guild.level
 				}
 			),
-			progressBar(guild.experience, guild.getExperienceNeededToLevelUp())
-		);
+			value: progressBar(guild.experience, guild.getExperienceNeededToLevelUp())
+		});
 	}
 	else {
-		embed.addField(
-			guildModule.get("lvlMax"),
-			progressBar(1, 1)
-		);
+		embed.addFields({
+			name: guildModule.get("lvlMax"),
+			value: progressBar(1, 1)
+		});
 	}
 	await interaction.reply({embeds: [embed]});
 }

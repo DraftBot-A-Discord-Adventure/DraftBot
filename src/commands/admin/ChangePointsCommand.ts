@@ -12,7 +12,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  * @param language
  */
 function givePointsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
-	if (interaction.options.getString("mode") === "set") {
+	if (interaction.options.get("mode").value as string === "set") {
 		entityToEdit.Player.addScore({
 			entity: entityToEdit,
 			amount: amount - entityToEdit.Player.score,
@@ -21,7 +21,7 @@ function givePointsTo(entityToEdit: Entity, amount: number, interaction: Command
 			reason: NumberChangeReason.ADMIN
 		}).then();
 	}
-	else if (interaction.options.getString("mode") === "add") {
+	else if (interaction.options.get("mode").value as string === "add") {
 		entityToEdit.Player.addScore({
 			entity: entityToEdit,
 			amount: amount,

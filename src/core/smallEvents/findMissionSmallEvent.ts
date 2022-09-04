@@ -25,7 +25,7 @@ export const smallEvent: SmallEvent = {
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const missionSlot = await MissionsController.addRandomMissionToPlayer(entity, MissionsController.getRandomDifficulty(entity.Player));
 		seEmbed.setDescription(
-			seEmbed.description
+			seEmbed.data.description
 			+ intro
 			+ tr.getRandom("intrigue")
 			+ "\n\n**"

@@ -1,4 +1,4 @@
-import {CommandInteraction, Message, MessageEmbed} from "discord.js";
+import {CommandInteraction, Message} from "discord.js";
 import {NearEarthObject, NeoWSFeed, SpaceUtils} from "../utils/SpaceUtils";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
@@ -9,6 +9,7 @@ import {botConfig} from "../bot";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../database/game/models/Entity";
 import {SpaceConstants} from "../constants/SpaceConstants";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 /**
  * Gives an object that is going close to earth
@@ -124,7 +125,7 @@ export const smallEvent: SmallEvent = {
 	/**
 	 * Throws a random, verified by the NASA, fact about the surrounding space
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
 		let keysList = Translations.getModule("smallEvents.space", language).getKeys("specific");
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");
@@ -140,7 +141,7 @@ export const smallEvent: SmallEvent = {
 		const action = spaceTranslationModule.getRandom("action");
 		const outro = spaceTranslationModule.getRandom("outro");
 
-		const baseDescription = seEmbed.description;
+		const baseDescription = seEmbed.data.description;
 		const messageBefore = format(spaceTranslationModule.get("before_search_format"), {
 			seIntro, intro, searchAction, search
 		});

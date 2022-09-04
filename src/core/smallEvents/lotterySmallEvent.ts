@@ -31,8 +31,8 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
-		const seEmbedEmote = seEmbed.description;
-		seEmbed.setDescription(seEmbed.description + translationLottery.get("intro"));
+		const seEmbedEmote = seEmbed.data.description;
+		seEmbed.setDescription(seEmbed.data.description + translationLottery.get("intro"));
 
 		const player = entity.Player;
 		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true}) as Message;

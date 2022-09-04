@@ -20,7 +20,10 @@ import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: string): void {
 	for (const action of classToShow.getFightActions()) {
 		const actionTr = Translations.getModule(`fightactions.${action}`, language);
-		embed.addField(`${Data.getModule(`fightactions.${action}`).getString("emote")} ${actionTr.get("name")}`, actionTr.get("description"));
+		embed.addFields({
+			name: `${Data.getModule(`fightactions.${action}`).getString("emote")} ${actionTr.get("name")}`,
+			value: actionTr.get("description")
+		});
 	}
 }
 
@@ -44,9 +47,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const baseEmbed = new DraftBotEmbed()
 		.setTitle(classTranslations.get("listTitle"))
 		.setDescription(classTranslations.get("listDesc"))
-		.addField(
-			"\u200b", classesLineDisplay.join("\n")
-		);
+		.addFields({
+			name: "\u200b",
+			value: classesLineDisplay.join("\n")
+		});
 
 	const reply = await interaction.reply({embeds: [baseEmbed], fetchReply: true}) as Message;
 

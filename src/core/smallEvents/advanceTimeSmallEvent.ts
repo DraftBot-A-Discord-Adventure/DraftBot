@@ -30,7 +30,7 @@ export const smallEvent: SmallEvent = {
 		await entity.Player.save();
 
 		seEmbed.setDescription(
-			seEmbed.description +
+			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
 			format(Translations.getModule("smallEvents.advanceTime", language).getRandom("stories"), {
 				time: timeAdvanced

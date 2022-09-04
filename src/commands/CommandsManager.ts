@@ -1,11 +1,12 @@
 import {
-	ApplicationCommandDataResolvable,
+	ApplicationCommandDataResolvable, Attachment,
+	ChannelType,
 	Client,
 	CommandInteraction,
 	GuildChannel,
 	GuildMember,
 	Message,
-	MessageAttachment,
+	MessageType, PermissionsBitField,
 	User
 } from "discord.js";
 
@@ -31,7 +32,7 @@ import {BotConstants} from "../core/constants/BotConstants";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
-type ContextType = { mainServerId: string; dmManagerID: string; attachments: MessageAttachment[]; supportAlert: string; };
+type ContextType = { mainServerId: string; dmManagerID: string; attachments: Attachment[]; supportAlert: string; };
 
 /**
  * The manager for creating and executing classic commands
@@ -118,6 +119,7 @@ export class CommandsManager {
 		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
 		const commandsToSetGuild: ApplicationCommandDataResolvable[] = [];
 		for (const commandInfo of commandsToRegister) {
+			commandInfo.slashCommandBuilder.setDMPermission(false);
 			if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
 				commandInfo.slashCommandBuilder.setDefaultPermission(false);
 			}
@@ -207,7 +209,7 @@ export class CommandsManager {
 			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
 				return;
 			}
-			if (message.channel.type === "DM") {
+			if (message.channel.type === ChannelType.DM) {
 				await CommandsManager.handlePrivateMessage(message);
 				return;
 			}
@@ -216,7 +218,7 @@ export class CommandsManager {
 					discordGuildId: message.guild.id
 				}
 			});
-			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === "REPLY") {
+			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply) {
 				return;
 			}
 			if (message.mentions.has(client.user.id)) {
@@ -253,7 +255,7 @@ export class CommandsManager {
 				});
 				return;
 			}
-			if (interaction.channel.type === "DM") {
+			if (!interaction.member) { // If in DM, shouldn't happen
 				CommandsManager.handlePrivateMessage(interaction as CommandInteraction).finally(() => null);
 				return;
 			}
@@ -502,7 +504,7 @@ export class CommandsManager {
 	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		const channel = interaction.channel as GuildChannel;
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().VIEW_CHANNEL) {
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -512,7 +514,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().SEND_MESSAGES) {
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessages)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -522,7 +524,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().ADD_REACTIONS) {
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AddReactions)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -532,7 +534,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().EMBED_LINKS) {
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.EmbedLinks)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -542,7 +544,7 @@ export class CommandsManager {
 			return false;
 		}
 
-		if (!channel.permissionsFor(draftBotClient.user).serialize().ATTACH_FILES) {
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AttachFiles)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,

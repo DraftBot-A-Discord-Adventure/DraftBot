@@ -1,4 +1,4 @@
-import {CommandInteraction, MessageEmbed} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../Translations";
 import {Data, JsonModule} from "../Data";
 import {Constants} from "../Constants";
@@ -14,6 +14,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import Entity from "../database/game/models/Entity";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 type RewardType = { type: string, option: number | string };
 
@@ -84,7 +85,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
  * @param seEmbed
  * @param tr
  */
-function generateEndMessage(malus: RewardType, goblet: string, seEmbed: MessageEmbed, tr: TranslationModule): MessageEmbed {
+function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBotEmbed, tr: TranslationModule): DraftBotEmbed {
 	seEmbed.setDescription(format(tr.getRandom(`results.${malus.type}`), {
 		amount: malus.option,
 		goblet: goblet
@@ -107,7 +108,7 @@ export const smallEvent: SmallEvent = {
 	 * @param entity
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
 		const tr = Translations.getModule("smallEvents.gobletsGame", language);
 		const data = Data.getModule("smallEvents.gobletsGame");
 
@@ -143,7 +144,7 @@ export const smallEvent: SmallEvent = {
 		const builtEmbed = embed.build();
 		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 		builtEmbed.setDescription(
-			seEmbed.description
+			seEmbed.data.description
 			+ intro
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
