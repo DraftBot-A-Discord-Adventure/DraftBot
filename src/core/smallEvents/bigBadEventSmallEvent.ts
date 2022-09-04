@@ -31,7 +31,7 @@ export const smallEvent: SmallEvent = {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		const transIntroSE = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const tr = Translations.getModule("smallEvents.bigBadEvent", language);
-		const base = seEmbed.description + transIntroSE;
+		const base = seEmbed.data.description + transIntroSE;
 		const alterationObject = tr.getObject("alteration.stories");
 		let lifeLoss, seFallen, moneyLoss;
 		switch (outRand) {

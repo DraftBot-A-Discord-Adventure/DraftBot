@@ -15,14 +15,14 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const gbModule = Translations.getModule("commands.giveBadgeCommand", language);
 	const playerId = interaction.options.getUser("user").id;
 	const [entity] = await Entities.getOrRegister(playerId);
-	entity.Player.addBadge(interaction.options.getString("badge"));
+	entity.Player.addBadge(interaction.options.get("badge").value as string);
 	await entity.Player.save();
 
-	return await interaction.reply({
+	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(gbModule.get("giveSuccess"), interaction.user)
 			.setDescription(gbModule.format("descGive", {
-				badge: interaction.options.getString("badge"),
+				badge: interaction.options.get("badge").value as string,
 				player: interaction.options.getUser("user")
 			}))]
 	});
@@ -31,10 +31,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 /**
  * Get all badge emote and descriptions
  */
-function getAllBadgesForOptions(): [string, string][] {
-	const tabBadges: [string, string][] = [];
+function getAllBadgesForOptions(): { name: string, value: string }[] {
+	const tabBadges: { name: string, value: string }[] = [];
 	for (const badge of Constants.BADGES.LIST) {
-		tabBadges.push([badge, badge]);
+		tabBadges.push({ name: badge, value: badge });
 	}
 	return tabBadges;
 }
@@ -49,7 +49,7 @@ export const commandInfo: ICommand = {
 		.addStringOption(option => option.setName("badge")
 			.setDescription("The badge to give")
 			.setRequired(true)
-			.addChoices(getAllBadgesForOptions())) as SlashCommandBuilder,
+			.addChoices(...getAllBadgesForOptions())) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.BADGE_MANAGER

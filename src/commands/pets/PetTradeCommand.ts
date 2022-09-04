@@ -181,9 +181,13 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 		}))
 		.setFooter({text: petTradeModule.get("warningTradeReset")});
 	for (const traderAndPet of tradersAndPets) {
-		tradeMessage.addField(petTradeModule.format("petOfTrader", {
-			trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)
-		}), traderAndPet.pet.getPetDisplay(petTradeModule.language), true);
+		tradeMessage.addFields({
+			name: petTradeModule.format("petOfTrader", {
+				trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)
+			}),
+			value: traderAndPet.pet.getPetDisplay(petTradeModule.language),
+			inline: true
+		});
 	}
 	await tradeMessage.reply(interaction, (collector) => {
 		BlockingUtils.blockPlayerWithCollector(traderAndPet1.trader.discordUserId, BlockingConstants.REASONS.PET_TRADE, collector);

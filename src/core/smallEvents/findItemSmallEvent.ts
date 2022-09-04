@@ -24,7 +24,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.EPIC);
 		seEmbed.setDescription(
-			seEmbed.description +
+			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
 			Translations.getModule("smallEvents.findItem", language).getRandom("intrigue")
 		);

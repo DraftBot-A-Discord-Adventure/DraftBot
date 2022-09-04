@@ -12,7 +12,7 @@ import {Translations} from "../../core/Translations";
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const commands = await CommandsManager.getAllCommandsToRegister();
-	const specificCommand = interaction.options.getString("specific_command");
+	const specificCommand = interaction.options.get("specific_command").value as string;
 	let commandsReloaded = false;
 	for (const command of commands) {
 		if (!specificCommand || command.slashCommandBuilder.name === specificCommand) {

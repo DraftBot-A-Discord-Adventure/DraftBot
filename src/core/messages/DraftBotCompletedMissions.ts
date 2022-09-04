@@ -34,25 +34,37 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 			}
 		}
 		if (campaignMissions.length !== 0) {
-			this.addField(tr.format("campaign", {
-				missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.CAMPAIGN).length
-			}), campaignMissions);
+			this.addFields({
+				name: tr.format("campaign", {
+					missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.CAMPAIGN).length
+				}),
+				value: campaignMissions
+			});
 		}
 		if (dailyMission.length !== 0) {
-			this.addField(tr.format("daily", {
-				missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.DAILY).length
-			}), dailyMission);
+			this.addFields({
+				name: tr.format("daily", {
+					missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.DAILY).length
+				}),
+				value: dailyMission
+			});
 		}
 		if (sideMissions.length !== 0) {
-			this.addField(tr.format("sideMissions", {
-				missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.NORMAL).length
-			}), sideMissions);
+			this.addFields({
+				name: tr.format("sideMissions", {
+					missionCount: completedMissions.filter(mission => mission.completedMissionType === CompletedMissionType.NORMAL).length
+				}),
+				value: sideMissions
+			});
 		}
 		if (completedMissions.length > 1) {
-			this.addField(tr.get("totalRewards"), tr.format("totalDisplay", {
-				gems: totalGems,
-				xp: totalXP
-			}));
+			this.addFields({
+				name: tr.get("totalRewards"),
+				value: tr.format("totalDisplay", {
+					gems: totalGems,
+					xp: totalXP
+				})
+			});
 		}
 	}
 

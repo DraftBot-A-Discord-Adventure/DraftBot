@@ -1,5 +1,5 @@
 import {DraftBot} from "./DraftBot";
-import {Client, Guild, Intents, TextChannel} from "discord.js";
+import {Client, Guild, IntentsBitField, Partials, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../database/game/models/Server";
@@ -65,27 +65,21 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 async function main(): Promise<void> {
 	const client = new Client(
 		{
-			restTimeOffset: 0,
 			intents: [
-				Intents.FLAGS.GUILDS, // We need it for roles
-				Intents.FLAGS.GUILD_MEMBERS, // For tops
-				// Intents.FLAGS.GUILD_BANS We don't need to ban or unban
-				// Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS We don't need to create emojis or stickers
-				Intents.FLAGS.GUILD_INTEGRATIONS,
-				// Intents.FLAGS.GUILD_WEBHOOKS We don't need to create webhooks
-				// Intents.FLAGS.GUILD_INVITES We don't need to create or delete invites
-				// Intents.FLAGS.GUILD_VOICE_STATES We don't use voice
-				// Intents.FLAGS.GUILD_PRESENCES // Needed to update the bot presence
-				Intents.FLAGS.GUILD_MESSAGES, // We need to receive, send, update and delete messages
-				Intents.FLAGS.GUILD_MESSAGE_REACTIONS, // We need to add reactions
-				// Intents.FLAGS.GUILD_MESSAGE_TYPING We don't need to know this
-				Intents.FLAGS.DIRECT_MESSAGES, // We need to send and receive direct messages
-				Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
-				// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
+				IntentsBitField.Flags.Guilds, // We need it for roles
+				IntentsBitField.Flags.GuildMembers, // For tops
+				IntentsBitField.Flags.GuildIntegrations,
+				IntentsBitField.Flags.GuildMessages, // We need to receive, send, update and delete messages
+				IntentsBitField.Flags.GuildMessageReactions, // We need to add reactions
+				IntentsBitField.Flags.DirectMessages, // We need to send and receive direct messages
+				IntentsBitField.Flags.DirectMessageReactions // We maybe need to receive direct messages reaction
 			],
-			restRequestTimeout: Constants.MAX_TIME_BOT_RESPONSE, // allows the senddata command to succeed
 			allowedMentions: {parse: ["users", "roles"]},
-			partials: ["MESSAGE", "CHANNEL"]
+			partials: [Partials.Message, Partials.Channel],
+			rest: {
+				offset: 0,
+				timeout: Constants.MAX_TIME_BOT_RESPONSE // allows the senddata command to succeed
+			}
 		}
 	);
 

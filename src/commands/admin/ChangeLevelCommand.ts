@@ -13,10 +13,10 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  */
 function giveLevelsTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
 	const ratioExpCurrentLevel: number = entityToEdit.Player.experience / entityToEdit.Player.getExperienceNeededToLevelUp();
-	if (interaction.options.getString("mode") === "set") {
+	if (interaction.options.get("mode").value as string === "set") {
 		entityToEdit.Player.level = amount;
 	}
-	else if (interaction.options.getString("mode") === "add") {
+	else if (interaction.options.get("mode").value as string === "add") {
 		entityToEdit.Player.level += amount;
 	}
 	else {

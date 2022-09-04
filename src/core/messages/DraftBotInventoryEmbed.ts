@@ -85,12 +85,12 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		const invMsg: DraftBotInventoryEmbed = msg as DraftBotInventoryEmbed;
 		if (invMsg.isMainState) {
 			invMsg.setTitle(invMsg.stockTitle);
-			invMsg.fields = invMsg.stockFields;
+			invMsg.data.fields = invMsg.stockFields;
 			invMsg.setFooter({text: invMsg.stockFooter});
 		}
 		else {
 			invMsg.setTitle(invMsg.mainTitle);
-			invMsg.fields = invMsg.mainFields;
+			invMsg.data.fields = invMsg.mainFields;
 			invMsg.setFooter({text: invMsg.mainFooter});
 		}
 		invMsg.isMainState = !invMsg.isMainState;

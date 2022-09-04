@@ -62,7 +62,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 				}));
 
 			if (pPet.isFeisty()) {
-				freedEmbed.setDescription(`${freedEmbed.description}\n\n${petFreeModule.get("wasFeisty")}`);
+				freedEmbed.setDescription(`${freedEmbed.data.description}\n\n${petFreeModule.get("wasFeisty")}`);
 			}
 
 			let guild: Guild;
@@ -76,7 +76,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 			if (guild !== null && luckyMeat(guild, pPet)) {
 				guild.carnivorousFood += PetFreeConstants.MEAT_GIVEN;
 				await guild.save();
-				freedEmbed.setDescription(`${freedEmbed.description}\n\n${petFreeModule.get("giveMeat")}`);
+				freedEmbed.setDescription(`${freedEmbed.data.description}\n\n${petFreeModule.get("giveMeat")}`);
 			}
 
 			await interaction.followUp({embeds: [freedEmbed]});

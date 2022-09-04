@@ -232,7 +232,7 @@ export class Entities {
 				missionJson.missions[0]
 			]
 		}
-	}
+	};
 
 	/**
 	 * get or create an entity
@@ -496,9 +496,9 @@ export class Entities {
 		if (user) {
 			return (await Entities.getOrRegister(user.id))[0];
 		}
-		const rank = interaction.options.getNumber("rank");
+		const rank = interaction.options.get("rank");
 		if (rank) {
-			const [player] = await Players.getByRank(rank);
+			const [player] = await Players.getByRank(rank.value as number);
 			if (player === undefined) {
 				return null;
 			}

@@ -54,7 +54,7 @@ async function transferPetToGuild(interaction: CommandInteraction, petTransferMo
 		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(petTransferModule.language)}`
 	}));
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, null).then();
-	return interaction.reply({embeds: [confirmEmbed]});
+	await interaction.reply({embeds: [confirmEmbed]});
 }
 
 /**
@@ -169,7 +169,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
 
-	const shelterPosition = interaction.options.getInteger("shelterposition");
+	const shelterPosition = interaction.options.get("shelterposition").value as number;
 
 	if (shelterPosition === null) {
 		await transferPetToGuild(interaction, petTransferModule, entity, guild, confirmEmbed);

@@ -24,13 +24,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const pet = askedEntity.Player.Pet;
 
 	if (pet) {
-		return await interaction.reply({
+		await interaction.reply({
 			embeds: [new DraftBotEmbed()
 				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedEntity.discordUserId))
 				.setDescription(
 					pet.getPetDisplay(language)
 				)]
 		});
+		return;
 	}
 
 	if (askedEntity.discordUserId === interaction.user.id) {

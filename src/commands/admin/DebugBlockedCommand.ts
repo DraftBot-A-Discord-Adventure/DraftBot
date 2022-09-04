@@ -9,7 +9,7 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
  * @param interaction
  */
 async function executeCommand(interaction: CommandInteraction): Promise<void> {
-	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.options.getString("user"));
+	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.options.get("user").value as string);
 	if (blockingReason.length === 0) {
 		await interaction.reply({content: "Not blocked or the id given isn't a right user id", ephemeral: true});
 		return;

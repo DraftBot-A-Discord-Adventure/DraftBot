@@ -40,7 +40,7 @@ async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDai
 	const pet = await PetEntities.generateRandomPetEntity(guild.level);
 	await pet.save();
 	await GuildPets.addPet(guild, pet, true).save();
-	embed.setDescription(`${embed.description}\n\n${guildDailyModule.format("pet", {
+	embed.setDescription(`${embed.data.description}\n\n${guildDailyModule.format("pet", {
 		emote: pet.getPetEmote(),
 		pet: pet.getPetTypeName(language)
 	})}`);
@@ -337,7 +337,7 @@ async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInt
 						serveur: interaction.guild.name,
 						pseudo: escapeUsername(interaction.user.username)
 					}
-				) + embed.description,
+				) + embed.data.description,
 				Constants.MESSAGES.COLORS.DEFAULT,
 				language
 			);

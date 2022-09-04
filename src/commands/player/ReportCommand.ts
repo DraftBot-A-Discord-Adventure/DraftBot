@@ -178,11 +178,23 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 	const tr = Translations.getModule("commands.report", language);
 	travelEmbed.formatAuthor(tr.get("travelPathTitle"), interaction.user);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
-	travelEmbed.addField(tr.get("startPoint"), (await entity.Player.getPreviousMap()).getDisplayName(language), true);
-	travelEmbed.addField(tr.get("endPoint"), (await entity.Player.getDestination()).getDisplayName(language), true);
+	travelEmbed.addFields({
+		name: tr.get("startPoint"),
+		value: (await entity.Player.getPreviousMap()).getDisplayName(language),
+		inline: true
+	});
+	travelEmbed.addFields({
+		name: tr.get("endPoint"),
+		value: (await entity.Player.getDestination()).getDisplayName(language),
+		inline: true
+	});
 	if (effect !== null) {
 		const errorMessageObject = await effectsErrorTextValue(interaction.user, language, entity);
-		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
+		travelEmbed.addFields({
+			name: errorMessageObject.title,
+			value: errorMessageObject.description,
+			inline: false
+		});
 	}
 	else {
 		let millisecondsBeforeSmallEvent = Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
@@ -194,27 +206,44 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 		const millisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
-			travelEmbed.addField(tr.get("travellingTitle"), tr.get("travellingDescriptionEndTravel"), false);
+			travelEmbed.addFields({
+				name: tr.get("travellingTitle"),
+				value: tr.get("travellingDescriptionEndTravel")
+			});
 		}
 		else if (entity.Player.PlayerSmallEvents.length !== 0) {
 			// the first mini event of the travel is calculated differently
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-			travelEmbed.addField(tr.get("travellingTitle"), tr.format("travellingDescription", {
-				smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
-				time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
-			}), false);
+			travelEmbed.addFields({
+				name: tr.get("travellingTitle"),
+				value: tr.format("travellingDescription", {
+					smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
+					time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+				})
+			});
 		}
 		else {
-			travelEmbed.addField(tr.get("travellingTitle"), tr.format("travellingDescriptionWithoutSmallEvent", {
-				time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
-			}), false);
+			travelEmbed.addFields({
+				name: tr.get("travellingTitle"),
+				value: tr.format("travellingDescriptionWithoutSmallEvent", {
+					time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+				})
+			});
 		}
 	}
 
-	travelEmbed.addField(tr.get("collectedPointsTitle"), `🏅 ${await PlayerSmallEvents.calculateCurrentScore(entity.Player)}`, true);
+	travelEmbed.addFields({
+		name: tr.get("collectedPointsTitle"),
+		value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(entity.Player)}`,
+		inline: true
+	});
 
-	travelEmbed.addField(tr.get("adviceTitle"), Translations.getModule("advices", language).getRandom("advices"), true);
+	travelEmbed.addFields({
+		name: tr.get("adviceTitle"),
+		value: Translations.getModule("advices", language).getRandom("advices"),
+		inline: true
+	});
 	await interaction.reply({embeds: [travelEmbed]});
 }
 

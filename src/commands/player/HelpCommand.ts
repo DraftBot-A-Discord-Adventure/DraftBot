@@ -125,7 +125,7 @@ function getCommandAliasMap(): Map<string, string> {
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed();
-	const askedCommand = interaction.options.getString("command");
+	const askedCommand = interaction.options.get("command") ? interaction.options.get("command").value as string : null;
 	if (!askedCommand) {
 		generateGenericHelpMessage(helpMessage, tr, interaction);
 		await interaction.reply({
@@ -166,11 +166,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					}
 				)
 			);
-		helpMessage.addField(
-			tr.get("usageFieldTitle"),
-			`\`${tr.get(`commands.${command}.usage`)}\``,
-			true
-		);
+		helpMessage.addFields({
+			name: tr.get("usageFieldTitle"),
+			value: `\`${tr.get(`commands.${command}.usage`)}\``,
+			inline: true
+		});
 		await interaction.reply({
 			embeds: [helpMessage]
 		});

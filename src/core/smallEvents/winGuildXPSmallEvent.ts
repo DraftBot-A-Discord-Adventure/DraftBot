@@ -36,7 +36,7 @@ export const smallEvent: SmallEvent = {
 
 		const translationWGXP = Translations.getModule("smallEvents.winGuildXP", language);
 		seEmbed.setDescription(
-			seEmbed.description +
+			seEmbed.data.description +
 			format(
 				translationWGXP.getRandom("stories")
 				+ translationWGXP.get("end"), {

@@ -366,9 +366,9 @@ async function sendAndManagePoorInteraction(
 			await textInformation.interaction.channel.send({embeds: [poorEmbed]});
 		})
 		.build()
-		.setDescription(seEmbed.description)
+		.setDescription(seEmbed.data.description)
 		.setAuthor({
-			name: seEmbed.author.name,
+			name: seEmbed.data.author.name,
 			iconURL: textInformation.interaction.user.displayAvatarURL()
 		})
 		.editReply(textInformation.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
@@ -435,8 +435,9 @@ export const smallEvent: SmallEvent = {
 		const tr = Translations.getModule("smallEvents.interactOtherPlayers", language);
 		const selectedPlayerId = selectAPlayer(playersOnMap);
 		if (!selectedPlayerId) {
-			seEmbed.setDescription(seEmbed.description + tr.getRandom("no_one"));
-			return await interaction.reply({embeds: [seEmbed]});
+			seEmbed.setDescription(seEmbed.data.description + tr.getRandom("no_one"));
+			await interaction.reply({embeds: [seEmbed]});
+			return;
 		}
 		const [otherEntity] = await Entities.getOrRegister(selectedPlayerId);
 		await MissionsController.update(entity, interaction.channel, language, {
@@ -448,7 +449,7 @@ export const smallEvent: SmallEvent = {
 		const item = await getItemIfNeeded(characteristic, otherEntity);
 		const {prefixItem, prefixItem2} = getPrefixes(item);
 
-		seEmbed.setDescription(seEmbed.description + format(tr.getRandom(characteristic), {
+		seEmbed.setDescription(seEmbed.data.description + format(tr.getRandom(characteristic), {
 			playerDisplay: await getPlayerDisplay(tr, otherEntity, numberOfPlayers),
 			level: otherEntity.Player.level,
 			class: (await Classes.getById(otherEntity.Player.class)).getName(language),
