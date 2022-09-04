@@ -25,11 +25,15 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
-	embed.addField("⚙️ General", "\nDaily mission done: " + "Mission slots: " + entity.Player.getMissionSlots() +
-		entity.Player.PlayerMissionsInfo.dailyMissionNumberDone +
-		"\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted +
-		"\nGems count: " + entity.Player.PlayerMissionsInfo.gems +
-		"\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression, false);
+	embed.addFields({
+		name: "⚙️ General",
+		value: "\nDaily mission done: " + "Mission slots: " + entity.Player.getMissionSlots() +
+			entity.Player.PlayerMissionsInfo.dailyMissionNumberDone +
+			"\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted +
+			"\nGems count: " + entity.Player.PlayerMissionsInfo.gems +
+			"\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression,
+		inline: false
+	});
 	let missionsFieldContent = "";
 	if (entity.Player.MissionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
@@ -48,7 +52,7 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 				\n-> Save blob: ${entity.Player.MissionSlots[i].saveBlob}\n\n`;
 		}
 	}
-	embed.addField("📜 Missions", missionsFieldContent);
+	embed.addFields({ name: "📜 Missions", value: missionsFieldContent });
 	return embed;
 };
 

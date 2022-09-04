@@ -29,7 +29,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		const translationSBE = Translations.getModule("smallEvents.smallBadEvent", language);
-		const base = seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
+		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		let lifeLoss, time, moneyLoss;
 		switch (outRand) {
 		case 0:

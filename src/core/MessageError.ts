@@ -1,5 +1,5 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
-import {CommandInteraction, GuildMember, Permissions} from "discord.js";
+import {CommandInteraction, GuildMember, Permissions, PermissionsBitField} from "discord.js";
 import {Constants} from "./Constants";
 import {Translations} from "./Translations";
 import {botConfig} from "./bot";
@@ -46,7 +46,7 @@ export class MessageError {
 		if (permission === Constants.PERMISSION.ROLE.ADMINISTRATOR) {
 			embed.setDescription(tr.get("administratorPermissionMissing"));
 		}
-		return await interaction.reply({embeds: [embed]});
+		await interaction.reply({embeds: [embed]});
 	}
 
 	/**
@@ -59,7 +59,7 @@ export class MessageError {
 		return (permission === Constants.PERMISSION.ROLE.BADGE_MANAGER
 				&& !member.roles.cache.has(botConfig.BADGE_MANAGER_ROLE)
 				|| permission === Constants.PERMISSION.ROLE.ADMINISTRATOR
-				&& !member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
+				&& !member.permissions.has(PermissionsBitField.Flags.Administrator)
 				|| permission === Constants.PERMISSION.ROLE.CONTRIBUTORS
 				&& !member.roles.cache.has(botConfig.CONTRIBUTOR_ROLE)
 				|| permission === Constants.PERMISSION.ROLE.BOT_OWNER)

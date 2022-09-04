@@ -12,7 +12,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
  * @param language
  */
 function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string): void {
-	if (interaction.options.getString("mode") === "set") {
+	if (interaction.options.get("mode").value as string === "set") {
 		entityToEdit.Player.addMoney({
 			entity: entityToEdit,
 			amount: amount - entityToEdit.Player.money,
@@ -21,7 +21,7 @@ function giveMoneyTo(entityToEdit: Entity, amount: number, interaction: CommandI
 			reason: NumberChangeReason.ADMIN
 		}).then();
 	}
-	else if (interaction.options.getString("mode") === "add") {
+	else if (interaction.options.get("mode").value as string === "add") {
 		entityToEdit.Player.addMoney({
 			entity: entityToEdit,
 			amount: amount,

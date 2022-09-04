@@ -129,11 +129,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(tr.get("drinkSuccess"), interaction.user);
-	const force = interaction.options.getBoolean("force");
+	const force = interaction.options.get("force") ? interaction.options.get("force").value as boolean : false;
 
 	const drinkPotion = drinkPotionCallback(entity, force, {interaction, tr}, embed);
 
-	if (force !== null && force === true) {
+	if (force) {
 		await drinkPotion(null, potion);
 		return;
 	}

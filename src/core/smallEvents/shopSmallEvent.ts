@@ -85,10 +85,10 @@ export const smallEvent: SmallEvent = {
 			endCallback
 		)
 			.setAuthor({
-				name: seEmbed.author.name,
+				name: seEmbed.data.author.name,
 				iconURL: interaction.user.displayAvatarURL()
 			})
-			.setDescription(seEmbed.description
+			.setDescription(seEmbed.data.description
 				+ format(
 					translationShop.getRandom(`intro.${gender}`)
 					+ translationShop.get("end"), {

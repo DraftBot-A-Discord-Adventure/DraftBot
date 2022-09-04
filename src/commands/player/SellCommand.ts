@@ -179,7 +179,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 		});
 
 	choiceMessage.formatAuthor(tr.get("titleChoiceEmbed"), interaction.user);
-	choiceMessage.setDescription(`${tr.get("sellIndication")}\n\n${choiceMessage.description}`);
+	choiceMessage.setDescription(`${tr.get("sellIndication")}\n\n${choiceMessage.data.description}`);
 	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SELL, collector));
 }
 

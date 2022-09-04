@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
-import {EmbedFieldData} from "discord.js";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import Guild from "../database/game/models/Guild";
 import {PetEntityConstants} from "../constants/PetEntityConstants";
 import {GuildConstants} from "../constants/GuildConstants";
+import {EmbedField} from "discord.js";
 
 /**
  * Shelter embed
@@ -16,7 +16,7 @@ export class DraftBotShelterMessage extends DraftBotEmbed {
 	 * @param description
 	 * @param fields
 	 */
-	constructor(title: string, description: string, fields: EmbedFieldData[]) {
+	constructor(title: string, description: string, fields: EmbedField[]) {
 		super();
 		this.setTitle(title);
 		this.setDescription(description);
@@ -62,7 +62,7 @@ export class DraftBotShelterMessageBuilder {
 			max: PetEntityConstants.SLOTS
 		});
 		let description = "";
-		const fields: EmbedFieldData[] = [];
+		const fields: EmbedField[] = [];
 
 		if (this._guild.GuildPets.length === 0) {
 			description = tr.get("noPetMessage");

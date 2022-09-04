@@ -29,10 +29,10 @@ const listTestCommand = (language: string, interaction: CommandInteraction): Pro
 		allTestCommInCate.forEach(testCommand => {
 			stringForThisCategory += `${testCommand.name} • `;
 		});
-		embedListCommandsTest.addField(
-			`**${category}**`,
-			stringForThisCategory === "" ? "*Pas de commandes dans cette catégorie*" : stringForThisCategory.slice(0, stringForThisCategory.length - 3)
-		);
+		embedListCommandsTest.addFields({
+			name: `**${category}**`,
+			value: stringForThisCategory === "" ? "*Pas de commandes dans cette catégorie*" : stringForThisCategory.slice(0, stringForThisCategory.length - 3)
+		});
 	});
 	return Promise.resolve(embedListCommandsTest);
 };

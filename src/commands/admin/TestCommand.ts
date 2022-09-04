@@ -15,13 +15,13 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		// Second, we collect the test command entered
 		let testCommand = "list";
 		try {
-			testCommand = interaction.options.getString("testcommand").split(" ")[0];
+			testCommand = (interaction.options.get("testcommand").value as string).split(" ")[0];
 		}
 		catch { /* case no command given */
 		}
 		let argsTest: string | string[] = [];
 		try {
-			argsTest = interaction.options.getString("testcommand").split(" ")
+			argsTest = (interaction.options.get("testcommand").value as string).split(" ")
 				.slice(1);
 		}
 		catch { /* case no args given */
@@ -31,7 +31,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			commandTestCurrent = CommandsTest.getTestCommand(testCommand);
 		}
 		catch (e) {
-			return interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
+			await interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
+			return;
 		}
 		// Third, we check if the test command has the good arguments
 		const testGoodFormat = CommandsTest.isGoodFormat(commandTestCurrent, argsTest, interaction);

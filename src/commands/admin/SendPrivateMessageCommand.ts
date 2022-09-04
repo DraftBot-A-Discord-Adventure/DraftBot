@@ -14,11 +14,11 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const userId = getIdFromMention(interaction.options.getString("user")).length < 17
-		? interaction.options.getString("user")
-		: getIdFromMention(interaction.options.getString("user"));
+	const userId = getIdFromMention(interaction.options.get("user").value as string).length < 17
+		? interaction.options.get("user").value as string
+		: getIdFromMention(interaction.options.get("user").value as string);
 	const dmModule = Translations.getModule("commands.sendPrivateMessage", language);
-	const messageToSend = interaction.options.getString("message") +
+	const messageToSend = interaction.options.get("message").value as string +
 		dmModule.format("signature", {
 			username: escapeUsername(interaction.user.username)
 		});
@@ -40,7 +40,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	try {
 		await user.send({content: messageToSend});
 		// sendMessageAttachments(message, user);
-		return await interaction.reply({embeds: [embed]});
+		await interaction.reply({embeds: [embed]});
 	}
 	catch {
 		await replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));

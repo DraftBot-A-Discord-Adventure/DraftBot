@@ -157,7 +157,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		});
 
 	choiceMessage.formatAuthor(tr.get("switchTitle"), interaction.user);
-	choiceMessage.setDescription(`${tr.get("switchIndication")}\n\n${choiceMessage.description}`);
+	choiceMessage.setDescription(`${tr.get("switchIndication")}\n\n${choiceMessage.data.description}`);
 	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SWITCH, collector));
 }
 

@@ -260,7 +260,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const petSellModule = Translations.getModule("commands.petSell", language);
 
-	const petCost = interaction.options.getInteger("price");
+	const petCost = interaction.options.get("price").value as number;
 	const pet = entity.Player.Pet;
 	let guild;
 	try {

@@ -31,21 +31,21 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 	const travelling = Maps.isTravelling(entity.Player);
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", interaction.user)
-		.addField(
-			travelling ? "Next map" : "Current map",
-			currMap.getDisplayName(language) + " (id: " + currMap.id + ")",
-			true
-		)
-		.addField(
-			"Previous map",
-			prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
-			true
-		)
-		.addField(
-			"Travelling",
-			Maps.isTravelling(entity.Player) ? ":clock1: For " + parseTimeDifference(0, millisecondsToMinutes(Maps.getTravellingTime(entity.Player)), language) : ":x: No",
-			true
-		)
+		.addFields({
+			name: travelling ? "Next map" : "Current map",
+			value: currMap.getDisplayName(language) + " (id: " + currMap.id + ")",
+			inline: true
+		})
+		.addFields({
+			name: "Previous map",
+			value: prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
+			inline: true
+		})
+		.addFields({
+			name: "Travelling",
+			value: Maps.isTravelling(entity.Player) ? ":clock1: For " + parseTimeDifference(0, millisecondsToMinutes(Maps.getTravellingTime(entity.Player)), language) : ":x: No",
+			inline: true
+		})
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);
 
 	if (!travelling) {
@@ -55,10 +55,14 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 			const map = await MapLocations.getById(availableMaps[i]);
 			field += map.getDisplayName(language) + " (id: " + map.id + ")" + "\n";
 		}
-		mapEmbed.addField("Next available maps", field, true);
+		mapEmbed.addFields({ name: "Next available maps", value: field, inline: true });
 	}
 	else {
-		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount(prevMap.id) + " player(s) on this map", true);
+		mapEmbed.addFields({
+			name: "Players",
+			value: ":speech_balloon: " + await currMap.playersCount(prevMap.id) + " player(s) on this map",
+			inline: true
+		});
 	}
 	return mapEmbed;
 };

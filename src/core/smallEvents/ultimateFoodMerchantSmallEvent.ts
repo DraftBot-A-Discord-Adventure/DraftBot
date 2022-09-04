@@ -1,4 +1,4 @@
-import {CommandInteraction, MessageEmbed} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {Translations} from "../Translations";
 import Guild, {Guilds} from "../database/game/models/Guild";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
@@ -10,6 +10,7 @@ import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import Entity from "../database/game/models/Entity";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 type RewardType = { type: string, option: number | GenericItemModel };
 
@@ -96,12 +97,12 @@ async function generateReward(entity: Entity): Promise<RewardType> {
  * @param seEmbed
  * @param language
  */
-function generateEmbed(reward: RewardType, seEmbed: MessageEmbed, language: string): MessageEmbed {
+function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: string): DraftBotEmbed {
 	const tr = Translations.getModule("smallEvents.ultimateFoodMerchant", language);
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 
 	seEmbed.setDescription(
-		seEmbed.description
+		seEmbed.data.description
 		+ intro
 		+ tr.getRandom("intrigue")
 		+ format(tr.getRandom(`rewards.${reward.type}`), {reward: reward.option as number})
@@ -161,7 +162,7 @@ export const smallEvent: SmallEvent = {
 	 * @param entity
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: MessageEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
 		const reward = await generateReward(entity);
 		await interaction.reply({embeds: [generateEmbed(reward, seEmbed, language)]});
 		await giveReward(reward, interaction, language, entity);

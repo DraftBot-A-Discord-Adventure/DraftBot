@@ -1,4 +1,4 @@
-import {HexColorString, MessageEmbed, User} from "discord.js";
+import {EmbedBuilder, HexColorString, User} from "discord.js";
 import {escapeUsername} from "../utils/StringUtils";
 import {Constants} from "../Constants";
 import {format} from "../utils/StringFormatter";
@@ -6,7 +6,7 @@ import {format} from "../utils/StringFormatter";
 /**
  * Base class for bot embeds
  */
-export class DraftBotEmbed extends MessageEmbed {
+export class DraftBotEmbed extends EmbedBuilder {
 	/**
 	 * Default constructor
 	 */

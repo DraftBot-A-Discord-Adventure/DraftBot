@@ -1,6 +1,8 @@
 import {ShardingManager} from "discord.js";
 import {loadConfig} from "./core/bot/DraftBotConfig";
 import {startIPCServer} from "./core/bot/ipc/IPCServer";
+import AutoPoster from "topgg-autoposter";
+import {botConfig} from "./core/bot";
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
@@ -20,12 +22,22 @@ function main(): void {
 		// Needed as in auto mode it has to make a request to know the needed number of shards
 		token: loadConfig().DISCORD_CLIENT_TOKEN
 	});
+
 	shardingManager.on("shardCreate", shard => {
 		shard.on("ready", () => {
 			console.log(`[DEBUG/SHARD] Shard ${shard.id} connected to Discord's Gateway.`);
 			shard.send({type: "shardId", data: {shardId: shard.id}}).then();
 		});
 	});
+
+	// Auto posting stats to top.gg
+	if (botConfig.DBL_TOKEN !== "" && botConfig.DBL_TOKEN !== null) {
+		// eslint-disable-next-line new-cap
+		AutoPoster(botConfig.DBL_TOKEN, shardingManager).on("posted", (data) => {
+			console.log(`Successfully posted following data to DBL: ${data}`);
+		});
+	}
+
 	shardingManager.spawn({
 		amount: shardCount
 	}).then();

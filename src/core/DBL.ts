@@ -2,14 +2,13 @@ import {Entities} from "./database/game/models/Entity";
 import {botConfig, draftBotClient, draftBotInstance} from "./bot";
 import {Constants} from "./Constants";
 import {TextChannel} from "discord.js";
-import * as DBLAPI from "dblapi.js";
+import {Webhook} from "@top-gg/sdk";
+import express, { Express } from "express";
 
 /**
  * DBL is an API that allows players to vote for rewards in game
  */
 export class DBL {
-	static dbl: DBLAPI;
-
 	/**
 	 * Starts the DBL webhook and initiates the several actions it should make depending on the situation
 	 */
@@ -18,23 +17,14 @@ export class DBL {
 			console.info("DBL Webhook not configured, skipped.");
 			return;
 		}
-		this.dbl = new DBLAPI(botConfig.DBL_TOKEN, {
-			webhookPort: botConfig.DBL_WEBHOOK_PORT,
-			webhookPath: botConfig.DBL_WEBHOOK_URL,
-			statsInterval: Constants.TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
-		}, draftBotClient);
-		this.dbl.webhook.on("vote", async (vote) => {
-			await DBL.userDBLVote(vote.user);
-		});
-		this.dbl.webhook.on("ready", hook => {
-			console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
-		});
-		this.dbl.on("error", e => {
-			console.log(`DBL Error: ${e}`);
-		});
-		this.dbl.on("posted", () => {
-			console.log("Successfully posted servers to DBL");
-		});
+
+		// Rest API URL
+		const app: Express = express();
+		app.post(botConfig.DBL_WEBHOOK_URL, new Webhook().listener(vote => {
+			DBL.userDBLVote(vote.user).then();
+		}));
+		app.listen(botConfig.DBL_WEBHOOK_PORT);
+		console.log(`Webhook running at http://0.0.0.0:${botConfig.DBL_WEBHOOK_PORT}${botConfig.DBL_WEBHOOK_URL}`);
 	}
 
 	/**
