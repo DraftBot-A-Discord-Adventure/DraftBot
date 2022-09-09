@@ -8,19 +8,29 @@ body:
     attributes:
       value: |
         Merci de prendre le temps de réaliser un rapport de bug. Si vous avez besoin d'aide supplémentaire, rejoignez nous sur discord ! https://discord.gg/draftbot
-  - type: checkboxes
-    id: new-bug
+  - type: markdown
     attributes:
-      label: Le bug n'a t-il pas déjà été signalé ?
-      description: Veuillez vérifier qu'une issue n'existe pas déjà pour le bug que vous signalez.
-      options:
-      - label: J'ai vérifié et je n'ai pas trouvé d'issue pour ce problème.
-        required: true
+      value: |    
+        ⚠️ Avant tout envoi, merci de vérifier **ATTENTIVEMENT** que le bug n'a pas déjà été signalé !!! Si vous trouvez une issue qui ressemble à votre problème, préférez envoyer un commentaire sur cette dernière. 
   - type: textarea
     id: bug-description
     attributes:
       label: Description du bug.
-      description: Décrivez le soucis que vous avez rencontré. N'hésitez pas à inclure des captures d'écran du bug.
+      description: Décrivez le soucis que vous avez rencontré. en quelques phrases  
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Selon vous, quelle est l'importance de ce bug ?
+      description: Dites nous si le bug rencontré impact beaucoup ou peu votre expérience de jeu
+      multiple: true
+      options:
+       - 🤔 Je ne sais pas
+       - 🙂 Faible
+       - 😐 Normale
+       - 😨 Grave
+       - 😱 Extrèmmement grave
     validations:
       required: true
   - type: textarea
@@ -28,19 +38,13 @@ body:
     attributes:
       label: Reproduction du bug.
       description: Décrivez toutes les étapes à suivre pour reproduire le bug.
-      placeholder: Décrivez les étapes sous forme de liste. Écrivez cette liste comme si il s'agissait d'un mode d'emploi pour refaire le bug à tous les coups.
+      placeholder: Décrivez les étapes sous forme de liste. Écrivez cette liste comme si il s'agissait d'un mode d'emploi pour refaire le bug à tous les coups. Si vous ne savez pas, donnez nous la liste des dernières commandes que vous avez effectuées (vous pouvez inclure l'heure à laquelle vous avez fait les commandes pour simplifier notre recherche)
     validations:
       required: true
-  - type: dropdown
-    id: versions
+  - type: textarea
+    id: images
     attributes:
-      label: Dans quelle condition le bug a-t-il été trouvé ?
-      description: Dites nous dans quel conditions le bug a été rencontré.
-      multiple: true
-      options:
-       - Sur le serveur officiel du bot avec le bot officiel.
-       - Sur le serveur officiel du bot avec un bot bêta.
-       - Sur un serveur perso avec le bot officiel.
-       - Sur une instance personelle du bot.
+      label: Captures d'écran
+      description: Envoyez ici toutes les captures d'écran qui vous semblent pertinentes  
     validations:
       required: true
