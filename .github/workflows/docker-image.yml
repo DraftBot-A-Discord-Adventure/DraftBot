@@ -2,16 +2,12 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+    branches:
+      - develop
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     -
       name: Checkout
