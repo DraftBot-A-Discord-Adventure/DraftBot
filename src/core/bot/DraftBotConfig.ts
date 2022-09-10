@@ -32,6 +32,7 @@ export interface DraftBotConfig {
 	MARIADB_PASSWORD: string;
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
+	MARIADB_PREFIX: string;
 }
 
 /**
@@ -66,6 +67,7 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_USER: config.database.user,
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
-		MARIADB_PORT: config.database.port
+		MARIADB_PORT: config.database.port,
+		MARIADB_PREFIX: config.database.prefix
 	};
 }

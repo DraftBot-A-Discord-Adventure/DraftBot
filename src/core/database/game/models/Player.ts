@@ -18,7 +18,7 @@ import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
-import {draftBotClient, draftBotInstance} from "../../../bot";
+import {botConfig, draftBotClient, draftBotInstance} from "../../../bot";
 import Weapon from "./Weapon";
 import Armor from "./Armor";
 import Potion from "./Potion";
@@ -355,7 +355,7 @@ export class Player extends Model {
 
 	public async getNbPlayersOnYourMap(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM draftbot_game.Players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.Players
                        WHERE (mapLinkId = :link OR mapLinkId = :linkInverse)
                          AND score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
@@ -562,7 +562,7 @@ export class Players {
 		const query = `SELECT *
                        FROM (SELECT id,
                                     RANK() OVER (ORDER BY score desc, level desc) rank
-                             FROM draftbot_game.players) subquery
+                             FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
                        WHERE subquery.id = :id`;
 		return (<[{ rank: number }]> await Player.sequelize.query(query, {
 			replacements: {
@@ -577,7 +577,7 @@ export class Players {
                        FROM (SELECT entityId,
                                     RANK() OVER (ORDER BY score desc, level desc)       rank,
                                     RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                             FROM draftbot_game.players) subquery
+                             FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
                        WHERE subquery.rank = :rank`;
 		return await Player.sequelize.query(query, {
 			replacements: {
@@ -592,7 +592,7 @@ export class Players {
                        FROM (SELECT id,
                                     RANK() OVER (ORDER BY score desc, level desc)       rank,
                                     RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                             FROM draftbot_game.players) subquery
+                             FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
                        WHERE subquery.id = :id`;
 		return (await Player.sequelize.query<Player>(query, {
 			replacements: {
@@ -604,7 +604,7 @@ export class Players {
 
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -615,7 +615,7 @@ export class Players {
 
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -626,7 +626,7 @@ export class Players {
 
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE effect = ":baby:"`;
 		return (<{ count: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -635,7 +635,7 @@ export class Players {
 
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{ count: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -644,7 +644,7 @@ export class Players {
 
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -655,7 +655,7 @@ export class Players {
 
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{ avg: number }[]>(await Player.sequelize.query(query, {
@@ -666,7 +666,7 @@ export class Players {
 
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{ sum: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -675,7 +675,7 @@ export class Players {
 
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
-                       FROM draftbot_game.players`;
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players`;
 		return (<{ max: number }[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].max;
@@ -683,7 +683,7 @@ export class Players {
 
 	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM draftbot_game.players
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
                        WHERE class = :class
                          AND score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
