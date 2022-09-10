@@ -212,7 +212,7 @@ function checkInventory(otherEntity: Entity, cList: string[]): void {
 	if (otherEntity.Player.getMainPotionSlot().itemId !== 0) {
 		cList.push("potion");
 	}
-	if (otherEntity.Player.getMainPotionSlot().itemId !== 0) {
+	if (otherEntity.Player.getMainObjectSlot().itemId !== 0) {
 		cList.push("object");
 	}
 }
