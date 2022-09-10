@@ -12,10 +12,11 @@ import {Campaign} from "./Campaign";
 import {Entities, Entity} from "../database/game/models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
-import {draftBotClient} from "../bot";
+import {draftBotClient, draftBotInstance} from "../bot";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -23,7 +24,7 @@ type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: bo
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
-			return <IMission>(require("./interfaces/" + missionId).missionInterface);
+			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
 		}
 		catch {
 			return require("./DefaultInterface").missionInterface;
@@ -45,8 +46,8 @@ export class MissionsController {
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
 			completedCampaign: false
-		}) {
-		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
+		}): Promise<void> {
+		const completedMissions = await MissionsController.completeAndUpdateMissions(entity, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(entity, completedMissions, channel, language);
@@ -71,7 +72,7 @@ export class MissionsController {
 		await entity.Player.save();
 		const [entityTest] = await Entities.getOrRegister(entity.discordUserId);
 
-		await MissionsController.handleExpiredMissions(entityTest.Player, draftBotClient.users.cache.get(entityTest.discordUserId), channel, language);
+		await MissionsController.handleExpiredMissions(entityTest, draftBotClient.users.cache.get(entityTest.discordUserId), channel, language);
 		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entityTest.Player, {
 			missionId,
 			count,
@@ -88,15 +89,15 @@ export class MissionsController {
 
 	/**
 	 * complete and update mission of a user
-	 * @param player
+	 * @param entity
 	 * @param completedDailyMission
 	 * @param completedCampaign
 	 * @param language
 	 */
-	static async completeAndUpdateMissions(player: Player, completedDailyMission: boolean, completedCampaign: boolean, language: string): Promise<CompletedMission[]> {
+	static async completeAndUpdateMissions(entity: Entity, completedDailyMission: boolean, completedCampaign: boolean, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
-		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player, language));
-		for (const mission of player.MissionSlots) {
+		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, entity, language));
+		for (const mission of entity.Player.MissionSlots) {
 			if (mission.isCompleted() && !mission.isCampaign()) {
 				completedMissions.push(
 					new CompletedMission(
@@ -107,6 +108,7 @@ export class MissionsController {
 						CompletedMissionType.NORMAL
 					)
 				);
+				draftBotInstance.logsDatabase.logMissionFinished(entity.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective).then();
 				await mission.destroy();
 			}
 		}
@@ -119,12 +121,13 @@ export class MissionsController {
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language, null),
 				CompletedMissionType.DAILY
 			));
+			draftBotInstance.logsDatabase.logMissionDailyFinished(entity.discordUserId).then();
 		}
-		await player.save();
+		await entity.Player.save();
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
+	static async sendCompletedMissions(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
 		await channel.send({
 			embeds: [
 				new DraftBotCompletedMissions(draftBotClient.users.cache.get(entity.discordUserId), completedMissions, language)
@@ -132,43 +135,60 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string) {
+	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
 		for (const completedMission of completedMissions) {
-			await entity.Player.PlayerMissionsInfo.addGems(completedMission.gemsToWin, entity);
-			await entity.Player.addExperience(completedMission.xpToWin, entity, channel, language);
-			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language);
+			await entity.Player.PlayerMissionsInfo.addGems(completedMission.gemsToWin, entity, NumberChangeReason.MISSION_FINISHED);
+			await entity.Player.addExperience({
+				entity,
+				amount: completedMission.xpToWin,
+				channel,
+				language,
+				reason: NumberChangeReason.MISSION_FINISHED
+			});
+			await entity.Player.addMoney({
+				entity,
+				amount: completedMission.moneyToWin,
+				channel,
+				language,
+				reason: NumberChangeReason.MISSION_FINISHED
+			});
 		}
 	}
 
-	static async handleExpiredMissions(player: Player, user: User, channel: TextBasedChannel, language: string) {
+	static async handleExpiredMissions(entity: Entity, user: User, channel: TextBasedChannel, language: string): Promise<void> {
 		const expiredMissions: MissionSlot[] = [];
-		for (const mission of player.MissionSlots) {
+		for (const mission of entity.Player.MissionSlots) {
 			if (mission.hasExpired()) {
 				expiredMissions.push(mission);
+				draftBotInstance.logsDatabase.logMissionFailed(entity.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective).then();
 				await mission.destroy();
 			}
 		}
 		if (expiredMissions.length === 0) {
 			return;
 		}
-		player.MissionSlots = player.MissionSlots.filter(missionSlot => !missionSlot.hasExpired());
+		entity.Player.MissionSlots = entity.Player.MissionSlots.filter(missionSlot => !missionSlot.hasExpired());
 		const tr = Translations.getModule("models.missions", language);
 		let missionsExpiredDesc = "";
 		for (const mission of expiredMissions) {
-			missionsExpiredDesc += "- " + await mission.Mission.formatDescription(
-				mission.missionObjective, mission.missionVariant, language, mission.saveBlob) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
+			missionsExpiredDesc += `- ${await mission.Mission.formatDescription(
+				mission.missionObjective, mission.missionVariant, language, mission.saveBlob
+			)} (${mission.numberDone}/${mission.missionObjective})\n`;
 		}
-		await player.save();
+		await entity.Player.save();
 		await channel.send({
 			embeds: [
 				new DraftBotEmbed()
-					.setAuthor(tr.format(
-						"missionsExpiredTitle",
-						{
-							missionsCount: expiredMissions.length,
-							pseudo: await player.getPseudo(language)
-						}
-					), user.displayAvatarURL())
+					.setAuthor({
+						name: tr.format(
+							"missionsExpiredTitle",
+							{
+								missionsCount: expiredMissions.length,
+								pseudo: await entity.Player.getPseudo(language)
+							}
+						),
+						iconURL: user.displayAvatarURL()
+					})
 					.setDescription(tr.format(
 						"missionsExpiredDesc",
 						{
@@ -193,7 +213,7 @@ export class MissionsController {
 				return null;
 			}
 		}
-		const missionData = Data.getModule("missions." + missionId);
+		const missionData = Data.getModule(`missions.${missionId}`);
 		let index;
 		if (!daily) {
 			switch (difficulty) {
@@ -229,29 +249,31 @@ export class MissionsController {
 		};
 	}
 
-	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
-		const prop = await this.generateMissionProperties(missionId, difficulty, mission, false, player);
+	public static async addMissionToPlayer(entity: Entity, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
+		const prop = await this.generateMissionProperties(missionId, difficulty, mission, false, entity.Player);
 		const missionData = Data.getModule("missions." + missionId);
 		const missionSlot = await MissionSlot.create({
-			playerId: player.id,
+			playerId: entity.Player.id,
 			missionId: prop.mission.id,
 			missionVariant: prop.variant,
 			missionObjective: missionData.getNumberFromArray("objectives", prop.index),
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.getNumberFromArray("expirations", prop.index))),
-			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
+			numberDone: await this.getMissionInterface(missionId).initialNumberDone(entity.Player, prop.variant),
 			gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 			xpToWin: missionData.getNumberFromArray("xp", prop.index),
 			moneyToWin: missionData.getNumberFromArray("money", prop.index)
 		});
-		return await MissionSlots.getById(missionSlot.id);
+		const retMission = await MissionSlots.getById(missionSlot.id);
+		draftBotInstance.logsDatabase.logMissionFound(entity.discordUserId, retMission.missionId, retMission.missionVariant, retMission.missionObjective).then();
+		return retMission;
 	}
 
-	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
+	public static async addRandomMissionToPlayer(entity: Entity, difficulty: MissionDifficulty): Promise<MissionSlot> {
 		const mission = await Missions.getRandomMission(difficulty);
-		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
+		return await MissionsController.addMissionToPlayer(entity, mission.id, difficulty, mission);
 	}
 
-	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer) {
+	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string> {
 		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language, saveBlob);
 	}
 
@@ -305,7 +327,7 @@ export class MissionsController {
 	 * @param missionInformations
 	 * @private
 	 */
-	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations) {
+	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations): Promise<boolean> {
 		let completedCampaign = false;
 		for (const mission of player.MissionSlots.filter((mission) => mission.missionId === missionInformations.missionId)) {
 			if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
@@ -327,7 +349,7 @@ export class MissionsController {
 	 * @param missionInformations
 	 * @private
 	 */
-	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations) {
+	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
 		const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
 		if (saveBlob !== mission.saveBlob) {
 			mission.saveBlob = saveBlob;
@@ -342,7 +364,7 @@ export class MissionsController {
 	 * @param completedCampaign
 	 * @private
 	 */
-	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean) {
+	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean): Promise<boolean> {
 		mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
 		if (mission.numberDone > mission.missionObjective) {
 			mission.numberDone = mission.missionObjective;

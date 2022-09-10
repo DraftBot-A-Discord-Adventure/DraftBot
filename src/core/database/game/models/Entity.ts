@@ -1,5 +1,4 @@
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
 import InventorySlot from "./InventorySlot";
 import InventoryInfo from "./InventoryInfo";
 import PetEntity from "./PetEntity";
@@ -17,7 +16,9 @@ import {TopConstants} from "../../../constants/TopConstants";
 import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
-import {botConfig} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
+import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {EntityConstants} from "../../../constants/EntityConstants";
 import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
 
@@ -29,6 +30,8 @@ type MissionHealthParameter = {
 export class Entity extends Model {
 	public readonly id!: number;
 
+	public readonly discordUserId!: string;
+
 	public maxHealth!: number;
 
 	public health!: number;
@@ -38,8 +41,6 @@ export class Entity extends Model {
 	public defense!: number;
 
 	public speed!: number;
-
-	public readonly discordUserId!: string;
 
 	public fightPointsLost!: number;
 
@@ -60,7 +61,7 @@ export class Entity extends Model {
 	 * calculate the cumulative attack of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.Player.class)).getAttackValue(this.Player.level);
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
@@ -76,7 +77,7 @@ export class Entity extends Model {
 	 * calculate the cumulative defense of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerDefense = (await Classes.getById(this.Player.class)).getDefenseValue(this.Player.level);
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
@@ -92,7 +93,7 @@ export class Entity extends Model {
 	 * calculate the cumulative speed of the player
 	 * @param playerActiveObjects
 	 */
-	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects) {
+	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects): Promise<number> {
 		const playerSpeed = (await Classes.getById(this.Player.class)).getSpeedValue(this.Player.level);
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
@@ -109,7 +110,7 @@ export class Entity extends Model {
 	/**
 	 * get the player cumulative Health
 	 */
-	public async getCumulativeFightPoint() {
+	public async getCumulativeFightPoint(): Promise<number> {
 		const maxHealth = await this.getMaxCumulativeFightPoint();
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
@@ -124,7 +125,7 @@ export class Entity extends Model {
 	/**
 	 * return the player max health
 	 */
-	public async getMaxHealth() {
+	public async getMaxHealth(): Promise<number> {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxHealthValue(this.Player.level);
 	}
@@ -132,7 +133,7 @@ export class Entity extends Model {
 	/**
 	 * get the player max cumulative fight point
 	 */
-	public async getMaxCumulativeFightPoint() {
+	public async getMaxCumulativeFightPoint(): Promise<number> {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxCumulativeFightPointValue(this.Player.level);
 	}
@@ -142,13 +143,30 @@ export class Entity extends Model {
 	 * @param health
 	 * @param channel
 	 * @param language
+	 * @param reason
 	 * @param missionHealthParameter
 	 */
-	public async addHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+	public async addHealth(health: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
-	}) {
+	}): Promise<void> {
 		await this.setHealth(this.health + health, channel, language, missionHealthParameter);
+		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
+	}
+
+	/**
+	 * get the string that mention the user
+	 */
+	public getMention(): string {
+		return "<@" + this.discordUserId + ">";
+	}
+
+	/**
+	 * returns true if the player is currently blocked by a report
+	 */
+	public async isInEvent(): Promise<boolean> {
+		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
+		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 
 	/**
@@ -158,10 +176,10 @@ export class Entity extends Model {
 	 * @param language
 	 * @param missionHealthParameter
 	 */
-	public async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
-	}) {
+	}): Promise<void> {
 		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission
 			? await this.getMaxHealth()
 			: health < 0
@@ -180,21 +198,6 @@ export class Entity extends Model {
 		else {
 			this.health = health;
 		}
-	}
-
-	/**
-	 * get the string that mention the user
-	 */
-	public getMention(): string {
-		return "<@" + this.discordUserId + ">";
-	}
-
-	/**
-	 * returns true if the player is currently blocked by a report
-	 */
-	public async isInEvent(): Promise<boolean> {
-		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
-		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 }
 
@@ -472,15 +475,14 @@ export class Entities {
 	 */
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
-		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT rank
                        FROM (
-                                SELECT ${formatDatabaseType}entities.discordUserId,
-                                       (RANK() OVER (ORDER BY ${formatDatabaseType}players.${scoreLookup} DESC, ${formatDatabaseType}players.level DESC)) AS rank
-                                FROM ${formatDatabaseType}entities
-                                         INNER JOIN ${formatDatabaseType}players
-										 ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId AND ${formatDatabaseType}players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-                                WHERE ${formatDatabaseType}entities.discordUserId IN (${ids.toString()})) subquery
+                                SELECT draftbot_game.entities.discordUserId,
+                                       (RANK() OVER (ORDER BY draftbot_game.players.${scoreLookup} DESC, draftbot_game.players.level DESC)) AS rank
+                                FROM draftbot_game.entities
+                                         INNER JOIN draftbot_game.players
+										 ON draftbot_game.entities.id = draftbot_game.players.entityId AND draftbot_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+                                WHERE draftbot_game.entities.discordUserId IN (${ids.toString()})) subquery
                        WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
@@ -509,7 +511,7 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = `SELECT discordUserId FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}entities`;
+		const query = "SELECT discordUserId FROM draftbot_game.entities";
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
@@ -524,12 +526,11 @@ export class Entities {
 	 * @param timing
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
-		const formatDatabaseType = botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game.";
 		const query = `SELECT COUNT(*) as nbPlayers
-                       FROM ${formatDatabaseType}players
-                       		JOIN ${formatDatabaseType}entities ON ${formatDatabaseType}entities.id = ${formatDatabaseType}players.entityId
-                       WHERE ${formatDatabaseType}players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
-                         AND ${formatDatabaseType}entities.discordUserId IN (${listDiscordId.toString()})`;
+                       FROM draftbot_game.players
+                       		JOIN draftbot_game.entities ON draftbot_game.entities.id = draftbot_game.players.entityId
+                       WHERE draftbot_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
+                         AND draftbot_game.entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}
@@ -540,7 +541,7 @@ export class Entities {
 	 * @param page
 	 * @param timing
 	 */
-	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string) {
+	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Entity[]> {
 		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
 			? {
 				score: {
@@ -577,36 +578,38 @@ export class Entities {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	const data = Data.getModule("models.entities");
-
 	Entity.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
+		discordUserId: {
+			type: DataTypes.STRING(64) // eslint-disable-line new-cap
+		},
 		maxHealth: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("maxHealth")
+			defaultValue: EntityConstants.DEFAULT_VALUES.MAX_HEALTH
 		},
 		health: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("health")
+			defaultValue: EntityConstants.DEFAULT_VALUES.HEALTH
 		},
 		attack: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("attack")
+			defaultValue: EntityConstants.DEFAULT_VALUES.ATTACK
 		},
 		defense: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("defense")
+			defaultValue: EntityConstants.DEFAULT_VALUES.DEFENSE
 		},
 		speed: {
 			type: DataTypes.INTEGER,
-			defaultValue: data.getNumber("speed")
+			defaultValue: EntityConstants.DEFAULT_VALUES.SPEED
 		},
-		discordUserId: {
-			type: DataTypes.STRING(64) // eslint-disable-line new-cap
+		fightPointsLost: {
+			type: DataTypes.INTEGER,
+			defaultValue: EntityConstants.DEFAULT_VALUES.FIGHT_POINTS_LOST
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
@@ -615,10 +618,6 @@ export function initModel(sequelize: Sequelize): void {
 		createdAt: {
 			type: DataTypes.DATE,
 			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		fightPointsLost: {
-			type: DataTypes.INTEGER,
-			defaultValue: 0
 		}
 	}, {
 		sequelize,

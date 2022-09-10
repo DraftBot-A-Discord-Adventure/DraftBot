@@ -108,6 +108,76 @@ const supportItemAttributes = {
 	createdAt: DataTypes.DATE
 };
 
+export const guildsAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	name: {
+		type: DataTypes.STRING(32), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	guildDescription: DataTypes.STRING(300), // eslint-disable-line new-cap
+	score: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	level: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	experience: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	commonFood: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	carnivorousFood: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	herbivorousFood: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	ultimateFood: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	lastDailyAt: DataTypes.DATE,
+	chiefId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	elderId: DataTypes.INTEGER,
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
+export const petEntitiesAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	petId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	sex: DataTypes.CHAR,
+	nickname: DataTypes.TEXT,
+	lovePoints: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	hungrySince: DataTypes.DATE,
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes);
 	await context.createTable("classes", {
@@ -275,54 +345,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
-	await context.createTable("guilds", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		name: {
-			type: DataTypes.STRING(32), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		guildDescription: DataTypes.STRING(300), // eslint-disable-line new-cap
-		score: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		level: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		experience: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		commonFood: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		carnivorousFood: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		herbivorousFood: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		ultimateFood: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		lastDailyAt: DataTypes.DATE,
-		chiefId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		elderId: DataTypes.INTEGER,
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("guilds", guildsAttributes001);
 	await context.createTable("inventory_info", {
 		playerId: {
 			type: DataTypes.INTEGER,
@@ -508,26 +531,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		createdAt: DataTypes.DATE
 	});
 	await context.createTable("objects", supportItemAttributes);
-	await context.createTable("pet_entities", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		petId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		sex: DataTypes.CHAR,
-		nickname: DataTypes.TEXT,
-		lovePoints: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		hungrySince: DataTypes.DATE,
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("pet_entities", petEntitiesAttributes001);
 	await context.createTable("pets", {
 		id: {
 			type: DataTypes.INTEGER,
@@ -777,7 +781,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("weapons", itemAttributes);
 }
 
-export async function down(context: QueryInterface): Promise<void> {
+export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("armors");
 	await context.dropTable("classes");
 	await context.dropTable("daily_mission");

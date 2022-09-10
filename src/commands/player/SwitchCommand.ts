@@ -10,18 +10,19 @@ import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {millisecondsToHours} from "../../core/utils/TimeUtils";
-import {Data} from "../../core/Data";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import moment = require("moment");
+import * as moment from "moment";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {SwitchConstants} from "../../core/constants/SwitchConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
  * @param toSwitchItems
  * @param language
  */
-async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string) {
+async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string): Promise<ChoiceItem[]> {
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		const itemInstance = await item.getItem();
@@ -43,17 +44,16 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  * @param entity
  * @param interaction
  */
-function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction) {
-	const switchData = Data.getModule("commands.switch");
+function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteraction): void {
 	const nextDailyDate = moment(entity.Player.InventoryInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - interaction.createdAt.valueOf());
-	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - switchData.getNumber("timeToAdd");
+	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - SwitchConstants.TIME_ADDED_MULTIPLIER;
 	if (timeToCheck < 0) {
 		entity.Player.InventoryInfo.updateLastDailyAt();
 		entity.Player.InventoryInfo.editDailyCooldown(-maxTime);
 	}
 	else if (timeToCheck < maxTime) {
-		entity.Player.InventoryInfo.editDailyCooldown(switchData.getNumber("timeToAdd"));
+		entity.Player.InventoryInfo.editDailyCooldown(SwitchConstants.TIME_ADDED_MULTIPLIER);
 	}
 	else {
 		entity.Player.InventoryInfo.updateLastDailyAt();
@@ -66,7 +66,7 @@ function addDailyTimeBecauseSwitch(entity: Entity, interaction: CommandInteracti
  * @param entity
  * @param item
  */
-async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot) {
+async function switchItemSlots(otherItem: InventorySlot, entity: Entity, item: InventorySlot): Promise<void> {
 	if (otherItem.itemId === 0) {
 		await InventorySlot.destroy({
 			where: {
@@ -107,7 +107,7 @@ type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine
  * @param item
  * @param tr
  */
-async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule) {
+async function switchItemEmbedCallback(entity: Entity, interaction: CommandInteraction, item: ItemForCallback, tr: TranslationModule): Promise<void> {
 	[entity] = await Entities.getOrRegister(interaction.user.id);
 	if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(entity, interaction);
@@ -129,7 +129,7 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
 			item2: otherItemInstance.getName(tr.language)
 		});
 	}
-	interaction.channel.send({
+	await interaction.channel.send({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(tr.get("title"), interaction.user)
 			.setDescription(desc)
@@ -144,20 +144,20 @@ async function switchItemEmbedCallback(entity: Entity, interaction: CommandInter
  * @param entity
  * @param tr
  */
-async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, entity: Entity, tr: TranslationModule) {
+async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, entity: Entity, tr: TranslationModule): Promise<void> {
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
 		async (item: ItemForCallback) => await switchItemEmbedCallback(entity, interaction, item, tr),
-		(endMessage) => {
+		async (endMessage) => {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.SWITCH);
 			if (endMessage.isCanceled()) {
-				sendErrorMessage(interaction.user, interaction, tr.language, tr.get("canceled"), true);
+				await sendErrorMessage(interaction.user, interaction, tr.language, tr.get("canceled"), true);
 			}
 		});
 
 	choiceMessage.formatAuthor(tr.get("switchTitle"), interaction.user);
-	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
+	choiceMessage.setDescription(`${tr.get("switchIndication")}\n\n${choiceMessage.description}`);
 	await choiceMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SWITCH, collector));
 }
 
@@ -167,7 +167,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
  * @param language
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	// Error if blocked
 	if (await sendBlockedError(interaction, language)) {
 		return;
@@ -179,7 +179,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Get the items that can be switched or send an error if none
 	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
-		replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
+		await replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
 		return;
 	}
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);
@@ -199,7 +199,7 @@ export const commandInfo: ICommand = {
 	requirements: {
 		allowEffects: null,
 		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED],
 		guildPermissions: null,
 		guildRequired: null,
 		userPermission: null

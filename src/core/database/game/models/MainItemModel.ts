@@ -1,8 +1,8 @@
 import {DataTypes} from "sequelize";
-import {Data} from "../../../Data";
 import {TranslationModule, Translations} from "../../../Translations";
-import {GenericItemModel} from "./GenericItemModel";
+import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
+import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
 
 type Value = {
@@ -11,15 +11,13 @@ type Value = {
 	typeValue: string
 }
 
-type MaxStatsValues = { attack: number, defense: number, speed: number }
-
 /**
  * Get a stat value of an item into its string form
  * @param tr
  * @param values
  * @param value
  */
-function getStringValueFor(tr: TranslationModule, values: string[], value: Value) {
+function getStringValueFor(tr: TranslationModule, values: string[], value: Value): void {
 	if (value.value !== 0) {
 		values.push(tr.format(value.typeValue, {
 			value: value.maxValue >= value.value ? value.value : tr.format("nerfDisplay",
@@ -51,7 +49,7 @@ export abstract class MainItemModel extends GenericItemModel {
 		const name = this.getName(language);
 		return {
 			name: tr.get(this.categoryName + ".fieldName"),
-			value: this.id === 0 ? name : tr.format(this.categoryName + ".fieldValue", {
+			value: this.id === 0 ? name : tr.format(`${this.categoryName}.fieldValue`, {
 				name,
 				rarity: this.getRarityTranslation(language),
 				values: this.getValues(language, maxStatsValue)
@@ -66,7 +64,7 @@ export abstract class MainItemModel extends GenericItemModel {
 			return this.getName(language);
 		}
 		return tr.format(
-			this.categoryName + ".fieldValue", {
+			`${this.categoryName}.fieldValue`, {
 				name: this.getName(language),
 				rarity: this.getRarityTranslation(language),
 				values: this.getValues(language)
@@ -86,7 +84,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	 * @protected
 	 */
 	protected multiplier(): number {
-		return Data.getModule("items").getNumberFromArray("mapper", this.rarity);
+		return InventoryConstants.ITEMS_MAPPER[this.rarity];
 	}
 
 	/**

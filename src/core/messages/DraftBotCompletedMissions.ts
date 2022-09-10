@@ -8,10 +8,13 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 	constructor(user: User, completedMissions: CompletedMission[], language: string) {
 		super();
 		const tr = Translations.getModule("models.missions", language);
-		this.setAuthor(tr.format("completedTitle", {
-			missionCount: completedMissions.length,
-			pseudo: escapeUsername(user.username)
-		}), user.displayAvatarURL());
+		this.setAuthor({
+			name: tr.format("completedTitle", {
+				missionCount: completedMissions.length,
+				pseudo: escapeUsername(user.username)
+			}),
+			iconURL: user.displayAvatarURL()
+		});
 		let sideMissions = "";
 		let dailyMission = "";
 		let campaignMissions = "";
@@ -54,7 +57,7 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 	}
 
 	private static getMissionDisplay(tr: TranslationModule, completedMission: CompletedMission): string {
-		const missionDisplay = "• " + completedMission.desc;
+		const missionDisplay = `• ${completedMission.desc}`;
 		const rewardDisplays = [];
 		if (completedMission.gemsToWin > 0) {
 			rewardDisplays.push(tr.format("gemsDisplay", {
@@ -71,9 +74,10 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 				xp: completedMission.xpToWin
 			}));
 		}
-		if (rewardDisplays.length === 0){
+		if (rewardDisplays.length === 0) {
 			return missionDisplay;
 		}
-		return missionDisplay + " (" + rewardDisplays.join(", ") + ")\n";
+		return `${missionDisplay} (${rewardDisplays.join(", ")})
+`;
 	}
 }

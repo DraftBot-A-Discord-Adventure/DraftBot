@@ -5,11 +5,10 @@ import {format} from "../utils/StringFormatter";
 import {Servers} from "../database/game/models/Server";
 import {IPCClient} from "./ipc/IPCClient";
 import {Constants} from "../Constants";
-import {Data} from "../Data";
 import {Translations} from "../Translations";
-
-// TODO change
-declare const getValidationInfos: any;
+import {BotUtils} from "../utils/BotUtils";
+import {DBL} from "../DBL";
+import {BotConstants} from "../constants/BotConstants";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -25,7 +24,7 @@ process.on("unhandledRejection", function(err: Error) {
 	// process.exit(1);
 });
 
-process.on("message", async (message: any) => {
+process.on("message", async (message: { type: string, data: { shardId: number } }) => {
 	if (!message.type) {
 		return false;
 	}
@@ -42,28 +41,28 @@ process.on("message", async (message: any) => {
 		}
 
 		console.log("############################################");
-
-		const botDataModule = Data.getModule("bot");
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
-					content: format(botDataModule.getString("startStatus"), {
-						version: Data.getModule("package").getString("version"),
+					content: format(BotConstants.START_STATUS, {
+						version: await BotConstants.VERSION,
 						shardId
 					})
 				})
 				.catch(console.error);
-			const dbl = await require("../DBL");
-			await dbl.verifyDBLRoles();
-			dbl.startDBLWebhook();
+			await DBL.verifyDBLRoles();
+			DBL.startDBLWebhook();
 		}
 		draftBotClient.user
-			.setActivity(botDataModule.getString("activity"));
+			.setActivity(BotConstants.ACTIVITY);
 	}
 });
 
-const main = async function() {
+/**
+ * The main function of the bot : makes the bot start
+ */
+async function main(): Promise<void> {
 	const client = new Client(
 		{
 			restTimeOffset: 0,
@@ -93,20 +92,22 @@ const main = async function() {
 	/**
 	 * Will be executed each time the bot join a new server
 	 */
-	const onDiscordGuildCreate = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
+		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
-	};
+	}
 
 	/**
 	 * Will be executed each time the bot leave a server
 	 */
-	const onDiscordGuildDelete = async (guild: Guild) => {
-		const [serv] = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
+		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
-	};
+	}
 
 	/**
 	 * Get the message when the bot joins or leaves a guild
@@ -115,8 +116,8 @@ const main = async function() {
 	 * @param {"fr"|"en"} language
 	 * @return {string}
 	 */
-	const getJoinLeaveMessage = (guild: Guild, join: boolean, language: string) => {
-		const {validation, humans, bots, ratio} = getValidationInfos(guild);
+	function getJoinLeaveMessage(guild: Guild, join: boolean, language: string): string {
+		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		return format(
 			join
 				? Translations.getModule("bot", language).get("joinGuild")
@@ -128,7 +129,7 @@ const main = async function() {
 				ratio: ratio,
 				validation: validation
 			});
-	};
+	}
 
 	client.on("ready", () => console.log("Client ready"));
 	client.on("guildCreate", onDiscordGuildCreate);
@@ -142,6 +143,6 @@ const main = async function() {
 	// @ts-ignore
 	global.discord = require("discord.js");
 	await client.login(botConfig.DISCORD_CLIENT_TOKEN);
-};
+}
 
 main().then();

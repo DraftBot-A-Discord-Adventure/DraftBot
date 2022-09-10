@@ -4,6 +4,7 @@ import {MissionsController} from "../../../missions/MissionsController";
 import Mission from "./Mission";
 import {Data} from "../../../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
+import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class DailyMission extends Model {
@@ -55,21 +56,9 @@ export class DailyMissions {
 
 	static async regenerateDailyMission(): Promise<DailyMission> {
 		const prop = await MissionsController.generateRandomDailyMissionProperties();
-		const dailyMission = await DailyMissions.queryDailyMission();
-		const missionData = Data.getModule("missions." + prop.mission.id);
-		if (!dailyMission) {
-			await DailyMission.create({
-				id: 0,
-				missionId: prop.mission.id,
-				objective: missionData.getNumberFromArray("objectives", prop.index),
-				variant: prop.variant,
-				gemsToWin: missionData.getNumberFromArray("gems", prop.index),
-				xpToWin: missionData.getNumberFromArray("xp", prop.index),
-				moneyToWin: missionData.getNumberFromArray("money", prop.index),
-				lastDate: new Date()
-			});
-		}
-		else {
+		let dailyMission = await DailyMissions.queryDailyMission();
+		const missionData = Data.getModule(`missions.${prop.mission.id}`);
+		if (dailyMission) {
 			dailyMission.missionId = prop.mission.id;
 			dailyMission.objective = missionData.getNumberFromArray("objectives", prop.index);
 			dailyMission.variant = prop.variant;
@@ -78,6 +67,19 @@ export class DailyMissions {
 			dailyMission.lastDate = new Date();
 			await dailyMission.save();
 		}
+		else {
+			dailyMission = await DailyMission.create({
+				id: 0,
+				missionId: prop.mission.id,
+				objective: missionData.getNumberFromArray("objectives", prop.index),
+				variant: prop.variant,
+				gemsToWin: missionData.getNumberFromArray("gems", prop.index),
+				xpToWin: missionData.getNumberFromArray("xp", prop.index),
+				moneyToWin: missionData.getNumberFromArray("money", prop.index),
+				lastDate: new Date()
+			}, {returning: true});
+		}
+		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective).then();
 		return await this.queryDailyMission();
 	}
 }

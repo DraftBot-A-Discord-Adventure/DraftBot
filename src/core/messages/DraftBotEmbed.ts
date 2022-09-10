@@ -21,11 +21,15 @@ export class DraftBotEmbed extends MessageEmbed {
 	 * pseudo is automatically replaced in the title. If you have other replacements you have to replace it yourself before
 	 * @param title
 	 * @param user
+	 * @param userToLook
 	 */
 	formatAuthor(title: string, user: User, userToLook: User = user): this {
-		this.setAuthor(format(title, {
-			pseudo: escapeUsername(userToLook.username)
-		}), user.displayAvatarURL());
+		this.setAuthor({
+			name: format(title, {
+				pseudo: escapeUsername(userToLook.username)
+			}),
+			iconURL: user.displayAvatarURL()
+		});
 		return this;
 	}
 

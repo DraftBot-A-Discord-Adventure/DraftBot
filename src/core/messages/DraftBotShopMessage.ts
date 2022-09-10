@@ -7,6 +7,7 @@ import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage
 import {Entities} from "../database/game/models/Entity";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 /**
  * Reasons when the shop ends
@@ -200,7 +201,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					(reactionMessage: DraftBotReactionMessage) => {
+					(reactionMessage: DraftBotReactionMessage): void => {
 						reactionMessage.stop();
 						sendErrorMessage(
 							shopMessage.user,
@@ -208,8 +209,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						);
-						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
+						).then(() => shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION));
 					}
 				));
 				const confirmBuyMessage = new DraftBotReactionMessage(
@@ -232,11 +232,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				desc += "\n\n" + choseShopItem.description + "\n\n" + Constants.REACTIONS.WARNING + " " + shopMessage._translationModule.get("multipleChoice.warning");
 				confirmBuyMessage.setDescription(desc);
-				confirmBuyMessage.send(shopMessage.sentMessage.channel);
+				await confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 		}
 		else {
-			sendErrorMessage(
+			await sendErrorMessage(
 				shopMessage.user,
 				shopMessage._interaction,
 				shopMessage.language,
@@ -388,7 +388,13 @@ export class DraftBotShopMessageBuilder {
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
 		const [entity] = await Entities.getOrRegister(userId);
-		await entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
+		await entity.Player.addMoney({
+			entity,
+			amount: -amount,
+			channel: null, // It is negative, so we don't care about the channel and language
+			language: "",
+			reason: NumberChangeReason.SHOP
+		});
 		await entity.Player.save();
 	};
 

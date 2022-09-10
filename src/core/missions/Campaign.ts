@@ -1,9 +1,10 @@
 import {Data, DataModule} from "../Data";
-import Player from "../database/game/models/Player";
 import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {MissionsController} from "./MissionsController";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {Missions} from "../database/game/models/Mission";
+import {draftBotInstance} from "../bot";
+import Entity from "../database/game/models/Entity";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -21,7 +22,7 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	public static async completeCampaignMissions(player: Player, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+	public static async completeCampaignMissions(entity: Entity, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		let firstMissionChecked = false;
 		while (campaign.isCompleted()) {
@@ -34,18 +35,19 @@ export class Campaign {
 						await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language, campaign.saveBlob),
 						CompletedMissionType.CAMPAIGN)
 				);
+				draftBotInstance.logsDatabase.logMissionCampaignProgress(entity.discordUserId, entity.Player.PlayerMissionsInfo.campaignProgression).then();
 			}
-			if (this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
-				const prop = Campaign.getDataModule().getObjectFromArray("missions", player.PlayerMissionsInfo.campaignProgression);
-				campaign.missionVariant = prop.missionVariant;
-				campaign.gemsToWin = prop.gemsToWin;
-				campaign.xpToWin = prop.xpToWin;
-				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
-				campaign.missionId = prop.missionId;
-				campaign.missionObjective = prop.missionObjective;
-				campaign.moneyToWin = prop.moneyToWin;
+			if (this.hasNextCampaign(entity.Player.PlayerMissionsInfo.campaignProgression)) {
+				const prop = Campaign.getDataModule().getObjectFromArray("missions", entity.Player.PlayerMissionsInfo.campaignProgression);
+				campaign.missionVariant = prop.missionVariant as number;
+				campaign.gemsToWin = prop.gemsToWin as number;
+				campaign.xpToWin = prop.xpToWin as number;
+				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string).initialNumberDone(entity.Player, prop.missionVariant as number);
+				campaign.missionId = prop.missionId as string;
+				campaign.missionObjective = prop.missionObjective as number;
+				campaign.moneyToWin = prop.moneyToWin as number;
 				campaign.saveBlob = null;
-				player.PlayerMissionsInfo.campaignProgression++;
+				entity.Player.PlayerMissionsInfo.campaignProgression++;
 				campaign.Mission = await Missions.getById(campaign.missionId);
 			}
 			else {
@@ -55,22 +57,22 @@ export class Campaign {
 		}
 		if (completedMissions.length !== 0 || !completedCampaign) {
 			await campaign.save();
-			await player.PlayerMissionsInfo.save();
+			await entity.Player.PlayerMissionsInfo.save();
 		}
 		return completedMissions;
 	}
 
-	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player, language: string): Promise<CompletedMission[]> {
-		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
+	public static async updatePlayerCampaign(completedCampaign: boolean, entity: Entity, language: string): Promise<CompletedMission[]> {
+		const [campaign] = entity.Player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign) {
 			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
-			campaignJson.playerId = player.id;
+			campaignJson.playerId = entity.Player.id;
 			const slot = await MissionSlot.create(campaignJson);
-			player.MissionSlots.push(await MissionSlots.getById(slot.id));
-			return this.updatePlayerCampaign(completedCampaign, player, language);
+			entity.Player.MissionSlots.push(await MissionSlots.getById(slot.id));
+			return this.updatePlayerCampaign(completedCampaign, entity, language);
 		}
-		if (completedCampaign || Campaign.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
-			return await this.completeCampaignMissions(player, completedCampaign, campaign, language);
+		if (completedCampaign || Campaign.hasNextCampaign(entity.Player.PlayerMissionsInfo.campaignProgression)) {
+			return await this.completeCampaignMissions(entity, completedCampaign, campaign, language);
 		}
 		return [];
 	}

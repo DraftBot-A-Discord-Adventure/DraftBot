@@ -27,18 +27,18 @@ export class PlayerSmallEvents {
 
 	static getLast(playerSmallEvents: PlayerSmallEvent[]): PlayerSmallEvent {
 		let mostRecent = null;
-		for (const i of playerSmallEvents) {
+		for (const smallEvent of playerSmallEvents) {
 			if (mostRecent === null) {
-				mostRecent = i;
+				mostRecent = smallEvent;
 			}
-			else if (i.time >= mostRecent.time) {
-				mostRecent = i;
+			else if (smallEvent.id >= mostRecent.id) {
+				mostRecent = smallEvent;
 			}
 		}
 		return mostRecent;
 	}
 
-	static async calculateCurrentScore(player: Player) {
+	static async calculateCurrentScore(player: Player): Promise<number> {
 		const numberOfSmallEventsDone = player.PlayerSmallEvents.length;
 		const tripDuration = await player.getCurrentTripDuration();
 		let somme = 0;
@@ -51,7 +51,7 @@ export class PlayerSmallEvents {
 		return somme;
 	}
 
-	static async removeSmallEventsOfPlayer(playerId: number) {
+	static async removeSmallEventsOfPlayer(playerId: number): Promise<void> {
 		await PlayerSmallEvent.destroy({where: {playerId: playerId}});
 	}
 }

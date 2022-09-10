@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
 import {readdir} from "fs";
-import moment = require("moment");
+import * as moment from "moment";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -27,14 +27,12 @@ export class Pet extends Model {
 	public createdAt!: Date;
 
 	public getRarityDisplay(): string {
-		return Data.getModule("models.pets")
-			.getString("rarityEmote")
-			.repeat(this.rarity);
+		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
 	}
 }
 
 export class Pets {
-	static getById(id: number) {
+	static getById(id: number): Promise<Pet> {
 		return Pet.findOne({
 			where: {
 				id: id

@@ -3,14 +3,15 @@ import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
-import {Data} from "../../core/Data";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {RespawnConstants} from "../../core/constants/RespawnConstants";
 
 /**
  * Allow a player who is dead to respawn
@@ -23,26 +24,32 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
-	if (entity.Player.effect !== Constants.EFFECT.DEAD) {
-		replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
+	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
+		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
 		return;
 	}
-	const lostScore = Math.round(entity.Player.score * Data.getModule("commands.respawn").getNumber("score_remove_during_respawn"));
-	entity.health = await entity.getMaxHealth();
-	await entity.Player.addScore(entity, -lostScore, interaction.channel, language);
+	const lostScore = Math.round(entity.Player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
+	await entity.addHealth(await entity.getMaxHealth() - entity.health, interaction.channel, language, NumberChangeReason.RESPAWN);
+	await entity.Player.addScore({
+		entity,
+		amount: -lostScore,
+		channel: interaction.channel,
+		language: language,
+		reason: NumberChangeReason.RESPAWN
+	});
 
 	await Promise.all([
 		entity.save(),
 		entity.Player.save()
 	]);
 
-	await Maps.removeEffect(entity.Player);
+	await Maps.removeEffect(entity.Player, NumberChangeReason.RESPAWN);
 	await Maps.stopTravel(entity.Player);
 	const newlink = await MapLinks.getLinkByLocations(
 		await entity.Player.getPreviousMapId(),
 		await entity.Player.getDestinationId()
 	);
-	await Maps.startTravel(entity.Player, newlink, interaction.createdAt.valueOf());
+	await Maps.startTravel(entity.Player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN);
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
@@ -52,8 +59,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			lostScore: lostScore
 		})
 	});
-	// TODO REFAIRE LES LOGS
-	// log(message.author.id + " respawned (" + lostScore + " points lost)");
 
 }
 
@@ -63,7 +68,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Revives you at the cost of points."),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
 	},
 	mainGuildCommand: false
 };

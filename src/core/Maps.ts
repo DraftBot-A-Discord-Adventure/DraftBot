@@ -9,8 +9,10 @@ import {
 	millisecondsToMinutes,
 	minutesToMilliseconds
 } from "./utils/TimeUtils";
-import {Data} from "./Data";
 import {PlayerSmallEvents} from "./database/game/models/PlayerSmallEvent";
+import {draftBotInstance} from "./bot";
+import {NumberChangeReason} from "./database/logs/LogsDatabase";
+import {EffectsConstants} from "./constants/EffectsConstants";
 
 export class Maps {
 
@@ -20,7 +22,7 @@ export class Maps {
 	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player: Player, restrictedMapType: string): Promise<number[]> {
+	static async getNextPlayerAvailableMaps(player: Player, restrictedMapType: string = null): Promise<number[]> {
 		if (!player.mapLinkId) {
 			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
@@ -64,32 +66,34 @@ export class Maps {
 	}
 
 
-	static async applyEffect(player: Player, effect: string, time = 0): Promise<void> {
-		await this.removeEffect(player);
+	static async applyEffect(player: Player, effect: string, time: number, reason: NumberChangeReason): Promise<void> {
+		// Reason is IGNORE here because you don't want to log a timewarp when you get an alteration
+		await this.removeEffect(player, NumberChangeReason.IGNORE);
 		player.effect = effect;
-		if (effect === Constants.EFFECT.OCCUPIED) {
+		if (effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			player.effectDuration = time;
 		}
 		else {
-			player.effectDuration = millisecondsToMinutes(Data.getModule("models.players").getNumber("effectMalus." + effect));
+			player.effectDuration = EffectsConstants.DURATION[effect as keyof typeof EffectsConstants.DURATION];
 		}
 		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logAlteration(entity.discordUserId, effect, reason, time).then());
 	}
 
-	static async removeEffect(player: Player): Promise<void> {
+	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
 		const remainingTime = player.effectRemainingTime();
-		player.effect = Constants.EFFECT.SMILEY;
+		player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
 		player.effectDuration = 0;
 		player.effectEndDate = new Date();
 		if (remainingTime > 0) {
-			this.advanceTime(player, millisecondsToMinutes(remainingTime));
+			await this.advanceTime(player, millisecondsToMinutes(remainingTime), reason);
 		}
 		await player.save();
 	}
 
-	static advanceTime(player: Player, time: number): void {
+	static async advanceTime(player: Player, time: number, reason: NumberChangeReason): Promise<void> {
 		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
 			if (t >= player.effectEndDate.valueOf() - Date.now()) {
@@ -102,9 +106,10 @@ export class Maps {
 		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
 		if (lastSmallEvent) {
 			lastSmallEvent.time -= t;
-			lastSmallEvent.save().then();
+			await lastSmallEvent.save();
 		}
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() - t);
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimeWarp(entity.discordUserId, time, reason));
 	}
 
 	/**
@@ -112,15 +117,17 @@ export class Maps {
 	 * @param {Players} player
 	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
+	 * @param reason
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player: Player, newLink: MapLink, time: number): Promise<void> {
+	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason): Promise<void> {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
-		if (player.effect !== Constants.EFFECT.SMILEY) {
-			await Maps.applyEffect(player, player.effect, player.effectDuration);
+		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
+			await Maps.applyEffect(player, player.effect, player.effectDuration, reason);
 		}
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logNewTravel(entity.discordUserId, newLink).then());
 	}
 
 	/**
@@ -153,7 +160,7 @@ export class Maps {
 		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
-		const timeRemainingString = "**[" + remainingHours + "h" + (remainingMinutes < 10 ? "0" : "") + remainingMinutes + "]**";
+		const timeRemainingString = `**[${remainingHours}h${remainingMinutes < 10 ? "0" : ""}${remainingMinutes}]**`;
 		if (percentage > 1) {
 			percentage = 1;
 		}
@@ -169,7 +176,7 @@ export class Maps {
 					str += "🧍";
 				}
 				else {
-					str += Constants.EFFECT.EMOJIS[effect as keyof typeof Constants.EFFECT.EMOJIS];
+					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];
 				}
 			}
 			else {
@@ -180,7 +187,7 @@ export class Maps {
 			}
 		}
 
-		return str + " " + nextMapInstance.getEmote(language);
+		return `${str} ${nextMapInstance.getEmote(language)}`;
 	}
 
 	static async isArrived(player: Player): Promise<boolean> {

@@ -4,7 +4,7 @@ import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import ObjectItem from "./ObjectItem";
-import {botConfig} from "../../../bot";
+import {minutesDisplay} from "../../../utils/TimeUtils";
 import fs = require("fs");
 import moment = require("moment");
 
@@ -19,7 +19,7 @@ export class Potion extends SupportItemModel {
 		return format(
 			Translations.getModule("items", language).getFromArray("potions.natures", this.nature),
 			{
-				power: this.power
+				power: this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP ? minutesDisplay(this.power, language) : this.power
 			});
 	}
 
@@ -53,7 +53,7 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}potions
+                       FROM draftbot_game.potions
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {

@@ -8,15 +8,23 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {Translations} from "../../core/Translations";
 import {checkNameString} from "../../core/utils/StringUtils";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+/**
+ * Renames your current pet
+ * @param interaction
+ * @param language
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const pet = entity.Player.Pet;
 	const petNickTranslations = Translations.getModule("commands.petNickname", language);
 	if (!pet) {
-		replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
 		return;
 	}
 	const petNickname = interaction.options.getString("name");
@@ -27,12 +35,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	else {
 		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
-			replyErrorMessage(interaction, language,
-				petNickTranslations.get("invalidName") + "\n" +
-				Translations.getModule("error", language).format("nameRules", {
+			await replyErrorMessage(interaction, language,
+				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
 					min: Constants.PETS.NICKNAME_MIN_LENGTH,
 					max: Constants.PETS.NICKNAME_MAX_LENGTH
-				}));
+				})}`);
 			return;
 		}
 		successEmbed.setDescription(petNickTranslations.format("success", {
@@ -42,6 +49,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	pet.nickname = petNickname;
 	await pet.save();
+	draftBotInstance.logsDatabase.logPetNickname(pet).then();
 	await interaction.reply({embeds: [successEmbed]});
 }
 
@@ -55,7 +63,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

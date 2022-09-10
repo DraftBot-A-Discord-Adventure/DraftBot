@@ -6,11 +6,11 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 
 /**
- * Displays the link that allow to send the devs some suggestions
+ * Displays the several rarities that an item can get in the game
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.rarity", language);
 	const maxValue = Constants.RARITIES_GENERATOR.MAX_VALUE;
 	const raritiesGenerator = Constants.RARITIES_GENERATOR.VALUES;

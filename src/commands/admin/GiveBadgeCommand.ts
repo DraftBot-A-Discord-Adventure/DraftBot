@@ -28,6 +28,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+/**
+ * Get all badge emote and descriptions
+ */
 function getAllBadgesForOptions(): [string, string][] {
 	const tabBadges: [string, string][] = [];
 	for (const badge of Constants.BADGES.LIST) {

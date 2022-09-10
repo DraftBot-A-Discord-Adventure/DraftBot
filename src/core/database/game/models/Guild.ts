@@ -1,5 +1,4 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
 import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
@@ -11,7 +10,10 @@ import {Entities} from "./Entity";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
-import {botConfig} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
+import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {GuildConstants} from "../../../constants/GuildConstants";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -40,6 +42,8 @@ export class Guild extends Model {
 	public chiefId!: number;
 
 	public elderId!: number;
+
+	public creationDate!: Date;
 
 	public updatedAt!: Date;
 
@@ -71,7 +75,8 @@ export class Guild extends Model {
 	/**
 	 * completely destroy a guild from the database
 	 */
-	public async completelyDestroyAndDeleteFromTheDatabase() {
+	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
+		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
 		const petsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<void>[] = [];
 		for (const pet of this.GuildPets) {
@@ -99,25 +104,13 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * set the guild's experience
-	 * @param experience
-	 */
-	public setExperience(experience: number): void {
-		if (experience > 0) {
-			this.experience = experience;
-		}
-		else {
-			this.experience = 0;
-		}
-	}
-
-	/**
 	 * add experience to the guild
 	 * @param experience the experience to add
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
+	 * @param reason The reason of the experience change
 	 */
-	public async addExperience(experience: number, channel: TextBasedChannel, language: string) {
+	public async addExperience(experience: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
@@ -130,9 +123,8 @@ export class Guild extends Model {
 		}
 		this.experience += experience;
 		this.setExperience(this.experience);
-		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(channel, language);
-		}
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason).then();
+		await this.levelUpIfNeeded(channel, language);
 	}
 
 	/**
@@ -154,6 +146,8 @@ export class Guild extends Model {
 		const tr = Translations.getModule("models.guilds", language);
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
+		draftBotInstance.logsDatabase.logGuildLevelUp(this).then();
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP).then();
 		const embed = new DraftBotEmbed()
 			.setTitle(
 				tr.format("levelUp.title", {
@@ -174,9 +168,7 @@ export class Guild extends Model {
 			});
 		}
 
-		if (this.needLevelUp()) {
-			await this.levelUpIfNeeded(channel, language);
-		}
+		await this.levelUpIfNeeded(channel, language);
 	}
 
 	/**
@@ -200,7 +192,7 @@ export class Guild extends Model {
 		if (!this.GuildPets) {
 			return true;
 		}
-		return this.GuildPets.length >= Data.getModule("models.pets").getNumber("slots");
+		return this.GuildPets.length >= PetEntityConstants.SLOTS;
 	}
 
 	/**
@@ -223,11 +215,37 @@ export class Guild extends Model {
 	 * add food to the guild storage
 	 * @param selectedItemType the food type to add
 	 * @param quantity the quantity to add
+	 * @param reason change reason
 	 */
-	public addFood(selectedItemType: string, quantity: number): void {
+	public addFood(selectedItemType: string, quantity: number, reason: NumberChangeReason): void {
 		this.setDataValue(selectedItemType, this.getDataValue(selectedItemType) + quantity);
 		if (this.isStorageFullFor(selectedItemType, 0)) {
 			this.setDataValue(selectedItemType, Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
+		}
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(selectedItemType), this.getDataValue(selectedItemType), reason).then();
+	}
+
+	/**
+	 * remove food from the guid storage
+	 * @param item
+	 * @param quantity
+	 * @param reason
+	 */
+	public removeFood(item: string, quantity: number, reason: NumberChangeReason): void {
+		this.setDataValue(item, this.getDataValue(item) - quantity);
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(item), this.getDataValue(item), reason).then();
+	}
+
+	/**
+	 * set the guild's experience
+	 * @param experience
+	 */
+	private setExperience(experience: number): void {
+		if (experience > 0) {
+			this.experience = experience;
+		}
+		else {
+			this.experience = 0;
 		}
 	}
 }
@@ -285,9 +303,9 @@ export class Guilds {
 		}));
 	}
 
-	static async getGuildLevelMean() {
+	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}Guilds`;
+                       FROM draftbot_game.Guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT
@@ -297,57 +315,51 @@ export class Guilds {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	const guildsData = Data.getModule("models.guilds");
-
 	Guild.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		name: {
-			type: DataTypes.STRING(32) // eslint-disable-line new-cap
-		},
-		guildDescription: {
-			type: DataTypes.STRING(300) // eslint-disable-line new-cap
-		},
+		name: DataTypes.STRING(32), // eslint-disable-line new-cap
+		guildDescription: DataTypes.STRING(300), // eslint-disable-line new-cap
 		score: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("score")
+			defaultValue: GuildConstants.DEFAULT_VALUES.SCORE
 		},
 		level: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("level")
+			defaultValue: GuildConstants.DEFAULT_VALUES.LEVEL
 		},
 		experience: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("experience")
+			defaultValue: GuildConstants.DEFAULT_VALUES.EXPERIENCE
 		},
 		commonFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("commonFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.COMMON_FOOD
 		},
 		carnivorousFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("carnivorousFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.CARNIVOROUS_FOOD
 		},
 		herbivorousFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("herbivorousFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.HERBIVOROUS_FOOD
 		},
 		ultimateFood: {
 			type: DataTypes.INTEGER,
-			defaultValue: guildsData.getNumber("ultimateFood")
+			defaultValue: GuildConstants.DEFAULT_VALUES.ULTIMATE_FOOD
 		},
 		lastDailyAt: {
 			type: DataTypes.DATE,
 			defaultValue: null
 		},
-		chiefId: {
-			type: DataTypes.INTEGER
-		},
-		elderId: {
-			type: DataTypes.INTEGER
+		chiefId: DataTypes.INTEGER,
+		elderId: DataTypes.INTEGER,
+		creationDate: {
+			type: DataTypes.DATE,
+			defaultValue: DataTypes.NOW
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
@@ -361,9 +373,7 @@ export function initModel(sequelize: Sequelize): void {
 		sequelize,
 		tableName: "guilds",
 		freezeTableName: true
-	});
-
-	Guild.beforeSave(instance => {
+	}).beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
 	});
 }

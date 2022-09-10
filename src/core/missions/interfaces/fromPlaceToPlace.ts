@@ -4,7 +4,7 @@ import {Translations} from "../../Translations";
 import {hoursToMilliseconds} from "../../utils/TimeUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: any }, saveBlob: Buffer): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean {
 		if (!saveBlob) {
 			return false;
 		}
@@ -55,7 +55,7 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: any }): Promise<Buffer> {
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer> {
 		const variantParams = paramsFromVariant(variant);
 		if (!saveBlob) {
 			if (params.mapId === variantParams.fromMap || !variantParams.orderMatter && params.mapId === variantParams.toMap) {
@@ -100,8 +100,3 @@ const paramsFromVariant = function(variant: number): { fromMap: number, toMap: n
 		orderMatter: (variant & 0x40000000) !== 0
 	};
 };
-// TODO: supprimmer les commentaires avec du code mort
-// May be useful latter
-/* const variantFromParams = function(fromMap: number, toMap: number, time: number, orderMatter: boolean): number {
-	return (fromMap & 0x3ff) << 20 | (toMap & 0x3ff) << 10 | time & 0x3ff | (orderMatter ? 1 : 0) << 31;
-};*/

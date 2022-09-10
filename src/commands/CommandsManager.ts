@@ -1,6 +1,5 @@
 import {
 	ApplicationCommandDataResolvable,
-	CacheType,
 	Client,
 	CommandInteraction,
 	GuildChannel,
@@ -15,7 +14,7 @@ import {readdirSync} from "fs";
 import {ICommand} from "./ICommand";
 import Server from "../core/database/game/models/Server";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
-import {botConfig, draftBotClient} from "../core/bot";
+import {botConfig, draftBotClient, draftBotInstance} from "../core/bot";
 import {Constants} from "../core/Constants";
 import {TranslationModule, Translations} from "../core/Translations";
 import {Entities, Entity} from "../core/database/game/models/Entity";
@@ -23,17 +22,20 @@ import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";
-import {Data, DataModule} from "../core/Data";
 import {format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
+import {BotConstants} from "../core/constants/BotConstants";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 type ContextType = { mainServerId: string; dmManagerID: string; attachments: MessageAttachment[]; supportAlert: string; };
 
+/**
+ * The manager for creating and executing classic commands
+ */
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
@@ -44,7 +46,7 @@ export class CommandsManager {
 	 * @param interaction
 	 * @param shouldReply
 	 */
-	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false) {
+	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false): Promise<void> {
 		const entity = await Entities.getByDiscordUserId(user.id);
 		const textValues = await effectsErrorTextValue(interaction.user, tr.language, entity);
 		const embed = new DraftBotEmbed().setErrorColor()
@@ -64,11 +66,11 @@ export class CommandsManager {
 	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, {
 		interaction,
 		tr
-	}: TextInformations, shouldReply = false) {
+	}: TextInformations, shouldReply = false): Promise<boolean> {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
 		const userEntity = {user, entity};
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				Translations.getModule("error", tr.language).format("levelTooLow", {
@@ -110,7 +112,7 @@ export class CommandsManager {
 	 * Register all commands at launch
 	 * @param client
 	 */
-	static async registerAllCommands(client: Client) {
+	static async registerAllCommands(client: Client): Promise<void> {
 		const commandsToRegister = await this.getAllCommandsToRegister();
 
 		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
@@ -131,7 +133,6 @@ export class CommandsManager {
 		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
 	}
 
-
 	/**
 	 * Execute a command from the player
 	 * @param commandName
@@ -140,7 +141,7 @@ export class CommandsManager {
 	 * @param entity
 	 * @param argsOfCommand
 	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: any) {
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: unknown[]): Promise<void> {
 		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
 	}
 
@@ -148,27 +149,21 @@ export class CommandsManager {
 	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
-	static async handlePrivateMessage(message: Message | CommandInteraction) {
+	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
 		if (author === botConfig.DM_MANAGER_ID) {
 			return;
 		}
-		const [entity] = await Entities.getOrRegister(author);
-		const dataModule = Data.getModule("bot");
-		let icon = "";
-		if (!entity.Player.dmNotification) {
-			icon = dataModule.getString("dm.alertIcon");
-		}
 		if (message instanceof Message) {
-			await this.sendBackDMMessageToSupportChannel(message, dataModule, icon);
+			await this.sendBackDMMessageToSupportChannel(message, author);
 		}
-		await this.sendHelperMessage(message, dataModule);
+		await this.sendHelperMessage(message);
 	}
 
 	/**
 	 * Get the list of commands to register
 	 */
-	public static async getAllCommandsToRegister() {
+	public static async getAllCommandsToRegister(): Promise<ICommand[]> {
 		const categories = await readdir("dist/src/commands");
 		const commandsToRegister: ICommand[] = [];
 		for (const category of categories) {
@@ -186,13 +181,13 @@ export class CommandsManager {
 	 * @param commandsToRegister
 	 * @private
 	 */
-	private static async checkCommandFromCategory(category: string, commandsToRegister: ICommand[]) {
+	private static async checkCommandFromCategory(category: string, commandsToRegister: ICommand[]): Promise<void> {
 		let commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 		if (!botConfig.TEST_MODE) {
 			commandsFiles = commandsFiles.filter(command => !command.startsWith("Test"));
 		}
 		for (const commandFile of commandsFiles) {
-			const commandInfo = (await import(`./${category + "/" + commandFile}`)).commandInfo as ICommand;
+			const commandInfo = (await import(`./${category}/${commandFile}`)).commandInfo as ICommand;
 			if (!commandInfo || !commandInfo.slashCommandBuilder) {
 				console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 				continue;
@@ -206,7 +201,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static manageMessageCreate(client: Client) {
+	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
 			// ignore all bot messages and own messages
 			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
@@ -238,7 +233,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static manageInteractionCreate(client: Client) {
+	private static manageInteractionCreate(client: Client): void {
 		client.on("interactionCreate", interaction => {
 			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
 				return;
@@ -269,11 +264,11 @@ export class CommandsManager {
 	/**
 	 * Sends back a message sent in the bot DMs to the support channel
 	 * @param message
-	 * @param dataModule
-	 * @param icon
+	 * @param author
 	 * @private
 	 */
-	private static async sendBackDMMessageToSupportChannel(message: Message, dataModule: DataModule, icon: string) {
+	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
+		const [entity] = await Entities.getOrRegister(author);
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			if (client.guilds.cache.get(context.mainServerId)) {
 				const dmChannel = client.users.cache.get(context.dmManagerID);
@@ -296,9 +291,9 @@ export class CommandsManager {
 				mainServerId: botConfig.MAIN_SERVER_ID,
 				dmManagerID: botConfig.DM_MANAGER_ID,
 				attachments: Array.from(message.attachments.values()),
-				supportAlert: format(dataModule.getString("dm.supportAlert"), {
+				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
 					username: escapeUsername(message.author.username),
-					alertIcon: icon,
+					alertIcon: entity.Player.dmNotification ? "" : BotConstants.DM.ALERT_ICON,
 					id: message.author.id
 				}) + message.content
 			}
@@ -308,10 +303,9 @@ export class CommandsManager {
 	/**
 	 * Sends a message to someone who said something in DM to the bot
 	 * @param message
-	 * @param dataModule
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message | CommandInteraction, dataModule: DataModule) {
+	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
 		const helpMessage = await new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
@@ -330,9 +324,9 @@ export class CommandsManager {
 				});
 			})
 			.build()
-			.formatAuthor(dataModule.getString("dm.titleSupport"), author)
-			.setDescription(message instanceof CommandInteraction ? dataModule.getString("dm.interactionSupport") : dataModule.getString("dm.messageSupport"));
-		message instanceof Message ? helpMessage.send(message.channel) : helpMessage.reply(message);
+			.formatAuthor(BotConstants.DM.TITLE_SUPPORT, author)
+			.setDescription(message instanceof CommandInteraction ? BotConstants.DM.INTERACTION_SUPPORT : BotConstants.DM.MESSAGE_SUPPORT);
+		message instanceof Message ? await helpMessage.send(message.channel) : await helpMessage.reply(message);
 	}
 
 	/**
@@ -345,7 +339,7 @@ export class CommandsManager {
 	 */
 	private static async missingRequirementsForGuild(commandInfo: ICommand, {
 		entity
-	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule) {
+	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		let guild;
 		try {
 			guild = await Guilds.getById(entity.Player.guildId);
@@ -356,10 +350,10 @@ export class CommandsManager {
 
 		if (guild === null) {
 			// not in a guild
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
-				tr.get("notInAGuild")
+				Translations.getModule("bot", tr.language).get("notInAGuild")
 			);
 			return false;
 		}
@@ -374,7 +368,7 @@ export class CommandsManager {
 		}
 
 		if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				tr.get("notAuthorizedError")
@@ -398,7 +392,7 @@ export class CommandsManager {
 		commandInfo: ICommand,
 		{user, entity}: UserEntity,
 		{interaction, tr}: TextInformations,
-		shouldReply: boolean) {
+		shouldReply: boolean): boolean {
 		if (!entity.Player.currentEffectFinished() &&
 			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
@@ -413,7 +407,7 @@ export class CommandsManager {
 	 * @param interaction the interaction to reply to
 	 * @private
 	 */
-	private static async handleCommand(interaction: CommandInteraction) {
+	private static async handleCommand(interaction: CommandInteraction): Promise<void> {
 		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: interaction.guild.id
@@ -485,7 +479,7 @@ export class CommandsManager {
 		}
 
 		if (await BlockingUtils.isPlayerSpamming(interaction.user.id)) {
-			replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				Translations.getModule("error", tr.language).get("blockedContext.cooldown")
@@ -495,7 +489,7 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		console.log(interaction.user.id + " executed in server " + interaction.guild.id + ": " + interaction.command.name);
+		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.command.name).then();
 		await commandInfo.executeCommand(interaction, tr.language, entity);
 	}
 
@@ -505,7 +499,7 @@ export class CommandsManager {
 	 * @param tr - Translation module
 	 * @private
 	 */
-	private static async hasChannelPermission(interaction: CommandInteraction<CacheType>, tr: TranslationModule) {
+	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		const channel = interaction.channel as GuildChannel;
 
 		if (!channel.permissionsFor(draftBotClient.user).serialize().VIEW_CHANNEL) {
@@ -514,7 +508,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noChannelAccess")
 			);
-			console.log("No way to access the channel where the command has been executed : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No way to access the channel where the command has been executed : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -524,7 +518,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noSpeakPermission")
 			);
-			console.log("No perms to show i can't speak in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't speak in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -534,7 +528,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noReacPermission")
 			);
-			console.log("No perms to show i can't react in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't react in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -544,7 +538,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noEmbedPermission")
 			);
-			console.log("No perms to show i can't embed in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't embed in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 
@@ -554,7 +548,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("noFilePermission")
 			);
-			console.log("No perms to show i can't attach files in server / channel : " + interaction.guild.id + "/" + channel.id);
+			console.log(`No perms to show i can't attach files in server / channel : ${interaction.guild.id}/${channel.id}`);
 			return false;
 		}
 		return true;

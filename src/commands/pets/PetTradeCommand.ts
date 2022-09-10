@@ -13,6 +13,8 @@ import {CommandsManager} from "../CommandsManager";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
 
@@ -23,10 +25,15 @@ type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
  * @param interaction
  * @param petTradeModule
  */
-async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function missingRequirementsForAnyTrader(
+	traderAndPet1: TraderAndPet,
+	traderAndPet2: TraderAndPet,
+	interaction: CommandInteraction,
+	petTradeModule: TranslationModule
+): Promise<boolean> {
 	const petModule = Translations.getModule("commands.pet", petTradeModule.language);
 	if (traderAndPet1.trader.id === traderAndPet2.trader.id) {
-		replyErrorMessage(interaction, petTradeModule.language, petTradeModule.get("cantTradeSelf"));
+		await replyErrorMessage(interaction, petTradeModule.language, petTradeModule.get("cantTradeSelf"));
 		return true;
 	}
 	if (!await CommandsManager.userCanPerformCommand(CommandsManager.commands.get("pettrade"), traderAndPet2.trader, {
@@ -41,11 +48,11 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
 
 	for (const traderAndPet of [traderAndPet1, traderAndPet2]) {
 		if (!traderAndPet.pet) {
-			replyErrorMessage(interaction, petTradeModule.language, petModule.get(traderAndPet === traderAndPet1 ? "noPet" : "noPetOther"));
+			await replyErrorMessage(interaction, petTradeModule.language, petModule.get(traderAndPet === traderAndPet1 ? "noPet" : "noPetOther"));
 			return true;
 		}
 		if (traderAndPet.pet.isFeisty()) {
-			replyErrorMessage(interaction, petTradeModule.language, petModule.get(traderAndPet === traderAndPet1 ? "isFeisty" : "isFeistyOther"));
+			await replyErrorMessage(interaction, petTradeModule.language, petModule.get(traderAndPet === traderAndPet1 ? "isFeisty" : "isFeistyOther"));
 			return true;
 		}
 	}
@@ -59,13 +66,18 @@ async function missingRequirementsForAnyTrader(traderAndPet1: TraderAndPet, trad
  * @param interaction
  * @param petTradeModule
  */
-async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function refreshMissionsOfTrader(
+	tradersAndPets: TraderAndPet[],
+	i: number,
+	interaction: CommandInteraction,
+	petTradeModule: TranslationModule
+): Promise<void> {
 
 	/**
 	 * check if the mission is finished from its name
 	 * @param missionName
 	 */
-	async function checkLoveLevelMission(missionName: string) {
+	async function checkLoveLevelMission(missionName: string): Promise<void> {
 		await MissionsController.update(
 			tradersAndPets[i].trader,
 			interaction.channel,
@@ -89,15 +101,15 @@ async function refreshMissionsOfTrader(tradersAndPets: TraderAndPet[], i: number
  * @param interaction
  * @param petTradeModule
  */
-async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
 	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 	tradersAndPets[i].trader.Player.petId = tradersAndPets[1 - i].pet.id;
-	tradersAndPets[i].trader.Player.save();
+	await tradersAndPets[i].trader.Player.save();
 	tradersAndPets[i].pet.lovePoints -= tradersAndPets[i].pet.PetModel.rarity * PetTradeConstants.POINT_REMOVE_MULTIPLIER;
 	if (tradersAndPets[i].pet.lovePoints < Constants.PETS.BASE_LOVE) {
 		tradersAndPets[i].pet.lovePoints = Constants.PETS.BASE_LOVE;
 	}
-	tradersAndPets[i].pet.save();
+	await tradersAndPets[i].pet.save();
 	await refreshMissionsOfTrader(tradersAndPets, i, interaction, petTradeModule);
 }
 
@@ -109,11 +121,12 @@ async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, in
  * @param petTradeModule
  */
 function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
-	return async () => {
+	return async (): Promise<void> => {
 		const tradersAndPets = [traderAndPet1, traderAndPet2];
 		for (let i = 0; i < 2; i++) {
 			await manageATraderAndPet(tradersAndPets, i, interaction, petTradeModule);
 		}
+		draftBotInstance.logsDatabase.logPetTrade(tradersAndPets[0].pet, tradersAndPets[1].pet).then();
 		await interaction.followUp({
 			embeds: [new DraftBotEmbed()
 				.formatAuthor(petTradeModule.get("tradeTitle"), interaction.user)
@@ -131,16 +144,16 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
  * @param hasResponded
  */
 function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: CommandInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
-	return (tradeMessage: DraftBotTradeMessage) => {
+	return async (tradeMessage: DraftBotTradeMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		if (hasResponded) {
-			sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.format("tradeCanceled", {
+			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.format("tradeCanceled", {
 				trader: tradeMessage.trader1Accepted === false ? tradersAndPets[0].user : tradersAndPets[1].user
 			}), true);
 		}
 		else {
-			sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
+			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
 		}
 	};
 }
@@ -152,7 +165,7 @@ function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interactio
  * @param interaction
  * @param petTradeModule
  */
-async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
 	const tradersAndPets = [traderAndPet1, traderAndPet2];
 	const tradeMessage = new DraftBotTradeMessage(
 		traderAndPet1.user,
@@ -166,7 +179,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 			trader1: traderAndPet1.user,
 			trader2: traderAndPet2.user
 		}))
-		.setFooter(petTradeModule.get("warningTradeReset"));
+		.setFooter({text: petTradeModule.get("warningTradeReset")});
 	for (const traderAndPet of tradersAndPets) {
 		tradeMessage.addField(petTradeModule.format("petOfTrader", {
 			trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)
@@ -213,7 +226,7 @@ export const commandInfo: ICommand = {
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		allowEffects: [Constants.EFFECT.SMILEY]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };

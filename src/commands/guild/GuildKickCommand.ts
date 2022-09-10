@@ -11,13 +11,23 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type EntityInformation = { entity: Entity, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
 
-async function getValidationCallback(entityInformation: EntityInformation, textInformation: TextInformation) {
+/**
+ * Get the callback for the guild kick command
+ * @param entityInformation
+ * @param textInformation
+ */
+async function getValidationCallback(
+	entityInformation: EntityInformation,
+	textInformation: TextInformation
+): Promise<(validateMessage: DraftBotValidateReactionMessage) => Promise<void>> {
 	const kickedEntity = await Entities.getByOptions(textInformation.interaction);
-	return async (validateMessage: DraftBotValidateReactionMessage) => {
+	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entityInformation.entity.discordUserId, BlockingConstants.REASONS.GUILD_KICK);
 		if (validateMessage.isValidated()) {
 			let kickedGuild;
@@ -30,7 +40,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 
 			if (kickedGuild === null) {
 				// not the same guild
-				sendErrorMessage(
+				await sendErrorMessage(
 					textInformation.interaction.user,
 					textInformation.interaction,
 					textInformation.language,
@@ -38,6 +48,7 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 				);
 				return;
 			}
+			draftBotInstance.logsDatabase.logGuildKick(kickedGuild, kickedEntity.discordUserId).then();
 			kickedEntity.Player.guildId = null;
 			if (entityInformation.guild.elderId === kickedEntity.id) {
 				entityInformation.guild.elderId = null;
@@ -46,22 +57,25 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 			await Promise.all([entityInformation.guild.save(), kickedEntity.save(), kickedEntity.Player.save()]);
 
 			const embed = new DraftBotEmbed();
-			embed.setAuthor(textInformation.guildKickModule.format("successTitle", {
-				kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language),
-				guildName: entityInformation.guild.name
-			}))
+			embed.setAuthor({
+				name: textInformation.guildKickModule.format("successTitle", {
+					kickedPseudo: await kickedEntity.Player.getPseudo(textInformation.language),
+					guildName: entityInformation.guild.name
+				}),
+				iconURL: textInformation.interaction.user.displayAvatarURL()
+			})
 				.setDescription(textInformation.guildKickModule.get("kickSuccess"));
 			await MissionsController.update(kickedEntity, textInformation.interaction.channel, textInformation.language, {
 				missionId: "guildLevel",
 				count: 0,
 				set: true
 			});
-			textInformation.interaction.followUp({embeds: [embed]});
+			await textInformation.interaction.followUp({embeds: [embed]});
 			return;
 		}
 
 		// Cancel the kick
-		sendErrorMessage(
+		await sendErrorMessage(
 			textInformation.interaction.user,
 			textInformation.interaction,
 			textInformation.language,
@@ -70,10 +84,16 @@ async function getValidationCallback(entityInformation: EntityInformation, textI
 	};
 }
 
-async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity) {
+/**
+ * Say if a given player can be kicked from the guild
+ * @param entityInformation
+ * @param textInformation
+ * @param kickedEntity
+ */
+async function isNotEligible(entityInformation: EntityInformation, textInformation: TextInformation, kickedEntity: Entity): Promise<boolean> {
 	if (kickedEntity === null) {
 		// no user provided
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.get("cannotGetKickedUser")
@@ -91,7 +111,7 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 
 	if (kickedGuild === null || kickedGuild.id !== entityInformation.guild.id) {
 		// not the same guild
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.get("notInTheGuild")
@@ -100,7 +120,7 @@ async function isNotEligible(entityInformation: EntityInformation, textInformati
 	}
 
 	if (kickedEntity.id === entityInformation.entity.id) {
-		sendErrorMessage(
+		await sendErrorMessage(
 			textInformation.interaction.user,
 			textInformation.interaction,
 			textInformation.language,
@@ -155,7 +175,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true,
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF
 	},

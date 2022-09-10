@@ -1,3 +1,6 @@
+import {isAMention, isAnEmoji} from "./utils/StringUtils";
+import {HexColorString} from "discord.js";
+
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
@@ -232,56 +235,6 @@ export abstract class Constants {
 	static readonly LOGS = {
 		LOG_COUNT_LINE_LIMIT: 50000
 	}
-
-	static readonly EFFECT = {
-		EMOJIS: {
-			":baby:": "👶",
-			":smiley:": "😃",
-			":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
-			":skull:": "💀",
-			":sleeping:": "😴",
-			":zany_face:": "🤪",
-			":cold_face:": "🥶",
-			":head_bandage:": "🤕",
-			":sick:": "🤢",
-			":lock:": "🔒",
-			":dizzy_face:": "😵",
-			":clock2:": "🕑",
-			":drooling_face:": "🤤",
-			":confounded:": "😖",
-			":scream:": "😱"
-		},
-		ERROR_TEXT: {
-			":baby:": "Baby",
-			":smiley:": "Fine",
-			":skull:": "Dead",
-			":sleeping:": "Sleeping",
-			":zany_face:": "Drunk",
-			":cold_face:": "Frozen",
-			":head_bandage:": "Hurt",
-			":sick:": "Sick",
-			":lock:": "Locked",
-			":dizzy_face:": "Injured",
-			":clock2:": "Occupied",
-			":drooling_face:": "Starving",
-			":confounded:": "Confounded",
-			":scream:": "Scared"
-		},
-		BABY: ":baby:",
-		SMILEY: ":smiley:",
-		DEAD: ":skull:",
-		SLEEPING: ":sleeping:",
-		DRUNK: ":zany_face:",
-		FROZEN: ":cold_face:",
-		HURT: ":head_bandage:",
-		SICK: ":sick:",
-		LOCKED: ":lock:",
-		INJURED: ":dizzy_face:",
-		OCCUPIED: ":clock2:",
-		STARVING: ":drooling_face:",
-		CONFOUNDED: ":confounded:",
-		SCARED: ":scream:"
-	};
 
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:"
 
@@ -532,7 +485,27 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly DATABASE = {
-		GAME_DATA: "draftbot_game_data"
+	static readonly TEST_VAR_TYPES = {
+		INTEGER: {
+			type: "number",
+			check: (v: number): boolean => !isNaN(v)
+		},
+		MENTION: {
+			type: "mention",
+			check: (v: string): boolean => isAMention(v)
+		},
+		EMOJI: {
+			type: "emoji",
+			check: (v: string): boolean => isAnEmoji(v)
+		},
+		STRING: {
+			type: "string",
+			check: (): boolean => false
+		}
 	}
+
+	static readonly TEST_EMBED_COLOR = {
+		SUCCESSFUL: <HexColorString>"#FF8888",
+		ERROR: <HexColorString>"#FF0000"
+	};
 }

@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Data} from "../../../Data";
+import {ServersConstants} from "../../../constants/ServersConstants";
 import moment = require("moment");
 
 export class Server extends Model {
@@ -15,18 +15,16 @@ export class Server extends Model {
 }
 
 export class Servers {
-	static async getOrRegister(discordGuildId: string) {
-		return await Server.findOrCreate({
+	static async getOrRegister(discordGuildId: string): Promise<Server> {
+		return (await Server.findOrCreate({
 			where: {
 				discordGuildId: discordGuildId
 			}
-		});
+		}))[0];
 	}
 }
 
 export function initModel(sequelize: Sequelize): void {
-	const data = Data.getModule("models.servers");
-
 	Server.init({
 		id: {
 			type: DataTypes.INTEGER,
@@ -35,7 +33,7 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		language: {
 			type: DataTypes.STRING(2), // eslint-disable-line new-cap
-			defaultValue: data.getString("language")
+			defaultValue: ServersConstants.DEFAULT_LANGUAGE
 		},
 		discordGuildId: {
 			type: DataTypes.STRING(64) // eslint-disable-line new-cap

@@ -1,16 +1,11 @@
 {
-	"defaultPetId": 0,
-	"slots": 6,
-	"maleEmote": "♂️",
-	"femaleEmote": "♀️",
-	"rarityEmote": "⭐",
 	"translations": {
 		"fr": {
-			"hungry" : "\uD83E\uDD24 affamé",
-			"diet" : {
-				"diet_null" : "\uD83E\uDD6A Omnivore",
-				"diet_herbivorous" : "\uD83E\uDD6C Herbivore",
-				"diet_carnivorous" : "\uD83E\uDD69 Carnivore"
+			"hungry": "\uD83E\uDD24 affamé",
+			"diet": {
+				"diet_null": "\uD83E\uDD6A Omnivore",
+				"diet_herbivorous": "\uD83E\uDD6C Herbivore",
+				"diet_carnivorous": "\uD83E\uDD69 Carnivore"
 			},
 			"female": "Femelle",
 			"male": "Mâle",
@@ -24,11 +19,11 @@
 			}
 		},
 		"en": {
-			"hungry" : "\uD83E\uDD24 hungry",
-			"diet" : {
-				"diet_null" : "\uD83E\uDD6A Omnivorous",
-				"diet_herbivorous" : "\uD83E\uDD6C Herbivorous",
-				"diet_carnivorous" : "\uD83E\uDD69 Carnivorous"
+			"hungry": "\uD83E\uDD24 hungry",
+			"diet": {
+				"diet_null": "\uD83E\uDD6A Omnivorous",
+				"diet_herbivorous": "\uD83E\uDD6C Herbivorous",
+				"diet_carnivorous": "\uD83E\uDD69 Carnivorous"
 			},
 			"female": "Female",
 			"male": "Male",
@@ -40,85 +35,6 @@
 				"3": ":smiley_cat: Tamed",
 				"4": ":heart_eyes_cat: Trained"
 			}
-		}
-	},
-	"probabilities": {
-		"0": {
-			"1": 0.9,
-			"2": 0.09,
-			"3": 0.009,
-			"4": 0.0009,
-			"5": 0.0001
-		},
-		"1": {
-			"1": 0.894,
-			"2": 0.0916,
-			"3": 0.0109,
-			"4": 0.0023,
-			"5": 0.0012
-		},
-		"2": {
-			"1": 0.876,
-			"2": 0.0964,
-			"3": 0.0166,
-			"4": 0.0065,
-			"5": 0.0045
-		},
-		"3": {
-			"1": 0.846,
-			"2": 0.1044,
-			"3": 0.0262,
-			"4": 0.0135,
-			"5": 0.0099
-		},
-		"4": {
-			"1": 0.804,
-			"2": 0.1156,
-			"3": 0.0396,
-			"4": 0.0233,
-			"5": 0.0175
-		},
-		"5": {
-			"1": 0.75,
-			"2": 0.13,
-			"3": 0.0568,
-			"4": 0.0359,
-			"5": 0.0273
-		},
-		"6": {
-			"1": 0.684,
-			"2": 0.1476,
-			"3": 0.0778,
-			"4": 0.0513,
-			"5": 0.0393
-		},
-		"7": {
-			"1": 0.606,
-			"2": 0.1684,
-			"3": 0.1026,
-			"4": 0.0695,
-			"5": 0.0535
-		},
-		"8": {
-			"1": 0.516,
-			"2": 0.1924,
-			"3": 0.1312,
-			"4": 0.0905,
-			"5": 0.0699
-		},
-		"9": {
-			"1": 0.414,
-			"2": 0.2196,
-			"3": 0.1637,
-			"4": 0.1143,
-			"5": 0.0884
-		},
-		"10": {
-			"1": 0.3,
-			"2": 0.25,
-			"3": 0.2,
-			"4": 0.1409,
-			"5": 0.1091
 		}
 	}
 }

@@ -4,11 +4,9 @@ import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
 import {minutesDisplay} from "../../../utils/TimeUtils";
-import {botConfig} from "../../../bot";
+import {MaxStatsValues} from "./GenericItemModel";
 import fs = require("fs");
 import moment = require("moment");
-
-type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -26,7 +24,7 @@ export class ObjectItem extends SupportItemModel {
 			return format(
 				tr.getFromArray("objects.natures", this.nature),
 				{
-					power: minutesDisplay(this.power * 60, language)
+					power: minutesDisplay(this.power, language)
 				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
@@ -69,7 +67,7 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}objects
+                       FROM draftbot_game.objects
                        WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {

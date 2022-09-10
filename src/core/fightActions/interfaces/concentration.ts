@@ -9,7 +9,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const concentrationTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		const concentrationTranslationModule = Translations.getModule(`fightactions.${this.getName()}`, language);
 		const alteration = sender.newAlteration(FighterAlterationId.CONCENTRATED);
 
 		if (alteration === FighterAlterationId.CONCENTRATED) {

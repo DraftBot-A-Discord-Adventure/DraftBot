@@ -1,10 +1,10 @@
+import * as archiver from "archiver";
 import {registerFormat} from "archiver";
 import {DropboxBackup} from "./DropboxBackup";
 import {LocalBackup} from "./LocalBackup";
 import {botConfig} from "../bot";
-import archiver = require("archiver");
-import fs = require("fs");
-import path = require("path");
+import * as fs from "fs";
+import * as path from "path";
 
 export interface IDraftBotBackup {
 	name: string;
@@ -39,7 +39,7 @@ export class DraftBotBackup {
 
 	private static BACKUP_TPM_FOLDER = "backups/tmp";
 
-	public static async init() {
+	public static async init(): Promise<void> {
 		if (!botConfig.ENABLED_BACKUPS || botConfig.ENABLED_BACKUPS === "") {
 			return;
 		}
@@ -48,15 +48,9 @@ export class DraftBotBackup {
 		const backupInterfaces = [new DropboxBackup(), new LocalBackup()];
 		for (const backupInterface of backupInterfaces) {
 			if (enabledBackups.includes(backupInterface.name)) {
-				console.log(backupInterface.name + " backup enabled");
+				console.log(`${backupInterface.name} backup enabled`);
 				await DraftBotBackup.addBackupInterface(backupInterface);
 			}
-		}
-	}
-
-	private static async addBackupInterface(backupInterface: IDraftBotBackup) {
-		if (await backupInterface.create()) {
-			DraftBotBackup._backupInterfaces.push(backupInterface);
 		}
 	}
 
@@ -65,17 +59,17 @@ export class DraftBotBackup {
 			return;
 		}
 		if (archiveBasename.includes("-") || archiveBasename.includes(".")) {
-			console.error("Can't register \"" + archiveBasename + "\", archive base name must not contain - or .");
+			console.error(`Can't register "${archiveBasename}", archive base name must not contain - or .`);
 			return;
 		}
-		const callback = function() {
+		const callback = function(): void {
 			try {
 				if (!fs.existsSync(DraftBotBackup.BACKUP_TPM_FOLDER)) {
 					fs.mkdirSync(DraftBotBackup.BACKUP_TPM_FOLDER);
 				}
-				const archiveName = archiveBasename + "-" + new Date().toISOString()
-					.replace(new RegExp(/[:.]/, "g"), "-") + ".zip";
-				const zipPath = DraftBotBackup.BACKUP_TPM_FOLDER + "/" + archiveName;
+				const archiveName = `${archiveBasename}-${new Date().toISOString()
+					.replace(/[:.]/gu, "-")}.zip`;
+				const zipPath = `${DraftBotBackup.BACKUP_TPM_FOLDER}/${archiveName}`;
 				const outputZip = fs.createWriteStream(zipPath);
 				let archive;
 				if (!botConfig.BACKUP_ARCHIVE_PASSWORD || botConfig.BACKUP_ARCHIVE_PASSWORD === "") {
@@ -96,7 +90,7 @@ export class DraftBotBackup {
 					archive.append(fs.createReadStream(file), {name: path.basename(file)});
 				}
 				outputZip.on("close", async function() {
-					console.log("Backup archive \"" + archiveName + "\" created with success");
+					console.log(`Backup archive "${archiveName}" created with success`);
 					for (const backupInterface of DraftBotBackup._backupInterfaces) {
 						try {
 							const availableSpace = await backupInterface.availableSpace();
@@ -108,7 +102,7 @@ export class DraftBotBackup {
 							await backupInterface.backup(zipPath, archiveName, archiveBasename);
 						}
 						catch (err) {
-							console.error("An error occurred while backing up files " + files + " with " + backupInterface.name + " :\n" + err.stack);
+							console.error(`An error occurred while backing up files ${files.toString()} with ${backupInterface.name} :\n${err.stack}`);
 							if (err.error) {
 								console.error(err.error);
 							}
@@ -119,7 +113,7 @@ export class DraftBotBackup {
 				archive.finalize();
 			}
 			catch (err) {
-				console.error("An error occurred while backing up files " + files + " :\n" + err.stack);
+				console.error(`An error occurred while backing up files ${files.toString()} :\n${err.stack}`);
 				if (err.error) {
 					console.error(err.error);
 				}
@@ -148,34 +142,40 @@ export class DraftBotBackup {
 			i++;
 		}
 		if (i === backupFiles.length) {
-			console.error("Cannot write backup with size " + bytesToWrite + " in backup " + backupInterface.name + ": not enough space available");
+			console.error(`Cannot write backup with size ${bytesToWrite} in backup ${backupInterface.name}: not enough space available`);
 			return Promise.resolve(false);
 		}
 		for (const toDeleteFile of toDeleteFiles) {
 			await backupInterface.deleteFile(toDeleteFile.path);
-			console.log("Deleted backup " + toDeleteFile.path + " in " + backupInterface.name);
+			console.log(`Deleted backup ${toDeleteFile.path} in ${backupInterface.name}`);
 		}
 		return Promise.resolve(true);
+	}
+
+	private static async addBackupInterface(backupInterface: IDraftBotBackup): Promise<void> {
+		if (await backupInterface.create()) {
+			DraftBotBackup._backupInterfaces.push(backupInterface);
+		}
 	}
 
 	private static convertToBackupFiles(simpleBackupFiles: IBackupFileSimple[]): IBackupFile[] {
 		const backupFiles: IBackupFile[] = [];
 		for (const simpleBackupFile of simpleBackupFiles) {
 			const filename = path.parse(simpleBackupFile.path).base;
-			const splitBaseName = filename.split(/[-](.+)/);
+			const splitBaseName = filename.split(/-(.+)/);
 			const splitExtension = splitBaseName[1].split(/[.]/);
 			const splitDate = splitExtension[0].split(/[-TZ]/);
 			backupFiles.push({
 				path: simpleBackupFile.path,
 				size: simpleBackupFile.size,
 				date: new Date(
-					parseInt(splitDate[0]),
-					parseInt(splitDate[1]),
-					parseInt(splitDate[2]),
-					parseInt(splitDate[3]),
-					parseInt(splitDate[4]),
-					parseInt(splitDate[5]),
-					parseInt(splitDate[6]))
+					parseInt(splitDate[0], 10),
+					parseInt(splitDate[1], 10),
+					parseInt(splitDate[2], 10),
+					parseInt(splitDate[3], 10),
+					parseInt(splitDate[4], 10),
+					parseInt(splitDate[5], 10),
+					parseInt(splitDate[6], 10))
 			});
 		}
 		return backupFiles;

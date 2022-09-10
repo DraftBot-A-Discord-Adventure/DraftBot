@@ -17,15 +17,16 @@ import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
-type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
+type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
 /**
  * Check top interactions
  * @param otherPlayer
  * @param cList
  */
-function checkTop(otherPlayer: Player, cList: string[]) {
+function checkTop(otherPlayer: Player, cList: string[]): void {
 	if (otherPlayer.rank === 1) {
 		cList.push("top1");
 	}
@@ -45,7 +46,7 @@ function checkTop(otherPlayer: Player, cList: string[]) {
  * @param otherEntity
  * @param cList
  */
-function checkBadges(otherEntity: Entity, cList: string[]) {
+function checkBadges(otherEntity: Entity, cList: string[]): void {
 	if (otherEntity.Player.badges) {
 		if (otherEntity.Player.badges.includes(Constants.BADGES.POWERFUL_GUILD)) {
 			cList.push("powerfulGuild");
@@ -61,7 +62,7 @@ function checkBadges(otherEntity: Entity, cList: string[]) {
  * @param otherEntity
  * @param cList
  */
-function checkLevel(otherEntity: Entity, cList: string[]) {
+function checkLevel(otherEntity: Entity, cList: string[]): void {
 	if (otherEntity.Player.level < 10) {
 		cList.push("beginner");
 	}
@@ -76,7 +77,7 @@ function checkLevel(otherEntity: Entity, cList: string[]) {
  * @param entity
  * @param cList
  */
-function checkClass(otherEntity: Entity, entity: Entity, cList: string[]) {
+function checkClass(otherEntity: Entity, entity: Entity, cList: string[]): void {
 	if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
 		cList.push("sameClass");
 	}
@@ -88,7 +89,7 @@ function checkClass(otherEntity: Entity, entity: Entity, cList: string[]) {
  * @param entity
  * @param cList
  */
-function checkGuild(otherEntity: Entity, entity: Entity, cList: string[]) {
+function checkGuild(otherEntity: Entity, entity: Entity, cList: string[]): void {
 	if (otherEntity.Player.guildId && otherEntity.Player.guildId === entity.Player.guildId) {
 		cList.push("sameGuild");
 	}
@@ -99,7 +100,7 @@ function checkGuild(otherEntity: Entity, entity: Entity, cList: string[]) {
  * @param otherPlayer
  * @param cList
  */
-function checkTopWeek(otherPlayer: Player, cList: string[]) {
+function checkTopWeek(otherPlayer: Player, cList: string[]): void {
 	if (otherPlayer.weeklyRank <= 5) {
 		cList.push("topWeek");
 	}
@@ -110,7 +111,7 @@ function checkTopWeek(otherPlayer: Player, cList: string[]) {
  * @param otherEntity
  * @param cList
  */
-async function checkHealth(otherEntity: Entity, cList: string[]) {
+async function checkHealth(otherEntity: Entity, cList: string[]): Promise<void> {
 	const healthPercentage = otherEntity.health / await otherEntity.getMaxHealth();
 	if (healthPercentage < 0.2) {
 		cList.push("lowHP");
@@ -127,7 +128,7 @@ async function checkHealth(otherEntity: Entity, cList: string[]) {
  * @param cList
  * @param player
  */
-function checkRanking(otherPlayer: Player, numberOfPlayers: number, cList: string[], player: Player) {
+function checkRanking(otherPlayer: Player, numberOfPlayers: number, cList: string[], player: Player): void {
 	if (otherPlayer.rank >= numberOfPlayers) {
 		cList.push("unranked");
 	}
@@ -145,7 +146,7 @@ function checkRanking(otherPlayer: Player, numberOfPlayers: number, cList: strin
  * @param cList
  * @param entity
  */
-function checkMoney(otherEntity: Entity, cList: string[], entity: Entity) {
+function checkMoney(otherEntity: Entity, cList: string[], entity: Entity): void {
 	if (otherEntity.Player.money > 20000) {
 		cList.push("rich");
 	}
@@ -159,7 +160,7 @@ function checkMoney(otherEntity: Entity, cList: string[], entity: Entity) {
  * @param otherEntity
  * @param cList
  */
-function checkPet(otherEntity: Entity, cList: string[]) {
+function checkPet(otherEntity: Entity, cList: string[]): void {
 	if (otherEntity.Player.petId) {
 		cList.push("pet");
 	}
@@ -171,7 +172,7 @@ function checkPet(otherEntity: Entity, cList: string[]) {
  * @param guild
  * @param cList
  */
-async function checkGuildResponsabilities(otherEntity: Entity, guild: Guild, cList: string[]) {
+async function checkGuildResponsibilities(otherEntity: Entity, guild: Guild, cList: string[]): Promise<Guild> {
 	if (otherEntity.Player.guildId) {
 		guild = await Guilds.getById(otherEntity.Player.guildId);
 		if (guild.chiefId === otherEntity.Player.id) {
@@ -190,7 +191,7 @@ async function checkGuildResponsabilities(otherEntity: Entity, guild: Guild, cLi
  * @param tr
  * @param cList
  */
-function checkEffects(otherEntity: Entity, tr: TranslationModule, cList: string[]) {
+function checkEffects(otherEntity: Entity, tr: TranslationModule, cList: string[]): void {
 	if (!otherEntity.Player.checkEffect() && tr.get(otherEntity.Player.effect)) {
 		cList.push(otherEntity.Player.effect);
 	}
@@ -201,7 +202,7 @@ function checkEffects(otherEntity: Entity, tr: TranslationModule, cList: string[
  * @param otherEntity
  * @param cList
  */
-function checkInventory(otherEntity: Entity, cList: string[]) {
+function checkInventory(otherEntity: Entity, cList: string[]): void {
 	if (otherEntity.Player.getMainWeaponSlot().itemId !== 0) {
 		cList.push("weapon");
 	}
@@ -239,7 +240,7 @@ function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
  * @param otherEntity
  * @param numberOfPlayers
  */
-async function getPlayerDisplay(tr: TranslationModule, otherEntity: Entity, numberOfPlayers: number) {
+async function getPlayerDisplay(tr: TranslationModule, otherEntity: Entity, numberOfPlayers: number): Promise<string> {
 	return format(tr.get("playerDisplay"), {
 		pseudo: await otherEntity.Player.getPseudo(tr.language),
 		rank: await Players.getRankById(otherEntity.Player.id) > numberOfPlayers ?
@@ -253,10 +254,9 @@ async function getPlayerDisplay(tr: TranslationModule, otherEntity: Entity, numb
  * @param otherEntity
  * @param language
  */
-function getPetName(otherEntity: Entity, language: string) {
+function getPetName(otherEntity: Entity, language: string): string {
 	return otherEntity.Player.Pet
-		? otherEntity.Player.Pet.getPetEmote() + " "
-		+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : otherEntity.Player.Pet.getPetTypeName(language))
+		? `${otherEntity.Player.Pet.getPetEmote()} ${otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : otherEntity.Player.Pet.getPetTypeName(language)}`
 		: "";
 }
 
@@ -267,10 +267,22 @@ function getPetName(otherEntity: Entity, language: string) {
  * @param language
  * @param entity
  */
-async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, language: string, entity: Entity) {
-	await otherEntity.Player.addMoney(otherEntity, 1, channel, language);
+async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, language: string, entity: Entity): Promise<void> {
+	await otherEntity.Player.addMoney({
+		entity: otherEntity,
+		amount: 1,
+		channel,
+		language,
+		reason: NumberChangeReason.RECEIVE_COIN
+	});
 	await otherEntity.Player.save();
-	await entity.Player.addMoney(entity, -1, channel, language);
+	await entity.Player.addMoney({
+		entity,
+		amount: -1,
+		channel,
+		language,
+		reason: NumberChangeReason.SMALL_EVENT
+	});
 	await entity.Player.save();
 }
 
@@ -279,7 +291,7 @@ async function sendACoin(otherEntity: Entity, channel: TextBasedChannel, languag
  * @param characteristic
  * @param otherEntity
  */
-async function getItemIfNeeded(characteristic: string, otherEntity: Entity) {
+async function getItemIfNeeded(characteristic: string, otherEntity: Entity): Promise<GenericItemModel> {
 	switch (characteristic) {
 	case "weapon":
 		return await otherEntity.Player.getMainWeaponSlot().getItem();
@@ -298,7 +310,7 @@ async function getItemIfNeeded(characteristic: string, otherEntity: Entity) {
  * Get the prefix(es) for the item's display if needed
  * @param item
  */
-function getPrefixes(item: GenericItemModel) {
+function getPrefixes(item: GenericItemModel): { [key: string]: string } {
 	let prefixItem, prefixItem2 = "";
 	if (item) {
 		if (item.frenchPlural) {
@@ -307,7 +319,7 @@ function getPrefixes(item: GenericItemModel) {
 		else if (item.frenchMasculine) {
 			prefixItem = "son";
 		}
-		else if (new RegExp(/\*(?=[AEIOUYÉÈH])/).test(item.fr)) {
+		else if (/^[AEIOUYÉÈH].*$/u.test(item.fr)) {
 			prefixItem = "son";
 			prefixItem2 = "sa";
 		}
@@ -320,38 +332,46 @@ function getPrefixes(item: GenericItemModel) {
 
 /**
  * Send and manage the poor interaction
- * @param textInformations
+ * @param textInformation
  * @param otherEntity
  * @param entity
  * @param seEmbed
  */
-async function sendAndManagePoorInteraction(textInformations: TextInformations, otherEntity: Entity, entity: Entity, seEmbed: DraftBotEmbed) {
+async function sendAndManagePoorInteraction(
+	textInformation: TextInformation,
+	otherEntity: Entity,
+	entity: Entity,
+	seEmbed: DraftBotEmbed
+): Promise<void> {
 	await new DraftBotReactionMessageBuilder()
-		.allowUser(textInformations.interaction.user)
+		.allowUser(textInformation.interaction.user)
 		.addReaction(new DraftBotReaction(Constants.SMALL_EVENT.COIN_EMOTE))
 		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()
-				.formatAuthor(Translations.getModule("commands.report", textInformations.tr.language).get("journal"), textInformations.interaction.user);
+				.formatAuthor(Translations.getModule("commands.report", textInformation.tr.language).get("journal"), textInformation.interaction.user);
 			if (reaction && reaction.emoji.name === Constants.SMALL_EVENT.COIN_EMOTE) {
-				await sendACoin(otherEntity, textInformations.interaction.channel, textInformations.tr.language, entity);
-				poorEmbed.setDescription(format(textInformations.tr.getRandom("poorGiveMoney"), {
-					pseudo: await otherEntity.Player.getPseudo(textInformations.tr.language)
+				await sendACoin(otherEntity, textInformation.interaction.channel, textInformation.tr.language, entity);
+				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorGiveMoney"), {
+					pseudo: await otherEntity.Player.getPseudo(textInformation.tr.language)
 				}));
 			}
 			else {
-				poorEmbed.setDescription(format(textInformations.tr.getRandom("poorDontGiveMoney"), {
-					pseudo: await otherEntity.Player.getPseudo(textInformations.tr.language)
+				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorDontGiveMoney"), {
+					pseudo: await otherEntity.Player.getPseudo(textInformation.tr.language)
 				}));
 			}
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
-			await textInformations.interaction.channel.send({embeds: [poorEmbed]});
+			await textInformation.interaction.channel.send({embeds: [poorEmbed]});
 		})
 		.build()
 		.setDescription(seEmbed.description)
-		.setAuthor(seEmbed.author)
-		.editReply(textInformations.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
+		.setAuthor({
+			name: seEmbed.author.name,
+			iconURL: textInformation.interaction.user.displayAvatarURL()
+		})
+		.editReply(textInformation.interaction, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector));
 }
 
 /**
@@ -361,7 +381,12 @@ async function sendAndManagePoorInteraction(textInformations: TextInformations, 
  * @param numberOfPlayers
  * @param tr
  */
-async function getAvailableInteractions(otherEntity: Entity, entity: Entity, numberOfPlayers: number, tr: TranslationModule) {
+async function getAvailableInteractions(
+	otherEntity: Entity,
+	entity: Entity,
+	numberOfPlayers: number,
+	tr: TranslationModule
+): Promise<{ guild: Guild, cList: string[] }> {
 	const player = await Players.getById(entity.Player.id);
 	const otherPlayer = await Players.getById(otherEntity.Player.id);
 	let guild = null;
@@ -376,7 +401,7 @@ async function getAvailableInteractions(otherEntity: Entity, entity: Entity, num
 	checkRanking(otherPlayer, numberOfPlayers, cList, player);
 	checkMoney(otherEntity, cList, entity);
 	checkPet(otherEntity, cList);
-	guild = await checkGuildResponsabilities(otherEntity, guild, cList);
+	guild = await checkGuildResponsibilities(otherEntity, guild, cList);
 	cList.push("class");
 	checkEffects(otherEntity, tr, cList);
 	checkInventory(otherEntity, cList);
@@ -384,10 +409,20 @@ async function getAvailableInteractions(otherEntity: Entity, entity: Entity, num
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Interact with another player on the road
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const numberOfPlayers = await Player.count({
 			where: {
@@ -433,7 +468,5 @@ export const smallEvent: SmallEvent = {
 		else {
 			await interaction.reply({embeds: [seEmbed]});
 		}
-
-		console.log(entity.discordUserId + " interacted with a player");
 	}
 };

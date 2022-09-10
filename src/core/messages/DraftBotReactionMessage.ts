@@ -1,6 +1,7 @@
 import {
 	CommandInteraction,
 	DMChannel,
+	GuildEmoji,
 	Message,
 	MessageReaction,
 	NewsChannel,
@@ -172,8 +173,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param collectorCallback
 	 * @private
 	 */
-	private async collectAndReact(collectorCallback: (collector: ReactionCollector) => void = null) {
-		const collectorFilter = (reaction: MessageReaction, user: User) =>
+	private async collectAndReact(collectorCallback: (collector: ReactionCollector) => void = null): Promise<void> {
+		const collectorFilter = (reaction: MessageReaction, user: User): boolean =>
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
 			&& (this._reactionsNames.indexOf(reaction.emoji.name) !== -1 || this._reactionsNames.indexOf(reaction.emoji.id) !== -1);
@@ -213,8 +214,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 				await this._sentMessage.react(reaction.emote);
 			}
 			catch {
-				const emoji = (await draftBotClient.shard.broadcastEval((client, context) => {
-					const emoji: any = client.emojis.cache.get(context.emote);
+				const emoji = ((await draftBotClient.shard.broadcastEval((client, context) => {
+					const emoji = client.emojis.cache.get(context.emote);
 					if (emoji) {
 						return emoji;
 					}
@@ -222,7 +223,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 					context: {
 						emote: reaction.emote
 					}
-				})).filter(e => e)[0];
+				})) as GuildEmoji[]).filter(e => e)[0];
 				await this._sentMessage.react(emoji.identifier);
 			}
 		}

@@ -2,8 +2,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-
-const {BlockingUtils} = require("../../core/utils/BlockingUtils");
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -15,7 +14,7 @@ async function executeCommand(interaction: CommandInteraction): Promise<void> {
 		await interaction.reply({content: "Not blocked or the id given isn't a right user id", ephemeral: true});
 		return;
 	}
-	await interaction.reply({content: "Blocking reason: " + blockingReason, ephemeral: true});
+	await interaction.reply({content: `Blocking reason: ${blockingReason.toString()}`, ephemeral: true});
 }
 
 export const commandInfo: ICommand = {

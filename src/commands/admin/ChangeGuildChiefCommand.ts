@@ -7,7 +7,7 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {draftBotClient} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
@@ -24,7 +24,7 @@ function getEndCallbackChangeChief(
 	guild: Guild,
 	interaction: CommandInteraction,
 	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		if (msg.isValidated()) {
 			const formerChief = await Entities.getById(guild.chiefId);
 
@@ -43,12 +43,14 @@ function getEndCallbackChangeChief(
 					tr.language
 				);
 			}
-
+			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
 			formerChief.Player.guildId = null;
 
 			if (guild.elderId === userToPromote.id) {
+				draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 				guild.elderId = null;
 			}
+			draftBotInstance.logsDatabase.logGuildChiefChange(guild, userToPromote.id).then();
 			guild.chiefId = userToPromote.id;
 
 			await Promise.all([
@@ -59,7 +61,7 @@ function getEndCallbackChangeChief(
 				formerChief.Player.save()
 			]);
 
-			interaction.followUp({
+			await interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(tr.get("reply.title"), interaction.user)
@@ -75,7 +77,7 @@ function getEndCallbackChangeChief(
 			return;
 		}
 
-		sendErrorMessage(interaction.user, interaction, tr.language, tr.get("validation.canceled"), true);
+		await sendErrorMessage(interaction.user, interaction, tr.language, tr.get("validation.canceled"), true);
 	};
 }
 
@@ -133,7 +135,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		userToPromote = null;
 	}
 	if (!userToPromote) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			tr.get("errors.wrongId")
@@ -150,7 +152,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	const endCallback = getEndCallbackChangeChief(userToPromote, guild, interaction, tr);
 
-	new DraftBotValidateReactionMessage(interaction.user, endCallback)
+	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
 		.formatAuthor(tr.get("validation.title"), interaction.user)
 		.setDescription(tr.format("validation.description", {
 			userID: userToPromote.discordUserId,

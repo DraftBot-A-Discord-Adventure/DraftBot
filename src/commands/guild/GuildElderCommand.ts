@@ -11,6 +11,8 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type PersonInformation = { user: User, entity: Entity };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
@@ -26,13 +28,13 @@ function getEndCallbackGuildElder(
 	chief: PersonInformation,
 	elder: Entity,
 	guild: Guild,
-	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => void {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => Promise<void> {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(chief.entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER);
 		if (msg.isValidated()) {
 			const elderUpdated = await Entities.getById(elder.id);
 			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
-				return sendErrorMessage(
+				return await sendErrorMessage(
 					chief.user,
 					textInformation.interaction,
 					textInformation.guildElderModule.language,
@@ -43,18 +45,21 @@ function getEndCallbackGuildElder(
 
 			// change the elder
 			guild.elderId = elder.id;
-
 			await guild.save();
+
+			draftBotInstance.logsDatabase.logGuildElderAdd(guild, elder.discordUserId).then();
 
 			await textInformation.interaction.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setAuthor(
-							textInformation.guildElderModule.format("successElderAddTitle", {
-								pseudo: escapeUsername(await elder.Player.getPseudo(textInformation.guildElderModule.language)),
-								guildName: guild.name
-							}),
-							chief.user.displayAvatarURL()
+							{
+								name: textInformation.guildElderModule.format("successElderAddTitle", {
+									pseudo: escapeUsername(await elder.Player.getPseudo(textInformation.guildElderModule.language)),
+									guildName: guild.name
+								}),
+								iconURL: chief.user.displayAvatarURL()
+							}
 						)
 						.setDescription(textInformation.guildElderModule.get("successElderAdd"))
 				]
@@ -63,7 +68,7 @@ function getEndCallbackGuildElder(
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(
+		return await sendErrorMessage(
 			chief.user,
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
@@ -79,10 +84,10 @@ function getEndCallbackGuildElder(
  * @param textInformation
  * @param elderEntity
  */
-function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderEntity: Entity): boolean {
+async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderEntity: Entity): Promise<boolean> {
 	// check if the elder is in the right guild
 	if (elderGuild === null || elderGuild.id !== guild.id) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
 			textInformation.guildElderModule.get("notInTheGuild")
@@ -92,7 +97,7 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation:
 
 	// chief cannot be the elder
 	if (guild.chiefId === elderEntity.id) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
 			textInformation.guildElderModule.get("chiefError")
@@ -102,7 +107,7 @@ function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation:
 
 	// check if the elder is already an elder
 	if (elderGuild.elderId === elderEntity.id) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
 			textInformation.guildElderModule.get("alreadyElder")
@@ -128,7 +133,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const elderGuild = await Guilds.getById(elderEntity.Player.guildId);
 
 	// check if the elder is eligible
-	const eligible: boolean = checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderEntity);
+	const eligible = await checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderEntity);
 	if (!eligible) {
 		return;
 	}
@@ -165,7 +170,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF,
 		guildRequired: true
 	},

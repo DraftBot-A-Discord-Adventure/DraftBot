@@ -13,9 +13,10 @@ export class MessageError {
 	 * @param permission
 	 * @returns {Promise<boolean|*>}
 	 */
-	static async canPerformCommand(member: GuildMember, interaction: CommandInteraction, language: string, permission: string) {
+	static async canPerformCommand(member: GuildMember, interaction: CommandInteraction, language: string, permission: string): Promise<boolean> {
 		if (this.hasNotPermission(permission, member)) {
-			return await MessageError.permissionErrorMe(member, interaction, language, permission);
+			await MessageError.permissionErrorMe(member, interaction, language, permission);
+			return false;
 		}
 		return true;
 	}
@@ -24,7 +25,7 @@ export class MessageError {
 	 * @param {string} id
 	 * @return {boolean}
 	 */
-	static isBotOwner(id: string) {
+	static isBotOwner(id: string): boolean {
 		return id === botConfig.BOT_OWNER_ID;
 	}
 
@@ -36,7 +37,7 @@ export class MessageError {
 	 * @param permission
 	 * @returns {Promise<*>}
 	 */
-	static async permissionErrorMe(member: GuildMember, interaction: CommandInteraction, language: string, permission: string) {
+	static async permissionErrorMe(member: GuildMember, interaction: CommandInteraction, language: string, permission: string): Promise<void> {
 		const tr = Translations.getModule("error", language);
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
@@ -54,7 +55,7 @@ export class MessageError {
 	 * @param {boolean} member
 	 * @private
 	 */
-	private static hasNotPermission(permission: string, member: GuildMember) {
+	private static hasNotPermission(permission: string, member: GuildMember): boolean {
 		return (permission === Constants.PERMISSION.ROLE.BADGE_MANAGER
 				&& !member.roles.cache.has(botConfig.BADGE_MANAGER_ROLE)
 				|| permission === Constants.PERMISSION.ROLE.ADMINISTRATOR

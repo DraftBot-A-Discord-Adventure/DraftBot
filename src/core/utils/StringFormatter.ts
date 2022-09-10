@@ -1,7 +1,13 @@
+/**
+ * The replacements to make
+ */
 export interface Replacements {
-	[key: string]: any
+	[key: string]: string | number | boolean | { toString: () => string }
 }
 
+/**
+ * The operands that are managed by the format function
+ */
 export enum PlaceholderOperand {
 	EQUAL,
 	GREATER,
@@ -12,6 +18,9 @@ export enum PlaceholderOperand {
 	BOOL
 }
 
+/**
+ * The interface representing how the formatted values are managed
+ */
 interface ReplacementPlaceholder {
 	leftValue: string,
 	rightValue: string,
@@ -22,7 +31,13 @@ interface ReplacementPlaceholder {
 	falseValue: string | ReplacementPlaceholder
 }
 
-export const parsePlaceholder = function(placeholder: string, start: number, end: number): ReplacementPlaceholder {
+/**
+ * Calculates what should replace the format placeholder
+ * @param placeholder
+ * @param start
+ * @param end
+ */
+export function parsePlaceholder(placeholder: string, start: number, end: number): ReplacementPlaceholder {
 	const defaultReturn: ReplacementPlaceholder = {
 		leftValue: placeholder,
 		rightValue: null,
@@ -122,9 +137,14 @@ export const parsePlaceholder = function(placeholder: string, start: number, end
 		};
 	}
 	return defaultReturn;
-};
+}
 
-export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, replacements: Replacements): string {
+/**
+ * Edit the format code with the value that should replace it considering the evaluation of the placeholder
+ * @param placeholder
+ * @param replacements
+ */
+export function formatPlaceholder(placeholder: ReplacementPlaceholder, replacements: Replacements): string {
 	if (placeholder.operand === null) {
 		if (placeholder.leftValue in replacements) {
 			const replacement = replacements[placeholder.leftValue];
@@ -141,8 +161,8 @@ export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, r
 	let conditionResult = false;
 	const leftValueFloat = parseFloat(placeholder.leftValue);
 	const rightValueFloat = parseFloat(placeholder.rightValue);
-	const leftValue: number = isNaN(leftValueFloat) ? placeholder.leftValue in replacements ? replacements[placeholder.leftValue] : null : leftValueFloat;
-	const rightValue: number = isNaN(rightValueFloat) ? placeholder.rightValue in replacements ? replacements[placeholder.rightValue] : null : rightValueFloat;
+	const leftValue = isNaN(leftValueFloat) ? placeholder.leftValue in replacements ? replacements[placeholder.leftValue] : null : leftValueFloat;
+	const rightValue = isNaN(rightValueFloat) ? placeholder.rightValue in replacements ? replacements[placeholder.rightValue] : null : rightValueFloat;
 	if (leftValue === null || rightValue === null && placeholder.operand !== PlaceholderOperand.BOOL) {
 		return "FORMAT_ERROR:VARIABLE_NOT_IN_REPLACEMENTS";
 	}
@@ -176,9 +196,14 @@ export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, r
 		return value;
 	}
 	return formatPlaceholder(value, replacements);
-};
+}
 
-export const format = function(text: string, replacements: Replacements): string {
+/**
+ * Format a text with the given replacements
+ * @param text
+ * @param replacements
+ */
+export function format(text: string, replacements: Replacements): string {
 	const placeholders = [];
 	for (let i = 0; i < text.length; ++i) {
 		if (text[i] === "{") {
@@ -206,4 +231,4 @@ export const format = function(text: string, replacements: Replacements): string
 		newText = newText.substring(0, ph.start) + formatPlaceholder(ph, replacements) + newText.substring(ph.end + 1, newText.length);
 	}
 	return newText;
-};
+}

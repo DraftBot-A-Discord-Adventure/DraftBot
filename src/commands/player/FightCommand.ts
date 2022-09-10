@@ -1,7 +1,6 @@
 import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {CommandInteraction, User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -9,10 +8,14 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
 import {Fighter} from "../../core/fights/Fighter";
-import {DraftBotBroadcastValidationMessage} from "../../core/messages/DraftBotBroadcastValidationMessage";
+import {
+	BroadcastTranslationModuleLike,
+	DraftBotBroadcastValidationMessage
+} from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/database/game/models/Class";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Check if an entity is allowed to fight
@@ -56,20 +59,20 @@ async function sendError(
 	isAboutSelectedOpponent: boolean,
 	replyingError: boolean,
 	user = interaction.user
-) {
+): Promise<void> {
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
-		pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()
+		pseudo: (await Entities.getOrRegister(user.id))[0].getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
 	replyingError ?
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			fightTranslationModule.language,
 			fightTranslationModule.format(errorTranslationName, replacements)
 		)
-		: sendErrorMessage(
+		: await sendErrorMessage(
 			user,
 			interaction,
 			fightTranslationModule.language,
@@ -85,7 +88,13 @@ async function sendError(
  * @param fightTranslationModule
  * @param respondingFighter
  */
-async function getFightDescription(askingFighter: Fighter, friendly: boolean, respondingEntity: Entity | null, fightTranslationModule: TranslationModule, respondingFighter: Fighter | null) {
+async function getFightDescription(
+	askingFighter: Fighter,
+	friendly: boolean,
+	respondingEntity: Entity | null,
+	fightTranslationModule: TranslationModule,
+	respondingFighter: Fighter | null
+): Promise<string> {
 	let fightAskingDescription;
 	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
 	if (!respondingEntity) {
@@ -103,9 +112,9 @@ async function getFightDescription(askingFighter: Fighter, friendly: boolean, re
 		promises.push(respondingFighter.loadStats(friendly));
 	}
 	await Promise.all(promises);
-	fightAskingDescription += "\n\n" + await askingFighter.getStringDisplay(fightTranslationModule);
+	fightAskingDescription += `\n\n${await askingFighter.getStringDisplay(fightTranslationModule)}`;
 	if (respondingEntity) {
-		fightAskingDescription += "\n" + await respondingFighter.getStringDisplay(fightTranslationModule);
+		fightAskingDescription += `\n${await respondingFighter.getStringDisplay(fightTranslationModule)}`;
 	}
 	return fightAskingDescription;
 }
@@ -119,8 +128,14 @@ async function getFightDescription(askingFighter: Fighter, friendly: boolean, re
  * @param askingFighter
  * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
  */
-function getAcceptCallback(interaction: CommandInteraction, fightTranslationModule: TranslationModule, friendly: boolean, askedEntity: Entity | null, askingFighter: Fighter) {
-	return async function(user: User) {
+function getAcceptCallback(
+	interaction: CommandInteraction,
+	fightTranslationModule: TranslationModule,
+	friendly: boolean,
+	askedEntity: Entity | null,
+	askingFighter: Fighter
+): (user: User) => Promise<boolean> {
+	return async function(user: User): Promise<boolean> {
 		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
 		const attackerFightErrorStatus = await canFight(incomingFighterEntity, friendly);
 		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
@@ -143,7 +158,7 @@ function getAcceptCallback(interaction: CommandInteraction, fightTranslationModu
  * @param fightTranslationModule - the translation module
  * @param respondingEntity - the entity that is responding to the fight
  */
-function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity) {
+function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity): BroadcastTranslationModuleLike {
 	return {
 		errorBroadcastCancelled: fightTranslationModule.get("error.canceled"),
 		errorSelfAccept: fightTranslationModule.get("error.fightHimself"),
@@ -153,7 +168,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
 	};
 }
 
-/** ï
+/**
  * Start a new fight
  * @param interaction
  * @param language - Language to use in the response
@@ -167,7 +182,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
-		replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
+		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
 	const attackerFightErrorStatus = await canFight(entity, friendly);
@@ -206,7 +221,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		requiredLevel: FightConstants.REQUIRED_LEVEL
 	},
 	mainGuildCommand: false

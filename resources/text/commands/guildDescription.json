@@ -9,7 +9,6 @@
 			"changeDescriptionFooter": "Attention, le staff se réserve le droit de changer la description de votre guilde.",
 			"editSuccessTitle": "La description de la guilde a bien été éditée !",
 			"editCancelled": "Vous n'avez pas édité la description de la guilde !",
-			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"guildDestroy": "Vous ne pouvez pas modifier la description de la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
 		},
 		"en": {
@@ -21,7 +20,6 @@
 			"changeDescriptionFooter": "Warning, the bot's staff keeps control on guild's description and may change it.",
 			"editSuccessTitle": "The description of guild has been edit !",
 			"editCancelled": "You does not change the description of guild !",
-			"notInAguild": "You have to be in a guild to use this command.",
 			"guildDestroy": "You can't change the description of the guild because it has been deleted, or you have been kicked of it."
 		}
 	}

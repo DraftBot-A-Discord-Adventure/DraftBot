@@ -1,6 +1,6 @@
 import {TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
@@ -18,6 +18,16 @@ import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {Tags} from "../database/game/models/Tag";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {draftBotInstance} from "../bot";
+
+/**
+ * Get the value of an item
+ * @param item
+ */
+export const getItemValue = function(item: GenericItemModel): number {
+	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
+};
 
 /**
  * Count how many potions the player have
@@ -38,7 +48,7 @@ export const countNbOfPotions = function(player: Player): number {
  * @param entity
  * @param potion
  */
-export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion) {
+export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion): Promise<void> {
 	await MissionsController.update(entity, channel, language, {missionId: "drinkPotion"});
 	await MissionsController.update(entity, channel, language, {
 		missionId: "drinkPotionRarity",
@@ -63,6 +73,202 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 	});
 };
 
+/**
+ * Sells or keep the item depending on the parameters
+ * @param entity
+ * @param keepOriginal
+ * @param discordUser
+ * @param channel
+ * @param language
+ * @param item
+ * @param itemToReplace
+ * @param itemToReplaceInstance
+ * @param resaleMultiplier
+ * @param resaleMultiplierActual
+ * @param autoSell
+ */
+// eslint-disable-next-line max-params
+const sellOrKeepItem = async function(
+	entity: Entity,
+	keepOriginal: boolean,
+	discordUser: User,
+	channel: TextBasedChannel,
+	language: string,
+	item: GenericItemModel,
+	itemToReplace: InventorySlot,
+	itemToReplaceInstance: GenericItemModel,
+	resaleMultiplier: number,
+	resaleMultiplierActual: number,
+	autoSell: boolean
+): Promise<void> {
+	const tr = Translations.getModule("commands.inventory", language);
+	entity = await Entities.getById(entity.id);
+	if (!keepOriginal) {
+		const menuEmbed = new DraftBotEmbed();
+		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
+			.setDescription(item.toString(language, null));
+		await InventorySlot.update(
+			{
+				itemId: item.id
+			},
+			{
+				where: {
+					slot: itemToReplace.slot,
+					itemCategory: itemToReplace.itemCategory,
+					playerId: entity.Player.id
+				}
+			});
+		await MissionsController.update(entity, channel, language, {
+			missionId: "haveItemRarity",
+			params: {rarity: item.rarity}
+		});
+		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
+		await channel.send({embeds: [menuEmbed]});
+		item = itemToReplaceInstance;
+		resaleMultiplier = resaleMultiplierActual;
+	}
+	const trSell = Translations.getModule("commands.sell", language);
+	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
+		await channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "potionDestroyedTitle"), discordUser)
+					.setDescription(
+						format(trSell.get("potionDestroyedMessage"),
+							{
+								item: item.getName(language),
+								frenchMasculine: item.frenchMasculine
+							}
+						)
+					)]
+		}
+		);
+		return;
+	}
+	const money = Math.round(getItemValue(item) * resaleMultiplier);
+	await entity.Player.addMoney({
+		entity,
+		amount: money,
+		channel,
+		language,
+		reason: NumberChangeReason.ITEM_SELL
+	});
+	await MissionsController.update(entity, channel, language, {
+		missionId: "sellItemWithGivenCost",
+		params: {itemCost: money}
+	});
+	await entity.Player.save();
+	draftBotInstance.logsDatabase.logItemSell(entity.discordUserId, item).then();
+	await channel.send({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "soldMessageTitle"), discordUser)
+				.setDescription(
+					format(trSell.get("soldMessage"),
+						{
+							item: item.getName(language),
+							money: money
+						}
+					)
+				)
+		]
+	});
+	await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
+	await MissionsController.update(entity, channel, language, {
+		missionId: "havePotions",
+		count: countNbOfPotions(entity.Player),
+		set: true
+	});
+};
+
+/**
+ * Manage more than 2 item to choose to keep in the inventory
+ * @param items
+ * @param discordUser
+ * @param entity
+ * @param channel
+ * @param item
+ * @param resaleMultiplier
+ * @param resaleMultiplierActual
+ * @param tr
+ */
+// eslint-disable-next-line max-params
+async function manageMoreThan2ItemsSwitching(
+	items: InventorySlot[],
+	discordUser: User,
+	entity: Entity,
+	channel: TextBasedChannel,
+	item: GenericItemModel,
+	resaleMultiplier: number,
+	resaleMultiplierActual: number,
+	tr: TranslationModule
+): Promise<void> {
+	const choiceList: ChoiceItem[] = [];
+	// eslint-disable-next-line @typescript-eslint/no-extra-parens
+	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
+	for (const item of items) {
+		choiceList.push(new ChoiceItem(
+			(await item.getItem()).toString(tr.language, null),
+			item
+		));
+	}
+	const choiceMessage = new DraftBotListChoiceMessage(
+		choiceList,
+		discordUser.id,
+		async (replacedItem: InventorySlot) => {
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+			await sellOrKeepItem(
+				entity,
+				false,
+				discordUser,
+				channel,
+				tr.language,
+				item,
+				replacedItem,
+				await replacedItem.getItem(),
+				resaleMultiplier,
+				resaleMultiplierActual,
+				false
+			);
+		},
+		async (endMessage: DraftBotListChoiceMessage) => {
+			if (endMessage.isCanceled()) {
+				BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+				await sellOrKeepItem(
+					entity,
+					true,
+					discordUser,
+					channel,
+					tr.language,
+					item,
+					null,
+					null,
+					resaleMultiplier,
+					resaleMultiplierActual,
+					false
+				);
+			}
+		}
+	);
+	choiceMessage.formatAuthor(
+		tr.get("chooseItemToReplaceTitle"),
+		discordUser
+	);
+	await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
+}
+
+/**
+ * Gives an item to a player
+ * @param entity
+ * @param item
+ * @param language
+ * @param discordUser
+ * @param channel
+ * @param resaleMultiplierNew
+ * @param resaleMultiplierActual
+ */
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: Entity,
@@ -95,80 +301,25 @@ export const giveItemToPlayer = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
+		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
 		return;
 	}
 
 	const category = item.getCategory();
 	const maxSlots = entity.Player.InventoryInfo.slotLimitForCategory(category);
-	let itemToReplace: any;
+	let itemToReplace: InventorySlot;
 	let autoSell = false;
-	if (maxSlots === 1) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: { isEquipped: () => boolean; itemCategory: any; }) => slot.isEquipped() && slot.itemCategory === category)[0];
-		autoSell = itemToReplace.itemId === item.id;
-	}
-	else if (maxSlots === 2) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: { slot: number; itemCategory: any; }) => slot.slot === 1 && slot.itemCategory === category)[0];
+	if (maxSlots < 3) {
+		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
 	}
 	else {
-		const items = entity.Player.InventorySlots.filter((slot: { slot: number; itemCategory: any; isEquipped: () => boolean }) => slot.itemCategory === category && !slot.isEquipped());
-		if (items.length === items.filter((slot: { itemId: any; }) => slot.itemId === item.id).length) {
+		const items = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
+		if (items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length) {
 			autoSell = true;
 		}
 		else {
-			const choiceList: ChoiceItem[] = [];
-			// eslint-disable-next-line @typescript-eslint/no-extra-parens
-			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-			for (const item of items) {
-				choiceList.push(new ChoiceItem(
-					(await item.getItem()).toString(language, null),
-					item
-				));
-			}
-			const choiceMessage = await new DraftBotListChoiceMessage(
-				choiceList,
-				discordUser.id,
-				async (replacedItem: any) => {
-					[entity] = await Entities.getOrRegister(entity.discordUserId);
-					BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-					await sellOrKeepItem(
-						entity,
-						false,
-						discordUser,
-						channel,
-						language,
-						item,
-						replacedItem,
-						await replacedItem.getItem(),
-						resaleMultiplier,
-						resaleMultiplierActual,
-						false
-					);
-				},
-				async (endMessage: DraftBotListChoiceMessage) => {
-					if (endMessage.isCanceled()) {
-						BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-						await sellOrKeepItem(
-							entity,
-							true,
-							discordUser,
-							channel,
-							language,
-							item,
-							null,
-							null,
-							resaleMultiplier,
-							resaleMultiplierActual,
-							false
-						);
-					}
-				}
-			);
-			choiceMessage.formatAuthor(
-				tr.get("chooseItemToReplaceTitle"),
-				discordUser
-			);
-			await choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
+			await manageMoreThan2ItemsSwitching(items, discordUser, entity, channel, item, resaleMultiplier, resaleMultiplierActual, tr);
 			return;
 		}
 	}
@@ -217,104 +368,12 @@ export const giveItemToPlayer = async function(
 		.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM, collector));
 };
 
-// eslint-disable-next-line max-params
-const sellOrKeepItem = async function(
-	entity: Entity,
-	keepOriginal: boolean,
-	discordUser: User,
-	channel: TextBasedChannel,
-	language: string,
-	item: GenericItemModel,
-	itemToReplace: InventorySlot,
-	itemToReplaceInstance: GenericItemModel,
-	resaleMultiplier: number,
-	resaleMultiplierActual: number,
-	autoSell: boolean
-) {
-	const tr = Translations.getModule("commands.inventory", language);
-	entity = await Entities.getById(entity.id);
-	if (!keepOriginal) {
-		const menuEmbed = new DraftBotEmbed();
-		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
-			.setDescription(item.toString(language, null));
-
-		await InventorySlot.update(
-			{
-				itemId: item.id
-			},
-			{
-				where: {
-					slot: itemToReplace.slot,
-					itemCategory: itemToReplace.itemCategory,
-					playerId: entity.Player.id
-				}
-			});
-		await MissionsController.update(entity, channel, language, {
-			missionId: "haveItemRarity",
-			params: {rarity: item.rarity}
-		});
-		await channel.send({embeds: [menuEmbed]});
-		item = itemToReplaceInstance;
-		resaleMultiplier = resaleMultiplierActual;
-	}
-	const trSell = Translations.getModule("commands.sell", language);
-	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
-		await channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(
-						autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
-							: trSell.get("potionDestroyedTitle"),
-						discordUser)
-					.setDescription(
-						format(trSell.get("potionDestroyedMessage"),
-							{
-								item: item.getName(language),
-								frenchMasculine: item.frenchMasculine
-							}
-						)
-					)]
-		}
-		);
-		return;
-	}
-	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	await entity.Player.addMoney(entity, money, channel, language);
-	await MissionsController.update(entity, channel, language, {
-		missionId: "sellItemWithGivenCost",
-		params: {itemCost: money}
-	});
-	await entity.Player.save();
-	await channel.send({
-		embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(
-					autoSell ? trSell.get("soldMessageAlreadyOwnTitle")
-						: trSell.get("soldMessageTitle"),
-					discordUser)
-				.setDescription(
-					format(trSell.get("soldMessage"),
-						{
-							item: item.getName(language),
-							money: money
-						}
-					)
-				)
-		]
-	});
-	await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity, channel, language, {
-		missionId: "havePotions",
-		count: countNbOfPotions(entity.Player),
-		set: true
-	});
-};
-
-export const getItemValue = function(item: GenericItemModel): number {
-	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
-};
-
+/**
+ * Generates a random item given its category and the rarity limits
+ * @param maxRarity
+ * @param itemCategory
+ * @param minRarity
+ */
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	if (itemCategory === null) {
@@ -381,7 +440,7 @@ export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON
  * Generate a random itemType
  * @return {Number}
  */
-export const generateRandomItemCategory = function() {
+export const generateRandomItemCategory = function(): number {
 	return RandomUtils.draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
 };
 
@@ -391,7 +450,7 @@ export const generateRandomItemCategory = function() {
  * @param {number} potionType
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL) {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL): Promise<Potion> {
 	if (potionType === null) {
 		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.POTION);
 	}
@@ -406,7 +465,7 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  * @param minRarity
  * @returns {ObjectItem} generated object
  */
-export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL) {
+export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): Promise<GenericItemModel> {
 	if (objectType === null) {
 		return this.generateRandomItem(minRarity, maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
 	}
@@ -421,43 +480,46 @@ export const generateRandomObject = async function(objectType: number = null, mi
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: any) {
-	const item = await generateRandomItem();
-	return await giveItemToPlayer(entity, item, language, discordUser, channel);
+export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: Entity): Promise<void> {
+	await giveItemToPlayer(entity, await generateRandomItem(), language, discordUser, channel);
 };
+
+type TemporarySlotAndItemType = { slot: InventorySlot, item: GenericItemModel };
 
 /**
  * Sort an item slots list by type then price
  * @param items
  */
-export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
-	let itemInstances = await Promise.all(items.map(async function(e) {
-		return [e, await e.getItem()];
+export const sortPlayerItemList = async function(items: InventorySlot[]): Promise<InventorySlot[]> {
+	let itemInstances: TemporarySlotAndItemType[] = await Promise.all(items.map(async function(invSlot) {
+		return {
+			slot: invSlot,
+			item: await invSlot.getItem()
+		};
 	}));
 	itemInstances = itemInstances.sort(
-		(a: any, b: any) => {
-			if (a[0].itemCategory < b[0].itemCategory) {
+		(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
+			if (a.slot.itemCategory < b.slot.itemCategory) {
 				return -1;
 			}
-			if (a[0].itemCategory > b[0].itemCategory) {
+			if (a.slot.itemCategory > b.slot.itemCategory) {
 				return 1;
 			}
-			const aValue = getItemValue(a[1]);
-			const bValue = getItemValue(b[1]);
-			if (aValue > bValue) {
-				return -1;
-			}
-			else if (aValue < bValue) {
-				return 1;
-			}
-			return 0;
+			const aValue = getItemValue(a.item);
+			const bValue = getItemValue(b.item);
+			return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
 		}
 	);
 	return itemInstances.map(function(e) {
-		return e[0];
+		return e.slot;
 	});
 };
 
+/**
+ * Checks if the given inventory slots have an item with a rarity of at least the given rarity
+ * @param slots
+ * @param rarity
+ */
 export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
 	for (const slot of slots) {
 		if ((await slot.getItem()).rarity >= rarity) {
@@ -466,3 +528,35 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
 	}
 	return false;
 };
+
+/**
+ * Get a portion of the model corresponding to the category number
+ * @param category
+ */
+function getCategoryModelByName(category: number): { getMaxId: () => Promise<number>, getById: (itemId: number) => Promise<GenericItemModel> } {
+	switch (category) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		return Weapons;
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		return Armors;
+	case Constants.ITEM_CATEGORIES.POTION:
+		return Potions;
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		return ObjectItems;
+	default:
+		return null;
+	}
+}
+
+/**
+ * Get an item by its id and its category number
+ * @param itemId
+ * @param category
+ */
+export async function getItemByIdAndCategory(itemId: number, category: number): Promise<GenericItemModel> {
+	const categoryModel = getCategoryModelByName(category);
+	if (!categoryModel) {
+		return null;
+	}
+	return itemId <= await categoryModel.getMaxId() && itemId > 0 ? await categoryModel.getById(itemId) : null;
+}

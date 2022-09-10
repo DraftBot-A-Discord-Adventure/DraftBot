@@ -12,19 +12,29 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
+/**
+ * Get the callback of the shop small event
+ * @param entity
+ * @param price
+ * @param interaction
+ * @param language
+ * @param translationShop
+ * @param randomItem
+ */
 function callbackShopSmallEvent(
 	entity: Entity,
 	price: number,
 	interaction: CommandInteraction,
 	language: string,
 	translationShop: TranslationModule,
-	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => void {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {
 			if (entity.Player.money < price) {
-				sendErrorMessage(interaction.user, interaction, language,
+				await sendErrorMessage(interaction.user, interaction, language,
 					translationShop.format("error.cannotBuy", {
 						missingMoney: price - entity.Player.money
 					})
@@ -32,23 +42,37 @@ function callbackShopSmallEvent(
 				return;
 			}
 			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
-			// TODO REFACTOR LES LOGS
-			// console.log(entity.discordUserId + " bought an item in a mini shop for " + price);
-			await entity.Player.addMoney(entity, -price, interaction.channel, language);
+			await entity.Player.addMoney({
+				entity,
+				amount: -price,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
 			await entity.Player.save();
 			return;
 		}
-		sendErrorMessage(interaction.user, interaction, language,
+		await sendErrorMessage(interaction.user, interaction, language,
 			Translations.getModule("commands.shop", language).get("error.canceledPurchase"), true
 		);
 	};
 }
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Find a merchant who sells you a random item at a cheap price (or is it)
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.SPECIAL);
 		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;
@@ -60,15 +84,18 @@ export const smallEvent: SmallEvent = {
 			interaction.user,
 			endCallback
 		)
-			.setAuthor(seEmbed.author)
+			.setAuthor({
+				name: seEmbed.author.name,
+				iconURL: interaction.user.displayAvatarURL()
+			})
 			.setDescription(seEmbed.description
 				+ format(
-					translationShop.getRandom("intro." + gender)
+					translationShop.getRandom(`intro.${gender}`)
 					+ translationShop.get("end"), {
-						name: translationShop.getRandom("names." + gender),
+						name: translationShop.getRandom(`names.${gender}`),
 						item: randomItem.toString(language, null),
 						price: price,
-						type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.get("types." + randomItem.getCategory())
+						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${translationShop.get(`types.${randomItem.getCategory()}`)}`
 					}))
 			.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}

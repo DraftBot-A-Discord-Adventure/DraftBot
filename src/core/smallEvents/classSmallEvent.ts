@@ -14,17 +14,28 @@ import {
 	giveRandomItem
 } from "../utils/ItemUtils";
 import {Constants} from "../Constants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Gives a reward depending on your current class
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const classId = entity.Player.class;
 		const tr = Translations.getModule("smallEvents.class", language);
 		const classDataModule = Data.getModule("smallEvents.class");
-		const base = seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro") + " ";
+		const base = `${seEmbed.description + Translations.getModule("smallEventsIntros", language).getRandom("intro")} `;
 		let item;
 		if (classDataModule.getNumberArray("attackEligible").includes(classId)) {
 			const outRand = RandomUtils.draftbotRandom.integer(0, 2);
@@ -83,7 +94,13 @@ export const smallEvent: SmallEvent = {
 				const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
 				await interaction.reply({embeds: [seEmbed]});
-				await entity.Player.addMoney(entity, moneyWon, interaction.channel, language);
+				await entity.Player.addMoney({
+					entity,
+					amount: moneyWon,
+					channel: interaction.channel,
+					language,
+					reason: NumberChangeReason.SMALL_EVENT
+				});
 			}
 		}
 		else if (classDataModule.getNumberArray("otherEligible").includes(classId)) {
@@ -98,14 +115,13 @@ export const smallEvent: SmallEvent = {
 				const healthWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
 				await interaction.reply({embeds: [seEmbed]});
-				await entity.addHealth(healthWon, interaction.channel, language);
+				await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else {
-			console.log("This user has an unknown class : " + entity.discordUserId);
+			console.log(`This user has an unknown class : ${entity.discordUserId}`);
 		}
 
 		await entity.Player.save();
-		console.log(entity.discordUserId + " got class small event.");
 	}
 };

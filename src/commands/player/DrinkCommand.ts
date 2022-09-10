@@ -12,34 +12,41 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
-import {hoursToMinutes} from "../../core/utils/TimeUtils";
+import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 
-type TextInformations = { tr: TranslationModule, interaction: CommandInteraction }
+type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
 /**
  * Consumes the given potion
  * @param potion
  * @param embed
  * @param entity
- * @param textInformations
+ * @param textInformation
  */
-async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entity, textInformations: TextInformations) {
+async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entity, textInformation: TextInformation): Promise<void> {
 	switch (potion.nature) {
 	case Constants.NATURE.HEALTH:
-		embed.setDescription(textInformations.tr.format("healthBonus", {value: potion.power}));
-		await entity.addHealth(potion.power, textInformations.interaction.channel, textInformations.tr.language);
+		embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
+		await entity.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.HOSPITAL:
-		embed.setDescription(textInformations.tr.format("hospitalBonus", {value: potion.power}));
-		Maps.advanceTime(entity.Player, hoursToMinutes(potion.power));
+		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
+		await Maps.advanceTime(entity.Player, potion.power, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.MONEY:
-		embed.setDescription(textInformations.tr.format("moneyBonus", {value: potion.power}));
-		await entity.Player.addMoney(entity, potion.power, textInformations.interaction.channel, textInformations.tr.language);
+		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
+		await entity.Player.addMoney({
+			entity,
+			amount: potion.power,
+			channel: textInformation.interaction.channel,
+			language: textInformation.tr.language,
+			reason: NumberChangeReason.DRINK
+		});
 		break;
 	case Constants.NATURE.NONE:
-		embed.setDescription(textInformations.tr.format("noBonus", {value: potion.power}));
+		embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
 		break;
 	default:
 		break;
@@ -56,42 +63,53 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
  * Returns the callback for the drink command
  * @param entity
  * @param force
- * @param textInformations
+ * @param textInformation
  * @param embed
  */
-function drinkPotionCallback(entity: Entity, force: boolean, textInformations: TextInformations, embed: DraftBotEmbed) {
-	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => {
+function drinkPotionCallback(
+	entity: Entity,
+	force: boolean,
+	textInformation: TextInformation,
+	embed: DraftBotEmbed
+): (validateMessage: DraftBotValidateReactionMessage, potion: Potion) => Promise<void> {
+	return async (validateMessage: DraftBotValidateReactionMessage, potion: Potion): Promise<void> => {
 		if (!force) {
 			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.DRINK);
 		}
 		if (!force && !validateMessage.isValidated()) {
-			sendErrorMessage(
-				textInformations.interaction.user,
-				textInformations.interaction,
-				textInformations.tr.language,
-				Translations.getModule("commands.drink", textInformations.tr.language).get("drinkCanceled"),
+			await sendErrorMessage(
+				textInformation.interaction.user,
+				textInformation.interaction,
+				textInformation.tr.language,
+				Translations.getModule("commands.drink", textInformation.tr.language).get("drinkCanceled"),
 				true
 			);
 			return;
 		}
 		if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
-			textInformations.interaction.replied ?
-				sendErrorMessage(textInformations.interaction.user, textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription")) :
-				replyErrorMessage(textInformations.interaction, textInformations.tr.language, textInformations.tr.get("noActiveObjectDescription"));
+			textInformation.interaction.replied ?
+				await sendErrorMessage(textInformation.interaction.user, textInformation.interaction, textInformation.tr.language, textInformation.tr.get("noActiveObjectDescription")) :
+				await replyErrorMessage(textInformation.interaction, textInformation.tr.language, textInformation.tr.get("noActiveObjectDescription"));
 			return;
 		}
 
-		await consumePotion(potion, embed, entity, textInformations);
-		await checkDrinkPotionMissions(textInformations.interaction.channel, textInformations.tr.language, entity, potion);
+		await consumePotion(potion, embed, entity, textInformation);
+		await checkDrinkPotionMissions(textInformation.interaction.channel, textInformation.tr.language, entity, potion);
 
-		console.log(entity.discordUserId + " drank " + potion.en);
-		textInformations.interaction.replied ?
-			await textInformations.interaction.channel.send({embeds: [embed]}) :
-			await textInformations.interaction.reply({embeds: [embed]});
+		console.log(`${entity.discordUserId} drank ${potion.en}`);
+		textInformation.interaction.replied ?
+			await textInformation.interaction.channel.send({embeds: [embed]}) :
+			await textInformation.interaction.reply({embeds: [embed]});
 	};
 }
 
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+/**
+ * Drink the current main potion, if possible
+ * @param interaction
+ * @param language
+ * @param entity
+ */
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -100,12 +118,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const potion = await entity.Player.getMainPotionSlot().getItem() as Potion;
 
 	if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
-		replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
+		await replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));
 		return;
 	}
 	// Those objects are active only during fights
 	if (potion.nature === Constants.NATURE.SPEED || potion.nature === Constants.NATURE.DEFENSE || potion.nature === Constants.NATURE.ATTACK) {
-		replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
+		await replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
 		return;
 	}
 
@@ -126,14 +144,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			potion: potion.getName(language),
 			effect: potion.getNatureTranslation(language)
 		}))
-		.setFooter(tr.get("confirmationFooter"))
+		.setFooter({text: tr.get("confirmationFooter")})
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.DRINK, collector));
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
 		.setName("drink")
-		.setDescription("Drink your equiped potion")
+		.setDescription("Drink your equipped potion")
 		.addBooleanOption(option => option.setName("force")
 			.setRequired(false)
 			.setDescription("If true, skips the validation phase if you are really sure you want to drink the potion")

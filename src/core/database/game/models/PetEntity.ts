@@ -2,14 +2,13 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import Pet from "./Pet";
 import {Constants} from "../../../Constants";
 import {RandomUtils} from "../../../utils/RandomUtils";
-import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
-import {TextBasedChannel} from "discord.js";
 import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
-import {Entity} from "./Entity";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
+import {PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {EditValueParameters} from "./Player";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -25,6 +24,8 @@ export class PetEntity extends Model {
 
 	public hungrySince!: Date;
 
+	public creationDate!: Date;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -33,7 +34,7 @@ export class PetEntity extends Model {
 
 
 	public getPetTypeName(language: string): string {
-		const field: string = (this.sex === "m" ? "male" : "female") + "Name" + language.toUpperCase().slice(0, 1) + language.slice(1);
+		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
 		return this.PetModel[field as keyof Pet];
 	}
 
@@ -53,16 +54,16 @@ export class PetEntity extends Model {
 	}
 
 	public getDietDisplay(language: string): string {
-		return Translations.getModule("models.pets", language).get("diet.diet_" + this.PetModel.diet);
+		return Translations.getModule("models.pets", language).get(`diet.diet_${this.PetModel.diet}`);
 	}
 
 	public getPetEmote(): string {
-		return this.PetModel["emote" + (this.sex === "m" ? "Male" : "Female") as keyof Pet];
+		return this.PetModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
 	}
 
 	public displayName(language: string): string {
 		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(language);
-		return this.getPetEmote() + " " + displayedName;
+		return `${this.getPetEmote()} ${displayedName}`;
 	}
 
 	public getPetDisplay(language: string): string {
@@ -125,19 +126,20 @@ export class PetEntity extends Model {
 						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
-	public async changeLovePoints(amount: number, entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
-		this.lovePoints += amount;
+	public async changeLovePoints(parameters: EditValueParameters): Promise<void> {
+		this.lovePoints += parameters.amount;
 		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
 			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
 		}
 		else if (this.lovePoints < 0) {
 			this.lovePoints = 0;
 		}
-		await MissionsController.update(entity, channel, language, {
+		draftBotInstance.logsDatabase.logPetLoveChange(this, parameters.reason).then();
+		await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
 			missionId: "tamedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}
 		});
-		await MissionsController.update(entity, channel, language, {
+		await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
 			missionId: "trainedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}
 		});
@@ -152,10 +154,11 @@ export class PetEntity extends Model {
 	}
 
 	private getSexDisplay(language: string): string {
-		const sex = this.sex === "m" ? "male" : "female";
-		return Translations.getModule("models.pets", language).get(sex)
-			+ " "
-			+ Data.getModule("models.pets").getString(sex + "Emote");
+		return `${
+			Translations.getModule("models.pets", language).get(this.sex === "m" ? "male" : "female")
+		} ${
+			this.sex === "m" ? PetEntityConstants.EMOTE.MALE : PetEntityConstants.EMOTE.FEMALE
+		}`;
 	}
 }
 
@@ -179,12 +182,11 @@ export class PetEntities {
 
 	static async generateRandomPetEntity(level: number): Promise<PetEntity> {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
-		const levelTier = "" + Math.floor(level / 10);
-		const data = Data.getModule("models.pets");
 		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
+		const levelTier = Math.floor(level / 10);
 		let rarity;
 		for (rarity = 1; rarity < 6; ++rarity) {
-			randomTier -= data.getNumber("probabilities." + levelTier + "." + rarity);
+			randomTier -= PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
@@ -219,7 +221,7 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
+                       FROM draftbot_game.pet_entities
                        WHERE lovePoints = ${Constants.PETS.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -228,7 +230,7 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
+                       FROM draftbot_game.pet_entities
                        WHERE lovePoints <= ${Constants.PETS.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -237,7 +239,7 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities
+                       FROM draftbot_game.pet_entities
                        WHERE sex = :sex`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
@@ -247,9 +249,9 @@ export class PetEntities {
 		})))[0]["count"];
 	}
 
-	static async getNbPets() {
+	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.DATABASE_TYPE === "sqlite" ? "" : "draftbot_game."}pet_entities`;
+                       FROM draftbot_game.pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -278,6 +280,10 @@ export function initModel(sequelize: Sequelize): void {
 		hungrySince: {
 			type: DataTypes.DATE,
 			defaultValue: null
+		},
+		creationDate: {
+			type: DataTypes.DATE,
+			defaultValue: DataTypes.NOW
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

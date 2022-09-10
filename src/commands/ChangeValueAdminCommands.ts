@@ -2,25 +2,25 @@ import {ICommand} from "./ICommand";
 import {Constants} from "../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import Entity, {Entities} from "../core/database/game/models/Entity";
-import {CacheType, CommandInteraction} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../core/Translations";
 import {replyErrorMessage} from "../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../core/utils/MessageUtils";
 import {draftBotClient} from "../core/bot";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player from "../core/database/game/models/Player";
+import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 
-declare function isAMention(variable: string): boolean;
-
-declare function getIdFromMention(variable: string): string;
-
+/**
+ * Special class for mass editing player values (admin only)
+ */
 export class ChangeValueAdminCommands {
 	/**
 	 * Get the commandInfo from the given commandName
 	 * @param commandName
 	 * @param editFunction
 	 */
-	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction<CacheType>) => void): ICommand {
+	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
 		const executeCommand = this.executeCommandfrom(commandName, editFunction);
 		const changeValueModule = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
 		return {
@@ -52,12 +52,12 @@ export class ChangeValueAdminCommands {
 	 * @param changeValueModule
 	 * @private
 	 */
-	static getConcernedUsers(usersToChange: string[], interaction: CommandInteraction, changeValueModule: TranslationModule): Set<string> {
+	static async getConcernedUsers(usersToChange: string[], interaction: CommandInteraction, changeValueModule: TranslationModule): Promise<Set<string>> {
 		const users = new Set<string>();
 		for (let i = 0; i < usersToChange.length; i++) {
 			const mention = usersToChange[i];
-			if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
-				replyErrorMessage(
+			if (!isAMention(mention) && (parseInt(mention, 10) < 10 ** 17 || parseInt(mention, 10) >= 10 ** 18)) {
+				await replyErrorMessage(
 					interaction,
 					changeValueModule.language,
 					changeValueModule.format("errors.invalidIdOrMention", {
@@ -80,13 +80,13 @@ export class ChangeValueAdminCommands {
 	 */
 	private static executeCommandfrom(
 		commandName: string,
-		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction) => void
+		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void
 	): (interaction: CommandInteraction, language: string) => Promise<void> {
 		return async (interaction: CommandInteraction, language: string): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
 			const amount = interaction.options.getInteger("amount");
 			if (amount > 10 ** 17) {
-				replyErrorMessage(
+				await replyErrorMessage(
 					interaction,
 					language,
 					changeValueModule.get("errors.invalidAmountFormat")
@@ -95,7 +95,7 @@ export class ChangeValueAdminCommands {
 			}
 			const usersToChange = interaction.options.getString("users").split(" ");
 			if (usersToChange.length > 50) {
-				replyErrorMessage(
+				await replyErrorMessage(
 					interaction,
 					language,
 					changeValueModule.get("errors.tooMuchPeople")
@@ -103,7 +103,7 @@ export class ChangeValueAdminCommands {
 				return;
 			}
 
-			const users = this.getConcernedUsers(usersToChange, interaction, changeValueModule);
+			const users = await this.getConcernedUsers(usersToChange, interaction, changeValueModule);
 			if (!users) {
 				return;
 			}
@@ -112,7 +112,7 @@ export class ChangeValueAdminCommands {
 			for (const user of users) {
 				const entityToEdit = await Entities.getByDiscordUserId(user);
 				if (!entityToEdit) {
-					replyErrorMessage(
+					await replyErrorMessage(
 						interaction,
 						language,
 						changeValueModule.format("errors.invalidIdOrMentionDoesntExist", {
@@ -124,14 +124,14 @@ export class ChangeValueAdminCommands {
 				}
 				const valueBefore = entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player];
 				try {
-					editFunction(entityToEdit, amount, interaction);
+					editFunction(entityToEdit, amount, interaction, language);
 				}
 				catch (e) {
 					if (e.message !== "wrong parameter") {
 						console.error(e.stack);
 						return;
 					}
-					replyErrorMessage(
+					await replyErrorMessage(
 						interaction,
 						language,
 						changeValueModule.get("errors.invalidDonationParameter")

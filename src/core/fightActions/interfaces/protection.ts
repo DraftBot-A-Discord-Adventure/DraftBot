@@ -7,7 +7,7 @@ import {FightConstants} from "../../constants/FightConstants";
 
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const protectionTranslationModule = Translations.getModule("fightactions." + this.getName(), language);
+		const protectionTranslationModule = Translations.getModule(`fightactions.${this.getName()}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const alteration = sender.newAlteration(FighterAlterationId.PROTECTED);
 		if (alteration === FighterAlterationId.PROTECTED) {

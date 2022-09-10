@@ -1,4 +1,3 @@
-import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -6,7 +5,14 @@ import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissio
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
+/**
+ * Shows the missions of the given entity (default : the one who entered the command)
+ * @param interaction
+ * @param language
+ * @param entity
+ */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
@@ -49,7 +55,7 @@ export const commandInfo: ICommand = {
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

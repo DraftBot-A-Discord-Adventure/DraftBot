@@ -3,9 +3,9 @@ import Class from "../database/game/models/Class";
 import {FightConstants} from "../constants/FightConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {MathUtils} from "../utils/MathUtils";
-import {Data} from "../Data";
+import {Data, JsonModule} from "../Data";
 
-declare const JsonReader: any;
+declare const JsonReader: JsonModule;
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -16,8 +16,8 @@ export class FightActionController {
 	 * get the fight action interface from a fight action id
 	 * @param fightActionId
 	 */
-	static getFightActionInterface(fightActionId: string): IFightAction {
-		return <IFightAction>(require("./interfaces/" + fightActionId).fightActionInterface);
+	static async getFightActionInterface(fightActionId: string): Promise<IFightAction> {
+		return (await import(`./interfaces/${fightActionId}`)).fightActionInterface as IFightAction;
 	}
 
 	/**
@@ -27,7 +27,7 @@ export class FightActionController {
 	static listFightActionsFromClass(playerClass: Class): Map<string, IFightAction> {
 		const listActions = new Map<string, IFightAction>();
 		for (const action of playerClass.getFightActions()) {
-			listActions.set(action, this.getFightActionInterface(action));
+			this.getFightActionInterface(action).then(fightAction => listActions.set(action, fightAction));
 		}
 		return listActions;
 	}
@@ -135,7 +135,7 @@ export class FightActionController {
 	 * @private
 	 * @param level - the level of the player
 	 */
-	private static getLevelBonusRatio(level: number) {
+	private static getLevelBonusRatio(level: number): number {
 		return MathUtils.getIntervalValue(FightConstants.PLAYER_LEVEL_MINIMAL_MALUS, FightConstants.PLAYER_LEVEL_MAXIMAL_BONUS, level / FightConstants.MAX_PLAYER_LEVEL_FOR_BONUSES) / 100;
 	}
 }

@@ -6,12 +6,23 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {Translations} from "../Translations";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Heal the player with a random amount of life
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const healthWon = RandomUtils.draftbotRandom.integer(
 			Constants.SMALL_EVENT.MINIMUM_HEALTH_WON,
@@ -24,9 +35,8 @@ export const smallEvent: SmallEvent = {
 				health: healthWon
 			})
 		);
-		await entity.addHealth(healthWon, interaction.channel, language);
+		await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.save();
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " gained some health points in a mini event");
 	}
 };

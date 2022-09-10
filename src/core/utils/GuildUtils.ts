@@ -7,34 +7,45 @@ import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
 import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
-export const giveFood = async (
+/**
+ * Gives food to a given guild / player
+ * @param interaction
+ * @param language
+ * @param entity
+ * @param selectedFood
+ * @param quantity
+ * @param reason
+ */
+export async function giveFood(
 	interaction: CommandInteraction,
 	language: string,
 	entity: Entity,
 	selectedFood: string,
-	quantity: number
-) => {
+	quantity: number,
+	reason: NumberChangeReason
+): Promise<void> {
 	const tr = Translations.getModule("commands.guildShop", language);
 	const foodModule = Translations.getModule("food", language);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
-		return sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,
 			tr.get("fullStock")
 		);
+		return;
 	}
-	guild.addFood(selectedFood, quantity);
+	guild.addFood(selectedFood, quantity, reason);
 	await Promise.all([guild.save()]);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(tr.get("success"), interaction.user);
 	if (quantity === 1) {
 		successEmbed.setDescription(
-			format(
-				tr.get("singleSuccessAddFoodDesc"),
+			format(tr.get("singleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
@@ -47,8 +58,7 @@ export const giveFood = async (
 	}
 	else {
 		successEmbed.setDescription(
-			format(
-				tr.get("multipleSuccessAddFoodDesc"),
+			format(tr.get("multipleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
@@ -75,5 +85,5 @@ export const giveFood = async (
 			)
 		);
 	}
-	return interaction.channel.send({embeds: [successEmbed]});
-};
+	await interaction.channel.send({embeds: [successEmbed]});
+}

@@ -11,17 +11,28 @@ import {Constants} from "../Constants";
 import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Plays to a game of lottery with a stranger
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
 		const seEmbedEmote = seEmbed.description;
 		seEmbed.setDescription(seEmbed.description + translationLottery.get("intro"));
-		console.log(entity.discordUserId + " got a mini-event lottery.");
 
 		const player = entity.Player;
 		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true}) as Message;
@@ -44,7 +55,7 @@ export const smallEvent: SmallEvent = {
 				return await interaction.channel.send({embeds: [seEmbed]});
 			}
 			if (player.money < 175 && collected.first().emoji.name === emojiLottery[2]) {
-				seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
+				seEmbed.setDescription(`${collected.first().emoji.name} ${translationLottery.get("poor")}`);
 				return await interaction.channel.send({embeds: [seEmbed]});
 			}
 			const malus = emojiLottery[2] === collected.first().emoji.name;
@@ -61,25 +72,36 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await Maps.applyEffect(player, ":clock2:", dataLottery.getNumber("lostTime"));
+				await Maps.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
-			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
-				console.log(entity.discordUserId + " got " + reward + " in smallEvent lottery");
-				const coeff = dataLottery.getNumber("coeff." + collected.first().emoji.name);
+			const editValuesParams = {
+				entity,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			};
+			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`)) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
+				const coeff = dataLottery.getNumber(`coeff.${collected.first().emoji.name}`);
 				switch (reward) {
 				case Constants.LOTTERY_REWARD_TYPES.XP:
-					await player.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, interaction.channel, language);
+					await player.addExperience(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff
+					}));
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.MONEY:
-					await player.addMoney(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, interaction.channel, language);
+					await player.addMoney(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff
+					}));
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language);
+					await guild.addExperience(Constants.SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 					await guild.save();
 					break;
 				case Constants.LOTTERY_REWARD_TYPES.POINTS:
-					await player.addScore(entity, Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, interaction.channel, language);
+					await player.addScore(Object.assign(editValuesParams, {
+						amount: Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff
+					}));
 					break;
 				default:
 					throw new Error("lottery reward type not found");
@@ -89,7 +111,7 @@ export const smallEvent: SmallEvent = {
 				const money = Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
 					lostTime: dataLottery.getNumber("lostTime")
-				}) + format(translationLottery.get("rewardTypeText." + reward), {
+				}) + format(translationLottery.get(`rewardTypeText.${reward}`), {
 					money: Math.abs(money),
 					negativeMoney: money < 0,
 					xpWon: Constants.SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,
@@ -97,9 +119,10 @@ export const smallEvent: SmallEvent = {
 					pointsWon: Constants.SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff
 				});
 			}
-			// eslint-disable-next-line no-dupe-else-if
-			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber("successRate." + collected.first().emoji.name))) {
-				await player.addMoney(entity, -175, interaction.channel, language);
+			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`))) {
+				await player.addMoney(Object.assign(editValuesParams, {
+					amount: -175
+				}));
 				await player.save();
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
 					lostTime: dataLottery.getNumber("lostTime")
@@ -113,15 +136,15 @@ export const smallEvent: SmallEvent = {
 					lostTime: dataLottery.getNumber("lostTime")
 				});
 			}
-			seEmbed.setDescription(collected.first().emoji.name + " " + sentenceReward);
+			seEmbed.setDescription(`${collected.first().emoji.name} ${sentenceReward}`);
 			return await interaction.channel.send({embeds: [seEmbed]});
 		});
 
 
 		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
-		for (let i = 0; i < emojiLottery.length; ++i) {
+		for (const emote of emojiLottery) {
 			try {
-				await lotteryIntro.react(emojiLottery[i]);
+				await lotteryIntro.react(emote);
 			}
 			catch (e) {
 				console.error(e);

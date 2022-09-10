@@ -1,0 +1,49 @@
+import {Entities} from "../../../../core/database/game/models/Entity";
+import {Maps} from "../../../../core/Maps";
+import {Constants} from "../../../../core/Constants";
+import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {format} from "../../../../core/utils/StringFormatter";
+import {CommandInteraction} from "discord.js";
+import {PlayerConstants} from "../../../../core/constants/PlayerConstants";
+import {ITestCommand} from "../../../../core/CommandsTest";
+import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
+
+const effects = Object.keys(EffectsConstants.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
+let printableEffects = "";
+effects.forEach(e => {
+	printableEffects = printableEffects.concat(`- ${e.slice(1, -1)}\n`);
+});
+
+export const commandInfo: ITestCommand = {
+	name: "playereffect",
+	aliases: ["effect"],
+	commandFormat: "<effect>",
+	typeWaited: {
+		effect: Constants.TEST_VAR_TYPES.STRING
+	},
+	messageWhenExecuted: "Vous avez maintenant l'effet {effect} !",
+	description: `Mets l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
+	commandTestShouldReply: true,
+	execute: null // defined later
+};
+
+/**
+ * Set the effect of the player
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param interaction
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ * @return {String} - The successful message formatted
+ */
+const playerEffectTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const effectMalus = ":" + args[0] + ":";
+	if (Object.keys(PlayerConstants.EFFECT_MALUS).includes(effectMalus)) {
+		await Maps.applyEffect(entity.Player, effectMalus, 0, NumberChangeReason.TEST);
+		await entity.Player.save();
+		return format(commandInfo.messageWhenExecuted, {effect: effectMalus});
+	}
+	throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
+
+};
+
+commandInfo.execute = playerEffectTestCommand;

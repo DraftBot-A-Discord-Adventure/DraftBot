@@ -6,27 +6,37 @@ import {Translations} from "../Translations";
 import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
+import {NumberChangeReason} from "../database/logs/LogsDatabase";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Advance the time of the entity
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
-		const timeAdvanced = RandomUtils.draftbotRandom.integer(10,50);
+		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 
-		Maps.advanceTime(entity.Player, timeAdvanced);
+		await Maps.advanceTime(entity.Player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 
 		seEmbed.setDescription(
 			seEmbed.description +
-			Translations.getModule("smallEventsIntros",language).getRandom("intro") +
-			format(Translations.getModule("smallEvents.advanceTime",language).getRandom("stories"),{
+			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
+			format(Translations.getModule("smallEvents.advanceTime", language).getRandom("stories"), {
 				time: timeAdvanced
 			})
 		);
 
-		await interaction.reply({ embeds: [seEmbed] });
-		console.log(entity.discordUserId + " advanced " + timeAdvanced + "minutes from a small event.");
+		await interaction.reply({embeds: [seEmbed]});
 	}
 };

@@ -2,7 +2,6 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import Possibility from "./Possibility";
 import MapLocation from "./MapLocation";
-import {botConfig} from "../../../bot";
 import {readdir} from "fs";
 import moment = require("moment");
 
@@ -52,7 +51,7 @@ export class BigEvents {
                                  (SELECT COUNT(*)
                                   FROM event_map_location_ids
                                   WHERE event_map_location_ids.mapLocationId = eml.mapLocationId) = 0)))
-                       ORDER BY ${botConfig.DATABASE_TYPE === "sqlite" ? "RANDOM()" : "RAND()"}
+                       ORDER BY RAND()
                        LIMIT 1;`;
 		return await MapLocation.sequelize.query(query, {
 			model: BigEvent,
@@ -64,7 +63,7 @@ export class BigEvents {
 		});
 	}
 
-	static getIdMaxEvents() {
+	static getIdMaxEvents(): Promise<number> {
 		return new Promise((resolve, reject) => {
 			readdir("resources/text/events/", (err, files) => {
 				err ? reject(err) : resolve(files.length);

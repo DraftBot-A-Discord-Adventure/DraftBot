@@ -8,45 +8,26 @@ import {Client, TextChannel} from "discord.js";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
-import {botConfig, draftBotClient, shardId} from "./index";
+import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
 import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import Entity from "../database/game/models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
+import {Op, Sequelize} from "sequelize";
+import {LogsDatabase} from "../database/logs/LogsDatabase";
+import {CommandsTest} from "../CommandsTest";
 
-require("colors");
-require("../Constant");
-require("../MessageError");
-require("../Tools");
-
-export async function announceTopWeekWinner(client: Client, context: { config: DraftBotConfig; frSentence: string; enSentence: string }) {
-	const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-	try {
-		const message = await (await guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-			content: context.frSentence
-		});
-		await message.react("🏆");
-	}
-	catch {
-		// Ignore
-	}
-	try {
-		const message = await (await guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID) as TextChannel).send({
-			content: context.enSentence
-		});
-		await message.react("🏆");
-	}
-	catch {
-		// Ignore
-	}
-}
-
+/**
+ * The main class of the bot, manages the bot in general
+ */
 export class DraftBot {
 	public readonly client: Client;
 
 	public readonly gameDatabase: GameDatabase;
+
+	public readonly logsDatabase: LogsDatabase;
 
 	private config: DraftBotConfig;
 
@@ -61,6 +42,7 @@ export class DraftBot {
 		this.config = config;
 		this.isMainShard = isMainShard;
 		this.gameDatabase = new GameDatabase();
+		this.logsDatabase = new LogsDatabase();
 	}
 
 	/**
@@ -94,15 +76,15 @@ export class DraftBot {
 	 */
 	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
-		DraftBot.randomLovePointsLoose().finally(() => null);
+		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
+		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		DraftBot.programDailyTimeout();
 	}
 
 	/**
 	 * update the random potion sold in the shop
 	 */
-	static async randomPotion() {
-		const sequelize = require("sequelize");
+	static async randomPotion(): Promise<void> {
 		console.log("INFO: Daily timeout");
 		const shopPotion = await Shop.findOne({
 			attributes: ["shopPotionId"]
@@ -110,45 +92,48 @@ export class DraftBot {
 		Potion.findAll({
 			where: {
 				nature: {
-					ne: Constants.NATURE.NONE
+					[Op.ne]: Constants.NATURE.NONE
 				},
 				rarity: {
-					lt: Constants.RARITY.LEGENDARY
+					[Op.lt]: Constants.RARITY.LEGENDARY
 				}
 			},
-			order: sequelize.literal(botConfig.DATABASE_TYPE === "sqlite" ? "random()" : "rand()")
+			order: Sequelize.literal("rand()")
 		}).then(async potions => {
+			let potionId: number;
 			if (shopPotion) {
+				potionId = potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id;
 				await Shop.update(
 					{
-						shopPotionId: potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id
+						shopPotionId: potionId
 					},
 					{
 						where: {
 							shopPotionId: {
-								[sequelize.Op.col]: "shop.shopPotionId"
+								[Op.col]: "shop.shopPotionId"
 							}
 						}
 					}
 				);
-				console.info(`INFO : new potion in shop : ${potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id}`);
 			}
 			else {
+				potionId = potions[0].id;
 				console.log("WARN : no potion in shop");
 				await Shop.create(
 					{
 						shopPotionId: potions[0].id
 					}
 				);
-				console.info(`INFO : new potion in shop : ${potions[0].id}`);
 			}
+			console.info(`INFO : new potion in shop : ${potionId}`);
+			draftBotInstance.logsDatabase.logDailyPotion(potionId).then();
 		});
 	}
 
 	/**
 	 * make some pet lose some love points
 	 */
-	static async randomLovePointsLoose() {
+	static async randomLovePointsLoose(): Promise<boolean> {
 		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
@@ -166,13 +151,16 @@ export class DraftBot {
 					}
 				}
 			);
+			return true;
 		}
+		return false;
 	}
 
 	/**
 	 * End the top week
 	 */
-	static async topWeekEnd() {
+	static async topWeekEnd(): Promise<void> {
+		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Entity.findOne({
 			include: [
 				{
@@ -193,9 +181,31 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				require("core/bot/DraftBot")
-					.announceTopWeekWinner(client, context)
-					.then();
+				const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
+				try {
+					guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+						(channel as TextChannel).send({
+							content: context.frSentence
+						}).then(message => {
+							message.react("🏆").then();
+						});
+					});
+				}
+				catch {
+					// Ignore
+				}
+				try {
+					guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+						(channel as TextChannel).send({
+							content: context.enSentence
+						}).then(message => {
+							message.react("🏆").then();
+						});
+					});
+				}
+				catch {
+					// Ignore
+				}
 			}, {
 				context: {
 					config: botConfig,
@@ -215,20 +225,20 @@ export class DraftBot {
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
 		DraftBot.programTopWeekTimeout();
+		draftBotInstance.logsDatabase.logTopWeekEnd().then();
 	}
 
 	/**
 	 * update the fight points of the entities that lost some
 	 */
-	static fightPowerRegenerationLoop() {
-		const sequelize = require("sequelize");
+	static fightPowerRegenerationLoop(): void {
 		Entity.update(
 			{
-				fightPointsLost: sequelize.literal(
+				fightPointsLost: Sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`
 				)
 			},
-			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
+			{where: {fightPointsLost: {[Op.not]: 0}}}
 		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
@@ -239,7 +249,7 @@ export class DraftBot {
 	/**
 	 * initialize the bot
 	 */
-	async init() {
+	async init(): Promise<void> {
 		this.handleLogs();
 
 		await require("../JsonReader").init({
@@ -256,7 +266,6 @@ export class DraftBot {
 				"draftbot/package.json",
 				"resources/text/error.json",
 				"resources/text/bot.json",
-				"resources/text/classesValues.json",
 				"resources/text/advices.json",
 				"resources/text/smallEventsIntros.json",
 				"resources/text/items.json",
@@ -265,9 +274,10 @@ export class DraftBot {
 			]
 		});
 		await this.gameDatabase.init(this.isMainShard);
+		await this.logsDatabase.init(this.isMainShard);
 		await CommandsManager.register(draftBotClient);
 		if (this.config.TEST_MODE === true) {
-			await require("../CommandsTest").init();
+			await CommandsTest.init();
 		}
 
 		if (this.isMainShard) { // Do this only if it's the main shard
@@ -282,20 +292,16 @@ export class DraftBot {
 		}
 	}
 
+	/**
+	 * Updates the global log files
+	 * @param now
+	 */
 	updateGlobalLogsFile(now: Date): void {
 		/* Find first available log file */
 		let i = 1;
 		do {
 			this.currLogsFile =
-				"logs/logs-" +
-				now.getFullYear() +
-				"-" +
-				("0" + (now.getMonth() + 1)).slice(-2) +
-				"-" +
-				("0" + now.getDate()).slice(-2) +
-				"-shard-" + shardId + "-" +
-				("0" + i).slice(-2) +
-				".txt";
+				`logs/logs-${now.getFullYear()}-${`0${now.getMonth() + 1}`.slice(-2)}-${`0${now.getDate()}`.slice(-2)}-shard-${shardId}-${`0${i}`.slice(-2)}.txt`;
 			i++;
 		} while (fs.existsSync(this.currLogsFile));
 	}
@@ -328,7 +334,7 @@ export class DraftBot {
 	 * @param originalConsoleError
 	 * @private
 	 */
-	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void) {
+	private overwriteGlobalLogs(addConsoleLog: (message: string) => void, originalConsoleError: (...data: unknown[]) => void): void {
 		/* Console override */
 		const originalConsoleLog = console.log;
 		const originalConsoleWarn = console.warn;
@@ -350,7 +356,7 @@ export class DraftBot {
 	 * @private
 	 */
 	private getLogEquivalent(addConsoleLog: (message: string) => void, originalConsoleX: (...data: unknown[]) => void) {
-		return function(message: string, optionalParams: (...data: unknown[]) => void) {
+		return function(message: string, optionalParams: (...data: unknown[]) => void): void {
 			if (message === "(sequelize) Warning: Unknown attributes (Player) passed to defaults option of findOrCreate") {
 				return;
 			}
@@ -368,25 +374,13 @@ export class DraftBot {
 	 * @private
 	 */
 	private functionToAddLogToFile(thisInstance: this) {
-		return function(message: string) {
+		return function(message: string): void {
 			if (!message) {
 				return;
 			}
 			const now = new Date();
-			const dateStr =
-				"[" +
-				now.getFullYear() +
-				"/" +
-				("0" + (now.getMonth() + 1)).slice(-2) +
-				"/" +
-				("0" + now.getDate()).slice(-2) +
-				" " +
-				("0" + now.getHours()).slice(-2) +
-				":" +
-				("0" + now.getMinutes()).slice(-2) +
-				":" +
-				("0" + now.getSeconds()).slice(-2) +
-				"] ";
+			// eslint-disable-next-line max-len
+			const dateStr = `[${now.getFullYear()}/${`0${now.getMonth() + 1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)} ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}] `;
 			try {
 				fs.appendFileSync(
 					thisInstance.currLogsFile,
@@ -417,7 +411,7 @@ export class DraftBot {
 	 * @param originalConsoleError
 	 * @private
 	 */
-	private manageLogs(originalConsoleError: (...data: unknown[]) => void) {
+	private manageLogs(originalConsoleError: (...data: unknown[]) => void): void {
 		/* Create log folder and remove old logs (> 7 days) */
 		if (!fs.existsSync("logs")) {
 			fs.mkdirSync("logs");
@@ -433,7 +427,7 @@ export class DraftBot {
 	 * @private
 	 */
 	private removeOlderLogs(originalConsoleError: (...data: unknown[]) => void) {
-		return function(err: NodeJS.ErrnoException, files: string[]) {
+		return function(err: NodeJS.ErrnoException, files: string[]): void {
 			if (err) {
 				return;
 			}
@@ -443,20 +437,17 @@ export class DraftBot {
 					if (
 						Date.now() -
 						new Date(
-							parseInt(parts[1]),
-							parseInt(parts[2]) - 1,
-							parseInt(parts[3])
+							parseInt(parts[1], 10),
+							parseInt(parts[2], 10) - 1,
+							parseInt(parts[3], 10)
 						).valueOf() >
 						7 * 24 * 60 * 60 * 1000
 					) {
 						// 7 days
-						fs.unlink("logs/" + file, function(err: Error) {
+						fs.unlink(`logs/${file}`, function(err: Error) {
 							if (err !== undefined && err !== null) {
 								originalConsoleError(
-									"Error while deleting logs/" +
-									file +
-									": " +
-									err
+									`Error while deleting logs/${file}: ${err.toString()}`
 								);
 							}
 						});

@@ -2,7 +2,6 @@
 	"translations": {
 		"fr": {
 			"leaveTitle": "{pseudo}, confirmation :",
-			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"leaveDesc": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
 			"leaveChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
 			"leaveChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
@@ -15,7 +14,6 @@
 		},
 		"en": {
 			"leaveTitle": "{pseudo}, confirmation:",
-			"notInAGuild": "You have to be in a guild to use this command.",
 			"leaveDesc": ":question: Do you really want to quit the guild `{guildName}`?",
 			"leaveChiefDesc": ":question: Do you really want to **permanently destroy** the guild `{guildName}`?",
 			"leaveChiefDescWithElder": "Do you really want to leave the guild {guild}? {elderName} will become the new chief.",
@@ -26,6 +24,5 @@
 			"leaveGuildTitle": "Leave the guild",
 			"guildDestroy": "It seems that you have already left the guild."
 		}
-	},
-	"guildCreationPrice": 5000
+	}
 }

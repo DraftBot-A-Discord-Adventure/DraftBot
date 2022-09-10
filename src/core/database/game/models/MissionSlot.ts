@@ -32,6 +32,7 @@ export class MissionSlot extends Model {
 
 	public Mission: Mission;
 
+	public getMission: () => Promise<Mission>;
 
 	public isCompleted(): boolean {
 		return this.numberDone >= this.missionObjective;
@@ -47,7 +48,7 @@ export class MissionSlot extends Model {
 }
 
 export class MissionSlots {
-	static getById(id: number) {
+	static getById(id: number): Promise<MissionSlot> {
 		return Promise.resolve(MissionSlot.findOne(
 			{
 				where: {

@@ -152,7 +152,7 @@ export abstract class GuildDailyConstants {
 		{
 			personalXP: 250,
 			guildXP: 0,
-			money: 350,
+			money: 400,
 			badge: 10,
 			fullHeal: 15,
 			hospital: 150,

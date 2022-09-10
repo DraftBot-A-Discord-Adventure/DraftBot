@@ -8,6 +8,5 @@
 			"alive": "It seems that you are not yet KO'd... You don't need our services.",
 			"respawn": ":angel: | ** {pseudo} ** We successfully brought you back to life! However, please note that {lostScore} points :medal: were deducted from your score as a result of this action!"
 		}
-	},
-	"score_remove_during_respawn": 0.1
+	}
 }

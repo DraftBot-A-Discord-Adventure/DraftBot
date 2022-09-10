@@ -1,10 +1,30 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
-import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Translations} from "../../core/Translations";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {BotConstants} from "../../core/constants/BotConstants";
+import {format} from "../../core/utils/StringFormatter";
+
+/**
+ * Get the map image link with the cursor on the player position
+ * @param entity Entity
+ * @param inReport
+ */
+async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<string> {
+	const destMap = await entity.Player.getDestination();
+	const depMap = await entity.Player.getPreviousMap();
+	if (inReport) {
+		return `${destMap.id}_`;
+	}
+	if (destMap.id < depMap.id) {
+		return `${destMap.id}_${depMap.id}_`;
+	}
+	return `${depMap.id}_${destMap.id}_`;
+
+}
 
 /**
  * Show the map of DraftBot world
@@ -21,7 +41,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const destMap = await entity.Player.getDestination();
 	const strMapLink = await getStrMapWithCursor(entity, inReport);
 	mapEmbed.setImage(
-		mapModule.format("URL_WITH_CURSOR", {mapLink: strMapLink})
+		format(BotConstants.MAP_URL_WITH_CURSOR, {mapLink: strMapLink})
 	);
 	mapEmbed.setDescription(mapModule.format(
 		inReport ? "descTextReached" : "descText", {
@@ -30,27 +50,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			particle: destMap.getParticleName(language)
 		}));
 	await interaction.reply({embeds: [mapEmbed]});
-
-	// TODO REFACTOR LES LOGS
-	// log("Player " + interaction.user + " asked the map");
-}
-
-/**
- * Get the map image link with the cursor on the player position
- * @param entity Entity
- * @param inReport
- */
-async function getStrMapWithCursor(entity: Entity, inReport: boolean) {
-	const destMap = await entity.Player.getDestination();
-	const depMap = await entity.Player.getPreviousMap();
-	if (inReport) {
-		return destMap.id + "_";
-	}
-	if (destMap.id < depMap.id) {
-		return destMap.id + "_" + depMap.id + "_";
-	}
-	return depMap.id + "_" + destMap.id + "_";
-
 }
 
 export const commandInfo: ICommand = {
@@ -59,7 +58,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Displays the map and the position of the player."),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

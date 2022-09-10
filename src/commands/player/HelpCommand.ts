@@ -1,12 +1,15 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CacheType, CommandInteraction} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 
-function getCommandByCategories() {
+/**
+ * Get all commands sorted by categories
+ */
+function getCommandByCategories(): { [key: string]: string[] } {
 	const commandsDataList = HelpConstants.COMMANDS_DATA;
 	const serverCommands: string[] = [], utilCommands: string[] = [], playerCommands: string[] = [],
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
@@ -49,7 +52,13 @@ function getCommandByCategories() {
 	return {serverCommands, utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
 }
 
-function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction<CacheType>) {
+/**
+ * Updates the embed to make a generic help message
+ * @param helpMessage
+ * @param tr
+ * @param interaction
+ */
+function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction): void {
 	const {
 		serverCommands,
 		utilCommands,
@@ -95,7 +104,10 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 	]);
 }
 
-function getCommandAliasMap() {
+/**
+ * Get all the accepted words when searching the help for the commands
+ */
+function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
 	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {
 		for (const alias of commands[1]) {
@@ -110,7 +122,7 @@ function getCommandAliasMap() {
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string) {
+async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed();
 	const askedCommand = interaction.options.getString("command");
@@ -138,10 +150,10 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 
 		if (command === "FIGHT") {
-			helpMessage.setImage(tr.get("commands." + command + ".image"));
+			helpMessage.setImage(tr.get(`commands.${command}.image`));
 		}
 
-		helpMessage.setDescription(tr.format("commands." + command + ".description", {
+		helpMessage.setDescription(tr.format(`commands.${command}.description`, {
 			option1,
 			option2
 		}))
@@ -156,7 +168,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			);
 		helpMessage.addField(
 			tr.get("usageFieldTitle"),
-			"`" + tr.get("commands." + command + ".usage") + "`",
+			`\`${tr.get(`commands.${command}.usage`)}\``,
 			true
 		);
 		await interaction.reply({

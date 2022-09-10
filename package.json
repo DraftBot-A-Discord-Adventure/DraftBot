@@ -12,20 +12,17 @@
 	},
 	"scripts": {
 		"start": "tsc && node dist/src/index.js",
-		"postinstall": "tsc && link-module-alias",
+		"postinstall": "link-module-alias",
 		"test": "tsc && jest dist/test",
 		"eslint": "eslint src test",
 		"eslintFix": "eslint src test --fix",
 		"tsc": "tsc",
-		"pm2": "tsc && pm2 start pm2.config.js",
 		"yarnInstall": "yarn install",
 		"dockerStart": "node dist/src/index.js"
 	},
 	"_moduleAliases": {
 		"draftbot": ".",
 		"config": "./config",
-		"core": "./dist/src/core",
-		"commands": "./dist/src/commands",
 		"resources": "./resources"
 	},
 	"jest": {
@@ -54,7 +51,6 @@
 		"node-ipc": "10.1.0",
 		"random-js": "2.1.0",
 		"sequelize": "6.8.0",
-		"sqlite3": "5.0.3",
 		"toml": "3.0.0",
 		"ts-jest": "27.0.2",
 		"typescript": "4.3.2",

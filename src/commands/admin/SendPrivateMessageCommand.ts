@@ -1,4 +1,4 @@
-import {escapeUsername} from "../../core/utils/StringUtils";
+import {escapeUsername, getIdFromMention} from "../../core/utils/StringUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -7,8 +7,6 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-
-declare function getIdFromMention(variable: string): string;
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -27,11 +25,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const user = draftBotClient.users.cache.get(userId);
 
 	if (userId === undefined) {
-		replyErrorMessage(interaction, language, dmModule.get("descError"));
+		await replyErrorMessage(interaction, language, dmModule.get("descError"));
 		return;
 	}
 	if (user === undefined) {
-		replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
+		await replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
 		return;
 	}
 	const embed = new DraftBotEmbed()
@@ -45,7 +43,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return await interaction.reply({embeds: [embed]});
 	}
 	catch {
-		replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
+		await replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
 	}
 }
 

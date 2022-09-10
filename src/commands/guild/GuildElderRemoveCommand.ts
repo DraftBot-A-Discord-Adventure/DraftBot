@@ -10,6 +10,8 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * @param entity
@@ -18,25 +20,28 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
  * @param interaction
  */
 function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
+			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 			guild.elderId = null;
 			await Promise.all([guild.save()]);
 
 			const confirmEmbed = new DraftBotEmbed()
 				.setAuthor(
-					guildElderRemoveModule.get("successElderRemoveTitle"),
-					interaction.user.displayAvatarURL()
+					{
+						name: guildElderRemoveModule.get("successElderRemoveTitle"),
+						iconURL: interaction.user.displayAvatarURL()
+					}
 				)
 				.setDescription(
 					guildElderRemoveModule.get("successElderRemove")
 				);
-			interaction.followUp({embeds: [confirmEmbed]});
+			await interaction.followUp({embeds: [confirmEmbed]});
 			return;
 		}
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
+		await sendErrorMessage(interaction.user, interaction, guildElderRemoveModule.language, guildElderRemoveModule.get("elderRemoveCancelled"), true);
 	};
 }
 
@@ -52,7 +57,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (guild.elderId === null) {
 		// trying to remove an elder that does not exist
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildElderRemoveModule.get("noElderToRemove")
@@ -81,7 +86,7 @@ export const commandInfo: ICommand = {
 		.setDescription("Remove the elder of your guild"),
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true,
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF
 	},

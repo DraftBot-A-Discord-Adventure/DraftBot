@@ -12,20 +12,29 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type InvitedUserInformation = { invitedUser: User, invitedEntity: Entity };
 type InviterUserInformation = { guild: Guild, entity: Entity };
 
+/**
+ * Get the callback for the guild add command
+ * @param inviter
+ * @param invited
+ * @param interaction
+ * @param guildAddModule
+ */
 function getEndCallbackGuildAdd(
 	inviter: InviterUserInformation,
 	invited: InvitedUserInformation,
 	interaction: CommandInteraction,
 	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
-	return async (msg: DraftBotValidateReactionMessage) => {
+	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
 		if (!msg.isValidated()) {
 			// Cancel the creation
-			sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
+			await sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
 				guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
 			return;
 		}
@@ -37,7 +46,7 @@ function getEndCallbackGuildAdd(
 		}
 		if (inviter.guild === null) {
 			// guild is destroyed
-			sendErrorMessage(
+			await sendErrorMessage(
 				invited.invitedUser,
 				interaction,
 				guildAddModule.language,
@@ -46,7 +55,7 @@ function getEndCallbackGuildAdd(
 			return;
 		}
 		if ((await Entities.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
-			sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
 				interaction,
 				guildAddModule.language,
@@ -63,6 +72,8 @@ function getEndCallbackGuildAdd(
 			invited.invitedEntity.Player.save()
 		]);
 
+		draftBotInstance.logsDatabase.logGuildJoin(inviter.entity.discordUserId, invited.invitedEntity.discordUserId, inviter.guild).then();
+
 		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
 		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
 			missionId: "guildLevel",
@@ -74,11 +85,13 @@ function getEndCallbackGuildAdd(
 			embeds: [
 				new DraftBotEmbed()
 					.setAuthor(
-						guildAddModule.format("successTitle", {
-							pseudo: escapeUsername(invited.invitedUser.username),
-							guildName: inviter.guild.name
-						}),
-						invited.invitedUser.displayAvatarURL()
+						{
+							name: guildAddModule.format("successTitle", {
+								pseudo: escapeUsername(invited.invitedUser.username),
+								guildName: inviter.guild.name
+							}),
+							iconURL: invited.invitedUser.displayAvatarURL()
+						}
 					)
 					.setDescription(guildAddModule.get("invitationSuccess"))
 			]
@@ -98,12 +111,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (invitedEntity.Player.level < Constants.GUILD.REQUIRED_LEVEL) {
 		// invited user is low level
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildAddModule.format("levelTooLow",
 				{
-					pseudo: invitedEntity.Player.getPseudo(language),
+					pseudo: await invitedEntity.Player.getPseudo(language),
 					level: Constants.GUILD.REQUIRED_LEVEL,
 					playerLevel: invitedEntity.Player.level,
 					comeIn: Constants.GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1
@@ -131,7 +144,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	if (invitedGuild !== null) {
 		// already in a guild
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildAddModule.get("alreadyInAGuild")
@@ -141,7 +154,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const members = await Entities.getByGuild(guild.id);
 	if (members.length === Constants.GUILD.MAX_GUILD_MEMBER) {
-		sendErrorMessage(
+		await sendErrorMessage(
 			interaction.user,
 			interaction,
 			language,
@@ -157,7 +170,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guildAddModule
 	);
 
-	new DraftBotValidateReactionMessage(invitedUser, endCallback)
+	await new DraftBotValidateReactionMessage(invitedUser, endCallback)
 		.formatAuthor(guildAddModule.get("invitationTitle"), invitedUser)
 		.setDescription(guildAddModule.format("invitation", {
 			guildName: guild.name
@@ -175,7 +188,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
 		guildRequired: true
 	},

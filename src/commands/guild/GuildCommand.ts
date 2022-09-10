@@ -7,9 +7,10 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
-import {Data} from "../../core/Data";
 import {progressBar} from "../../core/utils/StringUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Allow to display the info of a guild
@@ -46,7 +47,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed();
 
 	if (guild === null) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildModule.get("noGuildException")
@@ -92,7 +93,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	}
 
-	embed.setThumbnail(Data.getModule("commands.guild").getString("icon"));
+	embed.setThumbnail(GuildConstants.ICON);
 
 	embed.setTitle(
 		guildModule.format("title", {
@@ -157,7 +158,7 @@ export const commandInfo: ICommand = {
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };

@@ -11,6 +11,8 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {draftBotInstance} from "../../core/bot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
  * Create validation message to change guild description
@@ -26,7 +28,7 @@ function endCallbackGuildCreateValidationMessage(
 	askedDescription: string,
 	interaction: CommandInteraction,
 	guildDescriptionModule: TranslationModule): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
-	return async (validateMessage: DraftBotValidateReactionMessage) => {
+	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 		if (validateMessage.isValidated()) {
 			guild.guildDescription = askedDescription;
@@ -36,16 +38,18 @@ function endCallbackGuildCreateValidationMessage(
 				guild.save()
 			]);
 
-			interaction.followUp({
+			draftBotInstance.logsDatabase.logGuildDescriptionChange(entity.discordUserId, guild).then();
+
+			await interaction.followUp({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(guildDescriptionModule.get("changeDescriptionTitle"), interaction.user)
-					.setDescription(guildDescriptionModule.get("descriptionChanged"))]
+					.setDescription(guildDescriptionModule.get("editSuccessTitle"))]
 			});
 			return;
 		}
 
 		// Cancel the creation
-		sendErrorMessage(interaction.user, interaction, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
+		await sendErrorMessage(interaction.user, interaction, guildDescriptionModule.language, guildDescriptionModule.get("editCancelled"), true);
 	};
 }
 
@@ -72,7 +76,7 @@ async function createValidationEmbedGuildDesc(
 					description: askedDescription
 				}
 			))
-		.setFooter(guildDescriptionModule.get("changeDescriptionFooter"), null)
+		.setFooter({text: guildDescriptionModule.get("changeDescriptionFooter")})
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
 
 }
@@ -90,7 +94,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildDescription = interaction.options.getString("description");
 
 	if (!checkNameString(guildDescription, Constants.GUILD.MIN_DESCRIPTION_LENGTH, Constants.GUILD.MAX_DESCRIPTION_LENGTH)) {
-		replyErrorMessage(
+		await replyErrorMessage(
 			interaction,
 			language,
 			guildDescriptionModule.format("invalidDescription", {
@@ -118,8 +122,8 @@ export const commandInfo: ICommand = {
 	requirements: {
 		allowEffects: null,
 		requiredLevel: null,
-		disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD],
-		guildPermissions: 2,
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
+		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
 		guildRequired: true,
 		userPermission: null
 	},

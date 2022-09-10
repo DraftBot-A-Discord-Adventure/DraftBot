@@ -7,10 +7,20 @@ import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 
 export const smallEvent: SmallEvent = {
+	/**
+	 * No restrictions on who can do it
+	 */
 	canBeExecuted(): Promise<boolean> {
 		return Promise.resolve(true);
 	},
 
+	/**
+	 * Find a random item that have a rarity of epic or less
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.EPIC);
 		seEmbed.setDescription(
@@ -20,7 +30,6 @@ export const smallEvent: SmallEvent = {
 		);
 
 		await interaction.reply({embeds: [seEmbed]});
-		console.log(entity.discordUserId + " got an item from a mini event ");
 		await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel);
 	}
 };

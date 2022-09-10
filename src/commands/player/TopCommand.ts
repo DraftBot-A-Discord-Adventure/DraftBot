@@ -9,10 +9,11 @@ import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
-type TextInformations = { interaction: CommandInteraction, language: string };
-type PlayerInformations = { rankCurrentPlayer: number, scoreTooLow: boolean }
-type TopInformations = {
+type TextInformation = { interaction: CommandInteraction, language: string };
+type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
+type TopInformation = {
 	scope: string,
 	timing: string,
 	page: number,
@@ -68,7 +69,7 @@ function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, entityToLo
  * Get the badge for the position of the current player
  * @param rankCurrentPlayer
  */
-function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number) {
+function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number): string {
 	return rankCurrentPlayer === 1
 		? TopConstants.TOP_POSITION_BADGE.FIRST
 		: rankCurrentPlayer === 2
@@ -84,7 +85,7 @@ function getBadgePositionOfCurrentPlayer(rankCurrentPlayer: number) {
  * Get the page where the rank will appear
  * @param rank
  */
-function getPageOfRank(rank: number) {
+function getPageOfRank(rank: number): number {
 	return Math.ceil(rank / TopConstants.PLAYERS_BY_PAGE);
 }
 
@@ -101,10 +102,10 @@ function getPageOfRank(rank: number) {
  * @param entitiesToShow
  */
 async function displayTop(
-	{interaction, language}: TextInformations,
-	{scope, timing, page, numberOfPlayers}: TopInformations,
-	{rankCurrentPlayer, scoreTooLow}: PlayerInformations,
-	entitiesToShow: Entity[]) {
+	{interaction, language}: TextInformation,
+	{scope, timing, page, numberOfPlayers}: TopInformation,
+	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
+	entitiesToShow: Entity[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
@@ -146,11 +147,12 @@ async function displayTop(
 					pageMax: pageMax
 				}));
 	if (timing === TopConstants.TIMING_WEEKLY) {
-		topDisplay.setFooter(
-			topModule.format("nextReset", {
+		topDisplay.setFooter({
+			text: topModule.format("nextReset", {
 				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
-			}), TopConstants.LINK_CLOCK_FOOTER
-		);
+			}),
+			iconURL: TopConstants.LINK_CLOCK_FOOTER
+		});
 	}
 
 	await (scope === TopConstants.SERVER_SCOPE ? interaction.editReply({embeds: [topDisplay]}) : interaction.reply({embeds: [topDisplay]}));
@@ -161,7 +163,7 @@ async function displayTop(
  * @param interaction
  * @param pageMax
  */
-function getShownPage(interaction: CommandInteraction, pageMax: number) {
+function getShownPage(interaction: CommandInteraction, pageMax: number): number {
 	const page = interaction.options.getInteger("page");
 	if (page < 1 || isNaN(page)) {
 		return 1;
@@ -178,7 +180,7 @@ function getShownPage(interaction: CommandInteraction, pageMax: number) {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param entity
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity) {
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
 	const scope = interaction.options.getString("scope") ? interaction.options.getString("scope") : TopConstants.GLOBAL_SCOPE;
 	const timing = interaction.options.getString("timing") ? interaction.options.getString("timing") : TopConstants.TIMING_ALLTIME;
 	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
@@ -226,7 +228,7 @@ export const commandInfo: ICommand = {
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		disallowEffects: [Constants.EFFECT.BABY]
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
 	},
 	mainGuildCommand: false
 };

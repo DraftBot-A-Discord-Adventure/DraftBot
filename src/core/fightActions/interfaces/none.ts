@@ -7,7 +7,7 @@ import {Data} from "../../Data";
 export const fightActionInterface: Partial<IFightAction> = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.nextFightActionId = null;
-		return Translations.getModule("fightactions." + this.getName(), language).get("active");
+		return Translations.getModule(`fightactions.${this.getName()}`, language).get("active");
 	},
 
 	getEmoji(): string {
