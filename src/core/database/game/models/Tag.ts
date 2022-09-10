@@ -1,5 +1,6 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import moment = require("moment");
+import {botConfig} from "../../../bot";
 
 export class Tag extends Model {
 	public readonly id!: number;
@@ -18,7 +19,7 @@ export class Tag extends Model {
 export class Tags {
 	static findTagsFromObject(idObject: number, model: string): Promise<Tag[]> {
 		const query = `SELECT *
-                       FROM draftbot_game.tags
+                       FROM ${botConfig.MARIADB_PREFIX}_game.tags
                        WHERE idObject = :idObject
                          AND typeObject = :typeObject`;
 		return Tag.sequelize.query(query, {

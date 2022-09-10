@@ -39,6 +39,8 @@ english_channel_id = ""
 
 
 [database] # MariaDB only
+# Database name prefix
+prefix = "draftbot"
 # The host (ip or DNS) of the database
 host = "127.0.0.1"
 # The port of the database

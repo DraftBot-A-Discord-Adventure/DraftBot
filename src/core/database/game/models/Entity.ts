@@ -16,7 +16,7 @@ import {TopConstants} from "../../../constants/TopConstants";
 import {Constants} from "../../../Constants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
-import {draftBotInstance} from "../../../bot";
+import {botConfig, draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {EntityConstants} from "../../../constants/EntityConstants";
 import moment = require("moment");
@@ -477,12 +477,12 @@ export class Entities {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
 		const query = `SELECT rank
                        FROM (
-                                SELECT draftbot_game.entities.discordUserId,
-                                       (RANK() OVER (ORDER BY draftbot_game.players.${scoreLookup} DESC, draftbot_game.players.level DESC)) AS rank
-                                FROM draftbot_game.entities
-                                         INNER JOIN draftbot_game.players
-										 ON draftbot_game.entities.id = draftbot_game.players.entityId AND draftbot_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-                                WHERE draftbot_game.entities.discordUserId IN (${ids.toString()})) subquery
+                                SELECT ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId,
+                                       (RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC, ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
+                                FROM ${botConfig.MARIADB_PREFIX}_game.entities
+                                         INNER JOIN ${botConfig.MARIADB_PREFIX}_game.players
+										 ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId AND ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+                                WHERE ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${ids.toString()})) subquery
                        WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
@@ -511,7 +511,7 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = "SELECT discordUserId FROM draftbot_game.entities";
+		const query = "SELECT discordUserId FROM ${botConfig.MARIADB_PREFIX}_game.entities";
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
@@ -527,10 +527,10 @@ export class Entities {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-                       FROM draftbot_game.players
-                       		JOIN draftbot_game.entities ON draftbot_game.entities.id = draftbot_game.players.entityId
-                       WHERE draftbot_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
-                         AND draftbot_game.entities.discordUserId IN (${listDiscordId.toString()})`;
+                       FROM ${botConfig.MARIADB_PREFIX}_game.players
+                       		JOIN ${botConfig.MARIADB_PREFIX}_game.entities ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
+                       WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
+                         AND ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

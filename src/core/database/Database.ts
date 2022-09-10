@@ -56,16 +56,16 @@ export abstract class Database {
 			user: "root",
 			password: botConfig.MARIADB_ROOT_PASSWORD
 		});
-		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS draftbot_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
+		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${botConfig.MARIADB_PREFIX}_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
 		try {
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON draftbot_${this.databaseName}.* TO '${botConfig.MARIADB_USER}'@${botConfig.MARIADB_HOST};`);
+			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}'@${botConfig.MARIADB_HOST};`);
 		}
 		catch {
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON draftbot_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
+			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
 		}
 		await mariadbConnection.end();
 
-		this.sequelize = new Sequelize(`draftbot_${this.databaseName}`, botConfig.MARIADB_USER, botConfig.MARIADB_PASSWORD, {
+		this.sequelize = new Sequelize(`${botConfig.MARIADB_PREFIX}_${this.databaseName}`, botConfig.MARIADB_USER, botConfig.MARIADB_PASSWORD, {
 			dialect: "mariadb",
 			host: botConfig.MARIADB_HOST,
 			port: botConfig.MARIADB_PORT,

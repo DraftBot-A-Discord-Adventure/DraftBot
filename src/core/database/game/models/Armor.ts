@@ -3,6 +3,7 @@ import {Constants} from "../../../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
 import fs = require("fs");
 import moment = require("moment");
+import {botConfig} from "../../../bot";
 
 export class Armor extends MainItemModel {
 	categoryName = "armors";
@@ -48,7 +49,7 @@ export class Armors {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM draftbot_game.armors
+                       FROM ${botConfig.MARIADB_PREFIX}_game.armors
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Armor.sequelize.query(query, {
 			replacements: {
