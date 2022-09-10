@@ -10,7 +10,7 @@ import {Entities} from "./Entity";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player from "./Player";
-import {draftBotInstance} from "../../../bot";
+import {botConfig, draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
@@ -305,7 +305,7 @@ export class Guilds {
 
 	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-                       FROM draftbot_game.Guilds`;
+                       FROM ${botConfig.MARIADB_PREFIX}_game.Guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT

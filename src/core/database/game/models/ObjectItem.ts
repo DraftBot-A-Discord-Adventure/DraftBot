@@ -7,6 +7,7 @@ import {minutesDisplay} from "../../../utils/TimeUtils";
 import {MaxStatsValues} from "./GenericItemModel";
 import fs = require("fs");
 import moment = require("moment");
+import {botConfig} from "../../../bot";
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -67,7 +68,7 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM draftbot_game.objects
+                       FROM ${botConfig.MARIADB_PREFIX}_game.objects
                        WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
