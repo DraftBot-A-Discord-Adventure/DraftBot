@@ -32,4 +32,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/draftbot-dev:latest,${{ steps.date.outputs.date }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/draftbot-dev:latest,${{ secrets.DOCKER_HUB_USERNAME }}/draftbot-dev:${{ steps.date.outputs.date }}
