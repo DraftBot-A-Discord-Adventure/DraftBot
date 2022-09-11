@@ -1,5 +1,5 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
-import {CommandInteraction, GuildMember, Permissions, PermissionsBitField} from "discord.js";
+import {CommandInteraction, GuildMember, PermissionsBitField} from "discord.js";
 import {Constants} from "./Constants";
 import {Translations} from "./Translations";
 import {botConfig} from "./bot";
