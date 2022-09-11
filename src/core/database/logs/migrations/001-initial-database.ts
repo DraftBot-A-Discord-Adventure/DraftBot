@@ -976,4 +976,5 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("guilds_foods_changes");
 	await context.dropTable("guilds_new_pets");
 	await context.dropTable("players_new_pets");
+	await context.dropTable("players_dailies");
 }
