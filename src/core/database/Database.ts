@@ -80,7 +80,7 @@ export abstract class Database {
 			context: this.sequelize.getQueryInterface(),
 			logger: console,
 			migrations: {
-				glob: `${__dirname}/${this.databaseName}/migrations/*.js`
+				glob: `${__dirname.split("\\").join("/")}/${this.databaseName}/migrations/*.js`
 			},
 			storage: new SequelizeStorage({sequelize: this.sequelize})
 		});
