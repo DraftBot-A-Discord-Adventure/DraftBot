@@ -82,5 +82,5 @@ export abstract class EffectsConstants {
 		":drooling_face:": 80,
 		":confounded:": 40,
 		":scream:": 10
-	}
+	};
 }

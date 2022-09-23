@@ -55,7 +55,7 @@ export abstract class FightConstants {
 	static readonly TARGET = {
 		SELF: 0,
 		OPPONENT: 1
-	}
+	};
 
 	// kind of useless, but I don't care
 	static OPERATOR = {
@@ -89,6 +89,6 @@ export abstract class FightConstants {
 		NO_MOVE: "none",
 		DIVINE_ATTACK: "divineAttack",
 		BENEDICTION: "benediction"
-	}
+	};
 
 }
