@@ -2,25 +2,27 @@
 	"translations": {
 		"fr": {
 			"topTitle": ":trophy: Affichage du top{alltime?: de la semaine}{global?: du serveur} des places {start} à {end}",
-			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
-			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs !",
-			"endAnyWrongPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
-			"endAnyRightPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs !",
+			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
+			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
+			"endAnyWrongPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
+			"endAnyRightPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
 			"lowScore": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous avez un score égal ou inférieur à 100 !",
 			"yourRanking": "Votre classement",
 			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n",
-			"nextReset": "Classement réinitialisé dans {time}"
+			"nextReset": "Classement réinitialisé dans {time}",
+			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez."
 		},
 		"en": {
 			"topTitle": ":trophy: Display of {alltime?: weekly}{global?: server} top {start} to {end}",
-			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} players ! \n(You are on page {page} / {pageMax})",
-			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} players !",
-			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} players ! \n(You are on page {page} / {pageMax})",
-			"endAnyRightPage": " {badge} **{pseudo}**, you are ranked**{rank}ème** out of a total of {totalPlayer} players !",
+			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
+			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
+			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
+			"endAnyRightPage": " {badge} **{pseudo}**, you are ranked**{rank}ème** out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
 			"lowScore": ":x: | **{pseudo}**, unfortunately you do not appear in the ranking because your score is below or equal to 100!",
 			"yourRanking": "Your rank",
 			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n",
-			"nextReset": "Next reset: {time}"
+			"nextReset": "Next reset: {time}",
+			"nobodyInTop": "Nobody is in the top right now ! Take the occasion while you can."
 		}
 	}
 }

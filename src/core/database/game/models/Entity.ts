@@ -181,10 +181,10 @@ export class Entity extends Model {
 		shouldPokeMission: true
 	}): Promise<void> {
 		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission
-			? await this.getMaxHealth()
-			: health < 0
-				? 0
-				: health)
+				? await this.getMaxHealth()
+				: health < 0
+					? 0
+					: health)
 			- this.health;
 		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
 			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
@@ -511,7 +511,7 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = "SELECT discordUserId FROM ${botConfig.MARIADB_PREFIX}_game.entities";
+		const query = `SELECT discordUserId FROM ${botConfig.MARIADB_PREFIX}_game.entities`;
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
