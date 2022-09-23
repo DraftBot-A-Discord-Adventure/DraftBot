@@ -6,5 +6,5 @@ export abstract class EntityConstants {
 		DEFENSE: 20,
 		SPEED: 10,
 		FIGHT_POINTS_LOST: 0
-	}
+	};
 }

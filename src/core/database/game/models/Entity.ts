@@ -158,7 +158,7 @@ export class Entity extends Model {
 	 * get the string that mention the user
 	 */
 	public getMention(): string {
-		return "<@" + this.discordUserId + ">";
+		return `<@${this.discordUserId}>`;
 	}
 
 	/**
@@ -180,11 +180,7 @@ export class Entity extends Model {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}): Promise<void> {
-		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission
-				? await this.getMaxHealth()
-				: health < 0
-					? 0
-					: health)
+		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
 			- this.health;
 		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
 			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});

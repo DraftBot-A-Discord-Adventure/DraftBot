@@ -19,7 +19,7 @@ export type BroadcastTranslationModuleLike = {
  * Base class for bot embeds
  */
 export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
-	private readonly _interaction: CommandInteraction
+	private readonly _interaction: CommandInteraction;
 
 	private _collector: ReactionCollector;
 

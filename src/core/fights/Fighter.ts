@@ -32,7 +32,7 @@ export class Fighter {
 
 	public availableFightActions: Map<string, IFightAction>;
 
-	public entity: Entity
+	public entity: Entity;
 
 	public alterationTurn: number;
 

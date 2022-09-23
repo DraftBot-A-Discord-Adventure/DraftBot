@@ -9,5 +9,5 @@ export abstract class GuildConstants {
 		HERBIVOROUS_FOOD: 0,
 		CARNIVOROUS_FOOD: 0,
 		ULTIMATE_FOOD: 0
-	}
+	};
 }
