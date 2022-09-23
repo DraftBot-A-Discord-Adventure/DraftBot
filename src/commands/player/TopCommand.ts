@@ -132,6 +132,9 @@ async function displayTop(
 			level: entitiesToShow[rank].Player.level
 		}));
 	}
+	if (!description) {
+		description = topModule.get("nobodyInTop");
+	}
 	topDisplay.setDescription(description)
 		.addFields({
 			name: topModule.get("yourRanking"),
@@ -165,14 +168,14 @@ async function displayTop(
  * @param pageMax
  */
 function getShownPage(interaction: CommandInteraction, pageMax: number): number {
-	const page = interaction.options.get("page").value as number;
-	if (page < 1 || isNaN(page)) {
+	const page = interaction.options.get("page");
+	if (!page) {
 		return 1;
 	}
-	if (page > pageMax) {
+	if (page.value > pageMax) {
 		return pageMax;
 	}
-	return page;
+	return page.value as number;
 }
 
 /**
@@ -213,16 +216,16 @@ export const commandInfo: ICommand = {
 		.addStringOption(option => option.setName("scope")
 			.setDescription("Which scope are you looking for the top")
 			.addChoices(
-				{ name: "Global", value: TopConstants.GLOBAL_SCOPE },
-				{name: "Server", value: TopConstants.SERVER_SCOPE }
+				{name: "Global", value: TopConstants.GLOBAL_SCOPE},
+				{name: "Server", value: TopConstants.SERVER_SCOPE}
 			)
 			.setRequired(false)
 		)
 		.addStringOption(option => option.setName("timing")
 			.setDescription("Alltime top or weekly top")
 			.addChoices(
-				{ name: "Alltime", value: TopConstants.TIMING_ALLTIME },
-				{name: "Week", value: TopConstants.TIMING_WEEKLY }
+				{name: "Alltime", value: TopConstants.TIMING_ALLTIME},
+				{name: "Week", value: TopConstants.TIMING_WEEKLY}
 			)
 			.setRequired(false)
 		)
