@@ -89,6 +89,11 @@ function getPageOfRank(rank: number): number {
 	return Math.ceil(rank / TopConstants.PLAYERS_BY_PAGE);
 }
 
+/**
+ * Get all the pseudos of a given entity list
+ * @param entitiesToShow
+ * @param language
+ */
 function getPseudosOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
 	const pseudos = [];
 	for (const entityToShow of entitiesToShow) {
@@ -97,6 +102,11 @@ function getPseudosOfList(entitiesToShow: Entity[], language: string): Promise<s
 	return Promise.all(pseudos);
 }
 
+/**
+ * Get all the given entities' status
+ * @param entitiesToShow
+ * @param language
+ */
 function getBadgeStatesOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
 	const badgeStates = [];
 	for (const entityToShow of entitiesToShow) {
