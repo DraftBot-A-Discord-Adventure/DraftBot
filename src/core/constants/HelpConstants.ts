@@ -314,5 +314,5 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"mission"
 			}
-	}
+	};
 }

@@ -89,6 +89,22 @@ function getPageOfRank(rank: number): number {
 	return Math.ceil(rank / TopConstants.PLAYERS_BY_PAGE);
 }
 
+function getPseudosOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
+	const pseudos = [];
+	for (const entityToShow of entitiesToShow) {
+		pseudos.push(entityToShow.Player.getPseudo(language));
+	}
+	return Promise.all(pseudos);
+}
+
+function getBadgeStatesOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
+	const badgeStates = [];
+	for (const entityToShow of entitiesToShow) {
+		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language));
+	}
+	return Promise.all(badgeStates);
+}
+
 /**
  * Sends a message with the top
  * @param interaction
@@ -119,23 +135,26 @@ async function displayTop(
 			alltime: timing === TopConstants.TIMING_ALLTIME,
 			global: scope === TopConstants.GLOBAL_SCOPE
 		}));
-	let description = "";
-	for (let rank = 0; rank < entitiesToShow.length; rank++) {
-		description = description.concat(topModule.format("playerRankLine", {
-			badge: getBadgeTopPositionOfPlayer(interaction, entitiesToShow[rank], page, rank),
+	let description = [];
+	const pseudos = await getPseudosOfList(entitiesToShow, language);
+	const badgeStates = await getBadgeStatesOfList(entitiesToShow, language);
+	for (const entityToShow of entitiesToShow) {
+		const rank = entitiesToShow.indexOf(entityToShow);
+		description.push(topModule.format("playerRankLine", {
+			badge: getBadgeTopPositionOfPlayer(interaction, entityToShow, page, rank),
 			rank: start + rank,
-			pseudo: await entitiesToShow[rank].Player.getPseudo(language),
-			badgeState: await getBadgeStateOfPlayer(entitiesToShow[rank], language),
+			pseudo: pseudos[rank],
+			badgeState: badgeStates[rank],
 			score: timing === TopConstants.TIMING_WEEKLY
-				? entitiesToShow[rank].Player.weeklyScore
-				: entitiesToShow[rank].Player.score,
-			level: entitiesToShow[rank].Player.level
+				? entityToShow.Player.weeklyScore
+				: entityToShow.Player.score,
+			level: entityToShow.Player.level
 		}));
 	}
-	if (!description) {
-		description = topModule.get("nobodyInTop");
+	if (description.length === 0) {
+		description = [topModule.get("nobodyInTop")];
 	}
-	topDisplay.setDescription(description)
+	topDisplay.setDescription(description.join(""))
 		.addFields({
 			name: topModule.get("yourRanking"),
 			value: topModule.format(

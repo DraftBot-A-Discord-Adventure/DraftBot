@@ -25,7 +25,7 @@ export class FightController {
 
 	public readonly fightInitiator: Fighter;
 
-	private readonly fightView: FightView
+	private readonly fightView: FightView;
 
 	private state: FightState;
 

@@ -122,7 +122,7 @@ export abstract class Constants {
 		BASE_VALUE: 325,
 		COEFFICIENT: 1.041,
 		MINUS: 188
-	}
+	};
 
 	static readonly ITEM_NATURE = {
 		NO_EFFECT: 0,
@@ -137,7 +137,7 @@ export abstract class Constants {
 	static readonly BACKUP = {
 		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
 		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
-	}
+	};
 
 	static readonly REPORT = {
 		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
@@ -178,7 +178,7 @@ export abstract class Constants {
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
 		GROUP3LEVEL: 48
-	}
+	};
 
 	static readonly FIGHT = {
 		MAX_SPEED_IMPROVEMENT: 30,
@@ -194,7 +194,7 @@ export abstract class Constants {
 			IMPROVE_SPEED: 4,
 			ULTIMATE_ATTACK: 5
 		}
-	}
+	};
 
 	static readonly GUILD = {
 		REQUIRED_LEVEL: 10,
@@ -229,13 +229,13 @@ export abstract class Constants {
 		DEFENSE: 4,
 		HOSPITAL: 5,
 		MONEY: 6
-	}
+	};
 
 	static readonly LOGS = {
 		LOG_COUNT_LINE_LIMIT: 50000
-	}
+	};
 
-	static readonly DEFAULT_HEALED_EFFECT = ":hospital:"
+	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 
 	static readonly MISSION_SHOP = {
 		RANGE_MISSION_MONEY: 300,
@@ -302,7 +302,7 @@ export abstract class Constants {
 	static readonly PROFILE = {
 		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
 		MAX_EMOTE_DISPLAY_NUMBER: 10
-	}
+	};
 
 	static readonly BADGES = {
 		POWERFUL_GUILD: "💎",
@@ -337,7 +337,7 @@ export abstract class Constants {
 			"💞",
 			"\uD83D\uDC8D"
 		]
-	}
+	};
 
 	static readonly SMALL_EVENT = {
 		MINIMUM_HEALTH_WON: 1,
@@ -374,12 +374,12 @@ export abstract class Constants {
 		BASE_TIME_LOST_GOBLETS_GAME: 1,
 		BASE_HEALTH_LOST_GOBLETS_GAME: 5,
 		COIN_EMOTE: "🪙"
-	}
+	};
 
 	static readonly LANGUAGE = {
 		FRENCH: "fr",
 		ENGLISH: "en"
-	}
+	};
 
 	static readonly MENU_REACTION = {
 		ACCEPT: "✅",
@@ -393,7 +393,7 @@ export abstract class Constants {
 		CARNIVOROUS_FOOD: "carnivorousFood",
 		HERBIVOROUS_FOOD: "herbivorousFood",
 		ULTIMATE_FOOD: "ultimateFood"
-	}
+	};
 
 	static readonly ITEMS = {
 		MAPPER: [
@@ -501,7 +501,7 @@ export abstract class Constants {
 			type: "string",
 			check: (): boolean => false
 		}
-	}
+	};
 
 	static readonly TEST_EMBED_COLOR = {
 		SUCCESSFUL: <HexColorString>"#FF8888",
