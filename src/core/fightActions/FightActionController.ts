@@ -113,9 +113,7 @@ export class FightActionController {
 	private static getAttackDamageByStat(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
 
 		/*
-		 * get the ratio between the attacker and the defender stats (between 0 and 1)
-		 * the value is above 1 if the attacker is more than 70 % stronger than the defender
-		 * the value is below 0 if the attacker is more than 70 % weaker than the defender
+		 * this function allows to exacerbate the difference between the attacker stat and the defender stat
 		 */
 		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 70;
 
