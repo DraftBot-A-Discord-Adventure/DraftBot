@@ -66,15 +66,6 @@ channel_id = ""
 token = ""
 
 
-[backups]
-# Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g. LOCAL,DROPBOX)
-enabled = ""
-# Zip backup archive password
-archive_password = ""
-# The dropbox token used to backup the database
-dropbox_token = ""
-
-
 [others]
 # The API key for the nasa API
 nasa_api_key = ""
