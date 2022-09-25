@@ -1,7 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"commandName": "level",
+			"commandName": "donniveau",
+			"commandDescription": "Donner ou retirer des niveaux à un joueur (uniquement pour les administrateurs).",
 			"fullName": "niveaux",
 			"valueToEdit": "level",
 			"title": "{pseudo}, vous avez changé le niveau d'un ou plusieurs joueurs !",
@@ -20,6 +21,7 @@
 		},
 		"en": {
 			"commandName": "level",
+			"commandDescription": "Give or remove levels to a player (admins only).",
 			"fullName": "levels",
 			"valueToEdit": "level",
 			"title": "{pseudo}, you changed the level of one or more players!",

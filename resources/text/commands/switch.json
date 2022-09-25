@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "intervertir",
+			"commandDescription": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve.",
 			"title": "{pseudo}, commande effectuée !",
 			"desc": "{item1} et {item2} ont été échangés !",
 			"descAndDaily": "{item1} et {item2} ont été échangés ! De plus, 30 minutes ont été ajoutées pour faire votre prochain `/daily`.",
@@ -12,6 +14,8 @@
 			"switchIndication": "Choisissez un objet à équiper dans la liste ci-dessous :"
 		},
 		"en": {
+			"commandName": "switch",
+			"commandDescription": "Switch the active item with one of the items in your item stock.",
 			"title": "{pseudo}, command done!",
 			"desc": "{item1} and {item2} were swapped!",
 			"descAndDaily": "{item1} and {item2} has been switched! Moreover, 30 minutes were added to do your next `/daily`.",

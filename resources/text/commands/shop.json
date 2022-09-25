@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "magasin",
+			"commandDescription": "Affiche le magasin.",
 			"title": "Affichage du Magasin",
 			"dailyItem": "Potion du jour",
 			"permanentItem": "Ventes permanentes",
@@ -75,6 +77,8 @@
 			"slotGive": "Vous avez reçu un nouvel emplacement d'inventaire !"
 		},
 		"en": {
+			"commandName": "shop",
+			"commandDescription": "Display the shop.",
 			"title": "Shop Overlay:",
 			"dailyItem": "Today's potion",
 			"permanentItem": "Permanent sales",

@@ -1,6 +1,8 @@
 {
     "translations": {
         "fr": {
+					"commandName": "recharger",
+					"commandDescription": "Recharger une commande (pour les administrateurs uniquement).",
             "success": {
                 "specific": "Commande `/{command}` reload.",
                 "all": "Toutes les commandes ont été reload."
@@ -8,6 +10,8 @@
             "notFound": "Command `/{command}` non trouvée."
         },
         "en": {
+					"commandName": "reload",
+					"commandDescription": "Reload a command (admin only).",
             "success": {
                 "specific": "Command `/{command}` reloaded.",
                 "all": "Every command has been reloaded."

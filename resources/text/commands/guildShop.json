@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "magasinguilde",
+			"commandDescription": "Affiche le magasin de votre guilde.",
 			"title": "Magasin de guilde",
 			"xpItem": "Expérience de guilde",
 			"foodItem": "Nourriture",
@@ -26,6 +28,8 @@
 			"successNormal": "{pseudo}, transaction réussie !"
 		},
 		"en": {
+			"commandName": "guildshop",
+			"commandDescription": "Displays your guild's shop.",
 			"title": "Guild's shop",
 			"xpItem": "Guild's experience",
 			"foodItem": "Food",

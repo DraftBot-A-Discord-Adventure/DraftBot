@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "inventaire",
+			"commandDescription": "Affiche l'inventaire du joueur.",
 			"title": ":briefcase: **Inventaire de {pseudo}**",
 			"stockTitle": ":package: **Réserve d'objets de {pseudo}**",
 			"randomItemTitle": "{pseudo}, vous avez trouvé quelque chose !",
@@ -19,6 +21,8 @@
 			"chooseItemToReplaceTitle": "Choisissez un objet à remplacer"
 		},
 		"en": {
+			"commandName": "inventory",
+			"commandDescription": "Displays the player's inventory.",
 			"title": ":briefcase: **{pseudo}'s inventory**",
 			"stockTitle": ":package: **{pseudo}'s items stock**",
 			"randomItemTitle": "{pseudo}, you just found something!",

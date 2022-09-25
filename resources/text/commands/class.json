@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "classes",
+			"commandDescription": "Changer de classe.",
 			"description": {
 				"0": "Une classe simple et économique. Plutôt équilibrée.",
 				"1": "Une classe simple et économique. Plutôt équilibrée.",
@@ -38,6 +40,8 @@
 			}
 		},
 		"en": {
+			"commandName": "classes",
+			"commandDescription": "Change your class.",
 			"description": {
 				"0": "A simple and economical class. Mostly balanced.",
 				"1": "A simple and economical class. Mostly balanced.",

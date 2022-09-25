@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "verifierblocage",
+			"commandDescription": "Vérifier le blocage d'un joueur."
+		},
+		"en": {
+			"commandName": "debugblocked",
+			"commandDescription": "Check if a player is blocked and why."
+		}
+	}
+}

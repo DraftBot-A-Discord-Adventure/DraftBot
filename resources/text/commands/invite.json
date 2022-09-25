@@ -1,9 +1,13 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "invitationdraftbot",
+			"commandDescription": "Ajouter le bot sur votre serveur !",
 			"main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
 		},
 		"en": {
+			"commandName": "invitedraftbot",
+			"commandDescription": "Add the bot on your server !",
 			"main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
 		}
 	}

@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "donequipement",
+			"commandDescription": "Donne un équipement à un joueur (uniquement pour les administrateurs).",
 			"confirmTitle": "{pseudo}, confirmation de give",
 			"confirmDesc": "Voulez-vous vraiment donner {item} à {usersCount} utilisateur{usersCount>1?s:} ?",
 			"resultTitle": "{pseudo}, résultat de la commande give",
@@ -25,6 +27,8 @@
 			}
 		},
 		"en": {
+			"commandName": "giveitem",
+			"commandDescription": "Give an item to a player (only for administrators).",
 			"confirmTitle": "{pseudo}, give confirmation",
 			"confirmDesc": "Do you really want to give {item} to {usersCount} user{usersCount>1?s:} ?",
 			"resultTitle": "{pseudo}, result of the give command",

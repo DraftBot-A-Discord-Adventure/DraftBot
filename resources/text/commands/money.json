@@ -1,7 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"commandName": "money",
+			"commandName": "donargent",
+			"commandDescription": "Donner ou retirer de l'argent à un joueur (uniquement pour les administrateurs).",
 			"fullName": "monnaie",
 			"valueToEdit": "money",
 			"title": "{pseudo}, vous avez changé la monnaie d'un ou plusieurs joueurs !",
@@ -20,6 +21,7 @@
 		},
 		"en": {
 			"commandName": "money",
+			"commandDescription": "Give or take money from a player (admins only).",
 			"fullName": "money",
 			"valueToEdit": "money",
 			"title": "{pseudo}, you changed the money of one or players!",

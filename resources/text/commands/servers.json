@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "serveurs",
+			"commandDescription": "Affiche la liste des serveurs sur lesquels le bot est présent (pour les administrateurs uniquement)."
+		},
+		"en": {
+			"commandName": "servers",
+			"commandDescription": "Displays the list of servers where the bot is present (admins only)."
+		}
+	}
+}

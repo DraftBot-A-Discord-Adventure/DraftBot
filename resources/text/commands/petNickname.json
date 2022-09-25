@@ -1,12 +1,16 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "surnomfamilier",
+			"commandDescription": "Donner un nom à votre familier.",
 			"invalidName": "Les règles pour le nom d'un familier sont les suivantes:",
 			"successTitle": "{pseudo}, changement du nom du familier",
 			"success": "Nom du familier changé en **{name}** !",
 			"successNoName": "Votre familier n'a désormais plus de nom !"
 		},
 		"en": {
+			"commandName": "petnickname",
+			"commandDescription": "Give a nickname to your pet.",
 			"invalidName": "The rules for the pet's name are the following:",
 			"successTitle": "{pseudo}, pet name change",
 			"success": "Your pet's name changed to **{name}**!",

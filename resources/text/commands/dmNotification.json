@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "notificationsmp",
+			"commandDescription": "Active ou désactive les notifications en messages privés.",
 			"title": "Notifications par messages privés",
 			"normal": "Vous avez {notifOnVerif} les notifications par dm.",
 			"error": "Vous avez les DMs fermés !",
@@ -8,6 +10,8 @@
 			"closed": "désactivé"
 		},
 		"en": {
+			"commandName": "dmnotifications",
+			"commandDescription": "Enable or disable notifications in private messages.",
 			"title": "Private message notifications",
 			"normal": "You've switched notifications to {notifOnVerif}.",
 			"error": "You have closed your DMs !",

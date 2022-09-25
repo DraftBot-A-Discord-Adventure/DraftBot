@@ -1,8 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"tradeTitle": "Échange d'animaux",
-			"tradeDescription": "{trader1} propose à {trader2} d'échanger leurs animaux. Chaque participant doit cliquer sur :white_check_mark: pour accepter ou sur :x: pour annuler.",
+			"commandName": "echangefamilier",
+			"commandDescription": "Échanger votre familier avec celui d'un autre joueur.",
+			"tradeTitle": "Échange de familiers",
+			"tradeDescription": "{trader1} propose à {trader2} d'échanger leurs familiers. Chaque participant doit cliquer sur :white_check_mark: pour accepter ou sur :x: pour annuler.",
 			"cantTradeSelf": "Vous ne pouvez pas échanger avec vous-même !",
 			"petOfTrader": "Familier de {trader}",
 			"tradeCanceledTime": "L'échange a été annulé car un des participants n'a pas répondu !",
@@ -11,6 +13,8 @@
 			"warningTradeReset": "⚠️ Un familier échangé perdra de l'affection !"
 		},
 		"en": {
+			"commandName": "pettrade",
+			"commandDescription": "Trade your pet with another player.",
 			"tradeTitle": "Trade of pets",
 			"tradeDescription": "{trader1} invites {trader2} to trade their pets. Each participant must click on :white_check_mark: to accept or on :x: to cancel.",
 			"cantTradeSelf": "You can't trade with yourself!",

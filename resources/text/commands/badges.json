@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "badges",
+			"commandDescription": "Affiche des informations sur les badges."
+		},
+		"en": {
+			"commandName": "badges",
+			"commandDescription": "Get information about badges."
+		}
+	}
+}

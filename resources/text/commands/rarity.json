@@ -1,10 +1,14 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "rarete",
+			"commandDescription": "Affiche des informations sur les différentes raretés d'équipements.",
 			"title": "🎰  Rareté",
 			"rarities": "🔸 Basique | Rareté de l'item possédé en début de jeu.\n🔶 Commun | {pourcentageCommon}%\n🔥 Peu commun | {pourcentageUncommon}%\n🔱 Exotique | {pourcentageExotic}%\n☄️ Rare | {pourcentageRare}%\n💫 Spécial | {pourcentageSpecial}%\n⭐ Epique | {pourcentageEpic}%\n🌟 Légendaire | {pourcentageLegendary}%\n💎 Mythique | {pourcentageUnique}%"
 		},
 		"en": {
+			"commandName": "rarity",
+			"commandDescription": "Displays information about the different equipment rarities.",
 			"title": "🎰  Rarity",
 			"rarities": "🔸 Basic | Rarity of the item owned at the beggining of the game.\n🔶 Common | {pourcentageCommon}%\n🔥 Uncommon | {pourcentageUncommon}%\n🔱 Exotic | {pourcentageExotic}%\n☄️ Rare | {pourcentageRare}%\n💫 Special | {pourcentageSpecial}%\n⭐ Epic | {pourcentageEpic}%\n🌟 Legendary | {pourcentageLegendary}%\n💎 Unique | {pourcentageUnique}%"
 		}
