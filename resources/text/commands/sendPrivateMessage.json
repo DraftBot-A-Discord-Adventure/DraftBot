@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "envoyermp",
+			"commandDescription": "Envoyer un message privé à l'aide du bot (pour les administrateurs uniquement).",
 			"descError": "Entrez l'id du joueur ainsi qu'un message après la commande svp",
 			"title": "✅ | DM envoyé à {pseudo} :",
 			"signature": "\n\n- {username}",
@@ -8,7 +10,9 @@
 			"personNotExists": "Personne n'a été trouvé avec cet id !"
 		},
 		"en": {
-			"descError": "Indiacte the user id and a message after the command please",
+			"commandName": "senddm",
+			"commandDescription": "Send a private message using the bot (admins only).",
+			"descError": "Indicate the user id and a message after the command please",
 			"title": "✅ | DM sent to {pseudo}:",
 			"signature": "\n\n- {username}",
 			"errorCannotSend": "An error happened while sending the private message. This person probably disabled DMs!",

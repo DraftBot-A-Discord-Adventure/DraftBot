@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "magasinmissions",
+			"commandDescription": "Afficher le magasin des missions.",
 			"title": "Magasin des Missions",
 			"resTitle": "Ressources",
 			"utilTitle": "Utilitaires",
@@ -96,6 +98,8 @@
 			}
 		},
 		"en": {
+			"commandName": "missionsshop",
+			"commandDescription": "Display the mission's shop.",
 			"title": "Missions Shop",
 			"resTitle": "Resources",
 			"utilTitle": "Utilities",

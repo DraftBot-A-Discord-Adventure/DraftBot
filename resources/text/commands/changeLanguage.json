@@ -1,10 +1,14 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "langage",
+			"commandDescription": "Change la langue utilisée par le bot sur ce serveur.",
 			"title": "{pseudo}, you have switched the language!",
 			"desc": ":flag_gb: | Draftbot will now speak in english on this server!"
 		},
 		"en": {
+			"commandName": "language",
+			"commandDescription": "Change the language used by the bot on this server.",
 			"title": "{pseudo}, vous avez changé la langue du serveur !",
 			"desc": ":flag_fr: | Draftbot va désormais parler français sur ce serveur !"
 		}

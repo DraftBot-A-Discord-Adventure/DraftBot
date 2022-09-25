@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "abriguilde",
+			"commandDescription": "Affiche les informations sur l'abri de guilde.",
 			"embedTitle": "Refuge d'animaux de la guilde {guild} : {count} / {max}",
 			"noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun familier dans le refuge.",
 			"petFieldName": "__Familier n°{number}__",
@@ -8,6 +10,8 @@
 			"warningFull": ":warning: Le refuge est plein, aucun nouveau familier ne pourra être obtenu !"
 		},
 		"en": {
+			"commandName": "guildshelter",
+			"commandDescription": "Display information about the guild shelter.",
 			"embedTitle": "Pet shelter of the {guild} guild: {count} / {max} ",
 			"noPetMessage": "Oh! It seems that there is no pet in the shelter.",
 			"petFieldName": "__Pet number {number}__",

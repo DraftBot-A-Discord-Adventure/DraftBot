@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "familier",
+			"commandDescription": "Afficher les informations d'un familier.",
 			"embedTitle": "Familier de {pseudo} :",
 			"noPet": "Vous n'avez aucun familier !",
 			"noPetOther": "Cette personne n'a aucun familier !",
@@ -8,6 +10,8 @@
 			"isFeistyOther": "Le familier de cette personne est fielleux, vous ne pouvez donc pas lui échanger."
 		},
 		"en": {
+			"commandName": "pet",
+			"commandDescription": "Display information about a pet.",
 			"embedTitle": "{pseudo}'s pet:",
 			"noPet": "You don't have a pet!",
 			"noPetOther": "This person doesn't have a pet!",

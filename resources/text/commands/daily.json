@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "bonusjournalier",
+			"commandDescription": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
 			"objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
 			"objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
 			"noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
@@ -12,6 +14,8 @@
 			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez dans `{time}`."
 		},
 		"en": {
+			"commandName": "dailybonus",
+			"commandDescription": "Use your equipped item to get a daily bonus.",
 			"objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
 			"objectIsActiveDuringFights": "The power of the object you are carrying is automatically activated during battle!",
 			"noDailyError": "{pseudo}, hmmm... It didn't work!",

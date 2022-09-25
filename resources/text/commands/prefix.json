@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "prefixe",
+			"commandDescription": "Affiche un message d'aide sur le changement de préfixe du bot."
+		},
+		"en": {
+			"commandName": "prefix",
+			"commandDescription": "Displays a help message on changing the bot's prefix."
+		}
+	}
+}

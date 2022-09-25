@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "delivrer",
+			"commandDescription": "Délivrer un autre joueur de la prison.",
 			"cannotGetLockedUser": "Veuillez mentionner un joueur existant. Ex : `unlock @user#0000`",
 			"userNotLocked": "Ce joueur n'est pas en prison.",
 			"unlockHimself": "Vous ne pouvez pas vous libérer vous même, demandez à un ami de le faire.",
@@ -12,6 +14,8 @@
 			"unlockCanceled": "La libération a été annulée."
 		},
 		"en": {
+			"commandName": "unlock",
+			"commandDescription": "Unlock another player from jail.",
 			"cannotGetLockedUser": "Please mention an existing player. Ex : `unlock @user#0000`",
 			"userNotLocked": "This player isn't in jail.",
 			"unlockHimself": "You can't free yourself, ask a friend.",

@@ -1,10 +1,14 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "listerequipements",
+			"commandDescription": "Liste les équipements (pour les administrateurs uniquement).",
 			"title": "{pseudo}, vous avez demandé la liste de tous les équipements !",
 			"desc": "{name} - **Rareté**: {rarity} - **Défense brute**: {rawD}"
 		},
 		"en": {
+			"commandName": "listitems",
+			"commandDescription": "List all items (admins only).",
 			"title": "{pseudo}, you asked for the list of all the items!",
 			"desc": "{name} - **Rarity**: {rarity} - **Raw defense**: {rawD}"
 		}

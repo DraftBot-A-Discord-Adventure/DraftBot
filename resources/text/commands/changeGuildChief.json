@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "changechefguilde",
+			"commandDescription": "Change le chef d'une guilde.",
 			"errors": {
 				"notInTheGuild": "L'utilisateur spécifié ne fait pas partie de la guilde.",
 				"alreadyChief": "L'utilisateur spécifié est déjà le chef de cette guilde.",
@@ -10,7 +12,7 @@
 			"validation": {
 				"title": "{pseudo}, confirmation :",
 				"description": "Voulez-vous vraiment faire de **{user}** ({userID}) le nouveau chef de **{guild}** ?",
-				"canceled": "Commande `changeguildchief` annulée !"
+				"canceled": "Commande `changeChef` annulée !"
 			},
 			"DM": {
 				"title": "Le chef de votre guilde a été changé",
@@ -22,6 +24,8 @@
 			}
 		},
 		"en": {
+			"commandName": "changeguildchief",
+			"commandDescription": "Change the chief of a guild.",
 			"errors": {
 				"notInTheGuild": "The specified user is not in the guild.",
 				"alreadyChief": "The specified user is already the leader of the guild.",

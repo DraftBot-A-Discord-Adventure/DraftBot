@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "aineguilde",
+			"commandDescription": "Promouvoir un membre de la guilde au rang d'aîné.",
 			"notInTheGuild": "Ce joueur n'appartient pas à votre guilde.",
 			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
 			"chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'aîné.",
@@ -13,6 +15,8 @@
 			"problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
 		},
 		"en": {
+			"commandName": "guildelder",
+			"commandDescription": "Promote a guild member to elder.",
 			"notInTheGuild": "This player is not in your guild.",
 			"notChiefError": "You must be the guild's chief to use this command.",
 			"chiefError": "Being the chief of the guild, you can't be the elder.",

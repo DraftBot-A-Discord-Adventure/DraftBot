@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "vendrefamilier",
+			"commandDescription": "Vendre un familier à un autre joueur.",
 			"sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
 			"badPrice": "Le prix doit être supérieur à `{minPrice}\uD83D\uDCB0` et inférieur à `{maxPrice}\uD83D\uDCB0`.",
 			"isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
@@ -30,6 +32,8 @@
 			"guildAtMaxLevel": "Votre guilde est niveau 100 et ne peut donc pas recevoir d'XP de guilde. Nous vous invitons à échanger des familiers en utilisant la commande `pettrade`."
 		},
 		"en": {
+			"commandName": "petsell",
+			"commandDescription": "Sell a pet to another player.",
 			"sameGuild": "You can't buy this pet, because the seller is part of your guild.",
 			"badPrice": "The price must be higher than `{minPrice}\uD83D\uDCB0` and lower than `{maxPrice}\uD83D\uDCB0`",
 			"isFeisty": "You can't sell a feisty pet.",

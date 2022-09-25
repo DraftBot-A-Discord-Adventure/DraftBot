@@ -1,10 +1,14 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "nouveautes",
+			"commandDescription": "Afficher la liste des nouveautés de la dernière mise à jour.",
 			"title": "📜  Mises à jour",
 			"text": "La version actuelle du bot est la **{version}** \n\nToutes les informations concernant les mises à jour sont disponibles ici :\n<https://guide.draftbot.com/lore/historique-des-mises-a-jour>"
 		},
 		"en": {
+			"commandName": "update",
+			"commandDescription": "Display the list of the latest update's features.",
 			"title": "📜  Updates",
 			"text": "The current bot version is **{version}** \n\nEvery informations about the update are available here :\n<https://guide.draftbot.com/v/en/lore/change-logs>"
 		}

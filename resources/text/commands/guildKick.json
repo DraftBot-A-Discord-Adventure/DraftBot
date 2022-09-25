@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "exclureguilde",
+			"commandDescription": "Exclure un joueur de la guilde.",
 			"cannotGetKickedUser": "Veuillez mentionner un joueur existant. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
 			"kickTitle": "{pseudo}, confirmation :",
@@ -11,6 +13,8 @@
 			"excludeHimself": "Vous ne pouvez pas vous exclure vous même"
 		},
 		"en": {
+			"commandName": "guildkick",
+			"commandDescription": "Kick a player from the guild.",
 			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "This player is not in your guild.",
 			"kickTitle": "{pseudo}, confirmation:",

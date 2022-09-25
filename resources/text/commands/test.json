@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "test",
+			"commandDescription": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT)."
+		},
+		"en": {
+			"commandName": "test",
+			"commandDescription": "Cheat command for testers (TEST MODE ONLY)."
+		}
+	}
+}

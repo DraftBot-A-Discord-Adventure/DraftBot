@@ -1,11 +1,15 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "carte",
+			"commandDescription": "Afficher la carte.",
 			"text": "Voici la map de DraftBot, {pseudo} !",
 			"descText": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}",
 			"descTextReached": "Vous êtes arrivés à votre destination : **{direction}**"
 		},
 		"en": {
+			"commandName": "map",
+			"commandDescription": "Show the map.",
 			"text": "There is the map, {pseudo} !",
 			"descText": "Currently, you are going in the direction {particle} **{direction}** : {dirDesc}",
 			"descTextReached": "You have arrived at your destination : **{direction}**"
