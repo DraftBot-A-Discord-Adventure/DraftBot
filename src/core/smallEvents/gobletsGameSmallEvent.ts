@@ -33,7 +33,7 @@ function generateMalus(entity: Entity, malus: string): RewardType {
 	case "time":
 		return {
 			type: malus,
-			option: Math.round(entity.Player.level / 3 * 1.25) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
+			option: Math.round(entity.Player.level * 0.42) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
 		};
 	case "nothing":
 		return {
