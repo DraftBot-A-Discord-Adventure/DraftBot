@@ -134,11 +134,6 @@ export abstract class Constants {
 		MONEY: 6
 	};
 
-	static readonly BACKUP = {
-		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
-		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
-	};
-
 	static readonly REPORT = {
 		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
 		BONUS_POINT_TIME_DIVIDER: 6,
