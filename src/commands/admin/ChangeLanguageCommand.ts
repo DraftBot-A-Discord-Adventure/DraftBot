@@ -28,10 +28,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.changeLanguage", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.changeLanguage", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("language")
-		.setDescription("Change the server's main language") as SlashCommandBuilder,
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.ADMINISTRATOR

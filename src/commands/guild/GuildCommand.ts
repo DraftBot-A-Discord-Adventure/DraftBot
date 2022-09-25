@@ -141,10 +141,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await interaction.reply({embeds: [embed]});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("guild")
-		.setDescription("Displays the guild through a player or through its name")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the guild")
 			.setRequired(false)

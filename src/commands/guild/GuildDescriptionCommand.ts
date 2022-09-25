@@ -111,10 +111,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.guildDescription", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guildDescription", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("guilddesc")
-		.setDescription("Change guild description")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("description")
 			.setDescription("The new description")
 			.setRequired(true)) as SlashCommandBuilder,

@@ -2,6 +2,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
+import {Constants} from "../../core/Constants";
 
 /**
  * Display the link to invite the bot to another server
@@ -13,10 +14,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	await interaction.reply({content: tr.get("main")});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.invite", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.invite", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("invite")
-		.setDescription("Display the link to invite the bot to another server"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

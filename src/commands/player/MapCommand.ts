@@ -7,6 +7,7 @@ import {Translations} from "../../core/Translations";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {BotConstants} from "../../core/constants/BotConstants";
 import {format} from "../../core/utils/StringFormatter";
+import {Constants} from "../../core/Constants";
 
 /**
  * Get the map image link with the cursor on the player position
@@ -52,10 +53,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await interaction.reply({embeds: [mapEmbed]});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.map", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.map", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("map")
-		.setDescription("Displays the map and the position of the player."),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]

@@ -4,6 +4,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {Translations} from "../../core/Translations";
+import {Constants} from "../../core/Constants";
 
 /**
  * Shows the inventory of the given player (default player is the one who entered the command)
@@ -22,10 +24,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply(interaction);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.inventory", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.inventory", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("inventory")
-		.setDescription("Displays the inventory of a player")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the inventory")
 			.setRequired(false)

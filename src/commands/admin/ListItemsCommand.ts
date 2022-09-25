@@ -169,10 +169,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.listItems", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.listItems", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("listitems")
-		.setDescription("Give the full list of all items in the bot (admin only)"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.BOT_OWNER

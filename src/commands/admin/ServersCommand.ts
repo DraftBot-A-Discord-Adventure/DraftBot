@@ -44,11 +44,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 	await interaction.reply({content: result});
 }
-
+const currentCommandFrenchTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("servers")
-		.setDescription("Give the full list of all servers where the bot is present (admin only)"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.BOT_OWNER

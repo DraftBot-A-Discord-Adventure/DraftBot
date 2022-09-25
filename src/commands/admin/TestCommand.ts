@@ -3,6 +3,8 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {botConfig} from "../../core/bot";
 import {CommandsTest} from "../../core/CommandsTest";
+import {Translations} from "../../core/Translations";
+import {Constants} from "../../core/Constants";
 
 /**
  * Cheat command for testers
@@ -51,10 +53,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("test")
-		.setDescription("Cheat command for testers (TEST MODE ONLY)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(builder => builder.setName("testcommand")
 			.setDescription("The test command to execute")
 			.setRequired(false)) as SlashCommandBuilder,

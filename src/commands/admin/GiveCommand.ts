@@ -84,7 +84,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const tr = Translations.getModule("commands.giveCommand", language);
+	const tr = Translations.getModule("commands.give", language);
 	const usersToChange = (interaction.options.get("users").value as string).split(" ");
 	if (usersToChange.length > 50) {
 		await replyErrorMessage(
@@ -118,10 +118,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.reply(interaction);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("give")
-		.setDescription("Give an item to a given user (admin only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addIntegerOption(option => option.setName("category")
 			.setDescription("the category of the item to give")
 			.setRequired(true)
