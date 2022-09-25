@@ -4,6 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
+import {Constants} from "../../core/Constants";
 
 /**
  * Allow to use the object if the player has one in the dedicated slot of his inventory
@@ -25,10 +26,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("badges")
-		.setDescription("Get informations about badges"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

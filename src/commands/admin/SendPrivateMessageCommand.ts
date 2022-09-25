@@ -47,10 +47,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.sendPrivateMessage", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.sendPrivateMessage", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("dm")
-		.setDescription("Sends a dm to a player (support only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("user")
 			.setDescription("The user you want to send a dm")
 			.setRequired(true))

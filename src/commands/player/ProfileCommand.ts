@@ -373,10 +373,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.profile", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.profile", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("profile")
-		.setDescription("Displays the profile of a player")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the profile")
 			.setRequired(false)

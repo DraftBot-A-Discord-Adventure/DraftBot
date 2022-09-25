@@ -211,10 +211,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await sendSellEmbed(choiceItems, interaction, entity, tr);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.sell", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.sell", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("sell")
-		.setDescription("Sell your items"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]

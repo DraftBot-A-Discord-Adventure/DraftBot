@@ -177,10 +177,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.help", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("help")
-		.setDescription("Get the list of available commands, and information about DraftBot")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("command")
 			.setDescription("Get help about a specific command")
 			.setRequired(false)

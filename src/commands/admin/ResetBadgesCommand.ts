@@ -7,7 +7,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 
 /**
- * Allow the bot owner or a badgemanager to remove all badges from somebody
+ * Allow the bot owner or a badge manager to remove all badges from somebody
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
@@ -20,18 +20,26 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
-			.formatAuthor(Translations.getModule("commands.resetBadgeCommand", language).get("resetSuccess"), interaction.user)
+			.formatAuthor(Translations.getModule("commands.resetBadge", language).get("resetSuccess"), interaction.user)
 			.setDescription(
-				Translations.getModule("commands.resetBadgeCommand", language)
+				Translations.getModule("commands.resetBadge", language)
 					.format("descReset",
 						{player: playerToReset}))]
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.resetBadge", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.resetBadge", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("resetbadge")
-		.setDescription("Reset the badges of a given user (admin only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to reset the badges")
 			.setRequired(true)) as SlashCommandBuilder,

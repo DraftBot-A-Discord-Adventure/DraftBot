@@ -299,10 +299,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petFeed", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petFeed", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("petfeed")
-		.setDescription("Feed your pet with the guild's food or your personnal food"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]

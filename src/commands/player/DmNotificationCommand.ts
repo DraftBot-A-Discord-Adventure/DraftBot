@@ -7,6 +7,7 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {Constants} from "../../core/Constants";
 
 /**
  * Activate or deactivate DMs notifications.
@@ -48,10 +49,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await entity.Player.save();
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.dmNotification", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.dmNotification", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("dmnotifications")
-		.setDescription("Activates or deactivates the notifications through direct messages"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]

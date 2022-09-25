@@ -13,6 +13,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {PetEntityConstants} from "../../core/constants/PetEntityConstants";
+import {Constants} from "../../core/Constants";
 
 /**
  * Get the guild from a given entity
@@ -197,10 +198,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("pettransfer")
-		.setDescription("Leave your pet in the guild shelter and optionally take one back")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addIntegerOption(option => option.setName("shelterposition")
 			.setDescription("The position of the pet in the shelter you want to switch with")
 			.setRequired(false)

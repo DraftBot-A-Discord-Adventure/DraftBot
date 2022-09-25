@@ -221,10 +221,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await createAndSendTradeMessage(traderAndPet1, traderAndPet2, interaction, petTradeModule);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petTrade", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petTrade", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("pettrade")
-		.setDescription("Trade your pet with someone else")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to trade with")
 			.setRequired(true)) as SlashCommandBuilder,

@@ -237,11 +237,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		scoreTooLow
 	}, entitiesToShow);
 }
-
+const currentCommandFrenchTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("top")
-		.setDescription("Display the current top")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("scope")
 			.setDescription("Which scope are you looking for the top")
 			.addChoices(

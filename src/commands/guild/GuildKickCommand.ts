@@ -161,10 +161,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_KICK, collector));
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.guildKick", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guildKick", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("guildkick")
-		.setDescription("Kick someone of your guild")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to kick of your guild")
 			.setRequired(false)

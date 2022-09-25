@@ -160,10 +160,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER, collector));
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.guildElder", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guildElder", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("guildelder")
-		.setDescription("Promote a member to become an elder")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to promote")
 			.setRequired(true)

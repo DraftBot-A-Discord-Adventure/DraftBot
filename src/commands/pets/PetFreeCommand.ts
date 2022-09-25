@@ -20,7 +20,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 /**
- * Say if you win a meat for freeing your pet
+ * Say if you win a meat piece for freeing your pet
  * @param guild
  * @param pPet
  */
@@ -158,10 +158,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petFree", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petFree", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("petfree")
-		.setDescription("Get rid of your current pet"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]

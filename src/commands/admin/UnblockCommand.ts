@@ -41,10 +41,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("unblock")
-		.setDescription("Unblock a given player (admin only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("discordid")
 			.setDescription("The discord id of the blocked user")
 			.setRequired(true)) as SlashCommandBuilder,

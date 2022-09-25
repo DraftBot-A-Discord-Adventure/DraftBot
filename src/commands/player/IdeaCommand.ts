@@ -3,6 +3,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
+import {Constants} from "../../core/Constants";
 
 /**
  * Displays the link that allow to send the devs some suggestions
@@ -23,10 +24,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.idea", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.idea", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("idea")
-		.setDescription("Get the link to send a suggestion for the game"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false
