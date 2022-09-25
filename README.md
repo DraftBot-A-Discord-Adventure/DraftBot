@@ -43,8 +43,9 @@ Only the code available in the "release" tab is considered "stable".
 - install NodeJS http://nodejs.org/fr/ (nodejs 12 minimum is required)
 - install Yarn `npm install --global yarn`
 - install the bot : `yarn install`
-- create the config file by copying the file app.json.default in a new file app.json
-- Edit the file app.json with the correct data
+- install and launch a mariadb database (with or without docker). Keep the credentials for the config file. There are a lot of tutorials online for this
+- create the config file by copying the file config.default.toml in a new file config.toml
+- Edit the file config.toml with the correct data
 - Launch the bot : `yarn start`
 
 ### Here is the same guide for linux (or if you have a git terminal on Windows)
@@ -54,8 +55,9 @@ Only the code available in the "release" tab is considered "stable".
 - install NodeJS `apt-get install nodejs` (nodejs 12 minimum is required)
 - install yarn `npm install -g yarn` (you may have to install npm and use sudo)
 - install the bot : `yarn install`
-- create the config file : `cp config/app.json.default config/app.json`
-- Edit the file app.json with the correct data
+- install and launch a mariadb database (with or without docker). Keep the credentials for the config file. There are a lot of tutorials online for this
+- create the config file : `cp config/config.default.toml config/config.toml`
+- Edit the file config.toml with the correct data
 - Launch the bot : `yarn start`
 
 ### Updating the bot
@@ -66,9 +68,11 @@ Only the code available in the "release" tab is considered "stable".
 
 ## With docker
 
-Make sure to have docker installed on your machine.
+Make sure to have docker installed on your machine. Please follow the "without docker" steps until the `yarn install` step (you don't need to do it).
 
 ### Compile the docker image
+
+We have a docker hub account so you may not need to compile the image yourself! You can find it there: https://hub.docker.com/u/draftbot. If you really want to compile it yourself, follow the next step.
 
 In the project folder (previously downloaded with git), run:
 
@@ -76,9 +80,46 @@ In the project folder (previously downloaded with git), run:
 
 ### Install a database
 
-sqlite doesn't work with a docker image, so you probably want to create a mariadb database with the following command :
+Create a docker (or not) mariadb database with the following command : 
 
-` docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v D:/draftbot/database:/var/lib/mysql -p 3306:3306 mariadb:latest`
+`docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v /path/to/volumes/mariadb:/var/lib/mysql -p 3306:3306 mariadb:latest`
+
+or with docker compose :
+
+```
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - /path/to/volumes/mariadb:/var/lib/mysql
+    environment:
+      MARIADB_USER: draftbot
+      MARIADB_PASSWORD: secret_password
+      MARIADB_ROOT_PASSWORD: super_secret_password
+```
+
+### Run the docker container
+
+Once you compiled the bot image and a database is ready, you have to start a draftbot container.
+
+You need to have a config.toml file filled. The config template can be found at config/config.default.toml
+
+`docker run -d --name draftbot -v /path/to/config.toml:/draftbot/config/config.toml:ro -v /path/to/logs:/draftbot/logs draftbot/draftbot`
+
+or with docker compose :
+
+```
+services:
+  draftbot:
+    image: draftbot/draftbot
+    container_name: draftbot
+    volumes:
+      - /path/to/config.toml:/draftbot/config/config.toml:ro
+      - /path/to/logs:/draftbot/logs
+```
 
 # Screenshots
 
@@ -91,16 +132,6 @@ sqlite doesn't work with a docker image, so you probably want to create a mariad
 - [Suggestion board _(in french)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in french)_](https://twitter.com/DraftBot_?s=09)
-
-# Get a dropbox token
-
-- First go to https://www.dropbox.com/developers/apps/create
-- Select 1. "Scoped access", 2. "App folder", 3. The name you want (DraftBot for e.g.)
-- Go to the "Permissions" tab and check the *files.metadata.write*, *files.content.write* and *files.content.read*
-  permissions
-- In the "Settings" tab, set "Access token expiration" to "Not expiration" and then generate a token with the button
-  above
-- Put this token in config/config.json
 
 ## License
 
