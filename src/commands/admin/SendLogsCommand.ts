@@ -67,10 +67,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("sendlogs")
-		.setDescription("Send a specific log file, or the list of all stored logs (contributors only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("specificfile")
 			.setDescription("Name of the file to reach (optionnal) / unspecified : send the list of all logs")
 			.setRequired(false)) as SlashCommandBuilder,

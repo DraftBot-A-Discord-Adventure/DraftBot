@@ -12,6 +12,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {RespawnConstants} from "../../core/constants/RespawnConstants";
+import {Constants} from "../../core/Constants";
 
 /**
  * Allow a player who is dead to respawn
@@ -62,10 +63,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.respawn", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.respawn", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("respawn")
-		.setDescription("Revives you at the cost of points."),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]

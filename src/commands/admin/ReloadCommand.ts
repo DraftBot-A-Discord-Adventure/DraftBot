@@ -27,10 +27,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	));
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.reload", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.reload", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("reload")
-		.setDescription("Reload commands")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("specific_command")
 			.setDescription("The command to reload")
 		) as SlashCommandBuilder,

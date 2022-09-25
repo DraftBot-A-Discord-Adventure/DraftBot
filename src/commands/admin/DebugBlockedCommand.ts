@@ -3,6 +3,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {Translations} from "../../core/Translations";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -17,10 +18,18 @@ async function executeCommand(interaction: CommandInteraction): Promise<void> {
 	await interaction.reply({content: `Blocking reason: ${blockingReason.toString()}`, ephemeral: true});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("debugblocked")
-		.setDescription("Give the blocked reason of a given user (admin only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("user")
 			.setDescription("The user you want more info about its block reasons")
 			.setRequired(true)) as SlashCommandBuilder,

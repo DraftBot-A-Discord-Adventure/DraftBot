@@ -11,6 +11,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {Constants} from "../../core/Constants";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
@@ -166,10 +167,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.guildLeave", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guildLeave", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("guildleave")
-		.setDescription("Leave your guild"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],

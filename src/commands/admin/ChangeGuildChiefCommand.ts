@@ -162,10 +162,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.reply(interaction);
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("changeguildchief")
-		.setDescription("Force a guild to change chief (admin only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("guild")
 			.setDescription("The guild whose leader you want to change")
 			.setRequired(true))

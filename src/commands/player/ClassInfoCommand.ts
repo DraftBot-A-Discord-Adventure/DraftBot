@@ -84,10 +84,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.classInfo", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.classInfo", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("classinfo")
-		.setDescription("Display information about the classes you can have"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,

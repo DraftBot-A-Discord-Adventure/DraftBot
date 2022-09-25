@@ -7,12 +7,12 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 
 /**
- * Allow the bot owner or a badgemanager to give an item to somebody
+ * Allow the bot owner or a badge manager to give an item to somebody
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const gbModule = Translations.getModule("commands.giveBadgeCommand", language);
+	const gbModule = Translations.getModule("commands.giveBadge", language);
 	const playerId = interaction.options.getUser("user").id;
 	const [entity] = await Entities.getOrRegister(playerId);
 	entity.Player.addBadge(interaction.options.get("badge").value as string);
@@ -39,10 +39,18 @@ function getAllBadgesForOptions(): { name: string, value: string }[] {
 	return tabBadges;
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("givebadge")
-		.setDescription("Give a badge to a given user (badge manager only)")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to give a badge")
 			.setRequired(true))

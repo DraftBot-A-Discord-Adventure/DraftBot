@@ -54,10 +54,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await interaction.reply({embeds: [successEmbed]});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petNickname", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petNickname", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("petnickname")
-		.setDescription("Change the nickname of your pet")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addStringOption(option => option.setName("name")
 			.setDescription("The new name you want to give to the pet")
 			.setRequired(false)

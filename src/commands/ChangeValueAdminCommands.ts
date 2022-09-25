@@ -22,11 +22,18 @@ export class ChangeValueAdminCommands {
 	 */
 	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
 		const executeCommand = this.executeCommandfrom(commandName, editFunction);
-		const changeValueModule = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
+		const currentCommandFrenchTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.FRENCH);
+		const currentCommandEnglishTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
 		return {
 			slashCommandBuilder: new SlashCommandBuilder()
-				.setName(changeValueModule.get("commandName"))
-				.setDescription(`Give ${changeValueModule.get("fullName")} to one or more players (admin only)`)
+				.setName(currentCommandEnglishTranslations.get("commandName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("commandName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("commandDescription")
+				})
 				.addStringOption(option => option.setName("mode")
 					.setDescription("Add / Set")
 					.setRequired(true)
@@ -36,7 +43,7 @@ export class ChangeValueAdminCommands {
 					)
 				)
 				.addIntegerOption(option => option.setName("amount")
-					.setDescription(`The amount of ${changeValueModule.get("fullName")} to give`)
+					.setDescription(`The amount of ${currentCommandEnglishTranslations.get("fullName")} to give`)
 					.setRequired(true))
 				.addStringOption(option => option.setName("users")
 					.setDescription("The users' ids affected by the command (example : 'id1 id2 id3')")

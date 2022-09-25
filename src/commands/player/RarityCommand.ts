@@ -32,10 +32,18 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	});
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.rarity", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.rarity", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("rarity")
-		.setDescription("Get the probability to get an item according to its rarity"),
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		}),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

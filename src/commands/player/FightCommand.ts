@@ -16,6 +16,7 @@ import {FightController} from "../../core/fights/FightController";
 import {Classes} from "../../core/database/game/models/Class";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {Constants} from "../../core/Constants";
 
 /**
  * Check if an entity is allowed to fight
@@ -210,10 +211,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply();
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.fight", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.fight", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("fight")
-		.setDescription("Start a new fight")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to fight with")
 			.setRequired(false)

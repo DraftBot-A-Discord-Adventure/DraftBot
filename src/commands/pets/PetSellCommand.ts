@@ -313,10 +313,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.reply();
 }
 
+const currentCommandFrenchTranslations = Translations.getModule("commands.petSell", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("petsell")
-		.setDescription("Sell your pet at a given price")
+		.setName(currentCommandEnglishTranslations.get("commandName"))
+		.setNameLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandName")
+		})
+		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
+		.setDescriptionLocalizations({
+			fr: currentCommandFrenchTranslations.get("commandDescription")
+		})
 		.addIntegerOption(option => option.setName("price")
 			.setDescription("The price at which you want to sell your pet")
 			.setRequired(true)) as SlashCommandBuilder,
