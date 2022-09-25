@@ -169,12 +169,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
 
-	const shelterPosition = interaction.options.get("shelterposition").value as number;
+	const shelterPositionOption = interaction.options.get("shelterposition");
 
-	if (shelterPosition === null) {
+	if (shelterPositionOption === null) {
 		await transferPetToGuild(interaction, petTransferModule, entity, guild, confirmEmbed);
 		return;
 	}
+
+	const shelterPosition = shelterPositionOption.value as number;
 
 	if (guildPetCount === 0) {
 		await replyErrorMessage(interaction, language, Translations.getModule("commands.guildShelter", language).get("noPetMessage"));
