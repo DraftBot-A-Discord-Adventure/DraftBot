@@ -1,12 +1,16 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "infosclasses",
+			"commandDescription": "Affiche des informations sur les classes que vous pouvez sélectionner.",
 			"listTitle": ":bookmark:  **Comparatif des classes :**",
 			"listDesc": "Voilà la liste des classes disponibles pour votre personnage et leurs statistiques. Pour obtenir plus d'informations, sélectionnez une classe ci-dessous. Pour choisir une nouvelle classe, effectuez la commande `/class`.",
 			"classTitle": "**{class}**",
 			"descriptionEnd": "\n\n**Liste des attaques disponibles pour cette classe :**"
 		},
 		"en": {
+			"commandName": "classesinfo",
+			"commandDescription": "Displays information about the classes you can choose.",
 			"listTitle": ":bookmark:  **Comparing classes:**",
 			"listDesc": "Here is the list of all available classes for you and their statistics. To get more information or to select your class, please use the `/class` command.",
 			"classTitle": "**{class}**",

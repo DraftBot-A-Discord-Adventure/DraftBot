@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "creationguilde",
+			"commandDescription": "Créer une nouvelle guilde.",
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "Vous appartenez déjà à une guilde.",
 			"invalidName": "Les règles pour le nom de la guilde sont les suivantes:",
@@ -13,6 +15,8 @@
 			"createSuccess": "La guilde **{guildName}** a été créée !"
 		},
 		"en": {
+			"commandName": "guildcreate",
+			"commandDescription": "Create a new guild.",
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "You are already in a guild.",
 			"invalidName": "The rules for the guild's name are the followings:",

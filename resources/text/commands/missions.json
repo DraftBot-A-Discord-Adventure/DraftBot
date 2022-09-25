@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "missions",
+			"commandDescription": "Lister les missions d'un joueur.",
 			"title": "Missions de {pseudo}",
 			"campaign": "\uD83D\uDCD6 **Campagne ({current}/{max})**",
 			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
@@ -11,6 +13,8 @@
 			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
 		},
 		"en": {
+			"commandName": "missions",
+			"commandDescription": "List the missions of a player.",
 			"title": "Missions of {pseudo}",
 			"campaign": "\uD83D\uDCD6 **Campaign ({current}/{max})**",
 			"finishedCampaign": "\uD83D\uDCD6 **Campaign finished**",

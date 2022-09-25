@@ -1,10 +1,14 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "debloquer",
+			"commandDescription": "Débloquer un joueur bloqué (pour les administrateurs uniquement).",
 			"title": "Vous avez été débloqué",
 			"description": "Excusez nous de la gène occasionnée."
 		},
 		"en": {
+			"commandName": "unblock",
+			"commandDescription": "Unblock a player (admins only).",
 			"title": "You have been unblocked",
 			"description": "Sorry for the inconvenience."
 		}

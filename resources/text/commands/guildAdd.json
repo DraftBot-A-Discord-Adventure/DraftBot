@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "invitationguilde",
+			"commandDescription": "Recruter un nouveau membre dans votre guilde.",
 			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
 			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci.",
 			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
@@ -12,6 +14,8 @@
 			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} avant de pouvoir vous rejoindre !"
 		},
 		"en": {
+			"commandName": "guildinvite",
+			"commandDescription": "Invite a new member in your guild.",
 			"alreadyInAGuild": "The player you are inviting is already in a guild.",
 			"guildDestroy": "You can't join the guild because it has been deleted, or you have been kicked of it.",
 			"invitationTitle": "{pseudo}, you are invited to join a guild!",

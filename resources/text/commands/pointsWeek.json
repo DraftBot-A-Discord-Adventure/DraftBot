@@ -1,7 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"commandName": "pointsw",
+			"commandName": "donpointssemaine",
+			"commandDescription": "Donne ou retire des points hebdomadaire à un joueur (pour les administrateurs uniquement).",
 			"fullName": "points hebdomadaires",
 			"valueToEdit": "weeklyScore",
 			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueurs !",
@@ -20,6 +21,7 @@
 		},
 		"en": {
 			"commandName": "pointsw",
+			"commandDescription": "Give or remove weekly points to a player (admins only).",
 			"fullName": "weekly points",
 			"valueToEdit": "weeklyScore",
 			"title": "{pseudo}, you changed the week score of one or more players!",

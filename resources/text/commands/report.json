@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "rapport",
+			"commandDescription": "Obtenir un rapport sur la situation de votre personnage.",
 			"doEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
 			"doChoice": "{emoji} {choiceText}\n",
 			"doPossibility": ":newspaper: ** Journal de {pseudo} {result}** | {emoji}{event}{alte}",
@@ -27,6 +29,8 @@
 			"collectedPointsTitle": "Points récoltés :"
 		},
 		"en": {
+			"commandName": "report",
+			"commandDescription": "Get a report on your character's situation.",
 			"doEvent": ":newspaper: ** Journal of {pseudo} : ** {event}\n*-Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
 			"doChoice": "{emoji} {choiceText}\n",
 			"doPossibility": ":newspaper: ** Journal of {pseudo} {result}** | {emoji}{event}{alte}",

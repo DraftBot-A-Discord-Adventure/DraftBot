@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "bonusjournalierguilde",
+			"commandDescription": "Récupérer la récompense journalière de la guilde.",
 			"dmNotification": {
 				"title": "🏟️ Notification de guilde :",
 				"description": "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
@@ -21,6 +23,8 @@
 			"coolDown": "La récompense de guilde n'est disponible qu'une fois toutes les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Temps avant la prochaine récompense : {time}."
 		},
 		"en": {
+			"commandName": "guilddailybonus",
+			"commandDescription": "Get the guild's daily reward.",
 			"dmNotification": {
 				"title": "🏟️ Guild notification :",
 				"description": "On the server {serveur}, {pseudo} made a guilddaily."

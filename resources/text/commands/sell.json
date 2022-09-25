@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "vendre",
+			"commandDescription": "Vendre un équipement.",
 			"noItemToSell": "Vous n'avez malheureusement aucun objet dans votre réserve !",
 			"confirmSell": "Êtes-vous sûr de vouloir vous séparer de {item} pour **{money}** :moneybag: ?",
 			"sellCanceled": "La vente a bien été annulée !",
@@ -17,6 +19,8 @@
 			"sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
 		},
 		"en": {
+			"commandName": "sell",
+			"commandDescription": "Sell an equipment.",
 			"noItemToSell": "Unfortunately, you don't have any backup item in your inventory!",
 			"confirmSell": "Do you really want to leave {item} for **{money}** :moneybag:?",
 			"sellCanceled": "The transaction was canceled!",

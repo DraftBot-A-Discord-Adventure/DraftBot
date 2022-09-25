@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "nourrirfamillier",
+			"commandDescription": "Nourrir votre familier.",
 			"embedTitle": "{pseudo}, vous offrez de la nourriture à votre familier.",
 			"feedEmbedAuthor": "{pseudo}, choix :",
 			"feedEmbedDescription": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
@@ -22,6 +24,8 @@
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat..."
 		},
 		"en": {
+			"commandName": "petfeed",
+			"commandDescription": "Feed your pet.",
 			"embedTitle": "{pseudo}, you offer some food to your pet.",
 			"feedEmbedAuthor": "{pseudo}, choice:",
 			"feedEmbedDescription": "What type of food do you want to give to your pet?",

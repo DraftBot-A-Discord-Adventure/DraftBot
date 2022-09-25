@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "libererfamilier",
+			"commandDescription": "Libère votre familier.",
 			"successTitle": "{pseudo}, libération d'un familier",
 			"confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
 			"canceled": "Le familier n'a pas été libéré.",
@@ -13,6 +15,8 @@
 
 		},
 		"en": {
+			"commandName": "petfree",
+			"commandDescription": "Free your pet.",
 			"successTitle": "{pseudo}, free pet",
 			"confirmDesc": ":warning: Are you sure you want to free **{pet}**? It's not possible to undo after the action is done.",
 			"canceled": "The pet has not been freed.",

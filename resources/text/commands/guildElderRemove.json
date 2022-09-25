@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "supprimeraineguilde",
+			"commandDescription": "Démettre l'aîné de la guilde de ses fonctions.",
 			"elderRemoveTitle": "{pseudo}, voulez-vous retirer l'aîné de votre guilde ?",
 			"elderRemove": ":question: Si vous acceptez, le poste d'aîné sera vacant.",
 			"noElderToRemove": "Votre guide n'a pas d'aîné.",
@@ -9,6 +11,8 @@
 			"elderRemoveCancelled": "L'aîné ne sera pas supprimé."
 		},
 		"en": {
+			"commandName": "guildelderremove",
+			"commandDescription": "Demote the elder of the guild.",
 			"elderRemoveTitle": "{pseudo}, do you wish to remove the elder of your guid ?",
 			"elderRemove": "❓ If you accept, the elder's position will be free",
 			"noElderToRemove": "Your guild does not have an elder.",

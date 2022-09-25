@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "classement",
+			"commandDescription": "Affiche le classement des joueurs.",
 			"topTitle": ":trophy: Affichage du top{alltime?: de la semaine}{global?: du serveur} des places {start} à {end}",
 			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
@@ -13,6 +15,8 @@
 			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez."
 		},
 		"en": {
+			"commandName": "top",
+			"commandDescription": "Displays the ranking of the players.",
 			"topTitle": ":trophy: Display of {alltime?: weekly}{global?: server} top {start} to {end}",
 			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",

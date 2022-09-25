@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "quitterguilde",
+			"commandDescription": "Quitter votre guilde.",
 			"leaveTitle": "{pseudo}, confirmation :",
 			"leaveDesc": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
 			"leaveChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
@@ -13,6 +15,8 @@
 			"guildDestroy": "Il semblerait que vous ayez déjà quitté la guilde."
 		},
 		"en": {
+			"commandName": "guildleave",
+			"commandDescription": "Leave your guild.",
 			"leaveTitle": "{pseudo}, confirmation:",
 			"leaveDesc": ":question: Do you really want to quit the guild `{guildName}`?",
 			"leaveChiefDesc": ":question: Do you really want to **permanently destroy** the guild `{guildName}`?",

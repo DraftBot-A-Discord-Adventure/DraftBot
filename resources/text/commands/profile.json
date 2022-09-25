@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "profil",
+			"commandDescription": "Afficher le profil d'un joueur.",
 			"title": "{effect} | {pseudo} | Niveau {level}",
 			"information": {
 				"fieldName": "Informations :",
@@ -76,6 +78,8 @@
 			}
 		},
 		"en": {
+			"commandName": "profile",
+			"commandDescription": "Displays the profile of a player",
 			"title": "{effect} | {pseudo} | Level {level}",
 			"information": {
 				"fieldName": "Information:",

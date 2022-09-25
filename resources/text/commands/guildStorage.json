@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "entrepotguilde",
+			"commandDescription": "Affiche le contenu de l'entrepôt de guilde",
 			"embedTitle": "Entrepôt de la guilde {guild}",
 			"foodTitle": "{emote} {foodType}",
 			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
@@ -8,6 +10,8 @@
 			"fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en n'avez plus, vous pouvez en acheter dans le `guildshop`."
 		},
 		"en": {
+			"commandName": "guildstorage",
+			"commandDescription": "Displays the guild's storage content",
 			"embedTitle": "{guild}'s guild storage",
 			"foodTitle": "{emote} {foodType}",
 			"foodField": "**Stock** : {guildFood}/{maxFood}\n",

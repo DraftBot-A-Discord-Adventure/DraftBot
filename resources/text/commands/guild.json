@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"fr": {
+			"commandName": "guilde",
+			"commandDescription": "Affiche des informations sur une guilde.",
 			"noGuildException": "Aucune guilde n'a été trouvée.",
 			"title": "Guilde {guildName}",
 			"description": ":scroll: `{description}`",
@@ -12,6 +14,8 @@
 			"lvlMax": ":star: Niveau maximum atteint !"
 		},
 		"en": {
+			"commandName": "guild",
+			"commandDescription": "Displays information about a guild.",
 			"noGuildException": "No guild was found.",
 			"title": "Guild {guildName}",
 			"description": ":scroll: `{description}`",

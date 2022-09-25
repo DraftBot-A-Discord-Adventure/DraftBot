@@ -1,7 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"commandName": "points",
+			"commandName": "donpoints",
+			"commandDescription": "Donne ou retire des points à un joueur (pour les administrateurs uniquement).",
 			"fullName": "points",
 			"valueToEdit": "score",
 			"title": "{pseudo}, vous avez changé le score d'un ou plusieurs joueurs !",
@@ -20,6 +21,7 @@
 		},
 		"en": {
 			"commandName": "points",
+			"commandDescription": "Give or remove points to a player (admins only).",
 			"fullName": "points",
 			"valueToEdit": "score",
 			"title": "{pseudo}, you changed the score of one or more players!",
