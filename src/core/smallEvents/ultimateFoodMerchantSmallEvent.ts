@@ -36,7 +36,7 @@ function maxRarity(entity: Entity): number {
  * @param currentFoodLevel
  */
 function ultimateFoodsAmount(entity: Entity, currentFoodLevel: number): number {
-	return Math.min(Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel, 1);
+	return Math.max(Math.min(Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1);
 }
 
 /**
@@ -45,7 +45,7 @@ function ultimateFoodsAmount(entity: Entity, currentFoodLevel: number): number {
  * @param currentFoodLevel
  */
 function commonFoodAmount(entity: Entity, currentFoodLevel: number): number {
-	return Math.min(Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel, 1);
+	return Math.max(Math.min(Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel), 1);
 }
 
 /**
