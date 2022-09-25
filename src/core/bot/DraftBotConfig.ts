@@ -23,9 +23,6 @@ export interface DraftBotConfig {
 	DBL_TOKEN: string;
 	MODE_MAINTENANCE: boolean;
 	NASA_API_KEY: string;
-	ENABLED_BACKUPS: string;
-	BACKUP_ARCHIVE_PASSWORD: string;
-	DROPBOX_TOKEN: string;
 	TEST_MODE: boolean;
 	MARIADB_HOST: string;
 	MARIADB_USER: string;
@@ -41,7 +38,6 @@ export interface DraftBotConfig {
 export function loadConfig(): DraftBotConfig {
 	const config = parse(readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
 	return {
-		BACKUP_ARCHIVE_PASSWORD: config.backups.archive_password,
 		BADGE_MANAGER_ROLE: config.discord.roles.badge_manager_ids,
 		BOT_OWNER_ID: config.discord.users.owner_id,
 		CONSOLE_CHANNEL_ID: config.discord.channels.console_channel_id,
@@ -54,8 +50,6 @@ export function loadConfig(): DraftBotConfig {
 		DBL_WEBHOOK_URL: config.discord_bot_list.webhook_url,
 		DISCORD_CLIENT_TOKEN: config.discord.general.token,
 		DM_MANAGER_ID: config.discord.users.dm_manager_id,
-		DROPBOX_TOKEN: config.backups.dropbox_token,
-		ENABLED_BACKUPS: config.backups.enabled,
 		ENGLISH_ANNOUNCEMENT_CHANNEL_ID: config.discord.channels.english_announcements_channel_id,
 		ENGLISH_CHANNEL_ID: config.discord.channels.english_channel_id,
 		FRENCH_ANNOUNCEMENT_CHANNEL_ID: config.discord.channels.french_announcements_channel_id,

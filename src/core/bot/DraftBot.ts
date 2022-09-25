@@ -5,7 +5,6 @@ import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
 import {Client, TextChannel} from "discord.js";
-import {DraftBotBackup} from "../backup/DraftBotBackup";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
@@ -281,7 +280,6 @@ export class DraftBot {
 		}
 
 		if (this.isMainShard) { // Do this only if it's the main shard
-			await DraftBotBackup.init();
 			DraftBot.programTopWeekTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(

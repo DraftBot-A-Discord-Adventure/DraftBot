@@ -71,7 +71,7 @@ async function main(): Promise<void> {
 			partials: [Partials.Message, Partials.Channel],
 			rest: {
 				offset: 0,
-				timeout: Constants.MAX_TIME_BOT_RESPONSE // allows the senddata command to succeed
+				timeout: Constants.MAX_TIME_BOT_RESPONSE
 			}
 		}
 	);
