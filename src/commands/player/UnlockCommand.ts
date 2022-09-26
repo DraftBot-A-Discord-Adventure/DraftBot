@@ -15,6 +15,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {log} from "console";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -185,15 +186,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.unlock", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.unlock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to unlock")
 			.setRequired(false)

@@ -8,7 +8,6 @@ import InventorySlot from "../../core/database/game/models/InventorySlot";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {millisecondsToHours} from "../../core/utils/TimeUtils";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {DailyConstants} from "../../core/constants/DailyConstants";
@@ -16,6 +15,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import * as moment from "moment";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SwitchConstants} from "../../core/constants/SwitchConstants";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -194,15 +194,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.switch", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.switch", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		}),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		allowEffects: null,

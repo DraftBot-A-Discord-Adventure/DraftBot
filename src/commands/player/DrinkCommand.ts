@@ -15,6 +15,7 @@ import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -151,15 +152,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.drink", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.drink", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addBooleanOption(option => option.setName("force")
 			.setRequired(false)
 			.setDescription("If true, skips the validation phase if you are really sure you want to drink the potion")

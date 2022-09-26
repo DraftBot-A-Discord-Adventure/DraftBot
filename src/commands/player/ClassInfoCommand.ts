@@ -2,7 +2,6 @@ import Class, {Classes} from "../../core/database/game/models/Class";
 import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -10,6 +9,7 @@ import {Data} from "../../core/Data";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Add the field containing the available actions for the given class
@@ -87,15 +87,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.classInfo", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.classInfo", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		}),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.CLASS.REQUIRED_LEVEL,

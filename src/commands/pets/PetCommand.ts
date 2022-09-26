@@ -8,6 +8,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {draftBotClient} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Displays information about a pet
@@ -54,15 +55,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.pet", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.pet", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the pet")
 			.setRequired(false)

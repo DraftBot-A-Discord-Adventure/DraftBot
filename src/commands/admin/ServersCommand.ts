@@ -1,11 +1,11 @@
 import {ICommand} from "../ICommand";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Guild} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import * as fs from "fs";
 import {BotUtils} from "../../core/utils/BotUtils";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Allows an admin to check the server list
@@ -47,15 +47,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		}),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.BOT_OWNER

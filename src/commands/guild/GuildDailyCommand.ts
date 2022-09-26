@@ -1,5 +1,4 @@
 import {CommandInteraction} from "discord.js";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
@@ -21,6 +20,7 @@ import {GuildDailyConstants} from "../../core/constants/GuildDailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 type GuildLike = { guild: Guild, members: Entity[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -91,7 +91,7 @@ async function genericAwardingFunction(members: Entity[], awardingFunctionForAMe
 }
 
 /**
- * Generic function to award money to every members of a guild
+ * Generic function to award money to every member of a guild
  * @param guildLike
  * @param stringInfos
  * @param guildDailyModule
@@ -127,7 +127,7 @@ async function doesSomeoneNeedsHeal(guildLike: GuildLike): Promise<boolean> {
 }
 
 /**
- * Generic function to award a partial heal to every members of a guild
+ * Generic function to award a partial heal to every member of a guild
  * @param guildLike
  * @param stringInfos
  * @param guildDailyModule
@@ -281,7 +281,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 }
 
 /**
- * Generic function to award advance time to every members of a guild
+ * Generic function to award advance time to every member of a guild
  * @param guildLike
  * @param stringInfos
  * @param guildDailyModule
@@ -419,15 +419,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.guildDaily", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.guildDaily", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		}),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,

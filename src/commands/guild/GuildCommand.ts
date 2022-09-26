@@ -11,6 +11,7 @@ import {progressBar} from "../../core/utils/StringUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Allow to display the info of a guild
@@ -144,15 +145,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the guild")
 			.setRequired(false)

@@ -10,12 +10,12 @@ import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/ut
 import ObjectItem from "../../core/database/game/models/ObjectItem";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {draftBotInstance} from "../../core/bot";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 type EntityInformation = { entity: Entity, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -141,15 +141,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.daily", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.daily", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		}),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]

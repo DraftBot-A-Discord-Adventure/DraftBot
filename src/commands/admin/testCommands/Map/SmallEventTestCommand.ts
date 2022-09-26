@@ -21,7 +21,7 @@ export const commandInfo: ITestCommand = {
 };
 
 /**
- * Force an small event with a given event name
+ * Force a small event with a given event name
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command

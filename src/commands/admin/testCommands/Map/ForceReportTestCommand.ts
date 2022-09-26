@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
 };
 
 /**
- * Force an report with a given event id
+ * Force a report with a given event id
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
