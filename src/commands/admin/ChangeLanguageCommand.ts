@@ -1,7 +1,6 @@
 import {Servers} from "../../core/database/game/models/Server";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
@@ -32,7 +31,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.changeLanguage", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.changeLanguage", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations) as SlashCommandBuilder,
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.ADMINISTRATOR

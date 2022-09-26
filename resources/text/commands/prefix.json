@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "prefixe",
-			"commandDescription": "Affiche un message d'aide sur le changement de préfixe du bot."
+			"commandDescription": "Afficher un message d'aide sur le changement de préfixe du bot."
 		},
 		"en": {
 			"commandName": "prefix",

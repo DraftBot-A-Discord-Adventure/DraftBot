@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "classement",
-			"commandDescription": "Affiche le classement des joueurs.",
+			"commandDescription": "Afficher le classement des joueurs.",
 			"topTitle": ":trophy: Affichage du top{alltime?: de la semaine}{global?: du serveur} des places {start} à {end}",
 			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",

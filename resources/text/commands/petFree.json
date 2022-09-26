@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "libererfamilier",
-			"commandDescription": "Libère votre familier.",
+			"commandDescription": "Libérer votre familier.",
 			"successTitle": "{pseudo}, libération d'un familier",
 			"confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
 			"canceled": "Le familier n'a pas été libéré.",

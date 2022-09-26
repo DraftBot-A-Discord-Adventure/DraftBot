@@ -79,7 +79,7 @@
 		},
 		"en": {
 			"commandName": "profile",
-			"commandDescription": "Displays the profile of a player",
+			"commandDescription": "Displays the profile of a player.",
 			"title": "{effect} | {pseudo} | Level {level}",
 			"information": {
 				"fieldName": "Information:",
