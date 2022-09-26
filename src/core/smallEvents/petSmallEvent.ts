@@ -64,28 +64,11 @@ async function generatePetEmbed(
 type SectionType = { [key: string]: { minLevel: number, probabilityWeight: number } };
 
 /**
- * Sélectionne une interaction aléatoire avec un pet
- * @param player - le joueur
- * @param petEntity - le pet
- * @returns {string|null} - une interaction aléatoire
+ * Get total weight of interaction probabilities
+ * @param section
+ * @param level
  */
-function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
-	const petData = Data.getModule("smallEvents.pet");
-	// Clone with assign because we modify it after. We do not want to modify it for everyone
-	const section: SectionType = Object.assign({}, (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType);
-
-	// Filter if already have badge
-	if (player.badges && player.badges.includes(Constants.BADGES.PET_TAMER)) {
-		delete section["badge"];
-	}
-
-	// Filter if pet is already tamed
-	if (petEntity.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
-		delete section["gainLove"];
-	}
-
-	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
-
+function getRarityTotalWeight(section: SectionType, level: number): number {
 	let total = 0;
 	for (const key in section) {
 		if (Object.prototype.hasOwnProperty.call(section, key)) {
@@ -99,7 +82,16 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
 			}
 		}
 	}
+	return total;
+}
 
+/**
+ * Pick a random interaction key
+ * @param section
+ * @param level
+ * @param total
+ */
+function getRandomInteractionKey(section: SectionType, level: number, total: number): string {
 	const pickedNumber = RandomUtils.randInt(0, total);
 	let cumulative = 0;
 
@@ -121,7 +113,35 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
 			}
 		}
 	}
+
 	return null;
+}
+
+/**
+ * Sélectionne une interaction aléatoire avec un pet
+ * @param player - le joueur
+ * @param petEntity - le pet
+ * @returns {string|null} - une interaction aléatoire
+ */
+function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
+	const petData = Data.getModule("smallEvents.pet");
+	// Clone with assign because we modify it after. We do not want to modify it for everyone
+	const section: SectionType = Object.assign({}, (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType);
+
+	// Filter if already have badge
+	if (player.badges && player.badges.includes(Constants.BADGES.PET_TAMER)) {
+		delete section["badge"];
+	}
+
+	// Filter if pet is already tamed
+	if (petEntity.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
+		delete section["gainLove"];
+	}
+
+	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
+	const total = getRarityTotalWeight(section, level);
+
+	return getRandomInteractionKey(section, level, total);
 }
 
 /**
