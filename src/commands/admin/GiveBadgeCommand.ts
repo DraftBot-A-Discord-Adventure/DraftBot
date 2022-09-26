@@ -44,11 +44,23 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.giveBa
 const currentCommandEnglishTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to give a badge")
+		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(true))
-		.addStringOption(option => option.setName("badge")
-			.setDescription("The badge to give")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionBadgeName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionBadgeName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionBadgeDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionBadgeDescription")
+			})
 			.setRequired(true)
 			.addChoices(...getAllBadgesForOptions())) as SlashCommandBuilder,
 	executeCommand,

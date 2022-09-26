@@ -6,7 +6,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {Entities} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
+import {APIApplicationCommandOptionChoice, CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -80,6 +80,20 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 }
 
 /**
+ * Get a displayable choice from the item category
+ * @param categoryId
+ */
+function getChoiceFromItemType(categoryId: number) : APIApplicationCommandOptionChoice<number> {
+	return {
+		name: currentCommandEnglishTranslations.get("optionCategoryChoices")[categoryId],
+		"name_localizations": {
+			fr: currentCommandFrenchTranslations.get("optionCategoryChoices")[categoryId]
+		},
+		value: categoryId
+	};
+}
+
+/**
  * Allow the bot owner to give an item to somebody
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -121,23 +135,43 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.ENGLISH);
+
+
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addIntegerOption(option => option.setName("category")
-			.setDescription("the category of the item to give")
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
+		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionCategoryName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCategoryName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionCategoryDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCategoryDescription")
+			})
 			.setRequired(true)
 			.addChoices(
-				{ name: "Weapon", value: Constants.ITEM_CATEGORIES.WEAPON },
-				{ name: "Armor", value: Constants.ITEM_CATEGORIES.ARMOR },
-				{ name: "Potion", value: Constants.ITEM_CATEGORIES.POTION },
-				{ name: "Object", value: Constants.ITEM_CATEGORIES.OBJECT }
+				getChoiceFromItemType(Constants.ITEM_CATEGORIES.WEAPON),
+				getChoiceFromItemType(Constants.ITEM_CATEGORIES.ARMOR),
+				getChoiceFromItemType(Constants.ITEM_CATEGORIES.POTION),
+				getChoiceFromItemType(Constants.ITEM_CATEGORIES.OBJECT)
 			)
 		)
-		.addIntegerOption(option => option.setName("itemid")
-			.setDescription("The id of the item to give")
+		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionItemIdName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionItemIdName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionItemIdDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionItemIdDescription")
+			})
 			.setRequired(true))
-		.addStringOption(option => option.setName("users")
-			.setDescription("The users' ids affected by the command (example : 'id1 id2 id3')")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionUsersIdName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUsersIdName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUsersIdDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUsersIdDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

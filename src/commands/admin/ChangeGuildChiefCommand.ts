@@ -168,12 +168,24 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("guild")
-			.setDescription("The guild whose leader you want to change")
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionGuildName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionGuildDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildDescription")
+			})
 			.setRequired(true))
-		.addStringOption(option => option.setName("id")
-			.setDescription("The discord id of the user you want to promote")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionIdName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionIdName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionIdDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionIdDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
