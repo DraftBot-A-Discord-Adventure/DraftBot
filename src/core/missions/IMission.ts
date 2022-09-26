@@ -35,7 +35,7 @@ export type IMission = {
 	initialNumberDone(player: Player, variant: number): Promise<number>;
 
 	/**
-	 * Save data in the mission (for example the location the player has to travel to in a go to there mission)
+	 * Save data in the mission (for example the location the player has to travel to in a go there mission)
 	 * @param variant - the variant of the mission
 	 * @param saveBlob - the binary data to save
 	 * @param params - identical to the update of the mission

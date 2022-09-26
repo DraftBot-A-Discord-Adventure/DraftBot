@@ -180,7 +180,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * Manage the deny reaction
+	 * Manage the denied reaction
 	 * @param user
 	 * @private
 	 */
@@ -200,7 +200,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * Manage the accept reaction
+	 * Manage the accepted reaction
 	 * @param user
 	 * @private
 	 */
