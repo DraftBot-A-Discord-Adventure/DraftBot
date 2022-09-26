@@ -88,7 +88,7 @@
 						"réalise une {attack} !"
 					],
 					"maxUses": "tente d'utiliser une {attack}, mais cela échoue !",
-					"charging" : "se prépare à réaliser une {attack} !",
+					"charging": "se prépare à réaliser une {attack} !",
 					"missed": [
 						"réalise une {attack} ! On a vu mieux...",
 						"lance une {attack} ! Médiocre",

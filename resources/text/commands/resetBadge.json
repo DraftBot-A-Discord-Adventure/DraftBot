@@ -3,7 +3,7 @@
 		"fr": {
 			"commandName": "reinitialiserbadge",
 			"commandDescription": "Réinitialise le badge de l'utilisateur (pour les administrateurs uniquement).",
-			"optionUserName" : "utilisateur",
+			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
 			"resetSuccess": "{pseudo}, action effectuée !",
 			"descReset": "Les badges de {player} ont été réinitialisés."
@@ -11,7 +11,7 @@
 		"en": {
 			"commandName": "resetbadge",
 			"commandDescription": "Reset the user's badge (admin only).",
-			"optionUserName" : "user",
+			"optionUserName": "user",
 			"optionUserDescription": "The user concerned by the command.",
 			"resetSuccess": "{pseudo}, finished!",
 			"descReset": "{player}'s badges are now gone."

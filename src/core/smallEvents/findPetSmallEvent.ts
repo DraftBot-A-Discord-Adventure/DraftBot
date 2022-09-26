@@ -83,9 +83,7 @@ export const smallEvent: SmallEvent = {
 			do {
 				outRand = RandomUtils.randInt(0, storiesObject.length);
 			}
-			while (
-				storiesObject[outRand][Constants.PETS.IS_FOOD] && guild === null
-			);
+			while (storiesObject[outRand][Constants.PETS.IS_FOOD] && guild === null);
 			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);

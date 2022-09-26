@@ -3,9 +3,9 @@
 		"fr": {
 			"commandName": "envoyermp",
 			"commandDescription": "Envoyer un message privé à l'aide du bot (pour les administrateurs uniquement).",
-			"optionUserName" : "utilisateur",
+			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
-			"optionMessageName" : "message",
+			"optionMessageName": "message",
 			"optionMessageDescription": "Le message à envoyer.",
 			"descError": "Entrez l'id du joueur ainsi qu'un message après la commande svp",
 			"title": "✅ | DM envoyé à {pseudo} :",
@@ -16,9 +16,9 @@
 		"en": {
 			"commandName": "senddm",
 			"commandDescription": "Send a private message using the bot (admins only).",
-			"optionUserName" : "user",
+			"optionUserName": "user",
 			"optionUserDescription": "The user concerned by the command.",
-			"optionMessageName" : "message",
+			"optionMessageName": "message",
 			"optionMessageDescription": "The message to send.",
 			"descError": "Indicate the user id and a message after the command please",
 			"title": "✅ | DM sent to {pseudo}:",

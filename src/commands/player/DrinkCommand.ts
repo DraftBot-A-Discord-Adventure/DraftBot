@@ -152,7 +152,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.drink", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.drink", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addBooleanOption(option => option.setName("force")
 			.setRequired(false)
 			.setDescription("If true, skips the validation phase if you are really sure you want to drink the potion")

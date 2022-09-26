@@ -317,7 +317,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.petSell", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addIntegerOption(option => option.setName("price")
 			.setDescription("The price at which you want to sell your pet")
 			.setRequired(true)) as SlashCommandBuilder,

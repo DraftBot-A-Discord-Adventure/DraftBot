@@ -19,7 +19,7 @@ export class Tag extends Model {
 export class Tags {
 	static findTagsFromObject(idObject: number, model: string): Promise<Tag[]> {
 		const query = `SELECT *
-                       FROM ${botConfig.MARIADB_PREFIX}_game.tags
+					   FROM ${botConfig.MARIADB_PREFIX} _game.tags
                        WHERE idObject = :idObject
                          AND typeObject = :typeObject`;
 		return Tag.sequelize.query(query, {

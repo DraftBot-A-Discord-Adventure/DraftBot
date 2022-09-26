@@ -9,9 +9,15 @@
 	},
 	"campaignOnly": false,
 	"difficulties": {
-		"easy": [0],
-		"medium": [0],
-		"hard": [0]
+		"easy": [
+			0
+		],
+		"medium": [
+			0
+		],
+		"hard": [
+			0
+		]
 	},
 	"objectives": [
 		1

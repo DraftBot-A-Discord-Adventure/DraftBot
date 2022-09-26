@@ -1,15 +1,15 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Manchot",
-      "femaleName": "Manchot"
-    },
-    "en": {
-      "maleName": "Penguin",
-      "femaleName": "Penguin"
-    }
-  },
-  "emoteMale": "\uD83D\uDC27",
-  "emoteFemale": "\uD83D\uDC27",
-  "rarity": 4
+	"translations": {
+		"fr": {
+			"maleName": "Manchot",
+			"femaleName": "Manchot"
+		},
+		"en": {
+			"maleName": "Penguin",
+			"femaleName": "Penguin"
+		}
+	},
+	"emoteMale": "\uD83D\uDC27",
+	"emoteFemale": "\uD83D\uDC27",
+	"rarity": 4
 }
