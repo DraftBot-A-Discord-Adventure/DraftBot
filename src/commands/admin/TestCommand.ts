@@ -12,41 +12,53 @@ import {CommandsTest} from "../../core/CommandsTest";
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	// First, we test if we are in test mode
 	if (botConfig.TEST_MODE) {
-		// Second, we collect the test command entered
-		let testCommand = "list";
+		// Second, we collect the test commands entered
+		let testCommands: string[];
 		try {
-			testCommand = (interaction.options.get("testcommand").value as string).split(" ")[0];
+			testCommands = (interaction.options.get("testcommand").value as string).split(" && ");
 		}
-		catch { /* case no command given */
+		catch {
+			testCommands = ["list"];
 		}
-		let argsTest: string | string[] = [];
-		try {
-			argsTest = (interaction.options.get("testcommand").value as string).split(" ")
-				.slice(1);
-		}
-		catch { /* case no args given */
-		}
-		let commandTestCurrent;
-		try {
-			commandTestCurrent = CommandsTest.getTestCommand(testCommand);
-		}
-		catch (e) {
-			await interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
-			return;
-		}
-		// Third, we check if the test command has the good arguments
-		const testGoodFormat = CommandsTest.isGoodFormat(commandTestCurrent, argsTest, interaction);
-		if (testGoodFormat[0]) {
-			// Last, we execute the test command
-			await CommandsTest.executeAndAlertUser(language, interaction, commandTestCurrent, argsTest);
-		}
-		else {
+
+		for (let testCommand of testCommands) {
+			let argsTest: string[];
+			try {
+				argsTest = testCommand.split(" ").slice(1);
+			}
+			catch { /* case no args given */
+			}
+
+			testCommand = testCommand.split(" ")[0];
+
+			let commandTestCurrent;
+			try {
+				commandTestCurrent = CommandsTest.getTestCommand(testCommand);
+			}
+			catch (e) {
+				if (!interaction.replied) {
+					await interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
+					return;
+				}
+				await interaction.channel.send({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
+				return;
+			}
+
+			// Third, we check if the test command has the good arguments
+			const testGoodFormat = CommandsTest.isGoodFormat(commandTestCurrent, argsTest, interaction);
+			if (testGoodFormat[0]) {
+				// Last, we execute the test command
+				await CommandsTest.executeAndAlertUser(language, interaction, commandTestCurrent, argsTest);
+				continue;
+			}
+
 			try {
 				await interaction.reply({embeds: [testGoodFormat[1]]});
 			}
 			catch {
 				await interaction.followUp({embeds: [testGoodFormat[1]]});
 			}
+			return;
 		}
 	}
 }

@@ -125,7 +125,6 @@ export class CommandsTest {
 		testCommand: ITestCommand,
 		args: string[]): Promise<void> {
 		try {
-
 			const messageToDisplay = await testCommand.execute(language, interaction, args);
 			if (!messageToDisplay || messageToDisplay === "") {
 				return;
@@ -143,20 +142,20 @@ export class CommandsTest {
 			else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			if (testCommand.commandTestShouldReply) {
+
+			if (testCommand.commandTestShouldReply && !interaction.replied) {
 				await interaction.reply({embeds: [embedTestSuccessful]});
+				return;
 			}
-			else {
-				await interaction.channel.send({embeds: [embedTestSuccessful]});
-			}
+			await interaction.channel.send({embeds: [embedTestSuccessful]});
 		}
 		catch (e) {
 			console.error(e);
 			try {
-				await interaction.reply({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
+				await interaction.channel.send({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
 			}
 			catch (e2) {
-				await interaction.reply({
+				await interaction.channel.send({
 					content:
 						`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
 				});
