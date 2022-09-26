@@ -19,7 +19,9 @@ export class DraftBotShelterMessage extends DraftBotEmbed {
 	constructor(title: string, description: string, fields: EmbedField[]) {
 		super();
 		this.setTitle(title);
-		this.setDescription(description);
+		if (description !== "") {
+			this.setDescription(description);
+		}
 		this.addFields(fields);
 		this.setThumbnail(GuildConstants.ICON);
 	}
