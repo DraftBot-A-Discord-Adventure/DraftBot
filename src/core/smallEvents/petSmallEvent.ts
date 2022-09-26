@@ -16,6 +16,7 @@ import {getFoodIndexOf} from "../utils/FoodUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import Player from "../database/game/models/Player";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -64,12 +65,25 @@ type SectionType = { [key: string]: { minLevel: number, probabilityWeight: numbe
 
 /**
  * Sélectionne une interaction aléatoire avec un pet
+ * @param player - le joueur
  * @param petEntity - le pet
  * @returns {string|null} - une interaction aléatoire
  */
-function pickRandomInteraction(petEntity: PetEntity): string {
+function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
 	const petData = Data.getModule("smallEvents.pet");
-	const section: SectionType = (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType;
+	// Clone with assign because we modify it after. We do not want to modify it for everyone
+	const section: SectionType = Object.assign({}, (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType);
+
+	// Filter if already have badge
+	if (player.badges && player.badges.includes(Constants.BADGES.PET_TAMER)) {
+		delete section["badge"];
+	}
+
+	// Filter if pet is already tamed
+	if (petEntity.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
+		delete section["gainLove"];
+	}
+
 	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
 
 	let total = 0;
@@ -175,7 +189,7 @@ async function managePickedPetInteraction(
 	language: string,
 	pet: PetEntity
 ): Promise<{ interaction: string, amount: number, food: string }> {
-	let interaction = pickRandomInteraction(entity.Player.Pet);
+	let interaction = pickRandomInteraction(entity.Player, entity.Player.Pet);
 	let amount = 0;
 	let food = null;
 	const editValueChanges = {
