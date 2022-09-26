@@ -29,7 +29,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

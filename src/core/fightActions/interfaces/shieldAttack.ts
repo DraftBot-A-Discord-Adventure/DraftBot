@@ -27,7 +27,7 @@ export const fightActionInterface: IFightAction = {
 			});
 		}
 
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${ this.getAttackStatus(damageDealt, initialDamage)}`), {
+		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule("fightactions." + this.getName(), language)
 				.get("name")
 				.toLowerCase()

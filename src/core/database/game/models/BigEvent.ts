@@ -40,19 +40,18 @@ export class BigEvent extends Model {
 export class BigEvents {
 	static async pickEventOnMapType(map: MapLocation): Promise<BigEvent[]> {
 		const query = `SELECT events.*
-                       FROM events
-                                LEFT JOIN event_map_location_ids eml ON events.id = eml.eventId
-                       WHERE events.id > 0
-                         AND events.id < 9999
-                         AND (
-                               (events.restrictedMaps IS NOT NULL AND events.restrictedMaps LIKE :mapType) OR
-                               (events.restrictedMaps IS NULL AND
-                                ((eml.mapLocationId IS NOT NULL AND eml.mapLocationId = :mapId) OR
-                                 (SELECT COUNT(*)
-                                  FROM event_map_location_ids
-                                  WHERE event_map_location_ids.mapLocationId = eml.mapLocationId) = 0)))
-                       ORDER BY RAND()
-                       LIMIT 1;`;
+					   FROM events
+								LEFT JOIN event_map_location_ids eml ON events.id = eml.eventId
+					   WHERE events.id > 0
+						 AND events.id < 9999
+						 AND (
+							   (events.restrictedMaps IS NOT NULL AND events.restrictedMaps LIKE :mapType) OR
+							   (events.restrictedMaps IS NULL AND
+								((eml.mapLocationId IS NOT NULL AND eml.mapLocationId = :mapId) OR
+								 (SELECT COUNT(*)
+								  FROM event_map_location_ids
+								  WHERE event_map_location_ids.mapLocationId = eml.mapLocationId) = 0)))
+					   ORDER BY RAND() LIMIT 1;`;
 		return await MapLocation.sequelize.query(query, {
 			model: BigEvent,
 			replacements: {
@@ -65,9 +64,10 @@ export class BigEvents {
 
 	static getIdMaxEvents(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			readdir("resources/text/events/", (err, files) => {
-				err ? reject(err) : resolve(files.length);
-			}
+			readdir("resources/text/events/",
+				(err, files) => {
+					err ? reject(err) : resolve(files.length);
+				}
 			);
 		});
 	}

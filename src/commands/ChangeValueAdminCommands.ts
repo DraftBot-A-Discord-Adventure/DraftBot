@@ -38,8 +38,8 @@ export class ChangeValueAdminCommands {
 					.setDescription("Add / Set")
 					.setRequired(true)
 					.addChoices(
-						{ name: "Add", value: "add" },
-						{ name: "Set", value: "set" }
+						{name: "Add", value: "add"},
+						{name: "Set", value: "set"}
 					)
 				)
 				.addIntegerOption(option => option.setName("amount")

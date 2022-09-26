@@ -44,8 +44,7 @@ export class FightController {
 	 * @param receiver
 	 */
 	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action =>
-			action === FightConstants.ACTION_ID.BENEDICTION ||
+		return sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION ||
 				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
 			+ receiver.fightActionsHistory.filter(action =>
 				action === FightConstants.ACTION_ID.BENEDICTION ||

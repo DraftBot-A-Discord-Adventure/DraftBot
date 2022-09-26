@@ -202,7 +202,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addIntegerOption(option => option.setName("shelterposition")
 			.setDescription("The position of the pet in the shelter you want to switch with")
 			.setRequired(false)

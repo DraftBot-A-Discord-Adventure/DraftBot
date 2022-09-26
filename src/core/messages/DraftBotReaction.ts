@@ -17,9 +17,10 @@ export class DraftBotReaction {
 	 * @param callback Can be null to terminate the collector when the reaction is chosen
 	 * @param removeCallback Can be null to be ignored
 	 */
-	constructor(emote: string, callback: (msg: DraftBotReactionMessage,
-	reaction: MessageReaction, user: User) => void = null,
-	removeCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null
+	constructor(
+		emote: string,
+		callback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null,
+		removeCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null
 	) {
 		this._emote = emote;
 		this._callback = callback;

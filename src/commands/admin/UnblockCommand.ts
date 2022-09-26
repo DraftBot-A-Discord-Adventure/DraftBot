@@ -45,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName("discordid")
 			.setDescription("The discord id of the blocked user")
 			.setRequired(true)) as SlashCommandBuilder,

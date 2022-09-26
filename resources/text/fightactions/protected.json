@@ -1,14 +1,14 @@
 {
 	"translations": {
 		"fr": {
-			"inactive" : "n'est plus protégé.",
-			"new" : "est protégé. `Défense : + 30%`",
-			"active" : "est protégé."
+			"inactive": "n'est plus protégé.",
+			"new": "est protégé. `Défense : + 30%`",
+			"active": "est protégé."
 		},
 		"en": {
-			"inactive" : "is no longer protected.",
-			"new" : "is protected. `Defense : + 30%`",
-			"active" : "is protected."
+			"inactive": "is no longer protected.",
+			"new": "is protected. `Defense : + 30%`",
+			"active": "is protected."
 		}
 	},
 	"emote": "\uD83D\uDC9E",

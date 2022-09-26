@@ -129,19 +129,20 @@ const sellOrKeepItem = async function(
 	}
 	const trSell = Translations.getModule("commands.sell", language);
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
-		await channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "potionDestroyedTitle"), discordUser)
-					.setDescription(
-						format(trSell.get("potionDestroyedMessage"),
-							{
-								item: item.getName(language),
-								frenchMasculine: item.frenchMasculine
-							}
-						)
-					)]
-		}
+		await channel.send(
+			{
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(trSell.get(autoSell ? "soldMessageAlreadyOwnTitle" : "potionDestroyedTitle"), discordUser)
+						.setDescription(
+							format(trSell.get("potionDestroyedMessage"),
+								{
+									item: item.getName(language),
+									frenchMasculine: item.frenchMasculine
+								}
+							)
+						)]
+			}
 		);
 		return;
 	}

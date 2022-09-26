@@ -49,10 +49,27 @@
 			}
 		}
 	},
-	"rewardType": ["xp","money","guildXp","points"],
-	"emojiLottery": ["\uD83E\uDE99", "\uD83D\uDCB5", "\uD83D\uDCB0"],
-	"successRate": {"\uD83E\uDE99":0.8,"\uD83D\uDCB5":0.5,"\uD83D\uDCB0": 0.2},
-	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":3,"\uD83D\uDCB0": 10},
+	"rewardType": [
+		"xp",
+		"money",
+		"guildXp",
+		"points"
+	],
+	"emojiLottery": [
+		"\uD83E\uDE99",
+		"\uD83D\uDCB5",
+		"\uD83D\uDCB0"
+	],
+	"successRate": {
+		"\uD83E\uDE99": 0.8,
+		"\uD83D\uDCB5": 0.5,
+		"\uD83D\uDCB0": 0.2
+	},
+	"coeff": {
+		"\uD83E\uDE99": 1,
+		"\uD83D\uDCB5": 3,
+		"\uD83D\uDCB0": 10
+	},
 	"lostTime": 10,
 	"rarity": 3,
 	"emote": ":slot_machine:"
