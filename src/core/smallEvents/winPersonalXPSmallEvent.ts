@@ -46,6 +46,6 @@ export const smallEvent: SmallEvent = {
 		});
 		await entity.Player.save();
 		await entity.save();
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

@@ -63,7 +63,7 @@ export const smallEvent: SmallEvent = {
 			});
 			break;
 		}
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 		await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 		await entity.save();

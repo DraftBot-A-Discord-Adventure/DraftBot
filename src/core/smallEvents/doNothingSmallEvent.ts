@@ -24,6 +24,6 @@ export const smallEvent: SmallEvent = {
 		seEmbed.setDescription(
 			Data.getModule("smallEvents.doNothing").getString("emote") +
 			Translations.getModule("smallEvents.doNothing", language).getRandom("stories"));
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

@@ -32,13 +32,13 @@ export const smallEvent: SmallEvent = {
 		if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 			// hasn't voted
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 
 		}
 		else if (RandomUtils.draftbotRandom.bool()) {
 			// item win
 			seEmbed.setDescription(`${base + tr.get("itemWin")}\n\n${tr.get("thanksFooter")}`);
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 			await giveRandomItem(interaction.user, interaction.channel, language, entity);
 		}
 		else {
@@ -52,7 +52,7 @@ export const smallEvent: SmallEvent = {
 				reason: NumberChangeReason.SMALL_EVENT
 			});
 			seEmbed.setDescription(`${base + format(tr.get("moneyWin"), {money: moneyWon})}\n\n${tr.get("thanksFooter")}`);
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 		}
 		await entity.Player.save();
 	}

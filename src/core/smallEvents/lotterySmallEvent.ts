@@ -35,7 +35,7 @@ export const smallEvent: SmallEvent = {
 		seEmbed.setDescription(seEmbed.data.description + translationLottery.get("intro"));
 
 		const player = entity.Player;
-		const lotteryIntro = await interaction.reply({embeds: [seEmbed], fetchReply: true}) as Message;
+		const lotteryIntro = await interaction.editReply({embeds: [seEmbed]}) as Message;
 		const dataLottery = Data.getModule("smallEvents.lottery");
 		const emojiLottery = dataLottery.getStringArray("emojiLottery");
 

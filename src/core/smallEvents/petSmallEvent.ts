@@ -311,7 +311,7 @@ export const smallEvent: SmallEvent = {
 		const pet = entity.Player.Pet;
 		const {interaction, amount, food} = await managePickedPetInteraction(entity, interactionCommand, language, pet);
 		await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
-		await interactionCommand.reply({embeds: [seEmbed]});
+		await interactionCommand.editReply({embeds: [seEmbed]});
 		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, entity, food);
 	}
 };
