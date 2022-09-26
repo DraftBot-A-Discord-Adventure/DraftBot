@@ -171,8 +171,8 @@ export class LogsDatabase extends Database {
 	}
 
 	private static async logPetTradeTransaction(firstPet: PetEntity, secondPet: PetEntity, transaction: Transaction): Promise<void> {
-		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet, transaction);
-		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet, transaction);
+		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet);
+		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet);
 		await LogsPetsTrades.create({
 			firstPetId: firstLogPetEntity.id,
 			secondPetId: secondLogPetEntity.id,
@@ -181,7 +181,7 @@ export class LogsDatabase extends Database {
 	}
 
 	private static async logPetFreeTransaction(freedPet: PetEntity, transaction: Transaction): Promise<void> {
-		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(freedPet, transaction);
+		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(freedPet);
 		await LogsPetsFrees.create({
 			petId: logPetEntity.id,
 			date: LogsDatabase.getDate()
@@ -189,9 +189,9 @@ export class LogsDatabase extends Database {
 	}
 
 	private static async logPetSellTransaction(soldPet: PetEntity, sellerId: string, buyerId: string, price: number, transaction: Transaction): Promise<void> {
-		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(soldPet, transaction);
-		const seller = await LogsDatabase.findOrCreatePlayer(sellerId, transaction);
-		const buyer = await LogsDatabase.findOrCreatePlayer(buyerId, transaction);
+		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(soldPet);
+		const seller = await LogsDatabase.findOrCreatePlayer(sellerId);
+		const buyer = await LogsDatabase.findOrCreatePlayer(buyerId);
 		await LogsPetsSells.create({
 			petId: logPetEntity.id,
 			sellerId: seller.id,
@@ -201,26 +201,24 @@ export class LogsDatabase extends Database {
 		}, {transaction});
 	}
 
-	private static async findOrCreatePlayer(discordId: string, transaction: Transaction): Promise<LogsPlayers> {
+	private static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
 			where: {
 				discordId
-			},
-			transaction
+			}
 		}))[0];
 	}
 
-	private static async findOrCreatePetEntity(petEntity: PetEntity, transaction: Transaction): Promise<LogsPetEntities> {
+	private static async findOrCreatePetEntity(petEntity: PetEntity): Promise<LogsPetEntities> {
 		return (await LogsPetEntities.findOrCreate({
 			where: {
 				gameId: petEntity.id,
 				creationTimestamp: Math.floor(petEntity.creationDate.valueOf() / 1000.0)
-			},
-			transaction
+			}
 		}))[0];
 	}
 
-	private static async findOrCreateGuild(guild: Guild | GuildLikeType, transaction: Transaction): Promise<LogsGuilds> {
+	private static async findOrCreateGuild(guild: Guild | GuildLikeType): Promise<LogsGuilds> {
 		return (await LogsGuilds.findOrCreate({
 			where: {
 				gameId: guild.id,
@@ -228,14 +226,13 @@ export class LogsDatabase extends Database {
 			},
 			defaults: {
 				name: guild.name
-			},
-			transaction
+			}
 		}))[0];
 	}
 
 	private static async logGuildLeaveTransaction(guild: Guild | GuildLikeType, leftDiscordId: string, transaction: Transaction): Promise<void> {
-		const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
-		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId, transaction);
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
 		await LogsGuildsLeaves.create({
 			guildId: logGuild.id,
 			leftPlayer: leftPlayer.id,
@@ -270,18 +267,16 @@ export class LogsDatabase extends Database {
 	public logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: serverId
-					},
-					transaction
+					}
 				});
 				const [command] = await LogsCommands.findOrCreate({
 					where: {
 						commandName
-					},
-					transaction
+					}
 				});
 				await LogsPlayersCommands.create({
 					playerId: player.id,
@@ -298,12 +293,11 @@ export class LogsDatabase extends Database {
 	public logSmallEvent(discordId: string, name: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const [smallEvent] = await LogsSmallEvents.findOrCreate({
 					where: {
 						name
-					},
-					transaction
+					}
 				});
 				await LogsPlayersSmallEvents.create({
 					playerId: player.id,
@@ -319,14 +313,13 @@ export class LogsDatabase extends Database {
 	public logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const [possibility] = await LogsPossibilities.findOrCreate({
 					where: {
 						bigEventId: eventId,
 						emote: possibilityEmote === "end" ? null : possibilityEmote,
 						issueIndex
-					},
-					transaction
+					}
 				});
 				await LogsPlayersPossibilities.create({
 					playerId: player.id,
@@ -343,7 +336,7 @@ export class LogsDatabase extends Database {
 	public logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				switch (alteration) {
 				case EffectsConstants.EMOJI_TEXT.OCCUPIED:
 					await LogsPlayersOccupiedAlterations.create({
@@ -351,7 +344,7 @@ export class LogsDatabase extends Database {
 						duration: duration,
 						reason: reason,
 						date: LogsDatabase.getDate()
-					}, {transaction});
+					});
 					break;
 				default:
 					await LogsPlayersStandardAlterations.create({
@@ -359,8 +352,7 @@ export class LogsDatabase extends Database {
 						alterationId: (await LogsAlterations.findOrCreate({
 							where: {
 								alteration: alteration
-							},
-							transaction
+							}
 						}))[0].id,
 						reason,
 						date: LogsDatabase.getDate()
@@ -378,14 +370,12 @@ export class LogsDatabase extends Database {
 				const [buyer] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: buyerDiscordId
-					},
-					transaction
+					}
 				});
 				const [released] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId: releasedDiscordId
-					},
-					transaction
+					}
 				});
 				await LogsUnlocks.create({
 					buyerId: buyer.id,
@@ -434,8 +424,7 @@ export class LogsDatabase extends Database {
 						name: missionId,
 						variant,
 						objective
-					},
-					transaction
+					}
 				});
 				await LogsMissionsDaily.create({
 					missionId: mission.id,
@@ -453,8 +442,7 @@ export class LogsDatabase extends Database {
 				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: discordId
-					},
-					transaction
+					}
 				});
 				await LogsServersJoins.create({
 					serverId: server.id,
@@ -472,8 +460,7 @@ export class LogsDatabase extends Database {
 				const [server] = await LogsServers.findOrCreate({
 					where: {
 						discordId: discordId
-					},
-					transaction
+					}
 				});
 				await LogsServersQuits.create({
 					serverId: server.id,
@@ -488,13 +475,12 @@ export class LogsDatabase extends Database {
 	public logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const [maplinkLog] = await LogsMapLinks.findOrCreate({
 					where: {
 						start: mapLink.startMap,
 						end: mapLink.endMap
-					},
-					transaction
+					}
 				});
 				await LogsPlayersTravels.create({
 					playerId: player.id,
@@ -513,7 +499,7 @@ export class LogsDatabase extends Database {
 				const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
 				const now = LogsDatabase.getDate();
 				for (let i = 0; i < entities.length; i++) {
-					const player = await LogsDatabase.findOrCreatePlayer(entities[0].discordUserId, transaction);
+					const player = await LogsDatabase.findOrCreatePlayer(entities[0].discordUserId);
 					await LogsPlayers15BestTopweek.create({
 						playerId: player.id,
 						position: i + 1,
@@ -554,7 +540,7 @@ export class LogsDatabase extends Database {
 		}
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsPlayersTimewarps.create({
 					playerId: player.id,
 					time,
@@ -591,7 +577,7 @@ export class LogsDatabase extends Database {
 	public logPetNickname(petRenamed: PetEntity): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const pet = await LogsDatabase.findOrCreatePetEntity(petRenamed, transaction);
+				const pet = await LogsDatabase.findOrCreatePetEntity(petRenamed);
 				await LogsPetsNicknames.create({
 					petId: pet.id,
 					name: petRenamed.nickname,
@@ -619,8 +605,8 @@ export class LogsDatabase extends Database {
 	public logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
-				const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId, transaction);
+				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+				const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId);
 				await LogsGuildsKicks.create({
 					guildId: logGuild.id,
 					kickedPlayer: kickedPlayer.id,
@@ -635,7 +621,7 @@ export class LogsDatabase extends Database {
 	public logClassicalShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsClassicalShopBuyouts.create({
 					playerId: logPlayer.id,
 					shopItem,
@@ -650,7 +636,7 @@ export class LogsDatabase extends Database {
 	public logGuildShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsGuildShopBuyouts.create({
 					playerId: logPlayer.id,
 					shopItem,
@@ -667,7 +653,7 @@ export class LogsDatabase extends Database {
 		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés avec les items du shop de guilde, décalés de 6
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsGuildShopBuyouts.create({
 					playerId: logPlayer.id,
 					shopItem,
@@ -708,7 +694,7 @@ export class LogsDatabase extends Database {
 	public logMissionShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsMissionShopBuyouts.create({
 					playerId: logPlayer.id,
 					shopItem,
@@ -723,7 +709,7 @@ export class LogsDatabase extends Database {
 	public logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 				const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
 				await LogsGuildsDailies.create({
 					guildId: logGuild.id,
@@ -749,8 +735,8 @@ export class LogsDatabase extends Database {
 	public logPetTransfer(guildPet: PetEntity, playerPet: PetEntity): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuildPet = guildPet ? await LogsDatabase.findOrCreatePetEntity(guildPet, transaction) : null;
-				const logPlayerPet = playerPet ? await LogsDatabase.findOrCreatePetEntity(playerPet, transaction) : null;
+				const logGuildPet = guildPet ? await LogsDatabase.findOrCreatePetEntity(guildPet) : null;
+				const logPlayerPet = playerPet ? await LogsDatabase.findOrCreatePetEntity(playerPet) : null;
 				await LogsPetsTransfers.create({
 					playerPetId: logPlayerPet ? logPlayerPet.id : null,
 					guildPetId: logGuildPet ? logGuildPet.id : null,
@@ -770,7 +756,7 @@ export class LogsDatabase extends Database {
 			chiefId: guild.chiefId,
 			guildPets: guild.GuildPets
 		};
-		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos, null);
+		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				for (const member of await Entities.getByGuild(guildInfos.id)) {
@@ -794,12 +780,11 @@ export class LogsDatabase extends Database {
 	public logGuildElderRemove(guild: Guild, removedPlayerId: number): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsEldersRemoves.create({
 					guildId: logGuild.id,
 					removedElder: (await LogsDatabase.findOrCreatePlayer(
-						(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId,
-						transaction
+						(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId
 					)).id,
 					date: LogsDatabase.getDate()
 				}, {transaction});
@@ -810,10 +795,9 @@ export class LogsDatabase extends Database {
 	}
 
 	public async logGuildChiefChange(guild: Guild, newChiefId: number): Promise<void> {
-		const logGuild = await LogsDatabase.findOrCreateGuild(guild, null);
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer(
-			(await (await Player.findOne({where: {id: newChiefId}})).getEntity()).discordUserId,
-			null
+			(await (await Player.findOne({where: {id: newChiefId}})).getEntity()).discordUserId
 		)).id;
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
@@ -851,8 +835,8 @@ export class LogsDatabase extends Database {
 	public logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId, transaction);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsCreations.create({
 					guildId: guildInstance.id,
 					creatorId: creator.id,
@@ -867,9 +851,9 @@ export class LogsDatabase extends Database {
 	public logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId, transaction);
-				const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId, transaction);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId);
+				const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsJoins.create({
 					guildId: guildInstance.id,
 					adderId: adder.id,
@@ -886,9 +870,9 @@ export class LogsDatabase extends Database {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const player1 = fight.fightInitiator;
-				const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.entity.discordUserId, transaction)).id;
+				const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.entity.discordUserId)).id;
 				const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
-				const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.entity.discordUserId, transaction)).id;
+				const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.entity.discordUserId)).id;
 				const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
 				const fightResult = await LogsFightsResults.create({
 					player1Id: player1Id,
@@ -909,8 +893,7 @@ export class LogsDatabase extends Database {
 						const [fightAction] = await LogsFightsActions.findOrCreate({
 							where: {
 								name: action
-							},
-							transaction
+							}
 						});
 						await LogsFightsActionsUsed.create({
 							fightId: fightResult.id,
@@ -929,7 +912,7 @@ export class LogsDatabase extends Database {
 	public logGuildExperienceChange(guild: Guild, reason: NumberChangeReason): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsExperiences.create({
 					guildId: guildInstance.id,
 					experience: guild.experience,
@@ -945,8 +928,8 @@ export class LogsDatabase extends Database {
 	public logGuildDescriptionChange(discordId: string, guild: Guild): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsDescriptionChanges.create({
 					guildId: guildInstance.id,
 					playerId: player.id,
@@ -962,7 +945,7 @@ export class LogsDatabase extends Database {
 	public logPetLoveChange(petEntity: PetEntity, reason: NumberChangeReason): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
+				const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity);
 				await LogsPetsLovesChanges.create({
 					petId: logPet.id,
 					lovePoints: petEntity.lovePoints,
@@ -978,7 +961,7 @@ export class LogsDatabase extends Database {
 	public logGuildsFoodChanges(guild: Guild, food: number, total: number, reason: NumberChangeReason): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsFoodsChanges.create({
 					guildId: guildInstance.id,
 					food,
@@ -995,8 +978,8 @@ export class LogsDatabase extends Database {
 	public logGuildNewPet(guild: Guild, petEntity: PetEntity): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsNewPets.create({
 					guildId: guildInstance.id,
 					petId: petEntityInstance.id,
@@ -1011,8 +994,8 @@ export class LogsDatabase extends Database {
 	public logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity, transaction);
-				const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
+				const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId);
 				await LogsPlayersNewPets.create({
 					playerId: playerInstance.id,
 					petId: petEntityInstance.id,
@@ -1037,8 +1020,8 @@ export class LogsDatabase extends Database {
 	public logGuildElderAdd(guild: Guild, addedPlayerId: string): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild, transaction);
-				const player = await LogsDatabase.findOrCreatePlayer(addedPlayerId, transaction);
+				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+				const player = await LogsDatabase.findOrCreatePlayer(addedPlayerId);
 				await LogsGuildsEldersAdds.create({
 					guildId: logGuild.id,
 					addedElder: player.id,
@@ -1053,7 +1036,7 @@ export class LogsDatabase extends Database {
 	public logGuildLevelUp(guild: Guild): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild, transaction);
+				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 				await LogsGuildsLevels.create({
 					guildId: guildInstance.id,
 					level: guild.level,
@@ -1072,7 +1055,7 @@ export class LogsDatabase extends Database {
 	private logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const values: { [key: string]: string | number } = {
 					playerId: player.id,
 					date: LogsDatabase.getDate()
@@ -1088,7 +1071,7 @@ export class LogsDatabase extends Database {
 	private logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				await model.create({
 					playerId: player.id,
 					date: LogsDatabase.getDate()
@@ -1102,14 +1085,13 @@ export class LogsDatabase extends Database {
 	private logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				const [mission] = await LogsMissions.findOrCreate({
 					where: {
 						name: missionId,
 						variant,
 						objective
-					},
-					transaction
+					}
 				});
 				await model.create({
 					playerId: player.id,
@@ -1125,7 +1107,7 @@ export class LogsDatabase extends Database {
 	private logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId, transaction);
+				const player = await LogsDatabase.findOrCreatePlayer(discordId);
 				await model.create({
 					playerId: player.id,
 					value,
@@ -1144,8 +1126,7 @@ export class LogsDatabase extends Database {
 				const [player] = await LogsPlayers.findOrCreate({
 					where: {
 						discordId
-					},
-					transaction
+					}
 				});
 				await model.create({
 					playerId: player.id,
