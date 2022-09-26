@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 };
 
 /**
- * Give you informations about the map you are on
+ * Give you information about the map you are on
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  * @return {String} - The successful message formatted
