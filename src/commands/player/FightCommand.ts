@@ -137,7 +137,7 @@ function getAcceptCallback(
 ): (user: User) => Promise<boolean> {
 	return async function(user: User): Promise<boolean> {
 		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
-		const attackerFightErrorStatus = await canFight(incomingFighterEntity, friendly);
+		const attackerFightErrorStatus = await canFight(incomingFighterEntity, true);
 		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
 			return false;
 		}
@@ -175,8 +175,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * @param entity
  * @param friendly true if the fight is friendly
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = true): Promise<void> {
-// TODO remplace friendly = true by false when implemented
+async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
 	const askingFighter = new Fighter(interaction.user, entity, await Classes.getById(entity.Player.class));
 	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
@@ -185,14 +184,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	const attackerFightErrorStatus = await canFight(entity, friendly);
+	const attackerFightErrorStatus = await canFight(entity, true);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
 	let askedFighter: Fighter | null;
 	if (askedEntity) {
-		const defenderFightErrorStatus = await canFight(askedEntity, friendly);
+		const defenderFightErrorStatus = await canFight(askedEntity, true);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;
