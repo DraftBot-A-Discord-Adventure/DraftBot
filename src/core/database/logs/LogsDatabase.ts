@@ -650,7 +650,7 @@ export class LogsDatabase extends Database {
 	}
 
 	public logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number): Promise<void> {
-		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés avec les items du shop de guilde, décalés de 6
+		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés sur les items du shop de guilde, c'est-à-dire décalés de 6.
 		return new Promise((resolve) => {
 			this.sequelize.transaction().then(async (transaction) => {
 				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);

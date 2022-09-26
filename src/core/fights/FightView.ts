@@ -157,7 +157,7 @@ export class FightView {
 			await lastMessage.edit({content: messageToSend});
 		}
 		else {
-			// An history already exists, just append the new action
+			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
 	}

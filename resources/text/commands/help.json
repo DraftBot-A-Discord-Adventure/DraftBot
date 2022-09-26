@@ -237,7 +237,7 @@
 			"commands": {
 				"PREFIX": {
 					"usage": "prefix",
-					"description": "This feature was removed from the bot after an updates to discord's features."
+					"description": "This feature was removed from the bot after an update to discord's features."
 				},
 				"PING": {
 					"usage": "ping",
