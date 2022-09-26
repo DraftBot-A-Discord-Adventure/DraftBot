@@ -88,7 +88,7 @@ export class PetEntity extends Model {
 		const loveLevel = this.getLoveLevelNumber();
 		let loveLevelText;
 		if (loveLevel === Constants.PETS.LOVE_LEVEL.FEISTY) {
-			loveLevelText = language === "fr" ? format(translations.get("loveLevels.0"), {
+			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.0"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "se" : "x"
 			}) : translations.get("loveLevels.0");
 		}
@@ -96,17 +96,17 @@ export class PetEntity extends Model {
 			loveLevelText = translations.get("loveLevels.1");
 		}
 		else if (loveLevel === Constants.PETS.LOVE_LEVEL.FEARFUL) {
-			loveLevelText = language === "fr" ? format(translations.get("loveLevels.2"), {
+			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.2"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ve" : "f"
 			}) : translations.get("loveLevels.2");
 		}
 		else if (loveLevel === Constants.PETS.LOVE_LEVEL.TAMED) {
-			loveLevelText = language === "fr" ? format(translations.get("loveLevels.3"), {
+			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.3"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
 			}) : translations.get("loveLevels.3");
 		}
 		else if (loveLevel === Constants.PETS.LOVE_LEVEL.TRAINED) {
-			loveLevelText = language === "fr" ? format(translations.get("loveLevels.4"), {
+			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.4"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
 			}) : translations.get("loveLevels.4");
 		}
