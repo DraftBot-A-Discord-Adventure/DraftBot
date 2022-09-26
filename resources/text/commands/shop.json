@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "magasin",
-			"commandDescription": "Affiche le magasin.",
+			"commandDescription": "Afficher le magasin.",
 			"title": "Affichage du Magasin",
 			"dailyItem": "Potion du jour",
 			"permanentItem": "Ventes permanentes",
@@ -59,7 +59,7 @@
 				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
 			},
 			"multipleChoice": {
-				"warning": "Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
+				"warning": "Choisissez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
 				"display": "{emote} **{name}**",
 				"priceDisplay": " | `{price}\uD83D\uDCB0`"
 			},

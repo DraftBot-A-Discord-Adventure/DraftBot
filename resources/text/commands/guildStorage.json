@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "entrepotguilde",
-			"commandDescription": "Affiche le contenu de l'entrepôt de guilde",
+			"commandDescription": "Affiche le contenu de l'entrepôt de guilde.",
 			"embedTitle": "Entrepôt de la guilde {guild}",
 			"foodTitle": "{emote} {foodType}",
 			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
@@ -11,7 +11,7 @@
 		},
 		"en": {
 			"commandName": "guildstorage",
-			"commandDescription": "Displays the guild's storage content",
+			"commandDescription": "Displays the guild's storage content.",
 			"embedTitle": "{guild}'s guild storage",
 			"foodTitle": "{emote} {foodType}",
 			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
