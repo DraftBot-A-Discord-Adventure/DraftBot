@@ -1,10 +1,10 @@
 import {CommandInteraction} from "discord.js";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
-import {Translations} from "../../../../core/Translations";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandsManager} from "../../../CommandsManager";
+import {Data} from "../../../../core/Data";
 
 let stringDesc: string = null;
 
@@ -28,7 +28,7 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const smallEventTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const smallEventsModules = Translations.getSubModules();
+	const smallEventsModules = Data.getKeys("smallEvents");
 	if (stringDesc === null) {
 		stringDesc = "Force un type de mini event parmis ceux-ci :\n";
 		smallEventsModules.forEach(seName => {
