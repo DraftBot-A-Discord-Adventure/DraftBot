@@ -3,12 +3,16 @@
 		"fr": {
 			"commandName": "envoyerlogs",
 			"commandDescription": "Récupérer un fichier de logs ou la liste des fichiers de logs (pour les contributeurs uniquement).",
+			"optionFileName" : "fichier",
+			"optionFileDescription": "Nom du fichier de logs à charger.",
 			"noLogFile": "Aucun fichier log n'existe avec ce nom ! Vous pouvez faire `sendlogs list` pour avoir la liste.",
 			"localFileInclusion": "Tentative d'inclusion de fichier local..."
 		},
 		"en": {
 			"commandName": "sendlogs",
 			"commandDescription": "Get a log file or the list of log files (contributors only).",
+			"optionFileName" : "file",
+			"optionFileDescription": "Name of the log file to load.",
 			"noLogFile": "No log file exists with this name ! You can execute `sendlogs list` to get the list.",
 			"localFileInclusion": "Tried to include local file..."
 		}
