@@ -32,9 +32,10 @@ export class Weapon extends MainItemModel {
 export class Weapons {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/weapons/", (err, files) => {
-				err ? reject(err) : resolve(files.length - 1);
-			}
+			fs.readdir("resources/text/weapons/",
+				(err, files) => {
+					err ? reject(err) : resolve(files.length - 1);
+				}
 			);
 		});
 	}
@@ -49,7 +50,7 @@ export class Weapons {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.MARIADB_PREFIX}_game.weapons
+					   FROM ${botConfig.MARIADB_PREFIX} _game.weapons
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Weapon.sequelize.query(query, {
 			replacements: {

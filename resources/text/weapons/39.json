@@ -6,9 +6,9 @@
 	"emote": ":crossed_swords:",
 	"rarity": 5,
 	"rawAttack": 10,
-	"attack" : 10,
-	"defense" : 30,
-	"speed" : -50,
+	"attack": 10,
+	"defense": 30,
+	"speed": -50,
 	"frenchMasculine": 0,
 	"frenchPlural": 1
 }

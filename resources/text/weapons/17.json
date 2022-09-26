@@ -6,7 +6,7 @@
 	"emote": ":wrench:",
 	"rarity": 3,
 	"rawAttack": 5,
-	"speed" :-10,
+	"speed": -10,
 	"frenchMasculine": 0,
 	"frenchPlural": 0
 }

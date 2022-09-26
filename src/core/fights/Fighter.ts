@@ -158,16 +158,18 @@ export class Fighter {
 	 */
 	public async getStringDisplay(fightTranslationModule: TranslationModule): Promise<string> {
 
-		return fightTranslationModule.format(fighterStatusTranslation[this.status], {
-			pseudo: await this.entity.Player.getPseudo(fightTranslationModule.language),
-			charging: "" // TODO : add the charging if needed
-		}) +
-			fightTranslationModule.format("summarize.stats", {
-				power: this.stats.fightPoints,
-				attack: this.stats.attack,
-				defense: this.stats.defense,
-				speed: this.stats.speed
-			});
+		return fightTranslationModule.format(
+			fighterStatusTranslation[this.status],
+			{
+				pseudo: await this.entity.Player.getPseudo(fightTranslationModule.language),
+				charging: "" // TODO : add the charging if needed
+			}
+		) + fightTranslationModule.format("summarize.stats", {
+			power: this.stats.fightPoints,
+			attack: this.stats.attack,
+			defense: this.stats.defense,
+			speed: this.stats.speed
+		});
 	}
 
 	/**

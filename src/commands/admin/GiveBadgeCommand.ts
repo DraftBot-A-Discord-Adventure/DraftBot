@@ -35,7 +35,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 function getAllBadgesForOptions(): { name: string, value: string }[] {
 	const tabBadges: { name: string, value: string }[] = [];
 	for (const badge of Constants.BADGES.LIST) {
-		tabBadges.push({ name: badge, value: badge });
+		tabBadges.push({name: badge, value: badge});
 	}
 	return tabBadges;
 }
@@ -43,7 +43,7 @@ function getAllBadgesForOptions(): { name: string, value: string }[] {
 const currentCommandFrenchTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
 			.setNameLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionUserName")

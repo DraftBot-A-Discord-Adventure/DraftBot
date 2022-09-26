@@ -44,10 +44,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 	await interaction.reply({content: result});
 }
+
 const currentCommandFrenchTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.servers", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		userPermission: Constants.ROLES.USER.BOT_OWNER

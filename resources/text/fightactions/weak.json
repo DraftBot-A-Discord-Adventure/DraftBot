@@ -1,14 +1,14 @@
 {
 	"translations": {
 		"fr": {
-			"heal" : "n'est plus affaibli.",
-			"new" : "est affaibli. `Attaque : - 70%`",
-			"active" : "est affaibli."
+			"heal": "n'est plus affaibli.",
+			"new": "est affaibli. `Attaque : - 70%`",
+			"active": "est affaibli."
 		},
 		"en": {
-			"heal" : "is no longer weakened.",
-			"new" : "is weakened. `Attack: - 70%`",
-			"active" : "is weakened."
+			"heal": "is no longer weakened.",
+			"new": "is weakened. `Attack: - 70%`",
+			"active": "is weakened."
 		}
 	},
 	"emote": "\uD83E\uDD27",

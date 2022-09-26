@@ -48,14 +48,15 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
 
 			await guild.save();
-			await message.sentMessage.channel.send({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
-						.setDescription(guildShopTranslations.format("guildXp.give", {
-							experience: xpToAdd
-						}))]
-			}
+			await message.sentMessage.channel.send(
+				{
+					embeds: [
+						new DraftBotEmbed()
+							.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
+							.setDescription(guildShopTranslations.format("guildXp.give", {
+								experience: xpToAdd
+							}))]
+				}
 			);
 			draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
 			return true;
@@ -146,7 +147,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.guildShop", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.guildShop", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD, EffectsConstants.EMOJI_TEXT.LOCKED],
