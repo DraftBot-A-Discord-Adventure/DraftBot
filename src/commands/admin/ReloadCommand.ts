@@ -32,8 +32,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.reload
 const currentCommandEnglishTranslations = Translations.getModule("commands.reload", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("specific_command")
-			.setDescription("The command to reload")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionCommandName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCommandName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionCommandDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCommandDescription")
+			})
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

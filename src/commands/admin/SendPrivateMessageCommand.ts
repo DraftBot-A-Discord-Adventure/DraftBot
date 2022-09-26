@@ -52,11 +52,23 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.sendPr
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendPrivateMessage", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("user")
-			.setDescription("The user you want to send a dm")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(true))
-		.addStringOption(option => option.setName("message")
-			.setDescription("The message to send")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionMessageName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionMessageName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionMessageDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionMessageDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

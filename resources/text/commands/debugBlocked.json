@@ -2,11 +2,15 @@
 	"translations": {
 		"fr": {
 			"commandName": "verifierblocage",
-			"commandDescription": "Vérifier le blocage d'un joueur."
+			"commandDescription": "Vérifier le blocage d'un joueur.",
+			"optionUserName" : "utilisateur",
+			"optionUserDescription": "L'utilisateur concerné par la commande."
 		},
 		"en": {
 			"commandName": "debugblocked",
-			"commandDescription": "Check if a player is blocked and why."
+			"commandDescription": "Check if a player is blocked and why.",
+			"optionUserName" : "user",
+			"optionUserDescription": "The user concerned by the command."
 		}
 	}
 }

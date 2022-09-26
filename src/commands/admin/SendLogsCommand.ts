@@ -72,8 +72,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.sendLo
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("specificfile")
-			.setDescription("Name of the file to reach (optionnal) / unspecified : send the list of all logs")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionFileName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionFileName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionFileDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionFileDescription")
+			})
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

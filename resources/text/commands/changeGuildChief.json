@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "changechefguilde",
 			"commandDescription": "Change le chef d'une guilde.",
+			"optionGuildName" : "guilde",
+			"optionGuildDescription": "La guilde dont le chef doit être changé.",
+			"optionIdName" : "identifiant",
+			"optionIdDescription": "L'identifiant discord du joueur qui doit devenir chef.",
 			"errors": {
 				"notInTheGuild": "L'utilisateur spécifié ne fait pas partie de la guilde.",
 				"alreadyChief": "L'utilisateur spécifié est déjà le chef de cette guilde.",
@@ -26,6 +30,10 @@
 		"en": {
 			"commandName": "changeguildchief",
 			"commandDescription": "Change the chief of a guild.",
+			"optionGuildName" : "guild",
+			"optionGuildDescription": "The guild whose chief will be changed.",
+			"optionIdName" : "id",
+			"optionIdDescription": "The discord id of the player who will become chief.",
 			"errors": {
 				"notInTheGuild": "The specified user is not in the guild.",
 				"alreadyChief": "The specified user is already the leader of the guild.",

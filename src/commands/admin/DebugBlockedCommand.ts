@@ -23,8 +23,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.debugB
 const currentCommandEnglishTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("user")
-			.setDescription("The user you want more info about its block reasons")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

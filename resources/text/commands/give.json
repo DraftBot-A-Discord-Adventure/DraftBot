@@ -3,6 +3,18 @@
 		"fr": {
 			"commandName": "donequipement",
 			"commandDescription": "Donne un équipement à un joueur (uniquement pour les administrateurs).",
+			"optionCategoryName": "categorie",
+			"optionCategoryChoices": [
+				"Arme",
+				"Armure",
+				"Potion",
+				"Objet"
+			],
+			"optionCategoryDescription": "Le type d'équipement à donner.",
+			"optionItemIdName": "idequipement",
+			"optionItemIdDescription": "L'identifiant de l'équipement à donner.",
+			"optionUsersIdName": "utilisateurs",
+			"optionUsersIdDescription": "Les identifiants discord des utilisateurs concernés (example : 'id1 id2 id3').",
 			"confirmTitle": "{pseudo}, confirmation de give",
 			"confirmDesc": "Voulez-vous vraiment donner {item} à {usersCount} utilisateur{usersCount>1?s:} ?",
 			"resultTitle": "{pseudo}, résultat de la commande give",
@@ -29,6 +41,18 @@
 		"en": {
 			"commandName": "giveitem",
 			"commandDescription": "Give an item to a player (only for administrators).",
+			"optionCategoryName": "category",
+			"optionCategoryChoices": [
+				"Weapon",
+				"Armor",
+				"Potion",
+				"Object"
+			],
+			"optionCategoryDescription": "The type of item to give.",
+			"optionItemIdName": "itemid",
+			"optionItemIdDescription": "The id of the item to give.",
+			"optionUsersIdName": "users",
+			"optionUsersIdDescription": "The discord ids of the users concerned (example : 'id1 id2 id3').",
 			"confirmTitle": "{pseudo}, give confirmation",
 			"confirmDesc": "Do you really want to give {item} to {usersCount} user{usersCount>1?s:} ?",
 			"resultTitle": "{pseudo}, result of the give command",

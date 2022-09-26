@@ -3,6 +3,8 @@
         "fr": {
 					"commandName": "recharger",
 					"commandDescription": "Recharger une commande (pour les administrateurs uniquement).",
+					"optionCommandName" : "commande",
+					"optionCommandDescription": "La commande qui doit être rechargée.",
             "success": {
                 "specific": "Commande `/{command}` reload.",
                 "all": "Toutes les commandes ont été reload."
@@ -12,6 +14,8 @@
         "en": {
 					"commandName": "reload",
 					"commandDescription": "Reload a command (admin only).",
+					"optionCommandName" : "command",
+					"optionCommandDescription": "The command to reload.",
             "success": {
                 "specific": "Command `/{command}` reloaded.",
                 "all": "Every command has been reloaded."
