@@ -80,20 +80,6 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 }
 
 /**
- * Get a displayable choice from the item category
- * @param categoryId
- */
-function getChoiceFromItemType(categoryId: number) : APIApplicationCommandOptionChoice<number> {
-	return {
-		name: currentCommandEnglishTranslations.get("optionCategoryChoices")[categoryId],
-		"name_localizations": {
-			fr: currentCommandFrenchTranslations.get("optionCategoryChoices")[categoryId]
-		},
-		value: categoryId
-	};
-}
-
-/**
  * Allow the bot owner to give an item to somebody
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -136,6 +122,19 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.ENGLISH);
 
+/**
+ * Get a displayable choice from the item category
+ * @param categoryId
+ */
+function getChoiceFromItemType(categoryId: number): APIApplicationCommandOptionChoice<number> {
+	return {
+		name: currentCommandEnglishTranslations.get("optionCategoryChoices")[categoryId],
+		"name_localizations": {
+			fr: currentCommandFrenchTranslations.get("optionCategoryChoices")[categoryId]
+		},
+		value: categoryId
+	};
+}
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)

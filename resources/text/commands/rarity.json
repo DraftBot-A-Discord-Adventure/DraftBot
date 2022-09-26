@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "rarete",
-			"commandDescription": "Affiche des informations sur les différentes raretés d'équipements.",
+			"commandDescription": "Afficher des informations sur les différentes raretés d'équipements.",
 			"title": "🎰  Rareté",
 			"rarities": "🔸 Basique | Rareté de l'item possédé en début de jeu.\n🔶 Commun | {pourcentageCommon}%\n🔥 Peu commun | {pourcentageUncommon}%\n🔱 Exotique | {pourcentageExotic}%\n☄️ Rare | {pourcentageRare}%\n💫 Spécial | {pourcentageSpecial}%\n⭐ Epique | {pourcentageEpic}%\n🌟 Légendaire | {pourcentageLegendary}%\n💎 Mythique | {pourcentageUnique}%"
 		},
