@@ -29,7 +29,7 @@ export const smallEvent: SmallEvent = {
 			Translations.getModule("smallEvents.findPotions", language).getRandom("intrigue")
 		);
 
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 		await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel);
 	}
 };

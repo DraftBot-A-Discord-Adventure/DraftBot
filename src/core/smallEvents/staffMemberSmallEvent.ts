@@ -30,6 +30,6 @@ export const smallEvent: SmallEvent = {
 				pseudo: key,
 				sentence: tr.get(`members.${key}`)
 			})}`);
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

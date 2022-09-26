@@ -37,6 +37,6 @@ export const smallEvent: SmallEvent = {
 			})
 		);
 
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };
