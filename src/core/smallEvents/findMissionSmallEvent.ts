@@ -32,6 +32,6 @@ export const smallEvent: SmallEvent = {
 			+ await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, missionSlot.saveBlob)
 			+ "**"
 		);
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

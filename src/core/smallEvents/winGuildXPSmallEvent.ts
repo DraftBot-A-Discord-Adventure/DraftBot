@@ -51,6 +51,6 @@ export const smallEvent: SmallEvent = {
 		}
 		await g.save();
 
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

@@ -79,7 +79,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		for (let i = 0; i < keys.length; ++i) {
 			const file = await import(`../../core/smallEvents/${keys[i]}SmallEvent.js`);
 			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
-				await interaction.reply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
+				await interaction.editReply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(entity)) {
@@ -123,7 +123,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		}
 	}
 	catch (e) {
-		await interaction.reply({content: `${filename} doesn't exist`});
+		await interaction.editReply({content: `${filename} doesn't exist`});
 	}
 
 	// Save
@@ -639,7 +639,6 @@ async function doRandomBigEvent(
 	entity: Entity,
 	forceSpecificEvent: number
 ): Promise<void> {
-	await interaction.deferReply();
 	await completeMissionsBigEvent(entity, interaction, language);
 	let time = forceSpecificEvent
 		? ReportConstants.TIME_MAXIMAL + 1
@@ -696,10 +695,12 @@ async function executeCommand(
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
 
 	if (forceSpecificEvent || await needBigEvent(entity)) {
+		await interaction.deferReply();
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
 	}
 
 	if (forceSmallEvent || needSmallEvent(entity)) {
+		await interaction.deferReply();
 		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}
 

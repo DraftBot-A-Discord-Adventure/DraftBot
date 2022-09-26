@@ -436,7 +436,7 @@ export const smallEvent: SmallEvent = {
 		const selectedPlayerId = selectAPlayer(playersOnMap);
 		if (!selectedPlayerId) {
 			seEmbed.setDescription(seEmbed.data.description + tr.getRandom("no_one"));
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 			return;
 		}
 		const [otherEntity] = await Entities.getOrRegister(selectedPlayerId);
@@ -463,11 +463,10 @@ export const smallEvent: SmallEvent = {
 		}));
 
 		if (characteristic === "poor") {
-			await interaction.deferReply();
 			await sendAndManagePoorInteraction({interaction, tr}, otherEntity, entity, seEmbed);
 		}
 		else {
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 		}
 	}
 };

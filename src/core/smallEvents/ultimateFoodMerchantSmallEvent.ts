@@ -164,7 +164,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
 		const reward = await generateReward(entity);
-		await interaction.reply({embeds: [generateEmbed(reward, seEmbed, language)]});
+		await interaction.editReply({embeds: [generateEmbed(reward, seEmbed, language)]});
 		await giveReward(reward, interaction, language, entity);
 	}
 };

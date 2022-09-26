@@ -149,6 +149,6 @@ export const smallEvent: SmallEvent = {
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
 		);
-		await builtEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
+		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
 	}
 };

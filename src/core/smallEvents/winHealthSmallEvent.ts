@@ -37,6 +37,6 @@ export const smallEvent: SmallEvent = {
 		);
 		await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await entity.save();
-		await interaction.reply({embeds: [seEmbed]});
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

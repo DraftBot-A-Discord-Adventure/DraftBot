@@ -146,7 +146,7 @@ export const smallEvent: SmallEvent = {
 			seIntro, intro, searchAction, search
 		});
 		seEmbed.setDescription(baseDescription + messageBefore);
-		interaction.reply({embeds: [seEmbed], fetchReply: true}).then(async (sentMessage) => {
+		interaction.editReply({embeds: [seEmbed]}).then(async (sentMessage) => {
 			const waitTime = SpaceConstants.WAIT_TIME_BEFORE_SEARCH;
 			const t0 = performance.now();
 			await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);

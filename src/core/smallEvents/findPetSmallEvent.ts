@@ -89,7 +89,7 @@ export const smallEvent: SmallEvent = {
 			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
 				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
 			}
@@ -99,7 +99,7 @@ export const smallEvent: SmallEvent = {
 			await pet.save();
 			await GuildPets.addPet(guild, pet, true).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
@@ -112,7 +112,7 @@ export const smallEvent: SmallEvent = {
 			entity.Player.setPet(entity, pet);
 			await entity.Player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
-			await interaction.reply({embeds: [seEmbed]});
+			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
 				emote: pet.getPetEmote(),
 				pet: pet.getPetTypeName(language)
