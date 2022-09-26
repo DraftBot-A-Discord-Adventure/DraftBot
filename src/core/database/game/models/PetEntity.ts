@@ -189,10 +189,7 @@ export class PetEntities {
 		if (rarity === 6) {
 			// Case that should never be reached if the probabilities are 1
 			rarity = 1;
-			console.log(
-				"Warning ! Pet probabilities are not equal to 1 for level tier " +
-				levelTier
-			);
+			console.log(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
 		}
 		const pet = await Pet.findOne({
 			where: {
