@@ -3,7 +3,7 @@ import {botConfig, draftBotClient, draftBotInstance} from "./bot";
 import {Constants} from "./Constants";
 import {TextChannel} from "discord.js";
 import {Webhook} from "@top-gg/sdk";
-import express, { Express } from "express";
+import express, {Express} from "express";
 
 /**
  * DBL is an API that allows players to vote for rewards in game

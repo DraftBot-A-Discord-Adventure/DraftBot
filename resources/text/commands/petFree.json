@@ -12,7 +12,6 @@
 			"noMoney": "Il vous manque {money} :moneybag: pour libérer un familier fielleux.",
 			"isFeisty": "⚠ Attention, la libération d'un familier fielleux vous coutera 1000💰.",
 			"wasFeisty": "Vous avez payé 1000:moneybag: pour avoir libéré un familier fielleux."
-
 		},
 		"en": {
 			"commandName": "petfree",

@@ -58,7 +58,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.petNickname", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.petNickname", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName("name")
 			.setDescription("The new name you want to give to the pet")
 			.setRequired(false)

@@ -6,8 +6,8 @@
 	"emote": ":bricks:",
 	"rarity": 5,
 	"rawDefense": 10,
-	"attack" : -20,
-	"speed" : -20,
+	"attack": -20,
+	"speed": -20,
 	"defense": 5,
 	"frenchMasculine": 1,
 	"frenchPlural": 0

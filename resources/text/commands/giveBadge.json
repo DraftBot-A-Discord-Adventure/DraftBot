@@ -3,9 +3,9 @@
 		"fr": {
 			"commandName": "donbadge",
 			"commandDescription": "Donne un badge à un utilisateur (uniquement pour les gérants des badges).",
-			"optionUserName" : "utilisateur",
+			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
-			"optionBadgeName" : "badge",
+			"optionBadgeName": "badge",
 			"optionBadgeDescription": "Le badge qui va être donné.",
 			"giveSuccess": "{pseudo}, badge donné avec succès.",
 			"descGive": "Le badge {badge} a été donné à {player}",
@@ -14,9 +14,9 @@
 		"en": {
 			"commandName": "givebadge",
 			"commandDescription": "Give a badge to a given user (only for badge managers).",
-			"optionUserName" : "user",
+			"optionUserName": "user",
 			"optionUserDescription": "The user concerned by the command.",
-			"optionBadgeName" : "badge",
+			"optionBadgeName": "badge",
 			"optionBadgeDescription": "The badge that will be given.",
 			"giveSuccess": "{pseudo}, success !",
 			"descGive": "The badge {badge} has been given to {player}",

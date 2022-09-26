@@ -164,56 +164,57 @@ export class Classes {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	Class.init({
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+	Class.init(
+		{
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true
+			},
+			attack: {
+				type: DataTypes.INTEGER
+			},
+			defense: {
+				type: DataTypes.INTEGER
+			},
+			speed: {
+				type: DataTypes.INTEGER
+			},
+			health: {
+				type: DataTypes.INTEGER
+			},
+			fightPoint: {
+				type: DataTypes.INTEGER
+			},
+			emoji: {
+				type: DataTypes.TEXT
+			},
+			classGroup: {
+				type: DataTypes.INTEGER
+			},
+			price: {
+				type: DataTypes.INTEGER
+			},
+			fr: {
+				type: DataTypes.TEXT
+			},
+			en: {
+				type: DataTypes.TEXT
+			},
+			updatedAt: {
+				type: DataTypes.DATE,
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			},
+			createdAt: {
+				type: DataTypes.DATE,
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			}
 		},
-		attack: {
-			type: DataTypes.INTEGER
-		},
-		defense: {
-			type: DataTypes.INTEGER
-		},
-		speed: {
-			type: DataTypes.INTEGER
-		},
-		health: {
-			type: DataTypes.INTEGER
-		},
-		fightPoint: {
-			type: DataTypes.INTEGER
-		},
-		emoji: {
-			type: DataTypes.TEXT
-		},
-		classGroup: {
-			type: DataTypes.INTEGER
-		},
-		price: {
-			type: DataTypes.INTEGER
-		},
-		fr: {
-			type: DataTypes.TEXT
-		},
-		en: {
-			type: DataTypes.TEXT
-		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		}
-	},
-	{
-		sequelize,
-		tableName: "classes",
-		freezeTableName: true
-	});
+		{
+			sequelize,
+			tableName: "classes",
+			freezeTableName: true
+		});
 
 	Class.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();

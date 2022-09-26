@@ -472,14 +472,14 @@ export class Entities {
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
 		const query = `SELECT rank
-                       FROM (
-                                SELECT ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId,
-                                       (RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC, ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
-                                FROM ${botConfig.MARIADB_PREFIX}_game.entities
-                                         INNER JOIN ${botConfig.MARIADB_PREFIX}_game.players
-										 ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId AND ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
-                                WHERE ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${ids.toString()})) subquery
-                       WHERE subquery.discordUserId = ${discordId};`;
+					   FROM (SELECT ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId,
+                                       (RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC
+								  , ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
+							 FROM ${botConfig.MARIADB_PREFIX}_game.entities
+								 INNER JOIN ${botConfig.MARIADB_PREFIX}_game.players
+							 ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId AND ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} > ${Constants.MINIMAL_PLAYER_SCORE}
+							 WHERE ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${ids.toString()})) subquery
+					   WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Entity.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
 
@@ -507,7 +507,8 @@ export class Entities {
 	 * Get all the discord ids stored in the database
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = `SELECT discordUserId FROM ${botConfig.MARIADB_PREFIX}_game.entities`;
+		const query = `SELECT discordUserId
+					   FROM ${botConfig.MARIADB_PREFIX}_game.entities`;
 		const queryResult = (await Entity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
@@ -523,10 +524,12 @@ export class Entities {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-                       FROM ${botConfig.MARIADB_PREFIX}_game.players
-                       		JOIN ${botConfig.MARIADB_PREFIX}_game.entities ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
-                       WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"} > ${Constants.MINIMAL_PLAYER_SCORE}
-                         AND ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${listDiscordId.toString()})`;
+					   FROM ${botConfig.MARIADB_PREFIX} _game.players
+                       		JOIN ${botConfig.MARIADB_PREFIX}_game.entities
+					   ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
+					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+						   > ${Constants.MINIMAL_PLAYER_SCORE}
+						 AND ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Entity.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

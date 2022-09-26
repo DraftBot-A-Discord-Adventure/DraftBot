@@ -1,12 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"heal" : "n'est plus empoisonné.",
-			"damage" : "souffre de son empoisonnement. `Dégâts reçus : {damages}`"
+			"heal": "n'est plus empoisonné.",
+			"damage": "souffre de son empoisonnement. `Dégâts reçus : {damages}`"
 		},
 		"en": {
-			"heal" : "is no longer poisoned.",
-			"damage" : "suffers from poison. `Damages received : {damages}`"
+			"heal": "is no longer poisoned.",
+			"damage": "suffers from poison. `Damages received : {damages}`"
 		}
 	},
 	"emote": "\uD83E\uDD22",

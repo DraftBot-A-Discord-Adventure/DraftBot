@@ -51,9 +51,10 @@ export class ObjectItem extends SupportItemModel {
 export class ObjectItems {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/objects/", (err, files) => {
-				err ? reject(err) : resolve(files.length - 1);
-			}
+			fs.readdir("resources/text/objects/",
+				(err, files) => {
+					err ? reject(err) : resolve(files.length - 1);
+				}
 			);
 		});
 	}
@@ -68,8 +69,8 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.MARIADB_PREFIX}_game.objects
-                       WHERE rarity = :rarity`;
+					   FROM ${botConfig.MARIADB_PREFIX} _game.objects
+					   WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
 				rarity: rarity
