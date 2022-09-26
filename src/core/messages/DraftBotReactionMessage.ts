@@ -108,7 +108,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	private _sentMessage: Message;
 
 	/**
-	 * Returns the sent message
+	 * Returns the message that was sent
 	 */
 	get sentMessage(): Message {
 		return this._sentMessage;

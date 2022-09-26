@@ -6,7 +6,7 @@ import {format} from "../utils/StringFormatter";
 import {BotConstants} from "../constants/BotConstants";
 
 /**
- * A embed with for the DiscordBotList votes
+ * An embed with for the DiscordBotList votes
  */
 export class DraftBotVoteMessage extends DraftBotEmbed {
 	/**

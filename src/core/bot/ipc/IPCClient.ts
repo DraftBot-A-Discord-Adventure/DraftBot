@@ -93,7 +93,7 @@ export class IPCClient {
 	}
 
 	/**
-	 * Get all the reasons for why this player is blocked (empty list means it isnt blocked)
+	 * Get all the reasons for why this player is blocked (empty list means it isn't blocked)
 	 * @param discordId
 	 */
 	static ipcGetBlockedPlayerReason(discordId: string): Promise<string[]> {

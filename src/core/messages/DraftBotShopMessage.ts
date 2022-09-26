@@ -22,7 +22,7 @@ export enum ShopEndReason {
 	 */
 	REACTION,
 	/**
-	 * The player tried to buy something but he doesn't have enough money
+	 * The player tried to buy something, but he doesn't have enough money
 	 */
 	NOT_ENOUGH_MONEY,
 	/**

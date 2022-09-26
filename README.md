@@ -34,7 +34,7 @@ the bot's discord_
 skills. Bot support team will prioritize players of the main instance and will only provide very limited assistance. We
 will fix bugs you report, but we will not teach you how to code a discord bot.**
 
-Please do not copy paste the commands we provide in this readme without :
+Please do not copy and paste the commands we provide in this readme without :
 - Understanding the command
 - Replacing the relevant parts with your data
 - Having read the whole document
@@ -79,7 +79,7 @@ Make sure to have docker installed on your machine. Please follow the "without d
 
 ### Compile the docker image
 
-We have a docker hub account so you may not need to compile the image yourself! You can find it there: https://hub.docker.com/u/draftbot. If you really want to compile it yourself, follow the next step.
+We have a docker hub account, so you may not need to compile the image yourself! You can find it there: https://hub.docker.com/u/draftbot. If you really want to compile it yourself, follow the next step.
 
 In the project folder (previously downloaded with git), run:
 
@@ -135,10 +135,10 @@ services:
 # Links
 
 - [Website](https://draftbot.com)
-- [Discord server _(in french)_](https://discord.gg/5JqrMtZ)
-- [Suggestion board _(in french)_](https://feedback.draftbot.com/)
+- [Discord server _(in French)_](https://discord.gg/5JqrMtZ)
+- [Suggestion board _(in French)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
-- [Twitter account _(in french)_](https://twitter.com/DraftBot_?s=09)
+- [Twitter account _(in French)_](https://twitter.com/DraftBot_?s=09)
 
 ## License
 

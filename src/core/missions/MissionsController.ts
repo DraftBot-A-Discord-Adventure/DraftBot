@@ -67,7 +67,7 @@ export class MissionsController {
 		language: string,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Entity> {
 
-		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplis une autre
+		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplit une autre
 		await entity.save();
 		await entity.Player.save();
 		const [entityTest] = await Entities.getOrRegister(entity.discordUserId);
