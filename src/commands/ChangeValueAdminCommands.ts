@@ -21,7 +21,7 @@ export class ChangeValueAdminCommands {
 	 * @param editFunction
 	 */
 	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
-		const executeCommand = this.executeCommandfrom(commandName, editFunction);
+		const executeCommand = this.executeCommandFrom(commandName, editFunction);
 		const currentCommandFrenchTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.FRENCH);
 		const currentCommandEnglishTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
 		return {
@@ -89,7 +89,7 @@ export class ChangeValueAdminCommands {
 	 * @param editFunction
 	 * @private
 	 */
-	private static executeCommandfrom(
+	private static executeCommandFrom(
 		commandName: string,
 		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void
 	): (interaction: CommandInteraction, language: string) => Promise<void> {

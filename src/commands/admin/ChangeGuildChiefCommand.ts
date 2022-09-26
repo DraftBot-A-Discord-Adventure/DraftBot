@@ -11,6 +11,7 @@ import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  *Apply the changes due to validation
@@ -82,50 +83,52 @@ function getEndCallbackChangeChief(
 }
 
 /**
- * Allow the bot owner to give money to 1 or more people
+ * Checks if the member can become chief
+ * @param userToPromote
+ * @param userGuild
+ * @param guild
+ * @param interaction
+ * @param tr
+ * @returns boolean
+ */
+function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, guild: Guild | null, interaction: CommandInteraction, tr: TranslationModule): boolean {
+
+	if (guild === null) {
+		replyErrorMessage(
+			interaction,
+			tr.language,
+			tr.get("errors.unknownGuild")
+		);
+		return false;
+	}
+
+	if (!userGuild || userGuild.id !== guild.id) {
+		replyErrorMessage(
+			interaction,
+			tr.language,
+			tr.get("errors.notInTheGuild")
+		);
+		return false;
+	}
+
+	if (guild.chiefId === userToPromote.id) {
+		replyErrorMessage(
+			interaction,
+			tr.language,
+			tr.get("errors.alreadyChief")
+		);
+		return false;
+	}
+	return true;
+}
+
+/**
+ * Force changing a guild chief
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.changeGuildChief", language);
-
-	/**
-	 * Checks if the member can become chief
-	 * @param userToPromote
-	 * @param userGuild
-	 * @param guild
-	 * @returns boolean
-	 */
-	function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, guild: Guild | null): boolean {
-
-		if (guild === null) {
-			replyErrorMessage(
-				interaction,
-				language,
-				tr.get("errors.unknownGuild")
-			);
-			return false;
-		}
-
-		if (!userGuild || userGuild.id !== guild.id) {
-			replyErrorMessage(
-				interaction,
-				language,
-				tr.get("errors.notInTheGuild")
-			);
-			return false;
-		}
-
-		if (guild.chiefId === userToPromote.id) {
-			replyErrorMessage(
-				interaction,
-				language,
-				tr.get("errors.alreadyChief")
-			);
-			return false;
-		}
-		return true;
-	}
 
 	let userToPromote;
 	try {
@@ -146,7 +149,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const guild = await Guilds.getByName(interaction.options.get("guild").value as string);
 	const userGuild = await Guilds.getById(userToPromote.Player.guildId);
 
-	if (!checkMemberEligibility(userToPromote, userGuild, guild)) {
+	if (!checkMemberEligibility(userToPromote, userGuild, guild, interaction, tr)) {
 		return;
 	}
 
@@ -165,15 +168,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.changeGuildChief", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName("guild")
 			.setDescription("The guild whose leader you want to change")
 			.setRequired(true))

@@ -14,6 +14,7 @@ import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {discordIdToMention} from "../../core/utils/StringUtils";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {getItemByIdAndCategory} from "../../core/utils/ItemUtils";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Get the end callback of the give command
@@ -121,15 +122,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.give", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addIntegerOption(option => option.setName("category")
 			.setDescription("the category of the item to give")
 			.setRequired(true)

@@ -4,6 +4,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {Translations} from "../../core/Translations";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -21,15 +22,7 @@ async function executeCommand(interaction: CommandInteraction): Promise<void> {
 const currentCommandFrenchTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName(currentCommandEnglishTranslations.get("commandName"))
-		.setNameLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandName")
-		})
-		.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
-		.setDescriptionLocalizations({
-			fr: currentCommandFrenchTranslations.get("commandDescription")
-		})
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName("user")
 			.setDescription("The user you want more info about its block reasons")
 			.setRequired(true)) as SlashCommandBuilder,
