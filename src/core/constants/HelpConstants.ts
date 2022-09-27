@@ -14,7 +14,7 @@ export abstract class HelpConstants {
 		SELL: ["sell", "vendre"],
 		DAILY: ["daily", "da", "récompensejournalière", "rj", "journaliere", "journalière", "recompensejournaliere", "recompense", "journalier", "journalièr"],
 		INVITE: ["invite", "addbot", "inviter", "ajouter", "ajouterbot"],
-		BADGE: ["badges", "badge"],
+		BADGES: ["badges", "badge"],
 		DRINK: ["drink", "dr", "glouglou", "boire", "boir", "br"],
 		SHOP: ["shop", "s", "magasin", "m", "buy"],
 		GUILD_CREATE: ["guildcreate", "gcreate", "gc", "créerguilde", "createguilde", "creerguilde", "guildecreer", "cg", "newguilde"],
@@ -25,7 +25,7 @@ export abstract class HelpConstants {
 			"récompenseguild", "recompensedeguilde", "recompenseguilde", "recompensedeguild", "recompenseguild", "dailyguild", "dailyguilde"],
 		GUILD_KICK: ["guildkick", "gkick", "gk", "expulser", "expulsion", "kick", "kickguild", "kickguilde", "expulserguilde", "expulsermembre", "virer", "eg"],
 		GUILD_ADD: ["guildadd", "gadd", "ga", "ajouter", "ajout", "add", "addguild", "addguilde", "ajouterguilde", "ajoutermembre", "invitemember", "ag"],
-		GUILD_DESC: ["guilddescription", "gdesc", "guilddesc", "guildedescription", "descriptionguild", "guildescription", "guildesc"],
+		GUILD_DESCRIPTION: ["guilddescription", "gdesc", "guilddesc", "guildedescription", "descriptionguild", "guildescription", "guildesc"],
 		GUILD_ELDER: ["guildelder", "gelder", "aine", "promotion", "aîne", "promouvoir", "guildeelder", "elderguilde", "elderguild"],
 		GUILD_ELDER_REMOVE: ["guildelderremove", "gelderremove", "ger", "dégrader", "degrader", "dégrade", "degrade",
 			"enleveraine", "enleveraîne", "enleverainedeguilde", "enleveraînedeguilde", "enleveraineguilde", "enleveraîneguilde",
@@ -34,13 +34,13 @@ export abstract class HelpConstants {
 		GUILD_SHOP: ["guildshop", "guildeshop", "gs", "magasindeguilde", "magasindeguild", "guildemagasin", "guildmagasin"],
 		UPDATE: ["update", "changelog", "miseajour", "miseàjour", "nouveautés", "nouveautes"],
 		CLASS: ["class", "c", "classes", "classe"],
-		MY_PET: ["pet", "mypet", "p", "familier", "monfamilier", "monpet", "animal"],
+		PET: ["pet", "mypet", "p", "familier", "monfamilier", "monpet", "animal"],
 		PET_TRANSFER: ["pettransfer", "pettr", "ptr", "ptransfer", "pettransfert", "familiertransfert", "ft", "ftransfert", "ftransfer"],
 		PET_NICKNAME: ["petnickname", "petnick", "pnickname", "pnick", "petname", "pname"],
 		PET_FREE: ["petfree", "petf", "pfree", "freepet", "freep", "liberer", "libererpet", "libererfamilier",
 			"libereranimal", "delivrer", "delivrerpet", "delivrerfamilier", "delivreranimal", "libérer", "libérerpet",
 			"libérerfamilier", "libéreranimal", "délivrer", "délivrerpet", "délivrerfamilier", "délivreranimal"],
-		SHELTER: ["guildshelter", "shelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals",
+		GUILD_SHELTER: ["guildshelter", "shelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals",
 			"guildanimale", "guildanimal", "sh", "abris", "aubergeanimal", "familiers", "guildeshelter", "abrideguilde",
 			"abriguilde", "abrideguild", "abriguild", "abrisdeguilde", "abrisguilde", "abrisdeguild", "abrisguild"],
 		PET_TRADE: ["pettrade", "ptrade", "echangepet", "familiertrade", "fechange", "echangeanimal", "echangeanimale"],
@@ -132,7 +132,7 @@ export abstract class HelpConstants {
 				EMOTE: ":inbox_tray:",
 				CATEGORY: "util"
 			},
-		BADGE:
+		BADGES:
 			{
 				EMOTE: ":military_medal:",
 				CATEGORY: "util"
@@ -177,7 +177,7 @@ export abstract class HelpConstants {
 				EMOTE: ":incoming_envelope:",
 				CATEGORY: "guild"
 			},
-		GUILD_DESC:
+		GUILD_DESCRIPTION:
 			{
 				EMOTE: ":writing_hand:",
 				CATEGORY: "guild"
@@ -212,7 +212,7 @@ export abstract class HelpConstants {
 				EMOTE: ":bookmark:",
 				CATEGORY: "player"
 			},
-		MY_PET:
+		PET:
 			{
 				EMOTE: ":dog:",
 				CATEGORY:
@@ -236,11 +236,11 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"pet"
 			},
-		SHELTER:
+		GUILD_SHELTER:
 			{
 				EMOTE: ":park:",
 				CATEGORY:
-					"pet"
+					"guild"
 			},
 		PET_TRADE:
 			{

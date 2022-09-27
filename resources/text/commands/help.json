@@ -79,7 +79,7 @@
 					"usage": "invite",
 					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
-				"BADGE": {
+				"BADGES": {
 					"usage": "badges",
 					"description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
 				},
@@ -115,8 +115,8 @@
 					"usage": "guildadd [mention]",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
 				},
-				"GUILD_DESC": {
-					"usage": "guilddesc [description]",
+				"GUILD_DESCRIPTION": {
+					"usage": "guilddescription [description]",
 					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_ELDER": {
@@ -143,7 +143,7 @@
 					"usage": "class",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
 				},
-				"MY_PET": {
+				"PET": {
 					"usage": "pet",
 					"description": "Affiche les informations relatives à votre familier."
 				},
@@ -159,7 +159,7 @@
 					"usage": "petfree",
 					"description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
 				},
-				"SHELTER": {
+				"GUILD_SHELTER": {
 					"usage": "guildshelter",
 					"description": "Affiche le refuge d'animaux de la guilde."
 				},
@@ -292,7 +292,7 @@
 					"usage": "invite",
 					"description": "This command allows you to get an invite url to get the bot on your server, or join the support server!"
 				},
-				"BADGE": {
+				"BADGES": {
 					"usage": "badges",
 					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
@@ -328,8 +328,8 @@
 					"usage": "guildadd [mention]",
 					"description": "Invites someone to join your guild. Requires to be the guild's leader."
 				},
-				"GUILD_DESC": {
-					"usage": "guilddesc [description]",
+				"GUILD_DESCRIPTION": {
+					"usage": "guilddescription [description]",
 					"description": "Edit the description of your guild. Requires to be the guild's leader."
 				},
 				"GUILD_ELDER": {
@@ -356,7 +356,7 @@
 					"usage": "class",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
 				},
-				"MY_PET": {
+				"PET": {
 					"usage": "pet",
 					"description": "Show information about your pet."
 				},
@@ -376,7 +376,7 @@
 					"usage": "petsell <price>",
 					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{option1}💰` and lower than `{option2}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
 				},
-				"SHELTER": {
+				"GUILD_SHELTER": {
 					"usage": "guildshelter",
 					"description": "Show the guild's shelter."
 				},

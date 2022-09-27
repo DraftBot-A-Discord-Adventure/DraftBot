@@ -27,7 +27,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botVote", language);
-		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
+		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}${tr.getRandom("stories")}`;
 
 		if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 			// hasn't voted
