@@ -5,6 +5,7 @@ import AutoPoster from "topgg-autoposter";
 import {botConfig} from "./core/bot";
 
 process.on("unhandledRejection", function(err: Error) {
+	console.log(err);
 	console.log(err.stack);
 	// process.exit(1);
 });
