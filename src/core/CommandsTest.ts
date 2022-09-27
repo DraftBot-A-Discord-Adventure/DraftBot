@@ -151,14 +151,27 @@ export class CommandsTest {
 		}
 		catch (e) {
 			console.error(e);
-			try {
-				await interaction.channel.send({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
+			if (interaction.replied) {
+				try {
+					await interaction.channel.send({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
+				}
+				catch (e2) {
+					await interaction.channel.send({
+						content:
+							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
+					});
+				}
 			}
-			catch (e2) {
-				await interaction.channel.send({
-					content:
-						`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
-				});
+			else {
+				try {
+					await interaction.reply({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
+				}
+				catch (e2) {
+					await interaction.reply({
+						content:
+							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
+					});
+				}
 			}
 		}
 	}
