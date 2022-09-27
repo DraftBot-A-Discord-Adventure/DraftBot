@@ -24,22 +24,6 @@ function getMinutesDisplayStringConstants(language: string): { hoursDisplay: str
 }
 
 /**
- * Display a time in a human-readable format
- * @param minutes - the time in minutes
- * @param language
- */
-export function minutesDisplay(minutes: number, language = ""): string {
-	const hours = Math.floor(minutes / 60);
-	minutes = Math.floor(minutes % 60);
-	const displayConstantValues = getMinutesDisplayStringConstants(language);
-	const display = [
-		hours > 0 ? `${hours} ${displayConstantValues.hoursDisplay}${hours > 1 ? displayConstantValues.plural : ""}` : "",
-		minutes > 0 ? `${minutes} ${displayConstantValues.minutesDisplay}${minutes > 1 ? displayConstantValues.plural : ""}` : ""
-	].filter(v => v !== "").join(displayConstantValues.linkWord);
-	return display === "" ? "< 1 Min" : display;
-}
-
-/**
  * get a date value of tomorrow
  */
 export function getTomorrowMidnight(): Date {
@@ -86,6 +70,14 @@ export function hoursToMilliseconds(hours: number): number {
  */
 export function hoursToMinutes(hours: number): number {
 	return hours * 60;
+}
+
+/**
+ * convert minutes to hours
+ * @param minutes
+ */
+export function minutesToHours(minutes: number): number {
+	return minutes / 60;
 }
 
 /**
@@ -178,4 +170,20 @@ export function getNextDay2AM(): Date {
 		dateOfReset.setDate(dateOfReset.getDate() + 1);
 	}
 	return new Date(dateOfReset);
+}
+
+/**
+ * Display a time in a human-readable format
+ * @param minutes - the time in minutes
+ * @param language
+ */
+export function minutesDisplay(minutes: number, language = ""): string {
+	const hours = Math.floor(minutesToHours(minutes));
+	minutes = Math.floor(minutes % 60);
+	const displayConstantValues = getMinutesDisplayStringConstants(language);
+	const display = [
+		hours > 0 ? `${hours} ${displayConstantValues.hoursDisplay}${hours > 1 ? displayConstantValues.plural : ""}` : "",
+		minutes > 0 ? `${minutes} ${displayConstantValues.minutesDisplay}${minutes > 1 ? displayConstantValues.plural : ""}` : ""
+	].filter(v => v !== "").join(displayConstantValues.linkWord);
+	return display === "" ? "< 1 Min" : display;
 }
