@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🗣️": {
 			"translations": {
-				"fr": "Aller voir le bijoutier et discuter",
-				"en": "Go and have a talk with the jeweller"
+				"fr": "Aller voir le bijoutier et discuter.",
+				"en": "Go and have a talk with the jeweller."
 			},
 			"issues": [
 				{
@@ -41,8 +41,8 @@
 		},
 		"💸": {
 			"translations": {
-				"fr": "Essayer de voler le bijoutier",
-				"en": "Try to rob the jeweller"
+				"fr": "Essayer de voler le bijoutier.",
+				"en": "Try to rob the jeweller."
 			},
 			"issues": [
 				{
@@ -73,8 +73,8 @@
 		},
 		"🏡": {
 			"translations": {
-				"fr": "Aller à l'auberge se reposer",
-				"en": "Go to rest at the inn"
+				"fr": "Aller à l'auberge se reposer.",
+				"en": "Go to rest at the inn."
 			},
 			"issues": [
 				{
@@ -117,8 +117,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Continuer votre route",
-				"en": "Continue your journey"
+				"fr": "Continuer votre route.",
+				"en": "Continue your journey."
 			},
 			"issues": [
 				{

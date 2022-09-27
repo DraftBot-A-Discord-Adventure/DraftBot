@@ -73,8 +73,8 @@
 		},
 		"🔍": {
 			"translations": {
-				"fr": "Fouiller les alentours",
-				"en": "Search the surroundings"
+				"fr": "Fouiller les alentours.",
+				"en": "Search the surroundings."
 			},
 			"issues": [
 				{

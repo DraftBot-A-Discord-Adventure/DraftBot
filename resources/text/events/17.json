@@ -9,7 +9,7 @@
 	"possibilities": {
 		"🍎": {
 			"translations": {
-				"fr": "Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits",
+				"fr": "Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits.",
 				"en": "Climb the huge tree facing you and get fruit from it."
 			},
 			"issues": [
@@ -147,8 +147,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Aucun animal en vue, vous reprenez donc votre route sans plus attendre",
-						"en": "With no animals in sight, you continue your journey without further delay"
+						"fr": "Aucun animal en vue, vous reprenez donc votre route sans plus attendre.",
+						"en": "With no animals in sight, you continue your journey without further delay."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -159,8 +159,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure",
-						"en": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure"
+						"fr": "Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure.",
+						"en": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure."
 					},
 					"lostTime": 0,
 					"health": -60,

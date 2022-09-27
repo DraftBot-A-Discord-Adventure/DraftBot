@@ -4,13 +4,13 @@
 	],
 	"translations": {
 		"fr": "🪑 Vous êtes amené dans la grande salle de réception du château où vous rencontrez rapidement le roi. On vous explique la nature du concours qui consiste à récolter un grand nombre de points dans l'objectif de dominer les classements. En plus d'une agréable prime de départ, vous recevez un bel ouvrage censé vous guider lors de votre aventure. Vous ouvrez le livre (https://guide.draftbot.com) et consultez rapidement les premières pages...",
-		"en": "🪑 You are taken to the large reception room of the castle where you quickly meet the king. Someone explains to you the nature of the competition, which is to collect a large number of points in order to dominate the rankings. In addition to a nice starting bonus, you receive a beautiful book that is supposed to guide you during your adventure. You open the book (https://guide.draftbot.com) and quickly check the first pages ..."
+		"en": "🪑 You are taken to the large reception room of the castle where you quickly meet the king. Someone explains to you the nature of the competition, which is to collect a large number of points in order to dominate the rankings. In addition to a nice starting bonus, you receive a beautiful book that is supposed to guide you during your adventure. You open the book (https://guide.draftbot.com) and quickly check the first pages..."
 	},
 	"possibilities": {
 		"\uD83D\uDCD6": {
 			"translations": {
-				"fr": "Débuter votre aventure",
-				"en": "Start your adventure"
+				"fr": "Débuter votre aventure.",
+				"en": "Start your adventure."
 			},
 			"issues": [
 				{

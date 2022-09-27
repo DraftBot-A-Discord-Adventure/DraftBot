@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🎯": {
 			"translations": {
-				"fr": "Aller à un stand de jeu",
-				"en": "Go to a game stand"
+				"fr": "Aller à un stand de jeu.",
+				"en": "Go to a game stand."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🎪": {
 			"translations": {
-				"fr": "Aller à un stand de vente d'objets",
-				"en": "Go to an item stand"
+				"fr": "Aller à un stand de vente d'objets.",
+				"en": "Go to an item stand."
 			},
 			"issues": [
 				{
@@ -85,8 +85,8 @@
 		},
 		"🍢": {
 			"translations": {
-				"fr": "Aller à un stand de nourriture",
-				"en": "Go to a food stand"
+				"fr": "Aller à un stand de nourriture.",
+				"en": "Go to a food stand."
 			},
 			"issues": [
 				{

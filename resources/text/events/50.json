@@ -9,8 +9,8 @@
 	"possibilities": {
 		"😴": {
 			"translations": {
-				"fr": "Continuer votre sieste au pied de l'arbre",
-				"en": "Continue your nap at the foot of the tree"
+				"fr": "Continuer votre sieste au pied de l'arbre.",
+				"en": "Continue your nap at the foot of the tree."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🗣️": {
 			"translations": {
-				"fr": "Aborder les villageois pour les questionner",
-				"en": "Talk to the villagers to question them"
+				"fr": "Aborder les villageois pour les questionner.",
+				"en": "Talk to the villagers to question them."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Quitter le village sans plus attendre",
-				"en": "Leave the village without further waiting"
+				"fr": "Quitter le village sans plus attendre.",
+				"en": "Leave the village without further waiting."
 			},
 			"issues": [
 				{

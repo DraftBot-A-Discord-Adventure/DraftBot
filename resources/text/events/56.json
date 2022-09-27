@@ -12,8 +12,8 @@
 	"possibilities": {
 		"❌": {
 			"translations": {
-				"fr": "Refuser la proposition de Gruffo",
-				"en": "Refuse Gruffo's proposal"
+				"fr": "Refuser la proposition de Gruffo.",
+				"en": "Refuse Gruffo's proposal."
 			},
 			"issues": [
 				{
@@ -56,8 +56,8 @@
 		},
 		"🍸": {
 			"translations": {
-				"fr": "Boire une potion au hasard",
-				"en": "Drink a random potion"
+				"fr": "Boire une potion au hasard.",
+				"en": "Drink a random potion."
 			},
 			"issues": [
 				{
@@ -115,8 +115,8 @@
 		},
 		"⚫": {
 			"translations": {
-				"fr": "Boire la potion noire",
-				"en": "Drink the black potion"
+				"fr": "Boire la potion noire.",
+				"en": "Drink the black potion."
 			},
 			"issues": [
 				{
@@ -147,8 +147,8 @@
 		},
 		"🏖️": {
 			"translations": {
-				"fr": "Ignorer l'alchimiste et aller profiter de la plage",
-				"en": "Ignore the alchemist and go enjoy the beach"
+				"fr": "Ignorer l'alchimiste et aller profiter de la plage.",
+				"en": "Ignore the alchemist and go enjoy the beach."
 			},
 			"issues": [
 				{

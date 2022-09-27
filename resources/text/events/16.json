@@ -59,8 +59,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous continuez votre route sans prêter plus d'attention à ce château",
-						"en": "You carry on with your adventure without worrying about the castle"
+						"fr": "Vous continuez votre route sans prêter plus d'attention à ce château.",
+						"en": "You carry on with your adventure without worrying about the castle."
 					},
 					"lostTime": 0,
 					"health": 0,

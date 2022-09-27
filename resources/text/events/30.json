@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🤴": {
 			"translations": {
-				"fr": "Aller voir le duc",
-				"en": "Go to the Duke"
+				"fr": "Aller voir le duc.",
+				"en": "Go to the Duke."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🎉": {
 			"translations": {
-				"fr": "Rester à la fête",
-				"en": "Stay at the party"
+				"fr": "Rester à la fête.",
+				"en": "Stay at the party."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🎁": {
 			"translations": {
-				"fr": "Lui offrir un cadeau",
-				"en": "Give him a present"
+				"fr": "Lui offrir un cadeau.",
+				"en": "Give him a present."
 			},
 			"issues": [
 				{
@@ -141,8 +141,8 @@
 		},
 		"🍌": {
 			"translations": {
-				"fr": "Sortir pour aller lui voler des bananes dans son exploitation",
-				"en": "Go and steal bananas from his farm"
+				"fr": "Sortir pour aller lui voler des bananes dans son exploitation.",
+				"en": "Go and steal bananas from his farm."
 			},
 			"issues": [
 				{

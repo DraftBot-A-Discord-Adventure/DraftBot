@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🍺": {
 			"translations": {
-				"fr": "Accepter de servir de cobaye",
-				"en": "Accept the proposal"
+				"fr": "Accepter de servir de cobaye.",
+				"en": "Accept the proposal."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"❌": {
 			"translations": {
-				"fr": "Refuser sa proposition",
-				"en": "Refuse the proposal"
+				"fr": "Refuser sa proposition.",
+				"en": "Refuse the proposal."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"💰": {
 			"translations": {
-				"fr": "Refuser, et tenter de voler des gens",
-				"en": "Refuse, and try to rob other customers"
+				"fr": "Refuser, et tenter de voler des gens.",
+				"en": "Refuse, and try to rob other customers."
 			},
 			"issues": [
 				{

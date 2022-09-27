@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🚶": {
 			"translations": {
-				"fr": "Aller au sanctuaire en solitaire",
-				"en": "Go to the shrine alone"
+				"fr": "Aller au sanctuaire en solitaire.",
+				"en": "Go to the shrine alone."
 			},
 			"issues": [
 				{
@@ -77,8 +77,8 @@
 		},
 		"⤴️": {
 			"translations": {
-				"fr": "Demander au groupe de les rejoindre",
-				"en": "Ask the group to join them"
+				"fr": "Demander au groupe de les rejoindre.",
+				"en": "Ask the group to join them."
 			},
 			"issues": [
 				{
@@ -121,8 +121,8 @@
 		},
 		"🔊": {
 			"translations": {
-				"fr": "Discuter avec le groupe",
-				"en": "Discuss with the group"
+				"fr": "Discuter avec le groupe.",
+				"en": "Discuss with the group."
 			},
 			"issues": [
 				{
@@ -153,8 +153,8 @@
 		},
 		"▶️": {
 			"translations": {
-				"fr": "Continuer votre route",
-				"en": "Continue on your journey"
+				"fr": "Continuer votre route.",
+				"en": "Continue on your journey."
 			},
 			"issues": [
 				{

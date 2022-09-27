@@ -51,8 +51,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route",
-						"en": "You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey"
+						"fr": "Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route.",
+						"en": "You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey."
 					},
 					"lostTime": 50,
 					"health": 0,

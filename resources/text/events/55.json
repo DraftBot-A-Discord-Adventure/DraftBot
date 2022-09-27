@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🪓": {
 			"translations": {
-				"fr": "Couper l'arbre et continuer",
-				"en": "Cut down the tree and continue"
+				"fr": "Couper l'arbre et continuer.",
+				"en": "Cut down the tree and continue."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🧗": {
 			"translations": {
-				"fr": "Escalader l'arbre",
-				"en": "Climb the tree"
+				"fr": "Escalader l'arbre.",
+				"en": "Climb the tree."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Passer par un autre chemin",
-				"en": "Pass by another path"
+				"fr": "Passer par un autre chemin.",
+				"en": "Pass by another path."
 			},
 			"issues": [
 				{

@@ -65,8 +65,8 @@
 		},
 		"🤝": {
 			"translations": {
-				"fr": "Tenter d'attraper l'objet avec le seau du puits",
-				"en": "Try to grab the object with the well's bucket"
+				"fr": "Tenter d'attraper l'objet avec le seau du puits.",
+				"en": "Try to grab the object with the well's bucket."
 			},
 			"issues": [
 				{
@@ -109,8 +109,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Continuer votre route",
-				"en": "Continue on your journey"
+				"fr": "Continuer votre route.",
+				"en": "Continue on your journey."
 			},
 			"issues": [
 				{

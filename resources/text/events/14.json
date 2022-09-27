@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🔨": {
 			"translations": {
-				"fr": "Discuter avec l'ouvrier",
-				"en": "Chat with the worker"
+				"fr": "Discuter avec l'ouvrier.",
+				"en": "Chat with the worker."
 			},
 			"issues": [
 				{
@@ -53,14 +53,14 @@
 		},
 		"🛏️": {
 			"translations": {
-				"fr": "Demander à rester là durant la nuit pour vous reposer et reprendre des forces",
-				"en": "Ask to stay the night to rest and recover"
+				"fr": "Demander à rester là durant la nuit pour vous reposer et reprendre des forces.",
+				"en": "Ask to stay the night to rest and recover."
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Épuisé, vous vous écroulez de fatigue sur le lit",
-						"en": "After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed"
+						"fr": "Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Épuisé, vous vous écroulez de fatigue sur le lit.",
+						"en": "After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed."
 					},
 					"lostTime": 0,
 					"health": 10,
@@ -83,8 +83,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
-						"en": "You only get a simple growl in response. The residents of the region seem to dislike foreigners"
+						"fr": "Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers.",
+						"en": "You only get a simple growl in response. The residents of the region seem to dislike foreigners."
 					},
 					"lostTime": 0,
 					"health": 0,
