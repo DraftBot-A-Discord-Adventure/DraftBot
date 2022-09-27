@@ -184,8 +184,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.help",
 const currentCommandEnglishTranslations = Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("command")
-			.setDescription("Get help about a specific command")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionCommandName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCommandName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionCommandDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionCommandDescription")
+			})
 			.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,

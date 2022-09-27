@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "profil",
 			"commandDescription": "Afficher le profil d'un joueur.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur dont le profile doit être affiché.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur dont le profile doit être affiché.",
 			"title": "{effect} | {pseudo} | Niveau {level}",
 			"information": {
 				"fieldName": "Informations :",
@@ -80,6 +84,10 @@
 		"en": {
 			"commandName": "profile",
 			"commandDescription": "Displays the profile of a player.",
+			"optionUserName": "user",
+			"optionUserNameDescription": "The player whose profile you want to display.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player whose profile you want to display.",
 			"title": "{effect} | {pseudo} | Level {level}",
 			"information": {
 				"fieldName": "Information:",

@@ -216,8 +216,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.fight"
 const currentCommandEnglishTranslations = Translations.getModule("commands.fight", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to fight with")
+		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
