@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "exclureguilde",
 			"commandDescription": "Exclure un joueur de la guilde.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur qui doit être expulsé.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur qui doit être expulsé.",
 			"cannotGetKickedUser": "Veuillez mentionner un joueur existant. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
 			"kickTitle": "{pseudo}, confirmation :",

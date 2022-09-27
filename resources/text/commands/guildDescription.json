@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "descriptionguilde",
 			"commandDescription": "Changer la description de la guilde.",
+			"optionDescriptionName": "description",
+			"optionDescriptionDescription": "La nouvelle description de la guilde.",
 			"invalidDescription": "Les règles pour la description sont les suivantes:\n- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés\n- Entre {min} et {max} caractères",
 			"noDescriptionFound": "Il n'y a pas de description pour votre guilde. Utiliser la commande `guilddescription [description]` pour ajouter une description.",
 			"noDescriptionGiven": "Veuillez indiquer une description de guilde valide : `guilddescription [description]`",
@@ -16,6 +18,8 @@
 		"en": {
 			"commandName": "guilddescription",
 			"commandDescription": "Change the guild description.",
+			"optionDescriptionName": "description",
+			"optionDescriptionDescription": "The new guild description.",
 			"invalidDescription": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
 			"noDescriptionFound": "There are no description found for your guild. Use `guilddescription [description]` for add description.",
 			"noDescriptionGiven": "Please indicate a valide description for your guild : `guilddescription [description]`",
