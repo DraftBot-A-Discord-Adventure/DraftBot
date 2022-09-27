@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🚶": {
 			"translations": {
-				"fr": "Continuer à marcher",
-				"en": "Continue to walk"
+				"fr": "Continuer à marcher.",
+				"en": "Continue to walk."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🏃": {
 			"translations": {
-				"fr": "Accélérer afin de ne pas trop se mouiller",
-				"en": "Speed up so you don't get too wet"
+				"fr": "Accélérer afin de ne pas trop se mouiller.",
+				"en": "Speed up so you don't get too wet."
 			},
 			"issues": [
 				{

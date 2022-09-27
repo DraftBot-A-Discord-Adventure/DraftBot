@@ -9,8 +9,8 @@
 	"possibilities": {
 		"⚔️": {
 			"translations": {
-				"fr": "Affronter les silhouettes",
-				"en": "Face the cultists"
+				"fr": "Affronter les silhouettes.",
+				"en": "Face the cultists."
 			},
 			"issues": [
 				{
@@ -121,8 +121,8 @@
 		},
 		"🔊": {
 			"translations": {
-				"fr": "Révéler à tous ce qu'il en est",
-				"en": "Tell everyone about it"
+				"fr": "Révéler à tous ce qu'il en est.",
+				"en": "Tell everyone about it."
 			},
 			"issues": [
 				{
@@ -177,8 +177,8 @@
 		},
 		"🏃": {
 			"translations": {
-				"fr": "Partir d'ici rapidement",
-				"en": "Get quickly out of there"
+				"fr": "Partir d'ici rapidement.",
+				"en": "Get quickly out of there."
 			},
 			"issues": [
 				{

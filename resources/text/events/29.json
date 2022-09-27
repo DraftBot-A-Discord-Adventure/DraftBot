@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🔍": {
 			"translations": {
-				"fr": "Chercher un point d'eau aux alentours",
-				"en": "Search the surroundings for a body of water"
+				"fr": "Chercher un point d'eau aux alentours.",
+				"en": "Search the surroundings for a body of water."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🌳": {
 			"translations": {
-				"fr": "Se reposer au pied d'un arbre",
-				"en": "Rest at the foot of a tree"
+				"fr": "Se reposer au pied d'un arbre.",
+				"en": "Rest at the foot of a tree."
 			},
 			"issues": [
 				{
@@ -85,8 +85,8 @@
 		},
 		"😴": {
 			"translations": {
-				"fr": "Se reposer sur place",
-				"en": "Rest right here"
+				"fr": "Se reposer sur place.",
+				"en": "Rest right here."
 			},
 			"issues": [
 				{

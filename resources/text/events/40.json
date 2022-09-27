@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🔎": {
 			"translations": {
-				"fr": "S'introduire dans la maison",
-				"en": "Break into his house"
+				"fr": "S'introduire dans la maison.",
+				"en": "Break into his house."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🗣️": {
 			"translations": {
-				"fr": "Demander des conseils à l'ermite",
-				"en": "Ask the hermit for advices"
+				"fr": "Demander des conseils à l'ermite.",
+				"en": "Ask the hermit for advices."
 			},
 			"issues": [
 				{
@@ -93,15 +93,15 @@
 					"money": 0,
 					"item": false,
 					"tags": [
-						"drinkAlcohol"
+						"drinkAlcohol."
 					]
 				}
 			]
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Repartir par là d'où vous venez",
-				"en": "Go back the way you came from"
+				"fr": "Repartir par là d'où vous venez.",
+				"en": "Go back the way you came from."
 			},
 			"issues": [
 				{

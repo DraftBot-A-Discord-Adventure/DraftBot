@@ -9,8 +9,8 @@
 	"possibilities": {
 		"⚔️": {
 			"translations": {
-				"fr": "Combattre le chevalier",
-				"en": "Fight the knight"
+				"fr": "Combattre le chevalier.",
+				"en": "Fight the knight."
 			},
 			"issues": [
 				{
@@ -101,8 +101,8 @@
 		},
 		"🤝": {
 			"translations": {
-				"fr": "Faire connaissance avec lui",
-				"en": "Meet him"
+				"fr": "Faire connaissance avec lui.",
+				"en": "Meet him."
 			},
 			"issues": [
 				{

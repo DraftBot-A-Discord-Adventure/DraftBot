@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🍽️": {
 			"translations": {
-				"fr": "Tenter de cuisiner le renard",
-				"en": "Try to cook the fox"
+				"fr": "Tenter de cuisiner le renard.",
+				"en": "Try to cook the fox."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche",
-				"en": "Simply ignore it and hurry to the nearest inn"
+				"fr": "Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche.",
+				"en": "Simply ignore it and hurry to the nearest inn."
 			},
 			"issues": [
 				{

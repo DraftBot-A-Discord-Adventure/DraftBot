@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🌞": {
 			"translations": {
-				"fr": "S'installer au bord de la rivière",
-				"en": "Settle down by the river"
+				"fr": "S'installer au bord de la rivière.",
+				"en": "Settle down by the river."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🌊": {
 			"translations": {
-				"fr": "Poursuivre votre chemin en marchant dans l'eau",
-				"en": "Continue your way by walking in the water"
+				"fr": "Poursuivre votre chemin en marchant dans l'eau.",
+				"en": "Continue your way by walking in the water."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🦀": {
 			"translations": {
-				"fr": "Trouver quelque chose pour vous préparer un repas",
-				"en": "Find something to prepare you a meal"
+				"fr": "Trouver quelque chose pour vous préparer un repas.",
+				"en": "Find something to prepare you a meal."
 			},
 			"issues": [
 				{

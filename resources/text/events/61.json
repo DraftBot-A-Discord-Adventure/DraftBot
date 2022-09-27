@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🚶": {
 			"translations": {
-				"fr": "Suivre votre guide",
-				"en": "Follow the guide"
+				"fr": "Suivre votre guide.",
+				"en": "Follow the guide."
 			},
 			"issues": [
 				{
@@ -29,8 +29,8 @@
 		},
 		"👀": {
 			"translations": {
-				"fr": "Observer les alentours",
-				"en": "Observe your surroundings"
+				"fr": "Observer les alentours.",
+				"en": "Observe your surroundings."
 			},
 			"issues": [
 				{

@@ -103,8 +103,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous décidez d'ignorer ce chantier et vous poursuivez votre route",
-						"en": "You decide to ignore the site and you continue on your way"
+						"fr": "Vous décidez d'ignorer ce chantier et vous poursuivez votre route.",
+						"en": "You decide to ignore the site and you continue on your way."
 					},
 					"lostTime": 0,
 					"health": 0,

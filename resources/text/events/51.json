@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🚶‍♂️": {
 			"translations": {
-				"fr": "Faire demi-tour",
-				"en": "Turn around"
+				"fr": "Faire demi-tour.",
+				"en": "Turn around."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"↗️": {
 			"translations": {
-				"fr": "Emprunter l'escalier",
-				"en": "Take the stairs"
+				"fr": "Emprunter l'escalier.",
+				"en": "Take the stairs."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🔎": {
 			"translations": {
-				"fr": "Fouiller les alentours",
-				"en": "Search the surroundings"
+				"fr": "Fouiller les alentours.",
+				"en": "Search the surroundings."
 			},
 			"issues": [
 				{

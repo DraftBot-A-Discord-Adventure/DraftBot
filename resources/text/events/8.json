@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🌲": {
 			"translations": {
-				"fr": "Continuer à travers la forêt de sapin",
-				"en": "Continue through the fir forest"
+				"fr": "Continuer à travers la forêt de sapin.",
+				"en": "Continue through the fir forest."
 			},
 			"issues": [
 				{
@@ -56,8 +56,8 @@
 		},
 		"🏞️": {
 			"translations": {
-				"fr": "Renoncer à grimper jusqu'en haut et rester proche des plaines",
-				"en": "Forget climbing to the top and stay close to the plains"
+				"fr": "Renoncer à grimper jusqu'en haut et rester proche des plaines.",
+				"en": "Forget climbing to the top and stay close to the plains."
 			},
 			"issues": [
 				{
