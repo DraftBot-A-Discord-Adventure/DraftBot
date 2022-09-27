@@ -3,34 +3,34 @@
 		"fr": {
 			"lifeLoss": {
 				"stories": [
-					"vous entendez un bruit strident venant du ciel, vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{lifeLoss} :broken_heart:**.",
-					"alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez une cheville. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"vous entendez un bruit strident venant du ciel. Vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez la cheville droite. Vous perdez **{lifeLoss} :broken_heart:**.",
 					"vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{lifeLoss} :broken_heart:**"
 				]
 			},
 			"alteration": {
 				"stories": [
 					{
-						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse à les goûter. Très vite vous vous sentez mal. {alteEmoji}",
+						"sentence": "vous apercevez des baies. Votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, vous vous sentez poussé à les goûter. Très vite vous vous sentez mal. {alteEmoji}",
 						"alte": ":sick:"
 					},
 					{
-						"sentence": "vous sentez la brise du vent vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir. {alteEmoji}",
+						"sentence": "vous sentez la brise vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir. {alteEmoji}",
 						"alte": ":sleeping:"
 					},
 					{
-						"sentence": "vous passez non loin d'un marchand, celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulument son contenu. {alteEmoji}",
+						"sentence": "vous passez non loin d'un marchand, et celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulûment son contenu. {alteEmoji}",
 						"alte": ":zany_face:",
 						"tags": [
 							"drinkAlcohol"
 						]
 					},
 					{
-						"sentence": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux qu'elle contient. Vous regrettez cela immédiatement. {alteEmoji}",
+						"sentence": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux. Vous regrettez cela immédiatement. {alteEmoji}",
 						"alte": ":sick:"
 					},
 					{
-						"sentence": "vous prenez conscience que des provisions traînent depuis un moment, vous ne souhaitez cependant pas les jeter et choisissez de tout de même les manger. Mauvaise idée car il semble que les vivres étaient déjà périmés. {alteEmoji}",
+						"sentence": "vous prenez conscience que des provisions traînent depuis un moment en vos sacs. Vous ne souhaitez cependant pas les jeter et choisissez de tout de même les manger. Cela s'avère être une mauvaise idée, il semble que les vivres étaient déjà périmés. {alteEmoji}",
 						"alte": ":confounded:"
 					},
 					{
