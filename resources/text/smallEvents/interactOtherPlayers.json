@@ -204,7 +204,7 @@
 				"Sur votre chemin, vous rencontrez {playerDisplay} qui semble fort occupé. Vous tentez d'en savoir plus, en vain, avant de poursuivre votre route."
 			],
 			":lock:": [
-				"En vous promenant tranquillement jusqu'à votre destination, vous apercevez des policiers en train d'enfiler des menottes à {playerDisplay}. Curieux, vous vous approchez et entendez qu'il se dirige droit vers la case prison. Vous repartez en vous demandant ce qu'a bien pu faire cet homme.",
+				"En vous promenant tranquillement jusqu'à votre destination, vous apercevez des gardes en train d'enfiler des menottes à {playerDisplay}. Curieux, vous vous approchez et entendez qu'il se dirige droit vers la case prison. Vous repartez en vous demandant ce qu'a bien pu faire cet homme.",
 				"Tandis que vous descendez prudemment un chemin, vous croisez un convoi de prisonniers escorté par des gardes armés. Tandis qu'ils montent péniblement la pente, vous avez le temps de dévisager les pauvres bougres, dont {playerDisplay}, qui est en pleurs. Vous avez un peu pitié mais oubliez rapidement ce sentiment en vous disant qu'il n'est sûrement pas là par hasard."
 			]
 		},
@@ -412,7 +412,7 @@
 				"On your way, you meet {playerDisplay} who seems very busy. You try to find out more, vainly, before going back to your journey."
 			],
 			":lock:": [
-				"As you quietly walk towards your destination, you notice policemen handcuffing {playerDisplay}. Curious, you approach them and take note that he's going to jail, before resuming your journey not without asking yourself what he could've done to get sent in a cell.",
+				"As you quietly walk towards your destination, you notice guards handcuffing {playerDisplay}. Curious, you approach them and take note that he's going to jail, before resuming your journey not without asking yourself what he could've done to get sent in a cell.",
 				"Just as you're walking down the road, you meet prisoners being lead by guardians. As they're painfully going upwards, you manage to uncover them, including {playerDisplay}, who couldn't hold back his tears. You begin to get some pity towards the prisoners, but forget this feeling shortly thereafter by thinking that they weren't caught for nothing."
 			]
 		}
