@@ -524,7 +524,7 @@ export class Entities {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-					   FROM ${botConfig.MARIADB_PREFIX} _game.players
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players
                        		JOIN ${botConfig.MARIADB_PREFIX}_game.entities
 					   ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
 					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}

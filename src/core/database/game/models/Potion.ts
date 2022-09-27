@@ -55,7 +55,7 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX} _game.potions
+					   FROM ${botConfig.MARIADB_PREFIX}_game.potions
 					   WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {
