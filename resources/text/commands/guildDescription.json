@@ -11,7 +11,7 @@
 			"changeDescriptionFooter": "Attention, le staff se réserve le droit de changer la description de votre guilde.",
 			"editSuccessTitle": "La description de la guilde a bien été éditée !",
 			"editCancelled": "Vous n'avez pas édité la description de la guilde !",
-			"guildDestroy": "Vous ne pouvez pas modifier la description de la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci."
+			"guildDestroy": "Vous ne pouvez pas modifier la description de la guilde car celle-ci à été supprimée, ou vous avez été exclut de celle-ci."
 		},
 		"en": {
 			"commandName": "guilddescription",

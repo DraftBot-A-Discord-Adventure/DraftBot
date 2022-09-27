@@ -90,7 +90,7 @@
 			],
 			"rich": [
 				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte {playerDisplay} ! Vous continuez votre route en ayant mal aux yeux.",
-				"Est-ce Picsou ? Mais non ! C'est {playerDisplay} ! Il possède tellement d'or que vous en êtes éblouis ! Vous continuez votre chemin en vous frottant les yeux.",
+				"Est-ce Picsou ? Mais non ! C'est {playerDisplay} ! Il possède tellement d'or que vous en êtes ébloui ! Vous continuez votre chemin en vous frottant les yeux.",
 				"Des pièces tombent des poches de {playerDisplay} tellement elles en sont remplies. Cela ne semble même pas l'inquiéter. Un animal vient les prendre avant que vous puissiez mettre la main dessus. Vous continuez votre route un peu déçu."
 			],
 			"poor": [

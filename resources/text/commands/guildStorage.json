@@ -7,7 +7,7 @@
 			"foodTitle": "{emote} {foodType}",
 			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
 			"fieldDescKey": "**Nourriture** : ",
-			"fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en n'avez plus, vous pouvez en acheter dans le `guildshop`."
+			"fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter dans le `guildshop`."
 		},
 		"en": {
 			"commandName": "guildstorage",
