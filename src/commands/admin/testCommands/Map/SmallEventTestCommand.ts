@@ -6,7 +6,13 @@ import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandsManager} from "../../../CommandsManager";
 import {Data} from "../../../../core/Data";
 
-let stringDesc: string = null;
+const smallEventsModules = Data.getKeys("smallEvents");
+
+const strings = ["Force un type de mini event parmis ceux-ci :"];
+smallEventsModules
+	.forEach(seName => {
+		strings.push(`- ${seName}`);
+	});
 
 export const commandInfo: ITestCommand = {
 	name: "smallEvent",
@@ -15,7 +21,7 @@ export const commandInfo: ITestCommand = {
 		seName: Constants.TEST_VAR_TYPES.STRING
 	},
 	messageWhenExecuted: "Mini event `{name}` forcé !",
-	description: stringDesc,
+	description: strings.join("\n"),
 	commandTestShouldReply: false,
 	execute: null // defined later
 };
@@ -28,13 +34,6 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const smallEventTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const smallEventsModules = Data.getKeys("smallEvents");
-	if (stringDesc === null) {
-		stringDesc = "Force un type de mini event parmis ceux-ci :\n";
-		smallEventsModules.forEach(seName => {
-			stringDesc += `\n - ${seName}`;
-		});
-	}
 	if (!smallEventsModules.includes(args[0])) {
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
