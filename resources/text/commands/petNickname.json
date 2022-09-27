@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "surnomfamilier",
 			"commandDescription": "Donner un nom à votre familier.",
+			"optionNickName": "surnom",
+			"optionNickDescription": "Le surnom que vous voulez donner à votre familier.",
 			"invalidName": "Les règles pour le nom d'un familier sont les suivantes:",
 			"successTitle": "{pseudo}, changement du nom du familier",
 			"success": "Nom du familier changé en **{name}** !",
@@ -11,6 +13,8 @@
 		"en": {
 			"commandName": "petnickname",
 			"commandDescription": "Give a nickname to your pet.",
+			"optionNickName": "nickname",
+			"optionNickDescription": "The nickname you want to give to your pet.",
 			"invalidName": "The rules for the pet's name are the following:",
 			"successTitle": "{pseudo}, pet name change",
 			"success": "Your pet's name changed to **{name}**!",

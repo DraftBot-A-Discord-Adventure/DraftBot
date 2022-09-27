@@ -59,8 +59,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.petNic
 const currentCommandEnglishTranslations = Translations.getModule("commands.petNickname", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("name")
-			.setDescription("The new name you want to give to the pet")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionNickName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionNickName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionNickDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionNickDescription")
+			})
 			.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,

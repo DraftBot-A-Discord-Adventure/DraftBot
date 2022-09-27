@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "familier",
 			"commandDescription": "Afficher les informations d'un familier.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur dont le familier doit être affiché.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur dont le familier doit être affiché.",
 			"embedTitle": "Familier de {pseudo} :",
 			"noPet": "Vous n'avez aucun familier !",
 			"noPetOther": "Cette personne n'a aucun familier !",
@@ -12,6 +16,10 @@
 		"en": {
 			"commandName": "pet",
 			"commandDescription": "Display information about a pet.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user whose pet should be displayed.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player whose pet should be displayed.",
 			"embedTitle": "{pseudo}'s pet:",
 			"noPet": "You don't have a pet!",
 			"noPetOther": "This person doesn't have a pet!",
