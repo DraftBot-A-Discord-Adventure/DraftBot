@@ -165,8 +165,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.guildE
 const currentCommandEnglishTranslations = Translations.getModule("commands.guildElder", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to promote")
+		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(true)
 		) as SlashCommandBuilder,
 	executeCommand,
