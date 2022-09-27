@@ -31,6 +31,7 @@ import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
+import {minutesToHours} from "../../../utils/TimeUtils";
 
 export type EditValueParameters = {
 	entity: Entity,
@@ -148,7 +149,7 @@ export class Player extends Model {
 
 	public async getCurrentTripDuration(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return link.tripDuration;
+		return minutesToHours(link.tripDuration);
 	}
 
 	public getExperienceNeededToLevelUp(): number {
