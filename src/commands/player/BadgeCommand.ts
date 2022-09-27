@@ -17,7 +17,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.setTitle(
 			tr.format(
 				"commandEmbedTitle",
-				{emote: HelpConstants.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
+				{emote: HelpConstants.COMMANDS_DATA.BADGES.EMOTE, cmd: "badge"}
 			)
 		)
 		.setDescription(tr.get("commands.BADGE.description"));

@@ -163,7 +163,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					"commandEmbedTitle",
 					{
 						emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE,
-						cmd: command.toLowerCase().replace("_", "")
+						cmd: command.toLowerCase().split("")
+							.filter(l => l !== "_")
+							.join("")
 					}
 				)
 			);
