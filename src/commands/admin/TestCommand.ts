@@ -7,6 +7,9 @@ import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
+const currentCommandEnglishTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.ENGLISH);
+const currentCommandFrenchTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.FRENCH);
+
 /**
  * Cheat command for testers
  * @param interaction
@@ -18,7 +21,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		// Second, we collect the test commands entered
 		let testCommands: string[];
 		try {
-			testCommands = (interaction.options.get("testcommand").value as string).split(" && ");
+			testCommands = (interaction.options.get(currentCommandEnglishTranslations.get("optionCommandName")).value as string).split(" && ");
 		}
 		catch {
 			testCommands = ["list"];
@@ -66,8 +69,6 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
-const currentCommandFrenchTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.FRENCH);
-const currentCommandEnglishTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionCommandName"))
