@@ -69,7 +69,7 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX} _game.objects
+					   FROM ${botConfig.MARIADB_PREFIX}_game.objects
 					   WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {
