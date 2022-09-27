@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "combat",
 			"commandDescription": "Commencer un nouveau combat.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur concerné par le combat.",
 			"fightAskingTitle": "{pseudo}, a lancé une demande de combat.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
 			"wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
@@ -131,6 +133,8 @@
 		"en": {
 			"commandName": "fight",
 			"commandDescription": "Start a new fight.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user to fight against.",
 			"fightAskingTitle": "{pseudo} requested a fight.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} wants to start a{friendly} fight! To participate, click on the reaction below!",
 			"wantsToFightSomeone": ":crossed_swords: | {player} defies {opponent} on a{friendly} fight! To accept it or not, click on the reaction below!",

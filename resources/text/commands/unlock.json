@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "delivrer",
 			"commandDescription": "Délivrer un autre joueur de la prison.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur à délivrer.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur à délivrer.",
 			"cannotGetLockedUser": "Veuillez mentionner un joueur existant. Ex : `unlock @user#0000`",
 			"userNotLocked": "Ce joueur n'est pas en prison.",
 			"unlockHimself": "Vous ne pouvez pas vous libérer vous même, demandez à un ami de le faire.",
@@ -16,6 +20,10 @@
 		"en": {
 			"commandName": "unlock",
 			"commandDescription": "Unlock another player from jail.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user to free.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player to free.",
 			"cannotGetLockedUser": "Please mention an existing player. Ex : `unlock @user#0000`",
 			"userNotLocked": "This player isn't in jail.",
 			"unlockHimself": "You can't free yourself, ask a friend.",

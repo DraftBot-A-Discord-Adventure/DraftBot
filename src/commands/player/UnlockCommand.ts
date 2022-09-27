@@ -187,12 +187,24 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.unlock
 const currentCommandEnglishTranslations = Translations.getModule("commands.unlock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to unlock")
+		.addUserOption(option =>  option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(false)
 		)
-		.addNumberOption(option => option.setName("rank")
-			.setDescription("The rank of the player you want to unlock")
+		.addNumberOption(option => option.setName(currentCommandEnglishTranslations.get("optionRankName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionRankDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankDescription")
+			})
 			.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
