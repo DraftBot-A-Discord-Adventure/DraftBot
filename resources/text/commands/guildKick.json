@@ -19,6 +19,10 @@
 		"en": {
 			"commandName": "guildkick",
 			"commandDescription": "Kick a player from the guild.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user who must be kicked.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player who must be kicked.",
 			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "This player is not in your guild.",
 			"kickTitle": "{pseudo}, confirmation:",

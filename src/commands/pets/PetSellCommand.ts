@@ -318,8 +318,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.petSel
 const currentCommandEnglishTranslations = Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addIntegerOption(option => option.setName("price")
-			.setDescription("The price at which you want to sell your pet")
+		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionPriceName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPriceName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionPriceDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPriceDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

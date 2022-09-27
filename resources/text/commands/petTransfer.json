@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "transfererfamilier",
 			"commandDescription": "Transférer un familier depuis ou vers l'abri de la guilde.",
+			"optionPositionName": "emplacement",
+			"optionPositionDescription": "L'emplacement de l'abri de guilde où le familier doit être envoyé.",
 			"wrongPetNumberBetween": "Le numéro du familier doit être compris entre 1 et {max}",
 			"wrongPetNumberSingle": "Vous n'avez qu'un seul familier dans le refuge ! Son numéro est 1",
 			"confirmSwitchTitle": "{pseudo}, le transfert a été effectué.",
@@ -16,6 +18,8 @@
 		"en": {
 			"commandName": "pettransfer",
 			"commandDescription": "Transfer a pet from or to the guild shelter.",
+			"optionPositionName": "position",
+			"optionPositionDescription": "The position in the guild shelter where the pet should be sent.",
 			"wrongPetNumberBetween": "The pet number must be between 1 and {max}",
 			"wrongPetNumberSingle": "You only have one pet in the shelter! Their number is 1",
 			"confirmSwitchTitle": "{pseudo}, your transfer is done.",
