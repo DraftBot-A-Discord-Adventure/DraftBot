@@ -190,8 +190,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.guildC
 const currentCommandEnglishTranslations = Translations.getModule("commands.guildCreate", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("name")
-			.setDescription("The name of the new guild")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionGuildName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionGuildDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

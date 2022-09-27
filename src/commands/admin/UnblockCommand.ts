@@ -46,8 +46,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.unbloc
 const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("discordid")
-			.setDescription("The discord id of the blocked user")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionIdName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionIdName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionIdDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionIdDescription")
+			})
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

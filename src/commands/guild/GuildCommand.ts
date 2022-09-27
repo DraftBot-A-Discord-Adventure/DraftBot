@@ -146,16 +146,34 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.guild"
 const currentCommandEnglishTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName("user")
-			.setDescription("The user you want to see the guild")
+		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			})
 			.setRequired(false)
 		)
-		.addStringOption(option => option.setName("name")
-			.setDescription("The name of the guild to display")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionGuildName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionGuildDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionGuildDescription")
+			})
 			.setRequired(false)
 		)
-		.addNumberOption(option => option.setName("rank")
-			.setDescription("The rank of the player you want to see the guild")
+		.addNumberOption(option => option.setName(currentCommandEnglishTranslations.get("optionRankName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionRankDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankDescription")
+			})
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

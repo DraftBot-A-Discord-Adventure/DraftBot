@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "creationguilde",
 			"commandDescription": "Créer une nouvelle guilde.",
+			"optionGuildName": "nom",
+			"optionGuildDescription": "Le nom de la guilde.",
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "Vous appartenez déjà à une guilde.",
 			"invalidName": "Les règles pour le nom de la guilde sont les suivantes:",
@@ -17,6 +19,8 @@
 		"en": {
 			"commandName": "guildcreate",
 			"commandDescription": "Create a new guild.",
+			"optionGuildName": "name",
+			"optionGuildDescription": "The guild name.",
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "You are already in a guild.",
 			"invalidName": "The rules for the guild's name are the followings:",

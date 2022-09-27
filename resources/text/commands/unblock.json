@@ -3,12 +3,16 @@
 		"fr": {
 			"commandName": "debloquer",
 			"commandDescription": "Débloquer un joueur bloqué (pour les administrateurs uniquement).",
+			"optionIdName": "identifiant",
+			"optionIdDescription": "L'identifiant discord du joueur qui doit être débloqué.",
 			"title": "Vous avez été débloqué",
 			"description": "Excusez nous de la gène occasionnée."
 		},
 		"en": {
 			"commandName": "unblock",
 			"commandDescription": "Unblock a player (admins only).",
+			"optionIdName": "id",
+			"optionIdDescription": "The discord id of the player to unblock.",
 			"title": "You have been unblocked",
 			"description": "Sorry for the inconvenience."
 		}
