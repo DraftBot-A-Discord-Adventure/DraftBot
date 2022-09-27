@@ -8,6 +8,9 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import * as fs from "fs";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
+const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
+const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
+
 /**
  * Allow a contributor to get the console logs
  * @param interaction
@@ -23,7 +26,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return;
 	}
 
-	if (interaction.options.get("specificfile") === null) {
+	if (interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")) === null) {
 		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
 				await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
@@ -45,7 +48,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await interaction.reply({content: "Logs list sent !"});
 	}
 	else {
-		let queriedFile = interaction.options.get("specificfile").value as string;
+		let queriedFile = interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")).value as string;
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
 			return;
@@ -68,8 +71,6 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 }
 
-const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
-const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionFileName"))
