@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🤝": {
 			"translations": {
-				"fr": "Proposer son aide",
-				"en": "Offer to help"
+				"fr": "Proposer son aide.",
+				"en": "Offer to help."
 			},
 			"issues": [
 				{
@@ -41,8 +41,8 @@
 		},
 		"🕵️": {
 			"translations": {
-				"fr": "Piller les corps",
-				"en": "Steal of bodies"
+				"fr": "Piller les corps.",
+				"en": "Steal of bodies."
 			},
 			"issues": [
 				{
@@ -73,8 +73,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Ne pas les aider",
-				"en": "Don't help them"
+				"fr": "Ne pas les aider.",
+				"en": "Don't help them."
 			},
 			"issues": [
 				{

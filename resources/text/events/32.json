@@ -9,8 +9,8 @@
 	"possibilities": {
 		"💉": {
 			"translations": {
-				"fr": "Aller chercher de quoi soigner l'homme blessé",
-				"en": "Try to find something to heal the wounded man"
+				"fr": "Aller chercher de quoi soigner l'homme blessé.",
+				"en": "Try to find something to heal the wounded man."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"🔪": {
 			"translations": {
-				"fr": "Achever l'homme pour récupérer son équipement",
-				"en": "Shorten the man's suffering to steal his equipment"
+				"fr": "Achever l'homme pour récupérer son équipement.",
+				"en": "Shorten the man's suffering to steal his equipment."
 			},
 			"issues": [
 				{

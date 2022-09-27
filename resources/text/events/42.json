@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🏹": {
 			"translations": {
-				"fr": "Vous empresser de l'aider",
-				"en": "Rush to help her"
+				"fr": "Vous empresser de l'aider.",
+				"en": "Rush to help her."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"😎": {
 			"translations": {
-				"fr": "Faire mine de vous éloigner pour revenir seul fouiller la grotte",
-				"en": "Feign to go on your way with the plan to come back explore alone"
+				"fr": "Faire mine de vous éloigner pour revenir seul fouiller la grotte.",
+				"en": "Feign to go on your way with the plan to come back explore alone."
 			},
 			"issues": [
 				{
@@ -121,8 +121,8 @@
 		},
 		"🥩": {
 			"translations": {
-				"fr": "Lui demander l'auberge la plus proche",
-				"en": "Ask her for the nearest hostel"
+				"fr": "Lui demander l'auberge la plus proche.",
+				"en": "Ask her for the nearest hostel."
 			},
 			"issues": [
 				{

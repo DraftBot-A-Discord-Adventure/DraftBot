@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🍀": {
 			"translations": {
-				"fr": "Cadeau en nature",
-				"en": "Gift in kind"
+				"fr": "Cadeau en nature.",
+				"en": "Gift in kind."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"💰": {
 			"translations": {
-				"fr": "Cadeau en monnaie",
-				"en": "Money Gift"
+				"fr": "Cadeau en monnaie.",
+				"en": "Money Gift."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"😇": {
 			"translations": {
-				"fr": "Cadeau en santé",
-				"en": "Gift of Health"
+				"fr": "Cadeau en santé.",
+				"en": "Gift of Health."
 			},
 			"issues": [
 				{
@@ -141,8 +141,8 @@
 		},
 		"🥗": {
 			"translations": {
-				"fr": "Cadeau alimentaire",
-				"en": "Gift of Food"
+				"fr": "Cadeau alimentaire.",
+				"en": "Gift of Food."
 			},
 			"issues": [
 				{

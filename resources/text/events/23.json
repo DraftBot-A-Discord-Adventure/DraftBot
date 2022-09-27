@@ -15,8 +15,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent",
-						"en": "You decide to come closer and help them. After spending 45 minutes helping them, these individuals thank you and give you money"
+						"fr": "Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent.",
+						"en": "You decide to come closer and help them. After spending 45 minutes helping them, these individuals thank you and give you money."
 					},
 					"lostTime": 45,
 					"health": 0,
