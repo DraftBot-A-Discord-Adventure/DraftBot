@@ -203,8 +203,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.petTra
 const currentCommandEnglishTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addIntegerOption(option => option.setName("shelterposition")
-			.setDescription("The position of the pet in the shelter you want to switch with")
+		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionPositionName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPositionName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionPositionDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPositionDescription")
+			})
 			.setRequired(false)
 			.setMinValue(1)
 			.setMaxValue(PetEntityConstants.SLOTS)
