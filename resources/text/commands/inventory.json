@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "inventaire",
 			"commandDescription": "Affiche l'inventaire du joueur.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur dont l'inventaire doit être affiché.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur dont l'inventaire doit être affiché.",
 			"title": ":briefcase: **Inventaire de {pseudo}**",
 			"stockTitle": ":package: **Réserve d'objets de {pseudo}**",
 			"randomItemTitle": "{pseudo}, vous avez trouvé quelque chose !",
@@ -23,6 +27,10 @@
 		"en": {
 			"commandName": "inventory",
 			"commandDescription": "Displays the player's inventory.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user whose inventory should be displayed.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player whose inventory should be displayed.",
 			"title": ":briefcase: **{pseudo}'s inventory**",
 			"stockTitle": ":package: **{pseudo}'s items stock**",
 			"randomItemTitle": "{pseudo}, you just found something!",
