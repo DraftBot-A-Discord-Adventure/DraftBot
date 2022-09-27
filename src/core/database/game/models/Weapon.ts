@@ -50,7 +50,7 @@ export class Weapons {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX} _game.weapons
+					   FROM ${botConfig.MARIADB_PREFIX}_game.weapons
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Weapon.sequelize.query(query, {
 			replacements: {
