@@ -3,6 +3,10 @@
 		"fr": {
 			"commandName": "missions",
 			"commandDescription": "Lister les missions d'un joueur.",
+			"optionUserName": "utilisateur",
+			"optionUserDescription": "L'utilisateur dont les missions seront affichées.",
+			"optionRankName": "classement",
+			"optionRankDescription": "Le classement du joueur dont les missions seront affichées.",
 			"title": "Missions de {pseudo}",
 			"campaign": "\uD83D\uDCD6 **Campagne ({current}/{max})**",
 			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
@@ -15,6 +19,10 @@
 		"en": {
 			"commandName": "missions",
 			"commandDescription": "List the missions of a player.",
+			"optionUserName": "user",
+			"optionUserDescription": "The user whose missions will be displayed.",
+			"optionRankName": "rank",
+			"optionRankDescription": "The rank of the player whose missions will be displayed.",
 			"title": "Missions of {pseudo}",
 			"campaign": "\uD83D\uDCD6 **Campaign ({current}/{max})**",
 			"finishedCampaign": "\uD83D\uDCD6 **Campaign finished**",
