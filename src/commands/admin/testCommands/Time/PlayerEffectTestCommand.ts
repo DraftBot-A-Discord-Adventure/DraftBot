@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
 		effect: Constants.TEST_VAR_TYPES.STRING
 	},
 	messageWhenExecuted: "Vous avez maintenant l'effet {effect} !",
-	description: `Mets l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
+	description: `Met l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
 	commandTestShouldReply: true,
 	execute: null // defined later
 };
@@ -43,7 +43,6 @@ const playerEffectTestCommand = async (language: string, interaction: CommandInt
 		return format(commandInfo.messageWhenExecuted, {effect: effectMalus});
 	}
 	throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
-
 };
 
 commandInfo.execute = playerEffectTestCommand;
