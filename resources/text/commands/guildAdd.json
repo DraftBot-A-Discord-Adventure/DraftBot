@@ -4,7 +4,7 @@
 			"commandName": "invitationguilde",
 			"commandDescription": "Recruter un nouveau membre dans votre guilde.",
 			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
-			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclue de celle-ci.",
+			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée, ou vous avez été exclut de celle-ci.",
 			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
 			"invitation": ":question: Souhaitez vous rejoindre la guilde `{guildName}` ?",
 			"successTitle": "{pseudo} a rejoint la guilde {guildName} !",

@@ -63,8 +63,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
-						"en": "🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+						"fr": "🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !",
+						"en": "🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen almost everything you collected since your last trip!"
 					},
 					"lostTime": 100,
 					"health": 0,
