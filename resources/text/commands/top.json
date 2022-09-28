@@ -3,6 +3,20 @@
 		"fr": {
 			"commandName": "classement",
 			"commandDescription": "Afficher le classement des joueurs.",
+			"optionScopeName": "portee",
+			"optionScopeDescription": "La portée du classement affiché (Classement général par défaut).",
+			"scopes": {
+				"global": "\uD83C\uDFC6 Classement général",
+				"server": "\uD83D\uDEA9 Classement du serveur"
+			},
+			"optionTimingName": "duree",
+			"optionTimingDescription": "La durée du classement affiché (Depuis toujours par défaut).",
+			"timings": {
+				"allTime": "\uD83D\uDDD3️ Depuis toujours.",
+				"weekly": "\uD83D\uDD65 Cette semaine."
+			},
+			"optionPageName": "page",
+			"optionPageDescription": "La page du classement souhaitée.",
 			"topTitle": ":trophy: Affichage du top{alltime?: de la semaine}{global?: du serveur} des places {start} à {end}",
 			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
@@ -17,6 +31,20 @@
 		"en": {
 			"commandName": "top",
 			"commandDescription": "Displays the ranking of the players.",
+			"optionScopeName": "scope",
+			"optionScopeDescription": "The scope of the displayed ranking (Global ranking by default).",
+			"scopes": {
+				"global": "\uD83C\uDFC6 Global ranking.",
+				"server": "\uD83D\uDEA9 Server ranking."
+			},
+			"optionTimingName": "timing",
+			"optionTimingDescription": "The timing of the displayed ranking (All time by default).",
+			"timings": {
+				"allTime": "\uD83D\uDDD3️ All time.",
+				"weekly": "\uD83D\uDD65 This week."
+			},
+			"optionPageName": "page",
+			"optionPageDescription": "The desired ranking page.",
 			"topTitle": ":trophy: Display of {alltime?: weekly}{global?: server} top {start} to {end}",
 			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
