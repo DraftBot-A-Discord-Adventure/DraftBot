@@ -28,7 +28,7 @@ export class Mission extends Model {
 
 
 	public async formatDescription(objective: number, variant: number, language: string, saveBlob: Buffer): Promise<string> {
-		return format(language === "fr" ? this.descFr : this.descEn, {
+		return format(language === Constants.LANGUAGE.FRENCH ? this.descFr : this.descEn, {
 			objective,
 			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language, saveBlob),
 			variant

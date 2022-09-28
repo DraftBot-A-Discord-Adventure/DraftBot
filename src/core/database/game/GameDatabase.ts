@@ -19,6 +19,7 @@ import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
 import {EffectsConstants} from "../../constants/EffectsConstants";
+import { Constants } from "../../Constants";
 
 type IssueType = {
 	[key: string]: unknown,
@@ -142,8 +143,8 @@ export class GameDatabase extends Database {
 		const eventsContent = [];
 		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
-		const reportTranslationsFr = Translations.getModule("commands.report", "fr");
-		const reportTranslationsEn = Translations.getModule("commands.report", "en");
+		const reportTranslationsFr = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
+		const reportTranslationsEn = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
 		for (const file of files) {
 			const fileName = file.split(".")[0];
 			const fileContent = await import(`resources/text/events/${file}`);

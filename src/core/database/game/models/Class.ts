@@ -4,6 +4,7 @@ import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
 import * as moment from "moment";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
+import { Constants } from "../../../Constants";
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -65,7 +66,7 @@ export class Class extends Model {
 	 * @param language
 	 */
 	public getName(language: string): string {
-		return language === "fr" ? this.fr : this.en;
+		return language === Constants.LANGUAGE.FRENCH ? this.fr : this[];
 	}
 
 	/**
