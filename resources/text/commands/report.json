@@ -46,7 +46,7 @@
 			"travellingDescription": "Everything is going well since your last adventure {smallEventEmoji}. Next stop scheduled in **{time}**.",
 			"travellingDescriptionEndTravel": "Everything is going well for you. You will reach your destination shortly.",
 			"choseMap": "You chose to go in the direction {mapPrefix} **{mapName}** {mapType}. You'll travel for about **{time} hour{time>1?s:}**.",
-			"choseMapMinutes": "Vous avez décidé de partir en direction {mapPrefix} {mapType} **{mapName}**. Ce trajet durera environ **{time} minute{time>1?s:}**.",
+			"choseMapMinutes": "You chose to go in the direction {mapPrefix} **{mapName}** {mapType}. You'll travel for about **{time} minute{time>1?s:}**.",
 			"destinationTitle": "{pseudo}, travel destination",
 			"chooseDestinationIndications": "Choose the destination of your travel:",
 			"travelPathTitle": "Current travel:",

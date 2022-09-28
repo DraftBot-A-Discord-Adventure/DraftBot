@@ -9,8 +9,8 @@
 	"possibilities": {
 		"⚔️": {
 			"translations": {
-				"fr": "Jouer à se battre",
-				"en": "Play a fighting game"
+				"fr": "Jouer à se battre.",
+				"en": "Play a fighting game."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"🏹": {
 			"translations": {
-				"fr": "Leur apprendre à tirer à l'arc",
-				"en": "Teach them how to use a Bow"
+				"fr": "Leur apprendre à tirer à l'arc.",
+				"en": "Teach them how to use a Bow."
 			},
 			"issues": [
 				{
@@ -84,7 +84,7 @@
 				{
 					"translations": {
 						"fr": "Vous expliquez aux enfants comment se placer pour tirer et ceux-ci s'en sortent très bien. Vous passez le reste de la journée à les entraîner au tir à l'arc. Avant que vous ne les quittiez vous êtes chaudement remercié par un petit présent de vos apprentis du jour. Vous reprenez la route, heureux d'avoir pu vous rendre utile.",
-						"en": "You explain to the children how to place themselves to shoot and the children do well. You spend the rest of the day training them in archery. Before you left them you were warmly thanked by a small present from your apprentices of the day. You leave them and resume your journey"
+						"en": "You explain to the children how to place themselves to shoot and the children do well. You spend the rest of the day training them in archery. Before you left them you were warmly thanked by a small present from your apprentices of the day. You leave them and resume your journey."
 					},
 					"lostTime": 190,
 					"health": 0,
@@ -109,8 +109,8 @@
 		},
 		"👥": {
 			"translations": {
-				"fr": "Jouer au fuyard et au garde",
-				"en": "Play Cops & Robbers"
+				"fr": "Jouer au fuyard et au garde.",
+				"en": "Play Cops & Robbers."
 			},
 			"issues": [
 				{
@@ -153,8 +153,8 @@
 		},
 		"❌": {
 			"translations": {
-				"fr": "Refuser et passer votre chemin",
-				"en": "Refuse and continue"
+				"fr": "Refuser et passer votre chemin.",
+				"en": "Refuse and continue."
 			},
 			"issues": [
 				{

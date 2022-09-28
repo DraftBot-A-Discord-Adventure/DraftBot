@@ -9,14 +9,14 @@
 	"possibilities": {
 		"👊": {
 			"translations": {
-				"fr": "Attaquer le garde par surprise dans l'optique d'aider la femme",
+				"fr": "Attaquer le garde par surprise dans l'optique d'aider la femme.",
 				"en": "Attack the guard to help the lady."
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait",
-						"en": "You succeed in knocking out the guard and taking the precious object he was carrying"
+						"fr": "Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait.",
+						"en": "You succeed in knocking out the guard and taking the precious object he was carrying."
 					},
 					"lostTime": 0,
 					"health": 0,

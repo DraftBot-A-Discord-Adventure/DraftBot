@@ -81,7 +81,7 @@
 					"money": 0,
 					"item": false
 				},
-                {
+				{
 					"translations": {
 						"fr": "À peine arrivé dans les vignobles, vous discernez une petite cabane en bois. En y entrant, vous découvrez quelques tonneaux et plusieurs bouteilles de vin, dont une est déjà entamée. Quelques gorgées ne vous auraient pas fait de mal si seulement vous aviez réussi à vous limiter à une petite quantité. Vous trouvez le vin délicieux mais ne souhaitez pas perdre plus de temps que cela à chercher une fourche. Vous reprenez votre chemin en prenant soin d'éviter le paysan.",
 						"en": "Barely arrived in the vines, you discern a small wooden hut. As you enter it, you discover a few barrels and several bottles of wine, one of it has already been started. A few sips would not have hurt you if only you had managed to limit yourself to a small amount. You find the wine delicious and do not want to waste more time looking for a fork. You take your path back and take care to avoid the peasant."
@@ -113,7 +113,7 @@
 					"money": 400,
 					"item": false
 				},
-                {
+				{
 					"translations": {
 						"fr": "Après trois heures de recherche, la fourche reste introuvable. Vous découvrez cependant un objet qui pourra peut-être vous être utile pour gagner le coeur de votre chère Princesse !",
 						"en": "After three hours of research, the fork asn't been found. However, you find a pretty item that may be useful to get the heart of the Princess!"
@@ -125,7 +125,7 @@
 					"money": 0,
 					"item": true
 				},
-                {
+				{
 					"translations": {
 						"fr": "Alors que vous êtes à la recherche de la fourche, vous marchez dessus et vous faites une vilaine entaille. Vous prenez le temps nécessaire afin de prévenir le paysan que vous avez retrouvé sa fourche. Celui-ci, apercevant votre blessure, s'empresse de vous soigner comme il peut.",
 						"en": "Looking for the fork, you step on it and get a nasty cut. You take on your time to inform the peasant you found his fork. He, seeing you're injured, hastens to heal you as he can."
@@ -139,7 +139,7 @@
 				}
 			]
 		},
-        "✖️": {
+		"✖️": {
 			"translations": {
 				"fr": "Refuser d'aider le paysan.",
 				"en": "Refuse to help the peasant."
@@ -157,7 +157,7 @@
 					"money": 0,
 					"item": false
 				},
-                {
+				{
 					"translations": {
 						"fr": "Vous refusez la demande du paysan avec une telle courtoisie que celui-ci vous souhaite même un bon courage pour la suite de votre aventure !",
 						"en": "You refuse the peasant's request with such courtesy that he wishes you a good continuation for your adventure!"
@@ -169,7 +169,7 @@
 					"money": 0,
 					"item": false
 				},
-                {
+				{
 					"translations": {
 						"fr": "Vous décidez d'ignorer la demande du paysan. Alors que vous marchez depuis plusieurs minutes, vous apercevez une route bordée d'impressionnants cerisiers. Quelques cerises bien rouges semblent vous tendre les bras. Après en avoir dégusté quelques-unes, vous reprenez tranquillement votre périple.",
 						"en": "You decide to ignore the peasant's request. As you were walking for several minutes, you see a road lined with impressive cherry trees. Some cherries seem to reach out you. After eating a few ones, you resume your journey."
@@ -187,7 +187,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "🥓 Devant votre absence de réponse, le paysan semble légèrement agacé mais vous laisse partir sans insister. Vous trouvez une besace oubliée sur le bord d'un chemin. En l'ouvrant, vous y découvrez deux petits morceaux de lard séché. ",
+						"fr": "🥓 Devant votre absence de réponse, le paysan semble légèrement agacé mais vous laisse partir sans insister. Vous trouvez une besace oubliée sur le bord d'un chemin. En l'ouvrant, vous y découvrez deux petits morceaux de lard séché.",
 						"en": "🥓 Seeing you unresponsive, the peasant seems quite annoyed but lets you leave without insisting. You find a losted wallet on the edge of a path. When you open it, you discover two small pieces of dried bacon."
 					},
 					"lostTime": 0,

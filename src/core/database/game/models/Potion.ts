@@ -37,9 +37,10 @@ export class Potion extends SupportItemModel {
 export class Potions {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/potions/", (err, files) => {
-				err ? reject(err) : resolve(files.length - 1);
-			}
+			fs.readdir("resources/text/potions/",
+				(err, files) => {
+					err ? reject(err) : resolve(files.length - 1);
+				}
 			);
 		});
 	}
@@ -54,8 +55,8 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-                       FROM ${botConfig.MARIADB_PREFIX}_game.potions
-                       WHERE rarity = :rarity`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.potions
+					   WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {
 				rarity: rarity

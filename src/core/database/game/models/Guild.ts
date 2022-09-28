@@ -305,7 +305,7 @@ export class Guilds {
 
 	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-                       FROM ${botConfig.MARIADB_PREFIX}_game.Guilds`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.Guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT

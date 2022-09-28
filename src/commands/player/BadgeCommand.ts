@@ -17,7 +17,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		.setTitle(
 			tr.format(
 				"commandEmbedTitle",
-				{emote: HelpConstants.COMMANDS_DATA.BADGE.EMOTE, cmd: "badge"}
+				{emote: HelpConstants.COMMANDS_DATA.BADGES.EMOTE, cmd: "badge"}
 			)
 		)
 		.setDescription(tr.get("commands.BADGE.description"));
@@ -29,7 +29,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.badges", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

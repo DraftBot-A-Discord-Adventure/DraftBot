@@ -79,6 +79,18 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
 }
 
 /**
+ * get the current campaign progression of the player
+ * @param askedEntity
+ * @param mc
+ */
+function getCampaignProgression(askedEntity: Entity, mc: MissionSlot): number {
+	return Math.round((askedEntity.Player.PlayerMissionsInfo.campaignProgression ===
+		Campaign.getMaxCampaignNumber() &&
+		mc.isCompleted() ? askedEntity.Player.PlayerMissionsInfo.campaignProgression : askedEntity.Player.PlayerMissionsInfo.campaignProgression - 1
+	) / Campaign.getMaxCampaignNumber() * 100);
+}
+
+/**
  * Get the mission field of the profile
  * @param profileModule
  * @param askedEntity
@@ -87,14 +99,11 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
 function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedField {
 	return {
 		name: profileModule.get("mission.fieldName"),
-		value: profileModule.format("mission.fieldValue", {
-			gems: askedEntity.Player.PlayerMissionsInfo.gems,
-			campaign: Math.round(
-				(askedEntity.Player.PlayerMissionsInfo.campaignProgression ===
-						Campaign.getMaxCampaignNumber() && mc.isCompleted() ? askedEntity.Player.PlayerMissionsInfo.campaignProgression
-					: askedEntity.Player.PlayerMissionsInfo.campaignProgression - 1
-				) / Campaign.getMaxCampaignNumber() * 100)
-		}
+		value: profileModule.format("mission.fieldValue",
+			{
+				gems: askedEntity.Player.PlayerMissionsInfo.gems,
+				campaign: getCampaignProgression(askedEntity, mc)
+			}
 		),
 		inline: false
 	};
@@ -377,7 +386,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 const currentCommandFrenchTranslations = Translations.getModule("commands.profile", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.profile", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addUserOption(option => option.setName("user")
 			.setDescription("The user you want to see the profile")
 			.setRequired(false)

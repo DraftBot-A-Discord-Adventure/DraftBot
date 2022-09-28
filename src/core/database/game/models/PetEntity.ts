@@ -213,8 +213,8 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
-                       WHERE lovePoints = ${Constants.PETS.MAX_LOVE_POINTS}`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   WHERE lovePoints = ${Constants.PETS.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -222,8 +222,8 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
-                       WHERE lovePoints <= ${Constants.PETS.LOVE_LEVELS[0]}`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   WHERE lovePoints <= ${Constants.PETS.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -231,8 +231,8 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
-                       WHERE sex = :sex`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   WHERE sex = :sex`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -243,7 +243,7 @@ export class PetEntities {
 
 	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-                       FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities`;
+					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];

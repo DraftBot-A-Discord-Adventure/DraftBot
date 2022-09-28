@@ -55,7 +55,7 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 			const map = await MapLocations.getById(availableMaps[i]);
 			field += map.getDisplayName(language) + " (id: " + map.id + ")" + "\n";
 		}
-		mapEmbed.addFields({ name: "Next available maps", value: field, inline: true });
+		mapEmbed.addFields({name: "Next available maps", value: field, inline: true});
 	}
 	else {
 		mapEmbed.addFields({

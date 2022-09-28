@@ -27,8 +27,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure",
-						"en": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure"
+						"fr": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure.",
+						"en": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure."
 					},
 					"lostTime": 0,
 					"health": 15,
@@ -121,7 +121,7 @@
 		},
 		"🎪": {
 			"translations": {
-				"fr": "Aller au marché",
+				"fr": "Aller au marché.",
 				"en": "Go to the marketplace."
 			},
 			"issues": [
@@ -165,7 +165,7 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Repartir",
+				"fr": "Repartir.",
 				"en": "Leave."
 			},
 			"issues": [

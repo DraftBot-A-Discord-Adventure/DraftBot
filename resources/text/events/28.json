@@ -9,8 +9,8 @@
 	"possibilities": {
 		"✅": {
 			"translations": {
-				"fr": "Accepter de la rejoindre",
-				"en": "Agree to join them"
+				"fr": "Accepter de la rejoindre.",
+				"en": "Agree to join them."
 			},
 			"issues": [
 				{
@@ -27,8 +27,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi",
-						"en": "You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith"
+						"fr": "Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi.",
+						"en": "You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith."
 					},
 					"lostTime": 30,
 					"health": 0,

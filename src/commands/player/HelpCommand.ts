@@ -163,7 +163,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					"commandEmbedTitle",
 					{
 						emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE,
-						cmd: command.toLowerCase().replace("_", "")
+						cmd: command.toLowerCase().split("")
+							.filter(l => l !== "_")
+							.join("")
 					}
 				)
 			);
@@ -181,7 +183,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 const currentCommandFrenchTranslations = Translations.getModule("commands.help", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName("command")
 			.setDescription("Get help about a specific command")
 			.setRequired(false)

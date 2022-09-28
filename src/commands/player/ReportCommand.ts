@@ -11,7 +11,7 @@ import {Constants} from "../../core/Constants";
 import {
 	hoursToMilliseconds,
 	millisecondsToMinutes,
-	minutesDisplay,
+	minutesDisplay, minutesToHours, minutesToMilliseconds,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/database/game/models/Tag";
@@ -39,7 +39,7 @@ type TextInformation = { interaction: CommandInteraction, language: string, tr?:
  */
 async function initiateNewPlayerOnTheAdventure(entity: Entity): Promise<void> {
 	entity.Player.mapLinkId = Constants.BEGINNING.START_MAP_LINK;
-	entity.Player.startTravelDate = new Date(Date.now() - hoursToMilliseconds((await MapLinks.getById(entity.Player.mapLinkId)).tripDuration));
+	entity.Player.startTravelDate = new Date(Date.now() - minutesToMilliseconds((await MapLinks.getById(entity.Player.mapLinkId)).tripDuration));
 	entity.Player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
 	await entity.Player.save();
 }
@@ -266,12 +266,13 @@ async function createDescriptionChooseDestination(
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
 		const link = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[i]);
-		const duration = RandomUtils.draftbotRandom.bool() ? link.tripDuration : "?";
-		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${duration}h)\n`;
+		const duration = minutesToHours(link.tripDuration);
+		const displayedDuration = RandomUtils.draftbotRandom.bool() ? duration : "?";
+		// we have to convert the duration to hours if it is not unknown
+		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration}h)\n`;
 	}
 	return desc;
 }
-
 
 /**
  * Function called to display the direction chosen by a player
@@ -726,7 +727,7 @@ async function executeCommand(
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {},
 	mainGuildCommand: false

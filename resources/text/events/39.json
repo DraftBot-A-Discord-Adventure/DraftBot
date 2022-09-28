@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🚶": {
 			"translations": {
-				"fr": "Le payer pour vous escorter jusqu'à votre prochaine destination",
-				"en": "Pay him to accompany you to your next destination"
+				"fr": "Le payer pour vous escorter jusqu'à votre prochaine destination.",
+				"en": "Pay him to accompany you to your next destination."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"🍖": {
 			"translations": {
-				"fr": "Faire connaissance autour d'un bon repas",
-				"en": "Get to know each other over a good meal"
+				"fr": "Faire connaissance autour d'un bon repas.",
+				"en": "Get to know each other over a good meal."
 			},
 			"issues": [
 				{
@@ -97,8 +97,8 @@
 		},
 		"🤑": {
 			"translations": {
-				"fr": "Tenter de lui voler de l'argent",
-				"en": "Try to steal money from him"
+				"fr": "Tenter de lui voler de l'argent.",
+				"en": "Try to steal money from him."
 			},
 			"issues": [
 				{

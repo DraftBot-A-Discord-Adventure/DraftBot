@@ -9,8 +9,8 @@
 	"possibilities": {
 		"✅": {
 			"translations": {
-				"fr": "Accepter de livrer le colis",
-				"en": "Agree to deliver the package"
+				"fr": "Accepter de livrer le colis.",
+				"en": "Agree to deliver the package."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"🕵️": {
 			"translations": {
-				"fr": "Voler le colis",
-				"en": "Steal the package"
+				"fr": "Voler le colis.",
+				"en": "Steal the package."
 			},
 			"issues": [
 				{
@@ -121,8 +121,8 @@
 		},
 		"❌": {
 			"translations": {
-				"fr": "Refuser poliment",
-				"en": "Politely decline"
+				"fr": "Refuser poliment.",
+				"en": "Politely decline."
 			},
 			"issues": [
 				{

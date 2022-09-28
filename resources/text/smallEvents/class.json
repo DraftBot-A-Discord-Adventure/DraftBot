@@ -26,7 +26,7 @@
 				],
 				"winObject": [
 					"un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à défendre.",
-					"un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez.  Grâce à vôtre entrainement, la victoire est votre, et vous remportez le lot promis.",
+					"un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez.  Grâce à vôtre entrainement, cette victoire est vôtre, et vous remportez le lot promis.",
 					"Vous trouvez un paysan qui a besoin d'aide pour réparer sa charrette. Vous remettez la roue en place. Pour vous remercier, il vous donne un objet défensif forgé par les meilleurs ouvriers de Claire De Ville."
 				],
 				"winArmor": [
@@ -127,10 +127,32 @@
 			}
 		}
 	},
-	"attackEligible": [8,9,10,11],
-	"defenseEligible": [4,5,6,7,16],
-	"basicEligible": [0,1,2,3,12,13,14,15],
-	"otherEligible": [17],
+	"attackEligible": [
+		8,
+		9,
+		10,
+		11
+	],
+	"defenseEligible": [
+		4,
+		5,
+		6,
+		7,
+		16
+	],
+	"basicEligible": [
+		0,
+		1,
+		2,
+		3,
+		12,
+		13,
+		14,
+		15
+	],
+	"otherEligible": [
+		17
+	],
 	"rarity": 4,
 	"emote": ":bookmark:"
 }

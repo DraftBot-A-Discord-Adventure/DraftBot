@@ -22,7 +22,7 @@ async function executeCommand(interaction: CommandInteraction): Promise<void> {
 const currentCommandFrenchTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.FRENCH);
 const currentCommandEnglishTranslations = Translations.getModule("commands.debugBlocked", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations,currentCommandEnglishTranslations)
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
 			.setNameLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionUserName")

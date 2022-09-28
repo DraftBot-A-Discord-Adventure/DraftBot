@@ -9,8 +9,8 @@
 	"possibilities": {
 		"⬆️": {
 			"translations": {
-				"fr": "Continuer votre route",
-				"en": "Continue down the road"
+				"fr": "Continuer votre route.",
+				"en": "Continue down the road."
 			},
 			"issues": [
 				{
@@ -41,8 +41,8 @@
 		},
 		"⬇️": {
 			"translations": {
-				"fr": "Faire demi tour",
-				"en": "Turn back around"
+				"fr": "Faire demi tour.",
+				"en": "Turn back around."
 			},
 			"issues": [
 				{
@@ -73,8 +73,8 @@
 		},
 		"⚔️": {
 			"translations": {
-				"fr": "Affronter la créature",
-				"en": "Oppose the mysterious man"
+				"fr": "Affronter la créature.",
+				"en": "Oppose the mysterious man."
 			},
 			"issues": [
 				{
@@ -117,8 +117,8 @@
 		},
 		"⛪": {
 			"translations": {
-				"fr": "S'abriter dans une église Kyutiste",
-				"en": "Take shelter in a Kyutist church"
+				"fr": "S'abriter dans une église Kyutiste.",
+				"en": "Take shelter in a Kyutist church."
 			},
 			"issues": [
 				{

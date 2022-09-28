@@ -17,7 +17,7 @@
 			],
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
-				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état. {nominative} vous la ramène, et vous la mangez avant qu'elle ne se déteriore. Vous gagnez **{amount}** :heart:.",
+				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état et vous la ramène. Vous la mangez avant qu'elle ne se déteriore et gagnez **{amount}** :heart:.",
 				"Après être parti{feminine} quelques instants, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
 			],
 			"gainLove": [
@@ -60,7 +60,7 @@
 				"Vous remarquez un large trou dans votre bourse, **{pet}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{amount}** :money_with_wings:.",
 				"Alors que vous jouez avec **{pet}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récuperer ces **{amount}** :money_with_wings: !",
 				"**{pet}** semble être irrité, {nominative} ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{amount}** :money_with_wings:.",
-				"En voulant jouer avec **{pet}**, vous {accusative} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous délaisse de **{amount}** :money_with_wings:."
+				"En voulant jouer avec **{pet}**, vous {accusative} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous déleste de **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
 				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} Min** :clock2:.",

@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🍺": {
 			"translations": {
-				"fr": "Accepter de servir de cobaye",
-				"en": "Accept the proposal"
+				"fr": "Accepter de servir de cobaye.",
+				"en": "Accept the proposal."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"❌": {
 			"translations": {
-				"fr": "Refuser sa proposition",
-				"en": "Refuse the proposal"
+				"fr": "Refuser sa proposition.",
+				"en": "Refuse the proposal."
 			},
 			"issues": [
 				{
@@ -71,7 +71,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous agressez littéralement le barman lui demandant s'il vous prend pour un gougnafier à essayer de vous faire boire n'importe quelle cochonnerie. Il vous exclue de son bar, alors vous vous vengez en y allumant un feu, puis reprenez votre chemin.",
+						"fr": "Vous agressez littéralement le barman lui demandant s'il vous prend pour un gougnafier à essayer de vous faire boire n'importe quelle cochonnerie. Il vous exclut de son bar, alors vous vous vengez en y allumant un feu, puis reprenez votre chemin.",
 						"en": "You literally assault the bartender asking him if he thinks you're a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way."
 					},
 					"lostTime": 0,
@@ -97,8 +97,8 @@
 		},
 		"💰": {
 			"translations": {
-				"fr": "Refuser, et tenter de voler des gens",
-				"en": "Refuse, and try to rob other customers"
+				"fr": "Refuser, et tenter de voler des gens.",
+				"en": "Refuse, and try to rob other customers."
 			},
 			"issues": [
 				{

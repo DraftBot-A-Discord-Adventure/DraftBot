@@ -139,8 +139,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux",
-						"en": "You decide not to get closer to the little chest; it's a stop not worth losing precious time over"
+						"fr": "Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux.",
+						"en": "You decide not to get closer to the little chest; it's a stop not worth losing precious time over."
 					},
 					"lostTime": 0,
 					"health": 0,

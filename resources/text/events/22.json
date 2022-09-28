@@ -9,8 +9,8 @@
 	"possibilities": {
 		"💶": {
 			"translations": {
-				"fr": "Aller acheter des fruits à cet homme",
-				"en": "Go buy fruit from this man"
+				"fr": "Aller acheter des fruits à cet homme.",
+				"en": "Go buy fruit from this man."
 			},
 			"issues": [
 				{
@@ -53,8 +53,8 @@
 		},
 		"👥": {
 			"translations": {
-				"fr": "Aller voler des fruits dans l'arbre",
-				"en": "Go steal fruit from the tree"
+				"fr": "Aller voler des fruits dans l'arbre.",
+				"en": "Go steal fruit from the tree."
 			},
 			"issues": [
 				{
@@ -109,8 +109,8 @@
 		},
 		"🏃": {
 			"translations": {
-				"fr": "Ne pas s'en préoccuper",
-				"en": "Don't worry about it"
+				"fr": "Ne pas s'en préoccuper.",
+				"en": "Don't worry about it."
 			},
 			"issues": [
 				{

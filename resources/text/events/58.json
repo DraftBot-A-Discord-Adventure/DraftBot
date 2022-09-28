@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🍵": {
 			"translations": {
-				"fr": "Aller chez l'alchimiste",
-				"en": "Go to the alchemist"
+				"fr": "Aller chez l'alchimiste.",
+				"en": "Go to the alchemist."
 			},
 			"issues": [
 				{
@@ -60,8 +60,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous entrez dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et le recrachez directement mais il semble qu'il reste encore un peu de ce poison au fond de votre gorge. ",
-						"en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some of the poison still in your throat. "
+						"fr": "Vous entrez dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et le recrachez directement mais il semble qu'il reste encore un peu de ce poison au fond de votre gorge.",
+						"en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some of the poison still in your throat."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -77,8 +77,8 @@
 		},
 		"🏃": {
 			"translations": {
-				"fr": "Prendre le raccourci",
-				"en": "Take the shortcut"
+				"fr": "Prendre le raccourci.",
+				"en": "Take the shortcut."
 			},
 			"issues": [
 				{
@@ -121,8 +121,8 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Continuer le trajet",
-				"en": "Continue the journey"
+				"fr": "Continuer le trajet.",
+				"en": "Continue the journey."
 			},
 			"issues": [
 				{

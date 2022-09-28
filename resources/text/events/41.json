@@ -9,8 +9,8 @@
 	"possibilities": {
 		"🗣️": {
 			"translations": {
-				"fr": "Tenter de vous expliquer",
-				"en": "Try to explain yourself"
+				"fr": "Tenter de vous expliquer.",
+				"en": "Try to explain yourself."
 			},
 			"issues": [
 				{
@@ -65,8 +65,8 @@
 		},
 		"🕑": {
 			"translations": {
-				"fr": "Attendre que quelque chose se passe",
-				"en": "Wait for something to happen"
+				"fr": "Attendre que quelque chose se passe.",
+				"en": "Wait for something to happen."
 			},
 			"issues": [
 				{
@@ -109,8 +109,8 @@
 		},
 		"🔓": {
 			"translations": {
-				"fr": "Tenter de s'évader",
-				"en": "Try to escape"
+				"fr": "Tenter de s'évader.",
+				"en": "Try to escape."
 			},
 			"issues": [
 				{
@@ -153,8 +153,8 @@
 		},
 		"🕵️": {
 			"translations": {
-				"fr": "Tenter de soudoyer la personne qui vous surveille",
-				"en": "Try to bribe the jailer"
+				"fr": "Tenter de soudoyer la personne qui vous surveille.",
+				"en": "Try to bribe the jailer."
 			},
 			"issues": [
 				{
@@ -184,7 +184,7 @@
 				{
 					"translations": {
 						"fr": "Le garde accepte votre argent et il vous libère. Cependant ce n'était qu'un piège, il vous fait croire que vous vous êtes évadé et décide de vous poursuivre, de vous taper et de vous remettre en cellule.",
-						"en": "The jailer accepts your bribe and sets you free. However, it was a trap. He convinced some guards that you escaped and they start to chase after you, ultimately putting you back in jail. "
+						"en": "The jailer accepts your bribe and sets you free. However, it was a trap. He convinced some guards that you escaped and they start to chase after you, ultimately putting you back in jail."
 					},
 					"lostTime": 0,
 					"health": -5,
@@ -221,8 +221,8 @@
 		},
 		"💀": {
 			"translations": {
-				"fr": "Faire le mort",
-				"en": "Feign death"
+				"fr": "Faire le mort.",
+				"en": "Feign death."
 			},
 			"issues": [
 				{

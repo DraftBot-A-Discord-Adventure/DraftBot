@@ -8,8 +8,8 @@
 				"description": "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
 			},
 			"rewardTitle": "Récompense de la guilde {guildName} :",
-			"personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
-			"guildXP": ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
+			"personalXP": ":star: | Les membres de la guilde ont reçu de l'expérience. `+ {xp} ⭐`.",
+			"guildXP": ":star: | La guilde a reçu de l'expérience. `+ {xp} ⭐`",
 			"money": ":moneybag: | Les membres de la guilde ont reçu `{money} 💰`.",
 			"item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
 			"badge": ":gem: | Les membres de la guilde ont reçu un badge.",

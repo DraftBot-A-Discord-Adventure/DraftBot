@@ -144,7 +144,7 @@
 				{
 					"translations": {
 						"fr": "Vous décidez d'assister au duel, celui-ci se conclut en quelques secondes. Vous qualifiez le perdant d'incompétent et proposez de rejouer le duel, mais cette fois-ci c'est vous qui combattrez. Le perdant vous propose de venir se battre contre lui avant de critiquer. Vous acceptez sa requête, sachant pertinemment que vous n'aurez aucun mal à le vaincre. Étant trop sûr de vous, votre adversaire parvient à vous désarmer avant de vous mettre à terre. Il vous tabasse ensuite jusqu'à l'évanouissement. Gravement blessé, vous aurez besoin de beaucoup de repos.",
-						"en": "You decide to attend the duel, it ends in a few seconds. You considered the loser of incompetent and propose to replay the duel, but this time it's you who will fight. The loser proposes you to fight him before criticize. You accept his request, knowing pertinently that you will have no problems to defeat him. Too much sure like you are, your opponent arrives to disarm you before knocking you down. After that, he hit you to the faint. Seriously wounded, you will need a lot of rest"
+						"en": "You decide to attend the duel, it ends in a few seconds. You considered the loser of incompetent and propose to replay the duel, but this time it's you who will fight. The loser proposes you to fight him before criticize. You accept his request, knowing pertinently that you will have no problems to defeat him. Too much sure like you are, your opponent arrives to disarm you before knocking you down. After that, he hit you to the faint. Seriously wounded, you will need a lot of rest."
 					},
 					"lostTime": 0,
 					"health": -60,

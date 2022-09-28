@@ -72,13 +72,16 @@ export class MapLocation extends Model {
 	}
 
 	public async playersCount(originId: number): Promise<number> {
-		const query = `SELECT COUNT(*) as count 
-			FROM ${botConfig.MARIADB_PREFIX}_game.players 
-			WHERE mapLinkId IN (
-				SELECT id 
-				FROM ${botConfig.MARIADB_PREFIX}_game.map_links 
-				WHERE startMap = :id AND endMap = :prevId OR endMap = :id AND startMap = :prevId
-			) ;`;
+		const query = `SELECT COUNT(*) as count
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players
+					   WHERE mapLinkId IN (
+						   SELECT id
+						   FROM ${botConfig.MARIADB_PREFIX}_game.map_links
+						   WHERE startMap = :id
+						 AND endMap = :prevId
+						  OR endMap = :id
+						 AND startMap = :prevId
+						   );`;
 		return (<{ count: number }[]>(await MapLocation.sequelize.query(query, {
 			replacements: {
 				id: this.id,
@@ -107,7 +110,7 @@ export class MapLocations {
 		}
 		if (mapTypes) {
 			const query = `SELECT id
-                           FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
+						   FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
                            WHERE type LIKE ':mapTypes'
                              AND id != :blacklistId
                              AND (
@@ -122,7 +125,7 @@ export class MapLocations {
 			});
 		}
 		const query = `SELECT id
-                       FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
+					   FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
                        WHERE id != :blacklistId
                          AND (
                            id IN (SELECT endMap FROM ${botConfig.MARIADB_PREFIX}_game.map_links WHERE startMap = :mapId));`;
@@ -136,16 +139,19 @@ export class MapLocations {
 	}
 
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
-		const query = `SELECT discordUserId 
-			FROM ${botConfig.MARIADB_PREFIX}_game.players 
-			JOIN ${botConfig.MARIADB_PREFIX}_game.entities 
-			ON ${botConfig.MARIADB_PREFIX}_game.players.entityId = ${botConfig.MARIADB_PREFIX}_game.entities.id 
-			WHERE ${botConfig.MARIADB_PREFIX}_game.players.id != :playerId 
-			AND ${botConfig.MARIADB_PREFIX}_game.players.mapLinkId IN (
-				SELECT id from ${botConfig.MARIADB_PREFIX}_game.map_links 
-				WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)
-			) 
-			ORDER BY RAND();`;
+		const query = `SELECT discordUserId
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players 
+			JOIN ${botConfig.MARIADB_PREFIX}_game.entities
+					   ON ${botConfig.MARIADB_PREFIX}_game.players.entityId = ${botConfig.MARIADB_PREFIX}_game.entities.id
+					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.id != :playerId
+						 AND ${botConfig.MARIADB_PREFIX}_game.players.mapLinkId IN (
+						   SELECT id from ${botConfig.MARIADB_PREFIX}_game.map_links
+						   WHERE (startMap = :pMapId
+						 AND endMap = :mapId)
+						  OR (startMap = :mapId
+						 AND endMap = :pMapId)
+						   )
+					   ORDER BY RAND();`;
 		return await MapLocation.sequelize.query(query, {
 			replacements: {
 				mapId: mapId,

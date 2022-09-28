@@ -2,182 +2,182 @@
 	"map_location_ids": [
 		25
 	],
-    "translations": {
-        "fr": "🚶 Vous marchez sous un ciel bleu azur. L'air est doux et vous continuez votre chemin en écoutant les oiseaux qui chantent, le craquement des arbres, le bruissement du sol sous vos pas. Soudain, le bruit d'une rivière se fait entendre au loin. Vous poursuivez votre chemin jusqu'à la rivière.",
-        "en": "🚶 You are walking under an azure blue sky. The air is soft and you continue on your way listening to the singing birds, the creaking of the trees, the rustle of the ground under your feet. Suddenly, the sound of a river is heard in the distance. You continue your way to the river."
-    },
-    "possibilities": {
-        "🌞": {
-            "translations": {
-                "fr": "S'installer au bord de la rivière",
-                "en": "Settle down by the river"
-            },
-            "issues": [
-                {
-                    "translations": {
-                        "fr": "Vous décidez de vous asseoir sur un rocher plat et contemplez le magnifique paysage aux milles couleurs pendant quelques heures avant de poursuivre votre chemin.",
-                        "en": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousands of colors for a few hours before continuing on your way."
-                    },
-                    "lostTime": 120,
-                    "health": 0,
-                    "effect": ":clock2:",
-                    "experience": 25,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous êtes fatigué par tous ces kilomètres parcourus et observez la rivière et ses crabes aux couleurs brasier. Les minutes passent sans que vous n'y prêtiez attention. Voilà maintenant une heure que vous rêvassez ainsi.",
-                        "en": "You are tired by all these kilometers traveled and observe the river and its fiery-colored crabs. Minutes go by without your noticing. It's been an hour now that you are daydreaming like this."
-                    },
-                    "lostTime": 60,
-                    "health": 0,
-                    "effect": ":clock2:",
-                    "experience": 25,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous vous appuyez contre un arbre et, sentant vos paupières devenir lourdes, vous endormez. Vous vous réveillez plusieurs heures plus tard mais vous êtes si reposé que votre marche est bien plus vigoureuse et votre retard est bien vite rattrapé.",
-                        "en": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up a few hours later but you are so rested that your walk is much more vigorous and your delay is quickly caught up."
-                    },
-                    "lostTime": 0,
-                    "health": 5,
-                    "effect": ":sleeping:",
-                    "experience": 220,
-                    "money": 0,
-                    "item": false
-                }
-            ]
-        },
-        "🌊": {
-            "translations": {
-                "fr": "Poursuivre votre chemin en marchant dans l'eau",
-                "en": "Continue your way by walking in the water"
-            },
-            "issues": [
-                {
-                    "translations": {
-                        "fr": "Vous entrez dans la rivière et tournez à droite afin de suivre le sens du courant. L'eau est fraîche et cela vous fait un grand bien.",
-                        "en": "You enter into the river and turn right to follow the direction of the current. The water is cool and it does you a lot of good."
-                    },
-                    "lostTime": 0,
-                    "health": 5,
-                    "effect": ":smiley:",
-                    "experience": 350,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous mettez un pied dans la rivière puis le deuxième. Vous commencez votre progression dans la rivière. Après quelques minutes de marche, vous arrivez à une petite chute d'eau d'un mètre de haut et décidez de la descendre en sautant. Alors que vous prenez votre élan, la pierre sur laquelle repose votre pied droit bouge et vous tombez en bas de la chute d'eau en vous cognant le crâne à deux reprises. Vous êtes encore conscient bien que fortement sonné.",
-                        "en": "You put one foot in the river and then the second. You begin your progress in the river. After a few minutes of walking, you arrive at a small waterfall of a meter high and decide to jump down it. As you gain your momentum, the stone where your right foot is resting on moves and you fall down the waterfall, hitting your head twice. You are still conscious, although you are strongly rated."
-                    },
-                    "lostTime": 0,
-                    "health": -10,
-                    "effect": ":confounded:",
-                    "experience": 0,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous marchez depuis une bonne heure lorsque vous arrivez à nouveau au croisement d'un chemin. Vous décidez de continuer sur la terre ferme.",
-                        "en": "You have been walking for a good hour when you arrive again to a crossroads. You decide to continue on dry land."
-                    },
-                    "lostTime": 0,
-                    "health": 0,
-                    "effect": ":smiley:",
-                    "experience": 150,
-                    "money": 0,
-                    "item": false
-                }
-            ]
-        },
-        "🦀": {
-            "translations": {
-                "fr": "Trouver quelque chose pour vous préparer un repas",
-                "en": "Find something to prepare you a meal"
-            },
-            "issues": [
-                {
-                    "translations": {
-                        "fr": "Vous regardez dans la rivière et apercevez quelques poissons ainsi que des crabes. Vous fabriquez un piège de fortune et le mettez à l'eau. Après 10 longues minutes votre piège contient 2 beaux crabes et un petit poisson. Vous faites un feu et les faites griller. Vous vous sentez revigoré après les avoir mangés.",
-                        "en": "You look in the river and spot some fish as well as crabs. You make a makeshift trap and put it in the water. After 10 long minutes your trap contains 2 beautiful crabs and a small fish. You make a fire and grill them. You feel invigorated after eating them."
-                    },
-                    "lostTime": 10,
-                    "health": 20,
-                    "effect": ":clock2:",
-                    "experience": 225,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous apercevez au fond de l'eau d'étranges créatures que vous n'aviez encore jamais vu. Elles sont pourvues de deux pinces et se déplacent latéralement. Vous supposez qu'il s'agit de ces fameuses choses qui ont donné leur nom à cette rivière et vous vous souvenez qu'elles sont comestibles. Vous décidez d'en attraper quelques-unes. Vous plongez votre main et vous réussissez à en attraper, mais elles vous attaquent avec leurs pinces. Vous finissez blessé d'une belle entaille à la main, mais aussi avec de quoi vous faire un délicieux repas.",
-                        "en": "You see at the bottom of the water strange creatures that you had never seen before. They are fitted with two grippers and move sideways. You assume that these are the famous things that gave this river their name and remember that they are edible. You decide to catch a few of them. You dip your hand in and manage to catch some, but they attack you with their pincers. You end up injured with a nice gash in your hand, but also with enough to make you a delicious meal."
-                    },
-                    "lostTime": 0,
-                    "health": -35,
-                    "effect": ":smiley:",
-                    "experience": 0,
-                    "money": 0,
-                    "item": false
-                },
-                {
-                    "translations": {
-                        "fr": "Vous hésitez un instant entre les poissons de la rivière et les mûriers. Finalement, vous décidez de préparer un festin. Vous préparez un piège à poisson et après l'avoir installé vous partez cueillir quelques mûres. Saumon aux mûres, un régal !",
-                        "en": "You hesitate for a moment between the fish of the river and the mulberry trees. Finally, you decide to cook a feast. You prepare a fish trap and after installing it you go pick some blackberries. Salmon with blackberries, a treat !"
-                    },
-                    "lostTime": 0,
-                    "health": 0,
-                    "effect": ":smiley:",
-                    "experience": 150,
-                    "money": 0,
-                    "item": false
-                }
-            ]
-        },
-        "end": {
+	"translations": {
+		"fr": "🚶 Vous marchez sous un ciel bleu azur. L'air est doux et vous continuez votre chemin en écoutant les oiseaux qui chantent, le craquement des arbres, le bruissement du sol sous vos pas. Soudain, le bruit d'une rivière se fait entendre au loin. Vous poursuivez votre chemin jusqu'à la rivière.",
+		"en": "🚶 You are walking under an azure blue sky. The air is soft and you continue on your way listening to the singing birds, the creaking of the trees, the rustle of the ground under your feet. Suddenly, the sound of a river is heard in the distance. You continue your way to the river."
+	},
+	"possibilities": {
+		"🌞": {
+			"translations": {
+				"fr": "S'installer au bord de la rivière.",
+				"en": "Settle down by the river."
+			},
 			"issues": [
-            {
-                "translations": {
-                    "fr": "Vous vous asseyez au bord de la rivière, l'eau est fraîche et vous décidez d'y mettre les pieds. Après quelques minutes de pur bonheur, une vive douleur vous fait sortir les pieds de l'eau à toute vitesse. Vous apercevez un énorme crabe accroché à votre pied. Vous ressentez une vive douleur, mais vous allez pouvoir faire un délicieux repas qui vous revigorera.",
-                    "en": "You sit by the river, the water is cool and you decide to put your feet inside. After a few minutes of pure happiness, a sharp pain makes you shoot your feet out of the water at full speed. You see a huge crab hanging from your foot. You are in great pain, but you will be able to have a delicious meal that will invigorate you."
-                },
-                "lostTime": 0,
-                "health": 15,
-                "effect": ":smiley:",
-                "experience": 350,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "Vous avez faim. Vous regardez dans la rivière et apercevez ces fameux crabes gigantesques. Il y a deux espèces. Une de couleur rouge orangée et une aux couleurs rouges et noires. Vous hésitez et décidez de tenter votre chance avec les gros rouge-orangé. Après les avoir préparés et engloutis, vous commencez à avoir chaud et à transpirer. Vous comprenez votre erreur trop tard, vous avez choisi l'espèce non-comestible.",
-                    "en": "You are hungry. You look into the river and see these famous gigantic crabs. There are two species. One of orange red color and one in red and black colors. You hesitate and decide to try your luck with the big red-orange. After you've prepared and swallowed them, you start to feel hot and sweaty. You understand your mistake too late, you have chosen the inedible species."
-                },
-                "lostTime": 0,
-                "health": -5,
-                "effect": ":sick:",
-                "experience": 0,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "Vous marchez dans la rivière lorsque vous trébuchez. Vous vous assommez au passage. Par chance, le courant est fort et vous vous retrouvez sur le bord de la rivière. Vous êtes sonné, mais en vie.",
-                    "en": "You are walking in the river when you stumble. You knock yourself out in the process. Luckily, the current is strong and you find yourself on the edge of the river. You're stunned, but alive."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":confounded:",
-                "experience": 10,
-                "money": 0,
-                "item": false
-            }
-        ]
-    }
-}
+				{
+					"translations": {
+						"fr": "Vous décidez de vous asseoir sur un rocher plat et contemplez le magnifique paysage aux milles couleurs pendant quelques heures avant de poursuivre votre chemin.",
+						"en": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousands of colors for a few hours before continuing on your way."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous êtes fatigué par tous ces kilomètres parcourus et observez la rivière et ses crabes aux couleurs brasier. Les minutes passent sans que vous n'y prêtiez attention. Voilà maintenant une heure que vous rêvassez ainsi.",
+						"en": "You are tired by all these kilometers traveled and observe the river and its fiery-colored crabs. Minutes go by without your noticing. It's been an hour now that you are daydreaming like this."
+					},
+					"lostTime": 60,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous appuyez contre un arbre et, sentant vos paupières devenir lourdes, vous endormez. Vous vous réveillez plusieurs heures plus tard mais vous êtes si reposé que votre marche est bien plus vigoureuse et votre retard est bien vite rattrapé.",
+						"en": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up a few hours later but you are so rested that your walk is much more vigorous and your delay is quickly caught up."
+					},
+					"lostTime": 0,
+					"health": 5,
+					"effect": ":sleeping:",
+					"experience": 220,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🌊": {
+			"translations": {
+				"fr": "Poursuivre votre chemin en marchant dans l'eau.",
+				"en": "Continue your way by walking in the water."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous entrez dans la rivière et tournez à droite afin de suivre le sens du courant. L'eau est fraîche et cela vous fait un grand bien.",
+						"en": "You enter into the river and turn right to follow the direction of the current. The water is cool and it does you a lot of good."
+					},
+					"lostTime": 0,
+					"health": 5,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous mettez un pied dans la rivière puis le deuxième. Vous commencez votre progression dans la rivière. Après quelques minutes de marche, vous arrivez à une petite chute d'eau d'un mètre de haut et décidez de la descendre en sautant. Alors que vous prenez votre élan, la pierre sur laquelle repose votre pied droit bouge et vous tombez en bas de la chute d'eau en vous cognant le crâne à deux reprises. Vous êtes encore conscient bien que fortement sonné.",
+						"en": "You put one foot in the river and then the second. You begin your progress in the river. After a few minutes of walking, you arrive at a small waterfall of a meter high and decide to jump down it. As you gain your momentum, the stone where your right foot is resting on moves and you fall down the waterfall, hitting your head twice. You are still conscious, although you are strongly rated."
+					},
+					"lostTime": 0,
+					"health": -10,
+					"effect": ":confounded:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous marchez depuis une bonne heure lorsque vous arrivez à nouveau au croisement d'un chemin. Vous décidez de continuer sur la terre ferme.",
+						"en": "You have been walking for a good hour when you arrive again to a crossroads. You decide to continue on dry land."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🦀": {
+			"translations": {
+				"fr": "Trouver quelque chose pour vous préparer un repas.",
+				"en": "Find something to prepare you a meal."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous regardez dans la rivière et apercevez quelques poissons ainsi que des crabes. Vous fabriquez un piège de fortune et le mettez à l'eau. Après 10 longues minutes votre piège contient 2 beaux crabes et un petit poisson. Vous faites un feu et les faites griller. Vous vous sentez revigoré après les avoir mangés.",
+						"en": "You look in the river and spot some fish as well as crabs. You make a makeshift trap and put it in the water. After 10 long minutes your trap contains 2 beautiful crabs and a small fish. You make a fire and grill them. You feel invigorated after eating them."
+					},
+					"lostTime": 10,
+					"health": 20,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous apercevez au fond de l'eau d'étranges créatures que vous n'aviez encore jamais vu. Elles sont pourvues de deux pinces et se déplacent latéralement. Vous supposez qu'il s'agit de ces fameuses choses qui ont donné leur nom à cette rivière et vous vous souvenez qu'elles sont comestibles. Vous décidez d'en attraper quelques-unes. Vous plongez votre main et vous réussissez à en attraper, mais elles vous attaquent avec leurs pinces. Vous finissez blessé d'une belle entaille à la main, mais aussi avec de quoi vous faire un délicieux repas.",
+						"en": "You see at the bottom of the water strange creatures that you had never seen before. They are fitted with two grippers and move sideways. You assume that these are the famous things that gave this river their name and remember that they are edible. You decide to catch a few of them. You dip your hand in and manage to catch some, but they attack you with their pincers. You end up injured with a nice gash in your hand, but also with enough to make you a delicious meal."
+					},
+					"lostTime": 0,
+					"health": -35,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous hésitez un instant entre les poissons de la rivière et les mûriers. Finalement, vous décidez de préparer un festin. Vous préparez un piège à poisson et après l'avoir installé vous partez cueillir quelques mûres. Saumon aux mûres, un régal !",
+						"en": "You hesitate for a moment between the fish of the river and the mulberry trees. Finally, you decide to cook a feast. You prepare a fish trap and after installing it you go pick some blackberries. Salmon with blackberries, a treat !"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous asseyez au bord de la rivière, l'eau est fraîche et vous décidez d'y mettre les pieds. Après quelques minutes de pur bonheur, une vive douleur vous fait sortir les pieds de l'eau à toute vitesse. Vous apercevez un énorme crabe accroché à votre pied. Vous ressentez une vive douleur, mais vous allez pouvoir faire un délicieux repas qui vous revigorera.",
+						"en": "You sit by the river, the water is cool and you decide to put your feet inside. After a few minutes of pure happiness, a sharp pain makes you shoot your feet out of the water at full speed. You see a huge crab hanging from your foot. You are in great pain, but you will be able to have a delicious meal that will invigorate you."
+					},
+					"lostTime": 0,
+					"health": 15,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous avez faim. Vous regardez dans la rivière et apercevez ces fameux crabes gigantesques. Il y a deux espèces. Une de couleur rouge orangée et une aux couleurs rouges et noires. Vous hésitez et décidez de tenter votre chance avec les gros rouge-orangé. Après les avoir préparés et engloutis, vous commencez à avoir chaud et à transpirer. Vous comprenez votre erreur trop tard, vous avez choisi l'espèce non-comestible.",
+						"en": "You are hungry. You look into the river and see these famous gigantic crabs. There are two species. One of orange red color and one in red and black colors. You hesitate and decide to try your luck with the big red-orange. After you've prepared and swallowed them, you start to feel hot and sweaty. You understand your mistake too late, you have chosen the inedible species."
+					},
+					"lostTime": 0,
+					"health": -5,
+					"effect": ":sick:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous marchez dans la rivière lorsque vous trébuchez. Vous vous assommez au passage. Par chance, le courant est fort et vous vous retrouvez sur le bord de la rivière. Vous êtes sonné, mais en vie.",
+						"en": "You are walking in the river when you stumble. You knock yourself out in the process. Luckily, the current is strong and you find yourself on the edge of the river. You're stunned, but alive."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":confounded:",
+					"experience": 10,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
+	}
 }

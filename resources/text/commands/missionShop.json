@@ -126,11 +126,11 @@
 					"giveDescription": "You have received `{amount}` :moneybag:."
 				},
 				"valuableItem": {
-					"emote":"✨",
+					"emote": "✨",
 					"name": "King's Treasure",
 					"price": 30,
 					"info": "Grants you a valuable item from the king's treasure room.",
-					"give":"{pseudo}, you get a new {type}:"
+					"give": "{pseudo}, you get a new {type}:"
 				},
 				"1000Points": {
 					"emote": "\uD83C\uDFC5",
@@ -175,7 +175,7 @@
 					}
 				},
 				"badge": {
-					"emote":"\uD83D\uDC8D",
+					"emote": "\uD83D\uDC8D",
 					"name": "\"Master of Quests\" Badge",
 					"price": 150,
 					"info": "You will receive the badge within hours of payment. For more information about the badges use the `help badges` command.",

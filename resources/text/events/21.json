@@ -27,8 +27,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces",
-						"en": "While crossing the bridge you see a small sack. When you open it, you notice a large amount of coins"
+						"fr": "En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces.",
+						"en": "While crossing the bridge you see a small sack. When you open it, you notice a large amount of coins."
 					},
 					"lostTime": 10,
 					"health": 0,
