@@ -166,25 +166,15 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.guildK
 const currentCommandEnglishTranslations = Translations.getModule("commands.guildKick", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionUserName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionUserDescription")
-			})
-			.setRequired(false)
+		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateUserOption(
+				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+			).setRequired(false)
 		)
-		.addNumberOption(option => option.setName(currentCommandEnglishTranslations.get("optionRankName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionRankName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionRankDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionRankDescription")
-			})
-			.setRequired(false)
+		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateRankOption(
+				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+			).setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

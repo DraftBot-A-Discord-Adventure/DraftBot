@@ -44,15 +44,10 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.giveBa
 const currentCommandEnglishTranslations = Translations.getModule("commands.giveBadge", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option => option.setName(currentCommandEnglishTranslations.get("optionUserName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionUserName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionUserDescription")
-			})
-			.setRequired(true))
+		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateUserOption(
+				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+			).setRequired(true))
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionBadgeName"))
 			.setNameLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionBadgeName")
