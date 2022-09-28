@@ -3,7 +3,7 @@
 		"fr": {
 			"stories": [
 				"vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {botFact} vous reprenez votre route.",
-				"vous croisez un paysan en charrette semblant enjoué. Intrigué face à son attitude, vous le questionnez à propos de sa bonne humeur. Il vous explique que {botFact} vous reprenez votre route.",
+				"vous croisez un paysan en charrette semblant enjoué. Intrigué par son attitude, vous le questionnez à propos de sa bonne humeur. Il vous explique que {botFact} vous reprenez votre route.",
 				"vous apercevez le campement d'un aventurier au bord d'un sentier. Vous vous arrêtez un instant pour lui demander conseil sur le chemin à suivre et celui-ci vous pointe en retour la bonne direction en ajoutant que {botFact} vous reprenez la route.",
 				"vous voyez un panneau d'informations. Sur celui-ci, plusieurs affiches sont accrochées et évoquent des fêtes et autres évènements alentours. L'une d'elles parle du récent discours du roi, qui racontait que {botFact} vous continuez votre chemin.",
 				"vous croisez un attroupement de personnes et entendez parmi les bruits de la foule un orateur annonçant que {botFact} vous continuez votre chemin sans écouter la suite de ses dires.",
@@ -28,28 +28,28 @@
 		},
 		"en": {
 			"stories": [
-				"you receive a letter from the king. He is writing to you about the competition for the hand of the princess in which you participate. You discover while reading the letter that {botFact} you go back on your way.",
-				"you meet a farmer in a wagon that seems to be cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {botFact} you go back on your way.",
-				"you see the camp of an adventurer on the edge of a path. You stop for a moment and ask him for advice on the road to follow and he points you the right direction by adding that {botFact} you go back on the road.",
-				"you see an information panel. On it, multiple posters are hooked and evoke parties and others events nearby. One of them is about the King's recent speech, which told that {botFact} you go back on your way.",
-				"you cross a crowd of people and hear among the crowd's noises a speaker announcing that {botFact} you go back on your way without listening to what he says next.",
-				"you see in the distance a beggar adossed against the trunk of a tree, approaching to give him a piece you hear his strange words, he's repeating endlessly that {botFact} you go away as fast as possible from this suspicious individual."
+				"you receive a missive from the king. He wrote some information regarding the competition for the hand of the princess in which you are participating. You discover while reading the letter that {botFact} you go back on your way.",
+				"you meet a jolly farmer in a cart. Intrigued by his surprisingly smiling face, you ask him about his good mood. He tells you that {botFact} you go back on your way.",
+				"you see the camp of an adventurer on the edge of a path. You stop for a moment and ask him for advice on the road to follow. He points you the right direction and adds that {botFact} you go back on the road.",
+				"you see an information panel. On it, multiple posters are pinned, which mention parties and others events nearby. One of them is about the King's recent speech, in which he cast light on the fact that {botFact} you go back on your way.",
+				"you come accross a bunch of people crowded around an orator announcing that {botFact} you go back on your way without listening further.",
+				"you perceive a beggar lying against a faraway tree. As you approach, intending to toss him a coin, you hear him mutter ceaselessly that {botFact} you go away as fast as possible from this suspicious individual."
 			],
 			"possiblesInfos": {
-				"nbMeanPoints": "according to a points count performed recently by the organizers, candidates have an average score of **{infoNumber} :medal:**. Encouraged by this news,",
-				"meanWeeklyScore": "according to a points count performed recently by the organizers, candidates have received an average of **{infoNumber} :medal: this week**. Saddened by this news,",
-				"nbPlayersHaventStartedTheAdventure": "the AFSLA, or Anti-Fraud Service of the Land Adventurers, discovered that **{infoNumber} adventurers** disappeared just after they obtained theur adventurer license. Indignified by the action of these people,",
+				"nbMeanPoints": "according to an analysis enacted recently by the organizers, candidates have an average score of **{infoNumber} :medal:**. Encouraged by this news,",
+				"meanWeeklyScore": "according to an analysis enacted recently by the organizers, candidates have received an average of **{infoNumber} :medal: this week**. Saddened by this news,",
+				"nbPlayersHaventStartedTheAdventure": "the AAFS, or Adventurers' Anti-Fraud Service, discovered that **{infoNumber} adventurers** disappeared just after they obtained their adventurer license. Outraged by the action of these people,",
 				"levelMean": "the last census noted that adventurers averaged **Level {infoNumber}**. Without knowing what to do with this information",
-				"nbMeanMoney": "the country bank accounted an average of **{infoNumber} :moneybag:** in its customers' bourse. Amused by this news,",
+				"nbMeanMoney": "the country bank accounted an average of **{infoNumber} :moneybag:** in its customers' savings. Amused by this news,",
 				"sumAllMoney": "the country bank accounted **{infoNumber} :moneybag:** in circulation at the moment. Surprised by this news,",
-				"richestPlayer": "the country bank evaluated that the richest adventurer currently has **{infoNumber} :moneybag:** in their account. Abandoned by this news,",
-				"trainedPets": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainers of the **{infoNumber} animals trained**. Impressive by this achievement,",
-				"feistyPets": "the SPAC, or Society for the Protection of Animals of the Land, campaigns to help ** {infoNumber} beastly animals ** to obtain a better life. Comforted by this news,",
-				"percentMalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{infoNumber}%** of the animals in the territory are masters. Happy with this news,",
-				"percentFemalePets": "the SPAC, or Society Protector of Treasured Animals, discovered that **{infoNumber}%** of the animals in the territory are females. Happy with this news,",
-				"guildLevelMean": "the AGC, or Counterfeit Guild Agency, noted that the current guilds averaged **Level {infoNumber}**. Intrigued by this information,",
-				"nbPlayersWithGivenClass": "according to a recent census of adventurers, there would be ** {infoNumber} ** with the class ** {infoComplement} **. Amazed by this news,",
-				"nbPlayersOnYourMap": "the surrounding knights counted ** {infoNumber} people ** currently circulating on your route. Surprised by this news,"
+				"richestPlayer": "the country bank evaluated that the richest adventurer currently has **{infoNumber} :moneybag:** in their account. Utterly lost on how to take the news,",
+				"trainedPets": "the ASS, the Animal's Safety Society, wishes to congratulate the owners of the **{infoNumber} animals trained**. Impressed by this achievement,",
+				"feistyPets": "the ASS, the Animal's Safety Society campaigns to help ** {infoNumber} beastly animals ** to obtain a better life. Comforted by this news,",
+				"percentMalePets": "the ASS, the Animal's Safety Society, discovered that **{infoNumber}%** of the animals in the territory are males. Pleased with this news,",
+				"percentFemalePets": "the ASS, the Animal's Safety Society, discovered that **{infoNumber}%** of the animals in the territory are females. Pleased with this news,",
+				"guildLevelMean": "the GA, the Guilds Association, noted that the current guilds averaged **Level {infoNumber}**. Intrigued by this information,",
+				"nbPlayersWithGivenClass": "according to a recent census on adventurers, there would be ** {infoNumber} ** with the class ** {infoComplement} **. Amazed by this news,",
+				"nbPlayersOnYourMap": "the surrounding knights counted ** {infoNumber} people ** currently circulating on this very road. Surprised by this news,"
 			}
 		}
 	},
