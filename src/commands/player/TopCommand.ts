@@ -245,24 +245,65 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.top", 
 const currentCommandEnglishTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName("scope")
-			.setDescription("Which scope are you looking for the top")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionScopeName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionScopeName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionScopeDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionScopeDescription")
+			})
 			.addChoices(
-				{name: "Global", value: TopConstants.GLOBAL_SCOPE},
-				{name: "Server", value: TopConstants.SERVER_SCOPE}
+				{
+					name: currentCommandFrenchTranslations.get("scopes.global"),
+					"name_localizations": {
+						fr: currentCommandFrenchTranslations.get("scopes.global")
+					}, value: TopConstants.GLOBAL_SCOPE
+				},
+				{
+					name: currentCommandFrenchTranslations.get("scopes.server"),
+					"name_localizations":
+						{
+							fr: currentCommandFrenchTranslations.get("scopes.server")
+						}
+					,
+					value: TopConstants.SERVER_SCOPE
+				}
 			)
 			.setRequired(false)
 		)
-		.addStringOption(option => option.setName("timing")
-			.setDescription("Alltime top or weekly top")
+		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionTimingName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionTimingName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionTimingDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionTimingDescription")
+			})
 			.addChoices(
-				{name: "Alltime", value: TopConstants.TIMING_ALLTIME},
-				{name: "Week", value: TopConstants.TIMING_WEEKLY}
+				{
+					name: currentCommandFrenchTranslations.get("timings.allTime"),
+					"name_localizations": {
+						fr: currentCommandFrenchTranslations.get("timings.allTime")
+					}, value: TopConstants.TIMING_ALLTIME
+				},
+				{
+					name: currentCommandFrenchTranslations.get("timings.weekly"),
+					"name_localizations": {
+						fr: currentCommandFrenchTranslations.get("timings.weekly")
+					}, value: TopConstants.TIMING_WEEKLY
+				}
 			)
 			.setRequired(false)
 		)
-		.addIntegerOption(option => option.setName("page")
-			.setDescription("Page you want to look in the top")
+		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionPageName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPageName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionPageDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionPageDescription")
+			})
 			.setMinValue(1)
 			.setRequired(false)
 		) as SlashCommandBuilder,
