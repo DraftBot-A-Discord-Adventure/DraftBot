@@ -3,6 +3,7 @@
  */
 import {TranslationModule} from "../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {SlashCommandUserOption} from "@discordjs/builders/dist/interactions/slashCommands/options/user";
 
 
 export class SlashCommandBuilderGenerator {
@@ -21,6 +22,28 @@ export class SlashCommandBuilderGenerator {
 			.setDescription(currentCommandEnglishTranslations.get("commandDescription"))
 			.setDescriptionLocalizations({
 				fr: currentCommandFrenchTranslations.get("commandDescription")
+			});
+	}
+
+	static generateUserOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandUserOption): SlashCommandUserOption {
+		return option.setName(currentCommandEnglishTranslations.get("optionUserName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionUserDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionUserDescription")
+			});
+	}
+
+	static generateRankOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandUserOption): SlashCommandUserOption {
+		return option.setName(currentCommandEnglishTranslations.get("optionRankName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionRankDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionRankDescription")
 			});
 	}
 }
