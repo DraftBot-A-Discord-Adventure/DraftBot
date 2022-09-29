@@ -4,47 +4,65 @@ title: "[BUG]: "
 labels: ["bug"]
 assignees: []
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Merci de prendre le temps de réaliser un rapport de bug. Si vous avez besoin d'aide supplémentaire, rejoignez nous sur discord ! https://discord.gg/draftbot
-  - type: markdown
-    attributes:
-      value: |    
-        ⚠️ Avant tout envoi, merci de vérifier **ATTENTIVEMENT** que le bug n'a pas déjà été signalé !!! Si vous trouvez une issue qui ressemble à votre problème, préférez envoyer un commentaire sur cette dernière. 
-  - type: textarea
-    id: bug-description
-    attributes:
-      label: Description du bug.
-      description: Décrivez le soucis que vous avez rencontré. en quelques phrases  
-    validations:
-      required: true
-  - type: dropdown
-    id: level
-    attributes:
-      label: Selon vous, quelle est l'importance de ce bug ?
-      description: Dites nous si le bug rencontré impact beaucoup ou peu votre expérience de jeu
-      multiple: true
-      options:
-       - 🤔 Je ne sais pas
-       - 🙂 Faible
-       - 😐 Normale
-       - 😨 Grave
-       - 😱 Extrèmmement grave
-    validations:
-      required: true
-  - type: textarea
-    id: steps-to-reproduce
-    attributes:
-      label: Reproduction du bug.
-      description: Décrivez toutes les étapes à suivre pour reproduire le bug.
-      placeholder: Décrivez les étapes sous forme de liste. Écrivez cette liste comme si il s'agissait d'un mode d'emploi pour refaire le bug à tous les coups. Si vous ne savez pas, donnez nous la liste des dernières commandes que vous avez effectuées (vous pouvez inclure l'heure à laquelle vous avez fait les commandes pour simplifier notre recherche)
-    validations:
-      required: true
-  - type: textarea
-    id: images
-    attributes:
-      label: Captures d'écran
-      description: Envoyez ici toutes les captures d'écran qui vous semblent pertinentes  
-    validations:
-      required: true
+    - type: markdown
+      attributes:
+          value: |
+              Merci de prendre le temps de réaliser un rapport de bug. Si vous avez besoin d'aide supplémentaire, rejoignez nous sur discord ! https://discord.gg/draftbot
+    - type: markdown
+      attributes:
+          value: |
+              ⚠️ Avant tout envoi, merci de vérifier **ATTENTIVEMENT** que le bug n'a pas déjà été signalé !!! Si vous trouvez une issue qui ressemble à votre problème, préférez envoyer un commentaire sur cette dernière.
+    - type: textarea
+      id: bug-description
+      attributes:
+          label: Description du bug.
+          description: Décrivez le soucis que vous avez rencontré. en quelques phrases.
+          placeholder: Donnez nous un maximum d'information. A quel heure avez vous eu le bug ? Quelle était la situation de votre personnage en jeu ? Essayez de réfléchir à toutes les informations qui pourraient nous être utiles.
+      validations:
+          required: true
+    - type: dropdown
+      id: level
+      attributes:
+          label: Selon vous, quelle est l'importance de ce bug ?
+          description: Dites nous si le bug rencontré impact beaucoup ou peu votre expérience de jeu
+          multiple: false
+          options:
+              - 🤔 Je ne sais pas
+              - 🙂 Faible
+              - 😐 Normale
+              - 😨 Grave
+              - 😱 Extrêmement grave
+      validations:
+          required: true
+    - type: textarea
+      id: steps-to-reproduce
+      attributes:
+          label: Reproduction du bug.
+          description: Décrivez toutes les étapes à suivre pour reproduire le bug.
+          placeholder: Décrivez les étapes sous forme de liste. Écrivez cette liste comme si il s'agissait d'un mode d'emploi pour refaire le bug à tous les coups.
+      validations:
+          required: true
+    - type: textarea
+      id: images
+      attributes:
+          label: Captures d'écran
+          description: Envoyez ici toutes les captures d'écran qui vous semblent pertinentes
+      validations:
+          required: true
+    - type: dropdown
+      id: shard
+      attributes:
+          label: Sur quel shard avez vous rencontré le bug ?
+          description: Pour connaître votre numéro de shard, utilisez la commande /ping.
+          multiple: false
+          options:
+              - Shard 0
+              - Shard 1
+              - Shard 2
+              - Shard 3
+              - Shard 4
+              - Shard 5
+              - 🤖 bot de test 'officiel' (alpha ou bêta)
+              - ⚫ Autre (instance personnelle) (merci de préciser dans la description du bug)
+      validations:
+          required: true
