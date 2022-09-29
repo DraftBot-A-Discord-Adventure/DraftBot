@@ -63,7 +63,7 @@ export async function giveFood(
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
 					quantity: quantity,
 					name:
-						selectedFood === "ultimateFood" && language === "fr"
+						selectedFood === "ultimateFood" && language === Constants.LANGUAGE.FRENCH
 							? foodModule.get(selectedFood + ".name")
 								.slice(2, -2)
 								.toLowerCase()

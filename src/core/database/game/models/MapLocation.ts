@@ -4,6 +4,7 @@ import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {botConfig, draftBotInstance} from "../../../bot";
 import * as moment from "moment";
+import { Constants } from "../../../Constants";
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -33,27 +34,27 @@ export class MapLocation extends Model {
 	}
 
 	public getNameWithoutEmote(language: string): string {
-		return language === "fr" ? this.nameFr : this.nameEn;
+		return language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn;
 	}
 
 	public getDisplayName(language: string): string {
-		return this.getEmote(language) + " " + (language === "fr" ? this.nameFr : this.nameEn);
+		return `${this.getEmote(language)} ${language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn}`;
 	}
 
 	public getParticleName(language: string): string {
-		return language === "fr" ? this.particleFr : this.particleEn;
+		return language === Constants.LANGUAGE.FRENCH ? this.particleFr : this.particleEn;
 	}
 
 	public getDescription(language: string): string {
-		return language === "fr" ? this.descFr : this.descEn;
+		return language === Constants.LANGUAGE.FRENCH ? this.descFr : this.descEn;
 	}
 
 	public async getFullName(language: string): Promise<string> {
-		return await this.getDeterminant(language) + " " + this.getDisplayName(language);
+		return `${await this.getDeterminant(language)} ${this.getDisplayName(language)}`;
 	}
 
 	public async getDeterminant(language: string): Promise<string> {
-		if (language === "en") {
+		if (language === Constants.LANGUAGE.ENGLISH) {
 			return "";
 		}
 		const tags = await Tags.findTagsFromObject(this.id, "MapLocation");

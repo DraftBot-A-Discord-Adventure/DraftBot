@@ -143,7 +143,7 @@ export function parseTimeDifference(date1: number, date2: number, language: stri
 	let parsed = "";
 	const days = Math.floor(seconds / (24 * 60 * 60));
 	if (days > 0) {
-		parsed += days + (language === "fr" ? " J " : " D ");
+		parsed += days + (language === Constants.LANGUAGE.FRENCH ? " J " : " D ");
 		seconds -= days * 24 * 60 * 60;
 	}
 

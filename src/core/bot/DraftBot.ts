@@ -208,10 +208,10 @@ export class DraftBot {
 			}, {
 				context: {
 					config: botConfig,
-					frSentence: Translations.getModule("bot", "fr").format("topWeekAnnouncement", {
+					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("topWeekAnnouncement", {
 						mention: winner.getMention()
 					}),
-					enSentence: Translations.getModule("bot", "en").format("topWeekAnnouncement", {
+					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("topWeekAnnouncement", {
 						mention: winner.getMention()
 					})
 				}
