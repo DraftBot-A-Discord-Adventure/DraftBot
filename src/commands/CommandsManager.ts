@@ -24,7 +24,7 @@ import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";
-import {format} from "../core/utils/StringFormatter";
+import {commandsMentions, format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
@@ -42,6 +42,8 @@ type ContextType = { mainServerId: string; dmManagerID: string; attachments: Att
  */
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
+
+	static commandsIds = new Map<string, string>();
 
 	/**
 	 * Sends an error about a non-desired effect
@@ -128,6 +130,13 @@ export class CommandsManager {
 
 			// Delete removed commands, we do it after because CommandsManager.commands is populated
 			await this.deleteCommands(client);
+
+			// Store ids
+			const commands = (await client.application.commands.fetch()).concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch());
+			for (const command of commands) {
+				CommandsManager.commandsIds.set(command[1].name, command[0]);
+				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
+			}
 		}
 		catch (err) {
 			console.log(err);

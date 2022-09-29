@@ -32,6 +32,13 @@ interface ReplacementPlaceholder {
 }
 
 /**
+ * Bot command mention for the format
+ * It is duplicated from CommandsManager because we don't want this file to include any other file, because of circular
+ * dependencies
+ */
+export const commandsMentions = new Map<string, string>();
+
+/**
  * Calculates what should replace the format placeholder
  * @param placeholder
  * @param start
@@ -146,6 +153,15 @@ export function parsePlaceholder(placeholder: string, start: number, end: number
  */
 export function formatPlaceholder(placeholder: ReplacementPlaceholder, replacements: Replacements): string {
 	if (placeholder.operand === null) {
+		if (placeholder.leftValue.startsWith("command:")) {
+			const command = placeholder.leftValue.substring(8);
+			const mention = commandsMentions.get(command);
+			if (!mention) {
+				return "FORMAT_ERROR:UNKNOWN_COMMAND";
+			}
+			return mention;
+		}
+
 		if (placeholder.leftValue in replacements) {
 			const replacement = replacements[placeholder.leftValue];
 			if (typeof replacement === "string") {
