@@ -6,7 +6,8 @@ import {
 	GuildChannel,
 	GuildMember,
 	Message,
-	MessageType, PermissionsBitField,
+	MessageType,
+	PermissionsBitField,
 	User
 } from "discord.js";
 
@@ -120,53 +121,73 @@ export class CommandsManager {
 			const commandsToRegister = await this.getAllCommandsToRegister();
 
 			for (const commandInfo of commandsToRegister) {
-				// Set parameters
-				commandInfo.slashCommandBuilder.setDMPermission(false);
-				if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
-					commandInfo.slashCommandBuilder.setDefaultPermission(false);
-				}
-
-				// Calculate variables
-				const registeredCommand = await RegisteredCommands.getCommand(commandInfo.slashCommandBuilder.name);
-				const json = commandInfo.slashCommandBuilder.toJSON();
-				const hash = createHash("sha1")
-					.update(JSON.stringify(json)) // Add the json to the hash
-					.digest("hex"); // Calculate the digest as hex
-				const guildCommand = commandInfo.mainGuildCommand || botConfig.TEST_MODE;
-
-				if (hash !== registeredCommand.jsonHash || registeredCommand.guildCommand !== guildCommand) {
-					// Create command
-					if (guildCommand) {
-						await client.application.commands.create(json, botConfig.MAIN_SERVER_ID);
-					}
-					else {
-						await client.application.commands.create(json);
-					}
-					console.log(`Created or modified command "${commandInfo.slashCommandBuilder.name}"`);
-
-					// Save in database
-					registeredCommand.jsonHash = hash;
-					registeredCommand.guildCommand = guildCommand;
-					await registeredCommand.save();
-				}
-
-				// Add to global command mapping
+				this.setCommandDefaultParameters(commandInfo);
+				await this.createOrUpdateCommand(client, commandInfo);
 				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			}
 
-			// Check deleted commands
-			const registeredCommands = await RegisteredCommands.getAll();
-			for (const registeredCommand of registeredCommands) {
-				if (!CommandsManager.commands.has(registeredCommand.commandName)) {
-					console.log(`Deleted command "${registeredCommand.commandName}"`);
-					await client.application.commands.delete(registeredCommand.commandName);
-					await RegisteredCommands.deleteCommand(registeredCommand.commandName);
-				}
-			}
+			// Delete removed commands, we do it after because CommandsManager.commands is populated
+			await this.deleteCommands(client);
 		}
 		catch (err) {
 			console.log(err);
+			// Do not start the bot if we can't register the commands
 			process.exit(1);
+		}
+	}
+
+	private static async deleteCommands(client: Client): Promise<void> {
+		const registeredCommands = await RegisteredCommands.getAll();
+		for (const registeredCommand of registeredCommands) {
+			if (!CommandsManager.commands.has(registeredCommand.commandName)) {
+				console.log(`Deleted command "${registeredCommand.commandName}"`);
+				await client.application.commands.delete(registeredCommand.commandName);
+				await RegisteredCommands.deleteCommand(registeredCommand.commandName);
+			}
+		}
+	}
+
+	/**
+	 * Create or update a bot command if needed
+	 * @param client
+	 * @param commandInfo
+	 * @private
+	 */
+	private static async createOrUpdateCommand(client: Client, commandInfo: ICommand): Promise<void> {
+		// Calculate variables
+		const registeredCommand = await RegisteredCommands.getCommand(commandInfo.slashCommandBuilder.name);
+		const json = commandInfo.slashCommandBuilder.toJSON();
+		const hash = createHash("sha1")
+			.update(JSON.stringify(json)) // Add the json to the hash
+			.digest("hex"); // Calculate the digest as hex
+		const guildCommand = commandInfo.mainGuildCommand || botConfig.TEST_MODE;
+
+		if (hash !== registeredCommand.jsonHash || registeredCommand.guildCommand !== guildCommand) {
+			// Create command
+			if (guildCommand) {
+				await client.application.commands.create(json, botConfig.MAIN_SERVER_ID);
+			}
+			else {
+				await client.application.commands.create(json);
+			}
+			console.log(`Created or modified command "${commandInfo.slashCommandBuilder.name}"`);
+
+			// Save in database
+			registeredCommand.jsonHash = hash;
+			registeredCommand.guildCommand = guildCommand;
+			await registeredCommand.save();
+		}
+	}
+
+	/**
+	 * Populate a command builder with default parameters
+	 * @param commandInfo
+	 * @private
+	 */
+	private static setCommandDefaultParameters(commandInfo: ICommand): void {
+		commandInfo.slashCommandBuilder.setDMPermission(false);
+		if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
+			commandInfo.slashCommandBuilder.setDefaultPermission(false);
 		}
 	}
 
@@ -501,7 +522,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("command404")
 			);
-			console.error("Command \"" + interaction.commandName + "\" is not registered");
+			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 

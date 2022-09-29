@@ -151,12 +151,13 @@ export class Maps {
 		const prevMapInstance = await player.getPreviousMap();
 		const nextMapInstance = await player.getDestination();
 		const time = this.getTravellingTime(player);
-		let percentage = time / hoursToMilliseconds(await player.getCurrentTripDuration());
+		const currentTripDuration = await player.getCurrentTripDuration();
+		let percentage = time / hoursToMilliseconds(currentTripDuration);
 
-		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
+		const remainingHours = Math.floor(currentTripDuration - millisecondsToHours(time));
 		let remainingMinutes =
-			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
-				Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+			Math.floor(hoursToMinutes(currentTripDuration - millisecondsToHours(time) -
+				Math.floor(currentTripDuration - millisecondsToHours(time))));
 		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
