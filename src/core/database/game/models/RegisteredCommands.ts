@@ -1,6 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import moment = require("moment");
 
+/**
+ * RegisteredCommands model
+ */
 export class RegisteredCommand extends Model {
 	public commandName!: string;
 
@@ -13,7 +16,15 @@ export class RegisteredCommand extends Model {
 	public createdAt!: Date;
 }
 
+/**
+ * RegisteredCommands model initialization
+ */
 export class RegisteredCommands {
+
+	/**
+	 * get a command by its name from the database
+	 * @param commandName
+	 */
 	static async getCommand(commandName: string): Promise<RegisteredCommand | null> {
 		return (await RegisteredCommand.findOrCreate({
 			where: {
@@ -26,15 +37,26 @@ export class RegisteredCommands {
 		}))[0];
 	}
 
+	/**
+	 * get all the commands from the database
+	 */
 	static async getAll(): Promise<RegisteredCommand[]> {
 		return await RegisteredCommand.findAll();
 	}
 
+	/**
+	 * delete a command from the database
+	 * @param commandName
+	 */
 	static async deleteCommand(commandName: string): Promise<void> {
 		await RegisteredCommand.destroy({ where: { commandName }});
 	}
 }
 
+/**
+ * RegisteredCommands model initialization
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	RegisteredCommand.init({
 		commandName: {

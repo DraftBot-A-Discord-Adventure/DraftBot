@@ -136,6 +136,11 @@ export class CommandsManager {
 		}
 	}
 
+	/**
+	 * delete all commands from the bot if they do not exist anymore
+	 * @param client
+	 * @private
+	 */
 	private static async deleteCommands(client: Client): Promise<void> {
 		const registeredCommands = await RegisteredCommands.getAll();
 		for (const registeredCommand of registeredCommands) {
