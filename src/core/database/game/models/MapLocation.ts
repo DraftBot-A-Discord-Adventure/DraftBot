@@ -38,7 +38,7 @@ export class MapLocation extends Model {
 	}
 
 	public getDisplayName(language: string): string {
-		return this.getEmote(language) + " " + (language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn);
+		return `${this.getEmote(language)} ${language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn}`;
 	}
 
 	public getParticleName(language: string): string {
