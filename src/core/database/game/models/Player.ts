@@ -319,7 +319,7 @@ export class Player extends Model {
 		return this.startTravelDate.valueOf() + TopConstants.FIFTEEN_DAYS < Date.now();
 	}
 
-	public currentEffectFinished(): boolean {
+	public currentEffectFinished(date: Date): boolean {
 		if (this.effect === EffectsConstants.EMOJI_TEXT.DEAD || this.effect === EffectsConstants.EMOJI_TEXT.BABY) {
 			return false;
 		}
@@ -329,7 +329,7 @@ export class Player extends Model {
 		if (!this.effectEndDate) {
 			return true;
 		}
-		return this.effectEndDate.valueOf() < Date.now();
+		return this.effectEndDate.valueOf() < date.valueOf();
 	}
 
 	public effectRemainingTime(): number {

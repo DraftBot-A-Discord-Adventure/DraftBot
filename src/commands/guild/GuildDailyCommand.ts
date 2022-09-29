@@ -172,7 +172,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	let noAlteHeal = true;
 	const needsHeal = await doesSomeoneNeedsHeal(guildLike);
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.currentEffectFinished() && needsHeal) {
+		if (member.Player.currentEffectFinished(stringInfos.interaction.createdAt) && needsHeal) {
 			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 		}
 		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {

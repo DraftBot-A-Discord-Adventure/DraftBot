@@ -23,16 +23,17 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  * Check if an entity is allowed to fight
  * @param entity
  * @param {boolean} friendly
+ * @param date
  * @return error
  */
-async function canFight(entity: Entity, friendly: boolean): Promise<string> {
+async function canFight(entity: Entity, friendly: boolean, date: Date): Promise<string> {
 	if (entity === null) {
 		return null;
 	}
 	if (entity.Player.level < FightConstants.REQUIRED_LEVEL) {
 		return FightConstants.FIGHT_ERROR.WRONG_LEVEL;
 	}
-	if (!entity.Player.currentEffectFinished() && !friendly) {
+	if (!entity.Player.currentEffectFinished(date) && !friendly) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
 	if ((await BlockingUtils.getPlayerBlockingReason(entity.discordUserId)).length !== 0) {
@@ -139,7 +140,7 @@ function getAcceptCallback(
 ): (user: User) => Promise<boolean> {
 	return async function(user: User): Promise<boolean> {
 		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
-		const attackerFightErrorStatus = await canFight(incomingFighterEntity, true);
+		const attackerFightErrorStatus = await canFight(incomingFighterEntity, true, interaction.createdAt);
 		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
 			return false;
 		}
@@ -186,14 +187,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	const attackerFightErrorStatus = await canFight(entity, true);
+	const attackerFightErrorStatus = await canFight(entity, true, interaction.createdAt);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
 	let askedFighter: Fighter | null;
 	if (askedEntity) {
-		const defenderFightErrorStatus = await canFight(askedEntity, true);
+		const defenderFightErrorStatus = await canFight(askedEntity, true, interaction.createdAt);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;

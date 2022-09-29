@@ -11,7 +11,9 @@ import {Constants} from "../../core/Constants";
 import {
 	hoursToMilliseconds,
 	millisecondsToMinutes,
-	minutesDisplay, minutesToHours, minutesToMilliseconds,
+	minutesDisplay,
+	minutesToHours,
+	minutesToMilliseconds,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/database/game/models/Tag";
@@ -51,15 +53,16 @@ SMALL EVENTS FUNCTIONS
 /**
  * Returns if the entity reached a stopping point (= small event)
  * @param {Entities} entity
+ * @param date
  * @returns {boolean}
  */
-function needSmallEvent(entity: Entity): boolean {
+function needSmallEvent(entity: Entity, date: Date): boolean {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-		return Date.now() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+		return date.valueOf() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
-	return Date.now() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+	return date.valueOf() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 }
 
 /**
@@ -160,10 +163,11 @@ async function completeMissionsBigEvent(entity: Entity, interaction: CommandInte
 /**
  * If the entity reached his destination (= big event)
  * @param {Entities} entity
+ * @param date
  * @returns {boolean}
  */
-async function needBigEvent(entity: Entity): Promise<boolean> {
-	return await Maps.isArrived(entity.Player);
+async function needBigEvent(entity: Entity, date: Date): Promise<boolean> {
+	return await Maps.isArrived(entity.Player, date);
 }
 
 /**
@@ -171,13 +175,14 @@ async function needBigEvent(entity: Entity): Promise<boolean> {
  * @param entity
  * @param interaction
  * @param language
+ * @param date
  * @param effect
  */
-async function sendTravelPath(entity: Entity, interaction: CommandInteraction, language: string, effect: string = null): Promise<void> {
+async function sendTravelPath(entity: Entity, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
 	travelEmbed.formatAuthor(tr.get("travelPathTitle"), interaction.user);
-	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
+	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, date, effect));
 	travelEmbed.addFields({
 		name: tr.get("startPoint"),
 		value: (await entity.Player.getPreviousMap()).getDisplayName(language),
@@ -201,9 +206,9 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 		if (entity.Player.PlayerSmallEvents.length !== 0) {
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-			millisecondsBeforeSmallEvent += lastTime - Date.now();
+			millisecondsBeforeSmallEvent += lastTime - date.valueOf();
 		}
-		const millisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
+		const millisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player, date);
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
 			travelEmbed.addFields({
@@ -219,7 +224,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 				name: tr.get("travellingTitle"),
 				value: tr.format("travellingDescription", {
 					smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
-					time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+					time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, date.valueOf(), language)
 				})
 			});
 		}
@@ -227,7 +232,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: tr.format("travellingDescriptionWithoutSmallEvent", {
-					time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+					time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, date.valueOf(), language)
 				})
 			});
 		}
@@ -695,21 +700,23 @@ async function executeCommand(
 
 	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
 
-	if (forceSpecificEvent || await needBigEvent(entity)) {
+	const currentDate = new Date();
+
+	if (forceSpecificEvent || await needBigEvent(entity, currentDate)) {
 		await interaction.deferReply();
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
 	}
 
-	if (forceSmallEvent || needSmallEvent(entity)) {
+	if (forceSmallEvent || needSmallEvent(entity, currentDate)) {
 		await interaction.deferReply();
 		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}
 
-	if (!entity.Player.currentEffectFinished()) {
-		return await sendTravelPath(entity, interaction, language, entity.Player.effect);
+	if (!entity.Player.currentEffectFinished(currentDate)) {
+		return await sendTravelPath(entity, interaction, language, currentDate, entity.Player.effect);
 	}
 
-	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && entity.Player.currentEffectFinished()) {
+	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && entity.Player.currentEffectFinished(currentDate)) {
 		await MissionsController.update(entity, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
@@ -721,7 +728,7 @@ async function executeCommand(
 		return await chooseDestination(entity, interaction, language, null);
 	}
 
-	return await sendTravelPath(entity, interaction, language, null);
+	return await sendTravelPath(entity, interaction, language, currentDate, null);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);

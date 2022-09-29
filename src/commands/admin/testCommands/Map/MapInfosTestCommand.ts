@@ -43,7 +43,7 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 		})
 		.addFields({
 			name: "Travelling",
-			value: Maps.isTravelling(entity.Player) ? ":clock1: For " + parseTimeDifference(0, millisecondsToMinutes(Maps.getTravellingTime(entity.Player)), language) : ":x: No",
+			value: Maps.isTravelling(entity.Player) ? ":clock1: For " + parseTimeDifference(0, millisecondsToMinutes(Maps.getTravellingTime(entity.Player, new Date())), language) : ":x: No",
 			inline: true
 		})
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);
