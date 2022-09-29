@@ -4,6 +4,7 @@ import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {botConfig, draftBotInstance} from "../../../bot";
 import * as moment from "moment";
+import { Constants } from "../../../Constants";
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -49,7 +50,7 @@ export class MapLocation extends Model {
 	}
 
 	public async getFullName(language: string): Promise<string> {
-		return await this.getDeterminant(language) + " " + this.getDisplayName(language);
+		return `${await this.getDeterminant(language)} ${this.getDisplayName(language)}`;
 	}
 
 	public async getDeterminant(language: string): Promise<string> {

@@ -4,6 +4,7 @@ import {MissionDifficulty} from "../../../missions/MissionDifficulty";
 import {MissionsController} from "../../../missions/MissionsController";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
+import { Constants } from "../../../Constants";
 
 export class Mission extends Model {
 	public id!: string;
