@@ -456,7 +456,7 @@ export class CommandsManager {
 		{user, entity}: UserEntity,
 		{interaction, tr}: TextInformations,
 		shouldReply: boolean): boolean {
-		if (!entity.Player.currentEffectFinished() &&
+		if (!entity.Player.currentEffectFinished(new Date()) &&
 			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
 			CommandsManager.effectError(user, tr, interaction, shouldReply).finally(() => null);

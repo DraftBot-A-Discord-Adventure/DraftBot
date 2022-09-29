@@ -25,15 +25,16 @@ type TopInformation = {
  * Get badge state for a player in the displayed top
  * @param entityToLook
  * @param language
+ * @param date
  */
-async function getBadgeStateOfPlayer(entityToLook: Entity, language: string): Promise<string> {
-	if (Date.now() < entityToLook.Player.effectEndDate.valueOf()) {
+async function getBadgeStateOfPlayer(entityToLook: Entity, language: string, date: Date): Promise<string> {
+	if (date.valueOf() < entityToLook.Player.effectEndDate.valueOf()) {
 		return entityToLook.Player.effect + TopConstants.SEPARATOR;
 	}
 	if (entityToLook.Player.isInactive()) {
 		return TopConstants.INACTIVE_BADGE + TopConstants.SEPARATOR;
 	}
-	if (await Maps.isArrived(entityToLook.Player)) {
+	if (await Maps.isArrived(entityToLook.Player, date)) {
 		return (await entityToLook.Player.getDestination()).getEmote(language) + TopConstants.SEPARATOR;
 	}
 	return "";
@@ -107,11 +108,12 @@ function getPseudosOfList(entitiesToShow: Entity[], language: string): Promise<s
  * Get all the given entities' status
  * @param entitiesToShow
  * @param language
+ * @param date
  */
-function getBadgeStatesOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
+function getBadgeStatesOfList(entitiesToShow: Entity[], language: string, date: Date): Promise<string[]> {
 	const badgeStates = [];
 	for (const entityToShow of entitiesToShow) {
-		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language));
+		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date));
 	}
 	return Promise.all(badgeStates);
 }
@@ -148,7 +150,7 @@ async function displayTop(
 		}));
 	let description = [];
 	const pseudos = await getPseudosOfList(entitiesToShow, language);
-	const badgeStates = await getBadgeStatesOfList(entitiesToShow, language);
+	const badgeStates = await getBadgeStatesOfList(entitiesToShow, language, interaction.createdAt);
 	for (const entityToShow of entitiesToShow) {
 		const rank = entitiesToShow.indexOf(entityToShow);
 		description.push(topModule.format("playerRankLine", {

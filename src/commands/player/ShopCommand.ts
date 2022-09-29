@@ -77,7 +77,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			if (entity.Player.currentEffectFinished()) {
+			if (entity.Player.currentEffectFinished(interaction.createdAt)) {
 				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}

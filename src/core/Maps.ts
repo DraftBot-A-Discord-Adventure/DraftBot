@@ -55,14 +55,15 @@ export class Maps {
 	/**
 	 * Get the time in ms the player is travelling
 	 * @param {Players} player
+	 * @param date
 	 * @returns {number}
 	 */
-	static getTravellingTime(player: Player): number {
+	static getTravellingTime(player: Player, date: Date): number {
 		if (!this.isTravelling(player)) {
 			return 0;
 		}
-		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effectEndDate.valueOf();
-		return Date.now() - player.startTravelDate.valueOf() - malus;
+		const malus = player.currentEffectFinished(date) ? 0 : date.valueOf() - player.effectEndDate.valueOf();
+		return date.valueOf() - player.startTravelDate.valueOf() - malus;
 	}
 
 
@@ -144,13 +145,14 @@ export class Maps {
 	 * Generates a string representing the player walking form a map to another
 	 * @param {Players} player
 	 * @param {"fr"|"en"} language
+	 * @param date
 	 * @param {string|String} effect
 	 * @returns {Promise<string>}
 	 */
-	static async generateTravelPathString(player: Player, language: string, effect: string = null): Promise<string> {
+	static async generateTravelPathString(player: Player, language: string, date: Date, effect: string = null): Promise<string> {
 		const prevMapInstance = await player.getPreviousMap();
 		const nextMapInstance = await player.getDestination();
-		const time = this.getTravellingTime(player);
+		const time = this.getTravellingTime(player, date);
 		const currentTripDuration = await player.getCurrentTripDuration();
 		let percentage = time / hoursToMilliseconds(currentTripDuration);
 
@@ -191,7 +193,7 @@ export class Maps {
 		return `${str} ${nextMapInstance.getEmote(language)}`;
 	}
 
-	static async isArrived(player: Player): Promise<boolean> {
-		return Maps.getTravellingTime(player) >= hoursToMilliseconds(await player.getCurrentTripDuration());
+	static async isArrived(player: Player, date: Date): Promise<boolean> {
+		return Maps.getTravellingTime(player, date) >= hoursToMilliseconds(await player.getCurrentTripDuration());
 	}
 }
