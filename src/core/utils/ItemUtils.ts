@@ -423,11 +423,9 @@ export const generateRandomItemCategory = function(): number {
  */
 export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
-	if (itemCategory === null) {
-		itemCategory = generateRandomItemCategory();
-	}
+	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
-	switch (itemCategory) {
+	switch (category) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
 		itemsIds = await Weapons.getAllIdsForRarity(rarity);
 		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
