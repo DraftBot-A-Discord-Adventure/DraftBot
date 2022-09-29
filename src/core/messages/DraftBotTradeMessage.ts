@@ -18,12 +18,6 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 	public trader2Accepted: boolean = null;
 
 	/**
-	 * The id of the trader number 1
-	 * @private
-	 */
-	private readonly trader1id: string;
-
-	/**
 	 * The callback called if the trade is successful
 	 */
 	public readonly tradeSuccessCallback: (message: DraftBotTradeMessage) => void;
@@ -37,6 +31,12 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 	 * The callback called if someone didn't react
 	 */
 	public readonly tradeNoResponseCallback: (message: DraftBotTradeMessage) => void;
+
+	/**
+	 * The id of the trader number 1
+	 * @private
+	 */
+	private readonly trader1id: string;
 
 	/**
 	 * Default constructor
@@ -73,7 +73,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		this.tradeNoResponseCallback = tradeNoResponse;
 	}
 
-	private static validateCallback(message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
+	private static validateCallback(this: void, message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = true;
@@ -86,7 +86,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		}
 	}
 
-	private static refuseCallback(message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
+	private static refuseCallback(this: void, message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = false;
@@ -97,7 +97,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		message.collector.stop();
 	}
 
-	private static endCallback(message: DraftBotReactionMessage): void {
+	private static endCallback(this: void, message: DraftBotReactionMessage): void {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (tradeMessage.trader1Accepted && tradeMessage.trader2Accepted) {
 			return tradeMessage.tradeSuccessCallback(message as DraftBotTradeMessage);
