@@ -129,7 +129,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return this._language;
 	}
 
-	private static async shopCallback(msg: DraftBotReactionMessage): Promise<void> {
+	private static async shopCallback(this: void, msg: DraftBotReactionMessage): Promise<void> {
 		const shopMessage = msg as DraftBotShopMessage;
 		const choseShopItem = shopMessage.getChoseShopItem();
 		if (choseShopItem) {

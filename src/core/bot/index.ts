@@ -79,26 +79,6 @@ async function main(): Promise<void> {
 	);
 
 	/**
-	 * Will be executed each time the bot join a new server
-	 */
-	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
-		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, true, serv.language);
-		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
-		console.log(msg);
-	}
-
-	/**
-	 * Will be executed each time the bot leave a server
-	 */
-	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
-		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, false, serv.language);
-		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
-		console.log(msg);
-	}
-
-	/**
 	 * Get the message when the bot joins or leaves a guild
 	 * @param {Guild} guild
 	 * @param {boolean} join
@@ -118,6 +98,26 @@ async function main(): Promise<void> {
 				ratio: ratio,
 				validation: validation
 			});
+	}
+
+	/**
+	 * Will be executed each time the bot join a new server
+	 */
+	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		const msg = getJoinLeaveMessage(guild, true, serv.language);
+		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
+		console.log(msg);
+	}
+
+	/**
+	 * Will be executed each time the bot leave a server
+	 */
+	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
+		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		const msg = getJoinLeaveMessage(guild, false, serv.language);
+		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
+		console.log(msg);
 	}
 
 	client.on("ready", () => console.log("Client ready"));

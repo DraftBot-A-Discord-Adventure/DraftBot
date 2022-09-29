@@ -27,8 +27,6 @@ type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 type FunctionRewardType = (guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>;
 
-const linkToFunction = getMapOfAllRewardCommands();
-
 /**
  * Reward the guild with a new pet if they are lucky
  * @param guild
@@ -311,6 +309,8 @@ function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.ALTERATION, alterationHealEveryMember);
 	return linkToFunction;
 }
+
+const linkToFunction = getMapOfAllRewardCommands();
 
 /**
  * Updates the guildDaily mission for each member of the guild and send a private message for those who have dms opened

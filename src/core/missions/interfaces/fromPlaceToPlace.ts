@@ -3,6 +3,30 @@ import {MapLocations} from "../../database/game/models/MapLocation";
 import {Translations} from "../../Translations";
 import {hoursToMilliseconds} from "../../utils/TimeUtils";
 
+const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
+	const saveBlob = Buffer.alloc(10);
+	saveBlob.writeBigUInt64LE(BigInt(startTimestamp));
+	saveBlob.writeUInt16LE(startMap, 8);
+	return saveBlob;
+};
+
+const dataFromSaveBlob = function(saveBlob: Buffer): { startTimestamp: number, startMap: number } {
+	return {
+		startTimestamp: Number(saveBlob.readBigUInt64LE()),
+		startMap: saveBlob.readUInt16LE(8)
+	};
+};
+
+const paramsFromVariant = function(variant: number): { fromMap: number, toMap: number, time: number, orderMatter: boolean } {
+	return {
+		fromMap: variant >> 20 & 0x3ff,
+		toMap: variant >> 10 & 0x3ff,
+		time: variant & 0x3ff,
+		orderMatter: (variant & 0x40000000) !== 0
+	};
+};
+
+
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean {
 		if (!saveBlob) {
@@ -75,28 +99,4 @@ export const missionInterface: IMission = {
 		}
 		return Promise.resolve(saveBlob);
 	}
-};
-
-const dataFromSaveBlob = function(saveBlob: Buffer): { startTimestamp: number, startMap: number } {
-	return {
-		startTimestamp: Number(saveBlob.readBigUInt64LE()),
-		startMap: saveBlob.readUInt16LE(8)
-	};
-};
-
-const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
-	const saveBlob = Buffer.alloc(10);
-	saveBlob.writeBigUInt64LE(BigInt(startTimestamp));
-	saveBlob.writeUInt16LE(startMap, 8);
-	return saveBlob;
-};
-
-
-const paramsFromVariant = function(variant: number): { fromMap: number, toMap: number, time: number, orderMatter: boolean } {
-	return {
-		fromMap: variant >> 20 & 0x3ff,
-		toMap: variant >> 10 & 0x3ff,
-		time: variant & 0x3ff,
-		orderMatter: (variant & 0x40000000) !== 0
-	};
 };
