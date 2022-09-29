@@ -83,7 +83,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		const shopItemReactions: string[] = [];
 		let content = "";
 		for (const shopItemCategory of shopItemCategories) {
-			content += "**" + shopItemCategory.categoryTitle + (language === "en" ? "" : " ") + ":**\n";
+			content += `**${shopItemCategory.categoryTitle}${language === Constants.LANGUAGE.ENGLISH ? "" : " "}:**\n`;
 			for (const shopItem of shopItemCategory.items) {
 				content += format(translationModule.get("display"), {
 					emote: shopItem.emote,
@@ -374,7 +374,7 @@ export class DraftBotShopMessageBuilder {
 		return new DraftBotShopMessage(
 			this._shopItemCategories,
 			this._language,
-			(this._noShoppingCart ? this._title : Constants.REACTIONS.SHOPPING_CART + " " + this._title) + (this._language === "en" ? "" : " ") + ":",
+			`${this._noShoppingCart ? this._title : `${Constants.REACTIONS.SHOPPING_CART} ${this._title}`}${this._language === Constants.LANGUAGE.ENGLISH ? "" : " "}:`,
 			this._interaction,
 			await this._getUserMoney(this._interaction.user.id),
 			this._getUserMoney,

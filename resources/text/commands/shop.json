@@ -79,7 +79,7 @@
 		"en": {
 			"commandName": "shop",
 			"commandDescription": "Display the shop.",
-			"title": "Shop Overlay:",
+			"title": "Shop Overlay",
 			"dailyItem": "Today's potion",
 			"permanentItem": "Permanent sales",
 			"display": "{emote} **{name}** | `{price}💰`",
