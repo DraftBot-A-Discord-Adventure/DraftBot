@@ -1,5 +1,5 @@
 import {
-	ApplicationCommandDataResolvable, Attachment,
+	Attachment,
 	ChannelType,
 	Client,
 	CommandInteraction,
@@ -29,6 +29,8 @@ import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
+import {RegisteredCommands} from "../core/database/game/models/RegisteredCommands";
+import {createHash} from "crypto";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -114,25 +116,58 @@ export class CommandsManager {
 	 * @param client
 	 */
 	static async registerAllCommands(client: Client): Promise<void> {
-		const commandsToRegister = await this.getAllCommandsToRegister();
+		try {
+			const commandsToRegister = await this.getAllCommandsToRegister();
 
-		const commandsToSetGlobal: ApplicationCommandDataResolvable[] = [];
-		const commandsToSetGuild: ApplicationCommandDataResolvable[] = [];
-		for (const commandInfo of commandsToRegister) {
-			commandInfo.slashCommandBuilder.setDMPermission(false);
-			if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
-				commandInfo.slashCommandBuilder.setDefaultPermission(false);
+			for (const commandInfo of commandsToRegister) {
+				// Set parameters
+				commandInfo.slashCommandBuilder.setDMPermission(false);
+				if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
+					commandInfo.slashCommandBuilder.setDefaultPermission(false);
+				}
+
+				// Calculate variables
+				const registeredCommand = await RegisteredCommands.getCommand(commandInfo.slashCommandBuilder.name);
+				const json = commandInfo.slashCommandBuilder.toJSON();
+				const hash = createHash("sha1")
+					.update(JSON.stringify(json)) // Add the json to the hash
+					.digest("hex"); // Calculate the digest as hex
+				const guildCommand = commandInfo.mainGuildCommand || botConfig.TEST_MODE;
+
+				if (hash !== registeredCommand.jsonHash || registeredCommand.guildCommand !== guildCommand) {
+					// Create command
+					if (guildCommand) {
+						await client.application.commands.create(json, botConfig.MAIN_SERVER_ID);
+					}
+					else {
+						await client.application.commands.create(json);
+					}
+					console.log(`Created or modified command "${commandInfo.slashCommandBuilder.name}"`);
+
+					// Save in database
+					registeredCommand.jsonHash = hash;
+					registeredCommand.guildCommand = guildCommand;
+					await registeredCommand.save();
+				}
+
+				// Add to global command mapping
+				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			}
-			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-				commandsToSetGuild.push(commandInfo.slashCommandBuilder.toJSON());
+
+			// Check deleted commands
+			const registeredCommands = await RegisteredCommands.getAll();
+			for (const registeredCommand of registeredCommands) {
+				if (!CommandsManager.commands.has(registeredCommand.commandName)) {
+					console.log(`Deleted command "${registeredCommand.commandName}"`);
+					await client.application.commands.delete(registeredCommand.commandName);
+					await RegisteredCommands.deleteCommand(registeredCommand.commandName);
+				}
 			}
-			else {
-				commandsToSetGlobal.push(commandInfo.slashCommandBuilder.toJSON());
-			}
-			CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 		}
-		const setCommands = await client.application.commands.set(commandsToSetGuild, botConfig.MAIN_SERVER_ID);
-		setCommands.concat(await client.application.commands.set(commandsToSetGlobal));
+		catch (err) {
+			console.log(err);
+			process.exit(1);
+		}
 	}
 
 	/**
@@ -455,10 +490,10 @@ export class CommandsManager {
 			return;
 		}
 
-		if (!interaction.command) {
+		if (!interaction.commandName) {
 			return;
 		}
-		const commandInfo = this.commands.get(interaction.command.name);
+		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
 			await replyErrorMessage(
@@ -466,7 +501,7 @@ export class CommandsManager {
 				tr.language,
 				tr.get("command404")
 			);
-			console.error("Command \"" + interaction.command.name + "\" is not registered");
+			console.error("Command \"" + interaction.commandName + "\" is not registered");
 			return;
 		}
 
@@ -491,7 +526,7 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.command.name).then();
+		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.commandName).then();
 		await commandInfo.executeCommand(interaction, tr.language, entity);
 	}
 
