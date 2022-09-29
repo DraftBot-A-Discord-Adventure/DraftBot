@@ -47,7 +47,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the top week reset
 	 */
-	static programTopWeekTimeout(): void {
+	static programTopWeekTimeout(this: void): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -60,7 +60,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the daily tasks
 	 */
-	static programDailyTimeout(): void {
+	static programDailyTimeout(this: void): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
@@ -73,7 +73,7 @@ export class DraftBot {
 	/**
 	 * execute all the daily tasks
 	 */
-	static dailyTimeout(): void {
+	static dailyTimeout(this: void): void {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
@@ -158,7 +158,7 @@ export class DraftBot {
 	/**
 	 * End the top week
 	 */
-	static async topWeekEnd(): Promise<void> {
+	static async topWeekEnd(this: void): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Entity.findOne({
 			include: [
@@ -230,7 +230,7 @@ export class DraftBot {
 	/**
 	 * update the fight points of the entities that lost some
 	 */
-	static fightPowerRegenerationLoop(): void {
+	static fightPowerRegenerationLoop(this: void): void {
 		Entity.update(
 			{
 				fightPointsLost: Sequelize.literal(

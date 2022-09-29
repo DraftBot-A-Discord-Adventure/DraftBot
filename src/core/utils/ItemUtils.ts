@@ -370,36 +370,6 @@ export const giveItemToPlayer = async function(
 };
 
 /**
- * Generates a random item given its category and the rarity limits
- * @param maxRarity
- * @param itemCategory
- * @param minRarity
- */
-export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
-	const rarity = generateRandomRarity(minRarity, maxRarity);
-	if (itemCategory === null) {
-		itemCategory = generateRandomItemCategory();
-	}
-	let itemsIds;
-	switch (itemCategory) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
-		itemsIds = await Weapons.getAllIdsForRarity(rarity);
-		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.ARMOR:
-		itemsIds = await Armors.getAllIdsForRarity(rarity);
-		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.POTION:
-		itemsIds = await Potions.getAllIdsForRarity(rarity);
-		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.OBJECT:
-		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
-		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	default:
-		return null;
-	}
-};
-
-/**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @param {number} minRarity
  * @param {number} maxRarity
@@ -443,6 +413,36 @@ export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON
  */
 export const generateRandomItemCategory = function(): number {
 	return RandomUtils.draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
+};
+
+/**
+ * Generates a random item given its category and the rarity limits
+ * @param maxRarity
+ * @param itemCategory
+ * @param minRarity
+ */
+export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
+	const rarity = generateRandomRarity(minRarity, maxRarity);
+	if (itemCategory === null) {
+		itemCategory = generateRandomItemCategory();
+	}
+	let itemsIds;
+	switch (itemCategory) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		itemsIds = await Weapons.getAllIdsForRarity(rarity);
+		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		itemsIds = await Armors.getAllIdsForRarity(rarity);
+		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	case Constants.ITEM_CATEGORIES.POTION:
+		itemsIds = await Potions.getAllIdsForRarity(rarity);
+		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
+		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	default:
+		return null;
+	}
 };
 
 /**
