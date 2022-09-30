@@ -1,7 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entity} from "../../core/database/game/models/Entity";
 
-import {Maps} from "../../core/Maps";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
@@ -16,6 +15,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {draftBotInstance} from "../../core/bot";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 type EntityInformation = { entity: Entity, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -94,7 +94,7 @@ async function activateDailyItem(
 				value: minutesDisplay(entityInformation.activeObject.power)
 			})
 		);
-		await Maps.advanceTime(entityInformation.entity.Player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
+		await TravelTime.timeTravel(entityInformation.entity.Player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));

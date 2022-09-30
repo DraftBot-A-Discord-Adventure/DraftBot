@@ -6,7 +6,6 @@ import {SmallEvent} from "./SmallEvent";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Maps} from "../Maps";
 import {format} from "../utils/StringFormatter";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
@@ -15,6 +14,7 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import Entity from "../database/game/models/Entity";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {TravelTime} from "../maps/TravelTime";
 
 type RewardType = { type: string, option: number | string };
 
@@ -62,7 +62,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 		await entity.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 		malus.option = minutesDisplay(malus.option as number);
 		break;
 	case "nothing":

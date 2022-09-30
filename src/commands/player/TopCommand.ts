@@ -1,4 +1,4 @@
-import {Maps} from "../../core/Maps";
+import {Maps} from "../../core/maps/Maps";
 import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";

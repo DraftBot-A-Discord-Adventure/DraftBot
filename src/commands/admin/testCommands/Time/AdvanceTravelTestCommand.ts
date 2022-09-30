@@ -1,10 +1,10 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
-import {Maps} from "../../../../core/Maps";
 import {format} from "../../../../core/utils/StringFormatter";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {TravelTime} from "../../../../core/maps/TravelTime";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetravel",
@@ -28,7 +28,7 @@ export const commandInfo: ITestCommand = {
  */
 const advanceTravelTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await Maps.advanceTime(entity.Player, parseInt(args[0], 10), NumberChangeReason.TEST);
+	await TravelTime.timeTravel(entity.Player, parseInt(args[0], 10), NumberChangeReason.TEST);
 	await entity.Player.save();
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };

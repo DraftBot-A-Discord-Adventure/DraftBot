@@ -3,7 +3,6 @@ import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
-import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
@@ -11,6 +10,7 @@ import {minutesDisplay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {TravelTime} from "../maps/TravelTime";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -46,7 +46,7 @@ export const smallEvent: SmallEvent = {
 				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
 				alteEmoji: seFallen.alte as string
 			}));
-			await Maps.applyEffect(entity.Player, seFallen.alte as string, 0, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(entity.Player, seFallen.alte as string, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
 				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
 					await MissionsController.update(entity, interaction.channel, language, {

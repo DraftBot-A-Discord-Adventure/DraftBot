@@ -3,17 +3,15 @@ import {Entities, Entity} from "../../core/database/game/models/Entity";
 import BigEvent, {BigEvents} from "../../core/database/game/models/BigEvent";
 import {MapLinks} from "../../core/database/game/models/MapLink";
 import {MapLocations} from "../../core/database/game/models/MapLocation";
-import {Maps} from "../../core/Maps";
+import {Maps} from "../../core/maps/Maps";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import Possibility from "../../core/database/game/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
 import {
-	hoursToMilliseconds,
 	millisecondsToMinutes,
 	minutesDisplay,
 	minutesToHours,
-	minutesToMilliseconds,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/database/game/models/Tag";
@@ -32,6 +30,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ReportConstants} from "../../core/constants/ReportConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
@@ -40,9 +39,7 @@ type TextInformation = { interaction: CommandInteraction, language: string, tr?:
  * @param entity
  */
 async function initiateNewPlayerOnTheAdventure(entity: Entity): Promise<void> {
-	entity.Player.mapLinkId = Constants.BEGINNING.START_MAP_LINK;
-	entity.Player.startTravelDate = new Date(Date.now() - minutesToMilliseconds((await MapLinks.getById(entity.Player.mapLinkId)).tripDuration));
-	entity.Player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
+	await Maps.startTravel(entity.Player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), Date.now(), NumberChangeReason.NEW_PLAYER);
 	await entity.Player.save();
 }
 
@@ -56,13 +53,8 @@ SMALL EVENTS FUNCTIONS
  * @param date
  * @returns {boolean}
  */
-function needSmallEvent(entity: Entity, date: Date): boolean {
-	if (entity.Player.PlayerSmallEvents.length !== 0) {
-		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-		return date.valueOf() >= lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-	}
-	return date.valueOf() >= entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+async function needSmallEvent(entity: Entity, date: Date): Promise<boolean> {
+	return (await TravelTime.getTravelData(entity.Player, date)).nextSmallEventTime <= date.valueOf();
 }
 
 /**
@@ -202,13 +194,14 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 		});
 	}
 	else {
-		let millisecondsBeforeSmallEvent = Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+		let millisecondsBeforeSmallEvent = (await TravelTime.getTravelData(entity.Player, date)).nextSmallEventTime - date.valueOf();
 		if (entity.Player.PlayerSmallEvents.length !== 0) {
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			millisecondsBeforeSmallEvent += lastTime - date.valueOf();
 		}
-		const millisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player, date);
+		const travelData = await TravelTime.getTravelData(entity.Player, date);
+		const millisecondsBeforeBigEvent = travelData.travelEndTime - travelData.travelStartTime - travelData.effectDuration - travelData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
 			travelEmbed.addFields({
@@ -219,12 +212,11 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 		else if (entity.Player.PlayerSmallEvents.length !== 0) {
 			// the first mini event of the travel is calculated differently
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: tr.format("travellingDescription", {
 					smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
-					time: parseTimeDifference(lastTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, date.valueOf(), language)
+					time: parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language)
 				})
 			});
 		}
@@ -232,7 +224,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: tr.format("travellingDescriptionWithoutSmallEvent", {
-					time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS, date.valueOf(), language)
+					time: parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language)
 				})
 			});
 		}
@@ -646,9 +638,10 @@ async function doRandomBigEvent(
 	forceSpecificEvent: number
 ): Promise<void> {
 	await completeMissionsBigEvent(entity, interaction, language);
+	const travelData = await TravelTime.getTravelData(entity.Player, new Date());
 	let time = forceSpecificEvent
 		? ReportConstants.TIME_MAXIMAL + 1
-		: millisecondsToMinutes(interaction.createdAt.valueOf() - entity.Player.startTravelDate.valueOf());
+		: millisecondsToMinutes(travelData.playerTravelledTime);
 	if (time > ReportConstants.TIME_LIMIT) {
 		time = ReportConstants.TIME_LIMIT;
 	}
@@ -707,7 +700,7 @@ async function executeCommand(
 		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
 	}
 
-	if (forceSmallEvent || needSmallEvent(entity, currentDate)) {
+	if (forceSmallEvent || await needSmallEvent(entity, currentDate)) {
 		await interaction.deferReply();
 		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
 	}

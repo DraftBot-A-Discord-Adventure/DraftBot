@@ -129,6 +129,7 @@ export enum NumberChangeReason {
 	UNLOCK,
 	LEVEL_UP,
 	RESPAWN,
+	NEW_PLAYER
 }
 
 export enum ShopItemType {

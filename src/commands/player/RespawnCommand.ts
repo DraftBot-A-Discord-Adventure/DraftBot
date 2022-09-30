@@ -1,5 +1,5 @@
 import {MapLinks} from "../../core/database/game/models/MapLink";
-import {Maps} from "../../core/Maps";
+import {Maps} from "../../core/maps/Maps";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
@@ -13,6 +13,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {RespawnConstants} from "../../core/constants/RespawnConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 /**
  * Allow a player who is dead to respawn
@@ -44,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		entity.Player.save()
 	]);
 
-	await Maps.removeEffect(entity.Player, NumberChangeReason.RESPAWN);
+	await TravelTime.removeEffect(entity.Player, NumberChangeReason.RESPAWN);
 	await Maps.stopTravel(entity.Player);
 	const newlink = await MapLinks.getLinkByLocations(
 		await entity.Player.getPreviousMapId(),

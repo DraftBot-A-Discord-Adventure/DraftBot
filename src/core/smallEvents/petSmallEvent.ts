@@ -3,7 +3,6 @@ import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
-import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
@@ -17,6 +16,7 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import Player from "../database/game/models/Player";
+import {TravelTime} from "../maps/TravelTime";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -244,7 +244,7 @@ async function managePickedPetInteraction(
 		break;
 	case "gainTime":
 		amount = RandomUtils.randInt(5, 20);
-		await Maps.advanceTime(entity.Player, amount, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.timeTravel(entity.Player, amount, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 		break;
 	case "points":
@@ -267,7 +267,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseTime":
 		amount = RandomUtils.randInt(5, 20);
-		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 		break;
 	case "petFlee":
