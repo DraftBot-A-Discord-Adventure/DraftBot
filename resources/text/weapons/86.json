@@ -5,7 +5,8 @@
 	},
 	"emote": ":performing_arts:",
 	"rarity": 6,
-	"rawAttack": 90,
+	"rawAttack": 6,
+	"defense" : 15,
 	"frenchMasculine": 1,
 	"frenchPlural": 0
 }
