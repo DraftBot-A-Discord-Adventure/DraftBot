@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "Masque Mojaro",
+		"en": "Mojaro Mask"
+	},
+	"emote": ":performing_arts:",
+	"rarity": 6,
+	"rawAttack": 90,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

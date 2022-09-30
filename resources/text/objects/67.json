@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Kars",
+		"en": "Kars"
+	},
+	"emote": ":red_car:",
+	"rarity": 6,
+	"power": 100,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
