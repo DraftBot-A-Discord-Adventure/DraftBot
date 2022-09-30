@@ -19,7 +19,7 @@
 			"petCommands": ":dog: Animaux :",
 			"forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
 			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
-			"commandEmbedTitle": "{emote} Commande {cmd}",
+			"commandEmbedTitle": "{emote} Informations détaillées :",
 			"usageFieldTitle": "Utilisation",
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Alias",
@@ -29,7 +29,7 @@
 					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
 				},
 				"PING": {
-					"usage": "{command:[a-zA-Z]+}",
+					"usage": "{command:ping}",
 					"description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
 				},
 				"RESPAWN": {
@@ -73,11 +73,11 @@
 					"usage": "{command:sell}",
 					"description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:."
 				},
-				"DAILY": {
+				"DAILY_BONUS": {
 					"usage": "{command:dailybonus}",
 					"description": "Certains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`."
 				},
-				"INVITE": {
+				"INVITE_DRAFTBOT": {
 					"usage": "{command:invitedraftbot}",
 					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
@@ -105,15 +105,15 @@
 					"usage": "{command:guild}",
 					"description": "Permet d'afficher les informations sur une guilde."
 				},
-				"GUILD_DAILY": {
-					"usage": "{command:guildailybonus}",
+				"GUILD_DAILY_BONUS": {
+					"usage": "{command:guilddailybonus}",
 					"description": "Permet de récupérer des récompenses quotidiennes de guildes."
 				},
 				"GUILD_KICK": {
 					"usage": "{command:guildkick}",
 					"description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
 				},
-				"GUILD_ADD": {
+				"GUILD_INVITE": {
 					"usage": "{command:guildinvite}",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
 				},
@@ -141,7 +141,7 @@
 					"usage": "{command:update}",
 					"description": "Permet de visionner le changelog."
 				},
-				"CLASS": {
+				"CLASSES": {
 					"usage": "{command:classes}",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
 				},
@@ -175,9 +175,9 @@
 				},
 				"PET_SELL": {
 					"usage": "{command:petsell}",
-					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
+					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
-				"CLASS_INFO": {
+				"CLASSES_INFO": {
 					"usage": "{command:classesinfo}",
 					"description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
 				},
@@ -193,7 +193,7 @@
 					"usage": "{command:idea}",
 					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
 				},
-				"DM_NOTIFICATION": {
+				"DM_NOTIFICATIONS": {
 					"usage": "{command:dmnotifications}",
 					"description": "Permet d'activer ou de désactiver les notifications du bot."
 				},
@@ -209,7 +209,7 @@
 					"usage": "{command:missions}",
 					"description": "Affiche la liste des missions qui vous sont proposées."
 				},
-				"MISSION_SHOP": {
+				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Affiche le magasin des missions."
 				}
@@ -234,7 +234,7 @@
 			"petCommands": ":dog: Pet:",
 			"forMoreHelp": ":arrow_forward: For more help: ",
 			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/)!",
-			"commandEmbedTitle": "{emote} Command {cmd}",
+			"commandEmbedTitle": "{emote} Detailed information:",
 			"usageFieldTitle": "Usage",
 			"aliasFieldTitle": "Alias",
 			"aliasesFieldTitle": "Aliases",
@@ -288,11 +288,11 @@
 					"usage": "{command:sell}",
 					"description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
 				},
-				"DAILY": {
+				"DAILY_BONUS": {
 					"usage": "{command:dailybonus}",
 					"description": "Some items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`."
 				},
-				"INVITE": {
+				"INVITE_DRAFTBOT": {
 					"usage": "{command:invitedraftbot}",
 					"description": "This command allows you to get an invite url to get the bot on your server, or join the support server!"
 				},
@@ -320,15 +320,15 @@
 					"usage": "{command:guild}",
 					"description": "Displays a guild's infos."
 				},
-				"GUILD_DAILY": {
-					"usage": "{command:guildailybonus}",
+				"GUILD_DAILY_BONUS": {
+					"usage": "{command:guilddailybonus}",
 					"description": "Claims your guild's daily reward."
 				},
 				"GUILD_KICK": {
 					"usage": "{command:guildkick}",
 					"description": "Kicks a member. Requires to be the guild's leader."
 				},
-				"GUILD_ADD": {
+				"GUILD_INVITE": {
 					"usage": "{command:guildinvite}",
 					"description": "Invites someone to join your guild. Requires to be the guild's leader."
 				},
@@ -356,7 +356,7 @@
 					"usage": "{command:update}",
 					"description": "Read the changelog."
 				},
-				"CLASS": {
+				"CLASSES": {
 					"usage": "{command:classes}",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
 				},
@@ -392,7 +392,7 @@
 					"usage": "{command:petfeed}",
 					"description": "Give some food to your pet."
 				},
-				"CLASS_INFO": {
+				"CLASSES_INFO": {
 					"usage": "{command:classesinfo}",
 					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
@@ -408,7 +408,7 @@
 					"usage": "{command:idea}",
 					"description": "Give a link to submit suggestions and vote for those already submitted."
 				},
-				"DM_NOTIFICATION": {
+				"DM_NOTIFICATIONS": {
 					"usage": "{command:dmnotifications}",
 					"description": "Allows to enable or disable private messages from the bot."
 				},
@@ -424,7 +424,7 @@
 					"usage": "{command:missions}",
 					"description": "Displays the lists of quest you have to achieve."
 				},
-				"MISSION_SHOP": {
+				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Display the mission's shop."
 				}

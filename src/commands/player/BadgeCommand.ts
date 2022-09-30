@@ -20,7 +20,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				{emote: HelpConstants.COMMANDS_DATA.BADGES.EMOTE, cmd: "badge"}
 			)
 		)
-		.setDescription(tr.get("commands.BADGE.description"));
+		.setDescription(tr.get("commands.BADGES.description"));
 	await interaction.reply({
 		embeds: [badgeMessage]
 	});
