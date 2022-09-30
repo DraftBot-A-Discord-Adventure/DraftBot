@@ -12,7 +12,7 @@ import {format} from "../../core/utils/StringFormatter";
  * Get the list of commands mention from the command data
  * @param commandData
  */
-function getListOfMentionFromCommandData(commandData: [string, object]): string {
+function getListOfMentionFromCommandData(commandData: [string, unknown]): string {
 	return format("{command:" + commandData[0].toLowerCase().split("")
 		.filter((l: string) => l !== "_")
 		.join("") + "}", {});
