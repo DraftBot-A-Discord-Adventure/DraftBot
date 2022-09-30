@@ -9,7 +9,6 @@ import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import {Maps} from "../../core/Maps";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {GuildPets} from "../../core/database/game/models/GuildPet";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -21,6 +20,7 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 type GuildLike = { guild: Guild, members: Entity[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -175,7 +175,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 		}
 		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
-			await Maps.removeEffect(member.Player, NumberChangeReason.GUILD_DAILY);
+			await TravelTime.removeEffect(member.Player, NumberChangeReason.GUILD_DAILY);
 		}
 	});
 	if (!needsHeal && noAlteHeal) {
@@ -286,7 +286,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
  */
 async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const timeAdvanced = Math.round(guildLike.guild.level * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, async member => await Maps.advanceTime(member.Player, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
+	await genericAwardingFunction(guildLike.members, async member => await TravelTime.timeTravel(member.Player, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
 	stringInfos.embed.setDescription(guildDailyModule.format("hospital", {
 		timeMoved: timeAdvanced
 	}));

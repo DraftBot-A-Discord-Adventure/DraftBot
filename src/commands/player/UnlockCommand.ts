@@ -1,7 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities, Entity} from "../../core/database/game/models/Entity";
 
-import {Maps} from "../../core/Maps";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -16,6 +15,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {log} from "console";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 type EntityCouple = { unlocker: Entity, locked?: Entity }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -78,7 +78,7 @@ function callbackUnlockCommand(
 			const [entityToUnlock] = await Entities.getOrRegister(entityCouple.locked.discordUserId); // released entity
 			const [entityUnlocker] = await Entities.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
-				await Maps.removeEffect(entityToUnlock.Player, NumberChangeReason.UNLOCK);
+				await TravelTime.removeEffect(entityToUnlock.Player, NumberChangeReason.UNLOCK);
 				await entityUnlocker.Player.addMoney({
 					entity: entityUnlocker,
 					amount: -UnlockConstants.PRICE_FOR_UNLOCK,

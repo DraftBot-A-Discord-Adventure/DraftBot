@@ -1,9 +1,8 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {Entities} from "../../../../core/database/game/models/Entity";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
-import {Maps} from "../../../../core/Maps";
+import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
-import {millisecondsToMinutes, parseTimeDifference} from "../../../../core/utils/TimeUtils";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 
@@ -39,11 +38,6 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 		.addFields({
 			name: "Previous map",
 			value: prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
-			inline: true
-		})
-		.addFields({
-			name: "Travelling",
-			value: Maps.isTravelling(entity.Player) ? ":clock1: For " + parseTimeDifference(0, millisecondsToMinutes(Maps.getTravellingTime(entity.Player, new Date())), language) : ":x: No",
 			inline: true
 		})
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);

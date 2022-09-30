@@ -6,7 +6,6 @@ import {Entity} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import Potion from "../../core/database/game/models/Potion";
-import {Maps} from "../../core/Maps";
 import {checkDrinkPotionMissions} from "../../core/utils/ItemUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -16,6 +15,7 @@ import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -34,7 +34,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, entity: Entit
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
-		await Maps.advanceTime(entity.Player, potion.power, NumberChangeReason.DRINK);
+		await TravelTime.timeTravel(entity.Player, potion.power, NumberChangeReason.DRINK);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
