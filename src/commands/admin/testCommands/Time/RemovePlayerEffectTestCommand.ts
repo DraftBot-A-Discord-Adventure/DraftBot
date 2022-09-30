@@ -1,8 +1,8 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
-import {Maps} from "../../../../core/Maps";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {TravelTime} from "../../../../core/maps/TravelTime";
 
 export const commandInfo: ITestCommand = {
 	name: "removeplayereffect",
@@ -23,7 +23,7 @@ export const commandInfo: ITestCommand = {
 const removePlayerEffectTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
 	const [entity] = await Entities.getOrRegister(interaction.user.id);
 
-	await Maps.removeEffect(entity.Player, NumberChangeReason.TEST);
+	await TravelTime.removeEffect(entity.Player, NumberChangeReason.TEST);
 	await entity.Player.save();
 
 	return commandInfo.messageWhenExecuted;

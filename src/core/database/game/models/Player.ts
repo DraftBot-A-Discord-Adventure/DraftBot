@@ -13,7 +13,6 @@ import MapLink, {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../../../Translations";
 import {TextBasedChannel, TextChannel} from "discord.js";
-import {Maps} from "../../../Maps";
 import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
@@ -30,8 +29,9 @@ import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
-import moment = require("moment");
 import {minutesToHours} from "../../../utils/TimeUtils";
+import {TravelTime} from "../../../maps/TravelTime";
+import moment = require("moment");
 
 export type EditValueParameters = {
 	entity: Entity,
@@ -289,8 +289,7 @@ export class Player extends Model {
 	}
 
 	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
-		this.effect = effectMalus;
-		this.effectDuration = timeMalus;
+		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
 		await this.save();
 	}
 
@@ -298,7 +297,7 @@ export class Player extends Model {
 		if (entity.health > 0) {
 			return false;
 		}
-		await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.DEAD, 0, reason);
+		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
 
@@ -335,7 +334,7 @@ export class Player extends Model {
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
 		if (EffectsConstants.EMOJI_TEXT_LIST.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
-			if (!this.effectEndDate) {
+			if (!this.effectEndDate || this.effectEndDate.valueOf() === 0) {
 				return 0;
 			}
 			remainingTime = this.effectEndDate.valueOf() - Date.now();

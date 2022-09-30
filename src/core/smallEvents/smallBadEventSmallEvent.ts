@@ -2,7 +2,6 @@ import {SmallEvent} from "./SmallEvent";
 import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {Maps} from "../Maps";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Translations} from "../Translations";
@@ -10,6 +9,7 @@ import {Constants} from "../Constants";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {TravelTime} from "../maps/TravelTime";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -46,7 +46,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
 			);
-			await Maps.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 			break;
 		default:
 			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_SMALL,

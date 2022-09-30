@@ -3,10 +3,10 @@ import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
-import {Maps} from "../Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {TravelTime} from "../maps/TravelTime";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
 		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 
-		await Maps.advanceTime(entity.Player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.timeTravel(entity.Player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
 		await entity.Player.save();
 
 		seEmbed.setDescription(

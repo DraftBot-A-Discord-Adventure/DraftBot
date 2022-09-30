@@ -1,5 +1,5 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
-import {Maps} from "../../../../core/Maps";
+import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 

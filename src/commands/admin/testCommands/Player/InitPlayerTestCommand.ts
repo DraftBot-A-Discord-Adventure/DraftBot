@@ -1,9 +1,10 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
-import {Maps} from "../../../../core/Maps";
+import {Maps} from "../../../../core/maps/Maps";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {TravelTime} from "../../../../core/maps/TravelTime";
 
 export const commandInfo: ITestCommand = {
 	name: "initplayer",
@@ -31,9 +32,8 @@ const initPlayerTestCommand = async (language: string, interaction: CommandInter
 	entity.Player.badges = null;
 	entity.Player.effectEndDate = new Date();
 	entity.Player.effectDuration = 0;
-	await Maps.removeEffect(entity.Player, NumberChangeReason.TEST);
+	await TravelTime.removeEffect(entity.Player, NumberChangeReason.TEST);
 	await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST);
-	entity.Player.startTravelDate = new Date();
 	await entity.Player.save();
 
 	entity.maxHealth = 100;

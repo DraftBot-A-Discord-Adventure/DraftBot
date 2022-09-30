@@ -3,7 +3,6 @@ import Entity from "../database/game/models/Entity";
 import {CommandInteraction, Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
-import {Maps} from "../Maps";
 import {format} from "../utils/StringFormatter";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {Guilds} from "../database/game/models/Guild";
@@ -13,6 +12,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {TravelTime} from "../maps/TravelTime";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -72,7 +72,7 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await Maps.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), NumberChangeReason.SMALL_EVENT);
+				await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {

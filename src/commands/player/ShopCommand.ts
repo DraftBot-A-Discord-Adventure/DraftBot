@@ -13,7 +13,6 @@ import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/database/game/models/Potion";
 import {Entities, Entity} from "../../core/database/game/models/Entity";
-import {Maps} from "../../core/Maps";
 import Shop from "../../core/database/game/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -25,6 +24,7 @@ import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDat
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 /**
  * Callback of the shop command
@@ -82,7 +82,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				return false;
 			}
 			if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && entity.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
-				await Maps.removeEffect(entity.Player, NumberChangeReason.SHOP);
+				await TravelTime.removeEffect(entity.Player, NumberChangeReason.SHOP);
 				await entity.Player.save();
 			}
 			await MissionsController.update(entity, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
