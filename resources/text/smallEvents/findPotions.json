@@ -3,7 +3,7 @@
 		"fr": {
 			"intrigue": [
 				"vous apercevez du coin de l'œil une fiole brillante...",
-				"vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez ce qui ressemble à une boisson...",
+				"vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez une étrange flacon empli de liquide.",
 				"vous remarquez une besace abimée sur la route. Vous l'ouvrez hâtivement...",
 				"vous décidez de faire un petit détour pour éviter de traverser un ruisseau. C'est alors que vous découvrez...",
 				"vous croisez un homme accompagné d'une mule chargée. Quelques minutes plus tard, vous remarquez que quelque chose est tombé de son paquetage. Il est désormais trop tard pour le rattraper.",
@@ -17,17 +17,17 @@
 		},
 		"en": {
 			"intrigue": [
-				"you see a shiny vial from the corner of your eye...",
-				"you slip on the side of the road and fall to the ground. When you get up, you notice what looks like a drink on the ground...",
-				"you notice a damaged bag on the road. You open it quickly...",
+				"you see a shiny vial in a corner of your field of vision...",
+				"you slip on the side of the road and fall. When you get up, you notice a strange liquid-filled glass container...",
+				"you notice a damaged satchel on the road. You open it quickly...",
 				"you decide to make a small detour to avoid crossing a river. That's when you discover...",
-				"you run into a man with a loaded mule. A few minutes later, you notice that something has fallen from his package. It is now too late to catch up with him.",
-				"your vision is affected by the reflection of a potion on the ground.",
-				"you trip on a root. Furious, you hit it with a big kick... It seems that it is not a root...",
-				"you meet a child who does not seem to speak your language. However, he seems welcoming and hands you a package...",
-				"you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you a potion...",
-				"you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
-				"you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
+				"you run into a man dragging an overburdened mule. A few minutes later, you notice that something fell from his package. It is now too late for him to get it back",
+				"a shine catches your attention : there's a potion on the ground, and its vial is reflecting sunlight.",
+				"your foot is tripped by an oversized root. Enraged, you lash at it... But it appears not to be a root...",
+				"you meet a child who does not seems to speak your language. They, however, seem friendly and hand you a package...",
+				"you meet a man dragging an overburdened mule. You decide to help him carry his load. As a thanks, he gifts you an item...",
+				"you meet a woman who wants to offer you a special drink. Intrigued, you accept her offer...",
+				"you stumble upon a house, and quickly explore it. You pick up a bottle and leave hastily..."
 			]
 		}
 	},

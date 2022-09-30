@@ -25,7 +25,7 @@
 			},
 			"results": {
 				"life": [
-					"Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur, malheureusement celui-ci frappe le premier. Vous perdez **{amount} :broken_heart:**."
+					"Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur. Malheureusement celui-ci frappe le premier. Vous perdez **{amount} :broken_heart:**."
 				],
 				"time": [
 					"Vous soulevez doucement le gobelet {goblet} et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{amount} :clock2:** à négocier avec lui avant d'abandonner et de reprendre votre route."
@@ -34,28 +34,28 @@
 					"Vous soulevez doucement le gobelet {goblet} et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois."
 				],
 				"end": [
-					"Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{amount} :broken_heart:**."
+					"Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez, mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{amount} :broken_heart:**."
 				]
 			}
 		},
 		"en": {
 			"intro": {
 				"intrigue": [
-					"you meet a man who seems suspicious about you. Indeed, he approaches and pushes you unceremoniously towards a table on which are placed three mysterious cups. This one offers you to play a game: you must draw a cup randomly, and receive the reward, whatever it is. Whereas you were observing the objects on the table, he slips behind you and doesn't seem to want to let you go. To get out of this situation, you must play his game. Which cup are you taking ?\n\n"
+					"you meet a frankly suspicious man. First, he approaches and pushes you unceremoniously towards a table on which are placed three mysterious cups. He then offers you to play a game: you must draw a cup randomly, and receive the reward it holds, whatever it may be. While you were observing the items sitting on the table, he slips behind you and doesn't seem like he wants to let you go. To get out of this situation, you choose to play his game. Which cup are you taking ?\n\n"
 				],
 				"goblets": [
 					{
-						"desc": "The metal one, looking very old, engraved with a dragon's head\n",
+						"desc": "The one made out of metal, very old-looking and engraved with a draconic head\n",
 						"name": "metal",
 						"emoji": "🐲"
 					},
 					{
-						"desc": "The biggest of the three, made of a material you can't identify\n",
+						"desc": "The biggest of the three, made out of a material you cannot even identify\n",
 						"name": "biggest",
 						"emoji": "🪣"
 					},
 					{
-						"desc": "The last one, carved in blue wood, and so sparkling that it seems enchanted",
+						"desc": "The last one, carved in blue wood, and sparkling in such a way that it seems enchanted",
 						"name": "sparkling",
 						"emoji": "✨"
 					}
@@ -63,16 +63,16 @@
 			},
 			"results": {
 				"life": [
-					"You gently lift the {goblet} goblet and notice the nothing underneath. Disappointed, and a sore loser, you get the two other goblets flying around. Noticing that there was nothing in the other cups either, you clam revenge on this scammer but this one gives you a big punch before fleeing. You lose **{amount}💔**."
+					"You carefully lift the {goblet} goblet, only to find out that there is nothing underneath. With both disappointment and anger, you slap away the two other cups. Seeing nothin under them again, your blood turns cold, and you turn around to face the scammer. Sadly, you realized everything a bit too late, and what meets your eyes is an enlarging fist. You lose **{amount}💔**."
 				],
 				"time": [
-					"You gently lift the {goblet} goblet and notice a coin underneath. Unfortunately, the man, taking advantage of your thinking, grabs the coin and runs away. You hurl after him, but unfortunately do not manage to catch up that guy; and you lose **{amount}🕑** because of this detour."
+					"You gently lift the {goblet} goblet and notice a coin underneath it. Unfortunately, the man, taking advantage of your brief, dazed joy, grabs the coin and runs away. You come back to your senses and chase after him, but unfortunately do not manage to catch up that guy. You lose **{amount}🕑** because of this detour."
 				],
 				"nothing": [
-					"You slowly lift the {goblet} goblet and notice the nothing underneath. Disappointed, you leave sadly. Who knows, you might have better luck next time."
+					"You slowly lift the {goblet} goblet, only to find out that there is nothing underneath. Disappointed, you turn around and leave. Who knows, you might have better luck next time."
 				],
 				"end": [
-					"Facing your lack of reaction, the man tries to rob you. Noticing that he is cleverly trying to empty your pockets, you savagely threaten him. Fearing for his life, he gives you a punch that knocks you down, before fleeing. You lose **{amount}💔**."
+					"Facing your lack of any reaction, the man tries to rob you. Noticing his sinister maneuvers, you take out your weapon and viciously threaten him. Scared, he knocks you down with a punch, before fleeing. You lose **{amount}💔**."
 				]
 			}
 		}
