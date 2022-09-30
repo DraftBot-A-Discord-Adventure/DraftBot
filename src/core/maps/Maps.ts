@@ -4,9 +4,8 @@ import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
 import {
 	millisecondsToHours,
-	millisecondsToMinutes,
+	millisecondsToMinutes
 } from "../utils/TimeUtils";
-import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
@@ -103,7 +102,7 @@ export class Maps {
 
 		index = Math.floor(index);
 
-		let str = prevMapInstance.getEmote(language) + " ";
+		let str = `${prevMapInstance.getEmote(language)} `;
 
 		for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 			if (j === index) {
@@ -125,10 +124,19 @@ export class Maps {
 		return `${str} ${nextMapInstance.getEmote(language)}`;
 	}
 
+	/**
+	 * Check if the player has arrived to the destionation
+	 * @param player
+	 * @param date
+	 */
 	static async isArrived(player: Player, date: Date): Promise<boolean> {
 		return (await TravelTime.getTravelData(player, date)).travelEndTime <= date.valueOf();
 	}
 
+	/**
+	 * Check if the player is travelling
+	 * @param player
+	 */
 	static isTravelling(player: Player): boolean {
 		return player.startTravelDate.valueOf() !== 0;
 	}
