@@ -6,6 +6,20 @@ import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {format} from "../../core/utils/StringFormatter";
+
+/**
+ * Get the list of commands mention from the command data
+ * @param commandData
+ */
+function getListOfMentionFromCommandData(commandData: [string, object]): string {
+	console.log(commandData[0].toLowerCase().split("")
+		.filter((l: string) => l !== "_")
+		.join(""));
+	return format("{command:" + commandData[0].toLowerCase().split("")
+		.filter((l: string) => l !== "_")
+		.join("") + "}", {});
+}
 
 /**
  * Get all commands sorted by categories
@@ -17,34 +31,29 @@ function getCommandByCategories(): { [key: string]: string[] } {
 	for (const commandData of Object.entries(commandsDataList)) {
 		switch (commandData[1].CATEGORY) {
 		case Constants.COMMAND_CATEGORY.SERVER:
-			serverCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			console.log(typeof commandData);
+			serverCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		case Constants.COMMAND_CATEGORY.UTIL:
-			utilCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			utilCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		case Constants.COMMAND_CATEGORY.PLAYER:
-			playerCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			playerCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		case Constants.COMMAND_CATEGORY.MISSION:
-			missionCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			missionCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		case Constants.COMMAND_CATEGORY.GUILD:
-			guildCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			guildCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		case Constants.COMMAND_CATEGORY.PET:
-			petCommands.push(commandData[0].toLowerCase().split("")
-				.filter(l => l !== "_")
-				.join(""));
+			petCommands.push(
+				getListOfMentionFromCommandData(commandData));
 			break;
 		default:
 			break;
@@ -70,7 +79,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 	} = getCommandByCategories();
 	helpMessage.formatAuthor(tr.get("helpEmbedTitle"), interaction.user);
 	helpMessage.setDescription(
-		tr.get("helpEmbedDescription") +
+		tr.format("helpEmbedDescription", {}) +
 		"\n\u200b"
 	);
 	helpMessage.addFields([
@@ -171,7 +180,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			);
 		helpMessage.addFields({
 			name: tr.get("usageFieldTitle"),
-			value: `\`${tr.get(`commands.${command}.usage`)}\``,
+			value: tr.format(`commands.${command}.usage`, {}),
 			inline: true
 		});
 		await interaction.reply({
