@@ -85,7 +85,7 @@
 			"commandName": "profile",
 			"commandDescription": "Displays the profile of a player.",
 			"optionUserName": "user",
-			"optionUserNameDescription": "The player whose profile you want to display.",
+			"optionUserDescription": "The player whose profile you want to display.",
 			"optionRankName": "rank",
 			"optionRankDescription": "The rank of the player whose profile you want to display.",
 			"title": "{effect} | {pseudo} | Level {level}",
