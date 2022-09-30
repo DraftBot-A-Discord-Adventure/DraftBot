@@ -86,7 +86,7 @@ export class TravelTime {
 			playerTravelledTime -= date.valueOf() - effectStartTime;
 		}
 
-		const lastSmallEvent = await PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
 		// The next small event in 10 minutes after the last small event or the start or the travel if none before
 		let nextSmallEventTime = (lastSmallEvent && lastSmallEvent.time > travelStartTime ? lastSmallEvent.time : travelStartTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		// If the next small event is in the effect period, we shift it after the end of the effect
