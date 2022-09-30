@@ -129,6 +129,7 @@ const sellOrKeepItem = async function(
 	}
 	const trSell = Translations.getModule("commands.sell", language);
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
+		await MissionsController.update(entity, channel, language, { missionId: "findOrBuyItem" });
 		await channel.send(
 			{
 				embeds: [
