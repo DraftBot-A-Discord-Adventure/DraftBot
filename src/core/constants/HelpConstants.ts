@@ -13,7 +13,7 @@ export abstract class HelpConstants {
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],
 		SELL: ["sell", "vendre"],
 		DAILY_BONUS: ["daily", "da", "récompensejournalière", "rj", "journaliere", "journalière", "recompensejournaliere",
-			"recompense", "journalier", "journalièr", "bonus", "db", "bonusjournalier"],
+			"recompense", "journalier", "journalièr", "bonus", "db", "bonusjournalier", "dailybonus", "bonusdaily"],
 		INVITE_DRAFTBOT: ["invite", "addbot", "inviter", "ajouter", "ajouterbot", "invitedraftbot", "adddraftbot", "invitdraftbot"],
 		BADGES: ["badges", "badge"],
 		DRINK: ["drink", "dr", "glouglou", "boire", "boir", "br"],

@@ -41,7 +41,7 @@ async function transferPetToGuild(interaction: CommandInteraction, petTransferMo
 	const playerPet = entity.Player.Pet;
 	const guildPetCount = guild.GuildPets.length;
 	if (!playerPet) {
-		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noPetToTransfer"));
+		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
 	}
 	if (playerPet.isFeisty()) {
 		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("isFeisty"));

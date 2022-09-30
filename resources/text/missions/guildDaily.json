@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Recevoir {objective} récompense{objective>1?s:} de guilde (`/guilddaily`)"
+			"desc": "Recevoir {objective} récompense{objective>1?s:} de guilde ({command:guilddailybonus})"
 		},
 		"en": {
-			"desc": "Receive {objective} guild reward{objective>1?s:} (`/guilddaily`)"
+			"desc": "Receive {objective} guild reward{objective>1?s:} ({command:guilddailybonus})"
 		}
 	},
 	"campaignOnly": true
