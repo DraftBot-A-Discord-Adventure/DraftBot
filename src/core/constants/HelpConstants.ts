@@ -12,8 +12,8 @@ export abstract class HelpConstants {
 		INVENTORY: ["inventory", "inv", "i", "inventaire"],
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],
 		SELL: ["sell", "vendre"],
-		DAILY: ["daily", "da", "récompensejournalière", "rj", "journaliere", "journalière", "recompensejournaliere", "recompense", "journalier", "journalièr"],
-		INVITE: ["invite", "addbot", "inviter", "ajouter", "ajouterbot"],
+		DAILY_BONUS: ["daily", "da", "récompensejournalière", "rj", "journaliere", "journalière", "recompensejournaliere", "recompense", "journalier", "journalièr"],
+		INVITE_DRAFTBOT: ["invite", "addbot", "inviter", "ajouter", "ajouterbot"],
 		BADGES: ["badges", "badge"],
 		DRINK: ["drink", "dr", "glouglou", "boire", "boir", "br"],
 		SHOP: ["shop", "s", "magasin", "m", "buy"],
@@ -21,10 +21,10 @@ export abstract class HelpConstants {
 		GUILD_LEAVE: ["guildleave", "gleave", "gl", "quitter", "quitterguilde", "guildequitter", "leaveguilde",
 			"leaveguild", "quitterguild", "guildquitter", "quitguilde", "quitguild", "guildequit", "guildquit"],
 		GUILD: ["guild", "guilde", "infoguilde", "infosguilde", "myguilde", "maguilde", "g"],
-		GUILD_DAILY: ["guilddaily", "gdaily", "gd", "récompensedeguilde", "récompenseguilde", "récompensedeguild",
+		GUILD_DAILY_BONUS: ["guilddaily", "gdaily", "gd", "récompensedeguilde", "récompenseguilde", "récompensedeguild",
 			"récompenseguild", "recompensedeguilde", "recompenseguilde", "recompensedeguild", "recompenseguild", "dailyguild", "dailyguilde"],
 		GUILD_KICK: ["guildkick", "gkick", "gk", "expulser", "expulsion", "kick", "kickguild", "kickguilde", "expulserguilde", "expulsermembre", "virer", "eg"],
-		GUILD_ADD: ["guildadd", "gadd", "ga", "ajouter", "ajout", "add", "addguild", "addguilde", "ajouterguilde", "ajoutermembre", "invitemember", "ag"],
+		GUILD_INVITE: ["guildadd", "gadd", "ga", "ajouter", "ajout", "add", "addguild", "addguilde", "ajouterguilde", "ajoutermembre", "invitemember", "ag"],
 		GUILD_DESCRIPTION: ["guilddescription", "gdesc", "guilddesc", "guildedescription", "descriptionguild", "guildescription", "guildesc"],
 		GUILD_ELDER: ["guildelder", "gelder", "aine", "promotion", "aîne", "promouvoir", "guildeelder", "elderguilde", "elderguild"],
 		GUILD_ELDER_REMOVE: ["guildelderremove", "gelderremove", "ger", "dégrader", "degrader", "dégrade", "degrade",
@@ -33,7 +33,7 @@ export abstract class HelpConstants {
 		GUILD_STORAGE: ["guildstorage", "gstorage", "gst", "stockage", "gstockage", "greserve", "stockagedeguilde", "guildestockage", "guildestorage", "guildstockage", "guildereserve"],
 		GUILD_SHOP: ["guildshop", "guildeshop", "gs", "magasindeguilde", "magasindeguild", "guildemagasin", "guildmagasin"],
 		UPDATE: ["update", "changelog", "miseajour", "miseàjour", "nouveautés", "nouveautes"],
-		CLASS: ["class", "c", "classes", "classe"],
+		CLASSES: ["class", "c", "classes", "classe"],
 		PET: ["pet", "mypet", "p", "familier", "monfamilier", "monpet", "animal"],
 		PET_TRANSFER: ["pettransfer", "pettr", "ptr", "ptransfer", "pettransfert", "familiertransfert", "ft", "ftransfert", "ftransfer"],
 		PET_NICKNAME: ["petnickname", "petnick", "pnickname", "pnick", "petname", "pname"],
@@ -46,19 +46,19 @@ export abstract class HelpConstants {
 		PET_TRADE: ["pettrade", "ptrade", "echangepet", "familiertrade", "fechange", "echangeanimal", "echangeanimale"],
 		PET_FEED: ["petfeed", "feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
 		PET_SELL: ["petsell", "psell", "vendrepet", "ventepet", "vendreanimal", "venteaniaml", "vendreanimale", "venteanimale", "vendreanimales", "venteanimales", "venteanimaux", "vendreanimaux"],
-		CLASS_INFO: ["classinfo", "classInfo", "cs", "classesstats", "classcompare", "classestats", "classtats", "classstat", "statistiquesclass",
+		CLASSES_INFO: ["classinfo", "classInfo", "cs", "classesstats", "classcompare", "classestats", "classtats", "classstat", "statistiquesclass",
 			"statistiquesclasse", "statistiquesclasses", "statistiqueclass", "statistiqueclasse", "statistiqueclasses",
 			"classstatistiques", "classestatistiques", "classesstatistiques", "classstatistique", "classestatistique", "classesstatistique",
 			"classinfos", "classinfosstats", "classesinfo", "classesinfo"],
 		RARITY: ["rarity", "rarities", "rareté", "rarete", "rare"],
 		VOTE: ["vote", "ilovedraftbot", "votes", "voté", "voter", "votés"],
 		IDEA: ["idea", "ideas", "suggestions", "suggestion", "suggest", "idée", "idé", "idées", "idés", "idee", "ide", "idees", "ides"],
-		DM_NOTIFICATION: ["dmnotifications", "dmn",
+		DM_NOTIFICATIONS: ["dmnotifications", "dmn",
 			"notifs", "dms", "notif", "dmnotification", "mp", "mpdésac", "mpdesac", "mpdésacactivé", "mpdesactive", "mpdésacactiver", "mpdésacactive"],
 		UNLOCK: ["unlock", "bail", "release", "libérer", "liberer", "libére", "libere", "libéreration", "libereration", "jail", "prison"],
 		MAP: ["map", "world", "monde", "carte"],
 		MISSIONS: ["missions", "m", "mission", "quests", "quest", "q", "quête", "quete", "quêtes", "quetes"],
-		MISSION_SHOP: ["missionshop", "ms", "mshop", "questshop", "missionsshop", "questsshop", "qs", "shopmissions",
+		MISSIONS_SHOP: ["missionshop", "ms", "mshop", "questshop", "missionsshop", "questsshop", "qs", "shopmissions",
 			"shopmission", "magasindemissions", "magasindemission", "missionmagasin", "missionsmagasin", "magasinmissions", "magasinmission"]
 	};
 
@@ -122,12 +122,12 @@ export abstract class HelpConstants {
 				EMOTE: ":moneybag:",
 				CATEGORY: "player"
 			},
-		DAILY:
+		DAILY_BONUS:
 			{
 				EMOTE: ":calendar:",
 				CATEGORY: "player"
 			},
-		INVITE:
+		INVITE_DRAFTBOT:
 			{
 				EMOTE: ":inbox_tray:",
 				CATEGORY: "util"
@@ -162,7 +162,7 @@ export abstract class HelpConstants {
 				EMOTE: ":stadium:",
 				CATEGORY: "guild"
 			},
-		GUILD_DAILY:
+		GUILD_DAILY_BONUS:
 			{
 				EMOTE: ":newspaper:",
 				CATEGORY: "guild"
@@ -172,7 +172,7 @@ export abstract class HelpConstants {
 				EMOTE: ":leg:",
 				CATEGORY: "guild"
 			},
-		GUILD_ADD:
+		GUILD_INVITE:
 			{
 				EMOTE: ":incoming_envelope:",
 				CATEGORY: "guild"
@@ -207,7 +207,7 @@ export abstract class HelpConstants {
 				EMOTE: ":scroll:",
 				CATEGORY: "util"
 			},
-		CLASS:
+		CLASSES:
 			{
 				EMOTE: ":bookmark:",
 				CATEGORY: "player"
@@ -260,7 +260,7 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"pet"
 			},
-		CLASS_INFO:
+		CLASSES_INFO:
 			{
 				EMOTE: ":bookmark:",
 				CATEGORY:
@@ -284,7 +284,7 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"util"
 			},
-		DM_NOTIFICATION:
+		DM_NOTIFICATIONS:
 			{
 				EMOTE: ":no_bell:",
 				CATEGORY:
@@ -308,7 +308,7 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"mission"
 			},
-		MISSION_SHOP:
+		MISSIONS_SHOP:
 			{
 				EMOTE: ":shopping_cart:",
 				CATEGORY:
