@@ -10,7 +10,7 @@
 				"description": ":crossed_swords: Hey ! Ce message est envoyé suite à votre demande d'aide.\n\nSi vous avez besoin d'aide pour m'utiliser, vous pouvez rejoindre le serveur du bot !\n\nVous pourrez participer au développement du bot et obtenir toutes les informations dont vous avez besoin !\n\nhttps://discord.gg/USnCxg4\n\nNous vous invitons également à lire le guide détaillé du bot :\n https://guide.draftbot.com/"
 			},
 			"helpEmbedTitle": "{pseudo}, voici la liste des commandes disponibles :",
-			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, écrivez ceci : `help [nom de la commande]` :wink:",
+			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {command:help}, et donnez la commande qui vous pose problème en paramètre. :wink:",
 			"serverCommands": ":gear: Serveur :",
 			"utilCommands": ":question: Utiles :",
 			"playerCommands": ":bust_in_silhouette: Joueur :",
@@ -25,192 +25,192 @@
 			"aliasesFieldTitle": "Alias",
 			"commands": {
 				"PREFIX": {
-					"usage": "prefix",
+					"usage": "{command:prefix}",
 					"description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
 				},
 				"PING": {
-					"usage": "ping",
+					"usage": "{command:[a-zA-Z]+}",
 					"description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
 				},
 				"RESPAWN": {
-					"usage": "respawn",
+					"usage": "{command:respawn}",
 					"description": "Permet de recommencer à jouer après avoir été mis K.O."
 				},
 				"PROFILE": {
-					"usage": "profile",
+					"usage": "{command:profile}",
 					"description": "Affiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :zap: Energie | :trophy: Classement | :moneybag: Argent | :medal: Score\n\nLes badges sont affichés sur votre profil sous forme de réaction."
 				},
 				"SWITCH": {
-					"usage": "switch",
+					"usage": "{command:switch}",
 					"description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
 				},
 				"FIGHT": {
-					"usage": "fight",
+					"usage": "{command:fight}",
 					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
 					"image": "https://media.discordapp.net/attachments/440879632837902346/997117902887080046/unknown.png"
 				},
 				"HELP": {
-					"usage": "help",
+					"usage": "{command:help}",
 					"description": ":expressionless:"
 				},
 				"LANGUAGE": {
-					"usage": "language",
+					"usage": "{command:language}",
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
 				"TOP": {
-					"usage": "top [portée] [timing] [numéro de page]",
+					"usage": "{command:top}",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
 				"INVENTORY": {
-					"usage": "inventory",
+					"usage": "{command:inventory}",
 					"description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un."
 				},
 				"REPORT": {
-					"usage": "report",
+					"usage": "{command:report}",
 					"description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières."
 				},
 				"SELL": {
-					"usage": "sell",
+					"usage": "{command:sell}",
 					"description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:."
 				},
 				"DAILY": {
-					"usage": "daily",
+					"usage": "{command:dailybonus}",
 					"description": "Certains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`."
 				},
 				"INVITE": {
-					"usage": "invite",
+					"usage": "{command:invitedraftbot}",
 					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
 				"BADGES": {
-					"usage": "badges",
+					"usage": "{command:badges}",
 					"description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
 				},
 				"DRINK": {
-					"usage": "drink [force]",
+					"usage": "{command:drink}",
 					"description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
 				},
 				"SHOP": {
-					"usage": "shop",
+					"usage": "{command:shop}",
 					"description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
 				},
 				"GUILD_CREATE": {
-					"usage": "guildcreate [nom de guilde]",
+					"usage": "{command:guildcreate}",
 					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
 				},
 				"GUILD_LEAVE": {
-					"usage": "guildleave",
+					"usage": "{command:guildleave}",
 					"description": "Permet de quitter votre guilde."
 				},
 				"GUILD": {
-					"usage": "guild [nom de guilde ou mention]",
+					"usage": "{command:guild}",
 					"description": "Permet d'afficher les informations sur une guilde."
 				},
 				"GUILD_DAILY": {
-					"usage": "guildaily",
+					"usage": "{command:guildailybonus}",
 					"description": "Permet de récupérer des récompenses quotidiennes de guildes."
 				},
 				"GUILD_KICK": {
-					"usage": "guildkick [mention]",
+					"usage": "{command:guildkick}",
 					"description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_ADD": {
-					"usage": "guildadd [mention]",
+					"usage": "{command:guildinvite}",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
 				},
 				"GUILD_DESCRIPTION": {
-					"usage": "guilddescription [description]",
+					"usage": "{command:guilddescription}",
 					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_ELDER": {
-					"usage": "guildelder [mention]",
+					"usage": "{command:guildelder}",
 					"description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_ELDER_REMOVE": {
-					"usage": "guildelderremove",
+					"usage": "{command:guildelderremove}",
 					"description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_STORAGE": {
-					"usage": "guildstorage",
+					"usage": "{command:guildstorage}",
 					"description": "Affiche le contenu de l'entrepôt de la guilde."
 				},
 				"GUILD_SHOP": {
-					"usage": "guildshop",
+					"usage": "{command:guildshop}",
 					"description": "Affiche le magasin de votre guilde."
 				},
 				"UPDATE": {
-					"usage": "update",
+					"usage": "{command:update}",
 					"description": "Permet de visionner le changelog."
 				},
 				"CLASS": {
-					"usage": "class",
+					"usage": "{command:classes}",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
 				},
 				"PET": {
-					"usage": "pet",
+					"usage": "{command:pet}",
 					"description": "Affiche les informations relatives à votre familier."
 				},
 				"PET_TRANSFER": {
-					"usage": "pettransfer [numéro]",
+					"usage": "{command:pettransfer}",
 					"description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fournit, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
 				},
 				"PET_NICKNAME": {
-					"usage": "petnickname [nom]",
+					"usage": "{command:petnickname}",
 					"description": "Change le surnom de votre familier. Si aucun nom n'est fournit, le nom actuel sera effacé."
 				},
 				"PET_FREE": {
-					"usage": "petfree",
+					"usage": "{command:petfree}",
 					"description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
 				},
 				"GUILD_SHELTER": {
-					"usage": "guildshelter",
+					"usage": "{command:guildshelter}",
 					"description": "Affiche le refuge d'animaux de la guilde."
 				},
 				"PET_TRADE": {
-					"usage": "pettrade [mention]",
+					"usage": "{command:pettrade}",
 					"description": "Propose un échange de vos animaux avec la personne mentionnée."
 				},
 				"PET_FEED": {
-					"usage": "petfeed",
+					"usage": "{command:petfeed}",
 					"description": "Donner de la nourriture à votre familier."
 				},
 				"PET_SELL": {
-					"usage": "petsell <prix>",
+					"usage": "{command:petsell}",
 					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
 				"CLASS_INFO": {
-					"usage": "classinfo",
+					"usage": "{command:classesinfo}",
 					"description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
 				},
 				"RARITY": {
-					"usage": "rarity",
+					"usage": "{command:rarity}",
 					"description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
 				},
 				"VOTE": {
-					"usage": "vote",
+					"usage": "{command:vote}",
 					"description": "Permet d'obtenir le lien pour voter pour le bot."
 				},
 				"IDEA": {
-					"usage": "idea",
+					"usage": "{command:idea}",
 					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
 				},
 				"DM_NOTIFICATION": {
-					"usage": "dmnotification",
+					"usage": "{command:dmnotifications}",
 					"description": "Permet d'activer ou de désactiver les notifications du bot."
 				},
 				"UNLOCK": {
-					"usage": "unlock [mention]",
+					"usage": "{command:unlock}",
 					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
 				},
 				"MAP": {
-					"usage": "map",
+					"usage": "{command:map}",
 					"description": "Affiche des informations sur votre destination, ainsi que la carte."
 				},
 				"MISSIONS": {
-					"usage": "mission",
+					"usage": "{command:missions}",
 					"description": "Affiche la liste des missions qui vous sont proposées."
 				},
 				"MISSION_SHOP": {
-					"usage": "missionshop",
+					"usage": "{command:missionsshop}",
 					"description": "Affiche le magasin des missions."
 				}
 			}
@@ -225,7 +225,7 @@
 				"description": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\n https://guide.draftbot.com/v/en/"
 			},
 			"helpEmbedTitle": "{pseudo}, here is the list of the available commands:",
-			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:",
+			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here : {command:help}, and complete the parameter with a command. :wink:",
 			"serverCommands": ":gear: Server:",
 			"utilCommands": ":question: Utility:",
 			"playerCommands": ":bust_in_silhouette: Player:",
@@ -240,192 +240,192 @@
 			"aliasesFieldTitle": "Aliases",
 			"commands": {
 				"PREFIX": {
-					"usage": "prefix",
+					"usage": "{command:prefix}",
 					"description": "This feature was removed from the bot after an update to discord's features."
 				},
 				"PING": {
-					"usage": "ping",
+					"usage": "{command:ping}",
 					"description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
 				},
 				"RESPAWN": {
-					"usage": "respawn",
+					"usage": "{command:respawn}",
 					"description": "Lets you continue to play after you've been knocked out."
 				},
 				"PROFILE": {
-					"usage": "profile",
+					"usage": "{command:profile}",
 					"description": "Your character's information:\n\n:smiley: Status effects | Nickname | Level :star: XP | :heart: Health | :dagger: Attack | :shield: Armor | :rocket: Speed | :zap: energy | :trophy: Ranking | :moneybag: Money | :medal: Points\n\nBadges are displayed using reactions."
 				},
 				"SWITCH": {
-					"usage": "switch",
+					"usage": "{command:switch}",
 					"description": "Switches the item currently in use with the one in your inventory."
 				},
 				"FIGHT": {
-					"usage": "fight",
+					"usage": "{command:fight}",
 					"description": "Use this command to challenge other players who are on the same server as you. For more information you can use the `/classinfo` command.",
 					"image": "https://media.discordapp.net/attachments/893127023189450812/997204471278997635/unknown.png"
 				},
 				"HELP": {
-					"usage": "help",
+					"usage": "{command:help}",
 					"description": ":expressionless:"
 				},
 				"LANGUAGE": {
-					"usage": "language",
+					"usage": "{command:language}",
 					"description": "Change the language the bot use to french. You can use this command if you are admin of a server."
 				},
 				"TOP": {
-					"usage": "top [scope] [timing] [page number]",
+					"usage": "{command:top}",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
 				},
 				"INVENTORY": {
-					"usage": "inventory",
+					"usage": "{command:inventory}",
 					"description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the reserve that can contain another type of item temporarily during the time you deliberate whether or not to keep it.\n\n:warning: **The reserve is not to be trusted if you want to keep anything precious**\nThe items kept in here can be replaced whenever you find a new one."
 				},
 				"REPORT": {
-					"usage": "report",
+					"usage": "{command:report}",
 					"description": "Lets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices."
 				},
 				"SELL": {
-					"usage": "sell",
+					"usage": "{command:sell}",
 					"description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
 				},
 				"DAILY": {
-					"usage": "daily",
+					"usage": "{command:dailybonus}",
 					"description": "Some items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`."
 				},
 				"INVITE": {
-					"usage": "invite",
+					"usage": "{command:invitedraftbot}",
 					"description": "This command allows you to get an invite url to get the bot on your server, or join the support server!"
 				},
 				"BADGES": {
-					"usage": "badges",
+					"usage": "{command:badges}",
 					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
 				"DRINK": {
-					"usage": "drink [force]",
+					"usage": "{command:drink}",
 					"description": "This command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight."
 				},
 				"SHOP": {
-					"usage": "shop",
+					"usage": "{command:shop}",
 					"description": "This command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
 				},
 				"GUILD_CREATE": {
-					"usage": "guildcreate [guild name]",
+					"usage": "{command:guildcreate}",
 					"description": "Create a guild. You need 5000 :moneybag: in order to create a guild."
 				},
 				"GUILD_LEAVE": {
-					"usage": "guildleave",
+					"usage": "{command:guildleave}",
 					"description": "Lets you leave your guild."
 				},
 				"GUILD": {
-					"usage": "guild [guild name or mention]",
+					"usage": "{command:guild}",
 					"description": "Displays a guild's infos."
 				},
 				"GUILD_DAILY": {
-					"usage": "guildaily",
+					"usage": "{command:guildailybonus}",
 					"description": "Claims your guild's daily reward."
 				},
 				"GUILD_KICK": {
-					"usage": "guildkick [mention]",
+					"usage": "{command:guildkick}",
 					"description": "Kicks a member. Requires to be the guild's leader."
 				},
 				"GUILD_ADD": {
-					"usage": "guildadd [mention]",
+					"usage": "{command:guildinvite}",
 					"description": "Invites someone to join your guild. Requires to be the guild's leader."
 				},
 				"GUILD_DESCRIPTION": {
-					"usage": "guilddescription [description]",
+					"usage": "{command:guilddescription}",
 					"description": "Edit the description of your guild. Requires to be the guild's leader."
 				},
 				"GUILD_ELDER": {
-					"usage": "guildelder [mention]",
+					"usage": "{command:guildelder}",
 					"description": "Allows one to designate a guild elder, requires to be guild's leader."
 				},
 				"GUILD_ELDER_REMOVE": {
-					"usage": "guildelderremove",
+					"usage": "{command:guildelderremove}",
 					"description": "Allow to remove the current guild's elder, requires to be guild's leader."
 				},
 				"GUILD_STORAGE": {
-					"usage": "guildstorage",
+					"usage": "{command:guildstorage}",
 					"description": "Show the guild's storage."
 				},
 				"GUILD_SHOP": {
-					"usage": "guildshop",
+					"usage": "{command:guildshop}",
 					"description": "Show the guild's shop."
 				},
 				"UPDATE": {
-					"usage": "update",
+					"usage": "{command:update}",
 					"description": "Read the changelog."
 				},
 				"CLASS": {
-					"usage": "class",
+					"usage": "{command:classes}",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
 				},
 				"PET": {
-					"usage": "pet",
+					"usage": "{command:pet}",
 					"description": "Show information about your pet."
 				},
 				"PET_TRANSFER": {
-					"usage": "pettransfer [number]",
+					"usage": "{command:pettransfer}",
 					"description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet with the corresponding number."
 				},
 				"PET_NICKNAME": {
-					"usage": "petnickname [name]",
+					"usage": "{command:petnickname}",
 					"description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
 				},
 				"PET_FREE": {
-					"usage": "petfree",
+					"usage": "{command:petfree}",
 					"description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
 				},
 				"PET_SELL": {
-					"usage": "petsell <price>",
+					"usage": "{command:petsell}",
 					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{option1}💰` and lower than `{option2}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
 				},
 				"GUILD_SHELTER": {
-					"usage": "guildshelter",
+					"usage": "{command:guildshelter}",
 					"description": "Show the guild's shelter."
 				},
 				"PET_TRADE": {
-					"usage": "pettrade [mention]",
+					"usage": "{command:pettrade}",
 					"description": "Propose a trade of pets with the mentioned player."
 				},
 				"PET_FEED": {
-					"usage": "petfeed",
+					"usage": "{command:petfeed}",
 					"description": "Give some food to your pet."
 				},
 				"CLASS_INFO": {
-					"usage": "classinfo",
+					"usage": "{command:classesinfo}",
 					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
 				"RARITY": {
-					"usage": "rarity",
+					"usage": "{command:rarity}",
 					"description": "Allows you to see the probability of getting an item by its rarity."
 				},
 				"VOTE": {
-					"usage": "vote",
+					"usage": "{command:vote}",
 					"description": "Allows you to get the link to vote for the bot."
 				},
 				"IDEA": {
-					"usage": "idea",
+					"usage": "{command:idea}",
 					"description": "Give a link to submit suggestions and vote for those already submitted."
 				},
 				"DM_NOTIFICATION": {
-					"usage": "dmnotification",
+					"usage": "{command:dmnotifications}",
 					"description": "Allows to enable or disable private messages from the bot."
 				},
 				"UNLOCK": {
-					"usage": "unlock [mention]",
+					"usage": "{command:unlock}",
 					"description": "Allows you to pay a bail for set someone free."
 				},
 				"MAP": {
-					"usage": "map",
+					"usage": "{command:map}",
 					"description": "Display information about your destination, and also the map."
 				},
 				"MISSIONS": {
-					"usage": "mission",
+					"usage": "{command:missions}",
 					"description": "Displays the lists of quest you have to achieve."
 				},
 				"MISSION_SHOP": {
-					"usage": "missionshop",
+					"usage": "{command:missionsshop}",
 					"description": "Display the mission's shop."
 				}
 			}
