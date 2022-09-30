@@ -97,7 +97,6 @@ function drinkPotionCallback(
 		await consumePotion(potion, embed, entity, textInformation);
 		await checkDrinkPotionMissions(textInformation.interaction.channel, textInformation.tr.language, entity, potion);
 
-		console.log(`${entity.discordUserId} drank ${potion.en}`);
 		textInformation.interaction.replied ?
 			await textInformation.interaction.channel.send({embeds: [embed]}) :
 			await textInformation.interaction.reply({embeds: [embed]});
