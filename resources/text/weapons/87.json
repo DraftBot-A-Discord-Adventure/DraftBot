@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Plothammer",
+		"en": "Plothammer"
+	},
+	"emote": ":warning:",
+	"rarity": 7,
+	"rawAttack": 30,
+	"defense": 100,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
