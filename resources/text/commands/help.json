@@ -261,7 +261,7 @@
 				},
 				"FIGHT": {
 					"usage": "{command:fight}",
-					"description": "Use this command to challenge other players who are on the same server as you. For more information you can use the `/classinfo` command.",
+					"description": "Use this command to challenge other players who are on the same server as you.",
 					"image": "https://media.discordapp.net/attachments/893127023189450812/997204471278997635/unknown.png"
 				},
 				"HELP": {

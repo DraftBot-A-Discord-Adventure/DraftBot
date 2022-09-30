@@ -12,7 +12,7 @@
 			"confirmFollows": "**{pet}** vous suit désormais !",
 			"noSlotAvailable": "Aucun emplacement libre dans le refuge de la guilde !",
 			"confirmDeposit": "**{pet}** restera désormais dans le refuge de la guilde !",
-			"noPetToTransfer": "Vous n'avez aucun familier à placer dans le refuge de la guilde ! Pour en récupérer un, faites `/pettransfer <numéro du familier>`\nPour avoir le numéro du familier, faites la commande `/guildshelter`",
+			"noPetToTransfer": "Vous n'avez aucun familier à placer dans le refuge de la guilde ! Pour en récupérer un, faites {command:pettransfer}\nPour avoir le numéro du familier, faites la commande {command:guildshelter}",
 			"isFeisty": "Vous ne pouvez pas transférer de familier fielleux"
 		},
 		"en": {
@@ -27,7 +27,7 @@
 			"confirmFollows": "**{pet}** now follows you!",
 			"noSlotAvailable": "No free slot available in the guild shelter!",
 			"confirmDeposit": "**{pet}** will now stay in the guild shelter!",
-			"noPetToTransfer": "You don't have a pet to transfer to the guild's shelter! To retrieve one, please execute `/pettransfer <pet number>`\nTo get the pet number, execute `/guildshelter`",
+			"noPetToTransfer": "You don't have a pet to transfer to the guild's shelter! To retrieve one, please execute{command:pettransfer}\nTo get the pet number, execute {command:guildshelter}",
 			"isFeisty": "You can't transfer feisty pet."
 		}
 	}

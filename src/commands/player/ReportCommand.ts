@@ -30,6 +30,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ReportConstants} from "../../core/constants/ReportConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
 
 type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
@@ -238,7 +239,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 
 	travelEmbed.addFields({
 		name: tr.get("adviceTitle"),
-		value: Translations.getModule("advices", language).getRandom("advices"),
+		value: format(Translations.getModule("advices", language).getRandom("advices"),{}),
 		inline: true
 	});
 	await interaction.reply({embeds: [travelEmbed]});
