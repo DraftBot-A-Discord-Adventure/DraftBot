@@ -13,9 +13,6 @@ import {format} from "../../core/utils/StringFormatter";
  * @param commandData
  */
 function getListOfMentionFromCommandData(commandData: [string, object]): string {
-	console.log(commandData[0].toLowerCase().split("")
-		.filter((l: string) => l !== "_")
-		.join(""));
 	return format("{command:" + commandData[0].toLowerCase().split("")
 		.filter((l: string) => l !== "_")
 		.join("") + "}", {});
@@ -31,7 +28,6 @@ function getCommandByCategories(): { [key: string]: string[] } {
 	for (const commandData of Object.entries(commandsDataList)) {
 		switch (commandData[1].CATEGORY) {
 		case Constants.COMMAND_CATEGORY.SERVER:
-			console.log(typeof commandData);
 			serverCommands.push(
 				getListOfMentionFromCommandData(commandData));
 			break;
@@ -171,10 +167,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				tr.format(
 					"commandEmbedTitle",
 					{
-						emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE,
-						cmd: command.toLowerCase().split("")
-							.filter(l => l !== "_")
-							.join("")
+						emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE
 					}
 				)
 			);
