@@ -1,4 +1,5 @@
 import {
+	ApplicationCommand, ApplicationCommandOption,
 	Attachment,
 	ChannelType,
 	Client,
@@ -30,8 +31,7 @@ import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
-import {RegisteredCommands} from "../core/database/game/models/RegisteredCommands";
-import {createHash} from "crypto";
+import {ApplicationCommandOptionBase} from "@discordjs/builders/dist/interactions/slashCommands/mixins/ApplicationCommandOptionBase";
 
 type UserEntity = { user: User, entity: Entity };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -43,7 +43,7 @@ type ContextType = { mainServerId: string; dmManagerID: string; attachments: Att
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
-	static commandsIds = new Map<string, string>();
+	static commandsInstances = new Map<string, ApplicationCommand>();
 
 	/**
 	 * Sends an error about a non-desired effect
@@ -115,28 +115,159 @@ export class CommandsManager {
 	}
 
 	/**
+	 * Check if an option has changed. Returns two booleans, the first one indicates a change breaking the command and
+	 * the second a change not breaking the game (localizations for instance)
+	 * @param commandInfoOption
+	 * @param commandOption
+	 * @private
+	 */
+	private static hasOptionChanged(commandInfoOption: ApplicationCommandOptionBase, commandOption: ApplicationCommandOption): [boolean, boolean] {
+		// See https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+		let breakingChange = false;
+		let softChange = false;
+
+		// Name localizations
+		if (!commandOption.nameLocalizations && commandInfoOption.name_localizations) {
+			softChange = true;
+		}
+		else if (commandInfoOption.name_localizations) {
+			for (const nameLocalization of Object.keys(commandOption.nameLocalizations)) {
+				if (commandInfoOption.name_localizations[nameLocalization as keyof typeof commandInfoOption.name_localizations] !==
+					commandOption.nameLocalizations[nameLocalization as keyof typeof commandOption.nameLocalizations]
+				) {
+					softChange = true;
+				}
+			}
+		}
+
+		// Description
+		softChange ||= commandInfoOption.description !== commandOption.description;
+
+		// Description localizations
+		if (!commandOption.descriptionLocalizations && commandInfoOption.description_localizations) {
+			softChange = true;
+		}
+		else if (commandInfoOption.description_localizations) {
+			for (const descLocalization of Object.keys(commandOption.descriptionLocalizations)) {
+				if (commandInfoOption.description_localizations[descLocalization as keyof typeof commandInfoOption.description_localizations] !==
+					commandOption.descriptionLocalizations[descLocalization as keyof typeof commandOption.descriptionLocalizations]
+				) {
+					softChange = true;
+				}
+			}
+		}
+
+		// Option type
+		breakingChange ||= commandOption.type !== commandInfoOption.type;
+
+		// Required. We can cast because we know that required is defined
+		breakingChange ||= (commandOption as ApplicationCommandOptionBase).required !== commandInfoOption.required;
+
+		return [breakingChange, softChange];
+	}
+
+	/**
+	 * Check if a command has changed. Returns two booleans, the first one indicates a change breaking the command and
+	 * the second a change not breaking the game (localizations for instance)
+	 * @param commandInfo
+	 * @param command
+	 * @private
+	 */
+	private static hasCommandChanged(commandInfo: ICommand, command: ApplicationCommand): [boolean, boolean] {
+		// See https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+
+		let breakingChange = false;
+		let softChange = false;
+
+		// Guild command now global
+		breakingChange ||= command.guildId && !(commandInfo.mainGuildCommand || botConfig.TEST_MODE);
+
+		// Global command now guild only
+		breakingChange ||= !command.guildId && (commandInfo.mainGuildCommand || botConfig.TEST_MODE);
+
+		// Name localizations
+		if (!command.nameLocalizations && commandInfo.slashCommandBuilder.name_localizations) {
+			softChange = true;
+		}
+		else if (commandInfo.slashCommandBuilder.name_localizations) {
+			for (const nameLocalization of Object.keys(command.nameLocalizations)) {
+				if (commandInfo.slashCommandBuilder.name_localizations[nameLocalization as keyof typeof commandInfo.slashCommandBuilder.name_localizations] !==
+					command.nameLocalizations[nameLocalization as keyof typeof command.nameLocalizations]
+				) {
+					softChange = true;
+				}
+			}
+		}
+
+		// Description
+		softChange ||= command.description !== commandInfo.slashCommandBuilder.description;
+
+		// Description localizations
+		if (!command.descriptionLocalizations && commandInfo.slashCommandBuilder.description_localizations) {
+			softChange = true;
+		}
+		else if (commandInfo.slashCommandBuilder.description_localizations) {
+			for (const descLocalization of Object.keys(command.descriptionLocalizations)) {
+				if (commandInfo.slashCommandBuilder.description_localizations[descLocalization as keyof typeof commandInfo.slashCommandBuilder.description_localizations] !==
+					command.descriptionLocalizations[descLocalization as keyof typeof command.descriptionLocalizations]
+				) {
+					softChange = true;
+				}
+			}
+		}
+
+		// Options
+		if (command.options.length !== commandInfo.slashCommandBuilder.options.length) {
+			breakingChange = true;
+		}
+		else {
+			for (let i = 0; i < commandInfo.slashCommandBuilder.options.length; ++i) {
+				const commandInfoOption: ApplicationCommandOptionBase = commandInfo.slashCommandBuilder.options[i] as ApplicationCommandOptionBase;
+				let commandOption: ApplicationCommandOption;
+				for (let j = 0; j < command.options.length; ++j) {
+					if (command.options[j].name === commandInfoOption.name) {
+						commandOption = command.options[j];
+						break;
+					}
+				}
+				if (!commandOption) {
+					breakingChange = true;
+					break;
+				}
+				const [optionBroke, optionSoftBroke] = this.hasOptionChanged(commandInfoOption, commandOption);
+				breakingChange ||= optionBroke;
+				softChange ||= optionSoftBroke;
+			}
+		}
+
+		return [breakingChange, softChange];
+	}
+
+	/**
 	 * Register all commands at launch
 	 * @param client
 	 */
 	static async registerAllCommands(client: Client): Promise<void> {
 		try {
+			const commands = (await client.application.commands.fetch({ withLocalizations: true }))
+				.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({ withLocalizations: true }));
 			const commandsToRegister = await this.getAllCommandsToRegister();
 
+			// Store command instances
+			for (const command of commands) {
+				CommandsManager.commandsInstances.set(command[1].name, command[1]);
+				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
+			}
+
+			// Commands to register
 			for (const commandInfo of commandsToRegister) {
 				this.setCommandDefaultParameters(commandInfo);
-				await this.createOrUpdateCommand(client, commandInfo);
+				await this.createOrUpdateCommand(client, CommandsManager.commandsInstances.get(commandInfo.slashCommandBuilder.name), commandInfo);
 				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			}
 
 			// Delete removed commands, we do it after because CommandsManager.commands is populated
 			await this.deleteCommands(client);
-
-			// Store ids
-			const commands = (await client.application.commands.fetch()).concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch());
-			for (const command of commands) {
-				CommandsManager.commandsIds.set(command[1].name, command[0]);
-				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
-			}
 		}
 		catch (err) {
 			console.log(err);
@@ -151,12 +282,10 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static async deleteCommands(client: Client): Promise<void> {
-		const registeredCommands = await RegisteredCommands.getAll();
-		for (const registeredCommand of registeredCommands) {
-			if (!CommandsManager.commands.has(registeredCommand.commandName)) {
-				console.log(`Deleted command "${registeredCommand.commandName}"`);
-				await client.application.commands.delete(registeredCommand.commandName);
-				await RegisteredCommands.deleteCommand(registeredCommand.commandName);
+		for (const command of CommandsManager.commandsInstances.values()) {
+			if (!CommandsManager.commands.has(command.name)) {
+				console.log(`Deleted command "${command.name}"`);
+				await client.application.commands.delete(command.id, command.guildId);
 			}
 		}
 	}
@@ -164,32 +293,41 @@ export class CommandsManager {
 	/**
 	 * Create or update a bot command if needed
 	 * @param client
+	 * @param command
 	 * @param commandInfo
 	 * @private
 	 */
-	private static async createOrUpdateCommand(client: Client, commandInfo: ICommand): Promise<void> {
-		// Calculate variables
-		const registeredCommand = await RegisteredCommands.getCommand(commandInfo.slashCommandBuilder.name);
-		const json = commandInfo.slashCommandBuilder.toJSON();
-		const hash = createHash("sha1")
-			.update(JSON.stringify(json)) // Add the json to the hash
-			.digest("hex"); // Calculate the digest as hex
-		const guildCommand = commandInfo.mainGuildCommand || botConfig.TEST_MODE;
+	private static async createOrUpdateCommand(client: Client, command: ApplicationCommand, commandInfo: ICommand): Promise<void> {
+		const [breakingChange, softChange] = command ? CommandsManager.hasCommandChanged(commandInfo, command) : [true, true];
 
-		if (hash !== registeredCommand.jsonHash || registeredCommand.guildCommand !== guildCommand) {
-			// Create command
-			if (guildCommand) {
-				await client.application.commands.create(json, botConfig.MAIN_SERVER_ID);
+		try {
+			if (breakingChange || softChange) {
+				if (!command) {
+					if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+						await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+					}
+					else {
+						await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
+					}
+					console.log(`Created command "${commandInfo.slashCommandBuilder.name}"`);
+				}
+				else {
+					if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+						await client.application.commands.edit(command.id, commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+					}
+					else {
+						await client.application.commands.edit(command.id, commandInfo.slashCommandBuilder.toJSON());
+					}
+					console.log(`Modified command "${commandInfo.slashCommandBuilder.name}"`);
+				}
 			}
-			else {
-				await client.application.commands.create(json);
+		}
+		catch (err) {
+			console.log(err);
+			if (breakingChange) {
+				// Do not start the bot if we can't register the commands
+				process.exit(1);
 			}
-			console.log(`Created or modified command "${commandInfo.slashCommandBuilder.name}"`);
-
-			// Save in database
-			registeredCommand.jsonHash = hash;
-			registeredCommand.guildCommand = guildCommand;
-			await registeredCommand.save();
 		}
 	}
 
