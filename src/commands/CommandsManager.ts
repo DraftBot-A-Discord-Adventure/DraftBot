@@ -467,7 +467,7 @@ export class CommandsManager {
 				CommandsManager.handlePrivateMessage(interaction as CommandInteraction).finally(() => null);
 				return;
 			}
-			void CommandsManager.handleCommand(interaction as CommandInteraction);
+			CommandsManager.handleCommand(interaction as CommandInteraction).then();
 		});
 	}
 
