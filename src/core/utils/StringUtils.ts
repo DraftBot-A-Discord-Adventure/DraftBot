@@ -25,25 +25,40 @@ export function progressBar(value: number, maxValue: number): string {
 	if (percentage > 1) {
 		percentage = 1;
 	}
-	const progress = Math.round(Constants.MESSAGES.PROGRESS_BAR_SIZE * percentage); // Calculate the number of square caracters to fill the progress side.
-	const emptyProgress = Constants.MESSAGES.PROGRESS_BAR_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
+	// Calculate the number of square characters to fill the progress side.
+	const progress = Math.round(Constants.MESSAGES.PROGRESS_BAR_SIZE * percentage);
+	// Calculate the number of dash characters to fill the empty progress side.
+	const emptyProgress = Constants.MESSAGES.PROGRESS_BAR_SIZE - progress;
 
-	const progressText = "▇".repeat(progress); // Repeat is creating a string with progress * caracters in it
-	const emptyProgressText = "—".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-	const percentageText = Math.floor(percentage * 100) + "%"; // Displaying the percentage of the bar
+	// Repeat is creating a string with progress * characters in it
+	const progressText = "▇".repeat(progress);
 
-	return `\`\`\`[${progressText}${emptyProgressText}]${percentageText}\`\`\``; // Creating the bar
+	// Repeat is creating a string with empty progress * characters in it
+	const emptyProgressText = "—".repeat(emptyProgress);
+	// Displaying the percentage of the bar
+	const percentageText = Math.floor(percentage * 100) + "%";
+	// Creating the bar
+	return `\`\`\`[${progressText}${emptyProgressText}]${percentageText}\`\`\``;
 }
 
 /**
- * Check if a name is valid
+ * Check if a name is valid (his is used to check guilds names and descriptions)
  * @param name - the name to check
  * @param minLength
  * @param maxLength
  */
 export function checkNameString(name: string, minLength: number, maxLength: number): boolean {
-	const regexAllowed = /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/u;
-	const regexSpecialCases = /^[0-9 ]+$|( {2})+/u;
+	// Here are the characters that are allowed in a name or description
+	const regexAllowed = /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû!,'.:()-]+$/u;
+
+	// Here are the scenarios where the name is not valid and checked by this regex :
+	// the name contains only numbers ^[0-9 ]+$ (only numbers and spaces)
+	// $|( {2}) is used to check if there are 2 spaces in a row
+	// $|([ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]{2}) is used to check if there are 2 special characters in a row
+	// $|([!,'.:()]{2}) is used to check if there are 2 punctuation characters in a row
+	const regexSpecialCases = /^[0-9 ]+$|( {2})+$|([ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]{2})+$|([!,'.:()-]{2})+/u;
+
+	// We also check for the length of the name
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 }
 
@@ -56,7 +71,7 @@ export function discordIdToMention(id: string): string {
 }
 
 /**
- * Check if the given variable is a Mention
+ * Check if the given variable is a Discord Mention
  * @param {String} variable
  * @return {boolean}
  */
