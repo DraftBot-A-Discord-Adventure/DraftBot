@@ -31,7 +31,8 @@ async function getBadgeStateOfPlayer(entityToLook: Entity, language: string, dat
 	if (date.valueOf() < entityToLook.Player.effectEndDate.valueOf()) {
 		return entityToLook.Player.effect + TopConstants.SEPARATOR;
 	}
-	if (entityToLook.Player.isInactive()) {
+	// The start travel date is 0 when the event waits for a reaction
+	if (entityToLook.Player.isInactive() && entityToLook.Player.startTravelDate.valueOf() !== 0) {
 		return TopConstants.INACTIVE_BADGE + TopConstants.SEPARATOR;
 	}
 	if (await Maps.isArrived(entityToLook.Player, date)) {
