@@ -355,7 +355,7 @@ export class Player extends Model {
 
 	public async getNbPlayersOnYourMap(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM ${botConfig.MARIADB_PREFIX}_game.Players
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players
 					   WHERE (mapLinkId = :link
 						  OR mapLinkId = :linkInverse)
 						 AND score
