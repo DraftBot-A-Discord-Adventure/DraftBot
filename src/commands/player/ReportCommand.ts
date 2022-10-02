@@ -201,7 +201,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
 			millisecondsBeforeSmallEvent += lastTime - date.valueOf();
 		}
-		const travelData = await TravelTime.getTravelData(entity.Player, date);
+		const travelData = await TravelTime.getTravelDataSimplified(entity.Player, date);
 		const millisecondsBeforeBigEvent = travelData.travelEndTime - travelData.travelStartTime - travelData.effectDuration - travelData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
@@ -639,7 +639,7 @@ async function doRandomBigEvent(
 	forceSpecificEvent: number
 ): Promise<void> {
 	await completeMissionsBigEvent(entity, interaction, language);
-	const travelData = await TravelTime.getTravelData(entity.Player, new Date());
+	const travelData = await TravelTime.getTravelDataSimplified(entity.Player, new Date());
 	let time = forceSpecificEvent
 		? ReportConstants.TIME_MAXIMAL + 1
 		: millisecondsToMinutes(travelData.playerTravelledTime);

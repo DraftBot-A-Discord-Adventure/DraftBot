@@ -80,7 +80,7 @@ export class Maps {
 		// Gather useful data
 		const prevMapInstance = await player.getPreviousMap();
 		const nextMapInstance = await player.getDestination();
-		const travelData = await TravelTime.getTravelData(player, date);
+		const travelData = await TravelTime.getTravelDataSimplified(player, date);
 		const tripDuration = travelData.travelEndTime - travelData.travelStartTime - travelData.effectDuration;
 		const playerRemainingTravelTime = tripDuration - travelData.playerTravelledTime;
 
@@ -130,7 +130,7 @@ export class Maps {
 	 * @param date
 	 */
 	static async isArrived(player: Player, date: Date): Promise<boolean> {
-		return (await TravelTime.getTravelData(player, date)).travelEndTime <= date.valueOf();
+		return (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime <= date.valueOf();
 	}
 
 	/**
