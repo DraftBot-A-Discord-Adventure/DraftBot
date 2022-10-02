@@ -331,7 +331,6 @@ async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInt
 			sendDirectMessage(
 				user,
 				guildDailyModule.get("dmNotification.title"),
-
 				guildDailyModule.format("dmNotification.description",
 					{
 						serveur: interaction.guild.name,
