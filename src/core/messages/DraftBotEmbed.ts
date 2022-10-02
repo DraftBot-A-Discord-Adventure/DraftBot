@@ -12,8 +12,6 @@ export class DraftBotEmbed extends EmbedBuilder {
 	 */
 	constructor() {
 		super();
-		// Ignore this for now
-		// this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
 	}
 
 	/**

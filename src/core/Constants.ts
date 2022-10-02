@@ -35,7 +35,7 @@ export abstract class Constants {
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
-			DEFAULT: "NOT_QUITE_BLACK",
+			DEFAULT: "default",
 			ERROR: "#D92D43",
 			SUCCESSFUL: "#5EAD45"
 		},
