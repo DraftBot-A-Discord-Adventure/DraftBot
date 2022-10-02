@@ -171,7 +171,7 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 	const foodIndex = getFoodIndexOf(item);
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
-	guild.removeFood(item, -1, NumberChangeReason.PET_FEED);
+	guild.removeFood(item, 1, NumberChangeReason.PET_FEED);
 	const editValueChanges = {
 		entity,
 		amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex],
