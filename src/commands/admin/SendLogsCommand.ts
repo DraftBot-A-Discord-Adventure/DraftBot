@@ -45,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 				await interaction.user.send({content: msg + "```"});
 			}
 		});
-		await interaction.reply({content: "Logs list sent !"});
+		await interaction.reply({content: "Logs list sent !", ephemeral: true});
 	}
 	else {
 		let queriedFile = interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")).value as string;
@@ -63,7 +63,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					name: queriedFile
 				}]
 			});
-			await interaction.reply({content: "Logs sent !"});
+			await interaction.reply({content: "Logs sent !", ephemeral: true});
 		}
 		else {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
