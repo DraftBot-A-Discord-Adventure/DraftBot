@@ -26,6 +26,14 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		return;
 	}
 
+	let inDM: boolean;
+	try {
+		inDM = interaction.options.get(currentCommandEnglishTranslations.get("optionDMName")).value as boolean;
+	}
+	catch {
+		inDM = true;
+	}
+
 	if (interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")) === null) {
 		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
@@ -37,15 +45,37 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			for (const file of files) {
 				msg += `${file} (${fs.statSync(`logs/${file}`).size / 1000.0} ko)\n`;
 				if (msg.length > 1800) {
-					await interaction.user.send({content: msg + "```"});
+					if (inDM) {
+						await interaction.user.send({content: msg + "```"});
+					}
+					else {
+						try {
+							await interaction.reply({content: msg + "```", ephemeral: true});
+						}
+						catch {
+							await interaction.followUp({content: msg + "```", ephemeral: true});
+						}
+					}
 					msg = "```";
 				}
 			}
 			if (msg !== "```") {
-				await interaction.user.send({content: msg + "```"});
+				if (inDM) {
+					await interaction.user.send({content: msg + "```"});
+				}
+				else {
+					try {
+						await interaction.reply({content: msg + "```", ephemeral: true});
+					}
+					catch {
+						await interaction.followUp({content: msg + "```", ephemeral: true});
+					}
+				}
 			}
 		});
-		await interaction.reply({content: "Logs list sent !", ephemeral: true});
+		if (inDM) {
+			await interaction.reply({content: "Logs list sent !"});
+		}
 	}
 	else {
 		let queriedFile = interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")).value as string;
@@ -57,13 +87,24 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			queriedFile += ".txt";
 		}
 		if (fs.existsSync(`logs/${queriedFile}`)) {
-			await interaction.user.send({
-				files: [{
-					attachment: `logs/${queriedFile}`,
-					name: queriedFile
-				}]
-			});
-			await interaction.reply({content: "Logs sent !", ephemeral: true});
+			if (inDM) {
+				await interaction.user.send({
+					files: [{
+						attachment: `logs/${queriedFile}`,
+						name: queriedFile
+					}]
+				});
+				await interaction.reply({content: "Logs sent !"});
+			}
+			else {
+				await interaction.reply({
+					files: [{
+						attachment: `logs/${queriedFile}`,
+						name: queriedFile
+					}],
+					ephemeral: true
+				});
+			}
 		}
 		else {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
@@ -80,6 +121,15 @@ export const commandInfo: ICommand = {
 			.setDescription(currentCommandEnglishTranslations.get("optionFileDescription"))
 			.setDescriptionLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionFileDescription")
+			})
+			.setRequired(false))
+		.addBooleanOption(option => option.setName(currentCommandEnglishTranslations.get("optionDMName"))
+			.setNameLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionDMName")
+			})
+			.setDescription(currentCommandEnglishTranslations.get("optionDMDescription"))
+			.setDescriptionLocalizations({
+				fr: currentCommandFrenchTranslations.get("optionDMDescription")
 			})
 			.setRequired(false)) as SlashCommandBuilder,
 	executeCommand,

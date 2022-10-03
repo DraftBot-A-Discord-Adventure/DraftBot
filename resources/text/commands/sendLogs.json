@@ -5,6 +5,8 @@
 			"commandDescription": "Récupérer un fichier de logs ou la liste des fichiers de logs (pour les contributeurs uniquement).",
 			"optionFileName": "fichier",
 			"optionFileDescription": "Nom du fichier de logs à charger.",
+			"optionDMName": "en_mp",
+			"optionDMDescription": "Avoir une réponse en MP ou pas. Par défaut : true. Sinon, la réponse est éphémère.",
 			"noLogFile": "Aucun fichier log n'existe avec ce nom !",
 			"localFileInclusion": "Tentative d'inclusion de fichier local..."
 		},
@@ -13,6 +15,8 @@
 			"commandDescription": "Get a log file or the list of log files (contributors only).",
 			"optionFileName": "file",
 			"optionFileDescription": "Name of the log file to load.",
+			"optionDMName": "in_dm",
+			"optionDMDescription": "To have the reply in DMs. Default: true. Else, the reply isan ephemeral.",
 			"noLogFile": "No log file exists with this name !",
 			"localFileInclusion": "Tried to include local file..."
 		}
