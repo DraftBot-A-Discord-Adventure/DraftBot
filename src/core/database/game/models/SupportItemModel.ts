@@ -51,8 +51,7 @@ export abstract class SupportItemModel extends GenericItemModel {
 export const SupportItemModelAttributes = {
 	id: {
 		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
+		primaryKey: true
 	},
 	rarity: {
 		type: DataTypes.INTEGER,
