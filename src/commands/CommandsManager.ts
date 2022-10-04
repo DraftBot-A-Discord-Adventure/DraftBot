@@ -1,5 +1,6 @@
 import {
-	ApplicationCommand, ApplicationCommandOption,
+	ApplicationCommand,
+	ApplicationCommandOption,
 	Attachment,
 	ChannelType,
 	Client,
@@ -75,6 +76,10 @@ export class CommandsManager {
 	}: TextInformations, shouldReply = false): Promise<boolean> {
 		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
 		const userEntity = {user, entity};
+		if (this.effectRequirementsFailed(commandInfo, userEntity, {interaction, tr}, shouldReply)) {
+
+			return false;
+		}
 		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
 			await replyErrorMessage(
 				interaction,
@@ -83,10 +88,6 @@ export class CommandsManager {
 					level: commandInfo.requirements.requiredLevel
 				})
 			);
-			return false;
-		}
-
-		if (this.effectRequirementsFailed(commandInfo, userEntity, {interaction, tr}, shouldReply)) {
 			return false;
 		}
 
@@ -112,6 +113,85 @@ export class CommandsManager {
 		this.manageInteractionCreate(client);
 
 		this.manageMessageCreate(client);
+	}
+
+	/**
+	 * Register all commands at launch
+	 * @param client
+	 */
+	static async registerAllCommands(client: Client): Promise<void> {
+		try {
+			const commands = (await client.application.commands.fetch({withLocalizations: true}))
+				.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
+			const commandsToRegister = await this.getAllCommandsToRegister();
+
+			// Store command instances
+			for (const command of commands) {
+				CommandsManager.commandsInstances.set(command[1].name, command[1]);
+				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
+			}
+
+			// Commands to register
+			const commandsToCheck = [];
+			for (const commandInfo of commandsToRegister) {
+				this.setCommandDefaultParameters(commandInfo);
+				commandsToCheck.push(this.createOrUpdateCommand(client, CommandsManager.commandsInstances.get(commandInfo.slashCommandBuilder.name), commandInfo));
+				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
+			}
+			await Promise.all(commandsToCheck);
+
+			// Delete removed commands, we do it after because CommandsManager.commands is populated
+			await this.deleteCommands(client);
+		}
+		catch (err) {
+			console.log(err);
+			// Do not start the bot if we can't register the commands
+			process.exit(1);
+		}
+	}
+
+	/**
+	 * Execute a command from the player
+	 * @param commandName
+	 * @param interaction
+	 * @param language
+	 * @param entity
+	 * @param argsOfCommand
+	 */
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: unknown[]): Promise<void> {
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
+	}
+
+	/**
+	 * Execute all the important checks upon receiving a private message
+	 * @param message
+	 */
+	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
+		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
+		if (author === botConfig.DM_MANAGER_ID) {
+			return;
+		}
+		if (message instanceof Message) {
+			await this.sendBackDMMessageToSupportChannel(message, author);
+		}
+		await this.sendHelperMessage(message);
+	}
+
+	/**
+	 * Get the list of commands to register
+	 */
+	public static async getAllCommandsToRegister(): Promise<ICommand[]> {
+		const categories = await readdir("dist/src/commands");
+		const commandsToRegister: ICommand[] = [];
+		const commandsToCheck = [];
+		for (const category of categories) {
+			if (category.endsWith(".js") || category.endsWith(".js.map")) {
+				continue;
+			}
+			commandsToCheck.push(this.checkCommandFromCategory(category, commandsToRegister));
+		}
+		await Promise.all(commandsToCheck);
+		return commandsToRegister;
 	}
 
 	/**
@@ -244,39 +324,6 @@ export class CommandsManager {
 	}
 
 	/**
-	 * Register all commands at launch
-	 * @param client
-	 */
-	static async registerAllCommands(client: Client): Promise<void> {
-		try {
-			const commands = (await client.application.commands.fetch({ withLocalizations: true }))
-				.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({ withLocalizations: true }));
-			const commandsToRegister = await this.getAllCommandsToRegister();
-
-			// Store command instances
-			for (const command of commands) {
-				CommandsManager.commandsInstances.set(command[1].name, command[1]);
-				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
-			}
-
-			// Commands to register
-			for (const commandInfo of commandsToRegister) {
-				this.setCommandDefaultParameters(commandInfo);
-				await this.createOrUpdateCommand(client, CommandsManager.commandsInstances.get(commandInfo.slashCommandBuilder.name), commandInfo);
-				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
-			}
-
-			// Delete removed commands, we do it after because CommandsManager.commands is populated
-			await this.deleteCommands(client);
-		}
-		catch (err) {
-			console.log(err);
-			// Do not start the bot if we can't register the commands
-			process.exit(1);
-		}
-	}
-
-	/**
 	 * delete all commands from the bot if they do not exist anymore
 	 * @param client
 	 * @private
@@ -341,48 +388,6 @@ export class CommandsManager {
 		if ((commandInfo.slashCommandPermissions || commandInfo.requirements.userPermission) && commandInfo.requirements.userPermission !== Constants.ROLES.USER.ADMINISTRATOR) {
 			commandInfo.slashCommandBuilder.setDefaultPermission(false);
 		}
-	}
-
-	/**
-	 * Execute a command from the player
-	 * @param commandName
-	 * @param interaction
-	 * @param language
-	 * @param entity
-	 * @param argsOfCommand
-	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: unknown[]): Promise<void> {
-		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
-	}
-
-	/**
-	 * Execute all the important checks upon receiving a private message
-	 * @param message
-	 */
-	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
-		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
-		if (author === botConfig.DM_MANAGER_ID) {
-			return;
-		}
-		if (message instanceof Message) {
-			await this.sendBackDMMessageToSupportChannel(message, author);
-		}
-		await this.sendHelperMessage(message);
-	}
-
-	/**
-	 * Get the list of commands to register
-	 */
-	public static async getAllCommandsToRegister(): Promise<ICommand[]> {
-		const categories = await readdir("dist/src/commands");
-		const commandsToRegister: ICommand[] = [];
-		for (const category of categories) {
-			if (category.endsWith(".js") || category.endsWith(".js.map")) {
-				continue;
-			}
-			await this.checkCommandFromCategory(category, commandsToRegister);
-		}
-		return commandsToRegister;
 	}
 
 	/**

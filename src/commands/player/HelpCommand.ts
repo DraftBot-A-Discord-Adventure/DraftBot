@@ -22,10 +22,9 @@ function getListOfMentionFromCommandData(commandData: [string, unknown]): string
  * Get all commands sorted by categories
  */
 function getCommandByCategories(): { [key: string]: string[] } {
-	const commandsDataList = HelpConstants.COMMANDS_DATA;
 	const serverCommands: string[] = [], utilCommands: string[] = [], playerCommands: string[] = [],
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
-	for (const commandData of Object.entries(commandsDataList)) {
+	for (const commandData of Object.entries(HelpConstants.COMMANDS_DATA)) {
 		switch (commandData[1].CATEGORY) {
 		case Constants.COMMAND_CATEGORY.SERVER:
 			serverCommands.push(
