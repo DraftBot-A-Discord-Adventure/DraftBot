@@ -14,9 +14,9 @@
 				"{pseudo}, cette personne est bloquée !"
 			],
 			"titleMeIsBaby": "{pseudo}, vous n'avez pas commencé l'aventure !",
-			"meIsBaby": " Utilisez la commande `report` pour commencer votre aventure !",
+			"meIsBaby": " Utilisez la commande {command:report} pour commencer votre aventure !",
 			"titleMeIsDead": "{pseudo}, vous êtes actuellement K.O !",
-			"meIsDead": " Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
+			"meIsDead": " Vous devez respawn en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 			"titleMeIsInjured": "{pseudo}, vous êtes actuellement gravement blessé !",
 			"titleMeIsScared": "{pseudo}, vous êtes actuellement apeuré !",
 			"levelTooLow": "Vous devez être **LVL {level}** pour utiliser cette commande ! Revenez plus tard !",
@@ -100,8 +100,8 @@
 				"{pseudo}, this person is occupied !"
 			],
 			"titleMeIsBaby": "{pseudo}, you didn't start your adventure!",
-			"meIsBaby": " Use the command `report` to start your adventure!",
-			"meIsDead": "You are KO'd! You need to respawn using the `respawn` command to continue playing.",
+			"meIsBaby": " Use the command {command:report} to start your adventure!",
+			"meIsDead": "You are KO'd! You need to respawn using the {command:respawn} command to continue playing.",
 			"titleMeIsDead": "{pseudo}, you are currently K.O!",
 			"titleMeIsInjured": "{pseudo}, you are currently seriously injured!",
 			"titleMeIsScared": "{pseudo}, you are currently scared!",
