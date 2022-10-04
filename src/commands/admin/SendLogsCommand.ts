@@ -11,16 +11,22 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
 
+/**
+ * Send logs message
+ * @param inDM
+ * @param interaction
+ * @param msg
+ */
 async function sendLogsMessage(inDM: boolean, interaction: CommandInteraction, msg: string): Promise<void> {
 	if (inDM) {
-		await interaction.user.send({content: msg + "```"});
+		await interaction.user.send({content: `${msg}\`\`\``});
 	}
 	else {
 		try {
-			await interaction.reply({content: msg + "```", ephemeral: true});
+			await interaction.reply({content: `${msg}\`\`\``, ephemeral: true});
 		}
 		catch {
-			await interaction.followUp({content: msg + "```", ephemeral: true});
+			await interaction.followUp({content: `${msg}\`\`\``, ephemeral: true});
 		}
 	}
 }
