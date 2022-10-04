@@ -169,8 +169,7 @@ export function initModel(sequelize: Sequelize): void {
 		{
 			id: {
 				type: DataTypes.INTEGER,
-				primaryKey: true,
-				autoIncrement: true
+				primaryKey: true
 			},
 			attack: {
 				type: DataTypes.INTEGER

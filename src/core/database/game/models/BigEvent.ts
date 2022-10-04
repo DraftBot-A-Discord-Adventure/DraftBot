@@ -77,8 +77,7 @@ export function initModel(sequelize: Sequelize): void {
 	BigEvent.init({
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		fr: {
 			type: DataTypes.TEXT

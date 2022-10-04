@@ -55,8 +55,7 @@ export function initModel(sequelize: Sequelize): void {
 	Pet.init({
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		rarity: {
 			type: DataTypes.INTEGER
