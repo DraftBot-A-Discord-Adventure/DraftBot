@@ -63,7 +63,7 @@
 			},
 			"results": {
 				"life": [
-					"You carefully lift the {goblet} goblet, only to find out that there is nothing underneath. With both disappointment and anger, you slap away the two other cups. Seeing nothin under them again, your blood turns cold, and you turn around to face the scammer. Sadly, you realized everything a bit too late, and what meets your eyes is an enlarging fist. You lose **{amount}💔**."
+					"You carefully lift the {goblet} goblet, only to find out that there is nothing underneath. With both disappointment and anger, you slap away the two other cups. Finding nothing under them once again, your blood turns cold, and you turn around to face the scammer. Sadly, you realized everything a bit too late, and what meets your eyes is an enlarging fist. You lose **{amount}💔**."
 				],
 				"time": [
 					"You gently lift the {goblet} goblet and notice a coin underneath it. Unfortunately, the man, taking advantage of your brief, dazed joy, grabs the coin and runs away. You come back to your senses and chase after him, but unfortunately do not manage to catch up that guy. You lose **{amount}🕑** because of this detour."
