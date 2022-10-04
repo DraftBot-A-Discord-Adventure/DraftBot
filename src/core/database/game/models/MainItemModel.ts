@@ -121,8 +121,7 @@ export abstract class MainItemModel extends GenericItemModel {
 export const MainItemModelAttributes = {
 	id: {
 		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
+		primaryKey: true
 	},
 	rarity: {
 		type: DataTypes.INTEGER,

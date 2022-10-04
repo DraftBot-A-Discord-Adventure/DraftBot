@@ -73,7 +73,6 @@ export abstract class Database {
 			transactionType: TYPES.IMMEDIATE
 		});
 		await this.sequelize.authenticate();
-		await this.sequelize.query("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';");
 
 		// Create umzug instance. See https://github.com/sequelize/umzug
 		this.umzug = new Umzug({

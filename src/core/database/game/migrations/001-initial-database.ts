@@ -3,8 +3,7 @@ import {DataTypes, QueryInterface} from "sequelize";
 const itemAttributes = {
 	id: {
 		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
+		primaryKey: true
 	},
 	rarity: {
 		type: DataTypes.INTEGER,
@@ -65,8 +64,7 @@ const itemAttributes = {
 const supportItemAttributes = {
 	id: {
 		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
+		primaryKey: true
 	},
 	rarity: {
 		type: DataTypes.INTEGER,
@@ -183,8 +181,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("classes", {
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		attack: {
 			type: DataTypes.INTEGER,
@@ -311,8 +308,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("events", {
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		fr: {
 			type: DataTypes.TEXT,
@@ -535,8 +531,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("pets", {
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		rarity: {
 			type: DataTypes.INTEGER,
