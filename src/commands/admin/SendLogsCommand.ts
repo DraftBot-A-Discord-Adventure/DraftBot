@@ -11,6 +11,20 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
 
+async function sendLogsMessage(inDM: boolean, interaction: CommandInteraction, msg: string): Promise<void> {
+	if (inDM) {
+		await interaction.user.send({content: msg + "```"});
+	}
+	else {
+		try {
+			await interaction.reply({content: msg + "```", ephemeral: true});
+		}
+		catch {
+			await interaction.followUp({content: msg + "```", ephemeral: true});
+		}
+	}
+}
+
 /**
  * Allow a contributor to get the console logs
  * @param interaction
@@ -45,32 +59,12 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			for (const file of files) {
 				msg += `${file} (${fs.statSync(`logs/${file}`).size / 1000.0} ko)\n`;
 				if (msg.length > 1800) {
-					if (inDM) {
-						await interaction.user.send({content: msg + "```"});
-					}
-					else {
-						try {
-							await interaction.reply({content: msg + "```", ephemeral: true});
-						}
-						catch {
-							await interaction.followUp({content: msg + "```", ephemeral: true});
-						}
-					}
+					await sendLogsMessage(inDM, interaction, msg);
 					msg = "```";
 				}
 			}
 			if (msg !== "```") {
-				if (inDM) {
-					await interaction.user.send({content: msg + "```"});
-				}
-				else {
-					try {
-						await interaction.reply({content: msg + "```", ephemeral: true});
-					}
-					catch {
-						await interaction.followUp({content: msg + "```", ephemeral: true});
-					}
-				}
+				await sendLogsMessage(inDM, interaction, msg);
 			}
 		});
 		if (inDM) {
