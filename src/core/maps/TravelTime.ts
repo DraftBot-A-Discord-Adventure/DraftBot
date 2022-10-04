@@ -58,7 +58,7 @@ export class TravelTime {
 		// The next small event in 10 minutes after the last small event or the start or the travel if none before
 		let nextSmallEventTime = (lastSmallEvent && lastSmallEvent.time > data.travelStartTime ? lastSmallEvent.time : data.travelStartTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		// If the next small event is in the effect period, we shift it after the end of the effect
-		if (nextSmallEventTime >= data.effectStartTime && nextSmallEventTime <= data.effectEndTime) {
+		if (player.effectDuration !== 0 && nextSmallEventTime <= data.effectEndTime) {
 			nextSmallEventTime = data.effectEndTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		}
 
@@ -160,14 +160,11 @@ export class TravelTime {
 			player.effectEndDate = new Date(0);
 		}
 
-		// Also move the last small event only if the time travel is to the past, or else the player will be blocked a long time
-		// We don't move it if he goes to the future, so he will have a small event after the time travel
-		if (timeMs < 0) {
-			const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
-			if (lastSmallEvent) {
-				lastSmallEvent.time -= timeMs;
-				await lastSmallEvent.save();
-			}
+		// Move the last small event
+		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+		if (lastSmallEvent) {
+			lastSmallEvent.time -= timeMs;
+			await lastSmallEvent.save();
 		}
 
 		// Log
