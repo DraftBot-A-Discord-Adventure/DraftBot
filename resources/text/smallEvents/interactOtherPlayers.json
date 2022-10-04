@@ -242,178 +242,178 @@
 				"Rumor has it that a member of a powerful guild is making their way on the same path as you. Indeed, you see {playerDisplay} walking far away!"
 			],
 			"beginner": [
-				"Everything begins someday! You meet {playerDisplay} who starts their adventure dedicated to the princess.",
-				"A person passes by you, you quickly recognize him, it's {playerDisplay}, he is a newcomer, but nice and friendly!",
-				"You take a 5 minute break to get your mind off the game. For this, you train {playerDisplay}, who has just started the game."
+				"One always has to start somewhere ! You meet {playerDisplay}, who're just starting their adventure dedicated to the princess.",
+				"A person passes by you. You quickly recognize them : it's {playerDisplay}, a nice and friendly newcomer!",
+				"You feel the need to take a break from your adventures. As such, you train {playerDisplay}, who's just starting the game."
 			],
 			"advanced": [
-				"The grey hair of {playerDisplay} shows the experience he has accumulated. He is indeed **{level}**! You then continue your way.",
-				"While walking around, you come across {playerDisplay} he is a powerful hero, he is indeed level **{level}**!",
-				"{playerDisplay} keeps leveling up and getting closer to level 100! He is currently level **{level}**. You go on your way after this encounter."
+				"The grey hair of {playerDisplay} shows the experience they have accumulated. They, indeed, are lvl **{level}**! You continue your way.",
+				"While walking around, you come across {playerDisplay} : They are a powerful lvl-**{level}** hero!",
+				"{playerDisplay} keeps leveling up, and is getting closer to level 100! They're currently level **{level}**."
 			],
 			"sameClass": [
-				"On your way, you don't fail to recognize {playerDisplay}'s outfit. He is **{class}** just like you !",
-				"You notice {playerDisplay}, and quickly observe his familiar outfit and manners, he is indeed **{class}**, just like you! You then get back on your road.",
-				"You greet one of your colleague **{class}*, {playerDisplay}, passing by. No time to stop, you continue your road."
+				"On your way, you do not fail to recognize {playerDisplay}'s outfit. He is **{class}** just like you !",
+				"You notice {playerDisplay}, and quickly notice his familiar outfit and manners. He is indeed **{class}**, just like you!",
+				"You greet one of your colleagues **{class}*, {playerDisplay}, who's passing by. Having no time to stop, you both continue on your respective adventure."
 			],
 			"sameGuild": [
-				"You cross on your way a very familiar face... Indeed, {playerDisplay} is part of your guild !",
-				"You approach someone, his familiar face reminds you of someone... Of course! It's {playerDisplay} one of your guild members!",
-				"You meet {playerDisplay}, member of your guild! You perform the guild's secret handshake and go your separate ways."
+				"On your way, you stumble upon a very familiar face... Indeed, {playerDisplay} is part of your guild !",
+				"You approach someone, whose familiar face reminds you of someone... Of course! It's {playerDisplay}, a fellow guild member of yours!",
+				"You meet {playerDisplay}, a member of your guild! You perform the guild's secret handshake and then go separate ways."
 			],
 			"staffMember": [
-				"{playerDisplay}, who is part of the DraftBot staff, gives you a tip for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",
-				"\"{advice}\", that's what {playerDisplay}, one of the famous bot's staff, told you when you cross a path !",
-				"You talk with {playerDisplay} who is part of the DraftBot team, who has some good advice for the rest of your adventure:\n\n{advice}"
+				"{playerDisplay}, who is part of the DraftBot staff, gives you a tip that should help for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",
+				"\"{advice}\", that's what {playerDisplay}, one of the famous bot's staff, told you when you crossed their path !",
+				"You talk with {playerDisplay}, who is part of the DraftBot team. They have some good advice for the rest of your adventure:\n\n{advice}"
 			],
 			"topWeek": [
-				"You see {playerDisplay} on your way, breathless. He's not resting, as a matter of facts, he's in this week's top 5!",
-				"One of the heroes of the week comes to you, it's {playerDisplay} he is in the top of the week!",
-				"You talk about your points with {playerDisplay}. This one has progressed well this week, he is in the top 5 of the week!"
+				"You see {playerDisplay} on your way, breathless. He's not resting, as a matter of facts, and he's even in this week's top 5!",
+				"One of the heroes of the week comes to you. It's {playerDisplay}, and they're in the top of the weekly rankings!",
+				"You talk about your point count with {playerDisplay}. This one has made good progress this week, they're in the top 5 of the week!"
 			],
 			"lowHP": [
-				"You meet {playerDisplay}, who is limping... He doesn't look good... He falls on the side of the road, you decide to help him up.",
-				"You cross {playerDisplay}, he looks bad....",
-				"An arrow, even in the knee is able to finish {playerDisplay} who is moving slowly on his way. A healing potion would help him a lot!"
+				"You meet a limping {playerDisplay}... They don't look so good... They fall on the side of the road, so you decide to help them up.",
+				"You come across {playerDisplay}, they look like they're on their last breath....",
+				"An arrow to the knee would force {playerDisplay} to give up on their adventurer's life. You pray they find a healing potion before they become a city guard !"
 			],
 			"fullHP": [
-				"You have rarely seen someone as energetic as {playerDisplay}... He seems to be in great shape!",
-				"On your way, you meet {playerDisplay} who seems in good shape. Indeed, he has all his life!",
-				"You almost end up on the ground because {playerDisplay} ran by you! He is very energetic because his life is at its maximum."
+				"You have rarely seen someone as energetic as {playerDisplay}... They seem to be in a great shape!",
+				"On your way, you meet {playerDisplay} who seems in good shape. Indeed, their hp is full !",
+				"You're almost knocked down by a running {playerDisplay} ! They're very energetic, as their life is at its maximum."
 			],
 			"unranked": [
-				"You pass by {playerDisplay}, a player who doesn't seem to be ranked... You walk away wondering what possessed him to come here to give up so quickly.",
-				"While walking, you meet {playerDisplay}, this player doesn't seem to be doing well in the competition. You leave after explaining the basics of the game to him."
+				"You pass by {playerDisplay}, a player who doesn't seem to be ranked... You walk away wondering what kind of spirit possessed them, to come here only to give up so quickly.",
+				"While walking, you meet {playerDisplay}. This player doesn't seem to be doing well in the competition. You leave after explaining the basics to them."
 			],
 			"lowerRankThanHim": [
-				"You come across {playerDisplay}, a player with more reputation than you... But don't give up! You might be able to reach him some day.",
-				"While walking you stumble and fall, {playerDisplay} laughs at you, indeed he is better ranked than you!",
-				"You chat with {playerDisplay} about your ranking. He is ahead of you because he is better ranked!",
-				"Even though he might brag about his higher ranking than yours, {playerDisplay} stay humble during your conversation."
+				"You come across {playerDisplay}, a player with more reputation than you... But don't give up! You might be able to reach them some day.",
+				"While walking, you stumble and fall. {playerDisplay} laughs at you.",
+				"You chat with {playerDisplay} about your ranking. They're ahead of you, their rank much higher!",
+				"Even though they could've bragged about their rank being higher than yours, {playerDisplay} stay humble during your conversation."
 			],
 			"betterRankThanHim": [
-				"You cross {playerDisplay}, this one has a less good ranking... But be careful, he can very well reach you one day !",
-				"A player comes to see you, it's {playerDisplay} he asks you some tips to progress and goes on his way !",
-				"You chat with {playerDisplay} about your ranking. You are one step ahead of him because you are ranked higher!"
+				"You come across {playerDisplay}. They're ranked way lower than you are, but be careful for it may not be the case in the future!",
+				"A player comes to see you, it's {playerDisplay}. They ask you for some tips before continuing on their way.",
+				"You chat with {playerDisplay} about your ranking. You are one step ahead of them!"
 			],
 			"rich": [
-				"You cover your eyes to stop being dazzled by the sun reflecting on the gold that {playerDisplay} is wearing! You continue your road while having pain in the eyes.",
-				"Is it Scrooge? No, it's not! It's {playerDisplay}! He has so much gold that you are dazzled! You go on your way rubbing your eyes.",
-				"Coins fall out of {playerDisplay}'s pockets because of how full they are. He doesn't even seem to mind. An animal comes and takes them before you can get your hands on them. You continue on your way a little disappointed."
+				"You cover your eyes in order to stop the sunlight reflecting on the gold that {playerDisplay} is wearing from blinding you! You continue your adventure with teary eyes.",
+				"Is it Scrooge? No, it's not! It's {playerDisplay}! They have so much gold that you are dazzled! You go on your way, rubbing your eyes.",
+				"Coins fall out of {playerDisplay}'s pockets because of how full they are. They don't even seem to care. An animal comes by and takes the money before you even try to yourself. You continue walking, a little disappointed."
 			],
 			"poor": [
-				"Looking at {playerDisplay}'s clothes, he seems to have money problems... You think he would be happy if you give him a coin.\n\n:coin: Give him a coin\n:x: Don't give him a coin",
-				"While walking, you meet this poor vagabond {playerDisplay}, this one asks you for some coins:\n\n:coin: Give a coin, because you have enough already\n:x: Don't give him a coin",
-				"Misery touches everyone one day, and today it is {playerDisplay} who can barely pay for a meal.\n\n:coin: Give him a coin\n:x: Don't give him a coin"
+				"Looking at {playerDisplay}'s clothes, they look like they have some monetary issues... You think they would be happy if you were to give them a coin.\n\n:coin: Give them a coin\n:x: Don't give him a coin",
+				"While walking, you meet this poor vagabond {playerDisplay}. They ask you for some coins:\n\n:coin: Give a coin, because you have enough already\n:x: Don't give them a coin",
+				"Misery touches everyone one day, and today it is {playerDisplay} who can barely pay for a meal.\n\n:coin: Give them a coin\n:x: Don't give them a coin"
 			],
 			"poorGiveMoney": [
 				"You feel good after making this humanitarian act.",
-				"It's by doing good that good spreads, said this priest one day! You give him a few coins, and he gives you a smile before continuing his way!",
-				"This is a good act on your part! He leaves with an extra piece and the possibility to live a little longer..."
+				"It's by doing good that it spreads, said a kyutist priest you once met. You give the poor one a few coins, and they give you back a heartfelt smile.",
+				"This is a good act on your part! They leave you with an extra coin, and the possibility to keep living a little longer..."
 			],
 			"poorDontGiveMoney": [
-				"There are no small economies... You decide to keep your money.",
+				"No matter how small a mosquito is, it still has meat.... You decide to keep your money.",
 				"**{pseudo}** is sad and leaves crying!",
-				"You ignore it, at least you force yourself to do so. You leave and hope that your conscience will not come to bother you."
+				"You ignore this, or at least you force yourself to do so. You leave and hope that your conscience will not come to bother you."
 			],
 			"duplicatePotion": [
-				"You chat about your journey with {playerDisplay}. After getting to know him, he pours some of his potion into one of your empty vials. You continue your adventure with **1x** {item}!",
-				"A stranger named {playerDisplay} arrives, and puts some of his potion in yours, so you win **1x** {item} !",
-				"Sharing is the secret of good friendship! {playerDisplay} drops some {item} into one of your empty vials. You leave with some of the potion!"
+				"You chat about your journey with {playerDisplay}. After getting to know them, they pour some of their extra potion into one of your empty vials. You continue your adventure with **1x** {item}!",
+				"A stranger named {playerDisplay} arrives, pours some potion into an empty flask of yours, and leaves without elaborating further. You obtain **1x** {item} !",
+				"Sharing is the secret to longlasting, happy relationships! {playerDisplay} drops some {item} into one of your empty vials. You leave happily"
 			],
 			"pet": [
-				"{playerDisplay} passes near of you with his **{petName}** pet. You caress this brave animal and continue your way in a good mood!",
-				"{playerDisplay} passes near of you and shows you his pet **{petName}**. You caress him and leave, good road!",
-				"{playerDisplay} passes on your way with **{petName}** at the end of his lead. You look at him amazed and think to yourself that you would love to have this animal too!"
+				"{playerDisplay} pass near you with their **{petName}** pet. You pet this brave animal and continue on your way in a good mood!",
+				"{playerDisplay} walk towards you and show you their pet, **{petName}**. You pet it and leave.",
+				"{playerDisplay} passes on your way with **{petName}** on a leash. You look at this amazed and realize that you would like to have such an animal, too."
 			],
 			"guildChief": [
 				"Don't panic! You are passing by {playerDisplay}, leader of the **{guildName}** guild.",
-				"You pass near of {playerDisplay}, he is the leader of the **{guildName}** guild!",
-				"You recognize the person who passes on your way... It's {playerDisplay}, the leader of the **{guildName}** guild!"
+				"You pass by {playerDisplay}. They're the leader of the **{guildName}** guild!",
+				"You recognize the person who's walking nearby... It's {playerDisplay}, the leader of the **{guildName}** guild!"
 			],
 			"guildElder": [
-				"{playerDisplay} discusses of his guild **{guildName}** with you. You learn that he is it's elder!",
-				"You pass near {playerDisplay}, he is the elder of the **{guildName}** guild!",
-				"The **{guildName}**'s guild right-hand man, {playerDisplay}, greets you and continues on his way."
+				"{playerDisplay} discusses of their guild **{guildName}** with you. You learn that they are its elder!",
+				"You happen to cross roads with {playerDisplay}. They are the elder of the **{guildName}** guild!",
+				"The **{guildName}**'s guild number two, {playerDisplay}, greet you and continue on their way."
 			],
 			"class": [
-				"You come close to {playerDisplay} who is **{class}**. You talk a little with him and go back on your way peacefully.",
-				"{playerDisplay} passes near you, he has the **{class}** rank!",
-				"You accidentally bump into the arm of {playerDisplay}, a proud **{class}**. You both apologize and go on your way."
+				"You come close to {playerDisplay} who is **{class}**. You talk a little with them and go back on your way peacefully.",
+				"{playerDisplay} passes near you, they have the **{class}** class!",
+				"You accidentally bump into the arm of {playerDisplay}, a proud **{class}**. You both apologize and go back on your respective way."
 			],
 			":sick:": [
-				"You hear a noise in the distance... It's {playerDisplay} vomiting in a bush... You resume your road upset.",
-				"{playerDisplay} vomits in a bush, so that's the noise you've been hearing for a while. You go on your way hoping not to vomit after seeing that.",
+				"You hear a noise in the distance... It's {playerDisplay}, vomiting in a bush... You resume your walking, albeit at faster speeds.",
+				"{playerDisplay} vomits in a bush. So *that's* the noise you've been hearing for a while ! You continue walking, with more haste, hoping not to vomit too.",
 				"{playerDisplay} can't hold back and vomits at your feet. You narrowly dodge the attack and increase your pace to get away from the massacre."
 			],
 			":head_bandage:": [
-				"You see a mummy in the distance! Oh no, it's only {playerDisplay} covered with bandages...",
-				"On your way, you cross {playerDisplay}. He is covered with bandages, what happened to him?",
-				"As you rush to your destination, {playerDisplay} asks you to tighten the bandages on his head. You do it and are surprised that someone could be so injured."
+				"You see a mummy in the distance! Oh nevermind, it's {playerDisplay} covered with bandages...",
+				"On your way, you cross paths with {playerDisplay}. They are covered with bandages from head to toes. What could have happened to them?",
+				"As you rush towards your destination, {playerDisplay} ask you to tighten the bandages on their head. You do it, surprised that someone could even manage to get that injured."
 			],
 			":dizzy_face:": [
-				"You stumble on {playerDisplay} who is unconscious on the floor. You give him small taps to wake him up, without success.",
-				"It wasn't a dead rat on the ground, it was just {playerDisplay} You ask him if he's okay, he doesn't answer, you go on your way.",
-				"A person is unconscious in the middle of the road. It's {playerDisplay}; you do what you can to bring him back to consciousness, without success. So you put him on the side of the road to avoid more injuries."
+				"You stumble upon {playerDisplay}, laying unconscious on the muddy road. You give them small slaps in order to wake them up, without success.",
+				"It wasn't a fat, dead rat you just encountered laying curled up on the dust-covered path, but rather {playerDisplay}. You try to ask them if they're okay, but they don't even seem like they could answer you.",
+				"A person is unconscious in the middle of the road. It's {playerDisplay}. You try to help them regain consciousness. Only managing to fail in your endeavors, you put them on the side of the road so as to avoid more injuries."
 			],
 			":drooling_face:": [
-				"A dull roar reaches your ears. You discover that it is the stomach of {playerDisplay}. Unfortunately, you have recently finished your leftover food.",
-				"Apparently, {playerDisplay}, didn't eat enough. His stomach is rumbling! Having nothing to offer him, you continue your way to other horizons.",
-				"You see {playerDisplay} who is in a madness to find food. He is running around looking for food. Having nothing on you to offer him, you continue your way."
+				"A dull rumble reaches your ears. You discover that it is the stomach of {playerDisplay}. Unfortunately for them, you have recently finished your leftover food.",
+				"Apparently, {playerDisplay} didn't eat enough. Their stomach is rumbling! Having no food on you, you continue your way to other horizons.",
+				"You see {playerDisplay} who is in a madness-like state, trying to find food. Having nothing on you you could give them to help sate their hunger, you continue walking."
 			],
 			":sleeping:": [
-				"You pass {playerDisplay} asleep on the side of the road. You decide to let him sleep, he surely needs some sleep.",
-				"Obviously {playerDisplay} didn't get enough sleep last night, he is lying on the side of the road.",
-				"The side of the road seems to be a good place to rest, that's what you tell yourself after seeing {playerDisplay} sleeping on the side of it."
+				"You see {playerDisplay} asleep on the side of the road. You decide to let them sleep.",
+				"Obviously, {playerDisplay} didn't get enough sleep last night. They're now lying on the side of the road.",
+				"The side of the road seems to be a good place to rest, or at least that's what you can tell after seeing {playerDisplay} sleeping there."
 			],
 			":cold_face:": [
-				"You feel a great cold while walking, it's {playerDisplay} close to hypothermia!",
-				"{playerDisplay}, seems to be cold, you warm him up a bit, then you leave!",
-				"A redundant clicking sound annoys you. You discover that it is the teeth of {playerDisplay}... This one is frozen ! You then resume your journey."
+				"You feel a great cold aura overtaking you. As you turn around, you realize it's {playerDisplay}, close to hypothermia!",
+				"{playerDisplay} seem to be feeling extremely cold, so you warm them up a bit, and then leave.",
+				"A constant sound annoys you. You quickly discover that it's {playerDisplay}'s chattering teeth... This person is nearly frozen !"
 			],
 			":confounded:": [
-				"You try to talk to {playerDisplay}. You try. His words are quite incoherent, so you continue your way somewhat disturbed.",
-				"{playerDisplay}, makes a lot of incoherent remarks, it seems strange, so you leave quickly, disturbed!",
-				"You see {playerDisplay} who looks completely out of it. After trying to bring him back to reality in vain, you continue your way faster in order to catch up the lost time."
+				"You try to talk to {playerDisplay}. Try. Their words are absolutely incoherent, so you continue your way somewhat disturbed.",
+				"{playerDisplay} makes a lot of incoherent remarks. As this person gives you a strange feeling, you leave hurriedly",
+				"You see {playerDisplay}, who look completely crazy. After trying to bring them back to reality in vain, you continue your travels faster in order to make up for the lost time."
 			],
 			":zany_face:": [
-				"{playerDisplay} zigzags on your road, it seems that he has a little (too much) drunk. You then continue on your way.",
-				"{playerDisplay} doesn't seem to have understood that alcohol should be consumed with moderation. You take your way back after this unexpected meeting.",
-				"You see {playerDisplay} quite tipsy, to say the least. This one seems to be having a good time... all by himself. You do what you can to ignore him and continue on your way."
+				"{playerDisplay} zigzags on your road, it seems that they're a *little* drunk.",
+				"{playerDisplay} doesn't seem to understand that alcohol should be consumed with great moderation.",
+				"You see {playerDisplay}, looking quite tipsy. They look like they're having a good time... all by themselves. You choose to ignore them so as to not waste any time on your travels."
 			],
 			"weapon": [
-				"You meet {playerDisplay} who shows you {item}.",
+				"You meet {playerDisplay}, who shows you {item}.",
 				"A person comes to show off next to you, it's {playerDisplay} and he shows you {item} !",
-				"Wow! {playerDisplay} brandishes {item} in front of you. You go on your way surprised."
+				"Wow! {playerDisplay} brandishes {item} in front of you. You continue walking, astonished."
 			],
 			"armor": [
 				"You meet {playerDisplay} who shows you {item}.",
-				"A guard approaches you, it's {playerDisplay}, he comes to show you {item} !",
-				"{playerDisplay} challenges you to test {item}, which serves as his protection. After testing its effectiveness, you go on your way."
+				"A guard approaches you, it's {playerDisplay}. They come to show you {item} !",
+				"{playerDisplay} challenge you to test {item}, which serves as their protection. After testing its effectiveness, you go back to your journey."
 			],
 			"potion": [
-				"You meet {playerDisplay} who shows you {item}.",
-				"{playerDisplay} comes to talk to you, he comes to show you {item} !",
-				"{playerDisplay}, which you meet on your way, tells you that he in his hands a great potion. So he shows you {item}."
+				"You meet {playerDisplay}, who shows you {item}.",
+				"{playerDisplay} comes to talk to you, and to show off {item} !",
+				"{playerDisplay}, which you meet on your way, tell you that they are in possession of a great potion. they then proceed to show you {item}."
 			],
 			"object": [
-				"You meet {playerDisplay} who shows you {item}.",
-				"While talking with {playerDisplay}, he shows you {item}!",
-				"{playerDisplay}, a player walking along the same road as you pulls out an item from his collection. He proudly shows you {item}."
+				"You meet {playerDisplay}, who shows you {item}.",
+				"While talking with {playerDisplay}, they show you {item}!",
+				"{playerDisplay}, a player walking along the same road as you, pulls out an item from their collection. They proudly show you {item}."
 			],
 			":scream:": [
-				"You meet {playerDisplay}, which seems running in your direction. Indeed, this one is chased by bandits, wishing of his money. You support him part of the way before he regain his calm. Once reassured, you leave him and continue your way.",
-				"You see far {playerDisplay}, running as fast as possible to escape a pack of wolves, you haste to help him and retreat those wild beasts",
-				"You meet {playerDisplay}. He seems panicked. You ask him what makes him in all its forms. He tells you he was being chased by a dragon, but he managed to escape, losing some hairs by the way"
+				"You meet {playerDisplay}, which is seemingly running in your direction. Indeed, they are chased by a group of bandits that are after their money. It doesn't really concern you, so you just continue walking.",
+				"You see {playerDisplay} from afar, running as fast as possible to escape a pack of wolves, you hurry to help them and retreatdrive away those wild beasts",
+				"You meet {playerDisplay}. They seem panicked. You ask them why they are in such a state. They tell you they were chased by a dragon, but managed to escape, thankfully losing nothing but some hair in the whole mishap."
 			],
 			":clock2:": [
-				"You see {playerDisplay} and try to discuss with him, but he explains you that he's busy. That’s not a problem, you’ll talk next time and you each continue on your way.",
-				"In your journey, you find {playerDisplay} who seems very busy... You try to converse with him in vain, himself asking instead if you can help him complete his task.",
-				"On your way, you meet {playerDisplay} who seems very busy. You try to find out more, vainly, before going back to your journey."
+				"You see {playerDisplay} and try to chat with them, but they tell you they're busy. Knowing that, you make up you mind to talk to them next time, and you continue on your way.",
+				"While walking, you find {playerDisplay} who seem very busy... You try to converse with them in vain, and they ask you to buzz of and stop bothering them when they have better to do.",
+				"On your way, you meet {playerDisplay} who seems very busy. You try to find out more, without success, before going back to your journey."
 			],
 			":lock:": [
-				"As you quietly walk towards your destination, you notice guards handcuffing {playerDisplay}. Curious, you approach them and take note that he's going to jail, before resuming your journey not without asking yourself what he could've done to get sent in a cell.",
-				"Just as you're walking down the road, you meet prisoners being lead by guardians. As they're painfully going upwards, you manage to uncover them, including {playerDisplay}, who couldn't hold back his tears. You begin to get some pity towards the prisoners, but forget this feeling shortly thereafter by thinking that they weren't caught for nothing."
+				"As you quietly walk towards your destination, you notice guards handcuffing {playerDisplay}. Curious, you approach them and realize that they're going to jail. You then resume your journey, unwilling to waste more time on such unrelated matters. You however wonder what they could've done to get sent in a cell.",
+				"Just as you're walking down the road, you meet prisoners being lead by guards. As they're painfully going upwards, you manage to take see them, including {playerDisplay}, who seem to be having trouble holding back their tears. You begin to feel some pity for the prisoners, but forget this feeling shortly after by thinking that they most likely didn't end up in such a situation for nothing."
 			]
 		}
 	},
