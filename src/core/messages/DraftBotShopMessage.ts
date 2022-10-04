@@ -131,124 +131,120 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 
 	private static async shopCallback(this: void, msg: DraftBotReactionMessage): Promise<void> {
 		const shopMessage = msg as DraftBotShopMessage;
-		const choseShopItem = shopMessage.getChoseShopItem();
-		if (choseShopItem) {
-			const userMoney = await shopMessage.getUserMoney();
-			if (userMoney < choseShopItem.price) {
-				await sendErrorMessage(
-					shopMessage.user,
-					shopMessage._interaction,
-					shopMessage._language,
-					format(
-						shopMessage._translationModule.get("error.cannotBuy"),
-						{
-							missingMoney: choseShopItem.price - userMoney
-						}
-					)
-				);
-				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
-			}
-			else if (choseShopItem.amounts.length === 1 && choseShopItem.amounts[0] === 1) {
-				const confirmBuyMessage = new DraftBotValidateReactionMessage(
-					shopMessage.user,
-					async (reactionMessage) => {
-						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
-						if (validateMessage.isValidated()) {
-							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
-							const removeMoney = await choseShopItem.buyCallback(shopMessage, 1);
-							if (removeMoney) {
-								await shopMessage.removeUserMoney(choseShopItem.price);
-							}
-						}
-						else {
-							await sendErrorMessage(
-								shopMessage.user,
-								shopMessage._interaction,
-								shopMessage.language,
-								shopMessage._translationModule.get("error.canceledPurchase"),
-								true
-							);
-							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
-						}
-					}
-				);
-				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
-				confirmBuyMessage.setDescription(format(shopMessage._translationModule.get("display"), {
-					emote: choseShopItem.emote,
-					name: choseShopItem.name,
-					price: choseShopItem.price
-				}) + "\n\n" + Constants.REACTIONS.WARNING + " " + choseShopItem.description);
-				await confirmBuyMessage.send(shopMessage.sentMessage.channel);
-			}
-			else {
-				const numberReactions: DraftBotReaction[] = [];
-				const prices: number[] = [];
-				for (let i = 0; i < choseShopItem.amounts.length; ++i) {
-					const amount = choseShopItem.amounts[i];
-					const numberEmote: string = Constants.REACTIONS.NUMBERS[amount];
-					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < amount * choseShopItem.price) {
-						continue;
-					}
-					numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
-						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
-						const removeMoney = await choseShopItem.buyCallback(shopMessage, amount);
-						if (removeMoney) {
-							await shopMessage.removeUserMoney(choseShopItem.price * amount);
-						}
-						reactionMessage.stop();
-					}));
-					prices.push(amount * choseShopItem.price);
-				}
-				numberReactions.push(new DraftBotReaction(
-					Constants.REACTIONS.REFUSE_REACTION,
-					(reactionMessage: DraftBotReactionMessage): void => {
-						reactionMessage.stop();
-						sendErrorMessage(
-							shopMessage.user,
-							shopMessage._interaction,
-							shopMessage.language,
-							shopMessage._translationModule.get("error.canceledPurchase"),
-							true
-						).then(() => shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION));
-					}
-				));
-				const confirmBuyMessage = new DraftBotReactionMessage(
-					numberReactions,
-					[shopMessage.user.id],
-					null,
-					0,
-					false,
-					0
-				);
-				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
-				let desc = format(shopMessage._translationModule.get("multipleChoice.display"), {
-					emote: choseShopItem.emote,
-					name: choseShopItem.name
-				});
-				for (const price of prices) {
-					desc += format(shopMessage._translationModule.get("multipleChoice.priceDisplay"), {
-						price: price
-					});
-				}
-				desc += "\n\n" + choseShopItem.description + "\n\n" + Constants.REACTIONS.WARNING + " " + shopMessage._translationModule.get("multipleChoice.warning");
-				confirmBuyMessage.setDescription(desc);
-				await confirmBuyMessage.send(shopMessage.sentMessage.channel);
-			}
-		}
-		else {
+		const choseShopItem = shopMessage.getChoseShopItem(msg);
+		if (!choseShopItem) {
 			await sendErrorMessage(
 				shopMessage.user,
 				shopMessage._interaction,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true);
-			if (msg.getFirstReaction()) {
-				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
-			}
-			else {
-				shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
-			}
+			shopMessage._shopEndCallback(shopMessage, msg.getFirstReaction() ? ShopEndReason.REACTION : ShopEndReason.TIME);
+			return;
 		}
+		const userMoney = await shopMessage.getUserMoney();
+		if (userMoney < choseShopItem.price) {
+			await sendErrorMessage(
+				shopMessage.user,
+				shopMessage._interaction,
+				shopMessage._language,
+				format(
+					shopMessage._translationModule.get("error.cannotBuy"),
+					{
+						missingMoney: choseShopItem.price - userMoney
+					}
+				)
+			);
+			shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
+			return;
+		}
+		if (choseShopItem.amounts.length === 1 && choseShopItem.amounts[0] === 1) {
+			const confirmBuyMessage = new DraftBotValidateReactionMessage(
+				shopMessage.user,
+				async (reactionMessage) => {
+					const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
+					if (validateMessage.isValidated()) {
+						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
+						const removeMoney = await choseShopItem.buyCallback(shopMessage, 1);
+						if (removeMoney) {
+							await shopMessage.removeUserMoney(choseShopItem.price);
+						}
+					}
+					else {
+						await sendErrorMessage(
+							shopMessage.user,
+							shopMessage._interaction,
+							shopMessage.language,
+							shopMessage._translationModule.get("error.canceledPurchase"),
+							true
+						);
+						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
+					}
+				}
+			);
+			confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
+			confirmBuyMessage.setDescription(`${format(shopMessage._translationModule.get("display"), {
+				emote: choseShopItem.emote,
+				name: choseShopItem.name,
+				price: choseShopItem.price
+			})}\n\n${Constants.REACTIONS.WARNING} ${choseShopItem.description}`);
+			await confirmBuyMessage.send(shopMessage.sentMessage.channel);
+			return;
+		}
+		const numberReactions: DraftBotReaction[] = [];
+		const prices: number[] = [];
+		for (let i = 0; i < choseShopItem.amounts.length; ++i) {
+			const amount = choseShopItem.amounts[i];
+			const numberEmote: string = Constants.REACTIONS.NUMBERS[amount];
+			const total = amount * choseShopItem.price;
+			if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < total) {
+				continue;
+			}
+			numberReactions.push(new DraftBotReaction(numberEmote, (reactionMessage: DraftBotReactionMessage) => {
+				shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
+				choseShopItem.buyCallback(shopMessage, amount).then(async (result) => {
+					if (result) {
+						await shopMessage.removeUserMoney(total);
+					}
+					reactionMessage.stop();
+				});
+			}));
+			prices.push(total);
+		}
+		numberReactions.push(new DraftBotReaction(
+			Constants.REACTIONS.REFUSE_REACTION,
+			(reactionMessage: DraftBotReactionMessage): void => {
+				reactionMessage.stop();
+				sendErrorMessage(
+					shopMessage.user,
+					shopMessage._interaction,
+					shopMessage.language,
+					shopMessage._translationModule.get("error.canceledPurchase"),
+					true
+				).then(() => shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION));
+			}
+		));
+		const confirmBuyMessage = new DraftBotReactionMessage(
+			numberReactions,
+			[shopMessage.user.id],
+			null,
+			0,
+			false,
+			0
+		);
+		confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
+		let desc = format(shopMessage._translationModule.get("multipleChoice.display"), {
+			emote: choseShopItem.emote,
+			name: choseShopItem.name
+		});
+		for (const price of prices) {
+			desc += format(shopMessage._translationModule.get("multipleChoice.priceDisplay"), {
+				price: price
+			});
+		}
+		desc += `\n\n${choseShopItem.description}\n\n${Constants.REACTIONS.WARNING} ${shopMessage._translationModule.get("multipleChoice.warning")}`;
+		confirmBuyMessage.setDescription(desc);
+		await confirmBuyMessage.send(shopMessage.sentMessage.channel);
 	}
 
 	/**
@@ -259,10 +255,18 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return await this._getUserMoney(this._interaction.user.id);
 	}
 
-	private getChoseShopItem(): ShopItem {
-		// eslint-disable-next-line max-len
-		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
-		const index: number = this._shopItemReactions.indexOf(emoji);
+	/**
+	 * Get which item from the shop got chosen
+	 * @param msg
+	 * @private
+	 */
+	private getChoseShopItem(msg: DraftBotReactionMessage): ShopItem {
+		if (!msg.getFirstReaction()) {
+			return null;
+		}
+		const reaction = msg.getFirstReaction().emoji;
+		const emoji = !reaction.id ? reaction.name : `<:${reaction.name}:${reaction.id}>`;
+		const index = this._shopItemReactions.indexOf(emoji);
 		if (index === -1) {
 			return null;
 		}
