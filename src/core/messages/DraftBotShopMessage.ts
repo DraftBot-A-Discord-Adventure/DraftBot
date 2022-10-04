@@ -196,18 +196,20 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		for (let i = 0; i < choseShopItem.amounts.length; ++i) {
 			const amount = choseShopItem.amounts[i];
 			const numberEmote: string = Constants.REACTIONS.NUMBERS[amount];
-			if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < amount * choseShopItem.price) {
+			const total = amount * choseShopItem.price;
+			if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < total) {
 				continue;
 			}
-			numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
+			numberReactions.push(new DraftBotReaction(numberEmote, (reactionMessage: DraftBotReactionMessage) => {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
-				const removeMoney = await choseShopItem.buyCallback(shopMessage, amount);
-				if (removeMoney) {
-					await shopMessage.removeUserMoney(choseShopItem.price * amount);
-				}
-				reactionMessage.stop();
+				choseShopItem.buyCallback(shopMessage, amount).then(async (result) => {
+					if (result) {
+						await shopMessage.removeUserMoney(total);
+					}
+					reactionMessage.stop();
+				});
 			}));
-			prices.push(amount * choseShopItem.price);
+			prices.push(total);
 		}
 		numberReactions.push(new DraftBotReaction(
 			Constants.REACTIONS.REFUSE_REACTION,
@@ -253,6 +255,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return await this._getUserMoney(this._interaction.user.id);
 	}
 
+	/**
+	 * Get which item from the shop got chosen
+	 * @param msg
+	 * @private
+	 */
 	private getChoseShopItem(msg: DraftBotReactionMessage): ShopItem {
 		if (!msg.getFirstReaction()) {
 			return null;
