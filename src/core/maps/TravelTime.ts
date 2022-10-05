@@ -202,8 +202,10 @@ export class TravelTime {
 	 */
 	static async applyEffect(player: Player, effect: string, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
 		// Reason is IGNORE here because you don't want to log a time warp when you get an alteration
-		// First remove the effect
-		await this.removeEffect(player, NumberChangeReason.IGNORE);
+		// First remove the effect (if the effect is time related)
+		if (![EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD].includes(player.effect)) {
+			await this.removeEffect(player, NumberChangeReason.IGNORE);
+		}
 
 		// Apply the new effect
 		player.effect = effect;
