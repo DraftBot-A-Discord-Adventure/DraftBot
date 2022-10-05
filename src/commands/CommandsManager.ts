@@ -106,9 +106,10 @@ export class CommandsManager {
 	/**
 	 * Register the bot at launch
 	 * @param client
+	 * @param isMainShard
 	 */
-	static async register(client: Client): Promise<void> {
-		await this.registerAllCommands(client);
+	static async register(client: Client, isMainShard: boolean): Promise<void> {
+		await this.registerAllCommands(client, isMainShard);
 
 		this.manageInteractionCreate(client);
 
@@ -118,8 +119,9 @@ export class CommandsManager {
 	/**
 	 * Register all commands at launch
 	 * @param client
+	 * @param isMainShard
 	 */
-	static async registerAllCommands(client: Client): Promise<void> {
+	static async registerAllCommands(client: Client, isMainShard: boolean): Promise<void> {
 		try {
 			const commands = (await client.application.commands.fetch({withLocalizations: true}))
 				.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
@@ -135,13 +137,17 @@ export class CommandsManager {
 			const commandsToCheck = [];
 			for (const commandInfo of commandsToRegister) {
 				this.setCommandDefaultParameters(commandInfo);
-				commandsToCheck.push(this.createOrUpdateCommand(client, CommandsManager.commandsInstances.get(commandInfo.slashCommandBuilder.name), commandInfo));
+				if (isMainShard) {
+					commandsToCheck.push(this.createOrUpdateCommand(client, CommandsManager.commandsInstances.get(commandInfo.slashCommandBuilder.name), commandInfo));
+				}
 				CommandsManager.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			}
-			await Promise.all(commandsToCheck);
+			if (isMainShard) {
+				await Promise.all(commandsToCheck);
 
-			// Delete removed commands, we do it after because CommandsManager.commands is populated
-			await this.deleteCommands(client);
+				// Delete removed commands, we do it after because CommandsManager.commands is populated
+				await this.deleteCommands(client);
+			}
 		}
 		catch (err) {
 			console.log(err);

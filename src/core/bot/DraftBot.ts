@@ -274,7 +274,7 @@ export class DraftBot {
 		});
 		await this.gameDatabase.init(this.isMainShard);
 		await this.logsDatabase.init(this.isMainShard);
-		await CommandsManager.register(draftBotClient);
+		await CommandsManager.register(draftBotClient, this.isMainShard);
 		if (this.config.TEST_MODE === true) {
 			await CommandsTest.init();
 		}
