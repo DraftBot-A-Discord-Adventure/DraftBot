@@ -1,14 +1,14 @@
-name: Docker Image CI
+name: Docker Image Master CI
 
-on:
+on:  
   push:
-    branches:
-      - develop
-  workflow_dispatch:
-  
+    tags:
+      - '*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
     -
       name: Checkout
@@ -22,9 +22,6 @@ jobs:
     -
       name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-    - name: Get current date
-      id: date
-      run: echo "::set-output name=date::$(date +'%s')"
     -
       name: Build and push
       uses: docker/build-push-action@v3
@@ -32,4 +29,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/draftbot-dev:latest,${{ secrets.DOCKER_HUB_USERNAME }}/draftbot-dev:${{ steps.date.outputs.date }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/draftbot:latest,${{ secrets.DOCKER_HUB_USERNAME }}/draftbot:${{ github.ref_name }}
