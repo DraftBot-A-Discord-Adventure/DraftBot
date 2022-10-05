@@ -12,6 +12,8 @@ test_mode = false
 token = ""
 # Put id of the discord server where the announcements will be done etc.
 main_server_id = ""
+# Shards count
+shards_count = 1
 
 [discord.users]
 # The bot will use this to check if you can use admins commands

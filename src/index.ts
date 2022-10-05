@@ -17,11 +17,12 @@ const shardCount = "auto";
  */
 function main(): void {
 	startIPCServer();
+	const config = loadConfig();
 
 	const shardingManager = new ShardingManager("./dist/src/core/bot/index.js", {
-		totalShards: shardCount,
+		totalShards: config.SHARDS_COUNT,
 		// Needed as in auto mode it has to make a request to know the needed number of shards
-		token: loadConfig().DISCORD_CLIENT_TOKEN
+		token: config.DISCORD_CLIENT_TOKEN
 	});
 
 	shardingManager.on("shardCreate", shard => {

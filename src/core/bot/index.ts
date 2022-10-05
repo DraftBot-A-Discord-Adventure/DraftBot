@@ -45,7 +45,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 
 		console.log("############################################");
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
-		if (guild) {
+		if (guild && guild.members) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
 					content: format(BotConstants.START_STATUS, {
@@ -68,6 +68,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 async function main(): Promise<void> {
 	const client = new Client(
 		{
+			shardCount: botConfig.SHARDS_COUNT,
 			intents: Intents.LIST,
 			allowedMentions: {parse: ["users", "roles"]},
 			partials: [Partials.Message, Partials.Channel],

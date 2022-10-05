@@ -30,6 +30,7 @@ export interface DraftBotConfig {
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
 	MARIADB_PREFIX: string;
+	SHARDS_COUNT: number
 }
 
 /**
@@ -62,6 +63,7 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
-		MARIADB_PREFIX: config.database.prefix
+		MARIADB_PREFIX: config.database.prefix,
+		SHARDS_COUNT: config.discord.general.shards_count
 	};
 }
