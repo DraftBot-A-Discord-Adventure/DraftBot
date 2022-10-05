@@ -188,7 +188,9 @@
 				"Vous pouvez préciser l'argument `force` de la commande {command:drink} à `true` pour éviter d'avoir à confirmer lorsque vous buvez une potion.",
 				"Les pastilles bleu sur le classement indiquent les joueurs présent sur le serveur où la commande a été effectuée.",
 				"Le passe-mission ne vous permet pas d'obtenir les récompenses de la mission passée.",
-				"Le passe-mission ne permet de passer que les missions secondaires."
+				"Le passe-mission ne permet de passer que les missions secondaires.",
+				"Vous pouvez consulter notre politique de confidentialité en suivant ce lien : https://draftbot.com/confidentialite/",
+				"Vous pouvez consulter nos conditions d'utilisation en suivant ce lien : https://draftbot.com/conditionsutilisation/"
 			]
 		},
 		"en": {
@@ -366,7 +368,9 @@
 				"The {command:drink} command with the `force` option set to `true` allows you to avoid having to confirm when you drink a potion",
 				"The blue dots on the leaderboard indicate the players that are on the server where the command was made",
 				"The mission skip does not allow you to get the rewards of the skipped mission",
-				"The mission skip only allows you to skip the secondary missions."
+				"The mission skip only allows you to skip the secondary missions.",
+				"You can read our privacy policy by following this link: https://draftbot.com/privacy/",
+				"You can read our terms of services by following this link: https://draftbot.com/tos/"
 			]
 		}
 	}
