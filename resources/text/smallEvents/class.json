@@ -116,7 +116,7 @@
 					"your feet bump on something emerging from the ground, which compels you to search the ground, netting you an item...",
 					"you notice a weirdly-shaped shadow in a corner of your field of vision. Naturally intrigued, you approach it, and while doing so, realize it is an item that could be helpful for your adventure...",
 					"you decide to lean on a tree. While sitting, you feel a pain on your back. You get up quickly to find... an item!",
-					"you absent-mindedly walk, which causes you tu trip over a bunch of roots ! While getting up , you discover an item !"
+					"you absent-mindedly walk, which causes you to trip over a bunch of roots ! While getting up , you discover an item !"
 				],
 				"winHealth": [
 					"you encounter some villagers remembering your prowess. They offer you a bag in which you find provisions that you eat before resuming your journey. You gain **{health} :heart:**.",
