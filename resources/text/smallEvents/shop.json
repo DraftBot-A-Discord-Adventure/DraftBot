@@ -3,20 +3,20 @@
 		"fr": {
 			"intro": [
 				[
-					"Alors que vous voyagez tranquillement, vous rencontrez {name}, ce dernier est un marchand ambulant et semble vous proposer une offre spéciale.",
-					"Tandis que vous avancez tranquillement sur votre route, vous tombez nez à nez avec {name} qui vous propose rapidement une offre alléchante.",
+					"Alors que vous voyagez tranquillement, vous rencontrez {name}. Ce dernier est un marchand ambulant, et vous propose une offre spéciale.",
+					"Tandis que vous avancez tranquillement sur votre route, vous tombez nez à nez avec {name}, qui vous propose rapidement une offre alléchante.",
 					"Alors que vous vous apprêtez à vous remettre en marche après une petite pause, un homme se présentant comme \"{name} - marchand ambulant\" vous propose un échange.",
-					"Au détour d'un rocher, vous tombez nez à nez avec un marchand ambulant nommé {name} qui semble vendre des choses fortes intéressantes",
-					"Alors que vous vous baladez tranquillement, une charrette arborant l'enseigne \"{name} - super marchand ambulant d'item\" apparaît devant vous. Une transaction s'amorce immédiatement.",
-					"Pendant votre voyage, un marchand vous interpelle soudainement ! Il dit s'appeler {name} et avoir des objets pouvant vous aider pendant votre aventure.",
-					"Après de longues heures de marche, un homme vous aborde, vous apprenez qu'il se nomme {name} – marchand de première qualité. Il vous montre rapidement un de ses nombreux objets.",
+					"Au détour d'un rocher, vous tombez nez à nez avec un marchand ambulant nommé {name}, qui semble vendre des choses fortes intéressantes",
+					"Alors que vous vous baladez tranquillement, une charrette arborant l'enseigne \"{name} - super marchand ambulant d'items\" apparaît devant vous. Une transaction s'amorce immédiatement.",
+					"À un certain point de votre voyage, un marchand vous interpelle. Il dit s'appeler {name} et avoir des objets pouvant vous aider pendant votre aventure.",
+					"Après de longues heures de marche, un homme vous aborde. Vous apprenez qu'il se nomme {name} – marchand de première qualité. Il vous montre rapidement un de ses nombreux objets.",
 					"Au cours d'une petite pause contre un arbre, un homme vient à vous et se présente comme étant marchand ambulant. L'homme qui se nomme {name} semble proposer une offre alléchante."
 				],
 				[
 					"Tandis que vous avancez tranquillement sur votre route, vous tombez nez à nez avec {name} qui vous propose rapidement une offre alléchante.",
 					"En parcourant les routes vous rencontrez souvent des marchands ambulants. Aujourd'hui c'est une marchande, nommée {name} qui vous propose son offre.",
-					"Pendant votre voyage, une marchande vous interpelle soudainement ! Elle dit s'appeler {name} et avoir des objets pouvant vous aider pendant votre aventure.",
-					"Tandis que vous avancez tranquillement sur votre route, vous croisez une charrette dans laquelle se trouve une marchande du nom de {name}. Celle-ci vous propose de lui acheter l'un de ses objets, vous affirmant qu'ils pourraient vous être utiles dans votre aventure."
+					"Pendant votre voyage, une marchande vous interpelle. Elle dit s'appeler {name} et avoir des objets pouvant vous aider pendant votre aventure.",
+					"Tandis que vous avancez tranquillement sur votre route, vous croisez une charrette dans laquelle se trouve une marchande du nom de {name}. Celle-ci vous propose de lui acheter l'un de ses objets, vous affirmant qu'il pourrait vous être utile dans votre aventure."
 				]
 			],
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type :** {type}",
@@ -61,20 +61,20 @@
 		"en": {
 			"intro": [
 				[
-					"While travelling, you meet {name}, he is an itinerant trader and seems to give to you his most special offer.",
-					"As you walk along your path, you come face to face with {name} who quickly makes you an attractive offer.",
-					"As you are about to start walking again after a short break, a man introducing himself as \"{name} - itinerant merchant\" proposes you an exchange.",
-					"As you turn a rock, you come face to face with an itinerant merchant named {name} who seems to sell very interesting things",
-					"As you are walking along, a cart with the sign \"{name} - super item itinerant merchant\" comes in front of you. A transaction starts immediately.",
-					"During your adventure, a merchant suddenly calls out to you! He says his name is {name} and that he has some items that can help you during your adventure.",
-					"After many hours of walking, a man approaches you, you learn that he is called {name} - a first-class merchant. He quickly shows you one of his many items.",
-					"During a short break against a tree, a man comes up to you and introduces himself as an itinerant merchant. The man, who calls himself {name}, seems to be offering a very attractive deal."
+					"While travelling, you meet {name}. He is an itinerant trader, and claims to offer you only the best of prices.",
+					"As you walk along an old path, you stumble upon {name}, who quickly makes you an attractive offer.",
+					"As you are about to start walking again after a short break, a man, introducing himself as \"{name} - itinerant merchant\" proposes a trade.",
+					"At the turn of a road, you come face to face with an itinerant merchant named {name}, who is seemingly selling very interesting things",
+					"As you are walking along a stone path covered in dust, a cart with the sign \"{name} - super item merchant\" comes in front of you. A transaction is soon initiated.",
+					"During your adventure, a merchant suddenly calls out to you! He says his name is {name}, and claims to have some items that will help you in the future.",
+					"After many hours of lonely walking across plains, a man approaches you. You learn that he is called {name} - a first-class merchant. He quickly shows you one of his many items.",
+					"During a short break against a tree, a man comes up to you and introduces himself as an itinerant merchant. The man, calling himself {name}, seems to be offering a very attractive deal."
 				],
 				[
-					"As you walk along your path, you come face to face with {name} who quickly makes you an attractive offer.",
-					"You are used to stumble across itinerant merchant during your travel. The one you meet today, named {name} offer to you her best deal.",
-					"During your adventure, a merchant suddenly calls out to you! She says her name is {name} and that she has some items that can help you during your adventure.",
-					"As you make your way along the road, you come across a cart with a merchant named {name} in it. She proposes you to buy one of her items, saying that they might be useful in your adventure."
+					"As you walk on a derelict road, you meet {name}, who quickly proposes you an attractive trade offer.",
+					"You are used to come across itinerant merchant during your travels. The one you meet today, named {name}, offers you her best deal.",
+					"During your adventure, a merchant suddenly calls out to you! She says her name is {name}, and claims to have some items that can help you during your adventure.",
+					"As you make your way along the road, you see a cart with a merchant named {name} in it. She encourages you to buy one of her items, saying that they might be useful in your adventure."
 				]
 			],
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type:** {type}",
