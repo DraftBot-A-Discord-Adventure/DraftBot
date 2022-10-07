@@ -355,23 +355,37 @@ export class CommandsManager {
 
 		try {
 			if (breakingChange || softChange) {
-				if (!command) {
-					if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-						await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+				const guildCommand = commandInfo.mainGuildCommand || botConfig.TEST_MODE;
+
+				if (command) {
+					if (guildCommand) {
+						if (!command.guildId) {
+							await client.application.commands.delete(command.id);
+							await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+							console.log(`Deleted global command and created guild command "${commandInfo.slashCommandBuilder.name}"`);
+						}
+						else {
+							await client.application.commands.edit(command.id, commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+							console.log(`Modified guild command "${commandInfo.slashCommandBuilder.name}"`);
+						}
 					}
-					else {
+					else if (command.guildId) {
+						await client.application.commands.delete(command.id, botConfig.MAIN_SERVER_ID);
 						await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
-					}
-					console.log(`Created command "${commandInfo.slashCommandBuilder.name}"`);
-				}
-				else {
-					if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
-						await client.application.commands.edit(command.id, commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+						console.log(`Deleted guild command and created global command "${commandInfo.slashCommandBuilder.name}"`);
 					}
 					else {
 						await client.application.commands.edit(command.id, commandInfo.slashCommandBuilder.toJSON());
+						console.log(`Modified global command "${commandInfo.slashCommandBuilder.name}"`);
 					}
-					console.log(`Modified command "${commandInfo.slashCommandBuilder.name}"`);
+				}
+				else if (guildCommand) {
+					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON(), botConfig.MAIN_SERVER_ID);
+					console.log(`Created guild command "${commandInfo.slashCommandBuilder.name}"`);
+				}
+				else {
+					await client.application.commands.create(commandInfo.slashCommandBuilder.toJSON());
+					console.log(`Created global command "${commandInfo.slashCommandBuilder.name}"`);
 				}
 			}
 		}
