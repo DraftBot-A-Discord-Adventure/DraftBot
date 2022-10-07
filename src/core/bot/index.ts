@@ -43,6 +43,9 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			console.log("Launched main shard");
 		}
 
+		draftBotClient.user
+			.setActivity(BotConstants.ACTIVITY);
+
 		console.log("############################################");
 		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild) {
@@ -57,8 +60,6 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			await DBL.verifyDBLRoles();
 			DBL.startDBLWebhook();
 		}
-		draftBotClient.user
-			.setActivity(BotConstants.ACTIVITY);
 	}
 });
 
