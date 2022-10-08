@@ -6,7 +6,7 @@
 				"mainMessage": ":star: | {mention} vient d'atteindre le niveau **{level}**\n\n",
 				"healthRestored": ":heart: | Vie restaurée à son maximum",
 				"fightUnlocked": ":dagger: | Combats débloqués avec la commande `fight` ! Pour plus d'informations sur les combats, exécutez la commande `help fight`",
-				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes `guild`, `guildCreate`, `guildAdd`, `guildLeave`, `guildDaily`, `guildKick` et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande `help`.",
+				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes `guild`, `guildCreate`, `guildInvite`, `guildLeave`, `guildDaily`, `guildKick` et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande `help`.",
 				"classUnlocked": ":bookmark: | Classes débloquées avec les commandes `class` et `classinfo` ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
 				"classTiertwo": ":bookmark: | Classes de palier 2 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
 				"classTierthree": ":bookmark: | Classes de palier 3 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",

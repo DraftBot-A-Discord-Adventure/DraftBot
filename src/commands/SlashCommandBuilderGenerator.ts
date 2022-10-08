@@ -4,6 +4,7 @@
 import {TranslationModule} from "../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {SlashCommandUserOption} from "@discordjs/builders/dist/interactions/slashCommands/options/user";
+import {SlashCommandIntegerOption} from "discord.js";
 
 
 export class SlashCommandBuilderGenerator {
@@ -36,7 +37,7 @@ export class SlashCommandBuilderGenerator {
 			});
 	}
 
-	static generateRankOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandUserOption): SlashCommandUserOption {
+	static generateRankOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandIntegerOption): SlashCommandIntegerOption {
 		return option.setName(currentCommandEnglishTranslations.get("optionRankName"))
 			.setNameLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionRankName")

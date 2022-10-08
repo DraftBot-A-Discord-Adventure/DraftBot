@@ -130,7 +130,8 @@ function getCommandAliasMap(): Map<string, string> {
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed();
-	const askedCommand = interaction.options.get("command") ? interaction.options.get("command").value as string : null;
+	const command = interaction.options.get(Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH).get("optionCommandName"));
+	const askedCommand = command ? command.value as string : null;
 	if (!askedCommand) {
 		generateGenericHelpMessage(helpMessage, tr, interaction);
 		await interaction.reply({
