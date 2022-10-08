@@ -39,15 +39,14 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 		const draftBot = new DraftBot(draftBotClient, botConfig, mainShard);
 		draftBotInstance = draftBot;
 		await draftBot.init();
-		if (mainShard) {
-			console.log("Launched main shard");
+		if (!mainShard) {
+			return;
 		}
-
+		console.log("Launched main shard");
 		draftBotClient.user
 			.setActivity(BotConstants.ACTIVITY);
-
 		console.log("############################################");
-		const guild = await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
+		const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 		if (guild && guild.shard) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
