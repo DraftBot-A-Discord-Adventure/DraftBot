@@ -8,12 +8,7 @@ import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEven
 import Possibility from "../../core/database/game/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
-import {
-	millisecondsToMinutes,
-	minutesDisplay,
-	minutesToHours,
-	parseTimeDifference
-} from "../../core/utils/TimeUtils";
+import {millisecondsToMinutes, minutesDisplay, minutesToHours, parseTimeDifference} from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/database/game/models/Tag";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -174,6 +169,7 @@ async function needBigEvent(entity: Entity, date: Date): Promise<boolean> {
 async function sendTravelPath(entity: Entity, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
+	const timeData = await TravelTime.getTravelData(entity.Player, date);
 	travelEmbed.formatAuthor(tr.get("travelPathTitle"), interaction.user);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, date, effect));
 	travelEmbed.addFields({
@@ -195,14 +191,8 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 		});
 	}
 	else {
-		let millisecondsBeforeSmallEvent = (await TravelTime.getTravelData(entity.Player, date)).nextSmallEventTime - date.valueOf();
-		if (entity.Player.PlayerSmallEvents.length !== 0) {
-			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.valueOf() ? lastMiniEvent.time : entity.Player.effectEndDate.valueOf();
-			millisecondsBeforeSmallEvent += lastTime - date.valueOf();
-		}
-		const travelData = await TravelTime.getTravelDataSimplified(entity.Player, date);
-		const millisecondsBeforeBigEvent = travelData.travelEndTime - travelData.travelStartTime - travelData.effectDuration - travelData.playerTravelledTime;
+		const millisecondsBeforeSmallEvent = timeData.nextSmallEventTime - date.valueOf();
+		const millisecondsBeforeBigEvent = timeData.travelEndTime - timeData.travelStartTime - timeData.effectDuration - timeData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
 			travelEmbed.addFields({
@@ -210,23 +200,19 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 				value: tr.get("travellingDescriptionEndTravel")
 			});
 		}
-		else if (entity.Player.PlayerSmallEvents.length !== 0) {
-			// the first mini event of the travel is calculated differently
-			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-			travelEmbed.addFields({
-				name: tr.get("travellingTitle"),
-				value: tr.format("travellingDescription", {
-					smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
-					time: parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language)
-				})
-			});
-		}
 		else {
+			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			const timeBeforeSmallEvent = parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language);
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
-				value: tr.format("travellingDescriptionWithoutSmallEvent", {
-					time: parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language)
-				})
+				value: lastMiniEvent && lastMiniEvent.time > timeData.travelStartTime
+					? tr.format("travellingDescription", {
+						smallEventEmoji: Data.getModule(`smallEvents.${lastMiniEvent.eventType}`).getString("emote"),
+						time: timeBeforeSmallEvent
+					})
+					: tr.format("travellingDescriptionWithoutSmallEvent", {
+						time: timeBeforeSmallEvent
+					})
 			});
 		}
 	}
@@ -239,7 +225,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 
 	travelEmbed.addFields({
 		name: tr.get("adviceTitle"),
-		value: format(Translations.getModule("advices", language).getRandom("advices"),{}),
+		value: format(Translations.getModule("advices", language).getRandom("advices"), {}),
 		inline: true
 	});
 	await interaction.reply({embeds: [travelEmbed]});

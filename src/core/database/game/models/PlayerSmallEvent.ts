@@ -26,12 +26,12 @@ export class PlayerSmallEvents {
 	}
 
 	static getLast(playerSmallEvents: PlayerSmallEvent[]): PlayerSmallEvent {
-		let mostRecent = null;
+		if (!playerSmallEvents) {
+			return null;
+		}
+		let mostRecent = playerSmallEvents[0];
 		for (const smallEvent of playerSmallEvents) {
-			if (mostRecent === null) {
-				mostRecent = smallEvent;
-			}
-			else if (smallEvent.id >= mostRecent.id) {
+			if (smallEvent.time >= mostRecent.time) {
 				mostRecent = smallEvent;
 			}
 		}
