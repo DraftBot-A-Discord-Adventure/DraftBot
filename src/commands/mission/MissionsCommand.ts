@@ -54,7 +54,7 @@ export const commandInfo: ICommand = {
 				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
 			).setRequired(false)
 		)
-		.addUserOption(option =>
+		.addIntegerOption(option =>
 			SlashCommandBuilderGenerator.generateRankOption(
 				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
 			).setRequired(false)) as SlashCommandBuilder,

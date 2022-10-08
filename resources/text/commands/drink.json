@@ -3,6 +3,8 @@
 		"fr": {
 			"commandName": "boire",
 			"commandDescription": "Boire la potion équipée.",
+			"optionForceName": "forcer",
+			"optionForceDescription": "Si vrai, passe la phase de validation si vous êtes sur de vouloir boire la potion",
 			"noBonus": "❌ Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
 			"objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
 			"noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
@@ -19,6 +21,8 @@
 		"en": {
 			"commandName": "drink",
 			"commandDescription": "Drink the equipped potion.",
+			"optionForceName": "force",
+			"optionForceDescription": "If true, skips the validation phase if you are really sure you want to drink the potion",
 			"noBonus": "❌ You consumed the beverage you carried... But it has no effect !",
 			"objectIsActiveDuringFights": "This potion cannot be drunk now. It'll be used during your next fight!",
 			"noDrinkError": "{pseudo}, hmmm... It didn't work!",

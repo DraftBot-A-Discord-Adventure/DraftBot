@@ -171,7 +171,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
 
-	const shelterPositionOption = interaction.options.get("shelterposition");
+	const shelterPositionOption = interaction.options.get(Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH).get("optionPositionName"));
 
 	if (shelterPositionOption === null) {
 		await transferPetToGuild(interaction, petTransferModule, entity, guild, confirmEmbed);

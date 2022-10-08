@@ -201,7 +201,7 @@ async function displayTop(
  * @param pageMax
  */
 function getShownPage(interaction: CommandInteraction, pageMax: number): number {
-	const page = interaction.options.get("page");
+	const page = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionPageName"));
 	if (!page) {
 		return 1;
 	}
@@ -218,8 +218,10 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const scope = interaction.options.get("scope") ? interaction.options.get("scope").value as string : TopConstants.GLOBAL_SCOPE;
-	const timing = interaction.options.get("timing") ? interaction.options.get("timing").value as string : TopConstants.TIMING_ALLTIME;
+	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
+	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
+	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
+	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
 	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
 
 	if (scope === TopConstants.SERVER_SCOPE) {
