@@ -56,6 +56,7 @@ body:
           description: Pour connaître votre numéro de shard, utilisez la commande /ping.
           multiple: false
           options:
+              - Tous
               - Shard 0
               - Shard 1
               - Shard 2
