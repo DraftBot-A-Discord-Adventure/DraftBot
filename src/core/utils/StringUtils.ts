@@ -98,7 +98,7 @@ export function isAnEmoji(variable: string): boolean {
  */
 export function getIdFromMention(variable: string): string {
 	if (typeof variable === "string") {
-		return variable.slice(3, variable.length - 1);
+		return "".concat(...variable.split("").filter((c) => c.match(/[0-9]/)));
 	}
 	return "";
 }
