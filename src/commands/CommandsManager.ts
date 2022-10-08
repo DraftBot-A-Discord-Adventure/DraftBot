@@ -505,22 +505,20 @@ export class CommandsManager {
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [entity] = await Entities.getOrRegister(author);
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
-			if (client.guilds.cache.get(context.mainServerId)) {
-				const dmChannel = client.users.cache.get(context.dmManagerID);
-				if (!dmChannel) {
-					console.warn("WARNING : could not find a place to forward the DM message.");
-					return;
-				}
-				for (const attachment of context.attachments) {
-					dmChannel.send({
-						files: [{
-							attachment: attachment.url,
-							name: attachment.name
-						}]
-					});
-				}
-				dmChannel.send({content: context.supportAlert});
+			const dmChannel = client.users.cache.get(context.dmManagerID);
+			if (!dmChannel) {
+				console.warn("WARNING : could not find a place to forward the DM message.");
+				return;
 			}
+			for (const attachment of context.attachments) {
+				dmChannel.send({
+					files: [{
+						attachment: attachment.url,
+						name: attachment.name
+					}]
+				});
+			}
+			dmChannel.send({content: context.supportAlert});
 		}, {
 			context: {
 				mainServerId: botConfig.MAIN_SERVER_ID,
