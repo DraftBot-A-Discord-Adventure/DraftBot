@@ -39,7 +39,7 @@ export class DBL {
 		draftBotInstance.logsDatabase.logVote(discordId).then();
 		await draftBotClient.shard.broadcastEval((client, context) => {
 			const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-			if (guild) {
+			if (guild && guild.shard) {
 				guild.members.fetch(context.discordId).then((member) => {
 					guild.roles.fetch(context.config.DBL_VOTE_ROLE).then((roleToAdd) => {
 						if (member) {

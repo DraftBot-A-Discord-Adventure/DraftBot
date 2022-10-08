@@ -180,31 +180,34 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
-				try {
-					guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-						(channel as TextChannel).send({
-							content: context.frSentence
-						}).then(message => {
-							message.react("🏆").then();
-						});
-					});
-				}
-				catch {
-					// Ignore
-				}
-				try {
-					guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-						(channel as TextChannel).send({
-							content: context.enSentence
-						}).then(message => {
-							message.react("🏆").then();
-						});
-					});
-				}
-				catch {
-					// Ignore
-				}
+				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
+					if (guild.shard) {
+						try {
+							guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.frSentence
+								}).then(message => {
+									message.react("🏆").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+						try {
+							guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.enSentence
+								}).then(message => {
+									message.react("🏆").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+					}
+				});
 			}, {
 				context: {
 					config: botConfig,
