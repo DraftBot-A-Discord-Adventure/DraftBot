@@ -152,9 +152,16 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.drink"
 const currentCommandEnglishTranslations = Translations.getModule("commands.drink", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addBooleanOption(option => option.setName("force")
-			.setRequired(false)
-			.setDescription("If true, skips the validation phase if you are really sure you want to drink the potion")
+		.addBooleanOption(
+			option => option.setName(currentCommandEnglishTranslations.get("optionForceName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionForceName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("optionForceDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionForceDescription")
+				})
+				.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {},

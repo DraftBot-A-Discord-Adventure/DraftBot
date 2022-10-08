@@ -28,8 +28,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
 		return;
 	}
-
-	const petNickname = interaction.options.get("name") ? interaction.options.get("name").value as string : null;
+	const petNicknameUntested = interaction.options.get(Translations.getModule("commands.petNickname", Constants.LANGUAGE.ENGLISH).get("optionNickName"));
+	const petNickname = petNicknameUntested ? petNicknameUntested.value as string : null;
 	const successEmbed = new DraftBotEmbed()
 		.formatAuthor(petNickTranslations.get("successTitle"), interaction.user);
 	if (petNickname === null) {

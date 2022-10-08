@@ -24,19 +24,19 @@ type InviterUserInformation = { guild: Guild, entity: Entity };
  * @param inviter
  * @param invited
  * @param interaction
- * @param guildAddModule
+ * @param guildInviteModule
  */
 function getEndCallbackGuildAdd(
 	inviter: InviterUserInformation,
 	invited: InvitedUserInformation,
 	interaction: CommandInteraction,
-	guildAddModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
+	guildInviteModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(invited.invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
 		if (!msg.isValidated()) {
 			// Cancel the creation
-			await sendErrorMessage(invited.invitedUser, interaction, guildAddModule.language,
-				guildAddModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
+			await sendErrorMessage(invited.invitedUser, interaction, guildInviteModule.language,
+				guildInviteModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
 			return;
 		}
 		try {
@@ -50,8 +50,8 @@ function getEndCallbackGuildAdd(
 			await sendErrorMessage(
 				invited.invitedUser,
 				interaction,
-				guildAddModule.language,
-				guildAddModule.get("guildDestroy")
+				guildInviteModule.language,
+				guildInviteModule.get("guildDestroy")
 			);
 			return;
 		}
@@ -59,8 +59,8 @@ function getEndCallbackGuildAdd(
 			await sendErrorMessage(
 				interaction.user,
 				interaction,
-				guildAddModule.language,
-				guildAddModule.get("guildFull")
+				guildInviteModule.language,
+				guildInviteModule.get("guildFull")
 			);
 			return;
 		}
@@ -75,8 +75,8 @@ function getEndCallbackGuildAdd(
 
 		draftBotInstance.logsDatabase.logGuildJoin(inviter.entity.discordUserId, invited.invitedEntity.discordUserId, inviter.guild).then();
 
-		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {missionId: "joinGuild"});
-		await MissionsController.update(invited.invitedEntity, interaction.channel, guildAddModule.language, {
+		await MissionsController.update(invited.invitedEntity, interaction.channel, guildInviteModule.language, {missionId: "joinGuild"});
+		await MissionsController.update(invited.invitedEntity, interaction.channel, guildInviteModule.language, {
 			missionId: "guildLevel",
 			count: inviter.guild.level,
 			set: true
@@ -87,14 +87,14 @@ function getEndCallbackGuildAdd(
 				new DraftBotEmbed()
 					.setAuthor(
 						{
-							name: guildAddModule.format("successTitle", {
+							name: guildInviteModule.format("successTitle", {
 								pseudo: escapeUsername(invited.invitedUser.username),
 								guildName: inviter.guild.name
 							}),
 							iconURL: invited.invitedUser.displayAvatarURL()
 						}
 					)
-					.setDescription(guildAddModule.get("invitationSuccess"))
+					.setDescription(guildInviteModule.get("invitationSuccess"))
 			]
 		});
 	};
@@ -107,7 +107,7 @@ function getEndCallbackGuildAdd(
  * @param entity
  */
 async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const guildAddModule = Translations.getModule("commands.guildAdd", language);
+	const guildInviteModule = Translations.getModule("commands.guildInvite", language);
 	const invitedEntity = await Entities.getByOptions(interaction);
 
 	if (invitedEntity.Player.level < Constants.GUILD.REQUIRED_LEVEL) {
@@ -115,7 +115,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(
 			interaction,
 			language,
-			guildAddModule.format("levelTooLow",
+			guildInviteModule.format("levelTooLow",
 				{
 					pseudo: await invitedEntity.Player.getPseudo(language),
 					level: Constants.GUILD.REQUIRED_LEVEL,
@@ -148,7 +148,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(
 			interaction,
 			language,
-			guildAddModule.get("alreadyInAGuild")
+			guildInviteModule.get("alreadyInAGuild")
 		);
 		return;
 	}
@@ -159,7 +159,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			interaction.user,
 			interaction,
 			language,
-			guildAddModule.get("guildFull")
+			guildInviteModule.get("guildFull")
 		);
 		return;
 	}
@@ -168,19 +168,19 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		{guild, entity},
 		{invitedEntity, invitedUser},
 		interaction,
-		guildAddModule
+		guildInviteModule
 	);
 
 	await new DraftBotValidateReactionMessage(invitedUser, endCallback)
-		.formatAuthor(guildAddModule.get("invitationTitle"), invitedUser)
-		.setDescription(guildAddModule.format("invitation", {
+		.formatAuthor(guildInviteModule.get("invitationTitle"), invitedUser)
+		.setDescription(guildInviteModule.format("invitation", {
 			guildName: guild.name
 		}))
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(invitedEntity.discordUserId, BlockingConstants.REASONS.GUILD_ADD, collector));
 }
 
-const currentCommandFrenchTranslations = Translations.getModule("commands.guildAdd", Constants.LANGUAGE.FRENCH);
-const currentCommandEnglishTranslations = Translations.getModule("commands.guildAdd", Constants.LANGUAGE.ENGLISH);
+const currentCommandFrenchTranslations = Translations.getModule("commands.guildInvite", Constants.LANGUAGE.FRENCH);
+const currentCommandEnglishTranslations = Translations.getModule("commands.guildInvite", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addUserOption(option =>

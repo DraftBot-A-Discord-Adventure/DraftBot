@@ -92,7 +92,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const guildDescriptionModule = Translations.getModule("commands.guildDescription", language);
 
-	const guildDescription = interaction.options.get("description").value as string;
+	const guildDescription = interaction.options.get(Translations.getModule("commands.guildDescription", Constants.LANGUAGE.ENGLISH).get("optionDescriptionName")).value as string;
 
 	if (!checkNameString(guildDescription, Constants.GUILD.MIN_DESCRIPTION_LENGTH, Constants.GUILD.MAX_DESCRIPTION_LENGTH)) {
 		await replyErrorMessage(

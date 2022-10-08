@@ -23,9 +23,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;
-	if (interaction.options.get("name")) {
+	const guildNameUntested = interaction.options.get(Translations.getModule("commands.guild", Constants.LANGUAGE.ENGLISH).get("optionGuildName"));
+	if (guildNameUntested) {
 		try {
-			guild = await Guilds.getByName(interaction.options.get("name").value as string);
+			guild = await Guilds.getByName(guildNameUntested.value as string);
 		}
 		catch (error) {
 			guild = null;
@@ -146,11 +147,6 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.guild"
 const currentCommandEnglishTranslations = Translations.getModule("commands.guild", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addUserOption(option =>
-			SlashCommandBuilderGenerator.generateUserOption(
-				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
-			).setRequired(false)
-		)
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionGuildName"))
 			.setNameLocalizations({
 				fr: currentCommandFrenchTranslations.get("optionGuildName")
@@ -162,6 +158,11 @@ export const commandInfo: ICommand = {
 			.setRequired(false)
 		)
 		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateUserOption(
+				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+			).setRequired(false)
+		)
+		.addIntegerOption(option =>
 			SlashCommandBuilderGenerator.generateRankOption(
 				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
 			).setRequired(false)) as SlashCommandBuilder,
