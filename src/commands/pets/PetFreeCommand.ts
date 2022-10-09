@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/database/game/models/Entity";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -12,11 +11,12 @@ import {millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils"
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Say if you win a meat piece for freeing your pet
@@ -31,18 +31,18 @@ function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
 
 /**
  * Get the callback for the pet free command
- * @param entity
+ * @param player
  * @param pPet
  * @param petFreeModule
  * @param interaction
  */
-function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: TranslationModule, interaction: CommandInteraction) {
+function getPetFreeEndCallback(player: Player, pPet: PetEntity, petFreeModule: TranslationModule, interaction: CommandInteraction) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FREE);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
 			if (pPet.isFeisty()) {
-				await entity.Player.addMoney({
-					entity,
+				await player.addMoney({
+					entity: player,
 					amount: -PetFreeConstants.FREE_FEISTY_COST,
 					channel: interaction.channel,
 					language: petFreeModule.language,
@@ -51,9 +51,9 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 			}
 			LogsDatabase.logPetFree(pPet).then();
 			await pPet.destroy();
-			entity.Player.petId = null;
-			entity.Player.lastPetFree = new Date();
-			await entity.Player.save();
+			player.petId = null;
+			player.lastPetFree = new Date();
+			await player.save();
 			const freedEmbed = new DraftBotEmbed()
 				.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 				.setDescription(petFreeModule.format("petFreed", {
@@ -66,7 +66,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 
 			let guild: Guild;
 			try {
-				guild = await Guilds.getById(entity.Player.guildId);
+				guild = await Guilds.getById(player.guildId);
 			}
 			catch (error) {
 				guild = null;
@@ -90,9 +90,9 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
  * @param pPet
  * @param interaction
  * @param petFreeModule
- * @param entity
+ * @param player
  */
-async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, entity: Entity): Promise<boolean> {
+async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, player: Player): Promise<boolean> {
 	if (!pPet) {
 		await replyErrorMessage(
 			interaction,
@@ -102,7 +102,7 @@ async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, pet
 		return true;
 	}
 
-	const cooldownTime = PetFreeConstants.FREE_COOLDOWN - (new Date().valueOf() - entity.Player.lastPetFree.valueOf());
+	const cooldownTime = PetFreeConstants.FREE_COOLDOWN - (new Date().valueOf() - player.lastPetFree.valueOf());
 	if (cooldownTime > 0) {
 		await replyErrorMessage(
 			interaction,
@@ -114,12 +114,12 @@ async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, pet
 		return true;
 	}
 
-	if (pPet.isFeisty() && entity.Player.money < PetFreeConstants.FREE_FEISTY_COST) {
+	if (pPet.isFeisty() && player.money < PetFreeConstants.FREE_FEISTY_COST) {
 		await replyErrorMessage(
 			interaction,
 			petFreeModule.language,
 			petFreeModule.format("noMoney", {
-				money: PetFreeConstants.FREE_FEISTY_COST - entity.Player.money
+				money: PetFreeConstants.FREE_FEISTY_COST - player.money
 			})
 		);
 		return true;
@@ -131,20 +131,20 @@ async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, pet
  * Allow to free a pet
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petFreeModule = Translations.getModule("commands.petFree", language);
 
-	const pPet = entity.Player.Pet;
-	if (await cantBeFreed(pPet, interaction, petFreeModule, entity)) {
+	const pPet = await PetEntities.getById(player.petId);
+	if (await cantBeFreed(pPet, interaction, petFreeModule, player)) {
 		return;
 	}
 
-	const confirmEmbed = new DraftBotValidateReactionMessage(interaction.user, getPetFreeEndCallback(entity, pPet, petFreeModule, interaction))
+	const confirmEmbed = new DraftBotValidateReactionMessage(interaction.user, getPetFreeEndCallback(player, pPet, petFreeModule, interaction))
 		.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 		.setDescription(petFreeModule.format("confirmDesc", {
 			pet: `${pPet.getPetEmote()} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language)}`
@@ -154,7 +154,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		confirmEmbed.setFooter({text: petFreeModule.get("isFeisty")});
 	}
 
-	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));
+	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.petFree", Constants.LANGUAGE.FRENCH);

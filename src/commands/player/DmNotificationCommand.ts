@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/database/game/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {CommandInteraction} from "discord.js";
@@ -8,21 +7,22 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Activate or deactivate DMs notifications.
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const translationsDmn = Translations.getModule("commands.dmNotification", language);
 	// update value user dmNotification
-	entity.Player.dmNotification = !entity.Player.dmNotification;
-	const isDmNotificationOn = entity.Player.dmNotification;
+	player.dmNotification = !player.dmNotification;
+	const isDmNotificationOn = player.dmNotification;
 	// send message updated value
 	const dmNotificationEmbed = new DraftBotEmbed()
 		.setDescription(
@@ -38,7 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			await interaction.reply({embeds: [dmNotificationEmbed], ephemeral: true});
 		}
 		catch (err) {
-			entity.Player.dmNotification = false;
+			player.dmNotification = false;
 			await sendBlockedError(interaction, language);
 		}
 
@@ -46,7 +46,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	else {
 		await interaction.reply({embeds: [dmNotificationEmbed], ephemeral: true});
 	}
-	await entity.Player.save();
+	await player.save();
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.dmNotification", Constants.LANGUAGE.FRENCH);
