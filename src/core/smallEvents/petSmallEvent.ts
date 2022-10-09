@@ -12,8 +12,7 @@ import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
 import {Data} from "../Data";
 import {giveFood} from "../utils/GuildUtils";
 import {getFoodIndexOf} from "../utils/FoodUtils";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
-import {draftBotInstance} from "../bot";
+import {LogsDatabase, NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import Player from "../database/game/models/Player";
 import {TravelTime} from "../maps/TravelTime";
@@ -271,7 +270,7 @@ async function managePickedPetInteraction(
 		await entity.Player.save();
 		break;
 	case "petFlee":
-		draftBotInstance.logsDatabase.logPetFree(pet).then();
+		LogsDatabase.logPetFree(pet).then();
 		await pet.destroy();
 		entity.Player.petId = null;
 		await entity.Player.save();

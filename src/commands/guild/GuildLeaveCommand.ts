@@ -12,6 +12,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 
 type UserInformation = { guild: Guild, entity: Entity };
 
@@ -74,7 +75,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				}
 			}
 
-			draftBotInstance.logsDatabase.logGuildLeave(userInformation.guild, userInformation.entity.discordUserId).then();
+			LogsDatabase.logGuildLeave(userInformation.guild, userInformation.entity.discordUserId).then();
 
 			userInformation.entity.Player.guildId = null;
 

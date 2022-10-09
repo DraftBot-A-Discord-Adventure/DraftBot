@@ -3,7 +3,7 @@ import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
 import {LogsPlayersExperience} from "./models/LogsPlayersExperience";
-import {CreateOptions, Model, Transaction} from "sequelize";
+import {CreateOptions, Model} from "sequelize";
 import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
 import {LogsPlayersScore} from "./models/LogsPlayersScore";
 import {LogsPlayersGems} from "./models/LogsPlayersGems";
@@ -171,25 +171,25 @@ export class LogsDatabase extends Database {
 		return Math.trunc(Date.now() / 1000);
 	}
 
-	private static async logPetTradeTransaction(firstPet: PetEntity, secondPet: PetEntity, transaction: Transaction): Promise<void> {
+	public static async logPetTrade(firstPet: PetEntity, secondPet: PetEntity): Promise<void> {
 		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet);
 		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet);
 		await LogsPetsTrades.create({
 			firstPetId: firstLogPetEntity.id,
 			secondPetId: secondLogPetEntity.id,
 			date: LogsDatabase.getDate()
-		}, {transaction});
+		});
 	}
 
-	private static async logPetFreeTransaction(freedPet: PetEntity, transaction: Transaction): Promise<void> {
+	public static async logPetFree(freedPet: PetEntity): Promise<void> {
 		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(freedPet);
 		await LogsPetsFrees.create({
 			petId: logPetEntity.id,
 			date: LogsDatabase.getDate()
-		}, {transaction});
+		});
 	}
 
-	private static async logPetSellTransaction(soldPet: PetEntity, sellerId: string, buyerId: string, price: number, transaction: Transaction): Promise<void> {
+	public static async logPetSell(soldPet: PetEntity, sellerId: string, buyerId: string, price: number): Promise<void> {
 		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(soldPet);
 		const seller = await LogsDatabase.findOrCreatePlayer(sellerId);
 		const buyer = await LogsDatabase.findOrCreatePlayer(buyerId);
@@ -199,7 +199,7 @@ export class LogsDatabase extends Database {
 			buyerId: buyer.id,
 			price,
 			date: LogsDatabase.getDate()
-		}, {transaction});
+		});
 	}
 
 	private static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
@@ -231,287 +231,227 @@ export class LogsDatabase extends Database {
 		}))[0];
 	}
 
-	private static async logGuildLeaveTransaction(guild: Guild | GuildLikeType, leftDiscordId: string, transaction: Transaction): Promise<void> {
+	public static async logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
 		await LogsGuildsLeaves.create({
 			guildId: logGuild.id,
 			leftPlayer: leftPlayer.id,
 			date: LogsDatabase.getDate()
-		}, {transaction});
+		});
 	}
 
 	public logMoneyChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayersMoney);
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersMoney);
 	}
 
 	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayersHealth);
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersHealth);
 	}
 
 	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayersExperience);
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersExperience);
 	}
 
 	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayersScore);
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersScore);
 	}
 
 	public logGemsChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return this.logNumberChange(discordId, value, reason, LogsPlayersGems);
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersGems);
 	}
 
 	public logLevelChange(discordId: string, level: number): Promise<void> {
-		return this.logPlayerAndNumber(discordId, "level", level, LogsPlayersLevel);
+		return LogsDatabase.logPlayerAndNumber(discordId, "level", level, LogsPlayersLevel);
 	}
 
-	public logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const [server] = await LogsServers.findOrCreate({
-					where: {
-						discordId: serverId
-					}
-				});
-				const [command] = await LogsCommands.findOrCreate({
-					where: {
-						commandName
-					}
-				});
-				await LogsPlayersCommands.create({
-					playerId: player.id,
-					serverId: server.id,
-					commandId: command.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [server] = await LogsServers.findOrCreate({
+			where: {
+				discordId: serverId
+			}
+		});
+		const [command] = await LogsCommands.findOrCreate({
+			where: {
+				commandName
+			}
+		});
+		await LogsPlayersCommands.create({
+			playerId: player.id,
+			serverId: server.id,
+			commandId: command.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logSmallEvent(discordId: string, name: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const [smallEvent] = await LogsSmallEvents.findOrCreate({
-					where: {
-						name
-					}
-				});
-				await LogsPlayersSmallEvents.create({
-					playerId: player.id,
-					smallEventId: smallEvent.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logSmallEvent(discordId: string, name: string): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [smallEvent] = await LogsSmallEvents.findOrCreate({
+			where: {
+				name
+			}
+		});
+		await LogsPlayersSmallEvents.create({
+			playerId: player.id,
+			smallEventId: smallEvent.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const [possibility] = await LogsPossibilities.findOrCreate({
-					where: {
-						bigEventId: eventId,
-						emote: possibilityEmote === "end" ? null : possibilityEmote,
-						issueIndex
-					}
-				});
-				await LogsPlayersPossibilities.create({
-					playerId: player.id,
-					bigEventId: eventId,
-					possibilityId: possibility.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [possibility] = await LogsPossibilities.findOrCreate({
+			where: {
+				bigEventId: eventId,
+				emote: possibilityEmote === "end" ? null : possibilityEmote,
+				issueIndex
+			}
+		});
+		await LogsPlayersPossibilities.create({
+			playerId: player.id,
+			bigEventId: eventId,
+			possibilityId: possibility.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				switch (alteration) {
-				case EffectsConstants.EMOJI_TEXT.OCCUPIED:
-					await LogsPlayersOccupiedAlterations.create({
-						playerId: player.id,
-						duration: duration,
-						reason: reason,
-						date: LogsDatabase.getDate()
-					});
-					break;
-				default:
-					await LogsPlayersStandardAlterations.create({
-						playerId: player.id,
-						alterationId: (await LogsAlterations.findOrCreate({
-							where: {
-								alteration: alteration
-							}
-						}))[0].id,
-						reason,
-						date: LogsDatabase.getDate()
-					}, {transaction});
-				}
-				await transaction.commit();
-				resolve();
+	public async logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		switch (alteration) {
+		case EffectsConstants.EMOJI_TEXT.OCCUPIED:
+			await LogsPlayersOccupiedAlterations.create({
+				playerId: player.id,
+				duration: duration,
+				reason: reason,
+				date: LogsDatabase.getDate()
 			});
-		});
+			break;
+		default:
+			await LogsPlayersStandardAlterations.create({
+				playerId: player.id,
+				alterationId: (await LogsAlterations.findOrCreate({
+					where: {
+						alteration: alteration
+					}
+				}))[0].id,
+				reason,
+				date: LogsDatabase.getDate()
+			});
+		}
 	}
 
-	public logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [buyer] = await LogsPlayers.findOrCreate({
-					where: {
-						discordId: buyerDiscordId
-					}
-				});
-				const [released] = await LogsPlayers.findOrCreate({
-					where: {
-						discordId: releasedDiscordId
-					}
-				});
-				await LogsUnlocks.create({
-					buyerId: buyer.id,
-					releasedId: released.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
+		const [buyer] = await LogsPlayers.findOrCreate({
+			where: {
+				discordId: buyerDiscordId
+			}
+		});
+		const [released] = await LogsPlayers.findOrCreate({
+			where: {
+				discordId: releasedDiscordId
+			}
+		});
+		await LogsUnlocks.create({
+			buyerId: buyer.id,
+			releasedId: released.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
 	public logPlayerClassChange(discordId: string, classId: number): Promise<void> {
-		return this.logPlayerAndNumber(discordId, "classId", classId, LogsPlayersClassChanges);
+		return LogsDatabase.logPlayerAndNumber(discordId, "classId", classId, LogsPlayersClassChanges);
 	}
 
 	public logVote(discordId: string): Promise<void> {
-		return this.logSimplePlayerDate(discordId, LogsPlayersVotes);
+		return LogsDatabase.logSimplePlayerDate(discordId, LogsPlayersVotes);
 	}
 
 	public logMissionFailed(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return this.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFailed);
+		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFailed);
 	}
 
 	public logMissionFinished(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return this.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFinished);
+		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFinished);
 	}
 
 	public logMissionFound(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return this.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFound);
+		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFound);
 	}
 
 	public logMissionDailyFinished(discordId: string): Promise<void> {
-		return this.logSimplePlayerDate(discordId, LogsMissionsDailyFinished);
+		return LogsDatabase.logSimplePlayerDate(discordId, LogsMissionsDailyFinished);
 	}
 
 	public logMissionCampaignProgress(discordId: string, campaignIndex: number): Promise<void> {
-		return this.logPlayerAndNumber(discordId, "number", campaignIndex, LogsMissionsCampaignProgresses);
+		return LogsDatabase.logPlayerAndNumber(discordId, "number", campaignIndex, LogsMissionsCampaignProgresses);
 	}
 
-	public logMissionDailyRefreshed(missionId: string, variant: number, objective: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [mission] = await LogsMissions.findOrCreate({
-					where: {
-						name: missionId,
-						variant,
-						objective
-					}
-				});
-				await LogsMissionsDaily.create({
-					missionId: mission.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logMissionDailyRefreshed(missionId: string, variant: number, objective: number): Promise<void> {
+		const [mission] = await LogsMissions.findOrCreate({
+			where: {
+				name: missionId,
+				variant,
+				objective
+			}
+		});
+		await LogsMissionsDaily.create({
+			missionId: mission.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logServerJoin(discordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServers.findOrCreate({
-					where: {
-						discordId: discordId
-					}
-				});
-				await LogsServersJoins.create({
-					serverId: server.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logServerJoin(discordId: string): Promise<void> {
+		const [server] = await LogsServers.findOrCreate({
+			where: {
+				discordId: discordId
+			}
+		});
+		await LogsServersJoins.create({
+			serverId: server.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logServerQuit(discordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const [server] = await LogsServers.findOrCreate({
-					where: {
-						discordId: discordId
-					}
-				});
-				await LogsServersQuits.create({
-					serverId: server.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logServerQuit(discordId: string): Promise<void> {
+		const [server] = await LogsServers.findOrCreate({
+			where: {
+				discordId: discordId
+			}
+		});
+		await LogsServersQuits.create({
+			serverId: server.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const [maplinkLog] = await LogsMapLinks.findOrCreate({
-					where: {
-						start: mapLink.startMap,
-						end: mapLink.endMap
-					}
-				});
-				await LogsPlayersTravels.create({
-					playerId: player.id,
-					mapLinkId: maplinkLog.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [maplinkLog] = await LogsMapLinks.findOrCreate({
+			where: {
+				start: mapLink.startMap,
+				end: mapLink.endMap
+			}
+		});
+		await LogsPlayersTravels.create({
+			playerId: player.id,
+			mapLinkId: maplinkLog.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public log15BestTopWeek(): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
-				const now = LogsDatabase.getDate();
-				for (let i = 0; i < entities.length; i++) {
-					const player = await LogsDatabase.findOrCreatePlayer(entities[0].discordUserId);
-					await LogsPlayers15BestTopweek.create({
-						playerId: player.id,
-						position: i + 1,
-						topWeekScore: entities[i].Player.weeklyScore,
-						date: now
-					}, {transaction});
-					resolve();
-				}
-				await transaction.commit();
+	public async log15BestTopWeek(): Promise<void> {
+		const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
+		const now = LogsDatabase.getDate();
+		for (let i = 0; i < entities.length; i++) {
+			const player = await LogsDatabase.findOrCreatePlayer(entities[0].discordUserId);
+			await LogsPlayers15BestTopweek.create({
+				playerId: player.id,
+				position: i + 1,
+				topWeekScore: entities[i].Player.weeklyScore,
+				date: now
 			});
-		});
+		}
 	}
 
 	public logItemGain(discordId: string, item: GenericItemModel): Promise<unknown> {
@@ -532,25 +472,19 @@ export class LogsDatabase extends Database {
 		default:
 			break;
 		}
-		return this.logItem(discordId, item, itemCategoryDatabase);
+		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
 	}
 
-	public logTimeWarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
+	public async logTimeWarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
 		if (reason === NumberChangeReason.IGNORE) {
 			return;
 		}
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsPlayersTimewarps.create({
-					playerId: player.id,
-					time,
-					reason,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayersTimewarps.create({
+			playerId: player.id,
+			time,
+			reason,
+			date: LogsDatabase.getDate()
 		});
 	}
 
@@ -572,180 +506,104 @@ export class LogsDatabase extends Database {
 		default:
 			break;
 		}
-		return this.logItem(discordId, item, itemCategoryDatabase);
+		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
 	}
 
-	public logPetNickname(petRenamed: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const pet = await LogsDatabase.findOrCreatePetEntity(petRenamed);
-				await LogsPetsNicknames.create({
-					petId: pet.id,
-					name: petRenamed.nickname,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logPetNickname(petRenamed: PetEntity): Promise<void> {
+		const pet = await LogsDatabase.findOrCreatePetEntity(petRenamed);
+		await LogsPetsNicknames.create({
+			petId: pet.id,
+			name: petRenamed.nickname,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logDailyPotion(potionId: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDailyPotions.create({
-					potionId,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logDailyPotion(potionId: number): Promise<void> {
+		await LogsDailyPotions.create({
+			potionId,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-				const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId);
-				await LogsGuildsKicks.create({
-					guildId: logGuild.id,
-					kickedPlayer: kickedPlayer.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId);
+		await LogsGuildsKicks.create({
+			guildId: logGuild.id,
+			kickedPlayer: kickedPlayer.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logClassicalShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsClassicalShopBuyouts.create({
-					playerId: logPlayer.id,
-					shopItem,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logClassicalShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsClassicalShopBuyouts.create({
+			playerId: logPlayer.id,
+			shopItem,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsGuildShopBuyouts.create({
-					playerId: logPlayer.id,
-					shopItem,
-					amount: 1,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsGuildShopBuyouts.create({
+			playerId: logPlayer.id,
+			shopItem,
+			amount: 1,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number): Promise<void> {
+	public async logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number): Promise<void> {
 		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés sur les items du shop de guilde, c'est-à-dire décalés de 6.
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsGuildShopBuyouts.create({
-					playerId: logPlayer.id,
-					shopItem,
-					amount,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsGuildShopBuyouts.create({
+			playerId: logPlayer.id,
+			shopItem,
+			amount,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logDailyTimeout(petLoveChange: boolean): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDailyTimeouts.create({
-					petLoveChange,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logDailyTimeout(petLoveChange: boolean): Promise<void> {
+		await LogsDailyTimeouts.create({
+			petLoveChange,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logTopWeekEnd(): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsTopWeekEnd.create({
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logTopWeekEnd(): Promise<void> {
+		await LogsTopWeekEnd.create({
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logMissionShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsMissionShopBuyouts.create({
-					playerId: logPlayer.id,
-					shopItem,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logMissionShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsMissionShopBuyouts.create({
+			playerId: logPlayer.id,
+			shopItem,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-				const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
-				await LogsGuildsDailies.create({
-					guildId: logGuild.id,
-					reward,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
+		await LogsGuildsDailies.create({
+			guildId: logGuild.id,
+			reward,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDatabase.logGuildLeaveTransaction(guild, leftDiscordId, transaction);
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logPetTransfer(guildPet: PetEntity, playerPet: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logGuildPet = guildPet ? await LogsDatabase.findOrCreatePetEntity(guildPet) : null;
-				const logPlayerPet = playerPet ? await LogsDatabase.findOrCreatePetEntity(playerPet) : null;
-				await LogsPetsTransfers.create({
-					playerPetId: logPlayerPet ? logPlayerPet.id : null,
-					guildPetId: logGuildPet ? logGuildPet.id : null,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logPetTransfer(guildPet: PetEntity, playerPet: PetEntity): Promise<void> {
+		const logGuildPet = guildPet ? await LogsDatabase.findOrCreatePetEntity(guildPet) : null;
+		const logPlayerPet = playerPet ? await LogsDatabase.findOrCreatePetEntity(playerPet) : null;
+		await LogsPetsTransfers.create({
+			playerPetId: logPlayerPet ? logPlayerPet.id : null,
+			guildPetId: logGuildPet ? logGuildPet.id : null,
+			date: LogsDatabase.getDate()
 		});
 	}
 
@@ -758,40 +616,28 @@ export class LogsDatabase extends Database {
 			guildPets: guild.GuildPets
 		};
 		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				for (const member of await Entities.getByGuild(guildInfos.id)) {
-					if (member.id !== guildInfos.chiefId) {
-						await LogsDatabase.logGuildLeaveTransaction(guild, member.discordUserId, transaction);
-					}
-				}
-				for (const guildPet of guildInfos.guildPets) {
-					await LogsDatabase.logPetFreeTransaction(guildPet.PetEntity, transaction);
-				}
-				await LogsGuildsDestroys.create({
-					guildId: logGuild.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+		for (const member of await Entities.getByGuild(guildInfos.id)) {
+			if (member.id !== guildInfos.chiefId) {
+				await LogsDatabase.logGuildLeave(guild, member.discordUserId);
+			}
+		}
+		for (const guildPet of guildInfos.guildPets) {
+			await LogsDatabase.logPetFree(guildPet.PetEntity);
+		}
+		await LogsGuildsDestroys.create({
+			guildId: logGuild.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildElderRemove(guild: Guild, removedPlayerId: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsEldersRemoves.create({
-					guildId: logGuild.id,
-					removedElder: (await LogsDatabase.findOrCreatePlayer(
-						(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId
-					)).id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildElderRemove(guild: Guild, removedPlayerId: number): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsEldersRemoves.create({
+			guildId: logGuild.id,
+			removedElder: (await LogsDatabase.findOrCreatePlayer(
+				(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId
+			)).id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
@@ -800,343 +646,215 @@ export class LogsDatabase extends Database {
 		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer(
 			(await (await Player.findOne({where: {id: newChiefId}})).getEntity()).discordUserId
 		)).id;
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsGuildsChiefsChanges.create({
-					guildId: logGuild.id,
-					newChief: logNewChiefId,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+		await LogsGuildsChiefsChanges.create({
+			guildId: logGuild.id,
+			newChief: logNewChiefId,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logPetFree(freedPet: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDatabase.logPetFreeTransaction(freedPet, transaction);
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
+		const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId);
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsCreations.create({
+			guildId: guildInstance.id,
+			creatorId: creator.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logPetTrade(firstPet: PetEntity, secondPet: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDatabase.logPetTradeTransaction(firstPet, secondPet, transaction);
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
+		const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId);
+		const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId);
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsJoins.create({
+			guildId: guildInstance.id,
+			adderId: adder.id,
+			addedId: added.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsCreations.create({
-					guildId: guildInstance.id,
-					creatorId: creator.id,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
+	public async logFight(fight: FightController): Promise<void> {
+		const player1 = fight.fightInitiator;
+		const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.entity.discordUserId)).id;
+		const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
+		const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.entity.discordUserId)).id;
+		const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
+		const fightResult = await LogsFightsResults.create({
+			player1Id: player1Id,
+			player1Points: player1.entity.Player.score,
+			player2Id: player2Id,
+			player2Points: player2.entity.Player.score,
+			turn: fight.turn,
+			winner: fight.isADraw() ? 0 : winner,
+			friendly: fight.friendly,
+			date: LogsDatabase.getDate()
 		});
-	}
-
-	public logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId);
-				const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsJoins.create({
-					guildId: guildInstance.id,
-					adderId: adder.id,
-					addedId: added.id,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logFight(fight: FightController): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player1 = fight.fightInitiator;
-				const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.entity.discordUserId)).id;
-				const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
-				const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.entity.discordUserId)).id;
-				const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
-				const fightResult = await LogsFightsResults.create({
-					player1Id: player1Id,
-					player1Points: player1.entity.Player.score,
-					player2Id: player2Id,
-					player2Points: player2.entity.Player.score,
-					turn: fight.turn,
-					winner: fight.isADraw() ? 0 : winner,
-					friendly: fight.friendly,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				for (const player of [player1, player2]) {
-					const fightActionsUsed: { [action: string]: number } = {};
-					for (const fightAction of player.fightActionsHistory) {
-						fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
+		for (const player of [player1, player2]) {
+			const fightActionsUsed: { [action: string]: number } = {};
+			for (const fightAction of player.fightActionsHistory) {
+				fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
+			}
+			for (const [action, count] of Object.entries(fightActionsUsed)) {
+				const [fightAction] = await LogsFightsActions.findOrCreate({
+					where: {
+						name: action
 					}
-					for (const [action, count] of Object.entries(fightActionsUsed)) {
-						const [fightAction] = await LogsFightsActions.findOrCreate({
-							where: {
-								name: action
-							}
-						});
-						await LogsFightsActionsUsed.create({
-							fightId: fightResult.id,
-							player: player === player1 ? 1 : 2,
-							actionId: fightAction.id,
-							count
-						}, {transaction});
-					}
-				}
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logGuildExperienceChange(guild: Guild, reason: NumberChangeReason): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsExperiences.create({
-					guildId: guildInstance.id,
-					experience: guild.experience,
-					reason,
-					date: LogsDatabase.getDate()
 				});
-				await transaction.commit();
-				resolve();
-			});
-		});
-	}
-
-	public logGuildDescriptionChange(discordId: string, guild: Guild): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsDescriptionChanges.create({
-					guildId: guildInstance.id,
-					playerId: player.id,
-					description: guild.guildDescription,
-					date: LogsDatabase.getDate()
+				await LogsFightsActionsUsed.create({
+					fightId: fightResult.id,
+					player: player === player1 ? 1 : 2,
+					actionId: fightAction.id,
+					count
 				});
-				await transaction.commit();
-				resolve();
-			});
+			}
+		}
+	}
+
+	public async logGuildExperienceChange(guild: Guild, reason: NumberChangeReason): Promise<void> {
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsExperiences.create({
+			guildId: guildInstance.id,
+			experience: guild.experience,
+			reason,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logPetLoveChange(petEntity: PetEntity, reason: NumberChangeReason): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity);
-				await LogsPetsLovesChanges.create({
-					petId: logPet.id,
-					lovePoints: petEntity.lovePoints,
-					reason,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildDescriptionChange(discordId: string, guild: Guild): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsDescriptionChanges.create({
+			guildId: guildInstance.id,
+			playerId: player.id,
+			description: guild.guildDescription,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildsFoodChanges(guild: Guild, food: number, total: number, reason: NumberChangeReason): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsFoodsChanges.create({
-					guildId: guildInstance.id,
-					food,
-					total,
-					reason,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
+	public async logPetLoveChange(petEntity: PetEntity, reason: NumberChangeReason): Promise<void> {
+		const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity);
+		await LogsPetsLovesChanges.create({
+			petId: logPet.id,
+			lovePoints: petEntity.lovePoints,
+			reason,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildNewPet(guild: Guild, petEntity: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsNewPets.create({
-					guildId: guildInstance.id,
-					petId: petEntityInstance.id,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildsFoodChanges(guild: Guild, food: number, total: number, reason: NumberChangeReason): Promise<void> {
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsFoodsChanges.create({
+			guildId: guildInstance.id,
+			food,
+			total,
+			reason,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
-				const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId);
-				await LogsPlayersNewPets.create({
-					playerId: playerInstance.id,
-					petId: petEntityInstance.id,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildNewPet(guild: Guild, petEntity: PetEntity): Promise<void> {
+		const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsNewPets.create({
+			guildId: guildInstance.id,
+			petId: petEntityInstance.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logsPetSell(soldPet: PetEntity, sellerDiscordId: string, buyerDiscordId: string, price: number): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				await LogsDatabase.logPetSellTransaction(soldPet, sellerDiscordId, buyerDiscordId, price, transaction);
-				await transaction.commit();
-				resolve();
-			});
+	public async logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
+		const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
+		const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayersNewPets.create({
+			playerId: playerInstance.id,
+			petId: petEntityInstance.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildElderAdd(guild: Guild, addedPlayerId: string): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-				const player = await LogsDatabase.findOrCreatePlayer(addedPlayerId);
-				await LogsGuildsEldersAdds.create({
-					guildId: logGuild.id,
-					addedElder: player.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildElderAdd(guild: Guild, addedPlayerId: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const player = await LogsDatabase.findOrCreatePlayer(addedPlayerId);
+		await LogsGuildsEldersAdds.create({
+			guildId: logGuild.id,
+			addedElder: player.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	public logGuildLevelUp(guild: Guild): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-				await LogsGuildsLevels.create({
-					guildId: guildInstance.id,
-					level: guild.level,
-					date: LogsDatabase.getDate()
-				});
-				await transaction.commit();
-				resolve();
-			});
+	public async logGuildLevelUp(guild: Guild): Promise<void> {
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsLevels.create({
+			guildId: guildInstance.id,
+			level: guild.level,
+			date: LogsDatabase.getDate()
 		});
 	}
 
 	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
-		await this.logItem(discordId, item, LogsPlayersDailies);
+		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
 	}
 
-	private logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const values: { [key: string]: string | number } = {
-					playerId: player.id,
-					date: LogsDatabase.getDate()
-				};
-				values[valueFieldName] = value;
-				await model.create(values, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	private static async logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const values: { [key: string]: string | number } = {
+			playerId: player.id,
+			date: LogsDatabase.getDate()
+		};
+		values[valueFieldName] = value;
+		await model.create(values);
+	}
+
+	private static async logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await model.create({
+			playerId: player.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	private logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				await model.create({
-					playerId: player.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	private static async logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [mission] = await LogsMissions.findOrCreate({
+			where: {
+				name: missionId,
+				variant,
+				objective
+			}
+		});
+		await model.create({
+			playerId: player.id,
+			missionId: mission.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	private logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				const [mission] = await LogsMissions.findOrCreate({
-					where: {
-						name: missionId,
-						variant,
-						objective
-					}
-				});
-				await model.create({
-					playerId: player.id,
-					missionId: mission.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	private static async logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await model.create({
+			playerId: player.id,
+			value,
+			reason,
+			date: LogsDatabase.getDate()
 		});
 	}
 
-	private logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction) => {
-				const player = await LogsDatabase.findOrCreatePlayer(discordId);
-				await model.create({
-					playerId: player.id,
-					value,
-					reason,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+	private static async logItem(
+		discordId: string,
+		item: GenericItemModel,
+		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
+	): Promise<void> {
+		const [player] = await LogsPlayers.findOrCreate({
+			where: {
+				discordId
+			}
 		});
-	}
-
-	private logItem(discordId: string, item: GenericItemModel, model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }): Promise<void> {
-		return new Promise((resolve) => {
-			this.sequelize.transaction().then(async (transaction: Transaction) => {
-				const [player] = await LogsPlayers.findOrCreate({
-					where: {
-						discordId
-					}
-				});
-				await model.create({
-					playerId: player.id,
-					itemId: item.id,
-					date: LogsDatabase.getDate()
-				}, {transaction});
-				await transaction.commit();
-				resolve();
-			});
+		await model.create({
+			playerId: player.id,
+			itemId: item.id,
+			date: LogsDatabase.getDate()
 		});
 	}
 }

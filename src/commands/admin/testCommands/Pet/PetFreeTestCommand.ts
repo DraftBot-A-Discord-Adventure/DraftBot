@@ -1,7 +1,7 @@
 import {Entities} from "../../../../core/database/game/models/Entity";
-import {draftBotInstance} from "../../../../core/bot";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
 
 export const commandInfo: ITestCommand = {
 	name: "petfree",
@@ -24,7 +24,7 @@ const petFreeTestCommand = async (language: string, interaction: CommandInteract
 	if (entity.Player.petId === null) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
-	draftBotInstance.logsDatabase.logPetFree(entity.Player.Pet).then();
+	LogsDatabase.logPetFree(entity.Player.Pet).then();
 	await entity.Player.Pet.destroy();
 	entity.Player.petId = null;
 	await entity.Player.save();
