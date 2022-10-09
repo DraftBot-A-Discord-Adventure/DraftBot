@@ -145,7 +145,7 @@ export class DraftBot {
 				{
 					where: {
 						lovePoints: {
-							[sequelize.Op.not]: Constants.PETS.MAX_LOVE_POINTS
+							[sequelize.Op.notIn]: [Constants.PETS.MAX_LOVE_POINTS, 0]
 						}
 					}
 				}
