@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
-import Entity from "./Entity";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
+import Player from "./Player";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -33,10 +33,20 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public async addGems(amount: number, entity: Entity, reason: NumberChangeReason): Promise<void> {
+	public async addGems(amount: number, discordUserId: string, reason: NumberChangeReason): Promise<void> {
 		this.gems += amount;
-		await entity.Player.PlayerMissionsInfo.save();
-		draftBotInstance.logsDatabase.logGemsChange(entity.discordUserId, this.gems, reason).then();
+		await this.save();
+		draftBotInstance.logsDatabase.logGemsChange(discordUserId, this.gems, reason).then();
+	}
+}
+
+export class PlayerMissionsInfos {
+	public static async getOfPlayer(playerId: number): Promise<PlayerMissionsInfo> {
+		return (await PlayerMissionsInfo.findOrCreate({
+			where: {
+				playerId
+			}
+		}))[0];
 	}
 }
 

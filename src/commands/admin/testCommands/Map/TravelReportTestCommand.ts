@@ -1,7 +1,7 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "travelreport",
@@ -20,15 +20,15 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const travelReportTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	if (!Maps.isTravelling(entity.Player)) {
+	if (!Maps.isTravelling(player)) {
 		throw new Error("Erreur travelreport : vous ne voyagez pas actuellement !");
 	}
 
-	entity.Player.startTravelDate = new Date();
-	entity.Player.effectEndDate = new Date(0);
-	await entity.Player.save();
+	player.startTravelDate = new Date();
+	player.effectEndDate = new Date(0);
+	await player.save();
 
 	return commandInfo.messageWhenExecuted;
 

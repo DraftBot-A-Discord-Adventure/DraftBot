@@ -1,10 +1,10 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../core/constants/BlockingConstants";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction, Message} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "blockplayer",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const blockPlayerTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const blockTime = parseInt(args[0], 10);
 	if (blockTime <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
@@ -46,7 +46,7 @@ const blockPlayerTestCommand = async (language: string, interaction: CommandInte
 	collector.on("end", () => {
 		// Do nothing
 	});
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.TEST, collector);
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.TEST, collector);
 	return format(commandInfo.messageWhenExecuted, {time: blockTime});
 };
 

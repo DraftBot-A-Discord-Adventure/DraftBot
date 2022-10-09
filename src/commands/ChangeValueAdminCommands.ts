@@ -1,14 +1,13 @@
 import {ICommand} from "./ICommand";
 import {Constants} from "../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import Entity, {Entities} from "../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../core/Translations";
 import {replyErrorMessage} from "../core/utils/ErrorUtils";
 import {sendDirectMessage} from "../core/utils/MessageUtils";
 import {draftBotClient} from "../core/bot";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
-import Player from "../core/database/game/models/Player";
+import Player, {Players} from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 
 /**
@@ -20,7 +19,7 @@ export class ChangeValueAdminCommands {
 	 * @param commandName
 	 * @param editFunction
 	 */
-	static getCommandInfo(commandName: string, editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
+	static getCommandInfo(commandName: string, editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
 		const executeCommand = this.executeCommandFrom(commandName, editFunction);
 		const currentCommandFrenchTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.FRENCH);
 		const currentCommandEnglishTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
@@ -91,7 +90,7 @@ export class ChangeValueAdminCommands {
 	 */
 	private static executeCommandFrom(
 		commandName: string,
-		editFunction: (entityToEdit: Entity, amount: number, interaction: CommandInteraction, language: string) => void
+		editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void
 	): (interaction: CommandInteraction, language: string) => Promise<void> {
 		return async (interaction: CommandInteraction, language: string): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
@@ -121,8 +120,8 @@ export class ChangeValueAdminCommands {
 
 			let descString = "";
 			for (const user of users) {
-				const entityToEdit = await Entities.getByDiscordUserId(user);
-				if (!entityToEdit) {
+				const playersToEdit = await Players.getByDiscordUserId(user);
+				if (!playersToEdit) {
 					await replyErrorMessage(
 						interaction,
 						language,
@@ -133,9 +132,9 @@ export class ChangeValueAdminCommands {
 					);
 					return;
 				}
-				const valueBefore = entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player];
+				const valueBefore = playersToEdit[changeValueModule.get("valueToEdit") as keyof Player];
 				try {
-					editFunction(entityToEdit, amount, interaction, language);
+					editFunction(playersToEdit, amount, interaction, language);
 				}
 				catch (e) {
 					if (e.message !== "wrong parameter") {
@@ -149,17 +148,17 @@ export class ChangeValueAdminCommands {
 					);
 					return;
 				}
-				await entityToEdit.Player.save();
+				await playersToEdit.save();
 				descString += changeValueModule.format("desc", {
-					player: entityToEdit.getMention(),
-					value: entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player]
+					player: playersToEdit.getMention(),
+					value: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player]
 				});
-				if (entityToEdit.Player.dmNotification) {
+				if (playersToEdit.dmNotification) {
 					sendDirectMessage(
 						await draftBotClient.users.fetch(user),
 						changeValueModule.get("dm.title"),
 						changeValueModule.format("dm.description", {
-							valueGained: entityToEdit.Player[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
+							valueGained: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
 						}),
 						null,
 						language

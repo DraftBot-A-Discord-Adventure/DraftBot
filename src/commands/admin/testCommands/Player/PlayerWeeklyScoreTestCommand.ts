@@ -1,8 +1,8 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "playerweeklyscore",
@@ -25,11 +25,11 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const playerWeeklyScoreTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.weeklyScore = parseInt(args[0], 10);
-	await entity.Player.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	player.weeklyScore = parseInt(args[0], 10);
+	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, {weeklyscore: entity.Player.weeklyScore});
+	return format(commandInfo.messageWhenExecuted, {weeklyscore: player.weeklyScore});
 };
 
 commandInfo.execute = playerWeeklyScoreTestCommand;

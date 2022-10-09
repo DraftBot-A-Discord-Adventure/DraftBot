@@ -176,6 +176,100 @@ export const petEntitiesAttributes001 = {
 	createdAt: DataTypes.DATE
 };
 
+export const entitiesAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	maxHealth: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	health: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	attack: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	defense: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	speed: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	fightPointsLost: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	discordUserId: {
+		type: DataTypes.STRING(64), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
+export const playersAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	score: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	weeklyScore: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	level: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	experience: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	money: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	class: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	badges: DataTypes.TEXT,
+	entityId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	guildId: DataTypes.INTEGER,
+	topggVoteAt: DataTypes.DATE,
+	nextEvent: DataTypes.INTEGER,
+	petId: DataTypes.INTEGER,
+	lastPetFree: DataTypes.DATE,
+	effect: {
+		type: DataTypes.STRING(32), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	effectEndDate: DataTypes.DATE,
+	effectDuration: DataTypes.INTEGER,
+	mapLinkId: DataTypes.INTEGER,
+	startTravelDate: DataTypes.DATE,
+	dmNotification: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes);
 	await context.createTable("classes", {
@@ -256,43 +350,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
-	await context.createTable("entities", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		maxHealth: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		health: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		attack: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		defense: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		speed: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		fightPointsLost: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		discordUserId: {
-			type: DataTypes.STRING(64), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("entities", entitiesAttributes001);
 	await context.createTable("event_map_location_ids", {
 		eventId: {
 			type: DataTypes.INTEGER,
@@ -615,61 +673,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
-	await context.createTable("players", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		score: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		weeklyScore: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		level: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		experience: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		money: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		class: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		badges: DataTypes.TEXT,
-		entityId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		guildId: DataTypes.INTEGER,
-		topggVoteAt: DataTypes.DATE,
-		nextEvent: DataTypes.INTEGER,
-		petId: DataTypes.INTEGER,
-		lastPetFree: DataTypes.DATE,
-		effect: {
-			type: DataTypes.STRING(32), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		effectEndDate: DataTypes.DATE,
-		effectDuration: DataTypes.INTEGER,
-		mapLinkId: DataTypes.INTEGER,
-		startTravelDate: DataTypes.DATE,
-		dmNotification: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("players", playersAttributes001);
 	await context.createTable("possibilities", {
 		id: {
 			type: DataTypes.INTEGER,

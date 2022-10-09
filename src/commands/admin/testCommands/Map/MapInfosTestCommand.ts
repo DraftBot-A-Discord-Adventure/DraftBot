@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "mapinfo",
@@ -22,12 +22,12 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const mapInfosTestCommand = async (language: string, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const mapEmbed = new DraftBotEmbed();
-	const currMap = await entity.Player.getDestination();
-	const prevMap = await entity.Player.getPreviousMap();
-	const travelling = Maps.isTravelling(entity.Player);
+	const currMap = await player.getDestination();
+	const prevMap = await player.getPreviousMap();
+	const travelling = Maps.isTravelling(player);
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", interaction.user)
 		.addFields({
@@ -43,7 +43,7 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);
 
 	if (!travelling) {
-		const availableMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
+		const availableMaps = await Maps.getNextPlayerAvailableMaps(player);
 		let field = "";
 		for (let i = 0; i < availableMaps.length; ++i) {
 			const map = await MapLocations.getById(availableMaps[i]);

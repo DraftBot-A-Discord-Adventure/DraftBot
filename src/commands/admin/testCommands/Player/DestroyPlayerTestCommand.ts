@@ -1,7 +1,6 @@
 import InventoryInfo from "../../../../core/database/game/models/InventoryInfo";
-import Entity, {Entities} from "../../../../core/database/game/models/Entity";
 import InventorySlot from "../../../../core/database/game/models/InventorySlot";
-import Player from "../../../../core/database/game/models/Player";
+import Player, {Players} from "../../../../core/database/game/models/Player";
 import MissionSlot from "../../../../core/database/game/models/MissionSlot";
 import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {CommandInteraction} from "discord.js";
@@ -24,45 +23,40 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const destroyPlayerTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	await MissionSlot.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await PlayerMissionsInfo.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await InventorySlot.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await InventoryInfo.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await MissionSlot.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await PlayerMissionsInfo.destroy({
 		where: {
-			playerId: entity.Player.id
+			playerId: player.id
 		}
 	});
 	await Player.destroy({
 		where: {
-			entityId: entity.id
-		}
-	});
-	await Entity.destroy({
-		where: {
-			id: entity.id
+			entityId: player.id
 		}
 	});
 	return commandInfo.messageWhenExecuted;

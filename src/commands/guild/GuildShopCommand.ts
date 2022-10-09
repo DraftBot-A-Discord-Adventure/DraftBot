@@ -6,7 +6,6 @@ import {
 } from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -22,6 +21,7 @@ import {draftBotInstance} from "../../core/bot";
 import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Player, Players} from "../../core/database/game/models/Player";
 
 /**
  * Callback of the guild shop command
@@ -42,8 +42,8 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 		parseInt(guildShopTranslations.get("guildXp.price"), 10),
 		guildShopTranslations.get("guildXp.info"),
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			const guild = await Guilds.getById(entity.Player.guildId);
+			const [player] = await Players.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(player.guildId);
 			const xpToAdd = randomInt(50, 450);
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
 
@@ -80,8 +80,8 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
 		foodJson.get(name + ".info"),
 		async (message, amount) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			const guild = await Guilds.getById(entity.Player.guildId);
+			const [entity] = await Players.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(entity.guildId);
 			if (guild.isStorageFullFor(name, amount)) {
 				await sendErrorMessage(message.user, interaction, guildShopTranslations.language, guildShopTranslations.get("fullStock"));
 				return false;
@@ -104,13 +104,13 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
  * Displays the guild shop
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
 	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
 	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);

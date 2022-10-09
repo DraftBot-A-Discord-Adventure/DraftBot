@@ -21,7 +21,6 @@ import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import {botConfig, draftBotClient, draftBotInstance} from "../core/bot";
 import {Constants} from "../core/Constants";
 import {TranslationModule, Translations} from "../core/Translations";
-import {Entities, Entity} from "../core/database/game/models/Entity";
 import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
 import {resetIsNow} from "../core/utils/TimeUtils";
@@ -33,8 +32,9 @@ import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils
 import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
 import {ApplicationCommandOptionBase} from "@discordjs/builders/dist/interactions/slashCommands/mixins/ApplicationCommandOptionBase";
+import Player, {Players} from "../core/database/game/models/Player";
 
-type UserEntity = { user: User, entity: Entity };
+type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
 type ContextType = { mainServerId: string; dmManagerID: string; attachments: Attachment[]; supportAlert: string; };
 
@@ -54,8 +54,8 @@ export class CommandsManager {
 	 * @param shouldReply
 	 */
 	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false): Promise<void> {
-		const entity = await Entities.getByDiscordUserId(user.id);
-		const textValues = await effectsErrorTextValue(interaction.user, tr.language, entity);
+		const player = await Players.getByDiscordUserId(user.id);
+		const textValues = await effectsErrorTextValue(interaction.user, tr.language, player);
 		const embed = new DraftBotEmbed().setErrorColor()
 			.formatAuthor(textValues.title, user)
 			.setDescription(textValues.description);
@@ -66,21 +66,21 @@ export class CommandsManager {
 	/**
 	 * Check if the given entity can perform the command in commandInfo
 	 * @param commandInfo
-	 * @param entity
+	 * @param player
 	 * @param TextInformations
 	 * @param shouldReply
 	 */
-	static async userCanPerformCommand(commandInfo: ICommand, entity: Entity, {
+	static async userCanPerformCommand(commandInfo: ICommand, player: Player, {
 		interaction,
 		tr
 	}: TextInformations, shouldReply = false): Promise<boolean> {
-		const user = entity.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
-		const userEntity = {user, entity};
-		if (this.effectRequirementsFailed(commandInfo, userEntity, {interaction, tr}, shouldReply)) {
+		const user = player.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
+		const userPlayer = {user, player: player};
+		if (this.effectRequirementsFailed(commandInfo, userPlayer, {interaction, tr}, shouldReply)) {
 
 			return false;
 		}
-		if (commandInfo.requirements.requiredLevel && entity.Player.getLevel() < commandInfo.requirements.requiredLevel) {
+		if (commandInfo.requirements.requiredLevel && player.getLevel() < commandInfo.requirements.requiredLevel) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -96,7 +96,7 @@ export class CommandsManager {
 		}
 
 		if (commandInfo.requirements.guildRequired) {
-			if (!await this.missingRequirementsForGuild(commandInfo, {user, entity}, interaction, tr)) {
+			if (!await this.missingRequirementsForGuild(commandInfo, {user, player: player}, interaction, tr)) {
 				return false;
 			}
 		}
@@ -161,11 +161,11 @@ export class CommandsManager {
 	 * @param commandName
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param argsOfCommand
 	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, entity: Entity, ...argsOfCommand: unknown[]): Promise<void> {
-		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, entity, ...argsOfCommand);
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, player: Player, ...argsOfCommand: unknown[]): Promise<void> {
+		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, player, ...argsOfCommand);
 	}
 
 	/**
@@ -503,7 +503,7 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
-		const [entity] = await Entities.getOrRegister(author);
+		const [player] = await Players.getOrRegister(author);
 		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
 			const dmChannel = client.users.cache.get(context.dmManagerID);
 			if (!dmChannel) {
@@ -526,7 +526,7 @@ export class CommandsManager {
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
 					username: escapeUsername(message.author.username),
-					alertIcon: entity.Player.dmNotification ? "" : BotConstants.DM.ALERT_ICON,
+					alertIcon: player.dmNotification ? "" : BotConstants.DM.ALERT_ICON,
 					id: message.author.id
 				}) + message.content
 			}
@@ -571,11 +571,11 @@ export class CommandsManager {
 	 * @param tr
 	 */
 	private static async missingRequirementsForGuild(commandInfo: ICommand, {
-		entity
-	}: UserEntity, interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
+		player
+	}: UserPlayer, interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
 		let guild;
 		try {
-			guild = await Guilds.getById(entity.Player.guildId);
+			guild = await Guilds.getById(player.guildId);
 		}
 		catch (error) {
 			guild = null;
@@ -593,10 +593,10 @@ export class CommandsManager {
 
 		let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
 
-		if (entity.id === guild.getElderId()) {
+		if (player.id === guild.getElderId()) {
 			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
 		}
-		if (entity.id === guild.getChiefId()) {
+		if (player.id === guild.getChiefId()) {
 			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
 		}
 
@@ -623,12 +623,12 @@ export class CommandsManager {
 	 */
 	private static effectRequirementsFailed(
 		commandInfo: ICommand,
-		{user, entity}: UserEntity,
+		{user, player}: UserPlayer,
 		{interaction, tr}: TextInformations,
 		shouldReply: boolean): boolean {
-		if (!entity.Player.currentEffectFinished(new Date()) &&
-			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(entity.Player.effect) ||
-				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(entity.Player.effect))) {
+		if (!player.currentEffectFinished(new Date()) &&
+			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(player.effect) ||
+				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(player.effect))) {
 			CommandsManager.effectError(user, tr, interaction, shouldReply).finally(() => null);
 			return true;
 		}
@@ -706,8 +706,8 @@ export class CommandsManager {
 		}
 
 
-		const [entity] = await Entities.getOrRegister(interaction.user.id);
-		if (!await this.userCanPerformCommand(commandInfo, entity, {interaction, tr}, true)) {
+		const [player] = await Players.getOrRegister(interaction.user.id);
+		if (!await this.userCanPerformCommand(commandInfo, player, {interaction, tr}, true)) {
 			return;
 		}
 
@@ -723,7 +723,7 @@ export class CommandsManager {
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
 		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.commandName).then();
-		await commandInfo.executeCommand(interaction, tr.language, entity);
+		await commandInfo.executeCommand(interaction, tr.language, player);
 	}
 
 	/**

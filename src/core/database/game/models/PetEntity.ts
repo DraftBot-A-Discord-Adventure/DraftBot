@@ -30,8 +30,6 @@ export class PetEntity extends Model {
 
 	public createdAt!: Date;
 
-	public PetModel: Pet;
-
 
 	public getPetTypeName(language: string): string {
 		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
@@ -293,14 +291,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	PetEntity.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	PetEntity.hasOne(Pet, {
-		foreignKey: "id",
-		sourceKey: "petId",
-		as: "PetModel"
 	});
 }
 

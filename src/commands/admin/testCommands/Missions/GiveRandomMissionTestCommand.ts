@@ -1,4 +1,3 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/database/game/models/Mission";
@@ -6,6 +5,7 @@ import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "giveRandomMission",
@@ -28,15 +28,15 @@ export const commandInfo: ITestCommand = {
  */
 const giveRandomMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	if (!entity.Player.hasEmptyMissionSlot()) {
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	if (!player.hasEmptyMissionSlot()) {
 		throw new Error("Les slots de mission du joueur sont tous pleins");
 	}
 	const difficulty = args[0];
 	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
-	const missionSlot = await MissionsController.addRandomMissionToPlayer(entity,
+	const missionSlot = await MissionsController.addRandomMissionToPlayer(player,
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 	const mission = await Missions.getById(missionSlot.missionId);
 

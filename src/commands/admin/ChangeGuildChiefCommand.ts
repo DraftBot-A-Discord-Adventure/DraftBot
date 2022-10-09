@@ -1,4 +1,3 @@
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -12,6 +11,7 @@ import {format} from "../../core/utils/StringFormatter";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 /**
  *Apply the changes due to validation
@@ -21,22 +21,22 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  * @param tr
  */
 function getEndCallbackChangeChief(
-	userToPromote: Entity,
+	userToPromote: Player,
 	guild: Guild,
 	interaction: CommandInteraction,
 	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		if (msg.isValidated()) {
-			const formerChief = await Entities.getById(guild.chiefId);
+			const formerChief = await Players.getById(guild.chiefId);
 
-			for (const member of await Entities.getByGuild(guild.id)) {
+			for (const member of await Players.getByGuild(guild.id)) {
 				sendDirectMessage(
 					await draftBotClient.users.fetch(member.discordUserId.toString()),
 					tr.get("DM.title"),
 					format(tr.get("DM.description"), {
-						old: await formerChief.Player.getPseudo(tr.language),
+						old: await formerChief.getPseudo(tr.language),
 						oldID: formerChief.discordUserId,
-						new: await userToPromote.Player.getPseudo(tr.language),
+						new: await userToPromote.getPseudo(tr.language),
 						newID: userToPromote.discordUserId,
 						guild: guild.name
 					}),
@@ -45,7 +45,7 @@ function getEndCallbackChangeChief(
 				);
 			}
 			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
-			formerChief.Player.guildId = null;
+			formerChief.guildId = null;
 
 			if (guild.elderId === userToPromote.id) {
 				draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
@@ -57,9 +57,9 @@ function getEndCallbackChangeChief(
 			await Promise.all([
 				guild.save(),
 				userToPromote.save(),
-				userToPromote.Player.save(),
+				userToPromote.save(),
 				formerChief.save(),
-				formerChief.Player.save()
+				formerChief.save()
 			]);
 
 			await interaction.followUp({
@@ -67,9 +67,9 @@ function getEndCallbackChangeChief(
 					new DraftBotEmbed()
 						.formatAuthor(tr.get("reply.title"), interaction.user)
 						.setDescription(format(tr.get("reply.description"), {
-							old: await formerChief.Player.getPseudo(tr.language),
+							old: await formerChief.getPseudo(tr.language),
 							oldID: formerChief.discordUserId,
-							new: await userToPromote.Player.getPseudo(tr.language),
+							new: await userToPromote.getPseudo(tr.language),
 							newID: userToPromote.discordUserId,
 							guild: guild.name
 						}))
@@ -91,7 +91,7 @@ function getEndCallbackChangeChief(
  * @param tr
  * @returns boolean
  */
-function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, guild: Guild | null, interaction: CommandInteraction, tr: TranslationModule): boolean {
+function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, guild: Guild | null, interaction: CommandInteraction, tr: TranslationModule): boolean {
 
 	if (guild === null) {
 		replyErrorMessage(
@@ -107,7 +107,7 @@ function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, 
 			interaction,
 			tr.language,
 			tr.get("errors.notInTheGuild")
-		);
+		).then();
 		return false;
 	}
 
@@ -116,7 +116,7 @@ function checkMemberEligibility(userToPromote: Entity, userGuild: Guild | null, 
 			interaction,
 			tr.language,
 			tr.get("errors.alreadyChief")
-		);
+		).then();
 		return false;
 	}
 	return true;
@@ -132,7 +132,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	let userToPromote;
 	try {
-		userToPromote = await Entities.getByDiscordUserId(interaction.options.get("id").value as string);
+		userToPromote = await Players.getByDiscordUserId(interaction.options.get("id").value as string);
 	}
 	catch {
 		userToPromote = null;
@@ -147,7 +147,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	}
 
 	const guild = await Guilds.getByName(interaction.options.get("guild").value as string);
-	const userGuild = await Guilds.getById(userToPromote.Player.guildId);
+	const userGuild = await Guilds.getById(userToPromote.guildId);
 
 	if (!checkMemberEligibility(userToPromote, userGuild, guild, interaction, tr)) {
 		return;

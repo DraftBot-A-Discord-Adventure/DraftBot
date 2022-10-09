@@ -1,7 +1,7 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "stopcurrenttravel",
@@ -20,12 +20,12 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const stopCurrentTravelTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	if (!Maps.isTravelling(entity.Player)) {
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	if (!Maps.isTravelling(player)) {
 		throw new Error("Erreur stoptravel : vous ne voyagez pas actuellement !");
 	}
 
-	await Maps.stopTravel(entity.Player);
+	await Maps.stopTravel(player);
 
 	return commandInfo.messageWhenExecuted;
 

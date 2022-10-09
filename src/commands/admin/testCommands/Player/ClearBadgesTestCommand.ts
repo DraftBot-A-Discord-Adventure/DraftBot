@@ -1,6 +1,6 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "clearbadges",
@@ -18,9 +18,9 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const clearBadgesTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.badges = null;
-	await entity.Player.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	player.badges = null;
+	await player.save();
 
 	return commandInfo.messageWhenExecuted;
 };

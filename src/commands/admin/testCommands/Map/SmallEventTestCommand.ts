@@ -2,9 +2,9 @@ import {CommandInteraction} from "discord.js";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandsManager} from "../../../CommandsManager";
 import {Data} from "../../../../core/Data";
+import {Players} from "../../../../core/database/game/models/Player";
 
 const smallEventsModules = Data.getKeys("smallEvents");
 
@@ -37,8 +37,8 @@ const smallEventTestCommand = async (language: string, interaction: CommandInter
 	if (!smallEventsModules.includes(args[0])) {
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await CommandsManager.executeCommandWithParameters("report", interaction, language, entity, null, args[0]);
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	await CommandsManager.executeCommandWithParameters("report", interaction, language, player, null, args[0]);
 	return format(commandInfo.messageWhenExecuted, {name: args[0]});
 };
 

@@ -1,8 +1,8 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetopggvotetime",
@@ -25,9 +25,9 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const advanceTopGGVoteTimeTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.topggVoteAt = new Date(entity.Player.topggVoteAt.valueOf() - parseInt(args[0], 10) * 60000);
-	await entity.Player.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	player.topggVoteAt = new Date(player.topggVoteAt.valueOf() - parseInt(args[0], 10) * 60000);
+	await player.save();
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };
 

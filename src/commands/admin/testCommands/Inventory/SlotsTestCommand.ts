@@ -1,8 +1,9 @@
 import {Constants} from "../../../../core/Constants";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
+import InventoryInfo, {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",
@@ -25,35 +26,36 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const slotsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const slots = parseInt(args[1], 10);
 	if (slots >= 5 || slots < 0) {
 		throw Error("Argument slots invalide. Doit être compris entre 0 et 5");
 	}
 	let category;
+	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 
 	switch (parseInt(args[0], 10)) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
-		entity.Player.InventoryInfo.weaponSlots = slots;
+		inventoryInfo.weaponSlots = slots;
 		category = "armes";
 		break;
 	case Constants.ITEM_CATEGORIES.ARMOR:
-		entity.Player.InventoryInfo.armorSlots = slots;
+		inventoryInfo.armorSlots = slots;
 		category = "armures";
 		break;
 	case Constants.ITEM_CATEGORIES.POTION:
-		entity.Player.InventoryInfo.potionSlots = slots;
+		inventoryInfo.potionSlots = slots;
 		category = "potions";
 		break;
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		entity.Player.InventoryInfo.objectSlots = slots;
+		inventoryInfo.objectSlots = slots;
 		category = "objets";
 		break;
 	default:
 		break;
 	}
 
-	await entity.Player.InventoryInfo.save();
+	await inventoryInfo.save();
 
 	return format(commandInfo.messageWhenExecuted, {
 		slot: slots,

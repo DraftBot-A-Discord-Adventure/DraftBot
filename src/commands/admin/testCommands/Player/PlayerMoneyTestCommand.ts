@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "playermoney",
@@ -26,21 +26,21 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const playerMoneyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const money = parseInt(args[0], 10);
 	if (money < 0) {
 		throw new Error("Erreur money : argent donné inférieur à 0 interdit !");
 	}
-	await entity.Player.addMoney({
-		entity,
-		amount: money - entity.Player.money,
+	await player.addMoney({
+		entity: player,
+		amount: money - player.money,
 		channel: interaction.channel,
 		language,
 		reason: NumberChangeReason.TEST
 	});
-	await entity.Player.save();
+	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, {money: entity.Player.money});
+	return format(commandInfo.messageWhenExecuted, {money: player.money});
 };
 
 commandInfo.execute = playerMoneyTestCommand;

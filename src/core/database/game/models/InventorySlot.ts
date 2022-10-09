@@ -57,6 +57,47 @@ export class InventorySlot extends Model {
 	}
 }
 
+export class InventorySlots {
+	public static async getInventorySlotsOfPlayer(playerId: number): Promise<InventorySlot[]> {
+		const slots: InventorySlot[] = await InventorySlot.findAll({
+			where: {
+				playerId
+			}
+		});
+		if (slots.length === 0) {
+			return await InventorySlot.bulkCreate(
+				[
+					{
+						playerId,
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						playerId,
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						playerId,
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						playerId,
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			);
+		}
+		return slots;
+	}
+}
+
 export function initModel(sequelize: Sequelize): void {
 	InventorySlot.init({
 		playerId: {

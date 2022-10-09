@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/database/game/models/Entity";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -12,16 +11,17 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
- * @param entity
+ * @param player
  * @param guild
  * @param guildElderRemoveModule
  * @param interaction
  */
-function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
+function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
 			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 			guild.elderId = null;
@@ -49,10 +49,10 @@ function getEndCallbackElderRemoveValidation(entity: Entity, guild: Guild, guild
  * remove guild elder
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const guild = await Guilds.getById(entity.Player.guildId);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	const guild = await Guilds.getById(player.guildId);
 	const guildElderRemoveModule = Translations.getModule("commands.guildElderRemove", language);
 
 	if (guild.elderId === null) {
@@ -65,7 +65,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	await new DraftBotValidateReactionMessage(interaction.user, getEndCallbackElderRemoveValidation(entity, guild, guildElderRemoveModule, interaction))
+	await new DraftBotValidateReactionMessage(interaction.user, getEndCallbackElderRemoveValidation(player, guild, guildElderRemoveModule, interaction))
 		.formatAuthor(guildElderRemoveModule.get("elderRemoveTitle"), interaction.user)
 		.setDescription(
 			guildElderRemoveModule.format("elderRemove",
@@ -76,7 +76,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		)
 		.reply(
 			interaction,
-			(collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE, collector)
+			(collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE, collector)
 		);
 }
 

@@ -1,11 +1,12 @@
 import {CommandInteraction} from "discord.js";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Data} from "../../../../core/Data";
-import MissionSlot from "../../../../core/database/game/models/MissionSlot";
+import MissionSlot, {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {Players} from "../../../../core/database/game/models/Player";
+import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaign",
@@ -27,22 +28,24 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const setCampaignTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const missionSlots = await MissionSlots.getOfPlayer(player.id);
+	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	const progression = parseInt(args[0], 10);
-	const [campaign] = entity.Player.MissionSlots.filter(m => m.isCampaign());
+	const [campaign] = missionSlots.filter(m => m.isCampaign());
 	const campaignMission = Data.getModule("campaign").getObjectFromArray("missions", progression - 1) as unknown as MissionSlot;
 
-	entity.Player.PlayerMissionsInfo.campaignProgression = progression;
+	missionsInfo.campaignProgression = progression;
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;
-	campaign.numberDone = await MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(entity.Player, campaign.missionVariant);
+	campaign.numberDone = await MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(player, campaign.missionVariant);
 	campaign.xpToWin = campaignMission.xpToWin;
 	campaign.gemsToWin = campaignMission.gemsToWin;
 	campaign.moneyToWin = campaignMission.moneyToWin;
 	campaign.saveBlob = null;
 	await campaign.save();
-	await entity.Player.PlayerMissionsInfo.save();
+	await missionsInfo.save();
 
 	return format(commandInfo.messageWhenExecuted, {
 		progression

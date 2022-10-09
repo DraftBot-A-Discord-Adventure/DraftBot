@@ -1,4 +1,3 @@
-import {Entities} from "../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -8,6 +7,7 @@ import {draftBotClient} from "../../core/bot";
 import {Translations} from "../../core/Translations";
 import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Players} from "../../core/database/game/models/Player";
 
 /**
  * @param interaction
@@ -15,7 +15,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const idToUnblock = interaction.options.get("discordid").value as string;
-	if (await Entities.getByDiscordUserId(idToUnblock) === null) {
+	if (await Players.getByDiscordUserId(idToUnblock) === null) {
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});
 		return;
 	}
@@ -28,8 +28,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	blockingReason.forEach(reason => BlockingUtils.unblockPlayer(idToUnblock, reason));
 	await interaction.reply({content: "Unblocked with success", ephemeral: true});
 	const user = await draftBotClient.users.fetch(idToUnblock);
-	const [entity] = await Entities.getOrRegister(idToUnblock);
-	if (entity.Player.dmNotification) {
+	const [player] = await Players.getOrRegister(idToUnblock);
+	if (player.dmNotification) {
 		sendDirectMessage(
 			user,
 			unblockModule.get("title"),

@@ -1,4 +1,3 @@
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
 import {CommandInteraction} from "discord.js";
@@ -13,8 +12,9 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
+import Player, {Players} from "../../core/database/game/models/Player";
 
-type UserInformation = { guild: Guild, entity: Entity };
+type UserInformation = { guild: Guild, player: Player };
 
 /**
  * Get the callback for the guild leave command
@@ -25,14 +25,14 @@ type UserInformation = { guild: Guild, entity: Entity };
 function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(
-			userInformation.entity.discordUserId,
-			userInformation.entity.id === userInformation.guild.chiefId && userInformation.guild.elderId
+			userInformation.player.discordUserId,
+			userInformation.player.id === userInformation.guild.chiefId && userInformation.guild.elderId
 				? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
 				: BlockingConstants.REASONS.GUILD_LEAVE);
 		if (msg.isValidated()) {
 			// the user confirmed the choice to leave
 			try {
-				userInformation.guild = await Guilds.getById(userInformation.entity.Player.guildId);
+				userInformation.guild = await Guilds.getById(userInformation.player.guildId);
 			}
 			catch (error) {
 				userInformation.guild = null;
@@ -48,13 +48,13 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				return;
 			}
 
-			if (userInformation.guild.elderId === userInformation.entity.id) {
+			if (userInformation.guild.elderId === userInformation.player.id) {
 				// the elder of the guild is leaving
 				await draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId);
 				userInformation.guild.elderId = null;
 			}
 
-			if (userInformation.entity.id === userInformation.guild.chiefId) {
+			if (userInformation.player.id === userInformation.guild.chiefId) {
 				// the chief of the guild is leaving
 				if (userInformation.guild.elderId) {
 					// an elder can recover the guild
@@ -75,14 +75,13 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				}
 			}
 
-			LogsDatabase.logGuildLeave(userInformation.guild, userInformation.entity.discordUserId).then();
+			LogsDatabase.logGuildLeave(userInformation.guild, userInformation.player.discordUserId).then();
 
-			userInformation.entity.Player.guildId = null;
+			userInformation.player.guildId = null;
 
 			await Promise.all([
 				userInformation.guild.save(),
-				userInformation.entity.save(),
-				userInformation.entity.Player.save()
+				userInformation.player.save()
 			]);
 
 
@@ -91,7 +90,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 					new DraftBotEmbed()
 						.setAuthor({
 							name: guildLeaveModule.format("successTitle", {
-								pseudo: await userInformation.entity.Player.getPseudo(guildLeaveModule.language),
+								pseudo: await userInformation.player.getPseudo(guildLeaveModule.language),
 								guildName: userInformation.guild.name
 							}),
 							iconURL: interaction.user.displayAvatarURL()
@@ -112,16 +111,16 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
  * Allow to leave its guild
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
 	const guildLeaveModule = Translations.getModule("commands.guildLeave", language);
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 
 	if (guild === null) {
 		await replyErrorMessage(
@@ -133,7 +132,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const endCallback = getEndCallbackGuildLeave(
-		{guild, entity},
+		{guild, player},
 		interaction,
 		guildLeaveModule
 	);
@@ -143,13 +142,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(guildLeaveModule.format("leaveDesc", {
 			guildName: guild.name
 		}));
-	let elder: Entity = null;
-	if (entity.id === guild.chiefId) {
-		elder = await Entities.getById(guild.elderId);
+	let elder: Player = null;
+	if (player.id === guild.chiefId) {
+		elder = await Players.getById(guild.elderId);
 		if (elder) {
 			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDescWithElder", {
 				guildName: guild.name,
-				elderName: await elder.Player.getPseudo(language)
+				elderName: await elder.getPseudo(language)
 			}));
 		}
 		else {
@@ -160,11 +159,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	await validationEmbed.reply(interaction, (collector) => {
-		if (elder && entity.id === guild.chiefId) {
+		if (elder && player.id === guild.chiefId) {
 			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, BlockingConstants.REASONS.CHIEF_GUILD_LEAVE, collector);
 			return;
 		}
-		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_LEAVE, collector);
+		BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_LEAVE, collector);
 	});
 }
 

@@ -3,7 +3,6 @@ import {format} from "../../core/utils/StringFormatter";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {Entities} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {APIApplicationCommandOptionChoice, CommandInteraction} from "discord.js";
@@ -15,6 +14,7 @@ import {discordIdToMention} from "../../core/utils/StringUtils";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {getItemByIdAndCategory} from "../../core/utils/ItemUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Players} from "../../core/database/game/models/Player";
 
 /**
  * Get the end callback of the give command
@@ -37,8 +37,8 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 		}
 		let descString = "";
 		for (const user of users) {
-			const entityToEdit = await Entities.getByDiscordUserId(user);
-			if (!entityToEdit) {
+			const playerToEdit = await Players.getByDiscordUserId(user);
+			if (!playerToEdit) {
 				descString += tr.format("giveError.baseText", {
 					user,
 					mention: discordIdToMention(user),
@@ -46,7 +46,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 				});
 				continue;
 			}
-			if (!await entityToEdit.Player.giveItem(item)) {
+			if (!await playerToEdit.giveItem(item)) {
 				descString += tr.format("giveError.baseText", {
 					user,
 					mention: discordIdToMention(user),
@@ -58,7 +58,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 				user,
 				mention: discordIdToMention(user)
 			});
-			if (entityToEdit.Player.dmNotification) {
+			if (playerToEdit.dmNotification) {
 				sendDirectMessage(
 					await draftBotClient.users.fetch(user),
 					tr.get("dm.title"),
@@ -69,7 +69,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 					tr.language
 				);
 			}
-			draftBotInstance.logsDatabase.logItemGain(entityToEdit.discordUserId, item).then();
+			draftBotInstance.logsDatabase.logItemGain(playerToEdit.discordUserId, item).then();
 		}
 		await interaction.followUp({
 			embeds: [new DraftBotEmbed()

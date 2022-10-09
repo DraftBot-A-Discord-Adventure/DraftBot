@@ -1,5 +1,4 @@
 import {CommandInteraction} from "discord.js";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
 import {ICommand} from "../ICommand";
@@ -9,30 +8,31 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 /**
  * Shows the missions of the given entity (default : the one who entered the command)
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
-	let entityToLook = await Entities.getByOptions(interaction);
+	let entityToLook = await Players.getByOptions(interaction);
 	if (entityToLook === null) {
-		entityToLook = entity;
+		entityToLook = player;
 	}
 
 	if (interaction.user.id === entityToLook.discordUserId) {
-		await MissionsController.update(entity, interaction.channel, language, {missionId: "commandMission"});
+		await MissionsController.update(player, interaction.channel, language, {missionId: "commandMission"});
 	}
-	entity = await Entities.getById(entity.id);
+	player = await Players.getById(player.id);
 
-	await MissionsController.checkCompletedMissions(entity, interaction.channel, language);
-	if (entityToLook.discordUserId === entity.discordUserId) {
-		[entityToLook] = await Entities.getOrRegister(entityToLook.discordUserId);
+	await MissionsController.checkCompletedMissions(player, interaction.channel, language);
+	if (entityToLook.discordUserId === player.discordUserId) {
+		[entityToLook] = await Players.getOrRegister(entityToLook.discordUserId);
 	}
 	await interaction.reply({
 		embeds: [
