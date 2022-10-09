@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/database/game/models/Entity";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -15,20 +14,22 @@ import {
 } from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
+import {Pets} from "../../core/database/game/models/Pet";
 
 /**
  * Obtiens la guilde du joueur
- * @param entity
+ * @param player
  */
-async function getGuild(entity: Entity): Promise<Guild> {
+async function getGuild(player: Player): Promise<Guild> {
 	try {
-		return await Guilds.getById(entity.Player.guildId);
+		return await Guilds.getById(player.guildId);
 	}
 	catch (error) {
 		return null;
@@ -50,16 +51,16 @@ function getFoodItems(): Map<string, string> {
  * Sends PetFeed Message and prepare the corresponding collector
  * @param interaction
  * @param feedEmbed
- * @param entity
+ * @param player
  */
 async function sendPetFeedMessageAndPrepareCollector(
 	interaction: CommandInteraction,
 	feedEmbed: DraftBotEmbed,
-	entity: Entity
+	player: Player
 ): Promise<{ feedMsg: Message, collector: ReactionCollector }> {
 	const feedMsg = await interaction.reply({embeds: [feedEmbed], fetchReply: true}) as Message;
 
-	const filterConfirm = (reaction: MessageReaction, user: User): boolean => user.id === entity.discordUserId && reaction.me;
+	const filterConfirm = (reaction: MessageReaction, user: User): boolean => user.id === player.discordUserId && reaction.me;
 
 	const collector = feedMsg.createReactionCollector({
 		filter: filterConfirm,
@@ -67,7 +68,7 @@ async function sendPetFeedMessageAndPrepareCollector(
 		max: 1
 	});
 
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.PET_FEED, collector);
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PET_FEED, collector);
 	return {feedMsg, collector};
 }
 
@@ -75,12 +76,12 @@ async function sendPetFeedMessageAndPrepareCollector(
  * Allow a user without guild to feed his pet with some candies
  * @param language
  * @param interaction
- * @param entity
+ * @param player
  * @param authorPet
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
+async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
 	const feedEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("feedEmbedTitle2"), interaction.user);
 	feedEmbed.setDescription(
@@ -90,11 +91,11 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 	);
 	feedEmbed.setFooter({text: petFeedModule.get("feedEmbedFooter")});
 
-	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
+	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, player);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
@@ -108,7 +109,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			);
 		}
 
-		if (entity.Player.money - 20 < 0) {
+		if (player.money - 20 < 0) {
 			return await sendErrorMessage(
 				interaction.user,
 				interaction,
@@ -117,12 +118,12 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			);
 		}
 		const editValueChanges = {
-			entity,
+			entity: player,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.PET_FEED
 		};
-		await entity.Player.addMoney(Object.assign(editValueChanges, {
+		await player.addMoney(Object.assign(editValueChanges, {
 			amount: -20
 		}));
 		authorPet.hungrySince = new Date();
@@ -131,7 +132,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		}));
 		await Promise.all([
 			authorPet.save(),
-			entity.Player.save()
+			player.save()
 		]);
 		const feedSuccessEmbed = new DraftBotEmbed();
 		feedSuccessEmbed.setDescription(petFeedModule.format("description.commonFood", {
@@ -152,13 +153,13 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
  * feed the pet
  * @param interaction
  * @param {fr/en} language
- * @param {*} entity
+ * @param {*} player
  * @param {*} pet
  * @param {*} item
  * @param petFeedModule
  */
-async function feedPet(interaction: CommandInteraction, language: string, entity: Entity, pet: PetEntity, item: string, petFeedModule: TranslationModule): Promise<GuildCacheMessage<CacheType>> {
-	const guild = await Guilds.getById(entity.Player.guildId);
+async function feedPet(interaction: CommandInteraction, language: string, player: Player, pet: PetEntity, item: string, petFeedModule: TranslationModule): Promise<GuildCacheMessage<CacheType>> {
+	const guild = await Guilds.getById(player.guildId);
 	if (guild.getDataValue(item) <= 0) {
 		await sendErrorMessage(
 			interaction.user,
@@ -173,21 +174,22 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
 	guild.removeFood(item, 1, NumberChangeReason.PET_FEED);
 	const editValueChanges = {
-		entity,
+		entity: player,
 		amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex],
 		channel: interaction.channel,
 		language,
 		reason: NumberChangeReason.PET_FEED
 	};
+	const petModel = await Pets.getById(pet.petId);
 	if (
-		pet.PetModel.diet &&
+		petModel.diet &&
 		(item === Constants.PET_FOOD.HERBIVOROUS_FOOD || item === Constants.PET_FOOD.CARNIVOROUS_FOOD)
 	) {
-		if (item.includes(pet.PetModel.diet)) {
+		if (item.includes(petModel.diet)) {
 			await pet.changeLovePoints(editValueChanges);
 		}
 		successEmbed.setDescription(
-			petFeedModule.format(`description.${item.includes(pet.PetModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
+			petFeedModule.format(`description.${item.includes(petModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
 				petnick: pet.displayName(language),
 				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
 			})
@@ -211,12 +213,12 @@ async function feedPet(interaction: CommandInteraction, language: string, entity
  * Allow a user in a guild to give some food to his pet
  * @param language
  * @param interaction
- * @param entity
+ * @param player
  * @param authorPet
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function guildUserFeedPet(language: string, interaction: CommandInteraction, entity: Entity, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
+async function guildUserFeedPet(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
 	const foodItems = getFoodItems();
 
 	const feedEmbed = new DraftBotEmbed()
@@ -225,7 +227,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 		petFeedModule.get("feedEmbedDescription")
 	);
 
-	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, entity);
+	const {feedMsg, collector} = await sendPetFeedMessageAndPrepareCollector(interaction, feedEmbed, player);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
@@ -233,7 +235,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 			!reaction.first() ||
 			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
 		) {
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
+			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
 			return await sendErrorMessage(
 				interaction.user,
 				interaction,
@@ -245,8 +247,8 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			await feedPet(interaction, language, entity, authorPet, item, petFeedModule);
+			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
+			await feedPet(interaction, language, player, authorPet, item, petFeedModule);
 		}
 	});
 
@@ -260,15 +262,15 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
  * Feed your pet !
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const petFeedModule = Translations.getModule("commands.petFeed", language);
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
-	const authorPet = entity.Player.Pet;
+	const authorPet = await PetEntities.getById(player.petId);
 	if (!authorPet) {
 		await replyErrorMessage(
 			interaction,
@@ -278,7 +280,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const cooldownTime = entity.Player.Pet.getFeedCooldown();
+	const cooldownTime = authorPet.getFeedCooldown();
 	if (cooldownTime > 0) {
 		await replyErrorMessage(
 			interaction,
@@ -290,12 +292,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const guild = await getGuild(entity);
+	const guild = await getGuild(player);
 	if (guild === null) {
-		await withoutGuildPetFeed(language, interaction, entity, authorPet, petFeedModule);
+		await withoutGuildPetFeed(language, interaction, player, authorPet, petFeedModule);
 	}
 	else {
-		await guildUserFeedPet(language, interaction, entity, authorPet, petFeedModule);
+		await guildUserFeedPet(language, interaction, player, authorPet, petFeedModule);
 	}
 }
 

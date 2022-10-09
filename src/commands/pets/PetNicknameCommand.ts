@@ -1,4 +1,3 @@
-import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
@@ -11,18 +10,20 @@ import {checkNameString} from "../../core/utils/StringUtils";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
+import {PetEntities} from "../../core/database/game/models/PetEntity";
 
 /**
  * Renames your current pet
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
-	const pet = entity.Player.Pet;
+	const pet = await PetEntities.getById(player.petId);
 	const petNickTranslations = Translations.getModule("commands.petNickname", language);
 	if (!pet) {
 		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));

@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
@@ -11,7 +10,7 @@ import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {
 	BroadcastTranslationModuleLike,
@@ -21,10 +20,12 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
+import {Pets} from "../../core/database/game/models/Pet";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
-type SellerInformation = { entity: Entity, pet: PetEntity, guild: Guild, petCost: number };
-type BuyerInformation = { buyer: Entity, user: User };
+type SellerInformation = { player: Player, pet: PetEntity, guild: Guild, petCost: number };
+type BuyerInformation = { buyer: Player, user: User };
 
 /**
  * Check if the requirements for selling the pet are fulfilled
@@ -96,26 +97,27 @@ async function executeTheTransaction(
 	sellerInformation: SellerInformation,
 	textInformation: TextInformation
 ): Promise<void> {
-	const buyerGuild = await Guilds.getById(buyerInformation.buyer.Player.guildId);
+	const buyerGuild = await Guilds.getById(buyerInformation.buyer.guildId);
 	if (buyerGuild && buyerGuild.id === sellerInformation.guild.id) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sameGuild"));
 		return;
 	}
-	if (buyerInformation.buyer.Player.Pet) {
+	const buyerPet = await PetEntities.getById(buyerInformation.buyer.petId);
+	if (buyerPet) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("havePet"));
 		return;
 	}
-	if (sellerInformation.petCost > buyerInformation.buyer.Player.money) {
+	if (sellerInformation.petCost > buyerInformation.buyer.money) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("noMoney"));
 		return;
 	}
 	const xpToAdd = calculateAmountOfXPToAdd(sellerInformation.petCost);
 	await sellerInformation.guild.addExperience(xpToAdd, textInformation.interaction.channel, textInformation.petSellModule.language, NumberChangeReason.PET_SELL);
-	buyerInformation.buyer.Player.petId = sellerInformation.pet.id;
-	sellerInformation.entity.Player.petId = null;
+	buyerInformation.buyer.petId = sellerInformation.pet.id;
+	sellerInformation.player.petId = null;
 	sellerInformation.pet.lovePoints = Constants.PETS.BASE_LOVE;
 	// the money has to be edited before the player is saved to avoid cross writing to the database
-	await buyerInformation.buyer.Player.addMoney({
+	await buyerInformation.buyer.addMoney({
 		entity: buyerInformation.buyer,
 		amount: -sellerInformation.petCost,
 		channel: textInformation.interaction.channel,
@@ -124,8 +126,8 @@ async function executeTheTransaction(
 	});
 	await Promise.all([
 		sellerInformation.guild.save(),
-		buyerInformation.buyer.Player.save(),
-		sellerInformation.entity.Player.save(),
+		buyerInformation.buyer.save(),
+		sellerInformation.player.save(),
 		sellerInformation.pet.save()
 	]);
 	if (!sellerInformation.guild.isAtMaxLevel()) {
@@ -152,9 +154,9 @@ async function executeTheTransaction(
 			})
 		);
 	await textInformation.interaction.followUp({embeds: [addPetEmbed]});
-	LogsDatabase.logPetSell(sellerInformation.pet, sellerInformation.entity.discordUserId, buyerInformation.user.id, sellerInformation.petCost).then();
+	LogsDatabase.logPetSell(sellerInformation.pet, sellerInformation.player.discordUserId, buyerInformation.user.id, sellerInformation.petCost).then();
 	await MissionsController.update(buyerInformation.buyer, textInformation.interaction.channel, textInformation.petSellModule.language, {missionId: "havePet"});
-	await MissionsController.update(sellerInformation.entity, textInformation.interaction.channel, textInformation.petSellModule.language, {missionId: "sellOrTradePet"});
+	await MissionsController.update(sellerInformation.player, textInformation.interaction.channel, textInformation.petSellModule.language, {missionId: "sellOrTradePet"});
 }
 
 /**
@@ -168,7 +170,7 @@ async function petSell(
 	sellerInformation: SellerInformation,
 	buyerInformation: BuyerInformation
 ): Promise<void> {
-	BlockingUtils.unblockPlayer(sellerInformation.entity.discordUserId, BlockingConstants.REASONS.PET_SELL);
+	BlockingUtils.unblockPlayer(sellerInformation.player.discordUserId, BlockingConstants.REASONS.PET_SELL);
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(textInformation.petSellModule.get("confirmEmbed.author"), buyerInformation.user)
 		.setDescription(
@@ -194,7 +196,7 @@ async function petSell(
 	});
 
 	BlockingUtils.blockPlayerWithCollector(buyerInformation.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
-	BlockingUtils.blockPlayerWithCollector(sellerInformation.entity.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(sellerInformation.player.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
 	confirmCollector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
 			confirmCollector.stop();
@@ -211,7 +213,7 @@ async function petSell(
 			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sellCancelled"), true);
 		}
 		BlockingUtils.unblockPlayer(buyerInformation.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
-		BlockingUtils.unblockPlayer(sellerInformation.entity.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
+		BlockingUtils.unblockPlayer(sellerInformation.player.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
 	});
 	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
 }
@@ -223,8 +225,8 @@ async function petSell(
  */
 function getAcceptCallback(sellerInformation: SellerInformation, textInformation: TextInformation): (user: User) => Promise<boolean> {
 	return async (user: User): Promise<boolean> => {
-		const buyerInformation = {user, buyer: await Entities.getByDiscordUserId(user.id)};
-		if (buyerInformation.buyer.Player.effect === EffectsConstants.EMOJI_TEXT.BABY ||
+		const buyerInformation = {user, buyer: await Players.getByDiscordUserId(user.id)};
+		if (buyerInformation.buyer.effect === EffectsConstants.EMOJI_TEXT.BABY ||
 			await sendBlockedError(textInformation.interaction, textInformation.petSellModule.language, buyerInformation.user)) {
 			buyerInformation.buyer = null;
 			return false;
@@ -252,19 +254,19 @@ function getBroadcastErrorStrings(petSellModule: TranslationModule): BroadcastTr
  * Broadcast a sell request of the player's pet
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petSellModule = Translations.getModule("commands.petSell", language);
 
 	const petCost = interaction.options.get(Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH).get("optionPriceName")).value as number;
-	const pet = entity.Player.Pet;
+	const pet = await PetEntities.getById(player.petId);
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guildId);
+		guild = await Guilds.getById(player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -280,7 +282,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const textInformation = {interaction, petSellModule};
-	const sellerInformation = {entity, pet, guild, petCost};
+	const sellerInformation = {player: player, pet, guild, petCost};
 
 	if (await missingRequirementsToSellPet(textInformation, sellerInformation)) {
 		return;
@@ -303,7 +305,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.addFields([{
 			name: textInformation.petSellModule.get("petFieldName"),
 			value: Translations.getModule("commands.profile", textInformation.petSellModule.language).format("pet.fieldValue", {
-				rarity: sellerInformation.pet.PetModel.getRarityDisplay(),
+				rarity: (await Pets.getById(sellerInformation.pet.petId)).getRarityDisplay(),
 				emote: sellerInformation.pet.getPetEmote(),
 				nickname: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(textInformation.petSellModule.language)
 			}),

@@ -1,6 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/database/game/models/Entity";
-
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
@@ -16,8 +14,10 @@ import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {draftBotInstance} from "../../core/bot";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
+import Player from "../../core/database/game/models/Player";
+import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 
-type EntityInformation = { entity: Entity, activeObject: ObjectItem };
+type EntityInformation = { player: Player, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
 
 /**
@@ -53,12 +53,13 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
 /**
  * Checks if you can do your daily, and if you can't, sends an error
  * @param interaction
- * @param entity
+ * @param player
  * @param language
  * @param dailyModule
  */
-async function dailyNotReady(interaction: CommandInteraction, entity: Entity, language: string, dailyModule: TranslationModule): Promise<boolean> {
-	const time = millisecondsToHours(interaction.createdAt.valueOf() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
+async function dailyNotReady(interaction: CommandInteraction, player: Player, language: string, dailyModule: TranslationModule): Promise<boolean> {
+	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
+	const time = millisecondsToHours(interaction.createdAt.valueOf() - inventoryInfo.lastDailyAt.valueOf());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
 		await replyErrorMessage(
 			interaction,
@@ -86,7 +87,7 @@ async function activateDailyItem(
 	switch (entityInformation.activeObject.nature) {
 	case Constants.NATURE.HEALTH:
 		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
-		await entityInformation.entity.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
+		await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.HOSPITAL:
 		embed.setDescription(
@@ -94,12 +95,12 @@ async function activateDailyItem(
 				value: minutesDisplay(entityInformation.activeObject.power)
 			})
 		);
-		await TravelTime.timeTravel(entityInformation.entity.Player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
+		await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
 		break;
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
-		await entityInformation.entity.Player.addMoney({
-			entity: entityInformation.entity,
+		await entityInformation.player.addMoney({
+			entity: entityInformation.player,
 			amount: entityInformation.activeObject.power,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
@@ -109,33 +110,34 @@ async function activateDailyItem(
 	default:
 		break;
 	}
-	entityInformation.entity.Player.InventoryInfo.updateLastDailyAt();
-	await Promise.all([entityInformation.entity.save(), entityInformation.entity.Player.save(), entityInformation.entity.Player.InventoryInfo.save()]);
+	const inventoryInfo = await InventoryInfos.getOfPlayer(entityInformation.player.id);
+	inventoryInfo.updateLastDailyAt();
+	await Promise.all([entityInformation.player.save(), entityInformation.player.save(), inventoryInfo.save()]);
 }
 
 /**
  * Activate your daily item effect
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const dailyModule = Translations.getModule("commands.daily", language);
 
-	const activeObject: ObjectItem = await entity.Player.getMainObjectSlot().getItem() as ObjectItem;
+	const activeObject: ObjectItem = await player.getMainObjectSlot().getItem() as ObjectItem;
 
-	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, entity, language, dailyModule)) {
+	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, player, language, dailyModule)) {
 		return;
 	}
 
 	const embed = new DraftBotEmbed().formatAuthor(dailyModule.get("dailySuccess"), interaction.user);
-	await activateDailyItem({entity, activeObject}, embed, {interaction, language, dailyModule});
+	await activateDailyItem({player: player, activeObject}, embed, {interaction, language, dailyModule});
 	await interaction.reply({embeds: [embed]});
 
-	draftBotInstance.logsDatabase.logPlayerDaily(entity.discordUserId, activeObject).then();
+	draftBotInstance.logsDatabase.logPlayerDaily(player.discordUserId, activeObject).then();
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.daily", Constants.LANGUAGE.FRENCH);

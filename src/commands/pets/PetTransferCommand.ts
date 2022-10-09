@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import Entity from "../../core/database/game/models/Entity";
 import {GuildPets} from "../../core/database/game/models/GuildPet";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -8,21 +7,22 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {PetEntityConstants} from "../../core/constants/PetEntityConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Get the guild from a given entity
- * @param entity
+ * @param player
  */
-async function getGuildOfEntity(entity: Entity): Promise<Guild> {
+async function getGuildOfEntity(player: Player): Promise<Guild> {
 	try {
-		return await Guilds.getById(entity.Player.guildId);
+		return await Guilds.getById(player.guildId);
 	}
 	catch (error) {
 		return null;
@@ -33,13 +33,13 @@ async function getGuildOfEntity(entity: Entity): Promise<Guild> {
  * Transfer your pet to the guild's shelter
  * @param interaction
  * @param petTransferModule
- * @param entity
+ * @param player
  * @param guild
  * @param confirmEmbed
  */
-async function transferPetToGuild(interaction: CommandInteraction, petTransferModule: TranslationModule, entity: Entity, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
-	const playerPet = entity.Player.Pet;
-	const guildPetCount = guild.GuildPets.length;
+async function transferPetToGuild(interaction: CommandInteraction, petTransferModule: TranslationModule, player: Player, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
+	const playerPet = await PetEntities.getById(player.petId);
+	const guildPetCount = (await GuildPets.getOfGuild(guild.id)).length;
 	if (!playerPet) {
 		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
 	}
@@ -49,8 +49,8 @@ async function transferPetToGuild(interaction: CommandInteraction, petTransferMo
 	if (guildPetCount >= PetEntityConstants.SLOTS) {
 		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noSlotAvailable"));
 	}
-	entity.Player.petId = null;
-	await entity.Player.save();
+	player.petId = null;
+	await player.save();
 	await GuildPets.addPet(guild, playerPet, false).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(petTransferModule.language)}`
@@ -83,12 +83,12 @@ async function sendErrorInvalidPositionShelter(guildPetCount: number, interactio
  * @param interaction
  * @param language
  * @param petTransferModule
- * @param entity
+ * @param player
  */
-async function switchPets(guild: Guild, shelterPosition: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, entity: Entity): Promise<PetEntity> {
-	const playerPet = entity.Player.Pet;
-	const swPet = guild.GuildPets[shelterPosition - 1];
-	const swPetEntity = swPet.PetEntity;
+async function switchPets(guild: Guild, shelterPosition: number, interaction: CommandInteraction, language: string, petTransferModule: TranslationModule, player: Player): Promise<PetEntity> {
+	const playerPet = await PetEntities.getById(player.petId);
+	const swPet = (await GuildPets.getOfGuild(guild.id))[shelterPosition - 1];
+	const swPetEntity = await PetEntities.getById(swPet.petEntityId);
 
 	if (playerPet) {
 		if (playerPet.isFeisty()) {
@@ -101,8 +101,8 @@ async function switchPets(guild: Guild, shelterPosition: number, interaction: Co
 	else {
 		await swPet.destroy();
 	}
-	entity.Player.petId = swPetEntity.id;
-	await entity.Player.save();
+	player.petId = swPetEntity.id;
+	await player.save();
 	return swPetEntity;
 }
 
@@ -131,18 +131,18 @@ function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: Draf
 
 /**
  * Updates the missions of the given player concerning the actions made
- * @param entity
+ * @param player
  * @param interaction
  * @param language
  * @param swPetEntity
  */
-async function updateMissionsOfEntity(entity: Entity, interaction: CommandInteraction, language: string, swPetEntity: PetEntity): Promise<void> {
-	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
-	await MissionsController.update(entity, interaction.channel, language, {
+async function updateMissionsOfEntity(player: Player, interaction: CommandInteraction, language: string, swPetEntity: PetEntity): Promise<void> {
+	await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "tamedPet",
 		params: {loveLevel: swPetEntity.getLoveLevelNumber()}
 	});
-	await MissionsController.update(entity, interaction.channel, language, {
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "trainedPet",
 		params: {loveLevel: swPetEntity.getLoveLevelNumber()}
 	});
@@ -152,29 +152,29 @@ async function updateMissionsOfEntity(entity: Entity, interaction: CommandIntera
  * Allow to transfer a pet
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petTransferModule = Translations.getModule("commands.petTransfer", language);
-	const playerPet = entity.Player.Pet;
+	const playerPet = await PetEntities.getById(player.petId);
 
-	const guild = await getGuildOfEntity(entity);
+	const guild = await getGuildOfEntity(player);
 	if (!guild) {
 		await replyErrorMessage(interaction, language, Translations.getModule("bot", language).get("notInAGuild"));
 		return;
 	}
 
-	const guildPetCount = guild.GuildPets.length;
+	const guildPetCount = (await GuildPets.getOfGuild(guild.id)).length;
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(petTransferModule.get("confirmSwitchTitle"), interaction.user);
 
 	const shelterPositionOption = interaction.options.get(Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH).get("optionPositionName"));
 
 	if (shelterPositionOption === null) {
-		await transferPetToGuild(interaction, petTransferModule, entity, guild, confirmEmbed);
+		await transferPetToGuild(interaction, petTransferModule, player, guild, confirmEmbed);
 		return;
 	}
 
@@ -189,14 +189,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, entity);
+	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, player);
 	if (swPetEntity === null) {
 		return null;
 	}
 
 	setDescriptionPetTransferEmbed(playerPet, confirmEmbed, petTransferModule, language, swPetEntity);
 	await interaction.reply({embeds: [confirmEmbed]});
-	await updateMissionsOfEntity(entity, interaction, language, swPetEntity);
+	await updateMissionsOfEntity(player, interaction, language, swPetEntity);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.petTransfer", Constants.LANGUAGE.FRENCH);
