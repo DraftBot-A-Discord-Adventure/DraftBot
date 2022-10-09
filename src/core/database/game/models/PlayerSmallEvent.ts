@@ -31,7 +31,7 @@ export class PlayerSmallEvents {
 		}
 		let mostRecent = playerSmallEvents[0];
 		for (const smallEvent of playerSmallEvents) {
-			if (smallEvent.time >= mostRecent.time) {
+			if (smallEvent.id >= mostRecent.id) {
 				mostRecent = smallEvent;
 			}
 		}
