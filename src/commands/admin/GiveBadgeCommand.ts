@@ -1,4 +1,3 @@
-import {Entities} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -6,6 +5,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Players} from "../../core/database/game/models/Player";
 
 /**
  * Allow the bot owner or a badge manager to give an item to somebody
@@ -15,9 +15,9 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const gbModule = Translations.getModule("commands.giveBadge", language);
 	const playerId = interaction.options.getUser("user").id;
-	const [entity] = await Entities.getOrRegister(playerId);
-	entity.Player.addBadge(interaction.options.get("badge").value as string);
-	await entity.Player.save();
+	const [player] = await Players.getOrRegister(playerId);
+	player.addBadge(interaction.options.get("badge").value as string);
+	await player.save();
 
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()

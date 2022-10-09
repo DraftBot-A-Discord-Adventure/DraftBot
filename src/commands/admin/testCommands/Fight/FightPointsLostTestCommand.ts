@@ -1,8 +1,8 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "fightpointslost",
@@ -25,9 +25,9 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const fightPointsLostTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.fightPointsLost = parseInt(args[0], 10);
-	await entity.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	player.fightPointsLost = parseInt(args[0], 10);
+	await player.save();
 
 	return format(commandInfo.messageWhenExecuted, {lostPoints: args[0]});
 };

@@ -1,4 +1,3 @@
-import {Entity} from "../../core/database/game/models/Entity";
 import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelterMessage";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
@@ -7,15 +6,16 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Shows the guild's shelter, where all the guild pets are stored
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const guild = await Guilds.getById(entity.Player.guildId);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	const guild = await Guilds.getById(player.guildId);
 	await interaction.reply({embeds: [await new DraftBotShelterMessageBuilder(guild, language).build()]});
 }
 

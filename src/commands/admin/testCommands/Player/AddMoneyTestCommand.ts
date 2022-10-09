@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "addmoney",
@@ -25,17 +25,17 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const addMoneyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await entity.Player.addMoney({
-		entity,
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	await player.addMoney({
+		entity: player,
 		amount: parseInt(args[0], 10),
 		channel: interaction.channel,
 		language,
 		reason: NumberChangeReason.TEST
 	});
-	await entity.Player.save();
+	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, {money: entity.Player.money});
+	return format(commandInfo.messageWhenExecuted, {money: player.money});
 };
 
 commandInfo.execute = addMoneyTestCommand;

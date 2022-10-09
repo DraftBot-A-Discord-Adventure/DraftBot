@@ -1,9 +1,10 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
+import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "addgem",
@@ -25,11 +26,12 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const addGemsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	await entity.Player.PlayerMissionsInfo.addGems(parseInt(args[0], 10), entity, NumberChangeReason.TEST);
-	await entity.Player.PlayerMissionsInfo.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	await missionInfo.addGems(parseInt(args[0], 10), player.discordUserId, NumberChangeReason.TEST);
+	await missionInfo.save();
 
-	return format(commandInfo.messageWhenExecuted, {gem: entity.Player.PlayerMissionsInfo.gems});
+	return format(commandInfo.messageWhenExecuted, {gem: missionInfo.gems});
 };
 
 commandInfo.execute = addGemsTestCommand;

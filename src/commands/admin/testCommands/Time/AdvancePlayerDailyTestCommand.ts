@@ -1,8 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
+import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "advanceplayerdaily",
@@ -25,9 +26,10 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const advancePlayerDailyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.InventoryInfo.lastDailyAt = new Date(entity.Player.InventoryInfo.lastDailyAt.valueOf() - parseInt(args[0], 10) * 60000);
-	await entity.Player.InventoryInfo.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
+	inventoryInfo.lastDailyAt = new Date(inventoryInfo.lastDailyAt.valueOf() - parseInt(args[0], 10) * 60000);
+	await inventoryInfo.save();
 	return format(commandInfo.messageWhenExecuted, {time: args[0]});
 };
 

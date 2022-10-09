@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/database/game/models/Entity";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -9,6 +8,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Add a food storage field for storage embeds
@@ -37,12 +37,12 @@ function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: Translat
  * Display the storage of the guild
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const foodModule = Translations.getModule("food", language);
 	const translations = Translations.getModule("commands.guildStorage", language);
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 	const storageEmbed = new DraftBotEmbed();
 
 	storageEmbed.setTitle(

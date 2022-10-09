@@ -1,7 +1,6 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -14,8 +13,9 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
-type PersonInformation = { user: User, entity: Entity };
+type PersonInformation = { user: User, player: Player };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
 
 /**
@@ -27,14 +27,14 @@ type TextInformation = { interaction: CommandInteraction, guildElderModule: Tran
  */
 function getEndCallbackGuildElder(
 	chief: PersonInformation,
-	elder: Entity,
+	elder: Player,
 	guild: Guild,
 	textInformation: TextInformation): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(chief.entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER);
+		BlockingUtils.unblockPlayer(chief.player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER);
 		if (msg.isValidated()) {
-			const elderUpdated = await Entities.getById(elder.id);
-			if (elder.Player.guildId !== elderUpdated.Player.guildId) {
+			const elderUpdated = await Players.getById(elder.id);
+			if (elder.guildId !== elderUpdated.guildId) {
 				return await sendErrorMessage(
 					chief.user,
 					textInformation.interaction,
@@ -56,7 +56,7 @@ function getEndCallbackGuildElder(
 						.setAuthor(
 							{
 								name: textInformation.guildElderModule.format("successElderAddTitle", {
-									pseudo: escapeUsername(await elder.Player.getPseudo(textInformation.guildElderModule.language)),
+									pseudo: escapeUsername(await elder.getPseudo(textInformation.guildElderModule.language)),
 									guildName: guild.name
 								}),
 								iconURL: chief.user.displayAvatarURL()
@@ -83,9 +83,9 @@ function getEndCallbackGuildElder(
  * @param elderGuild
  * @param guild
  * @param textInformation
- * @param elderEntity
+ * @param elderPlayer
  */
-async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderEntity: Entity): Promise<boolean> {
+async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderPlayer: Player): Promise<boolean> {
 	// check if the elder is in the right guild
 	if (elderGuild === null || elderGuild.id !== guild.id) {
 		await replyErrorMessage(
@@ -97,7 +97,7 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
 	}
 
 	// chief cannot be the elder
-	if (guild.chiefId === elderEntity.id) {
+	if (guild.chiefId === elderPlayer.id) {
 		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
@@ -107,7 +107,7 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
 	}
 
 	// check if the elder is already an elder
-	if (elderGuild.elderId === elderEntity.id) {
+	if (elderGuild.elderId === elderPlayer.id) {
 		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
@@ -122,19 +122,19 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
  * Allow to display the promoted a user to become an elder
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const guildElderModule = Translations.getModule("commands.guildElder", language);
-	const elderEntity = await Entities.getByOptions(interaction);
-	const guild = await Guilds.getById(entity.Player.guildId);
-	const elderGuild = await Guilds.getById(elderEntity.Player.guildId);
+	const elderPlayer = await Players.getByOptions(interaction);
+	const guild = await Guilds.getById(player.guildId);
+	const elderGuild = await Guilds.getById(elderPlayer.guildId);
 
 	// check if the elder is eligible
-	const eligible = await checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderEntity);
+	const eligible = await checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderPlayer);
 	if (!eligible) {
 		return;
 	}
@@ -142,9 +142,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const endCallback = getEndCallbackGuildElder(
 		{
 			user: interaction.user,
-			entity: entity
+			player: player
 		},
-		elderEntity,
+		elderPlayer,
 		guild,
 		{
 			interaction,
@@ -155,10 +155,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await new DraftBotValidateReactionMessage(
 		interaction.user, endCallback).formatAuthor(guildElderModule.get("elderAddTitle"), interaction.user)
 		.setDescription(guildElderModule.format("elderAdd", {
-			elder: escapeUsername(await elderEntity.Player.getPseudo(language)),
+			elder: escapeUsername(await elderPlayer.getPseudo(language)),
 			guildName: guild.name
 		}))
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_ELDER, collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER, collector));
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.guildElder", Constants.LANGUAGE.FRENCH);

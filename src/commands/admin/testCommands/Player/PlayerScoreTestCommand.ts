@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "playerscore",
@@ -26,21 +26,21 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const playerScoreTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const score = parseInt(args[0], 10);
 	if (score < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
 	}
-	await entity.Player.addScore({
-		entity: entity,
-		amount: score - entity.Player.score,
+	await player.addScore({
+		entity: player,
+		amount: score - player.score,
 		channel: interaction.channel,
 		language,
 		reason: NumberChangeReason.TEST
 	});
-	await entity.Player.save();
+	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, {score: entity.Player.score});
+	return format(commandInfo.messageWhenExecuted, {score: player.score});
 };
 
 commandInfo.execute = playerScoreTestCommand;

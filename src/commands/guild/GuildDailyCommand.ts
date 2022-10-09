@@ -1,5 +1,4 @@
 import {CommandInteraction} from "discord.js";
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -21,8 +20,9 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
+import Player, {Players} from "../../core/database/game/models/Player";
 
-type GuildLike = { guild: Guild, members: Entity[] };
+type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 type FunctionRewardType = (guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>;
@@ -80,10 +80,9 @@ async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, i
  * @param members
  * @param awardingFunctionForAMember
  */
-async function genericAwardingFunction(members: Entity[], awardingFunctionForAMember: (member: Entity) => Promise<void> | void): Promise<void> {
+async function genericAwardingFunction(members: Player[], awardingFunctionForAMember: (member: Player) => Promise<void> | void): Promise<void> {
 	for (const member of members) {
 		await awardingFunctionForAMember(member);
-		await member.Player.save();
 		await member.save();
 	}
 }
@@ -98,7 +97,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 	const moneyWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_MONEY + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addMoney({
+	await genericAwardingFunction(guildLike.members, member => member.addMoney({
 		entity: member,
 		amount: moneyWon,
 		channel: stringInfos.interaction.channel,
@@ -138,7 +137,7 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
+		if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
 			await member.addHealth(
 				fullHeal ? await member.getMaxHealth() : healthWon,
 				stringInfos.interaction.channel,
@@ -170,12 +169,12 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	let noAlteHeal = true;
 	const needsHeal = await doesSomeoneNeedsHeal(guildLike);
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.Player.currentEffectFinished(stringInfos.interaction.createdAt) && needsHeal) {
+		if (member.currentEffectFinished(stringInfos.interaction.createdAt) && needsHeal) {
 			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 		}
-		if (member.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
+		if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
-			await TravelTime.removeEffect(member.Player, NumberChangeReason.GUILD_DAILY);
+			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
 		}
 	});
 	if (!needsHeal && noAlteHeal) {
@@ -198,7 +197,7 @@ async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: Strin
 	const xpWon = RandomUtils.randInt(
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.Player.addExperience({
+	await genericAwardingFunction(guildLike.members, member => member.addExperience({
 		entity: member,
 		amount: xpWon,
 		channel: stringInfos.interaction.channel,
@@ -266,7 +265,7 @@ async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfo
 async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.Player.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
+		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
 		}
 	});
@@ -286,7 +285,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
  */
 async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const timeAdvanced = Math.round(guildLike.guild.level * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, async member => await TravelTime.timeTravel(member.Player, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
+	await genericAwardingFunction(guildLike.members, async member => await TravelTime.timeTravel(member, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
 	stringInfos.embed.setDescription(guildDailyModule.format("hospital", {
 		timeMoved: timeAdvanced
 	}));
@@ -320,14 +319,14 @@ const linkToFunction = getMapOfAllRewardCommands();
  * @param guildDailyModule
  * @param embed
  */
-async function notifyAndUpdatePlayers(members: Entity[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
+async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
 		if (member.discordUserId !== interaction.user.id) {
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
 		}
 		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
-		if (member.Player.dmNotification && member.discordUserId !== interaction.user.id) {
+		if (member.dmNotification && member.discordUserId !== interaction.user.id) {
 			sendDirectMessage(
 				user,
 				guildDailyModule.get("dmNotification.title"),
@@ -367,15 +366,15 @@ function generateRandomProperty(guild: Guild): string {
  * Allow to claim a daily guild reward
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  * @param forcedReward
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, forcedReward: string = null): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player, forcedReward: string = null): Promise<void> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 
 	if (!guild) {
 		return;
@@ -393,7 +392,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const members = await Entities.getByGuild(guild.id);
+	const members = await Players.getByGuild(guild.id);
 	for (const member of members) {
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(member.discordUserId);
 		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {

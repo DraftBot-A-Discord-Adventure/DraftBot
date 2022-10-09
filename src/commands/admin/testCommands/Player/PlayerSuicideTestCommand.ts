@@ -1,7 +1,7 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "playersuicide",
@@ -20,14 +20,14 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const playerSuicideTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	await entity.addHealth(-entity.health, interaction.channel, language, NumberChangeReason.TEST, {
+	await player.addHealth(-player.health, interaction.channel, language, NumberChangeReason.TEST, {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	});
-	await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.TEST);
-	await Promise.all([entity.save(), entity.Player.save()]);
+	await player.killIfNeeded(player, interaction.channel, language, NumberChangeReason.TEST);
+	await Promise.all([player.save(), player.save()]);
 
 	return commandInfo.messageWhenExecuted;
 };

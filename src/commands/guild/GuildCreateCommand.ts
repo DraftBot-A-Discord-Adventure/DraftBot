@@ -1,4 +1,3 @@
-import {Entity} from "../../core/database/game/models/Entity";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -17,6 +16,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildCreateConstants} from "../../core/constants/GuildCreateConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Get a guild by its name
@@ -33,7 +33,7 @@ async function getGuildByName(askedName: string): Promise<Guild> {
 
 /**
  * Get the callback for the guild create command
- * @param entity
+ * @param player
  * @param guild
  * @param askedName
  * @param interaction
@@ -41,7 +41,7 @@ async function getGuildByName(askedName: string): Promise<Guild> {
  * @param guildCreateModule
  */
 function endCallbackGuildCreateValidationMessage(
-	entity: Entity,
+	player: Player,
 	guild: Guild,
 	askedName: string,
 	interaction: CommandInteraction,
@@ -49,7 +49,7 @@ function endCallbackGuildCreateValidationMessage(
 	guildCreateModule: TranslationModule
 ): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GUILD_CREATE);
 		if (validateMessage.isValidated()) {
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {
@@ -57,19 +57,19 @@ function endCallbackGuildCreateValidationMessage(
 				await sendErrorMessage(interaction.user, interaction, language, guildCreateModule.get("nameAlreadyUsed"));
 				return;
 			}
-			if (entity.Player.money < GuildCreateConstants.PRICE) {
+			if (player.money < GuildCreateConstants.PRICE) {
 				await sendErrorMessage(interaction.user, interaction, language, guildCreateModule.get("notEnoughMoney"));
 				return;
 			}
 
 			const newGuild = await Guild.create({
 				name: askedName,
-				chiefId: entity.id
+				chiefId: player.id
 			});
 
-			entity.Player.guildId = newGuild.id;
-			await entity.Player.addMoney({
-				entity,
+			player.guildId = newGuild.id;
+			await player.addMoney({
+				entity: player,
 				amount: -GuildCreateConstants.PRICE,
 				channel: interaction.channel,
 				language,
@@ -77,15 +77,12 @@ function endCallbackGuildCreateValidationMessage(
 			});
 			newGuild.updateLastDailyAt();
 			await newGuild.save();
-			await Promise.all([
-				entity.save(),
-				entity.Player.save()
-			]);
+			await player.save();
 
-			draftBotInstance.logsDatabase.logGuildCreation(entity.discordUserId, newGuild).then();
+			draftBotInstance.logsDatabase.logGuildCreation(player.discordUserId, newGuild).then();
 
-			await MissionsController.update(entity, interaction.channel, language, {missionId: "joinGuild"});
-			await MissionsController.update(entity, interaction.channel, language, {
+			await MissionsController.update(player, interaction.channel, language, {missionId: "joinGuild"});
+			await MissionsController.update(player, interaction.channel, language, {
 				missionId: "guildLevel",
 				count: newGuild.level,
 				set: true
@@ -133,9 +130,9 @@ function createValidationEmbedGuildCreation(
  * Allow to Create a guild
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -143,7 +140,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// search for a user's guild
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guildId);
+		guild = await Guilds.getById(player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -179,11 +176,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, askedName, interaction, language, guildCreateModule);
+	const endCallback = endCallbackGuildCreateValidationMessage(player, guild, askedName, interaction, language, guildCreateModule);
 
 	const validationEmbed = createValidationEmbedGuildCreation(interaction, endCallback, askedName, guildCreateModule);
 
-	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
+	await validationEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_CREATE, collector));
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.guildCreate", Constants.LANGUAGE.FRENCH);

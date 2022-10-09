@@ -33,14 +33,7 @@ export class DailyMission extends Model {
 
 export class DailyMissions {
 	static async queryDailyMission(): Promise<DailyMission> {
-		return await DailyMission.findOne({
-			include: [
-				{
-					model: Mission,
-					as: "Mission"
-				}
-			]
-		});
+		return await DailyMission.findOne();
 	}
 
 	static async getOrGenerate(): Promise<DailyMission> {
@@ -127,14 +120,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	DailyMission.beforeSave(instance => {
 		instance.updatedAt = new Date();
-	});
-}
-
-export function setAssociations(): void {
-	DailyMission.hasOne(Mission, {
-		sourceKey: "missionId",
-		foreignKey: "id",
-		as: "Mission"
 	});
 }
 

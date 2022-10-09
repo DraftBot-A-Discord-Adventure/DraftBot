@@ -108,11 +108,4 @@ export function initModel(sequelize: Sequelize): void {
 	});
 }
 
-export function setAssociations(): void {
-	Possibility.belongsTo(BigEvent, {
-		foreignKey: "eventId",
-		as: "Event"
-	});
-}
-
 export default Possibility;

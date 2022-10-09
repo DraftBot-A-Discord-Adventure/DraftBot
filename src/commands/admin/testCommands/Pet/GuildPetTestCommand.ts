@@ -1,12 +1,12 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {GuildPets} from "../../../../core/database/game/models/GuildPet";
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {PetEntities, PetEntity} from "../../../../core/database/game/models/PetEntity";
 import {Guilds} from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Pets} from "../../../../core/database/game/models/Pet";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "guildpet",
@@ -31,9 +31,9 @@ export const commandInfo: ITestCommand = {
  */
 const guildPetTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	let guild = await Guilds.getById(entity.Player.guildId);
+	let guild = await Guilds.getById(player.guildId);
 	if (guild === null) {
 		throw new Error("Erreur guildpet : Vous n'avez pas de guilde !");
 	}
@@ -56,11 +56,9 @@ const guildPetTestCommand = async (language: string, interaction: CommandInterac
 
 	await GuildPets.addPet(guild, pet, true).save();
 
-	guild = await Guilds.getById(entity.Player.guildId); // recall needed to refresh the pet
-	const newPet = guild.GuildPets[guild.GuildPets.length - 1];
 	return format(
 		commandInfo.messageWhenExecuted, {
-			petString: newPet.PetEntity.getPetDisplay(language)
+			petString: pet.getPetDisplay(language)
 		}
 	);
 };

@@ -50,9 +50,6 @@ export class Guild extends Model {
 	public createdAt!: Date;
 
 
-	public GuildPets: GuildPet[];
-
-
 	/**
 	 * update the lastDailyAt date
 	 */
@@ -254,52 +251,16 @@ export class Guilds {
 	static getById(id: number): Promise<Guild> {
 		return Promise.resolve(Guild.findOne({
 			where: {
-				id: id
-			},
-			include: [
-				{
-					model: GuildPet,
-					as: "GuildPets",
-					include: [
-						{
-							model: PetEntity,
-							as: "PetEntity",
-							include: [
-								{
-									model: Pet,
-									as: "PetModel"
-								}
-							]
-						}
-					]
-				}
-			]
+				id
+			}
 		}));
 	}
 
 	static getByName(name: string): Promise<Guild> {
 		return Promise.resolve(Guild.findOne({
 			where: {
-				name: name
-			},
-			include: [
-				{
-					model: GuildPet,
-					as: "GuildPets",
-					include: [
-						{
-							model: PetEntity,
-							as: "PetEntity",
-							include: [
-								{
-									model: Pet,
-									as: "PetModel"
-								}
-							]
-						}
-					]
-				}
-			]
+				name
+			}
 		}));
 	}
 
@@ -375,24 +336,6 @@ export function initModel(sequelize: Sequelize): void {
 		freezeTableName: true
 	}).beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	Guild.hasMany(Player, {
-		foreignKey: "guildId",
-		as: "Members"
-	});
-
-	Guild.hasOne(Player, {
-		foreignKey: "id",
-		sourceKey: "chiefId",
-		as: "Chief"
-	});
-
-	Guild.hasMany(GuildPet, {
-		foreignKey: "guildId",
-		as: "GuildPets"
 	});
 }
 

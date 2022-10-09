@@ -1,4 +1,3 @@
-import {Entities} from "../../core/database/game/models/Entity";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
@@ -6,6 +5,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Players} from "../../core/database/game/models/Player";
 
 /**
  * Allow the bot owner or a badge manager to remove all badges from somebody
@@ -14,10 +14,10 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const playerToReset = interaction.options.getUser("user");
-	const [entity] = await Entities.getOrRegister(playerToReset.id);
+	const [player] = await Players.getOrRegister(playerToReset.id);
 
-	entity.Player.badges = null;
-	await entity.Player.save();
+	player.badges = null;
+	await player.save();
 
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
