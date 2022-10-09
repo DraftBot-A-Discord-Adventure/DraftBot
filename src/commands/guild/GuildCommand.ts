@@ -1,7 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {Guilds} from "../../core/database/game/models/Guild";
-import {Players} from "../../core/database/game/models/Player";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
@@ -17,9 +16,9 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  * Allow to display the info of a guild
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;
@@ -34,12 +33,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	else {
 		// search for a user's guild
-		let entityToAnalyse = await Entities.getByOptions(interaction);
-		if (entityToAnalyse === null) {
-			entityToAnalyse = entity;
+		let playerToAnalise = await Players.getByOptions(interaction);
+		if (playerToAnalise === null) {
+			playerToAnalise = player;
 		}
 		try {
-			guild = await Guilds.getById(entityToAnalyse.Player.guildId);
+			guild = await Guilds.getById(playerToAnalise.guildId);
 		}
 		catch (error) {
 			guild = null;
@@ -56,30 +55,30 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		);
 		return;
 	}
-	const members = await Entities.getByGuild(guild.id);
+	const members = await Players.getByGuild(guild.id);
 
-	const chief = (await Entities.getById(guild.chiefId)).Player;
+	const chief = await Players.getById(guild.chiefId);
 
 	let membersInfos = "";
 
 	for (const member of members) {
 		// if member is the owner of guild
-		if (member.Player.id === guild.chiefId) {
+		if (member.id === guild.chiefId) {
 			membersInfos += guildModule.format("chiefinfos",
 				{
-					pseudo: await member.Player.getPseudo(language),
-					ranking: await Players.getRankById(member.Player.id),
-					score: member.Player.score
+					pseudo: await member.getPseudo(language),
+					ranking: await Players.getRankById(member.id),
+					score: member.score
 				}
 			);
 		}
-		else if (member.Player.id === guild.elderId) {
+		else if (member.id === guild.elderId) {
 			membersInfos += guildModule.format(
 				"elderinfos",
 				{
-					pseudo: await member.Player.getPseudo(language),
-					ranking: await Players.getRankById(member.Player.id),
-					score: member.Player.score
+					pseudo: await member.getPseudo(language),
+					ranking: await Players.getRankById(member.id),
+					score: member.score
 				}
 			);
 		}
@@ -87,9 +86,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			membersInfos += guildModule.format(
 				"memberinfos",
 				{
-					pseudo: await member.Player.getPseudo(language),
-					ranking: await Players.getRankById(member.Player.id),
-					score: member.Player.score
+					pseudo: await member.getPseudo(language),
+					ranking: await Players.getRankById(member.id),
+					score: member.score
 				}
 			);
 		}

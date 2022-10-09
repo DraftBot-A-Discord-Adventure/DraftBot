@@ -1,7 +1,10 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
+import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {Missions} from "../../../../core/database/game/models/Mission";
 
 export const commandInfo: ITestCommand = {
 	name: "debugMissions",
@@ -21,36 +24,39 @@ export const commandInfo: ITestCommand = {
  */
 const debugMissionsTestCommand = async (language: string, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
 
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
 	embed.addFields({
 		name: "⚙️ General",
-		value: "\nDaily mission done: " + "Mission slots: " + entity.Player.getMissionSlots() +
-			entity.Player.PlayerMissionsInfo.dailyMissionNumberDone +
-			"\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted +
-			"\nGems count: " + entity.Player.PlayerMissionsInfo.gems +
-			"\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression,
+		value: "\nDaily mission done: " + "Mission slots: " + player.getMissionSlots() +
+			missionsInfo.dailyMissionNumberDone +
+			"\nLast daily mission done: " + missionsInfo.lastDailyMissionCompleted +
+			"\nGems count: " + missionsInfo.gems +
+			"\nCampaign progression: " + missionsInfo.campaignProgression,
 		inline: false
 	});
 	let missionsFieldContent = "";
-	if (entity.Player.MissionSlots.length === 0) {
+	if (missionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
 	}
 	else {
-		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
+		for (let i = 0; i < missionSlots.length; ++i) {
+			const mission = await Missions.getById(missionSlots[i].missionId);
 			missionsFieldContent +=
-				await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
-					entity.Player.MissionSlots[i].missionVariant, language, null) +
-				` (id: ${entity.Player.MissionSlots[i].missionId}
-				)\n-> ID DB: ${entity.Player.MissionSlots[i].id}
-				\n-> Variant: ${entity.Player.MissionSlots[i].missionVariant}
-				\n-> Number done: ${entity.Player.MissionSlots[i].numberDone}
-				\n-> Objective: ${entity.Player.MissionSlots[i].missionObjective}
-				\n-> Expiration date: ${entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never"}
-				\n-> Campaign only: ${entity.Player.MissionSlots[i].Mission.campaignOnly}
-				\n-> Save blob: ${entity.Player.MissionSlots[i].saveBlob}\n\n`;
+				await mission.formatDescription(missionSlots[i].missionObjective,
+					missionSlots[i].missionVariant, language, null) +
+				` (id: ${missionSlots[i].missionId}
+				)\n-> ID DB: ${missionSlots[i].id}
+				\n-> Variant: ${missionSlots[i].missionVariant}
+				\n-> Number done: ${missionSlots[i].numberDone}
+				\n-> Objective: ${missionSlots[i].missionObjective}
+				\n-> Expiration date: ${missionSlots[i].expiresAt ? new Date(missionSlots[i].expiresAt).toISOString() : "Never"}
+				\n-> Campaign only: ${mission.campaignOnly}
+				\n-> Save blob: ${missionSlots[i].saveBlob}\n\n`;
 		}
 	}
 	embed.addFields({name: "📜 Missions", value: missionsFieldContent});

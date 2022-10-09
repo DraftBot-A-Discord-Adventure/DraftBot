@@ -1,4 +1,3 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandsManager} from "../../../CommandsManager";
@@ -6,6 +5,7 @@ import {GuildDailyConstants} from "../../../../core/constants/GuildDailyConstant
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += `\n - ${v[1]}`); // eslint-disable-line no-return-assign
@@ -32,9 +32,9 @@ export const commandInfo: ITestCommand = {
  */
 const guildRewardTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [entity] = await Players.getOrRegister(interaction.user.id);
 
-	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
+	const guild = await Guild.findOne({where: {id: entity.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur greward : vous n'êtes pas dans une guilde !");
 	}

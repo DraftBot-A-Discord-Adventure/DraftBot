@@ -1,10 +1,10 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {getFoodIndexOf} from "../../../../core/utils/FoodUtils";
 import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "setfood",
@@ -28,8 +28,8 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const setFoodTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const guild = await Guild.findOne({where: {id: player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur sf : vous n'êtes pas dans une guilde !");
 	}

@@ -1,9 +1,9 @@
 import {Constants} from "../../../../core/Constants";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "giveitem",
@@ -26,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const giveItemTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const itemId = parseInt(args[1], 10);
 	const category = parseInt(args[0], 10);
 	if (category < 0 || category > 3) {
@@ -36,7 +36,7 @@ const giveItemTestCommand = async (language: string, interaction: CommandInterac
 	if (!item) {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
-	if (!await entity.Player.giveItem(item)) {
+	if (!await player.giveItem(item)) {
 		throw Error("Aucun emplacement libre dans l'inventaire");
 	}
 	return format(commandInfo.messageWhenExecuted, {

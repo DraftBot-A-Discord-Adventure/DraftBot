@@ -1,6 +1,7 @@
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {Entities} from "../../../../core/database/game/models/Entity";
+import {Players} from "../../../../core/database/game/models/Player";
+import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 
 export const commandInfo: ITestCommand = {
 	name: "clearMissions",
@@ -18,9 +19,10 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const clearMissionsTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 
-	for (const missionSlot of entity.Player.MissionSlots) {
+	for (const missionSlot of missionSlots) {
 		if (!missionSlot.isCampaign()) {
 			await missionSlot.destroy();
 		}

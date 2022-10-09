@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import Mission from "./Mission";
 import moment = require("moment");
+import missionJson = require("resources/text/campaign.json");
 
 export class MissionSlot extends Model {
 	public readonly id!: number;
@@ -30,10 +31,6 @@ export class MissionSlot extends Model {
 	public saveBlob!: Buffer;
 
 
-	public Mission: Mission;
-
-	public getMission: () => Promise<Mission>;
-
 	public isCompleted(): boolean {
 		return this.numberDone >= this.missionObjective;
 	}
@@ -53,15 +50,22 @@ export class MissionSlots {
 			{
 				where: {
 					id
-				},
-				include: [
-					{
-						model: Mission,
-						as: "Mission"
-					}
-				]
+				}
 			}
 		));
+	}
+
+	static async getOfPlayer(playerId: number): Promise<MissionSlot[]> {
+		const missionSlots = await MissionSlot.findAll({
+			where: {
+				playerId
+			}
+		});
+		if (missionSlots.length === 0) {
+
+			return [ await MissionSlot.create(missionJson.missions[0]) ];
+		}
+		return missionSlots;
 	}
 }
 
@@ -121,14 +125,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	MissionSlot.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	MissionSlot.hasOne(Mission, {
-		sourceKey: "missionId",
-		foreignKey: "id",
-		as: "Mission"
 	});
 }
 

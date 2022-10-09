@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "playerhealth",
@@ -26,18 +26,18 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const playerHealthTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	const health = parseInt(args[0], 10);
 	if (health < 0) {
 		throw new Error("Erreur vie : vie donnée inférieure à 0 interdit !");
 	}
-	await entity.addHealth(parseInt(args[0], 10) - entity.health, interaction.channel, language, NumberChangeReason.TEST, {
+	await player.addHealth(parseInt(args[0], 10) - player.health, interaction.channel, language, NumberChangeReason.TEST, {
 		overHealCountsForMission: false,
 		shouldPokeMission: false
 	});
-	await entity.save();
+	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, {health: entity.health});
+	return format(commandInfo.messageWhenExecuted, {health: player.health});
 };
 
 commandInfo.execute = playerHealthTestCommand;

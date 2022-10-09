@@ -92,18 +92,4 @@ export function initModel(sequelize: Sequelize): void {
 	});
 }
 
-export function setAssociations(): void {
-	MapLink.hasOne(MapLocation, {
-		foreignKey: "id",
-		sourceKey: "startMap",
-		as: "StartMap"
-	});
-
-	MapLink.hasOne(MapLocation, {
-		foreignKey: "id",
-		sourceKey: "endMap",
-		as: "EndMap"
-	});
-}
-
 export default MapLink;

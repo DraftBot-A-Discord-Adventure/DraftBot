@@ -1,11 +1,11 @@
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
 import Mission from "../../../../core/database/game/models/Mission";
 import {format} from "../../../../core/utils/StringFormatter";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "giveMission",
@@ -29,7 +29,7 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const giveMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const missionId = args[0];
 	const mission = await Mission.findOne({where: {id: missionId}});
@@ -48,11 +48,11 @@ const giveMissionTestCommand = async (language: string, interaction: CommandInte
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
 
-	const missionSlot = await MissionsController.addMissionToPlayer(entity, missionId,
+	const missionSlot = await MissionsController.addMissionToPlayer(player, missionId,
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(commandInfo.messageWhenExecuted, {
-		desc: await (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null),
+		desc: await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null),
 		objective: missionSlot.missionObjective
 	});
 };

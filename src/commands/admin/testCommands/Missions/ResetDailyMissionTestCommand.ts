@@ -1,6 +1,7 @@
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {Entities} from "../../../../core/database/game/models/Entity";
+import {Players} from "../../../../core/database/game/models/Player";
+import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "resetDailyMission",
@@ -19,10 +20,11 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const resetDailyMissionTextCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	entity.Player.PlayerMissionsInfo.dailyMissionNumberDone = 0;
-	entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date(0);
-	await entity.Player.PlayerMissionsInfo.save();
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	missionsInfo.dailyMissionNumberDone = 0;
+	missionsInfo.lastDailyMissionCompleted = new Date(0);
+	await missionsInfo.save();
 	return commandInfo.messageWhenExecuted;
 };
 

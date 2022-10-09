@@ -1,4 +1,3 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 import {Pets} from "../../../../core/database/game/models/Pet";
 import {MissionsController} from "../../../../core/missions/MissionsController";
@@ -6,6 +5,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "pet",
@@ -29,9 +29,10 @@ export const commandInfo: ITestCommand = {
  */
 const petTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	let [entity] = await Entities.getOrRegister(interaction.user.id);
-	if (entity.Player.Pet) {
-		await entity.Player.Pet.destroy();
+	let [player] = await Players.getOrRegister(interaction.user.id);
+	let pet = await PetEntities.getById(player.petId);
+	if (pet) {
+		await pet.destroy();
 	}
 
 	if (args[0] === "0") {
@@ -46,16 +47,16 @@ const petTestCommand = async (language: string, interaction: CommandInteraction,
 		throw new Error("Erreur pet : id invalide. L'id doit être compris entre 0 et " + maxIdPet + " !");
 	}
 
-	const pet = PetEntities.createPet(petId, args[1], null);
+	pet = PetEntities.createPet(petId, args[1], null);
 	await pet.save();
-	entity.Player.setPet(entity, pet);
-	await entity.Player.save();
-	await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
+	player.setPet(player, pet);
+	await player.save();
+	await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 
-	[entity] = await Entities.getOrRegister(interaction.user.id); // recall needed to refresh the pet
+	pet = await PetEntities.getById(pet.id); // recall needed to refresh the pet
 	return format(
 		commandInfo.messageWhenExecuted, {
-			petString: entity.Player.Pet.getPetDisplay(language)
+			petString: pet.getPetDisplay(language)
 		}
 	);
 };

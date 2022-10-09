@@ -3,10 +3,10 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {DraftBotMissionsMessageBuilder} from "../../../../core/messages/DraftBotMissionsMessage";
 import {Translations} from "../../../../core/Translations";
 import {getTomorrowMidnight} from "../../../../core/utils/TimeUtils";
-import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
-import {Entities} from "../../../../core/database/game/models/Entity";
+import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "newDailyMissions",
@@ -23,11 +23,12 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const newDailyMissionTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const entity = await Entities.getByDiscordUserId(interaction.user.id);
+	const player = await Players.getByDiscordUserId(interaction.user.id);
+	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	const newDM = await DailyMissions.regenerateDailyMission();
 	await PlayerMissionsInfo.update({
 		dailyMissionNumberDone: 0,
-		lastDailyMissionCompleted: new Date(entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted.valueOf() - 86400000)
+		lastDailyMissionCompleted: new Date(missionsInfo.lastDailyMissionCompleted.valueOf() - 86400000)
 	}, {where: {}});
 	return format(commandInfo.messageWhenExecuted, {
 		mission: DraftBotMissionsMessageBuilder.getMissionDisplay(

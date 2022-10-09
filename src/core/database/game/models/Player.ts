@@ -1,4 +1,4 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import InventorySlot from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import PlayerSmallEvent from "./PlayerSmallEvent";
@@ -10,9 +10,8 @@ import {Constants} from "../../../Constants";
 import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import MapLink, {MapLinks} from "./MapLink";
-import Entity from "./Entity";
 import {Translations} from "../../../Translations";
-import {TextBasedChannel, TextChannel} from "discord.js";
+import {CommandInteraction, TextBasedChannel, TextChannel} from "discord.js";
 import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
@@ -32,6 +31,11 @@ import {InventoryConstants} from "../../../constants/InventoryConstants";
 import {minutesToHours} from "../../../utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import moment = require("moment");
+import {EntityConstants} from "../../../constants/EntityConstants";
+import {BlockingUtils} from "../../../utils/BlockingUtils";
+import {BlockingConstants} from "../../../constants/BlockingConstants";
+import Pet from "./Pet";
+import Mission from "./Mission";
 
 export type EditValueParameters = {
 	entity: Entity,
@@ -43,6 +47,12 @@ export type EditValueParameters = {
 
 export class Player extends Model {
 	public readonly id!: number;
+
+	public discordUserId!: string;
+
+	public health!: number;
+
+	public fightPointsLost!: number;
 
 	public score!: number;
 
@@ -85,21 +95,6 @@ export class Player extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
-
-
-	public InventorySlots: InventorySlot[];
-
-	public InventoryInfo: InventoryInfo;
-
-	public Pet: PetEntity;
-
-	public PlayerSmallEvents: PlayerSmallEvent[];
-
-	public MissionSlots: MissionSlot[];
-
-	public PlayerMissionsInfo: PlayerMissionsInfo;
-
-	public getEntity: () => Promise<Entity>;
 
 	public rank?: number = -1;
 
@@ -557,9 +552,312 @@ export class Player extends Model {
 			this.weeklyScore = 0;
 		}
 	}
+
+	/**
+	 * get the list of all the active objects of the player
+	 */
+	public async getPlayerActiveObjects(): Promise<playerActiveObjects> {
+		return await this.getMainSlotsItems();
+	}
+
+	/**
+	 * calculate the cumulative attack of the player
+	 * @param playerActiveObjects
+	 */
+	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects): Promise<number> {
+		const playerAttack = (await Classes.getById(this.Player.class)).getAttackValue(this.Player.level);
+		const attack = playerAttack
+			+ (playerActiveObjects.weapon.getAttack() < playerAttack
+				? playerActiveObjects.weapon.getAttack() : playerAttack)
+			+ (playerActiveObjects.armor.getAttack() < playerAttack
+				? playerActiveObjects.armor.getAttack() : playerAttack)
+			+ playerActiveObjects.object.getAttack()
+			+ playerActiveObjects.potion.getAttack();
+		return attack > 0 ? attack : 0;
+	}
+
+	/**
+	 * calculate the cumulative defense of the player
+	 * @param playerActiveObjects
+	 */
+	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects): Promise<number> {
+		const playerDefense = (await Classes.getById(this.Player.class)).getDefenseValue(this.Player.level);
+		const defense = playerDefense
+			+ (playerActiveObjects.weapon.getDefense() < playerDefense
+				? playerActiveObjects.weapon.getDefense() : playerDefense)
+			+ (playerActiveObjects.armor.getDefense() < playerDefense
+				? playerActiveObjects.armor.getDefense() : playerDefense)
+			+ playerActiveObjects.object.getDefense()
+			+ playerActiveObjects.potion.getDefense();
+		return defense > 0 ? defense : 0;
+	}
+
+	/**
+	 * calculate the cumulative speed of the player
+	 * @param playerActiveObjects
+	 */
+	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects): Promise<number> {
+		const playerSpeed = (await Classes.getById(this.Player.class)).getSpeedValue(this.Player.level);
+		const speed = playerSpeed
+			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
+				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
+			+ (playerActiveObjects.armor.getSpeed() < playerSpeed
+				? playerActiveObjects.armor.getSpeed() : playerSpeed)
+			+ (playerActiveObjects.object.getSpeed() / 2 < playerSpeed
+				? playerActiveObjects.object.getSpeed()
+				: playerSpeed * 2)
+			+ playerActiveObjects.potion.getSpeed();
+		return speed > 0 ? speed : 0;
+	}
+
+	/**
+	 * get the player cumulative Health
+	 */
+	public async getCumulativeFightPoint(): Promise<number> {
+		const maxHealth = await this.getMaxCumulativeFightPoint();
+		let fp = maxHealth - this.fightPointsLost;
+		if (fp < 0) {
+			fp = 0;
+		}
+		else if (fp > maxHealth) {
+			fp = maxHealth;
+		}
+		return fp;
+	}
+
+	/**
+	 * return the player max health
+	 */
+	public async getMaxHealth(): Promise<number> {
+		const playerClass = await Classes.getById(this.Player.class);
+		return playerClass.getMaxHealthValue(this.Player.level);
+	}
+
+	/**
+	 * get the player max cumulative fight point
+	 */
+	public async getMaxCumulativeFightPoint(): Promise<number> {
+		const playerClass = await Classes.getById(this.Player.class);
+		return playerClass.getMaxCumulativeFightPointValue(this.Player.level);
+	}
+
+	/**
+	 * add health to the player
+	 * @param health
+	 * @param channel
+	 * @param language
+	 * @param reason
+	 * @param missionHealthParameter
+	 */
+	public async addHealth(health: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}): Promise<void> {
+		await this.setHealth(this.health + health, channel, language, missionHealthParameter);
+		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
+	}
+
+	/**
+	 * get the string that mention the user
+	 */
+	public getMention(): string {
+		return `<@${this.discordUserId}>`;
+	}
+
+	/**
+	 * returns true if the player is currently blocked by a report
+	 */
+	public async isInEvent(): Promise<boolean> {
+		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
+		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
+	}
+
+	/**
+	 * set the player health
+	 * @param health
+	 * @param channel
+	 * @param language
+	 * @param missionHealthParameter
+	 */
+	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}): Promise<void> {
+		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
+			- this.health;
+		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
+			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
+		}
+		if (health < 0) {
+			this.health = 0;
+		}
+		else if (health > await this.getMaxHealth()) {
+			this.health = await this.getMaxHealth();
+		}
+		else {
+			this.health = health;
+		}
+	}
 }
 
 export class Players {
+	/**
+	 * get or create a player
+	 * @param discordUserId
+	 */
+	static getOrRegister(discordUserId: string): Promise<[Player, boolean] | null> {
+		return Promise.resolve(Player.findOrCreate(
+			{
+				where: {
+					discordUserId
+				}
+			}
+		));
+	}
+
+
+	/**
+	 * get a player by guildId
+	 * @param guildId
+	 */
+	static getByGuild(guildId: number): Promise<Player[]> {
+		return Promise.resolve(Player.findAll(
+			{
+				where: {
+					guildId: guildId
+				},
+				order: [
+					[{model: Player, as: "Player"}, "score", "DESC"],
+					[{model: Player, as: "Player"}, "level", "DESC"]
+				]
+			}
+		));
+	}
+
+	/**
+	 * get a player by discordUserId
+	 * @param discordUserId
+	 */
+	static getByDiscordUserId(discordUserId: string): Promise<Player | null> {
+		return Promise.resolve(Player.findOne(
+			{
+				where: {
+					discordUserId
+				}
+			}
+		));
+	}
+
+	/**
+	 * get the ranking of the player compared to a list of players
+	 * @param discordId
+	 * @param ids - list of discordIds to compare to
+	 * @param timing
+	 */
+	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
+		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+		const query = `SELECT rank
+					   FROM (SELECT ${botConfig.MARIADB_PREFIX}_game.players.discordUserId,
+                                       (RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC
+								  , ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
+							 FROM ${botConfig.MARIADB_PREFIX}_game.players
+							 WHERE ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${ids.toString()})) subquery
+					   WHERE subquery.discordUserId = ${discordId};`;
+		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
+	}
+
+	/**
+	 * get an player from the options of an interaction
+	 * @param interaction
+	 */
+	static async getByOptions(interaction: CommandInteraction): Promise<Player | null> {
+		const user = interaction.options.getUser("user");
+		if (user) {
+			return (await Players.getOrRegister(user.id))[0];
+		}
+		const rank = interaction.options.get("rank");
+		if (rank) {
+			const [player] = await Players.getByRank(rank.value as number);
+			if (player === undefined) {
+				return null;
+			}
+			return await Players.getById(player.entityId);
+		}
+		return null;
+	}
+
+	/**
+	 * Get all the discord ids stored in the database
+	 */
+	static async getAllStoredDiscordIds(): Promise<string[]> {
+		const query = `SELECT discordUserId
+					   FROM ${botConfig.MARIADB_PREFIX}_game.entities`;
+		const queryResult = (await Entity.sequelize.query(query, {
+			type: QueryTypes.SELECT
+		})) as { discordUserId: string }[];
+		const discordIds: string[] = [];
+		queryResult.forEach(res => discordIds.push(res.discordUserId));
+		return discordIds;
+	}
+
+	/**
+	 * Get the number of players that are considered playing the game inside the list of ids
+	 * @param listDiscordId
+	 * @param timing
+	 */
+	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
+		const query = `SELECT COUNT(*) as nbPlayers
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players
+                       		JOIN ${botConfig.MARIADB_PREFIX}_game.entities
+					   ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
+					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+						   > ${Constants.MINIMAL_PLAYER_SCORE}
+						 AND ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${listDiscordId.toString()})`;
+		const queryResult = await Entity.sequelize.query(query);
+		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+	}
+
+	/**
+	 * Get the entities in the list of Ids that will be printed into the top at the given page
+	 * @param listDiscordId
+	 * @param page
+	 * @param timing
+	 */
+	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Entity[]> {
+		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
+			? {
+				score: {
+					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
+				}
+			}
+			: {
+				weeklyScore: {
+					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
+				}
+			};
+		return await Entity.findAll({
+			where: {
+				discordUserId: {
+					[Op.in]: listDiscordId
+				}
+			},
+			include: [{
+				model: Player,
+				as: "Player",
+				where: restrictionsTopEntering
+			}],
+			order: [
+				[{
+					model: Player,
+					as: "Player"
+				}, timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
+			],
+			limit: TopConstants.PLAYERS_BY_PAGE,
+			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+		});
+	}
+
 	static async getRankById(id: number): Promise<number> {
 		const query = `SELECT *
 					   FROM (SELECT id,
@@ -705,6 +1003,17 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
+		discordUserId: {
+			type: DataTypes.STRING(64) // eslint-disable-line new-cap
+		},
+		health: {
+			type: DataTypes.INTEGER,
+			defaultValue: EntityConstants.DEFAULT_VALUES.HEALTH
+		},
+		fightPointsLost: {
+			type: DataTypes.INTEGER,
+			defaultValue: EntityConstants.DEFAULT_VALUES.FIGHT_POINTS_LOST
+		},
 		score: {
 			type: DataTypes.INTEGER,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.SCORE
@@ -793,61 +1102,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	Player.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	Player.belongsTo(Entity, {
-		foreignKey: "entityId",
-		as: "Entity"
-	});
-
-	Player.belongsTo(Guild, {
-		foreignKey: "guildId",
-		as: "Guild"
-	});
-
-	Player.belongsTo(Guild, {
-		foreignKey: "id",
-		targetKey: "chiefId",
-		as: "Chief"
-	});
-
-	Player.hasMany(InventorySlot, {
-		foreignKey: "playerId",
-		as: "InventorySlots"
-	});
-
-	Player.hasOne(InventoryInfo, {
-		foreignKey: "playerId",
-		as: "InventoryInfo"
-	});
-
-	Player.hasOne(PetEntity, {
-		foreignKey: "id",
-		sourceKey: "petId",
-		as: "Pet"
-	});
-
-	Player.hasOne(MapLink, {
-		foreignKey: "id",
-		sourceKey: "mapLinkId",
-		as: "MapLink"
-	});
-
-	Player.hasMany(PlayerSmallEvent, {
-		foreignKey: "playerId",
-		as: "PlayerSmallEvents"
-	});
-
-	Player.hasMany(MissionSlot, {
-		foreignKey: "playerId",
-		as: "MissionSlots"
-	});
-
-	Player.hasOne(PlayerMissionsInfo, {
-		foreignKey: "playerId",
-		as: "PlayerMissionsInfo"
 	});
 }
 

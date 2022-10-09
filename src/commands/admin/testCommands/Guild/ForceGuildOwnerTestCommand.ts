@@ -1,9 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {draftBotInstance} from "../../../../core/bot";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "forceguildowner",
@@ -22,13 +22,13 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const forceGuildOwnerTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const guild = await Guild.findOne({where: {id: player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur forceguildowner : vous n'êtes pas dans une guilde !");
 	}
-	draftBotInstance.logsDatabase.logGuildChiefChange(guild, entity.Player.id).then();
-	guild.chiefId = entity.Player.id;
+	draftBotInstance.logsDatabase.logGuildChiefChange(guild, player.id).then();
+	guild.chiefId = player.id;
 	await guild.save();
 	return format(commandInfo.messageWhenExecuted, {gName: guild.name});
 };

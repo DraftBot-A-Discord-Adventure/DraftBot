@@ -1,4 +1,3 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/maps/Maps";
@@ -7,6 +6,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "travel",
@@ -31,7 +31,7 @@ export const commandInfo: ITestCommand = {
  */
 const travelTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
 	const mapStart = parseInt(args[0], 10);
@@ -53,8 +53,8 @@ const travelTestCommand = async (language: string, interaction: CommandInteracti
 		throw new Error(`Erreur travel : Maps non reliées. Maps reliées avec la map ${mapStart} : ${conMapsWthStart.toString()}`);
 	}
 
-	await Maps.startTravel(entity.Player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
-	await entity.Player.save();
+	await Maps.startTravel(player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
+	await player.save();
 	return format(commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(mapStart)).getDisplayName(language),
 		mapNameEnd: (await MapLocations.getById(mapEnd)).getDisplayName(language)

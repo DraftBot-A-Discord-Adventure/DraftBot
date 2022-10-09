@@ -1,7 +1,9 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
+import {Players} from "../../../../core/database/game/models/Player";
+import {Pets} from "../../../../core/database/game/models/Pet";
+import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {
 	name: "petfree",
@@ -20,14 +22,15 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const petFreeTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	if (entity.Player.petId === null) {
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	if (player.petId === null) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
-	LogsDatabase.logPetFree(entity.Player.Pet).then();
-	await entity.Player.Pet.destroy();
-	entity.Player.petId = null;
-	await entity.Player.save();
+	const playerPet = await PetEntities.getById(player.petId);
+	LogsDatabase.logPetFree(playerPet).then();
+	await playerPet.destroy();
+	player.petId = null;
+	await player.save();
 	return commandInfo.messageWhenExecuted;
 };
 

@@ -1,5 +1,4 @@
 import {CommandInteraction} from "discord.js";
-import {Entity} from "../../core/database/game/models/Entity";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -14,32 +13,32 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Create validation message to change guild description
- * @param entity
+ * @param player
  * @param guild
  * @param askedDescription - New description asked by the user
  * @param interaction - Discord Object
  * @param guildDescriptionModule
  */
 function endCallbackGuildCreateValidationMessage(
-	entity: Entity,
+	player: Player,
 	guild: Guild,
 	askedDescription: string,
 	interaction: CommandInteraction,
 	guildDescriptionModule: TranslationModule): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 		if (validateMessage.isValidated()) {
 			guild.guildDescription = askedDescription;
 			await Promise.all([
-				entity.save(),
-				entity.Player.save(),
+				player.save(),
 				guild.save()
 			]);
 
-			draftBotInstance.logsDatabase.logGuildDescriptionChange(entity.discordUserId, guild).then();
+			draftBotInstance.logsDatabase.logGuildDescriptionChange(player.discordUserId, guild).then();
 
 			await interaction.followUp({
 				embeds: [new DraftBotEmbed()
@@ -59,14 +58,14 @@ function endCallbackGuildCreateValidationMessage(
  * @param interaction
  * @param endCallback - Function called when user respond to validation message
  * @param askedDescription - The description asked by the user
- * @param entity
+ * @param player
  * @param guildDescriptionModule
  */
 async function createValidationEmbedGuildDesc(
 	interaction: CommandInteraction,
 	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
 	askedDescription: string,
-	entity: Entity,
+	player: Player,
 	guildDescriptionModule: TranslationModule
 ): Promise<void> {
 	await new DraftBotValidateReactionMessage(interaction.user, endCallback)
@@ -78,7 +77,7 @@ async function createValidationEmbedGuildDesc(
 				}
 			))
 		.setFooter({text: guildDescriptionModule.get("changeDescriptionFooter")})
-		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
+		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION, collector));
 
 }
 
@@ -86,10 +85,10 @@ async function createValidationEmbedGuildDesc(
  * Change guild description
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	const guild = await Guilds.getById(entity.Player.guildId);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	const guild = await Guilds.getById(player.guildId);
 	const guildDescriptionModule = Translations.getModule("commands.guildDescription", language);
 
 	const guildDescription = interaction.options.get(Translations.getModule("commands.guildDescription", Constants.LANGUAGE.ENGLISH).get("optionDescriptionName")).value as string;
@@ -106,9 +105,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const endCallback = endCallbackGuildCreateValidationMessage(entity, guild, guildDescription, interaction, guildDescriptionModule);
+	const endCallback = endCallbackGuildCreateValidationMessage(player, guild, guildDescription, interaction, guildDescriptionModule);
 
-	await createValidationEmbedGuildDesc(interaction, endCallback, guildDescription, entity, guildDescriptionModule);
+	await createValidationEmbedGuildDesc(interaction, endCallback, guildDescription, player, guildDescriptionModule);
 
 }
 

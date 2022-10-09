@@ -1,9 +1,10 @@
-import {Entities} from "../../../../core/database/game/models/Entity";
 import {format} from "../../../../core/utils/StringFormatter";
 import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {Players} from "../../../../core/database/game/models/Player";
+import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {
 	name: "petlovepoints",
@@ -26,8 +27,8 @@ export const commandInfo: ITestCommand = {
  * @return {String} - The successful message formatted
  */
 const petLovePointsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
-	const [entity] = await Entities.getOrRegister(interaction.user.id);
-	const pet = entity.Player.Pet;
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const pet = await PetEntities.getById(player.petId);
 	if (pet === null) {
 		throw new Error("Erreur petlp : vous n'avez pas de pet !");
 	}
@@ -36,7 +37,7 @@ const petLovePointsTestCommand = async (language: string, interaction: CommandIn
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
 	await pet.changeLovePoints({
-		entity,
+		entity: player,
 		amount: lovePoints - pet.lovePoints,
 		channel: interaction.channel,
 		language,

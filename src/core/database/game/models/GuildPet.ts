@@ -14,8 +14,6 @@ export class GuildPet extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
-
-	public PetEntity: PetEntity;
 }
 
 export class GuildPets {
@@ -24,6 +22,14 @@ export class GuildPets {
 			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity).then();
 		}
 		return GuildPet.build({guildId: guild.id, petEntityId: petEntity.id});
+	}
+
+	static async getOfGuild(guildId: number): Promise<GuildPet[]> {
+		return await GuildPet.findAll({
+			where: {
+				guildId
+			}
+		});
 	}
 }
 
@@ -56,14 +62,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	GuildPet.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	GuildPet.hasOne(PetEntity, {
-		foreignKey: "id",
-		sourceKey: "petEntityId",
-		as: "PetEntity"
 	});
 }
 

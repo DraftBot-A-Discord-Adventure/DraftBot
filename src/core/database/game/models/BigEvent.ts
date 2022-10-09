@@ -18,8 +18,6 @@ export class BigEvent extends Model {
 
 	public createdAt!: Date;
 
-	public getPossibilities: () => Promise<Possibility[]>;
-
 	public async getReactions(): Promise<string[]> {
 		const possibilities = await this.getPossibilities();
 		const reactions = [];
@@ -104,13 +102,6 @@ export function initModel(sequelize: Sequelize): void {
 
 	BigEvent.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
-	});
-}
-
-export function setAssociations(): void {
-	BigEvent.hasMany(Possibility, {
-		foreignKey: "eventId",
-		as: "Possibilities"
 	});
 }
 

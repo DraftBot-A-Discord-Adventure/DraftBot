@@ -64,6 +64,16 @@ export class InventoryInfo extends Model {
 	}
 }
 
+export class InventoryInfos {
+	public static async getOfPlayer(playerId: number): Promise<InventoryInfo> {
+		return (await InventoryInfo.findOrCreate({
+			where: {
+				playerId
+			}
+		}))[0];
+	}
+}
+
 export function initModel(sequelize: Sequelize): void {
 	InventoryInfo.init({
 		playerId: {
