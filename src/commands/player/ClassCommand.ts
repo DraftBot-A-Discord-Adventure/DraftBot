@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Class, Classes} from "../../core/database/game/models/Class";
-import {Entity} from "../../core/database/game/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -15,7 +14,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
-type UserInformation = { user: User, entity: Entity }
+type UserInformation = { user: User, player: Player }
 
 /**
  * @param {number} price - The item price
@@ -37,7 +36,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		.formatAuthor(classTranslations.get("confirm"), userInformation.user)
 		.setDescription(
 			`\n\u200b\n${classTranslations.format("display", {
-				name: selectedClass.toString(classTranslations.language, userInformation.entity.Player.level),
+				name: selectedClass.toString(classTranslations.language, userInformation.player.level),
 				price: selectedClass.price,
 				description: selectedClass.getDescription(classTranslations.language)
 			})}`
@@ -49,53 +48,50 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		filter: (reaction: MessageReaction, user: User) => (
 			reaction.emoji.name === Constants.MENU_REACTION.ACCEPT ||
 			reaction.emoji.name === Constants.MENU_REACTION.DENY
-		) && user.id === userInformation.entity.discordUserId,
+		) && user.id === userInformation.player.discordUserId,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: 1
 	});
-	BlockingUtils.blockPlayerWithCollector(userInformation.entity.discordUserId, BlockingConstants.REASONS.CLASS, collector);
+	BlockingUtils.blockPlayerWithCollector(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS, collector);
 
 	collector.on("end", async (reaction) => {
-		const playerClass = await Classes.getById(userInformation.entity.Player.class);
-		BlockingUtils.unblockPlayer(userInformation.entity.discordUserId, BlockingConstants.REASONS.CLASS);
+		const playerClass = await Classes.getById(userInformation.player.class);
+		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
-				if (!canBuy(selectedClass.price, userInformation.entity.Player)) {
+				if (!canBuy(selectedClass.price, userInformation.player)) {
 					return await sendErrorMessage(userInformation.user, interaction, classTranslations.language,
 						classTranslations.format("error.cannotBuy",
 							{
-								missingMoney: selectedClass.price - userInformation.entity.Player.money
+								missingMoney: selectedClass.price - userInformation.player.money
 							}
 						));
 				}
 				if (selectedClass.id === playerClass.id) {
 					return await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
 				}
-				userInformation.entity.Player.class = selectedClass.id;
-				const newClass = await Classes.getById(userInformation.entity.Player.class);
-				await userInformation.entity.addHealth(Math.round(
-					userInformation.entity.health / playerClass.getMaxHealthValue(userInformation.entity.Player.level) * newClass.getMaxHealthValue(userInformation.entity.Player.level)
-				) - userInformation.entity.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
+				userInformation.player.class = selectedClass.id;
+				const newClass = await Classes.getById(userInformation.player.class);
+				await userInformation.player.addHealth(Math.round(
+					userInformation.player.health / playerClass.getMaxHealthValue(userInformation.player.level) * newClass.getMaxHealthValue(userInformation.player.level)
+				) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
-				await userInformation.entity.Player.addMoney({
-					entity: userInformation.entity,
+				await userInformation.player.addMoney({
+					entity: userInformation.player,
 					amount: -selectedClass.price,
 					channel: message.channel,
 					language: classTranslations.language,
 					reason: NumberChangeReason.CLASS
 				});
-				await MissionsController.update(userInformation.entity, message.channel, classTranslations.language, {missionId: "chooseClass"});
-				await MissionsController.update(userInformation.entity, message.channel, classTranslations.language, {
+				await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
+				await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
 					missionId: "chooseClassTier",
 					params: {tier: selectedClass.classGroup}
 				});
-				await Promise.all([
-					userInformation.entity.save(),
-					userInformation.entity.Player.save()
-				]);
-				draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.entity.discordUserId, newClass.id).then();
+				await userInformation.player.save();
+				draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
 				return message.channel.send({
 					embeds: [
 						new DraftBotEmbed()
@@ -119,10 +115,10 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
  * @param classTranslations
  * @param allClasses
  * @param language
- * @param entity
+ * @param player
  * @param interaction
  */
-async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, entity: Entity, interaction: CommandInteraction): Promise<Message> {
+async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, player: Player, interaction: CommandInteraction): Promise<Message> {
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
@@ -142,7 +138,7 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 	embedClassMessage.addFields({
 		name: classTranslations.get("moneyQuantityTitle"),
 		value: classTranslations.format("moneyQuantity", {
-			money: entity.Player.money
+			money: player.money
 		})
 	});
 	// Creating class message
@@ -162,12 +158,12 @@ function createClassCollectorAndManageIt(
 	interaction: CommandInteraction,
 	classTranslations: TranslationModule): void {
 	const collector = classMessage.createReactionCollector({
-		filter: (reaction: MessageReaction, user: User) => user.id === userInformation.entity.discordUserId && reaction.me,
+		filter: (reaction: MessageReaction, user: User) => user.id === userInformation.player.discordUserId && reaction.me,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: 1
 	});
 
-	BlockingUtils.blockPlayerWithCollector(userInformation.entity.discordUserId, BlockingConstants.REASONS.CLASS, collector);
+	BlockingUtils.blockPlayerWithCollector(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS, collector);
 
 	// Fetch the choice from the user
 	collector.on("collect", async (reaction) => {
@@ -184,7 +180,7 @@ function createClassCollectorAndManageIt(
 			interaction);
 	});
 	collector.on("end", () => {
-		BlockingUtils.unblockPlayer(userInformation.entity.discordUserId, BlockingConstants.REASONS.CLASS);
+		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
 	});
 }
 
@@ -206,19 +202,19 @@ async function addClassEmbedReactions(allClasses: Class[], classMessage: Message
  * Select a class
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const classTranslations = Translations.getModule("commands.class", language);
-	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
-	const classMessage = await createDisplayClassEmbedAndSendIt(classTranslations, allClasses, language, entity, interaction);
+	const allClasses = await Classes.getByGroupId(player.getClassGroup());
+	const classMessage = await createDisplayClassEmbedAndSendIt(classTranslations, allClasses, language, player, interaction);
 
 	createClassCollectorAndManageIt(classMessage, {
 		user: interaction.user,
-		entity: entity
+		player: player
 	}, interaction, classTranslations);
 
 	// Adding reactions

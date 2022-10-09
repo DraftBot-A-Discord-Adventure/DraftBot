@@ -1,5 +1,4 @@
 import Class, {Classes} from "../../core/database/game/models/Class";
-import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
@@ -10,6 +9,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Add the field containing the available actions for the given class
@@ -31,17 +31,17 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
  * Display information about classes
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const classTranslations = Translations.getModule("commands.classInfo", language);
-	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	const allClasses = await Classes.getByGroupId(player.getClassGroup());
 
 	const emojis: string[] = [];
 	const classesLineDisplay: string[] = [];
 	for (const _class of allClasses) {
 		emojis.push(_class.emoji);
-		classesLineDisplay.push(_class.toString(language, entity.Player.level));
+		classesLineDisplay.push(_class.toString(language, player.level));
 	}
 
 	const baseEmbed = new DraftBotEmbed()
@@ -68,7 +68,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			classToShow = await Classes.getByEmoji(reactionEmoji);
 			const newEmbed = new DraftBotEmbed()
 				.setTitle(classTranslations.format("classTitle", {class: classToShow.getName(language)}))
-				.setDescription(`${classToShow.getDescription(language)}\n${classToShow.statsToString(language, entity.Player.level)}\n${classTranslations.get("descriptionEnd")}`);
+				.setDescription(`${classToShow.getDescription(language)}\n${classToShow.statsToString(language, player.level)}\n${classTranslations.get("descriptionEnd")}`);
 			addActionsFields(newEmbed, classToShow, language);
 			await interaction.editReply({embeds: [newEmbed]});
 		}

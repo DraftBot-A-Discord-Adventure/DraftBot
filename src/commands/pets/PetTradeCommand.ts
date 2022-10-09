@@ -1,4 +1,3 @@
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -10,14 +9,16 @@ import {Constants} from "../../core/Constants";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {CommandsManager} from "../CommandsManager";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {PetTradeConstants} from "../../core/constants/PetTradeConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
+import Player, {Players} from "../../core/database/game/models/Player";
+import {Pets} from "../../core/database/game/models/Pet";
 
-type TraderAndPet = { trader: Entity, pet: PetEntity, user: User }
+type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 
 /**
  * Check if both traders are in a valid state to trade their pet
@@ -104,9 +105,9 @@ async function refreshMissionsOfTrader(
  */
 async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
 	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
-	tradersAndPets[i].trader.Player.petId = tradersAndPets[1 - i].pet.id;
-	await tradersAndPets[i].trader.Player.save();
-	tradersAndPets[i].pet.lovePoints -= tradersAndPets[i].pet.PetModel.rarity * PetTradeConstants.POINT_REMOVE_MULTIPLIER;
+	tradersAndPets[i].trader.petId = tradersAndPets[1 - i].pet.id;
+	await tradersAndPets[i].trader.save();
+	tradersAndPets[i].pet.lovePoints -= (await Pets.getById(tradersAndPets[i].pet.petId)).rarity * PetTradeConstants.POINT_REMOVE_MULTIPLIER;
 	if (tradersAndPets[i].pet.lovePoints < Constants.PETS.BASE_LOVE) {
 		tradersAndPets[i].pet.lovePoints = Constants.PETS.BASE_LOVE;
 	}
@@ -184,7 +185,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 	for (const traderAndPet of tradersAndPets) {
 		tradeMessage.addFields({
 			name: petTradeModule.format("petOfTrader", {
-				trader: await traderAndPet.trader.Player.getPseudo(petTradeModule.language)
+				trader: await traderAndPet.trader.getPseudo(petTradeModule.language)
 			}),
 			value: traderAndPet.pet.getPetDisplay(petTradeModule.language),
 			inline: true
@@ -202,15 +203,15 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
  * @param {("fr"|"en")} language - Language to use in the response
  * @param trader1
  */
-async function executeCommand(interaction: CommandInteraction, language: string, trader1: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, trader1: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const petTradeModule = Translations.getModule("commands.petTrade", language);
 
-	const trader2 = await Entities.getByOptions(interaction);
-	const pet1 = trader1.Player.Pet;
-	const pet2 = trader2.Player.Pet;
+	const trader2 = await Players.getByOptions(interaction);
+	const pet1 = await PetEntities.getById(trader1.petId);
+	const pet2 = await PetEntities.getById(trader2.petId);
 
 	const traderAndPet1: TraderAndPet = {trader: trader1, pet: pet1, user: interaction.user};
 	const traderAndPet2: TraderAndPet = {trader: trader2, pet: pet2, user: interaction.options.getUser("user")};

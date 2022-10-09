@@ -3,27 +3,28 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {draftBotClient} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
+import {PetEntities} from "../../core/database/game/models/PetEntity";
 
 /**
  * Displays information about a pet
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	let askedEntity = await Entities.getByOptions(interaction);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	let askedEntity = await Players.getByOptions(interaction);
 	if (!askedEntity) {
-		askedEntity = entity;
+		askedEntity = player;
 	}
 	const tr = Translations.getModule("commands.pet", language);
 
-	const pet = askedEntity.Player.Pet;
+	const pet = await PetEntities.getById(player.petId);
 
 	if (pet) {
 		await interaction.reply({
