@@ -1,6 +1,6 @@
 import Player from "../database/game/models/Player";
 import {MapLinks} from "../database/game/models/MapLink";
-import {millisecondsToMinutes, minutesToMilliseconds} from "../utils/TimeUtils";
+import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
@@ -142,9 +142,10 @@ export class TravelTime {
 	 * @param player The player
 	 * @param time The time in minutes in the future (negative for the past)
 	 * @param reason The reason of the time travel
+	 * @param isMilliseconds
 	 */
-	static async timeTravel(player: Player, time: number, reason: NumberChangeReason): Promise<void> {
-		const timeMs = minutesToMilliseconds(time);
+	static async timeTravel(player: Player, time: number, reason: NumberChangeReason, isMilliseconds = false): Promise<void> {
+		const timeMs = isMilliseconds ? time : minutesToMilliseconds(time);
 
 		// Move the start and effect date
 		if (player.startTravelDate.valueOf() - timeMs > 0) { // Make sure we are not negative
@@ -160,11 +161,13 @@ export class TravelTime {
 			player.effectEndDate = new Date(0);
 		}
 
-		// Move the last small event
-		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
-		if (lastSmallEvent) {
-			lastSmallEvent.time -= timeMs;
-			await lastSmallEvent.save();
+		if (Date.now() > player.effectEndDate.valueOf()) {
+			// Move the last small event
+			const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+			if (lastSmallEvent) {
+				lastSmallEvent.time -= Date.now() - player.effectEndDate.valueOf();
+				await lastSmallEvent.save();
+			}
 		}
 
 		// Log
@@ -178,7 +181,7 @@ export class TravelTime {
 	 */
 	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
 		// Make the player time travel to the end of the effect
-		await TravelTime.timeTravel(player, millisecondsToMinutes(player.effectRemainingTime()), reason);
+		await TravelTime.timeTravel(player, player.effectRemainingTime(), reason, true);
 
 		// Move the start of the travel because the effect will have a duration of 0
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
