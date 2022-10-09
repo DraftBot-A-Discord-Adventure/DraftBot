@@ -1,6 +1,6 @@
 import Player from "../database/game/models/Player";
 import {MapLinks} from "../database/game/models/MapLink";
-import {minutesToMilliseconds} from "../utils/TimeUtils";
+import {millisecondsToMinutes, minutesToMilliseconds} from "../utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
@@ -171,7 +171,7 @@ export class TravelTime {
 		}
 
 		// Log
-		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimeWarp(entity.discordUserId, time, reason));
+		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimeWarp(entity.discordUserId, millisecondsToMinutes(time), reason));
 	}
 
 	/**
