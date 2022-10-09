@@ -1,4 +1,4 @@
-import {error, log} from "console";
+import {error} from "console";
 import {HexColorString, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -28,5 +28,4 @@ export function sendDirectMessage(user: User, title: string, description: string
 	}).catch(() => {
 		error(`Can't send dm to user ${user.id}`);
 	});
-	log(`Dm sent to ${user.id}, title : ${title}, description : ${description}`);
 }
