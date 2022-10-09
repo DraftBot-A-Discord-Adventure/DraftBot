@@ -14,8 +14,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import PetEntity from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
-import {draftBotInstance} from "../../core/bot";
+import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
@@ -50,7 +49,7 @@ function getPetFreeEndCallback(entity: Entity, pPet: PetEntity, petFreeModule: T
 					reason: NumberChangeReason.PET_FREE
 				});
 			}
-			draftBotInstance.logsDatabase.logPetFree(pPet).then();
+			LogsDatabase.logPetFree(pPet).then();
 			await pPet.destroy();
 			entity.Player.petId = null;
 			entity.Player.lastPetFree = new Date();
