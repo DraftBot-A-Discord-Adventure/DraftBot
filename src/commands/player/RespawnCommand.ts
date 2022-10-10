@@ -4,7 +4,6 @@ import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEven
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
-import Entity from "../../core/database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
@@ -14,46 +13,44 @@ import {RespawnConstants} from "../../core/constants/RespawnConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Allow a player who is dead to respawn
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
-	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
-		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await entity.Player.getPseudo(language)}));
+	if (player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
+		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await player.getPseudo(language)}));
 		return;
 	}
-	const lostScore = Math.round(entity.Player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
-	await entity.addHealth(await entity.getMaxHealth() - entity.health, interaction.channel, language, NumberChangeReason.RESPAWN);
-	await entity.Player.addScore({
-		entity,
+	const lostScore = Math.round(player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
+	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN);
+	await player.addScore({
+		entity: player,
 		amount: -lostScore,
 		channel: interaction.channel,
 		language: language,
 		reason: NumberChangeReason.RESPAWN
 	});
 
-	await Promise.all([
-		entity.save(),
-		entity.Player.save()
-	]);
+	await player.save();
 
-	await TravelTime.removeEffect(entity.Player, NumberChangeReason.RESPAWN);
-	await Maps.stopTravel(entity.Player);
+	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN);
+	await Maps.stopTravel(player);
 	const newlink = await MapLinks.getLinkByLocations(
-		await entity.Player.getPreviousMapId(),
-		await entity.Player.getDestinationId()
+		await player.getPreviousMapId(),
+		await player.getDestinationId()
 	);
-	await Maps.startTravel(entity.Player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN);
+	await Maps.startTravel(player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN);
 
-	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
+	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 
 	await interaction.reply({
 		content: respawnModule.format("respawn", {

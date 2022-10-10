@@ -58,7 +58,7 @@ export class InventorySlot extends Model {
 }
 
 export class InventorySlots {
-	public static async getInventorySlotsOfPlayer(playerId: number): Promise<InventorySlot[]> {
+	public static async getOfPlayer(playerId: number): Promise<InventorySlot[]> {
 		const slots: InventorySlot[] = await InventorySlot.findAll({
 			where: {
 				playerId

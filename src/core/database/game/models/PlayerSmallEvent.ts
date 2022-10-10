@@ -25,6 +25,20 @@ export class PlayerSmallEvents {
 		});
 	}
 
+	static async getLastOfPlayer(playerId: number): Promise<PlayerSmallEvent> {
+		const playerSmallEvents = await PlayerSmallEvents.getSmallEventsOfPlayer(playerId);
+		if (!playerSmallEvents) {
+			return null;
+		}
+		let mostRecent = playerSmallEvents[0];
+		for (const smallEvent of playerSmallEvents) {
+			if (smallEvent.id >= mostRecent.id) {
+				mostRecent = smallEvent;
+			}
+		}
+		return mostRecent;
+	}
+
 	static getLast(playerSmallEvents: PlayerSmallEvent[]): PlayerSmallEvent {
 		if (!playerSmallEvents) {
 			return null;
@@ -53,6 +67,14 @@ export class PlayerSmallEvents {
 
 	static async removeSmallEventsOfPlayer(playerId: number): Promise<void> {
 		await PlayerSmallEvent.destroy({where: {playerId: playerId}});
+	}
+
+	static async getSmallEventsOfPlayer(playerId: number): Promise<PlayerSmallEvent[]> {
+		return await PlayerSmallEvent.findAll({
+			where: {
+				playerId
+			}
+		});
 	}
 }
 

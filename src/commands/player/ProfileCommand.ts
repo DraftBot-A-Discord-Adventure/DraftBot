@@ -1,8 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Class, {Classes} from "../../core/database/game/models/Class";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {Players} from "../../core/database/game/models/Player";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
@@ -10,22 +9,24 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, EmbedField, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
-import MissionSlot from "../../core/database/game/models/MissionSlot";
-import PetEntity from "../../core/database/game/models/PetEntity";
+import MissionSlot, {MissionSlots} from "../../core/database/game/models/MissionSlot";
+import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {log} from "console";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
+import Pet, {Pets} from "../../core/database/game/models/Pet";
 
 /**
- * Display badges for the given entity
- * @param {Entities} entity
+ * Display badges for the given player
+ * @param {Player} player
  * @param msg
  * @returns {Promise<void>}
  */
-async function displayBadges(entity: Entity, msg: Message): Promise<void> {
-	const badges = entity.Player.badges.split("-");
+async function displayBadges(player: Player, msg: Message): Promise<void> {
+	const badges = player.badges.split("-");
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
 	}
@@ -41,18 +42,18 @@ async function displayBadges(entity: Entity, msg: Message): Promise<void> {
 /**
  * Get the information field of the profile
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  */
-async function getInformationField(profileModule: TranslationModule, askedEntity: Entity): Promise<EmbedField[]> {
+async function getInformationField(profileModule: TranslationModule, askedPlayer: Player): Promise<EmbedField[]> {
 	return [
 		{
 			name: profileModule.get("information.fieldName"),
 			value: profileModule.format("information.fieldValue", {
-				health: askedEntity.health,
-				maxHealth: await askedEntity.getMaxHealth(),
-				experience: askedEntity.Player.experience,
-				experienceNeededToLevelUp: askedEntity.Player.getExperienceNeededToLevelUp(),
-				money: askedEntity.Player.money
+				health: askedPlayer.health,
+				maxHealth: await askedPlayer.getMaxHealth(),
+				experience: askedPlayer.experience,
+				experienceNeededToLevelUp: askedPlayer.getExperienceNeededToLevelUp(),
+				money: askedPlayer.money
 			}),
 			inline: false
 		}];
@@ -61,18 +62,18 @@ async function getInformationField(profileModule: TranslationModule, askedEntity
 /**
  * Get the statistic field of the profile
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  * @param playerActiveObjects
  */
-async function getStatisticField(profileModule: TranslationModule, askedEntity: Entity, playerActiveObjects: playerActiveObjects): Promise<EmbedField> {
+async function getStatisticField(profileModule: TranslationModule, askedPlayer: Player, playerActiveObjects: playerActiveObjects): Promise<EmbedField> {
 	return {
 		name: profileModule.get("statistique.fieldName"),
 		value: profileModule.format("statistique.fieldValue", {
-			cumulativeAttack: await askedEntity.getCumulativeAttack(playerActiveObjects),
-			cumulativeDefense: await askedEntity.getCumulativeDefense(playerActiveObjects),
-			cumulativeSpeed: await askedEntity.getCumulativeSpeed(playerActiveObjects),
-			cumulativeHealth: await askedEntity.getCumulativeFightPoint(),
-			cumulativeMaxHealth: await askedEntity.getMaxCumulativeFightPoint()
+			cumulativeAttack: await askedPlayer.getCumulativeAttack(playerActiveObjects),
+			cumulativeDefense: await askedPlayer.getCumulativeDefense(playerActiveObjects),
+			cumulativeSpeed: await askedPlayer.getCumulativeSpeed(playerActiveObjects),
+			cumulativeHealth: await askedPlayer.getCumulativeFightPoint(),
+			cumulativeMaxHealth: await askedPlayer.getMaxCumulativeFightPoint()
 		}),
 		inline: false
 	};
@@ -80,29 +81,31 @@ async function getStatisticField(profileModule: TranslationModule, askedEntity: 
 
 /**
  * get the current campaign progression of the player
- * @param askedEntity
+ * @param askedPlayer
  * @param mc
+ * @param missionsInfo
  */
-function getCampaignProgression(askedEntity: Entity, mc: MissionSlot): number {
-	return Math.round((askedEntity.Player.PlayerMissionsInfo.campaignProgression ===
+function getCampaignProgression(askedPlayer: Player, mc: MissionSlot, missionsInfo: PlayerMissionsInfo): number {
+	return Math.round((missionsInfo.campaignProgression ===
 		Campaign.getMaxCampaignNumber() &&
-		mc.isCompleted() ? askedEntity.Player.PlayerMissionsInfo.campaignProgression : askedEntity.Player.PlayerMissionsInfo.campaignProgression - 1
+		mc.isCompleted() ? missionsInfo.campaignProgression : missionsInfo.campaignProgression - 1
 	) / Campaign.getMaxCampaignNumber() * 100);
 }
 
 /**
  * Get the mission field of the profile
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  * @param mc
+ * @param missionsInfo
  */
-function getMissionField(profileModule: TranslationModule, askedEntity: Entity, mc: MissionSlot): EmbedField {
+function getMissionField(profileModule: TranslationModule, askedPlayer: Player, mc: MissionSlot, missionsInfo: PlayerMissionsInfo): EmbedField {
 	return {
 		name: profileModule.get("mission.fieldName"),
 		value: profileModule.format("mission.fieldValue",
 			{
-				gems: askedEntity.Player.PlayerMissionsInfo.gems,
-				campaign: getCampaignProgression(askedEntity, mc)
+				gems: missionsInfo.gems,
+				campaign: getCampaignProgression(askedPlayer, mc, missionsInfo)
 			}
 		),
 		inline: false
@@ -114,9 +117,9 @@ function getMissionField(profileModule: TranslationModule, askedEntity: Entity, 
  * @param profileModule
  * @param rank
  * @param numberOfPlayers
- * @param askedEntity
+ * @param askedPlayer
  */
-function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedEntity: Entity): EmbedField {
+function getRankingField(profileModule: TranslationModule, rank: number, numberOfPlayers: number, askedPlayer: Player): EmbedField {
 	const isUnranked = rank > numberOfPlayers;
 	return {
 		name: profileModule.get("ranking.fieldName"),
@@ -125,7 +128,7 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 				isUnranked: isUnranked,
 				rank: isUnranked ? profileModule.get("ranking.unranked") : rank,
 				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
-				score: askedEntity.Player.score
+				score: askedPlayer.score
 			}),
 		inline: false
 	};
@@ -165,13 +168,13 @@ function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFie
 /**
  * Get the location field of the profile
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  * @param language
  */
-async function getLocationField(profileModule: TranslationModule, askedEntity: Entity, language: string): Promise<EmbedField> {
+async function getLocationField(profileModule: TranslationModule, askedPlayer: Player, language: string): Promise<EmbedField> {
 	return {
 		name: profileModule.get("map.fieldName"),
-		value: (await askedEntity.Player.getDestination()).getDisplayName(language),
+		value: (await askedPlayer.getDestination()).getDisplayName(language),
 		inline: true
 	};
 }
@@ -180,13 +183,14 @@ async function getLocationField(profileModule: TranslationModule, askedEntity: E
  * Get the pet field of the profile
  * @param profileModule
  * @param pet
+ * @param petModel
  * @param language
  */
-function getPetField(profileModule: TranslationModule, pet: PetEntity, language: string): EmbedField {
+function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel: Pet, language: string): EmbedField {
 	return {
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
-			rarity: pet.PetModel.getRarityDisplay(),
+			rarity: petModel.getRarityDisplay(),
 			emote: pet.getPetEmote(),
 			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 		}),
@@ -197,15 +201,15 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, language:
 /**
  * Get the time left field of the profile
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  * @param interaction
  */
-function getTimeLeftField(profileModule: TranslationModule, askedEntity: Entity, interaction: CommandInteraction): EmbedField {
+function getTimeLeftField(profileModule: TranslationModule, askedPlayer: Player, interaction: CommandInteraction): EmbedField {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.format("timeLeft.fieldValue", {
-			effect: askedEntity.Player.effect,
-			timeLeft: minutesDisplay(millisecondsToMinutes(askedEntity.Player.effectEndDate.valueOf() - interaction.createdAt.valueOf()))
+			effect: askedPlayer.effect,
+			timeLeft: minutesDisplay(millisecondsToMinutes(askedPlayer.effectEndDate.valueOf() - interaction.createdAt.valueOf()))
 		}),
 		inline: false
 	};
@@ -225,14 +229,14 @@ function getNoTimeLeftField(profileModule: TranslationModule): EmbedField {
 
 /**
  * Envoie un message contenant les informations sur tous les badges de la personne concernée, si celle-ci possède trop de badges
- * @param {Entities} entity
+ * @param {Player} player
  * @param {("fr"|"en")} language
  * @param interaction
  * @returns {Promise<void>}
  */
-async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: string, interaction: CommandInteraction): Promise<void> {
+async function sendMessageAllBadgesTooMuchBadges(player: Player, language: string, interaction: CommandInteraction): Promise<void> {
 	let content = "";
-	const badges = entity.Player.badges.split("-");
+	const badges = player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
 	for (const badgeSentence of badges) {
 		content += profileModule.get(`badges.${badgeSentence}`) + "\n";
@@ -240,7 +244,7 @@ async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: strin
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
 			.setTitle(profileModule.format("badgeDisplay.title", {
-				pseudo: await entity.Player.getPseudo(language)
+				pseudo: await player.getPseudo(language)
 			}))
 			.setDescription(content + profileModule.format("badgeDisplay.numberBadge", {
 				badge: badges.length
@@ -251,43 +255,45 @@ async function sendMessageAllBadgesTooMuchBadges(entity: Entity, language: strin
 /**
  * Generates all the fields for the profile command
  * @param profileModule
- * @param askedEntity
+ * @param askedPlayer
  * @param interaction
  * @param titleEffect
  * @param language
  */
 async function generateFields(
 	profileModule: TranslationModule,
-	askedEntity: Entity,
+	askedPlayer: Player,
 	interaction: CommandInteraction,
 	titleEffect: string,
 	language: string
 ): Promise<{ fields: EmbedField[], titleEffect: string }> {
-	const playerActiveObjects = await askedEntity.Player.getMainSlotsItems();
-	const [mc] = askedEntity.Player.MissionSlots.filter(m => m.isCampaign());
-	const rank = await Players.getRankById(askedEntity.Player.id);
+	const playerActiveObjects = await askedPlayer.getMainSlotsItems();
+	const missionSlots = await MissionSlots.getOfPlayer(askedPlayer.id);
+	const [mc] = missionSlots.filter(m => m.isCampaign());
+	const rank = await Players.getRankById(askedPlayer.id);
 	const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
-	const fields = await getInformationField(profileModule, askedEntity);
-	if (askedEntity.Player.level >= Constants.CLASS.REQUIRED_LEVEL) {
-		fields.push(await getStatisticField(profileModule, askedEntity, playerActiveObjects));
+	const fields = await getInformationField(profileModule, askedPlayer);
+	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(askedPlayer.id);
+	if (askedPlayer.level >= Constants.CLASS.REQUIRED_LEVEL) {
+		fields.push(await getStatisticField(profileModule, askedPlayer, playerActiveObjects));
 	}
 	fields.push(
-		getMissionField(profileModule, askedEntity, mc));
+		getMissionField(profileModule, askedPlayer, mc, missionsInfo));
 	fields.push(
-		getRankingField(profileModule, rank, numberOfPlayers, askedEntity));
+		getRankingField(profileModule, rank, numberOfPlayers, askedPlayer));
 
-	if (!askedEntity.Player.checkEffect()) {
-		if (interaction.createdAt >= askedEntity.Player.effectEndDate) {
+	if (!askedPlayer.checkEffect()) {
+		if (interaction.createdAt >= askedPlayer.effectEndDate) {
 			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
 			fields.push(getNoTimeLeftField(profileModule));
 		}
 		else {
-			fields.push(getTimeLeftField(profileModule, askedEntity, interaction));
+			fields.push(getTimeLeftField(profileModule, askedPlayer, interaction));
 		}
 	}
 
 	try {
-		const playerClass = await Classes.getById(askedEntity.Player.class);
+		const playerClass = await Classes.getById(askedPlayer.class);
 		if (playerClass) {
 			fields.push(getClassField(profileModule, playerClass, language));
 		}
@@ -297,7 +303,7 @@ async function generateFields(
 	}
 
 	try {
-		const guild = await Guilds.getById(askedEntity.Player.guildId);
+		const guild = await Guilds.getById(askedPlayer.guildId);
 		if (guild) {
 			fields.push(getGuildField(profileModule, guild));
 		}
@@ -307,9 +313,9 @@ async function generateFields(
 	}
 
 	try {
-		const mapId = await askedEntity.Player.getDestinationId();
+		const mapId = await askedPlayer.getDestinationId();
 		if (mapId !== null) {
-			fields.push(await getLocationField(profileModule, askedEntity, language));
+			fields.push(await getLocationField(profileModule, askedPlayer, language));
 		}
 	}
 	catch (error) {
@@ -317,9 +323,10 @@ async function generateFields(
 	}
 
 	try {
-		const pet = askedEntity.Player.Pet;
-		if (pet) {
-			fields.push(getPetField(profileModule, pet, language));
+		const petEntity = await PetEntities.getById(askedPlayer.petId);
+		const petModel = await Pets.getById(petEntity.petId);
+		if (petEntity) {
+			fields.push(getPetField(profileModule, petEntity, petModel, language));
 		}
 	}
 	catch (error) {
@@ -332,25 +339,25 @@ async function generateFields(
  * Displays information about the profile of the player who sent the command
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	let askedEntity = await Entities.getByOptions(interaction);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	let askedEntity = await Players.getByOptions(interaction);
 	if (!askedEntity) {
-		askedEntity = entity;
+		askedEntity = player;
 	}
 	const profileModule = Translations.getModule("commands.profile", language);
 	const {
 		fields,
 		titleEffect
-	} = await generateFields(profileModule, askedEntity, interaction, askedEntity.Player.effect, language);
+	} = await generateFields(profileModule, askedEntity, interaction, askedEntity.effect, language);
 	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(profileModule.format("title", {
 					effect: titleEffect,
-					pseudo: await askedEntity.Player.getPseudo(language),
-					level: askedEntity.Player.level
+					pseudo: await askedEntity.getPseudo(language),
+					level: askedEntity.level
 				}))
 				.addFields(fields)
 		],
@@ -375,10 +382,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	});
 
-	if (askedEntity.Player.badges !== null && askedEntity.Player.badges !== "") {
+	if (askedEntity.badges !== null && askedEntity.badges !== "") {
 		await displayBadges(askedEntity, reply);
 	}
-	if (new Date().valueOf() - askedEntity.Player.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
+	if (new Date().valueOf() - askedEntity.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
 		await reply.react(Constants.TOPGG.BADGE);
 	}
 }

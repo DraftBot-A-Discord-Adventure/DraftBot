@@ -1,4 +1,3 @@
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {CommandInteraction, User} from "discord.js";
@@ -18,28 +17,29 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 /**
- * Check if an entity is allowed to fight
- * @param entity
+ * Check if a player is allowed to fight
+ * @param player
  * @param {boolean} friendly
  * @param date
  * @return error
  */
-async function canFight(entity: Entity, friendly: boolean, date: Date): Promise<string> {
-	if (entity === null) {
+async function canFight(player: Player, friendly: boolean, date: Date): Promise<string> {
+	if (player === null) {
 		return null;
 	}
-	if (entity.Player.level < FightConstants.REQUIRED_LEVEL) {
+	if (player.level < FightConstants.REQUIRED_LEVEL) {
 		return FightConstants.FIGHT_ERROR.WRONG_LEVEL;
 	}
-	if (!entity.Player.currentEffectFinished(date) && !friendly) {
+	if (!player.currentEffectFinished(date) && !friendly) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
-	if ((await BlockingUtils.getPlayerBlockingReason(entity.discordUserId)).length !== 0) {
+	if ((await BlockingUtils.getPlayerBlockingReason(player.discordUserId)).length !== 0) {
 		return FightConstants.FIGHT_ERROR.OCCUPIED;
 	}
-	if (await entity.getCumulativeFightPoint() === 0 && !friendly) {
+	if (await player.getCumulativeFightPoint() === 0 && !friendly) {
 		return FightConstants.FIGHT_ERROR.NO_FIGHT_POINTS;
 	}
 	// the player is able to fight
@@ -66,7 +66,7 @@ async function sendError(
 	const replacements: Replacements = error === FightConstants.FIGHT_ERROR.WRONG_LEVEL ? {
 		level: FightConstants.REQUIRED_LEVEL
 	} : {
-		pseudo: (await Entities.getOrRegister(user.id))[0].getMention()
+		pseudo: (await Players.getOrRegister(user.id))[0].getMention()
 	};
 	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
 	replyingError ?
@@ -87,20 +87,20 @@ async function sendError(
  * get the string that display the information about the fight for the menu
  * @param askingFighter
  * @param friendly
- * @param respondingEntity
+ * @param respondingPlayer
  * @param fightTranslationModule
  * @param respondingFighter
  */
 async function getFightDescription(
 	askingFighter: Fighter,
 	friendly: boolean,
-	respondingEntity: Entity | null,
+	respondingPlayer: Player | null,
 	fightTranslationModule: TranslationModule,
 	respondingFighter: Fighter | null
 ): Promise<string> {
 	let fightAskingDescription;
 	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
-	if (!respondingEntity) {
+	if (!respondingPlayer) {
 		fightAskingDescription = fightTranslationModule.format("wantsToFightAnyone", {
 			friendly: friendly ? fightTranslationModule.get("friendly") : "",
 			player: askingFighter.getMention()
@@ -116,7 +116,7 @@ async function getFightDescription(
 	}
 	await Promise.all(promises);
 	fightAskingDescription += `\n\n${await askingFighter.getStringDisplay(fightTranslationModule)}`;
-	if (respondingEntity) {
+	if (respondingPlayer) {
 		fightAskingDescription += `\n${await respondingFighter.getStringDisplay(fightTranslationModule)}`;
 	}
 	return fightAskingDescription;
@@ -127,7 +127,7 @@ async function getFightDescription(
  * @param interaction
  * @param fightTranslationModule
  * @param friendly
- * @param askedEntity
+ * @param askedPlayer
  * @param askingFighter
  * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
  */
@@ -135,20 +135,20 @@ function getAcceptCallback(
 	interaction: CommandInteraction,
 	fightTranslationModule: TranslationModule,
 	friendly: boolean,
-	askedEntity: Entity | null,
+	askedPlayer: Player | null,
 	askingFighter: Fighter
 ): (user: User) => Promise<boolean> {
 	return async function(user: User): Promise<boolean> {
-		const incomingFighterEntity = await Entities.getByDiscordUserId(user.id);
-		const attackerFightErrorStatus = await canFight(incomingFighterEntity, true, interaction.createdAt);
-		if (askedEntity !== null && incomingFighterEntity.discordUserId !== askedEntity.discordUserId) {
+		const incomingFighterPlayer = await Players.getByDiscordUserId(user.id);
+		const attackerFightErrorStatus = await canFight(incomingFighterPlayer, true, interaction.createdAt);
+		if (askedPlayer !== null && incomingFighterPlayer.discordUserId !== askedPlayer.discordUserId) {
 			return false;
 		}
 		if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, false, user);
 			return false;
 		}
-		const incomingFighter = new Fighter(user, incomingFighterEntity, await Classes.getById(incomingFighterEntity.Player.class));
+		const incomingFighter = new Fighter(user, incomingFighterPlayer, await Classes.getById(incomingFighterPlayer.class));
 		await incomingFighter.loadStats(friendly);
 		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
 		fightController.startFight().finally(() => null);
@@ -159,15 +159,15 @@ function getAcceptCallback(
 /**
  * load the customs error messages for the broadcast collector
  * @param fightTranslationModule - the translation module
- * @param respondingEntity - the entity that is responding to the fight
+ * @param respondingPlayer - the entity that is responding to the fight
  */
-function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingEntity: Entity): BroadcastTranslationModuleLike {
+function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingPlayer: Player): BroadcastTranslationModuleLike {
 	return {
 		errorBroadcastCancelled: fightTranslationModule.get("error.canceled"),
 		errorSelfAccept: fightTranslationModule.get("error.fightHimself"),
 		errorSelfAcceptSpam: fightTranslationModule.get("error.spamCanceled"),
 		errorOtherDeny: fightTranslationModule.get("error.onlyInitiator"),
-		errorNoAnswer: fightTranslationModule.get(`error.${respondingEntity ? "opponentNotAvailable" : "noOneAvailable"}`)
+		errorNoAnswer: fightTranslationModule.get(`error.${respondingPlayer ? "opponentNotAvailable" : "noOneAvailable"}`)
 	};
 }
 
@@ -175,19 +175,19 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * Start a new fight
  * @param interaction
  * @param language - Language to use in the response
- * @param entity
+ * @param player
  * @param friendly true if the fight is friendly
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity, friendly = false): Promise<void> {
-	const askingFighter = new Fighter(interaction.user, entity, await Classes.getById(entity.Player.class));
-	const askedEntity: Entity | null = await Entities.getByOptions(interaction);
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player, friendly = false): Promise<void> {
+	const askingFighter = new Fighter(interaction.user, player, await Classes.getById(player.class));
+	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
-	if (askedEntity && entity.discordUserId === askedEntity.discordUserId) {
+	if (askedEntity && player.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	const attackerFightErrorStatus = await canFight(entity, true, interaction.createdAt);
+	const attackerFightErrorStatus = await canFight(player, true, interaction.createdAt);
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
@@ -199,7 +199,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;
 		}
-		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.Player.class));
+		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.class));
 	}
 	const fightAskingDescription = await getFightDescription(askingFighter, friendly, askedEntity, fightTranslationModule, askedFighter);
 	await new DraftBotBroadcastValidationMessage(

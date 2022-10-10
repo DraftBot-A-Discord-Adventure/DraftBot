@@ -12,7 +12,6 @@ import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../cor
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/database/game/models/Potion";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import Shop from "../../core/database/game/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -25,6 +24,8 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
+import {Player, Players} from "../../core/database/game/models/Player";
+import {InventoryInfo, InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 
 /**
  * Callback of the shop command
@@ -59,8 +60,8 @@ function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
 		"randomItem",
 		translationModule,
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			await giveRandomItem(message.user, message.sentMessage.channel, message.language, entity);
+			const [player] = await Players.getOrRegister(message.user.id);
+			await giveRandomItem(message.user, message.sentMessage.channel, message.language, player);
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.RANDOM_ITEM).then();
 			return true;
 		});
@@ -76,16 +77,16 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 		"healAlterations",
 		translationModule,
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			if (entity.Player.currentEffectFinished(interaction.createdAt)) {
+			const [player] = await Players.getOrRegister(message.user.id);
+			if (player.currentEffectFinished(interaction.createdAt)) {
 				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}
-			if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && entity.Player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
-				await TravelTime.removeEffect(entity.Player, NumberChangeReason.SHOP);
-				await entity.Player.save();
+			if (player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
+				await TravelTime.removeEffect(player, NumberChangeReason.SHOP);
+				await player.save();
 			}
-			await MissionsController.update(entity, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
+			await MissionsController.update(player, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("success"), message.user)
@@ -106,12 +107,12 @@ function getRegenShopItem(translationModule: TranslationModule): ShopItem {
 		"regen",
 		translationModule,
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.addHealth(await entity.getMaxHealth() - entity.health, message.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP, {
+			const [player] = await Players.getOrRegister(message.user.id);
+			await player.addHealth(await player.getMaxHealth() - player.health, message.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
-			await entity.save();
+			await player.save();
 			await message.sentMessage.channel.send({
 				embeds: [
 					new DraftBotEmbed()
@@ -135,13 +136,13 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 		"badge",
 		translationModule,
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			if (entity.Player.hasBadge(Constants.BADGES.RICH_PERSON)) {
+			const [player] = await Players.getOrRegister(message.user.id);
+			if (player.hasBadge(Constants.BADGES.RICH_PERSON)) {
 				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.alreadyHasItem"));
 				return false;
 			}
-			entity.Player.addBadge(Constants.BADGES.RICH_PERSON);
-			await entity.Player.save();
+			player.addBadge(Constants.BADGES.RICH_PERSON);
+			await player.save();
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
@@ -172,15 +173,22 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 		Math.round(getItemValue(potion) * 0.7),
 		translationModule.get("potion.info"),
 		async (message) => {
-			const [entity] = await Entities.getOrRegister(message.user.id);
-			await giveItemToPlayer(entity, potion, translationModule.language, discordUser, channel);
+			const [player] = await Players.getOrRegister(message.user.id);
+			await giveItemToPlayer(player, potion, translationModule.language, discordUser, channel);
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			return true;
 		}
 	);
 }
 
-function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, translationModule: TranslationModule, entity: Entity, price: number, availableCategories: number[]) {
+function getBuySlotExtensionShopItemCallback(
+	interaction: CommandInteraction,
+	translationModule: TranslationModule,
+	player: Player,
+	price: number,
+	availableCategories: number[],
+	invInfo: InventoryInfo
+) {
 	return async (shopMessage: DraftBotShopMessage): Promise<boolean> => {
 		const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
 			.allowUser(shopMessage.user)
@@ -196,19 +204,19 @@ function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, tr
 					);
 					return;
 				}
-				[entity] = await Entities.getOrRegister(shopMessage.user.id);
+				[player] = await Players.getOrRegister(shopMessage.user.id);
 				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-						await entity.Player.addMoney({
-							entity,
+						await player.addMoney({
+							entity: player,
 							amount: -price,
 							channel: shopMessage.sentMessage.channel,
 							language: translationModule.language,
 							reason: NumberChangeReason.SHOP
 						});
-						await entity.Player.save();
-						entity.Player.InventoryInfo.addSlotForCategory(i);
-						await entity.Player.InventoryInfo.save();
+						await player.save();
+						invInfo.addSlotForCategory(i);
+						await invInfo.save();
 						await shopMessage.sentMessage.channel.send({
 							embeds: [
 								new DraftBotEmbed()
@@ -226,7 +234,7 @@ function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, tr
 		for (const category of availableCategories) {
 			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
 			desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
-				available: Constants.ITEMS.SLOTS.LIMITS[category] - entity.Player.InventoryInfo.slotLimitForCategory(category),
+				available: Constants.ITEMS.SLOTS.LIMITS[category] - invInfo.slotLimitForCategory(category),
 				limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
 			})}\n`;
 		}
@@ -234,7 +242,7 @@ function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, tr
 		const chooseSlotBuilt = chooseSlot.build();
 		chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 		chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
-		await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.SHOP, collector));
+		await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.SHOP, collector));
 		return Promise.resolve(false);
 	};
 }
@@ -242,17 +250,18 @@ function getBuySlotExtensionShopItemCallback(interaction: CommandInteraction, tr
 /**
  * Get the shop item for extending your inventory
  * @param translationModule
- * @param entity
+ * @param player
  * @param interaction
  */
-function getSlotExtensionShopItem(translationModule: TranslationModule, entity: Entity, interaction: CommandInteraction): ShopItem {
+async function getSlotExtensionShopItem(translationModule: TranslationModule, player: Player, interaction: CommandInteraction): Promise<ShopItem> {
+	const invInfo = await InventoryInfos.getOfPlayer(player.id);
 	const availableCategories = [0, 1, 2, 3]
-		.filter(itemCategory => entity.Player.InventoryInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
+		.filter(itemCategory => invInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
 	if (availableCategories.length === 0) {
 		return null;
 	}
-	const totalSlots = entity.Player.InventoryInfo.weaponSlots + entity.Player.InventoryInfo.armorSlots
-		+ entity.Player.InventoryInfo.potionSlots + entity.Player.InventoryInfo.objectSlots;
+	const totalSlots = invInfo.weaponSlots + invInfo.armorSlots
+		+ invInfo.potionSlots + invInfo.objectSlots;
 	const price = Constants.ITEMS.SLOTS.PRICES[totalSlots - 4];
 	if (!price) {
 		return null;
@@ -262,7 +271,7 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
 		translationModule.get("slotsExtension"),
 		price,
 		translationModule.get("slotsExtensionInfo"),
-		getBuySlotExtensionShopItemCallback(interaction, translationModule, entity, price, availableCategories)
+		getBuySlotExtensionShopItemCallback(interaction, translationModule, player, price, availableCategories, invInfo)
 	);
 }
 
@@ -270,9 +279,9 @@ function getSlotExtensionShopItem(translationModule: TranslationModule, entity: 
  * Displays the shop
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entities} entity
+ * @param {Player} player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -293,7 +302,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		shopTranslations.get("dailyItem")
 	);
 	const inventoryCategory = new ShopItemCategory(
-		[getSlotExtensionShopItem(shopTranslations, entity, interaction)],
+		[await getSlotExtensionShopItem(shopTranslations, player, interaction)],
 		shopTranslations.get("inventoryCategory")
 	);
 

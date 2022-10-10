@@ -1,5 +1,4 @@
 import {DraftBotInventoryEmbedBuilder} from "../../core/messages/DraftBotInventoryEmbed";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
@@ -7,20 +6,21 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 /**
  * Shows the inventory of the given player (default player is the one who entered the command)
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
-	let askedEntity = await Entities.getByOptions(interaction);
-	if (!askedEntity) {
-		askedEntity = entity;
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	let askedPlayer = await Players.getByOptions(interaction);
+	if (!askedPlayer) {
+		askedPlayer = player;
 	}
 
-	await (await new DraftBotInventoryEmbedBuilder(interaction.user, language, askedEntity.Player)
+	await (await new DraftBotInventoryEmbedBuilder(interaction.user, language, askedPlayer)
 		.build())
 		.reply(interaction);
 }
