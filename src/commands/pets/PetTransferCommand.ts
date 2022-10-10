@@ -18,7 +18,7 @@ import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 
 /**
- * Get the guild from a given entity
+ * Get the guild from a given player
  * @param player
  */
 async function getGuildOfEntity(player: Player): Promise<Guild> {

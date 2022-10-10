@@ -17,7 +17,7 @@ export const smallEvent: SmallEvent = {
 	},
 
 	/**
-	 * Advance the time of the entity
+	 * Advance the time of the player
 	 * @param interaction
 	 * @param language
 	 * @param player

@@ -56,7 +56,7 @@ const destroyPlayerTestCommand = async (language: string, interaction: CommandIn
 	});
 	await Player.destroy({
 		where: {
-			entityId: player.id
+			id: player.id
 		}
 	});
 	return commandInfo.messageWhenExecuted;

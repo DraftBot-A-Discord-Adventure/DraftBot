@@ -64,7 +64,7 @@ export class CommandsManager {
 	}
 
 	/**
-	 * Check if the given entity can perform the command in commandInfo
+	 * Check if the given player can perform the command in commandInfo
 	 * @param commandInfo
 	 * @param player
 	 * @param TextInformations
@@ -614,7 +614,7 @@ export class CommandsManager {
 	 * Check if the effect is authorized for this commandInfo
 	 * @param commandInfo
 	 * @param user
-	 * @param entity
+	 * @param player
 	 * @param interaction
 	 * @param tr
 	 * @param shouldReply
