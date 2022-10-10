@@ -23,7 +23,6 @@ function giveLevelsTo(playerToEdit: Player, amount: number, interaction: Command
 		throw new Error("wrong parameter");
 	}
 	playerToEdit.addExperience({
-		entity: playerToEdit,
 		amount: Math.floor(playerToEdit.getExperienceNeededToLevelUp() * ratioExpCurrentLevel) - playerToEdit.experience,
 		channel: interaction.channel,
 		language,

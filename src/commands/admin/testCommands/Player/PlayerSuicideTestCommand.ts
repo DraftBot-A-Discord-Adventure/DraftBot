@@ -26,7 +26,7 @@ const playerSuicideTestCommand = async (language: string, interaction: CommandIn
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	});
-	await player.killIfNeeded(player, interaction.channel, language, NumberChangeReason.TEST);
+	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.TEST);
 	await Promise.all([player.save(), player.save()]);
 
 	return commandInfo.messageWhenExecuted;

@@ -1,9 +1,9 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
-import Possibility from "./Possibility";
 import MapLocation from "./MapLocation";
 import {readdir} from "fs";
 import moment = require("moment");
+import {Possibilities} from "./Possibility";
 
 export class BigEvent extends Model {
 	public readonly id!: number;
@@ -19,7 +19,7 @@ export class BigEvent extends Model {
 	public createdAt!: Date;
 
 	public async getReactions(): Promise<string[]> {
-		const possibilities = await this.getPossibilities();
+		const possibilities = await Possibilities.getPossibilitiesOfEvent(this.id);
 		const reactions = [];
 		for (const possibility of possibilities) {
 			if (reactions.indexOf(possibility.possibilityKey) === -1) {

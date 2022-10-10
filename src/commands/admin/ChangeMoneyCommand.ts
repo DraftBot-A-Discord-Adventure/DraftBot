@@ -14,7 +14,6 @@ import Player from "../../core/database/game/models/Player";
 function giveMoneyTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string): void {
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.addMoney({
-			entity: playerToEdit,
 			amount: amount - playerToEdit.money,
 			channel: interaction.channel,
 			language,
@@ -23,7 +22,6 @@ function giveMoneyTo(playerToEdit: Player, amount: number, interaction: CommandI
 	}
 	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addMoney({
-			entity: playerToEdit,
 			amount: amount,
 			channel: interaction.channel,
 			language,

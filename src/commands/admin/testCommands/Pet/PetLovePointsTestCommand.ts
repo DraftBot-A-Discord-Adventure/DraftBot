@@ -37,7 +37,7 @@ const petLovePointsTestCommand = async (language: string, interaction: CommandIn
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
 	await pet.changeLovePoints({
-		entity: player,
+		player: player,
 		amount: lovePoints - pet.lovePoints,
 		channel: interaction.channel,
 		language,

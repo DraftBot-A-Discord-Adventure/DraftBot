@@ -26,6 +26,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {InventoryInfo, InventoryInfos} from "../../core/database/game/models/InventoryInfo";
+import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 
 /**
  * Callback of the shop command
@@ -174,7 +175,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 		translationModule.get("potion.info"),
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			await giveItemToPlayer(player, potion, translationModule.language, discordUser, channel);
+			await giveItemToPlayer(player, potion, translationModule.language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			return true;
 		}
@@ -208,7 +209,6 @@ function getBuySlotExtensionShopItemCallback(
 				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
 						await player.addMoney({
-							entity: player,
 							amount: -price,
 							channel: shopMessage.sentMessage.channel,
 							language: translationModule.language,

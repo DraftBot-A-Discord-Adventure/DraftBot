@@ -53,7 +53,11 @@ export class PlayerSmallEvents {
 	}
 
 	static async calculateCurrentScore(player: Player): Promise<number> {
-		const numberOfSmallEventsDone = player.PlayerSmallEvents.length;
+		const numberOfSmallEventsDone = await PlayerSmallEvent.count({
+			where: {
+				playerId: player.id
+			}
+		});
 		const tripDuration = await player.getCurrentTripDuration();
 		let somme = 0;
 		for (let i = 1; i <= numberOfSmallEventsDone; i++) {

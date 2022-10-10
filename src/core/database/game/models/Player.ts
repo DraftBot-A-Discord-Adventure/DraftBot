@@ -1,10 +1,10 @@
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import InventorySlot from "./InventorySlot";
+import InventorySlot, {InventorySlots} from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
-import InventoryInfo from "./InventoryInfo";
+import InventoryInfo, {InventoryInfos} from "./InventoryInfo";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {Constants} from "../../../Constants";
 import Class, {Classes} from "./Class";
@@ -37,13 +37,25 @@ import {BlockingConstants} from "../../../constants/BlockingConstants";
 import Pet from "./Pet";
 import Mission from "./Mission";
 
-export type EditValueParameters = {
-	entity: Entity,
+export type PlayerEditValueParameters = {
+	player: Player,
 	amount: number,
 	channel: TextBasedChannel,
 	language: string,
 	reason: NumberChangeReason
 }
+
+export type EditValueParameters = {
+	amount: number,
+	channel: TextBasedChannel,
+	language: string,
+	reason: NumberChangeReason
+}
+
+type MissionHealthParameter = {
+	shouldPokeMission: boolean,
+	overHealCountsForMission: boolean
+};
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -67,8 +79,6 @@ export class Player extends Model {
 	public class!: number;
 
 	public badges: string;
-
-	public readonly entityId!: number;
 
 	public guildId: number;
 
@@ -157,42 +167,40 @@ export class Player extends Model {
 	public async addScore(parameters: EditValueParameters): Promise<void> {
 		this.score += parameters.amount;
 		if (parameters.amount > 0) {
-			await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+			await MissionsController.update(this, parameters.channel, parameters.language, {
 				missionId: "earnPoints",
 				count: parameters.amount
 			});
 		}
-		await this.setScore(parameters.entity, this.score, parameters.channel, parameters.language);
-		draftBotInstance.logsDatabase.logScoreChange(parameters.entity.discordUserId, this.score, parameters.reason).then();
+		await this.setScore(this.score, parameters.channel, parameters.language);
+		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason).then();
 		this.addWeeklyScore(parameters.amount);
 	}
 
 	public async addMoney(parameters: EditValueParameters): Promise<void> {
 		this.money += parameters.amount;
 		if (parameters.amount > 0) {
-			const newEntity = await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
 				missionId: "earnMoney",
 				count: parameters.amount
 			});
 			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
 			// As the money and experience may have changed, we update the models of the caller
-			Object.assign(this, newEntity.Player);
-			Object.assign(parameters.entity, newEntity);
+			Object.assign(this, newPlayer);
 		}
 		this.setMoney(this.money);
-		draftBotInstance.logsDatabase.logMoneyChange(parameters.entity.discordUserId, this.money, parameters.reason).then();
+		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason).then();
 	}
 
-	public async getPseudo(language: string): Promise<string> {
-		await this.setPseudo(language);
+	public getPseudo(language: string): string {
+		this.setPseudo(language);
 		return this.pseudo;
 	}
 
-	public async setPseudo(language: string): Promise<void> {
-		const entity = await this.getEntity();
-		if (entity.discordUserId !== undefined) {
-			if (draftBotClient.users.cache.get(entity.discordUserId) !== undefined) {
-				this.pseudo = escapeUsername(draftBotClient.users.cache.get(entity.discordUserId).username);
+	public setPseudo(language: string): void {
+		if (this.discordUserId !== undefined) {
+			if (draftBotClient.users.cache.get(this.discordUserId) !== undefined) {
+				this.pseudo = escapeUsername(draftBotClient.users.cache.get(this.discordUserId).username);
 			}
 			else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");
@@ -214,7 +222,7 @@ export class Player extends Model {
 					3;
 	}
 
-	public async getLvlUpReward(language: string, entity: Entity, channel: TextBasedChannel): Promise<string[]> {
+	public async getLvlUpReward(language: string, channel: TextBasedChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
@@ -225,7 +233,7 @@ export class Player extends Model {
 		}
 
 		if (this.level % 10 === 0) {
-			await entity.addHealth(await entity.getMaxHealth() - entity.health, channel, language, NumberChangeReason.LEVEL_UP, {
+			await this.addHealth(await this.getMaxHealth() - this.health, channel, language, NumberChangeReason.LEVEL_UP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
@@ -253,25 +261,25 @@ export class Player extends Model {
 		return bonuses;
 	}
 
-	public async levelUpIfNeeded(entity: Entity, channel: TextBasedChannel, language: string): Promise<void> {
+	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
-		draftBotInstance.logsDatabase.logExperienceChange(entity.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
+		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
 		this.level++;
-		draftBotInstance.logsDatabase.logLevelChange(entity.discordUserId, this.level).then();
-		await MissionsController.update(entity, channel, language, {
+		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level).then();
+		await MissionsController.update(this, channel, language, {
 			missionId: "reachLevel",
 			count: this.level,
 			set: true
 		});
-		const bonuses = await this.getLvlUpReward(language, entity, channel);
+		const bonuses = await this.getLvlUpReward(language, channel);
 
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {
-			mention: entity.getMention(),
+			mention: this.getMention(),
 			level: this.level
 		});
 		for (let i = 0; i < bonuses.length - 1; ++i) {
@@ -280,7 +288,7 @@ export class Player extends Model {
 		msg += bonuses[bonuses.length - 1];
 		await channel.send({content: msg});
 
-		return this.levelUpIfNeeded(entity, channel, language);
+		return this.levelUpIfNeeded(channel, language);
 	}
 
 	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
@@ -288,15 +296,15 @@ export class Player extends Model {
 		await this.save();
 	}
 
-	public async killIfNeeded(entity: Entity, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
-		if (entity.health > 0) {
+	public async killIfNeeded(channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
+		if (this.health > 0) {
 			return false;
 		}
-		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
+		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
 		const tr = Translations.getModule("models.players", language);
-		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
+		await channel.send({content: tr.format("ko", {pseudo: this.getPseudo(language)})});
 
-		const guildMember = await (<TextChannel>channel).guild.members.fetch(entity.discordUserId);
+		const guildMember = await (<TextChannel>channel).guild.members.fetch(this.discordUserId);
 		const user = guildMember.user;
 		this.dmNotification ? await user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
 			: channel.send({
@@ -367,41 +375,11 @@ export class Player extends Model {
 		);
 	}
 
-	public getMainWeaponSlot(): InventorySlot {
-		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isWeapon());
-		if (filtered.length === 0) {
-			return null;
-		}
-		return filtered[0];
-	}
-
-	public getMainArmorSlot(): InventorySlot {
-		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isArmor());
-		if (filtered.length === 0) {
-			return null;
-		}
-		return filtered[0];
-	}
-
-	public getMainPotionSlot(): InventorySlot {
-		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isPotion());
-		if (filtered.length === 0) {
-			return null;
-		}
-		return filtered[0];
-	}
-
-	public getMainObjectSlot(): InventorySlot {
-		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isObject());
-		if (filtered.length === 0) {
-			return null;
-		}
-		return filtered[0];
-	}
-
 	public async giveItem(item: GenericItemModel): Promise<boolean> {
+		const invSlots = await InventorySlots.getOfPlayer(this.id);
+		const invInfo = await InventoryInfos.getOfPlayer(this.id);
 		const category = item.getCategory();
-		const equippedItem = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.isEquipped())[0];
+		const equippedItem = invSlots.filter(slot => slot.itemCategory === category && slot.isEquipped())[0];
 		if (equippedItem && equippedItem.itemId === 0) {
 			await InventorySlot.update({
 				itemId: item.id
@@ -414,8 +392,8 @@ export class Player extends Model {
 			});
 			return true;
 		}
-		const slotsLimit = this.InventoryInfo.slotLimitForCategory(category);
-		const items = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.slot < slotsLimit);
+		const slotsLimit = invInfo.slotLimitForCategory(category);
+		const items = invSlots.filter(slot => slot.itemCategory === category && slot.slot < slotsLimit);
 		if (items.length >= slotsLimit) {
 			return false;
 		}
@@ -440,7 +418,7 @@ export class Player extends Model {
 				slot: 0,
 				itemCategory: Constants.ITEM_CATEGORIES.POTION
 			}
-		}).then(async item => await draftBotInstance.logsDatabase.logItemSell((await this.getEntity()).discordUserId, await item.getItem()));
+		}).then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
 		await InventorySlot.update(
 			{
 				itemId: InventoryConstants.POTION_DEFAULT_ID
@@ -466,8 +444,8 @@ export class Player extends Model {
 	/**
 	 * check if a player has an empty mission slot
 	 */
-	public hasEmptyMissionSlot(): boolean {
-		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
+	public hasEmptyMissionSlot(missionSlots: MissionSlot[]): boolean {
+		return missionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
 	}
 
 	/**
@@ -476,19 +454,18 @@ export class Player extends Model {
 	 */
 	public async addExperience(parameters: EditValueParameters): Promise<void> {
 		this.experience += parameters.amount;
-		draftBotInstance.logsDatabase.logExperienceChange(parameters.entity.discordUserId, this.experience, parameters.reason).then();
+		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason).then();
 		if (parameters.amount > 0) {
-			const newEntity = await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
 				missionId: "earnXP",
 				count: parameters.amount
 			});
 			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
 			// As the money and experience may have changed, we update the models of the caller
-			Object.assign(this, newEntity.Player);
-			Object.assign(parameters.entity, newEntity);
+			Object.assign(this, newPlayer);
 		}
 
-		await this.levelUpIfNeeded(parameters.entity, parameters.channel, parameters.language);
+		await this.levelUpIfNeeded(parameters.channel, parameters.language);
 	}
 
 	/**
@@ -499,29 +476,16 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Return the current active items a player hold
-	 */
-	public async getMainSlotsItems(): Promise<playerActiveObjects> {
-		return {
-			weapon: <Weapon>(await this.getMainWeaponSlot().getItem()),
-			armor: <Armor>(await this.getMainArmorSlot().getItem()),
-			potion: <Potion>(await this.getMainPotionSlot().getItem()),
-			object: <ObjectItem>(await this.getMainObjectSlot().getItem())
-		};
-	}
-
-	/**
 	 * Set the pet of the player
-	 * @param entity
 	 * @param petEntity
 	 */
-	public setPet(entity: Entity, petEntity: PetEntity): void {
+	public setPet(petEntity: PetEntity): void {
 		this.petId = petEntity.id;
-		draftBotInstance.logsDatabase.logPlayerNewPet(entity.discordUserId, petEntity).then();
+		draftBotInstance.logsDatabase.logPlayerNewPet(this.discordUserId, petEntity).then();
 	}
 
-	private async setScore(entity: Entity, score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(entity, channel, language, {missionId: "reachScore", count: score, set: true});
+	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
+		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
 		}
@@ -554,18 +518,11 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the list of all the active objects of the player
-	 */
-	public async getPlayerActiveObjects(): Promise<playerActiveObjects> {
-		return await this.getMainSlotsItems();
-	}
-
-	/**
 	 * calculate the cumulative attack of the player
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects): Promise<number> {
-		const playerAttack = (await Classes.getById(this.Player.class)).getAttackValue(this.Player.level);
+		const playerAttack = (await Classes.getById(this.class)).getAttackValue(this.level);
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
 				? playerActiveObjects.weapon.getAttack() : playerAttack)
@@ -581,7 +538,7 @@ export class Player extends Model {
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects): Promise<number> {
-		const playerDefense = (await Classes.getById(this.Player.class)).getDefenseValue(this.Player.level);
+		const playerDefense = (await Classes.getById(this.class)).getDefenseValue(this.level);
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
 				? playerActiveObjects.weapon.getDefense() : playerDefense)
@@ -597,7 +554,7 @@ export class Player extends Model {
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects): Promise<number> {
-		const playerSpeed = (await Classes.getById(this.Player.class)).getSpeedValue(this.Player.level);
+		const playerSpeed = (await Classes.getById(this.class)).getSpeedValue(this.level);
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
 				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
@@ -629,16 +586,16 @@ export class Player extends Model {
 	 * return the player max health
 	 */
 	public async getMaxHealth(): Promise<number> {
-		const playerClass = await Classes.getById(this.Player.class);
-		return playerClass.getMaxHealthValue(this.Player.level);
+		const playerClass = await Classes.getById(this.class);
+		return playerClass.getMaxHealthValue(this.level);
 	}
 
 	/**
 	 * get the player max cumulative fight point
 	 */
 	public async getMaxCumulativeFightPoint(): Promise<number> {
-		const playerClass = await Classes.getById(this.Player.class);
-		return playerClass.getMaxCumulativeFightPointValue(this.Player.level);
+		const playerClass = await Classes.getById(this.class);
+		return playerClass.getMaxCumulativeFightPointValue(this.level);
 	}
 
 	/**
@@ -781,7 +738,7 @@ export class Players {
 			if (player === undefined) {
 				return null;
 			}
-			return await Players.getById(player.entityId);
+			return player;
 		}
 		return null;
 	}
@@ -791,8 +748,8 @@ export class Players {
 	 */
 	static async getAllStoredDiscordIds(): Promise<string[]> {
 		const query = `SELECT discordUserId
-					   FROM ${botConfig.MARIADB_PREFIX}_game.entities`;
-		const queryResult = (await Entity.sequelize.query(query, {
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players`;
+		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as { discordUserId: string }[];
 		const discordIds: string[] = [];
@@ -808,22 +765,20 @@ export class Players {
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM ${botConfig.MARIADB_PREFIX}_game.players
-                       		JOIN ${botConfig.MARIADB_PREFIX}_game.entities
-					   ON ${botConfig.MARIADB_PREFIX}_game.entities.id = ${botConfig.MARIADB_PREFIX}_game.players.entityId
 					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
-						 AND ${botConfig.MARIADB_PREFIX}_game.entities.discordUserId IN (${listDiscordId.toString()})`;
-		const queryResult = await Entity.sequelize.query(query);
+						 AND ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${listDiscordId.toString()})`;
+		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}
 
 	/**
-	 * Get the entities in the list of Ids that will be printed into the top at the given page
+	 * Get the players in the list of Ids that will be printed into the top at the given page
 	 * @param listDiscordId
 	 * @param page
 	 * @param timing
 	 */
-	static async getEntitiesToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Entity[]> {
+	static async getPlayersToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Player[]> {
 		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
 			? {
 				score: {
@@ -835,23 +790,16 @@ export class Players {
 					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
 				}
 			};
-		return await Entity.findAll({
+		return await Player.findAll({
 			where: {
 				discordUserId: {
 					[Op.in]: listDiscordId
-				}
+				},
+				restrictionsTopEntering
 			},
-			include: [{
-				model: Player,
-				as: "Player",
-				where: restrictionsTopEntering
-			}],
 			order: [
-				[{
-					model: Player,
-					as: "Player"
-				}, timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
-				[{model: Player, as: "Player"}, "level", "DESC"]
+				[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
+				["level", "DESC"]
 			],
 			limit: TopConstants.PLAYERS_BY_PAGE,
 			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
@@ -1041,9 +989,6 @@ export function initModel(sequelize: Sequelize): void {
 		badges: {
 			type: DataTypes.TEXT,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.BADGES
-		},
-		entityId: {
-			type: DataTypes.INTEGER
 		},
 		guildId: {
 			type: DataTypes.INTEGER,

@@ -79,7 +79,6 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					overHealCountsForMission: false
 				});
 				await userInformation.player.addMoney({
-					entity: userInformation.player,
 					amount: -selectedClass.price,
 					channel: message.channel,
 					language: classTranslations.language,

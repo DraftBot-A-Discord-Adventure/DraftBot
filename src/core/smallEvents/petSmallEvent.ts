@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -16,6 +15,7 @@ import {LogsDatabase, NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import Player from "../database/game/models/Player";
 import {TravelTime} from "../maps/TravelTime";
+import Pet, {Pets} from "../database/game/models/Pet";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -23,15 +23,18 @@ import {TravelTime} from "../maps/TravelTime";
  * @param interaction
  * @param seEmbed - base small event embed
  * @param pet - The pet of the player
+ * @param petModel
  * @param amount - amount of stuff gained
  * @param food - food earned
  * @returns {Promise<void>}
  */
+// eslint-disable-next-line max-params
 async function generatePetEmbed(
 	language: string,
 	interaction: string,
 	seEmbed: DraftBotEmbed,
 	pet: PetEntity,
+	petModel: Pet,
 	amount: number,
 	food: string
 ): Promise<void> {
@@ -40,7 +43,7 @@ async function generatePetEmbed(
 	const sentence = tr.getRandom(interaction);
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
-		pet: `${pet.getPetEmote()} ${pet.nickname ? pet.nickname : pet.getPetTypeName(language)}`,
+		pet: `${pet.getPetEmote(petModel)} ${pet.nickname ? pet.nickname : pet.getPetTypeName(petModel, language)}`,
 		nominative: tr.get(`nominative.${pet.sex}`),
 		nominativeShift: tr.get(`nominative.${pet.sex}`).charAt(0)
 			.toUpperCase() + tr.get(`nominative.${pet.sex}`).slice(1),
@@ -54,7 +57,7 @@ async function generatePetEmbed(
 		food: food ? `${foodModule.get(`${food}.name`).toLowerCase()} ${Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(food)]} ` : "",
 		badge: Constants.BADGES.PET_TAMER,
 		feminine: pet.sex === "f" ? "e" : "",
-		randomAnimal: randomAnimal ? `${randomAnimal.getPetEmote()} ${randomAnimal.getPetTypeName(language)}` : "",
+		randomAnimal: randomAnimal ? `${randomAnimal.getPetEmote(petModel)} ${randomAnimal.getPetTypeName(petModel, language)}` : "",
 		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",
 		petFemale: pet.sex === "f"
 	}));
@@ -120,9 +123,10 @@ function getRandomInteractionKey(section: SectionType, level: number, total: num
  * Sélectionne une interaction aléatoire avec un pet
  * @param player - le joueur
  * @param petEntity - le pet
+ * @param petModel
  * @returns {string|null} - une interaction aléatoire
  */
-function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
+function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: Pet): string {
 	const petData = Data.getModule("smallEvents.pet");
 	// Clone with assign because we modify it after. We do not want to modify it for everyone
 	const section: SectionType = Object.assign({}, (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType);
@@ -137,30 +141,30 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity): string {
 		delete section["gainLove"];
 	}
 
-	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
+	const level = petModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
 	const total = getRarityTotalWeight(section, level);
 
 	return getRandomInteractionKey(section, level, total);
 }
 
 /**
- * Gives to the entity the pet tamer badge, if he doesn't have it already
- * @param entity
+ * Gives to the player the pet tamer badge, if he doesn't have it already
+ * @param player
  * @param interaction
  */
-async function givePetTamerBadge(entity: Entity, interaction: string): Promise<string> {
-	if (entity.Player.badges !== null) {
-		if (entity.Player.badges.includes(Constants.BADGES.PET_TAMER)) {
+async function givePetTamerBadge(player: Player, interaction: string): Promise<string> {
+	if (player.badges !== null) {
+		if (player.badges.includes(Constants.BADGES.PET_TAMER)) {
 			interaction = "nothing";
 		}
 		else {
-			entity.Player.addBadge(Constants.BADGES.PET_TAMER);
-			await entity.Player.save();
+			player.addBadge(Constants.BADGES.PET_TAMER);
+			await player.save();
 		}
 	}
 	else {
-		entity.Player.addBadge(Constants.BADGES.PET_TAMER);
-		await entity.Player.save();
+		player.addBadge(Constants.BADGES.PET_TAMER);
+		await player.save();
 	}
 	return interaction;
 }
@@ -170,25 +174,25 @@ async function givePetTamerBadge(entity: Entity, interaction: string): Promise<s
  * @param interaction
  * @param interactionCommand
  * @param language
- * @param entity
+ * @param player
  * @param food
  */
 async function finishResolvingSpecialInteractions(
 	interaction: string,
 	interactionCommand: CommandInteraction,
 	language: string,
-	entity: Entity,
+	player: Player,
 	food: string
 ): Promise<void> {
 	switch (interaction) {
 	case "item":
-		await giveRandomItem(interactionCommand.user, interactionCommand.channel, language, entity);
+		await giveRandomItem(interactionCommand.user, interactionCommand.channel, language, player);
 		break;
 	case "food":
-		await giveFood(interactionCommand, language, entity, food, 1, NumberChangeReason.SMALL_EVENT);
+		await giveFood(interactionCommand, language, player, food, 1, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "loseLife":
-		await entity.Player.killIfNeeded(entity, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	default:
 		break;
@@ -197,22 +201,24 @@ async function finishResolvingSpecialInteractions(
 
 /**
  * Manage the first phase of a pet interaction
- * @param entity
+ * @param player
  * @param interactionCommand
  * @param language
  * @param pet
+ * @param petModel
  */
 async function managePickedPetInteraction(
-	entity: Entity,
+	player: Player,
 	interactionCommand: CommandInteraction,
 	language: string,
-	pet: PetEntity
+	pet: PetEntity,
+	petModel: Pet
 ): Promise<{ interaction: string, amount: number, food: string }> {
-	let interaction = pickRandomInteraction(entity.Player, entity.Player.Pet);
+	let interaction = pickRandomInteraction(player, pet, petModel);
 	let amount = 0;
 	let food = null;
 	const editValueChanges = {
-		entity,
+		player,
 		channel: interactionCommand.channel,
 		language,
 		reason: NumberChangeReason.SMALL_EVENT
@@ -220,13 +226,13 @@ async function managePickedPetInteraction(
 	switch (interaction) {
 	case "money":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney(Object.assign(editValueChanges, {amount}));
-		await entity.Player.save();
+		await player.addMoney(Object.assign(editValueChanges, {amount}));
+		await player.save();
 		break;
 	case "gainLife":
 		amount = RandomUtils.randInt(1, 5);
-		await entity.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
-		await entity.save();
+		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.save();
 		break;
 	case "gainLove":
 		amount = RandomUtils.randInt(1, 3);
@@ -234,7 +240,7 @@ async function managePickedPetInteraction(
 		await pet.save();
 		break;
 	case "food":
-		if (entity.Player.guildId) {
+		if (player.guildId) {
 			food = RandomUtils.draftbotRandom.pick(Object.values(Constants.PET_FOOD));
 		}
 		else {
@@ -243,37 +249,37 @@ async function managePickedPetInteraction(
 		break;
 	case "gainTime":
 		amount = RandomUtils.randInt(5, 20);
-		await TravelTime.timeTravel(entity.Player, amount, NumberChangeReason.SMALL_EVENT);
-		await entity.Player.save();
+		await TravelTime.timeTravel(player, amount, NumberChangeReason.SMALL_EVENT);
+		await player.save();
 		break;
 	case "points":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addScore(Object.assign(editValueChanges, {amount}));
-		await entity.Player.save();
+		await player.addScore(Object.assign(editValueChanges, {amount}));
+		await player.save();
 		break;
 	case "badge":
-		interaction = await givePetTamerBadge(entity, interaction);
+		interaction = await givePetTamerBadge(player, interaction);
 		break;
 	case "loseLife":
 		amount = RandomUtils.randInt(1, 5);
-		await entity.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
-		await entity.save();
+		await player.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.save();
 		break;
 	case "loseMoney":
 		amount = RandomUtils.randInt(20, 70);
-		await entity.Player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
-		await entity.Player.save();
+		await player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
+		await player.save();
 		break;
 	case "loseTime":
 		amount = RandomUtils.randInt(5, 20);
-		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT);
-		await entity.Player.save();
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT);
+		await player.save();
 		break;
 	case "petFlee":
 		LogsDatabase.logPetFree(pet).then();
 		await pet.destroy();
-		entity.Player.petId = null;
-		await entity.Player.save();
+		player.petId = null;
+		await player.save();
 		break;
 	case "loseLove":
 		amount = RandomUtils.randInt(1, 3);
@@ -298,19 +304,20 @@ export const smallEvent: SmallEvent = {
 	 * Interact with your pet
 	 * @param interactionCommand
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interactionCommand: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
-		if (!entity.Player.Pet) {
-			// the player does not have a pet : do nothing
-			return await doNothing.executeSmallEvent(interactionCommand, language, entity, seEmbed);
+	async executeSmallEvent(interactionCommand: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+		if (!player.petId) {
+			// the player does not have a petEntity : do nothing
+			return await doNothing.executeSmallEvent(interactionCommand, language, player, seEmbed);
 		}
 
-		const pet = entity.Player.Pet;
-		const {interaction, amount, food} = await managePickedPetInteraction(entity, interactionCommand, language, pet);
-		await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
+		const petEntity = await PetEntities.getById(player.id);
+		const petModel = await Pets.getById(player.id);
+		const {interaction, amount, food} = await managePickedPetInteraction(player, interactionCommand, language, petEntity, petModel);
+		await generatePetEmbed(language, interaction, seEmbed, petEntity, petModel, amount, food);
 		await interactionCommand.editReply({embeds: [seEmbed]});
-		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, entity, food);
+		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, player, food);
 	}
 };

@@ -100,7 +100,6 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
 			}
 		});
 		await player.addMoney({
-			entity: player,
 			amount: money,
 			channel: interaction.channel,
 			language: tr.language,
@@ -114,7 +113,7 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
 		});
 		await MissionsController.update(player, interaction.channel, tr.language, {
 			missionId: "havePotions",
-			count: countNbOfPotions(player),
+			count: countNbOfPotions(await InventorySlots.getOfPlayer(player.id)),
 			set: true
 		});
 		if (money === 0) {

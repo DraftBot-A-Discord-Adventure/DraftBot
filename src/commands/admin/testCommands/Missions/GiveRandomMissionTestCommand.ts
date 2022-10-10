@@ -6,6 +6,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 
 export const commandInfo: ITestCommand = {
 	name: "giveRandomMission",
@@ -29,7 +30,7 @@ export const commandInfo: ITestCommand = {
 const giveRandomMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
-	if (!player.hasEmptyMissionSlot()) {
+	if (!player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id))) {
 		throw new Error("Les slots de mission du joueur sont tous pleins");
 	}
 	const difficulty = args[0];

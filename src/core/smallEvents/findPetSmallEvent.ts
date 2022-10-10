@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
@@ -12,6 +11,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Constants} from "../Constants";
 import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import Player from "../database/game/models/Player";
+import {Pets} from "../database/game/models/Pet";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -55,28 +56,29 @@ export const smallEvent: SmallEvent = {
 	 * Find a fresh new pet
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const pet = await PetEntities.generateRandomPetEntityNotGuild();
+		const petModel = await Pets.getById(pet.petId);
 		let guild;
 
 		// search for a user's guild
 		try {
-			guild = await Guilds.getById(entity.Player.guildId);
+			guild = await Guilds.getById(player.guildId);
 		}
 		catch (error) {
 			guild = null;
 		}
 
-		const petLine = pet.displayName(language);
+		const petLine = pet.displayName(petModel, language);
 		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
-		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull();
+		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
 		const seEmbedPetObtention = seEmbed;
 		const trad = Translations.getModule("smallEvents.findPet", language);
 
-		if (noRoomInGuild && entity.Player.petId !== null) {
+		if (noRoomInGuild && player.petId !== null) {
 			// no room
 			let outRand;
 			const storiesObject = trad.getObject("noRoom.stories");
@@ -89,34 +91,34 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
 			await interaction.editReply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction, language, entity, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
+				await giveFood(interaction, language, player, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
-		else if (!noRoomInGuild && entity.Player.petId !== null) {
+		else if (!noRoomInGuild && player.petId !== null) {
 			// Place le pet dans la guilde
 			await pet.save();
 			await GuildPets.addPet(guild, pet, true).save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
-				emote: pet.getPetEmote(),
-				pet: pet.getPetTypeName(language)
+				emote: pet.getPetEmote(petModel),
+				pet: pet.getPetTypeName(petModel, language)
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});
 		}
 		else {
 			// Place le pet avec le joueur
 			await pet.save();
-			entity.Player.setPet(entity, pet);
-			await entity.Player.save();
+			player.setPet(pet);
+			await player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
-				emote: pet.getPetEmote(),
-				pet: pet.getPetTypeName(language)
+				emote: pet.getPetEmote(petModel),
+				pet: pet.getPetTypeName(petModel, language)
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});
-			await MissionsController.update(entity, interaction.channel, language, {missionId: "havePet"});
+			await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 		}
 	}
 };

@@ -33,12 +33,12 @@ const guildPetTestCommand = async (language: string, interaction: CommandInterac
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	let guild = await Guilds.getById(player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 	if (guild === null) {
 		throw new Error("Erreur guildpet : Vous n'avez pas de guilde !");
 	}
 
-	if (guild.isPetShelterFull()) {
+	if (guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id))) {
 		throw new Error("Erreur guildpet : Plus de place dans le shelter !");
 	}
 
@@ -58,7 +58,7 @@ const guildPetTestCommand = async (language: string, interaction: CommandInterac
 
 	return format(
 		commandInfo.messageWhenExecuted, {
-			petString: pet.getPetDisplay(language)
+			petString: pet.getPetDisplay(await Pets.getById(pet.petId), language)
 		}
 	);
 };

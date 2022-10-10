@@ -236,7 +236,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing);
 
-	const playersToShow = await Players.getEntitiesToPrintTop(listDiscordId, page, timing);
+	const playersToShow = await Players.getPlayersToPrintTop(listDiscordId, page, timing);
 
 	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
 		rankCurrentPlayer,

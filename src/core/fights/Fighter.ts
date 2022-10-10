@@ -1,4 +1,3 @@
-import Entity from "../database/game/models/Entity";
 import {TextBasedChannel, User} from "discord.js";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {playerActiveObjects} from "../database/game/models/PlayerActiveObjects";
@@ -12,6 +11,8 @@ import Class from "../database/game/models/Class";
 import {FightActionController} from "../fightActions/FightActionController";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {FightConstants} from "../constants/FightConstants";
+import Player from "../database/game/models/Player";
+import {InventorySlots} from "../database/game/models/InventorySlot";
 
 type FighterStats = {
 	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number
@@ -32,7 +33,7 @@ export class Fighter {
 
 	public availableFightActions: Map<string, IFightAction>;
 
-	public entity: Entity;
+	public player: Player;
 
 	public alterationTurn: number;
 
@@ -48,7 +49,7 @@ export class Fighter {
 
 	private readonly user: User;
 
-	public constructor(user: User, entity: Entity, playerClass: Class) {
+	public constructor(user: User, player: Player, playerClass: Class) {
 		this.stats = {
 			fightPoints: null,
 			maxFightPoint: null,
@@ -57,7 +58,7 @@ export class Fighter {
 			attack: null
 		};
 		this.statsBackup = null;
-		this.entity = entity;
+		this.player = player;
 		this.ready = false;
 		this.nextFightActionId = null;
 		this.fightActionsHistory = [];
@@ -74,7 +75,7 @@ export class Fighter {
 	 * @public
 	 */
 	public getMention(): string {
-		return this.entity.getMention();
+		return this.player.getMention();
 	}
 
 	/**
@@ -91,12 +92,12 @@ export class Fighter {
 	 * @public
 	 */
 	public async loadStats(friendly: boolean): Promise<void> {
-		const playerActiveObjects: playerActiveObjects = await this.entity.getPlayerActiveObjects();
-		this.stats.fightPoints = friendly ? await this.entity.getMaxCumulativeFightPoint() : await this.entity.getCumulativeFightPoint();
-		this.stats.maxFightPoint = await this.entity.getMaxCumulativeFightPoint();
-		this.stats.attack = await this.entity.getCumulativeAttack(playerActiveObjects);
-		this.stats.defense = await this.entity.getCumulativeDefense(playerActiveObjects);
-		this.stats.speed = await this.entity.getCumulativeSpeed(playerActiveObjects);
+		const playerActiveObjects: playerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
+		this.stats.fightPoints = friendly ? await this.player.getMaxCumulativeFightPoint() : await this.player.getCumulativeFightPoint();
+		this.stats.maxFightPoint = await this.player.getMaxCumulativeFightPoint();
+		this.stats.attack = await this.player.getCumulativeAttack(playerActiveObjects);
+		this.stats.defense = await this.player.getCumulativeDefense(playerActiveObjects);
+		this.stats.speed = await this.player.getCumulativeSpeed(playerActiveObjects);
 	}
 
 	/**
@@ -107,13 +108,14 @@ export class Fighter {
 	 * @public
 	 */
 	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string): Promise<void> {
-		if (friendly || !await this.currentPotionIsAFightPotion()) {
+		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
+		const drankPotion = await inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).getItem() as Potion;
+		if (friendly || !drankPotion.isFightPotion()) {
 			return;
 		}
-		const drankPotion = await this.entity.Player.getMainPotionSlot().getItem() as Potion;
-		await this.entity.Player.drinkPotion();
-		await this.entity.save();
-		await checkDrinkPotionMissions(channel, language, this.entity, drankPotion);
+		await this.player.drinkPotion();
+		await this.player.save();
+		await checkDrinkPotionMissions(channel, language, this.player, drankPotion, inventorySlots);
 	}
 
 	/**
@@ -121,7 +123,7 @@ export class Fighter {
 	 * @public
 	 */
 	public block(): void {
-		BlockingUtils.blockPlayer(this.entity.discordUserId, BlockingConstants.REASONS.FIGHT);
+		BlockingUtils.blockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -156,12 +158,11 @@ export class Fighter {
 	 * Return a display of the player in a string format
 	 * @param fightTranslationModule
 	 */
-	public async getStringDisplay(fightTranslationModule: TranslationModule): Promise<string> {
-
+	public getStringDisplay(fightTranslationModule: TranslationModule): string {
 		return fightTranslationModule.format(
 			fighterStatusTranslation[this.status],
 			{
-				pseudo: await this.entity.Player.getPseudo(fightTranslationModule.language),
+				pseudo: this.player.getPseudo(fightTranslationModule.language),
 				charging: "" // TODO : add the charging if needed
 			}
 		) + fightTranslationModule.format("summarize.stats", {
@@ -186,7 +187,7 @@ export class Fighter {
 	 * get the discord id of a fighter
 	 */
 	public getDiscordId(): string {
-		return this.entity.discordUserId;
+		return this.player.discordUserId;
 	}
 
 	/**
@@ -200,8 +201,8 @@ export class Fighter {
 	 * get the pseudo of a fighter
 	 * @param language
 	 */
-	public async getPseudo(language: string): Promise<string> {
-		return await this.entity.Player.getPseudo(language);
+	public getPseudo(language: string): string {
+		return this.player.getPseudo(language);
 	}
 
 	/**
@@ -245,7 +246,7 @@ export class Fighter {
 	 * get the player level of the fighter
 	 */
 	public getPlayerLevel(): number {
-		return this.entity.Player.level;
+		return this.player.level;
 	}
 
 	/**
@@ -284,13 +285,5 @@ export class Fighter {
 	 */
 	getRandomAvailableFightActionId(): string {
 		return Array.from(this.availableFightActions.keys())[Math.floor(Math.random() * Array.from(this.availableFightActions.keys()).length)];
-	}
-
-	/**
-	 * check if the potion of the fighter is a fight potion
-	 * @private
-	 */
-	private async currentPotionIsAFightPotion(): Promise<boolean> {
-		return (await this.entity.Player.getMainPotionSlot().getItem() as Potion).isFightPotion();
 	}
 }

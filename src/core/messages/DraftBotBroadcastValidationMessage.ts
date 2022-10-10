@@ -5,7 +5,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
-import {Entities} from "../database/game/models/Entity";
+import {getMention} from "../utils/StringUtils";
 
 export type BroadcastTranslationModuleLike = {
 	errorBroadcastCancelled: string,
@@ -195,7 +195,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		}
 		this._spammers.push(user.id);
 		await sendErrorMessage(this._interaction.user, this._interaction, this._language,
-			format(this._translationModule.errorOtherDeny, {pseudo: (await Entities.getByDiscordUserId(user.id)).getMention()}));
+			format(this._translationModule.errorOtherDeny, { pseudo: getMention(user.id) }));
 		return false;
 	}
 

@@ -1,11 +1,12 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
-import {Weapons} from "./Weapon";
-import {Armors} from "./Armor";
-import {Potions} from "./Potion";
-import {ObjectItems} from "./ObjectItem";
+import Weapon, {Weapons} from "./Weapon";
+import Armor, {Armors} from "./Armor";
+import Potion, {Potions} from "./Potion";
+import ObjectItem, {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
 import moment = require("moment");
+import {playerActiveObjects} from "./PlayerActiveObjects";
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;
@@ -95,6 +96,65 @@ export class InventorySlots {
 			);
 		}
 		return slots;
+	}
+
+	static async getMainWeaponSlot(playerId: number): Promise<InventorySlot> {
+		return await InventorySlot.findOne({
+			where: {
+				playerId,
+				slot: 0,
+				itemCategory: Constants.ITEM_CATEGORIES.WEAPON
+			}
+		});
+	}
+
+	static async getMainArmorSlot(playerId: number): Promise<InventorySlot> {
+		return await InventorySlot.findOne({
+			where: {
+				playerId,
+				slot: 0,
+				itemCategory: Constants.ITEM_CATEGORIES.ARMOR
+			}
+		});
+	}
+
+	static async getMainPotionSlot(playerId: number): Promise<InventorySlot> {
+		return await InventorySlot.findOne({
+			where: {
+				playerId,
+				slot: 0,
+				itemCategory: Constants.ITEM_CATEGORIES.POTION
+			}
+		});
+	}
+
+	static async getMainObjectSlot(playerId: number): Promise<InventorySlot> {
+		return await InventorySlot.findOne({
+			where: {
+				playerId,
+				slot: 0,
+				itemCategory: Constants.ITEM_CATEGORIES.OBJECT
+			}
+		});
+	}
+
+	/**
+	 * Return the current active items a player hold
+	 */
+	static async getMainSlotsItems(playerId: number): Promise<playerActiveObjects> {
+		return {
+			weapon: <Weapon>(await (await InventorySlots.getMainWeaponSlot(playerId)).getItem()),
+			armor: <Armor>(await (await InventorySlots.getMainArmorSlot(playerId)).getItem()),
+			potion: <Potion>(await (await InventorySlots.getMainPotionSlot(playerId)).getItem()),
+			object: <ObjectItem>(await (await InventorySlots.getMainObjectSlot(playerId)).getItem())
+		};
+	}
+
+	/**
+	 * get the list of all the active objects of the player
+	 */
+	static async getPlayerActiveObjects(playerId: number): Promise<playerActiveObjects> {
+		return await this.getMainSlotsItems(playerId);
 	}
 }
 

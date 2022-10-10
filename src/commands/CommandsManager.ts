@@ -55,7 +55,7 @@ export class CommandsManager {
 	 */
 	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false): Promise<void> {
 		const player = await Players.getByDiscordUserId(user.id);
-		const textValues = await effectsErrorTextValue(interaction.user, tr.language, player);
+		const textValues = effectsErrorTextValue(interaction.user, tr.language, player);
 		const embed = new DraftBotEmbed().setErrorColor()
 			.formatAuthor(textValues.title, user)
 			.setDescription(textValues.description);

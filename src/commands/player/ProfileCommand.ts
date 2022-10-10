@@ -18,6 +18,7 @@ import {log} from "console";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import Pet, {Pets} from "../../core/database/game/models/Pet";
+import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 
 /**
  * Display badges for the given player
@@ -191,8 +192,8 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel:
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
 			rarity: petModel.getRarityDisplay(),
-			emote: pet.getPetEmote(),
-			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
+			emote: pet.getPetEmote(petModel),
+			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(petModel, language)
 		}),
 		inline: false
 	};
@@ -244,7 +245,7 @@ async function sendMessageAllBadgesTooMuchBadges(player: Player, language: strin
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
 			.setTitle(profileModule.format("badgeDisplay.title", {
-				pseudo: await player.getPseudo(language)
+				pseudo: player.getPseudo(language)
 			}))
 			.setDescription(content + profileModule.format("badgeDisplay.numberBadge", {
 				badge: badges.length
@@ -267,7 +268,7 @@ async function generateFields(
 	titleEffect: string,
 	language: string
 ): Promise<{ fields: EmbedField[], titleEffect: string }> {
-	const playerActiveObjects = await askedPlayer.getMainSlotsItems();
+	const playerActiveObjects = await InventorySlots.getMainSlotsItems(askedPlayer.id);
 	const missionSlots = await MissionSlots.getOfPlayer(askedPlayer.id);
 	const [mc] = missionSlots.filter(m => m.isCampaign());
 	const rank = await Players.getRankById(askedPlayer.id);
@@ -356,7 +357,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			new DraftBotEmbed()
 				.setTitle(profileModule.format("title", {
 					effect: titleEffect,
-					pseudo: await askedEntity.getPseudo(language),
+					pseudo: askedEntity.getPseudo(language),
 					level: askedEntity.level
 				}))
 				.addFields(fields)

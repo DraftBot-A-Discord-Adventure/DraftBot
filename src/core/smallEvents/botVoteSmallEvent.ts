@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -9,6 +8,7 @@ import {giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {DBL} from "../DBL";
+import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -22,14 +22,14 @@ export const smallEvent: SmallEvent = {
 	 * Gives a reward to those who voted, and shows where to vote if you haven't voted
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botVote", language);
 		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}${tr.getRandom("stories")}`;
 
-		if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
+		if (await DBL.getTimeBeforeDBLRoleRemove(player.discordUserId) < 0) {
 			// hasn't voted
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
@@ -39,13 +39,12 @@ export const smallEvent: SmallEvent = {
 			// item win
 			seEmbed.setDescription(`${base + tr.get("itemWin")}\n\n${tr.get("thanksFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
-			await giveRandomItem(interaction.user, interaction.channel, language, entity);
+			await giveRandomItem(interaction.user, interaction.channel, language, player);
 		}
 		else {
 			// money win
 			const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
-			await entity.Player.addMoney({
-				entity,
+			await player.addMoney({
 				amount: moneyWon,
 				channel: interaction.channel,
 				language,
@@ -54,6 +53,6 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(`${base + format(tr.get("moneyWin"), {money: moneyWon})}\n\n${tr.get("thanksFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 		}
-		await entity.Player.save();
+		await player.save();
 	}
 };
