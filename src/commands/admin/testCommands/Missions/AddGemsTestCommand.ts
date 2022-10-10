@@ -4,7 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
-import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "addgem",

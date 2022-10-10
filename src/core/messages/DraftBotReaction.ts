@@ -4,12 +4,14 @@ import {MessageReaction, User} from "discord.js";
 /**
  * Reaction to a {@link DraftBotReactionMessage}
  */
+export type CallbackLike = (msg?: DraftBotReactionMessage, reaction?: MessageReaction, user?: User) => Promise<void> | void;
+
 export class DraftBotReaction {
 	private readonly _emote: string;
 
-	private readonly _callback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void;
+	private readonly _callback: CallbackLike;
 
-	private readonly _removeCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void;
+	private readonly _removeCallback: CallbackLike;
 
 	/**
 	 * Default constructor
@@ -19,8 +21,8 @@ export class DraftBotReaction {
 	 */
 	constructor(
 		emote: string,
-		callback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null,
-		removeCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null
+		callback: CallbackLike = null,
+		removeCallback: CallbackLike = null
 	) {
 		this._emote = emote;
 		this._callback = callback;
@@ -37,14 +39,14 @@ export class DraftBotReaction {
 	/**
 	 * Get the callback
 	 */
-	get callback(): (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void {
+	get callback(): CallbackLike {
 		return this._callback;
 	}
 
 	/**
 	 * Get the callback when the reaction is removed
 	 */
-	get removeCallback(): (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void {
+	get removeCallback(): CallbackLike {
 		return this._removeCallback;
 	}
 }

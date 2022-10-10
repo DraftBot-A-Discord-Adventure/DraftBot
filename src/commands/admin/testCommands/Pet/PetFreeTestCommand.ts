@@ -2,7 +2,6 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
 import {Players} from "../../../../core/database/game/models/Player";
-import {Pets} from "../../../../core/database/game/models/Pet";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {

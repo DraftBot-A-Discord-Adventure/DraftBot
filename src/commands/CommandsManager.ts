@@ -566,7 +566,6 @@ export class CommandsManager {
 	 * Check if the guild's requirements are fulfilled for this command
 	 * @param commandInfo
 	 * @param user
-	 * @param entity
 	 * @param interaction
 	 * @param tr
 	 */

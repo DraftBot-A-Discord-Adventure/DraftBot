@@ -1,5 +1,4 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import Mission from "./Mission";
 import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
 
@@ -63,7 +62,7 @@ export class MissionSlots {
 		});
 		if (missionSlots.length === 0) {
 
-			return [ await MissionSlot.create(missionJson.missions[0]) ];
+			return [await MissionSlot.create(missionJson.missions[0])];
 		}
 		return missionSlots;
 	}

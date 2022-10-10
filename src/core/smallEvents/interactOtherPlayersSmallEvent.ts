@@ -405,7 +405,7 @@ async function getAvailableInteractions(
 	guild = await checkGuildResponsibilities(otherPlayer, guild, cList);
 	cList.push("class");
 	checkEffects(otherPlayer, tr, cList);
-	checkInventory(otherPlayer, cList);
+	await checkInventory(otherPlayer, cList);
 	return {guild, cList};
 }
 

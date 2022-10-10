@@ -3,7 +3,6 @@ import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
-import Player from "./Player";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;

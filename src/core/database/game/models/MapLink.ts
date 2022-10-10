@@ -1,6 +1,5 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
-import MapLocation from "./MapLocation";
 import moment = require("moment");
 
 export class MapLink extends Model {
