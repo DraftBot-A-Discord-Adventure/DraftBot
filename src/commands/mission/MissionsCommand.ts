@@ -13,7 +13,7 @@ import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 
 /**
- * Shows the missions of the given entity (default : the one who entered the command)
+ * Shows the missions of the given player (default : the one who entered the command)
  * @param interaction
  * @param language
  * @param player
@@ -28,7 +28,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (interaction.user.id === entityToLook.discordUserId) {
-		await MissionsController.update(player, interaction.channel, language, {missionId: "commandMission"});
+		player = await MissionsController.update(player, interaction.channel, language, {missionId: "commandMission"});
 	}
 	player = await Players.getById(player.id);
 

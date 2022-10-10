@@ -325,8 +325,8 @@ async function generateFields(
 
 	try {
 		const petEntity = await PetEntities.getById(askedPlayer.petId);
-		const petModel = await Pets.getById(petEntity.petId);
 		if (petEntity) {
+			const petModel = await Pets.getById(petEntity.petId);
 			fields.push(getPetField(profileModule, petEntity, petModel, language));
 		}
 	}
