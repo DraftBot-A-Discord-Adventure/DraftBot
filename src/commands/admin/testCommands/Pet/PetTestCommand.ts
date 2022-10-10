@@ -29,7 +29,7 @@ export const commandInfo: ITestCommand = {
  */
 const petTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
-	let [player] = await Players.getOrRegister(interaction.user.id);
+	const [player] = await Players.getOrRegister(interaction.user.id);
 	let pet = await PetEntities.getById(player.petId);
 	if (pet) {
 		await pet.destroy();
@@ -49,14 +49,14 @@ const petTestCommand = async (language: string, interaction: CommandInteraction,
 
 	pet = PetEntities.createPet(petId, args[1], null);
 	await pet.save();
-	player.setPet(player, pet);
+	player.setPet(pet);
 	await player.save();
 	await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 
 	pet = await PetEntities.getById(pet.id); // recall needed to refresh the pet
 	return format(
 		commandInfo.messageWhenExecuted, {
-			petString: pet.getPetDisplay(language)
+			petString: pet.getPetDisplay(await Pets.getById(pet.petId), language)
 		}
 	);
 };

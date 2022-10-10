@@ -5,6 +5,9 @@ import Guild from "../database/game/models/Guild";
 import {PetEntityConstants} from "../constants/PetEntityConstants";
 import {GuildConstants} from "../constants/GuildConstants";
 import {EmbedField} from "discord.js";
+import {GuildPets} from "../database/game/models/GuildPet";
+import {PetEntities} from "../database/game/models/PetEntity";
+import {Pets} from "../database/game/models/Pet";
 
 /**
  * Shelter embed
@@ -56,31 +59,34 @@ export class DraftBotShelterMessageBuilder {
 	/**
 	 * Creates the {@link DraftBotShelterMessage}
 	 */
-	build(): DraftBotShelterMessage {
+	async build(): Promise<DraftBotShelterMessage> {
 		const tr = Translations.getModule("commands.guildShelter", this._language);
+		const guildPets = await GuildPets.getOfGuild(this._guild.id);
 		const title = format(tr.get("embedTitle"), {
 			guild: this._guild.name,
-			count: this._guild.GuildPets.length,
+			count: guildPets.length,
 			max: PetEntityConstants.SLOTS
 		});
 		let description = "";
 		const fields: EmbedField[] = [];
 
-		if (this._guild.GuildPets.length === 0) {
+		if (guildPets.length === 0) {
 			description = tr.get("noPetMessage");
 		}
 		else {
-			for (let i = 0; i < this._guild.GuildPets.length; ++i) {
-				const pet = this._guild.GuildPets[i];
+			for (let i = 0; i < guildPets.length; ++i) {
+				const pet = guildPets[i];
+				const petEntity = await PetEntities.getById(pet.petEntityId);
+				const petModel = await Pets.getById(petEntity.petId);
 				fields.push({
-					name: pet.PetEntity.getPetTitle(this._language, i + 1),
-					value: pet.PetEntity.getPetDisplay(this._language),
+					name: petEntity.getPetTitle(this._language, i + 1),
+					value: petEntity.getPetDisplay(petModel, this._language),
 					inline: true
 				});
 			}
 		}
 
-		if (this._guild.isPetShelterFull()) {
+		if (this._guild.isPetShelterFull(guildPets)) {
 			description = tr.get("warningFull");
 		}
 

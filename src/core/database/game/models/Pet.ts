@@ -2,6 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {readdir} from "fs";
 import * as moment from "moment";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {Translations} from "../../../Translations";
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -28,6 +29,10 @@ export class Pet extends Model {
 
 	public getRarityDisplay(): string {
 		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
+	}
+
+	public getDietDisplay(language: string): string {
+		return Translations.getModule("models.pets", language).get(`diet.diet_${this.diet}`);
 	}
 }
 

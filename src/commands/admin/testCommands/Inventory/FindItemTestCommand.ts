@@ -4,6 +4,7 @@ import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {InventorySlots} from "../../../../core/database/game/models/InventorySlot";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",
@@ -36,7 +37,7 @@ const findItemTestCommand = async (language: string, interaction: CommandInterac
 	if (!item) {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
-	ItemUtils.giveItemToPlayer(player, item, language, interaction.user, interaction.channel).finally(() => null);
+	ItemUtils.giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id)).finally(() => null);
 	return commandInfo.messageWhenExecuted;
 };
 

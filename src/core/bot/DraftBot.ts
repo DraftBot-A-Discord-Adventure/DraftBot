@@ -10,7 +10,6 @@ import * as fs from "fs";
 import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
 import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
-import Entity from "../database/game/models/Entity";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
@@ -160,21 +159,15 @@ export class DraftBot {
 	 */
 	static async topWeekEnd(this: void): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
-		const winner = await Entity.findOne({
-			include: [
-				{
-					model: Player,
-					as: "Player",
-					where: {
-						weeklyScore: {
-							[require("sequelize/lib/operators").gt]: 100
-						}
-					}
+		const winner = await Player.findOne({
+			where: {
+				weeklyScore: {
+					[require("sequelize/lib/operators").gt]: 100
 				}
-			],
+			},
 			order: [
-				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Player, as: "Player"}, "level", "DESC"]
+				["weeklyScore", "DESC"],
+				["level", "DESC"]
 			],
 			limit: 1
 		});
@@ -219,8 +212,8 @@ export class DraftBot {
 					})
 				}
 			});
-			winner.Player.addBadge("🎗️");
-			await winner.Player.save();
+			winner.addBadge("🎗️");
+			await winner.save();
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
@@ -234,7 +227,7 @@ export class DraftBot {
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {
-		Entity.update(
+		Player.update(
 			{
 				fightPointsLost: Sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`

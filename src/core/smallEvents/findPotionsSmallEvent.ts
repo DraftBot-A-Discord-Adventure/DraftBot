@@ -1,10 +1,11 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
+import Player from "../database/game/models/Player";
+import {InventorySlots} from "../database/game/models/InventorySlot";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -18,10 +19,10 @@ export const smallEvent: SmallEvent = {
 	 * Find a new potion
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.POTION);
 		seEmbed.setDescription(
 			seEmbed.data.description +
@@ -30,6 +31,6 @@ export const smallEvent: SmallEvent = {
 		);
 
 		await interaction.editReply({embeds: [seEmbed]});
-		await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel);
+		await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 	}
 };

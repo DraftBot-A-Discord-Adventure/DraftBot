@@ -8,7 +8,7 @@ import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {botConfig, draftBotInstance} from "../../../bot";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
-import {EditValueParameters} from "./Player";
+import {EditValueParameters, Player, PlayerEditValueParameters} from "./Player";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -31,44 +31,40 @@ export class PetEntity extends Model {
 	public createdAt!: Date;
 
 
-	public getPetTypeName(language: string): string {
+	public getPetTypeName(petModel: Pet, language: string): string {
 		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
-		return this.PetModel[field as keyof Pet];
+		return petModel[field as keyof Pet];
 	}
 
-	public getFeedCooldownDisplay(language: string): string {
-		if (!this.hungrySince || this.getFeedCooldown() <= 0) {
+	public getFeedCooldownDisplay(petModel: Pet, language: string): string {
+		if (!this.hungrySince || this.getFeedCooldown(petModel) <= 0) {
 			return Translations.getModule("models.pets", language).get("hungry");
 		}
-		return finishInTimeDisplay(new Date(new Date().valueOf() + this.getFeedCooldown()));
+		return finishInTimeDisplay(new Date(new Date().valueOf() + this.getFeedCooldown(petModel)));
 	}
 
-	public getFeedCooldown(): number {
+	public getFeedCooldown(petModel: Pet): number {
 		if (!this.hungrySince) {
 			return 0;
 		}
-		return Constants.PETS.BREED_COOLDOWN * this.PetModel.rarity -
+		return Constants.PETS.BREED_COOLDOWN * petModel.rarity -
 			(new Date().valueOf() - this.hungrySince.valueOf());
 	}
 
-	public getDietDisplay(language: string): string {
-		return Translations.getModule("models.pets", language).get(`diet.diet_${this.PetModel.diet}`);
+	public getPetEmote(petModel: Pet): string {
+		return petModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
 	}
 
-	public getPetEmote(): string {
-		return this.PetModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
+	public displayName(petModel: Pet, language: string): string {
+		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(petModel, language);
+		return `${this.getPetEmote(petModel)} ${displayedName}`;
 	}
 
-	public displayName(language: string): string {
-		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(language);
-		return `${this.getPetEmote()} ${displayedName}`;
-	}
-
-	public getPetDisplay(language: string): string {
+	public getPetDisplay(petModel: Pet, language: string): string {
 		return Translations.getModule("commands.guildShelter", language).format("petField", {
-			emote: this.getPetEmote(),
-			type: this.getPetTypeName(language),
-			rarity: this.PetModel.getRarityDisplay(),
+			emote: this.getPetEmote(petModel),
+			type: this.getPetTypeName(petModel, language),
+			rarity: petModel.getRarityDisplay(),
 			sex: this.getSexDisplay(language),
 			nickname: this.getNickname(language),
 			loveLevel: this.getLoveLevel(language)
@@ -119,7 +115,7 @@ export class PetEntity extends Model {
 						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
 	}
 
-	public async changeLovePoints(parameters: EditValueParameters): Promise<void> {
+	public async changeLovePoints(parameters: PlayerEditValueParameters): Promise<void> {
 		this.lovePoints += parameters.amount;
 		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
 			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
@@ -128,11 +124,11 @@ export class PetEntity extends Model {
 			this.lovePoints = 0;
 		}
 		draftBotInstance.logsDatabase.logPetLoveChange(this, parameters.reason).then();
-		await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+		await MissionsController.update(parameters.player, parameters.channel, parameters.language, {
 			missionId: "tamedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}
 		});
-		await MissionsController.update(parameters.entity, parameters.channel, parameters.language, {
+		await MissionsController.update(parameters.player, parameters.channel, parameters.language, {
 			missionId: "trainedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}
 		});
@@ -195,14 +191,12 @@ export class PetEntities {
 			},
 			order: [draftBotInstance.gameDatabase.sequelize.random()]
 		});
-		const petEntity = PetEntity.build({
+		return PetEntity.build({
 			petId: pet.id,
 			sex: sex,
 			nickname: null,
 			lovePoints: Constants.PETS.BASE_LOVE
 		});
-		petEntity.PetModel = pet;
-		return petEntity;
 	}
 
 	static async generateRandomPetEntityNotGuild(): Promise<PetEntity> {

@@ -55,7 +55,7 @@ export class Maps {
 		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
 			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason);
 		}
-		player.getEntity().then(entity => draftBotInstance.logsDatabase.logNewTravel(entity.discordUserId, newLink).then());
+		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink).then();
 	}
 
 	/**

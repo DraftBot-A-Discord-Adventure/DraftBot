@@ -27,13 +27,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const respawnModule = Translations.getModule("commands.respawn", language);
 	if (player.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
-		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: await player.getPseudo(language)}));
+		await replyErrorMessage(interaction, language, respawnModule.format("alive", {pseudo: player.getPseudo(language)}));
 		return;
 	}
 	const lostScore = Math.round(player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
 	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN);
 	await player.addScore({
-		entity: player,
 		amount: -lostScore,
 		channel: interaction.channel,
 		language: language,

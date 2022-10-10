@@ -15,6 +15,7 @@ import {PetEntityConstants} from "../../core/constants/PetEntityConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {Pet, Pets} from "../../core/database/game/models/Pet";
 
 /**
  * Get the guild from a given entity
@@ -36,9 +37,19 @@ async function getGuildOfEntity(player: Player): Promise<Guild> {
  * @param player
  * @param guild
  * @param confirmEmbed
+ * @param playerPet
+ * @param playerPetMode
  */
-async function transferPetToGuild(interaction: CommandInteraction, petTransferModule: TranslationModule, player: Player, guild: Guild, confirmEmbed: DraftBotEmbed): Promise<void> {
-	const playerPet = await PetEntities.getById(player.petId);
+// eslint-disable-next-line max-params
+async function transferPetToGuild(
+	interaction: CommandInteraction,
+	petTransferModule: TranslationModule,
+	player: Player,
+	guild: Guild,
+	confirmEmbed: DraftBotEmbed,
+	playerPet: PetEntity,
+	playerPetMode: Pet
+): Promise<void> {
 	const guildPetCount = (await GuildPets.getOfGuild(guild.id)).length;
 	if (!playerPet) {
 		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
@@ -53,7 +64,7 @@ async function transferPetToGuild(interaction: CommandInteraction, petTransferMo
 	await player.save();
 	await GuildPets.addPet(guild, playerPet, false).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
-		pet: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(petTransferModule.language)}`
+		pet: `${playerPet.getPetEmote(playerPetMode)} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetMode, petTransferModule.language)}`
 	}));
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, null).then();
 	await interaction.reply({embeds: [confirmEmbed]});
@@ -109,21 +120,31 @@ async function switchPets(guild: Guild, shelterPosition: number, interaction: Co
 /**
  * Write the resulting description of transferring pets to the guild into the embed
  * @param playerPet
+ * @param playerPetModel
  * @param confirmEmbed
  * @param petTransferModule
  * @param language
  * @param swPetEntity
+ * @param swPetModel
  */
-function setDescriptionPetTransferEmbed(playerPet: PetEntity, confirmEmbed: DraftBotEmbed, petTransferModule: TranslationModule, language: string, swPetEntity: PetEntity): void {
+// eslint-disable-next-line max-params
+function setDescriptionPetTransferEmbed(
+	playerPet: PetEntity,
+	playerPetModel: Pet,
+	confirmEmbed: DraftBotEmbed,
+	petTransferModule: TranslationModule,
+	language: string,
+	swPetEntity: PetEntity, swPetModel: Pet
+): void {
 	if (playerPet) {
 		confirmEmbed.setDescription(petTransferModule.format("confirmSwitch", {
-			pet1: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(language)}`,
-			pet2: `${swPetEntity.getPetEmote()} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language)}`
+			pet1: `${playerPet.getPetEmote(playerPetModel)} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetModel, language)}`,
+			pet2: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, language)}`
 		}));
 	}
 	else {
 		confirmEmbed.setDescription(petTransferModule.format("confirmFollows", {
-			pet: `${swPetEntity.getPetEmote()} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language)}`
+			pet: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, language)}`
 		}));
 	}
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, swPetEntity).then();
@@ -160,6 +181,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const petTransferModule = Translations.getModule("commands.petTransfer", language);
 	const playerPet = await PetEntities.getById(player.petId);
+	const playerPetModel = await Pets.getById(playerPet.petId);
 
 	const guild = await getGuildOfEntity(player);
 	if (!guild) {
@@ -174,7 +196,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const shelterPositionOption = interaction.options.get(Translations.getModule("commands.petTransfer", Constants.LANGUAGE.ENGLISH).get("optionPositionName"));
 
 	if (shelterPositionOption === null) {
-		await transferPetToGuild(interaction, petTransferModule, player, guild, confirmEmbed);
+		await transferPetToGuild(interaction, petTransferModule, player, guild, confirmEmbed, playerPet, playerPetModel);
 		return;
 	}
 
@@ -190,11 +212,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const swPetEntity = await switchPets(guild, shelterPosition, interaction, language, petTransferModule, player);
+	const swPetModel = await Pets.getById(playerPet.petId);
 	if (swPetEntity === null) {
 		return null;
 	}
 
-	setDescriptionPetTransferEmbed(playerPet, confirmEmbed, petTransferModule, language, swPetEntity);
+	setDescriptionPetTransferEmbed(playerPet, playerPetModel, confirmEmbed, petTransferModule, language, swPetEntity, swPetModel);
 	await interaction.reply({embeds: [confirmEmbed]});
 	await updateMissionsOfEntity(player, interaction, language, swPetEntity);
 }

@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction, Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -13,6 +12,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
+import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -26,15 +26,14 @@ export const smallEvent: SmallEvent = {
 	 * Plays to a game of lottery with a stranger
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
 		const seEmbedEmote = seEmbed.data.description;
 		seEmbed.setDescription(seEmbed.data.description + translationLottery.get("intro"));
 
-		const player = entity.Player;
 		const lotteryIntro = await interaction.editReply({embeds: [seEmbed]}) as Message;
 		const dataLottery = Data.getModule("smallEvents.lottery");
 		const emojiLottery = dataLottery.getStringArray("emojiLottery");
@@ -48,7 +47,7 @@ export const smallEvent: SmallEvent = {
 		});
 
 		collectorLottery.on("end", async (collected) => {
-			BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.LOTTERY);
+			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.LOTTERY);
 
 			if (!collected.first()) {
 				seEmbed.setDescription(seEmbedEmote + translationLottery.get("end"));
@@ -62,7 +61,7 @@ export const smallEvent: SmallEvent = {
 			let rewardType = dataLottery.getStringArray("rewardType");
 			let guild;
 			try {
-				guild = await Guilds.getById(entity.Player.guildId);
+				guild = await Guilds.getById(player.guildId);
 			}
 			catch {
 				guild = null;
@@ -76,7 +75,7 @@ export const smallEvent: SmallEvent = {
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {
-				entity,
+				entity: player,
 				channel: interaction.channel,
 				language,
 				reason: NumberChangeReason.SMALL_EVENT
@@ -107,7 +106,7 @@ export const smallEvent: SmallEvent = {
 					throw new Error("lottery reward type not found");
 				}
 				await player.save();
-				await entity.save();
+				await player.save();
 				const money = Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
 					lostTime: dataLottery.getNumber("lostTime")
@@ -141,7 +140,7 @@ export const smallEvent: SmallEvent = {
 		});
 
 
-		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
+		BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.LOTTERY, collectorLottery);
 		for (const emote of emojiLottery) {
 			try {
 				await lotteryIntro.react(emote);

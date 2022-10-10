@@ -21,6 +21,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {Pets} from "../../core/database/game/models/Pet";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -36,11 +37,12 @@ type FunctionRewardType = (guildLike: GuildLike, stringInfos: StringInfos, guild
  */
 async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDailyModule: TranslationModule, language: string): Promise<void> {
 	const pet = await PetEntities.generateRandomPetEntity(guild.level);
+	const petModel = await Pets.getById(pet.petId);
 	await pet.save();
 	await GuildPets.addPet(guild, pet, true).save();
 	embed.setDescription(`${embed.data.description}\n\n${guildDailyModule.format("pet", {
-		emote: pet.getPetEmote(),
-		pet: pet.getPetTypeName(language)
+		emote: pet.getPetEmote(petModel),
+		pet: pet.getPetTypeName(petModel, language)
 	})}`);
 }
 
@@ -67,7 +69,7 @@ async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, i
 	*/
 	await linkToFunction.get(rewardType)(guildLike, stringInfos, guildDailyModule);
 
-	if (!guildLike.guild.isPetShelterFull() && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
+	if (!guildLike.guild.isPetShelterFull(await GuildPets.getOfGuild(guildLike.guild.id)) && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
 		await awardGuildWithNewPet(guildLike.guild, embed, guildDailyModule, language);
 	}
 
@@ -98,7 +100,6 @@ async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfo
 		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_MONEY + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => member.addMoney({
-		entity: member,
 		amount: moneyWon,
 		channel: stringInfos.interaction.channel,
 		language: guildDailyModule.language,
@@ -198,7 +199,6 @@ async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: Strin
 		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
 		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => member.addExperience({
-		entity: member,
 		amount: xpWon,
 		channel: stringInfos.interaction.channel,
 		language: guildDailyModule.language,

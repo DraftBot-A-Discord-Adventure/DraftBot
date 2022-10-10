@@ -1,6 +1,7 @@
 import {IMission} from "../IMission";
 import Player from "../../database/game/models/Player";
 import {countNbOfPotions} from "../../utils/ItemUtils";
+import {InventorySlots} from "../../database/game/models/InventorySlot";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(): boolean {
@@ -15,8 +16,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	initialNumberDone(player: Player): Promise<number> {
-		return Promise.resolve(countNbOfPotions(player));
+	async initialNumberDone(player: Player): Promise<number> {
+		return countNbOfPotions(await InventorySlots.getOfPlayer(player.id));
 	},
 
 	updateSaveBlob(): Promise<Buffer> {

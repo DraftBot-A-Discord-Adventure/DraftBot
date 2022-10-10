@@ -66,7 +66,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		if (member.id === guild.chiefId) {
 			membersInfos += guildModule.format("chiefinfos",
 				{
-					pseudo: await member.getPseudo(language),
+					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
 					score: member.score
 				}
@@ -76,7 +76,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			membersInfos += guildModule.format(
 				"elderinfos",
 				{
-					pseudo: await member.getPseudo(language),
+					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
 					score: member.score
 				}
@@ -86,7 +86,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			membersInfos += guildModule.format(
 				"memberinfos",
 				{
-					pseudo: await member.getPseudo(language),
+					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
 					score: member.score
 				}
@@ -99,7 +99,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	embed.setTitle(
 		guildModule.format("title", {
 			guildName: guild.name,
-			pseudo: await chief.getPseudo(language)
+			pseudo: chief.getPseudo(language)
 		})
 	);
 

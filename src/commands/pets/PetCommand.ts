@@ -10,6 +10,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
+import {Pets} from "../../core/database/game/models/Pet";
 
 /**
  * Displays information about a pet
@@ -25,13 +26,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const tr = Translations.getModule("commands.pet", language);
 
 	const pet = await PetEntities.getById(player.petId);
+	const petModel = await Pets.getById(pet.petId);
 
 	if (pet) {
 		await interaction.reply({
 			embeds: [new DraftBotEmbed()
 				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedEntity.discordUserId))
 				.setDescription(
-					pet.getPetDisplay(language)
+					pet.getPetDisplay(petModel, language)
 				)]
 		});
 		return;

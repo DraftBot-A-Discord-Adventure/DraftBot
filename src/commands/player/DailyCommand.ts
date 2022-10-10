@@ -16,6 +16,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
+import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 
 type EntityInformation = { player: Player, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -100,7 +101,6 @@ async function activateDailyItem(
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
 		await entityInformation.player.addMoney({
-			entity: entityInformation.player,
 			amount: entityInformation.activeObject.power,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
@@ -127,7 +127,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const dailyModule = Translations.getModule("commands.daily", language);
 
-	const activeObject: ObjectItem = await player.getMainObjectSlot().getItem() as ObjectItem;
+	const activeObject: ObjectItem = await (await InventorySlots.getMainObjectSlot(player.id)).getItem() as ObjectItem;
 
 	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, player, language, dailyModule)) {
 		return;

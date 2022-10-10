@@ -8,54 +8,55 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
-import Entity from "../database/game/models/Entity";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import Player from "../database/game/models/Player";
+import {InventorySlots} from "../database/game/models/InventorySlot";
 
 type RewardType = { type: string, option: number | GenericItemModel };
 
 /**
  * Defines the minimal amount of food you can get
- * @param entity
+ * @param player
  */
-function minRarity(entity: Entity): number {
-	return Math.floor(5 * Math.tanh(entity.Player.level / 125) + 1);
+function minRarity(player: Player): number {
+	return Math.floor(5 * Math.tanh(player.level / 125) + 1);
 }
 
 /**
  * Defines the maximal amount of food you can get
- * @param entity
+ * @param player
  */
-function maxRarity(entity: Entity): number {
-	return Math.ceil(7 * Math.tanh(entity.Player.level / 62));
+function maxRarity(player: Player): number {
+	return Math.ceil(7 * Math.tanh(player.level / 62));
 }
 
 /**
  * Says how many soups should be awarded
- * @param entity
+ * @param player
  * @param currentFoodLevel
  */
-function ultimateFoodsAmount(entity: Entity, currentFoodLevel: number): number {
-	return Math.max(Math.min(Math.ceil(3 * Math.tanh(entity.Player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1);
+function ultimateFoodsAmount(player: Player, currentFoodLevel: number): number {
+	return Math.max(Math.min(Math.ceil(3 * Math.tanh(player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1);
 }
 
 /**
  * Says how much common food should be awarded
- * @param entity
+ * @param player
  * @param currentFoodLevel
  */
-function commonFoodAmount(entity: Entity, currentFoodLevel: number): number {
-	return Math.max(Math.min(Math.ceil(6 * Math.tanh(entity.Player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel), 1);
+function commonFoodAmount(player: Player, currentFoodLevel: number): number {
+	return Math.max(Math.min(Math.ceil(6 * Math.tanh(player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel), 1);
 }
 
 /**
  * Generates the reward of the current small event
- * @param entity
+ * @param player
  */
-async function generateReward(entity: Entity): Promise<RewardType> {
+async function generateReward(player: Player): Promise<RewardType> {
 	let guild: Guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guildId);
+		guild = await Guilds.getById(player.guildId);
 	}
 	catch {
 		guild = null;
@@ -63,25 +64,25 @@ async function generateReward(entity: Entity): Promise<RewardType> {
 	if (guild === null) {
 		return {
 			type: "money",
-			option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT + entity.Player.level
+			option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT + player.level
 		};
 	}
-	if (entity.Player.level >= Constants.SMALL_EVENT.MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT) {
+	if (player.level >= Constants.SMALL_EVENT.MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT) {
 		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < Constants.GUILD.MAX_ULTIMATE_PET_FOOD ? {
 			type: "ultimateFood",
-			option: ultimateFoodsAmount(entity, guild.ultimateFood)
+			option: ultimateFoodsAmount(player, guild.ultimateFood)
 		} : {
 			type: "fullUltimateFood",
 			option: 0
 		} : {
 			type: "item",
-			option: await generateRandomItem(maxRarity(entity), null, minRarity(entity))
+			option: await generateRandomItem(maxRarity(player), null, minRarity(player))
 		};
 	}
 	if (Constants.GUILD.MAX_COMMON_PET_FOOD > guild.commonFood) {
 		return {
 			type: "commonFood",
-			option: commonFoodAmount(entity, guild.commonFood)
+			option: commonFoodAmount(player, guild.commonFood)
 		};
 	}
 	return {
@@ -115,26 +116,25 @@ function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: str
  * @param reward
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function giveReward(reward: RewardType, interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function giveReward(reward: RewardType, interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	switch (reward.type) {
 	case "ultimateFood":
-		await giveFood(interaction, language, entity, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
+		await giveFood(interaction, language, player, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "fullUltimateFood":
 		break;
 	case "item":
-		await giveItemToPlayer(entity, reward.option as GenericItemModel, language, interaction.user, interaction.channel);
+		await giveItemToPlayer(player, reward.option as GenericItemModel, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 		break;
 	case "commonFood":
-		await giveFood(interaction, language, entity, Constants.PET_FOOD.COMMON_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
+		await giveFood(interaction, language, player, Constants.PET_FOOD.COMMON_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "fullCommonFood":
 		break;
 	case "money":
-		await entity.Player.addMoney({
-			entity,
+		await player.addMoney({
 			amount: reward.option as number,
 			channel: interaction.channel,
 			language,
@@ -144,7 +144,7 @@ async function giveReward(reward: RewardType, interaction: CommandInteraction, l
 	default:
 		throw new Error("reward type not found");
 	}
-	await entity.Player.save();
+	await player.save();
 }
 
 export const smallEvent: SmallEvent = {
@@ -159,12 +159,12 @@ export const smallEvent: SmallEvent = {
 	 * Gives a random amount of soup to the guild, or common food if not in a guild
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
-		const reward = await generateReward(entity);
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) {
+		const reward = await generateReward(player);
 		await interaction.editReply({embeds: [generateEmbed(reward, seEmbed, language)]});
-		await giveReward(reward, interaction, language, entity);
+		await giveReward(reward, interaction, language, player);
 	}
 };

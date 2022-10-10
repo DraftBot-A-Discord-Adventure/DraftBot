@@ -183,7 +183,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		inline: true
 	});
 	if (effect !== null) {
-		const errorMessageObject = await effectsErrorTextValue(interaction.user, language, player);
+		const errorMessageObject = effectsErrorTextValue(interaction.user, language, player);
 		travelEmbed.addFields({
 			name: errorMessageObject.title,
 			value: errorMessageObject.description,
@@ -404,14 +404,12 @@ async function updatePlayerInfos(
 
 	if (randomPossibility.eventId === 0) {
 		await player.addMoney({
-			entity: player,
 			amount: -player.money,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
 			reason: NumberChangeReason.BIG_EVENT
 		});
 		await player.addScore({
-			entity: player,
 			amount: -player.score,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
@@ -419,14 +417,12 @@ async function updatePlayerInfos(
 		});
 		if (randomPossibility.possibilityKey !== "end") {
 			await player.addMoney({
-				entity: player,
 				amount: 10 - player.money,
 				channel: textInformation.interaction.channel,
 				language: textInformation.language,
 				reason: NumberChangeReason.BIG_EVENT
 			});
 			await player.addScore({
-				entity: player,
 				amount: 100 - player.score,
 				channel: textInformation.interaction.channel,
 				language: textInformation.language,
@@ -537,7 +533,7 @@ async function doPossibility(
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await textInformation.interaction.channel.send({content: result});
 
-	if (!await player.killIfNeeded(player, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
+	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
 		await chooseDestination(player, textInformation.interaction, textInformation.language, randomPossibility.restrictedMaps);
 	}
 

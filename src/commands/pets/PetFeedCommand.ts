@@ -21,7 +21,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
-import {Pets} from "../../core/database/game/models/Pet";
+import {Pet, Pets} from "../../core/database/game/models/Pet";
 
 /**
  * Obtiens la guilde du joueur
@@ -78,15 +78,16 @@ async function sendPetFeedMessageAndPrepareCollector(
  * @param interaction
  * @param player
  * @param authorPet
+ * @param petModel
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
+async function withoutGuildPetFeed(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
 	const feedEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("feedEmbedTitle2"), interaction.user);
 	feedEmbed.setDescription(
 		petFeedModule.format("feedEmbedDescription2", {
-			petnick: authorPet.displayName(language)
+			petnick: authorPet.displayName(petModel, language)
 		})
 	);
 	feedEmbed.setFooter({text: petFeedModule.get("feedEmbedFooter")});
@@ -118,7 +119,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			);
 		}
 		const editValueChanges = {
-			entity: player,
+			player: player,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.PET_FEED
@@ -136,7 +137,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		]);
 		const feedSuccessEmbed = new DraftBotEmbed();
 		feedSuccessEmbed.setDescription(petFeedModule.format("description.commonFood", {
-			petnick: authorPet.displayName(language),
+			petnick: authorPet.displayName(petModel, language),
 			typeSuffix: authorPet.sex === Constants.PETS.FEMALE ? "se" : "x"
 		}));
 
@@ -155,10 +156,20 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
  * @param {fr/en} language
  * @param {*} player
  * @param {*} pet
+ * @param petModel
  * @param {*} item
  * @param petFeedModule
  */
-async function feedPet(interaction: CommandInteraction, language: string, player: Player, pet: PetEntity, item: string, petFeedModule: TranslationModule): Promise<GuildCacheMessage<CacheType>> {
+// eslint-disable-next-line max-params
+async function feedPet(
+	interaction: CommandInteraction,
+	language: string,
+	player: Player,
+	pet: PetEntity,
+	petModel: Pet,
+	item: string,
+	petFeedModule: TranslationModule
+): Promise<GuildCacheMessage<CacheType>> {
 	const guild = await Guilds.getById(player.guildId);
 	if (guild.getDataValue(item) <= 0) {
 		await sendErrorMessage(
@@ -174,13 +185,12 @@ async function feedPet(interaction: CommandInteraction, language: string, player
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
 	guild.removeFood(item, 1, NumberChangeReason.PET_FEED);
 	const editValueChanges = {
-		entity: player,
+		player: player,
 		amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex],
 		channel: interaction.channel,
 		language,
 		reason: NumberChangeReason.PET_FEED
 	};
-	const petModel = await Pets.getById(pet.petId);
 	if (
 		petModel.diet &&
 		(item === Constants.PET_FOOD.HERBIVOROUS_FOOD || item === Constants.PET_FOOD.CARNIVOROUS_FOOD)
@@ -190,7 +200,7 @@ async function feedPet(interaction: CommandInteraction, language: string, player
 		}
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item.includes(petModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
-				petnick: pet.displayName(language),
+				petnick: pet.displayName(petModel, language),
 				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
 			})
 		);
@@ -199,7 +209,7 @@ async function feedPet(interaction: CommandInteraction, language: string, player
 		await pet.changeLovePoints(editValueChanges);
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item}`, {
-				petnick: pet.displayName(language),
+				petnick: pet.displayName(petModel, language),
 				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
 			})
 		);
@@ -215,10 +225,11 @@ async function feedPet(interaction: CommandInteraction, language: string, player
  * @param interaction
  * @param player
  * @param authorPet
+ * @param petModel
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function guildUserFeedPet(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petFeedModule: TranslationModule): Promise<void> {
+async function guildUserFeedPet(language: string, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
 	const foodItems = getFoodItems();
 
 	const feedEmbed = new DraftBotEmbed()
@@ -248,7 +259,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			await feedPet(interaction, language, player, authorPet, item, petFeedModule);
+			await feedPet(interaction, language, player, authorPet, petModel, item, petFeedModule);
 		}
 	});
 
@@ -280,13 +291,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const cooldownTime = authorPet.getFeedCooldown();
+	const petModel = await Pets.getById(authorPet.petId);
+	const cooldownTime = authorPet.getFeedCooldown(petModel);
 	if (cooldownTime > 0) {
 		await replyErrorMessage(
 			interaction,
 			language,
 			petFeedModule.format("notHungry", {
-				petNick: authorPet.displayName(language)
+				petNick: authorPet.displayName(petModel, language)
 			})
 		);
 		return;
@@ -294,10 +306,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const guild = await getGuild(player);
 	if (guild === null) {
-		await withoutGuildPetFeed(language, interaction, player, authorPet, petFeedModule);
+		await withoutGuildPetFeed(language, interaction, player, authorPet, petModel, petFeedModule);
 	}
 	else {
-		await guildUserFeedPet(language, interaction, player, authorPet, petFeedModule);
+		await guildUserFeedPet(language, interaction, player, authorPet, petModel, petFeedModule);
 	}
 }
 
