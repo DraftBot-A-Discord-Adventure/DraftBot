@@ -90,7 +90,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 					new DraftBotEmbed()
 						.setAuthor({
 							name: guildLeaveModule.format("successTitle", {
-								pseudo: await userInformation.player.getPseudo(guildLeaveModule.language),
+								pseudo: userInformation.player.getPseudo(guildLeaveModule.language),
 								guildName: userInformation.guild.name
 							}),
 							iconURL: interaction.user.displayAvatarURL()
@@ -148,7 +148,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		if (elder) {
 			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDescWithElder", {
 				guildName: guild.name,
-				elderName: await elder.getPseudo(language)
+				elderName: elder.getPseudo(language)
 			}));
 		}
 		else {

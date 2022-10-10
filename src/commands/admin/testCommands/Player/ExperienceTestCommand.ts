@@ -33,7 +33,6 @@ const experienceTestCommand = async (language: string, interaction: CommandInter
 		throw new Error("Erreur experience : expérience donnée doit être comprise entre 0 et " + maxXp + " !");
 	}
 	await player.addExperience({
-		entity: player,
 		amount: xp - player.experience,
 		channel: interaction.channel,
 		language,

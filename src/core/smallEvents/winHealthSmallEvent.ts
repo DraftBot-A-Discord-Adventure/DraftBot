@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -7,6 +6,7 @@ import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {Translations} from "../Translations";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -20,10 +20,10 @@ export const smallEvent: SmallEvent = {
 	 * Heal the player with a random amount of life
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const healthWon = RandomUtils.draftbotRandom.integer(
 			Constants.SMALL_EVENT.MINIMUM_HEALTH_WON,
 			Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON
@@ -35,8 +35,8 @@ export const smallEvent: SmallEvent = {
 				health: healthWon
 			})
 		);
-		await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-		await entity.save();
+		await player.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.save();
 		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

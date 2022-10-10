@@ -7,9 +7,9 @@ import {SmallEvent} from "./SmallEvent";
 import {format} from "../utils/StringFormatter";
 import {botConfig} from "../bot";
 import {RandomUtils} from "../utils/RandomUtils";
-import Entity from "../database/game/models/Entity";
 import {SpaceConstants} from "../constants/SpaceConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import Player from "../database/game/models/Player";
 
 /**
  * Gives an object that is going close to earth
@@ -125,7 +125,7 @@ export const smallEvent: SmallEvent = {
 	/**
 	 * Throws a random, verified by the NASA, fact about the surrounding space
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) {
 		let keysList = Translations.getModule("smallEvents.space", language).getKeys("specific");
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");

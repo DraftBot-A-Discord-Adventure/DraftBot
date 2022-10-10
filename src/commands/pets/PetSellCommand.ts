@@ -21,10 +21,10 @@ import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDat
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
-import {Pets} from "../../core/database/game/models/Pet";
+import {Pet, Pets} from "../../core/database/game/models/Pet";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
-type SellerInformation = { player: Player, pet: PetEntity, guild: Guild, petCost: number };
+type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
 type BuyerInformation = { buyer: Player, user: User };
 
 /**
@@ -118,7 +118,6 @@ async function executeTheTransaction(
 	sellerInformation.pet.lovePoints = Constants.PETS.BASE_LOVE;
 	// the money has to be edited before the player is saved to avoid cross writing to the database
 	await buyerInformation.buyer.addMoney({
-		entity: buyerInformation.buyer,
 		amount: -sellerInformation.petCost,
 		channel: textInformation.interaction.channel,
 		language: textInformation.petSellModule.language,
@@ -149,8 +148,8 @@ async function executeTheTransaction(
 		.formatAuthor(textInformation.petSellModule.get("addPetEmbed.author"), buyerInformation.user)
 		.setDescription(
 			textInformation.petSellModule.format("addPetEmbed.description", {
-				emote: sellerInformation.pet.getPetEmote(),
-				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(textInformation.petSellModule.language)
+				emote: sellerInformation.pet.getPetEmote(sellerInformation.petModel),
+				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(sellerInformation.petModel, textInformation.petSellModule.language)
 			})
 		);
 	await textInformation.interaction.followUp({embeds: [addPetEmbed]});
@@ -175,8 +174,8 @@ async function petSell(
 		.formatAuthor(textInformation.petSellModule.get("confirmEmbed.author"), buyerInformation.user)
 		.setDescription(
 			textInformation.petSellModule.format("confirmEmbed.description", {
-				emote: sellerInformation.pet.getPetEmote(),
-				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(textInformation.petSellModule.language),
+				emote: sellerInformation.pet.getPetEmote(sellerInformation.petModel),
+				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(sellerInformation.petModel, textInformation.petSellModule.language),
 				price: sellerInformation.petCost
 			})
 		);
@@ -264,6 +263,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const petCost = interaction.options.get(Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH).get("optionPriceName")).value as number;
 	const pet = await PetEntities.getById(player.petId);
+	const petModel = await Pets.getById(pet.petId);
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
@@ -282,7 +282,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const textInformation = {interaction, petSellModule};
-	const sellerInformation = {player: player, pet, guild, petCost};
+	const sellerInformation = {player: player, pet, petModel, guild, petCost};
 
 	if (await missingRequirementsToSellPet(textInformation, sellerInformation)) {
 		return;
@@ -306,8 +306,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			name: textInformation.petSellModule.get("petFieldName"),
 			value: Translations.getModule("commands.profile", textInformation.petSellModule.language).format("pet.fieldValue", {
 				rarity: (await Pets.getById(sellerInformation.pet.petId)).getRarityDisplay(),
-				emote: sellerInformation.pet.getPetEmote(),
-				nickname: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(textInformation.petSellModule.language)
+				emote: sellerInformation.pet.getPetEmote(petModel),
+				nickname: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(petModel, textInformation.petSellModule.language)
 			}),
 			inline: false
 		}])

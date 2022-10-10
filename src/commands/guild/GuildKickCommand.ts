@@ -63,7 +63,7 @@ async function getValidationCallback(
 			const embed = new DraftBotEmbed();
 			embed.setAuthor({
 				name: textInformation.guildKickModule.format("successTitle", {
-					kickedPseudo: await kickedPlayer.getPseudo(textInformation.language),
+					kickedPseudo: kickedPlayer.getPseudo(textInformation.language),
 					guildName: playerInformation.guild.name
 				}),
 				iconURL: textInformation.interaction.user.displayAvatarURL()
@@ -83,7 +83,7 @@ async function getValidationCallback(
 			textInformation.interaction.user,
 			textInformation.interaction,
 			textInformation.language,
-			textInformation.guildKickModule.format("kickCancelled", {kickedPseudo: await kickedPlayer.getPseudo(textInformation.language)}),
+			textInformation.guildKickModule.format("kickCancelled", {kickedPseudo: kickedPlayer.getPseudo(textInformation.language)}),
 			true);
 	};
 }
@@ -160,7 +160,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.formatAuthor(guildKickModule.get("kickTitle"), interaction.user)
 		.setDescription(guildKickModule.format("kick", {
 			guildName: guild.name,
-			kickedPseudo: await kickedEntity.getPseudo(language)
+			kickedPseudo: kickedEntity.getPseudo(language)
 		}))
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_KICK, collector));
 }

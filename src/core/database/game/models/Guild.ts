@@ -1,20 +1,18 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import GuildPet from "./GuildPet";
-import PetEntity from "./PetEntity";
-import Pet from "./Pet";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {TextBasedChannel} from "discord.js";
 import {Translations} from "../../../Translations";
 import {MissionsController} from "../../../missions/MissionsController";
-import {Entities} from "./Entity";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
-import Player from "./Player";
+import Player, {Players} from "./Player";
 import {botConfig, draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
 import moment = require("moment");
+import {GuildPet, GuildPets} from "./GuildPet";
+import PetEntity from "./PetEntity";
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -74,11 +72,12 @@ export class Guild extends Model {
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
 		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
-		const petsToDestroy: Promise<void>[] = [];
-		const petsEntitiesToDestroy: Promise<void>[] = [];
-		for (const pet of this.GuildPets) {
-			petsToDestroy.push(pet.destroy());
-			petsEntitiesToDestroy.push(pet.PetEntity.destroy());
+		const guildPetsToDestroy: Promise<void>[] = [];
+		const petsEntitiesToDestroy: Promise<number>[] = [];
+		const pets = await GuildPets.getOfGuild(this.id);
+		for (const pet of pets) {
+			guildPetsToDestroy.push(pet.destroy());
+			petsEntitiesToDestroy.push(PetEntity.destroy({ where: { id: pet.petEntityId }}));
 		}
 		await Promise.all([
 			Player.update(
@@ -94,7 +93,7 @@ export class Guild extends Model {
 					id: this.id
 				}
 			}),
-			petsToDestroy,
+			guildPetsToDestroy,
 			petsEntitiesToDestroy
 		]);
 
@@ -157,7 +156,7 @@ export class Guild extends Model {
 				})
 			);
 		await channel.send({embeds: [embed]});
-		for (const member of await Entities.getByGuild(this.id)) {
+		for (const member of await Players.getByGuild(this.id)) {
 			await MissionsController.update(member, channel, language, {
 				missionId: "guildLevel",
 				count: this.level,
@@ -185,11 +184,11 @@ export class Guild extends Model {
 	/**
 	 * check if the pet shelter is full
 	 */
-	public isPetShelterFull(): boolean {
-		if (!this.GuildPets) {
+	public isPetShelterFull(guildPets: GuildPet[]): boolean {
+		if (!guildPets) {
 			return true;
 		}
-		return this.GuildPets.length >= PetEntityConstants.SLOTS;
+		return guildPets.length >= PetEntityConstants.SLOTS;
 	}
 
 	/**

@@ -9,6 +9,8 @@ import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {MissionSlots} from "../../core/database/game/models/MissionSlot";
+import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 
 /**
  * Shows the missions of the given entity (default : the one who entered the command)
@@ -30,7 +32,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	player = await Players.getById(player.id);
 
-	await MissionsController.checkCompletedMissions(player, interaction.channel, language);
+	await MissionsController.checkCompletedMissions(player, await MissionSlots.getOfPlayer(player.id), await PlayerMissionsInfos.getOfPlayer(player.id), interaction.channel, language);
 	if (entityToLook.discordUserId === player.discordUserId) {
 		[entityToLook] = await Players.getOrRegister(entityToLook.discordUserId);
 	}

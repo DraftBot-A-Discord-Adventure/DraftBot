@@ -54,7 +54,7 @@ export class TravelTime {
 	}> {
 		const data = await this.getTravelDataSimplified(player, date);
 
-		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 		// The next small event in 10 minutes after the last small event or the start or the travel if none before
 		let nextSmallEventTime = (lastSmallEvent && lastSmallEvent.time > data.travelStartTime ? lastSmallEvent.time : data.travelStartTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		// If the next small event is in the effect period, we shift it after the end of the effect
@@ -163,7 +163,7 @@ export class TravelTime {
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
 			// Move the last small event
-			const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+			const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 			if (lastSmallEvent) {
 				lastSmallEvent.time -= Date.now() - player.effectEndDate.valueOf();
 				await lastSmallEvent.save();
@@ -171,7 +171,7 @@ export class TravelTime {
 		}
 
 		// Log
-		player.getEntity().then(entity => draftBotInstance.logsDatabase.logTimeWarp(entity.discordUserId, millisecondsToMinutes(time), reason));
+		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason).then();
 	}
 
 	/**
@@ -222,6 +222,6 @@ export class TravelTime {
 
 		// Save and log
 		await player.save();
-		player.getEntity().then(entity => draftBotInstance.logsDatabase.logAlteration(entity.discordUserId, effect, reason, time).then());
+		draftBotInstance.logsDatabase.logAlteration(player.discordUserId, effect, reason, time).then();
 	}
 }

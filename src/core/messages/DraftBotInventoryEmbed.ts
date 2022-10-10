@@ -6,12 +6,18 @@ import {EmbedField, User} from "discord.js";
 import {format} from "../utils/StringFormatter";
 import Player from "../database/game/models/Player";
 import {GenericItemModel, MaxStatsValues} from "../database/game/models/GenericItemModel";
+import {InventoryInfos} from "../database/game/models/InventoryInfo";
+import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
 
 type Slots = {
 	weapons: GenericItemModel[],
 	armors: GenericItemModel[],
 	potions: GenericItemModel[],
-	objects: GenericItemModel[]
+	objects: GenericItemModel[],
+	weaponSlots: number,
+	armorSlots: number,
+	potionSlots: number,
+	objectSlots: number
 }
 
 type UserInformation = {
@@ -67,10 +73,10 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		this.stockTitle = trInventory.format("stockTitle", {pseudo: userInformation.pseudo});
 		this.stockFooter = trInventory.format("clickMainInventory", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
 		this.stockFields = [
-			this.createStockField(trInventory.get("weapons"), trInventory, slots.weapons, userInformation.player.InventoryInfo.weaponSlots),
-			this.createStockField(trInventory.get("armors"), trInventory, slots.armors, userInformation.player.InventoryInfo.armorSlots),
-			this.createStockField(trInventory.get("potions"), trInventory, slots.potions, userInformation.player.InventoryInfo.potionSlots),
-			this.createStockField(trInventory.get("objects"), trInventory, slots.objects, userInformation.player.InventoryInfo.objectSlots)
+			this.createStockField(trInventory.get("weapons"), trInventory, slots.weapons, slots.weaponSlots),
+			this.createStockField(trInventory.get("armors"), trInventory, slots.armors, slots.armorSlots),
+			this.createStockField(trInventory.get("potions"), trInventory, slots.potions, slots.potionSlots),
+			this.createStockField(trInventory.get("objects"), trInventory, slots.objects, slots.objectSlots)
 		];
 		this.setTitle(this.mainTitle);
 		this.addFields(this.mainFields);
@@ -150,10 +156,11 @@ export class DraftBotInventoryEmbedBuilder {
 
 	/**
 	 * Get all items from the player's inventory that are from a certain type
+	 * @param invSlots
 	 * @param slotType
 	 */
-	async getItemsOfSlotsType(slotType: number): Promise<GenericItemModel[]> {
-		return await Promise.all(this._player.InventorySlots.filter(slot => slot.itemCategory === slotType).map(async function(item) {
+	async getItemsOfSlotsType(invSlots: InventorySlot[], slotType: number): Promise<GenericItemModel[]> {
+		return await Promise.all(invSlots.filter(slot => slot.itemCategory === slotType).map(async function(item) {
 			const newItem = await item.getItem();
 			newItem.slot = item.slot;
 			return newItem;
@@ -161,18 +168,24 @@ export class DraftBotInventoryEmbedBuilder {
 	}
 
 	async build(): Promise<DraftBotInventoryEmbed> {
+		const invInfo = await InventoryInfos.getOfPlayer(this._player.id);
+		const invSlots = await InventorySlots.getOfPlayer(this._player.id);
 		return new DraftBotInventoryEmbed(
 			{
 				user: this._user,
 				player: this._player,
-				pseudo: await this._player.getPseudo(this._language)
+				pseudo: this._player.getPseudo(this._language)
 			},
 			this._language,
 			{
-				weapons: await this.getItemsOfSlotsType(Constants.ITEM_CATEGORIES.WEAPON),
-				armors: await this.getItemsOfSlotsType(Constants.ITEM_CATEGORIES.ARMOR),
-				potions: await this.getItemsOfSlotsType(Constants.ITEM_CATEGORIES.POTION),
-				objects: await this.getItemsOfSlotsType(Constants.ITEM_CATEGORIES.OBJECT)
+				weapons: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.WEAPON),
+				armors: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.ARMOR),
+				potions: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.POTION),
+				objects: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.OBJECT),
+				weaponSlots: invInfo.weaponSlots,
+				armorSlots: invInfo.armorSlots,
+				potionSlots: invInfo.potionSlots,
+				objectSlots: invInfo.objectSlots
 			},
 			await this._player.getMaxStatsValue()
 		);

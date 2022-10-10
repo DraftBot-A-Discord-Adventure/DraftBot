@@ -14,7 +14,6 @@ import Player from "../../core/database/game/models/Player";
 function givePointsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string): void {
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.addScore({
-			entity: playerToEdit,
 			amount: amount - playerToEdit.score,
 			channel: interaction.channel,
 			language,
@@ -23,7 +22,6 @@ function givePointsTo(playerToEdit: Player, amount: number, interaction: Command
 	}
 	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addScore({
-			entity: playerToEdit,
 			amount: amount,
 			channel: interaction.channel,
 			language,

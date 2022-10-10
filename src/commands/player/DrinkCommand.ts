@@ -16,6 +16,7 @@ import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
+import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -39,7 +40,6 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Playe
 	case Constants.NATURE.MONEY:
 		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
 		await player.addMoney({
-			entity: player,
 			amount: potion.power,
 			channel: textInformation.interaction.channel,
 			language: textInformation.tr.language,
@@ -92,7 +92,7 @@ function drinkPotionCallback(
 		}
 
 		await consumePotion(potion, embed, player, textInformation);
-		await checkDrinkPotionMissions(textInformation.interaction.channel, textInformation.tr.language, player, potion);
+		await checkDrinkPotionMissions(textInformation.interaction.channel, textInformation.tr.language, player, potion, await InventorySlots.getOfPlayer(player.id));
 
 		textInformation.interaction.replied ?
 			await textInformation.interaction.channel.send({embeds: [embed]}) :
@@ -112,7 +112,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const tr = Translations.getModule("commands.drink", language);
-	const potion = await player.getMainPotionSlot().getItem() as Potion;
+	const potion = await (await InventorySlots.getMainPotionSlot(player.id)).getItem() as Potion;
 
 	if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
 		await replyErrorMessage(interaction, language, tr.get("noActiveObjectDescription"));

@@ -61,7 +61,7 @@ export class FightView {
 	async addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): Promise<void> {
 		introEmbed.addFields({
 			name: this.fightTranslationModule.format("actionsOf", {
-				player: await fighter.getPseudo(this.language)
+				player: fighter.getPseudo(this.language)
 			}),
 			value: this.getFightActionsToStringOf(fighter),
 			inline: true
@@ -77,8 +77,8 @@ export class FightView {
 		// ce serait ici qu'il faudrait mettre les attaques ?
 		const introEmbed = new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.format("intro", {
-				player1: await fighter1.getPseudo(this.language),
-				player2: await fighter2.getPseudo(this.language)
+				player1: fighter1.getPseudo(this.language),
+				player2: fighter2.getPseudo(this.language)
 			}));
 		await this.addFightActionFieldFor(introEmbed, fighter1);
 		await this.addFightActionFieldFor(introEmbed, fighter2);
@@ -193,7 +193,7 @@ export class FightView {
 
 		for (const fighter of [winner, loser]) {
 			msg += this.fightTranslationModule.format("end.fighterStats", {
-				pseudo: await fighter.getPseudo(this.language),
+				pseudo: fighter.getPseudo(this.language),
 				health: fighter.stats.fightPoints,
 				maxHealth: fighter.stats.maxFightPoint
 			});
@@ -212,7 +212,7 @@ export class FightView {
 		return new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.get("summarize.title"))
 			.setDescription(`${this.fightTranslationModule.get("summarize.intro") +
-			await attacker.getStringDisplay(this.fightTranslationModule)}\n\n${await defender.getStringDisplay(this.fightTranslationModule)}`);
+			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`);
 	}
 
 	/**
@@ -238,7 +238,7 @@ export class FightView {
 	 */
 	private async sendChooseActionEmbed(fighter: Fighter): Promise<Message> {
 		const chooseActionEmbed = new DraftBotEmbed();
-		chooseActionEmbed.formatAuthor(this.fightTranslationModule.format("turnIndicationsTitle", {pseudo: await fighter.getPseudo(this.language)}), fighter.getUser());
+		chooseActionEmbed.formatAuthor(this.fightTranslationModule.format("turnIndicationsTitle", {pseudo: fighter.getPseudo(this.language)}), fighter.getUser());
 		chooseActionEmbed.setDescription(this.fightTranslationModule.get("turnIndicationsDescription"));
 		return await this.channel.send({embeds: [chooseActionEmbed]});
 	}

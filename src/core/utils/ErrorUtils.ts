@@ -1,29 +1,29 @@
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Translations} from "../Translations";
-import Entity from "../database/game/models/Entity";
 import {millisecondsToMinutes, minutesDisplay} from "./TimeUtils";
 import {escapeUsername} from "./StringUtils";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import Player from "../database/game/models/Player";
 
 /**
  * Send an error message if the user has an effect
  * @param user
  * @param language
- * @param entity
+ * @param player
  */
-export const effectsErrorTextValue = async function(user: User, language: string, entity: Entity): Promise<{ title: string, description: string }> {
-	const startString = user.id === entity.discordUserId ? "titleMe" : "player";
-	const stringEnd = EffectsConstants.ERROR_TEXT[entity.Player.effect as keyof typeof EffectsConstants.ERROR_TEXT];
+export const effectsErrorTextValue = function(user: User, language: string, player: Player): { title: string, description: string } {
+	const startString = user.id === player.discordUserId ? "titleMe" : "player";
+	const stringEnd = EffectsConstants.ERROR_TEXT[player.effect as keyof typeof EffectsConstants.ERROR_TEXT];
 	const tr = Translations.getModule("error", language);
 	const errorMessageObject = {
 		title: tr.format(`${startString}Is${stringEnd}`, {
-			askedPseudo: escapeUsername(await entity.Player.getPseudo(language))
+			askedPseudo: escapeUsername(player.getPseudo(language))
 		}),
-		description: `${entity.Player.effect} `
+		description: `${player.effect} `
 	};
-	const timeEffect = minutesDisplay(millisecondsToMinutes(entity.Player.effectRemainingTime()));
-	switch (entity.Player.effect) {
+	const timeEffect = minutesDisplay(millisecondsToMinutes(player.effectRemainingTime()));
+	switch (player.effect) {
 	case EffectsConstants.EMOJI_TEXT.SMILEY:
 		errorMessageObject.description += tr.get("notPossibleWithoutStatus");
 		break;

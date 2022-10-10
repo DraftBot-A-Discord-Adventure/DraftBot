@@ -1,19 +1,19 @@
 import {Guilds} from "../database/game/models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {CommandInteraction} from "discord.js";
-import Entity from "../database/game/models/Entity";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
 import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import Player from "../database/game/models/Player";
 
 /**
  * Gives food to a given guild / player
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  * @param selectedFood
  * @param quantity
  * @param reason
@@ -21,14 +21,14 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 export async function giveFood(
 	interaction: CommandInteraction,
 	language: string,
-	entity: Entity,
+	player: Player,
 	selectedFood: string,
 	quantity: number,
 	reason: NumberChangeReason
 ): Promise<void> {
 	const tr = Translations.getModule("commands.guildShop", language);
 	const foodModule = Translations.getModule("food", language);
-	const guild = await Guilds.getById(entity.Player.guildId);
+	const guild = await Guilds.getById(player.guildId);
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
 		await sendErrorMessage(

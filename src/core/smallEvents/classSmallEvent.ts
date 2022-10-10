@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -15,6 +14,8 @@ import {
 } from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import Player from "../database/game/models/Player";
+import {InventorySlots} from "../database/game/models/InventorySlot";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -28,11 +29,11 @@ export const smallEvent: SmallEvent = {
 	 * Gives a reward depending on your current class
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
-		const classId = entity.Player.class;
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+		const classId = player.class;
 		const tr = Translations.getModule("smallEvents.class", language);
 		const classDataModule = Data.getModule("smallEvents.class");
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -58,7 +59,7 @@ export const smallEvent: SmallEvent = {
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});
-			await giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
+			await giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 		}
 		else if (classDataModule.getNumberArray("defenseEligible").includes(classId)) {
 			const outRand = RandomUtils.draftbotRandom.integer(0, 2);
@@ -80,22 +81,21 @@ export const smallEvent: SmallEvent = {
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});
-			await giveItemToPlayer(entity, item, language, interaction.user, interaction.channel);
+			await giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 		}
 		else if (classDataModule.getNumberArray("basicEligible").includes(classId)) {
 			if (RandomUtils.draftbotRandom.bool()) {
 				// winItem
 				seEmbed.setDescription(base + tr.getRandom("basic.winItem"));
 				await interaction.editReply({embeds: [seEmbed]});
-				await giveRandomItem(interaction.user, interaction.channel, language, entity);
+				await giveRandomItem(interaction.user, interaction.channel, language, player);
 			}
 			else {
 				// winMoney
 				const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
 				await interaction.editReply({embeds: [seEmbed]});
-				await entity.Player.addMoney({
-					entity,
+				await player.addMoney({
 					amount: moneyWon,
 					channel: interaction.channel,
 					language,
@@ -108,20 +108,20 @@ export const smallEvent: SmallEvent = {
 				// winItem
 				seEmbed.setDescription(base + tr.getRandom("other.winItem"));
 				await interaction.editReply({embeds: [seEmbed]});
-				await giveRandomItem(interaction.user, interaction.channel, language, entity);
+				await giveRandomItem(interaction.user, interaction.channel, language, player);
 			}
 			else {
 				// winHealth
 				const healthWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
 				await interaction.editReply({embeds: [seEmbed]});
-				await entity.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+				await player.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else {
-			console.log(`This user has an unknown class : ${entity.discordUserId}`);
+			console.log(`This user has an unknown class : ${player.discordUserId}`);
 		}
 
-		await entity.Player.save();
+		await player.save();
 	}
 };

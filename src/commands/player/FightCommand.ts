@@ -115,9 +115,9 @@ async function getFightDescription(
 		promises.push(respondingFighter.loadStats(friendly));
 	}
 	await Promise.all(promises);
-	fightAskingDescription += `\n\n${await askingFighter.getStringDisplay(fightTranslationModule)}`;
+	fightAskingDescription += `\n\n${askingFighter.getStringDisplay(fightTranslationModule)}`;
 	if (respondingPlayer) {
-		fightAskingDescription += `\n${await respondingFighter.getStringDisplay(fightTranslationModule)}`;
+		fightAskingDescription += `\n${respondingFighter.getStringDisplay(fightTranslationModule)}`;
 	}
 	return fightAskingDescription;
 }

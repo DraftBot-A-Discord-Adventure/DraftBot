@@ -33,7 +33,6 @@ import {LogsMissionsDaily} from "./models/LogsMissionsDaily";
 import {LogsMissionsCampaignProgresses} from "./models/LogsMissionsCampaignProgresses";
 import {LogsMissions} from "./models/LogsMissions";
 import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
-import {Entities} from "../game/models/Entity";
 import {TopConstants} from "../../constants/TopConstants";
 import {LogsItemGainsArmor} from "./models/LogsItemsGainsArmor";
 import {GenericItemModel} from "../game/models/GenericItemModel";
@@ -45,12 +44,12 @@ import {LogsItemSellsObject} from "./models/LogsItemsSellsObject";
 import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
 import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
 import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
-import PetEntity from "../game/models/PetEntity";
+import PetEntity, {PetEntities} from "../game/models/PetEntity";
 import {LogsPetsNicknames} from "./models/LogsPetsNicknames";
 import {LogsPetEntities} from "./models/LogsPetEntities";
 import {Guild} from "../game/models/Guild";
 import {LogsGuilds} from "./models/LogsGuilds";
-import {Player} from "../game/models/Player";
+import {Player, Players} from "../game/models/Player";
 import {LogsGuildsKicks} from "./models/LogsGuildsKicks";
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
@@ -67,7 +66,7 @@ import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
 import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
 import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
 import {LogsPetsFrees} from "./models/LogsPetsFrees";
-import GuildPet from "../game/models/GuildPet";
+import GuildPet, {GuildPets} from "../game/models/GuildPet";
 import {FightController} from "../../fights/FightController";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
@@ -441,14 +440,14 @@ export class LogsDatabase extends Database {
 	}
 
 	public async log15BestTopWeek(): Promise<void> {
-		const entities = await Entities.getEntitiesToPrintTop(await Entities.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
+		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
 		const now = LogsDatabase.getDate();
-		for (let i = 0; i < entities.length; i++) {
-			const player = await LogsDatabase.findOrCreatePlayer(entities[0].discordUserId);
+		for (let i = 0; i < players.length; i++) {
+			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
 			await LogsPlayers15BestTopweek.create({
 				playerId: player.id,
 				position: i + 1,
-				topWeekScore: entities[i].Player.weeklyScore,
+				topWeekScore: players[i].weeklyScore,
 				date: now
 			});
 		}
@@ -613,16 +612,17 @@ export class LogsDatabase extends Database {
 			name: guild.name,
 			creationDate: guild.creationDate,
 			chiefId: guild.chiefId,
-			guildPets: guild.GuildPets
+			guildPets: await GuildPets.getOfGuild(guild.id)
 		};
 		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
-		for (const member of await Entities.getByGuild(guildInfos.id)) {
+		for (const member of await Players.getByGuild(guildInfos.id)) {
 			if (member.id !== guildInfos.chiefId) {
 				await LogsDatabase.logGuildLeave(guild, member.discordUserId);
 			}
 		}
 		for (const guildPet of guildInfos.guildPets) {
-			await LogsDatabase.logPetFree(guildPet.PetEntity);
+			const petEntity = await PetEntities.getById(guildPet.petEntityId);
+			await LogsDatabase.logPetFree(petEntity);
 		}
 		await LogsGuildsDestroys.create({
 			guildId: logGuild.id,
@@ -634,18 +634,14 @@ export class LogsDatabase extends Database {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsEldersRemoves.create({
 			guildId: logGuild.id,
-			removedElder: (await LogsDatabase.findOrCreatePlayer(
-				(await (await Player.findOne({where: {id: removedPlayerId}})).getEntity()).discordUserId
-			)).id,
+			removedElder: (await LogsDatabase.findOrCreatePlayer((await Players.getById(removedPlayerId)).discordUserId)).id,
 			date: LogsDatabase.getDate()
 		});
 	}
 
 	public async logGuildChiefChange(guild: Guild, newChiefId: number): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer(
-			(await (await Player.findOne({where: {id: newChiefId}})).getEntity()).discordUserId
-		)).id;
+		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer((await Players.getById(newChiefId)).discordUserId)).id;
 		await LogsGuildsChiefsChanges.create({
 			guildId: logGuild.id,
 			newChief: logNewChiefId,
@@ -677,15 +673,15 @@ export class LogsDatabase extends Database {
 
 	public async logFight(fight: FightController): Promise<void> {
 		const player1 = fight.fightInitiator;
-		const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.entity.discordUserId)).id;
+		const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
 		const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
-		const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.entity.discordUserId)).id;
+		const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
 		const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
 		const fightResult = await LogsFightsResults.create({
 			player1Id: player1Id,
-			player1Points: player1.entity.Player.score,
+			player1Points: player1.player.score,
 			player2Id: player2Id,
-			player2Points: player2.entity.Player.score,
+			player2Points: player2.player.score,
 			turn: fight.turn,
 			winner: fight.isADraw() ? 0 : winner,
 			friendly: fight.friendly,

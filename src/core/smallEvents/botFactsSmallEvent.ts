@@ -1,11 +1,10 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {Players} from "../database/game/models/Player";
+import {Player, Players} from "../database/game/models/Player";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Guilds} from "../database/game/models/Guild";
 import {Classes} from "../database/game/models/Class";
@@ -38,10 +37,10 @@ export const smallEvent: SmallEvent = {
 	 * Throw a random, verified, fact to the player
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botFacts", language);
 
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -88,7 +87,7 @@ export const smallEvent: SmallEvent = {
 			result = await PetEntities.getNbFeistyPets();
 			break;
 		case "nbPlayersOnYourMap":
-			result = await entity.Player.getNbPlayersOnYourMap();
+			result = await player.getNbPlayersOnYourMap();
 			break;
 		default:
 			array = await getNbPlayersWithGivenClass(language);

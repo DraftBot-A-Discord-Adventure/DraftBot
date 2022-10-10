@@ -185,9 +185,9 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 	for (const traderAndPet of tradersAndPets) {
 		tradeMessage.addFields({
 			name: petTradeModule.format("petOfTrader", {
-				trader: await traderAndPet.trader.getPseudo(petTradeModule.language)
+				trader: traderAndPet.trader.getPseudo(petTradeModule.language)
 			}),
-			value: traderAndPet.pet.getPetDisplay(petTradeModule.language),
+			value: traderAndPet.pet.getPetDisplay(await Pets.getById(traderAndPet.pet.id), petTradeModule.language),
 			inline: true
 		});
 	}

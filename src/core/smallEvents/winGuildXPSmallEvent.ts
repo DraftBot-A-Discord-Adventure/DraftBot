@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
@@ -8,6 +7,7 @@ import {format} from "../utils/StringFormatter";
 import {Guilds} from "../database/game/models/Guild";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {Constants} from "../Constants";
+import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -21,13 +21,13 @@ export const smallEvent: SmallEvent = {
 	 * Gives XP to the player's guild, or do the doNothing small event if you are not in a guild
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
-		const g = await Guilds.getById(entity.Player.guildId);
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+		const g = await Guilds.getById(player.guildId);
 		if (g === null || g.isAtMaxLevel()) {
-			return await doNothing.executeSmallEvent(interaction, language, entity, seEmbed);
+			return await doNothing.executeSmallEvent(interaction, language, player, seEmbed);
 		}
 		const xpWon = RandomUtils.draftbotRandom.integer(
 			Constants.SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + g.level,

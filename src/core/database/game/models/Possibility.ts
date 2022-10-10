@@ -42,6 +42,16 @@ export class Possibility extends Model {
 	}
 }
 
+export class Possibilities {
+	static async getPossibilitiesOfEvent(eventId: number): Promise<Possibility[]> {
+		return await Possibility.findAll({
+			where: {
+				eventId
+			}
+		});
+	}
+}
+
 export function initModel(sequelize: Sequelize): void {
 	Possibility.init({
 		id: {

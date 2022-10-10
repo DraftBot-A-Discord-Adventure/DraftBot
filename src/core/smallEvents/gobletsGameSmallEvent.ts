@@ -11,29 +11,29 @@ import {minutesDisplay} from "../utils/TimeUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
-import Entity from "../database/game/models/Entity";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TravelTime} from "../maps/TravelTime";
+import Player from "../database/game/models/Player";
 
 type RewardType = { type: string, option: number | string };
 
 /**
- * Generates the malus the entity will outcome
- * @param entity
+ * Generates the malus the player will outcome
+ * @param player
  * @param malus
  */
-function generateMalus(entity: Entity, malus: string): RewardType {
+function generateMalus(player: Player, malus: string): RewardType {
 	switch (malus) {
 	case "life":
 		return {
 			type: malus,
-			option: Math.round(entity.Player.level / 6) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
+			option: Math.round(player.level / 6) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
 		};
 	case "time":
 		return {
 			type: malus,
-			option: Math.round(entity.Player.level * 0.42) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
+			option: Math.round(player.level * 0.42) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
 		};
 	case "nothing":
 		return {
@@ -43,39 +43,39 @@ function generateMalus(entity: Entity, malus: string): RewardType {
 	case "end":
 		return {
 			type: malus,
-			option: Math.round(entity.Player.level / 8) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
+			option: Math.round(player.level / 8) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
 		};
 	default:
 	}
 }
 
 /**
- * Apply the malus the entity drawn
+ * Apply the malus the player drawn
  * @param malus
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  */
-async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	switch (malus.type) {
 	case "life":
-		await entity.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await TravelTime.applyEffect(entity.Player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 		malus.option = minutesDisplay(malus.option as number);
 		break;
 	case "nothing":
 		break;
 	case "end":
-		await entity.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	default:
 		throw new Error("reward type not found");
 	}
-	await entity.Player.killIfNeeded(entity, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-	await entity.save();
-	await entity.save();
+	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+	await player.save();
+	await player.save();
 }
 
 /**
@@ -105,10 +105,10 @@ export const smallEvent: SmallEvent = {
 	 * Makes a (dubious) game of find the ball under the goblets with a stranger
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) {
 		const tr = Translations.getModule("smallEvents.gobletsGame", language);
 		const data = Data.getModule("smallEvents.gobletsGame");
 
@@ -117,16 +117,16 @@ export const smallEvent: SmallEvent = {
 			.endCallback(async (chooseGobletMessage) => {
 				const reaction = chooseGobletMessage.getFirstReaction();
 				const reactionEmoji = !reaction ? "🔚" : reaction.emoji.name;
-				let malus = generateMalus(entity, data.getRandomStringFromArray("malusTypes"));
+				let malus = generateMalus(player, data.getRandomStringFromArray("malusTypes"));
 				if (!reaction) {
-					malus = generateMalus(entity, "end");
+					malus = generateMalus(player, "end");
 				}
 				let currentGoblet: JsonModule;
 				for (let i = 0; i < tr.getObjectSize("intro.goblets"); i++) {
 					currentGoblet = tr.getObject("intro.goblets")[i];
 					if (reactionEmoji === "🔚" || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
-						BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
-						await applyMalus(malus, interaction, language, entity);
+						BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
+						await applyMalus(malus, interaction, language, player);
 						await chooseGobletMessage.sentMessage.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name as string, seEmbed, tr)]});
 						break;
 					}
@@ -149,6 +149,6 @@ export const smallEvent: SmallEvent = {
 			+ tr.getRandom("intro.intrigue")
 			+ goblets
 		);
-		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
+		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
 	}
 };

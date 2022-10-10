@@ -27,6 +27,7 @@ import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {Missions} from "../../core/database/game/models/Mission";
 import {Pets} from "../../core/database/game/models/Pet";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
+import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 
 /**
  * get the amount of gems a user has
@@ -206,7 +207,6 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			await player.addMoney({
-				entity: player,
 				amount: calculateGemsToMoneyRatio(),
 				channel: message.sentMessage.channel,
 				language: translationModule.language,
@@ -237,7 +237,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
-			await giveItemToPlayer(player, item, message.language, message.user, message.sentMessage.channel);
+			await giveItemToPlayer(player, item, message.language, message.user, message.sentMessage.channel, await InventorySlots.getOfPlayer(player.id));
 			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.TREASURE).then();
 			return true;
@@ -266,7 +266,6 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 				return false;
 			}
 			await player.addScore({
-				entity: player,
 				amount: 1000,
 				channel: message.sentMessage.channel,
 				language: translationModule.language,
@@ -309,15 +308,16 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 				return false;
 			}
 			const pet = await PetEntities.getById(player.petId);
+			const petModel = await Pets.getById(pet.id);
 			const sentenceGotten = translationModule.getRandom(`items.lovePointsValue.advice.${pet.getLoveLevelNumber()}`);
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
 					.setDescription(translationModule.format("items.lovePointsValue.giveDesc", {
-						petName: pet.displayName(message.language),
+						petName: pet.displayName(petModel, message.language),
 						actualLP: pet.lovePoints,
-						regime: pet.getDietDisplay(message.language),
-						nextFeed: pet.getFeedCooldownDisplay(message.language),
+						regime: petModel.getDietDisplay(message.language),
+						nextFeed: pet.getFeedCooldownDisplay(petModel, message.language),
 						commentOnResult: sentenceGotten
 					}))
 				]

@@ -56,7 +56,7 @@ function getEndCallbackGuildElder(
 						.setAuthor(
 							{
 								name: textInformation.guildElderModule.format("successElderAddTitle", {
-									pseudo: escapeUsername(await elder.getPseudo(textInformation.guildElderModule.language)),
+									pseudo: escapeUsername(elder.getPseudo(textInformation.guildElderModule.language)),
 									guildName: guild.name
 								}),
 								iconURL: chief.user.displayAvatarURL()
@@ -155,7 +155,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await new DraftBotValidateReactionMessage(
 		interaction.user, endCallback).formatAuthor(guildElderModule.get("elderAddTitle"), interaction.user)
 		.setDescription(guildElderModule.format("elderAdd", {
-			elder: escapeUsername(await elderPlayer.getPseudo(language)),
+			elder: escapeUsername(elderPlayer.getPseudo(language)),
 			guildName: guild.name
 		}))
 		.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER, collector));

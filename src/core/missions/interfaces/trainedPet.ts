@@ -1,5 +1,6 @@
 import {IMission} from "../IMission";
 import Player from "../../database/game/models/Player";
+import {PetEntities} from "../../database/game/models/PetEntity";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
@@ -14,8 +15,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	initialNumberDone(player: Player): Promise<number> {
-		return Promise.resolve(player.Pet ? player.Pet.getLoveLevelNumber() >= 5 ? 1 : 0 : 0);
+	async initialNumberDone(player: Player): Promise<number> {
+		return player.petId ? (await PetEntities.getById(player.petId)).getLoveLevelNumber() >= 5 ? 1 : 0 : 0;
 	},
 
 	updateSaveBlob(): Promise<Buffer> {

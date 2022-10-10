@@ -67,6 +67,15 @@ export class MissionSlots {
 		}
 		return missionSlots;
 	}
+
+	static async getCampaignOfPlayer(playerId: number): Promise<MissionSlot> {
+		return await MissionSlot.findOne({
+			where: {
+				playerId,
+				expiresAt: null
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {

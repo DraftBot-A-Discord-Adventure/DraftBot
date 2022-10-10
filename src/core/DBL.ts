@@ -1,10 +1,10 @@
-import {Entities} from "./database/game/models/Entity";
 import {botConfig, draftBotClient, draftBotInstance} from "./bot";
 import {Constants} from "./Constants";
 import {TextChannel} from "discord.js";
 import {Webhook} from "@top-gg/sdk";
 import express = require("express");
 import {Express} from "express";
+import {Players} from "./database/game/models/Player";
 
 /**
  * DBL is an API that allows players to vote for rewards in game
@@ -34,9 +34,9 @@ export class DBL {
 	 * @returns {Promise<void>}
 	 */
 	static async userDBLVote(discordId: string): Promise<void> {
-		const [voter] = await Entities.getOrRegister(discordId);
-		voter.Player.topggVoteAt = new Date();
-		await voter.Player.save();
+		const [voter] = await Players.getOrRegister(discordId);
+		voter.topggVoteAt = new Date();
+		await voter.save();
 		draftBotInstance.logsDatabase.logVote(discordId).then();
 		await draftBotClient.shard.broadcastEval((client, context) => {
 			const guild = client.guilds.cache.get(context.config.MAIN_SERVER_ID);
@@ -81,11 +81,11 @@ export class DBL {
 	 * @returns {Promise<number>} - time in ms, can be negative if the time already passed
 	 */
 	static async getTimeBeforeDBLRoleRemove(userId: string): Promise<number> {
-		const [user] = await Entities.getOrRegister(userId);
+		const [user] = await Players.getOrRegister(userId);
 		if (!user) {
 			return -1;
 		}
-		return user.Player.topggVoteAt.valueOf() + Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - Date.now();
+		return user.topggVoteAt.valueOf() + Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - Date.now();
 	}
 
 	/**
@@ -102,8 +102,8 @@ export class DBL {
 	 * @param userId
 	 */
 	static async removeDBLRole(userId: string): Promise<void> {
-		const [entity] = await Entities.getOrRegister(userId);
-		if (new Date().valueOf() - entity.Player.topggVoteAt.valueOf() < Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
+		const [player] = await Players.getOrRegister(userId);
+		if (new Date().valueOf() - player.topggVoteAt.valueOf() < Constants.TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
 			return;
 		}
 		const member = await (await draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID)).members.fetch(userId);

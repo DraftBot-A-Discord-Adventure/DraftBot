@@ -34,9 +34,9 @@ function getEndCallbackChangeChief(
 					await draftBotClient.users.fetch(member.discordUserId.toString()),
 					tr.get("DM.title"),
 					format(tr.get("DM.description"), {
-						old: await formerChief.getPseudo(tr.language),
+						old: formerChief.getPseudo(tr.language),
 						oldID: formerChief.discordUserId,
-						new: await userToPromote.getPseudo(tr.language),
+						new: userToPromote.getPseudo(tr.language),
 						newID: userToPromote.discordUserId,
 						guild: guild.name
 					}),
@@ -67,9 +67,9 @@ function getEndCallbackChangeChief(
 					new DraftBotEmbed()
 						.formatAuthor(tr.get("reply.title"), interaction.user)
 						.setDescription(format(tr.get("reply.description"), {
-							old: await formerChief.getPseudo(tr.language),
+							old: formerChief.getPseudo(tr.language),
 							oldID: formerChief.discordUserId,
-							new: await userToPromote.getPseudo(tr.language),
+							new: userToPromote.getPseudo(tr.language),
 							newID: userToPromote.discordUserId,
 							guild: guild.name
 						}))

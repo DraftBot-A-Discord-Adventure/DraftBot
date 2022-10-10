@@ -55,7 +55,7 @@ async function conditionAreFulfilledForUnlocking(playerCouple: PlayerCouple, tex
 		await replyErrorMessage(textInformation.interaction, textInformation.language,
 			textInformation.unlockModule.format("noMoney", {
 				money: UnlockConstants.PRICE_FOR_UNLOCK - playerCouple.unlocker.money,
-				pseudo: await playerCouple.locked.getPseudo(textInformation.language)
+				pseudo: playerCouple.locked.getPseudo(textInformation.language)
 			})
 		);
 		return false;
@@ -80,7 +80,6 @@ function callbackUnlockCommand(
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK);
 				await playerUnlocker.addMoney({
-					entity: playerUnlocker,
 					amount: -UnlockConstants.PRICE_FOR_UNLOCK,
 					channel: textInformation.interaction.channel,
 					language: textInformation.language,
@@ -94,12 +93,12 @@ function callbackUnlockCommand(
 				const successEmbed = new DraftBotEmbed()
 					.setAuthor({
 						name: textInformation.unlockModule.format("unlockedTitle", {
-							pseudo: await playerToUnlock.getPseudo(textInformation.language)
+							pseudo: playerToUnlock.getPseudo(textInformation.language)
 						}),
 						iconURL: textInformation.interaction.user.displayAvatarURL()
 					})
 					.setDescription(textInformation.unlockModule.format("unlockSuccess", {
-						pseudo: await playerToUnlock.getPseudo(textInformation.language)
+						pseudo: playerToUnlock.getPseudo(textInformation.language)
 					}));
 				await textInformation.interaction.followUp({embeds: [successEmbed]});
 				return;
@@ -174,7 +173,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed()
 		.formatAuthor(unlockModule.get("unlockTitle"), interaction.user)
 		.setDescription(unlockModule.format("confirmUnlock", {
-			pseudo: await lockedPlayer.getPseudo(language),
+			pseudo: lockedPlayer.getPseudo(language),
 			price: UnlockConstants.PRICE_FOR_UNLOCK
 		}));
 

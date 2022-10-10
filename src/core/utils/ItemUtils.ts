@@ -9,17 +9,17 @@ import {Armors} from "../database/game/models/Armor";
 import {Weapons} from "../database/game/models/Weapon";
 import Potion, {Potions} from "../database/game/models/Potion";
 import {ObjectItems} from "../database/game/models/ObjectItem";
-import Entity, {Entities} from "../database/game/models/Entity";
-import InventorySlot from "../database/game/models/InventorySlot";
+import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
-import Player from "../database/game/models/Player";
 import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {Tags} from "../database/game/models/Tag";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../bot";
+import Player, {Players} from "../database/game/models/Player";
+import {InventoryInfos} from "../database/game/models/InventoryInfo";
 
 /**
  * Get the value of an item
@@ -31,51 +31,48 @@ export const getItemValue = function(item: GenericItemModel): number {
 
 /**
  * Count how many potions the player have
- * @param player
+ * @param invSlots
  */
-export const countNbOfPotions = function(player: Player): number {
-	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
-	for (const slot of player.InventorySlots) {
-		nbPotions += slot.isPotion() ? 1 : 0;
-	}
-	return nbPotions;
+export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
+	return invSlots.filter(slot => slot.isPotion()).length;
 };
 
 /**
  * Check the missions of the player corresponding to a drink of a given potion
  * @param channel
  * @param language
- * @param entity
+ * @param player
  * @param potion
+ * @param inventorySlots
  */
-export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, entity: Entity, potion: Potion): Promise<void> {
-	await MissionsController.update(entity, channel, language, {missionId: "drinkPotion"});
-	await MissionsController.update(entity, channel, language, {
+export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: string, player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
+	await MissionsController.update(player, channel, language, {missionId: "drinkPotion"});
+	await MissionsController.update(player, channel, language, {
 		missionId: "drinkPotionRarity",
 		params: {rarity: potion.rarity}
 	});
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity, channel, language, {
+			await MissionsController.update(player, channel, language, {
 				missionId: tagsToVerify[i].textTag,
 				params: {tags: tagsToVerify}
 			});
 		}
 	}
 	if (potion.nature === Constants.NATURE.NONE) {
-		await MissionsController.update(entity, channel, language, {missionId: "drinkPotionWithoutEffect"});
+		await MissionsController.update(player, channel, language, {missionId: "drinkPotionWithoutEffect"});
 	}
-	await MissionsController.update(entity, channel, language, {
+	await MissionsController.update(player, channel, language, {
 		missionId: "havePotions",
-		count: countNbOfPotions(entity.Player),
+		count: countNbOfPotions(inventorySlots),
 		set: true
 	});
 };
 
 /**
  * Sells or keep the item depending on the parameters
- * @param entity
+ * @param player
  * @param keepOriginal
  * @param discordUser
  * @param channel
@@ -86,10 +83,11 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
  * @param resaleMultiplier
  * @param resaleMultiplierActual
  * @param autoSell
+ * @param inventorySlots
  */
 // eslint-disable-next-line max-params
 const sellOrKeepItem = async function(
-	entity: Entity,
+	player: Player,
 	keepOriginal: boolean,
 	discordUser: User,
 	channel: TextBasedChannel,
@@ -99,10 +97,11 @@ const sellOrKeepItem = async function(
 	itemToReplaceInstance: GenericItemModel,
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
-	autoSell: boolean
+	autoSell: boolean,
+	inventorySlots: InventorySlot[]
 ): Promise<void> {
 	const tr = Translations.getModule("commands.inventory", language);
-	entity = await Entities.getById(entity.id);
+	player = await Players.getById(player.id);
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
@@ -115,21 +114,21 @@ const sellOrKeepItem = async function(
 				where: {
 					slot: itemToReplace.slot,
 					itemCategory: itemToReplace.itemCategory,
-					playerId: entity.Player.id
+					playerId: player.id
 				}
 			});
-		await MissionsController.update(entity, channel, language, {
+		await MissionsController.update(player, channel, language, {
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
-		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
+		draftBotInstance.logsDatabase.logItemGain(player.discordUserId, item).then();
 		await channel.send({embeds: [menuEmbed]});
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
 	const trSell = Translations.getModule("commands.sell", language);
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
-		await MissionsController.update(entity, channel, language, { missionId: "findOrBuyItem" });
+		await MissionsController.update(player, channel, language, { missionId: "findOrBuyItem" });
 		await channel.send(
 			{
 				embeds: [
@@ -148,19 +147,18 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	await entity.Player.addMoney({
-		entity,
+	await player.addMoney({
 		amount: money,
 		channel,
 		language,
 		reason: NumberChangeReason.ITEM_SELL
 	});
-	await MissionsController.update(entity, channel, language, {
+	await MissionsController.update(player, channel, language, {
 		missionId: "sellItemWithGivenCost",
 		params: {itemCost: money}
 	});
-	await entity.Player.save();
-	draftBotInstance.logsDatabase.logItemSell(entity.discordUserId, item).then();
+	await player.save();
+	draftBotInstance.logsDatabase.logItemSell(player.discordUserId, item).then();
 	await channel.send({
 		embeds: [
 			new DraftBotEmbed()
@@ -175,11 +173,11 @@ const sellOrKeepItem = async function(
 				)
 		]
 	});
-	await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	await MissionsController.update(entity, channel, language, {
+	await MissionsController.update(player, channel, language, {missionId: "findOrBuyItem"});
+	[player] = await Players.getOrRegister(player.discordUserId);
+	await MissionsController.update(player, channel, language, {
 		missionId: "havePotions",
-		count: countNbOfPotions(entity.Player),
+		count: countNbOfPotions(inventorySlots),
 		set: true
 	});
 };
@@ -188,23 +186,25 @@ const sellOrKeepItem = async function(
  * Manage more than 2 item to choose to keep in the inventory
  * @param items
  * @param discordUser
- * @param entity
+ * @param player
  * @param channel
  * @param item
  * @param resaleMultiplier
  * @param resaleMultiplierActual
  * @param tr
+ * @param inventorySlots
  */
 // eslint-disable-next-line max-params
 async function manageMoreThan2ItemsSwitching(
 	items: InventorySlot[],
 	discordUser: User,
-	entity: Entity,
+	player: Player,
 	channel: TextBasedChannel,
 	item: GenericItemModel,
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
-	tr: TranslationModule
+	tr: TranslationModule,
+	inventorySlots: InventorySlot[]
 ): Promise<void> {
 	const choiceList: ChoiceItem[] = [];
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
@@ -219,10 +219,10 @@ async function manageMoreThan2ItemsSwitching(
 		choiceList,
 		discordUser.id,
 		async (replacedItem: InventorySlot) => {
-			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			[player] = await Players.getOrRegister(player.discordUserId);
 			BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
-				entity,
+				player,
 				false,
 				discordUser,
 				channel,
@@ -232,14 +232,15 @@ async function manageMoreThan2ItemsSwitching(
 				await replacedItem.getItem(),
 				resaleMultiplier,
 				resaleMultiplierActual,
-				false
+				false,
+				inventorySlots
 			);
 		},
 		async (endMessage: DraftBotListChoiceMessage) => {
 			if (endMessage.isCanceled()) {
 				BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 				await sellOrKeepItem(
-					entity,
+					player,
 					true,
 					discordUser,
 					channel,
@@ -249,7 +250,8 @@ async function manageMoreThan2ItemsSwitching(
 					null,
 					resaleMultiplier,
 					resaleMultiplierActual,
-					false
+					false,
+					inventorySlots
 				);
 			}
 		}
@@ -263,21 +265,23 @@ async function manageMoreThan2ItemsSwitching(
 
 /**
  * Gives an item to a player
- * @param entity
+ * @param player
  * @param item
  * @param language
  * @param discordUser
  * @param channel
+ * @param inventorySlots
  * @param resaleMultiplierNew
  * @param resaleMultiplierActual
  */
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
-	entity: Entity,
+	player: Player,
 	item: GenericItemModel,
 	language: string,
 	discordUser: User,
 	channel: TextBasedChannel,
+	inventorySlots: InventorySlot[],
 	resaleMultiplierNew = 1,
 	resaleMultiplierActual = 1
 ): Promise<void> {
@@ -291,43 +295,42 @@ export const giveItemToPlayer = async function(
 		]
 	});
 
-	if (await entity.Player.giveItem(item) === true) {
-		await MissionsController.update(entity, channel, language, {missionId: "findOrBuyItem"});
-		const entityForMC = (await Entities.getOrRegister(entity.discordUserId))[0];
-		await MissionsController.update(entityForMC, channel, language, {
+	if (await player.giveItem(item) === true) {
+		await MissionsController.update(player, channel, language, {missionId: "findOrBuyItem"});
+		await MissionsController.update(player, channel, language, {
 			missionId: "havePotions",
-			count: countNbOfPotions(entityForMC.Player),
+			count: countNbOfPotions(inventorySlots),
 			set: true
 		});
-		await MissionsController.update(entity, channel, language, {
+		await MissionsController.update(player, channel, language, {
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
-		draftBotInstance.logsDatabase.logItemGain(entity.discordUserId, item).then();
+		draftBotInstance.logsDatabase.logItemGain(player.discordUserId, item).then();
 		return;
 	}
 
 	const category = item.getCategory();
-	const maxSlots = entity.Player.InventoryInfo.slotLimitForCategory(category);
+	const maxSlots = (await InventoryInfos.getOfPlayer(player.id)).slotLimitForCategory(category);
 	let itemToReplace: InventorySlot;
 	let autoSell = false;
 	if (maxSlots < 3) {
-		itemToReplace = entity.Player.InventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
+		itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
 	}
 	else {
-		const items = entity.Player.InventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
+		const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
 		if (items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length) {
 			autoSell = true;
 		}
 		else {
-			await manageMoreThan2ItemsSwitching(items, discordUser, entity, channel, item, resaleMultiplier, resaleMultiplierActual, tr);
+			await manageMoreThan2ItemsSwitching(items, discordUser, player, channel, item, resaleMultiplier, resaleMultiplierActual, tr, inventorySlots);
 			return;
 		}
 	}
 	if (autoSell) {
 		await sellOrKeepItem(
-			entity,
+			player,
 			true,
 			discordUser,
 			channel,
@@ -337,7 +340,8 @@ export const giveItemToPlayer = async function(
 			null,
 			resaleMultiplier,
 			resaleMultiplierActual,
-			true
+			true,
+			inventorySlots
 		);
 		return;
 	}
@@ -346,10 +350,10 @@ export const giveItemToPlayer = async function(
 	await new DraftBotValidateReactionMessage(
 		discordUser,
 		async (msg: DraftBotValidateReactionMessage) => {
-			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			[player] = await Players.getOrRegister(player.discordUserId);
 			BlockingUtils.unblockPlayer(discordUser.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
-				entity,
+				player,
 				!msg.isValidated(),
 				discordUser,
 				channel,
@@ -359,7 +363,8 @@ export const giveItemToPlayer = async function(
 				itemToReplaceInstance,
 				resaleMultiplier,
 				resaleMultiplierActual,
-				false
+				false,
+				inventorySlots
 			);
 		}
 	)
@@ -478,10 +483,10 @@ export const generateRandomObject = async function(objectType: number = null, mi
  * @param {User} discordUser
  * @param {TextBasedChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entities} entity
+ * @param {Player} player
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, entity: Entity): Promise<void> {
-	await giveItemToPlayer(entity, await generateRandomItem(), language, discordUser, channel);
+export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: string, player: Player): Promise<void> {
+	await giveItemToPlayer(player, await generateRandomItem(), language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
 };
 
 type TemporarySlotAndItemType = { slot: InventorySlot, item: GenericItemModel };

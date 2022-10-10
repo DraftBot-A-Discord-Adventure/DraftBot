@@ -4,10 +4,10 @@ import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {CommandInteraction, User} from "discord.js";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
-import {Entities} from "../database/game/models/Entity";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {Players} from "../database/game/models/Player";
 
 /**
  * Reasons when the shop ends
@@ -388,18 +388,17 @@ export class DraftBotShopMessageBuilder {
 		);
 	}
 
-	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
+	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Players.getOrRegister(userId))[0].money;
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
-		const [entity] = await Entities.getOrRegister(userId);
-		await entity.Player.addMoney({
-			entity,
+		const [player] = await Players.getOrRegister(userId);
+		await player.addMoney({
 			amount: -amount,
 			channel: null, // It is negative, so we don't care about the channel and language
 			language: "",
 			reason: NumberChangeReason.SHOP
 		});
-		await entity.Player.save();
+		await player.save();
 	};
 
 	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */

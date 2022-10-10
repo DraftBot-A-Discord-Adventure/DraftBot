@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import Entity from "../database/game/models/Entity";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
@@ -13,10 +12,12 @@ import {sendErrorMessage} from "../utils/ErrorUtils";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import Player from "../database/game/models/Player";
+import {InventorySlots} from "../database/game/models/InventorySlot";
 
 /**
  * Get the callback of the shop small event
- * @param entity
+ * @param player
  * @param price
  * @param interaction
  * @param language
@@ -24,32 +25,31 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
  * @param randomItem
  */
 function callbackShopSmallEvent(
-	entity: Entity,
+	player: Player,
 	price: number,
 	interaction: CommandInteraction,
 	language: string,
 	translationShop: TranslationModule,
 	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.MERCHANT);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {
-			if (entity.Player.money < price) {
+			if (player.money < price) {
 				await sendErrorMessage(interaction.user, interaction, language,
 					translationShop.format("error.cannotBuy", {
-						missingMoney: price - entity.Player.money
+						missingMoney: price - player.money
 					})
 				);
 				return;
 			}
-			await giveItemToPlayer(entity, randomItem, language, interaction.user, interaction.channel, Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
-			await entity.Player.addMoney({
-				entity,
+			await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+			await player.addMoney({
 				amount: -price,
 				channel: interaction.channel,
 				language,
 				reason: NumberChangeReason.SMALL_EVENT
 			});
-			await entity.Player.save();
+			await player.save();
 			return;
 		}
 		await sendErrorMessage(interaction.user, interaction, language,
@@ -70,16 +70,16 @@ export const smallEvent: SmallEvent = {
 	 * Find a merchant who sells you a random item at a cheap price (or is it)
 	 * @param interaction
 	 * @param language
-	 * @param entity
+	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(Constants.RARITY.SPECIAL);
 		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
 		const translationShop = Translations.getModule("smallEvents.shop", language);
-		const endCallback = callbackShopSmallEvent(entity, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
+		const endCallback = callbackShopSmallEvent(player, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
 			endCallback
@@ -97,6 +97,6 @@ export const smallEvent: SmallEvent = {
 						price: price,
 						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${translationShop.get(`types.${randomItem.getCategory()}`)}`
 					}))
-			.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
+			.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}
 };
