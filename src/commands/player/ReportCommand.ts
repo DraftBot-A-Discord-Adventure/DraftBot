@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entities, Entity} from "../../core/database/game/models/Entity";
 import BigEvent, {BigEvents} from "../../core/database/game/models/BigEvent";
 import {MapLinks} from "../../core/database/game/models/MapLink";
 import {MapLocations} from "../../core/database/game/models/MapLocation";
@@ -27,16 +26,17 @@ import {ReportConstants} from "../../core/constants/ReportConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
 /**
  * Initiates a new player on the map
- * @param entity
+ * @param player
  */
-async function initiateNewPlayerOnTheAdventure(entity: Entity): Promise<void> {
-	await Maps.startTravel(entity.Player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), Date.now(), NumberChangeReason.NEW_PLAYER);
-	await entity.Player.save();
+async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
+	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), Date.now(), NumberChangeReason.NEW_PLAYER);
+	await player.save();
 }
 
 /* ---------------------------------------------------------------
@@ -44,23 +44,23 @@ SMALL EVENTS FUNCTIONS
 --------------------------------------------------------------- */
 
 /**
- * Returns if the entity reached a stopping point (= small event)
- * @param {Entities} entity
+ * Returns if the player reached a stopping point (= small event)
+ * @param {Player} player
  * @param date
  * @returns {boolean}
  */
-async function needSmallEvent(entity: Entity, date: Date): Promise<boolean> {
-	return (await TravelTime.getTravelData(entity.Player, date)).nextSmallEventTime <= date.valueOf();
+async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
+	return (await TravelTime.getTravelData(player, date)).nextSmallEventTime <= date.valueOf();
 }
 
 /**
  * Executes a small event
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  * @param forced
  */
-async function executeSmallEvent(interaction: CommandInteraction, language: string, entity: Entity, forced: string): Promise<void> {
+async function executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, forced: string): Promise<void> {
 	// Pick random event
 	let event: string;
 	if (forced === null) {
@@ -73,7 +73,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 				await interaction.editReply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
 				return;
 			}
-			if (await file.smallEvent.canBeExecuted(entity)) {
+			if (await file.smallEvent.canBeExecuted(player)) {
 				updatedKeys.push(keys[i]);
 				totalSmallEventsRarity += Data.getModule(`smallEvents.${keys[i]}`).getNumber("rarity");
 			}
@@ -104,10 +104,10 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 				.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user)
 				.setDescription(`${Data.getModule(`smallEvents.${event}`).getString("emote")} `);
 
-			draftBotInstance.logsDatabase.logSmallEvent(entity.discordUserId, event).then();
-			await smallEvent.executeSmallEvent(interaction, language, entity, seEmbed);
+			draftBotInstance.logsDatabase.logSmallEvent(player.discordUserId, event).then();
+			await smallEvent.executeSmallEvent(interaction, language, player, seEmbed);
 
-			await MissionsController.update(entity, interaction.channel, language, {missionId: "doReports"});
+			await MissionsController.update(player, interaction.channel, language, {missionId: "doReports"});
 		}
 		catch (e) {
 			console.error(e);
@@ -118,31 +118,31 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 	}
 
 	// Save
-	await PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, Date.now()).save();
+	await PlayerSmallEvents.createPlayerSmallEvent(player.id, event, Date.now()).save();
 }
 
 /**
  * Check all missions to check when you execute a big event
- * @param entity
+ * @param player
  * @param interaction
  * @param language
  */
-async function completeMissionsBigEvent(entity: Entity, interaction: CommandInteraction, language: string): Promise<void> {
-	await MissionsController.update(entity, interaction.channel, language, {
+async function completeMissionsBigEvent(player: Player, interaction: CommandInteraction, language: string): Promise<void> {
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "travelHours", params: {
-			travelTime: await entity.Player.getCurrentTripDuration()
+			travelTime: await player.getCurrentTripDuration()
 		}
 	});
-	const endMapId = (await MapLinks.getById(entity.Player.mapLinkId)).endMap;
-	await MissionsController.update(entity, interaction.channel, language, {
+	const endMapId = (await MapLinks.getById(player.mapLinkId)).endMap;
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "goToPlace",
 		params: {mapId: endMapId}
 	});
-	await MissionsController.update(entity, interaction.channel, language, {
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "exploreDifferentPlaces",
 		params: {placeId: endMapId}
 	});
-	await MissionsController.update(entity, interaction.channel, language, {
+	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "fromPlaceToPlace",
 		params: {mapId: endMapId}
 	});
@@ -150,40 +150,40 @@ async function completeMissionsBigEvent(entity: Entity, interaction: CommandInte
 
 /**
  * If the entity reached his destination (= big event)
- * @param {Entities} entity
+ * @param {Player} player
  * @param date
  * @returns {boolean}
  */
-async function needBigEvent(entity: Entity, date: Date): Promise<boolean> {
-	return await Maps.isArrived(entity.Player, date);
+async function needBigEvent(player: Player, date: Date): Promise<boolean> {
+	return await Maps.isArrived(player, date);
 }
 
 /**
  * Send where the player is currently staying on the road
- * @param entity
+ * @param player
  * @param interaction
  * @param language
  * @param date
  * @param effect
  */
-async function sendTravelPath(entity: Entity, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
+async function sendTravelPath(player: Player, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
-	const timeData = await TravelTime.getTravelData(entity.Player, date);
+	const timeData = await TravelTime.getTravelData(player, date);
 	travelEmbed.formatAuthor(tr.get("travelPathTitle"), interaction.user);
-	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, date, effect));
+	travelEmbed.setDescription(await Maps.generateTravelPathString(player, language, date, effect));
 	travelEmbed.addFields({
 		name: tr.get("startPoint"),
-		value: (await entity.Player.getPreviousMap()).getDisplayName(language),
+		value: (await player.getPreviousMap()).getDisplayName(language),
 		inline: true
 	});
 	travelEmbed.addFields({
 		name: tr.get("endPoint"),
-		value: (await entity.Player.getDestination()).getDisplayName(language),
+		value: (await player.getDestination()).getDisplayName(language),
 		inline: true
 	});
 	if (effect !== null) {
-		const errorMessageObject = await effectsErrorTextValue(interaction.user, language, entity);
+		const errorMessageObject = await effectsErrorTextValue(interaction.user, language, player);
 		travelEmbed.addFields({
 			name: errorMessageObject.title,
 			value: errorMessageObject.description,
@@ -201,7 +201,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 			});
 		}
 		else {
-			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 			const timeBeforeSmallEvent = parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language);
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
@@ -219,7 +219,7 @@ async function sendTravelPath(entity: Entity, interaction: CommandInteraction, l
 
 	travelEmbed.addFields({
 		name: tr.get("collectedPointsTitle"),
-		value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(entity.Player)}`,
+		value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
 		inline: true
 	});
 
@@ -237,19 +237,19 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * Creates the description for a chooseDestination embed
  * @param tr
  * @param destinationMaps
- * @param entity
+ * @param player
  * @param language
  */
 async function createDescriptionChooseDestination(
 	tr: TranslationModule,
 	destinationMaps: number[],
-	entity: Entity,
+	player: Player,
 	language: string
 ): Promise<string> {
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
-		const link = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[i]);
+		const link = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[i]);
 		const duration = minutesToHours(link.tripDuration);
 		const displayedDuration = RandomUtils.draftbotRandom.bool() ? duration : "?";
 		// we have to convert the duration to hours if it is not unknown
@@ -260,14 +260,14 @@ async function createDescriptionChooseDestination(
 
 /**
  * Function called to display the direction chosen by a player
- * @param entity
+ * @param player
  * @param map
  * @param interaction
  * @param language
  * @returns {Promise<void>}
  */
 async function destinationChoseMessage(
-	entity: Entity,
+	player: Player,
 	map: number,
 	interaction: CommandInteraction,
 	language: string
@@ -279,7 +279,7 @@ async function destinationChoseMessage(
 	const mapInstance = await MapLocations.getById(map);
 	const destinationEmbed = new DraftBotEmbed();
 	destinationEmbed.formatAuthor(tr.get("destinationTitle"), user);
-	const tripDuration = await entity.Player.getCurrentTripDuration();
+	const tripDuration = await player.getCurrentTripDuration();
 	if (tripDuration < 1) {
 		destinationEmbed.setDescription(tr.format("choseMapMinutes", {
 			mapPrefix: typeTr.get(`types.${mapInstance.type}.prefix`),
@@ -301,36 +301,36 @@ async function destinationChoseMessage(
 
 /**
  * Sends a message so that the player can choose where to go
- * @param entity
+ * @param player
  * @param interaction
  * @param language
  * @param restrictedMapType
  */
 async function chooseDestination(
-	entity: Entity,
+	player: Player,
 	interaction: CommandInteraction,
 	language: string,
 	restrictedMapType: string
 ): Promise<void> {
-	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
-	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
+	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
+	const destinationMaps = await Maps.getNextPlayerAvailableMaps(player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		console.log(`${interaction.user} hasn't any destination map (current map: ${await entity.Player.getDestinationId()}, restrictedMapType: ${restrictedMapType})`);
+		console.log(`${interaction.user} hasn't any destination map (current map: ${await player.getDestinationId()}, restrictedMapType: ${restrictedMapType})`);
 		return;
 	}
 
-	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
-		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
-		await destinationChoseMessage(entity, destinationMaps[0], interaction, language);
+	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
+		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
+		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
+		await destinationChoseMessage(player, destinationMaps[0], interaction, language);
 		return;
 	}
 
 	const tr = Translations.getModule("commands.report", language);
 	const chooseDestinationEmbed = new DraftBotEmbed();
 	chooseDestinationEmbed.formatAuthor(tr.get("destinationTitle"), interaction.user);
-	chooseDestinationEmbed.setDescription(await createDescriptionChooseDestination(tr, destinationMaps, entity, language));
+	chooseDestinationEmbed.setDescription(await createDescriptionChooseDestination(tr, destinationMaps, player, language));
 
 	const sentMessage = await interaction.channel.send({embeds: [chooseDestinationEmbed]});
 
@@ -338,7 +338,7 @@ async function chooseDestination(
 		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION, collector);
 
 	collector.on("collect", () => {
 		collector.stop();
@@ -346,10 +346,10 @@ async function chooseDestination(
 
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
-		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
-		await Maps.startTravel(entity.Player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
-		await destinationChoseMessage(entity, mapId, interaction, language);
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
+		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
+		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
+		await destinationChoseMessage(player, mapId, interaction, language);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
 
 	for (let i = 0; i < destinationMaps.length; ++i) {
@@ -364,70 +364,70 @@ async function chooseDestination(
 
 /**
  * Updates the player's information depending on the random possibility drawn
- * @param entity
+ * @param player
  * @param randomPossibility
  * @param textInformation
  * @param changes
  */
 async function updatePlayerInfos(
-	entity: Entity,
+	player: Player,
 	randomPossibility: Possibility,
 	textInformation: TextInformation,
 	changes: { scoreChange: number, moneyChange: number }
 ): Promise<void> {
-	await entity.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+	await player.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	const valuesToEditParameters = {
-		entity,
+		entity: player,
 		channel: textInformation.interaction.channel,
 		language: textInformation.language,
 		reason: NumberChangeReason.BIG_EVENT
 	};
-	await entity.Player.addScore(Object.assign(valuesToEditParameters, {amount: changes.scoreChange}));
-	await entity.Player.addMoney(Object.assign(valuesToEditParameters, {amount: changes.moneyChange}));
-	await entity.Player.addExperience(Object.assign(valuesToEditParameters, {amount: randomPossibility.experience}));
+	await player.addScore(Object.assign(valuesToEditParameters, {amount: changes.scoreChange}));
+	await player.addMoney(Object.assign(valuesToEditParameters, {amount: changes.moneyChange}));
+	await player.addExperience(Object.assign(valuesToEditParameters, {amount: randomPossibility.experience}));
 
 	if (randomPossibility.nextEvent !== undefined) {
-		entity.Player.nextEvent = randomPossibility.nextEvent;
+		player.nextEvent = randomPossibility.nextEvent;
 	}
 
-	await entity.Player.setLastReportWithEffect(
+	await player.setLastReportWithEffect(
 		randomPossibility.lostTime,
 		randomPossibility.effect
 	);
 	if (randomPossibility.item) {
-		await giveRandomItem((await textInformation.interaction.guild.members.fetch(entity.discordUserId)).user, textInformation.interaction.channel, textInformation.language, entity);
+		await giveRandomItem((await textInformation.interaction.guild.members.fetch(player.discordUserId)).user, textInformation.interaction.channel, textInformation.language, player);
 	}
 
 	if (randomPossibility.oneshot) {
-		await entity.addHealth(-entity.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
+		await player.addHealth(-player.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	}
 
 	if (randomPossibility.eventId === 0) {
-		await entity.Player.addMoney({
-			entity,
-			amount: -entity.Player.money,
+		await player.addMoney({
+			entity: player,
+			amount: -player.money,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
 			reason: NumberChangeReason.BIG_EVENT
 		});
-		await entity.Player.addScore({
-			entity: entity,
-			amount: -entity.Player.score,
+		await player.addScore({
+			entity: player,
+			amount: -player.score,
 			channel: textInformation.interaction.channel,
 			language: textInformation.language,
 			reason: NumberChangeReason.BIG_EVENT
 		});
 		if (randomPossibility.possibilityKey !== "end") {
-			await entity.Player.addMoney({
-				entity,
-				amount: 10 - entity.Player.money,
+			await player.addMoney({
+				entity: player,
+				amount: 10 - player.money,
 				channel: textInformation.interaction.channel,
 				language: textInformation.language,
 				reason: NumberChangeReason.BIG_EVENT
 			});
-			await entity.Player.addScore({
-				entity: entity,
-				amount: 100 - entity.Player.score,
+			await player.addScore({
+				entity: player,
+				amount: 100 - player.score,
 				channel: textInformation.interaction.channel,
 				language: textInformation.language,
 				reason: NumberChangeReason.BIG_EVENT
@@ -439,12 +439,12 @@ async function updatePlayerInfos(
 /**
  * Get the changes between before and after the possibility treated
  * @param time
- * @param entity
+ * @param player
  * @param randomPossibility
  */
-async function getChanges(time: number, entity: Entity, randomPossibility: Possibility): Promise<{ scoreChange: number, moneyChange: number }> {
-	const scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(entity.Player);
-	let moneyChange = randomPossibility.money + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + entity.Player.level / 5 - 1));
+async function getChanges(time: number, player: Player, randomPossibility: Possibility): Promise<{ scoreChange: number, moneyChange: number }> {
+	const scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(player);
+	let moneyChange = randomPossibility.money + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (randomPossibility.money < 0 && moneyChange > 0) {
 		moneyChange = Math.round(randomPossibility.money / 2);
 	}
@@ -454,17 +454,17 @@ async function getChanges(time: number, entity: Entity, randomPossibility: Possi
 /**
  * Get the description of the drawn possibility and update the player
  * @param time
- * @param entity
+ * @param player
  * @param randomPossibility
  * @param textInformation
  */
 async function getDescriptionPossibilityResult(
 	time: number,
-	entity: Entity,
+	player: Player,
 	randomPossibility: Possibility,
 	textInformation: TextInformation
 ): Promise<string> {
-	const changes = await getChanges(time, entity, randomPossibility);
+	const changes = await getChanges(time, player, randomPossibility);
 	let result = "";
 	result += textInformation.tr.format("points", {score: changes.scoreChange});
 	if (changes.moneyChange !== 0) {
@@ -488,7 +488,7 @@ async function getDescriptionPossibilityResult(
 
 	emojiEnd = randomPossibility.oneshot === true ? ` ${EffectsConstants.EMOJI_TEXT.DEAD} ` : emojiEnd;
 
-	await updatePlayerInfos(entity, randomPossibility, textInformation, changes);
+	await updatePlayerInfos(player, randomPossibility, textInformation, changes);
 
 	return textInformation.tr.format("doPossibility", {
 		pseudo: textInformation.interaction.user,
@@ -502,23 +502,22 @@ async function getDescriptionPossibilityResult(
 /**
  * @param textInformation
  * @param {Possibility} possibility
- * @param {Entities} entity
+ * @param {Player} player
  * @param {Number} time
  * @return {Promise<CommandInteraction>}
  */
 async function doPossibility(
 	textInformation: TextInformation,
 	possibility: Possibility[],
-	entity: Entity,
+	player: Player,
 	time: number
 ): Promise<Message> {
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	const player = entity.Player;
+	[player] = await Players.getOrRegister(player.discordUserId);
 	textInformation.tr = Translations.getModule("commands.report", textInformation.language);
 
 	if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") { // Don't do anything if the player ends the first report
-		draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, possibility[0].eventId, possibility[0].possibilityKey, 0).then();
-		BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
+		draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, possibility[0].eventId, possibility[0].possibilityKey, 0).then();
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 		return await textInformation.interaction.channel.send({
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
@@ -532,27 +531,27 @@ async function doPossibility(
 
 	const randomPossibilityIndex = RandomUtils.randInt(0, possibility.length);
 	const randomPossibility = possibility[randomPossibilityIndex];
-	draftBotInstance.logsDatabase.logBigEvent(entity.discordUserId, randomPossibility.eventId, randomPossibility.possibilityKey, randomPossibilityIndex).then();
-	const result = await getDescriptionPossibilityResult(time, entity, randomPossibility, textInformation);
+	draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, randomPossibility.eventId, randomPossibility.possibilityKey, randomPossibilityIndex).then();
+	const result = await getDescriptionPossibilityResult(time, player, randomPossibility, textInformation);
 
-	BlockingUtils.unblockPlayer(entity.discordUserId, BlockingConstants.REASONS.REPORT);
+	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await textInformation.interaction.channel.send({content: result});
 
-	if (!await player.killIfNeeded(entity, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
-		await chooseDestination(entity, textInformation.interaction, textInformation.language, randomPossibility.restrictedMaps);
+	if (!await player.killIfNeeded(player, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
+		await chooseDestination(player, textInformation.interaction, textInformation.language, randomPossibility.restrictedMaps);
 	}
 
-	await MissionsController.update(entity, textInformation.interaction.channel, textInformation.language, {missionId: "doReports"});
+	await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {missionId: "doReports"});
 	const tagsToVerify = (await Tags.findTagsFromObject(randomPossibility.id, Possibility.name)).concat(await Tags.findTagsFromObject(randomPossibility.eventId, BigEvent.name));
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
-			await MissionsController.update(entity, textInformation.interaction.channel, textInformation.language, {
+			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {
 				missionId: tagsToVerify[i].textTag,
 				params: {tags: tagsToVerify}
 			});
 		}
 	}
-	await entity.save();
+	await player.save();
 	await player.save();
 	return resultMsg;
 }
@@ -560,11 +559,11 @@ async function doPossibility(
 /**
  * @param textInformation
  * @param {BigEvent} event
- * @param {Entities} entity
+ * @param {Player} player
  * @param {Number} time
  * @return {Promise<void>}
  */
-async function doEvent(textInformation: TextInformation, event: BigEvent, entity: Entity, time: number): Promise<void> {
+async function doEvent(textInformation: TextInformation, event: BigEvent, player: Player, time: number): Promise<void> {
 	const eventDisplayed = await textInformation.interaction.editReply({
 		content: Translations.getModule("commands.report", textInformation.language).format("doEvent", {
 			pseudo: textInformation.interaction.user,
@@ -576,7 +575,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, entity
 		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === textInformation.interaction.user.id,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, BlockingConstants.REASONS.REPORT, collector);
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
@@ -589,7 +588,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, entity
 				possibilityKey: reaction.emoji.name
 			}
 		});
-		await doPossibility(textInformation, possibility, entity, time);
+		await doPossibility(textInformation, possibility, player, time);
 	});
 
 	collector.on("end", async (collected) => {
@@ -600,7 +599,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, entity
 					possibilityKey: "end"
 				}
 			});
-			await doPossibility(textInformation, possibility, entity, time);
+			await doPossibility(textInformation, possibility, player, time);
 		}
 	});
 	for (const reaction of reactions) {
@@ -615,17 +614,17 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, entity
  * Do a random big event
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  * @param forceSpecificEvent
  */
 async function doRandomBigEvent(
 	interaction: CommandInteraction,
 	language: string,
-	entity: Entity,
+	player: Player,
 	forceSpecificEvent: number
 ): Promise<void> {
-	await completeMissionsBigEvent(entity, interaction, language);
-	const travelData = await TravelTime.getTravelDataSimplified(entity.Player, new Date());
+	await completeMissionsBigEvent(player, interaction, language);
+	const travelData = await TravelTime.getTravelDataSimplified(player, new Date());
 	let time = forceSpecificEvent
 		? ReportConstants.TIME_MAXIMAL + 1
 		: millisecondsToMinutes(travelData.playerTravelledTime);
@@ -636,12 +635,12 @@ async function doRandomBigEvent(
 	let event;
 
 	// nextEvent is defined ?
-	if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
-		forceSpecificEvent = entity.Player.nextEvent;
+	if (player.nextEvent !== undefined && player.nextEvent !== null) {
+		forceSpecificEvent = player.nextEvent;
 	}
 
 	if (forceSpecificEvent === -1 || !forceSpecificEvent) {
-		const map = await entity.Player.getDestination();
+		const map = await player.getDestination();
 		[event] = await BigEvents.pickEventOnMapType(map);
 		if (!event) {
 			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff."});
@@ -651,64 +650,64 @@ async function doRandomBigEvent(
 	else {
 		event = await BigEvent.findOne({where: {id: forceSpecificEvent}});
 	}
-	await Maps.stopTravel(entity.Player);
-	return await doEvent({interaction, language}, event, entity, time);
+	await Maps.stopTravel(player);
+	return await doEvent({interaction, language}, event, player, time);
 }
 
 /**
  * The main command of the bot : makes the player progress in the adventure
  * @param interaction
  * @param language
- * @param entity
+ * @param player
  * @param forceSpecificEvent
  * @param forceSmallEvent
  */
 async function executeCommand(
 	interaction: CommandInteraction,
 	language: string,
-	entity: Entity,
+	player: Player,
 	forceSpecificEvent: number = null,
 	forceSmallEvent: string = null
 ): Promise<void> {
-	if (entity.Player.score === 0 && entity.Player.effect === EffectsConstants.EMOJI_TEXT.BABY) {
-		await initiateNewPlayerOnTheAdventure(entity);
+	if (player.score === 0 && player.effect === EffectsConstants.EMOJI_TEXT.BABY) {
+		await initiateNewPlayerOnTheAdventure(player);
 	}
 
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 
-	await MissionsController.update(entity, interaction.channel, language, {missionId: "commandReport"});
+	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
 	const currentDate = new Date();
 
-	if (forceSpecificEvent || await needBigEvent(entity, currentDate)) {
+	if (forceSpecificEvent || await needBigEvent(player, currentDate)) {
 		await interaction.deferReply();
-		return await doRandomBigEvent(interaction, language, entity, forceSpecificEvent);
+		return await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
 	}
 
-	if (forceSmallEvent || await needSmallEvent(entity, currentDate)) {
+	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
-		return await executeSmallEvent(interaction, language, entity, forceSmallEvent);
+		return await executeSmallEvent(interaction, language, player, forceSmallEvent);
 	}
 
-	if (!entity.Player.currentEffectFinished(currentDate)) {
-		return await sendTravelPath(entity, interaction, language, currentDate, entity.Player.effect);
+	if (!player.currentEffectFinished(currentDate)) {
+		return await sendTravelPath(player, interaction, language, currentDate, player.effect);
 	}
 
-	if (entity.Player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && entity.Player.currentEffectFinished(currentDate)) {
-		await MissionsController.update(entity, interaction.channel, language, {missionId: "recoverAlteration"});
+	if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
+		await MissionsController.update(player, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
-	if (entity.Player.mapLinkId === null) {
-		return await Maps.startTravel(entity.Player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
+	if (player.mapLinkId === null) {
+		return await Maps.startTravel(player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
 	}
 
-	if (!Maps.isTravelling(entity.Player)) {
-		return await chooseDestination(entity, interaction, language, null);
+	if (!Maps.isTravelling(player)) {
+		return await chooseDestination(player, interaction, language, null);
 	}
 
-	return await sendTravelPath(entity, interaction, language, currentDate, null);
+	return await sendTravelPath(player, interaction, language, currentDate, null);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
