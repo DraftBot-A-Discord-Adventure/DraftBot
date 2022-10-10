@@ -144,7 +144,7 @@ export class DraftBot {
 				{
 					where: {
 						lovePoints: {
-							[sequelize.Op.notIn]: [Constants.PETS.MAX_LOVE_POINTS, 0]
+							[Op.notIn]: [Constants.PETS.MAX_LOVE_POINTS, 0]
 						}
 					}
 				}
@@ -162,7 +162,7 @@ export class DraftBot {
 		const winner = await Player.findOne({
 			where: {
 				weeklyScore: {
-					[require("sequelize/lib/operators").gt]: 100
+					[Op.gt]: 100
 				}
 			},
 			order: [

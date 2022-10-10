@@ -58,7 +58,7 @@ export class FightView {
 	 * @param introEmbed
 	 * @param fighter
 	 */
-	async addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): Promise<void> {
+	addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): void {
 		introEmbed.addFields({
 			name: this.fightTranslationModule.format("actionsOf", {
 				player: fighter.getPseudo(this.language)
@@ -80,8 +80,8 @@ export class FightView {
 				player1: fighter1.getPseudo(this.language),
 				player2: fighter2.getPseudo(this.language)
 			}));
-		await this.addFightActionFieldFor(introEmbed, fighter1);
-		await this.addFightActionFieldFor(introEmbed, fighter2);
+		this.addFightActionFieldFor(introEmbed, fighter1);
+		this.addFightActionFieldFor(introEmbed, fighter2);
 		this.fightLaunchMessage = await this.channel.send({
 			embeds: [introEmbed]
 		});
@@ -96,10 +96,10 @@ export class FightView {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		if (this.lastSummary === undefined) {
-			this.lastSummary = await this.channel.send({embeds: [await this.getSummarizeEmbed(playingFighter, defendingFighter)]});
+			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
 		else {
-			await this.lastSummary.edit({embeds: [await this.getSummarizeEmbed(playingFighter, defendingFighter)]});
+			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
 	}
 
@@ -168,7 +168,7 @@ export class FightView {
 	 * @param winner
 	 * @param draw
 	 */
-	async outroFight(loser: Fighter, winner: Fighter, draw: boolean): Promise<void> {
+	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
 		if (this.lastSummary !== undefined) {
 			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
@@ -208,7 +208,7 @@ export class FightView {
 	 * @param {Fighter} defender
 	 * @return {Promise<DraftBotEmbed>}
 	 */
-	private async getSummarizeEmbed(attacker: Fighter, defender: Fighter): Promise<DraftBotEmbed> {
+	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): DraftBotEmbed {
 		return new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.get("summarize.title"))
 			.setDescription(`${this.fightTranslationModule.get("summarize.intro") +

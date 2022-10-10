@@ -10,7 +10,7 @@ import {
 	TextChannel,
 	User
 } from "discord.js";
-import {DraftBotReaction} from "./DraftBotReaction";
+import {CallbackLike, DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {draftBotClient} from "../bot";
@@ -43,7 +43,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
 	 * The callback called when the collector ends. Can be null or undefined
 	 */
-	private readonly _endCallback: (msg: DraftBotReactionMessage) => void;
+	private readonly _endCallback: CallbackLike;
 
 	/**
 	 * The max number of reactions the collector allows
@@ -72,14 +72,14 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	constructor(
 		reactions: DraftBotReaction[],
 		allowedUsersDiscordIdToReact: string[],
-		endCallback: (msg: DraftBotReactionMessage) => (Promise<void> | void),
+		endCallback: CallbackLike,
 		maxReactions: number,
 		anyUserAllowed: boolean,
 		collectorTime: number) {
 		super();
 		this._reactions = reactions;
 		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
-		this._endCallback = endCallback as (msg: DraftBotReactionMessage) => void;
+		this._endCallback = endCallback;
 		this._maxReactions = maxReactions;
 		this._anyUserAllowed = anyUserAllowed;
 		this._collectorTime = collectorTime;
@@ -238,7 +238,7 @@ export class DraftBotReactionMessageBuilder {
 
 	private _allowedUsersDiscordIdToReact: string[] = [];
 
-	private _endCallback: (msg: DraftBotReactionMessage) => Promise<void> | void = undefined;
+	private _endCallback: CallbackLike = undefined;
 
 	private _maxReactions = 0;
 
@@ -277,7 +277,7 @@ export class DraftBotReactionMessageBuilder {
 	 * Set the callback when the message collector ends
 	 * @param callback
 	 */
-	endCallback(callback: (msg: DraftBotReactionMessage) => Promise<void> | void): DraftBotReactionMessageBuilder {
+	endCallback(callback: CallbackLike): DraftBotReactionMessageBuilder {
 		this._endCallback = callback;
 		return this;
 	}

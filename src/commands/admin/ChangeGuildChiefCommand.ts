@@ -98,7 +98,7 @@ function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, 
 			interaction,
 			tr.language,
 			tr.get("errors.unknownGuild")
-		);
+		).then(() => null);
 		return false;
 	}
 

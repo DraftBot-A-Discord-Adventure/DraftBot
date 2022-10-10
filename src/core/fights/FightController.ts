@@ -105,7 +105,7 @@ export class FightController {
 			BlockingUtils.unblockPlayer(fighter.getUser().id, BlockingConstants.REASONS.FIGHT);
 		}
 
-		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw).finally(() => null);
+		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 		for (const fighter of this.fighters) {
 			this.manageMissionsOf(fighter).finally(() => null);
 		}
