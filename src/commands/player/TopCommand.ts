@@ -1,5 +1,4 @@
 import {Maps} from "../../core/maps/Maps";
-import Entity, {Entities} from "../../core/database/game/models/Entity";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
@@ -11,6 +10,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player, {Players} from "../../core/database/game/models/Player";
 
 type TextInformation = { interaction: CommandInteraction, language: string };
 type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
@@ -23,20 +23,20 @@ type TopInformation = {
 
 /**
  * Get badge state for a player in the displayed top
- * @param entityToLook
+ * @param playerToLook
  * @param language
  * @param date
  */
-async function getBadgeStateOfPlayer(entityToLook: Entity, language: string, date: Date): Promise<string> {
-	if (date.valueOf() < entityToLook.Player.effectEndDate.valueOf()) {
-		return entityToLook.Player.effect + TopConstants.SEPARATOR;
+async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date): Promise<string> {
+	if (date.valueOf() < playerToLook.effectEndDate.valueOf()) {
+		return playerToLook.effect + TopConstants.SEPARATOR;
 	}
 	// The start travel date is 0 when the event waits for a reaction
-	if (entityToLook.Player.isInactive() && entityToLook.Player.startTravelDate.valueOf() !== 0) {
+	if (playerToLook.isInactive() && playerToLook.startTravelDate.valueOf() !== 0) {
 		return TopConstants.INACTIVE_BADGE + TopConstants.SEPARATOR;
 	}
-	if (await Maps.isArrived(entityToLook.Player, date)) {
-		return (await entityToLook.Player.getDestination()).getEmote(language) + TopConstants.SEPARATOR;
+	if (await Maps.isArrived(playerToLook, date)) {
+		return (await playerToLook.getDestination()).getEmote(language) + TopConstants.SEPARATOR;
 	}
 	return "";
 
@@ -45,12 +45,12 @@ async function getBadgeStateOfPlayer(entityToLook: Entity, language: string, dat
 /**
  * Get the badge for a player in the displayed top
  * @param interaction
- * @param entityToLook
+ * @param playerToLook
  * @param page
  * @param rank
  */
-function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, entityToLook: Entity, page: number, rank: number): string {
-	if (interaction.user.id === entityToLook.discordUserId) {
+function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, playerToLook: Player, page: number, rank: number): string {
+	if (interaction.user.id === playerToLook.discordUserId) {
 		return TopConstants.TOP_POSITION_BADGE.WHITE;
 	}
 	if (page === 1 && rank < 5) {
@@ -62,7 +62,7 @@ function getBadgeTopPositionOfPlayer(interaction: CommandInteraction, entityToLo
 					? TopConstants.TOP_POSITION_BADGE.THIRD
 					: TopConstants.TOP_POSITION_BADGE.MILITARY;
 	}
-	if (interaction.guild.members.cache.find(user => user.id === entityToLook.discordUserId)) {
+	if (interaction.guild.members.cache.find(user => user.id === playerToLook.discordUserId)) {
 		return TopConstants.TOP_POSITION_BADGE.BLUE;
 	}
 	return TopConstants.TOP_POSITION_BADGE.BLACK;
@@ -93,27 +93,27 @@ function getPageOfRank(rank: number): number {
 }
 
 /**
- * Get all the pseudos of a given entity list
- * @param entitiesToShow
+ * Get all the pseudos of a given player list
+ * @param playersToShow
  * @param language
  */
-function getPseudosOfList(entitiesToShow: Entity[], language: string): Promise<string[]> {
+function getPseudosOfList(playersToShow: Player[], language: string): Promise<string[]> {
 	const pseudos = [];
-	for (const entityToShow of entitiesToShow) {
-		pseudos.push(entityToShow.Player.getPseudo(language));
+	for (const entityToShow of playersToShow) {
+		pseudos.push(entityToShow.getPseudo(language));
 	}
 	return Promise.all(pseudos);
 }
 
 /**
- * Get all the given entities' status
- * @param entitiesToShow
+ * Get all the given players' status
+ * @param playersToShow
  * @param language
  * @param date
  */
-function getBadgeStatesOfList(entitiesToShow: Entity[], language: string, date: Date): Promise<string[]> {
+function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date): Promise<string[]> {
 	const badgeStates = [];
-	for (const entityToShow of entitiesToShow) {
+	for (const entityToShow of playersToShow) {
 		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date));
 	}
 	return Promise.all(badgeStates);
@@ -129,13 +129,13 @@ function getBadgeStatesOfList(entitiesToShow: Entity[], language: string, date: 
  * @param numberOfPlayers
  * @param rankCurrentPlayer
  * @param scoreTooLow
- * @param entitiesToShow
+ * @param playersToShow
  */
 async function displayTop(
 	{interaction, language}: TextInformation,
 	{scope, timing, page, numberOfPlayers}: TopInformation,
 	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
-	entitiesToShow: Entity[]): Promise<void> {
+	playersToShow: Player[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
@@ -150,19 +150,19 @@ async function displayTop(
 			global: scope === TopConstants.GLOBAL_SCOPE
 		}));
 	let description = [];
-	const pseudos = await getPseudosOfList(entitiesToShow, language);
-	const badgeStates = await getBadgeStatesOfList(entitiesToShow, language, interaction.createdAt);
-	for (const entityToShow of entitiesToShow) {
-		const rank = entitiesToShow.indexOf(entityToShow);
+	const pseudos = await getPseudosOfList(playersToShow, language);
+	const badgeStates = await getBadgeStatesOfList(playersToShow, language, interaction.createdAt);
+	for (const playerToShow of playersToShow) {
+		const rank = playersToShow.indexOf(playerToShow);
 		description.push(topModule.format("playerRankLine", {
-			badge: getBadgeTopPositionOfPlayer(interaction, entityToShow, page, rank),
+			badge: getBadgeTopPositionOfPlayer(interaction, playerToShow, page, rank),
 			rank: start + rank,
 			pseudo: pseudos[rank],
 			badgeState: badgeStates[rank],
 			score: timing === TopConstants.TIMING_WEEKLY
-				? entityToShow.Player.weeklyScore
-				: entityToShow.Player.score,
-			level: entityToShow.Player.level
+				? playerToShow.weeklyScore
+				: playerToShow.score,
+			level: playerToShow.level
 		}));
 	}
 	if (description.length === 0) {
@@ -215,33 +215,33 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
  * Allow to display the rankings of the players
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
 	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
 	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
 	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
-	const scoreTooLow = entity.Player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
+	const scoreTooLow = player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
 
 	if (scope === TopConstants.SERVER_SCOPE) {
 		await interaction.deferReply();
 	}
 
-	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Entities.getAllStoredDiscordIds();
-	const numberOfPlayers = await Entities.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Players.getAllStoredDiscordIds();
+	const numberOfPlayers = await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
 
 	const page = getShownPage(interaction, pageMax);
 
-	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Entities.getRankFromUserList(interaction.user.id, listDiscordId, timing);
+	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing);
 
-	const entitiesToShow = await Entities.getEntitiesToPrintTop(listDiscordId, page, timing);
+	const playersToShow = await Players.getEntitiesToPrintTop(listDiscordId, page, timing);
 
 	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
 		rankCurrentPlayer,
 		scoreTooLow
-	}, entitiesToShow);
+	}, playersToShow);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.FRENCH);

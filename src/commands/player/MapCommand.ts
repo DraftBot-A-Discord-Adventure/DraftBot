@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Entity} from "../../core/database/game/models/Entity";
 import {ICommand} from "../ICommand";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
@@ -8,15 +7,16 @@ import {BotConstants} from "../../core/constants/BotConstants";
 import {format} from "../../core/utils/StringFormatter";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import Player from "../../core/database/game/models/Player";
 
 /**
  * Get the map image link with the cursor on the player position
- * @param entity Entity
+ * @param player Entity
  * @param inReport
  */
-async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<string> {
-	const destMap = await entity.Player.getDestination();
-	const depMap = await entity.Player.getPreviousMap();
+async function getStrMapWithCursor(player: Player, inReport: boolean): Promise<string> {
+	const destMap = await player.getDestination();
+	const depMap = await player.getPreviousMap();
 	if (inReport) {
 		return `${destMap.id}_`;
 	}
@@ -31,16 +31,16 @@ async function getStrMapWithCursor(entity: Entity, inReport: boolean): Promise<s
  * Show the map of DraftBot world
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
- * @param entity
+ * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, entity: Entity): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const mapModule = Translations.getModule("commands.map", language);
 	const mapEmbed = new DraftBotEmbed()
 		.formatAuthor(mapModule.get("text"), interaction.user);
 
-	const inReport = await entity.isInEvent();
-	const destMap = await entity.Player.getDestination();
-	const strMapLink = await getStrMapWithCursor(entity, inReport);
+	const inReport = await player.isInEvent();
+	const destMap = await player.getDestination();
+	const strMapLink = await getStrMapWithCursor(player, inReport);
 	mapEmbed.setImage(
 		format(BotConstants.MAP_URL_WITH_CURSOR, {mapLink: strMapLink})
 	);
