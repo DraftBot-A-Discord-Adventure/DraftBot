@@ -149,7 +149,7 @@ async function completeMissionsBigEvent(player: Player, interaction: CommandInte
 }
 
 /**
- * If the entity reached his destination (= big event)
+ * If the player reached his destination (= big event)
  * @param {Player} player
  * @param date
  * @returns {boolean}
@@ -377,7 +377,7 @@ async function updatePlayerInfos(
 ): Promise<void> {
 	await player.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	const valuesToEditParameters = {
-		entity: player,
+		player: player,
 		channel: textInformation.interaction.channel,
 		language: textInformation.language,
 		reason: NumberChangeReason.BIG_EVENT

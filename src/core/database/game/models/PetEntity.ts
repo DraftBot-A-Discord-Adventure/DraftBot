@@ -155,7 +155,7 @@ export class PetEntities {
 	static async getById(id: number): Promise<PetEntity> {
 		return await PetEntity.findOne({
 			where: {
-				id: id
+				id
 			}
 		});
 	}

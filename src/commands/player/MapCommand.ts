@@ -11,7 +11,7 @@ import Player from "../../core/database/game/models/Player";
 
 /**
  * Get the map image link with the cursor on the player position
- * @param player Entity
+ * @param player player
  * @param inReport
  */
 async function getStrMapWithCursor(player: Player, inReport: boolean): Promise<string> {

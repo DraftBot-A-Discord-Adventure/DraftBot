@@ -13,7 +13,7 @@ export const commandInfo: ITestCommand = {
 };
 
 /**
- * Show your entity's and player's IDs
+ * Show your player's IDs
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  * @return {String} - The successful message formatted

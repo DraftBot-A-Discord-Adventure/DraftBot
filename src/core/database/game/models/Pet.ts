@@ -40,7 +40,7 @@ export class Pets {
 	static getById(id: number): Promise<Pet> {
 		return Pet.findOne({
 			where: {
-				id: id
+				id
 			}
 		});
 	}

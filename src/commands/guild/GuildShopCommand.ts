@@ -80,20 +80,20 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
 		foodJson.get(name + ".info"),
 		async (message, amount) => {
-			const [entity] = await Players.getOrRegister(message.user.id);
-			const guild = await Guilds.getById(entity.guildId);
+			const [player] = await Players.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(player.guildId);
 			if (guild.isStorageFullFor(name, amount)) {
 				await sendErrorMessage(message.user, interaction, guildShopTranslations.language, guildShopTranslations.get("fullStock"));
 				return false;
 			}
-			await giveFood(interaction, message.language, entity, name, amount, NumberChangeReason.SHOP);
+			await giveFood(interaction, message.language, player, name, amount, NumberChangeReason.SHOP);
 			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
-				await MissionsController.update(entity, message.sentMessage.channel, guildShopTranslations.language, {
+				await MissionsController.update(player, message.sentMessage.channel, guildShopTranslations.language, {
 					missionId: "buyUltimateSoups",
 					count: amount
 				});
 			}
-			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(entity.discordUserId, name, amount).then();
+			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(player.discordUserId, name, amount).then();
 			return true;
 		},
 		amounts

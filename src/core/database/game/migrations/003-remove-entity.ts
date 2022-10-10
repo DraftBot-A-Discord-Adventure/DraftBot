@@ -29,18 +29,27 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		WHERE draftbot_game.players.id = draftbot_game.entities.id
 	`);
 
-
 	await context.removeColumn("players", "entityId");
 	await context.dropTable("entities");
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
+	await context.createTable("entities", entitiesAttributes001);
+	await context.addColumn("players", "entityId", {
+		type: DataTypes.INTEGER
+	});
+	await context.sequelize.query(`
+		INSERT INTO draftbot_game.entities
+		SELECT draftbot_game.players.discordUserId, draftbot_game.players.health, draftbot_game.players.fightPointsLost
+		FROM draftbot_game.players
+	`);
+	await context.sequelize.query(`
+		UPDATE draftbot_game.players, draftbot_game.entities
+		SET draftbot_game.players.entityId = draftbot_game.entities.id
+		WHERE draftbot_game.players.discordUserId = draftbot_game.entities.discordUserId
+	`);
+
 	await context.removeColumn("players", "discordUserId");
 	await context.removeColumn("players", "health");
 	await context.removeColumn("players", "fightPointsLost");
-	await context.createTable("entities", entitiesAttributes001);
-	await context.addColumn("players", "entityId", {
-		type: DataTypes.INTEGER,
-		allowNull: false
-	});
 }

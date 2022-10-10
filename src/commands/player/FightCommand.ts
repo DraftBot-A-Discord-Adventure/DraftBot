@@ -159,7 +159,7 @@ function getAcceptCallback(
 /**
  * load the customs error messages for the broadcast collector
  * @param fightTranslationModule - the translation module
- * @param respondingPlayer - the entity that is responding to the fight
+ * @param respondingPlayer - the player that is responding to the fight
  */
 function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, respondingPlayer: Player): BroadcastTranslationModuleLike {
 	return {

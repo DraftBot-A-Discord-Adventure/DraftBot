@@ -803,7 +803,7 @@ export class Players {
 									RANK() OVER (ORDER BY score desc, level desc) rank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.id = :id`;
-		return (<[{ rank: number }]>await Player.sequelize.query(query, {
+		return (<[{ rank: number }]> await Player.sequelize.query(query, {
 			replacements: {
 				id: id
 			},

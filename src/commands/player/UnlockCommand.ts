@@ -75,8 +75,8 @@ function callbackUnlockCommand(
 	return async (reaction: Collection<string, MessageReaction>): Promise<void> => {
 		BlockingUtils.unblockPlayer(entityCouple.unlocker.discordUserId, BlockingConstants.REASONS.UNLOCK);
 		if (reaction.first()) { // a reaction exist
-			const [playerToUnlock] = await Players.getOrRegister(entityCouple.locked.discordUserId); // released entity
-			const [playerUnlocker] = await Players.getOrRegister(entityCouple.unlocker.discordUserId); // entity who unlocks
+			const [playerToUnlock] = await Players.getOrRegister(entityCouple.locked.discordUserId); // released player
+			const [playerUnlocker] = await Players.getOrRegister(entityCouple.unlocker.discordUserId); // player who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
 				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK);
 				await playerUnlocker.addMoney({
