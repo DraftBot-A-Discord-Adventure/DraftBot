@@ -1,5 +1,5 @@
 import {GuildPets} from "../../../../core/database/game/models/GuildPet";
-import {PetEntities, PetEntity} from "../../../../core/database/game/models/PetEntity";
+import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 import {Guilds} from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Pets} from "../../../../core/database/game/models/Pet";

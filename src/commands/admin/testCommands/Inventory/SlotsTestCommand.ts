@@ -3,7 +3,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
-import InventoryInfo, {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
+import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",

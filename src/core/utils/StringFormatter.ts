@@ -184,7 +184,7 @@ export function formatPlaceholder(placeholder: ReplacementPlaceholder, replaceme
 	}
 	switch (placeholder.operand) {
 	case PlaceholderOperand.BOOL:
-		conditionResult = replacements[placeholder.leftValue] === (true || 1);
+		conditionResult = replacements[placeholder.leftValue] as boolean;
 		break;
 	case PlaceholderOperand.DIFFERENT:
 		conditionResult = leftValue !== rightValue;

@@ -8,7 +8,7 @@ import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {botConfig, draftBotInstance} from "../../../bot";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
-import {EditValueParameters, Player, PlayerEditValueParameters} from "./Player";
+import {PlayerEditValueParameters} from "./Player";
 import moment = require("moment");
 
 export class PetEntity extends Model {

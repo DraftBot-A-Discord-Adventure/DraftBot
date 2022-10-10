@@ -2,12 +2,12 @@ import {
 	DraftBotReactionMessage,
 	DraftBotReactionMessageBuilder
 } from "../../../../src/core/messages/DraftBotReactionMessage";
-import {DraftBotReaction} from "../../../../src/core/messages/DraftBotReaction";
+import {CallbackLike, DraftBotReaction} from "../../../../src/core/messages/DraftBotReaction";
 
-const callbackTest1 = () => {
+const callbackTest1: CallbackLike = () => {
 	// Do something
 };
-const endCallback = (msg: DraftBotReactionMessage) => {
+const endCallback: CallbackLike = (msg: DraftBotReactionMessage) => {
 	if (msg.getFirstReaction()) {
 		// Bla bla
 	}

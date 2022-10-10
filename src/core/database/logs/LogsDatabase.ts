@@ -49,7 +49,7 @@ import {LogsPetsNicknames} from "./models/LogsPetsNicknames";
 import {LogsPetEntities} from "./models/LogsPetEntities";
 import {Guild} from "../game/models/Guild";
 import {LogsGuilds} from "./models/LogsGuilds";
-import {Player, Players} from "../game/models/Player";
+import {Players} from "../game/models/Player";
 import {LogsGuildsKicks} from "./models/LogsGuildsKicks";
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
@@ -166,10 +166,6 @@ export class LogsDatabase extends Database {
 		super("logs");
 	}
 
-	private static getDate(): number {
-		return Math.trunc(Date.now() / 1000);
-	}
-
 	public static async logPetTrade(firstPet: PetEntity, secondPet: PetEntity): Promise<void> {
 		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet);
 		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet);
@@ -201,6 +197,20 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	public static async logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
+		await LogsGuildsLeaves.create({
+			guildId: logGuild.id,
+			leftPlayer: leftPlayer.id,
+			date: LogsDatabase.getDate()
+		});
+	}
+
+	private static getDate(): number {
+		return Math.trunc(Date.now() / 1000);
+	}
+
 	private static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
 			where: {
@@ -230,12 +240,63 @@ export class LogsDatabase extends Database {
 		}))[0];
 	}
 
-	public static async logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
-		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
-		await LogsGuildsLeaves.create({
-			guildId: logGuild.id,
-			leftPlayer: leftPlayer.id,
+	private static async logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const values: { [key: string]: string | number } = {
+			playerId: player.id,
+			date: LogsDatabase.getDate()
+		};
+		values[valueFieldName] = value;
+		await model.create(values);
+	}
+
+	private static async logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await model.create({
+			playerId: player.id,
+			date: LogsDatabase.getDate()
+		});
+	}
+
+	private static async logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const [mission] = await LogsMissions.findOrCreate({
+			where: {
+				name: missionId,
+				variant,
+				objective
+			}
+		});
+		await model.create({
+			playerId: player.id,
+			missionId: mission.id,
+			date: LogsDatabase.getDate()
+		});
+	}
+
+	private static async logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await model.create({
+			playerId: player.id,
+			value,
+			reason,
+			date: LogsDatabase.getDate()
+		});
+	}
+
+	private static async logItem(
+		discordId: string,
+		item: GenericItemModel,
+		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
+	): Promise<void> {
+		const [player] = await LogsPlayers.findOrCreate({
+			where: {
+				discordId
+			}
+		});
+		await model.create({
+			playerId: player.id,
+			itemId: item.id,
 			date: LogsDatabase.getDate()
 		});
 	}
@@ -791,66 +852,5 @@ export class LogsDatabase extends Database {
 
 	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
 		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
-	}
-
-	private static async logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
-		const values: { [key: string]: string | number } = {
-			playerId: player.id,
-			date: LogsDatabase.getDate()
-		};
-		values[valueFieldName] = value;
-		await model.create(values);
-	}
-
-	private static async logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
-		await model.create({
-			playerId: player.id,
-			date: LogsDatabase.getDate()
-		});
-	}
-
-	private static async logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
-		const [mission] = await LogsMissions.findOrCreate({
-			where: {
-				name: missionId,
-				variant,
-				objective
-			}
-		});
-		await model.create({
-			playerId: player.id,
-			missionId: mission.id,
-			date: LogsDatabase.getDate()
-		});
-	}
-
-	private static async logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
-		await model.create({
-			playerId: player.id,
-			value,
-			reason,
-			date: LogsDatabase.getDate()
-		});
-	}
-
-	private static async logItem(
-		discordId: string,
-		item: GenericItemModel,
-		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
-	): Promise<void> {
-		const [player] = await LogsPlayers.findOrCreate({
-			where: {
-				discordId
-			}
-		});
-		await model.create({
-			playerId: player.id,
-			itemId: item.id,
-			date: LogsDatabase.getDate()
-		});
 	}
 }

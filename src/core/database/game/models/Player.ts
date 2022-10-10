@@ -1,15 +1,13 @@
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import InventorySlot, {InventorySlots} from "./InventorySlot";
 import PetEntity from "./PetEntity";
-import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
-import PlayerMissionsInfo from "./PlayerMissionsInfo";
-import InventoryInfo, {InventoryInfos} from "./InventoryInfo";
+import {InventoryInfos} from "./InventoryInfo";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {Constants} from "../../../Constants";
 import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
-import MapLink, {MapLinks} from "./MapLink";
+import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
 import {CommandInteraction, TextBasedChannel, TextChannel} from "discord.js";
 import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
@@ -17,25 +15,18 @@ import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
 import {botConfig, draftBotClient, draftBotInstance} from "../../../bot";
-import Weapon from "./Weapon";
-import Armor from "./Armor";
-import Potion from "./Potion";
-import ObjectItem from "./ObjectItem";
 import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
-import Guild from "./Guild";
 import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
 import {minutesToHours} from "../../../utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
-import moment = require("moment");
 import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
-import Pet from "./Pet";
-import Mission from "./Mission";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -484,39 +475,6 @@ export class Player extends Model {
 		draftBotInstance.logsDatabase.logPlayerNewPet(this.discordUserId, petEntity).then();
 	}
 
-	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
-		if (score > 0) {
-			this.score = score;
-		}
-		else {
-			this.score = 0;
-		}
-	}
-
-	private setMoney(money: number): void {
-		if (money > 0) {
-			this.money = money;
-		}
-		else {
-			this.money = 0;
-		}
-	}
-
-	private addWeeklyScore(weeklyScore: number): void {
-		this.weeklyScore += weeklyScore;
-		this.setWeeklyScore(this.weeklyScore);
-	}
-
-	private setWeeklyScore(weeklyScore: number): void {
-		if (weeklyScore > 0) {
-			this.weeklyScore = weeklyScore;
-		}
-		else {
-			this.weeklyScore = 0;
-		}
-	}
-
 	/**
 	 * calculate the cumulative attack of the player
 	 * @param playerActiveObjects
@@ -627,6 +585,39 @@ export class Player extends Model {
 	public async isInEvent(): Promise<boolean> {
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
 		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
+	}
+
+	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
+		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
+		if (score > 0) {
+			this.score = score;
+		}
+		else {
+			this.score = 0;
+		}
+	}
+
+	private setMoney(money: number): void {
+		if (money > 0) {
+			this.money = money;
+		}
+		else {
+			this.money = 0;
+		}
+	}
+
+	private addWeeklyScore(weeklyScore: number): void {
+		this.weeklyScore += weeklyScore;
+		this.setWeeklyScore(this.weeklyScore);
+	}
+
+	private setWeeklyScore(weeklyScore: number): void {
+		if (weeklyScore > 0) {
+			this.weeklyScore = weeklyScore;
+		}
+		else {
+			this.weeklyScore = 0;
+		}
 	}
 
 	/**
@@ -812,7 +803,7 @@ export class Players {
 									RANK() OVER (ORDER BY score desc, level desc) rank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.id = :id`;
-		return (<[{ rank: number }]> await Player.sequelize.query(query, {
+		return (<[{ rank: number }]>await Player.sequelize.query(query, {
 			replacements: {
 				id: id
 			},
