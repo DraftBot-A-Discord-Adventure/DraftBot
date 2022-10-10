@@ -61,8 +61,7 @@ export class MissionSlots {
 			}
 		});
 		if (missionSlots.length === 0) {
-
-			return [await MissionSlot.create(missionJson.missions[0])];
+			return [await MissionSlot.create({...missionJson.missions[0], playerId})];
 		}
 		return missionSlots;
 	}
