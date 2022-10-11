@@ -32,11 +32,17 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 	embed.setTitle("Debug missions");
 	embed.addFields({
 		name: "⚙️ General",
-		value: "\nDaily mission done: " + "Mission slots: " + player.getMissionSlots() +
-			missionsInfo.dailyMissionNumberDone +
-			"\nLast daily mission done: " + missionsInfo.lastDailyMissionCompleted +
-			"\nGems count: " + missionsInfo.gems +
-			"\nCampaign progression: " + missionsInfo.campaignProgression,
+		value: `\nDaily mission done: Mission slots: ${
+			player.getMissionSlots()
+		}${
+			missionsInfo.dailyMissionNumberDone
+		}\nLast daily mission done: ${
+			missionsInfo.lastDailyMissionCompleted
+		}\nGems count: ${
+			missionsInfo.gems
+		}\nCampaign progression: ${
+			missionsInfo.campaignProgression
+		}`,
 		inline: false
 	});
 	let missionsFieldContent = "";
@@ -46,17 +52,25 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 	else {
 		for (let i = 0; i < missionSlots.length; ++i) {
 			const mission = await Missions.getById(missionSlots[i].missionId);
-			missionsFieldContent +=
-				await mission.formatDescription(missionSlots[i].missionObjective,
-					missionSlots[i].missionVariant, language, null) +
-				` (id: ${missionSlots[i].missionId}
-				)\n-> ID DB: ${missionSlots[i].id}
-				\n-> Variant: ${missionSlots[i].missionVariant}
-				\n-> Number done: ${missionSlots[i].numberDone}
-				\n-> Objective: ${missionSlots[i].missionObjective}
-				\n-> Expiration date: ${missionSlots[i].expiresAt ? new Date(missionSlots[i].expiresAt).toISOString() : "Never"}
-				\n-> Campaign only: ${mission.campaignOnly}
-				\n-> Save blob: ${missionSlots[i].saveBlob}\n\n`;
+			missionsFieldContent += `${
+				await mission.formatDescription(missionSlots[i].missionObjective, missionSlots[i].missionVariant, language, null)
+			} (id: ${
+				missionSlots[i].missionId
+			}\n				)\n-> ID DB: ${
+				missionSlots[i].id
+			}\n				\n-> Variant: ${
+				missionSlots[i].missionVariant
+			}\n				\n-> Number done: ${
+				missionSlots[i].numberDone
+			}\n				\n-> Objective: ${
+				missionSlots[i].missionObjective
+			}\n				\n-> Expiration date: ${
+				missionSlots[i].expiresAt ? new Date(missionSlots[i].expiresAt).toISOString() : "Never"
+			}\n				\n-> Campaign only: ${
+				mission.campaignOnly
+			}\n				\n-> Save blob: ${
+				missionSlots[i].saveBlob
+			}\n\n`;
 		}
 	}
 	embed.addFields({name: "📜 Missions", value: missionsFieldContent});

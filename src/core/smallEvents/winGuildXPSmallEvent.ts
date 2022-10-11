@@ -25,13 +25,13 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const g = await Guilds.getById(player.guildId);
-		if (g === null || g.isAtMaxLevel()) {
+		const guild = await Guilds.getById(player.guildId);
+		if (guild === null || guild.isAtMaxLevel()) {
 			return await doNothing.executeSmallEvent(interaction, language, player, seEmbed);
 		}
 		const xpWon = RandomUtils.draftbotRandom.integer(
-			Constants.SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + g.level,
-			Constants.SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + g.level * 2
+			Constants.SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + guild.level,
+			Constants.SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + guild.level * 2
 		);
 
 		const translationWGXP = Translations.getModule("smallEvents.winGuildXP", language);
@@ -40,16 +40,16 @@ export const smallEvent: SmallEvent = {
 			format(
 				translationWGXP.getRandom("stories")
 				+ translationWGXP.get("end"), {
-					guilde: g.name,
+					guilde: guild.name,
 					xp: xpWon
 				}
 			)
 		);
-		g.experience += xpWon;
-		while (g.needLevelUp()) {
-			await g.levelUpIfNeeded(interaction.channel, language);
+		guild.experience += xpWon;
+		while (guild.needLevelUp()) {
+			await guild.levelUpIfNeeded(interaction.channel, language);
 		}
-		await g.save();
+		await guild.save();
 
 		await interaction.editReply({embeds: [seEmbed]});
 	}
