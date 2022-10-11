@@ -20,6 +20,7 @@ import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
+import {Op} from "sequelize";
 
 type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -428,7 +429,7 @@ export const smallEvent: SmallEvent = {
 		const numberOfPlayers = await Player.count({
 			where: {
 				score: {
-					[require("sequelize/lib/operators").gt]: 100
+					[Op.gt]: 100
 				}
 			}
 		});
