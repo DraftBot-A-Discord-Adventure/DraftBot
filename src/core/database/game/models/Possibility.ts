@@ -41,7 +41,15 @@ export class Possibility extends Model {
 	}
 }
 
+/**
+ * this class is used to treat the possibilities of an event
+ */
 export class Possibilities {
+
+	/**
+	 * get the possibilities of an event
+	 * @param eventId
+	 */
 	static async getPossibilitiesOfEvent(eventId: number): Promise<Possibility[]> {
 		return await Possibility.findAll({
 			where: {

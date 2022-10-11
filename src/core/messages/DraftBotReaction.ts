@@ -6,6 +6,9 @@ import {MessageReaction, User} from "discord.js";
  */
 export type CallbackLike = (msg?: DraftBotReactionMessage, reaction?: MessageReaction, user?: User) => Promise<void> | void;
 
+/**
+ * Reaction to a {@link DraftBotReactionMessage}
+ */
 export class DraftBotReaction {
 	private readonly _emote: string;
 

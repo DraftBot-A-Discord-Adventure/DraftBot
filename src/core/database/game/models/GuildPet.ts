@@ -16,7 +16,17 @@ export class GuildPet extends Model {
 	public createdAt!: Date;
 }
 
+/**
+ * this class is used to information about pets that are in a shelter
+ */
 export class GuildPets {
+
+	/**
+	 * add pet to a shelter
+	 * @param guild
+	 * @param petEntity
+	 * @param logInDatabase
+	 */
 	static addPet(guild: Guild, petEntity: PetEntity, logInDatabase: boolean): GuildPet {
 		if (logInDatabase) {
 			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity).then();
@@ -24,6 +34,10 @@ export class GuildPets {
 		return GuildPet.build({guildId: guild.id, petEntityId: petEntity.id});
 	}
 
+	/**
+	 * get the list of pets that are in the shelter of a guild
+	 * @param guildId
+	 */
 	static async getOfGuild(guildId: number): Promise<GuildPet[]> {
 		return await GuildPet.findAll({
 			where: {
