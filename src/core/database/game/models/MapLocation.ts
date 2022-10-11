@@ -4,7 +4,7 @@ import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {botConfig, draftBotInstance} from "../../../bot";
 import * as moment from "moment";
-import { Constants } from "../../../Constants";
+import {Constants} from "../../../Constants";
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -142,8 +142,6 @@ export class MapLocations {
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
 		const query = `SELECT discordUserId
 					   FROM ${botConfig.MARIADB_PREFIX}_game.players 
-			JOIN ${botConfig.MARIADB_PREFIX}_game.entities
-					   ON ${botConfig.MARIADB_PREFIX}_game.players.entityId = ${botConfig.MARIADB_PREFIX}_game.entities.id
 					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.id != :playerId
 						 AND ${botConfig.MARIADB_PREFIX}_game.players.mapLinkId IN (
 						   SELECT id from ${botConfig.MARIADB_PREFIX}_game.map_links
