@@ -48,18 +48,16 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		maxStatsValue: MaxStatsValues
 	) {
 		super(
-			[
-				new DraftBotReaction(
-					Constants.REACTIONS.INVENTORY_RESERVE,
-					DraftBotInventoryEmbed.reactionCallback,
-					DraftBotInventoryEmbed.reactionCallback
-				)
-			],
-			[userInformation.user.id],
-			null,
-			0,
-			false,
-			0
+			{
+				reactions: [
+					new DraftBotReaction(
+						Constants.REACTIONS.INVENTORY_RESERVE,
+						DraftBotInventoryEmbed.reactionCallback,
+						DraftBotInventoryEmbed.reactionCallback
+					)
+				],
+				allowedUsersDiscordIdToReact: [userInformation.user.id]
+			}
 		);
 		const trInventory = Translations.getModule("commands.inventory", language);
 		this.mainTitle = trInventory.format("title", {pseudo: userInformation.pseudo});

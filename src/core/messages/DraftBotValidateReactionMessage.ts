@@ -21,15 +21,15 @@ export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
 		refuseCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null
 	) {
 		super(
-			[
-				new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, validateCallback),
-				new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, refuseCallback)
-			],
-			allowedUser ? [allowedUser.id] : null,
-			endCallback as (msg: DraftBotReactionMessage) => void,
-			0,
-			!allowedUser,
-			0
+			{
+				reactions: [
+					new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, validateCallback),
+					new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, refuseCallback)
+				],
+				allowedUsersDiscordIdToReact: allowedUser ? [allowedUser.id] : null,
+				anyUserAllowed: !allowedUser
+			},
+			endCallback
 		);
 	}
 
