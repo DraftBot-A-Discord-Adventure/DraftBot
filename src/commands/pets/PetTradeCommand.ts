@@ -187,7 +187,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
 			name: petTradeModule.format("petOfTrader", {
 				trader: traderAndPet.trader.getPseudo(petTradeModule.language)
 			}),
-			value: traderAndPet.pet.getPetDisplay(await Pets.getById(traderAndPet.pet.id), petTradeModule.language),
+			value: traderAndPet.pet.getPetDisplay(await Pets.getById(traderAndPet.pet.petId), petTradeModule.language),
 			inline: true
 		});
 	}
