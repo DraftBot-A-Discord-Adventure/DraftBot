@@ -103,6 +103,10 @@ export class Player extends Model {
 
 	private pseudo: string;
 
+	/**
+	 * add a badge to a player
+	 * @param badge
+	 */
 	public addBadge(badge: string): boolean {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
@@ -118,36 +122,58 @@ export class Player extends Model {
 		return true;
 	}
 
+	/**
+	 * check if a player has a specific badge
+	 * @param badge
+	 */
 	public hasBadge(badge: string): boolean {
 		return this.badges === null ? false : this.badges.split("-")
 			.includes(badge);
 	}
 
+	/**
+	 * get the destination id of a player
+	 */
 	async getDestinationId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.endMap;
 	}
 
+	/**
+	 * get the mapLocation object of the destination of the player
+	 */
 	public async getDestination(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return await MapLocations.getById(link.endMap);
 	}
 
+	/**
+	 * get the origin mapLocation object of the player
+	 */
 	public async getPreviousMap(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return await MapLocations.getById(link.startMap);
 	}
 
+	/**
+	 * get the origin id of the player
+	 */
 	public async getPreviousMapId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.startMap;
 	}
 
+	/**
+	 * get the current trip duration of a player
+	 */
 	public async getCurrentTripDuration(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return minutesToHours(link.tripDuration);
 	}
 
+	/**
+	 * get the amount of experience needed to level up
+	 */
 	public getExperienceNeededToLevelUp(): number {
 		return Math.round(
 			Constants.XP.BASE_VALUE *
@@ -155,6 +181,10 @@ export class Player extends Model {
 		) - Constants.XP.MINUS;
 	}
 
+	/**
+	 * Add or remove points from the score of a player
+	 * @param parameters
+	 */
 	public async addScore(parameters: EditValueParameters): Promise<void> {
 		this.score += parameters.amount;
 		if (parameters.amount > 0) {
@@ -168,6 +198,10 @@ export class Player extends Model {
 		this.addWeeklyScore(parameters.amount);
 	}
 
+	/**
+	 * add or remove money to the player
+	 * @param parameters
+	 */
 	public async addMoney(parameters: EditValueParameters): Promise<void> {
 		this.money += parameters.amount;
 		if (parameters.amount > 0) {
@@ -183,11 +217,19 @@ export class Player extends Model {
 		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason).then();
 	}
 
+	/**
+	 * get a player's pseudo
+	 * @param language
+	 */
 	public getPseudo(language: string): string {
 		this.setPseudo(language);
 		return this.pseudo;
 	}
 
+	/**
+	 * get the pseudo from the discord api + our custom treatment and saves it in the model
+	 * @param language
+	 */
 	public setPseudo(language: string): void {
 		if (this.discordUserId !== undefined) {
 			if (draftBotClient.users.cache.get(this.discordUserId) !== undefined) {
@@ -202,10 +244,16 @@ export class Player extends Model {
 		}
 	}
 
+	/**
+	 * Check if a player needs to level up
+	 */
 	public needLevelUp(): boolean {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	}
 
+	/**
+	 * Get the class group of a player
+	 */
 	public getClassGroup(): number {
 		return this.level < Constants.CLASS.GROUP1LEVEL ? 0 :
 			this.level < Constants.CLASS.GROUP2LEVEL ? 1 :
@@ -213,6 +261,11 @@ export class Player extends Model {
 					3;
 	}
 
+	/**
+	 * Check if a player has to receive a reward for a level up
+	 * @param language
+	 * @param channel
+	 */
 	public async getLvlUpReward(language: string, channel: TextBasedChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
@@ -252,6 +305,11 @@ export class Player extends Model {
 		return bonuses;
 	}
 
+	/**
+	 * level up a player if he has enough experience
+	 * @param channel
+	 * @param language
+	 */
 	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
@@ -282,11 +340,22 @@ export class Player extends Model {
 		return this.levelUpIfNeeded(channel, language);
 	}
 
+	/**
+	 * This function is called when a player receives an effect after a report
+	 * @param timeMalus
+	 * @param effectMalus
+	 */
 	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
 		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
 		await this.save();
 	}
 
+	/**
+	 * Check if we need to kill the player (mouahaha)
+	 * @param channel
+	 * @param language
+	 * @param reason
+	 */
 	public async killIfNeeded(channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
 		if (this.health > 0) {
 			return false;
@@ -308,10 +377,17 @@ export class Player extends Model {
 		return true;
 	}
 
+	/**
+	 * Check if the player has played recently
+	 */
 	public isInactive(): boolean {
 		return this.startTravelDate.valueOf() + TopConstants.FIFTEEN_DAYS < Date.now();
 	}
 
+	/**
+	 * Check if the current effect of a player is finished
+	 * @param date
+	 */
 	public currentEffectFinished(date: Date): boolean {
 		if (this.effect === EffectsConstants.EMOJI_TEXT.DEAD || this.effect === EffectsConstants.EMOJI_TEXT.BABY) {
 			return false;
@@ -325,6 +401,9 @@ export class Player extends Model {
 		return this.effectEndDate.valueOf() < date.valueOf();
 	}
 
+	/**
+	 * get the amount of time remaining before the effect ends
+	 */
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
 		if (EffectsConstants.EMOJI_TEXT_LIST.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
@@ -339,19 +418,28 @@ export class Player extends Model {
 		return remainingTime;
 	}
 
+	/**
+	 * Check if the player is under some effect (except dead or baby)
+	 */
 	public checkEffect(): boolean {
 		return [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.DEAD].indexOf(this.effect) !== -1;
 	}
 
+	/**
+	 * get the level of the player
+	 */
 	public getLevel(): number {
 		return this.level;
 	}
 
+	/**
+	 * get the number of player that are on the same map as the player
+	 */
 	public async getNbPlayersOnYourMap(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM ${botConfig.MARIADB_PREFIX}_game.players
 					   WHERE (mapLinkId = :link
-						  OR mapLinkId = :linkInverse)
+						   OR mapLinkId = :linkInverse)
 						 AND score
 						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
@@ -366,6 +454,10 @@ export class Player extends Model {
 		);
 	}
 
+	/**
+	 * gives an item to the player
+	 * @param item
+	 */
 	public async giveItem(item: GenericItemModel): Promise<boolean> {
 		const invSlots = await InventorySlots.getOfPlayer(this.id);
 		const invInfo = await InventoryInfos.getOfPlayer(this.id);
@@ -402,6 +494,9 @@ export class Player extends Model {
 		return false;
 	}
 
+	/**
+	 * drink a potion
+	 */
 	public async drinkPotion(): Promise<void> {
 		InventorySlot.findOne({
 			where: {
@@ -587,6 +682,13 @@ export class Player extends Model {
 		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 
+	/**
+	 * allow to set the score of a player to a specific value this is only called from addScore
+	 * @param score
+	 * @param channel
+	 * @param language
+	 * @private
+	 */
 	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
 		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
@@ -597,6 +699,11 @@ export class Player extends Model {
 		}
 	}
 
+	/**
+	 * allow to set the money of a player to a specific value this is only called from addMoney
+	 * @param money
+	 * @private
+	 */
 	private setMoney(money: number): void {
 		if (money > 0) {
 			this.money = money;
@@ -606,11 +713,21 @@ export class Player extends Model {
 		}
 	}
 
+	/**
+	 * add points to the weekly score of the player
+	 * @param weeklyScore
+	 * @private
+	 */
 	private addWeeklyScore(weeklyScore: number): void {
 		this.weeklyScore += weeklyScore;
 		this.setWeeklyScore(this.weeklyScore);
 	}
 
+	/**
+	 * set the weekly score of the player to a specific value this is only called from addWeeklyScore
+	 * @param weeklyScore
+	 * @private
+	 */
 	private setWeeklyScore(weeklyScore: number): void {
 		if (weeklyScore > 0) {
 			this.weeklyScore = weeklyScore;
@@ -648,6 +765,9 @@ export class Player extends Model {
 	}
 }
 
+/**
+ * this class is used to store information about players
+ */
 export class Players {
 	/**
 	 * get or create a player
@@ -706,8 +826,8 @@ export class Players {
 		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
 		const query = `SELECT rank
 					   FROM (SELECT ${botConfig.MARIADB_PREFIX}_game.players.discordUserId,
-                                       (RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC
-								  , ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
+									(RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC
+										, ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players
 							 WHERE ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${ids.toString()})) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
@@ -799,6 +919,10 @@ export class Players {
 		});
 	}
 
+	/**
+	 * get the rank of a player from the id of a player
+	 * @param id
+	 */
 	static async getRankById(id: number): Promise<number> {
 		const query = `SELECT *
 					   FROM (SELECT id,
@@ -813,10 +937,14 @@ export class Players {
 		})) as [{ rank: number }])[0].rank;
 	}
 
+	/**
+	 * Get the player with the given rank
+	 * @param rank
+	 */
 	static async getByRank(rank: number): Promise<Player[]> {
 		const query = `SELECT *
 					   FROM (SELECT *,
-									RANK() OVER (ORDER BY score desc, level desc)       rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+									RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.rank = :rank`;
 		return await Player.sequelize.query(query, {
@@ -830,7 +958,7 @@ export class Players {
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
 					   FROM (SELECT *,
-									RANK() OVER (ORDER BY score desc, level desc)       rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+									RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.id = :id`;
 		const playerToReturn = (await Player.sequelize.query<Player>(query, {
