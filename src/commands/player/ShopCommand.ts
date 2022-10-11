@@ -182,13 +182,14 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 	);
 }
 
+type ItemInformation = { price: number, availableCategories: number[] }
+type PlayerInformation = { player: Player, invInfo: InventoryInfo }
+
 function getBuySlotExtensionShopItemCallback(
 	interaction: CommandInteraction,
 	translationModule: TranslationModule,
-	player: Player,
-	price: number,
-	availableCategories: number[],
-	invInfo: InventoryInfo
+	itemInformation: ItemInformation,
+	playerInformation: PlayerInformation
 ) {
 	return async (shopMessage: DraftBotShopMessage): Promise<boolean> => {
 		const chooseSlot: DraftBotReactionMessageBuilder = new DraftBotReactionMessageBuilder()
@@ -205,18 +206,18 @@ function getBuySlotExtensionShopItemCallback(
 					);
 					return;
 				}
-				[player] = await Players.getOrRegister(shopMessage.user.id);
+				[playerInformation.player] = await Players.getOrRegister(shopMessage.user.id);
 				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-						await player.addMoney({
-							amount: -price,
+						await playerInformation.player.addMoney({
+							amount: -itemInformation.price,
 							channel: shopMessage.sentMessage.channel,
 							language: translationModule.language,
 							reason: NumberChangeReason.SHOP
 						});
-						await player.save();
-						invInfo.addSlotForCategory(i);
-						await invInfo.save();
+						await playerInformation.player.save();
+						playerInformation.invInfo.addSlotForCategory(i);
+						await playerInformation.invInfo.save();
 						await shopMessage.sentMessage.channel.send({
 							embeds: [
 								new DraftBotEmbed()
@@ -231,10 +232,10 @@ function getBuySlotExtensionShopItemCallback(
 				draftBotInstance.logsDatabase.logClassicalShopBuyout(shopMessage.user.id, ShopItemType.SLOT_EXTENSION).then();
 			}) as (msg: DraftBotReactionMessage) => void);
 		let desc = "";
-		for (const category of availableCategories) {
+		for (const category of itemInformation.availableCategories) {
 			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
 			desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
-				available: Constants.ITEMS.SLOTS.LIMITS[category] - invInfo.slotLimitForCategory(category),
+				available: Constants.ITEMS.SLOTS.LIMITS[category] - playerInformation.invInfo.slotLimitForCategory(category),
 				limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
 			})}\n`;
 		}
@@ -242,7 +243,10 @@ function getBuySlotExtensionShopItemCallback(
 		const chooseSlotBuilt = chooseSlot.build();
 		chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 		chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
-		await chooseSlotBuilt.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.SHOP, collector));
+		await chooseSlotBuilt.send(
+			shopMessage.sentMessage.channel,
+			(collector) => BlockingUtils.blockPlayerWithCollector(playerInformation.player.discordUserId, BlockingConstants.REASONS.SHOP,
+				collector));
 		return Promise.resolve(false);
 	};
 }
@@ -271,7 +275,10 @@ async function getSlotExtensionShopItem(translationModule: TranslationModule, pl
 		translationModule.get("slotsExtension"),
 		price,
 		translationModule.get("slotsExtensionInfo"),
-		getBuySlotExtensionShopItemCallback(interaction, translationModule, player, price, availableCategories, invInfo)
+		getBuySlotExtensionShopItemCallback(interaction, translationModule, {price, availableCategories}, {
+			player,
+			invInfo
+		})
 	);
 }
 
