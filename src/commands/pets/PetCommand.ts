@@ -26,9 +26,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const tr = Translations.getModule("commands.pet", language);
 
 	const pet = await PetEntities.getById(player.petId);
-	const petModel = await Pets.getById(pet.petId);
-
 	if (pet) {
+		const petModel = await Pets.getById(pet.petId);
 		await interaction.reply({
 			embeds: [new DraftBotEmbed()
 				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedEntity.discordUserId))

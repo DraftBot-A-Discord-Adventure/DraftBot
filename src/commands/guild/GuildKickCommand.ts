@@ -124,8 +124,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
 	}
 
 	if (kickedPlayer.id === entityInformation.player.id) {
-		await sendErrorMessage(
-			textInformation.interaction.user,
+		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
 			textInformation.guildKickModule.get("excludeHimself")

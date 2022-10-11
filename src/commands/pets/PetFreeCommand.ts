@@ -141,6 +141,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const petFreeModule = Translations.getModule("commands.petFree", language);
 
 	const pPet = await PetEntities.getById(player.petId);
+	if (!pPet) {
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
+		return;
+	}
 	const petModel = await Pets.getById(pPet.petId);
 	if (await cantBeFreed(pPet, interaction, petFreeModule, player)) {
 		return;
