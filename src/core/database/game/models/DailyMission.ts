@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {MissionsController} from "../../../missions/MissionsController";
-import Mission from "./Mission";
+import Mission, {Missions} from "./Mission";
 import {Data} from "../../../Data";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import {draftBotInstance} from "../../../bot";
@@ -44,6 +44,7 @@ export class DailyMissions {
 			}, {where: {}});
 			dailyMission = await DailyMissions.regenerateDailyMission();
 		}
+		dailyMission.Mission = await Missions.getById(dailyMission.missionId);
 		return dailyMission;
 	}
 
