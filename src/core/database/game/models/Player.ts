@@ -783,10 +783,12 @@ export class Players {
 			};
 		return await Player.findAll({
 			where: {
-				discordUserId: {
-					[Op.in]: listDiscordId
-				},
-				restrictionsTopEntering
+				[Op.and]: {
+					discordUserId: {
+						[Op.in]: listDiscordId
+					},
+					...restrictionsTopEntering
+				}
 			},
 			order: [
 				[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
@@ -803,12 +805,12 @@ export class Players {
 									RANK() OVER (ORDER BY score desc, level desc) rank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.id = :id`;
-		return (<[{ rank: number }]> await Player.sequelize.query(query, {
+		return ((await Player.sequelize.query(query, {
 			replacements: {
 				id: id
 			},
 			type: QueryTypes.SELECT
-		}))[0].rank;
+		})) as [{ rank: number }])[0].rank;
 	}
 
 	static async getByRank(rank: number): Promise<Player[]> {
