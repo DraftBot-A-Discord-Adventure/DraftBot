@@ -343,22 +343,22 @@ async function generateFields(
  * @param player
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
-	let askedEntity = await Players.getByOptions(interaction);
-	if (!askedEntity) {
-		askedEntity = player;
+	let askedPlayer = await Players.getByOptions(interaction);
+	if (!askedPlayer) {
+		askedPlayer = player;
 	}
 	const profileModule = Translations.getModule("commands.profile", language);
 	const {
 		fields,
 		titleEffect
-	} = await generateFields(profileModule, askedEntity, interaction, askedEntity.effect, language);
+	} = await generateFields(profileModule, askedPlayer, interaction, askedPlayer.effect, language);
 	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(profileModule.format("title", {
 					effect: titleEffect,
-					pseudo: askedEntity.getPseudo(language),
-					level: askedEntity.level
+					pseudo: askedPlayer.getPseudo(language),
+					level: askedPlayer.level
 				}))
 				.addFields(fields)
 		],
@@ -374,7 +374,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 			collector.stop(); // only one is allowed to avoid spam
-			await sendMessageAllBadgesTooMuchBadges(askedEntity, language, interaction);
+			await sendMessageAllBadgesTooMuchBadges(askedPlayer, language, interaction);
 		}
 		else {
 			reply.channel.send({content: profileModule.get(`badges.${reaction.emoji.name}`)}).then((msg: Message) => {
@@ -383,10 +383,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	});
 
-	if (askedEntity.badges !== null && askedEntity.badges !== "") {
-		await displayBadges(askedEntity, reply);
+	if (askedPlayer.badges !== null && askedPlayer.badges !== "") {
+		await displayBadges(askedPlayer, reply);
 	}
-	if (new Date().valueOf() - askedEntity.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
+	if (new Date().valueOf() - askedPlayer.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
 		await reply.react(Constants.TOPGG.BADGE);
 	}
 }

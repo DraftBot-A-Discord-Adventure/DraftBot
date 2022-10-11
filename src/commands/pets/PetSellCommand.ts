@@ -263,6 +263,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const petCost = interaction.options.get(Translations.getModule("commands.petSell", Constants.LANGUAGE.ENGLISH).get("optionPriceName")).value as number;
 	const pet = await PetEntities.getById(player.petId);
+	if (!pet) {
+		await replyErrorMessage(interaction, language, Translations.getModule("commands.pet", language).get("noPet"));
+		return;
+	}
 	const petModel = await Pets.getById(pet.petId);
 	let guild;
 	try {
