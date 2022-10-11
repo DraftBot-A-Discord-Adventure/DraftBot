@@ -5,8 +5,8 @@ import Armor, {Armors} from "./Armor";
 import Potion, {Potions} from "./Potion";
 import ObjectItem, {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
-import moment = require("moment");
 import {playerActiveObjects} from "./PlayerActiveObjects";
+import moment = require("moment");
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;
@@ -142,6 +142,7 @@ export class InventorySlots {
 	 * Return the current active items a player hold
 	 */
 	static async getMainSlotsItems(playerId: number): Promise<playerActiveObjects> {
+		await this.getOfPlayer(playerId);
 		return {
 			weapon: <Weapon>(await (await InventorySlots.getMainWeaponSlot(playerId)).getItem()),
 			armor: <Armor>(await (await InventorySlots.getMainArmorSlot(playerId)).getItem()),
