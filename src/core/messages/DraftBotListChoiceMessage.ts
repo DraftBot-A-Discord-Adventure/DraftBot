@@ -19,7 +19,13 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 			desc += `${Constants.REACTIONS.NUMBERS[i + 1]} - ${items[i].name}\n`;
 		}
 		reactions.push(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
-		super(reactions, [userId], cancelCallbackToCall, 0, false, 0);
+		super(
+			{
+				reactions,
+				allowedUsersDiscordIdToReact: [userId]
+			},
+			cancelCallbackToCall
+		);
 		this.setDescription(desc);
 	}
 
