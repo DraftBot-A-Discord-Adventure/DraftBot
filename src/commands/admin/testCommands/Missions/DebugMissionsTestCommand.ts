@@ -37,7 +37,7 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 		}${
 			missionsInfo.dailyMissionNumberDone
 		}\nLast daily mission done: ${
-			missionsInfo.lastDailyMissionCompleted
+			missionsInfo.lastDailyMissionCompleted.toString()
 		}\nGems count: ${
 			missionsInfo.gems
 		}\nCampaign progression: ${
