@@ -1,11 +1,11 @@
 version = 1
 
+exclude_patterns = [
+  "src/core/utils/astronomy.ts",
+  "src/core/database/game/migrations/*.ts",
+  "src/core/database/logs/migrations/*.ts"
+]
+
 [[analyzers]]
 name = "javascript"
 enabled = true
-
-exclude_patterns = [
-	"**/astronomy.ts",
-	"**/migrations/*.ts"
-]
-
