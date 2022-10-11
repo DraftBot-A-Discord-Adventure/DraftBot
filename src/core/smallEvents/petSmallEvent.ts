@@ -314,8 +314,12 @@ export const smallEvent: SmallEvent = {
 		}
 
 		const petEntity = await PetEntities.getById(player.id);
-		const petModel = await Pets.getById(player.id);
-		const {interaction, amount, food} = await managePickedPetInteraction(player, interactionCommand, language, petEntity, petModel);
+		const petModel = await Pets.getById(petEntity.id);
+		const {
+			interaction,
+			amount,
+			food
+		} = await managePickedPetInteraction(player, interactionCommand, language, petEntity, petModel);
 		await generatePetEmbed(language, interaction, seEmbed, petEntity, petModel, amount, food);
 		await interactionCommand.editReply({embeds: [seEmbed]});
 		await finishResolvingSpecialInteractions(interaction, interactionCommand, language, player, food);

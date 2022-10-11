@@ -192,7 +192,7 @@ async function displayTop(
 		});
 	}
 
-	await (scope === TopConstants.SERVER_SCOPE ? interaction.editReply({embeds: [topDisplay]}) : interaction.reply({embeds: [topDisplay]}));
+	await interaction.editReply({embeds: [topDisplay]});
 }
 
 /**
@@ -218,15 +218,13 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
  * @param player
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	await interaction.deferReply();
+
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
 	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
 	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
 	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
 	const scoreTooLow = player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
-
-	if (scope === TopConstants.SERVER_SCOPE) {
-		await interaction.deferReply();
-	}
 
 	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Players.getAllStoredDiscordIds();
 	const numberOfPlayers = await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);

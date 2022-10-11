@@ -675,8 +675,8 @@ export class Players {
 					guildId: guildId
 				},
 				order: [
-					[{model: Player, as: "Player"}, "score", "DESC"],
-					[{model: Player, as: "Player"}, "level", "DESC"]
+					["score", "DESC"],
+					["level", "DESC"]
 				]
 			}
 		));
@@ -729,7 +729,7 @@ export class Players {
 			if (player === undefined) {
 				return null;
 			}
-			return player;
+			return (await Players.getOrRegister(player.discordUserId))[0];
 		}
 		return null;
 	}
@@ -815,7 +815,7 @@ export class Players {
 
 	static async getByRank(rank: number): Promise<Player[]> {
 		const query = `SELECT *
-					   FROM (SELECT entityId,
+					   FROM (SELECT *,
 									RANK() OVER (ORDER BY score desc, level desc)       rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.rank = :rank`;
@@ -829,16 +829,17 @@ export class Players {
 
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
-					   FROM (SELECT id,
+					   FROM (SELECT *,
 									RANK() OVER (ORDER BY score desc, level desc)       rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
 					   WHERE subquery.id = :id`;
-		return (await Player.sequelize.query<Player>(query, {
+		const playerToReturn = (await Player.sequelize.query<Player>(query, {
 			replacements: {
 				id: id
 			},
 			type: QueryTypes.SELECT
 		}))[0] as Player;
+		return (await Players.getOrRegister(playerToReturn.discordUserId))[0];
 	}
 
 	static async getNbMeanPoints(): Promise<number> {
