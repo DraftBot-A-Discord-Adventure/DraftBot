@@ -20,6 +20,13 @@ import {draftBotClient} from "../bot";
  */
 const MESSAGE_NOT_SENT_ERROR = "Message has not been sent";
 
+type ReactionInformation = {
+	reactions: DraftBotReaction[],
+	allowedUsersDiscordIdToReact: string[],
+	maxReactions?: number,
+	anyUserAllowed?: boolean,
+}
+
 /**
  * A class corresponding to a reaction message used in the bot
  */
@@ -62,29 +69,23 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 
 	/**
 	 * Default constructor
-	 * @param reactions
-	 * @param allowedUsersDiscordIdToReact
+	 * @param reactionInformation
 	 * @param endCallback
-	 * @param maxReactions
-	 * @param anyUserAllowed
 	 * @param collectorTime
 	 */
 	constructor(
-		reactions: DraftBotReaction[],
-		allowedUsersDiscordIdToReact: string[],
-		endCallback: CallbackLike,
-		maxReactions: number,
-		anyUserAllowed: boolean,
-		collectorTime: number) {
+		reactionInformation: ReactionInformation,
+		endCallback: CallbackLike = null,
+		collectorTime = 0) {
 		super();
-		this._reactions = reactions;
-		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
+		this._reactions = reactionInformation.reactions;
+		this._allowedUsersDiscordIdToReact = reactionInformation.allowedUsersDiscordIdToReact;
 		this._endCallback = endCallback;
-		this._maxReactions = maxReactions;
-		this._anyUserAllowed = anyUserAllowed;
+		this._maxReactions = reactionInformation.maxReactions ?? 0;
+		this._anyUserAllowed = reactionInformation.anyUserAllowed ?? false;
 		this._collectorTime = collectorTime;
 		this._reactionsNames = [];
-		for (const reaction of reactions) {
+		for (const reaction of reactionInformation.reactions) {
 			this._reactionsNames.push(reaction.emote);
 		}
 	}
@@ -312,11 +313,14 @@ export class DraftBotReactionMessageBuilder {
 	 * Build the message
 	 */
 	build(): DraftBotReactionMessage {
-		return new DraftBotReactionMessage(this._reactions,
-			this._allowedUsersDiscordIdToReact,
+		return new DraftBotReactionMessage(
+			{
+				reactions: this._reactions,
+				allowedUsersDiscordIdToReact: this._allowedUsersDiscordIdToReact,
+				maxReactions: this._maxReactions,
+				anyUserAllowed: this._anyUserAllowed
+			},
 			this._endCallback,
-			this._maxReactions,
-			this._anyUserAllowed,
 			this._collectorTime);
 	}
 }

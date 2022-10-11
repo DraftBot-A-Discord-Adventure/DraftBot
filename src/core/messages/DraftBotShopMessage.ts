@@ -102,12 +102,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			money: currentMoney
 		});
 		super(
-			reactions,
-			[interaction.user.id],
-			DraftBotShopMessage.shopCallback,
-			0,
-			false,
-			0
+			{
+				reactions,
+				allowedUsersDiscordIdToReact: [interaction.user.id]
+			}, DraftBotShopMessage.shopCallback
 		);
 		this.setTitle(title);
 		this.setDescription(content);
@@ -225,12 +223,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			}
 		));
 		const confirmBuyMessage = new DraftBotReactionMessage(
-			numberReactions,
-			[shopMessage.user.id],
-			null,
-			0,
-			false,
-			0
+			{
+				reactions: numberReactions,
+				allowedUsersDiscordIdToReact: [shopMessage.user.id]
+			}
 		);
 		confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage.user);
 		let desc = format(shopMessage._translationModule.get("multipleChoice.display"), {

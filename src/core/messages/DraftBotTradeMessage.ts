@@ -54,18 +54,17 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		tradeNoResponse: (message: DraftBotTradeMessage) => void
 	) {
 		super(
-			[
-				new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, DraftBotTradeMessage.validateCallback),
-				new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, DraftBotTradeMessage.refuseCallback)
-			],
-			[
-				trader1.id,
-				trader2.id
-			],
-			DraftBotTradeMessage.endCallback,
-			0,
-			false,
-			0
+			{
+				reactions: [
+					new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, DraftBotTradeMessage.validateCallback),
+					new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, DraftBotTradeMessage.refuseCallback)
+				],
+				allowedUsersDiscordIdToReact: [
+					trader1.id,
+					trader2.id
+				]
+			},
+			DraftBotTradeMessage.endCallback
 		);
 		this.trader1id = trader1.id;
 		this.tradeSuccessCallback = tradeSuccess;
@@ -73,7 +72,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		this.tradeNoResponseCallback = tradeNoResponse;
 	}
 
-	private static validateCallback(this: void, message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
+	private static validateCallback(this: void, message: DraftBotReactionMessage, _reaction: MessageReaction, user: User): void {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = true;
@@ -86,7 +85,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		}
 	}
 
-	private static refuseCallback(this: void, message: DraftBotReactionMessage, reaction: MessageReaction, user: User): void {
+	private static refuseCallback(this: void, message: DraftBotReactionMessage, _reaction: MessageReaction, user: User): void {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = false;
