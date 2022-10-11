@@ -160,12 +160,20 @@ type GuildLikeType = {
 	guildPets: GuildPet[]
 }
 
+/**
+ * This class is used to log all the changes in the game database
+ */
 export class LogsDatabase extends Database {
 
 	constructor() {
 		super("logs");
 	}
 
+	/**
+	 * log when a pet trade occurs
+	 * @param firstPet
+	 * @param secondPet
+	 */
 	public static async logPetTrade(firstPet: PetEntity, secondPet: PetEntity): Promise<void> {
 		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet);
 		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet);
@@ -176,6 +184,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a pet is freed
+	 * @param freedPet
+	 */
 	public static async logPetFree(freedPet: PetEntity): Promise<void> {
 		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(freedPet);
 		await LogsPetsFrees.create({
@@ -184,6 +196,13 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a pet is sold
+	 * @param soldPet
+	 * @param sellerId
+	 * @param buyerId
+	 * @param price
+	 */
 	public static async logPetSell(soldPet: PetEntity, sellerId: string, buyerId: string, price: number): Promise<void> {
 		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(soldPet);
 		const seller = await LogsDatabase.findOrCreatePlayer(sellerId);
@@ -197,6 +216,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * Log when a player leaves a guild
+	 * @param guild
+	 * @param leftDiscordId
+	 */
 	public static async logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
@@ -207,10 +231,19 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * get the current date for logging purposes
+	 * @private
+	 */
 	private static getDate(): number {
 		return Math.trunc(Date.now() / 1000);
 	}
 
+	/**
+	 * find or create a player in the log database
+	 * @param discordId
+	 * @private
+	 */
 	private static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
 			where: {
@@ -219,6 +252,11 @@ export class LogsDatabase extends Database {
 		}))[0];
 	}
 
+	/**
+	 * find or create a pet entity in the log database
+	 * @param petEntity
+	 * @private
+	 */
 	private static async findOrCreatePetEntity(petEntity: PetEntity): Promise<LogsPetEntities> {
 		return (await LogsPetEntities.findOrCreate({
 			where: {
@@ -228,6 +266,11 @@ export class LogsDatabase extends Database {
 		}))[0];
 	}
 
+	/**
+	 * find or create a guild in the log database
+	 * @param guild
+	 * @private
+	 */
 	private static async findOrCreateGuild(guild: Guild | GuildLikeType): Promise<LogsGuilds> {
 		return (await LogsGuilds.findOrCreate({
 			where: {
@@ -240,6 +283,14 @@ export class LogsDatabase extends Database {
 		}))[0];
 	}
 
+	/**
+	 * allow to log a number that comes from a player but only for small numbers like his class, his level or campaign level
+	 * @param discordId
+	 * @param valueFieldName
+	 * @param value
+	 * @param model
+	 * @private
+	 */
 	private static async logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const values: { [key: string]: string | number } = {
@@ -250,6 +301,12 @@ export class LogsDatabase extends Database {
 		await model.create(values);
 	}
 
+	/**
+	 * allow to log a thing that only is about a player and a date like his daily
+	 * @param discordId
+	 * @param model
+	 * @private
+	 */
 	private static async logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		await model.create({
@@ -258,6 +315,15 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * allow to log a mission change about a player
+	 * @param discordId
+	 * @param missionId
+	 * @param variant
+	 * @param objective
+	 * @param model
+	 * @private
+	 */
 	private static async logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const [mission] = await LogsMissions.findOrCreate({
@@ -274,6 +340,14 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * allow to log a number change for example the xp or the money
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 * @param model
+	 * @private
+	 */
 	private static async logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		await model.create({
@@ -284,6 +358,13 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * allow to log information about an item in the log database
+	 * @param discordId
+	 * @param item
+	 * @param model
+	 * @private
+	 */
 	private static async logItem(
 		discordId: string,
 		item: GenericItemModel,
@@ -301,30 +382,71 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log a player's money change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
 	public logMoneyChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersMoney);
 	}
 
+	/**
+	 * log a player's health change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
 	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersHealth);
 	}
 
+	/**
+	 * log a player's xp change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
 	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersExperience);
 	}
 
+	/**
+	 * log a player's score change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
 	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersScore);
 	}
 
+	/**
+	 * log a player's gems change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
 	public logGemsChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersGems);
 	}
 
+	/**
+	 * log a player's level change
+	 * @param discordId
+	 * @param level
+	 */
 	public logLevelChange(discordId: string, level: number): Promise<void> {
 		return LogsDatabase.logPlayerAndNumber(discordId, "level", level, LogsPlayersLevel);
 	}
 
+	/**
+	 * record the usage of a command in the log database
+	 * @param discordId
+	 * @param serverId
+	 * @param commandName
+	 */
 	public async logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const [server] = await LogsServers.findOrCreate({
@@ -345,6 +467,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log the appearance of a small event
+	 * @param discordId
+	 * @param name
+	 */
 	public async logSmallEvent(discordId: string, name: string): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const [smallEvent] = await LogsSmallEvents.findOrCreate({
@@ -359,6 +486,13 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log the appearance of a big event
+	 * @param discordId
+	 * @param eventId
+	 * @param possibilityEmote
+	 * @param issueIndex
+	 */
 	public async logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const [possibility] = await LogsPossibilities.findOrCreate({
@@ -376,6 +510,13 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log a new alteration of a player
+	 * @param discordId
+	 * @param alteration
+	 * @param reason
+	 * @param duration
+	 */
 	public async logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		switch (alteration) {
@@ -401,6 +542,11 @@ export class LogsDatabase extends Database {
 		}
 	}
 
+	/**
+	 * log when a player has been unlocked from jail
+	 * @param buyerDiscordId
+	 * @param releasedDiscordId
+	 */
 	public async logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
 		const [buyer] = await LogsPlayers.findOrCreate({
 			where: {
@@ -419,34 +565,79 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log a player's class change
+	 * @param discordId
+	 * @param classId
+	 */
 	public logPlayerClassChange(discordId: string, classId: number): Promise<void> {
 		return LogsDatabase.logPlayerAndNumber(discordId, "classId", classId, LogsPlayersClassChanges);
 	}
 
+	/**
+	 * log a player's vote
+	 * @param discordId
+	 */
 	public logVote(discordId: string): Promise<void> {
 		return LogsDatabase.logSimplePlayerDate(discordId, LogsPlayersVotes);
 	}
 
+	/**
+	 * log when a player does not succeed a mission
+	 * @param discordId
+	 * @param missionId
+	 * @param variant
+	 * @param objective
+	 */
 	public logMissionFailed(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
 		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFailed);
 	}
 
+	/**
+	 * log when a player succeeds a mission except for the daily mission
+	 * @param discordId
+	 * @param missionId
+	 * @param variant
+	 * @param objective
+	 */
 	public logMissionFinished(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
 		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFinished);
 	}
 
+	/**
+	 * log when a player starts a mission
+	 * @param discordId
+	 * @param missionId
+	 * @param variant
+	 * @param objective
+	 */
 	public logMissionFound(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
 		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFound);
 	}
 
+	/**
+	 * log when a player finish a daily mission
+	 * @param discordId
+	 */
 	public logMissionDailyFinished(discordId: string): Promise<void> {
 		return LogsDatabase.logSimplePlayerDate(discordId, LogsMissionsDailyFinished);
 	}
 
+	/**
+	 * log when a player progress in the campaign
+	 * @param discordId
+	 * @param campaignIndex
+	 */
 	public logMissionCampaignProgress(discordId: string, campaignIndex: number): Promise<void> {
 		return LogsDatabase.logPlayerAndNumber(discordId, "number", campaignIndex, LogsMissionsCampaignProgresses);
 	}
 
+	/**
+	 * log when a daily mission is refreshed
+	 * @param missionId
+	 * @param variant
+	 * @param objective
+	 */
 	public async logMissionDailyRefreshed(missionId: string, variant: number, objective: number): Promise<void> {
 		const [mission] = await LogsMissions.findOrCreate({
 			where: {
@@ -461,6 +652,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when the bot join a new server
+	 * @param discordId
+	 */
 	public async logServerJoin(discordId: string): Promise<void> {
 		const [server] = await LogsServers.findOrCreate({
 			where: {
@@ -473,6 +668,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when the bot leave a server
+	 * @param discordId
+	 */
 	public async logServerQuit(discordId: string): Promise<void> {
 		const [server] = await LogsServers.findOrCreate({
 			where: {
@@ -485,6 +684,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when new travel is started
+	 * @param discordId
+	 * @param mapLink
+	 */
 	public async logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const [maplinkLog] = await LogsMapLinks.findOrCreate({
@@ -500,6 +704,9 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * save the top players from the top week. To avoid having too much data, we only save the top 15 players
+	 */
 	public async log15BestTopWeek(): Promise<void> {
 		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
 		const now = LogsDatabase.getDate();
@@ -514,6 +721,11 @@ export class LogsDatabase extends Database {
 		}
 	}
 
+	/**
+	 * log when a player gain a new item
+	 * @param discordId
+	 * @param item
+	 */
 	public logItemGain(discordId: string, item: GenericItemModel): Promise<unknown> {
 		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
 		switch (item.categoryName) {
@@ -535,6 +747,12 @@ export class LogsDatabase extends Database {
 		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
 	}
 
+	/**
+	 * log when a player receive a time boost
+	 * @param discordId
+	 * @param time
+	 * @param reason
+	 */
 	public async logTimeWarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
 		if (reason === NumberChangeReason.IGNORE) {
 			return;
@@ -548,6 +766,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a player sell an item
+	 * @param discordId
+	 * @param item
+	 */
 	public logItemSell(discordId: string, item: GenericItemModel): Promise<unknown> {
 		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
 		switch (item.categoryName) {
@@ -569,6 +792,10 @@ export class LogsDatabase extends Database {
 		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
 	}
 
+	/**
+	 * log when a player rename its pet
+	 * @param petRenamed
+	 */
 	public async logPetNickname(petRenamed: PetEntity): Promise<void> {
 		const pet = await LogsDatabase.findOrCreatePetEntity(petRenamed);
 		await LogsPetsNicknames.create({
@@ -578,6 +805,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when the shop refresh the daily potion
+	 * @param potionId
+	 */
 	public async logDailyPotion(potionId: number): Promise<void> {
 		await LogsDailyPotions.create({
 			potionId,
@@ -585,6 +816,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a player is kicked from a guild
+	 * @param guild
+	 * @param kickedDiscordId
+	 */
 	public async logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId);
@@ -595,6 +831,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when anything is bought from the shop
+	 * @param discordId
+	 * @param shopItem
+	 */
 	public async logClassicalShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 		await LogsClassicalShopBuyouts.create({
@@ -604,6 +845,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when anything is bought from the guild shop
+	 * @param discordId
+	 * @param shopItem
+	 */
 	public async logGuildShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 		await LogsGuildShopBuyouts.create({
@@ -614,6 +860,12 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log which type of food is bought from the guild shops
+	 * @param discordId
+	 * @param shopItemName
+	 * @param amount
+	 */
 	public async logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number): Promise<void> {
 		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés sur les items du shop de guilde, c'est-à-dire décalés de 6.
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
@@ -625,6 +877,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a daily ti
+	 * @param petLoveChange
+	 */
 	public async logDailyTimeout(petLoveChange: boolean): Promise<void> {
 		await LogsDailyTimeouts.create({
 			petLoveChange,
@@ -632,12 +888,20 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when the weekly top end
+	 */
 	public async logTopWeekEnd(): Promise<void> {
 		await LogsTopWeekEnd.create({
 			date: LogsDatabase.getDate()
 		});
 	}
 
+	/**
+	 * log when anything is bought from the mission shop
+	 * @param discordId
+	 * @param shopItem
+	 */
 	public async logMissionShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
 		await LogsMissionShopBuyouts.create({
@@ -647,6 +911,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild ask for its daily reward
+	 * @param guild
+	 * @param rewardResult
+	 */
 	public async logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
@@ -657,6 +926,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log a pet transfer
+	 * @param guildPet
+	 * @param playerPet
+	 */
 	public async logPetTransfer(guildPet: PetEntity, playerPet: PetEntity): Promise<void> {
 		const logGuildPet = guildPet ? await LogsDatabase.findOrCreatePetEntity(guildPet) : null;
 		const logPlayerPet = playerPet ? await LogsDatabase.findOrCreatePetEntity(playerPet) : null;
@@ -667,6 +941,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild is destroyed
+	 * @param guild
+	 */
 	public async logGuildDestroy(guild: Guild): Promise<void> {
 		const guildInfos: GuildLikeType = {
 			id: guild.id,
@@ -691,6 +969,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when an elder is demoted
+	 * @param guild
+	 * @param removedPlayerId
+	 */
 	public async logGuildElderRemove(guild: Guild, removedPlayerId: number): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsEldersRemoves.create({
@@ -700,6 +983,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild's chief is changed
+	 * @param guild
+	 * @param newChiefId
+	 */
 	public async logGuildChiefChange(guild: Guild, newChiefId: number): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer((await Players.getById(newChiefId)).discordUserId)).id;
@@ -710,6 +998,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild is created
+	 * @param creatorDiscordId
+	 * @param guild
+	 */
 	public async logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
 		const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
@@ -720,6 +1013,12 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a player joins a guild
+	 * @param adderDiscordId
+	 * @param addedDiscordId
+	 * @param guild
+	 */
 	public async logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
 		const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId);
 		const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId);
@@ -732,6 +1031,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log all the information about a fight, this is called at the end of a fight
+	 * @param fight
+	 */
 	public async logFight(fight: FightController): Promise<void> {
 		const player1 = fight.fightInitiator;
 		const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
@@ -769,6 +1072,11 @@ export class LogsDatabase extends Database {
 		}
 	}
 
+	/**
+	 * log when a guild experience changes
+	 * @param guild
+	 * @param reason
+	 */
 	public async logGuildExperienceChange(guild: Guild, reason: NumberChangeReason): Promise<void> {
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsExperiences.create({
@@ -779,6 +1087,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild description changes
+	 * @param discordId
+	 * @param guild
+	 */
 	public async logGuildDescriptionChange(discordId: string, guild: Guild): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
@@ -790,6 +1103,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a pet has its love changed
+	 * @param petEntity
+	 * @param reason
+	 */
 	public async logPetLoveChange(petEntity: PetEntity, reason: NumberChangeReason): Promise<void> {
 		const logPet = await LogsDatabase.findOrCreatePetEntity(petEntity);
 		await LogsPetsLovesChanges.create({
@@ -800,6 +1118,13 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when guild food changes
+	 * @param guild
+	 * @param food
+	 * @param total
+	 * @param reason
+	 */
 	public async logGuildsFoodChanges(guild: Guild, food: number, total: number, reason: NumberChangeReason): Promise<void> {
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsFoodsChanges.create({
@@ -811,6 +1136,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild gets a new pet
+	 * @param guild
+	 * @param petEntity
+	 */
 	public async logGuildNewPet(guild: Guild, petEntity: PetEntity): Promise<void> {
 		const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
@@ -821,6 +1151,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a player gets a new pet
+	 * @param discordId
+	 * @param petEntity
+	 */
 	public async logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
 		const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
 		const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId);
@@ -831,6 +1166,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a member of a guild gets promoted to elder
+	 * @param guild
+	 * @param addedPlayerId
+	 */
 	public async logGuildElderAdd(guild: Guild, addedPlayerId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const player = await LogsDatabase.findOrCreatePlayer(addedPlayerId);
@@ -841,6 +1181,10 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a guild levels up
+	 * @param guild
+	 */
 	public async logGuildLevelUp(guild: Guild): Promise<void> {
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsLevels.create({
@@ -850,6 +1194,11 @@ export class LogsDatabase extends Database {
 		});
 	}
 
+	/**
+	 * log when a player ask for his daily reward
+	 * @param discordId
+	 * @param item
+	 */
 	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
 		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
 	}
