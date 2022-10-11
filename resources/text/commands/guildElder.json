@@ -12,7 +12,7 @@
 			"elderAddTitle": "{pseudo}, confirmez-vous votre choix ?",
 			"elderAdd": ":question: {elder} deviendra l'aîné de la guilde `{guildName}`.",
 			"successElderAddTitle": "{pseudo} est le nouvel aîné de la guilde {guildName} !",
-			"successElderAdd": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande `guildelder`, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec `guildelderremove`.",
+			"successElderAdd": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande {command:guildelder}, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec {command:guildelderremove}.",
 			"elderAddCancelled": "L'aîné n'a pas été promu.",
 			"problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
 		},
@@ -28,7 +28,7 @@
 			"elderAddTitle": "{pseudo}, confirm your choice?",
 			"elderAdd": ":question: {elder} will become the elder of the guild {guildName}.",
 			"successElderAddTitle": "{pseudo} is the new guild elder of {guildName}!",
-			"successElderAdd": "The elder is responsible for the guild management. He must be chosen with caution! But don't worry, if you are not satisfied with your elder, you can replace him with the command `guildelder`, or if you have an authoritarian spirit, you can remove him with `guildelderremove`.",
+			"successElderAdd": "The elder is responsible for the guild management. He must be chosen with caution! But don't worry, if you are not satisfied with your elder, you can replace him with the command {command:guildelder}, or if you have an authoritarian spirit, you can remove him with {command:guildelderremove}.",
 			"elderAddCancelled": "The elder has not been promoted.",
 			"problemWhilePromoting": "A problem occurred while promoting the player."
 		}
