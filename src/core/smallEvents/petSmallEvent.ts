@@ -313,7 +313,7 @@ export const smallEvent: SmallEvent = {
 			return await doNothing.executeSmallEvent(interactionCommand, language, player, seEmbed);
 		}
 
-		const petEntity = await PetEntities.getById(player.id);
+		const petEntity = await PetEntities.getById(player.petId);
 		const petModel = await Pets.getById(petEntity.id);
 		const {
 			interaction,
