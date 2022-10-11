@@ -32,7 +32,7 @@ const initPlayerTestCommand = async (language: string, interaction: CommandInter
 	player.badges = null;
 	player.effectEndDate = new Date();
 	player.effectDuration = 0;
-	player.health = 100;
+	player.health = await player.getMaxHealth();
 	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
 	await Maps.startTravel(player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST);
 	await player.save();

@@ -82,11 +82,10 @@ async function getStatisticField(profileModule: TranslationModule, askedPlayer: 
 
 /**
  * get the current campaign progression of the player
- * @param askedPlayer
  * @param mc
  * @param missionsInfo
  */
-function getCampaignProgression(askedPlayer: Player, mc: MissionSlot, missionsInfo: PlayerMissionsInfo): number {
+function getCampaignProgression(mc: MissionSlot, missionsInfo: PlayerMissionsInfo): number {
 	return Math.round((missionsInfo.campaignProgression ===
 		Campaign.getMaxCampaignNumber() &&
 		mc.isCompleted() ? missionsInfo.campaignProgression : missionsInfo.campaignProgression - 1
@@ -96,17 +95,16 @@ function getCampaignProgression(askedPlayer: Player, mc: MissionSlot, missionsIn
 /**
  * Get the mission field of the profile
  * @param profileModule
- * @param askedPlayer
  * @param mc
  * @param missionsInfo
  */
-function getMissionField(profileModule: TranslationModule, askedPlayer: Player, mc: MissionSlot, missionsInfo: PlayerMissionsInfo): EmbedField {
+function getMissionField(profileModule: TranslationModule, mc: MissionSlot, missionsInfo: PlayerMissionsInfo): EmbedField {
 	return {
 		name: profileModule.get("mission.fieldName"),
 		value: profileModule.format("mission.fieldValue",
 			{
 				gems: missionsInfo.gems,
-				campaign: getCampaignProgression(askedPlayer, mc, missionsInfo)
+				campaign: getCampaignProgression(mc, missionsInfo)
 			}
 		),
 		inline: false
@@ -279,7 +277,7 @@ async function generateFields(
 		fields.push(await getStatisticField(profileModule, askedPlayer, playerActiveObjects));
 	}
 	fields.push(
-		getMissionField(profileModule, askedPlayer, mc, missionsInfo));
+		getMissionField(profileModule, mc, missionsInfo));
 	fields.push(
 		getRankingField(profileModule, rank, numberOfPlayers, askedPlayer));
 
