@@ -308,7 +308,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 				return false;
 			}
 			const pet = await PetEntities.getById(player.petId);
-			const petModel = await Pets.getById(pet.id);
+			const petModel = await Pets.getById(pet.petId);
 			const sentenceGotten = translationModule.getRandom(`items.lovePointsValue.advice.${pet.getLoveLevelNumber()}`);
 			await message.sentMessage.channel.send({
 				embeds: [new DraftBotEmbed()
