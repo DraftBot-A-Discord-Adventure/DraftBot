@@ -115,7 +115,6 @@ function getRandomInteractionKey(section: SectionType, level: number, total: num
 			}
 		}
 	}
-
 	return null;
 }
 
@@ -314,7 +313,7 @@ export const smallEvent: SmallEvent = {
 		}
 
 		const petEntity = await PetEntities.getById(player.petId);
-		const petModel = await Pets.getById(petEntity.id);
+		const petModel = await Pets.getById(petEntity.petId);
 		const {
 			interaction,
 			amount,
