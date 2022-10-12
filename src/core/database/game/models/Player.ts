@@ -835,7 +835,7 @@ export class Players {
 	}
 
 	/**
-	 * get an player from the options of an interaction
+	 * get a player from the options of an interaction
 	 * @param interaction
 	 */
 	static async getByOptions(interaction: CommandInteraction): Promise<Player | null> {
