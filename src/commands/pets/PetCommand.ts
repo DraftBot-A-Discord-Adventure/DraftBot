@@ -19,18 +19,17 @@ import {Pets} from "../../core/database/game/models/Pet";
  * @param player
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
-	let askedEntity = await Players.getByOptions(interaction);
-	if (!askedEntity) {
-		askedEntity = player;
+	let askedPlayer = await Players.getByOptions(interaction);
+	if (!askedPlayer) { // no entity found using the options
+		askedPlayer = player;
 	}
 	const tr = Translations.getModule("commands.pet", language);
-
-	const pet = await PetEntities.getById(player.petId);
+	const pet = await PetEntities.getById(askedPlayer.petId);
 	if (pet) {
 		const petModel = await Pets.getById(pet.petId);
 		await interaction.reply({
 			embeds: [new DraftBotEmbed()
-				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedEntity.discordUserId))
+				.formatAuthor(tr.get("embedTitle"), interaction.user, draftBotClient.users.cache.get(askedPlayer.discordUserId))
 				.setDescription(
 					pet.getPetDisplay(petModel, language)
 				)]
@@ -38,7 +37,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	if (askedEntity.discordUserId === interaction.user.id) {
+	if (askedPlayer.discordUserId === interaction.user.id) {
 		await replyErrorMessage(
 			interaction,
 			language,

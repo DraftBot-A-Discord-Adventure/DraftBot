@@ -437,6 +437,8 @@ export const smallEvent: SmallEvent = {
 		const tr = Translations.getModule("smallEvents.interactOtherPlayers", language);
 		const selectedPlayerId = selectAPlayer(playersOnMap);
 		if (!selectedPlayerId) {
+			// if no player is found on the map.
+			// (because we only check for player that are in the cache, this can happen pretty often)
 			seEmbed.setDescription(seEmbed.data.description + tr.getRandom("no_one"));
 			await interaction.editReply({embeds: [seEmbed]});
 			return;
