@@ -34,7 +34,7 @@
 			},
 			"roomInPlayer": {
 				"stories": [
-					"vous apercevez un{feminine} **{pet}** perdu{feminine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et acceptez de vous en occuper.",
+					"vous apercevez un{feminine} **{pet}** perdu{feminine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et décidez de vous en occuper.",
 					"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. Vous décidez donc de {determinant} prendre avec vous.",
 					"vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un{feminine} **{pet}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
 					"vous décidez de faire un petit somme, lorsque quelque chose vous réveille, un{feminine} **{pet}** était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
@@ -59,40 +59,40 @@
 			"noRoom": {
 				"stories": [
 					[
-						"you see an old lady looking to bring down a **{pet}** from a tree. You agree to help her and quickly convince {determinant} to go down. Thinking it is her pet, you give her but discover that {nominative} does not belong at her. With no more space in your shelter, you can't bring {determinant} with you.",
+						"you see an old lady trying to get a **{pet}** down from a tree. You agree to help her and quickly convince {determinant} to go down. Thinking it is her pet, you hand it to her, only to discover that {nominative} does not belong to her. With no more space in your shelter, you can't bring {determinant} with you.",
 						false
 					],
 					[
-						"you find a **{pet}**, which looks injured. Unfortunately, with a companion and no more space in your guild to welcome it, you decides to finish it quickly in order to recover its carcass.",
+						"you find a **{pet}** that looks injured. Unfortunately, with a companion and no more space in your guild to welcome it, you decides to finish it quickly in order to harvest its meat.",
 						true
 					],
 					[
-						"you find a **{pet}**. With no possibility to welcome it, you give {determinant} to a seller that goes through here. In return, he offers you some meat.",
+						"you find a **{pet}**. With no available place to welcome it, you give {determinant} to a seller passing by. In return, he offers you some meat.",
 						true
 					],
 					[
-						"you find a **{pet}**. With no possibility to welcome it, you give {determinant} to a seller that passes by. He gladly agrees to take care of it.",
+						"you find a **{pet}**. With no available place to welcome it, you give {determinant} to a seller that you happened to come across. He gladly agrees to take care of it.",
 						false
 					],
 					[
-						"you find a **{pet}**. With no possibility to welcome it, you give {determinant} to a seller that goes through here. He refuse and let {determinant} go.",
+						"you find a **{pet}**. With no available place to welcome it, you give {determinant} to a seller hiding in ambush. He refuse and let {determinant} go.",
 						false
 					]
 				]
 			},
 			"roomInGuild": {
 				"stories": [
-					"you see a **{pet}** lost. Although you already have a companion, you decide to bring {determinant} back to your guild for someone to take care of it.",
-					"you notice a wandering **{pet}** which looks hungry. You give it your last's meal remains. {nominativeShift} likes and seems to want follow you in your journey. Already having a companion, you leave it carefully in your shelter.",
-					"you see a group of children standing in circle. You get closer and discover that they are mistreating a poor little **{pet}**. You make them leave, but {nominative} is too badly hurt. You manage to get {determinant} back to right and give {determinant} a rest in your shelter."
+					"you see a lost **{pet}**. Although you already have a companion, you decide to bring {determinant} back to your guild to have someone take care of it.",
+					"you notice a wandering **{pet}** that looks hungry. You give it your leftovers, {nominativeShift} likes them and seems to want follow you in your journey. Already having a companion, you leave it in your guild's care.",
+					"you see a group of children standing in a circle. You get closer and see them abusing a poor little **{pet}**. You chase them away, but {nominative} is too badly hurt. You manage to help {determinant} recover and let {determinant} have a rest in your shelter."
 				]
 			},
 			"roomInPlayer": {
 				"stories": [
-					"you see a lost **{pet}**. Having always wanted to have a companion, you fall under his charm, and agree to take care of it.",
-					"you see an old lady looking to bring down a **{pet}** from a tree. You agree to help her and quickly convince {determinant} to go down. Thinking it is her pet, you give her but discover that {nominative} does not belong at her. You decide to take {determinant} with you.",
-					"your hear noise coming from a bush, with a bit of curiosity, you decide to get closer. You discover a **{pet}** which looks in your eyes then starts to follow you, you choose to adopt it.",
-					"you decide to take a nap, when something wakes you up, a **{pet}** was ferreting into your bag! ** ! But {nominative} doesn't seem to want to attack you and even seems to like you, so you decide to keep {determinant}."
+					"you see a lost **{pet}**. Feeling a great desire for such a pet, you quickly decide to take care of it.",
+					"you see an old lady trying to get a **{pet}** down from a tree. You agree to help her and quickly convince {determinant} to go down. Thinking it is her pet, you hand it to her, only to discover that {nominative} does not belong to her. You decide to take {determinant} with you.",
+					"you hear noises coming from a nearby bush, intrigued, you decide to get closer. You find a **{pet}** which looks you in the eyes then starts to follow you, you choose to adopt it.",
+					"you decide to take a nap. Something wakes you up, a **{pet}** was ferreting into your bag! But {nominative} doesn't seem to want to attack you and even seems to like you, so you decide to keep {determinant}."
 				]
 			},
 			"nominative": {
@@ -107,12 +107,10 @@
 				"m": "him",
 				"f": "her"
 			},
-			"petObtentionGuild": "{emote} | A pet joins the guild shelter: **{pet}**",
-			"petObtentionPlayer": "{emote} | A pet follows you now : **{pet}**"
+			"petObtentionGuild": "{emote} | A pet has joined the guild shelter: **{pet}**",
+			"petObtentionPlayer": "{emote} | A pet is now following you : **{pet}**"
 		}
 	},
 	"rarity": 2,
 	"emote": ":dog2:"
 }
-
-

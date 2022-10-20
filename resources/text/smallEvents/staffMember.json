@@ -2,13 +2,13 @@
 	"translations": {
 		"fr": {
 			"context": [
-				"En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{pseudo}**, {sentence}.",
+				"En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{pseudo}**, \"{sentence}\".",
 				"Alors que vous cheminez tranquillement, vous remarquez une grande affiche. Elle semble louer les exploits de **{pseudo}**... \"{sentence}\".",
 				"Durant l'une de vos aventures, vous entendez une histoire, \"{sentence}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{pseudo}** ! Son nom vous semble familier...",
-				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
-				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
-				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... {sentence}.",
-				"Après une longue et monotone marche, vous rencontrez une personne chantant en l'honneur de **{pseudo}**... :musical_note: {sentence} :musical_note:.",
+				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales. Il vous décrit alors **{pseudo}**, \"{sentence}\".",
+				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : \"{sentence}\".",
+				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... \"{sentence}\".",
+				"Après une longue et monotone marche, vous rencontrez une personne chantant en l'honneur de **{pseudo}**... :musical_note: \"{sentence}\" :musical_note:.",
 				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
 			],
 			"members": {
@@ -37,37 +37,37 @@
 		},
 		"en": {
 			"context": [
-				"While taking a detour around a ravine, you encounter a bard. While you're walking together, he tells you the story of **{pseudo}**, {sentence}.",
+				"While taking a detour to get around a ravine, you encounter a bard. While you're walking together, he tells you the story of **{pseudo}** : \"{sentence}\".",
 				"As you walk quietly, you notice a large poster. It seems to praise the feats of **{pseudo}**... \"{sentence}\".",
 				"During one of your adventures, you hear a story, \"{sentence}\", but you don't know who the hero is. After some research, you realize that they are talking about **{pseudo}**! Their name seems familiar to you...",
-				"Entering a building along your path, you chat with the owner for a while. You ask him to tell you the local legends, he then describes **{pseudo}** to you, {sentence}.",
-				"On your way, you meet an old man that you decide to accompany. During your time together, he tells you the story of **{pseudo}**: {sentence}.",
-				"As you walk along the road, you see a book in poor condition on the ground. Entitled **{pseudo}**, you open it and read the first sentences... {sentence}.",
-				"You walk quietly for a long time, until you meet a person singing a tune dedicated to **{pseudo}**... :musical_note: {sentence} :musical_note:.",
+				"Entering a building along your path, you chat with the owner for a while. You ask them to tell you about the local legends, he then describes **{pseudo}** to you: \"{sentence}\".",
+				"On your way, you meet an old man that you decides to accompany you. During your time together, he tells you the story of **{pseudo}**: {sentence}.",
+				"As you walk along the road, you see a book in poor condition laying on the ground. Entitled **{pseudo}**, you open it and read the first few sentences... \"{sentence}\".",
+				"You walk quietly for a long time, until you meet a person singing a tune dedicated to **{pseudo}**... :musical_note: \"{sentence}\" :musical_note:.",
 				"During your journey, a dust cloud appears in the distance. A few minutes later, a horseman stops in front of you, saying he's looking for **{pseudo}**. Seeing your inquisitive look, he adds: \"{sentence}\"."
 			],
 			"members": {
-				"Nysvaa": "one of the princess' suitors who doesn't intend to win her by fighting but rather by proving their ability to think during their adventures (and by their luck a little... a lot)",
+				"Nysvaa": "one of the princess' suitors who doesn't intend to win her by fighting but rather by proving their ability to think during their adventures (and counting on their luck a little... a lot)",
 				"Thero1st": "one of the first suitors of the princess and a great chef specializing in octopus skewers. However, this fighter takes the contest lightly, preferring to spend time in their stands with their animals",
-				"Oscar": "a poor warrior who, in their prime, from a forgotten time, dominated the ranking with their points and their knowledge",
-				"QuenQuentin": "a faithful knight defeating numerous enemies thanks to the grace of heaven and who helped make this world a better place",
-				"LePourfendeur": "a manipulator, he uses different ruses to provide for adventurers dangerous situations, fatal sometimes",
-				"Ines": "a fighter from the beginning of this world, who unfortunately fights less and less for him because of lack of time, but who remains faithful in the race to the princess (well, to the prince rather). Faithful supporter of Kyutism",
-				"romain22222": "a great thinker, seeking as much to resolve situations optimally as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
+				"Oscar": "a poor warrior who, in their prime, during a now mostly-forgotten era, dominated the world's rankings with their points and their knowledge",
+				"QuenQuentin": "a faithful knight defeating numerous enemies thanks to the grace of heaven, and who helped make this world a better place",
+				"LePourfendeur": "a manipulator, he uses different ruses to make sure adventurers constantly fall into dangerous situations, even fatal ones at times",
+				"Ines": "a fighter from the beginnings of this world, who unfortunately fights less and less for it because of a great lack of time, but who remains faithful in the race for the hand of the princess (well, the prince's rather). Faithful supporter of Kyutism",
+				"romain22222": "a great thinker, seeking as much to resolve tricky situations in an optimal manner as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
 				"Asemerald": "an adventurer who lets himself be carried by his luck, known for his beyond imaginable firepower",
-				"Izuku": "a rich inventor who created a love potion for the beautiful princess but was stolen by a merchant",
+				"Izuku": "a rich inventor who created a love potion for the beautiful princess, but who got it stolen by a merchant",
 				"Draft": "an ancient god, creator of the world in which we all evolve. Impressed by his people's abilities, he wanders among them as he works to improve their experience",
 				"Royal": "a skilled entrepreneur who favors money over morality. Fond of tournaments, he will not hesitate to fight for the princess",
 				"Max": "a mad inventor, crazy about travel. He is the only one to have roamed the dragons' land. Legend has it that most of his projects brought humanity to the brink of extinction",
 				"Eagle": "a dragon raiser, who led the kingdom's first coups",
-				"DeadAngelV6": "ordinary human loving life, eating is one of his passions. Give him food when you see him",
+				"DeadAngelV6": "ordinary life-loving human, eating is one of his passions. Give him food when you see him",
 				"Kyusaki": "the first High Priest of Kyutism, he leads an incognito meditation route among the adventurers of the world, often giving advice to those who ask for it",
-				"Greninja_san": "an amphibian with an extraordinary mind, he used his extensive knowledge to fit into human life and learned the precepts of their magic",
+				"Greninja_san": "an amphibian with an extraordinary mind. He used his extensive knowledge to fit into human the human world and learned the precepts of their magic",
 				"nwcubeok": "a famous wizard travelling the country to advertise his magical skills. He hopes the princess will appreciate them",
-				"SuperBananeNinja": "a discreet mage crisscrossing the land, generally solitary, often salutary, with his heterogeneous manners and disconcerting tricks, but always straight in his boots",
-				"Hitori": "a completely incoherent artist who stands out by her extraordinary dynamism. She asks to whoever will listen if they know where gods are hiding, and she is unfortunately known for her exceptional misfortune that already caused the destruction of multiple landmarks.",
-				"Pietagorh": "the director of an association helping young adventurers to improve themselves. Rumor says he knows everything the whole world is constituted and contains, from the tiny animals to the largest trees.",
-				"Doctor": "a great adventurer who travels across the kingdom searching for an opponent his stature. If one day you cross his pass, you can try to fight him, but few managed to survive his first shot and the rest of them ran away."
+				"SuperBananeNinja": "a discreet mage traveling the land, generally solitary, often salutary, with his heterogeneous manners and disconcerting tricks, but always straight in his boots",
+				"Hitori": "a completely incoherent artist who stands out thanks to her extraordinary dynamism. She asks to whoever will listen if they know where gods are hiding. She is also known for her exceptional misfortune that already caused the destruction of multiple landmarks.",
+				"Pietagorh": "the director of an association helping young adventurers improve themselves. Rumor as it he knows everything the whole world is made of and contains, from the tiniest of animals to the largest of trees.",
+				"Doctor": "a great adventurer who travels across the kingdom, searching for an opponent able to match him. If one day you cross his path, you can try to fight him, but few managed to survive his first hit, and the rest of them ran away."
 			}
 		}
 	},
