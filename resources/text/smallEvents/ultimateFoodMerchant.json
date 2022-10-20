@@ -22,33 +22,33 @@
 					"Voyant que vous n'êtes pas très puissant, il se résigne à vous offrir quelques friandises, mais vous n'avez malheureusement plus assez de place pour les prendre. Vous reprenez votre route déçu."
 				],
 				"money": [
-					"Comme vous ne faites pas parti d'une guilde, vous ne pouvez cependant pas stocker la précieuse marchandise de votre bienfaiteur. Vous reprenez votre route déçu."
+					"Comme vous ne faites pas partie d'une guilde, vous ne pouvez pas stocker la précieuse marchandise de votre bienfaiteur. Il vous donne alors {reward} :moneybag:. Vous reprenez votre route, un peu déçu."
 				]
 			}
 		},
 		"en": {
 			"intrigue": [
-				"observing the surrounding landscape and lost in your thoughts, you do not notice the man in front of you and hustle him. You apologize, but the man being very nice you get to know each other. His name is Gaspard-Jo, and he is a soup seller. Generously, he rewards the talent of the players he finds on his way. ",
-				"a small caravan with a chimney is heading towards you. You greet politely the merchant, who, after a quick discussion during which you learn that his name is Gaspard-Jo, turns out to want to reward you for your good deeds."
+				"observing the surrounding landscape and lost in your thoughts, you do not notice the man in front of you, and end up crashing into him. You apologize, and, the man being very nice, you get to know each other. His name is Gaspard-Jo, and he is a soup seller. Generously, he rewards the talent of the players he finds on his way. ",
+				"a small roulotte with a chimney is heading towards you. You politely greet its merchant, who, after a quick discussion during which you learn that his name is Gaspard-Jo, turns out to be willing to reward you for your good deeds."
 			],
 			"rewards": {
 				"ultimateFood": [
-					"Having heard of the good deeds perpetuated by your guild, he hands you several **{reward} ultimate soup{reward>1?s:}**, which you store carefully."
+					"Having heard of the good deeds perpetuated by your guild, he hands you **{reward} ultimate soup{reward>1?s:}**, which you store carefully."
 				],
 				"fullUltimateFood": [
-					"Having heard of the good deeds your guild is perpetuating, he offers you ultimate soups. Unfortunately, your warehouse being full, you are obliged to return it to him."
+					"Having heard of the good deeds your guild is perpetuating, he offers you ultimate soups. Unfortunately, your warehouse being full, you are obliged to return them to him."
 				],
 				"item": [
-					"Noticing your guild crest on your chest, and impressed by your build, he offers you an item that he says might be useful to you."
+					"Noticing your guild crest on your chest, and impressed by your guild's achievments, he offers you an item that might be useful to you."
 				],
 				"commonFood": [
-					"Believing that you are not powerful enough to get his goods for free, he offers you **{reward} candy{reward>1?s:}**."
+					"Believing that you are not powerful enough to get his premium goods for free, he offers you **{reward} candy{reward>1?s:}**."
 				],
 				"fullCommonFood": [
-					"Seeing that you are not very powerful, he wants to offer you candies, but unfortunately you no longer have enough space to take them. You then decide to accept them to eat them on the spot."
+					"Seeing that you are not very powerful, he wants to offer you candies, but you no longer have enough space to store them. You then decide to accept them to eat them on the spot."
 				],
 				"money": [
-					"Apparently, he had decided to reward only players present in a guild. Seeing your spite, he takes pity and gives you {reward}💰 as a consolation."
+					"Apparently, he had decided to only give rewards to guild-members. Upon seeing your disappointed looks, his resolve wavers and he gives you {reward}💰 as a consolation."
 				]
 			}
 		}
