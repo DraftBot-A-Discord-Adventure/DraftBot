@@ -26,20 +26,20 @@ type TextInformation = { interaction: CommandInteraction, tr: TranslationModule 
 
 /**
  * Check top interactions
- * @param otherPlayer
+ * @param otherPlayerRank
  * @param cList
  */
-function checkTop(otherPlayer: Player, cList: string[]): void {
-	if (otherPlayer.rank === 1) {
+function checkTop(otherPlayerRank: number, cList: string[]): void {
+	if (otherPlayerRank === 1) {
 		cList.push("top1");
 	}
-	else if (otherPlayer.rank <= 10) {
+	else if (otherPlayerRank <= 10) {
 		cList.push("top10");
 	}
-	else if (otherPlayer.rank <= 50) {
+	else if (otherPlayerRank <= 50) {
 		cList.push("top50");
 	}
-	else if (otherPlayer.rank <= 100) {
+	else if (otherPlayerRank <= 100) {
 		cList.push("top100");
 	}
 }
@@ -100,11 +100,11 @@ function checkGuild(otherPlayer: Player, player: Player, cList: string[]): void 
 
 /**
  * Check topWeek interactions
- * @param otherPlayer
+ * @param otherPlayerWeeklyRank
  * @param cList
  */
-function checkTopWeek(otherPlayer: Player, cList: string[]): void {
-	if (otherPlayer.weeklyRank <= 5) {
+function checkTopWeek(otherPlayerWeeklyRank: number, cList: string[]): void {
+	if (otherPlayerWeeklyRank <= 5) {
 		cList.push("topWeek");
 	}
 }
@@ -126,19 +126,19 @@ async function checkHealth(otherPlayer: Player, cList: string[]): Promise<void> 
 
 /**
  * Check ranking interactions
- * @param otherPlayer
+ * @param otherPlayerRank
  * @param numberOfPlayers
  * @param cList
- * @param player
+ * @param playerRank
  */
-function checkRanking(otherPlayer: Player, numberOfPlayers: number, cList: string[], player: Player): void {
-	if (otherPlayer.rank >= numberOfPlayers) {
+function checkRanking(otherPlayerRank: number, numberOfPlayers: number, cList: string[], playerRank: number): void {
+	if (otherPlayerRank >= numberOfPlayers) {
 		cList.push("unranked");
 	}
-	else if (otherPlayer.rank < player.rank) {
+	else if (otherPlayerRank < playerRank) {
 		cList.push("lowerRankThanHim");
 	}
-	else if (otherPlayer.rank > player.rank) {
+	else if (otherPlayerRank > playerRank) {
 		cList.push("betterRankThanHim");
 	}
 }
@@ -385,22 +385,22 @@ async function sendAndManagePoorInteraction(
  * @param numberOfPlayers
  * @param tr
  */
-async function getAvailableInteractions(
-	otherPlayer: Player,
-	player: Player,
-	numberOfPlayers: number,
-	tr: TranslationModule
-): Promise<{ guild: Guild, cList: string[] }> {
+async function getAvailableInteractions(otherPlayer: Player, player: Player, numberOfPlayers: number, tr: TranslationModule): Promise<{ guild: Guild, cList: string[] }> {
 	let guild = null;
 	const cList: string[] = [];
-	checkTop(otherPlayer, cList);
+	const [playerRank, otherPlayerRank, otherPlayerWeeklyRank] = await Promise.all([
+		Players.getRankById(player.id),
+		Players.getRankById(otherPlayer.id),
+		Players.getWeeklyRankById(otherPlayer.id)
+	]);
+	checkTop(otherPlayerRank, cList);
 	checkBadges(otherPlayer, cList);
 	checkLevel(otherPlayer, cList);
 	checkClass(otherPlayer, player, cList);
 	checkGuild(otherPlayer, player, cList);
-	checkTopWeek(otherPlayer, cList);
+	checkTopWeek(otherPlayerWeeklyRank, cList);
 	await checkHealth(otherPlayer, cList);
-	checkRanking(otherPlayer, numberOfPlayers, cList, player);
+	checkRanking(otherPlayerRank, numberOfPlayers, cList, playerRank);
 	checkMoney(otherPlayer, cList, player);
 	checkPet(otherPlayer, cList);
 	guild = await checkGuildResponsibilities(otherPlayer, guild, cList);
