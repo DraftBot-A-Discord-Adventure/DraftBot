@@ -458,7 +458,7 @@ export const smallEvent: SmallEvent = {
 			level: otherPlayer.level,
 			class: (await Classes.getById(otherPlayer.class)).getName(language),
 			advice: Translations.getModule("advices", language).getRandom("advices"),
-			petName: getPetName(otherPlayer, language),
+			petName: await getPetName(otherPlayer, language),
 			guildName: guild ? guild.name : "",
 			item: item ? item.getName(language) : "",
 			pluralItem: item ? item.frenchPlural ? "s" : "" : "",
