@@ -136,7 +136,7 @@
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est {playerDisplay} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
 				"{playerDisplay} vomit dans un buisson. C'est donc ça, me bruit que vous entendez depuis tout à l'heure ! Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
-				"{playerDisplay} ne peut se retenir et vomit à vos pieds. Vous esquivez de justesse l'attaque et accélerez votre cadence pour vous éloigner du massacre."
+				"{playerDisplay} ne peut se retenir et vomit à vos pieds. Vous esquivez de justesse l'attaque et accélérez votre cadence pour vous éloigner du massacre."
 			],
 			":head_bandage:": [
 				"Vous apercevez une momie au loin ! Ah non, ce n'est que {playerDisplay} recouvert de bandages...",
@@ -319,7 +319,7 @@
 			"duplicatePotion": [
 				"You chat about your journey with {playerDisplay}. After getting to know them, they pour some of their extra potion into one of your empty vials. You continue your adventure with **1x** {item}!",
 				"A stranger named {playerDisplay} arrives, pours some potion into an empty flask of yours, and leaves without elaborating further. You obtain **1x** {item} !",
-				"Sharing is the secret to longlasting, happy relationships! {playerDisplay} drops some {item} into one of your empty vials. You leave happily"
+				"Sharing is the secret to long lasting, happy relationships! {playerDisplay} drops some {item} into one of your empty vials. You leave happily"
 			],
 			"pet": [
 				"{playerDisplay} pass near you with their **{petName}** pet. You pet this brave animal and continue on your way in a good mood!",
@@ -347,7 +347,7 @@
 				"{playerDisplay} can't hold back and vomits at your feet. You narrowly dodge the attack and increase your pace to get away from the massacre."
 			],
 			":head_bandage:": [
-				"You see a mummy in the distance! Oh nevermind, it's {playerDisplay} covered with bandages...",
+				"You see a mummy in the distance! Oh never-mind, it's {playerDisplay} covered with bandages...",
 				"On your way, you cross paths with {playerDisplay}. They are covered with bandages from head to toes. What could have happened to them?",
 				"As you rush towards your destination, {playerDisplay} ask you to tighten the bandages on their head. You do it, surprised that someone could even manage to get that injured."
 			],
@@ -403,7 +403,7 @@
 			],
 			":scream:": [
 				"You meet {playerDisplay}, which is seemingly running in your direction. Indeed, they are chased by a group of bandits that are after their money. It doesn't really concern you, so you just continue walking.",
-				"You see {playerDisplay} from afar, running as fast as possible to escape a pack of wolves, you hurry to help them and retreatdrive away those wild beasts",
+				"You see {playerDisplay} from afar, running as fast as possible to escape a pack of wolves, you hurry to help them and retreat drive away those wild beasts",
 				"You meet {playerDisplay}. They seem panicked. You ask them why they are in such a state. They tell you they were chased by a dragon, but managed to escape, thankfully losing nothing but some hair in the whole mishap."
 			],
 			":clock2:": [
