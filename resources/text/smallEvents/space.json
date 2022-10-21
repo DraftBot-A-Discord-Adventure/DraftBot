@@ -7,7 +7,7 @@
 				"vous rencontrez un oracle prétendant se nommer **{name}**",
 				"un homme vous semble étrange, alors vous allez à sa rencontre. Il dit être un oracle du nom de **{name}**",
 				"vous rencontrez un oracle s'appelant **{name}**",
-				"vous passez à côté d'un oracle qui vous interpelle. Il dit s'appeller **{name}**",
+				"vous passez à côté d'un oracle qui vous interpelle. Il dit s'appeler **{name}**",
 				"vous êtes interpelé par un homme disant s'appeler **{name}**",
 				"un oracle du nom de **{name}** vous apostrophe",
 				"un étranger prétendant s'appeler **{name}** vous demande d'approcher",
@@ -121,7 +121,7 @@
 			"after_search_format": "{seIntro}{intro}. {searchAction}.\n\n:telescope: *{search}*.\n\n{actionIntro}, {action} **{specific}**. {outro}.",
 			"intro": [
 				"you meet an oracle who claims to be called **{name}**",
-				"you go and talk to a werid-looking man. He proclaims himself to be an oracle named **{name}**",
+				"you go and talk to a weird-looking man. He proclaims himself to be an oracle named **{name}**",
 				"you meet an oracle named **{name}**",
 				"you pass by an oracle who beckons to you. He says his name is **{name}**",
 				"you are called out by a man, who the says he's named **{name}**",

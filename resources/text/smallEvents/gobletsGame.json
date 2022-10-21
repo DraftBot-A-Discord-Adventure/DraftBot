@@ -17,7 +17,7 @@
 						"emoji": "🪣"
 					},
 					{
-						"desc": "Le dernier, taillé dans un bois bleu, et d'une scintillance telle qu'il paraît enchanté",
+						"desc": "Le dernier, taillé dans un bois bleu, et scintillant tellement qu'il paraît enchanté",
 						"name": "scintillant",
 						"emoji": "✨"
 					}
@@ -45,7 +45,7 @@
 				],
 				"goblets": [
 					{
-						"desc": "The one made out of metal, very old-looking and engraved with a draconic head\n",
+						"desc": "The one made out of metal, very old-looking and engraved with a dragon head\n",
 						"name": "metal",
 						"emoji": "🐲"
 					},

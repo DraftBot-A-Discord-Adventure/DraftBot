@@ -38,7 +38,7 @@
 						"alte": ":dizzy_face:"
 					},
 					{
-						"sentence": "vous êtes assomé par une immense branche tombant de l'arbre mort sous lequel vous êtiez. Blessé, il vous faudra un peu de temps pour repartir. {alteEmoji}",
+						"sentence": "vous êtes assommé par une immense branche tombant de l'arbre mort sous lequel vous étiez. Blessé, il vous faudra un peu de temps pour repartir. {alteEmoji}",
 						"alte": ":head_bandage:"
 					},
 					{
@@ -90,7 +90,7 @@
 			"alteration": {
 				"stories": [
 					{
-						"sentence": "Upon seeing a bushfull of berries, you suddenly realize that your previous meal was quite some time ago. You feel compelled by your hunger to grab a bunch of them and stuff it in your mouth. You suddenly feel dizzy and nauseous {alteEmoji}",
+						"sentence": "Upon seeing a bush full of berries, you suddenly realize that your previous meal was quite some time ago. You feel compelled by your hunger to grab a bunch of them and stuff it in your mouth. You suddenly feel dizzy and nauseous {alteEmoji}",
 						"alte": ":sick:"
 					},
 					{

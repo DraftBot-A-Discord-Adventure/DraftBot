@@ -39,7 +39,7 @@
 					"Having heard of the good deeds your guild is perpetuating, he offers you ultimate soups. Unfortunately, your warehouse being full, you are obliged to return them to him."
 				],
 				"item": [
-					"Noticing your guild crest on your chest, and impressed by your guild's achievments, he offers you an item that might be useful to you."
+					"Noticing your guild crest on your chest, and impressed by your guild's achievements, he offers you an item that might be useful to you."
 				],
 				"commonFood": [
 					"Believing that you are not powerful enough to get his premium goods for free, he offers you **{reward} candy{reward>1?s:}**."
