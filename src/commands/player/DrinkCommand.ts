@@ -17,6 +17,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -161,6 +162,8 @@ export const commandInfo: ICommand = {
 				.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
-	requirements: {},
+	requirements: {
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
+	},
 	mainGuildCommand: false
 };
