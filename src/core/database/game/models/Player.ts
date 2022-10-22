@@ -835,23 +835,28 @@ export class Players {
 	 * @param playerId
 	 */
 	static async getRankById(playerId: number): Promise<number> {
-		const query = `SELECT rank
-					   FROM (SELECT RANK() OVER (ORDER BY score desc, level desc) rank
-							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
-					   WHERE subquery.id = ${playerId}`;
-		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
+		return await this.getRank(playerId, Constants.RANK_TYPES.SCORE);
 	}
 
 	/**
 	 * get the weekly rank of a player
 	 * @param playerId
 	 */
-	static async getWeeklyRankById(playerId:number): Promise<number> {
-		const query = `SELECT rank
-					   FROM (SELECT RANK() OVER (ORDER BY weeklyScore desc, level desc) rank
+	static async getWeeklyRankById(playerId: number): Promise<number> {
+		return await this.getRank(playerId, Constants.RANK_TYPES.WEEKLY_SCORE);
+	}
+
+	/**
+	 * get the rank of a player related to a specific type of value
+	 * @param playerId
+	 * @param rankType
+	 */
+	static async getRank(playerId: number, rankType: string): Promise<number> {
+		const query = `SELECT ranking
+					   FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players) subquery
-					   WHERE subquery.id =  ${playerId}`;
-		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
+					   WHERE subquery.id = ${playerId}`;
+		return ((await Player.sequelize.query(query))[0][0] as { ranking: number }).ranking;
 	}
 
 	/**

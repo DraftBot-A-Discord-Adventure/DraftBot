@@ -132,7 +132,7 @@ async function checkHealth(otherPlayer: Player, cList: string[]): Promise<void> 
  * @param playerRank
  */
 function checkRanking(otherPlayerRank: number, numberOfPlayers: number, cList: string[], playerRank: number): void {
-	if (otherPlayerRank >= numberOfPlayers) {
+	if (otherPlayerRank > numberOfPlayers) {
 		cList.push("unranked");
 	}
 	else if (otherPlayerRank < playerRank) {

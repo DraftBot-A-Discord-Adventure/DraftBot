@@ -143,6 +143,13 @@ export abstract class Constants {
 		QUICK_END_EMOTE: "🔚"
 	};
 
+	// This constant represent the different types of values on which the players can be ranked
+	static readonly RANK_TYPES = {
+		LEVEL: "level",
+		SCORE: "score",
+		WEEKLY_SCORE: "weeklyScore"
+	};
+
 	static readonly PETS = {
 		IS_FOOD: 1,
 		NICKNAME_MIN_LENGTH: 3,
