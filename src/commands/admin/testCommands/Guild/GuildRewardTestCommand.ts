@@ -43,7 +43,7 @@ const guildRewardTestCommand = async (language: string, interaction: CommandInte
 	if (!rewardValues.includes(args[0])) {
 		throw new Error("Erreur greward : reward donné n'existe pas. Veuillez vous référer à la commande \"test help greward\" pour plus d'informations");
 	}
-	await CommandsManager.executeCommandWithParameters("guilddaily", interaction, language, player, args[0]);
+	await CommandsManager.executeCommandWithParameters("guilddailybonus", interaction, language, player, args[0]);
 	return format(commandInfo.messageWhenExecuted, {reward: args[0]});
 };
 
