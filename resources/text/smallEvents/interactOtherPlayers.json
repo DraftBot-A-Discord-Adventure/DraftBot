@@ -347,7 +347,7 @@
 				"{playerDisplay} can't hold back and vomits at your feet. You narrowly dodge the attack and increase your pace to get away from the massacre."
 			],
 			":head_bandage:": [
-				"You see a mummy in the distance! Oh never-mind, it's {playerDisplay} covered with bandages...",
+				"You see a mummy in the distance! Oh never mind, it's {playerDisplay} covered with bandages...",
 				"On your way, you cross paths with {playerDisplay}. They are covered with bandages from head to toes. What could have happened to them?",
 				"As you rush towards your destination, {playerDisplay} ask you to tighten the bandages on their head. You do it, surprised that someone could even manage to get that injured."
 			],
