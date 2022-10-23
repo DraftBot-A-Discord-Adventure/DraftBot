@@ -7,7 +7,7 @@ import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";

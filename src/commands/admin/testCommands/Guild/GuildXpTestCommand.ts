@@ -1,6 +1,6 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
-import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";

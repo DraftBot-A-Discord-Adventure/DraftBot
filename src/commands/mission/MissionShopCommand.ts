@@ -17,7 +17,6 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -28,6 +27,7 @@ import {Missions} from "../../core/database/game/models/Mission";
 import {Pets} from "../../core/database/game/models/Pet";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 
 /**
  * get the amount of gems a user has

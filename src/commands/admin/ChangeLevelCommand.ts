@@ -1,8 +1,8 @@
 import {ICommand} from "../ICommand";
 import {CommandInteraction} from "discord.js";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import Player from "../../core/database/game/models/Player";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
 /**
  * Change the level of a player

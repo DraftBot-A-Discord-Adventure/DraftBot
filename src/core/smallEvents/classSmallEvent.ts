@@ -13,7 +13,7 @@ import {
 	giveRandomItem
 } from "../utils/ItemUtils";
 import {Constants} from "../Constants";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 

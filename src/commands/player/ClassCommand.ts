@@ -9,7 +9,7 @@ import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/database/game/models/Player";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";

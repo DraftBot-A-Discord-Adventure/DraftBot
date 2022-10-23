@@ -24,6 +24,13 @@ function getMinutesDisplayStringConstants(language: string): { hoursDisplay: str
 }
 
 /**
+ * get the current date for logging purposes
+ */
+export function getDateLogs(): number {
+	return Math.trunc(Date.now() / 1000);
+}
+
+/**
  * get a date value of tomorrow
  */
 export function getTomorrowMidnight(): Date {

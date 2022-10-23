@@ -3,7 +3,7 @@ import {MapLinks} from "../database/game/models/MapLink";
 import {millisecondsToMinutes, minutesToMilliseconds} from "../utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {Constants} from "../Constants";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
 

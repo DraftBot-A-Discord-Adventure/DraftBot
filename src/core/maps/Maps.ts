@@ -7,7 +7,7 @@ import {
 	millisecondsToMinutes
 } from "../utils/TimeUtils";
 import {draftBotInstance} from "../bot";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
 

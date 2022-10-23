@@ -1,4 +1,4 @@
-import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {Constants} from "../../../../core/Constants";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";

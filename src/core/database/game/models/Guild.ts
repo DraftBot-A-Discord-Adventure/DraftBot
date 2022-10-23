@@ -7,7 +7,7 @@ import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player, {Players} from "./Player";
 import {botConfig, draftBotInstance} from "../../../bot";
-import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
 import moment = require("moment");

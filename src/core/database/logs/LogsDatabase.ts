@@ -66,7 +66,7 @@ import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
 import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
 import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
 import {LogsPetsFrees} from "./models/LogsPetsFrees";
-import GuildPet, {GuildPets} from "../game/models/GuildPet";
+import {GuildPets} from "../game/models/GuildPet";
 import {FightController} from "../../fights/FightController";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
@@ -85,80 +85,8 @@ import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
 import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
-
-export enum NumberChangeReason {
-	// Default value. Used to detect missing parameters in functions
-	NULL,
-
-	// Value to use if you don't want to log the information, SHOULDN'T APPEAR IN THE DATABASE
-	// You MUST also comment why you use this constant where you use it
-	IGNORE,
-
-	// Admin
-	TEST,
-	ADMIN,
-	DEBUG,
-
-	// Events
-	BIG_EVENT,
-	SMALL_EVENT,
-	RECEIVE_COIN,
-
-	// Pets
-	PET_SELL,
-	PET_FEED,
-	PET_FREE,
-
-	// Missions
-	MISSION_FINISHED,
-	MISSION_SHOP,
-
-	// Guild
-	GUILD_DAILY,
-	GUILD_CREATE,
-
-	// Items
-	ITEM_SELL,
-	DAILY,
-	DRINK,
-
-	// Misc
-	SHOP,
-	CLASS,
-	UNLOCK,
-	LEVEL_UP,
-	RESPAWN,
-	NEW_PLAYER
-}
-
-export enum ShopItemType {
-	DAILY_POTION,
-	RANDOM_ITEM,
-	ALTERATION_HEAL,
-	FULL_REGEN,
-	SLOT_EXTENSION,
-	BADGE,
-	COMMON_FOOD,
-	HERBIVOROUS_FOOD,
-	CARNIVOROUS_FOOD,
-	ULTIMATE_FOOD,
-	MONEY,
-	TREASURE,
-	POINTS,
-	MISSION_SKIP,
-	PET_INFORMATION,
-	GUILD_XP,
-}
-
-type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
-
-type GuildLikeType = {
-	id: number,
-	name: string,
-	creationDate: Date,
-	chiefId: number,
-	guildPets: GuildPet[]
-}
+import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
+import {getDateLogs} from "../../utils/TimeUtils";
 
 /**
  * This class is used to log all the changes in the game database
@@ -180,7 +108,7 @@ export class LogsDatabase extends Database {
 		await LogsPetsTrades.create({
 			firstPetId: firstLogPetEntity.id,
 			secondPetId: secondLogPetEntity.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -192,7 +120,7 @@ export class LogsDatabase extends Database {
 		const logPetEntity = await LogsDatabase.findOrCreatePetEntity(freedPet);
 		await LogsPetsFrees.create({
 			petId: logPetEntity.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -212,7 +140,7 @@ export class LogsDatabase extends Database {
 			sellerId: seller.id,
 			buyerId: buyer.id,
 			price,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -227,16 +155,8 @@ export class LogsDatabase extends Database {
 		await LogsGuildsLeaves.create({
 			guildId: logGuild.id,
 			leftPlayer: leftPlayer.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
-	}
-
-	/**
-	 * get the current date for logging purposes
-	 * @private
-	 */
-	private static getDate(): number {
-		return Math.trunc(Date.now() / 1000);
 	}
 
 	/**
@@ -295,7 +215,7 @@ export class LogsDatabase extends Database {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		const values: { [key: string]: string | number } = {
 			playerId: player.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		};
 		values[valueFieldName] = value;
 		await model.create(values);
@@ -311,7 +231,7 @@ export class LogsDatabase extends Database {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		await model.create({
 			playerId: player.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -336,7 +256,7 @@ export class LogsDatabase extends Database {
 		await model.create({
 			playerId: player.id,
 			missionId: mission.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -354,7 +274,7 @@ export class LogsDatabase extends Database {
 			playerId: player.id,
 			value,
 			reason,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -378,7 +298,7 @@ export class LogsDatabase extends Database {
 		await model.create({
 			playerId: player.id,
 			itemId: item.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -463,7 +383,7 @@ export class LogsDatabase extends Database {
 			playerId: player.id,
 			serverId: server.id,
 			commandId: command.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -482,7 +402,7 @@ export class LogsDatabase extends Database {
 		await LogsPlayersSmallEvents.create({
 			playerId: player.id,
 			smallEventId: smallEvent.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -506,7 +426,7 @@ export class LogsDatabase extends Database {
 			playerId: player.id,
 			bigEventId: eventId,
 			possibilityId: possibility.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -525,7 +445,7 @@ export class LogsDatabase extends Database {
 				playerId: player.id,
 				duration: duration,
 				reason: reason,
-				date: LogsDatabase.getDate()
+				date: getDateLogs()
 			});
 			break;
 		default:
@@ -537,7 +457,7 @@ export class LogsDatabase extends Database {
 					}
 				}))[0].id,
 				reason,
-				date: LogsDatabase.getDate()
+				date: getDateLogs()
 			});
 		}
 	}
@@ -561,7 +481,7 @@ export class LogsDatabase extends Database {
 		await LogsUnlocks.create({
 			buyerId: buyer.id,
 			releasedId: released.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -648,7 +568,7 @@ export class LogsDatabase extends Database {
 		});
 		await LogsMissionsDaily.create({
 			missionId: mission.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -664,7 +584,7 @@ export class LogsDatabase extends Database {
 		});
 		await LogsServersJoins.create({
 			serverId: server.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -680,7 +600,7 @@ export class LogsDatabase extends Database {
 		});
 		await LogsServersQuits.create({
 			serverId: server.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -700,7 +620,7 @@ export class LogsDatabase extends Database {
 		await LogsPlayersTravels.create({
 			playerId: player.id,
 			mapLinkId: maplinkLog.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -709,7 +629,7 @@ export class LogsDatabase extends Database {
 	 */
 	public async log15BestTopWeek(): Promise<void> {
 		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
-		const now = LogsDatabase.getDate();
+		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
 			await LogsPlayers15BestTopweek.create({
@@ -762,7 +682,7 @@ export class LogsDatabase extends Database {
 			playerId: player.id,
 			time,
 			reason,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -801,7 +721,7 @@ export class LogsDatabase extends Database {
 		await LogsPetsNicknames.create({
 			petId: pet.id,
 			name: petRenamed.nickname,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -812,7 +732,7 @@ export class LogsDatabase extends Database {
 	public async logDailyPotion(potionId: number): Promise<void> {
 		await LogsDailyPotions.create({
 			potionId,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -827,7 +747,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsKicks.create({
 			guildId: logGuild.id,
 			kickedPlayer: kickedPlayer.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -841,7 +761,7 @@ export class LogsDatabase extends Database {
 		await LogsClassicalShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -856,7 +776,7 @@ export class LogsDatabase extends Database {
 			playerId: logPlayer.id,
 			shopItem,
 			amount: 1,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -873,7 +793,7 @@ export class LogsDatabase extends Database {
 			playerId: logPlayer.id,
 			shopItem,
 			amount,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -884,7 +804,7 @@ export class LogsDatabase extends Database {
 	public async logDailyTimeout(petLoveChange: boolean): Promise<void> {
 		await LogsDailyTimeouts.create({
 			petLoveChange,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -893,7 +813,7 @@ export class LogsDatabase extends Database {
 	 */
 	public async logTopWeekEnd(): Promise<void> {
 		await LogsTopWeekEnd.create({
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -907,7 +827,7 @@ export class LogsDatabase extends Database {
 		await LogsMissionShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -922,7 +842,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsDailies.create({
 			guildId: logGuild.id,
 			reward,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -937,7 +857,7 @@ export class LogsDatabase extends Database {
 		await LogsPetsTransfers.create({
 			playerPetId: logPlayerPet ? logPlayerPet.id : null,
 			guildPetId: logGuildPet ? logGuildPet.id : null,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -965,7 +885,7 @@ export class LogsDatabase extends Database {
 		}
 		await LogsGuildsDestroys.create({
 			guildId: logGuild.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -979,7 +899,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsEldersRemoves.create({
 			guildId: logGuild.id,
 			removedElder: (await LogsDatabase.findOrCreatePlayer((await Players.getById(removedPlayerId)).discordUserId)).id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -994,7 +914,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsChiefsChanges.create({
 			guildId: logGuild.id,
 			newChief: logNewChiefId,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1009,7 +929,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsCreations.create({
 			guildId: guildInstance.id,
 			creatorId: creator.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1027,7 +947,7 @@ export class LogsDatabase extends Database {
 			guildId: guildInstance.id,
 			adderId: adder.id,
 			addedId: added.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1049,7 +969,7 @@ export class LogsDatabase extends Database {
 			turn: fight.turn,
 			winner: fight.isADraw() ? 0 : winner,
 			friendly: fight.friendly,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 		for (const player of [player1, player2]) {
 			const fightActionsUsed: { [action: string]: number } = {};
@@ -1083,7 +1003,7 @@ export class LogsDatabase extends Database {
 			guildId: guildInstance.id,
 			experience: guild.experience,
 			reason,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1099,7 +1019,7 @@ export class LogsDatabase extends Database {
 			guildId: guildInstance.id,
 			playerId: player.id,
 			description: guild.guildDescription,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1114,7 +1034,7 @@ export class LogsDatabase extends Database {
 			petId: logPet.id,
 			lovePoints: petEntity.lovePoints,
 			reason,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1132,7 +1052,7 @@ export class LogsDatabase extends Database {
 			food,
 			total,
 			reason,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1147,7 +1067,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsNewPets.create({
 			guildId: guildInstance.id,
 			petId: petEntityInstance.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1162,7 +1082,7 @@ export class LogsDatabase extends Database {
 		await LogsPlayersNewPets.create({
 			playerId: playerInstance.id,
 			petId: petEntityInstance.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1177,7 +1097,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsEldersAdds.create({
 			guildId: logGuild.id,
 			addedElder: player.id,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 
@@ -1190,7 +1110,7 @@ export class LogsDatabase extends Database {
 		await LogsGuildsLevels.create({
 			guildId: guildInstance.id,
 			level: guild.level,
-			date: LogsDatabase.getDate()
+			date: getDateLogs()
 		});
 	}
 

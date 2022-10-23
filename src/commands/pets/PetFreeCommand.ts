@@ -13,11 +13,12 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 
 /**
  * Say if you win a meat piece for freeing your pet

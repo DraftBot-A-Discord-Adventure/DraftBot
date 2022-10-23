@@ -17,7 +17,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";

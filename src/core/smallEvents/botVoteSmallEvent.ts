@@ -6,7 +6,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {DBL} from "../DBL";
 import Player from "../database/game/models/Player";
 

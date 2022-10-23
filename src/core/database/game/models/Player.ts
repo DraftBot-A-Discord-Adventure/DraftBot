@@ -17,7 +17,7 @@ import {escapeUsername} from "../../../utils/StringUtils";
 import {botConfig, draftBotClient, draftBotInstance} from "../../../bot";
 import {playerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
-import {NumberChangeReason} from "../../logs/LogsDatabase";
+import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";

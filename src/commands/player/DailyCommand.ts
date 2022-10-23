@@ -8,7 +8,7 @@ import ObjectItem from "../../core/database/game/models/ObjectItem";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {draftBotInstance} from "../../core/bot";

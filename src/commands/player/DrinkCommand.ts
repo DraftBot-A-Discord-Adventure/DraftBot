@@ -12,7 +12,7 @@ import {Constants} from "../../core/Constants";
 import {InventoryConstants} from "../../core/constants/InventoryConstants";
 import {minutesDisplay} from "../../core/utils/TimeUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";

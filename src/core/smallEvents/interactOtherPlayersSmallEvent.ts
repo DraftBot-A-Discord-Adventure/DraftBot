@@ -16,7 +16,7 @@ import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";

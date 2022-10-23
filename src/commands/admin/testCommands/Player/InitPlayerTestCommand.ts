@@ -1,6 +1,6 @@
 import {Maps} from "../../../../core/maps/Maps";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
-import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";

@@ -1,7 +1,7 @@
-import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "playersuicide",

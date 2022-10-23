@@ -4,6 +4,7 @@ import {Translations} from "../../core/Translations";
 import {draftBotInstance, shardId} from "../../core/bot";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Pings the bot, to check if it is alive and how well is it
@@ -13,6 +14,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.ping", language);
 	const reply = await interaction.reply({content: tr.get("create"), fetchReply: true});
+	const date = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer("1");
 	await interaction.editReply({
 		content: tr.format("edit",
 			{

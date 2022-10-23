@@ -5,7 +5,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
 import {Translations} from "../Translations";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {

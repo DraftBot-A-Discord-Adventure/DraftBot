@@ -12,11 +12,11 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
 type ItemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 type ItemObjectBase = { name: string, value: number, itemObject: ItemObject }
