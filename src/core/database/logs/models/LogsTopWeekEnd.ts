@@ -4,6 +4,10 @@ export class LogsTopWeekEnd extends Model {
 	public readonly date!: number;
 }
 
+/**
+ * Init the model
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	LogsTopWeekEnd.init({
 		date: {

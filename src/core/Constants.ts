@@ -509,4 +509,6 @@ export abstract class Constants {
 		SUCCESSFUL: <HexColorString>"#FF8888",
 		ERROR: <HexColorString>"#FF0000"
 	};
+
+	static readonly MAX_DAILY_POTION_BUYOUTS: number = 1;
 }

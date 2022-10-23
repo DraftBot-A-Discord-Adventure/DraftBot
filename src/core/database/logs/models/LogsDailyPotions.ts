@@ -6,6 +6,10 @@ export class LogsDailyPotions extends Model {
 	public readonly date!: number;
 }
 
+/**
+ * init the model
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	LogsDailyPotions.init({
 		potionId: {
