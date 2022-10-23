@@ -711,6 +711,8 @@ const currentCommandEnglishTranslations = Translations.getModule("commands.repor
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
-	requirements: {},
+	requirements: {
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.DEAD]
+	},
 	mainGuildCommand: false
 };
