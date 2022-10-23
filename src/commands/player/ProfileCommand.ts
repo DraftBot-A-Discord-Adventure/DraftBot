@@ -19,6 +19,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import Pet, {Pets} from "../../core/database/game/models/Pet";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Display badges for the given player

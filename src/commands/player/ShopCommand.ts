@@ -27,6 +27,7 @@ import {Player, Players} from "../../core/database/game/models/Player";
 import {InventoryInfo, InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Callback of the shop command
@@ -175,6 +176,12 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 		translationModule.get("potion.info"),
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
+			const potionAlreadyPurchased = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.id);
+			console.log(potionAlreadyPurchased);
+			if (potionAlreadyPurchased >= Constants.MAX_DAILY_POTION_BUYOUTS) {
+				console.log("banane");
+				return false;
+			}
 			await giveItemToPlayer(player, potion, translationModule.language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			return true;
