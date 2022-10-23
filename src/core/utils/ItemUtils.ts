@@ -16,7 +16,7 @@ import {BlockingUtils} from "./BlockingUtils";
 import {RandomUtils} from "./RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {Tags} from "../database/game/models/Tag";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import Player, {Players} from "../database/game/models/Player";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";

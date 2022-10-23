@@ -10,7 +10,7 @@ import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Constants} from "../Constants";
 import {giveFood} from "../utils/GuildUtils";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {Pets} from "../database/game/models/Pet";
 

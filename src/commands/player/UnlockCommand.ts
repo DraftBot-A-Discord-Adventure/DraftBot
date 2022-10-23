@@ -8,13 +8,13 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {log} from "console";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
 type PlayerCouple = { unlocker: Player, locked?: Player }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }

@@ -18,10 +18,10 @@ import {giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
-import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Player, Players} from "../../core/database/game/models/Player";
+import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 
 /**
  * Callback of the guild shop command

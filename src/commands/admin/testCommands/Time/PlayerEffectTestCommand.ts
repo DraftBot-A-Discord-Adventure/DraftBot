@@ -1,5 +1,5 @@
 import {Constants} from "../../../../core/Constants";
-import {NumberChangeReason} from "../../../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {PlayerConstants} from "../../../../core/constants/PlayerConstants";

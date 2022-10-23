@@ -1,8 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
-import {NumberChangeReason} from "../../logs/LogsDatabase";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
+import {NumberChangeReason} from "../../../constants/LogsConstants";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;

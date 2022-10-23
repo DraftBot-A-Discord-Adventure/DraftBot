@@ -6,8 +6,8 @@ import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
 import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
 import Player from "../database/game/models/Player";
+import {NumberChangeReason} from "../constants/LogsConstants";
 
 /**
  * Gives food to a given guild / player

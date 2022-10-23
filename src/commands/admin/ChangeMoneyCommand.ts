@@ -1,7 +1,7 @@
 import {ICommand} from "../ICommand";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {CommandInteraction} from "discord.js";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import Player from "../../core/database/game/models/Player";
 
 /**

@@ -19,7 +19,6 @@ import {ICommand} from "../ICommand";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {NumberChangeReason, ShopItemType} from "../../core/database/logs/LogsDatabase";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -27,6 +26,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {InventoryInfo, InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 
 /**
  * Callback of the shop command

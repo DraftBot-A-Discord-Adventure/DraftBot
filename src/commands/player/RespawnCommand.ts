@@ -7,7 +7,7 @@ import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import {NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {RespawnConstants} from "../../core/constants/RespawnConstants";
 import {Constants} from "../../core/Constants";

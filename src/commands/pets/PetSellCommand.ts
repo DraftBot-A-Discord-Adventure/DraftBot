@@ -17,11 +17,12 @@ import {
 	DraftBotBroadcastValidationMessage
 } from "../../core/messages/DraftBotBroadcastValidationMessage";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import {LogsDatabase, NumberChangeReason} from "../../core/database/logs/LogsDatabase";
+import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };

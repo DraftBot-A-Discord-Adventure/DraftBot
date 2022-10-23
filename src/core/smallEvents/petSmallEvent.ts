@@ -11,11 +11,12 @@ import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
 import {Data} from "../Data";
 import {giveFood} from "../utils/GuildUtils";
 import {getFoodIndexOf} from "../utils/FoodUtils";
-import {LogsDatabase, NumberChangeReason} from "../database/logs/LogsDatabase";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import Player from "../database/game/models/Player";
 import {TravelTime} from "../maps/TravelTime";
 import Pet, {Pets} from "../database/game/models/Pet";
+import {NumberChangeReason} from "../constants/LogsConstants";
+import {LogsDatabase} from "../database/logs/LogsDatabase";
 
 /**
  * Allow to generate the embed that will be displayed to the player

@@ -7,7 +7,7 @@ import {SmallEvent} from "./SmallEvent";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveFood} from "../utils/GuildUtils";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";

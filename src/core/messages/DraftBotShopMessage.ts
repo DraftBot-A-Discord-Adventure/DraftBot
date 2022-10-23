@@ -6,7 +6,7 @@ import {CommandInteraction, User} from "discord.js";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import {Players} from "../database/game/models/Player";
 
 /**

@@ -11,7 +11,7 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {NumberChangeReason} from "../database/logs/LogsDatabase";
+import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 
