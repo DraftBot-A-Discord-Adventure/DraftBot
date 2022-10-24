@@ -164,7 +164,7 @@ export class LogsDatabase extends Database {
 	 * @param discordId
 	 * @private
 	 */
-	private static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
+	static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
 			where: {
 				discordId

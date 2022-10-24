@@ -1,9 +1,9 @@
 import {Database} from "../Database";
-import {getDateLogs} from "../../utils/TimeUtils";
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
 import {Op} from "sequelize";
 import {ShopItemType} from "../../constants/LogsConstants";
+import {LogsDatabase} from "./LogsDatabase";
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
@@ -16,18 +16,18 @@ export class LogsReadRequests extends Database {
 
 	/**
 	 * Get the amount of time a specific player has bought the daily potion since the last time it was reset
-	 * @param playerId
+	 * @param playerDiscordId - The discord id of the player we want to check on
 	 */
-	static async getAmountOfDailyPotionsBoughtByPlayer(playerId: number): Promise<number> {
-		// first we have to get the date of the last shop reset this date is stored in the daily_potions table
+	static async getAmountOfDailyPotionsBoughtByPlayer(playerDiscordId: string): Promise<number> {
 		const dateOfLastDailyPotionReset = await this.getDateOfLastDailyPotionReset();
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
 		return LogsClassicalShopBuyouts.count({
 			where: {
-				playerId: playerId,
+				playerId: logPlayer.id,
+				shopItem: ShopItemType.DAILY_POTION,
 				date: {
 					[Op.gte]: dateOfLastDailyPotionReset
-				},
-				shopItem: ShopItemType.DAILY_POTION
+				}
 			}
 		});
 	}
