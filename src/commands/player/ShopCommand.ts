@@ -17,7 +17,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
@@ -53,7 +53,7 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
 	);
 }
 
-/**
+/*
  * Get the shop item for getting a random item
  * @param translationModule
  */
@@ -160,10 +160,9 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 /**
  * Get the shop item for getting the daily potion
  * @param translationModule
- * @param discordUser
- * @param channel
+ * @param interaction
  */
-async function getDailyPotionShopItem(translationModule: TranslationModule, discordUser: User, channel: TextBasedChannel): Promise<ShopItem> {
+async function getDailyPotionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): Promise<ShopItem> {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
 	});
@@ -176,13 +175,12 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, disc
 		translationModule.get("potion.info"),
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			const potionAlreadyPurchased = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.id);
-			console.log(potionAlreadyPurchased);
+			const potionAlreadyPurchased = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.discordUserId);
 			if (potionAlreadyPurchased >= Constants.MAX_DAILY_POTION_BUYOUTS) {
-				console.log("banane");
+				await sendErrorMessage(interaction.user, interaction, message.language, translationModule.get("error.noMoreDailyPotions"));
 				return false;
 			}
-			await giveItemToPlayer(player, potion, translationModule.language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
+			await giveItemToPlayer(player, potion, translationModule.language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			return true;
 		}
@@ -312,8 +310,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		shopTranslations.get("permanentItem")
 	);
 	const dailyItemsCategory = new ShopItemCategory(
-		[await getDailyPotionShopItem(shopTranslations, interaction.user, interaction.channel)],
-		shopTranslations.get("dailyItem")
+		[await getDailyPotionShopItem(shopTranslations, interaction)],
+		shopTranslations.format("dailyItem",{
+			available: Constants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.discordUserId)
+		})
 	);
 	const inventoryCategory = new ShopItemCategory(
 		[await getSlotExtensionShopItem(shopTranslations, player, interaction)],

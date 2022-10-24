@@ -4,7 +4,7 @@
 			"commandName": "magasin",
 			"commandDescription": "Afficher le magasin.",
 			"title": "Affichage du Magasin",
-			"dailyItem": "Potion du jour",
+			"dailyItem": "Potion du jour ({available} disponible{available>1?s:})",
 			"permanentItem": "Ventes permanentes",
 			"display": "{emote} **{name}** | `{price}💰`",
 			"success": "{pseudo}, transaction réussie !",
@@ -52,7 +52,8 @@
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
 				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
-				"leaveShop": "Vous avez quitté le magasin."
+				"leaveShop": "Vous avez quitté le magasin.",
+				"noMoreDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !"
 			},
 			"potion": {
 				"info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !",
@@ -80,7 +81,7 @@
 			"commandName": "shop",
 			"commandDescription": "Display the shop.",
 			"title": "Shop Overlay",
-			"dailyItem": "Today's potion",
+			"dailyItem": "Today's potion ({available} available)",
 			"permanentItem": "Permanent sales",
 			"display": "{emote} **{name}** | `{price}💰`",
 			"success": "{pseudo}, transaction success!",
@@ -128,7 +129,8 @@
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
 				"canceledPurchase": "Transaction canceled!",
 				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
-				"leaveShop": "You left the shop."
+				"leaveShop": "You left the shop.",
+				"noMoreDailyPotions": "There are no more potions of the day available for sale... Come back tomorrow!"
 			},
 			"potion": {
 				"info": "You will receive a potion and have to choose to keep it or not. If you already have the same potion, it will be destroyed without refund!",

@@ -510,5 +510,5 @@ export abstract class Constants {
 		ERROR: <HexColorString>"#FF0000"
 	};
 
-	static readonly MAX_DAILY_POTION_BUYOUTS: number = 1;
+	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
 }
