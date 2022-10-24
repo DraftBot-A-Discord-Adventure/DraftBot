@@ -22,11 +22,11 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 
 	// then we need to copy the data from the entity table to the players table
 	await context.sequelize.query(`
-		UPDATE draftbot_game.players, draftbot_game.entities
-		SET draftbot_game.players.discordUserId   = draftbot_game.entities.discordUserId,
-			draftbot_game.players.health          = draftbot_game.entities.health,
-			draftbot_game.players.fightPointsLost = draftbot_game.entities.fightPointsLost
-		WHERE draftbot_game.players.id = draftbot_game.entities.id
+		UPDATE players, entities
+		SET players.discordUserId   = entities.discordUserId,
+			players.health          = entities.health,
+			players.fightPointsLost = entities.fightPointsLost
+		WHERE players.id = entities.id
 	`);
 
 	await context.removeColumn("players", "entityId");
@@ -39,14 +39,14 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 		type: DataTypes.INTEGER
 	});
 	await context.sequelize.query(`
-		INSERT INTO draftbot_game.entities
-		SELECT draftbot_game.players.discordUserId, draftbot_game.players.health, draftbot_game.players.fightPointsLost
-		FROM draftbot_game.players
+		INSERT INTO entities
+		SELECT NULL, 100, players.health, 0, 0, 0, players.fightPointsLost, players.discordUserId, updatedAt, createdAt
+		FROM players
 	`);
 	await context.sequelize.query(`
-		UPDATE draftbot_game.players, draftbot_game.entities
-		SET draftbot_game.players.entityId = draftbot_game.entities.id
-		WHERE draftbot_game.players.discordUserId = draftbot_game.entities.discordUserId
+		UPDATE players, entities
+		SET players.entityId = entities.id
+		WHERE players.discordUserId = entities.discordUserId
 	`);
 
 	await context.removeColumn("players", "discordUserId");
