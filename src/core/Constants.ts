@@ -240,8 +240,8 @@ export abstract class Constants {
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 
 	static readonly MISSION_SHOP = {
-		RANGE_MISSION_MONEY: 300,
-		BASE_RATIO: 2500,
+		RANGE_MISSION_MONEY: 1350,
+		BASE_RATIO: 6500,
 		SEED_RANGE: 1000
 	};
 
