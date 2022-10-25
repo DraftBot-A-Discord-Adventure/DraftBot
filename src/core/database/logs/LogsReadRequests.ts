@@ -8,11 +8,8 @@ import {LogsDatabase} from "./LogsDatabase";
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
  */
-export class LogsReadRequests extends Database {
 
-	constructor() {
-		super("logs");
-	}
+export class LogsReadRequests {
 
 	/**
 	 * Get the amount of time a specific player has bought the daily potion since the last time it was reset
