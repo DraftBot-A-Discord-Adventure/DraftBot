@@ -1,4 +1,3 @@
-import {Database} from "../Database";
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
 import {Op} from "sequelize";
