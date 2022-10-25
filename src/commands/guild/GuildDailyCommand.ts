@@ -170,10 +170,21 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	let noAlteHeal = true;
 	const needsHeal = await doesSomeoneNeedsHeal(guildLike);
 	await genericAwardingFunction(guildLike.members, async member => {
-		if (member.currentEffectFinished(stringInfos.interaction.createdAt) && needsHeal) {
-			return await member.addHealth(healthWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
+		if (member.currentEffectFinished(stringInfos.interaction.createdAt)) {
+			if (needsHeal) {
+				return await member.addHealth(
+					healthWon,
+					stringInfos.interaction.channel,
+					guildDailyModule.language,
+					NumberChangeReason.GUILD_DAILY,
+					{
+						shouldPokeMission: true,
+						overHealCountsForMission: true
+					}
+				);
+			}
 		}
-		if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
+		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
 			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
 		}
