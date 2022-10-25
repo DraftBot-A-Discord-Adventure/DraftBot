@@ -316,11 +316,11 @@ export class Player extends Model {
 		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
 		this.level++;
 		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level).then();
-		await MissionsController.update(this, channel, language, {
+		Object.assign(this, await MissionsController.update(this, channel, language, {
 			missionId: "reachLevel",
 			count: this.level,
 			set: true
-		});
+		}));
 		const bonuses = await this.getLvlUpReward(language, channel);
 
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {

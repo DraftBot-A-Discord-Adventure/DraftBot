@@ -92,7 +92,7 @@ export class FightController {
 	/**
 	 * End the fight
 	 */
-	public endFight(): void {
+	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
 		draftBotInstance.logsDatabase.logFight(this).then();
@@ -107,22 +107,20 @@ export class FightController {
 
 		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 		for (const fighter of this.fighters) {
-			this.manageMissionsOf(fighter).finally(() => null);
+			await this.manageMissionsOf(fighter);
 		}
 		if (winner !== 2) {
-			Promise.all([
-				MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
-					missionId: "fightHealthPercent", params: {
-						remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
-					}
-				}),
-				MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
-					missionId: "finishWithAttack",
-					params: {
-						lastAttack: this.fighters[winner].fightActionsHistory.at(-1)
-					}
-				})
-			]).finally(() => null);
+			await MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
+				missionId: "fightHealthPercent", params: {
+					remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
+				}
+			});
+			await MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
+				missionId: "finishWithAttack",
+				params: {
+					lastAttack: this.fighters[winner].fightActionsHistory.at(-1)
+				}
+			});
 		}
 	}
 
@@ -155,7 +153,7 @@ export class FightController {
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
 		if (this.hadEnded()) {
-			this.endFight();
+			await this.endFight();
 			return;
 		}
 		if (endTurn) {
@@ -198,14 +196,12 @@ export class FightController {
 	private async checkFightActionHistory(fighter: Fighter): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = fighter.getFightActionCount();
 		// iterate on each action in the history
-		const updates = [];
 		for (const [action, count] of playerFightActionsHistory) {
-			updates.push(MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {
+			await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {
 				missionId: "fightAttacks",
 				count, params: {attackType: action}
-			}));
+			});
 		}
-		await Promise.all(updates);
 	}
 
 	/**
