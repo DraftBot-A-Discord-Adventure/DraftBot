@@ -121,7 +121,7 @@ export class FightView {
 			if (selectedAction === null) {
 				// USER HASN'T SELECTED AN ACTION
 				fighter.suicide();
-				this.fightController.endFight();
+				await this.fightController.endFight();
 				return;
 			}
 			await this.fightController.executeFightAction(selectedAction, true);
