@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Libérer quelqu'un de prison"
+		},
+		"en": {
+			"desc": "Unlock someone from jail"
+		}
+	},
+	"campaignOnly": true
+}
