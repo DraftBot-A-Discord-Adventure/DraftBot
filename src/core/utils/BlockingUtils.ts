@@ -3,6 +3,7 @@ import {IPCClient} from "../bot/ipc/IPCClient";
 import {Translations} from "../Translations";
 import {replyErrorMessage} from "./ErrorUtils";
 import {escapeUsername} from "./StringUtils";
+import {format} from "./StringFormatter";
 
 /**
  * Functions to call when you want to manage the blocking of a player
@@ -90,7 +91,7 @@ export async function sendBlockedError(interaction: CommandInteraction, language
 			language,
 			Translations.getModule("error", language).format(
 				user === interaction.user ? "playerBlocked" : "anotherPlayerBlocked", {
-					context: getErrorReasons(blockingReason, language),
+					context: format(getErrorReasons(blockingReason, language), {}),
 					username: escapeUsername(user.username)
 				}
 			)
