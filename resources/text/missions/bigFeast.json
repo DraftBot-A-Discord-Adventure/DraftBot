@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Assister à un grand festin"
+		},
+		"en": {
+			"desc": "Participate to a big feast"
+		}
+	},
+	"campaignOnly": true
+}

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Obtenir moins de 6500 💰 dans l'argent du roi"
+		},
+		"en": {
+			"desc": "Obtain less than 6500 💰 in the king's money"
+		}
+	},
+	"campaignOnly": true
+}

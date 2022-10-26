@@ -15,6 +15,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 type PlayerCouple = { unlocker: Player, locked?: Player }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -89,6 +90,7 @@ function callbackUnlockCommand(
 					playerUnlocker.save()
 				]);
 				draftBotInstance.logsDatabase.logUnlocks(playerUnlocker.discordUserId, playerToUnlock.discordUserId).then();
+				await MissionsController.update(playerUnlocker, textInformation.interaction.channel, textInformation.language, { missionId: "unlock" });
 				const successEmbed = new DraftBotEmbed()
 					.setAuthor({
 						name: textInformation.unlockModule.format("unlockedTitle", {

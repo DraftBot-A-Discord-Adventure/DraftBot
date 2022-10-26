@@ -23,7 +23,10 @@
 					"effect": ":clock2:",
 					"experience": 225,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -35,7 +38,10 @@
 					"effect": ":clock2:",
 					"experience": 125,
 					"money": 150,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -67,7 +73,10 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -79,7 +88,10 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": -100,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -91,7 +103,10 @@
 					"effect": ":clock2:",
 					"experience": 225,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				}
 			]
 		},
@@ -111,7 +126,10 @@
 					"effect": ":smiley:",
 					"experience": 150,
 					"money": -400,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -123,7 +141,10 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags":  [
+						"bigFeast"
+					]
 				},
 				{
 					"translations": {
@@ -135,7 +156,10 @@
 					"effect": ":clock2:",
 					"experience": 450,
 					"money": 0,
-					"item": true
+					"item": true,
+					"tags":  [
+						"bigFeast"
+					]
 				}
 			]
 		},

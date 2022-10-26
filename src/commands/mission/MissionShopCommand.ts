@@ -206,8 +206,9 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
+			const amount = calculateGemsToMoneyRatio();
 			await player.addMoney({
-				amount: calculateGemsToMoneyRatio(),
+				amount,
 				channel: message.sentMessage.channel,
 				language: translationModule.language,
 				reason: NumberChangeReason.MISSION_SHOP
@@ -221,6 +222,9 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						)]
 				});
 			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			if (amount < 6500) {
+				await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "kingsMoneyValue"});
+			}
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MONEY).then();
 			return true;
 		});

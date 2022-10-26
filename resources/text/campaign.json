@@ -399,6 +399,30 @@
 			"gemsToWin": 2,
 			"xpToWin": 55,
 			"moneyToWin": 0
+		},
+		{
+			"missionId": "kingsMoneyValue",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 19,
+			"xpToWin": 300,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "bigFeast",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 5,
+			"xpToWin": 120,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "unlock",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 6,
+			"xpToWin": 250,
+			"moneyToWin": 0
 		}
 	]
 }
