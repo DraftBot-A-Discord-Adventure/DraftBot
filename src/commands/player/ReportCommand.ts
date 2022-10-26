@@ -673,7 +673,7 @@ async function executeCommand(
 		return;
 	}
 
-	await BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+	BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
@@ -711,7 +711,7 @@ async function executeCommand(
 	}
 
 	await sendTravelPath(player, interaction, language, currentDate, null);
-	await BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+	BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
