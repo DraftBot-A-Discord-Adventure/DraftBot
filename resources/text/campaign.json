@@ -428,40 +428,40 @@
 			"missionId": "dailyPotionsStock",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 1,
-			"xpToWin": 1,
+			"gemsToWin": 2,
+			"xpToWin": 25,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "petEarnHealth",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 1,
-			"xpToWin": 1,
+			"gemsToWin": 3,
+			"xpToWin": 150,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "fightStreak",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 1,
-			"xpToWin": 1,
+			"gemsToWin": 5,
+			"xpToWin": 350,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "earnPoints",
 			"missionVariant": 0,
 			"missionObjective": 15000,
-			"gemsToWin": 1,
-			"xpToWin": 1,
+			"gemsToWin": 2,
+			"xpToWin": 250,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "fromPlaceToPlace",
 			"missionVariant": 24130569,
 			"missionObjective": 1,
-			"gemsToWin": 1,
-			"xpToWin": 1,
+			"gemsToWin": 6,
+			"xpToWin": 375,
 			"moneyToWin": 0
 		},
 		{
@@ -469,7 +469,7 @@
 			"missionVariant": 0,
 			"missionObjective": 30,
 			"gemsToWin": 1,
-			"xpToWin": 1,
+			"xpToWin": 125,
 			"moneyToWin": 0
 		}
 	]
