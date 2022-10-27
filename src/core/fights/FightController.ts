@@ -11,6 +11,8 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {draftBotInstance} from "../bot";
+import {MissionSlots} from "../database/game/models/MissionSlot";
+import {getDayNumber} from "../utils/TimeUtils";
 
 /**
  * @class FightController
@@ -186,6 +188,20 @@ export class FightController {
 		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "friendlyFight"});
 		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "rankedFight"});
 		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "anyFight"});
+
+		const slots = await MissionSlots.getOfPlayer(fighter.player.id);
+		for (const slot of slots) {
+			if (slot.missionId === "fightStreak") {
+				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
+				const currDay = getDayNumber();
+				if (lastDay === currDay - 1) {
+					await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, { missionId: "fightStreak" });
+				}
+				else if (lastDay !== currDay) {
+					await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, { missionId: "fightStreak", count: 1, set: true });
+				}
+			}
+		}
 	}
 
 	/**

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Acheter tout le stock de potions du jour"
+		},
+		"en": {
+			"desc": "Buy the whole stock of daily potions"
+		}
+	},
+	"campaignOnly": true
+}

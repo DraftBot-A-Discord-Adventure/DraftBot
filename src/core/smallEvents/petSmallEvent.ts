@@ -17,6 +17,7 @@ import {TravelTime} from "../maps/TravelTime";
 import Pet, {Pets} from "../database/game/models/Pet";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
+import {MissionsController} from "../missions/MissionsController";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -233,6 +234,7 @@ async function managePickedPetInteraction(
 		amount = RandomUtils.randInt(1, 5);
 		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		await player.save();
+		await MissionsController.update(player, interactionCommand.channel, language, { missionId: "petEarnHealth" });
 		break;
 	case "gainLove":
 		amount = RandomUtils.randInt(1, 3);

@@ -34,7 +34,9 @@ const soloFightTestCommand = async (language: string, interaction: CommandIntera
 
 	if (args[0] === "1") {
 		fighter1.stats.attack = 9999;
+		fighter1.stats.fightPoints = 1;
 		fighter2.stats.attack = 9999;
+		fighter2.stats.fightPoints = 1;
 	}
 
 	new FightController(fighter1, fighter2, false, interaction.channel, language)

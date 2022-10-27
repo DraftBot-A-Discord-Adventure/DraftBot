@@ -182,6 +182,9 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, inte
 			}
 			await giveItemToPlayer(player, potion, translationModule.language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
+			if (potionAlreadyPurchased === Constants.MAX_DAILY_POTION_BUYOUTS - 1) {
+				await MissionsController.update(player, interaction.channel, translationModule.language, { missionId: "dailyPotionsStock" });
+			}
 			return true;
 		}
 	);

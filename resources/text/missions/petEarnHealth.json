@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Obtenir de la vie grâce à un familier"
+		},
+		"en": {
+			"desc": "Earn health with a pet"
+		}
+	},
+	"campaignOnly": true
+}
