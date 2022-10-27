@@ -83,7 +83,8 @@
 				"merchant": "choix chez le marchand",
 				"drink": "choix de boire une potion ou non",
 				"gobletChoose": "choix d'un gobelet",
-				"unlock": "libération de quelqu'un"
+				"unlock": "libération de quelqu'un",
+				"reportCommand": "commande {command:report}"
 			}
 		},
 		"en": {
@@ -169,7 +170,8 @@
 				"missionShop": "missions shop",
 				"merchant": "merchant",
 				"drink": "choice to drink a potion or not",
-				"gobletChoose": "choice of a goblet"
+				"gobletChoose": "choice of a goblet",
+				"reportCommand": "{command:report} command"
 			}
 		}
 	}

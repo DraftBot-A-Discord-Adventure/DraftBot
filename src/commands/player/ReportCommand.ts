@@ -673,22 +673,27 @@ async function executeCommand(
 		return;
 	}
 
+	BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
 	const currentDate = new Date();
 
 	if (forceSpecificEvent || await needBigEvent(player, currentDate)) {
 		await interaction.deferReply();
-		return await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+		await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
-		return await executeSmallEvent(interaction, language, player, forceSmallEvent);
+		await executeSmallEvent(interaction, language, player, forceSmallEvent);
+		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
 	if (!player.currentEffectFinished(currentDate)) {
-		return await sendTravelPath(player, interaction, language, currentDate, player.effect);
+		await sendTravelPath(player, interaction, language, currentDate, player.effect);
+		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
 	if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
@@ -696,14 +701,17 @@ async function executeCommand(
 	}
 
 	if (player.mapLinkId === null) {
-		return await Maps.startTravel(player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
+		await Maps.startTravel(player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
+		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
 	if (!Maps.isTravelling(player)) {
-		return await chooseDestination(player, interaction, language, null);
+		await chooseDestination(player, interaction, language, null);
+		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
-	return await sendTravelPath(player, interaction, language, currentDate, null);
+	await sendTravelPath(player, interaction, language, currentDate, null);
+	BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
