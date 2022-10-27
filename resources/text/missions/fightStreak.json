@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire un combat pendant {objective} jours d'affilé"
+		},
+		"en": {
+			"desc": "Do a fight for {objective} consecutive days"
+		}
+	},
+	"campaignOnly": true
+}
