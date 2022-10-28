@@ -1,6 +1,7 @@
 import {
 	ApplicationCommand,
 	ApplicationCommandOption,
+	ApplicationCommandOptionBase,
 	Attachment,
 	ChannelType,
 	Client,
@@ -31,7 +32,6 @@ import {DraftBotReaction} from "../core/messages/DraftBotReaction";
 import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils";
 import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
-import {ApplicationCommandOptionBase} from "@discordjs/builders/dist/interactions/slashCommands/mixins/ApplicationCommandOptionBase";
 import Player, {Players} from "../core/database/game/models/Player";
 
 type UserPlayer = { user: User, player: Player };
