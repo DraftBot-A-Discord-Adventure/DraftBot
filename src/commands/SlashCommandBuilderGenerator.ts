@@ -3,8 +3,7 @@
  */
 import {TranslationModule} from "../core/Translations";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {SlashCommandUserOption} from "@discordjs/builders/dist/interactions/slashCommands/options/user";
-import {SlashCommandIntegerOption} from "discord.js";
+import {SlashCommandIntegerOption, SlashCommandUserOption} from "discord.js";
 
 
 export class SlashCommandBuilderGenerator {
