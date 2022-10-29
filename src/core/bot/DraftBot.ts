@@ -24,6 +24,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
+import {PVEConstants} from "../constants/PVEConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -278,13 +279,24 @@ export class DraftBot {
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {
+		const mapLinkIdWhere = [];
+		for (const mapLinkId of PVEConstants.MAPS.PVE_LINK_RANGES) {
+			for (let i = mapLinkId[0]; i <= mapLinkId[1]; ++i) {
+				mapLinkIdWhere.push(i);
+			}
+		}
 		Player.update(
 			{
 				fightPointsLost: Sequelize.literal(
 					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
 				)
 			},
-			{where: {fightPointsLost: {[Op.not]: 0}}}
+			{
+				where: {
+					fightPointsLost: { [Op.not]: 0 },
+					mapLinkId: { [Op.notIn]: mapLinkIdWhere }
+				}
+			}
 		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
