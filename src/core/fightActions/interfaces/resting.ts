@@ -1,8 +1,9 @@
 import {IFightAction} from "../IFightAction";
-import {Fighter} from "../../fights/Fighter";
+import {Fighter} from "../../fights/fighter/Fighter";
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {FightActionController} from "../FightActionController";
+import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -18,9 +19,9 @@ export const fightActionInterface: Partial<IFightAction> = {
 		// recovered fight points are reduced after the fourth use of this action
 		const recoveredFightPoints = count < 4 ?
 			FightActionController.getAttackDamage(
-				this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo()
+				this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo()
 			) : Math.round(
-				FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo()) / 4
+				FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo()) / 4
 			);
 
 		sender.stats.fightPoints += recoveredFightPoints;

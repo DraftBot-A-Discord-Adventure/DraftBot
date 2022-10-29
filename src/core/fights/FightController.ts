@@ -1,4 +1,4 @@
-import {Fighter} from "./Fighter";
+import {Fighter} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -7,12 +7,7 @@ import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
 import {IFightAction} from "../fightActions/IFightAction";
 import {FightActionController} from "../fightActions/FightActionController";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {MissionsController} from "../missions/MissionsController";
-import {BlockingConstants} from "../constants/BlockingConstants";
 import {draftBotInstance} from "../bot";
-import {MissionSlots} from "../database/game/models/MissionSlot";
-import {getDayNumber} from "../utils/TimeUtils";
 
 /**
  * @class FightController
@@ -59,12 +54,9 @@ export class FightController {
 	 */
 	public async startFight(): Promise<void> {
 		// make the fighters ready
-		const potionsToUse = [];
 		for (let i = 0; i < this.fighters.length; i++) {
-			potionsToUse.push(this.fighters[i].consumePotionIfNeeded(this.friendly, this.fightView.channel, this.fightView.language));
-			this.fighters[i].block();
+			await this.fighters[i].startFight(this.fightView);
 		}
-		await Promise.all(potionsToUse);
 
 		// the player with the highest speed start the fight
 		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
@@ -103,26 +95,11 @@ export class FightController {
 
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
-		for (const fighter of this.fighters) {
-			BlockingUtils.unblockPlayer(fighter.getUser().id, BlockingConstants.REASONS.FIGHT);
-		}
 
 		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
-		for (const fighter of this.fighters) {
-			await this.manageMissionsOf(fighter);
-		}
-		if (winner !== 2) {
-			await MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
-				missionId: "fightHealthPercent", params: {
-					remainingPercent: this.fighters[winner].stats.fightPoints / this.fighters[winner].stats.maxFightPoint
-				}
-			});
-			await MissionsController.update(this.fighters[winner].player, this.fightView.channel, this.fightView.language, {
-				missionId: "finishWithAttack",
-				params: {
-					lastAttack: this.fighters[winner].fightActionsHistory.at(-1)
-				}
-			});
+
+		for (let i = 0; i < this.fighters.length; ++i) {
+			await this.fighters[i].endFight(this.fightView, i === winner);
 		}
 	}
 
@@ -178,49 +155,6 @@ export class FightController {
 	}
 
 	/**
-	 * manage the mission of a fighter
-	 * @param fighter
-	 * @private
-	 */
-	private async manageMissionsOf(fighter: Fighter): Promise<void> {
-		await this.checkFightActionHistory(fighter);
-		// TODO : REDO WHEN RANKED FIGHTS ARE IMPLEMENTED
-		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "friendlyFight"});
-		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "rankedFight"});
-		await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {missionId: "anyFight"});
-
-		const slots = await MissionSlots.getOfPlayer(fighter.player.id);
-		for (const slot of slots) {
-			if (slot.missionId === "fightStreak") {
-				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
-				const currDay = getDayNumber();
-				if (lastDay === currDay - 1) {
-					await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, { missionId: "fightStreak" });
-				}
-				else if (lastDay !== currDay) {
-					await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, { missionId: "fightStreak", count: 1, set: true });
-				}
-			}
-		}
-	}
-
-	/**
-	 * check the fight action history of a fighter
-	 * @param fighter
-	 * @private
-	 */
-	private async checkFightActionHistory(fighter: Fighter): Promise<void> {
-		const playerFightActionsHistory: Map<string, number> = fighter.getFightActionCount();
-		// iterate on each action in the history
-		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(fighter.player, this.fightView.channel, this.fightView.language, {
-				missionId: "fightAttacks",
-				count, params: {attackType: action}
-			});
-		}
-	}
-
-	/**
 	 * execute a turn of a fight
 	 * @private
 	 */
@@ -234,7 +168,7 @@ export class FightController {
 		}
 		await this.fightView.displayFightStatus();
 		if (this.getPlayingFighter().nextFightActionId === null) {
-			await this.fightView.selectFightActionMenu(this.getPlayingFighter());
+			this.getPlayingFighter().chooseAction(this.fightView);
 		}
 		else {
 			await this.executeFightAction(await FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId), true);

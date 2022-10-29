@@ -1,10 +1,11 @@
 import {IFightAction} from "../../IFightAction";
-import {Fighter} from "../../../fights/Fighter";
+import {Fighter} from "../../../fights/fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {Data} from "../../../Data";
 import {FightActionController} from "../../FightActionController";
 import {FighterAlterationId} from "../../../fights/FighterAlterationId";
 import {FightConstants} from "../../../constants/FightConstants";
+import {PlayerFighter} from "../../../fights/fighter/PlayerFighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -30,7 +31,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 
 		// 15 % chance that the confusion hurt the sender
 		if (randomValue < 0.85) {
-			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
+			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 			sender.nextFightActionId = FightConstants.ACTION_ID.NO_MOVE;
 			sender.stats.fightPoints -= damageDealt;
 			return confusionTranslationModule.format("damage", {damages: damageDealt});

@@ -1,9 +1,8 @@
 import {FightController} from "./FightController";
-import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel} from "discord.js";
-import {Fighter} from "./Fighter";
+import {Message, TextBasedChannel} from "discord.js";
+import {Fighter} from "./fighter/Fighter";
 import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {IFightAction} from "../fightActions/IFightAction";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 
@@ -16,9 +15,9 @@ export class FightView {
 
 	public language: string;
 
-	private fightController: FightController;
+	fightController: FightController;
 
-	private readonly fightTranslationModule: TranslationModule;
+	readonly fightTranslationModule: TranslationModule;
 
 	private lastSummary: Message;
 
@@ -35,25 +34,6 @@ export class FightView {
 	}
 
 	/**
-	 * Get the selected action from the reaction
-	 * @param reaction
-	 * @param actions
-	 * @private
-	 */
-	private static getSelectedAction(reaction: Collection<Snowflake, MessageReaction>, actions: Map<string, IFightAction>): IFightAction {
-		if (!reaction.first()) {
-			return null;
-		}
-		const selectedActionEmoji = reaction.first().emoji.name;
-		for (const [, action] of actions) {
-			if (action.getEmoji() === selectedActionEmoji) {
-				return action;
-			}
-		}
-		return null; // impossible in theory
-	}
-
-	/**
 	 * Add the fight action field to the intro embed that correspond to the fighter
 	 * @param introEmbed
 	 * @param fighter
@@ -61,7 +41,7 @@ export class FightView {
 	addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): void {
 		introEmbed.addFields({
 			name: this.fightTranslationModule.format("actionsOf", {
-				player: fighter.getPseudo(this.language)
+				player: fighter.getName()
 			}),
 			value: this.getFightActionsToStringOf(fighter),
 			inline: true
@@ -77,8 +57,8 @@ export class FightView {
 		// ce serait ici qu'il faudrait mettre les attaques ?
 		const introEmbed = new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.format("intro", {
-				player1: fighter1.getPseudo(this.language),
-				player2: fighter2.getPseudo(this.language)
+				player1: fighter1.getName(),
+				player2: fighter2.getName()
 			}));
 		this.addFightActionFieldFor(introEmbed, fighter1);
 		this.addFightActionFieldFor(introEmbed, fighter2);
@@ -101,37 +81,6 @@ export class FightView {
 		else {
 			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
-	}
-
-	/**
-	 * display a menu that allows a fighter to select an action
-	 * @param fighter
-	 */
-	async selectFightActionMenu(fighter: Fighter): Promise<void> {
-		const actions: Map<string, IFightAction> = fighter.availableFightActions;
-		const chooseActionEmbedMessage = await this.sendChooseActionEmbed(fighter);
-		const collector = chooseActionEmbedMessage.createReactionCollector({
-			filter: (reaction) => reaction.me && reaction.users.cache.last().id === fighter.getDiscordId(),
-			time: FightConstants.TIME_FOR_ACTION_SELECTION,
-			max: 1
-		});
-		collector.on("end", async (reaction) => {
-			const selectedAction = FightView.getSelectedAction(reaction, actions);
-			await chooseActionEmbedMessage.delete();
-			if (selectedAction === null) {
-				// USER HASN'T SELECTED AN ACTION
-				fighter.suicide();
-				await this.fightController.endFight();
-				return;
-			}
-			await this.fightController.executeFightAction(selectedAction, true);
-		});
-		const reactions = [];
-		for (const [, action] of actions) {
-			reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
-		}
-
-		await Promise.all(reactions).catch(() => null);
 	}
 
 	/**
@@ -193,7 +142,7 @@ export class FightView {
 
 		for (const fighter of [winner, loser]) {
 			msg += this.fightTranslationModule.format("end.fighterStats", {
-				pseudo: fighter.getPseudo(this.language),
+				pseudo: fighter.getName(),
 				health: fighter.stats.fightPoints,
 				maxHealth: fighter.stats.maxFightPoint
 			});
@@ -229,18 +178,6 @@ export class FightView {
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
 		}
-	}
-
-	/**
-	 * Send the choose action embed message
-	 * @param fighter
-	 * @private
-	 */
-	private async sendChooseActionEmbed(fighter: Fighter): Promise<Message> {
-		const chooseActionEmbed = new DraftBotEmbed();
-		chooseActionEmbed.formatAuthor(this.fightTranslationModule.format("turnIndicationsTitle", {pseudo: fighter.getPseudo(this.language)}), fighter.getUser());
-		chooseActionEmbed.setDescription(this.fightTranslationModule.get("turnIndicationsDescription"));
-		return await this.channel.send({embeds: [chooseActionEmbed]});
 	}
 
 	/**

@@ -1,18 +1,10 @@
-import {TextBasedChannel, User} from "discord.js";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {playerActiveObjects} from "../database/game/models/PlayerActiveObjects";
-import Potion from "../database/game/models/Potion";
-import {checkDrinkPotionMissions} from "../utils/ItemUtils";
-import {TranslationModule} from "../Translations";
-import {FighterStatus} from "./FighterStatus";
-import {FighterAlterationId} from "./FighterAlterationId";
-import {IFightAction} from "../fightActions/IFightAction";
-import Class from "../database/game/models/Class";
-import {FightActionController} from "../fightActions/FightActionController";
-import {BlockingConstants} from "../constants/BlockingConstants";
-import {FightConstants} from "../constants/FightConstants";
-import Player from "../database/game/models/Player";
-import {InventorySlots} from "../database/game/models/InventorySlot";
+import {TranslationModule} from "../../Translations";
+import {FighterStatus} from "../FighterStatus";
+import {FighterAlterationId} from "../FighterAlterationId";
+import {IFightAction} from "../../fightActions/IFightAction";
+import {FightActionController} from "../../fightActions/FightActionController";
+import {FightConstants} from "../../constants/FightConstants";
+import {FightView} from "../FightView";
 
 type FighterStats = {
 	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number
@@ -23,7 +15,7 @@ const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", 
 /**
  * @class Fighter
  */
-export class Fighter {
+export abstract class Fighter {
 
 	public stats: FighterStats;
 
@@ -33,8 +25,6 @@ export class Fighter {
 
 	public availableFightActions: Map<string, IFightAction>;
 
-	public player: Player;
-
 	public alterationTurn: number;
 
 	private statsBackup: FighterStats;
@@ -43,13 +33,9 @@ export class Fighter {
 
 	private alteration: FighterAlterationId;
 
-	private status: FighterStatus;
+	protected status: FighterStatus;
 
-	private readonly class: Class;
-
-	private readonly user: User;
-
-	public constructor(user: User, player: Player, playerClass: Class) {
+	protected constructor(availableFightActions: Map<string, IFightAction>) {
 		this.stats = {
 			fightPoints: null,
 			maxFightPoint: null,
@@ -58,25 +44,43 @@ export class Fighter {
 			attack: null
 		};
 		this.statsBackup = null;
-		this.player = player;
 		this.ready = false;
 		this.nextFightActionId = null;
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
 		this.alteration = FighterAlterationId.NORMAL;
 		this.alterationTurn = 0;
-		this.class = playerClass;
-		this.availableFightActions = FightActionController.listFightActionsFromClass(this.class);
-		this.user = user;
+		this.availableFightActions = availableFightActions;
 	}
 
 	/**
-	 * get the string that mention the user
+	 * get the string referring to the fighter name
 	 * @public
 	 */
-	public getMention(): string {
-		return this.player.getMention();
-	}
+	abstract getName(): string;
+
+	/**
+	 * get the mention of a fighter
+	 */
+	abstract getMention(): string;
+
+	/**
+	 * Make the fighter choose his next action
+	 * @param fightView
+	 */
+	abstract chooseAction(fightView: FightView): void;
+
+	/**
+	 * Function called when the fight starts
+	 */
+	abstract startFight(fightView: FightView): Promise<void>;
+
+	/**
+	 * Function called when the fight ends
+	 * @param fightView
+	 * @param winner Indicate if the fighter is the winner
+	 */
+	abstract endFight(fightView: FightView, winner: boolean): Promise<void>;
 
 	/**
 	 * set the status of the fighter
@@ -84,46 +88,6 @@ export class Fighter {
 	 */
 	setStatus(newStatus: FighterStatus): void {
 		this.status = newStatus;
-	}
-
-	/**
-	 * the fighter loads its various stats
-	 * @param friendly true if the fight is friendly
-	 * @public
-	 */
-	public async loadStats(friendly: boolean): Promise<void> {
-		const playerActiveObjects: playerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = friendly ? await this.player.getMaxCumulativeFightPoint() : await this.player.getCumulativeFightPoint();
-		this.stats.maxFightPoint = await this.player.getMaxCumulativeFightPoint();
-		this.stats.attack = await this.player.getCumulativeAttack(playerActiveObjects);
-		this.stats.defense = await this.player.getCumulativeDefense(playerActiveObjects);
-		this.stats.speed = await this.player.getCumulativeSpeed(playerActiveObjects);
-	}
-
-	/**
-	 * delete the potion from the inventory of the player if needed
-	 * @param friendly true if the fight is friendly
-	 * @param channel
-	 * @param language
-	 * @public
-	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string): Promise<void> {
-		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
-		const drankPotion = await inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).getItem() as Potion;
-		if (friendly || !drankPotion.isFightPotion()) {
-			return;
-		}
-		await this.player.drinkPotion();
-		await this.player.save();
-		await checkDrinkPotionMissions(channel, language, this.player, drankPotion, inventorySlots);
-	}
-
-	/**
-	 * Allow a fighter to block itself
-	 * @public
-	 */
-	public block(): void {
-		BlockingUtils.blockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -162,7 +126,7 @@ export class Fighter {
 		return fightTranslationModule.format(
 			fighterStatusTranslation[this.status],
 			{
-				pseudo: this.player.getPseudo(fightTranslationModule.language),
+				pseudo: this.getName(),
 				charging: "" // TODO : add the charging if needed
 			}
 		) + fightTranslationModule.format("summarize.stats", {
@@ -171,38 +135,6 @@ export class Fighter {
 			defense: this.stats.defense,
 			speed: this.stats.speed
 		});
-	}
-
-	/**
-	 * execute one turn
-	 */
-	public async play(): Promise<IFightAction> {
-		if (this.nextFightActionId !== null) {
-			return await FightActionController.getFightActionInterface(this.nextFightActionId);
-		}
-		// Choose action
-	}
-
-	/**
-	 * get the discord id of a fighter
-	 */
-	public getDiscordId(): string {
-		return this.player.discordUserId;
-	}
-
-	/**
-	 * get the user of a fighter
-	 */
-	public getUser(): User {
-		return this.user;
-	}
-
-	/**
-	 * get the pseudo of a fighter
-	 * @param language
-	 */
-	public getPseudo(language: string): string {
-		return this.player.getPseudo(language);
 	}
 
 	/**
@@ -240,13 +172,6 @@ export class Fighter {
 			}
 		});
 		return playerFightActionsHistory;
-	}
-
-	/**
-	 * get the player level of the fighter
-	 */
-	public getPlayerLevel(): number {
-		return this.player.level;
 	}
 
 	/**
