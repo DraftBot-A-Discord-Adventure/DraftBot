@@ -24,6 +24,7 @@ export abstract class BlockingConstants {
 		PET_SELL: "petSell",
 		PET_SELL_CONFIRM: "petSellConfirm",
 		PET_TRADE: "petTrade",
+		PVE_ISLAND: "pveIsland",
 		REPORT: "report",
 		SELL: "sell",
 		SELL_CONFIRM: "sellConfirm",

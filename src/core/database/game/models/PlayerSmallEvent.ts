@@ -80,6 +80,14 @@ export class PlayerSmallEvents {
 			}
 		});
 	}
+
+	static async playerSmallEventCount(playerId: number, smallEventId: string): Promise<number> {
+		return await PlayerSmallEvent.count({
+			where: {
+				eventType: smallEventId
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {

@@ -4,13 +4,14 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

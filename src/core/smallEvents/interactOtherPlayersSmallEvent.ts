@@ -22,6 +22,7 @@ import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
 import {Op} from "sequelize";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {Maps} from "../maps/Maps";
 
 type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -413,10 +414,10 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

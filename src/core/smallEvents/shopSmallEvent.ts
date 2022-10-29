@@ -16,6 +16,7 @@ import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {ItemConstants} from "../constants/ItemConstants";
+import {Maps} from "../maps/Maps";
 
 /**
  * Get the callback of the shop small event
@@ -62,10 +63,10 @@ function callbackShopSmallEvent(
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

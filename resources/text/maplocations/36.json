@@ -1,0 +1,10 @@
+{
+	"type": "pve_island",
+	"nameFr": "Zone 3 île PVE",
+	"nameEn": "PVE island area 3",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Test",
+	"descEn": "Test",
+	"canBeGoToPlaceMissionDestination": false
+}

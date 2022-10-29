@@ -1,0 +1,10 @@
+{
+	"type": "pve_island",
+	"nameFr": "Entrée île PVE",
+	"nameEn": "PVE island entrance",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Test",
+	"descEn": "Test",
+	"canBeGoToPlaceMissionDestination": false
+}

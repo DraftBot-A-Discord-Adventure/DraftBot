@@ -85,7 +85,8 @@
 				"gobletChoose": "choix d'un gobelet",
 				"witchChoose": "choix d'une action pour la sorcière",
 				"unlock": "libération de quelqu'un",
-				"reportCommand": "commande {command:report}"
+				"reportCommand": "commande {command:report}",
+				"pveIsland": "mini-évent île PVE"
 			}
 		},
 		"en": {
@@ -173,7 +174,8 @@
 				"drink": "choice to drink a potion or not",
 				"gobletChoose": "choice of a goblet",
 				"witchChoose": "witch event choice",
-				"reportCommand": "{command:report} command"
+				"reportCommand": "{command:report} command",
+				"pveIsland": "PVE island small event"
 			}
 		}
 	}

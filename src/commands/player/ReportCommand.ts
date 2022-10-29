@@ -155,16 +155,6 @@ async function completeMissionsBigEvent(player: Player, interaction: CommandInte
 }
 
 /**
- * If the player reached his destination (= big event)
- * @param {Player} player
- * @param date
- * @returns {boolean}
- */
-async function needBigEvent(player: Player, date: Date): Promise<boolean> {
-	return await Maps.isArrived(player, date);
-}
-
-/**
  * Send where the player is currently staying on the road
  * @param player
  * @param interaction
@@ -223,11 +213,20 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		}
 	}
 
-	travelEmbed.addFields({
-		name: tr.get("collectedPointsTitle"),
-		value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
-		inline: true
-	});
+	if (Maps.isOnPveMap(player)) {
+		travelEmbed.addFields({
+			name: tr.get("remainingEnergyTitle"),
+			value: `⚡ ${await player.getCumulativeFightPoint()} / ${await player.getMaxCumulativeFightPoint()}`,
+			inline: true
+		});
+	}
+	else {
+		travelEmbed.addFields({
+			name: tr.get("collectedPointsTitle"),
+			value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
+			inline: true
+		});
+	}
 
 	travelEmbed.addFields({
 		name: tr.get("adviceTitle"),
@@ -527,6 +526,21 @@ async function doRandomBigEvent(
 }
 
 /**
+ * Do a PVE boss fight
+ * @param interaction
+ * @param language
+ * @param player
+ */
+async function doPVEBoss(
+	interaction: CommandInteraction,
+	language: string,
+	player: Player
+): Promise<void> {
+	await Maps.stopTravel(player);
+	await chooseDestination(player, interaction, language, "");
+}
+
+/**
  * The main command of the bot : makes the player progress in the adventure
  * @param interaction
  * @param language
@@ -555,9 +569,15 @@ async function executeCommand(
 
 	const currentDate = new Date();
 
-	if (forceSpecificEvent || await needBigEvent(player, currentDate)) {
-		await interaction.deferReply();
-		await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
+		if (Maps.isOnPveMap(player)) {
+			await interaction.deferReply();
+			await doPVEBoss(interaction, language, player);
+		}
+		else {
+			await interaction.deferReply();
+			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+		}
 		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 

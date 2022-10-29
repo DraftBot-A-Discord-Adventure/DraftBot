@@ -62,15 +62,10 @@
 					"prefix": "de la",
 					"emote": "\uD83E\uDE91"
 				},
-				"castle_forge": {
+				"pve_island": {
 					"name": "",
-					"prefix": "de la",
-					"emote": "\uD83D\uDD28"
-				},
-				"castle_carriage": {
-					"name": "",
-					"prefix": "de la",
-					"emote": "\uD83D\uDC0E"
+					"prefix": "de l'",
+					"emote": "\uD83C\uDFDD️"
 				}
 			},
 			"directions": {
@@ -150,15 +145,10 @@
 					"prefix": "of the",
 					"emote": "\uD83E\uDE91"
 				},
-				"castle_forge": {
+				"pve_island": {
 					"name": "",
 					"prefix": "of the",
-					"emote": "\uD83D\uDD28"
-				},
-				"castle_carriage": {
-					"name": "",
-					"prefix": "of the",
-					"emote": "\uD83D\uDC0E"
+					"emote": "\uD83C\uDFDD️"
 				}
 			},
 			"directions": {

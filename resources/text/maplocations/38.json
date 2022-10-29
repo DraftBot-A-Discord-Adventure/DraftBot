@@ -1,0 +1,10 @@
+{
+	"type": "pve_island",
+	"nameFr": "Sortie île PVE",
+	"nameEn": "PVE island exit",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Test",
+	"descEn": "Test",
+	"canBeGoToPlaceMissionDestination": false
+}

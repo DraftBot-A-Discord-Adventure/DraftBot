@@ -7,6 +7,8 @@ import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
+import {PVEConstants} from "../constants/PVEConstants";
+import {MapConstants} from "../constants/MapConstants";
 
 export class Maps {
 
@@ -150,5 +152,27 @@ export class Maps {
 	 */
 	static isTravelling(player: Player): boolean {
 		return player.startTravelDate.valueOf() !== 0;
+	}
+
+	/**
+	 * Check if the player is on a PVE map
+	 * @param player
+	 */
+	static isOnPveMap(player: Player): boolean {
+		for (const range of PVEConstants.MAPS.PVE_LINK_RANGES) {
+			if (player.mapLinkId >= range[0] && player.mapLinkId <= range[1]) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if the player is near the water
+	 * @param player
+	 */
+	static isNearWater(player: Player): boolean {
+		return MapConstants.WATER_MAP_LINKS.includes(player.mapLinkId);
 	}
 }

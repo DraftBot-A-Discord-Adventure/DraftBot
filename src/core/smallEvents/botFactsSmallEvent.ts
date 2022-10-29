@@ -10,6 +10,7 @@ import {Guilds} from "../database/game/models/Guild";
 import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
 import {readdir} from "fs/promises";
+import {Maps} from "../maps/Maps";
 
 /**
  * Gives how many players have a random class
@@ -24,10 +25,10 @@ const getNbPlayersWithGivenClass = async (language: string): Promise<[number, st
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

@@ -16,6 +16,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
+import {Maps} from "../maps/Maps";
 
 type RewardType = { type: string, value: number | string };
 
@@ -102,10 +103,10 @@ function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBot
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

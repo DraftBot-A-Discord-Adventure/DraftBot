@@ -1,0 +1,10 @@
+{
+	"type": "pve_island",
+	"nameFr": "Zone 2 île PVE",
+	"nameEn": "PVE island area 2",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Test",
+	"descEn": "Test",
+	"canBeGoToPlaceMissionDestination": false
+}

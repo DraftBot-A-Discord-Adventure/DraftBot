@@ -28,7 +28,8 @@
 			"adviceTitle": "Conseil :",
 			"journal": "Journal de {pseudo}",
 			"collectedPointsTitle": "Points récoltés :",
-			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !"
+			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !",
+			"remainingEnergyTitle": "Énergie restante :"
 		},
 		"en": {
 			"commandName": "report",
@@ -58,7 +59,8 @@
 			"adviceTitle": "Advice:",
 			"journal": "Journal of {pseudo}",
 			"collectedPointsTitle": "Collected points:",
-			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!"
+			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!",
+			"remainingEnergyTitle": "Remaining energy :"
 		}
 	}
 }

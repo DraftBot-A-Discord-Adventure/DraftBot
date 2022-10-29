@@ -8,13 +8,14 @@ import {Guilds} from "../database/game/models/Guild";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

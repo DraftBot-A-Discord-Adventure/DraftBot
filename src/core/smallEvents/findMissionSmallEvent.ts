@@ -6,12 +6,14 @@ import {MissionsController} from "../missions/MissionsController";
 import Player from "../database/game/models/Player";
 import {Missions} from "../database/game/models/Mission";
 import {MissionSlots} from "../database/game/models/MissionSlot";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * You must have an empty mission slot to have this small event
-	 */ async canBeExecuted(player: Player): Promise<boolean> {
-		return player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));
+	 * Check if small event can be executed
+	 */
+	async canBeExecuted(player: Player): Promise<boolean> {
+		return !Maps.isOnPveMap(player) && player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));
 	},
 
 	/**

@@ -20,6 +20,7 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {MissionsController} from "../missions/MissionsController";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {PetConstants} from "../constants/PetConstants";
+import {Maps} from "../maps/Maps";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -271,10 +272,10 @@ async function managePickedPetInteraction(
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**

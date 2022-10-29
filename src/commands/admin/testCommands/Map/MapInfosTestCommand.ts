@@ -31,13 +31,13 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", interaction.user)
 		.addFields({
-			name: travelling ? "Next map" : "Current map",
-			value: currMap.getDisplayName(language) + " (id: " + currMap.id + ")",
+			name: "Previous map",
+			value: prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
 			inline: true
 		})
 		.addFields({
-			name: "Previous map",
-			value: prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
+			name: travelling ? "Next map" : "Current map",
+			value: currMap.getDisplayName(language) + " (id: " + currMap.id + ")",
 			inline: true
 		})
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);

@@ -1,0 +1,34 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {priceText}.",
+				"un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {priceText}.",
+				"vous êtes interpellé par un homme en habits de marin, et arborant l'emblême du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {priceText}.",
+				"vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {priceText}."
+			],
+			"priceFree": "le voyage **est gratuit**",
+			"priceMoney": "le voyage **coûtera {price} \uD83D\uDCB0**",
+			"confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{fightPoints} / {fightPointsMax}**.",
+			"endStoryAccept": [
+				"Vous acceptez avec engouement et montez sur le bateau. Après plusieurs dizaines de minutes, vous apercevez l'île à l'horizon. Le bateau accoste, et vous descendez de celui-ci.\nLe capitaine vous indique que vous allez rencontrer **toutes les minutes un événement et qu'à chaque lieu visité, il est probable qu'un monstre soit présent**.\nVous le remerciez et partez à l'aventure.",
+				"Vous n'hésitez pas longtemps, et embarquez promptement. Très rapidement se présente dans la brume marine le pourtour de l'île. Une fois arrivé, vous descendez et voulez immédiatement partir à l'aventure.\nLe capitaine du navire vous ayant amené ici, cependant, tient à vous informer plus précisément de ce que vous allez rencontrer sur l'île. Selon lui, vous allez rencontrer **toutes les minutes un événement et à chaque lieu que vous allez visiter, il est probable qu'un monstre soit présent**.\nNe pouvant plus attendre, vous le coupez avant qu'il ne continue et partez en courant vers l'intérieur de l'île."
+			],
+			"endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route."
+		},
+		"en": {
+			"stories": [
+				"Your gaze is attracted to a boat on the side of your field of view. Its captain beckons to you and presents you with a potential thrilling adventure, on a monster-filled island. They also add that {priceText}."
+			],
+			"priceFree": "the trip **is free**",
+			"priceMoney": "the trip **will cost you {price} \uD83D\uDCB0**",
+			"confirm": "Do you wish to go to the island ? You have ⚡ **{fightPoints} / {fightPointsMax}**.",
+			"endStoryAccept": [
+				"With keen interest, you accept the captain's offer. After several dozens of minutes abord the boat, you catch a glimpse of an island on the horizon. the boat comes ashore, and you disembark from it.\nThe captain states that you will encounter events every minute, and that it is very possible for a monster to be present at every spot you visit on the island. \nYou thank them and start your expedition"
+			],
+			"endStoryRefuse": "You politely decline and continue walking towards your planned destination."
+		}
+	},
+	"rarity": 40,
+	"emote": ":ferry:"
+}

@@ -13,6 +13,7 @@ import {Pets} from "../database/game/models/Pet";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {PET_ENTITY_GIVE_RETURN} from "../constants/PetEntityConstants";
 import {Guilds} from "../database/game/models/Guild";
+import {Maps} from "../maps/Maps";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -46,10 +47,10 @@ function generatePetEmbed(seEmbed: DraftBotEmbed, base: string, tr: TranslationM
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(!Maps.isOnPveMap(player));
 	},
 
 	/**
