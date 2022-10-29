@@ -2,9 +2,9 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {FightController} from "../../../../core/fights/FightController";
-import {Fighter} from "../../../../core/fights/Fighter";
 import {Classes} from "../../../../core/database/game/models/Class";
 import {Constants} from "../../../../core/Constants";
+import {PlayerFighter} from "../../../../core/fights/fighter/PlayerFighter";
 
 export const commandInfo: ITestCommand = {
 	name: "solofight",
@@ -27,9 +27,9 @@ export const commandInfo: ITestCommand = {
 const soloFightTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const playerClass = await Classes.getById(player.class);
-	const fighter1 = new Fighter(interaction.user, player, playerClass);
+	const fighter1 = new PlayerFighter(interaction.user, player, playerClass);
 	await fighter1.loadStats(false);
-	const fighter2 = new Fighter(interaction.user, player, playerClass);
+	const fighter2 = new PlayerFighter(interaction.user, player, playerClass);
 	await fighter2.loadStats(false);
 
 	if (args[0] === "1") {

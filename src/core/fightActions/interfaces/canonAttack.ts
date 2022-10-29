@@ -1,5 +1,5 @@
 import {IFightAction} from "../IFightAction";
-import {Fighter} from "../../fights/Fighter";
+import {Fighter} from "../../fights/fighter/Fighter";
 import {Translations} from "../../Translations";
 import {format} from "../../utils/StringFormatter";
 import {Data} from "../../Data";
@@ -7,13 +7,14 @@ import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../constants/FightConstants";
 import {FighterAlterationId} from "../../fights/FighterAlterationId";
 import {MathUtils} from "../../utils/MathUtils";
+import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export const fightActionInterface: IFightAction = {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.stats.speed + 20) / 320));

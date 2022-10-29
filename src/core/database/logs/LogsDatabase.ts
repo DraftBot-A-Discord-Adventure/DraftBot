@@ -87,6 +87,7 @@ import {EffectsConstants} from "../../constants/EffectsConstants";
 import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
 import {getDateLogs} from "../../utils/TimeUtils";
+import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 
 /**
  * This class is used to log all the changes in the game database
@@ -956,38 +957,40 @@ export class LogsDatabase extends Database {
 	 * @param fight
 	 */
 	public async logFight(fight: FightController): Promise<void> {
-		const player1 = fight.fightInitiator;
-		const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
-		const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
-		const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
-		const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
-		const fightResult = await LogsFightsResults.create({
-			player1Id: player1Id,
-			player1Points: player1.player.score,
-			player2Id: player2Id,
-			player2Points: player2.player.score,
-			turn: fight.turn,
-			winner: fight.isADraw() ? 0 : winner,
-			friendly: fight.friendly,
-			date: getDateLogs()
-		});
-		for (const player of [player1, player2]) {
-			const fightActionsUsed: { [action: string]: number } = {};
-			for (const fightAction of player.fightActionsHistory) {
-				fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
-			}
-			for (const [action, count] of Object.entries(fightActionsUsed)) {
-				const [fightAction] = await LogsFightsActions.findOrCreate({
-					where: {
-						name: action
-					}
-				});
-				await LogsFightsActionsUsed.create({
-					fightId: fightResult.id,
-					player: player === player1 ? 1 : 2,
-					actionId: fightAction.id,
-					count
-				});
+		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
+			const player1 = fight.fightInitiator as PlayerFighter;
+			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
+			const player2 = (fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0]) as PlayerFighter;
+			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
+			const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
+			const fightResult = await LogsFightsResults.create({
+				player1Id: player1Id,
+				player1Points: player1.player.score,
+				player2Id: player2Id,
+				player2Points: player2.player.score,
+				turn: fight.turn,
+				winner: fight.isADraw() ? 0 : winner,
+				friendly: fight.friendly,
+				date: getDateLogs()
+			});
+			for (const player of [player1, player2]) {
+				const fightActionsUsed: { [action: string]: number } = {};
+				for (const fightAction of player.fightActionsHistory) {
+					fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
+				}
+				for (const [action, count] of Object.entries(fightActionsUsed)) {
+					const [fightAction] = await LogsFightsActions.findOrCreate({
+						where: {
+							name: action
+						}
+					});
+					await LogsFightsActionsUsed.create({
+						fightId: fightResult.id,
+						player: player === player1 ? 1 : 2,
+						actionId: fightAction.id,
+						count
+					});
+				}
 			}
 		}
 	}

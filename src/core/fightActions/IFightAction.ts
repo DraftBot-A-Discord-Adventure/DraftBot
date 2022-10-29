@@ -1,4 +1,4 @@
-import {Fighter} from "../fights/Fighter";
+import {Fighter} from "../fights/fighter/Fighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }

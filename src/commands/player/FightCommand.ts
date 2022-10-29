@@ -6,7 +6,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {FightConstants} from "../../core/constants/FightConstants";
 import {Replacements} from "../../core/utils/StringFormatter";
-import {Fighter} from "../../core/fights/Fighter";
+import {Fighter} from "../../core/fights/fighter/Fighter";
 import {
 	BroadcastTranslationModuleLike,
 	DraftBotBroadcastValidationMessage
@@ -18,6 +18,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
 
 /**
  * Check if a player is allowed to fight
@@ -92,11 +93,11 @@ async function sendError(
  * @param respondingFighter
  */
 async function getFightDescription(
-	askingFighter: Fighter,
+	askingFighter: PlayerFighter,
 	friendly: boolean,
 	respondingPlayer: Player | null,
 	fightTranslationModule: TranslationModule,
-	respondingFighter: Fighter | null
+	respondingFighter: PlayerFighter | null
 ): Promise<string> {
 	let fightAskingDescription;
 	const promises: Promise<void>[] = [askingFighter.loadStats(friendly)];
@@ -148,7 +149,7 @@ function getAcceptCallback(
 			await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, false, user);
 			return false;
 		}
-		const incomingFighter = new Fighter(user, incomingFighterPlayer, await Classes.getById(incomingFighterPlayer.class));
+		const incomingFighter = new PlayerFighter(user, incomingFighterPlayer, await Classes.getById(incomingFighterPlayer.class));
 		await incomingFighter.loadStats(friendly);
 		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
 		fightController.startFight().finally(() => null);
@@ -179,7 +180,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * @param friendly true if the fight is friendly
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player, friendly = false): Promise<void> {
-	const askingFighter = new Fighter(interaction.user, player, await Classes.getById(player.class));
+	const askingFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
 	if (askedEntity && player.discordUserId === askedEntity.discordUserId) {
@@ -192,14 +193,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
-	let askedFighter: Fighter | null;
+	let askedFighter: PlayerFighter | null;
 	if (askedEntity) {
 		const defenderFightErrorStatus = await canFight(askedEntity, true, interaction.createdAt);
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;
 		}
-		askedFighter = new Fighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.class));
+		askedFighter = new PlayerFighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.class));
 	}
 	const fightAskingDescription = await getFightDescription(askingFighter, friendly, askedEntity, fightTranslationModule, askedFighter);
 	await new DraftBotBroadcastValidationMessage(

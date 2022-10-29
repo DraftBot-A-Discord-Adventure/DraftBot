@@ -1,5 +1,5 @@
 import {IFightAction} from "../../IFightAction";
-import {Fighter} from "../../../fights/Fighter";
+import {Fighter} from "../../../fights/fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {Data} from "../../../Data";
 import {FighterAlterationId} from "../../../fights/FighterAlterationId";

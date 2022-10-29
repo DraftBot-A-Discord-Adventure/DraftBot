@@ -1,10 +1,11 @@
 import {IFightAction} from "../../IFightAction";
-import {Fighter} from "../../../fights/Fighter";
+import {Fighter} from "../../../fights/fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {Data} from "../../../Data";
 import {FightActionController} from "../../FightActionController";
 import {FighterAlterationId} from "../../../fights/FighterAlterationId";
+import {PlayerFighter} from "../../../fights/fighter/PlayerFighter";
 
 type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -18,7 +19,7 @@ export const fightActionInterface: Partial<IFightAction> = {
 			sender.newAlteration(FighterAlterationId.NORMAL);
 			return poisonTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.getPlayerLevel(), this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 		sender.stats.fightPoints -= damageDealt;
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	},
