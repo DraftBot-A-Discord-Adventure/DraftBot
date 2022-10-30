@@ -8,7 +8,7 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 export default class PoisonedAlteration extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const poisonTranslationModule = Translations.getModule("fightactions." + this.name, language);
+		const poisonTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 35 % chance to be healed from the poison (except for the first turn)
 		if (Math.random() < 0.35 && sender.alterationTurn > 1) {
 			sender.removeAlteration();

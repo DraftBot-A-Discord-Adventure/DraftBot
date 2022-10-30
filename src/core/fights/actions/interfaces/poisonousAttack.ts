@@ -26,7 +26,7 @@ export default class PoisonousAttack extends FightAction {
 
 		receiver.stats.fightPoints -= damageDealt;
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule("fightactions." + this.name, language)
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {

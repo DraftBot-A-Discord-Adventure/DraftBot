@@ -5,7 +5,7 @@ import {FightAlteration} from "../../FightAlteration";
 export default class ConcentratedAlteration extends FightAlteration {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const concentratedTranslationModule = Translations.getModule("fightactions." + this.name, language);
+		const concentratedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (sender.alterationTurn > 1) { // this effect heals after one turn
 			sender.stats.speed = sender.readSavedStats().speed;
 			sender.stats.attack = sender.readSavedStats().attack;

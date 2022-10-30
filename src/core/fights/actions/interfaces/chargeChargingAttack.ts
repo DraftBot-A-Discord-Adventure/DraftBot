@@ -5,6 +5,7 @@ import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../../constants/FightConstants";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
+import {FightActions} from "../FightActions";
 
 export default class ChargeChargingAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -23,14 +24,14 @@ export default class ChargeChargingAttack extends FightAction {
 			amount: increaseAmount
 		});
 
-		sender.nextFightAction = this;
+		sender.nextFightAction = FightActions.getFightActionById("chargingAttack");
 
 		receiver.stats.fightPoints -= damageDealt;
 
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
 		return format(chosenString, {
-			attack: Translations.getModule("fightactions." + this.name, language)
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {

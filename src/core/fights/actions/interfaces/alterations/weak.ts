@@ -5,7 +5,7 @@ import {FightAction} from "../../FightAction";
 export default class WeakAlteration extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const weakTranslationModule = Translations.getModule("fightactions." + this.name, language);
+		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (sender.alterationTurn > 1) { // this effect heals after one turn
 			sender.stats.attack = sender.readSavedStats().attack;
 			sender.eraseSavedStats();

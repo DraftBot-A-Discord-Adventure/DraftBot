@@ -14,7 +14,7 @@ export default class ChargeUltimateAttack extends FightAction {
 		// if the sender already used the maximum amount of ultimate attacks, he can't use it anymore
 		if (usedUltimateAttacks >= 1) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {
-				attack: Translations.getModule("fightactions." + this.name, language)
+				attack: Translations.getModule(`fightactions.${this.name}`, language)
 					.get("name")
 					.toLowerCase()
 			});
@@ -22,7 +22,7 @@ export default class ChargeUltimateAttack extends FightAction {
 		// set the next fight action of the sender to be the ultimate attack
 		sender.nextFightAction = FightActions.getFightActionById("ultimateAttack");
 		return attackTranslationModule.format("actions.attacksResults.charging", {
-			attack: Translations.getModule("fightactions." + this.name, language)
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
 		});

@@ -47,7 +47,7 @@ export default class PowerfulAttack extends FightAction {
 		});
 
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule("fightactions." + this.name, language)
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {

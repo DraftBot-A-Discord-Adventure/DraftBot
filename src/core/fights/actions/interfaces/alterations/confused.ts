@@ -10,7 +10,7 @@ export default class ConfusedAlteration extends FightAction {
 		sender.alterationTurn++;
 		const randomValue = Math.random();
 
-		const confusionTranslationModule = Translations.getModule("fightactions." + this.name, language);
+		const confusionTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
 		// 35 % to be healed of the confusion (except for the first turn)
 		if (randomValue < 0.35 && sender.alterationTurn > 1) {
