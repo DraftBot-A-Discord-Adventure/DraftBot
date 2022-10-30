@@ -976,7 +976,7 @@ export class LogsDatabase extends Database {
 			for (const player of [player1, player2]) {
 				const fightActionsUsed: { [action: string]: number } = {};
 				for (const fightAction of player.fightActionsHistory) {
-					fightActionsUsed[fightAction] ? fightActionsUsed[fightAction]++ : fightActionsUsed[fightAction] = 1;
+					fightActionsUsed[fightAction.name] ? fightActionsUsed[fightAction.name]++ : fightActionsUsed[fightAction.name] = 1;
 				}
 				for (const [action, count] of Object.entries(fightActionsUsed)) {
 					const [fightAction] = await LogsFightsActions.findOrCreate({

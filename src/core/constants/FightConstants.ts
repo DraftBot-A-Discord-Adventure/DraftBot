@@ -71,24 +71,4 @@ export abstract class FightConstants {
 
 	// empty string to register cancellation of an alteration display
 	static CANCEL_ALTERATION_DISPLAY = "";
-
-	// file name of the fight actions interfaces for the fight alterations the player can have
-	static ALTERATION_FIGHT_ACTION: string[] = [
-		"alterations/normal",
-		"alterations/slowed",
-		"alterations/poisoned",
-		"alterations/stunned",
-		"alterations/concentrated",
-		"alterations/weak",
-		"alterations/confused",
-		"alterations/protected"
-	];
-
-	static ACTION_ID = {
-		RESTING: "resting",
-		NO_MOVE: "none",
-		DIVINE_ATTACK: "divineAttack",
-		BENEDICTION: "benediction"
-	};
-
 }

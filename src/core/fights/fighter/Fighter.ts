@@ -1,10 +1,9 @@
 import {TranslationModule} from "../../Translations";
 import {FighterStatus} from "../FighterStatus";
-import {FighterAlterationId} from "../FighterAlterationId";
-import {IFightAction} from "../../fightActions/IFightAction";
-import {FightActionController} from "../../fightActions/FightActionController";
-import {FightConstants} from "../../constants/FightConstants";
 import {FightView} from "../FightView";
+import {FightAction} from "../actions/FightAction";
+import {RandomUtils} from "../../utils/RandomUtils";
+import {FightAlteration} from "../actions/FightAlteration";
 
 type FighterStats = {
 	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number
@@ -19,11 +18,11 @@ export abstract class Fighter {
 
 	public stats: FighterStats;
 
-	public nextFightActionId: string;
+	public nextFightAction: FightAction;
 
-	public fightActionsHistory: string[];
+	public fightActionsHistory: FightAction[];
 
-	public availableFightActions: Map<string, IFightAction>;
+	public availableFightActions: Map<string, FightAction>;
 
 	public alterationTurn: number;
 
@@ -31,11 +30,11 @@ export abstract class Fighter {
 
 	private ready: boolean;
 
-	private alteration: FighterAlterationId;
+	public alteration: FightAction;
 
 	protected status: FighterStatus;
 
-	protected constructor(availableFightActions: Map<string, IFightAction>) {
+	protected constructor(availableFightActions: FightAction[]) {
 		this.stats = {
 			fightPoints: null,
 			maxFightPoint: null,
@@ -45,12 +44,16 @@ export abstract class Fighter {
 		};
 		this.statsBackup = null;
 		this.ready = false;
-		this.nextFightActionId = null;
+		this.nextFightAction = null;
 		this.fightActionsHistory = [];
 		this.status = FighterStatus.NOT_STARTED;
-		this.alteration = FighterAlterationId.NORMAL;
+		this.alteration = null;
 		this.alterationTurn = 0;
-		this.availableFightActions = availableFightActions;
+
+		this.availableFightActions = new Map();
+		for (const fightAction of availableFightActions) {
+			this.availableFightActions.set(fightAction.name, fightAction);
+		}
 	}
 
 	/**
@@ -164,11 +167,11 @@ export abstract class Fighter {
 	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
 		this.fightActionsHistory.forEach((action) => {
-			if (playerFightActionsHistory.has(action)) {
-				playerFightActionsHistory.set(action, playerFightActionsHistory.get(action) + 1);
+			if (playerFightActionsHistory.has(action.name)) {
+				playerFightActionsHistory.set(action.name, playerFightActionsHistory.get(action.name) + 1);
 			}
 			else {
-				playerFightActionsHistory.set(action, 1);
+				playerFightActionsHistory.set(action.name, 1);
 			}
 		});
 		return playerFightActionsHistory;
@@ -178,7 +181,7 @@ export abstract class Fighter {
 	 * Check if the fighter has a fight alteration
 	 */
 	hasFightAlteration(): boolean {
-		return this.alteration !== FighterAlterationId.NORMAL;
+		return this.alteration !== null;
 	}
 
 	/**
@@ -186,11 +189,11 @@ export abstract class Fighter {
 	 * @param alteration - the new fight alteration
 	 * returns the FighterAlterationId of the fight alteration that was set or kept
 	 */
-	newAlteration(alteration: FighterAlterationId): FighterAlterationId {
-		if (this.alteration === FighterAlterationId.NORMAL || this.alteration === alteration) {
+	newAlteration(alteration: FightAlteration): FightAction {
+		if (this.alteration === null || this.alteration === alteration) {
 			this.alterationTurn = 0;
 		}
-		if (this.alteration === FighterAlterationId.NORMAL || alteration === FighterAlterationId.NORMAL) {
+		if (this.alteration === null || alteration === null) {
 			// check for alteration conflict
 			this.alteration = alteration;
 		}
@@ -198,17 +201,17 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * get the fightAction linked to the alteration of the fighter
+	 * Remove the player alteration
 	 */
-	async getAlterationFightAction(): Promise<IFightAction> {
-		const alterationFightActionFileName: string = FightConstants.ALTERATION_FIGHT_ACTION[this.alteration];
-		return await FightActionController.getFightActionInterface(alterationFightActionFileName);
+	removeAlteration(): void {
+		this.alterationTurn = 0;
+		this.alteration = null;
 	}
 
 	/**
 	 * get a random fight action id from the list of available fight actions of the fighter
 	 */
-	getRandomAvailableFightActionId(): string {
-		return Array.from(this.availableFightActions.keys())[Math.floor(Math.random() * Array.from(this.availableFightActions.keys()).length)];
+	getRandomAvailableFightAction(): FightAction {
+		return RandomUtils.draftbotRandom.pick(Array.from(this.availableFightActions.values()));
 	}
 }

@@ -5,9 +5,10 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
-import {IFightAction} from "../fightActions/IFightAction";
-import {FightActionController} from "../fightActions/FightActionController";
 import {draftBotInstance} from "../bot";
+import Benediction from "./actions/interfaces/benediction";
+import DivineAttack from "./actions/interfaces/divineAttack";
+import {FightAction} from "./actions/FightAction";
 
 /**
  * @class FightController
@@ -41,11 +42,11 @@ export class FightController {
 	 * @param receiver
 	 */
 	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action => action === FightConstants.ACTION_ID.BENEDICTION ||
-				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length
+		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
+				action instanceof DivineAttack).length
 			+ receiver.fightActionsHistory.filter(action =>
-				action === FightConstants.ACTION_ID.BENEDICTION ||
-				action === FightConstants.ACTION_ID.DIVINE_ATTACK).length;
+				action instanceof Benediction ||
+				action instanceof DivineAttack).length;
 	}
 
 	/**
@@ -121,16 +122,16 @@ export class FightController {
 
 	/**
 	 * execute the next fight action
-	 * @param fightAction {IFightAction} the fight action to execute
+	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
-	public async executeFightAction(fightAction: IFightAction, endTurn: boolean): Promise<void> {
+	public async executeFightAction(fightAction: FightAction, endTurn: boolean): Promise<void> {
 		if (endTurn) {
-			this.getPlayingFighter().nextFightActionId = null;
+			this.getPlayingFighter().nextFightAction = null;
 		}
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
-		this.getPlayingFighter().fightActionsHistory.push(fightAction.getName());
+		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
 			await this.endFight();
 			return;
@@ -160,18 +161,18 @@ export class FightController {
 	 */
 	private async prepareNextTurn(): Promise<void> {
 		if (this.getPlayingFighter().hasFightAlteration()) {
-			await this.executeFightAction(await this.getPlayingFighter().getAlterationFightAction(), false);
+			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// a player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
 		await this.fightView.displayFightStatus();
-		if (this.getPlayingFighter().nextFightActionId === null) {
+		if (this.getPlayingFighter().nextFightAction === null) {
 			this.getPlayingFighter().chooseAction(this.fightView);
 		}
 		else {
-			await this.executeFightAction(await FightActionController.getFightActionInterface(this.getPlayingFighter().nextFightActionId), true);
+			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
 		}
 	}
 
