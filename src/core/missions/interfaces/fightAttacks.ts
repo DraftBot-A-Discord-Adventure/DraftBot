@@ -1,7 +1,7 @@
 import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {FightActionController} from "../../fightActions/FightActionController";
+import {FightActionController} from "../../fights/actions/FightActionController";
 import {Classes} from "../../database/game/models/Class";
 import {Data} from "../../Data";
 

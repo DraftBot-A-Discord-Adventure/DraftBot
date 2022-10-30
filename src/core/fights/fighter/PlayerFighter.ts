@@ -8,14 +8,14 @@ import Potion from "../../database/game/models/Potion";
 import {checkDrinkPotionMissions} from "../../utils/ItemUtils";
 import {BlockingUtils} from "../../utils/BlockingUtils";
 import {BlockingConstants} from "../../constants/BlockingConstants";
-import {FightActionController} from "../../fightActions/FightActionController";
-import {IFightAction} from "../../fightActions/IFightAction";
 import {FightConstants} from "../../constants/FightConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {FightView} from "../FightView";
 import {MissionsController} from "../../missions/MissionsController";
 import {MissionSlots} from "../../database/game/models/MissionSlot";
 import {getDayNumber} from "../../utils/TimeUtils";
+import {FightActions} from "../actions/FightActions";
+import {FightAction} from "../actions/FightAction";
 
 export class PlayerFighter extends Fighter {
 	public player: Player;
@@ -25,7 +25,7 @@ export class PlayerFighter extends Fighter {
 	private readonly user: User;
 
 	public constructor(user: User, player: Player, playerClass: Class) {
-		super(FightActionController.listFightActionsFromClass(playerClass));
+		super(FightActions.listFightActionsFromClass(playerClass));
 		this.player = player;
 		this.class = playerClass;
 		this.user = user;
@@ -196,15 +196,14 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Get the selected action from the reaction
 	 * @param reaction
-	 * @param actions
 	 * @private
 	 */
-	private static getSelectedAction(reaction: Collection<Snowflake, MessageReaction>, actions: Map<string, IFightAction>): IFightAction {
+	private getSelectedAction(reaction: Collection<Snowflake, MessageReaction>): FightAction {
 		if (!reaction.first()) {
 			return null;
 		}
 		const selectedActionEmoji = reaction.first().emoji.name;
-		for (const [, action] of actions) {
+		for (const [, action] of this.availableFightActions) {
 			if (action.getEmoji() === selectedActionEmoji) {
 				return action;
 			}
@@ -217,7 +216,7 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	chooseAction(fightView: FightView): void {
-		const actions: Map<string, IFightAction> = this.availableFightActions;
+		const actions: Map<string, FightAction> = this.availableFightActions;
 		this.sendChooseActionEmbed(fightView).then((chooseActionEmbedMessage) => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
 				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
@@ -225,7 +224,7 @@ export class PlayerFighter extends Fighter {
 				max: 1
 			});
 			collector.on("end", async (reaction) => {
-				const selectedAction = PlayerFighter.getSelectedAction(reaction, actions);
+				const selectedAction = this.getSelectedAction(reaction);
 				await chooseActionEmbedMessage.delete();
 				if (selectedAction === null) {
 					// USER HASN'T SELECTED AN ACTION
