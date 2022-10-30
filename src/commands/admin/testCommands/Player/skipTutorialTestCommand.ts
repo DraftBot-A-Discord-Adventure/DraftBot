@@ -7,8 +7,8 @@ import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
-	name: "initplayer",
-	aliases: ["init"],
+	name: "skiptutorial",
+	aliases: ["skiptuto"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
 	description: "Initialise votre joueur pour des tests",
@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const initPlayerTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const skipTutorialTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	player.level = 1;
 	player.score = 2000;
@@ -40,4 +40,4 @@ const initPlayerTestCommand = async (language: string, interaction: CommandInter
 	return commandInfo.messageWhenExecuted;
 };
 
-commandInfo.execute = initPlayerTestCommand;
+commandInfo.execute = skipTutorialTestCommand;
