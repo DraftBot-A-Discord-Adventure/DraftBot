@@ -960,7 +960,7 @@ export class LogsDatabase extends Database {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
 			const player1 = fight.fightInitiator as PlayerFighter;
 			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
-			const player2 = (fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0]) as PlayerFighter;
+			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
 			const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
 			const fightResult = await LogsFightsResults.create({

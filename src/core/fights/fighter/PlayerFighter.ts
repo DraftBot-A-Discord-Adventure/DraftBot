@@ -17,6 +17,11 @@ import {getDayNumber} from "../../utils/TimeUtils";
 import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
 
+/**
+ * @class PlayerFighter
+ * @extends Fighter
+ * Class representing a player in a fight
+ */
 export class PlayerFighter extends Fighter {
 	public player: Player;
 
@@ -47,6 +52,7 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Function called when the fight starts
+	 * @param fightView The fight view
 	 */
 	async startFight(fightView: FightView): Promise<void> {
 		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
@@ -57,7 +63,7 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * check the fight action history of a fighter
 	 * @private
-	 * @param fightView
+	 * @param fightView The fight view
 	 */
 	private async checkFightActionHistory(fightView: FightView): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();

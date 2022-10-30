@@ -5,7 +5,7 @@ import {FightAction} from "../../FightAction";
 export default class SlowedAlteration extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const slowedTranslationModule = Translations.getModule("fightactions." + this.name, language);
+		const slowedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (sender.alterationTurn > 1) { // this effect heals after one turn
 			sender.stats.speed = sender.readSavedStats().speed;
 			sender.eraseSavedStats();

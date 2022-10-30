@@ -2,7 +2,6 @@ import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
-import {FightConstants} from "../../../constants/FightConstants";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightActions} from "../FightActions";
@@ -47,4 +46,4 @@ export default class IntenseAttack extends FightAction {
 			]
 		};
 	}
-};
+}

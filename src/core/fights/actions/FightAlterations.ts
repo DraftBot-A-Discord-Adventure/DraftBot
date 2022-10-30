@@ -14,4 +14,4 @@ export const FightAlterations = {
 	SLOWED: new SlowedAlteration("slowed"),
 	STUNNED: new StunnedAlteration("stunned"),
 	WEAK: new WeakAlteration("weak")
-}
+};

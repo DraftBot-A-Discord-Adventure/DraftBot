@@ -28,7 +28,7 @@ export default class ChargingAttack extends FightAction {
 		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
 		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
 		return format(chosenString, {
-			attack: Translations.getModule("fightactions." + this.name, language)
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
