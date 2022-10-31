@@ -12,25 +12,41 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {PVEConstants} from "../constants/PVEConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {MapLinks} from "../database/game/models/MapLink";
+import {LogsReadRequests} from "../database/logs/LogsReadRequests";
+import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 
-async function confirmationCallback(player: Player, msg: DraftBotValidateReactionMessage, tr: TranslationModule, emote: string): Promise<void> {
-	await msg.sentMessage.channel.send({
-		embeds: [
-			new DraftBotEmbed()
-				.setAuthor(msg.sentMessage.embeds[0].author)
-				.setDescription(
-					`${emote} ${msg.isValidated() ? tr.getRandom("endStoryAccept") : tr.get("endStoryRefuse")}`
-				)
-		]
-	});
+async function confirmationCallback(
+	player: Player,
+	msg: DraftBotValidateReactionMessage,
+	tr: TranslationModule,
+	emote: string,
+	price: number
+): Promise<void> {
+	const embed = new DraftBotEmbed()
+		.setAuthor(msg.sentMessage.embeds[0].author);
 	if (msg.isValidated()) {
-		await Maps.startTravel(
-			player,
-			await MapLinks.getById(PVEConstants.MAPS.ENTRY_LINK),
-			Date.now(),
-			NumberChangeReason.SMALL_EVENT
-		);
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+		if (missionInfo.gems < price) {
+			embed.setDescription(`${emote} ${tr.get("notEnoughGems")}`);
+		}
+		else {
+			await Maps.startTravel(
+				player,
+				await MapLinks.getById(PVEConstants.MAPS.ENTRY_LINK),
+				Date.now(),
+				NumberChangeReason.SMALL_EVENT
+			);
+			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
+			await missionInfo.save();
+			embed.setDescription(`${emote} ${tr.get("endStoryAccept")}`);
+		}
 	}
+	else {
+		embed.setDescription(`${emote} ${tr.get("endStoryRefuse")}`);
+	}
+	await msg.sentMessage.channel.send({
+		embeds: [embed]
+	});
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND);
 }
 
@@ -40,7 +56,8 @@ export const smallEvent: SmallEvent = {
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
 		return Maps.isNearWater(player) &&
-			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0;
+			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
+			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) < PVEConstants.TRAVEL_COST.length;
 	},
 
 	/**
@@ -52,12 +69,16 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.goToPVEIsland", language);
-		const price = 0; // TODO price
+		let wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId);
+		if (wentCount >= PVEConstants.TRAVEL_COST.length) {
+			wentCount = PVEConstants.TRAVEL_COST.length - 1;
+		}
+		const price = PVEConstants.TRAVEL_COST[wentCount];
 
 		const confirmEmbed = new DraftBotValidateReactionMessage(
 			interaction.user,
 			(confirmMessage: DraftBotValidateReactionMessage) => {
-				confirmationCallback(player, confirmMessage, tr, seEmbed.data.description).then();
+				confirmationCallback(player, confirmMessage, tr, seEmbed.data.description, price).then();
 			}
 		);
 
@@ -68,7 +89,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
 			format(tr.getRandom("stories"), {
-				priceText: price === 0 ? tr.get("priceFree") : tr.get("priceMoney")
+				priceText: price === 0 ? tr.get("priceFree") : tr.format("priceMoney", { price })
 			}) +
 			"\n\n" +
 			tr.format("confirm", {

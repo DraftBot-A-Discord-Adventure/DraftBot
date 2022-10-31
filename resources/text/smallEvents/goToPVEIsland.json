@@ -8,25 +8,22 @@
 				"vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {priceText}."
 			],
 			"priceFree": "le voyage **est gratuit**",
-			"priceMoney": "le voyage **coûtera {price} \uD83D\uDCB0**",
+			"priceMoney": "le voyage **coûtera {price} \uD83D\uDC8E**",
 			"confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{fightPoints} / {fightPointsMax}**.",
-			"endStoryAccept": [
-				"Vous acceptez avec engouement et montez sur le bateau. Après plusieurs dizaines de minutes, vous apercevez l'île à l'horizon. Le bateau accoste, et vous descendez de celui-ci.\nLe capitaine vous indique que vous allez rencontrer **toutes les minutes un événement et qu'à chaque lieu visité, il est probable qu'un monstre soit présent**.\nVous le remerciez et partez à l'aventure.",
-				"Vous n'hésitez pas longtemps, et embarquez promptement. Très rapidement se présente dans la brume marine le pourtour de l'île. Une fois arrivé, vous descendez et voulez immédiatement partir à l'aventure.\nLe capitaine du navire vous ayant amené ici, cependant, tient à vous informer plus précisément de ce que vous allez rencontrer sur l'île. Selon lui, vous allez rencontrer **toutes les minutes un événement et à chaque lieu que vous allez visiter, il est probable qu'un monstre soit présent**.\nNe pouvant plus attendre, vous le coupez avant qu'il ne continue et partez en courant vers l'intérieur de l'île."
-			],
-			"endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route."
+			"endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
+			"endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
+			"notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
 		},
 		"en": {
 			"stories": [
 				"Your gaze is attracted to a boat on the side of your field of view. Its captain beckons to you and presents you with a potential thrilling adventure, on a monster-filled island. They also add that {priceText}."
 			],
 			"priceFree": "the trip **is free**",
-			"priceMoney": "the trip **will cost you {price} \uD83D\uDCB0**",
+			"priceMoney": "the trip **will cost you {price} \uD83D\uDC8E**",
 			"confirm": "Do you wish to go to the island ? You have ⚡ **{fightPoints} / {fightPointsMax}**.",
-			"endStoryAccept": [
-				"With keen interest, you accept the captain's offer. After several dozens of minutes abord the boat, you catch a glimpse of an island on the horizon. the boat comes ashore, and you disembark from it.\nThe captain states that you will encounter events every minute, and that it is very possible for a monster to be present at every spot you visit on the island. \nYou thank them and start your expedition"
-			],
-			"endStoryRefuse": "You politely decline and continue walking towards your planned destination."
+			"endStoryAccept": "You accept and embark on the boat in the direction of the island.",
+			"endStoryRefuse": "You politely decline and continue walking towards your planned destination.",
+			"notEnoughGems": "You accept but when the time to pay has come, you realize that you don't have enough gems. You leave disappointed."
 		}
 	},
 	"rarity": 40,

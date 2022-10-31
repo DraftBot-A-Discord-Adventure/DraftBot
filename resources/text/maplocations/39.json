@@ -1,0 +1,10 @@
+{
+	"type": "continent",
+	"nameFr": "Continent principal",
+	"nameEn": "Principal continent",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "",
+	"descEn": "",
+	"canBeGoToPlaceMissionDestination": false
+}

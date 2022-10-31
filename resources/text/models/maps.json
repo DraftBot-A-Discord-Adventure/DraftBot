@@ -66,6 +66,11 @@
 					"name": "",
 					"prefix": "de l'",
 					"emote": "\uD83C\uDFDD️"
+				},
+				"continent": {
+					"name": "",
+					"prefix": "du",
+					"emote": "\uD83C\uDFDE️"
 				}
 			},
 			"directions": {
@@ -149,6 +154,11 @@
 					"name": "",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFDD️"
+				},
+				"continent": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFDE️"
 				}
 			},
 			"directions": {

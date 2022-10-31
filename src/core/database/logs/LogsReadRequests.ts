@@ -1,11 +1,15 @@
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
-import {Op} from "sequelize";
+import {HasOne, Op} from "sequelize";
 import {ShopItemType} from "../../constants/LogsConstants";
 import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
+import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
+import {getNextSundayMidnight} from "../../utils/TimeUtils";
+import {PVEConstants} from "../../constants/PVEConstants";
+import {LogsMapLinks} from "./models/LogsMapLinks";
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
@@ -46,6 +50,7 @@ export class LogsReadRequests {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the date of the last event id for the player
 	 * @param discordId
 	 * @param eventId
@@ -77,5 +82,30 @@ export class LogsReadRequests {
 		});
 
 		return lastEvent ? new Date(lastEvent.date * 1000) : null;
+	}
+
+	/**
+	 * Get the number of time the player went on the PVE island this week
+	 * @param discordId
+	 */
+	static async getCountPVEIslandThisWeek(discordId: string): Promise<number> {
+		return await LogsPlayersTravels.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				},
+				"$LogsMapLink.start$": PVEConstants.MAPS.CONTINENT_MAP,
+				"$LogsMapLink.end$": PVEConstants.MAPS.ENTRY_MAP
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, { sourceKey: "playerId", foreignKey: "id" })
+			}, {
+				model: LogsMapLinks,
+				association: new HasOne(LogsPlayersTravels, LogsMapLinks, { sourceKey: "mapLinkId", foreignKey: "id" })
+			}],
+			col: "playerId"
+		});
 	}
 }

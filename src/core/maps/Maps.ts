@@ -120,7 +120,7 @@ export class Maps {
 		for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 			if (j === index) {
 				if (effect === null) {
-					str += "🧍";
+					str += Maps.isOnBoat(player) ? "🛶" : "🧍";
 				}
 				else {
 					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];
@@ -174,5 +174,13 @@ export class Maps {
 	 */
 	static isNearWater(player: Player): boolean {
 		return MapConstants.WATER_MAP_LINKS.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Check if the player is on the boat going to the PVE island
+	 * @param player
+	 */
+	static isOnBoat(player: Player): boolean {
+		return player.mapLinkId === PVEConstants.MAPS.BOAT_LINK;
 	}
 }
