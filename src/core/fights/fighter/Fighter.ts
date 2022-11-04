@@ -26,6 +26,8 @@ export abstract class Fighter {
 
 	public alterationTurn: number;
 
+	public readonly level: number;
+
 	private statsBackup: FighterStats;
 
 	private ready: boolean;
@@ -34,7 +36,7 @@ export abstract class Fighter {
 
 	protected status: FighterStatus;
 
-	protected constructor(availableFightActions: FightAction[]) {
+	protected constructor(level: number, availableFightActions: FightAction[]) {
 		this.stats = {
 			fightPoints: null,
 			maxFightPoint: null,
@@ -49,6 +51,7 @@ export abstract class Fighter {
 		this.status = FighterStatus.NOT_STARTED;
 		this.alteration = null;
 		this.alterationTurn = 0;
+		this.level = level;
 
 		this.availableFightActions = new Map();
 		for (const fightAction of availableFightActions) {

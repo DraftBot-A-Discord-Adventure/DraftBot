@@ -2,12 +2,11 @@ import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 
 export default class QuickAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, sender.stats.speed > receiver.stats.speed ? 0 : 20);
 		receiver.stats.fightPoints -= damageDealt;
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

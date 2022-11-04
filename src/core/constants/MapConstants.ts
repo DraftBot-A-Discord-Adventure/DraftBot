@@ -12,7 +12,8 @@ export abstract class MapConstants {
 		"la",
 		"castle_entrance",
 		"castle_throne",
-		"pve_island"
+		"pve_island",
+		"continent"
 	];
 
 	static readonly WATER_MAP_LINKS = [

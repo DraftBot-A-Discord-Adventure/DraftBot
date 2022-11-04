@@ -2,13 +2,12 @@ import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightActions} from "../FightActions";
 
 export default class IntenseAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

@@ -27,6 +27,8 @@ export class FightController {
 
 	private state: FightState;
 
+	private endCallback: () => void;
+
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
 		this.fightInitiator = fighter1;
@@ -102,6 +104,8 @@ export class FightController {
 		for (let i = 0; i < this.fighters.length; ++i) {
 			await this.fighters[i].endFight(this.fightView, i === winner);
 		}
+
+		this.endCallback();
 	}
 
 	/**
@@ -199,5 +203,13 @@ export class FightController {
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
+	}
+
+	/**
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: () => void): void {
+		this.endCallback = callback;
 	}
 }

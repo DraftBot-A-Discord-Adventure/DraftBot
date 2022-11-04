@@ -3,13 +3,12 @@ import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../../constants/FightConstants";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightAlterations} from "../FightAlterations";
 
 export default class UltimateAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 
 		let failureProbability = 70;
 		// check if the sender has less than 45% of his fight points

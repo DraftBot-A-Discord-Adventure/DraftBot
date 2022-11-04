@@ -121,7 +121,8 @@
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
-				}
+				},
+				"aiChoose": "\uD83E\uDDE0 L'adversaire choisit une attaque..."
 			},
 			"effects": {
 				"stunned": "Étourdi",
@@ -255,7 +256,8 @@
 					"speed": " `{adversary>0?Opponent's s:S}peed: {operator}{amount}%`",
 					"attack": " `{adversary>0?Opponent's a:A}ttack: {operator}{amount}%`",
 					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`"
-				}
+				},
+				"aiChoose": "\uD83E\uDDE0 The opponent chooses an attack..."
 			},
 			"effects": {
 				"stunned": "Stunned",

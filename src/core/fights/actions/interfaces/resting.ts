@@ -1,7 +1,6 @@
 import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {FightActionController} from "../FightActionController";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 
 export default class Resting extends FightAction {
@@ -15,9 +14,9 @@ export default class Resting extends FightAction {
 		// recovered fight points are reduced after the fourth use of this action
 		const recoveredFightPoints = count < 4 ?
 			FightActionController.getAttackDamage(
-				this.getStatsInfo(sender), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo()
+				this.getStatsInfo(sender), sender.level, this.getAttackInfo()
 			) : Math.round(
-				FightActionController.getAttackDamage(this.getStatsInfo(sender), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo()) / 4
+				FightActionController.getAttackDamage(this.getStatsInfo(sender), sender.level, this.getAttackInfo()) / 4
 			);
 
 		sender.stats.fightPoints += recoveredFightPoints;

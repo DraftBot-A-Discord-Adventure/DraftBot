@@ -3,13 +3,12 @@ import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../../constants/FightConstants";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightActions} from "../FightActions";
 
 export default class ChargeChargingAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
 

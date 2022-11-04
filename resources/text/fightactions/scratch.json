@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Griffure",
+			"namePlural": "Griffures",
+			"description": "Une attaque de monstre simple."
+		},
+		"en": {
+			"name": "Scratch",
+			"namePlural": "Scratches",
+			"description": "A simple monster attack."
+		}
+	},
+	"emote": "\uD83D\uDC3E️",
+	"missionVariant": 99999
+}

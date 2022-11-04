@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": "\uD83C\uDF4C Banane mutante",
+		"en": "\uD83C\uDF4C Mutant banana"
+	},
+	"baseFightPoints": 150,
+	"baseAttack": 150,
+	"baseDefense": 150,
+	"baseSpeed": 150,
+	"rewardMultiplier": 1.0,
+	"attacks": [
+		{
+			"id": "scratch",
+			"minLevel": 0
+		}
+	],
+	"maps": [
+		34
+	]
+}

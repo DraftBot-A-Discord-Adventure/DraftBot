@@ -4,7 +4,6 @@ import Tag from "./models/Tag";
 import Mission from "./models/Mission";
 import MapLocation from "./models/MapLocation";
 import {MapConstants} from "../../constants/MapConstants";
-import {PlayerConstants} from "../../constants/PlayerConstants";
 import Armor from "./models/Armor";
 import Weapon from "./models/Weapon";
 import ObjectItem from "./models/ObjectItem";
@@ -13,33 +12,15 @@ import Class from "./models/Class";
 import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
-import {EffectsConstants} from "../../constants/EffectsConstants";
+import Monster from "./models/Monster";
+import MonsterLocation from "./models/MonsterLocation";
+import MonsterAttack from "./models/MonsterAttack";
 
-type IssueType = {
-	[key: string]: unknown,
-	restrictedMaps: string,
-	effect: string
+type TagType = {
+	textTag: string,
+	idObject: number,
+	typeObject: string
 }
-
-type EventJson = {
-	id: string,
-	possibilities?: {
-		[key: string]: {
-			translations?: {
-				fr?: string,
-				en?: string
-			},
-			issues?: IssueType[]
-		}
-	},
-	translations?: {
-		[key: string]: {
-			fr?: string,
-			en?: string
-		}
-	}
-	restrictedMaps?: string
-};
 type ModelType = {
 	destroy: (options?: DestroyOptions<unknown>) => Promise<number>;
 	name: string;
@@ -53,64 +34,75 @@ export class GameDatabase extends Database {
 	}
 
 	/**
-	 * Populate the tables with the corresponding JSON ressources
-	 * @param models
+	 * Check and insert tags
+	 * @param model
+	 * @param fileContent
+	 * @param tagsToInsert
 	 * @private
 	 */
-	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]): Promise<void> {
-
-		await Tag.destroy({truncate: true});
-
-		const tagsToInsert = [];
-		for (const model of models) {
-			await model.model.destroy({truncate: true});
-
-			const files = await promises.readdir(
-				`resources/text/${model.folder.toLowerCase()}`
-			);
-
-			const filesContent = [];
-			for (const file of files) {
-				const fileName = file.split(".")[0];
-				const fileContent = await import(`resources/text/${model.folder.toLowerCase()}/${file}`);
-				fileContent.id = fileName;
-				if (fileContent.translations) {
-					if (
-						fileContent.translations.en &&
-						typeof fileContent.translations.fr === "string"
-					) {
-						fileContent.fr = fileContent.translations.fr;
-						fileContent.en = fileContent.translations.en;
-					}
-					else {
-						const keys = Object.keys(fileContent.translations.en);
-						for (let i = 0; i < keys.length; ++i) {
-							const key = keys[i];
-							fileContent[key + "En"] =
-								fileContent.translations.en[key];
-							fileContent[key + "Fr"] =
-								fileContent.translations.fr[key];
-						}
-					}
-				}
-				if (fileContent.tags) {
-					// If there's tags, populate them into the database
-					for (let i = 0; i < fileContent.tags.length; i++) {
-						const tagContent = {
-							textTag: fileContent.tags[i],
-							idObject: fileContent.id,
-							typeObject: model.model.name ?? "ERRORNONAME"
-						};
-						tagsToInsert.push(tagContent);
-					}
-					delete fileContent["tags"];
-				}
-				filesContent.push(fileContent);
+	private static populateInsertTags(
+		model: ModelType,
+		fileContent: { id: number, tags: string[] },
+		tagsToInsert: TagType[]
+	): void {
+		if (fileContent.tags) {
+			// If there's tags, populate them into the database
+			for (let i = 0; i < fileContent.tags.length; i++) {
+				const tagContent = {
+					textTag: fileContent.tags[i],
+					idObject: fileContent.id,
+					typeObject: model.name ?? "ERRORNONAME"
+				};
+				tagsToInsert.push(tagContent);
 			}
+			delete fileContent["tags"];
+		}
+	}
 
-			await model.model.bulkCreate(filesContent);
+	/**
+	 * Populate a generic model
+	 * @param model
+	 * @param tagsToInsert
+	 * @private
+	 */
+	private static async populateGenericModel(model: { model: ModelType, folder: string }, tagsToInsert: TagType[]): Promise<void> {
+		await model.model.destroy({truncate: true});
+
+		const files = await promises.readdir(
+			`resources/text/${model.folder.toLowerCase()}`
+		);
+
+		const filesContent = [];
+		for (const file of files) {
+			const fileName = file.split(".")[0];
+			const fileContent = await import(`resources/text/${model.folder.toLowerCase()}/${file}`);
+			fileContent.id = fileName;
+			if (fileContent.translations) {
+				if (
+					fileContent.translations.en &&
+					typeof fileContent.translations.fr === "string"
+				) {
+					fileContent.fr = fileContent.translations.fr;
+					fileContent.en = fileContent.translations.en;
+				}
+				else {
+					const keys = Object.keys(fileContent.translations.en);
+					for (let i = 0; i < keys.length; ++i) {
+						const key = keys[i];
+						fileContent[key + "En"] =
+							fileContent.translations.en[key];
+						fileContent[key + "Fr"] =
+							fileContent.translations.fr[key];
+					}
+				}
+			}
+			GameDatabase.populateInsertTags(model.model, fileContent, tagsToInsert);
+			filesContent.push(fileContent);
 		}
 
+	}
+
+	private static async populateMissions(): Promise<void> {
 		// Handle special case
 		await Mission.destroy({truncate: true});
 
@@ -129,172 +121,66 @@ export class GameDatabase extends Database {
 			missions.push(fileContent);
 		}
 		await Mission.bulkCreate(missions);
+	}
+
+	private static async populateMonsters(): Promise<void> {
+		await Monster.destroy({truncate: true});
+		await MonsterLocation.destroy({truncate: true});
+		await MonsterAttack.destroy({truncate: true});
+
+		const monsterFiles = await promises.readdir("resources/text/monsters");
+		const monsters = [];
+		const monsterAttacks = [];
+		const monsterLocations = [];
+		for (const file of monsterFiles) {
+			const fileName = file.split(".")[0];
+			const fileContent = await import(`resources/text/monsters/${file}`);
+			fileContent.id = fileName;
+			fileContent.fr = fileContent.translations.fr;
+			fileContent.en = fileContent.translations.en;
+			monsters.push(fileContent);
+
+			// Monster attacks
+			for (const attack of fileContent.attacks) {
+				monsterAttacks.push({
+					monsterId: fileName,
+					attackId: attack.id,
+					minLevel: attack.minLevel
+				});
+			}
+
+			// Monster locations
+			for (const location of fileContent.maps) {
+				monsterLocations.push({
+					monsterId: fileName,
+					mapId: location
+				});
+			}
+		}
+
+		await Monster.bulkCreate(monsters);
+		await MonsterLocation.bulkCreate(monsterLocations);
+		await MonsterAttack.bulkCreate(monsterAttacks);
+	}
+
+	/**
+	 * Populate the tables with the corresponding JSON ressources
+	 * @param models
+	 * @private
+	 */
+	private static async populateJsonFilesTables(models: { model: ModelType, folder: string }[]): Promise<void> {
+
+		await Tag.destroy({truncate: true});
+
+		const tagsToInsert: TagType[] = [];
+		for (const model of models) {
+			await GameDatabase.populateGenericModel(model, tagsToInsert);
+		}
+
+		await GameDatabase.populateMissions();
+		await GameDatabase.populateMonsters();
 
 		await Tag.bulkCreate(tagsToInsert);
-	}
-
-	/**
-	 * Sends an error if something has gone wrong during the check of a BigEvent
-	 * @param event
-	 * @param message
-	 * @private
-	 */
-	private static sendEventLoadError(event: EventJson, message: string): void {
-		console.warn(`Error while loading event ${event.id}: ${message}`);
-	}
-
-	/**
-	 * Check the end part of a BigEvent
-	 * @param event
-	 * @param possibilityKey
-	 * @private
-	 */
-	private static checkEventEnd(event: EventJson, possibilityKey: string): boolean {
-		if (Object.keys(event.possibilities[possibilityKey])
-			.includes("translations")) {
-			GameDatabase.sendEventLoadError(event,
-				`Key present in possibility ${possibilityKey}: `);
-			return false;
-		}
-		if (!Object.keys(event.possibilities[possibilityKey])
-			.includes("issues")) {
-			GameDatabase.sendEventLoadError(event,
-				`Key missing in possibility ${possibilityKey}: `);
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Check the keys of a BigEvent
-	 * @param event
-	 * @private
-	 */
-	private static checkEventRootKeys(event: EventJson): boolean {
-		if (!GameDatabase.checkEventMainKeys(event)) {
-			return false;
-		}
-		if (!event.translations.fr) {
-			GameDatabase.sendEventLoadError(event, "French translation missing");
-			return false;
-		}
-		if (!event.translations.en) {
-			GameDatabase.sendEventLoadError(event, "English translation missing");
-			return false;
-		}
-		return !event.restrictedMaps ? true : GameDatabase.checkRestrictedMaps(event);
-	}
-
-	/**
-	 * Check the keys of a possibility
-	 * @param event
-	 * @param possibilityKey
-	 * @private
-	 */
-	private static checkPossibilityKeys(event: EventJson, possibilityKey: string): boolean {
-		if (possibilityKey === "end") {
-			return GameDatabase.checkEventEnd(event, possibilityKey);
-		}
-		const possibilityFields = [
-			"translations",
-			"issues"
-		];
-		for (let i = 0; i < possibilityFields.length; ++i) {
-			if (!Object.keys(event.possibilities[possibilityKey])
-				.includes(possibilityFields[i])) {
-				GameDatabase.sendEventLoadError(event,
-					`Key missing in possibility ${possibilityKey}: `);
-				return false;
-			}
-		}
-		if (!event.possibilities[possibilityKey].translations.fr) {
-			GameDatabase.sendEventLoadError(
-				event,
-				`French translation missing in possibility ${possibilityKey}`
-			);
-			return false;
-		}
-		if (!event.possibilities[possibilityKey].translations.en) {
-			GameDatabase.sendEventLoadError(
-				event,
-				`English translation missing in possibility ${possibilityKey}`
-			);
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Check the issues of a possibility
-	 * @param event
-	 * @param possibilityKey
-	 * @param issue
-	 * @private
-	 */
-	private static checkPossibilityIssues(event: EventJson, possibilityKey: string, issue: IssueType): boolean {
-		const issuesFields = [
-			"lostTime",
-			"health",
-			"effect",
-			"experience",
-			"money",
-			"item",
-			"translations"
-		];
-		if (!GameDatabase.checkPossibilityIssuesKey(issuesFields, event, possibilityKey, issue)) {
-			return false;
-		}
-		if (issue.lostTime < 0) {
-			GameDatabase.sendEventLoadError(
-				event,
-				`Lost time must be positive in issue ${possibilityKey} `
-			);
-			return false;
-		}
-		if (
-			issue.lostTime > 0 &&
-			issue.effect !== EffectsConstants.EMOJI_TEXT.OCCUPIED
-		) {
-			GameDatabase.sendEventLoadError(
-				event,
-				`Time lost and no clock2 effect in issue ${possibilityKey} `
-			);
-			return false;
-		}
-		if (!Object.keys(PlayerConstants.EFFECT_MALUS).includes(issue.effect)) {
-			GameDatabase.sendEventLoadError(
-				event,
-				`Unknown effect "${issue.effect}" in issue ${possibilityKey} `
-			);
-			return false;
-		}
-		return !issue.restricted_map || GameDatabase.checkPossibilityIssuesRestrictedMap(event, possibilityKey, issue);
-	}
-
-	/**
-	 * Check the validity of a BigEvent
-	 * @param event
-	 * @private
-	 */
-	private static isEventValid(event: EventJson): boolean {
-		if (!GameDatabase.checkEventRootKeys(event)) {
-			return false;
-		}
-
-		for (const possibilityKey of Object.keys(event.possibilities)) {
-			if (!GameDatabase.checkPossibilityRecursively(event, possibilityKey)) {
-				return false;
-			}
-		}
-
-		if (!Object.keys(event.possibilities).includes("end")) {
-			GameDatabase.sendEventLoadError(
-				event,
-				"End possibility is not present"
-			);
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -345,97 +231,6 @@ export class GameDatabase extends Database {
 		if (!valid) {
 			console.error(`Map ${map.id} is connected to ${otherMap.id} but the latter is not`);
 		}
-	}
-
-	/**
-	 * Check the keys of the issues of a possibility
-	 * @param issuesFields
-	 * @param event
-	 * @param possibilityKey
-	 * @param issue
-	 * @private
-	 */
-	private static checkPossibilityIssuesKey(issuesFields: string[], event: EventJson, possibilityKey: string, issue: IssueType): boolean {
-		for (let i = 0; i < issuesFields.length; ++i) {
-			if (!Object.keys(issue)
-				.includes(issuesFields[i])) {
-				GameDatabase.sendEventLoadError(
-					event,
-					`Key missing in possibility ${possibilityKey} : ${issuesFields[i]}`
-				);
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Check the restricted_map of the issues of a possibility
-	 * @param event
-	 * @param possibilityKey
-	 * @param issue
-	 * @private
-	 */
-	private static checkPossibilityIssuesRestrictedMap(event: EventJson, possibilityKey: string, issue: IssueType): boolean {
-		const types = issue.restrictedMaps.split(",");
-		for (let i = 0; i < types.length; ++i) {
-			if (!MapConstants.TYPES.includes(types[i])) {
-				GameDatabase.sendEventLoadError(event, `Map type of issue${possibilityKey}  doesn't exist`);
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Check if the main keys of an event are here
-	 * @param event
-	 * @private
-	 */
-	private static checkEventMainKeys(event: EventJson): boolean {
-		const eventFields = ["translations", "possibilities"];
-		for (let i = 0; i < eventFields.length; ++i) {
-			if (!Object.keys(event)
-				.includes(eventFields[i])) {
-				GameDatabase.sendEventLoadError(event, `Key missing: ${eventFields[i]}`);
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Check if the restricted maps of an event are valid
-	 * @param event
-	 * @private
-	 */
-	private static checkRestrictedMaps(event: EventJson): boolean {
-		const types: string[] = event.restrictedMaps.split(",");
-		for (let i = 0; i < types.length; ++i) {
-			if (!MapConstants.TYPES.includes(types[i])) {
-				GameDatabase.sendEventLoadError(event, "Event map type doesn't exist");
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Check a possibility of an event and its issues
-	 * @param event
-	 * @param possibilityKey
-	 * @private
-	 */
-	private static checkPossibilityRecursively(event: EventJson, possibilityKey: string): boolean {
-		if (!GameDatabase.checkPossibilityKeys(event, possibilityKey)) {
-			return false;
-		}
-		for (const issue of event.possibilities[possibilityKey].issues) {
-			if (!GameDatabase.checkPossibilityIssues(event, possibilityKey, issue)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**

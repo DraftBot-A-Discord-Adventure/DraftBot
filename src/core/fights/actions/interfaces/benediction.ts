@@ -4,7 +4,6 @@ import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../../constants/FightConstants";
 import {FightController} from "../../FightController";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 
 export default class Benediction extends FightAction {
@@ -23,7 +22,7 @@ export default class Benediction extends FightAction {
 			});
 		}
 
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
 		receiver.stats.fightPoints -= damageDealt;

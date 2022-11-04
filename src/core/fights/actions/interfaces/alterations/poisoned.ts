@@ -2,7 +2,6 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 
 export default class PoisonedAlteration extends FightAction {
@@ -14,7 +13,7 @@ export default class PoisonedAlteration extends FightAction {
 			sender.removeAlteration();
 			return poisonTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		sender.stats.fightPoints -= damageDealt;
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	}

@@ -30,7 +30,7 @@ export class PlayerFighter extends Fighter {
 	private readonly user: User;
 
 	public constructor(user: User, player: Player, playerClass: Class) {
-		super(FightActions.listFightActionsFromClass(playerClass));
+		super(player.level, FightActions.listFightActionsFromClass(playerClass));
 		this.player = player;
 		this.class = playerClass;
 		this.user = user;
@@ -178,13 +178,6 @@ export class PlayerFighter extends Fighter {
 	 */
 	public getUser(): User {
 		return this.user;
-	}
-
-	/**
-	 * get the player level of the fighter
-	 */
-	public getPlayerLevel(): number {
-		return this.player.level;
 	}
 
 	/**

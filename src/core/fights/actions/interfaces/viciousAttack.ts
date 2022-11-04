@@ -2,12 +2,11 @@ import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
-import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 
 export default class ViciousAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
 
 		// Plus l'attaque est utilisée et plus elle est utilisée tard et moins elle est efficace. (pénalité maximale de -70 %)

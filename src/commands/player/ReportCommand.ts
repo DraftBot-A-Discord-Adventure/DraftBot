@@ -537,7 +537,7 @@ async function doPVEBoss(
 	player: Player
 ): Promise<void> {
 	await Maps.stopTravel(player);
-	await chooseDestination(player, interaction, language, "");
+	await chooseDestination(player, interaction, language, null);
 }
 
 /**

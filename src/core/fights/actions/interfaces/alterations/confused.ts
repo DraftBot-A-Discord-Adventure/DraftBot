@@ -1,7 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightActions} from "../../FightActions";
 
@@ -26,7 +25,7 @@ export default class ConfusedAlteration extends FightAction {
 
 		// 15 % chance that the confusion hurt the sender
 		if (randomValue < 0.85) {
-			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 			sender.nextFightAction = FightActions.getNoAttack();
 			sender.stats.fightPoints -= damageDealt;
 			return confusionTranslationModule.format("damage", {damages: damageDealt});
