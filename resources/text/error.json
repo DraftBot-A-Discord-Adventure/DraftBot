@@ -16,7 +16,7 @@
 			"titleMeIsBaby": "{pseudo}, vous n'avez pas commencé l'aventure !",
 			"meIsBaby": " Utilisez la commande {command:report} pour commencer votre aventure !",
 			"titleMeIsDead": "{pseudo}, vous êtes actuellement K.O !",
-			"meIsDead": " Vous devez respawn en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+			"meIsDead": " Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 			"titleMeIsInjured": "{pseudo}, vous êtes actuellement gravement blessé !",
 			"titleMeIsScared": "{pseudo}, vous êtes actuellement apeuré !",
 			"levelTooLow": "Vous devez être **LVL {level}** pour utiliser cette commande ! Revenez plus tard !",

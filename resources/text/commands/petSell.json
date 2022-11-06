@@ -25,7 +25,7 @@
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
 			"deadBuyer": "Vous ne pouvez pas acheter un familier car vous êtes actuellement K.O. Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 			"sellCancelled": "La vente a été annulée !",
-			"havePet": "Vous avez déja un familier dans votre inventaire.",
+			"havePet": "Vous avez déjà un familier dans votre inventaire.",
 			"errors": {
 				"canSellYourself": "Il est impossible de se vendre un familier à soi-même !",
 				"spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
