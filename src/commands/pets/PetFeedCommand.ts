@@ -298,7 +298,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			interaction,
 			language,
 			petFeedModule.format("notHungry", {
-				petNick: authorPet.displayName(petModel, language)
+				petnick: authorPet.displayName(petModel, language)
 			})
 		);
 		return;
