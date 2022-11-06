@@ -256,13 +256,13 @@ export const commandInfo: ICommand = {
 			})
 			.addChoices(
 				{
-					name: currentCommandFrenchTranslations.get("scopes.global"),
+					name: currentCommandEnglishTranslations.get("scopes.global"),
 					"name_localizations": {
 						fr: currentCommandFrenchTranslations.get("scopes.global")
 					}, value: TopConstants.GLOBAL_SCOPE
 				},
 				{
-					name: currentCommandFrenchTranslations.get("scopes.server"),
+					name: currentCommandEnglishTranslations.get("scopes.server"),
 					"name_localizations":
 						{
 							fr: currentCommandFrenchTranslations.get("scopes.server")
@@ -283,13 +283,13 @@ export const commandInfo: ICommand = {
 			})
 			.addChoices(
 				{
-					name: currentCommandFrenchTranslations.get("timings.allTime"),
+					name: currentCommandEnglishTranslations.get("timings.allTime"),
 					"name_localizations": {
 						fr: currentCommandFrenchTranslations.get("timings.allTime")
 					}, value: TopConstants.TIMING_ALLTIME
 				},
 				{
-					name: currentCommandFrenchTranslations.get("timings.weekly"),
+					name: currentCommandEnglishTranslations.get("timings.weekly"),
 					"name_localizations": {
 						fr: currentCommandFrenchTranslations.get("timings.weekly")
 					}, value: TopConstants.TIMING_WEEKLY

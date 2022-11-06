@@ -457,7 +457,7 @@ export class CommandsManager {
 			if (message.mentions.has(client.user.id)) {
 				message.channel.send({
 					content:
-						Translations.getModule("bot", server.language).get("mentionHelp")
+						Translations.getModule("bot", server.language).format("mentionHelp",{})
 				}).then();
 			}
 		});

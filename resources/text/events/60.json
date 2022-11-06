@@ -15,8 +15,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Une fois votre lecture terminée, vous êtes reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieu de votre choix.",
-						"en": "Once you have finished reading, you are taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command `mission`) and someone offers you a transport to the capital of your choice."
+						"fr": "Une fois votre lecture terminée, vous êtes reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande {command:missions}) et on vous propose un transport vers le chef-lieu de votre choix.",
+						"en": "Once you have finished reading, you are taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command {command:missions}) and someone offers you a transport to the capital of your choice."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -31,8 +31,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous écoutez patiemment le roi avant d'être reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieu de votre choix.",
-						"en": "You listen patiently to the king before being taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command `mission`) and someone offers you a transport to the capital of your choice."
+						"fr": "Vous écoutez patiemment le roi avant d'être reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande {command:missions}) et on vous propose un transport vers le chef-lieu de votre choix.",
+						"en": "You listen patiently to the king before being taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command {command:missions}) and someone offers you a transport to the capital of your choice."
 					},
 					"lostTime": 0,
 					"health": 0,
