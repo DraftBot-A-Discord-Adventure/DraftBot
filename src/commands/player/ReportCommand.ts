@@ -78,7 +78,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 				totalSmallEventsRarity += Data.getModule(`smallEvents.${keys[i]}`).getNumber("rarity");
 			}
 		}
-		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity);
+		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity + 1);
 		let sum = 0;
 		for (let i = 0; i < updatedKeys.length; ++i) {
 			sum += Data.getModule(`smallEvents.${updatedKeys[i]}`).getNumber("rarity");
