@@ -38,7 +38,7 @@ export class Possibility extends Model {
 
 
 	public getText(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? format(this.fr,{}) : format(this.en,{});
+		return format(language === Constants.LANGUAGE.FRENCH ? this.fr : this.en, {});
 	}
 }
 

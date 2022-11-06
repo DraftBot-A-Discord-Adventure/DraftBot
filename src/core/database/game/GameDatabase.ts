@@ -196,7 +196,7 @@ export class GameDatabase extends Database {
 			)) {
 				for (const possibility of fileContent.possibilities[possibilityKey].issues) {
 					const possibilityContent = {
-						possibilityKey: possibilityKey,
+						possibilityKey,
 						lostTime: possibility.lostTime,
 						health: possibility.health,
 						oneshot: possibility.oneshot,
