@@ -53,7 +53,7 @@ export class MapLinks {
 	}
 
 	static async getById(id: number): Promise<MapLink> {
-		return await MapLink.findOne({where: {id: id}});
+		return await MapLink.findOne({where: {id}});
 	}
 }
 

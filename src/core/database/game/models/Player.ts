@@ -795,7 +795,7 @@ export class Players {
 		return Promise.resolve(Player.findAll(
 			{
 				where: {
-					guildId: guildId
+					guildId
 				},
 				order: [
 					["score", "DESC"],
@@ -963,7 +963,7 @@ export class Players {
 					   WHERE subquery.rank = :rank`;
 		return await Player.sequelize.query(query, {
 			replacements: {
-				rank: rank
+				rank
 			},
 			type: QueryTypes.SELECT
 		});
@@ -977,7 +977,7 @@ export class Players {
 					   WHERE subquery.id = :id`;
 		const playerToReturn = (await Player.sequelize.query<Player>(query, {
 			replacements: {
-				id: id
+				id
 			},
 			type: QueryTypes.SELECT
 		}))[0] as Player;

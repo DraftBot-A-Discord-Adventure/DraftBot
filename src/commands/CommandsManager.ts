@@ -75,7 +75,7 @@ export class CommandsManager {
 		tr
 	}: TextInformations, shouldReply = false): Promise<boolean> {
 		const user = player.discordUserId === interaction.user.id ? interaction.user : interaction.options.getUser("user");
-		const userPlayer = {user, player: player};
+		const userPlayer = {user, player};
 		if (this.effectRequirementsFailed(commandInfo, userPlayer, {interaction, tr}, shouldReply)) {
 
 			return false;
@@ -96,7 +96,7 @@ export class CommandsManager {
 		}
 
 		if (commandInfo.requirements.guildRequired) {
-			if (!await this.missingRequirementsForGuild(commandInfo, {user, player: player}, interaction, tr)) {
+			if (!await this.missingRequirementsForGuild(commandInfo, {user, player}, interaction, tr)) {
 				return false;
 			}
 		}

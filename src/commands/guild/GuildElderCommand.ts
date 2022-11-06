@@ -142,7 +142,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const endCallback = getEndCallbackGuildElder(
 		{
 			user: interaction.user,
-			player: player
+			player
 		},
 		elderPlayer,
 		guild,
