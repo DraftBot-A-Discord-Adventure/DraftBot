@@ -422,6 +422,13 @@ export class Player extends Model {
 	}
 
 	/**
+	 * Check if the player is dead and needs to respawn
+	 */
+	public isDead(): boolean {
+		return this.effect === EffectsConstants.EMOJI_TEXT.DEAD;
+	}
+
+	/**
 	 * get the level of the player
 	 */
 	public getLevel(): number {

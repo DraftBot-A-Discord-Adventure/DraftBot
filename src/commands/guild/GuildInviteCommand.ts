@@ -45,16 +45,22 @@ function getEndCallbackGuildAdd(
 		catch (error) {
 			inviter.guild = null;
 		}
+
+		// check if the inviter is still in the guild (aka the guild still exists and the inviter is still in it)
 		if (inviter.guild === null) {
 			// guild is destroyed
 			await sendErrorMessage(
 				invited.invitedUser,
 				interaction,
 				guildInviteModule.language,
-				guildInviteModule.get("guildDestroy")
+				guildInviteModule.get("guildDestroy"),
+				false,
+				false
 			);
 			return;
 		}
+
+		// check if the guild is full
 		if ((await Players.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
 			await sendErrorMessage(
 				interaction.user,
@@ -64,6 +70,20 @@ function getEndCallbackGuildAdd(
 			);
 			return;
 		}
+
+		// check if the invited player is dead
+		if (invited.invitedPlayer.isDead()) {
+			await sendErrorMessage(
+				invited.invitedUser,
+				interaction,
+				guildInviteModule.language,
+				guildInviteModule.format("playerDead", {}),
+				false,
+				false
+			);
+			return;
+		}
+
 		invited.invitedPlayer.guildId = inviter.guild.id;
 		inviter.guild.updateLastDailyAt();
 
