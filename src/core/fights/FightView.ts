@@ -75,7 +75,7 @@ export class FightView {
 		await this.scrollIfNeeded();
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
-		if (this.lastSummary === undefined) {
+		if (!this.lastSummary) {
 			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
 		else {
@@ -98,7 +98,7 @@ export class FightView {
 		if (lastMessage.content.length + messageToSend.length > 1950) {
 			// message character limit reached : creation of a new message
 			await this.lastSummary.delete();
-			this.lastSummary = undefined;
+			this.lastSummary = null;
 			this.actionMessages.push(await this.channel.send({content: messageToSend}));
 		}
 		else if (lastMessage.content === "_ _") {
@@ -118,7 +118,7 @@ export class FightView {
 	 * @param draw
 	 */
 	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
-		if (this.lastSummary !== undefined) {
+		if (this.lastSummary) {
 			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
 		let msg;
@@ -170,13 +170,13 @@ export class FightView {
 	 */
 	private async scrollIfNeeded(): Promise<void> {
 		const messages = await this.channel.messages.fetch({limit: 1});
-		if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
+		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
 				const content = (await this.channel.messages.fetch(this.actionMessages[i].id)).content;
 				await this.actionMessages[i].edit(content);
 			}
 			await this.lastSummary.delete();
-			this.lastSummary = undefined;
+			this.lastSummary = null;
 		}
 	}
 

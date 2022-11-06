@@ -357,7 +357,7 @@ export class DraftBot {
 			addConsoleLog(message);
 			originalConsoleX(
 				message,
-				optionalParams === undefined ? "" : optionalParams
+				!optionalParams ? "" : optionalParams
 			);
 		};
 	}
@@ -439,7 +439,7 @@ export class DraftBot {
 					) {
 						// 7 days
 						fs.unlink(`logs/${file}`, function(err: Error) {
-							if (err !== undefined && err !== null) {
+							if (err) {
 								originalConsoleError(
 									`Error while deleting logs/${file}: ${err.toString()}`
 								);

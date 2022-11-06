@@ -19,7 +19,7 @@ export class PlayerSmallEvent extends Model {
 export class PlayerSmallEvents {
 	static createPlayerSmallEvent(playerId: number, eventType: string, time: number): PlayerSmallEvent {
 		return PlayerSmallEvent.build({
-			playerId: playerId,
+			playerId,
 			eventType: eventType,
 			time: time
 		});

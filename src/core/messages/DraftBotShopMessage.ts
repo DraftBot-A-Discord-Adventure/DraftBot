@@ -316,7 +316,7 @@ export class DraftBotShopMessageBuilder {
 	 * @param category
 	 */
 	addCategory(category: ShopItemCategory): DraftBotShopMessageBuilder {
-		if (!category || category.items.length === 0 || category.items.filter(item => item !== null && item !== undefined).length === 0) {
+		if (!category || category.items.length === 0 || category.items.filter(item => item !== null && item).length === 0) {
 			return this;
 		}
 		this._shopItemCategories.push(category);

@@ -103,7 +103,7 @@ function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"isSpamming",
 		function(data: { discordId: string; packet: number; }, socket: unknown) {
-			const spamPlayerLimitTimestamp: number | undefined = spamPlayers.get(data.discordId);
+			const spamPlayerLimitTimestamp = spamPlayers.get(data.discordId);
 			let response = false;
 			if (spamPlayerLimitTimestamp) {
 				if (spamPlayerLimitTimestamp < Date.now()) {
