@@ -227,8 +227,8 @@ export class Player extends Model {
 	 * @param language
 	 */
 	public setPseudo(language: string): void {
-		if (this.discordUserId !== undefined) {
-			if (draftBotClient.users.cache.get(this.discordUserId) !== undefined) {
+		if (this.discordUserId) {
+			if (draftBotClient.users.cache.get(this.discordUserId)) {
 				this.pseudo = escapeUsername(draftBotClient.users.cache.get(this.discordUserId).username);
 			}
 			else {
@@ -878,7 +878,7 @@ export class Players {
 		const rank = interaction.options.get("rank");
 		if (rank) {
 			const [player] = await Players.getByRank(rank.value as number);
-			if (player === undefined) {
+			if (!player) {
 				return null;
 			}
 			return (await Players.getOrRegister(player.discordUserId))[0];

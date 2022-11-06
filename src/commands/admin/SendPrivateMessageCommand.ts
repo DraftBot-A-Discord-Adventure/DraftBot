@@ -25,11 +25,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		});
 	const user = draftBotClient.users.cache.get(userId);
 
-	if (userId === undefined) {
+	if (!userId) {
 		await replyErrorMessage(interaction, language, dmModule.get("descError"));
 		return;
 	}
-	if (user === undefined) {
+	if (!user) {
 		await replyErrorMessage(interaction, language, dmModule.get("personNotExists"));
 		return;
 	}

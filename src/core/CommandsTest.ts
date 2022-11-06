@@ -74,7 +74,7 @@ export class CommandsTest {
 		commandTest: ITestCommand,
 		args: string[],
 		interaction: CommandInteraction): [boolean, DraftBotEmbed] {
-		if (commandTest.typeWaited === undefined) {
+		if (!commandTest.typeWaited) {
 			return args.length === 0 ? [true, new DraftBotEmbed()] : [
 				false,
 				new DraftBotErrorEmbed(interaction.user,
@@ -191,7 +191,7 @@ export class CommandsTest {
 
 	static getTestCommand(commandName: string): ITestCommand {
 		const commandTestCurrent = CommandsTest.testCommandsArray[commandName.toLowerCase()];
-		if (commandTestCurrent === undefined) {
+		if (!commandTestCurrent) {
 			throw new Error(`Commande Test non définie : ${commandName}`);
 		}
 		return commandTestCurrent;

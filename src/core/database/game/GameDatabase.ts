@@ -273,15 +273,15 @@ export class GameDatabase extends Database {
 		if (!GameDatabase.checkEventMainKeys(event)) {
 			return false;
 		}
-		if (event.translations.fr === undefined) {
+		if (!event.translations.fr) {
 			GameDatabase.sendEventLoadError(event, "French translation missing");
 			return false;
 		}
-		if (event.translations.en === undefined) {
+		if (!event.translations.en) {
 			GameDatabase.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		return event.restrictedMaps === undefined ? true : GameDatabase.checkRestrictedMaps(event);
+		return !event.restrictedMaps ? true : GameDatabase.checkRestrictedMaps(event);
 	}
 
 	/**
@@ -306,14 +306,14 @@ export class GameDatabase extends Database {
 				return false;
 			}
 		}
-		if (event.possibilities[possibilityKey].translations.fr === undefined) {
+		if (!event.possibilities[possibilityKey].translations.fr) {
 			GameDatabase.sendEventLoadError(
 				event,
 				`French translation missing in possibility ${possibilityKey}`
 			);
 			return false;
 		}
-		if (event.possibilities[possibilityKey].translations.en === undefined) {
+		if (!event.possibilities[possibilityKey].translations.en) {
 			GameDatabase.sendEventLoadError(
 				event,
 				`English translation missing in possibility ${possibilityKey}`
@@ -367,7 +367,7 @@ export class GameDatabase extends Database {
 			);
 			return false;
 		}
-		return issue.restricted_map === undefined || GameDatabase.checkPossibilityIssuesRestrictedMap(event, possibilityKey, issue);
+		return !issue.restricted_map || GameDatabase.checkPossibilityIssuesRestrictedMap(event, possibilityKey, issue);
 	}
 
 	/**
