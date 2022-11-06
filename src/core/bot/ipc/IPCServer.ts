@@ -29,7 +29,7 @@ function removeBlockedReason(discordId: string, reason: string): void {
 function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"block",
-		function(data: { discordId: string; reason: string; time: number; }) {
+		(data: { discordId: string; reason: string; time: number; }) => {
 			if (!blockedPlayers.get(data.discordId)) {
 				blockedPlayers.set(data.discordId, []);
 			}
@@ -48,7 +48,7 @@ function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"unblock",
-		function(data: { discordId: string; reason: string; }) {
+		(data: { discordId: string; reason: string; }) => {
 			removeBlockedReason(data.discordId, data.reason);
 		}
 	);
@@ -61,7 +61,7 @@ function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"isBlocked",
-		function(data: { discordId: string; packet: number; }, socket: unknown) {
+		(data: { discordId: string; packet: number; }, socket: unknown) => {
 			const blockedPlayer = blockedPlayers.get(data.discordId);
 			const response = [];
 			if (blockedPlayer) {
@@ -89,7 +89,7 @@ function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareSpamAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"spam",
-		function(data: { discordId: string; }) {
+		(data: { discordId: string; }) => {
 			spamPlayers.set(data.discordId, Date.now() + spamDelay);
 		}
 	);
@@ -102,7 +102,7 @@ function prepareSpamAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"isSpamming",
-		function(data: { discordId: string; packet: number; }, socket: unknown) {
+		(data: { discordId: string; packet: number; }, socket: unknown) => {
 			const spamPlayerLimitTimestamp = spamPlayers.get(data.discordId);
 			let response = false;
 			if (spamPlayerLimitTimestamp) {
@@ -128,7 +128,7 @@ function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"socket.connected",
-		function(socket: unknown, socketID: string) {
+		(socket: unknown, socketID: string) => {
 			ipc.log(`client ${socketID} has connected!`);
 		}
 	);
@@ -141,7 +141,7 @@ function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareDisconnectionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"socket.disconnected",
-		function(socket: unknown, destroyedSocketID: string) {
+		(socket: unknown, destroyedSocketID: string) => {
 			ipc.log(`client ${destroyedSocketID} has disconnected!`);
 		}
 	);
@@ -160,7 +160,7 @@ export function startIPCServer(): void {
 	ipc.config.silent = true; // You can set this to false in order to debug, it's very useful
 
 	ipc.serve(
-		function() {
+		() => {
 			prepareBlockAnswer(ipc);
 			prepareUnblockAnswer(ipc);
 			prepareIsBlockedAnswer(ipc);

@@ -205,9 +205,7 @@ export class CommandsTest {
 			}
 		}
 		// Remove duplicates
-		return tabCommandReturn.filter(function(elem, pos) {
-			return tabCommandReturn.indexOf(elem) === pos;
-		});
+		return tabCommandReturn.filter((elem, pos) => tabCommandReturn.indexOf(elem) === pos);
 	}
 
 	/**

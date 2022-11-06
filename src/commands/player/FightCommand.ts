@@ -21,6 +21,33 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
 
 /**
+ * Check if a player is blocked
+ * @param player
+ */
+async function isBlocked(player: Player) : Promise<boolean> {
+	return (await BlockingUtils.getPlayerBlockingReason(player.discordUserId)).length !== 0;
+}
+
+/**
+ * Check if the player has enough fight points to fight
+ * @param player
+ * @param friendly
+ */
+async function noFightPointsAvailable(player: Player, friendly: boolean): Promise<boolean> {
+	return await player.getCumulativeFightPoint() === 0 && !friendly;
+}
+
+/**
+ * Check if a player has an effect that disallow him to fight
+ * @param player
+ * @param date
+ * @param friendly
+ */
+function hasEffect(player: Player, date: Date, friendly: boolean): boolean {
+	return !player.currentEffectFinished(date) && !friendly;
+}
+
+/**
  * Check if a player is allowed to fight
  * @param player
  * @param {boolean} friendly
@@ -31,6 +58,7 @@ async function canFight(player: Player, friendly: boolean, date: Date): Promise<
 	if (player === null) {
 		return null;
 	}
+
 	if (player.level < FightConstants.REQUIRED_LEVEL) {
 		return FightConstants.FIGHT_ERROR.WRONG_LEVEL;
 	}
@@ -39,16 +67,18 @@ async function canFight(player: Player, friendly: boolean, date: Date): Promise<
 		return FightConstants.FIGHT_ERROR.DEAD;
 	}
 
-	if (!player.currentEffectFinished(date) && !friendly) {
+	if (hasEffect(player, date, friendly)) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
 
-	if ((await BlockingUtils.getPlayerBlockingReason(player.discordUserId)).length !== 0) {
-		return FightConstants.FIGHT_ERROR.OCCUPIED;
-	}
-	if (await player.getCumulativeFightPoint() === 0 && !friendly) {
+	if (await noFightPointsAvailable(player, friendly)) {
 		return FightConstants.FIGHT_ERROR.NO_FIGHT_POINTS;
 	}
+
+	if (await isBlocked(player)) {
+		return FightConstants.FIGHT_ERROR.OCCUPIED;
+	}
+
 	// the player is able to fight
 	return FightConstants.FIGHT_ERROR.NONE;
 }

@@ -235,7 +235,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		});
 		for (const price of prices) {
 			desc += format(shopMessage._translationModule.get("multipleChoice.priceDisplay"), {
-				price: price
+				price
 			});
 		}
 		desc += `\n\n${choseShopItem.description}\n\n${Constants.REACTIONS.WARNING} ${shopMessage._translationModule.get("multipleChoice.warning")}`;
