@@ -100,6 +100,12 @@ async function executeTheTransaction(
 ): Promise<void> {
 	const buyerGuild = await Guilds.getById(buyerInformation.buyer.guildId);
 
+	// the buyer is dead
+	if (buyerInformation.buyer.isDead()) {
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer", {}), false, false);
+		return;
+	}
+
 	// the buyer has the same guild as the seller
 	if (buyerGuild && buyerGuild.id === sellerInformation.guild.id) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sameGuild"), false, false);
@@ -116,12 +122,6 @@ async function executeTheTransaction(
 	// the buyer has not enough money
 	if (sellerInformation.petCost > buyerInformation.buyer.money) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("noMoney"), false, false);
-		return;
-	}
-
-	// the buyer is dead
-	if (buyerInformation.buyer.isDead()) {
-		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer", {}), false, false);
 		return;
 	}
 
@@ -300,7 +300,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const textInformation = {interaction, petSellModule};
-	const sellerInformation = {player: player, pet, petModel, guild, petCost};
+	const sellerInformation = {player, pet, petModel, guild, petCost};
 
 	if (await missingRequirementsToSellPet(textInformation, sellerInformation)) {
 		return;

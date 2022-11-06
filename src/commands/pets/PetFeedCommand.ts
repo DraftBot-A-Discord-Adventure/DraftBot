@@ -119,7 +119,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			);
 		}
 		const editValueChanges = {
-			player: player,
+			player,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.PET_FEED
@@ -185,7 +185,7 @@ async function feedPet(
 		.formatAuthor(petFeedModule.get("embedTitle"), interaction.user);
 	guild.removeFood(item, 1, NumberChangeReason.PET_FEED);
 	const editValueChanges = {
-		player: player,
+		player,
 		amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[foodIndex],
 		channel: interaction.channel,
 		language,

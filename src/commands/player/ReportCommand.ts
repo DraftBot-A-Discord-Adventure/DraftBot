@@ -377,7 +377,7 @@ async function updatePlayerInfos(
 ): Promise<void> {
 	await player.addHealth(randomPossibility.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	const valuesToEditParameters = {
-		player: player,
+		player,
 		channel: textInformation.interaction.channel,
 		language: textInformation.language,
 		reason: NumberChangeReason.BIG_EVENT
@@ -488,7 +488,7 @@ async function getDescriptionPossibilityResult(
 
 	return textInformation.tr.format("doPossibility", {
 		pseudo: textInformation.interaction.user,
-		result: result,
+		result,
 		event: randomPossibility.getText(textInformation.language),
 		emoji: randomPossibility.possibilityKey === "end" ? "" : `${randomPossibility.possibilityKey} `,
 		alte: emojiEnd

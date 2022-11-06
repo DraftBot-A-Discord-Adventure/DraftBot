@@ -134,7 +134,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const embed = new DraftBotEmbed().formatAuthor(dailyModule.get("dailySuccess"), interaction.user);
-	await activateDailyItem({player: player, activeObject}, embed, {interaction, language, dailyModule});
+	await activateDailyItem({player, activeObject}, embed, {interaction, language, dailyModule});
 	await interaction.reply({embeds: [embed]});
 
 	draftBotInstance.logsDatabase.logPlayerDaily(player.discordUserId, activeObject).then();

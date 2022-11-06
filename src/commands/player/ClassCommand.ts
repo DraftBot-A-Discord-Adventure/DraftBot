@@ -213,7 +213,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	createClassCollectorAndManageIt(classMessage, {
 		user: interaction.user,
-		player: player
+		player
 	}, interaction, classTranslations);
 
 	// Adding reactions
