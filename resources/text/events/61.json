@@ -15,7 +15,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "La jeune femme se présente et enchaîne rapidement sur des premiers conseils que vous écoutez avec attention, vous apprenez que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"fr": "La jeune femme se présente et enchaîne rapidement sur des premiers conseils que vous écoutez avec attention, vous apprenez que la commande {command:report} vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": "The young woman introduces herself and quickly follows up with some initial advice which you listen to carefully, you learn that the command 'report' allows you to get all the information about your trip."
 					},
 					"lostTime": 0,
@@ -35,7 +35,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous admirez les immenses murailles du château. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"fr": "Vous admirez les immenses murailles du château. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande {command:report} vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": "You admire the immense walls of the castle. After a while, the young woman finally reaches you and gives you some advice. You learn that the command 'report' allows you to get all the information about your journey."
 					},
 					"lostTime": 0,
@@ -51,7 +51,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous restez sans réagir à l'invitation du garde. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
+						"fr": "Vous restez sans réagir à l'invitation du garde. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande {command:report} vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": "You remain unresponsive to the guard's invitation. After a while, the young woman finally reaches you and gives you some advice. You learn that the command 'report' allows you to get all the information about your journey."
 					},
 					"lostTime": 0,

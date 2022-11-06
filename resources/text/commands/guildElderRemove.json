@@ -7,7 +7,7 @@
 			"elderRemove": ":question: Si vous acceptez, le poste d'aîné sera vacant.",
 			"noElderToRemove": "Votre guide n'a pas d'aîné.",
 			"successElderRemoveTitle": "Il n'y a plus d'aîné dans votre guilde !",
-			"successElderRemove": "Pour choisir un aîné, utilisez la commande `guildelder`",
+			"successElderRemove": "Pour choisir un aîné, utilisez la commande {command:guildelder}",
 			"elderRemoveCancelled": "L'aîné ne sera pas supprimé."
 		},
 		"en": {
@@ -17,7 +17,7 @@
 			"elderRemove": "❓ If you accept, the elder's position will be free",
 			"noElderToRemove": "Your guild does not have an elder.",
 			"successElderRemoveTitle": "There is no elder anymore in the guild !",
-			"successElderRemove": "To select an elder, use the `guildelder` command.",
+			"successElderRemove": "To select an elder, use the {command:guildelder} command.",
 			"elderRemoveCancelled": "The eder will not be removed."
 		}
 	}

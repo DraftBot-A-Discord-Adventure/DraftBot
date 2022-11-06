@@ -266,10 +266,10 @@ export class Player extends Model {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
-			bonuses.push(tr.get("levelUp.fightUnlocked"));
+			bonuses.push(tr.format("levelUp.fightUnlocked", {}));
 		}
 		if (this.level === Constants.GUILD.REQUIRED_LEVEL) {
-			bonuses.push(tr.get("levelUp.guildUnlocked"));
+			bonuses.push(tr.format("levelUp.guildUnlocked", {}));
 		}
 
 		if (this.level % 10 === 0) {
@@ -277,27 +277,27 @@ export class Player extends Model {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
-			bonuses.push(tr.get("levelUp.healthRestored"));
+			bonuses.push(tr.format("levelUp.healthRestored", {}));
 		}
 
 		if (this.level === Constants.CLASS.REQUIRED_LEVEL) {
-			bonuses.push(tr.get("levelUp.classUnlocked"));
+			bonuses.push(tr.format("levelUp.classUnlocked", {}));
 		}
 
 		if (this.level === Constants.CLASS.GROUP1LEVEL) {
-			bonuses.push(tr.get("levelUp.classTiertwo"));
+			bonuses.push(tr.format("levelUp.classTiertwo", {}));
 		}
 		if (this.level === Constants.CLASS.GROUP2LEVEL) {
-			bonuses.push(tr.get("levelUp.classTierthree"));
+			bonuses.push(tr.format("levelUp.classTierthree", {}));
 		}
 		if (this.level === Constants.CLASS.GROUP3LEVEL) {
-			bonuses.push(tr.get("levelUp.classTierfour"));
+			bonuses.push(tr.format("levelUp.classTierfour", {}));
 		}
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
-			bonuses.push(tr.get("levelUp.newMissionSlot"));
+			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
 		}
 
-		bonuses.push(tr.get("levelUp.noBonuses"));
+		bonuses.push(tr.format("levelUp.noBonuses", {}));
 		return bonuses;
 	}
 

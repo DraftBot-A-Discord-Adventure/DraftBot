@@ -81,7 +81,7 @@
 					"emote": "\uD83D\uDC8D",
 					"name": "Badge \"Maître des quêtes\"",
 					"price": 150,
-					"info": "Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
+					"info": "Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}.",
 					"give": "{pseudo}, vous avez reçu un nouveau badge :"
 				}
 			},
@@ -178,7 +178,7 @@
 					"emote": "\uD83D\uDC8D",
 					"name": "\"Master of Quests\" Badge",
 					"price": 150,
-					"info": "You will receive the badge within hours of payment. For more information about the badges use the `help badges` command.",
+					"info": "You will receive the badge within hours of payment. For more information about the badges use the {command:help} command.",
 					"give": "{pseudo}, you have received a new badge:"
 				}
 			},

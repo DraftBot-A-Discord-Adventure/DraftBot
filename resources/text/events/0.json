@@ -1,6 +1,6 @@
 {
 	"translations": {
-		"fr": "📬 **Bienvenue !** 👑 Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serai votre compagnon durant ce voyage et je suis là pour vous aider à triompher !\n🚩 Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! 💪 Je vais vous expliquer comment le jeu fonctionne...\n📔 Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources 💰 pour vous pendant votre absence et vous n'avez qu'à venir les récupérer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !",
+		"fr": "📬 **Bienvenue !** 👑 Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serai votre compagnon durant ce voyage et je suis là pour vous aider à triompher !\n🚩 Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! 💪 Je vais vous expliquer comment le jeu fonctionne...\n📔 Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources 💰 pour vous pendant votre absence et vous n'avez qu'à venir les récupérer en utilisant la commande {command:report}. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !",
 		"en": "📬 **Welcome!** 👑 The king searches for a mighty knight to marry his daughter and **you** have been chosen to be part of the selection contest! I'll be your partner for this journey, and I'll do my best to help you triumph!\n🚩 Our goal for this game is to collect as many points as we can, to show the king our might! 💪 I'll explain how it works...\n📔 Of course, I won't make a long and monotonous speech, so if you want more details, please use `!help`\nSo, let's start! It's pretty simple, I'll do whatever you ask! I'm going to collect resources 💰 for you while you're gone, and you'll just have to use `!report` to get them. If I ever have problems, I'll ask you what to do and you'll help me continue!"
 	},
 	"possibilities": {
@@ -48,8 +48,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "❌ Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !",
-						"en": "❌ The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
+						"fr": "❌ Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande {command:report} !",
+						"en": "❌ The tutorial hasn't been finished! You can restart it when you want using the {command:report} command!"
 					},
 					"lostTime": 0,
 					"health": 0,
