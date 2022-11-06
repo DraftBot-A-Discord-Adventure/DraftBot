@@ -34,7 +34,7 @@ const forceJoinGuildTestCommand = async (language: string, interaction: CommandI
 	}
 
 	const guildToLeave = await Guild.findOne({where: {id: player.guildId}});
-	if (guildToLeave !== null && guildToLeave !== undefined) {
+	if (guildToLeave !== null && guildToLeave) {
 		if (guildToJoin.id === guildToLeave.id) {
 			throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");
 		}

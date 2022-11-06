@@ -48,7 +48,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	private _reactionsNames: string[];
 
 	/**
-	 * The callback called when the collector ends. Can be null or undefined
+	 * The callback called when the collector ends. Can be null
 	 */
 	private readonly _endCallback: CallbackLike;
 
@@ -93,7 +93,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
 	 * The collector of the message
 	 */
-	private _collector: ReactionCollector = undefined;
+	private _collector: ReactionCollector = null;
 
 	/**
 	 * Returns the message collector
@@ -160,7 +160,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 
 	/**
 	 * Get the first reaction of the message
-	 * Can be undefined or null if there is no reaction
+	 * Can be null if there is no reaction
 	 */
 	getFirstReaction(): MessageReaction {
 		if (!this._collector) {
@@ -239,7 +239,7 @@ export class DraftBotReactionMessageBuilder {
 
 	private _allowedUsersDiscordIdToReact: string[] = [];
 
-	private _endCallback: CallbackLike = undefined;
+	private _endCallback: CallbackLike = null;
 
 	private _maxReactions = 0;
 

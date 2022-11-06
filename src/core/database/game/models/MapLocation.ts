@@ -119,9 +119,9 @@ export class MapLocations {
 			return await MapLocation.sequelize.query(query, {
 				type: QueryTypes.SELECT,
 				replacements: {
-					mapTypes: mapTypes,
-					blacklistId: blacklistId,
-					mapId: mapId
+					mapTypes,
+					blacklistId,
+					mapId
 				}
 			});
 		}
@@ -133,8 +133,8 @@ export class MapLocations {
 		return await MapLocation.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
-				mapId: mapId,
-				blacklistId: blacklistId
+				mapId,
+				blacklistId
 			}
 		});
 	}
@@ -153,9 +153,9 @@ export class MapLocations {
 					   ORDER BY RAND();`;
 		return await MapLocation.sequelize.query(query, {
 			replacements: {
-				mapId: mapId,
+				mapId,
 				pMapId: previousMapId,
-				playerId: playerId
+				playerId
 			},
 			type: QueryTypes.SELECT
 		});

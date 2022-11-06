@@ -40,7 +40,7 @@ export class PlayerFighter extends Fighter {
 	 * Get the pseudo
 	 */
 	getName(): string {
-		return this.player.getPseudo(undefined);
+		return this.player.getPseudo(null);
 	}
 
 	/**

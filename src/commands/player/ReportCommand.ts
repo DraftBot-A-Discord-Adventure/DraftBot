@@ -386,7 +386,7 @@ async function updatePlayerInfos(
 	await player.addMoney(Object.assign(valuesToEditParameters, {amount: changes.moneyChange}));
 	await player.addExperience(Object.assign(valuesToEditParameters, {amount: randomPossibility.experience}));
 
-	if (randomPossibility.nextEvent !== undefined) {
+	if (randomPossibility.nextEvent) {
 		player.nextEvent = randomPossibility.nextEvent;
 	}
 
@@ -631,7 +631,7 @@ async function doRandomBigEvent(
 	let event;
 
 	// nextEvent is defined ?
-	if (player.nextEvent !== undefined && player.nextEvent !== null) {
+	if (player.nextEvent) {
 		forceSpecificEvent = player.nextEvent;
 	}
 

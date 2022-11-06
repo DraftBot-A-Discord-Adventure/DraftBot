@@ -54,7 +54,7 @@ export class DataModule {
 
 	public exists(path: string): boolean {
 		const dataObj = this.getDataObject(path, false);
-		return dataObj !== null && dataObj !== undefined;
+		return dataObj !== null;
 	}
 
 	public getRandomNumberFromArray(path: string): number {
