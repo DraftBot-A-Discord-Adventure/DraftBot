@@ -44,6 +44,10 @@
 					"direct": "Vous devez atteindre le **LVL {level}** avant de combattre !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
+				"dead": {
+					"direct": "{pseudo}, Il n'est pas possible de combattre en étant K.O! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
+				},
 				"cantFightStatus": {
 					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
 					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"

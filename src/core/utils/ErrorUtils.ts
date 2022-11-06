@@ -63,17 +63,19 @@ export async function replyErrorMessage(interaction: CommandInteraction, languag
  * @param interaction
  * @param language
  * @param reason
- * @param isCancelling
+ * @param isCancelling - true if the error is a cancelling error
+ * @param isBlockedError - set to false if you don't want the "this user is blocked" message when selecting a different user than the one who invoked the command
  */
 export async function sendErrorMessage(
 	user: User,
 	interaction: CommandInteraction,
 	language: string,
 	reason: string,
-	isCancelling = false
+	isCancelling = false,
+	isBlockedError = true
 ): Promise<void> {
 	await interaction.channel.send({
-		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling)]
+		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling, isBlockedError)]
 	});
 }
 
