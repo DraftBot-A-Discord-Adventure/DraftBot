@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"commandName": "echangefamilier",
+			"commandName": "echangerfamilier",
 			"commandDescription": "Échanger votre familier avec celui d'un autre joueur.",
 			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur avec qui l'échange a lieu.",
