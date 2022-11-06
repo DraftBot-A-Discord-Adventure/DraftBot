@@ -95,7 +95,7 @@ export class MapLocation extends Model {
 
 export class MapLocations {
 	static async getById(id: number): Promise<MapLocation> {
-		return await MapLocation.findOne({where: {id: id}});
+		return await MapLocation.findOne({where: {id}});
 	}
 
 	static async getRandomGotoableMap(): Promise<MapLocation> {

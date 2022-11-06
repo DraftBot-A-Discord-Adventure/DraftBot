@@ -180,7 +180,7 @@ async function displayTop(
 					rank: rankCurrentPlayer,
 					totalPlayer: numberOfPlayers,
 					page: getPageOfRank(rankCurrentPlayer),
-					pageMax: pageMax
+					pageMax
 				})
 		});
 	if (timing === TopConstants.TIMING_WEEKLY) {

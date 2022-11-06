@@ -184,8 +184,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const endCallback = getEndCallbackGuildAdd(
-		{guild, player: player},
-		{invitedPlayer: invitedPlayer, invitedUser},
+		{guild, player},
+		{invitedPlayer, invitedUser},
 		interaction,
 		guildInviteModule
 	);

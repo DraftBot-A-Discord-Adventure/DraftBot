@@ -75,7 +75,7 @@ export const smallEvent: SmallEvent = {
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {
-				player: player,
+				player,
 				channel: interaction.channel,
 				language,
 				reason: NumberChangeReason.SMALL_EVENT

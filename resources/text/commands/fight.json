@@ -46,7 +46,7 @@
 				},
 				"dead": {
 					"direct": "{pseudo}, Il n'est pas possible de combattre en étant K.O! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
-					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
+					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O.!"
 				},
 				"cantFightStatus": {
 					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
@@ -178,9 +178,13 @@
 					"direct": "You need to be **LVL {level}** if you want to fight!",
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
 				},
+				"dead" :{
+					"direct": "{pseudo}, You can't fight while KO ! Please use the {command:respawn} command to continue playing.",
+					"indirect": "This opponent is dead, thus can't fight yet!"
+				},
 				"cantFightStatus": {
 					"direct": "{pseudo}, you aren't healthy enough to fight right now! Please wait until your alteration has been cured!",
-					"indirect": "This person doen't seem to be able to fight right now!"
+					"indirect": "This person doesn't seem to be able to fight right now!"
 				},
 				"occupied": {
 					"direct": "{pseudo}, you can't request a fight when you're occupied!",
@@ -198,7 +202,7 @@
 				"attacksResults": {
 					"critical": [
 						"uses {attack}! Perfectly executed!",
-						"uses {attack}! It's magnificient!",
+						"uses {attack}! It's magnificent!",
 						"uses an amazing {attack}! Perfectly executed!",
 						"uses an {attack}! Incredibly well done!",
 						"launches an {attack}! So brutal!",
