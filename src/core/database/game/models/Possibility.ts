@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import * as moment from "moment";
+import { format } from "../../../utils/StringFormatter";
 
 export class Possibility extends Model {
 	public id!: number;
@@ -37,7 +38,7 @@ export class Possibility extends Model {
 
 
 	public getText(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+		return language === Constants.LANGUAGE.FRENCH ? format(this.fr,{}) : format(this.en,{});
 	}
 }
 

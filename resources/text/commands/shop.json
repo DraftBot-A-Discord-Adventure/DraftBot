@@ -34,7 +34,7 @@
 					"emote": "\uD83E\uDD11",
 					"name": "Badge \"MoneyMouth\"",
 					"price": 25000,
-					"info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
+					"info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}.",
 					"give": "{pseudo}, vous avez reçu un nouveau badge :"
 				},
 				"guildXp": {
@@ -111,7 +111,7 @@
 					"emote": "\uD83E\uDD11",
 					"name": "\"MoneyMouth\" Badge",
 					"price": 25000,
-					"info": "You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
+					"info": "You will receive the badge in the hours following your payment. For more information on badges, use the command {command:help}",
 					"give": "{pseudo}, you received a new badge:"
 				},
 				"guildXp": {

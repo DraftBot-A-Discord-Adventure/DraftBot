@@ -639,7 +639,7 @@ async function doRandomBigEvent(
 		const map = await player.getDestination();
 		[event] = await BigEvents.pickEventOnMapType(map);
 		if (!event) {
-			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff."});
+			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
 			return;
 		}
 	}

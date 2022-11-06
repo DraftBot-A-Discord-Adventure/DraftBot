@@ -63,19 +63,19 @@
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
-					"description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un."
+					"description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
 				},
 				"REPORT": {
 					"usage": "{command:report}",
-					"description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières."
+					"description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évènements se déclenchent et demandent des actions particulières."
 				},
 				"SELL": {
 					"usage": "{command:sell}",
-					"description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:."
+					"description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est déterminée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:."
 				},
 				"DAILY_BONUS": {
 					"usage": "{command:dailybonus}",
-					"description": "Certains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`."
+					"description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
 				},
 				"INVITE_DRAFTBOT": {
 					"usage": "{command:invitedraftbot}",
@@ -278,7 +278,7 @@
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
-					"description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the reserve that can contain another type of item temporarily during the time you deliberate whether or not to keep it.\n\n:warning: **The reserve is not to be trusted if you want to keep anything precious**\nThe items kept in here can be replaced whenever you find a new one."
+					"description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the items stock that can contain additional items."
 				},
 				"REPORT": {
 					"usage": "{command:report}",
@@ -290,7 +290,7 @@
 				},
 				"DAILY_BONUS": {
 					"usage": "{command:dailybonus}",
-					"description": "Some items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`."
+					"description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command {command:inventory}."
 				},
 				"INVITE_DRAFTBOT": {
 					"usage": "{command:invitedraftbot}",
