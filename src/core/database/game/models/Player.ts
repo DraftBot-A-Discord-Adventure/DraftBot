@@ -228,8 +228,9 @@ export class Player extends Model {
 	 */
 	public setPseudo(language: string): void {
 		if (this.discordUserId) {
-			if (draftBotClient.users.cache.get(this.discordUserId)) {
-				this.pseudo = escapeUsername(draftBotClient.users.cache.get(this.discordUserId).username);
+			const user = draftBotClient.users.cache.get(this.discordUserId);
+			if (user) {
+				this.pseudo = escapeUsername(user.username);
 			}
 			else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");

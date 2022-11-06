@@ -425,7 +425,7 @@ export class DraftBot {
 			if (err) {
 				return;
 			}
-			files.forEach(function(file) {
+			files.forEach(file => {
 				const parts = file.split("-");
 				if (parts.length >= 5) {
 					if (
@@ -438,7 +438,7 @@ export class DraftBot {
 						7 * 24 * 60 * 60 * 1000
 					) {
 						// 7 days
-						fs.unlink(`logs/${file}`, function(err: Error) {
+						fs.unlink(`logs/${file}`, (err: Error) => {
 							if (err) {
 								originalConsoleError(
 									`Error while deleting logs/${file}: ${err.toString()}`

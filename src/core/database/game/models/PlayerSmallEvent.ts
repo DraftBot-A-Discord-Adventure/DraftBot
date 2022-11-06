@@ -20,8 +20,8 @@ export class PlayerSmallEvents {
 	static createPlayerSmallEvent(playerId: number, eventType: string, time: number): PlayerSmallEvent {
 		return PlayerSmallEvent.build({
 			playerId,
-			eventType: eventType,
-			time: time
+			eventType,
+			time
 		});
 	}
 
@@ -70,7 +70,7 @@ export class PlayerSmallEvents {
 	}
 
 	static async removeSmallEventsOfPlayer(playerId: number): Promise<void> {
-		await PlayerSmallEvent.destroy({where: {playerId: playerId}});
+		await PlayerSmallEvent.destroy({where: {playerId}});
 	}
 
 	static async getSmallEventsOfPlayer(playerId: number): Promise<PlayerSmallEvent[]> {

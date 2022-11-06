@@ -94,7 +94,7 @@ export const smallEvent: SmallEvent = {
 					+ translationShop.get("end"), {
 						name: translationShop.getRandom(`names.${gender}`),
 						item: randomItem.toString(language, null),
-						price: price,
+						price,
 						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${translationShop.get(`types.${randomItem.getCategory()}`)}`
 					}))
 			.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));

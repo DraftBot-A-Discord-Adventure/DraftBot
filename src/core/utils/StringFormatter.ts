@@ -97,7 +97,7 @@ export function parsePlaceholder(placeholder: string, start: number, end: number
 		else {
 			falseValue = placeholder.substring(falseValueBeginning);
 		}
-		const conditionSplit = conditionPart.split(/(==|!=|<=|>=|>|<)/);
+		const conditionSplit = conditionPart.split(/[=]=|!=|<=|>=|>|</);
 		let leftValue: string;
 		let rightValue: string;
 		let operand: PlaceholderOperand;
