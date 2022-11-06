@@ -23,6 +23,7 @@
 				"description": "{emote} **{pet}** vous suit désormais. Occupez-vous en bien !"
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
+			"deadBuyer": "Vous ne pouvez pas acheter un familier car vous êtes actuellement K.O. Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 			"sellCancelled": "La vente a été annulée !",
 			"havePet": "Vous avez déja un familier dans votre inventaire.",
 			"errors": {
@@ -56,6 +57,7 @@
 				"description": "{emote} **{pet}** now follows you. Take care of them!"
 			},
 			"noMoney": "You don't have enough money to buy that.",
+			"deadBuyer": "You can't buy a pet because you are currently KO. You can respawn using the {command:respawn} command to continue playing.",
 			"sellCancelled": "The sale has been cancelled!",
 			"havePet": "You already have a pet in your inventory.",
 			"errors": {

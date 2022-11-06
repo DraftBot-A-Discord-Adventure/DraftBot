@@ -34,9 +34,15 @@ async function canFight(player: Player, friendly: boolean, date: Date): Promise<
 	if (player.level < FightConstants.REQUIRED_LEVEL) {
 		return FightConstants.FIGHT_ERROR.WRONG_LEVEL;
 	}
+
+	if (player.isDead()) {
+		return FightConstants.FIGHT_ERROR.DEAD;
+	}
+
 	if (!player.currentEffectFinished(date) && !friendly) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
+
 	if ((await BlockingUtils.getPlayerBlockingReason(player.discordUserId)).length !== 0) {
 		return FightConstants.FIGHT_ERROR.OCCUPIED;
 	}
@@ -80,7 +86,9 @@ async function sendError(
 			user,
 			interaction,
 			fightTranslationModule.language,
-			fightTranslationModule.format(errorTranslationName, replacements)
+			fightTranslationModule.format(errorTranslationName, replacements),
+			false,
+			false
 		);
 }
 

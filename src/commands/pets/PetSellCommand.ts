@@ -99,19 +99,32 @@ async function executeTheTransaction(
 	textInformation: TextInformation
 ): Promise<void> {
 	const buyerGuild = await Guilds.getById(buyerInformation.buyer.guildId);
+
+	// the buyer has the same guild as the seller
 	if (buyerGuild && buyerGuild.id === sellerInformation.guild.id) {
-		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sameGuild"));
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sameGuild"), false, false);
 		return;
 	}
 	const buyerPet = await PetEntities.getById(buyerInformation.buyer.petId);
+
+	// the buyer already has a pet
 	if (buyerPet) {
-		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("havePet"));
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("havePet"), false, false);
 		return;
 	}
+
+	// the buyer has not enough money
 	if (sellerInformation.petCost > buyerInformation.buyer.money) {
-		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("noMoney"));
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("noMoney"), false, false);
 		return;
 	}
+
+	// the buyer is dead
+	if (buyerInformation.buyer.isDead()) {
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer", {}), false, false);
+		return;
+	}
+
 	const xpToAdd = calculateAmountOfXPToAdd(sellerInformation.petCost);
 	await sellerInformation.guild.addExperience(xpToAdd, textInformation.interaction.channel, textInformation.petSellModule.language, NumberChangeReason.PET_SELL);
 	buyerInformation.buyer.petId = sellerInformation.pet.id;
