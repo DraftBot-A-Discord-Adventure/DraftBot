@@ -2,6 +2,7 @@ version = 1
 
 exclude_patterns = [
   "src/core/utils/astronomy.ts",
+  "src/core/JsonReader.js",
   "src/core/database/game/migrations/*.ts",
   "src/core/database/logs/migrations/*.ts"
 ]
