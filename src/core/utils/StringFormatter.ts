@@ -167,8 +167,8 @@ export function formatPlaceholder(placeholder: ReplacementPlaceholder, replaceme
 			if (typeof replacement === "string") {
 				return replacement;
 			}
-			if (replacement === null || !replacement) {
-				return "FORMAT_ERROR:NULL_OR_UNDEFINED_VALUE";
+			if (replacement === null) {
+				return "FORMAT_ERROR:NULL_VALUE";
 			}
 			return replacement.toString();
 		}
