@@ -14,6 +14,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {MapLinks} from "../database/game/models/MapLink";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {TravelTime} from "../maps/TravelTime";
 
 async function confirmationCallback(
 	player: Player,
@@ -30,6 +31,7 @@ async function confirmationCallback(
 			embed.setDescription(`${emote} ${tr.get("notEnoughGems")}`);
 		}
 		else {
+			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
 				await MapLinks.getById(PVEConstants.MAPS.ENTRY_LINK),
@@ -55,7 +57,9 @@ export const smallEvent: SmallEvent = {
 	 * Check if small event can be executed
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
-		return Maps.isNearWater(player) &&
+		return player.level >= PVEConstants.MIN_LEVEL &&
+			Maps.isNearWater(player) &&
+			await player.getMaxCumulativeFightPoint() - player.fightPointsLost >= 0 &&
 			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
 			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) < PVEConstants.TRAVEL_COST.length;
 	},

@@ -120,7 +120,7 @@ export class Maps {
 		for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 			if (j === index) {
 				if (effect === null) {
-					str += Maps.isOnBoat(player) ? "🛶" : "🧍";
+					str += Maps.isOnBoat(player) ? "🚢" : "🧍";
 				}
 				else {
 					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];

@@ -12,6 +12,7 @@
 				"classTierthree": ":bookmark: | Classes de palier 3 débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
 				"classTierfour": ":bookmark: | Classes de palier 4 débloquées ! Pour plus d'informations sur les classes, les commandes {command:classesinfo} et {command:help}.",
 				"newMissionSlot": ":scroll: | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:help}.",
+				"pveUnlocked": ":island: | Accès aux îles lointaines débloquées ! Pour plus d'informations TODO",
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
@@ -34,6 +35,7 @@
 				"classTierthree": ":bookmark: | Tier 3 classes unlocked! For more information about guilds, please use the {command:classesinfo} and {command:help} commands.",
 				"classTierfour": ":bookmark: | Tier 4 classes unlocked! For more information about guilds, please use the {command:classesinfo} and {command:help} commands.",
 				"newMissionSlot": ":scroll: | New mission slot unlocked! For more information about missions, please use the {command:help} command.",
+				"pveUnlocked": ":island: | Access to far-away islands unlocked ! For more information TODO",
 				"noBonuses": ":arrow_up: | Stats upgraded."
 			},
 			"ko": ":skull: | **{pseudo}** has been KO'd!",

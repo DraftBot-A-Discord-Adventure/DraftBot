@@ -30,6 +30,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
+import {PVEConstants} from "../../../constants/PVEConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -299,6 +300,9 @@ export class Player extends Model {
 		}
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
 			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
+		}
+		if (this.level === PVEConstants.MIN_LEVEL) {
+			bonuses.push(tr.get("levelUp.pveUnlocked"));
 		}
 
 		bonuses.push(tr.format("levelUp.noBonuses", {}));
@@ -761,6 +765,24 @@ export class Player extends Model {
 		}
 		else {
 			this.health = health;
+		}
+	}
+
+	/**
+	 * Add fight points
+	 * @param amount
+	 * @param maxPoints
+	 */
+	public async addFightPoints(amount: number, maxPoints = -1): Promise<void> {
+		if (maxPoints === -1) {
+			maxPoints = await this.getMaxCumulativeFightPoint();
+		}
+		this.fightPointsLost -= amount;
+		if (this.fightPointsLost < 0) {
+			this.fightPointsLost = 0;
+		}
+		else if (this.fightPointsLost > maxPoints) {
+			this.fightPointsLost = maxPoints;
 		}
 	}
 }
