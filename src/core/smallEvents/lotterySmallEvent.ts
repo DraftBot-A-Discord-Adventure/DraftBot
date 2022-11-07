@@ -4,15 +4,37 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import {BlockingUtils} from "../utils/BlockingUtils";
-import {Guilds} from "../database/game/models/Guild";
+import Guild, {Guilds} from "../database/game/models/Guild";
 import {Constants} from "../Constants";
-import {Data} from "../Data";
+import {Data, DataModule} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
+
+async function getGuild(player: Player): Promise<Guild> {
+	try {
+		return await Guilds.getById(player.guildId);
+	}
+	catch {
+		return null;
+	}
+}
+
+async function effectIfGoodRisk(emoteName: string, player: Player, dataLottery: DataModule, now: Date): Promise<void> {
+	const emojiLottery = dataLottery.getStringArray("emojiLottery");
+	if (emoteName !== emojiLottery[0]) {
+		await TravelTime.applyEffect(
+			player,
+			EffectsConstants.EMOJI_TEXT.OCCUPIED,
+			dataLottery.getNumber("lostTime"),
+			now,
+			NumberChangeReason.SMALL_EVENT,
+			now);
+	}
+}
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -59,26 +81,12 @@ export const smallEvent: SmallEvent = {
 			}
 			const malus = emojiLottery[2] === collected.first().emoji.name;
 			let rewardType = dataLottery.getStringArray("rewardType");
-			let guild;
-			try {
-				guild = await Guilds.getById(player.guildId);
-			}
-			catch {
-				guild = null;
-			}
+			const guild = await getGuild(player);
 			if (guild === null || guild.isAtMaxLevel()) {
 				rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
 			}
 			let sentenceReward;
-			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await TravelTime.applyEffect(
-					player,
-					EffectsConstants.EMOJI_TEXT.OCCUPIED,
-					dataLottery.getNumber("lostTime"),
-					interaction.createdAt,
-					NumberChangeReason.SMALL_EVENT,
-					interaction.createdAt);
-			}
+			await effectIfGoodRisk(collected.first().emoji.name, player, dataLottery, interaction.createdAt);
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {
 				player,
@@ -111,7 +119,6 @@ export const smallEvent: SmallEvent = {
 				default:
 					throw new Error("lottery reward type not found");
 				}
-				await player.save();
 				await player.save();
 				const money = Constants.SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
