@@ -84,6 +84,10 @@ async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, i
  */
 async function genericAwardingFunction(members: Player[], awardingFunctionForAMember: (member: Player) => Promise<void> | void): Promise<void> {
 	for (const member of members) {
+		// we have to check if the member is not KO because if he is, he can't receive the reward
+		if (member.isDead()) {
+			continue;
+		}
 		await awardingFunctionForAMember(member);
 		await member.save();
 	}
@@ -333,6 +337,10 @@ const linkToFunction = getMapOfAllRewardCommands();
 async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
 	for (const member of members) {
 		const user = await draftBotClient.users.fetch(member.discordUserId);
+		// we have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
+		if (member.isDead()) {
+			continue;
+		}
 		if (member.discordUserId !== interaction.user.id) {
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
 		}
