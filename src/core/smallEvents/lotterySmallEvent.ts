@@ -71,7 +71,13 @@ export const smallEvent: SmallEvent = {
 			}
 			let sentenceReward;
 			if (emojiLottery[0] !== collected.first().emoji.name) {
-				await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, dataLottery.getNumber("lostTime"), interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+				await TravelTime.applyEffect(
+					player,
+					EffectsConstants.EMOJI_TEXT.OCCUPIED,
+					dataLottery.getNumber("lostTime"),
+					interaction.createdAt,
+					NumberChangeReason.SMALL_EVENT,
+					interaction.createdAt);
 			}
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {

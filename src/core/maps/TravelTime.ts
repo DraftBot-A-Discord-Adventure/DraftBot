@@ -178,10 +178,11 @@ export class TravelTime {
 	 * Removes the effect of a player
 	 * @param player
 	 * @param reason
+	 * @param now
 	 */
-	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
+	static async removeEffect(player: Player, reason: NumberChangeReason, now: Date): Promise<void> {
 		// Make the player time travel to the end of the effect
-		await TravelTime.timeTravel(player, player.effectRemainingTime(), reason, true);
+		await TravelTime.timeTravel(player, player.effectRemainingTime(now), reason, true);
 
 		// Move the start of the travel because the effect will have a duration of 0
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
@@ -202,12 +203,13 @@ export class TravelTime {
 	 * @param time
 	 * @param date The date of the beginning of the effect
 	 * @param reason
+	 * @param now
 	 */
-	static async applyEffect(player: Player, effect: string, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
+	static async applyEffect(player: Player, effect: string, time: number, date: Date, reason: NumberChangeReason, now: Date): Promise<void> {
 		// Reason is IGNORE here because you don't want to log a time warp when you get an alteration
 		// First remove the effect (if the effect is time related)
 		if (![EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD].includes(player.effect)) {
-			await this.removeEffect(player, NumberChangeReason.IGNORE);
+			await this.removeEffect(player, NumberChangeReason.IGNORE, now);
 		}
 
 		// Apply the new effect

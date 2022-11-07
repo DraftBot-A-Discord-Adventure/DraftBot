@@ -38,7 +38,7 @@ const playerEffectTestCommand = async (language: string, interaction: CommandInt
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const effectMalus = ":" + args[0] + ":";
 	if (Object.keys(PlayerConstants.EFFECT_MALUS).includes(effectMalus)) {
-		await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST);
+		await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST, interaction.createdAt);
 		await player.save();
 		return format(commandInfo.messageWhenExecuted, {effect: effectMalus});
 	}

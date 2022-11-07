@@ -186,7 +186,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 		}
 		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
-			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
+			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY, stringInfos.interaction.createdAt);
 		}
 	});
 	if (!needsHeal && noAlteHeal) {

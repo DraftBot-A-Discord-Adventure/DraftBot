@@ -30,7 +30,7 @@ export const commandInfo: ITestCommand = {
  */
 const jailPlayerTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(getIdFromMention(args[0]));
-	await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST);
+	await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST, interaction.createdAt);
 	await player.save();
 	return format(commandInfo.messageWhenExecuted, {player: args[0]});
 };

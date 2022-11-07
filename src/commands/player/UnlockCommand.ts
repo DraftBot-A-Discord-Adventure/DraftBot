@@ -78,7 +78,7 @@ function callbackUnlockCommand(
 			const [playerToUnlock] = await Players.getOrRegister(entityCouple.locked.discordUserId); // released player
 			const [playerUnlocker] = await Players.getOrRegister(entityCouple.unlocker.discordUserId); // player who unlocks
 			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
-				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK);
+				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK, textInformation.interaction.createdAt);
 				await playerUnlocker.addMoney({
 					amount: -UnlockConstants.PRICE_FOR_UNLOCK,
 					channel: textInformation.interaction.channel,
@@ -90,7 +90,7 @@ function callbackUnlockCommand(
 					playerUnlocker.save()
 				]);
 				draftBotInstance.logsDatabase.logUnlocks(playerUnlocker.discordUserId, playerToUnlock.discordUserId).then();
-				await MissionsController.update(playerUnlocker, textInformation.interaction.channel, textInformation.language, { missionId: "unlock" });
+				await MissionsController.update(playerUnlocker, textInformation.interaction.channel, textInformation.language, {missionId: "unlock"});
 				const successEmbed = new DraftBotEmbed()
 					.setAuthor({
 						name: textInformation.unlockModule.format("unlockedTitle", {
