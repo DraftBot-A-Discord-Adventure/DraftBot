@@ -31,7 +31,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const lostScore = Math.round(player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
-	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN);
+	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN, {
+		shouldPokeMission: false,
+		overHealCountsForMission: false
+	});
 	await player.addScore({
 		amount: -lostScore,
 		channel: interaction.channel,
