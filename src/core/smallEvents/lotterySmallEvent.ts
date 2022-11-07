@@ -14,6 +14,10 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 
+/**
+ * Get a guild, may be null if the player isn't in a guild
+ * @param player
+ */
 async function getGuild(player: Player): Promise<Guild> {
 	try {
 		return await Guilds.getById(player.guildId);
@@ -23,6 +27,13 @@ async function getGuild(player: Player): Promise<Guild> {
 	}
 }
 
+/**
+ * Apply small-time loss if you take a high risk reward
+ * @param emoteName
+ * @param player
+ * @param dataLottery
+ * @param now
+ */
 async function effectIfGoodRisk(emoteName: string, player: Player, dataLottery: DataModule, now: Date): Promise<void> {
 	const emojiLottery = dataLottery.getStringArray("emojiLottery");
 	if (emoteName !== emojiLottery[0]) {
