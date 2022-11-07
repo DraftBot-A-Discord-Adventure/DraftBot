@@ -62,7 +62,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 		await player.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
 		malus.option = minutesDisplay(malus.option as number);
 		break;
 	case "nothing":
@@ -73,7 +73,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 	default:
 		throw new Error("reward type not found");
 	}
-	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
 	await player.save();
 	await player.save();
 }

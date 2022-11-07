@@ -48,7 +48,7 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
 		translationModule.get(`permanentItems.${name}.emote`),
 		translationModule.get(`permanentItems.${name}.name`),
 		parseInt(translationModule.get(`permanentItems.${name}.price`), 10),
-		translationModule.format(`permanentItems.${name}.info`,{}),
+		translationModule.format(`permanentItems.${name}.info`, {}),
 		buyCallback
 	);
 }
@@ -85,7 +85,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				return false;
 			}
 			if (player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
-				await TravelTime.removeEffect(player, NumberChangeReason.SHOP);
+				await TravelTime.removeEffect(player, NumberChangeReason.SHOP, interaction.createdAt);
 				await player.save();
 			}
 			await MissionsController.update(player, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
@@ -183,7 +183,7 @@ async function getDailyPotionShopItem(translationModule: TranslationModule, inte
 			await giveItemToPlayer(player, potion, translationModule.language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.DAILY_POTION).then();
 			if (potionAlreadyPurchased === Constants.MAX_DAILY_POTION_BUYOUTS - 1) {
-				await MissionsController.update(player, interaction.channel, translationModule.language, { missionId: "dailyPotionsStock" });
+				await MissionsController.update(player, interaction.channel, translationModule.language, {missionId: "dailyPotionsStock"});
 			}
 			return true;
 		}
@@ -314,7 +314,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	);
 	const dailyItemsCategory = new ShopItemCategory(
 		[await getDailyPotionShopItem(shopTranslations, interaction)],
-		shopTranslations.format("dailyItem",{
+		shopTranslations.format("dailyItem", {
 			available: Constants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.discordUserId)
 		})
 	);

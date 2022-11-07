@@ -23,7 +23,7 @@ export const commandInfo: ITestCommand = {
 const removePlayerEffectTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
+	await TravelTime.removeEffect(player, NumberChangeReason.TEST, interaction.createdAt);
 	await player.save();
 
 	return commandInfo.messageWhenExecuted;

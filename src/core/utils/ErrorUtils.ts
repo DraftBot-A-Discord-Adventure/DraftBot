@@ -11,8 +11,9 @@ import Player from "../database/game/models/Player";
  * @param user
  * @param language
  * @param player
+ * @param now
  */
-export const effectsErrorTextValue = function(user: User, language: string, player: Player): { title: string, description: string } {
+export const effectsErrorTextValue = function(user: User, language: string, player: Player, now: Date): { title: string, description: string } {
 	const startString = user.id === player.discordUserId ? "titleMe" : "player";
 	const stringEnd = EffectsConstants.ERROR_TEXT[player.effect as keyof typeof EffectsConstants.ERROR_TEXT];
 	const tr = Translations.getModule("error", language);
@@ -22,7 +23,7 @@ export const effectsErrorTextValue = function(user: User, language: string, play
 		}),
 		description: `${player.effect} `
 	};
-	const timeEffect = minutesDisplay(millisecondsToMinutes(player.effectRemainingTime()));
+	const timeEffect = minutesDisplay(millisecondsToMinutes(player.effectRemainingTime(now)));
 	switch (player.effect) {
 	case EffectsConstants.EMOJI_TEXT.SMILEY:
 		errorMessageObject.description += tr.get("notPossibleWithoutStatus");

@@ -53,7 +53,7 @@ const travelTestCommand = async (language: string, interaction: CommandInteracti
 		throw new Error(`Erreur travel : Maps non reliées. Maps reliées avec la map ${mapStart} : ${conMapsWthStart.toString()}`);
 	}
 
-	await Maps.startTravel(player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST);
+	await Maps.startTravel(player, link, interaction.createdAt.valueOf(), NumberChangeReason.TEST, interaction.createdAt);
 	await player.save();
 	return format(commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(mapStart)).getDisplayName(language),

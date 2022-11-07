@@ -33,9 +33,10 @@ type TextInformation = { interaction: CommandInteraction, language: string, tr?:
 /**
  * Initiates a new player on the map
  * @param player
+ * @param now
  */
-async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
-	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), Date.now(), NumberChangeReason.NEW_PLAYER);
+async function initiateNewPlayerOnTheAdventure(player: Player, now: Date): Promise<void> {
+	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), now.valueOf(), NumberChangeReason.NEW_PLAYER, now);
 	await player.save();
 }
 
@@ -118,7 +119,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 	}
 
 	// Save
-	await PlayerSmallEvents.createPlayerSmallEvent(player.id, event, Date.now()).save();
+	await PlayerSmallEvents.createPlayerSmallEvent(player.id, event, interaction.createdAt.valueOf()).save();
 }
 
 /**
@@ -183,7 +184,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		inline: true
 	});
 	if (effect !== null) {
-		const errorMessageObject = effectsErrorTextValue(interaction.user, language, player);
+		const errorMessageObject = effectsErrorTextValue(interaction.user, language, player, interaction.createdAt);
 		travelEmbed.addFields({
 			name: errorMessageObject.title,
 			value: errorMessageObject.description,
@@ -322,7 +323,7 @@ async function chooseDestination(
 
 	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT, interaction.createdAt);
 		await destinationChoseMessage(player, destinationMaps[0], interaction, language);
 		return;
 	}
@@ -347,7 +348,7 @@ async function chooseDestination(
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
-		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT, interaction.createdAt);
 		await destinationChoseMessage(player, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
@@ -392,7 +393,7 @@ async function updatePlayerInfos(
 
 	await player.setLastReportWithEffect(
 		randomPossibility.lostTime,
-		randomPossibility.effect
+		randomPossibility.effect, textInformation.interaction.createdAt
 	);
 	if (randomPossibility.item) {
 		await giveRandomItem((await textInformation.interaction.guild.members.fetch(player.discordUserId)).user, textInformation.interaction.channel, textInformation.language, player);
@@ -533,7 +534,7 @@ async function doPossibility(
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await textInformation.interaction.channel.send({content: result});
 
-	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
+	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT, textInformation.interaction.createdAt)) {
 		await chooseDestination(player, textInformation.interaction, textInformation.language, randomPossibility.restrictedMaps);
 	}
 
@@ -666,7 +667,7 @@ async function executeCommand(
 	forceSmallEvent: string = null
 ): Promise<void> {
 	if (player.score === 0 && player.effect === EffectsConstants.EMOJI_TEXT.BABY) {
-		await initiateNewPlayerOnTheAdventure(player);
+		await initiateNewPlayerOnTheAdventure(player, interaction.createdAt);
 	}
 
 	if (await sendBlockedError(interaction, language)) {
@@ -701,7 +702,7 @@ async function executeCommand(
 	}
 
 	if (player.mapLinkId === null) {
-		await Maps.startTravel(player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG);
+		await Maps.startTravel(player, await MapLinks.getRandomLink(), interaction.createdAt.valueOf(), NumberChangeReason.DEBUG, interaction.createdAt);
 		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 

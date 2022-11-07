@@ -31,7 +31,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const lostScore = Math.round(player.score * RespawnConstants.SCORE_REMOVAL_MULTIPLIER);
-	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN);
+	await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, language, NumberChangeReason.RESPAWN, {
+		shouldPokeMission: false,
+		overHealCountsForMission: false
+	});
 	await player.addScore({
 		amount: -lostScore,
 		channel: interaction.channel,
@@ -41,13 +44,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	await player.save();
 
-	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN);
+	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN, interaction.createdAt);
 	await Maps.stopTravel(player);
 	const newlink = await MapLinks.getLinkByLocations(
 		await player.getPreviousMapId(),
 		await player.getDestinationId()
 	);
-	await Maps.startTravel(player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN);
+	await Maps.startTravel(player, newlink, interaction.createdAt.valueOf(), NumberChangeReason.RESPAWN, interaction.createdAt);
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 

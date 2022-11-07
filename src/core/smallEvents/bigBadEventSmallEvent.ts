@@ -46,7 +46,7 @@ export const smallEvent: SmallEvent = {
 				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
 				alteEmoji: seFallen.alte as string
 			}));
-			await TravelTime.applyEffect(player, seFallen.alte as string, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(player, seFallen.alte as string, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
 			if (seFallen.tags) {
 				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
 					await MissionsController.update(player, interaction.channel, language, {
@@ -68,7 +68,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		}
 		await interaction.editReply({embeds: [seEmbed]});
-		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
 		await player.save();
 	}
 };
