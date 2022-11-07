@@ -2,10 +2,7 @@ import MapLink, {MapLinks} from "../database/game/models/MapLink";
 import {MapLocations} from "../database/game/models/MapLocation";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
-import {
-	millisecondsToHours,
-	millisecondsToMinutes
-} from "../utils/TimeUtils";
+import {millisecondsToHours, millisecondsToMinutes} from "../utils/TimeUtils";
 import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
@@ -46,14 +43,15 @@ export class Maps {
 	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
 	 * @param reason
+	 * @param now
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason): Promise<void> {
+	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason, now: Date): Promise<void> {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time);
 		await player.save();
 		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
-			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason);
+			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason, now);
 		}
 		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink).then();
 	}

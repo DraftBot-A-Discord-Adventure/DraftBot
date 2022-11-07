@@ -33,8 +33,8 @@ const skipTutorialTestCommand = async (language: string, interaction: CommandInt
 	player.effectEndDate = new Date();
 	player.effectDuration = 0;
 	player.health = await player.getMaxHealth();
-	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
-	await Maps.startTravel(player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST);
+	await TravelTime.removeEffect(player, NumberChangeReason.TEST, interaction.createdAt);
+	await Maps.startTravel(player, await MapLinks.getRandomLink(), 0, NumberChangeReason.TEST, interaction.createdAt);
 	await player.save();
 
 	return commandInfo.messageWhenExecuted;

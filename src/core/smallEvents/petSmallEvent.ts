@@ -197,7 +197,7 @@ async function finishResolvingSpecialInteractions(
 		await giveFood(interactionCommand, language, player, food, 1, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "loseLife":
-		await player.killIfNeeded(interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT, interactionCommand.createdAt);
 		break;
 	default:
 		break;
@@ -238,7 +238,7 @@ async function managePickedPetInteraction(
 		amount = RandomUtils.randInt(1, 5);
 		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		await player.save();
-		await MissionsController.update(player, interactionCommand.channel, language, { missionId: "petEarnHealth" });
+		await MissionsController.update(player, interactionCommand.channel, language, {missionId: "petEarnHealth"});
 		break;
 	case "gainLove":
 		amount = RandomUtils.randInt(1, 3);
@@ -278,7 +278,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseTime":
 		amount = RandomUtils.randInt(5, 20);
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT, interactionCommand.createdAt);
 		await player.save();
 		break;
 	case "petFlee":

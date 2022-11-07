@@ -186,7 +186,7 @@ async function displayTop(
 	if (timing === TopConstants.TIMING_WEEKLY) {
 		topDisplay.setFooter({
 			text: topModule.format("nextReset", {
-				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
+				time: parseTimeDifference(interaction.createdAt.valueOf(), getNextSundayMidnight(), language)
 			}),
 			iconURL: TopConstants.LINK_CLOCK_FOOTER
 		});
