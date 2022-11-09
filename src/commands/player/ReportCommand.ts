@@ -36,7 +36,7 @@ type TextInformation = { interaction: CommandInteraction, language: string, tr?:
  * @param now
  */
 async function initiateNewPlayerOnTheAdventure(player: Player, now: Date): Promise<void> {
-	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), now.valueOf(), NumberChangeReason.NEW_PLAYER, now);
+	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), 0, NumberChangeReason.NEW_PLAYER, now);
 	await player.save();
 }
 
