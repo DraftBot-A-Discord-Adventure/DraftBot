@@ -55,12 +55,11 @@ export class TravelTime {
 		const data = await this.getTravelDataSimplified(player, date);
 
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
-		// The next small event in 10 minutes after the last small event or the start or the travel if none before
-		let nextSmallEventTime = (lastSmallEvent && lastSmallEvent.time > data.travelStartTime ? lastSmallEvent.time : data.travelStartTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-		// If the next small event is in the effect period, we shift it after the end of the effect
-		if (player.effectDuration !== 0 && nextSmallEventTime <= data.effectEndTime) {
-			nextSmallEventTime = data.effectEndTime + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-		}
+		// The next small event in 10 minutes after the last thing that happened between last small event, start of the travel (if there's no smallevents before) and last end of alteration
+		const nextSmallEventTime = Math.max(
+			lastSmallEvent && lastSmallEvent.time > data.travelStartTime
+				? lastSmallEvent.time : data.travelStartTime,
+			data.effectEndTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 
 		return {
 			travelStartTime: data.travelStartTime,
@@ -190,7 +189,7 @@ export class TravelTime {
 		// Now we can safely remove the effect, as the player is after the effect
 		player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
 		player.effectDuration = 0;
-		player.effectEndDate = new Date(0);
+		player.effectEndDate = new Date();
 
 		// Save
 		await player.save();
