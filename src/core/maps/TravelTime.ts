@@ -60,7 +60,6 @@ export class TravelTime {
 			data.travelStartTime,
 			lastSmallEvent ? lastSmallEvent.time : -1,
 			data.effectEndTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
-		console.log(new Date(data.travelStartTime).toUTCString());
 
 		return {
 			travelStartTime: data.travelStartTime,
@@ -145,27 +144,25 @@ export class TravelTime {
 	 * @param isMilliseconds
 	 */
 	static async timeTravel(player: Player, time: number, reason: NumberChangeReason, isMilliseconds = false): Promise<void> {
-		const timeMs = isMilliseconds ? time : minutesToMilliseconds(time);
+		let timeMs = isMilliseconds ? time : minutesToMilliseconds(time);
+		const initialEffectEndDate = player.effectEndDate.valueOf();
 
-		// Move the start and effect date
-		if (player.startTravelDate.valueOf() - timeMs > 0) { // Make sure we are not negative
-			player.startTravelDate = new Date(player.startTravelDate.valueOf() - timeMs);
+		// First we have to heal the effect if it exists
+		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - timeMs, 0));
+
+		// Update the milliseconds to shave from small event
+		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
+			timeMs -= Date.now() - player.effectEndDate.valueOf();// we only want to move the start travel date by the amount of the
 		}
-		else {
-			player.startTravelDate = new Date(0);
-		}
-		if (player.effectEndDate.valueOf() - timeMs > 0) { // Make sure we are not negative
-			player.effectEndDate = new Date(player.effectEndDate.valueOf() - timeMs);
-		}
-		else {
-			player.effectEndDate = new Date(0);
-		}
+
+		// Move the start date
+		player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
 			// Move the last small event
 			const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 			if (lastSmallEvent) {
-				lastSmallEvent.time -= Date.now() - player.effectEndDate.valueOf();
+				lastSmallEvent.time -= timeMs;
 				await lastSmallEvent.save();
 			}
 		}
