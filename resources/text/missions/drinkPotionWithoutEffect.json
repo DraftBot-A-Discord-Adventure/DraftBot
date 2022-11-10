@@ -7,5 +7,34 @@
 			"desc": "Drink {objective} potion{objective>1?s:} without effect"
 		}
 	},
-	"campaignOnly": true
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			0
+		],
+		"hard": [
+			0
+		]
+	},
+	"objectives": [
+		1
+	],
+	"gems": [
+		2
+	],
+	"xp": [
+		15
+	],
+	"money": [
+		30
+	],
+	"expirations": [
+		24
+	],
+	"dailyIndexes": [
+		1
+	]
 }
