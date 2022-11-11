@@ -135,6 +135,7 @@ export abstract class Constants {
 	};
 
 	static readonly REPORT = {
+		HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD: 1, // used to get the amount of point a user will get in the first report, 1 hour = 60 points ( + some bonus )
 		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
