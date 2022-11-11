@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"intro": "Au détour d'un chemin vous croisez une sorcière, celle-ci vous propose de l'aider."
+		},
+		"en": {
+			"intro": "At the bend of a path you meet a witch, this one offers you to help her."
+		}
+	},
+	"rarity": 2,
+	"emote": ":broom:"
+}
