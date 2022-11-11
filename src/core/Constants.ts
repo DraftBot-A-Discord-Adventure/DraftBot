@@ -139,7 +139,7 @@ export abstract class Constants {
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
 		PATH_SQUARE_COUNT: 16,
-		TIME_BETWEEN_MINI_EVENTS: 10 * 60 * 1000, // 10 minutes
+		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000, // 9 minutes and 45 seconds
 		QUICK_END_EMOTE: "🔚"
 	};
 
