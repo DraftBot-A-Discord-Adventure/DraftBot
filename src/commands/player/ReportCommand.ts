@@ -7,7 +7,13 @@ import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEven
 import Possibility from "../../core/database/game/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
-import {millisecondsToMinutes, minutesDisplay, minutesToHours, parseTimeDifference} from "../../core/utils/TimeUtils";
+import {
+	getTimeFromXHoursAgo,
+	millisecondsToMinutes,
+	minutesDisplay,
+	minutesToHours,
+	parseTimeDifference
+} from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/database/game/models/Tag";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -36,7 +42,10 @@ type TextInformation = { interaction: CommandInteraction, language: string, tr?:
  * @param now
  */
 async function initiateNewPlayerOnTheAdventure(player: Player, now: Date): Promise<void> {
-	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK), 0, NumberChangeReason.NEW_PLAYER, now);
+	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK),
+		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf(),
+		NumberChangeReason.NEW_PLAYER,
+		now);
 	await player.save();
 }
 

@@ -180,6 +180,16 @@ export function getNextDay2AM(): Date {
 }
 
 /**
+ * get the date of now minus the given number of hours
+ * @param hours - the number of hours to remove
+ */
+export function getTimeFromXHoursAgo(hours: number): Date {
+	const time = new Date();
+	time.setHours(time.getHours() - hours);
+	return time;
+}
+
+/**
  * Display a time in a human-readable format
  * @param minutes - the time in minutes
  * @param language
