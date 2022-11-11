@@ -50,8 +50,8 @@ export async function giveFood(
 			format(tr.get("singleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
-					quantity: quantity,
-					name: foodModule.get(selectedFood + ".name")
+					quantity,
+					name: foodModule.get(`${selectedFood}.name`)
 						.slice(2, -2)
 						.toLowerCase()
 				}
@@ -63,24 +63,24 @@ export async function giveFood(
 			format(tr.get("multipleSuccessAddFoodDesc"),
 				{
 					emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[selectedFoodIndex],
-					quantity: quantity,
+					quantity,
 					name:
 						selectedFood === "ultimateFood" && language === Constants.LANGUAGE.FRENCH
-							? foodModule.get(selectedFood + ".name")
+							? foodModule.get(`${selectedFood}.name`)
 								.slice(2, -2)
 								.toLowerCase()
 								.replace(
-									foodModule.get(selectedFood + ".name")
+									foodModule.get(`${selectedFood}.name`)
 										.slice(2, -2)
 										.toLowerCase()
 										.split(" ")[0],
-									foodModule.get(selectedFood + ".name")
+									foodModule.get(`${selectedFood}.name`)
 										.slice(2, -2)
 										.toLowerCase()
 										.split(" ")[0]
 										.concat("s")
 								)
-							: foodModule.get(selectedFood + ".name")
+							: foodModule.get(`${selectedFood}.name`)
 								.slice(2, -2)
 								.toLowerCase()
 				}
