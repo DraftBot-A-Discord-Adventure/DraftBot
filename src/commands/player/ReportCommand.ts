@@ -402,35 +402,6 @@ async function updatePlayerInfos(
 	if (randomPossibility.oneshot) {
 		await player.addHealth(-player.health, textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT);
 	}
-
-	if (randomPossibility.eventId === 0) {
-		await player.addMoney({
-			amount: -player.money,
-			channel: textInformation.interaction.channel,
-			language: textInformation.language,
-			reason: NumberChangeReason.BIG_EVENT
-		});
-		await player.addScore({
-			amount: -player.score,
-			channel: textInformation.interaction.channel,
-			language: textInformation.language,
-			reason: NumberChangeReason.BIG_EVENT
-		});
-		if (randomPossibility.possibilityKey !== "end") {
-			await player.addMoney({
-				amount: 10 - player.money,
-				channel: textInformation.interaction.channel,
-				language: textInformation.language,
-				reason: NumberChangeReason.BIG_EVENT
-			});
-			await player.addScore({
-				amount: 100 - player.score,
-				channel: textInformation.interaction.channel,
-				language: textInformation.language,
-				reason: NumberChangeReason.BIG_EVENT
-			});
-		}
-	}
 }
 
 /**
