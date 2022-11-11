@@ -10,4 +10,10 @@ export abstract class GuildConstants {
 		CARNIVOROUS_FOOD: 0,
 		ULTIMATE_FOOD: 0
 	};
+
+	static readonly XP_CALCULATION_STEP = 5000;
+
+	static readonly MIN_XP_DIVIDER = 20;
+
+	static readonly MAX_XP_DIVIDER = 20 / 9;
 }
