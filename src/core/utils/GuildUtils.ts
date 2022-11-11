@@ -8,6 +8,8 @@ import {format} from "./StringFormatter";
 import {getFoodIndexOf} from "./FoodUtils";
 import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
+import {RandomUtils} from "./RandomUtils";
+import {PetSellConstants} from "../constants/PetSellConstants";
 
 /**
  * Gives food to a given guild / player
@@ -86,4 +88,23 @@ export async function giveFood(
 		);
 	}
 	await interaction.channel.send({embeds: [successEmbed]});
+}
+
+/**
+ * calculate the amount of xp the guild will receive from the price chosen by the user
+ * @param petCost
+ */
+export function calculateAmountOfXPToAdd(petCost: number): number {
+	function calculateAmountOfXPToAddForStep(cost: number): number {
+		return RandomUtils.randInt(
+			Math.floor(cost / PetSellConstants.MIN_XP_DIVIDER),
+			Math.floor(cost / PetSellConstants.MAX_XP_DIVIDER) + 1);
+	}
+
+	let guildExp = 0;
+	for (let i = 0; i < Math.floor(petCost / PetSellConstants.CALCUL_SELL_PRICE_STEP); i++) {
+		guildExp += calculateAmountOfXPToAddForStep(PetSellConstants.CALCUL_SELL_PRICE_STEP);
+	}
+
+	return guildExp + calculateAmountOfXPToAddForStep(petCost % PetSellConstants.CALCUL_SELL_PRICE_STEP);
 }

@@ -11,7 +11,7 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
-import {RandomUtils} from "../../core/utils/RandomUtils";
+import {calculateAmountOfXPToAdd} from "../../core/utils/GuildUtils";
 import {
 	BroadcastTranslationModuleLike,
 	DraftBotBroadcastValidationMessage
@@ -74,17 +74,6 @@ async function missingRequirementsToSellPet(textInformation: TextInformation, se
 	}
 
 	return false;
-}
-
-/**
- * calculate the amount of xp the guild will receive from the price chosen by the user
- * @param petCost
- */
-function calculateAmountOfXPToAdd(petCost: number): number {
-	return Math.floor(RandomUtils.randInt(
-		Math.floor(petCost / PetSellConstants.MIN_XP_DIVIDER),
-		Math.floor(petCost / PetSellConstants.MAX_XP_DIVIDER) + 1
-	));
 }
 
 /**
