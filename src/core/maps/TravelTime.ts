@@ -150,13 +150,13 @@ export class TravelTime {
 		// First we have to heal the effect if it exists
 		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - timeMs, 0));
 
+		// Move the start date
+		player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
+
 		// Update the milliseconds to shave from small event
 		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
 			timeMs -= Date.now() - player.effectEndDate.valueOf();// we only want to move the start travel date by the amount of the
 		}
-
-		// Move the start date
-		player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
 			// Move the last small event
