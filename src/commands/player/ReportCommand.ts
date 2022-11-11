@@ -332,7 +332,7 @@ async function chooseDestination(
 
 	if (destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT, interaction.createdAt);
+		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT, new Date());
 		await destinationChoseMessage(player, destinationMaps[0], interaction, language);
 		return;
 	}
@@ -357,7 +357,7 @@ async function chooseDestination(
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
-		await Maps.startTravel(player, newLink, interaction.createdAt.valueOf(), NumberChangeReason.BIG_EVENT, interaction.createdAt);
+		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT, new Date());
 		await destinationChoseMessage(player, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
