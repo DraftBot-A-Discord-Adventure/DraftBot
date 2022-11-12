@@ -44,7 +44,7 @@ function foodAmount(player: Player, currentFoodLevel: number, ultimate: boolean)
 	return Math.max(
 		Math.min(Math.ceil(food.MULTIPLIER * Math.tanh(player.level / 100))
 			+ RandomUtils.variationInt(food.VARIATION),
-		GuildConstants.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1
+		(ultimate ? GuildConstants.MAX_ULTIMATE_PET_FOOD : GuildConstants.MAX_COMMON_PET_FOOD) - currentFoodLevel), 1
 	);
 }
 

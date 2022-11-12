@@ -97,7 +97,7 @@ export abstract class SmallEventConstants {
 		},
 		COMMON_FOOD: {
 			MULTIPLIER: 6,
-			VARIATION: 1
+			VARIATION: 4
 		}
 	};
 
