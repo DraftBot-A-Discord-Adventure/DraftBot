@@ -12,7 +12,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
-import { PetConstants } from "../../core/constants/PetConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 /**
  * Renames your current pet

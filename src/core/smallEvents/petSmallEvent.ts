@@ -19,7 +19,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {MissionsController} from "../missions/MissionsController";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
-import { PetConstants } from "../constants/PetConstants";
+import {PetConstants} from "../constants/PetConstants";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -155,20 +155,6 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
 }
 
 /**
- * Gives to the player the pet tamer badge, if he doesn't have it already
- * @param player
- * @param interaction
- */
-async function givePetTamerBadge(player: Player, interaction: string): Promise<string> {
-	if (player.badges !== null && player.badges.includes(Constants.BADGES.PET_TAMER)) {
-		return "nothing";
-	}
-	player.addBadge(Constants.BADGES.PET_TAMER);
-	await player.save();
-	return interaction;
-}
-
-/**
  * Resolves the actions of several interactions which requires to send an embed after the small event
  * @param interaction
  * @param interactionCommand
@@ -258,7 +244,8 @@ async function managePickedPetInteraction(
 		await player.save();
 		break;
 	case "badge":
-		interaction = await givePetTamerBadge(player, interaction);
+		player.addBadge(Constants.BADGES.PET_TAMER);
+		await player.save();
 		break;
 	case "loseLife":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);

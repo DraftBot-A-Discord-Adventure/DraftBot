@@ -17,7 +17,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
-import { PetConstants } from "../../core/constants/PetConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 

@@ -406,7 +406,7 @@ export class Player extends Model {
 	 */
 	public effectRemainingTime(now: Date): number {
 		let remainingTime = 0;
-		if (EffectsConstants.EMOJI_TEXT_LIST.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
+		if (Object.values(EffectsConstants.EMOJI_TEXT).includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			if (!this.effectEndDate || this.effectEndDate.valueOf() === 0) {
 				return 0;
 			}

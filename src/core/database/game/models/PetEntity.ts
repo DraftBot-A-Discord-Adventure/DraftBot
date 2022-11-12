@@ -10,7 +10,7 @@ import {botConfig, draftBotInstance} from "../../../bot";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {PlayerEditValueParameters} from "./Player";
 import moment = require("moment");
-import { PetConstants } from "../../../constants/PetConstants";
+import {PetConstants} from "../../../constants/PetConstants";
 
 export class PetEntity extends Model {
 	public readonly id!: number;

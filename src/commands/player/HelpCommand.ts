@@ -7,7 +7,7 @@ import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
-import { PetConstants } from "../../core/constants/PetConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 /**
  * Get the list of commands mention from the command data

@@ -3,8 +3,6 @@ import {HexColorString} from "discord.js";
 
 export type ConstantRange = {MIN: number, MAX: number};
 
-export type ConstantVariation = {BASE: number, VARIATION: number};
-
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",

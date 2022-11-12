@@ -23,7 +23,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
-import { PetConstants } from "../../core/constants/PetConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };

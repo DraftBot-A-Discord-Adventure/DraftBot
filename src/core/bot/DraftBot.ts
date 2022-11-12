@@ -16,7 +16,7 @@ import {GameDatabase} from "../database/game/GameDatabase";
 import {Op, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
-import { PetConstants } from "../constants/PetConstants";
+import {PetConstants} from "../constants/PetConstants";
 
 /**
  * The main class of the bot, manages the bot in general

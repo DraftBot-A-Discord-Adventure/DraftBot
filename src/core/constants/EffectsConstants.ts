@@ -16,23 +16,6 @@ export abstract class EffectsConstants {
 		SCARED: ":scream:"
 	};
 
-	static readonly EMOJI_TEXT_LIST = [
-		":baby:",
-		":skull:",
-		":smiley:",
-		":sleeping:",
-		":zany_face:",
-		":cold_face:",
-		":head_bandage:",
-		":sick:",
-		":lock:",
-		":dizzy_face:",
-		":clock2:",
-		":drooling_face:",
-		":confounded:",
-		":scream:"
-	];
-
 	static readonly EMOJIS = {
 		":baby:": "👶",
 		":skull:": "💀",

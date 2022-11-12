@@ -22,7 +22,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
-import { PetConstants } from "../../core/constants/PetConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 /**
  * Obtiens la guilde du joueur
