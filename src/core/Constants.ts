@@ -1,6 +1,8 @@
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
 import {HexColorString} from "discord.js";
 
+export type ConstantRange = {MIN: number, MAX: number};
+
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",

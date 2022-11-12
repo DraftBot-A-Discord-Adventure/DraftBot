@@ -1,4 +1,4 @@
-import {Constants} from "../Constants";
+import {ConstantRange, Constants} from "../Constants";
 
 /**
  * remove discord formatting scrap from usernames
@@ -47,7 +47,7 @@ export function progressBar(value: number, maxValue: number): string {
  * @param minLength
  * @param maxLength
  */
-export function checkNameString(name: string, minLength: number, maxLength: number): boolean {
+export function checkNameString(name: string, range: ConstantRange): boolean {
 	// Here are the characters that are allowed in a name or description
 	const regexAllowed = /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû!,'.:()-]+$/u;
 
@@ -59,7 +59,7 @@ export function checkNameString(name: string, minLength: number, maxLength: numb
 	const regexSpecialCases = /^[0-9 ]+$|( {2})+$|([ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]{2})+$|([!,'.:()-]{2})+/u;
 
 	// We also check for the length of the name
-	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= range.MIN && name.length <= range.MAX;
 }
 
 /**
