@@ -91,8 +91,14 @@ export abstract class SmallEventConstants {
 	static readonly ULTIMATE_FOOD_MERCHANT = {
 		MINIMUM_LEVEL_GOOD_PLAYER: 30,
 		MONEY_WON_NO_GUILD: 20,
-		ULTIMATE_FOOD_DEVIATION: 1,
-		COMMON_FOOD_DEVIATION: 1
+		ULTIMATE_FOOD: {
+			MULTIPLIER: 3,
+			VARIATION: 1
+		},
+		COMMON_FOOD: {
+			MULTIPLIER: 6,
+			VARIATION: 1
+		}
 	};
 
 	static readonly GOBLETS_GAME = {

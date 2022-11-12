@@ -34,28 +34,17 @@ function maxRarity(player: Player): number {
 }
 
 /**
- * Says how many soups should be awarded
+ * Says how many of the food should be awarded
  * @param player
  * @param currentFoodLevel
+ * @param ultimate - true: gives ultimate food, false : gives common food
  */
-function ultimateFoodAmount(player: Player, currentFoodLevel: number): number {
+function foodAmount(player: Player, currentFoodLevel: number, ultimate: boolean): number {
+	const food = ultimate ? SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD : SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD;
 	return Math.max(
-		Math.min(Math.ceil(3 * Math.tanh(player.level / 100))
-			+ RandomUtils.draftbotRandom.integer(-SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD_DEVIATION, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD_DEVIATION),
+		Math.min(Math.ceil(food.MULTIPLIER * Math.tanh(player.level / 100))
+			+ RandomUtils.variationInt(food.VARIATION),
 		GuildConstants.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1
-	);
-}
-
-/**
- * Says how much common food should be awarded
- * @param player
- * @param currentFoodLevel
- */
-function commonFoodAmount(player: Player, currentFoodLevel: number): number {
-	return Math.max(
-		Math.min(Math.ceil(6 * Math.tanh(player.level / 100) + 1)
-			+ RandomUtils.draftbotRandom.integer(-SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD_DEVIATION, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD_DEVIATION),
-		GuildConstants.MAX_COMMON_PET_FOOD - currentFoodLevel), 1
 	);
 }
 
@@ -80,7 +69,7 @@ async function generateReward(player: Player): Promise<RewardType> {
 	if (player.level >= SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MINIMUM_LEVEL_GOOD_PLAYER) {
 		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < GuildConstants.MAX_ULTIMATE_PET_FOOD ? {
 			type: "ultimateFood",
-			option: ultimateFoodAmount(player, guild.ultimateFood)
+			option: foodAmount(player, guild.ultimateFood, true)
 		} : {
 			type: "fullUltimateFood",
 			option: 0
@@ -92,7 +81,7 @@ async function generateReward(player: Player): Promise<RewardType> {
 	if (GuildConstants.MAX_COMMON_PET_FOOD > guild.commonFood) {
 		return {
 			type: "commonFood",
-			option: commonFoodAmount(player, guild.commonFood)
+			option: foodAmount(player, guild.commonFood, false)
 		};
 	}
 	return {
