@@ -1,16 +1,18 @@
 import {WitchEvent} from "../../WitchEvent";
-import {RandomUtils} from "../../../utils/RandomUtils";
 import {Interaction} from "discord.js";
 import Player from "../../../database/game/models/Player";
 import {generateRandomPotion, giveItemToPlayer} from "../../../utils/ItemUtils";
 import {Constants} from "../../../Constants";
 import {InventorySlots} from "../../../database/game/models/InventorySlot";
+import {TravelTime} from "../../../maps/TravelTime";
+import {EffectsConstants} from "../../../constants/EffectsConstants";
+import {NumberChangeReason} from "../../../constants/LogsConstants";
 
-export default class Bat extends WitchEvent {
+export default class Package extends WitchEvent {
 	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
 		const potionToGive = await generateRandomPotion(
-			RandomUtils.draftbotRandom.bool(0.625) ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
-			Constants.RARITY.SPECIAL);
+			null,
+			Constants.RARITY.LEGENDARY);
 		await giveItemToPlayer(
 			player,
 			potionToGive,
@@ -21,8 +23,14 @@ export default class Bat extends WitchEvent {
 		);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async giveEffect(player: Player): Promise<void> {
-		return await Promise.resolve();
+		await TravelTime.applyEffect(
+			player,
+			EffectsConstants.EMOJI_TEXT.SICK,
+			0,
+			new Date(),
+			NumberChangeReason.SMALL_EVENT,
+			new Date()
+		);
 	}
 }
