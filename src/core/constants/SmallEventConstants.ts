@@ -96,8 +96,18 @@ export abstract class SmallEventConstants {
 	};
 
 	static readonly GOBLETS_GAME = {
-		BASE_TIME_LOST: 1,
-		BASE_HEALTH_LOST: 5
+		TIME_LOST: {
+			BASE: 6,
+			VARIATION: 5,
+			LEVEL_MULTIPLIER: 0.42
+		},
+
+		HEALTH_LOST: {
+			BASE: 5,
+			VARIATION: 3,
+			LEVEL_MULTIPLIER: 1 / 6,
+			END_LEVEL_MULTIPLIER: 1 / 4
+		}
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {

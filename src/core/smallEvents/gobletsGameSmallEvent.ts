@@ -28,12 +28,14 @@ function generateMalus(player: Player, malus: string): RewardType {
 	case "life":
 		return {
 			type: malus,
-			value: Math.round(player.level / 6) + SmallEventConstants.GOBLETS_GAME.BASE_HEALTH_LOST + RandomUtils.draftbotRandom.integer(-3, 3)
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
 		};
 	case "time":
 		return {
 			type: malus,
-			value: Math.round(player.level * 0.42) + SmallEventConstants.GOBLETS_GAME.BASE_TIME_LOST + RandomUtils.draftbotRandom.integer(0, 10)
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION)
 		};
 	case "nothing":
 		return {
@@ -43,7 +45,8 @@ function generateMalus(player: Player, malus: string): RewardType {
 	case "end":
 		return {
 			type: malus,
-			value: Math.round(player.level / 8) + SmallEventConstants.GOBLETS_GAME.BASE_HEALTH_LOST + RandomUtils.draftbotRandom.integer(-3, 3)
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
 		};
 	default:
 	}

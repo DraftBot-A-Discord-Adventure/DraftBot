@@ -101,9 +101,7 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  * @param guildDailyModule
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const moneyWon = RandomUtils.randInt(
-		GuildDailyConstants.MINIMAL_MONEY + guildLike.guild.level,
-		GuildDailyConstants.MAXIMAL_MONEY + guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
+	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => member.addMoney({
 		amount: moneyWon,
 		channel: stringInfos.interaction.channel,
@@ -211,9 +209,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
  * @param guildDailyModule
  */
 async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const xpWon = RandomUtils.randInt(
-		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
-		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
+	const xpWon = RandomUtils.rangedInt(GuildDailyConstants.XP, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => member.addExperience({
 		amount: xpWon,
 		channel: stringInfos.interaction.channel,
@@ -233,9 +229,7 @@ async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: Strin
  * @param guildDailyModule
  */
 async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const xpGuildWon = RandomUtils.randInt(
-		GuildDailyConstants.MINIMAL_XP + guildLike.guild.level,
-		GuildDailyConstants.MAXIMAL_XP + guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
+	const xpGuildWon = RandomUtils.rangedInt(GuildDailyConstants.XP, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
 	await guildLike.guild.addExperience(xpGuildWon, stringInfos.interaction.channel, guildDailyModule.language, NumberChangeReason.GUILD_DAILY);
 	await guildLike.guild.save();
 	stringInfos.embed.setDescription(guildDailyModule.format("guildXP", {

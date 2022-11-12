@@ -16,6 +16,7 @@ import {GameDatabase} from "../database/game/GameDatabase";
 import {Op, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
+import { PetConstants } from "../constants/PetConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -144,7 +145,7 @@ export class DraftBot {
 				{
 					where: {
 						lovePoints: {
-							[Op.notIn]: [Constants.PETS.MAX_LOVE_POINTS, 0]
+							[Op.notIn]: [PetConstants.MAX_LOVE_POINTS, 0]
 						}
 					}
 				}

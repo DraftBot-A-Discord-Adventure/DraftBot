@@ -25,7 +25,7 @@ export class FightActionController {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
 		// add a random variation of 5% of the damage
-		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.randInt(-FightConstants.DAMAGE_RANDOM_VARIATION, FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
+		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.variationInt(FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		return Math.round(attackDamage * (1 + levelBonusRatio));
 	}
 

@@ -101,8 +101,8 @@ export function calculateAmountOfXPToAdd(cost: number): number {
 	 */
 	function calculateAmountOfXPToAddForStep(cost: number): number {
 		return RandomUtils.randInt(
-			Math.floor(cost / GuildConstants.MIN_XP_DIVIDER),
-			Math.floor(cost / GuildConstants.MAX_XP_DIVIDER) + 1);
+			Math.floor(cost / GuildConstants.XP_DIVIDER.MIN),
+			Math.floor(cost / GuildConstants.XP_DIVIDER.MAX) + 1);
 	}
 
 	let guildExp = 0;

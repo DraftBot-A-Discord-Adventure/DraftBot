@@ -12,9 +12,8 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {randomInt} from "crypto";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {giveFood} from "../../core/utils/GuildUtils";
+import {calculateAmountOfXPToAdd, giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
@@ -45,7 +44,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);
-			const xpToAdd = randomInt(50, 450);
+			const xpToAdd = calculateAmountOfXPToAdd(parseInt(guildShopTranslations.get("guildXp.price")));
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
 
 			await guild.save();

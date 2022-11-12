@@ -19,6 +19,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {MissionsController} from "../missions/MissionsController";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import { PetConstants } from "../constants/PetConstants";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -143,7 +144,7 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
 	}
 
 	// Filter if pet is already tamed
-	if (petEntity.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
+	if (petEntity.lovePoints >= PetConstants.MAX_LOVE_POINTS) {
 		delete section["gainLove"];
 	}
 

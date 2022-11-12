@@ -7,6 +7,7 @@ import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
+import { PetConstants } from "../../core/constants/PetConstants";
 
 /**
  * Get the list of commands mention from the command data
@@ -151,8 +152,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		}
 
 		if (command === "PET_SELL") {
-			option1 = Constants.PETS.SELL.MIN;
-			option2 = Constants.PETS.SELL.MAX;
+			option1 = PetConstants.SELL_PRICE.MIN;
+			option2 = PetConstants.SELL_PRICE.MAX;
 		}
 
 		if (command === "FIGHT") {

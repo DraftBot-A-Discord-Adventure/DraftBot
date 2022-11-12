@@ -8,7 +8,7 @@ import {Guilds} from "../database/game/models/Guild";
 import {GuildPets} from "../database/game/models/GuildPet";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Constants} from "../Constants";
+import {PetConstants} from "../constants/PetConstants";
 import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
@@ -86,12 +86,12 @@ export const smallEvent: SmallEvent = {
 			do {
 				outRand = RandomUtils.randInt(0, storiesObject.length);
 			}
-			while (storiesObject[outRand][Constants.PETS.IS_FOOD] && guild === null);
+			while (storiesObject[outRand][PetConstants.IS_FOOD] && guild === null);
 			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
 			await interaction.editReply({embeds: [seEmbed]});
-			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
+			if (storiesObject[outRand][PetConstants.IS_FOOD]) {
 				await giveFood(interaction, language, player, SmallEventConstants.FIND_PET.FOOD_GIVEN_NO_PLACE, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}

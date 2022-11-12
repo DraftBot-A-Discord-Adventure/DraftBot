@@ -12,15 +12,17 @@ export abstract class GuildDailyConstants {
 		PET_FOOD: "petFood"
 	};
 
-	static readonly MINIMAL_XP = 20;
-
-	static readonly MAXIMAL_XP = 80;
+	static readonly XP = {
+		MIN: 20,
+		MAX: 80
+	};
 
 	static readonly XP_MULTIPLIER = 2;
 
-	static readonly MINIMAL_MONEY = 10;
-
-	static readonly MAXIMAL_MONEY = 300;
+	static readonly MONEY = {
+		MIN: 10,
+		MAX: 300
+	};
 
 	static readonly MONEY_MULTIPLIER = 4;
 

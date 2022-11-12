@@ -13,9 +13,10 @@ export abstract class GuildConstants {
 
 	static readonly XP_CALCULATION_STEP = 5000;
 
-	static readonly MIN_XP_DIVIDER = 20;
-
-	static readonly MAX_XP_DIVIDER = 20 / 9;
+	static readonly XP_DIVIDER = {
+		MIN: 20,
+		MAX: 20 / 9
+	};
 
 	static readonly REQUIRED_LEVEL = 10;
 

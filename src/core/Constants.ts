@@ -3,6 +3,8 @@ import {HexColorString} from "discord.js";
 
 export type ConstantRange = {MIN: number, MAX: number};
 
+export type ConstantVariation = {BASE: number, VARIATION: number};
+
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
@@ -151,32 +153,6 @@ export abstract class Constants {
 		LEVEL: "level",
 		SCORE: "score",
 		WEEKLY_SCORE: "weeklyScore"
-	};
-
-	static readonly PETS = {
-		IS_FOOD: 1,
-		NICKNAME_LENGTH_RANGE: {
-			MIN: 3,
-			MAX: 16
-		},
-		MALE: "m",
-		FEMALE: "f",
-		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
-		MAX_LOVE_POINTS: 100,
-		BASE_LOVE: 10,
-		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
-		LOVE_LEVELS: [5, 20, 50],
-		LOVE_LEVEL: {
-			FEISTY: 1,
-			WILD: 2,
-			FEARFUL: 3,
-			TAMED: 4,
-			TRAINED: 5
-		},
-		SELL: {
-			MIN: 100,
-			MAX: 50000
-		}
 	};
 
 	static readonly CLASS = {

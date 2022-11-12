@@ -17,6 +17,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
+import { PetConstants } from "../../core/constants/PetConstants";
 
 type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 
@@ -108,8 +109,8 @@ async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, in
 	tradersAndPets[i].trader.petId = tradersAndPets[1 - i].pet.id;
 	await tradersAndPets[i].trader.save();
 	tradersAndPets[i].pet.lovePoints -= (await Pets.getById(tradersAndPets[i].pet.petId)).rarity * PetTradeConstants.POINT_REMOVE_MULTIPLIER;
-	if (tradersAndPets[i].pet.lovePoints < Constants.PETS.BASE_LOVE) {
-		tradersAndPets[i].pet.lovePoints = Constants.PETS.BASE_LOVE;
+	if (tradersAndPets[i].pet.lovePoints < PetConstants.BASE_LOVE) {
+		tradersAndPets[i].pet.lovePoints = PetConstants.BASE_LOVE;
 	}
 	await tradersAndPets[i].pet.save();
 	await refreshMissionsOfTrader(tradersAndPets, i, interaction, petTradeModule);
