@@ -212,18 +212,15 @@ async function managePickedPetInteraction(
 	case "money":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount}));
-		await player.save();
 		break;
 	case "gainLife":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
-		await player.save();
 		await MissionsController.update(player, interactionCommand.channel, language, {missionId: "petEarnHealth"});
 		break;
 	case "gainLove":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount}));
-		await pet.save();
 		break;
 	case "food":
 		if (player.guildId) {
@@ -236,46 +233,39 @@ async function managePickedPetInteraction(
 	case "gainTime":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.timeTravel(player, amount, NumberChangeReason.SMALL_EVENT);
-		await player.save();
 		break;
 	case "points":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.POINTS);
 		await player.addScore(Object.assign(editValueChanges, {amount}));
-		await player.save();
 		break;
 	case "badge":
 		player.addBadge(Constants.BADGES.PET_TAMER);
-		await player.save();
 		break;
 	case "loseLife":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
-		await player.save();
 		break;
 	case "loseMoney":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
-		await player.save();
 		break;
 	case "loseTime":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT, interactionCommand.createdAt);
-		await player.save();
 		break;
 	case "petFlee":
 		LogsDatabase.logPetFree(pet).then();
 		await pet.destroy();
 		player.petId = null;
-		await player.save();
 		break;
 	case "loseLove":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount: -amount}));
-		await pet.save();
 		break;
 	default:
 		break;
 	}
+	await Promise.all([player.save(), pet.save()]);
 	return {interaction, amount, food};
 }
 
