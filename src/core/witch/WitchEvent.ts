@@ -35,7 +35,7 @@ export abstract class WitchEvent {
 
 	abstract givePotion(interaction: Interaction, player: Player, language: string): Promise<void> ;
 
-	abstract giveEffect(interaction: Interaction, player: Player, language: string): Promise<void>;
+	abstract giveEffect(player: Player): Promise<void>;
 
 	public async removeLifePoints(interaction: Interaction, player: Player, language: string): Promise<void> {
 		await player.addHealth(RandomUtils.randInt(3, 8), interaction.channel, language, NumberChangeReason.SMALL_EVENT);

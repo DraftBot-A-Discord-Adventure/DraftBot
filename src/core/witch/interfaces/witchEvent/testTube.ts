@@ -1,15 +1,14 @@
 import {WitchEvent} from "../../WitchEvent";
-import {RandomUtils} from "../../../utils/RandomUtils";
 import {Interaction} from "discord.js";
 import Player from "../../../database/game/models/Player";
 import {generateRandomPotion, giveItemToPlayer} from "../../../utils/ItemUtils";
 import {Constants} from "../../../Constants";
 import {InventorySlots} from "../../../database/game/models/InventorySlot";
 
-export default class Bat extends WitchEvent {
+export default class TestTube extends WitchEvent {
 	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
 		const potionToGive = await generateRandomPotion(
-			RandomUtils.draftbotRandom.bool(0.625) ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
+			null,
 			Constants.RARITY.SPECIAL);
 		await giveItemToPlayer(
 			player,
