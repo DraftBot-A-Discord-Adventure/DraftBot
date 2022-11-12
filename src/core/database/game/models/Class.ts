@@ -4,7 +4,7 @@ import {Data} from "../../../Data";
 import {format} from "../../../utils/StringFormatter";
 import * as moment from "moment";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
-import { Constants } from "../../../Constants";
+import {Constants} from "../../../Constants";
 
 export class Class extends Model {
 	public readonly id!: number;

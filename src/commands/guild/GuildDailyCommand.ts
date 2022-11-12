@@ -22,6 +22,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -250,7 +251,7 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
  * @param guildDailyModule
  */
 async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	if (guildLike.guild.commonFood + GuildDailyConstants.FIXED_PET_FOOD > Constants.GUILD.MAX_COMMON_PET_FOOD) {
+	if (guildLike.guild.commonFood + GuildDailyConstants.FIXED_PET_FOOD > GuildConstants.MAX_COMMON_PET_FOOD) {
 		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
 	}
 	guildLike.guild.commonFood += GuildDailyConstants.FIXED_PET_FOOD;
@@ -439,7 +440,7 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
-		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
+		requiredLevel: GuildConstants.REQUIRED_LEVEL,
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true
 	},

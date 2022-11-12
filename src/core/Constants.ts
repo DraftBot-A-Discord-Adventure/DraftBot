@@ -88,18 +88,18 @@ export abstract class Constants {
 		580, // special
 		1690, // epic
 		5000, // legendary
-		10000 // unique
+		10000 // mythic
 	];
 
 	static readonly RARITIES_GENERATOR = {
-		VALUES: [// common
-			4375,// uncommon
-			6875,// exotic
-			8375,// rare
-			9375,// special
+		VALUES: [ // common
+			4375, // uncommon
+			6875, // exotic
+			8375, // rare
+			9375, // special
 			9875, // epic
 			9975, // legendary
-			9998 // unique
+			9998 // mythic
 		],
 		MAX_VALUE: 10000
 	};
@@ -155,8 +155,10 @@ export abstract class Constants {
 
 	static readonly PETS = {
 		IS_FOOD: 1,
-		NICKNAME_MIN_LENGTH: 3,
-		NICKNAME_MAX_LENGTH: 16,
+		NICKNAME_LENGTH_RANGE: {
+			MIN: 3,
+			MAX: 16
+		},
 		MALE: "m",
 		FEMALE: "f",
 		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
@@ -201,31 +203,6 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly GUILD = {
-		REQUIRED_LEVEL: 10,
-		MAX_GUILD_MEMBER: 6,
-		MAX_GUILD_NAME_SIZE: 15,
-		MIN_GUILD_NAME_SIZE: 2,
-		MIN_DESCRIPTION_LENGTH: 2,
-		MAX_DESCRIPTION_LENGTH: 140,
-		MAX_LEVEL: 100,
-		MAX_COMMON_PET_FOOD: 25,
-		MAX_HERBIVOROUS_PET_FOOD: 15,
-		MAX_CARNIVOROUS_PET_FOOD: 15,
-		MAX_ULTIMATE_PET_FOOD: 5,
-		MAX_PET_FOOD: [
-			25, // Common food
-			15, // Herbivorous food
-			15, // Carnivorous food
-			5 // Ultimate food
-		],
-		PERMISSION_LEVEL: {
-			MEMBER: 1,
-			ELDER: 2,
-			CHIEF: 3
-		}
-	};
-
 	static readonly NATURE = {
 		NONE: 0,
 		HEALTH: 1,
@@ -251,13 +228,6 @@ export abstract class Constants {
 	static readonly BEGINNING = {
 		START_MAP_LINK: 83,
 		LAST_MAP_LINK: 77
-	};
-
-	static readonly LOTTERY_REWARD_TYPES = {
-		XP: "xp",
-		MONEY: "money",
-		GUILD_XP: "guildXp",
-		POINTS: "points"
 	};
 
 	static readonly MISSIONS = {
@@ -340,45 +310,8 @@ export abstract class Constants {
 			"🗳️",
 			"🔖",
 			"💞",
-			"\uD83D\uDC8D"
+			"💍"
 		]
-	};
-
-	static readonly SMALL_EVENT = {
-		MINIMUM_HEALTH_WON: 1,
-		MAXIMUM_HEALTH_WON: 4,
-		SHOP_RESALE_MULTIPLIER: 0.1,
-		MINIMUM_EXPERIENCE_WON: 10,
-		MAXIMUM_EXPERIENCE_WON: 35,
-		MINIMUM_GUILD_EXPERIENCE_WON: 20,
-		MAXIMUM_GUILD_EXPERIENCE_WON: 80,
-		MINIMUM_MONEY_WON_VOTE: 150,
-		MAXIMUM_MONEY_WON_VOTE: 250,
-		MINIMUM_HEALTH_LOST_SMALL: 1,
-		MAXIMUM_HEALTH_LOST_SMALL: 5,
-		MINIMUM_TIME_LOST_SMALL: 1,
-		MAXIMUM_TIME_LOST_SMALL: 24,
-		MINIMUM_MONEY_LOST_SMALL: 10,
-		MAXIMUM_MONEY_LOST_SMALL: 50,
-		MINIMUM_HEALTH_LOST_BIG: 5,
-		MAXIMUM_HEALTH_LOST_BIG: 30,
-		MINIMUM_MONEY_LOST_BIG: 50,
-		MAXIMUM_MONEY_LOST_BIG: 250,
-		MINIMUM_MONEY_WON_CLASS: 50,
-		MAXIMUM_MONEY_WON_CLASS: 150,
-		MINIMUM_HEALTH_WON_CLASS: 1,
-		MAXIMUM_HEALTH_WON_CLASS: 5,
-		LOTTERY_REWARDS: {
-			EXPERIENCE: 40,
-			MONEY: 50,
-			GUILD_EXPERIENCE: 70,
-			POINTS: 35
-		},
-		MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT: 30,
-		MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT: 20,
-		BASE_TIME_LOST_GOBLETS_GAME: 1,
-		BASE_HEALTH_LOST_GOBLETS_GAME: 5,
-		COIN_EMOTE: "🪙"
 	};
 
 	static readonly LANGUAGE = {

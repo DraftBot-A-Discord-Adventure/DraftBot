@@ -1,7 +1,7 @@
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../Translations";
 import {Data, JsonModule} from "../Data";
-import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {SmallEvent} from "./SmallEvent";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
@@ -16,7 +16,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 
-type RewardType = { type: string, option: number | string };
+type RewardType = { type: string, value: number | string };
 
 /**
  * Generates the malus the player will outcome
@@ -28,22 +28,22 @@ function generateMalus(player: Player, malus: string): RewardType {
 	case "life":
 		return {
 			type: malus,
-			option: Math.round(player.level / 6) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
+			value: Math.round(player.level / 6) + SmallEventConstants.GOBLETS_GAME.BASE_HEALTH_LOST + RandomUtils.draftbotRandom.integer(-3, 3)
 		};
 	case "time":
 		return {
 			type: malus,
-			option: Math.round(player.level * 0.42) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(0, 10)
+			value: Math.round(player.level * 0.42) + SmallEventConstants.GOBLETS_GAME.BASE_TIME_LOST + RandomUtils.draftbotRandom.integer(0, 10)
 		};
 	case "nothing":
 		return {
 			type: malus,
-			option: 0
+			value: 0
 		};
 	case "end":
 		return {
 			type: malus,
-			option: Math.round(player.level / 8) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
+			value: Math.round(player.level / 8) + SmallEventConstants.GOBLETS_GAME.BASE_HEALTH_LOST + RandomUtils.draftbotRandom.integer(-3, 3)
 		};
 	default:
 	}
@@ -59,16 +59,16 @@ function generateMalus(player: Player, malus: string): RewardType {
 async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	switch (malus.type) {
 	case "life":
-		await player.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.option as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
-		malus.option = minutesDisplay(malus.option as number);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.value as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
+		malus.value = minutesDisplay(malus.value as number);
 		break;
 	case "nothing":
 		break;
 	case "end":
-		await player.addHealth(-malus.option, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	default:
 		throw new Error("reward type not found");
@@ -87,7 +87,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
  */
 function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBotEmbed, tr: TranslationModule): DraftBotEmbed {
 	seEmbed.setDescription(format(tr.getRandom(`results.${malus.type}`), {
-		amount: malus.option,
+		amount: malus.value,
 		goblet: goblet
 	}));
 	return seEmbed;

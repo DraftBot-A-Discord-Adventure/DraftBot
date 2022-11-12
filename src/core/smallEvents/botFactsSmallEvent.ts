@@ -17,7 +17,7 @@ import {readdir} from "fs/promises";
  * @return {Promise<(*)[]>}
  */
 const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
-	const classToCheck = await Classes.getById(parseInt((RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes")) as string)
+	const classToCheck = await Classes.getById(parseInt(RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes"))
 		.slice(0, -5), 10));
 	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);
 	let sentence = Constants.LANGUAGE.FRENCH ? " joueur" : " player";

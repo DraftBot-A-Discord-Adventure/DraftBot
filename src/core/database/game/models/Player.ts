@@ -27,6 +27,7 @@ import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
 import moment = require("moment");
+import {GuildConstants} from "../../../constants/GuildConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -269,7 +270,7 @@ export class Player extends Model {
 		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
 			bonuses.push(tr.format("levelUp.fightUnlocked", {}));
 		}
-		if (this.level === Constants.GUILD.REQUIRED_LEVEL) {
+		if (this.level === GuildConstants.REQUIRED_LEVEL) {
 			bonuses.push(tr.format("levelUp.guildUnlocked", {}));
 		}
 

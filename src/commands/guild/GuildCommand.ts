@@ -116,7 +116,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	embed.addFields({
 		name: guildModule.format("members", {
 			memberCount: members.length,
-			maxGuildMembers: Constants.GUILD.MAX_GUILD_MEMBER
+			maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
 		}),
 		value: membersInfos
 	});

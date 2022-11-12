@@ -16,6 +16,7 @@ import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -92,7 +93,7 @@ export const smallEvent: SmallEvent = {
 			}
 			else {
 				// winMoney
-				const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
+				const moneyWon = RandomUtils.rangedInt(SmallEventConstants.CLASS.MONEY);
 				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
 				await interaction.editReply({embeds: [seEmbed]});
 				await player.addMoney({
@@ -112,7 +113,7 @@ export const smallEvent: SmallEvent = {
 			}
 			else {
 				// winHealth
-				const healthWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, Constants.SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
+				const healthWon = RandomUtils.rangedInt(SmallEventConstants.CLASS.HEALTH);
 				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
 				await interaction.editReply({embeds: [seEmbed]});
 				await player.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);

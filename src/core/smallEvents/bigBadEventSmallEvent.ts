@@ -4,7 +4,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
 import {NumberChangeReason} from "../constants/LogsConstants";
@@ -36,7 +36,7 @@ export const smallEvent: SmallEvent = {
 		let lifeLoss, seFallen, moneyLoss;
 		switch (outRand) {
 		case 0:
-			lifeLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
+			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
 			seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
 			await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 			break;
@@ -57,7 +57,7 @@ export const smallEvent: SmallEvent = {
 			}
 			break;
 		default:
-			moneyLoss = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, Constants.SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
+			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
 			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
 			await player.addMoney({
 				amount: -moneyLoss,

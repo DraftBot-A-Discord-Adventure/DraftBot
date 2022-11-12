@@ -13,6 +13,7 @@ import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {Pets} from "../database/game/models/Pet";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -91,7 +92,7 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
 			await interaction.editReply({embeds: [seEmbed]});
 			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction, language, player, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
+				await giveFood(interaction, language, player, SmallEventConstants.FIND_PET.FOOD_GIVEN_NO_PLACE, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else if (!noRoomInGuild && player.petId !== null) {

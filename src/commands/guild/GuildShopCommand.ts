@@ -22,6 +22,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Callback of the guild shop command
@@ -112,10 +113,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const guild = await Guilds.getById(player.guildId);
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
-	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
-	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
-	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
-	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
+	const commonFoodRemainingSlots = Math.max(GuildConstants.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
+	const herbivorousFoodRemainingSlots = Math.max(GuildConstants.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
+	const carnivorousFoodRemainingSlots = Math.max(GuildConstants.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
+	const ultimateFoodRemainingSlots = Math.max(GuildConstants.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
 	const shopMessage = new DraftBotShopMessageBuilder(
 		interaction,

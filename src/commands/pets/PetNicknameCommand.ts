@@ -37,11 +37,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		successEmbed.setDescription(petNickTranslations.get("successNoName"));
 	}
 	else {
-		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
+		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_LENGTH_RANGE)) {
 			await replyErrorMessage(interaction, language,
 				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
-					min: Constants.PETS.NICKNAME_MIN_LENGTH,
-					max: Constants.PETS.NICKNAME_MAX_LENGTH
+					min: Constants.PETS.NICKNAME_LENGTH_RANGE.MIN,
+					max: Constants.PETS.NICKNAME_LENGTH_RANGE.MAX
 				})}`);
 			return;
 		}

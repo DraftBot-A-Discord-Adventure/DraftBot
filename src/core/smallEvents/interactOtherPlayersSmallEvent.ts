@@ -21,6 +21,7 @@ import {InventorySlots} from "../database/game/models/InventorySlot";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
 import {Op} from "sequelize";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -349,13 +350,13 @@ async function sendAndManagePoorInteraction(
 ): Promise<void> {
 	await new DraftBotReactionMessageBuilder()
 		.allowUser(textInformation.interaction.user)
-		.addReaction(new DraftBotReaction(Constants.SMALL_EVENT.COIN_EMOTE))
+		.addReaction(new DraftBotReaction(SmallEventConstants.INTERACT_OTHER_PLAYERS.COIN_EMOTE))
 		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()
 				.formatAuthor(Translations.getModule("commands.report", textInformation.tr.language).get("journal"), textInformation.interaction.user);
-			if (reaction && reaction.emoji.name === Constants.SMALL_EVENT.COIN_EMOTE) {
+			if (reaction && reaction.emoji.name === SmallEventConstants.INTERACT_OTHER_PLAYERS.COIN_EMOTE) {
 				await sendACoin(otherPlayer, textInformation.interaction.channel, textInformation.tr.language, player);
 				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorGiveMoney"), {
 					pseudo: otherPlayer.getPseudo(textInformation.tr.language)

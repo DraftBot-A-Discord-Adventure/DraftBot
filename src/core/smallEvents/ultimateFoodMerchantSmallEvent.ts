@@ -12,6 +12,8 @@ import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {GuildConstants} from "../constants/GuildConstants";
 
 type RewardType = { type: string, option: number | GenericItemModel };
 
@@ -36,8 +38,12 @@ function maxRarity(player: Player): number {
  * @param player
  * @param currentFoodLevel
  */
-function ultimateFoodsAmount(player: Player, currentFoodLevel: number): number {
-	return Math.max(Math.min(Math.ceil(3 * Math.tanh(player.level / 100)) + RandomUtils.draftbotRandom.integer(-1, 1), Constants.GUILD.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1);
+function ultimateFoodAmount(player: Player, currentFoodLevel: number): number {
+	return Math.max(
+		Math.min(Math.ceil(3 * Math.tanh(player.level / 100))
+			+ RandomUtils.draftbotRandom.integer(-SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD_DEVIATION, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD_DEVIATION),
+		GuildConstants.MAX_ULTIMATE_PET_FOOD - currentFoodLevel), 1
+	);
 }
 
 /**
@@ -46,7 +52,11 @@ function ultimateFoodsAmount(player: Player, currentFoodLevel: number): number {
  * @param currentFoodLevel
  */
 function commonFoodAmount(player: Player, currentFoodLevel: number): number {
-	return Math.max(Math.min(Math.ceil(6 * Math.tanh(player.level / 100) + 1) + RandomUtils.draftbotRandom.integer(-2, 2), Constants.GUILD.MAX_COMMON_PET_FOOD - currentFoodLevel), 1);
+	return Math.max(
+		Math.min(Math.ceil(6 * Math.tanh(player.level / 100) + 1)
+			+ RandomUtils.draftbotRandom.integer(-SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD_DEVIATION, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD_DEVIATION),
+		GuildConstants.MAX_COMMON_PET_FOOD - currentFoodLevel), 1
+	);
 }
 
 /**
@@ -64,13 +74,13 @@ async function generateReward(player: Player): Promise<RewardType> {
 	if (guild === null) {
 		return {
 			type: "money",
-			option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT + player.level
+			option: SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MONEY_WON_NO_GUILD + player.level
 		};
 	}
-	if (player.level >= Constants.SMALL_EVENT.MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT) {
-		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < Constants.GUILD.MAX_ULTIMATE_PET_FOOD ? {
+	if (player.level >= SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MINIMUM_LEVEL_GOOD_PLAYER) {
+		return RandomUtils.draftbotRandom.bool() ? guild.ultimateFood < GuildConstants.MAX_ULTIMATE_PET_FOOD ? {
 			type: "ultimateFood",
-			option: ultimateFoodsAmount(player, guild.ultimateFood)
+			option: ultimateFoodAmount(player, guild.ultimateFood)
 		} : {
 			type: "fullUltimateFood",
 			option: 0
@@ -79,7 +89,7 @@ async function generateReward(player: Player): Promise<RewardType> {
 			option: await generateRandomItem(maxRarity(player), null, minRarity(player))
 		};
 	}
-	if (Constants.GUILD.MAX_COMMON_PET_FOOD > guild.commonFood) {
+	if (GuildConstants.MAX_COMMON_PET_FOOD > guild.commonFood) {
 		return {
 			type: "commonFood",
 			option: commonFoodAmount(player, guild.commonFood)

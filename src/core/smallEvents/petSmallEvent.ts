@@ -18,6 +18,7 @@ import Pet, {Pets} from "../database/game/models/Pet";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {MissionsController} from "../missions/MissionsController";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -158,19 +159,11 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
  * @param interaction
  */
 async function givePetTamerBadge(player: Player, interaction: string): Promise<string> {
-	if (player.badges !== null) {
-		if (player.badges.includes(Constants.BADGES.PET_TAMER)) {
-			interaction = "nothing";
-		}
-		else {
-			player.addBadge(Constants.BADGES.PET_TAMER);
-			await player.save();
-		}
+	if (player.badges !== null && player.badges.includes(Constants.BADGES.PET_TAMER)) {
+		return "nothing";
 	}
-	else {
-		player.addBadge(Constants.BADGES.PET_TAMER);
-		await player.save();
-	}
+	player.addBadge(Constants.BADGES.PET_TAMER);
+	await player.save();
 	return interaction;
 }
 
@@ -230,18 +223,18 @@ async function managePickedPetInteraction(
 	};
 	switch (interaction) {
 	case "money":
-		amount = RandomUtils.randInt(20, 70);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount}));
 		await player.save();
 		break;
 	case "gainLife":
-		amount = RandomUtils.randInt(1, 5);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		await MissionsController.update(player, interactionCommand.channel, language, {missionId: "petEarnHealth"});
 		break;
 	case "gainLove":
-		amount = RandomUtils.randInt(1, 3);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount}));
 		await pet.save();
 		break;
@@ -254,12 +247,12 @@ async function managePickedPetInteraction(
 		}
 		break;
 	case "gainTime":
-		amount = RandomUtils.randInt(5, 20);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.timeTravel(player, amount, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		break;
 	case "points":
-		amount = RandomUtils.randInt(20, 70);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.POINTS);
 		await player.addScore(Object.assign(editValueChanges, {amount}));
 		await player.save();
 		break;
@@ -267,17 +260,17 @@ async function managePickedPetInteraction(
 		interaction = await givePetTamerBadge(player, interaction);
 		break;
 	case "loseLife":
-		amount = RandomUtils.randInt(1, 5);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		break;
 	case "loseMoney":
-		amount = RandomUtils.randInt(20, 70);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
 		await player.save();
 		break;
 	case "loseTime":
-		amount = RandomUtils.randInt(5, 20);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT, interactionCommand.createdAt);
 		await player.save();
 		break;
@@ -288,7 +281,7 @@ async function managePickedPetInteraction(
 		await player.save();
 		break;
 	case "loseLove":
-		amount = RandomUtils.randInt(1, 3);
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount: -amount}));
 		await pet.save();
 		break;

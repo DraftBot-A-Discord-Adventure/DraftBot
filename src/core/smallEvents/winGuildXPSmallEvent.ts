@@ -6,7 +6,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Guilds} from "../database/game/models/Guild";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
-import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
 
 export const smallEvent: SmallEvent = {
@@ -30,8 +30,8 @@ export const smallEvent: SmallEvent = {
 			return await doNothing.executeSmallEvent(interaction, language, player, seEmbed);
 		}
 		const xpWon = RandomUtils.draftbotRandom.integer(
-			Constants.SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + guild.level,
-			Constants.SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + guild.level * 2
+			SmallEventConstants.GUILD_EXPERIENCE.MIN + guild.level,
+			SmallEventConstants.GUILD_EXPERIENCE.MAX + guild.level * 2
 		);
 
 		const translationWGXP = Translations.getModule("smallEvents.winGuildXP", language);
