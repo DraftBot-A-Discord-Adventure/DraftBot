@@ -80,18 +80,16 @@ export const smallEvent: SmallEvent = {
 		const trad = Translations.getModule("smallEvents.findPet", language);
 
 		if (noRoomInGuild && player.petId !== null) {
-			// no room
-			let outRand;
-			const storiesObject = trad.getObject("noRoom.stories");
-			do {
-				outRand = RandomUtils.randInt(0, storiesObject.length);
+			let storiesObject = trad.getObject("noRoom.stories");
+			if (!guild) {
+				storiesObject = storiesObject.filter(story => story[PetConstants.IS_FOOD]);
 			}
-			while (storiesObject[outRand][PetConstants.IS_FOOD] && guild === null);
-			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
-			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
+			const story = RandomUtils.draftbotRandom.pick(storiesObject) as unknown as [string, boolean];
+
+			generatePetEmbed(seEmbed, base, trad, petLine, pet, story[0]);
 			await interaction.editReply({embeds: [seEmbed]});
-			if (storiesObject[outRand][PetConstants.IS_FOOD]) {
+			if (story[PetConstants.IS_FOOD]) {
 				await giveFood(interaction, language, player, SmallEventConstants.FIND_PET.FOOD_GIVEN_NO_PLACE, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
