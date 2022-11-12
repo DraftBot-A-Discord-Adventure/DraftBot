@@ -13,6 +13,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
+import {WitchEvents} from "../witch/WitchEvents";
 
 
 export const smallEvent: SmallEvent = {
@@ -24,7 +25,7 @@ export const smallEvent: SmallEvent = {
 	},
 
 	/**
-	 * Do literally nothing, just shows the player he is doing its way
+	 * A small event about a witch that gives a random potion... sometimes
 	 * @param interaction
 	 * @param language
 	 * @param player
@@ -74,7 +75,12 @@ export const smallEvent: SmallEvent = {
 			});
 
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		embed.addReaction(new DraftBotReaction(gobletEmoji));
+		const randomAdvice = WitchEvents.getRandomWitchEventByType(0);
+		const randomIngredient = WitchEvents.getRandomWitchEventByType(1);
+		const nothingHappen = WitchEvents.getRandomWitchEventByType(2);
+		embed.addReaction(new DraftBotReaction(randomAdvice.getEmoji()));
+		embed.addReaction(new DraftBotReaction(randomIngredient.getEmoji()));
+		embed.addReaction(new DraftBotReaction(nothingHappen.getEmoji()));
 		const builtEmbed = embed.build();
 		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 		builtEmbed.setDescription(
