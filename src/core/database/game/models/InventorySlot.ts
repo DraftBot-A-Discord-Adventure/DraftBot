@@ -1,5 +1,4 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {Constants} from "../../../Constants";
 import Weapon, {Weapons} from "./Weapon";
 import Armor, {Armors} from "./Armor";
 import Potion, {Potions} from "./Potion";
@@ -7,6 +6,7 @@ import ObjectItem, {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
 import {playerActiveObjects} from "./PlayerActiveObjects";
 import moment = require("moment");
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;
@@ -24,13 +24,13 @@ export class InventorySlot extends Model {
 
 	async getItem(): Promise<GenericItemModel> {
 		switch (this.itemCategory) {
-		case Constants.ITEM_CATEGORIES.WEAPON:
+		case ItemConstants.CATEGORIES.WEAPON:
 			return await Weapons.getById(this.itemId);
-		case Constants.ITEM_CATEGORIES.ARMOR:
+		case ItemConstants.CATEGORIES.ARMOR:
 			return await Armors.getById(this.itemId);
-		case Constants.ITEM_CATEGORIES.POTION:
+		case ItemConstants.CATEGORIES.POTION:
 			return await Potions.getById(this.itemId);
-		case Constants.ITEM_CATEGORIES.OBJECT:
+		case ItemConstants.CATEGORIES.OBJECT:
 			return await ObjectItems.getById(this.itemId);
 		default:
 			return Promise.resolve(null);
@@ -42,19 +42,19 @@ export class InventorySlot extends Model {
 	}
 
 	isWeapon(): boolean {
-		return this.itemCategory === Constants.ITEM_CATEGORIES.WEAPON;
+		return this.itemCategory === ItemConstants.CATEGORIES.WEAPON;
 	}
 
 	isArmor(): boolean {
-		return this.itemCategory === Constants.ITEM_CATEGORIES.ARMOR;
+		return this.itemCategory === ItemConstants.CATEGORIES.ARMOR;
 	}
 
 	isPotion(): boolean {
-		return this.itemCategory === Constants.ITEM_CATEGORIES.POTION;
+		return this.itemCategory === ItemConstants.CATEGORIES.POTION;
 	}
 
 	isObject(): boolean {
-		return this.itemCategory === Constants.ITEM_CATEGORIES.OBJECT;
+		return this.itemCategory === ItemConstants.CATEGORIES.OBJECT;
 	}
 }
 
@@ -103,7 +103,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: Constants.ITEM_CATEGORIES.WEAPON
+				itemCategory: ItemConstants.CATEGORIES.WEAPON
 			}
 		});
 	}
@@ -113,7 +113,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: Constants.ITEM_CATEGORIES.ARMOR
+				itemCategory: ItemConstants.CATEGORIES.ARMOR
 			}
 		});
 	}
@@ -123,7 +123,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: Constants.ITEM_CATEGORIES.POTION
+				itemCategory: ItemConstants.CATEGORIES.POTION
 			}
 		});
 	}
@@ -133,7 +133,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: Constants.ITEM_CATEGORIES.OBJECT
+				itemCategory: ItemConstants.CATEGORIES.OBJECT
 			}
 		});
 	}

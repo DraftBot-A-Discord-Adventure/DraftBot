@@ -17,6 +17,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 type ItemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
 type ItemObjectBase = { name: string, value: number, itemObject: ItemObject }
@@ -29,7 +30,7 @@ type ItemObjectBase = { name: string, value: number, itemObject: ItemObject }
 async function getItemObject(item: InventorySlot, tr: TranslationModule): Promise<ItemObjectBase> {
 	const itemInstance: GenericItemModel = await item.getItem();
 	const name = itemInstance.getName(tr.language);
-	const value = itemInstance.getCategory() === Constants.ITEM_CATEGORIES.POTION ? 0 : getItemValue(itemInstance);
+	const value = itemInstance.getCategory() === ItemConstants.CATEGORIES.POTION ? 0 : getItemValue(itemInstance);
 	const slot = item.slot;
 	const itemCategory = item.itemCategory;
 	const frenchMasculine = itemInstance.frenchMasculine;
@@ -151,7 +152,7 @@ async function itemChoiceValidation(player: Player, interaction: CommandInteract
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL);
 	await new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(player, interaction, item, tr))
 		.formatAuthor(tr.get("sellTitle"), interaction.user)
-		.setDescription(tr.format(item.itemCategory === Constants.ITEM_CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
+		.setDescription(tr.format(item.itemCategory === ItemConstants.CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
 			item: item.name,
 			money: item.value
 		}))

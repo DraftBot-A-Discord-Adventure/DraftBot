@@ -31,7 +31,8 @@ export abstract class Constants {
 			"🛡️",
 			"⚗️",
 			"🧸"
-		]
+		],
+		NOT_REPLIED_EMOTE: "🔚"
 	};
 
 	static readonly MESSAGES = {
@@ -51,13 +52,6 @@ export abstract class Constants {
 		ROLE_DURATION: 24
 	};
 
-	static readonly ITEM_CATEGORIES = {
-		WEAPON: 0,
-		ARMOR: 1,
-		POTION: 2,
-		OBJECT: 3
-	};
-
 	static readonly COMMAND_CATEGORY = {
 		SERVER: "server",
 		UTIL: "util",
@@ -65,59 +59,6 @@ export abstract class Constants {
 		MISSION: "mission",
 		GUILD: "guild",
 		PET: "pet"
-	};
-
-	static readonly RARITY = {
-		BASIC: 0,
-		COMMON: 1,
-		UNCOMMON: 2,
-		EXOTIC: 3,
-		RARE: 4,
-		SPECIAL: 5,
-		EPIC: 6,
-		LEGENDARY: 7,
-		MYTHICAL: 8
-	};
-
-	static readonly RARITIES_VALUES = [
-		0, // basic
-		20, // common
-		40, // uncommon
-		100, // exotic
-		250, // rare
-		580, // special
-		1690, // epic
-		5000, // legendary
-		10000 // mythic
-	];
-
-	static readonly RARITIES_GENERATOR = {
-		VALUES: [ // common
-			4375, // uncommon
-			6875, // exotic
-			8375, // rare
-			9375, // special
-			9875, // epic
-			9975, // legendary
-			9998 // mythic
-		],
-		MAX_VALUE: 10000
-	};
-
-	static readonly ITEM_GENERATOR = {
-		"max": "10",
-		"tab": {
-			"1": "weapons",
-			"2": "weapons",
-			"3": "weapons",
-			"4": "armors",
-			"5": "armors",
-			"6": "armors",
-			"7": "objects",
-			"8": "objects",
-			"9": "potions",
-			"10": "potions"
-		}
 	};
 
 	static readonly XP = {
@@ -142,8 +83,7 @@ export abstract class Constants {
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
 		PATH_SQUARE_COUNT: 16,
-		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000, // 9 minutes and 45 seconds
-		QUICK_END_EMOTE: "🔚"
+		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000 // 9 minutes and 45 seconds
 	};
 
 	// This constant represent the different types of values on which the players can be ranked
@@ -159,32 +99,6 @@ export abstract class Constants {
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
 		GROUP3LEVEL: 48
-	};
-
-	static readonly FIGHT = {
-		MAX_SPEED_IMPROVEMENT: 30,
-		MAX_TURNS: 25,
-		REQUIRED_LEVEL: 8,
-		POINTS_REGEN_MINUTES: 15,
-		POINTS_REGEN_AMOUNT: 50,
-		ACTION: {
-			QUICK_ATTACK: 0,
-			SIMPLE_ATTACK: 1,
-			POWERFUL_ATTACK: 2,
-			BULK_ATTACK: 3,
-			IMPROVE_SPEED: 4,
-			ULTIMATE_ATTACK: 5
-		}
-	};
-
-	static readonly NATURE = {
-		NONE: 0,
-		HEALTH: 1,
-		SPEED: 2,
-		ATTACK: 3,
-		DEFENSE: 4,
-		HOSPITAL: 5,
-		MONEY: 6
 	};
 
 	static readonly LOGS = {
@@ -305,38 +219,6 @@ export abstract class Constants {
 		CARNIVOROUS_FOOD: "carnivorousFood",
 		HERBIVOROUS_FOOD: "herbivorousFood",
 		ULTIMATE_FOOD: "ultimateFood"
-	};
-
-	static readonly ITEMS = {
-		MAPPER: [
-			1,
-			1.5,
-			2.1,
-			2.8,
-			3.6,
-			4.5,
-			5.5,
-			6.6,
-			6.7
-		],
-		SLOTS: {
-			LIMITS: [
-				2,
-				2,
-				4,
-				4
-			],
-			PRICES: [
-				500,
-				1000,
-				2500,
-				7000,
-				12000,
-				17000,
-				25000,
-				30000
-			]
-		}
 	};
 
 	static readonly PET_FOOD_GUILD_SHOP = {

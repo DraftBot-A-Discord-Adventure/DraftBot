@@ -17,6 +17,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {ItemConstants} from "../constants/ItemConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -56,7 +57,7 @@ export const smallEvent: SmallEvent = {
 			default:
 				// winWeapon
 				seEmbed.setDescription(base + tr.getRandom("attack.winWeapon"));
-				item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.WEAPON);
+				item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.WEAPON);
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});
@@ -78,7 +79,7 @@ export const smallEvent: SmallEvent = {
 			default:
 				// winArmor
 				seEmbed.setDescription(base + tr.getRandom("defense.winArmor"));
-				item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.ARMOR);
+				item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.ARMOR);
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});

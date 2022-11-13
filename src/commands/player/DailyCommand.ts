@@ -17,6 +17,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 type EntityInformation = { player: Player, activeObject: ObjectItem };
 type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
@@ -29,7 +30,7 @@ type TextInformation = { dailyModule: TranslationModule, interaction: CommandInt
  * @param dailyModule
  */
 async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
-	if (activeObject.nature === Constants.NATURE.NONE) {
+	if (activeObject.nature === ItemConstants.NATURE.NONE) {
 		if (activeObject.id !== InventoryConstants.OBJECT_DEFAULT_ID) {
 			// there is an object that do nothing in the inventory
 			await replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
@@ -39,7 +40,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
 		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
 		return true;
 	}
-	if ([Constants.NATURE.SPEED, Constants.NATURE.DEFENSE, Constants.NATURE.ATTACK].indexOf(activeObject.nature) !== -1) {
+	if ([ItemConstants.NATURE.SPEED, ItemConstants.NATURE.DEFENSE, ItemConstants.NATURE.ATTACK].includes(activeObject.nature)) {
 		// Those objects are active only during fights
 		await replyErrorMessage(
 			interaction,
@@ -86,11 +87,11 @@ async function activateDailyItem(
 	embed: DraftBotEmbed,
 	textInformation: TextInformation): Promise<void> {
 	switch (entityInformation.activeObject.nature) {
-	case Constants.NATURE.HEALTH:
+	case ItemConstants.NATURE.HEALTH:
 		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
 		await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
 		break;
-	case Constants.NATURE.HOSPITAL:
+	case ItemConstants.NATURE.HOSPITAL:
 		embed.setDescription(
 			textInformation.dailyModule.format("hospitalBonus", {
 				value: minutesDisplay(entityInformation.activeObject.power)
@@ -98,7 +99,7 @@ async function activateDailyItem(
 		);
 		await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
 		break;
-	case Constants.NATURE.MONEY:
+	case ItemConstants.NATURE.MONEY:
 		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
 		await entityInformation.player.addMoney({
 			amount: entityInformation.activeObject.power,

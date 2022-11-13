@@ -8,12 +8,13 @@ import {MaxStatsValues} from "./GenericItemModel";
 import fs = require("fs");
 import moment = require("moment");
 import {botConfig} from "../../../bot";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
 
 	public getCategory(): number {
-		return Constants.ITEM_CATEGORIES.OBJECT;
+		return ItemConstants.CATEGORIES.OBJECT;
 	}
 
 	getNatureTranslation(language: string, maxStatsValue: MaxStatsValues = null): string {

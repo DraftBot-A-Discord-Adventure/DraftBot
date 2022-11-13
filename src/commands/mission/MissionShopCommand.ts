@@ -28,6 +28,7 @@ import {Pets} from "../../core/database/game/models/Pet";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
  * get the amount of gems a user has
@@ -240,7 +241,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
+			const item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, null, ItemConstants.RARITY.SPECIAL);
 			await giveItemToPlayer(player, item, message.language, message.user, message.sentMessage.channel, await InventorySlots.getOfPlayer(player.id));
 			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.TREASURE).then();

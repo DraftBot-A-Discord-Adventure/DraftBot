@@ -3,7 +3,6 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
-import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Armors} from "../database/game/models/Armor";
 import {Weapons} from "../database/game/models/Weapon";
@@ -20,13 +19,14 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import Player, {Players} from "../database/game/models/Player";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
+import {ItemConstants} from "../constants/ItemConstants";
 
 /**
  * Get the value of an item
  * @param item
  */
 export const getItemValue = function(item: GenericItemModel): number {
-	return Math.round(Constants.RARITIES_VALUES[item.rarity] + item.getItemAddedValue());
+	return Math.round(ItemConstants.RARITY.VALUES[item.rarity] + item.getItemAddedValue());
 };
 
 /**
@@ -60,7 +60,7 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 			});
 		}
 	}
-	if (potion.nature === Constants.NATURE.NONE) {
+	if (potion.nature === ItemConstants.NATURE.NONE) {
 		await MissionsController.update(player, channel, language, {missionId: "drinkPotionWithoutEffect"});
 	}
 	await MissionsController.update(player, channel, language, {
@@ -127,7 +127,7 @@ const sellOrKeepItem = async function(
 		resaleMultiplier = resaleMultiplierActual;
 	}
 	const trSell = Translations.getModule("commands.sell", language);
-	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
+	if (item.getCategory() === ItemConstants.CATEGORIES.POTION) {
 		await MissionsController.update(player, channel, language, { missionId: "findOrBuyItem" });
 		await channel.send(
 			{
@@ -368,7 +368,7 @@ export const giveItemToPlayer = async function(
 			);
 		}
 	)
-		.formatAuthor(tr.get(item.getCategory() === Constants.ITEM_CATEGORIES.POTION ? "randomItemFooterPotion" : "randomItemFooter"), discordUser)
+		.formatAuthor(tr.get(item.getCategory() === ItemConstants.CATEGORIES.POTION ? "randomItemFooterPotion" : "randomItemFooter"), discordUser)
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language, null)
 		}))
@@ -381,36 +381,36 @@ export const giveItemToPlayer = async function(
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
+export const generateRandomRarity = function(minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): number {
 	const randomValue = RandomUtils.draftbotRandom.integer(
-		1 + (minRarity === Constants.RARITY.COMMON ? -1 : Constants.RARITIES_GENERATOR.VALUES[minRarity - 2]),
-		Constants.RARITIES_GENERATOR.MAX_VALUE
-		- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : Constants.RARITIES_GENERATOR.MAX_VALUE
-			- Constants.RARITIES_GENERATOR.VALUES[maxRarity - 1])
+		1 + (minRarity === ItemConstants.RARITY.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
+		ItemConstants.RARITY.GENERATOR.MAX_VALUE
+		- (maxRarity === ItemConstants.RARITY.MYTHICAL ? 0 : ItemConstants.RARITY.GENERATOR.MAX_VALUE
+			- ItemConstants.RARITY.GENERATOR.VALUES[maxRarity - 1])
 	);
 
-	if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[0]) {
-		return Constants.RARITY.COMMON;
+	if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[0]) {
+		return ItemConstants.RARITY.COMMON;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[1]) {
-		return Constants.RARITY.UNCOMMON;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[1]) {
+		return ItemConstants.RARITY.UNCOMMON;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[2]) {
-		return Constants.RARITY.EXOTIC;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[2]) {
+		return ItemConstants.RARITY.EXOTIC;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[3]) {
-		return Constants.RARITY.RARE;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[3]) {
+		return ItemConstants.RARITY.RARE;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[4]) {
-		return Constants.RARITY.SPECIAL;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[4]) {
+		return ItemConstants.RARITY.SPECIAL;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[5]) {
-		return Constants.RARITY.EPIC;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[5]) {
+		return ItemConstants.RARITY.EPIC;
 	}
-	else if (randomValue <= Constants.RARITIES_GENERATOR.VALUES[6]) {
-		return Constants.RARITY.LEGENDARY;
+	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[6]) {
+		return ItemConstants.RARITY.LEGENDARY;
 	}
-	return Constants.RARITY.MYTHICAL;
+	return ItemConstants.RARITY.MYTHICAL;
 };
 
 /**
@@ -418,7 +418,7 @@ export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON
  * @return {Number}
  */
 export const generateRandomItemCategory = function(): number {
-	return RandomUtils.draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
+	return RandomUtils.draftbotRandom.pick(Object.values(ItemConstants.CATEGORIES));
 };
 
 /**
@@ -427,21 +427,21 @@ export const generateRandomItemCategory = function(): number {
  * @param itemCategory
  * @param minRarity
  */
-export const generateRandomItem = async function(maxRarity = Constants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = Constants.RARITY.COMMON): Promise<GenericItemModel> {
+export const generateRandomItem = async function(maxRarity = ItemConstants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = ItemConstants.RARITY.COMMON): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
 	switch (category) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
+	case ItemConstants.CATEGORIES.WEAPON:
 		itemsIds = await Weapons.getAllIdsForRarity(rarity);
 		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.ARMOR:
+	case ItemConstants.CATEGORIES.ARMOR:
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
 		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.POTION:
+	case ItemConstants.CATEGORIES.POTION:
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
 		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case Constants.ITEM_CATEGORIES.OBJECT:
+	case ItemConstants.CATEGORIES.OBJECT:
 		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
 		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	default:
@@ -455,11 +455,11 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  * @param {number} potionType
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = Constants.RARITY.MYTHICAL): Promise<Potion> {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL): Promise<Potion> {
 	if (potionType === null) {
-		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.POTION);
+		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION);
 	}
-	const rarity = generateRandomRarity(Constants.RARITY.COMMON, maxRarity);
+	const rarity = generateRandomRarity(ItemConstants.RARITY.COMMON, maxRarity);
 	return await Potions.randomItem(potionType, rarity);
 };
 
@@ -470,9 +470,9 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  * @param minRarity
  * @returns {ObjectItem} generated object
  */
-export const generateRandomObject = async function(objectType: number = null, minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): Promise<GenericItemModel> {
+export const generateRandomObject = async function(objectType: number = null, minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): Promise<GenericItemModel> {
 	if (objectType === null) {
-		return this.generateRandomItem(minRarity, maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
+		return this.generateRandomItem(minRarity, maxRarity, ItemConstants.CATEGORIES.OBJECT);
 	}
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	return await ObjectItems.randomItem(objectType, rarity);
@@ -540,13 +540,13 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
  */
 function getCategoryModelByName(category: number): { getMaxId: () => Promise<number>, getById: (itemId: number) => Promise<GenericItemModel> } {
 	switch (category) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
+	case ItemConstants.CATEGORIES.WEAPON:
 		return Weapons;
-	case Constants.ITEM_CATEGORIES.ARMOR:
+	case ItemConstants.CATEGORIES.ARMOR:
 		return Armors;
-	case Constants.ITEM_CATEGORIES.POTION:
+	case ItemConstants.CATEGORIES.POTION:
 		return Potions;
-	case Constants.ITEM_CATEGORIES.OBJECT:
+	case ItemConstants.CATEGORIES.OBJECT:
 		return ObjectItems;
 	default:
 		return null;

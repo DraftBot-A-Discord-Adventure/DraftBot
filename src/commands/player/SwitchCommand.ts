@@ -17,6 +17,7 @@ import {SwitchConstants} from "../../core/constants/SwitchConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -119,7 +120,7 @@ async function switchItemEmbedCallback(
 	invSlots: InventorySlot[]
 ): Promise<void> {
 	[player] = await Players.getOrRegister(interaction.user.id);
-	if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
+	if (item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(interaction, invInfo);
 	}
 	const otherItem = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === item.item.itemCategory)[0];
@@ -128,13 +129,13 @@ async function switchItemEmbedCallback(
 	await invInfo.save();
 	let desc;
 	if (otherItem.itemId === 0) {
-		desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
+		desc = tr.format(item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
 			item: item.shortName,
 			frenchMasculine: item.frenchMasculine
 		});
 	}
 	else {
-		desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
+		desc = tr.format(item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 			item1: item.shortName,
 			item2: otherItemInstance.getName(tr.language)
 		});

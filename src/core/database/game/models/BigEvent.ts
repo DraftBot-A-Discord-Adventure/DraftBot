@@ -26,7 +26,7 @@ export class BigEvent extends Model {
 				reactions.push(possibility.possibilityKey);
 			}
 		}
-		reactions.push(Constants.REPORT.QUICK_END_EMOTE);
+		reactions.push(Constants.REACTIONS.NOT_REPLIED_EMOTE);
 		return reactions;
 	}
 

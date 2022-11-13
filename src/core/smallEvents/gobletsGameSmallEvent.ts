@@ -15,6 +15,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
+import {Constants} from "../Constants";
 
 type RewardType = { type: string, value: number | string };
 
@@ -22,8 +23,17 @@ type RewardType = { type: string, value: number | string };
  * Generates the malus the player will outcome
  * @param player
  * @param malus
+ * @param notReacted
  */
-function generateMalus(player: Player, malus: string): RewardType {
+function generateMalus(player: Player, malus: string, notReacted: boolean): RewardType {
+	if (notReacted) {
+		return {
+			type: "end",
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
+		};
+	}
+
 	switch (malus) {
 	case "life":
 		return {
@@ -41,12 +51,6 @@ function generateMalus(player: Player, malus: string): RewardType {
 		return {
 			type: malus,
 			value: 0
-		};
-	case "end":
-		return {
-			type: malus,
-			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
-				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
 		};
 	default:
 	}
@@ -119,15 +123,12 @@ export const smallEvent: SmallEvent = {
 			.allowUser(interaction.user)
 			.endCallback(async (chooseGobletMessage) => {
 				const reaction = chooseGobletMessage.getFirstReaction();
-				const reactionEmoji = !reaction ? "🔚" : reaction.emoji.name;
-				let malus = generateMalus(player, data.getRandomStringFromArray("malusTypes"));
-				if (!reaction) {
-					malus = generateMalus(player, "end");
-				}
+				const reactionEmoji = !reaction ? Constants.REACTIONS.NOT_REPLIED_EMOTE : reaction.emoji.name;
+				const malus = generateMalus(player, data.getRandomStringFromArray("malusTypes"), !reaction);
 				let currentGoblet: JsonModule;
 				for (let i = 0; i < tr.getObjectSize("intro.goblets"); i++) {
 					currentGoblet = tr.getObject("intro.goblets")[i];
-					if (reactionEmoji === "🔚" || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
+					if (reactionEmoji === Constants.REACTIONS.NOT_REPLIED_EMOTE || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
 						BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
 						await applyMalus(malus, interaction, language, player);
 						await chooseGobletMessage.sentMessage.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name as string, seEmbed, tr)]});

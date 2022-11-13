@@ -28,6 +28,8 @@ import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
 import moment = require("moment");
 import {GuildConstants} from "../../../constants/GuildConstants";
+import {FightConstants} from "../../../constants/FightConstants";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -267,7 +269,7 @@ export class Player extends Model {
 	public async getLvlUpReward(language: string, channel: TextBasedChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
-		if (this.level === Constants.FIGHT.REQUIRED_LEVEL) {
+		if (this.level === FightConstants.REQUIRED_LEVEL) {
 			bonuses.push(tr.format("levelUp.fightUnlocked", {}));
 		}
 		if (this.level === GuildConstants.REQUIRED_LEVEL) {
@@ -509,7 +511,7 @@ export class Player extends Model {
 			where: {
 				playerId: this.id,
 				slot: 0,
-				itemCategory: Constants.ITEM_CATEGORIES.POTION
+				itemCategory: ItemConstants.CATEGORIES.POTION
 			}
 		}).then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
 		await InventorySlot.update(
@@ -519,7 +521,7 @@ export class Player extends Model {
 			{
 				where: {
 					slot: 0,
-					itemCategory: Constants.ITEM_CATEGORIES.POTION,
+					itemCategory: ItemConstants.CATEGORIES.POTION,
 					playerId: this.id
 				}
 			});
