@@ -4,12 +4,13 @@ import Player from "../../../database/game/models/Player";
 import {generateRandomPotion, giveItemToPlayer} from "../../../utils/ItemUtils";
 import {Constants} from "../../../Constants";
 import {InventorySlots} from "../../../database/game/models/InventorySlot";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export default class Turtle extends WitchEvent {
 	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
 		const potionToGive = await generateRandomPotion(
 			Constants.ITEM_NATURE.DEFENSE,
-			Constants.RARITY.SPECIAL);
+			ItemConstants.RARITY.SPECIAL);
 		await giveItemToPlayer(
 			player,
 			potionToGive,

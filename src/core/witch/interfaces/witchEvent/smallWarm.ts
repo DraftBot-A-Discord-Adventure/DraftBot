@@ -7,12 +7,13 @@ import {InventorySlots} from "../../../database/game/models/InventorySlot";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export default class SmallWarm extends WitchEvent {
 	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
 		const potionToGive = await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
-			Constants.RARITY.SPECIAL);
+			ItemConstants.RARITY.SPECIAL);
 		await giveItemToPlayer(
 			player,
 			potionToGive,

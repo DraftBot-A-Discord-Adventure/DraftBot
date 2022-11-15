@@ -117,6 +117,14 @@ export abstract class SmallEventConstants {
 		}
 	};
 
+	static readonly WITCH = {
+		ACTION_TYPE: {
+			NOTHING: 0,
+			ADVICE: 1,
+			INGREDIENT: 2
+		}
+	};
+
 	static readonly INTERACT_OTHER_PLAYERS = {
 		COIN_EMOTE: "🪙"
 	};

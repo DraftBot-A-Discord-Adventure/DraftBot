@@ -4,16 +4,11 @@ import Player from "../database/game/models/Player";
 import {Translations} from "../Translations";
 import {SmallEvent} from "./SmallEvent";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
-import {generateRandomPotion} from "../utils/ItemUtils";
-import {RandomUtils} from "../utils/RandomUtils";
-import {Constants} from "../Constants";
-import {NumberChangeReason} from "../constants/LogsConstants";
-import {TravelTime} from "../maps/TravelTime";
-import {EffectsConstants} from "../constants/EffectsConstants";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {WitchEvents} from "../witch/WitchEvents";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 
 export const smallEvent: SmallEvent = {
@@ -36,45 +31,18 @@ export const smallEvent: SmallEvent = {
 
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
-			.endCallback(async (chooseGobletMessage) => {
-				const reaction = chooseGobletMessage.getFirstReaction();
+			.endCallback(async (witchEventMessage) => {
+				const reaction = witchEventMessage.getFirstReaction();
 				const reactionEmoji = reaction ? reaction.emoji.name : "🔚";
-				if (!reaction || reaction.emoji.name === "") { // manque la réac
-					if (RandomUtils.draftbotRandom.bool(0.15)) {
-						// loose life
-						if (RandomUtils.draftbotRandom.bool()) {
-							await player.addHealth(-RandomUtils.randInt(3, 8),
-								interaction.channel,
-								language,
-								NumberChangeReason.SMALL_EVENT);
-						}
-						else {
-							await TravelTime.applyEffect(player,
-								EffectsConstants.EMOJI_TEXT.OCCUPIED,
-								RandomUtils.randInt(15, 31),
-								interaction.createdAt,
-								NumberChangeReason.SMALL_EVENT,
-								interaction.createdAt);
-						}
-					}
-					else {
-						// potion sans effet
-						await generateRandomPotion(Constants.ITEM_NATURE.NO_EFFECT);
-					}
-				}
-				else if (RandomUtils.draftbotRandom.bool()) {
-					// The witch is good
-					await generateRandomPotion(
-						RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.HEALTH : Constants.ITEM_NATURE.TIME_SPEEDUP,
-						Constants.RARITY.RARE);
-				}
-				else {
-					// The witch is bad
-					await generateRandomPotion(Constants.ITEM_NATURE.NO_EFFECT);
-				}
+				await Promise.resolve();
 			});
 
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+		let types = [SmallEventConstants.WITCH.ACTION_TYPE];
+		types.forEach((type) => {
+			console.log(type);
+		});
+		return;
 		const randomAdvice = WitchEvents.getRandomWitchEventByType(0);
 		const randomIngredient = WitchEvents.getRandomWitchEventByType(1);
 		const nothingHappen = WitchEvents.getRandomWitchEventByType(2);
