@@ -18,6 +18,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -102,11 +103,32 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
 
 type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine: string }
 
+async function sendFinishSwitchEmbed(interaction: CommandInteraction, tr: TranslationModule, itemProfile: GenericItemModel, itemInventory : GenericItemModel): Promise<void> {
+	let desc;
+	if (itemProfile.id === 0) {
+		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
+			item: itemProfile.getName(tr.language),
+			frenchMasculine: itemProfile.frenchMasculine
+		});
+	}
+	else {
+		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
+			item1: itemProfile.getName(tr.language),
+			item2: itemInventory.getName(tr.language)
+		});
+	}
+	const embed = new DraftBotEmbed()
+		.formatAuthor(tr.get("title"), interaction.user)
+		.setDescription(desc);
+
+	interaction.replied ? await interaction.channel.send({embeds: [embed]}) : await interaction.reply({embeds: [embed]});
+}
+
 /**
  * Callback of the switch command
  * @param player
  * @param interaction
- * @param item
+ * @param itemProfile
  * @param tr
  * @param invInfo
  * @param invSlots
@@ -114,38 +136,19 @@ type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine
 async function switchItemEmbedCallback(
 	player: Player,
 	interaction: CommandInteraction,
-	item: ItemForCallback,
+	itemProfile: ItemForCallback,
 	tr: TranslationModule,
 	invInfo: InventoryInfo,
 	invSlots: InventorySlot[]
 ): Promise<void> {
 	[player] = await Players.getOrRegister(interaction.user.id);
-	if (item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
+	if (itemProfile.item.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(interaction, invInfo);
 	}
-	const otherItem = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === item.item.itemCategory)[0];
-	const otherItemInstance = await otherItem.getItem();
-	await switchItemSlots(otherItem, player, item.item);
+	const itemInventory = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemProfile.item.itemCategory)[0];
+	await switchItemSlots(itemInventory, player, itemProfile.item);
 	await invInfo.save();
-	let desc;
-	if (otherItem.itemId === 0) {
-		desc = tr.format(item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
-			item: item.shortName,
-			frenchMasculine: item.frenchMasculine
-		});
-	}
-	else {
-		desc = tr.format(item.item.itemCategory === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
-			item1: item.shortName,
-			item2: otherItemInstance.getName(tr.language)
-		});
-	}
-	await interaction.channel.send({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(tr.get("title"), interaction.user)
-			.setDescription(desc)
-		]
-	});
+	await sendFinishSwitchEmbed(interaction, tr, await itemProfile.item.getItem(), await itemInventory.getItem());
 }
 
 /**
@@ -197,6 +200,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
 		return;
 	}
+
+	if (toSwitchItems.length === 1) {
+		const itemInventory = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === toSwitchItems[0].itemCategory)[0];
+		if (itemInventory.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
+			addDailyTimeBecauseSwitch(interaction, invInfo);
+		}
+		await switchItemSlots(itemInventory, player, toSwitchItems[0]);
+		await invInfo.save();
+		await sendFinishSwitchEmbed(interaction, tr, await toSwitchItems[0].getItem(), await itemInventory.getItem());
+		return;
+	}
+
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);
 
 	// Build the choice items for the choice embed
