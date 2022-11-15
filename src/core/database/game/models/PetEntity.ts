@@ -10,6 +10,7 @@ import {botConfig, draftBotInstance} from "../../../bot";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {PlayerEditValueParameters} from "./Player";
 import moment = require("moment");
+import {PetConstants} from "../../../constants/PetConstants";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -47,7 +48,7 @@ export class PetEntity extends Model {
 		if (!this.hungrySince) {
 			return 0;
 		}
-		return Constants.PETS.BREED_COOLDOWN * petModel.rarity -
+		return PetConstants.BREED_COOLDOWN * petModel.rarity -
 			(new Date().valueOf() - this.hungrySince.valueOf());
 	}
 
@@ -81,44 +82,44 @@ export class PetEntity extends Model {
 		const translations = Translations.getModule("models.pets", language);
 		const loveLevel = this.getLoveLevelNumber();
 		let loveLevelText;
-		if (loveLevel === Constants.PETS.LOVE_LEVEL.FEISTY) {
+		if (loveLevel === PetConstants.LOVE_LEVEL.FEISTY) {
 			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.0"), {
-				typeSuffix: this.sex === Constants.PETS.FEMALE ? "se" : "x"
+				typeSuffix: this.sex === PetConstants.SEX.FEMALE ? "se" : "x"
 			}) : translations.get("loveLevels.0");
 		}
-		else if (loveLevel === Constants.PETS.LOVE_LEVEL.WILD) {
+		else if (loveLevel === PetConstants.LOVE_LEVEL.WILD) {
 			loveLevelText = translations.get("loveLevels.1");
 		}
-		else if (loveLevel === Constants.PETS.LOVE_LEVEL.FEARFUL) {
+		else if (loveLevel === PetConstants.LOVE_LEVEL.FEARFUL) {
 			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.2"), {
-				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ve" : "f"
+				typeSuffix: this.sex === PetConstants.SEX.FEMALE ? "ve" : "f"
 			}) : translations.get("loveLevels.2");
 		}
-		else if (loveLevel === Constants.PETS.LOVE_LEVEL.TAMED) {
+		else if (loveLevel === PetConstants.LOVE_LEVEL.TAMED) {
 			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.3"), {
-				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
+				typeSuffix: this.sex === PetConstants.SEX.FEMALE ? "ée" : "é"
 			}) : translations.get("loveLevels.3");
 		}
-		else if (loveLevel === Constants.PETS.LOVE_LEVEL.TRAINED) {
+		else if (loveLevel === PetConstants.LOVE_LEVEL.TRAINED) {
 			loveLevelText = language === Constants.LANGUAGE.FRENCH ? format(translations.get("loveLevels.4"), {
-				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
+				typeSuffix: this.sex === PetConstants.SEX.FEMALE ? "ée" : "é"
 			}) : translations.get("loveLevels.4");
 		}
 		return loveLevelText;
 	}
 
 	public getLoveLevelNumber(): number {
-		return this.lovePoints === Constants.PETS.MAX_LOVE_POINTS
-			? Constants.PETS.LOVE_LEVEL.TRAINED : this.lovePoints >= Constants.PETS.LOVE_LEVELS[2]
-				? Constants.PETS.LOVE_LEVEL.TAMED : this.lovePoints >= Constants.PETS.LOVE_LEVELS[1]
-					? Constants.PETS.LOVE_LEVEL.FEARFUL : this.lovePoints >= Constants.PETS.LOVE_LEVELS[0]
-						? Constants.PETS.LOVE_LEVEL.WILD : Constants.PETS.LOVE_LEVEL.FEISTY;
+		return this.lovePoints === PetConstants.MAX_LOVE_POINTS
+			? PetConstants.LOVE_LEVEL.TRAINED : this.lovePoints >= PetConstants.LOVE_LEVELS[2]
+				? PetConstants.LOVE_LEVEL.TAMED : this.lovePoints >= PetConstants.LOVE_LEVELS[1]
+					? PetConstants.LOVE_LEVEL.FEARFUL : this.lovePoints >= PetConstants.LOVE_LEVELS[0]
+						? PetConstants.LOVE_LEVEL.WILD : PetConstants.LOVE_LEVEL.FEISTY;
 	}
 
 	public async changeLovePoints(parameters: PlayerEditValueParameters): Promise<void> {
 		this.lovePoints += parameters.amount;
-		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
-			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
+		if (this.lovePoints >= PetConstants.MAX_LOVE_POINTS) {
+			this.lovePoints = PetConstants.MAX_LOVE_POINTS;
 		}
 		else if (this.lovePoints < 0) {
 			this.lovePoints = 0;
@@ -135,7 +136,7 @@ export class PetEntity extends Model {
 	}
 
 	public isFeisty(): boolean {
-		return this.getLoveLevelNumber() === Constants.PETS.LOVE_LEVEL.FEISTY;
+		return this.getLoveLevelNumber() === PetConstants.LOVE_LEVEL.FEISTY;
 	}
 
 	private getNickname(language: string): string {
@@ -165,7 +166,7 @@ export class PetEntities {
 			petId: petId,
 			sex: sex,
 			nickname: nickname,
-			lovePoints: Constants.PETS.BASE_LOVE
+			lovePoints: PetConstants.BASE_LOVE
 		});
 	}
 
@@ -195,18 +196,18 @@ export class PetEntities {
 			petId: pet.id,
 			sex: sex,
 			nickname: null,
-			lovePoints: Constants.PETS.BASE_LOVE
+			lovePoints: PetConstants.BASE_LOVE
 		});
 	}
 
 	static async generateRandomPetEntityNotGuild(): Promise<PetEntity> {
-		return await PetEntities.generateRandomPetEntity(Constants.PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
+		return await PetEntities.generateRandomPetEntity(PetConstants.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
 	}
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
-					   WHERE lovePoints = ${Constants.PETS.MAX_LOVE_POINTS}`;
+					   WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -215,7 +216,7 @@ export class PetEntities {
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
-					   WHERE lovePoints <= ${Constants.PETS.LOVE_LEVELS[0]}`;
+					   WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];

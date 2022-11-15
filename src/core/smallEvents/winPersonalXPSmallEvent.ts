@@ -3,7 +3,7 @@ import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Translations} from "../Translations";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
@@ -24,10 +24,7 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const xpWon = RandomUtils.draftbotRandom.integer(
-			Constants.SMALL_EVENT.MINIMUM_EXPERIENCE_WON,
-			Constants.SMALL_EVENT.MAXIMUM_EXPERIENCE_WON
-		);
+		const xpWon = RandomUtils.rangedInt(SmallEventConstants.EXPERIENCE);
 		const translationWXPP = Translations.getModule("smallEvents.winPersonalXP", language);
 		seEmbed
 			.setDescription(

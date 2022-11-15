@@ -12,9 +12,8 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {randomInt} from "crypto";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {giveFood} from "../../core/utils/GuildUtils";
+import {calculateAmountOfXPToAdd, giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
@@ -22,6 +21,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Callback of the guild shop command
@@ -44,7 +44,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);
-			const xpToAdd = randomInt(50, 450);
+			const xpToAdd = calculateAmountOfXPToAdd(parseInt(guildShopTranslations.get("guildXp.price")));
 			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
 
 			await guild.save();
@@ -112,10 +112,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const guild = await Guilds.getById(player.guildId);
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
-	const commonFoodRemainingSlots = Math.max(Constants.GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
-	const herbivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
-	const carnivorousFoodRemainingSlots = Math.max(Constants.GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
-	const ultimateFoodRemainingSlots = Math.max(Constants.GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
+	const commonFoodRemainingSlots = Math.max(GuildConstants.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
+	const herbivorousFoodRemainingSlots = Math.max(GuildConstants.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
+	const carnivorousFoodRemainingSlots = Math.max(GuildConstants.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
+	const ultimateFoodRemainingSlots = Math.max(GuildConstants.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
 	const shopMessage = new DraftBotShopMessageBuilder(
 		interaction,

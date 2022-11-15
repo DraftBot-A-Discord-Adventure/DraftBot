@@ -4,6 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
+import {ItemConstants} from "../../../../core/constants/ItemConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",
@@ -35,19 +36,19 @@ const slotsTestCommand = async (language: string, interaction: CommandInteractio
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 
 	switch (parseInt(args[0], 10)) {
-	case Constants.ITEM_CATEGORIES.WEAPON:
+	case ItemConstants.CATEGORIES.WEAPON:
 		inventoryInfo.weaponSlots = slots;
 		category = "armes";
 		break;
-	case Constants.ITEM_CATEGORIES.ARMOR:
+	case ItemConstants.CATEGORIES.ARMOR:
 		inventoryInfo.armorSlots = slots;
 		category = "armures";
 		break;
-	case Constants.ITEM_CATEGORIES.POTION:
+	case ItemConstants.CATEGORIES.POTION:
 		inventoryInfo.potionSlots = slots;
 		category = "potions";
 		break;
-	case Constants.ITEM_CATEGORIES.OBJECT:
+	case ItemConstants.CATEGORIES.OBJECT:
 		inventoryInfo.objectSlots = slots;
 		category = "objets";
 		break;

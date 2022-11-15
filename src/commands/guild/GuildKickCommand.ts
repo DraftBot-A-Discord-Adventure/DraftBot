@@ -14,6 +14,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 type PlayerInformation = { player: Player, guild: Guild }
 type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
@@ -182,7 +183,7 @@ export const commandInfo: ICommand = {
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
 		guildRequired: true,
-		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.CHIEF
+		guildPermissions: GuildConstants.PERMISSION_LEVEL.CHIEF
 	},
 	mainGuildCommand: false
 };

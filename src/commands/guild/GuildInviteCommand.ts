@@ -15,6 +15,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 type InvitedUserInformation = { invitedUser: User, invitedPlayer: Player };
 type InviterUserInformation = { guild: Guild, player: Player };
@@ -61,7 +62,7 @@ function getEndCallbackGuildAdd(
 		}
 
 		// check if the guild is full
-		if ((await Players.getByGuild(inviter.guild.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
+		if ((await Players.getByGuild(inviter.guild.id)).length === GuildConstants.MAX_GUILD_MEMBERS) {
 			await sendErrorMessage(
 				interaction.user,
 				interaction,
@@ -129,7 +130,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildInviteModule = Translations.getModule("commands.guildInvite", language);
 	const invitedPlayer = await Players.getByOptions(interaction);
 
-	if (invitedPlayer.level < Constants.GUILD.REQUIRED_LEVEL) {
+	if (invitedPlayer.level < GuildConstants.REQUIRED_LEVEL) {
 		// invited user is low level
 		await replyErrorMessage(
 			interaction,
@@ -137,11 +138,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			guildInviteModule.format("levelTooLow",
 				{
 					pseudo: invitedPlayer.getPseudo(language),
-					level: Constants.GUILD.REQUIRED_LEVEL,
+					level: GuildConstants.REQUIRED_LEVEL,
 					playerLevel: invitedPlayer.level,
-					comeIn: Constants.GUILD.REQUIRED_LEVEL - invitedPlayer.level > 1
-						? `${Constants.GUILD.REQUIRED_LEVEL - invitedPlayer.level} niveaux`
-						: `${Constants.GUILD.REQUIRED_LEVEL - invitedPlayer.level} niveau`
+					comeIn: GuildConstants.REQUIRED_LEVEL - invitedPlayer.level > 1
+						? `${GuildConstants.REQUIRED_LEVEL - invitedPlayer.level} niveaux`
+						: `${GuildConstants.REQUIRED_LEVEL - invitedPlayer.level} niveau`
 				}
 			)
 		);
@@ -173,7 +174,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const members = await Players.getByGuild(guild.id);
-	if (members.length === Constants.GUILD.MAX_GUILD_MEMBER) {
+	if (members.length === GuildConstants.MAX_GUILD_MEMBERS) {
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
@@ -210,7 +211,7 @@ export const commandInfo: ICommand = {
 	executeCommand,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
-		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
+		guildPermissions: GuildConstants.PERMISSION_LEVEL.ELDER,
 		guildRequired: true
 	},
 	mainGuildCommand: false

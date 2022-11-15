@@ -33,6 +33,7 @@ import {effectsErrorTextValue, replyErrorMessage} from "../core/utils/ErrorUtils
 import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
 import Player, {Players} from "../core/database/game/models/Player";
+import {GuildConstants} from "../core/constants/GuildConstants";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -590,13 +591,13 @@ export class CommandsManager {
 			return false;
 		}
 
-		let userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.MEMBER;
+		let userPermissionsLevel = GuildConstants.PERMISSION_LEVEL.MEMBER;
 
 		if (player.id === guild.getElderId()) {
-			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.ELDER;
+			userPermissionsLevel = GuildConstants.PERMISSION_LEVEL.ELDER;
 		}
 		if (player.id === guild.getChiefId()) {
-			userPermissionsLevel = Constants.GUILD.PERMISSION_LEVEL.CHIEF;
+			userPermissionsLevel = GuildConstants.PERMISSION_LEVEL.CHIEF;
 		}
 
 		if (userPermissionsLevel < commandInfo.requirements.guildPermissions) {

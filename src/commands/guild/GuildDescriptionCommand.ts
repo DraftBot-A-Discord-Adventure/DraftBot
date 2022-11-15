@@ -14,6 +14,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Create validation message to change guild description
@@ -93,13 +94,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const guildDescription = interaction.options.get(Translations.getModule("commands.guildDescription", Constants.LANGUAGE.ENGLISH).get("optionDescriptionName")).value as string;
 
-	if (!checkNameString(guildDescription, Constants.GUILD.MIN_DESCRIPTION_LENGTH, Constants.GUILD.MAX_DESCRIPTION_LENGTH)) {
+	if (!checkNameString(guildDescription, GuildConstants.DESCRIPTION_LENGTH_RANGE)) {
 		await replyErrorMessage(
 			interaction,
 			language,
 			guildDescriptionModule.format("invalidDescription", {
-				min: Constants.GUILD.MIN_DESCRIPTION_LENGTH,
-				max: Constants.GUILD.MAX_DESCRIPTION_LENGTH
+				min: GuildConstants.DESCRIPTION_LENGTH_RANGE.MIN,
+				max: GuildConstants.DESCRIPTION_LENGTH_RANGE.MAX
 			})
 		);
 		return;
@@ -129,7 +130,7 @@ export const commandInfo: ICommand = {
 		allowEffects: null,
 		requiredLevel: null,
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD],
-		guildPermissions: Constants.GUILD.PERMISSION_LEVEL.ELDER,
+		guildPermissions: GuildConstants.PERMISSION_LEVEL.ELDER,
 		guildRequired: true,
 		userPermission: null
 	},

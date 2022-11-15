@@ -3,9 +3,9 @@ import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
-import {Constants} from "../Constants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
+import {ItemConstants} from "../constants/ItemConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -23,7 +23,7 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.POTION);
+		const randomItem = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.POTION);
 		seEmbed.setDescription(
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +

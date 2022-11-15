@@ -16,6 +16,9 @@ import {GameDatabase} from "../database/game/GameDatabase";
 import {Op, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
+import {PetConstants} from "../constants/PetConstants";
+import {FightConstants} from "../constants/FightConstants";
+import {ItemConstants} from "../constants/ItemConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -90,10 +93,10 @@ export class DraftBot {
 		Potion.findAll({
 			where: {
 				nature: {
-					[Op.ne]: Constants.NATURE.NONE
+					[Op.ne]: ItemConstants.NATURE.NONE
 				},
 				rarity: {
-					[Op.lt]: Constants.RARITY.LEGENDARY
+					[Op.lt]: ItemConstants.RARITY.LEGENDARY
 				}
 			},
 			order: Sequelize.literal("rand()")
@@ -144,7 +147,7 @@ export class DraftBot {
 				{
 					where: {
 						lovePoints: {
-							[Op.notIn]: [Constants.PETS.MAX_LOVE_POINTS, 0]
+							[Op.notIn]: [PetConstants.MAX_LOVE_POINTS, 0]
 						}
 					}
 				}
@@ -230,14 +233,14 @@ export class DraftBot {
 		Player.update(
 			{
 				fightPointsLost: Sequelize.literal(
-					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`
+					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
 				)
 			},
 			{where: {fightPointsLost: {[Op.not]: 0}}}
 		).finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
-			minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
+			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 		);
 	}
 
@@ -280,7 +283,7 @@ export class DraftBot {
 			DraftBot.programDailyTimeout();
 			setTimeout(
 				DraftBot.fightPowerRegenerationLoop.bind(DraftBot),
-				minutesToMilliseconds(Constants.FIGHT.POINTS_REGEN_MINUTES)
+				minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 			);
 			checkMissingTranslations();
 		}

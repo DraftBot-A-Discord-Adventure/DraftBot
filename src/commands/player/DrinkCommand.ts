@@ -18,6 +18,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -30,15 +31,15 @@ type TextInformation = { tr: TranslationModule, interaction: CommandInteraction 
  */
 async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Player, textInformation: TextInformation): Promise<void> {
 	switch (potion.nature) {
-	case Constants.NATURE.HEALTH:
+	case ItemConstants.NATURE.HEALTH:
 		embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
 		await player.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
 		break;
-	case Constants.NATURE.HOSPITAL:
+	case ItemConstants.NATURE.HOSPITAL:
 		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
 		await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
 		break;
-	case Constants.NATURE.MONEY:
+	case ItemConstants.NATURE.MONEY:
 		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
 		await player.addMoney({
 			amount: potion.power,
@@ -47,7 +48,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Playe
 			reason: NumberChangeReason.DRINK
 		});
 		break;
-	case Constants.NATURE.NONE:
+	case ItemConstants.NATURE.NONE:
 		embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
 		break;
 	default:
@@ -120,7 +121,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	// Those objects are active only during fights
-	if (potion.nature === Constants.NATURE.SPEED || potion.nature === Constants.NATURE.DEFENSE || potion.nature === Constants.NATURE.ATTACK) {
+	if (potion.nature === ItemConstants.NATURE.SPEED || potion.nature === ItemConstants.NATURE.DEFENSE || potion.nature === ItemConstants.NATURE.ATTACK) {
 		await replyErrorMessage(interaction, language, tr.get("objectIsActiveDuringFights"));
 		return;
 	}

@@ -23,6 +23,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
@@ -52,13 +53,13 @@ async function missingRequirementsToSellPet(textInformation: TextInformation, se
 		return true;
 	}
 
-	if (sellerInformation.petCost < PetSellConstants.SELL_PRICE_MIN || sellerInformation.petCost > PetSellConstants.SELL_PRICE_MAX) {
+	if (sellerInformation.petCost < PetSellConstants.SELL_PRICE.MIN || sellerInformation.petCost > PetSellConstants.SELL_PRICE.MAX) {
 		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.petSellModule.language,
 			textInformation.petSellModule.format("badPrice", {
-				minPrice: PetSellConstants.SELL_PRICE_MIN,
-				maxPrice: PetSellConstants.SELL_PRICE_MAX
+				minPrice: PetSellConstants.SELL_PRICE.MIN,
+				maxPrice: PetSellConstants.SELL_PRICE.MAX
 			})
 		);
 		return true;
@@ -118,7 +119,7 @@ async function executeTheTransaction(
 	await sellerInformation.guild.addExperience(xpToAdd, textInformation.interaction.channel, textInformation.petSellModule.language, NumberChangeReason.PET_SELL);
 	buyerInformation.buyer.petId = sellerInformation.pet.id;
 	sellerInformation.player.petId = null;
-	sellerInformation.pet.lovePoints = Constants.PETS.BASE_LOVE;
+	sellerInformation.pet.lovePoints = PetConstants.BASE_LOVE;
 	// the money has to be edited before the player is saved to avoid cross writing to the database
 	await buyerInformation.buyer.addMoney({
 		amount: -sellerInformation.petCost,

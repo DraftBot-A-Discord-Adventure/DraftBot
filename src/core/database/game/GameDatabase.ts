@@ -19,7 +19,7 @@ import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
 import {EffectsConstants} from "../../constants/EffectsConstants";
-import { Constants } from "../../Constants";
+import {Constants} from "../../Constants";
 
 type IssueType = {
 	[key: string]: unknown,

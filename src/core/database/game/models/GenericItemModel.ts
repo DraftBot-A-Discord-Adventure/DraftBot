@@ -2,7 +2,7 @@ import {EmbedField} from "discord.js";
 import {Translations} from "../../../Translations";
 import {Model} from "sequelize";
 import {draftBotClient} from "../../../bot";
-import { Constants } from "../../../Constants";
+import {Constants} from "../../../Constants";
 
 export type MaxStatsValues = { attack: number, defense: number, speed: number }
 

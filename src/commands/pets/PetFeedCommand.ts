@@ -22,6 +22,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 /**
  * Obtiens la guilde du joueur
@@ -138,7 +139,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		const feedSuccessEmbed = new DraftBotEmbed();
 		feedSuccessEmbed.setDescription(petFeedModule.format("description.commonFood", {
 			petnick: authorPet.displayName(petModel, language),
-			typeSuffix: authorPet.sex === Constants.PETS.FEMALE ? "se" : "x"
+			typeSuffix: authorPet.sex === PetConstants.SEX.FEMALE ? "se" : "x"
 		}));
 
 		return interaction.followUp({embeds: [feedSuccessEmbed]});
@@ -201,7 +202,7 @@ async function feedPet(
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item.includes(petModel.diet) ? "dietFoodSuccess" : "dietFoodFail"}`, {
 				petnick: pet.displayName(petModel, language),
-				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
+				typeSuffix: pet.sex === PetConstants.SEX.FEMALE ? "se" : "x"
 			})
 		);
 	}
@@ -210,7 +211,7 @@ async function feedPet(
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item}`, {
 				petnick: pet.displayName(petModel, language),
-				typeSuffix: pet.sex === Constants.PETS.FEMALE ? "se" : "x"
+				typeSuffix: pet.sex === PetConstants.SEX.FEMALE ? "se" : "x"
 			})
 		);
 	}

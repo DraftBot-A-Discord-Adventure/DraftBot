@@ -22,7 +22,7 @@ export class MapLinks {
 		const linkIds: { id: number }[] = await MapLink.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		});
-		return await MapLinks.getById(linkIds[RandomUtils.draftbotRandom.integer(0, linkIds.length - 1)].id);
+		return await MapLinks.getById(linkIds[RandomUtils.randInt(0, linkIds.length)].id);
 	}
 
 	static async getLinkByLocations(idStartPoint: number, idEndPoint: number): Promise<MapLink> {

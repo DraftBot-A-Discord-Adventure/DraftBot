@@ -17,6 +17,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildCreateConstants} from "../../core/constants/GuildCreateConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Get a guild by its name
@@ -152,13 +153,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const askedName = interaction.options.get(Translations.getModule("commands.guildCreate", Constants.LANGUAGE.ENGLISH).get("optionGuildName")).value as string;
 
-	if (!checkNameString(askedName, Constants.GUILD.MIN_GUILD_NAME_SIZE, Constants.GUILD.MAX_GUILD_NAME_SIZE)) {
+	if (!checkNameString(askedName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
 		await replyErrorMessage(
 			interaction,
 			language,
 			`${guildCreateModule.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
-				min: Constants.GUILD.MIN_GUILD_NAME_SIZE,
-				max: Constants.GUILD.MAX_GUILD_NAME_SIZE
+				min: GuildConstants.GUILD_NAME_LENGTH_RANGE.MIN,
+				max: GuildConstants.GUILD_NAME_LENGTH_RANGE.MAX
 			})}`);
 		return;
 	}
@@ -197,7 +198,7 @@ export const commandInfo: ICommand = {
 			.setRequired(true)) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
-		requiredLevel: Constants.GUILD.REQUIRED_LEVEL,
+		requiredLevel: GuildConstants.REQUIRED_LEVEL,
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false

@@ -4,6 +4,7 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
  * Displays the several rarities that an item can get in the game
@@ -12,8 +13,8 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.rarity", language);
-	const maxValue = Constants.RARITIES_GENERATOR.MAX_VALUE;
-	const raritiesGenerator = Constants.RARITIES_GENERATOR.VALUES;
+	const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;
+	const raritiesGenerator = ItemConstants.RARITY.GENERATOR.VALUES;
 	const rarityEmbed = new DraftBotEmbed()
 		.setDescription(tr.format("rarities",
 			{

@@ -8,6 +8,7 @@ import Player from "../database/game/models/Player";
 import {GenericItemModel, MaxStatsValues} from "../database/game/models/GenericItemModel";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
+import {ItemConstants} from "../constants/ItemConstants";
 
 type Slots = {
 	weapons: GenericItemModel[],
@@ -176,10 +177,10 @@ export class DraftBotInventoryEmbedBuilder {
 			},
 			this._language,
 			{
-				weapons: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.WEAPON),
-				armors: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.ARMOR),
-				potions: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.POTION),
-				objects: await this.getItemsOfSlotsType(invSlots, Constants.ITEM_CATEGORIES.OBJECT),
+				weapons: await this.getItemsOfSlotsType(invSlots, ItemConstants.CATEGORIES.WEAPON),
+				armors: await this.getItemsOfSlotsType(invSlots, ItemConstants.CATEGORIES.ARMOR),
+				potions: await this.getItemsOfSlotsType(invSlots, ItemConstants.CATEGORIES.POTION),
+				objects: await this.getItemsOfSlotsType(invSlots, ItemConstants.CATEGORIES.OBJECT),
 				weaponSlots: invInfo.weaponSlots,
 				armorSlots: invInfo.armorSlots,
 				potionSlots: invInfo.potionSlots,

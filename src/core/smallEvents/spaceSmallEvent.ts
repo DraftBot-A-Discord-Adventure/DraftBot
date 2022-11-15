@@ -38,8 +38,8 @@ async function neoWS(): Promise<Record<string, unknown>> {
 	return Promise.resolve({
 		count: 1,
 		randomObjectName: RandomUtils.draftbotRandom.pick(SpaceConstants.INVENTED_ASTEROIDS_NAMES),
-		randomObjectDistance: RandomUtils.draftbotRandom.integer(SpaceConstants.MINIMUM_DISTANCE, SpaceConstants.MAXIMUM_DISTANCE),
-		randomObjectDiameter: RandomUtils.draftbotRandom.integer(SpaceConstants.MINIMUM_DIAMETER, SpaceConstants.MAXIMUM_DIAMETER)
+		randomObjectDistance: RandomUtils.rangedInt(SpaceConstants.DISTANCE_RANGE),
+		randomObjectDiameter: RandomUtils.rangedInt(SpaceConstants.DIAMETER_RANGE)
 	});
 }
 

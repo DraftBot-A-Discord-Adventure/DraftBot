@@ -111,7 +111,7 @@ export class Guild extends Model {
 			return;
 		}
 		// We assume that you cannot go the level 98 to 100 with 1 xp addition
-		if (this.level === Constants.GUILD.MAX_LEVEL - 1) {
+		if (this.level === GuildConstants.MAX_LEVEL - 1) {
 			const xpNeededToLevelUp = this.getExperienceNeededToLevelUp();
 			if (this.experience + experience > xpNeededToLevelUp) {
 				experience = xpNeededToLevelUp - this.experience;
@@ -195,7 +195,7 @@ export class Guild extends Model {
 	 * check if the guild is at max level
 	 */
 	public isAtMaxLevel(): boolean {
-		return this.level >= Constants.GUILD.MAX_LEVEL;
+		return this.level >= GuildConstants.MAX_LEVEL;
 	}
 
 	/**
@@ -204,7 +204,7 @@ export class Guild extends Model {
 	 * @param quantity the quantity that need to be available
 	 */
 	public isStorageFullFor(selectedItemType: string, quantity: number): boolean {
-		return this.getDataValue(selectedItemType) + quantity > Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)];
+		return this.getDataValue(selectedItemType) + quantity > GuildConstants.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)];
 	}
 
 	/**
@@ -216,7 +216,7 @@ export class Guild extends Model {
 	public addFood(selectedItemType: string, quantity: number, reason: NumberChangeReason): void {
 		this.setDataValue(selectedItemType, this.getDataValue(selectedItemType) + quantity);
 		if (this.isStorageFullFor(selectedItemType, 0)) {
-			this.setDataValue(selectedItemType, Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
+			this.setDataValue(selectedItemType, GuildConstants.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
 		}
 		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(selectedItemType), this.getDataValue(selectedItemType), reason).then();
 	}

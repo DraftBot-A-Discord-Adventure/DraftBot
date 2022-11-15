@@ -556,7 +556,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
-		if (reaction.emoji.name === Constants.REPORT.QUICK_END_EMOTE) {
+		if (reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
 			return;
 		}
 		const possibility = await Possibility.findAll({
@@ -569,7 +569,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 	});
 
 	collector.on("end", async (collected) => {
-		if (!collected.first() || collected.firstKey() === Constants.REPORT.QUICK_END_EMOTE) {
+		if (!collected.first() || collected.firstKey() === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
 			const possibility = await Possibility.findAll({
 				where: {
 					eventId: event.id,
@@ -580,7 +580,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 		}
 	});
 	for (const reaction of reactions) {
-		if (reaction !== "end" && reaction !== Constants.REPORT.QUICK_END_EMOTE) {
+		if (reaction !== "end" && reaction !== Constants.REACTIONS.NOT_REPLIED_EMOTE) {
 			await eventDisplayed.react(reaction)
 				.catch();
 		}

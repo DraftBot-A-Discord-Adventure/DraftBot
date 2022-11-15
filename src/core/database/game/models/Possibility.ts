@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import * as moment from "moment";
-import { format } from "../../../utils/StringFormatter";
+import {format} from "../../../utils/StringFormatter";
 
 export class Possibility extends Model {
 	public id!: number;

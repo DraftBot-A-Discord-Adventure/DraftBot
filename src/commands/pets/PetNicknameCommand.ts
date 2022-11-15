@@ -12,6 +12,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
+import {PetConstants} from "../../core/constants/PetConstants";
 
 /**
  * Renames your current pet
@@ -37,11 +38,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		successEmbed.setDescription(petNickTranslations.get("successNoName"));
 	}
 	else {
-		if (!checkNameString(petNickname, Constants.PETS.NICKNAME_MIN_LENGTH, Constants.PETS.NICKNAME_MAX_LENGTH)) {
+		if (!checkNameString(petNickname, PetConstants.NICKNAME_LENGTH_RANGE)) {
 			await replyErrorMessage(interaction, language,
 				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {
-					min: Constants.PETS.NICKNAME_MIN_LENGTH,
-					max: Constants.PETS.NICKNAME_MAX_LENGTH
+					min: PetConstants.NICKNAME_LENGTH_RANGE.MIN,
+					max: PetConstants.NICKNAME_LENGTH_RANGE.MAX
 				})}`);
 			return;
 		}

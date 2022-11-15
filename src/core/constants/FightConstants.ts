@@ -1,6 +1,4 @@
 export abstract class FightConstants {
-	static readonly MAX_SPEED_IMPROVEMENT = 30;
-
 	static readonly MAX_TURNS = 25;
 
 	static readonly REQUIRED_LEVEL = 8;
@@ -18,7 +16,7 @@ export abstract class FightConstants {
 		NO_FIGHT_POINTS: "error.noFightPoints"
 	};
 
-	// duration of the menu that search for an opponent in miliseconds
+	// duration of the menu that search for an opponent in milliseconds
 	static readonly ASKING_MENU_DURATION = 120000;
 
 	// number of reaction the bot will accept before closing a fight request due to spam.

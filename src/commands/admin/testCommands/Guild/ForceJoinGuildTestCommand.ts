@@ -4,6 +4,7 @@ import {Constants} from "../../../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {GuildConstants} from "../../../../core/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "forcejoinguild",
@@ -39,7 +40,7 @@ const forceJoinGuildTestCommand = async (language: string, interaction: CommandI
 			throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");
 		}
 	}
-	if ((await Players.getByGuild(guildToJoin.id)).length === Constants.GUILD.MAX_GUILD_MEMBER) {
+	if ((await Players.getByGuild(guildToJoin.id)).length === GuildConstants.MAX_GUILD_MEMBERS) {
 		throw new Error("Erreur forcejoinguild : nombre de joueurs maximum dans cette guilde atteint !");
 	}
 	if (guildToLeave && guildToLeave.chiefId === player.id) {

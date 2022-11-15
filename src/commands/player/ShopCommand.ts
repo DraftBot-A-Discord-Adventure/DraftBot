@@ -28,6 +28,7 @@ import {InventoryInfo, InventoryInfos} from "../../core/database/game/models/Inv
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
  * Callback of the shop command
@@ -243,8 +244,8 @@ function getBuySlotExtensionShopItemCallback(
 		for (const category of itemInformation.availableCategories) {
 			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
 			desc += `${Constants.REACTIONS.ITEM_CATEGORIES[category]} ${format(translationModule.getFromArray("slotCategories", category), {
-				available: Constants.ITEMS.SLOTS.LIMITS[category] - playerInformation.invInfo.slotLimitForCategory(category),
-				limit: Constants.ITEMS.SLOTS.LIMITS[category] - 1
+				available: ItemConstants.SLOTS.LIMITS[category] - playerInformation.invInfo.slotLimitForCategory(category),
+				limit: ItemConstants.SLOTS.LIMITS[category] - 1
 			})}\n`;
 		}
 		chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
@@ -268,13 +269,13 @@ function getBuySlotExtensionShopItemCallback(
 async function getSlotExtensionShopItem(translationModule: TranslationModule, player: Player, interaction: CommandInteraction): Promise<ShopItem> {
 	const invInfo = await InventoryInfos.getOfPlayer(player.id);
 	const availableCategories = [0, 1, 2, 3]
-		.filter(itemCategory => invInfo.slotLimitForCategory(itemCategory) < Constants.ITEMS.SLOTS.LIMITS[itemCategory]);
+		.filter(itemCategory => invInfo.slotLimitForCategory(itemCategory) < ItemConstants.SLOTS.LIMITS[itemCategory]);
 	if (availableCategories.length === 0) {
 		return null;
 	}
 	const totalSlots = invInfo.weaponSlots + invInfo.armorSlots
 		+ invInfo.potionSlots + invInfo.objectSlots;
-	const price = Constants.ITEMS.SLOTS.PRICES[totalSlots - 4];
+	const price = ItemConstants.SLOTS.PRICES[totalSlots - 4];
 	if (!price) {
 		return null;
 	}

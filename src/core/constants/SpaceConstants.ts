@@ -23,13 +23,15 @@ export abstract class SpaceConstants {
 		"@setéroïde",
 		"Chulxubub"];
 
-	static readonly MINIMUM_DISTANCE: number = 1;
+	static readonly DISTANCE_RANGE = {
+		MIN: 1,
+		MAX: 100
+	};
 
-	static readonly MAXIMUM_DISTANCE: number = 100;
-
-	static readonly MINIMUM_DIAMETER: number = 1;
-
-	static readonly MAXIMUM_DIAMETER: number = 1000;
+	static readonly DIAMETER_RANGE = {
+		MIN: 1,
+		MAX: 1000
+	};
 
 	static readonly WAIT_TIME_BEFORE_SEARCH = 5000;
 }

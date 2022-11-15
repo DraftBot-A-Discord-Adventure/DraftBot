@@ -27,7 +27,7 @@ function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: Translat
 		}),
 		value: translations.format("foodField", {
 			guildFood: guild.getDataValue(food),
-			maxFood: Constants.GUILD.MAX_PET_FOOD[foodIndex]
+			maxFood: GuildConstants.MAX_PET_FOOD[foodIndex]
 		}),
 		inline: true
 	});

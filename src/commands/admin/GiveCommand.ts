@@ -15,6 +15,7 @@ import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {getItemByIdAndCategory} from "../../core/utils/ItemUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
+import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
  * Get the end callback of the give command
@@ -148,10 +149,10 @@ export const commandInfo: ICommand = {
 			})
 			.setRequired(true)
 			.addChoices(
-				getChoiceFromItemType(Constants.ITEM_CATEGORIES.WEAPON),
-				getChoiceFromItemType(Constants.ITEM_CATEGORIES.ARMOR),
-				getChoiceFromItemType(Constants.ITEM_CATEGORIES.POTION),
-				getChoiceFromItemType(Constants.ITEM_CATEGORIES.OBJECT)
+				getChoiceFromItemType(ItemConstants.CATEGORIES.WEAPON),
+				getChoiceFromItemType(ItemConstants.CATEGORIES.ARMOR),
+				getChoiceFromItemType(ItemConstants.CATEGORIES.POTION),
+				getChoiceFromItemType(ItemConstants.CATEGORIES.OBJECT)
 			)
 		)
 		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionItemIdName"))

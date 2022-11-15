@@ -1,9 +1,9 @@
 import {QueryTypes, Sequelize} from "sequelize";
-import {Constants} from "../../../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
 import fs = require("fs");
 import moment = require("moment");
 import {botConfig} from "../../../bot";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class Armor extends MainItemModel {
 	categoryName = "armors";
@@ -17,7 +17,7 @@ export class Armor extends MainItemModel {
 	}
 
 	public getCategory(): number {
-		return Constants.ITEM_CATEGORIES.ARMOR;
+		return ItemConstants.CATEGORIES.ARMOR;
 	}
 
 	public getDefense(): number {

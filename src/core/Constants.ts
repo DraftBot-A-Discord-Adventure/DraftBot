@@ -1,6 +1,8 @@
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
 import {HexColorString} from "discord.js";
 
+export type ConstantRange = {MIN: number, MAX: number};
+
 export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
@@ -29,7 +31,8 @@ export abstract class Constants {
 			"🛡️",
 			"⚗️",
 			"🧸"
-		]
+		],
+		NOT_REPLIED_EMOTE: "🔚"
 	};
 
 	static readonly MESSAGES = {
@@ -49,13 +52,6 @@ export abstract class Constants {
 		ROLE_DURATION: 24
 	};
 
-	static readonly ITEM_CATEGORIES = {
-		WEAPON: 0,
-		ARMOR: 1,
-		POTION: 2,
-		OBJECT: 3
-	};
-
 	static readonly COMMAND_CATEGORY = {
 		SERVER: "server",
 		UTIL: "util",
@@ -63,59 +59,6 @@ export abstract class Constants {
 		MISSION: "mission",
 		GUILD: "guild",
 		PET: "pet"
-	};
-
-	static readonly RARITY = {
-		BASIC: 0,
-		COMMON: 1,
-		UNCOMMON: 2,
-		EXOTIC: 3,
-		RARE: 4,
-		SPECIAL: 5,
-		EPIC: 6,
-		LEGENDARY: 7,
-		MYTHICAL: 8
-	};
-
-	static readonly RARITIES_VALUES = [
-		0, // basic
-		20, // common
-		40, // uncommon
-		100, // exotic
-		250, // rare
-		580, // special
-		1690, // epic
-		5000, // legendary
-		10000 // unique
-	];
-
-	static readonly RARITIES_GENERATOR = {
-		VALUES: [// common
-			4375,// uncommon
-			6875,// exotic
-			8375,// rare
-			9375,// special
-			9875, // epic
-			9975, // legendary
-			9998 // unique
-		],
-		MAX_VALUE: 10000
-	};
-
-	static readonly ITEM_GENERATOR = {
-		"max": "10",
-		"tab": {
-			"1": "weapons",
-			"2": "weapons",
-			"3": "weapons",
-			"4": "armors",
-			"5": "armors",
-			"6": "armors",
-			"7": "objects",
-			"8": "objects",
-			"9": "potions",
-			"10": "potions"
-		}
 	};
 
 	static readonly XP = {
@@ -140,8 +83,7 @@ export abstract class Constants {
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
 		PATH_SQUARE_COUNT: 16,
-		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000, // 9 minutes and 45 seconds
-		QUICK_END_EMOTE: "🔚"
+		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000 // 9 minutes and 45 seconds
 	};
 
 	// This constant represent the different types of values on which the players can be ranked
@@ -151,87 +93,12 @@ export abstract class Constants {
 		WEEKLY_SCORE: "weeklyScore"
 	};
 
-	static readonly PETS = {
-		IS_FOOD: 1,
-		NICKNAME_MIN_LENGTH: 3,
-		NICKNAME_MAX_LENGTH: 16,
-		MALE: "m",
-		FEMALE: "f",
-		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
-		MAX_LOVE_POINTS: 100,
-		BASE_LOVE: 10,
-		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
-		LOVE_LEVELS: [5, 20, 50],
-		LOVE_LEVEL: {
-			FEISTY: 1,
-			WILD: 2,
-			FEARFUL: 3,
-			TAMED: 4,
-			TRAINED: 5
-		},
-		SELL: {
-			MIN: 100,
-			MAX: 50000
-		}
-	};
-
 	static readonly CLASS = {
 		REQUIRED_LEVEL: 4,
 		PRICE: 5000,
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
 		GROUP3LEVEL: 48
-	};
-
-	static readonly FIGHT = {
-		MAX_SPEED_IMPROVEMENT: 30,
-		MAX_TURNS: 25,
-		REQUIRED_LEVEL: 8,
-		POINTS_REGEN_MINUTES: 15,
-		POINTS_REGEN_AMOUNT: 50,
-		ACTION: {
-			QUICK_ATTACK: 0,
-			SIMPLE_ATTACK: 1,
-			POWERFUL_ATTACK: 2,
-			BULK_ATTACK: 3,
-			IMPROVE_SPEED: 4,
-			ULTIMATE_ATTACK: 5
-		}
-	};
-
-	static readonly GUILD = {
-		REQUIRED_LEVEL: 10,
-		MAX_GUILD_MEMBER: 6,
-		MAX_GUILD_NAME_SIZE: 15,
-		MIN_GUILD_NAME_SIZE: 2,
-		MIN_DESCRIPTION_LENGTH: 2,
-		MAX_DESCRIPTION_LENGTH: 140,
-		MAX_LEVEL: 100,
-		MAX_COMMON_PET_FOOD: 25,
-		MAX_HERBIVOROUS_PET_FOOD: 15,
-		MAX_CARNIVOROUS_PET_FOOD: 15,
-		MAX_ULTIMATE_PET_FOOD: 5,
-		MAX_PET_FOOD: [
-			25, // Common food
-			15, // Herbivorous food
-			15, // Carnivorous food
-			5 // Ultimate food
-		],
-		PERMISSION_LEVEL: {
-			MEMBER: 1,
-			ELDER: 2,
-			CHIEF: 3
-		}
-	};
-
-	static readonly NATURE = {
-		NONE: 0,
-		HEALTH: 1,
-		SPEED: 2,
-		ATTACK: 3,
-		DEFENSE: 4,
-		HOSPITAL: 5,
-		MONEY: 6
 	};
 
 	static readonly LOGS = {
@@ -249,13 +116,6 @@ export abstract class Constants {
 	static readonly BEGINNING = {
 		START_MAP_LINK: 83,
 		LAST_MAP_LINK: 77
-	};
-
-	static readonly LOTTERY_REWARD_TYPES = {
-		XP: "xp",
-		MONEY: "money",
-		GUILD_XP: "guildXp",
-		POINTS: "points"
 	};
 
 	static readonly MISSIONS = {
@@ -338,45 +198,8 @@ export abstract class Constants {
 			"🗳️",
 			"🔖",
 			"💞",
-			"\uD83D\uDC8D"
+			"💍"
 		]
-	};
-
-	static readonly SMALL_EVENT = {
-		MINIMUM_HEALTH_WON: 1,
-		MAXIMUM_HEALTH_WON: 4,
-		SHOP_RESALE_MULTIPLIER: 0.1,
-		MINIMUM_EXPERIENCE_WON: 10,
-		MAXIMUM_EXPERIENCE_WON: 35,
-		MINIMUM_GUILD_EXPERIENCE_WON: 20,
-		MAXIMUM_GUILD_EXPERIENCE_WON: 80,
-		MINIMUM_MONEY_WON_VOTE: 150,
-		MAXIMUM_MONEY_WON_VOTE: 250,
-		MINIMUM_HEALTH_LOST_SMALL: 1,
-		MAXIMUM_HEALTH_LOST_SMALL: 5,
-		MINIMUM_TIME_LOST_SMALL: 1,
-		MAXIMUM_TIME_LOST_SMALL: 24,
-		MINIMUM_MONEY_LOST_SMALL: 10,
-		MAXIMUM_MONEY_LOST_SMALL: 50,
-		MINIMUM_HEALTH_LOST_BIG: 5,
-		MAXIMUM_HEALTH_LOST_BIG: 30,
-		MINIMUM_MONEY_LOST_BIG: 50,
-		MAXIMUM_MONEY_LOST_BIG: 250,
-		MINIMUM_MONEY_WON_CLASS: 50,
-		MAXIMUM_MONEY_WON_CLASS: 150,
-		MINIMUM_HEALTH_WON_CLASS: 1,
-		MAXIMUM_HEALTH_WON_CLASS: 5,
-		LOTTERY_REWARDS: {
-			EXPERIENCE: 40,
-			MONEY: 50,
-			GUILD_EXPERIENCE: 70,
-			POINTS: 35
-		},
-		MINIMUM_LEVEL_GOOD_PLAYER_FOOD_MERCHANT: 30,
-		MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT: 20,
-		BASE_TIME_LOST_GOBLETS_GAME: 1,
-		BASE_HEALTH_LOST_GOBLETS_GAME: 5,
-		COIN_EMOTE: "🪙"
 	};
 
 	static readonly LANGUAGE = {
@@ -396,38 +219,6 @@ export abstract class Constants {
 		CARNIVOROUS_FOOD: "carnivorousFood",
 		HERBIVOROUS_FOOD: "herbivorousFood",
 		ULTIMATE_FOOD: "ultimateFood"
-	};
-
-	static readonly ITEMS = {
-		MAPPER: [
-			1,
-			1.5,
-			2.1,
-			2.8,
-			3.6,
-			4.5,
-			5.5,
-			6.6,
-			6.7
-		],
-		SLOTS: {
-			LIMITS: [
-				2,
-				2,
-				4,
-				4
-			],
-			PRICES: [
-				500,
-				1000,
-				2500,
-				7000,
-				12000,
-				17000,
-				25000,
-				30000
-			]
-		}
 	};
 
 	static readonly PET_FOOD_GUILD_SHOP = {

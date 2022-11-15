@@ -8,11 +8,12 @@ import {Guilds} from "../database/game/models/Guild";
 import {GuildPets} from "../database/game/models/GuildPet";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Constants} from "../Constants";
+import {PetConstants} from "../constants/PetConstants";
 import {giveFood} from "../utils/GuildUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {Pets} from "../database/game/models/Pet";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -79,19 +80,17 @@ export const smallEvent: SmallEvent = {
 		const trad = Translations.getModule("smallEvents.findPet", language);
 
 		if (noRoomInGuild && player.petId !== null) {
-			// no room
-			let outRand;
-			const storiesObject = trad.getObject("noRoom.stories");
-			do {
-				outRand = RandomUtils.randInt(0, storiesObject.length);
+			let storiesObject = trad.getObject("noRoom.stories");
+			if (!guild) {
+				storiesObject = storiesObject.filter(story => story[PetConstants.IS_FOOD]);
 			}
-			while (storiesObject[outRand][Constants.PETS.IS_FOOD] && guild === null);
-			// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
-			generatePetEmbed(seEmbed, base, trad, petLine, pet, (storiesObject as unknown as string[][])[outRand][0]);
+			const story = RandomUtils.draftbotRandom.pick(storiesObject) as unknown as [string, boolean];
+
+			generatePetEmbed(seEmbed, base, trad, petLine, pet, story[0]);
 			await interaction.editReply({embeds: [seEmbed]});
-			if (storiesObject[outRand][Constants.PETS.IS_FOOD]) {
-				await giveFood(interaction, language, player, Constants.PET_FOOD.CARNIVOROUS_FOOD, 1, NumberChangeReason.SMALL_EVENT);
+			if (story[PetConstants.IS_FOOD]) {
+				await giveFood(interaction, language, player, SmallEventConstants.FIND_PET.FOOD_GIVEN_NO_PLACE, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
 		else if (!noRoomInGuild && player.petId !== null) {

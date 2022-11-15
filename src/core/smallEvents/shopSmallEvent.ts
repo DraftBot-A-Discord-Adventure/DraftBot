@@ -14,6 +14,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * Get the callback of the shop small event
@@ -42,7 +43,7 @@ function callbackShopSmallEvent(
 				);
 				return;
 			}
-			await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), Constants.SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+			await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER, 1);
 			await player.addMoney({
 				amount: -price,
 				channel: interaction.channel,
@@ -74,8 +75,8 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(Constants.RARITY.SPECIAL);
-		const multiplier = RandomUtils.randInt(1, 11) === 10 ? 5 : 0.6;
+		const randomItem = await generateRandomItem(SmallEventConstants.SHOP.MAX_RARITY);
+		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.RESALE_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
 		const translationShop = Translations.getModule("smallEvents.shop", language);

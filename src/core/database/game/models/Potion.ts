@@ -8,12 +8,13 @@ import {minutesDisplay} from "../../../utils/TimeUtils";
 import fs = require("fs");
 import moment = require("moment");
 import {botConfig} from "../../../bot";
+import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class Potion extends SupportItemModel {
 	categoryName = "potions";
 
 	public getCategory(): number {
-		return Constants.ITEM_CATEGORIES.POTION;
+		return ItemConstants.CATEGORIES.POTION;
 	}
 
 	getNatureTranslation(language: string): string {

@@ -5,7 +5,7 @@ import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {giveRandomItem} from "../utils/ItemUtils";
-import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {DBL} from "../DBL";
 import Player from "../database/game/models/Player";
@@ -43,7 +43,7 @@ export const smallEvent: SmallEvent = {
 		}
 		else {
 			// money win
-			const moneyWon = RandomUtils.draftbotRandom.integer(Constants.SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, Constants.SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
+			const moneyWon = RandomUtils.rangedInt(SmallEventConstants.VOTE.MONEY);
 			await player.addMoney({
 				amount: moneyWon,
 				channel: interaction.channel,

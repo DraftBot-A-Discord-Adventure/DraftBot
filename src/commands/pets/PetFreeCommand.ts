@@ -19,6 +19,7 @@ import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Say if you win a meat piece for freeing your pet
@@ -26,7 +27,7 @@ import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
  * @param pPet
  */
 function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
-	return guild.carnivorousFood + 1 <= Constants.GUILD.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
+	return guild.carnivorousFood + 1 <= GuildConstants.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
 		&& RandomUtils.draftbotRandom.realZeroToOneInclusive() <= PetFreeConstants.GIVE_MEAT_PROBABILITY
 		&& !pPet.isFeisty();
 }
