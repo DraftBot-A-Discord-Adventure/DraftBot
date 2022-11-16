@@ -10,8 +10,4 @@ export default class Eye extends WitchEvent {
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.EPIC);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

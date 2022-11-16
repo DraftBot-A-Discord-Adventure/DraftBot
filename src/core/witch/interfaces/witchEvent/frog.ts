@@ -11,8 +11,4 @@ export default class Frog extends WitchEvent {
 			RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.RARE);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

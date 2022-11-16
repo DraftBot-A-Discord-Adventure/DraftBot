@@ -11,8 +11,4 @@ export default class Bat extends WitchEvent {
 			RandomUtils.draftbotRandom.bool(0.625) ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.SPECIAL);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

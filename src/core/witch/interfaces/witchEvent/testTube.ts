@@ -9,8 +9,4 @@ export default class TestTube extends WitchEvent {
 			null,
 			ItemConstants.RARITY.SPECIAL);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

@@ -6,10 +6,6 @@ import {NumberChangeReason} from "../../../constants/LogsConstants";
 
 export default class Beer extends WitchEvent {
 
-	generatePotion(): null {
-		return null;
-	}
-
 	async giveEffect(player: Player): Promise<void> {
 		await TravelTime.applyEffect(
 			player,

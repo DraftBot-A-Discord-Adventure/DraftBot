@@ -10,8 +10,4 @@ export default class Snake extends WitchEvent {
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.SPECIAL);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

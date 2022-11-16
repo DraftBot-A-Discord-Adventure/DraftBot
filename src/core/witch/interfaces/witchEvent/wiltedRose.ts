@@ -10,8 +10,4 @@ export default class WiltedRose extends WitchEvent {
 			Constants.ITEM_NATURE.DEFENSE,
 			ItemConstants.RARITY.UNCOMMON);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

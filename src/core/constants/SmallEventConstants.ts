@@ -122,7 +122,9 @@ export abstract class SmallEventConstants {
 			NOTHING: 0,
 			ADVICE: 1,
 			INGREDIENT: 2
-		}
+		},
+		MIN_LIFE_POINT_LOSS: 3,
+		MAX_LIFE_POINT_LOSS: 8
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {
