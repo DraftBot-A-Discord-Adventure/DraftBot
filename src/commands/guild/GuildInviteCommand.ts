@@ -137,12 +137,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			language,
 			guildInviteModule.format("levelTooLow",
 				{
-					pseudo: invitedPlayer.getPseudo(language),
 					level: GuildConstants.REQUIRED_LEVEL,
 					playerLevel: invitedPlayer.level,
-					comeIn: GuildConstants.REQUIRED_LEVEL - invitedPlayer.level > 1
-						? `${GuildConstants.REQUIRED_LEVEL - invitedPlayer.level} niveaux`
-						: `${GuildConstants.REQUIRED_LEVEL - invitedPlayer.level} niveau`
+					comeIn: GuildConstants.REQUIRED_LEVEL - invitedPlayer.level
 				}
 			)
 		);

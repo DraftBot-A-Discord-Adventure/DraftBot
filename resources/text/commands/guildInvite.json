@@ -14,7 +14,7 @@
 			"invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
 			"invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
 			"guildFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
-			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} avant de pouvoir vous rejoindre !"
+			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} niveau{comeIn>1?x:} avant de pouvoir vous rejoindre !"
 		},
 		"en": {
 			"commandName": "guildinvite",
@@ -30,7 +30,7 @@
 			"invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
 			"invitationCancelled": "You did not join the guild `{guildName}`!",
 			"guildFull": "Your guild is full.",
-			"levelTooLow": "{pseudo}, you must be **LVL {level}** to join a guild. Come back later!"
+			"levelTooLow": "This player is currently level {playerLevel}. However, you must be **level {level}** to join a guild, so he needs {comeIn} more level{comeIn>1?s:}."
 		}
 	}
 }

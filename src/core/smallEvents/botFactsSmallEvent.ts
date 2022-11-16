@@ -16,13 +16,10 @@ import {readdir} from "fs/promises";
  * @param {("fr"|"en")} language
  * @return {Promise<(*)[]>}
  */
-const getNbPlayersWithGivenClass = async (language: string): Promise<[string, string]> => {
+const getNbPlayersWithGivenClass = async (language: string): Promise<[number, string]> => {
 	const classToCheck = await Classes.getById(parseInt(RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes"))
 		.slice(0, -5), 10));
-	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);
-	let sentence = Constants.LANGUAGE.FRENCH ? " joueur" : " player";
-	sentence += nbPlayersWithThisClass > 1 ? "s" : "";
-	return [nbPlayersWithThisClass + sentence, language === Constants.LANGUAGE.FRENCH ? classToCheck.fr : classToCheck.en];
+	return [await Players.getNbPlayersWithClass(classToCheck), language === Constants.LANGUAGE.FRENCH ? classToCheck.fr : classToCheck.en];
 };
 
 export const smallEvent: SmallEvent = {
