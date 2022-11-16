@@ -1,26 +1,18 @@
 import {WitchEvent} from "../../WitchEvent";
-import {Interaction} from "discord.js";
 import Player from "../../../database/game/models/Player";
-import {generateRandomPotion, generateRandomRarity, giveItemToPlayer} from "../../../utils/ItemUtils";
-import {InventorySlots} from "../../../database/game/models/InventorySlot";
+import {generateRandomPotion, generateRandomRarity} from "../../../utils/ItemUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import Potion from "../../../database/game/models/Potion";
 
 export default class Wand extends WitchEvent {
-	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
-		const potionToGive = await generateRandomPotion(
+
+	async generatePotion(): Promise<Potion> {
+		return await generateRandomPotion(
 			null,
 			generateRandomRarity(ItemConstants.RARITY.RARE, ItemConstants.RARITY.EPIC)
-		);
-		await giveItemToPlayer(
-			player,
-			potionToGive,
-			language,
-			interaction.user,
-			interaction.channel,
-			await InventorySlots.getOfPlayer(player.id)
 		);
 	}
 

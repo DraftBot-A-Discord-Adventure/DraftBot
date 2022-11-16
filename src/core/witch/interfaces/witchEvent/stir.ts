@@ -1,26 +1,17 @@
 import {WitchEvent} from "../../WitchEvent";
-import {Interaction} from "discord.js";
 import Player from "../../../database/game/models/Player";
-import {generateRandomPotion, giveItemToPlayer} from "../../../utils/ItemUtils";
-import {InventorySlots} from "../../../database/game/models/InventorySlot";
+import {generateRandomPotion} from "../../../utils/ItemUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import Potion from "../../../database/game/models/Potion";
 
 export default class Stir extends WitchEvent {
-	async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
-		const potionToGive = await generateRandomPotion(
+	async generatePotion(): Promise<Potion> {
+		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.RARE);
-		await giveItemToPlayer(
-			player,
-			potionToGive,
-			language,
-			interaction.user,
-			interaction.channel,
-			await InventorySlots.getOfPlayer(player.id)
-		);
 	}
 
 	async giveEffect(player: Player): Promise<void> {
