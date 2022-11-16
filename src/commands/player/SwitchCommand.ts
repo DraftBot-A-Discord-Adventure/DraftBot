@@ -28,12 +28,8 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		choiceItems.push(new ChoiceItem(
-			itemInstance.toString(language, null),
-			{
-				name: name,
-				shortName: itemInstance.getName(language),
-				item: item
-			}
+			(await item.getItem()).getName(language),
+			item
 		));
 	}
 	return choiceItems;
