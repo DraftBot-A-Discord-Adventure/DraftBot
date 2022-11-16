@@ -18,7 +18,6 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../core/constants/ItemConstants";
-import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -28,8 +27,6 @@ import {GenericItemModel} from "../../core/database/game/models/GenericItemModel
 async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: string): Promise<ChoiceItem[]> {
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
-		const itemInstance = await item.getItem();
-		const name = itemInstance.toString(language, null);
 		choiceItems.push(new ChoiceItem(
 			itemInstance.toString(language, null),
 			{
@@ -101,9 +98,25 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
 	});
 }
 
-type ItemForCallback = { item: InventorySlot, shortName: string, frenchMasculine: string }
-
-async function sendFinishSwitchEmbed(interaction: CommandInteraction, tr: TranslationModule, itemProfile: GenericItemModel, itemInventory : GenericItemModel): Promise<void> {
+/**
+ * Call the switch function and send switch embed
+ * @param player
+ * @param interaction
+ * @param tr
+ * @param itemProfileSlot
+ * @param invInfo
+ * @param invSlots
+ */
+// eslint-disable-next-line max-len
+async function sendFinishSwitchEmbed(player: Player, interaction: CommandInteraction, tr: TranslationModule, itemProfileSlot: InventorySlot, invInfo: InventoryInfo, invSlots: InventorySlot[]): Promise<void> {
+	if (itemProfileSlot.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
+		addDailyTimeBecauseSwitch(interaction, invInfo);
+	}
+	const itemInventorySlot = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemProfileSlot.itemCategory)[0];
+	await switchItemSlots(itemInventorySlot, player, itemProfileSlot);
+	await invInfo.save();
+	const itemProfile = await itemProfileSlot.getItem();
+	const itemInventory = await itemInventorySlot.getItem();
 	let desc;
 	if (itemProfile.id === 0) {
 		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
@@ -125,33 +138,6 @@ async function sendFinishSwitchEmbed(interaction: CommandInteraction, tr: Transl
 }
 
 /**
- * Callback of the switch command
- * @param player
- * @param interaction
- * @param itemProfile
- * @param tr
- * @param invInfo
- * @param invSlots
- */
-async function switchItemEmbedCallback(
-	player: Player,
-	interaction: CommandInteraction,
-	itemProfile: ItemForCallback,
-	tr: TranslationModule,
-	invInfo: InventoryInfo,
-	invSlots: InventorySlot[]
-): Promise<void> {
-	[player] = await Players.getOrRegister(interaction.user.id);
-	if (itemProfile.item.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
-		addDailyTimeBecauseSwitch(interaction, invInfo);
-	}
-	const itemInventory = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemProfile.item.itemCategory)[0];
-	await switchItemSlots(itemInventory, player, itemProfile.item);
-	await invInfo.save();
-	await sendFinishSwitchEmbed(interaction, tr, await itemProfile.item.getItem(), await itemInventory.getItem());
-}
-
-/**
  * Prepare and send the main embed with all the choices
  * @param choiceItems
  * @param interaction
@@ -161,10 +147,14 @@ async function switchItemEmbedCallback(
  * @param invSlots
  */
 async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, player: Player, tr: TranslationModule, invInfo: InventoryInfo, invSlots: InventorySlot[]): Promise<void> {
+
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		async (item: ItemForCallback) => await switchItemEmbedCallback(player, interaction, item, tr, invInfo, invSlots),
+		async (item: InventorySlot) => {
+			[player] = await Players.getOrRegister(interaction.user.id);
+			await sendFinishSwitchEmbed(player, interaction, tr, item, invInfo, invSlots);
+		},
 		async (endMessage) => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SWITCH);
 			if (endMessage.isCanceled()) {
@@ -202,13 +192,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (toSwitchItems.length === 1) {
-		const itemInventory = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === toSwitchItems[0].itemCategory)[0];
-		if (itemInventory.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
-			addDailyTimeBecauseSwitch(interaction, invInfo);
-		}
-		await switchItemSlots(itemInventory, player, toSwitchItems[0]);
-		await invInfo.save();
-		await sendFinishSwitchEmbed(interaction, tr, await toSwitchItems[0].getItem(), await itemInventory.getItem());
+		await sendFinishSwitchEmbed(player, interaction, tr, toSwitchItems[0], invInfo, invSlots);
 		return;
 	}
 
