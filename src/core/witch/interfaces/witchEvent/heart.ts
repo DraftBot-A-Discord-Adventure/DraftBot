@@ -10,8 +10,4 @@ export default class Mushroom extends WitchEvent {
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.LEGENDARY);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

@@ -4,11 +4,15 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Interaction} from "discord.js";
 import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
+import Potion from "../database/game/models/Potion";
+import {giveItemToPlayer} from "../utils/ItemUtils";
+import {InventorySlots} from "../database/game/models/InventorySlot";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 export abstract class WitchEvent {
 	public readonly name: string;
 
-	public readonly type: number;
+	public type: number;
 
 	private toStringCache: { [key: string]: string } = {};
 
@@ -21,7 +25,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * Generates the outcome
+	 * Generates the outcome of the witch event
 	 */
 	public generateOutcome(): number {
 		let seed = RandomUtils.randInt(1, 51);
@@ -33,12 +37,56 @@ export abstract class WitchEvent {
 		return outcome;
 	}
 
-	abstract givePotion(interaction: Interaction, player: Player, language: string): Promise<void> ;
+	/**
+	 * generate a potion for the player each witch event will generate a different potion and will override this function
+	 */
+	public generatePotion(): Promise<Potion> | null {
+		return null;
+	}
 
-	abstract giveEffect(player: Player): Promise<void>;
+	/**
+	 * give a potion to the player, the potion will be generated differently for each witch event
+	 * @param interaction
+	 * @param player
+	 * @param language
+	 */
+	public async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
+		const potionToGive = await this.generatePotion();
+		if (potionToGive) {
+			await giveItemToPlayer(
+				player,
+				potionToGive,
+				language,
+				interaction.user,
+				interaction.channel,
+				await InventorySlots.getOfPlayer(player.id)
+			);
+		}
+	}
 
+	/**
+	 * Base function to generate a give effect outcome, some witch events will override this
+	 */
+	public giveEffect(): Promise<void> | null {
+		return null;
+	}
+
+	/**
+	 * remove life points from the player
+	 * @param interaction
+	 * @param player
+	 * @param language
+	 */
 	public async removeLifePoints(interaction: Interaction, player: Player, language: string): Promise<void> {
-		await player.addHealth(RandomUtils.randInt(3, 8), interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(
+			RandomUtils.randInt(
+				SmallEventConstants.WITCH.MIN_LIFE_POINT_LOSS,
+				SmallEventConstants.WITCH.MAX_LIFE_POINT_LOSS
+			),
+			interaction.channel,
+			language,
+			NumberChangeReason.SMALL_EVENT
+		);
 	}
 
 	/**
@@ -47,7 +95,7 @@ export abstract class WitchEvent {
 	 */
 	public toString(language: string): string {
 		if (!this.toStringCache[language]) {
-			this.toStringCache[language] = Translations.getModule(`fightactions.${this.name}`, language).get("name");
+			this.toStringCache[language] = Translations.getModule(`smallEvents.witch.${this.name}`, language).get("name");
 		}
 		return this.toStringCache[language];
 	}
@@ -57,8 +105,26 @@ export abstract class WitchEvent {
 	 */
 	public getEmoji(): string {
 		if (!this.emojiCache) {
-			this.emojiCache = Data.getModule(`ingredients.${this.name}`).getString("emote");
+			this.emojiCache = Data.getModule(`smallEvents.witch.${this.name}`).getString("emote");
 		}
 		return this.emojiCache;
+	}
+
+	/**
+	 * generate an array of all the possible actions from clear probabilities
+	 * @param potionProbability
+	 * @param timeLostProbability
+	 * @param effectProbability
+	 * @param lifePointLostProbability
+	 * @param nothingProbability
+	 */
+	public setOutcomeProbabilities(potionProbability: number, timeLostProbability: number, effectProbability: number, lifePointLostProbability: number, nothingProbability: number): void {
+		this.outcomeProbabilities = [
+			potionProbability,
+			potionProbability + timeLostProbability,
+			potionProbability + timeLostProbability + effectProbability,
+			potionProbability + timeLostProbability + effectProbability + lifePointLostProbability,
+			potionProbability + timeLostProbability + effectProbability + lifePointLostProbability + nothingProbability
+		];
 	}
 }

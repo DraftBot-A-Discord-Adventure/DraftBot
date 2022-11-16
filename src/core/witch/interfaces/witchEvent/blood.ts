@@ -10,8 +10,4 @@ export default class Blood extends WitchEvent {
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.RARE);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

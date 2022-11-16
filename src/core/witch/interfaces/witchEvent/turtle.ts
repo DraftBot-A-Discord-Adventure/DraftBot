@@ -10,8 +10,4 @@ export default class Turtle extends WitchEvent {
 			Constants.ITEM_NATURE.DEFENSE,
 			ItemConstants.RARITY.SPECIAL);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }

@@ -10,8 +10,4 @@ export default class Rat extends WitchEvent {
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.COMMON);
 	}
-
-	giveEffect(): null {
-		return null;
-	}
 }
