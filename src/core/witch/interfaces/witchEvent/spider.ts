@@ -10,7 +10,7 @@ export default class Spider extends WitchEvent {
 	public constructor() {
 		super("spider");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
-		this.setOutcomeProbabilities(15, 0, 0, 0, 35);
+		this.setOutcomeProbabilities(15, 0, 0, 35);
 	}
 
 	/**
