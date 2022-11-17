@@ -14,8 +14,8 @@ import {Players} from "../../core/database/game/models/Player";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
-	const idToUnblock = interaction.options.get("discordid").value as string;
-	if (await Players.getByDiscordUserId(idToUnblock) === null) {
+	const idToUnblock = interaction.options.get(currentCommandEnglishTranslations.get("optionIdName")).value as string;
+	if (!(await Players.getByDiscordUserId(idToUnblock))) {
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});
 		return;
 	}
