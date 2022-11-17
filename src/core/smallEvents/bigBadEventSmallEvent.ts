@@ -11,7 +11,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {EffectType, LanguageType} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -47,7 +47,7 @@ export const smallEvent: SmallEvent = {
 				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
 				alteEmoji: seFallen.alte as string
 			}));
-			await TravelTime.applyEffect(player, seFallen.alte as string, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(player, seFallen.alte as EffectType, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
 				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
 					await MissionsController.update(player, interaction.channel, language, {

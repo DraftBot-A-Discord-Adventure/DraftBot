@@ -14,7 +14,7 @@ export abstract class EffectsConstants {
 		STARVING: ":drooling_face:",
 		CONFOUNDED: ":confounded:",
 		SCARED: ":scream:"
-	};
+	} as const;
 
 	static readonly EMOJIS = {
 		":baby:": "👶",

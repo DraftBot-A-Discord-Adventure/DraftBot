@@ -33,7 +33,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {EffectType, LanguageType} from "../../core/constants/TypeConstants";
 
 type TextInformation = { interaction: CommandInteraction, language: LanguageType, tr?: TranslationModule }
 
@@ -175,7 +175,7 @@ async function needBigEvent(player: Player, date: Date): Promise<boolean> {
  * @param date
  * @param effect
  */
-async function sendTravelPath(player: Player, interaction: CommandInteraction, language: LanguageType, date: Date, effect: string = null): Promise<void> {
+async function sendTravelPath(player: Player, interaction: CommandInteraction, language: LanguageType, date: Date, effect: EffectType = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
 	const timeData = await TravelTime.getTravelData(player, date);

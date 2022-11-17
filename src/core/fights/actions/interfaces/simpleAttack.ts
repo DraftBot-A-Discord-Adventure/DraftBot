@@ -4,6 +4,7 @@ import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export default class SimpleAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {

@@ -20,11 +20,12 @@ import MapLink from "./models/MapLink";
 import {promises} from "fs";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {Constants} from "../../Constants";
+import {EffectType} from "../../constants/TypeConstants";
 
 type IssueType = {
 	[key: string]: unknown,
 	restrictedMaps: string,
-	effect: string
+	effect: EffectType
 }
 
 type EventJson = {

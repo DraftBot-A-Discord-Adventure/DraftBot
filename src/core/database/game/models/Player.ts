@@ -31,6 +31,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import {LanguageType} from "../../../constants/TypeConstants";
+import {EffectType, LanguageType} from "../../../constants/TypeConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -85,7 +86,7 @@ export class Player extends Model {
 
 	public lastPetFree!: Date;
 
-	public effect!: string;
+	public effect!: EffectType;
 
 	public effectEndDate!: Date;
 
@@ -346,7 +347,7 @@ export class Player extends Model {
 	 * @param timeMalus
 	 * @param effectMalus
 	 */
-	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
+	public async setLastReportWithEffect(timeMalus: number, effectMalus: EffectType): Promise<void> {
 		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
 		await this.save();
 	}
@@ -416,7 +417,7 @@ export class Player extends Model {
 	 * Check if the player is under some effect (except dead or baby)
 	 */
 	public checkEffect(): boolean {
-		return [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.DEAD].indexOf(this.effect) !== -1;
+		return ([EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.DEAD] as string[]).includes(this.effect);
 	}
 
 	/**

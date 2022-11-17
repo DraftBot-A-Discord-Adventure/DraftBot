@@ -7,7 +7,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {EffectType, LanguageType} from "../../../../core/constants/TypeConstants";
 
 const effects = Object.keys(EffectsConstants.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";
@@ -37,13 +37,15 @@ export const commandInfo: ITestCommand = {
  */
 const playerEffectTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
-	const effectMalus = ":" + args[0] + ":";
-	if (Object.keys(PlayerConstants.EFFECT_MALUS).includes(effectMalus)) {
+	try {
+		const effectMalus = ":" + args[0] + ":" as EffectType;
 		await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST);
 		await player.save();
 		return format(commandInfo.messageWhenExecuted, {effect: effectMalus});
 	}
-	throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
+	catch {
+		throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
+	}
 };
 
 commandInfo.execute = playerEffectTestCommand;

@@ -392,7 +392,7 @@ export class DraftBotShopMessageBuilder {
 		await player.addMoney({
 			amount: -amount,
 			channel: null, // It is negative, so we don't care about the channel and language
-			language: "",
+			language: null,
 			reason: NumberChangeReason.SHOP
 		});
 		await player.save();

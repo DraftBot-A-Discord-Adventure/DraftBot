@@ -2,6 +2,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "expireMissions",

@@ -3,6 +3,7 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Display the link to invite the bot to another server

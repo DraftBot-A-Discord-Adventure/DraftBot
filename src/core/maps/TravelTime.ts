@@ -6,6 +6,7 @@ import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {EffectType} from "../constants/TypeConstants";
 
 /**
  * Travel time functions class
@@ -200,10 +201,10 @@ export class TravelTime {
 	 * @param date The date of the beginning of the effect
 	 * @param reason
 	 */
-	static async applyEffect(player: Player, effect: string, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
+	static async applyEffect(player: Player, effect: EffectType, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
 		// Reason is IGNORE here because you don't want to log a time warp when you get an alteration
 		// First remove the effect (if the effect is time related)
-		if (![EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD].includes(player.effect)) {
+		if (!([EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD] as string[]).includes(player.effect)) {
 			await this.removeEffect(player, NumberChangeReason.IGNORE);
 		}
 

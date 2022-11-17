@@ -3,6 +3,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "guildid",
