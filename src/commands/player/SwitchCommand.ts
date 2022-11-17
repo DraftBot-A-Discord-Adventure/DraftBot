@@ -48,7 +48,7 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  */
 function addDailyTimeBecauseSwitch(interaction: CommandInteraction, invInfo: InventoryInfo): void {
 	const nextDailyDate = moment(invInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h"); // eslint-disable-line new-cap
-	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - interaction.createdAt.valueOf());
+	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - Date.now());
 	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - SwitchConstants.TIME_ADDED_MULTIPLIER;
 	if (timeToCheck < 0) {
 		invInfo.updateLastDailyAt();

@@ -44,7 +44,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
 			);
-			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, interaction.createdAt, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
+			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
 			break;
 		default:
 			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
@@ -60,7 +60,7 @@ export const smallEvent: SmallEvent = {
 			break;
 		}
 		await interaction.editReply({embeds: [seEmbed]});
-		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT, interaction.createdAt);
+		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 	}
 };

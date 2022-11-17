@@ -151,7 +151,7 @@ async function displayTop(
 		}));
 	let description = [];
 	const pseudos = await getPseudosOfList(playersToShow, language);
-	const badgeStates = await getBadgeStatesOfList(playersToShow, language, interaction.createdAt);
+	const badgeStates = await getBadgeStatesOfList(playersToShow, language, new Date());
 	for (const playerToShow of playersToShow) {
 		const rank = playersToShow.indexOf(playerToShow);
 		description.push(topModule.format("playerRankLine", {
@@ -186,7 +186,7 @@ async function displayTop(
 	if (timing === TopConstants.TIMING_WEEKLY) {
 		topDisplay.setFooter({
 			text: topModule.format("nextReset", {
-				time: parseTimeDifference(interaction.createdAt.valueOf(), getNextSundayMidnight(), language)
+				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
 			}),
 			iconURL: TopConstants.LINK_CLOCK_FOOTER
 		});

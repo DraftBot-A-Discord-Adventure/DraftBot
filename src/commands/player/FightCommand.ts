@@ -179,7 +179,7 @@ function getAcceptCallback(
 ): (user: User) => Promise<boolean> {
 	return async function(user: User): Promise<boolean> {
 		const incomingFighterPlayer = await Players.getByDiscordUserId(user.id);
-		const attackerFightErrorStatus = await canFight(incomingFighterPlayer, true, interaction.createdAt);
+		const attackerFightErrorStatus = await canFight(incomingFighterPlayer, true, new Date());
 		if (askedPlayer !== null && incomingFighterPlayer.discordUserId !== askedPlayer.discordUserId) {
 			return false;
 		}
@@ -226,14 +226,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
-	const attackerFightErrorStatus = await canFight(player, true, interaction.createdAt);
+	const attackerFightErrorStatus = await canFight(player, true, new Date());
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
 	let askedFighter: PlayerFighter | null;
 	if (askedEntity) {
-		const defenderFightErrorStatus = await canFight(askedEntity, true, interaction.createdAt);
+		const defenderFightErrorStatus = await canFight(askedEntity, true, new Date());
 		if (defenderFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 			await sendError(interaction, fightTranslationModule, defenderFightErrorStatus, true, true);
 			return;

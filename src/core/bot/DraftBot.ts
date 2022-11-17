@@ -291,9 +291,9 @@ export class DraftBot {
 
 	/**
 	 * Updates the global log files
-	 * @param now
 	 */
-	updateGlobalLogsFile(now: Date): void {
+	updateGlobalLogsFile(): void {
+		const now = new Date();
 		/* Find first available log file */
 		let i = 1;
 		do {
@@ -313,7 +313,7 @@ export class DraftBot {
 			this.manageLogs(originalConsoleError);
 		}
 
-		this.updateGlobalLogsFile(new Date());
+		this.updateGlobalLogsFile();
 		this.currLogsCount = 0;
 
 		const addConsoleLog = this.functionToAddLogToFile(this);
@@ -393,7 +393,7 @@ export class DraftBot {
 				);
 				thisInstance.currLogsCount++;
 				if (thisInstance.currLogsCount > Constants.LOGS.LOG_COUNT_LINE_LIMIT) {
-					thisInstance.updateGlobalLogsFile(now);
+					thisInstance.updateGlobalLogsFile();
 					thisInstance.currLogsCount = 0;
 				}
 			}

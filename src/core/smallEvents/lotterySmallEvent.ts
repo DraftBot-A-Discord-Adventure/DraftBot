@@ -33,18 +33,16 @@ async function getGuild(player: Player): Promise<Guild> {
  * @param emoteName
  * @param player
  * @param dataLottery
- * @param now
  */
-async function effectIfGoodRisk(emoteName: string, player: Player, dataLottery: DataModule, now: Date): Promise<void> {
+async function effectIfGoodRisk(emoteName: string, player: Player, dataLottery: DataModule): Promise<void> {
 	const emojiLottery = dataLottery.getStringArray("emojiLottery");
 	if (emoteName !== emojiLottery[0]) {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
 			dataLottery.getNumber("lostTime"),
-			now,
-			NumberChangeReason.SMALL_EVENT,
-			now);
+			new Date(),
+			NumberChangeReason.SMALL_EVENT);
 	}
 }
 
@@ -98,7 +96,7 @@ export const smallEvent: SmallEvent = {
 				rewardType = rewardType.filter(r => r !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP);
 			}
 			let sentenceReward;
-			await effectIfGoodRisk(collected.first().emoji.name, player, dataLottery, interaction.createdAt);
+			await effectIfGoodRisk(collected.first().emoji.name, player, dataLottery);
 			const reward = RandomUtils.draftbotRandom.pick(rewardType);
 			const editValuesParams = {
 				player,

@@ -344,10 +344,9 @@ export class Player extends Model {
 	 * This function is called when a player receives an effect after a report
 	 * @param timeMalus
 	 * @param effectMalus
-	 * @param now
 	 */
-	public async setLastReportWithEffect(timeMalus: number, effectMalus: string, now: Date): Promise<void> {
-		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT, now);
+	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
+		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
 		await this.save();
 	}
 
@@ -356,13 +355,12 @@ export class Player extends Model {
 	 * @param channel
 	 * @param language
 	 * @param reason
-	 * @param now
 	 */
-	public async killIfNeeded(channel: TextBasedChannel, language: string, reason: NumberChangeReason, now: Date): Promise<boolean> {
+	public async killIfNeeded(channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
 		if (this.health > 0) {
 			return false;
 		}
-		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason, now);
+		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: this.getPseudo(language)})});
 
@@ -406,13 +404,13 @@ export class Player extends Model {
 	/**
 	 * get the amount of time remaining before the effect ends
 	 */
-	public effectRemainingTime(now: Date): number {
+	public effectRemainingTime(): number {
 		let remainingTime = 0;
 		if (Object.values(EffectsConstants.EMOJI_TEXT).includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			if (!this.effectEndDate || this.effectEndDate.valueOf() === 0) {
 				return 0;
 			}
-			remainingTime = this.effectEndDate.valueOf() - now.valueOf();
+			remainingTime = this.effectEndDate.valueOf() - Date.now();
 		}
 		if (remainingTime < 0) {
 			remainingTime = 0;

@@ -43,15 +43,14 @@ export class Maps {
 	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
 	 * @param reason
-	 * @param now
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason, now: Date): Promise<void> {
+	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason): Promise<void> {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time);
 		await player.save();
 		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
-			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason, now);
+			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason);
 		}
 		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink).then();
 	}
