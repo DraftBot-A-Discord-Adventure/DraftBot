@@ -2,9 +2,10 @@ import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {FightAction} from "../FightAction";
 import {FightActions} from "../FightActions";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export default class ChargeUltimateAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 

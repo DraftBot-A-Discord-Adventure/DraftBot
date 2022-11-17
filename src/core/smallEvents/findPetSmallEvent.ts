@@ -14,6 +14,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {Pets} from "../database/game/models/Pet";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -60,7 +61,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const pet = await PetEntities.generateRandomPetEntityNotGuild();
 		const petModel = await Pets.getById(pet.petId);
 		let guild;

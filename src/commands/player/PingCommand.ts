@@ -4,13 +4,14 @@ import {Translations} from "../../core/Translations";
 import {draftBotInstance, shardId} from "../../core/bot";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Pings the bot, to check if it is alive and how well is it
  * @param interaction
  * @param language
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	const tr = Translations.getModule("commands.ping", language);
 	const reply = await interaction.reply({content: tr.get("create"), fetchReply: true});
 	await interaction.editReply({

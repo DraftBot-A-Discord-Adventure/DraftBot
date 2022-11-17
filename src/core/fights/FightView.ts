@@ -5,6 +5,7 @@ import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * @class FightController
@@ -13,7 +14,7 @@ export class FightView {
 
 	public channel: TextBasedChannel;
 
-	public language: string;
+	public language: LanguageType;
 
 	fightController: FightController;
 
@@ -25,7 +26,7 @@ export class FightView {
 
 	private fightLaunchMessage: Message;
 
-	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
+	public constructor(channel: TextBasedChannel, language: LanguageType, fightController: FightController) {
 		this.channel = channel;
 		this.language = language;
 		this.fightController = fightController;

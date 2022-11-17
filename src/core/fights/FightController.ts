@@ -9,6 +9,7 @@ import {draftBotInstance} from "../bot";
 import Benediction from "./actions/interfaces/benediction";
 import DivineAttack from "./actions/interfaces/divineAttack";
 import {FightAction} from "./actions/FightAction";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * @class FightController
@@ -27,7 +28,7 @@ export class FightController {
 
 	private state: FightState;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
+	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: LanguageType) {
 		this.fighters = [fighter1, fighter2];
 		this.fightInitiator = fighter1;
 		this.state = FightState.NOT_STARTED;

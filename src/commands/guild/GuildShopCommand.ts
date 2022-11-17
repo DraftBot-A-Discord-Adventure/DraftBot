@@ -22,6 +22,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Callback of the guild shop command
@@ -106,7 +107,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

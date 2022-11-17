@@ -16,6 +16,7 @@ import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {ItemConstants} from "../constants/ItemConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * Get the callback of the shop small event
@@ -30,7 +31,7 @@ function callbackShopSmallEvent(
 	player: Player,
 	price: number,
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	translationShop: TranslationModule,
 	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
@@ -75,7 +76,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
 		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.RESALE_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
 		const price = Math.round(getItemValue(randomItem) * multiplier);

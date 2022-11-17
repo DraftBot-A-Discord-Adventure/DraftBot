@@ -6,6 +6,7 @@ import {MissionsController} from "../missions/MissionsController";
 import Player from "../database/game/models/Player";
 import {Missions} from "../database/game/models/Mission";
 import {MissionSlots} from "../database/game/models/MissionSlot";
+import {LanguageType} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -21,7 +22,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.findMission", language);
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const missionSlot = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player));

@@ -11,6 +11,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Shows the missions of the given player (default : the one who entered the command)
@@ -18,7 +19,7 @@ import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMission
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

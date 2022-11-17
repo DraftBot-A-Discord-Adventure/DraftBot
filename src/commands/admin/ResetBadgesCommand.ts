@@ -6,13 +6,14 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Allow the bot owner or a badge manager to remove all badges from somebody
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	const playerToReset = interaction.options.getUser("user");
 	const [player] = await Players.getOrRegister(playerToReset.id);
 

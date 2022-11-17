@@ -17,6 +17,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 
 
@@ -168,7 +169,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

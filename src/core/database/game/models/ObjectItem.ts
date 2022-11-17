@@ -9,6 +9,7 @@ import fs = require("fs");
 import moment = require("moment");
 import {botConfig} from "../../../bot";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -17,7 +18,7 @@ export class ObjectItem extends SupportItemModel {
 		return ItemConstants.CATEGORIES.OBJECT;
 	}
 
-	getNatureTranslation(language: string, maxStatsValue: MaxStatsValues = null): string {
+	getNatureTranslation(language: LanguageType, maxStatsValue: MaxStatsValues = null): string {
 		if (maxStatsValue === null) {
 			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
 		}

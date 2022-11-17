@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const expireMissionsTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const expireMissionsTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	for (const mission of missionSlots) {

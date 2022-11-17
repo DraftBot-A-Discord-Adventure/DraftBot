@@ -4,6 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "playerlevel",
@@ -25,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const playerLevelTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const playerLevelTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const lvl = parseInt(args[0], 10);
 	if (lvl <= 0 || lvl > 1000) {

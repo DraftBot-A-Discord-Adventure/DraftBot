@@ -18,6 +18,7 @@ import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 
@@ -204,7 +205,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
  * @param {("fr"|"en")} language - Language to use in the response
  * @param trader1
  */
-async function executeCommand(interaction: CommandInteraction, language: string, trader1: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, trader1: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

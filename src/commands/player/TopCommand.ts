@@ -11,8 +11,9 @@ import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeU
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
-type TextInformation = { interaction: CommandInteraction, language: string };
+type TextInformation = { interaction: CommandInteraction, language: LanguageType };
 type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
 type TopInformation = {
 	scope: string,
@@ -27,7 +28,7 @@ type TopInformation = {
  * @param language
  * @param date
  */
-async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date): Promise<string> {
+async function getBadgeStateOfPlayer(playerToLook: Player, language: LanguageType, date: Date): Promise<string> {
 	if (date.valueOf() < playerToLook.effectEndDate.valueOf()) {
 		return playerToLook.effect + TopConstants.SEPARATOR;
 	}
@@ -97,7 +98,7 @@ function getPageOfRank(rank: number): number {
  * @param playersToShow
  * @param language
  */
-function getPseudosOfList(playersToShow: Player[], language: string): Promise<string[]> {
+function getPseudosOfList(playersToShow: Player[], language: LanguageType): Promise<string[]> {
 	const pseudos = [];
 	for (const entityToShow of playersToShow) {
 		pseudos.push(entityToShow.getPseudo(language));
@@ -111,7 +112,7 @@ function getPseudosOfList(playersToShow: Player[], language: string): Promise<st
  * @param language
  * @param date
  */
-function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date): Promise<string[]> {
+function getBadgeStatesOfList(playersToShow: Player[], language: LanguageType, date: Date): Promise<string[]> {
 	const badgeStates = [];
 	for (const entityToShow of playersToShow) {
 		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date));
@@ -217,7 +218,7 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	await interaction.deferReply();
 
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));

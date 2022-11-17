@@ -7,9 +7,10 @@ import {FightController} from "../../FightController";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightAlterations} from "../FightAlterations";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export default class DivineAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used

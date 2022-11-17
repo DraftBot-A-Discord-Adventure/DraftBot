@@ -9,6 +9,7 @@ import {GenericItemModel, MaxStatsValues} from "../database/game/models/GenericI
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
 import {ItemConstants} from "../constants/ItemConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 type Slots = {
 	weapons: GenericItemModel[],
@@ -44,7 +45,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 
 	constructor(
 		userInformation: UserInformation,
-		language: string,
+		language: LanguageType,
 		slots: Slots,
 		maxStatsValue: MaxStatsValues
 	) {
@@ -148,11 +149,11 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 export class DraftBotInventoryEmbedBuilder {
 	private readonly _user: User;
 
-	private readonly _language: string;
+	private readonly _language: LanguageType;
 
 	private readonly _player: Player;
 
-	constructor(user: User, language: string, player: Player) {
+	constructor(user: User, language: LanguageType, player: Player) {
 		this._user = user;
 		this._language = language;
 		this._player = player;

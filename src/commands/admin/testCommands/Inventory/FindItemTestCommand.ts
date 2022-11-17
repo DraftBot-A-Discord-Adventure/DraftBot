@@ -5,6 +5,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventorySlots} from "../../../../core/database/game/models/InventorySlot";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",
@@ -26,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const findItemTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const findItemTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const category = parseInt(args[0], 10);
 	const itemId = parseInt(args[1], 10);

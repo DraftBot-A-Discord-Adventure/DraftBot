@@ -4,13 +4,14 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Displays the changelog of the bot
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	const tr = Translations.getModule("commands.update", language);
 	const updateMessage = new DraftBotEmbed()
 		.setTitle(

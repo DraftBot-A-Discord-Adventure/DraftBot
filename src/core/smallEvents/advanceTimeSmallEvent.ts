@@ -7,6 +7,7 @@ import {format} from "../utils/StringFormatter";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
+import {LanguageType} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -23,7 +24,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 
 		await TravelTime.timeTravel(player, timeAdvanced, NumberChangeReason.SMALL_EVENT);

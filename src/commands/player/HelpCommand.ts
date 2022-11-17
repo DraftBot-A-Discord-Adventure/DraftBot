@@ -8,6 +8,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Get the list of commands mention from the command data
@@ -128,7 +129,7 @@ function getCommandAliasMap(): Map<string, string> {
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed();
 	const command = interaction.options.get(Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH).get("optionCommandName"));

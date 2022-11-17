@@ -5,6 +5,7 @@ import {millisecondsToMinutes, minutesDisplay} from "./TimeUtils";
 import {escapeUsername} from "./StringUtils";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import Player from "../database/game/models/Player";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * Send an error message if the user has an effect
@@ -12,7 +13,7 @@ import Player from "../database/game/models/Player";
  * @param language
  * @param player
  */
-export const effectsErrorTextValue = function(user: User, language: string, player: Player): { title: string, description: string } {
+export const effectsErrorTextValue = function(user: User, language: LanguageType, player: Player): { title: string, description: string } {
 	const startString = user.id === player.discordUserId ? "titleMe" : "player";
 	const stringEnd = EffectsConstants.ERROR_TEXT[player.effect as keyof typeof EffectsConstants.ERROR_TEXT];
 	const tr = Translations.getModule("error", language);
@@ -50,7 +51,7 @@ export const effectsErrorTextValue = function(user: User, language: string, play
  * @param language
  * @param reason
  */
-export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string): Promise<void> {
+export async function replyErrorMessage(interaction: CommandInteraction, language: LanguageType, reason: string): Promise<void> {
 	await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
 		ephemeral: true
@@ -69,7 +70,7 @@ export async function replyErrorMessage(interaction: CommandInteraction, languag
 export async function sendErrorMessage(
 	user: User,
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	reason: string,
 	isCancelling = false,
 	isBlockedError = true

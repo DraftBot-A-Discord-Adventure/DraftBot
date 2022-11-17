@@ -1,12 +1,13 @@
 import {IMission} from "../IMission";
 import {Translations} from "../../Translations";
+import {LanguageType} from "../../constants/TypeConstants";
 
 export const missionInterface: IMission = {
 	generateRandomVariant: () => Promise.resolve(0),
 
 	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => params.rarity >= variant,
 
-	getVariantFormatVariable: (variant: number, objective: number, language: string) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
+	getVariantFormatVariable: (variant: number, objective: number, language: LanguageType) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
 
 	initialNumberDone: () => Promise.resolve(0),
 

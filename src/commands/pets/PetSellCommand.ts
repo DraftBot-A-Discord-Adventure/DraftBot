@@ -24,6 +24,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
@@ -259,7 +260,7 @@ function getBroadcastErrorStrings(petSellModule: TranslationModule): BroadcastTr
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

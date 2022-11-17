@@ -22,6 +22,7 @@ import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
 import {Op} from "sequelize";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -259,7 +260,7 @@ async function getPlayerDisplay(tr: TranslationModule, otherPlayer: Player, numb
  * @param otherPlayer
  * @param language
  */
-async function getPetName(otherPlayer: Player, language: string): Promise<string> {
+async function getPetName(otherPlayer: Player, language: LanguageType): Promise<string> {
 	const petEntity = await PetEntities.getById(otherPlayer.petId);
 	const petModel = petEntity ? await Pets.getById(petEntity.petId) : null;
 	return petEntity
@@ -274,7 +275,7 @@ async function getPetName(otherPlayer: Player, language: string): Promise<string
  * @param language
  * @param player
  */
-async function sendACoin(otherPlayer: Player, channel: TextBasedChannel, language: string, player: Player): Promise<void> {
+async function sendACoin(otherPlayer: Player, channel: TextBasedChannel, language: LanguageType, player: Player): Promise<void> {
 	await otherPlayer.addMoney({
 		amount: 1,
 		channel,
@@ -426,7 +427,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const numberOfPlayers = await Player.count({
 			where: {
 				score: {

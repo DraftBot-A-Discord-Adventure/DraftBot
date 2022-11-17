@@ -10,6 +10,7 @@ import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Add the field containing the available actions for the given class
@@ -17,7 +18,7 @@ import Player from "../../core/database/game/models/Player";
  * @param classToShow
  * @param language
  */
-function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: string): void {
+function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: LanguageType): void {
 	for (const action of classToShow.getFightActions()) {
 		const actionTr = Translations.getModule(`fightactions.${action}`, language);
 		embed.addFields({
@@ -33,7 +34,7 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	const classTranslations = Translations.getModule("commands.classInfo", language);
 	const allClasses = await Classes.getByGroupId(player.getClassGroup());
 

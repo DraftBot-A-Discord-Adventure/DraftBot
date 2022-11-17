@@ -1,5 +1,6 @@
 import {MissionDifficulty} from "./MissionDifficulty";
 import Player from "../database/game/models/Player";
+import {LanguageType} from "../constants/TypeConstants";
 
 export type IMission = {
 
@@ -25,7 +26,7 @@ export type IMission = {
 	 * @param language - the language to use
 	 * @param saveBlob - some binary data
 	 */
-	getVariantFormatVariable(variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string>;
+	getVariantFormatVariable(variant: number, objective: number, language: LanguageType, saveBlob: Buffer): Promise<string>;
 
 	/**
 	 * get the advancement of the mission at the beginning of the mission (maybe the player has already done it)

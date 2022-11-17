@@ -1,11 +1,12 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {ServersConstants} from "../../../constants/ServersConstants";
 import moment = require("moment");
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export class Server extends Model {
 	public id!: number;
 
-	public language!: string;
+	public language!: LanguageType;
 
 	public discordGuildId!: string;
 

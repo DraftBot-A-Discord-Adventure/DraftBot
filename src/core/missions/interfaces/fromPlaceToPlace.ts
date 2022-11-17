@@ -2,6 +2,7 @@ import {IMission} from "../IMission";
 import {MapLocations} from "../../database/game/models/MapLocation";
 import {Translations} from "../../Translations";
 import {hoursToMilliseconds} from "../../utils/TimeUtils";
+import {LanguageType} from "../../constants/TypeConstants";
 
 const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
 	const saveBlob = Buffer.alloc(10);
@@ -43,7 +44,7 @@ export const missionInterface: IMission = {
 			&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
 	},
 
-	async getVariantFormatVariable(variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string> {
+	async getVariantFormatVariable(variant: number, objective: number, language: LanguageType, saveBlob: Buffer): Promise<string> {
 		const tr = Translations.getModule("models.missions", language);
 		const variantParams = paramsFromVariant(variant);
 		const saveData = saveBlob ? dataFromSaveBlob(saveBlob) : null;

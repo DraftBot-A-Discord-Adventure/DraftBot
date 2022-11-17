@@ -4,6 +4,7 @@ import {botConfig, draftBotInstance} from "../../../../core/bot";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
 import {GameDatabase} from "../../../../core/database/game/GameDatabase";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "migration",
@@ -32,7 +33,7 @@ function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase 
  * Force a topweek end event
  * @return {String} - The successful message formatted
  */
-async function migrationTestCommand(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
+async function migrationTestCommand(language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> {
 	if (interaction.user.id !== botConfig.BOT_OWNER_ID) {
 		throw new Error("You must be the bot owner to perform this action");
 	}

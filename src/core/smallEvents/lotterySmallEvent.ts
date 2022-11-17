@@ -14,6 +14,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * Get a guild, may be null if the player isn't in a guild
@@ -61,7 +62,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
 		const seEmbedEmote = seEmbed.data.description;
 		seEmbed.setDescription(seEmbed.data.description + translationLottery.get("intro"));

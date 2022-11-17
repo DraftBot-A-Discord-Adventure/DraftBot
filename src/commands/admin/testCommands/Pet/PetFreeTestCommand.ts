@@ -3,6 +3,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
 import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "petfree",
@@ -20,7 +21,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const petFreeTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const petFreeTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	if (player.petId === null) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");

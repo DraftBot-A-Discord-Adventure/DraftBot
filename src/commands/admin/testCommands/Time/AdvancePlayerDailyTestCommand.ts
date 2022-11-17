@@ -4,6 +4,7 @@ import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "advanceplayerdaily",
@@ -25,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advancePlayerDailyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const advancePlayerDailyTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	inventoryInfo.lastDailyAt = new Date(inventoryInfo.lastDailyAt.valueOf() - parseInt(args[0], 10) * 60000);

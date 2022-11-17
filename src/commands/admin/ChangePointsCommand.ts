@@ -3,6 +3,7 @@ import {CommandInteraction} from "discord.js";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import Player from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Change the score of a player
@@ -11,7 +12,7 @@ import Player from "../../core/database/game/models/Player";
  * @param interaction
  * @param language
  */
-function givePointsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string): void {
+function givePointsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: LanguageType): void {
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.addScore({
 			amount: amount - playerToEdit.score,

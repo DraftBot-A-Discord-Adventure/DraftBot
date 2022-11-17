@@ -6,6 +6,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(GuildDailyConstants.REWARD_TYPES).forEach((v) => stringDesc += `\n - ${v[1]}`); // eslint-disable-line no-return-assign
@@ -30,7 +31,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const guildRewardTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const guildRewardTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 

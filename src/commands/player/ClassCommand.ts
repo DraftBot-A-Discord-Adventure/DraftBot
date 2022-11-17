@@ -13,6 +13,7 @@ import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type UserInformation = { user: User, player: Player }
 
@@ -117,7 +118,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
  * @param player
  * @param interaction
  */
-async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, player: Player, interaction: CommandInteraction): Promise<Message> {
+async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: LanguageType, player: Player, interaction: CommandInteraction): Promise<Message> {
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
@@ -203,7 +204,7 @@ async function addClassEmbedReactions(allClasses: Class[], classMessage: Message
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

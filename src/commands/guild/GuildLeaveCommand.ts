@@ -13,6 +13,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type UserInformation = { guild: Guild, player: Player };
 
@@ -113,7 +114,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 
 	if (await sendBlockedError(interaction, language)) {
 		return;

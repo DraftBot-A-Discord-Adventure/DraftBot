@@ -5,6 +5,7 @@ import {Tags} from "./Tag";
 import {botConfig, draftBotInstance} from "../../../bot";
 import * as moment from "moment";
 import {Constants} from "../../../Constants";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -29,31 +30,31 @@ export class MapLocation extends Model {
 
 	public createdAt!: Date;
 
-	public getEmote(language: string): string {
+	public getEmote(language: LanguageType): string {
 		return Translations.getModule("models.maps", language).get("types." + this.type + ".emote");
 	}
 
-	public getNameWithoutEmote(language: string): string {
+	public getNameWithoutEmote(language: LanguageType): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn;
 	}
 
-	public getDisplayName(language: string): string {
+	public getDisplayName(language: LanguageType): string {
 		return `${this.getEmote(language)} ${language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn}`;
 	}
 
-	public getParticleName(language: string): string {
+	public getParticleName(language: LanguageType): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.particleFr : this.particleEn;
 	}
 
-	public getDescription(language: string): string {
+	public getDescription(language: LanguageType): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.descFr : this.descEn;
 	}
 
-	public async getFullName(language: string): Promise<string> {
+	public async getFullName(language: LanguageType): Promise<string> {
 		return `${await this.getDeterminant(language)} ${this.getDisplayName(language)}`;
 	}
 
-	public async getDeterminant(language: string): Promise<string> {
+	public async getDeterminant(language: LanguageType): Promise<string> {
 		if (language === Constants.LANGUAGE.ENGLISH) {
 			return "";
 		}

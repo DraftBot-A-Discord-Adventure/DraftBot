@@ -6,6 +6,7 @@ import {CommandsTest} from "../../core/CommandsTest";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.FRENCH);
@@ -15,7 +16,7 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.test",
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	// First, we test if we are in test mode
 	if (botConfig.TEST_MODE) {
 		// Second, we collect the test commands entered

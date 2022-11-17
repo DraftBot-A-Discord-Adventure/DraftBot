@@ -9,6 +9,7 @@ import fs = require("fs");
 import moment = require("moment");
 import {botConfig} from "../../../bot";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export class Potion extends SupportItemModel {
 	categoryName = "potions";
@@ -17,7 +18,7 @@ export class Potion extends SupportItemModel {
 		return ItemConstants.CATEGORIES.POTION;
 	}
 
-	getNatureTranslation(language: string): string {
+	getNatureTranslation(language: LanguageType): string {
 		return format(
 			Translations.getModule("items", language).getFromArray("potions.natures", this.nature),
 			{

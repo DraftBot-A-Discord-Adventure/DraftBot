@@ -16,6 +16,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Get the end callback of the give command
@@ -80,7 +81,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	const tr = Translations.getModule("commands.give", language);
 	const usersToChange = (interaction.options.get("users").value as string).split(" ");
 	if (usersToChange.length > 50) {

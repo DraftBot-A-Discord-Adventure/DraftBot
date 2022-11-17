@@ -3,6 +3,7 @@ import {Translations} from "../../../Translations";
 import {Model} from "sequelize";
 import {draftBotClient} from "../../../bot";
 import {Constants} from "../../../Constants";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export type MaxStatsValues = { attack: number, defense: number, speed: number }
 
@@ -31,20 +32,20 @@ export abstract class GenericItemModel extends Model {
 
 	public slot: number;
 
-	public abstract toString(language: string, maxStatsValue: MaxStatsValues): string;
+	public abstract toString(language: LanguageType, maxStatsValue: MaxStatsValues): string;
 
-	public getRarityTranslation(language: string): string {
+	public getRarityTranslation(language: LanguageType): string {
 		return Translations.getModule("items", language).getFromArray("rarities", this.rarity);
 	}
 
-	public getName(language: string): string {
+	public getName(language: LanguageType): string {
 		return Translations.getModule("items", language).format("nameDisplay", {
 			emote: this.getEmote(),
 			name: language === Constants.LANGUAGE.FRENCH ? this.fr : this.en
 		});
 	}
 
-	public getSimpleName(language: string): string {
+	public getSimpleName(language: LanguageType): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 
@@ -67,5 +68,5 @@ export abstract class GenericItemModel extends Model {
 
 	public abstract getItemAddedValue(): number;
 
-	public abstract toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField;
+	public abstract toFieldObject(language: LanguageType, maxStatsValue: MaxStatsValues): EmbedField;
 }

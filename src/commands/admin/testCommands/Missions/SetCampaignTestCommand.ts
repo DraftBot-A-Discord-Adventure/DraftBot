@@ -7,6 +7,7 @@ import {Data} from "../../../../core/Data";
 import MissionSlot, {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaign",
@@ -27,7 +28,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const setCampaignTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const setCampaignTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);

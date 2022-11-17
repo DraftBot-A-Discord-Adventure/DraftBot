@@ -8,6 +8,7 @@ import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player, {Players} from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 import {sendNotificationToPlayer} from "../core/utils/MessageUtils";
+import {LanguageType} from "../core/constants/TypeConstants";
 
 /**
  * Special class for mass editing player values (admin only)
@@ -18,7 +19,7 @@ export class ChangeValueAdminCommands {
 	 * @param commandName
 	 * @param editFunction
 	 */
-	static getCommandInfo(commandName: string, editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
+	static getCommandInfo(commandName: string, editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: LanguageType) => void): ICommand {
 		const executeCommand = this.executeCommandFrom(commandName, editFunction);
 		const currentCommandFrenchTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.FRENCH);
 		const currentCommandEnglishTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
@@ -89,9 +90,9 @@ export class ChangeValueAdminCommands {
 	 */
 	private static executeCommandFrom(
 		commandName: string,
-		editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void
-	): (interaction: CommandInteraction, language: string) => Promise<void> {
-		return async (interaction: CommandInteraction, language: string): Promise<void> => {
+		editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: LanguageType) => void
+	): (interaction: CommandInteraction, language: LanguageType) => Promise<void> {
+		return async (interaction: CommandInteraction, language: LanguageType): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
 			const amount = interaction.options.get("amount").value as number;
 			if (amount > 10 ** 17) {

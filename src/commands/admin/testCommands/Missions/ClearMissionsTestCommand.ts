@@ -2,6 +2,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "clearMissions",
@@ -18,7 +19,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const clearMissionsTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const clearMissionsTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 

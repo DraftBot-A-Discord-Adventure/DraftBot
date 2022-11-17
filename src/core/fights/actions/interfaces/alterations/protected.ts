@@ -1,9 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAction} from "../../FightAction";
+import {LanguageType} from "../../../../constants/TypeConstants";
 
 export default class ProtectedAlteration extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
 		sender.alterationTurn++;
 		const protectedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (sender.alterationTurn > 2) { // this effect heals after two turns

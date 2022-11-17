@@ -5,6 +5,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "updateMissions",
@@ -26,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param args
  */
-const updateMissionsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const updateMissionsTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const mission = await Missions.getById(args[0]);
 	if (!mission) {

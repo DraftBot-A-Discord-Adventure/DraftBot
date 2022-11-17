@@ -18,6 +18,7 @@ import {GuildCreateConstants} from "../../core/constants/GuildCreateConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Get a guild by its name
@@ -46,7 +47,7 @@ function endCallbackGuildCreateValidationMessage(
 	guild: Guild,
 	askedName: string,
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	guildCreateModule: TranslationModule
 ): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
@@ -132,7 +133,7 @@ function createValidationEmbedGuildCreation(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

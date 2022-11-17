@@ -2,6 +2,7 @@ import {Maps} from "../../../../core/maps/Maps";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "travelreport",
@@ -19,7 +20,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const travelReportTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const travelReportTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	if (!Maps.isTravelling(player)) {

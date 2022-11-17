@@ -7,9 +7,10 @@ import {MathUtils} from "../../../utils/MathUtils";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightAlterations} from "../FightAlterations";
+import {LanguageType} from "../../../constants/TypeConstants";
 
 export default class CanonAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast

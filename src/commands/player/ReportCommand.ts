@@ -33,8 +33,9 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
-type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
+type TextInformation = { interaction: CommandInteraction, language: LanguageType, tr?: TranslationModule }
 
 /**
  * Initiates a new player on the map
@@ -68,7 +69,7 @@ async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
  * @param player
  * @param forced
  */
-async function executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, forced: string): Promise<void> {
+async function executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, forced: string): Promise<void> {
 	// Pick random event
 	let event: string;
 	if (forced === null) {
@@ -135,7 +136,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
  * @param interaction
  * @param language
  */
-async function completeMissionsBigEvent(player: Player, interaction: CommandInteraction, language: string): Promise<void> {
+async function completeMissionsBigEvent(player: Player, interaction: CommandInteraction, language: LanguageType): Promise<void> {
 	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "travelHours", params: {
 			travelTime: await player.getCurrentTripDuration()
@@ -174,7 +175,7 @@ async function needBigEvent(player: Player, date: Date): Promise<boolean> {
  * @param date
  * @param effect
  */
-async function sendTravelPath(player: Player, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
+async function sendTravelPath(player: Player, interaction: CommandInteraction, language: LanguageType, date: Date, effect: string = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
 	const timeData = await TravelTime.getTravelData(player, date);
@@ -252,7 +253,7 @@ async function createDescriptionChooseDestination(
 	tr: TranslationModule,
 	destinationMaps: number[],
 	player: Player,
-	language: string
+	language: LanguageType
 ): Promise<string> {
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
@@ -278,7 +279,7 @@ async function destinationChoseMessage(
 	player: Player,
 	map: number,
 	interaction: CommandInteraction,
-	language: string
+	language: LanguageType
 ): Promise<void> {
 	const user = interaction.user;
 	const channel = interaction.channel;
@@ -317,7 +318,7 @@ async function destinationChoseMessage(
 async function chooseDestination(
 	player: Player,
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	restrictedMapType: string
 ): Promise<void> {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
@@ -594,7 +595,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
  */
 async function doRandomBigEvent(
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	player: Player,
 	forceSpecificEvent: number
 ): Promise<void> {
@@ -639,7 +640,7 @@ async function doRandomBigEvent(
  */
 async function executeCommand(
 	interaction: CommandInteraction,
-	language: string,
+	language: LanguageType,
 	player: Player,
 	forceSpecificEvent: number = null,
 	forceSmallEvent: string = null

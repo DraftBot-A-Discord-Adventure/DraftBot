@@ -16,6 +16,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type InvitedUserInformation = { invitedUser: User, invitedPlayer: Player };
 type InviterUserInformation = { guild: Guild, player: Player };
@@ -126,7 +127,7 @@ function getEndCallbackGuildAdd(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	const guildInviteModule = Translations.getModule("commands.guildInvite", language);
 	const invitedPlayer = await Players.getByOptions(interaction);
 

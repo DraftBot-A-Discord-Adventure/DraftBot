@@ -3,6 +3,7 @@ import {CommandInteraction} from "discord.js";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import Player from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Change the level of a player
@@ -11,7 +12,7 @@ import {NumberChangeReason} from "../../core/constants/LogsConstants";
  * @param interaction
  * @param language
  */
-function giveLevelsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string): void {
+function giveLevelsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: LanguageType): void {
 	const ratioExpCurrentLevel: number = playerToEdit.experience / playerToEdit.getExperienceNeededToLevelUp();
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.level = amount;

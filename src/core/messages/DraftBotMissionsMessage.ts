@@ -9,15 +9,16 @@ import {MissionSlots} from "../database/game/models/MissionSlot";
 import Player from "../database/game/models/Player";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {Missions} from "../database/game/models/Mission";
+import {LanguageType} from "../constants/TypeConstants";
 
 export class DraftBotMissionsMessageBuilder {
 	private _player: Player;
 
 	private readonly _user: User;
 
-	private readonly _language: string;
+	private readonly _language: LanguageType;
 
-	constructor(player: Player, user: User, language: string) {
+	constructor(player: Player, user: User, language: LanguageType) {
 		this._player = player;
 		this._user = user;
 		this._language = language;

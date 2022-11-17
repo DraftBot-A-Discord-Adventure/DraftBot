@@ -7,6 +7,7 @@ import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Shows the inventory of the given player (default player is the one who entered the command)
@@ -14,7 +15,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
 	if (!askedPlayer) {
 		askedPlayer = player;

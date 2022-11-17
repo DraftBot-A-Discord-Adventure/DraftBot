@@ -1,6 +1,7 @@
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
+import {LanguageType} from "../constants/TypeConstants";
 
 /**
  * Interface representing the strict minimum a small event needs
@@ -13,7 +14,7 @@ export interface SmallEvent {
 	 * @param player
 	 * @param seEmbed
 	 */
-	executeSmallEvent: (interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) => Promise<void>;
+	executeSmallEvent: (interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed) => Promise<void>;
 
 	/**
 	 * Says by whom the small event can be obtained

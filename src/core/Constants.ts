@@ -205,7 +205,7 @@ export abstract class Constants {
 	static readonly LANGUAGE = {
 		FRENCH: "fr",
 		ENGLISH: "en"
-	};
+	} as const;
 
 	static readonly MENU_REACTION = {
 		ACCEPT: "✅",

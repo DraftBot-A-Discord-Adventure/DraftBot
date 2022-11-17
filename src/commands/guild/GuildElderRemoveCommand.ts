@@ -13,6 +13,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * @param player
@@ -52,7 +53,7 @@ function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	const guildElderRemoveModule = Translations.getModule("commands.guildElderRemove", language);
 

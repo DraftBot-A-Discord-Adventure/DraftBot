@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {CommandInteraction} from "discord.js";
 import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
 import {Constants} from "../../../../core/Constants";
+import {LanguageType} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "help",
@@ -22,7 +23,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const helpTestCommand = (language: string, interaction: CommandInteraction, args: string[]): DraftBotEmbed => {
+const helpTestCommand = (language: LanguageType, interaction: CommandInteraction, args: string[]): DraftBotEmbed => {
 	let helpOnCommand: ITestCommand;
 	try {
 		helpOnCommand = CommandsTest.getTestCommand(args[0]);

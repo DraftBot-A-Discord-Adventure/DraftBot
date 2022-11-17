@@ -15,9 +15,10 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 type PlayerInformation = { player: Player, guild: Guild }
-type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
+type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: LanguageType }
 
 /**
  * Get the callback for the guild kick command
@@ -141,7 +142,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

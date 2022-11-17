@@ -19,6 +19,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import Pet, {Pets} from "../../core/database/game/models/Pet";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {LanguageType} from "../../core/constants/TypeConstants";
 
 /**
  * Display badges for the given player
@@ -139,7 +140,7 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
  * @param playerClass
  * @param language
  */
-function getClassField(profileModule: TranslationModule, playerClass: Class, language: string): EmbedField {
+function getClassField(profileModule: TranslationModule, playerClass: Class, language: LanguageType): EmbedField {
 	return {
 		name: profileModule.get("playerClass.fieldName"),
 		value: profileModule.format("playerClass.fieldValue", {
@@ -170,7 +171,7 @@ function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFie
  * @param askedPlayer
  * @param language
  */
-async function getLocationField(profileModule: TranslationModule, askedPlayer: Player, language: string): Promise<EmbedField> {
+async function getLocationField(profileModule: TranslationModule, askedPlayer: Player, language: LanguageType): Promise<EmbedField> {
 	return {
 		name: profileModule.get("map.fieldName"),
 		value: (await askedPlayer.getDestination()).getDisplayName(language),
@@ -185,7 +186,7 @@ async function getLocationField(profileModule: TranslationModule, askedPlayer: P
  * @param petModel
  * @param language
  */
-function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel: Pet, language: string): EmbedField {
+function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel: Pet, language: LanguageType): EmbedField {
 	return {
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
@@ -232,7 +233,7 @@ function getNoTimeLeftField(profileModule: TranslationModule): EmbedField {
  * @param interaction
  * @returns {Promise<void>}
  */
-async function sendMessageAllBadgesTooMuchBadges(player: Player, language: string, interaction: CommandInteraction): Promise<void> {
+async function sendMessageAllBadgesTooMuchBadges(player: Player, language: LanguageType, interaction: CommandInteraction): Promise<void> {
 	let content = "";
 	const badges = player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
@@ -263,7 +264,7 @@ async function generateFields(
 	askedPlayer: Player,
 	interaction: CommandInteraction,
 	titleEffect: string,
-	language: string
+	language: LanguageType
 ): Promise<{ fields: EmbedField[], titleEffect: string }> {
 	const playerActiveObjects = await InventorySlots.getMainSlotsItems(askedPlayer.id);
 	const missionSlots = await MissionSlots.getOfPlayer(askedPlayer.id);
@@ -339,7 +340,7 @@ async function generateFields(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
 	if (!askedPlayer) {
 		askedPlayer = player;
