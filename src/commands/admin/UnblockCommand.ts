@@ -9,6 +9,8 @@ import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 
+const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
+
 /**
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -43,7 +45,6 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.FRENCH);
-const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
 		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionIdName"))
