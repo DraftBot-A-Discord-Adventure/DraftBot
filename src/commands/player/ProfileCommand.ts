@@ -201,14 +201,13 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel:
  * Get the time left field of the profile
  * @param profileModule
  * @param askedPlayer
- * @param interaction
  */
-function getTimeLeftField(profileModule: TranslationModule, askedPlayer: Player, interaction: CommandInteraction): EmbedField {
+function getTimeLeftField(profileModule: TranslationModule, askedPlayer: Player): EmbedField {
 	return {
 		name: profileModule.get("timeLeft.fieldName"),
 		value: profileModule.format("timeLeft.fieldValue", {
 			effect: askedPlayer.effect,
-			timeLeft: minutesDisplay(millisecondsToMinutes(askedPlayer.effectEndDate.valueOf() - interaction.createdAt.valueOf()))
+			timeLeft: minutesDisplay(millisecondsToMinutes(askedPlayer.effectEndDate.valueOf() - Date.now()))
 		}),
 		inline: false
 	};
@@ -282,12 +281,12 @@ async function generateFields(
 		getRankingField(profileModule, rank, numberOfPlayers, askedPlayer));
 
 	if (!askedPlayer.checkEffect()) {
-		if (interaction.createdAt >= askedPlayer.effectEndDate) {
+		if (new Date() >= askedPlayer.effectEndDate) {
 			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
 			fields.push(getNoTimeLeftField(profileModule));
 		}
 		else {
-			fields.push(getTimeLeftField(profileModule, askedPlayer, interaction));
+			fields.push(getTimeLeftField(profileModule, askedPlayer));
 		}
 	}
 

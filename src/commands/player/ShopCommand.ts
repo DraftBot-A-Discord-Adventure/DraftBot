@@ -81,12 +81,12 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			if (player.currentEffectFinished(interaction.createdAt)) {
+			if (player.currentEffectFinished(new Date())) {
 				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHeal"));
 				return false;
 			}
 			if (player.effect !== EffectsConstants.EMOJI_TEXT.DEAD && player.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
-				await TravelTime.removeEffect(player, NumberChangeReason.SHOP, interaction.createdAt);
+				await TravelTime.removeEffect(player, NumberChangeReason.SHOP);
 				await player.save();
 			}
 			await MissionsController.update(player, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});

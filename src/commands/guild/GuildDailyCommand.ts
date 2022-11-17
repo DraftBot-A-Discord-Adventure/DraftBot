@@ -189,7 +189,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 		}
 		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
-			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY, stringInfos.interaction.createdAt);
+			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
 		}
 	});
 	if (!needsHeal && noAlteHeal) {
@@ -394,7 +394,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	const time = millisecondsToHours(interaction.createdAt.valueOf() - guild.lastDailyAt.valueOf());
+	const time = millisecondsToHours(Date.now() - guild.lastDailyAt.valueOf());
 	if (time < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
 		await replyErrorMessage(
 			interaction,
