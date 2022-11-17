@@ -20,7 +20,9 @@ export abstract class WitchEvent {
 
 	private outcomeProbabilities: number[];
 
-	public constructor(name: string) {
+	public forceEffect = false;
+
+	protected constructor(name: string) {
 		this.name = name;
 	}
 
@@ -67,7 +69,8 @@ export abstract class WitchEvent {
 	/**
 	 * Base function to generate a give effect outcome, some witch events will override this
 	 */
-	public giveEffect(): Promise<void> | null {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public giveEffect(player: Player): Promise<void> | null {
 		return null;
 	}
 
@@ -113,18 +116,16 @@ export abstract class WitchEvent {
 	/**
 	 * generate an array of all the possible actions from clear probabilities
 	 * @param potionProbability
-	 * @param timeLostProbability
 	 * @param effectProbability
 	 * @param lifePointLostProbability
 	 * @param nothingProbability
 	 */
-	public setOutcomeProbabilities(potionProbability: number, timeLostProbability: number, effectProbability: number, lifePointLostProbability: number, nothingProbability: number): void {
+	public setOutcomeProbabilities(potionProbability: number, effectProbability: number, lifePointLostProbability: number, nothingProbability: number): void {
 		this.outcomeProbabilities = [
 			potionProbability,
-			potionProbability + timeLostProbability,
-			potionProbability + timeLostProbability + effectProbability,
-			potionProbability + timeLostProbability + effectProbability + lifePointLostProbability,
-			potionProbability + timeLostProbability + effectProbability + lifePointLostProbability + nothingProbability
+			potionProbability + effectProbability,
+			potionProbability + effectProbability + lifePointLostProbability,
+			potionProbability + effectProbability + lifePointLostProbability + nothingProbability
 		];
 	}
 }

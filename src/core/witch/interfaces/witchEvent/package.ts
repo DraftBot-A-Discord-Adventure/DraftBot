@@ -6,14 +6,29 @@ import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import Potion from "../../../database/game/models/Potion";
+import {SmallEventConstants} from "../../../constants/SmallEventConstants";
 
 export default class Package extends WitchEvent {
+
+	public constructor() {
+		super("package");
+		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
+		this.setOutcomeProbabilities(45, 5, 0, 0);
+	}
+
+	/**
+	 * The package will give a random potion with a legendary maximum rarity.
+	 */
 	async generatePotion(): Promise<Potion> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.LEGENDARY);
 	}
 
+	/**
+	 * The package can make the player sick
+	 * @param player
+	 */
 	async giveEffect(player: Player): Promise<void> {
 		await TravelTime.applyEffect(
 			player,
