@@ -3,7 +3,6 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {DraftBotMissionsMessageBuilder} from "../../../../core/messages/DraftBotMissionsMessage";
 import {Translations} from "../../../../core/Translations";
 import {getTomorrowMidnight} from "../../../../core/utils/TimeUtils";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Missions} from "../../../../core/database/game/models/Mission";
 
