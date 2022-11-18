@@ -5,6 +5,7 @@ import {Translations} from "../../../../core/Translations";
 import {getTomorrowMidnight} from "../../../../core/utils/TimeUtils";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Missions} from "../../../../core/database/game/models/Mission";
+import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "newDailyMissions",
@@ -22,6 +23,10 @@ export const commandInfo: ITestCommand = {
  */
 const newDailyMissionTestCommand = async (language: string): Promise<string> => {
 	const newDM = await DailyMissions.regenerateDailyMission();
+	await PlayerMissionsInfo.update({
+		dailyMissionNumberDone: 0,
+		lastDailyMissionCompleted: new Date(0)
+	}, {where: {}});
 	return format(commandInfo.messageWhenExecuted, {
 		mission: DraftBotMissionsMessageBuilder.getMissionDisplay(
 			Translations.getModule("commands.missions", language),
