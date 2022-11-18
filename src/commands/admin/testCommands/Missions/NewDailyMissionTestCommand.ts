@@ -21,7 +21,7 @@ export const commandInfo: ITestCommand = {
  * Set the weapon of the player
  * @return {String} - The successful message formatted
  */
-const newDailyMissionTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const newDailyMissionTestCommand = async (language: string): Promise<string> => {
 	const newDM = await DailyMissions.regenerateDailyMission();
 	return format(commandInfo.messageWhenExecuted, {
 		mission: DraftBotMissionsMessageBuilder.getMissionDisplay(
