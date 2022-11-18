@@ -1,10 +1,11 @@
 import {IPC} from "node-ipc";
 import RootIPC = require("node-ipc");
+import {BlockingReason} from "../../constants/TypeConstants";
 
 const spamDelay = 1000;
 
 // The limitTimestamp is the date when the blocking is finished
-const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
+const blockedPlayers: Map<string, { reason: BlockingReason, limitTimestamp: number }[]> = new Map();
 const spamPlayers: Map<string, number> = new Map();
 
 /**
@@ -12,7 +13,7 @@ const spamPlayers: Map<string, number> = new Map();
  * @param discordId
  * @param reason
  */
-function removeBlockedReason(discordId: string, reason: string): void {
+function removeBlockedReason(discordId: string, reason: BlockingReason): void {
 	const blockedPlayer = blockedPlayers.get(discordId);
 	if (blockedPlayer) {
 		blockedPlayers.set(discordId, blockedPlayer.filter(v => v.reason !== reason));
@@ -29,7 +30,7 @@ function removeBlockedReason(discordId: string, reason: string): void {
 function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"block",
-		(data: { discordId: string; reason: string; time: number; }) => {
+		(data: { discordId: string; reason: BlockingReason; time: number; }) => {
 			if (!blockedPlayers.get(data.discordId)) {
 				blockedPlayers.set(data.discordId, []);
 			}
@@ -48,7 +49,7 @@ function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
 function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>): void {
 	ipc.server.on(
 		"unblock",
-		(data: { discordId: string; reason: string; }) => {
+		(data: { discordId: string; reason: BlockingReason; }) => {
 			removeBlockedReason(data.discordId, data.reason);
 		}
 	);

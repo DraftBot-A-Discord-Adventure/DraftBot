@@ -31,5 +31,5 @@ export abstract class BlockingConstants {
 		SWITCH: "switch",
 		TEST: "test",
 		UNLOCK: "unlock"
-	};
+	} as const;
 }

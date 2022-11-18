@@ -255,8 +255,7 @@ function getBuySlotExtensionShopItemCallback(
 		chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
 		await chooseSlotBuilt.send(
 			shopMessage.sentMessage.channel,
-			(collector) => BlockingUtils.blockPlayerWithCollector(playerInformation.player.discordUserId, BlockingConstants.REASONS.SHOP,
-				collector));
+			(collector) => BlockingUtils.blockPlayerWithCollector(playerInformation.player.discordUserId, BlockingConstants.REASONS.SHOP, collector));
 		return Promise.resolve(false);
 	};
 }

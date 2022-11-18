@@ -79,7 +79,7 @@ async function executeCommand(interaction: CommandInteraction, language: Languag
 		.reply(
 			interaction,
 			(collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE, collector)
-		);
+        );
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.guildElderRemove", Constants.LANGUAGE.FRENCH);

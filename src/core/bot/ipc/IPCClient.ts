@@ -1,5 +1,6 @@
 import RootIPC = require("node-ipc");
 import {IPC} from "node-ipc";
+import {BlockingReason} from "../../constants/TypeConstants";
 
 // We need to use InstanceType because IPC is not exported
 let ipc: InstanceType<typeof IPC> = null;
@@ -11,7 +12,7 @@ let requestCount = 0;
  * This client sends a message to the server, but it cannot wait for an answer.
  * The solution is to store a callback associated with a packet id and when the server emits an answer with the same packet id we can call the callback
  */
-const blockCallbacks: Map<number, (reason: string[]) => void> = new Map();
+const blockCallbacks: Map<number, (reason: BlockingReason[]) => void> = new Map();
 const spamCallbacks: Map<number, (spamming: boolean) => void> = new Map();
 
 /**
@@ -79,7 +80,7 @@ export class IPCClient {
 	 * @param reason
 	 * @param time
 	 */
-	static ipcBlockPlayer(discordId: string, reason: string, time = 0): void {
+	static ipcBlockPlayer(discordId: string, reason: BlockingReason, time = 0): void {
 		ipc.of.draftbot.emit("block", {discordId, reason, time});
 	}
 
@@ -88,7 +89,7 @@ export class IPCClient {
 	 * @param discordId
 	 * @param reason
 	 */
-	static ipcUnblockPlayer(discordId: string, reason: string): void {
+	static ipcUnblockPlayer(discordId: string, reason: BlockingReason): void {
 		ipc.of.draftbot.emit("unblock", {discordId, reason});
 	}
 
@@ -96,7 +97,7 @@ export class IPCClient {
 	 * Get all the reasons for why this player is blocked (empty list means it isn't blocked)
 	 * @param discordId
 	 */
-	static ipcGetBlockedPlayerReason(discordId: string): Promise<string[]> {
+	static ipcGetBlockedPlayerReason(discordId: string): Promise<BlockingReason[]> {
 		return new Promise(resolve => {
 			blockCallbacks.set(requestCount, (reason) => resolve(reason));
 			ipc.of.draftbot.emit("isBlocked", {packet: requestCount, discordId});

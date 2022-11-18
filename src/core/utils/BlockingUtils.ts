@@ -4,7 +4,7 @@ import {Translations} from "../Translations";
 import {replyErrorMessage} from "./ErrorUtils";
 import {escapeUsername} from "./StringUtils";
 import {format} from "./StringFormatter";
-import {LanguageType} from "../constants/TypeConstants";
+import {BlockingReason, LanguageType} from "../constants/TypeConstants";
 
 /**
  * Functions to call when you want to manage the blocking of a player
@@ -16,7 +16,7 @@ export class BlockingUtils {
 	 * @param reason
 	 * @param maxTime
 	 */
-	static blockPlayer(discordId: string, reason: string, maxTime = 0): void {
+	static blockPlayer(discordId: string, reason: BlockingReason, maxTime = 0): void {
 		IPCClient.ipcBlockPlayer(discordId, reason, maxTime);
 	}
 
@@ -26,7 +26,7 @@ export class BlockingUtils {
 	 * @param reason
 	 * @param collector
 	 */
-	static blockPlayerWithCollector(discordId: string, reason: string, collector: ReactionCollector): void {
+	static blockPlayerWithCollector(discordId: string, reason: BlockingReason, collector: ReactionCollector): void {
 		BlockingUtils.blockPlayer(discordId, reason, collector.options.time);
 	}
 
@@ -35,7 +35,7 @@ export class BlockingUtils {
 	 * @param discordId
 	 * @param reason
 	 */
-	static unblockPlayer(discordId: string, reason: string): void {
+	static unblockPlayer(discordId: string, reason: BlockingReason): void {
 		IPCClient.ipcUnblockPlayer(discordId, reason);
 	}
 
@@ -43,7 +43,7 @@ export class BlockingUtils {
 	 * Gets why this player is blocked (empty list means it isn't blocked)
 	 * @param discordId
 	 */
-	static async getPlayerBlockingReason(discordId: string): Promise<string[]> {
+	static async getPlayerBlockingReason(discordId: string): Promise<BlockingReason[]> {
 		return await IPCClient.ipcGetBlockedPlayerReason(discordId);
 	}
 
@@ -69,7 +69,7 @@ export class BlockingUtils {
  * @param blockingReason
  * @param language
  */
-export function getErrorReasons(blockingReason: string[], language: LanguageType): string {
+export function getErrorReasons(blockingReason: BlockingReason[], language: LanguageType): string {
 	let errorReasons = "";
 	blockingReason.forEach(reason => {
 		errorReasons = errorReasons.concat(`${Translations.getModule("error", language).get(`blockedContext.${reason}`)}, `);

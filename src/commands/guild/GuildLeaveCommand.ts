@@ -25,11 +25,9 @@ type UserInformation = { guild: Guild, player: Player };
  */
 function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
-		BlockingUtils.unblockPlayer(
-			userInformation.player.discordUserId,
-			userInformation.player.id === userInformation.guild.chiefId && userInformation.guild.elderId
-				? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
-				: BlockingConstants.REASONS.GUILD_LEAVE);
+		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, userInformation.player.id === userInformation.guild.chiefId && userInformation.guild.elderId
+			? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
+			: BlockingConstants.REASONS.GUILD_LEAVE);
 		if (msg.isValidated()) {
 			// the user confirmed the choice to leave
 			try {

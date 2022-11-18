@@ -653,7 +653,7 @@ async function executeCommand(
 		return;
 	}
 
-	BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT, Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
@@ -662,18 +662,18 @@ async function executeCommand(
 	if (forceSpecificEvent || await needBigEvent(player, currentDate)) {
 		await interaction.deferReply();
 		await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
 		await executeSmallEvent(interaction, language, player, forceSmallEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	}
 
 	if (!player.currentEffectFinished(currentDate)) {
 		await sendTravelPath(player, interaction, language, currentDate, player.effect);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	}
 
 	if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
@@ -681,17 +681,17 @@ async function executeCommand(
 	}
 
 	if (player.mapLinkId === null) {
-		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+        await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	}
 
 	if (!Maps.isTravelling(player)) {
 		await chooseDestination(player, interaction, language, null);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	}
 
 	await sendTravelPath(player, interaction, language, currentDate, null);
-	BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
