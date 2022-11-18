@@ -24,6 +24,7 @@ import {Pets} from "../../core/database/game/models/Pet";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 import {LanguageType} from "../../core/constants/TypeConstants";
+import {GuildDailyReward, LanguageType} from "../../core/constants/TypeConstants";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -307,7 +308,7 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
  * Map all possible rewards to the corresponding rewarding function
  */
 function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
-	const linkToFunction = new Map<string, FunctionRewardType>();
+	const linkToFunction = new Map<GuildDailyReward, FunctionRewardType>();
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PERSONAL_XP, awardPersonalXpToMembers);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.GUILD_XP, awardGuildXp);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.MONEY, awardMoneyToMembers);
@@ -378,7 +379,7 @@ function generateRandomProperty(guild: Guild): string {
  * @param player
  * @param forcedReward
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player, forcedReward: string = null): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player, forcedReward: GuildDailyReward = null): Promise<void> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	if (await sendBlockedError(interaction, language)) {
 		return;

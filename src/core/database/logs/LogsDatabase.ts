@@ -88,6 +88,7 @@ import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
 import {getDateLogs} from "../../utils/TimeUtils";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
+import {GuildDailyReward} from "../../constants/TypeConstants";
 
 /**
  * This class is used to log all the changes in the game database
@@ -837,7 +838,7 @@ export class LogsDatabase extends Database {
 	 * @param guild
 	 * @param rewardResult
 	 */
-	public async logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
+	public async logGuildDaily(guild: Guild, rewardResult: GuildDailyReward): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
 		await LogsGuildsDailies.create({

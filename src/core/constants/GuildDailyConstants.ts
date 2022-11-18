@@ -10,7 +10,7 @@ export abstract class GuildDailyConstants {
 		PARTIAL_HEAL: "partialHeal",
 		ALTERATION: "alterationHeal",
 		PET_FOOD: "petFood"
-	};
+	} as const;
 
 	static readonly XP = {
 		MIN: 20,
