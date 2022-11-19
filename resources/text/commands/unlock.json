@@ -15,7 +15,8 @@
 			"unlockedTitle": "Libération de {pseudo}",
 			"unlockSuccess": "**{pseudo}** a été libéré.",
 			"noMoney": "Vous n'avez pas assez d'argent pour libérer **{pseudo}**, il vous manque **{money}**:moneybag:.",
-			"unlockCanceled": "La libération a été annulée."
+			"unlockCanceled": "La libération a été annulée.",
+			"unlockNotification": "Le joueur **{pseudo}** vous a libéré de prison."
 		},
 		"en": {
 			"commandName": "unlock",
@@ -32,7 +33,8 @@
 			"unlockedTitle": "Releasing {pseudo}",
 			"unlockSuccess": "**{pseudo}** has been released.",
 			"noMoney": "You don't have enough money to release **{pseudo}**, you need **{money}**:moneybag: more.",
-			"unlockCanceled": "Release has been cancel."
+			"unlockCanceled": "Release has been cancel.",
+			"unlockNotification": "The player **{pseudo}** released you from prison."
 		}
 	}
 }
