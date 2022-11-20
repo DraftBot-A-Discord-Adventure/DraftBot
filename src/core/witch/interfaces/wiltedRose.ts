@@ -1,9 +1,9 @@
-import {WitchEvent} from "../../WitchEvent";
-import {generateRandomPotion} from "../../../utils/ItemUtils";
-import {Constants} from "../../../Constants";
-import {ItemConstants} from "../../../constants/ItemConstants";
-import Potion from "../../../database/game/models/Potion";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import {generateRandomPotion} from "../../utils/ItemUtils";
+import {Constants} from "../../Constants";
+import {ItemConstants} from "../../constants/ItemConstants";
+import Potion from "../../database/game/models/Potion";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class WiltedRose extends WitchEvent {
 

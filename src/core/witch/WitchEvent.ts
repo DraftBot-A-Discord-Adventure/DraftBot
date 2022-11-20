@@ -108,7 +108,7 @@ export abstract class WitchEvent {
 	 */
 	public getEmoji(): string {
 		if (!this.emojiCache) {
-			this.emojiCache = Data.getModule(`smallEvents.witch.${this.name}`).getString("emote");
+			this.emojiCache = Data.getModule("smallEvents.witch").getString(`witchEventEmotes.${this.name}`);
 		}
 		return this.emojiCache;
 	}

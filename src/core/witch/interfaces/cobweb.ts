@@ -1,5 +1,5 @@
-import {WitchEvent} from "../../WitchEvent";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class Cobweb extends WitchEvent {
 
