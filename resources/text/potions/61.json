@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Potion non potable",
+		"en": "Non potable potion"
+	},
+	"emote": "\uD83D\uDEB1",
+	"rarity": 3,
+	"power": 0,
+	"nature": 0,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

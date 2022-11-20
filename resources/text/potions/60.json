@@ -1,10 +1,10 @@
 {
 	"translations": {
-		"fr": "Pas de potion",
-		"en": "No potion"
+		"fr": "Sueur",
+		"en": "Sweat"
 	},
-	"emote": "⬛",
-	"rarity": 0,
+	"emote": "\uD83D\uDCA6",
+	"rarity": 1,
 	"power": 0,
 	"nature": 0,
 	"frenchMasculine": 0,

@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Potion de sang de dragon",
+		"en": "Dragon's Blood Potion"
+	},
+	"emote": "🩸",
+	"rarity": 8,
+	"power": 312,
+	"nature": 3,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

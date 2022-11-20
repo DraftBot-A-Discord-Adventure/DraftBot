@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Jus d'orage",
+		"en": "Storm Juice"
+	},
+	"emote": "⛈️",
+	"rarity": 5,
+	"power": 138,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
