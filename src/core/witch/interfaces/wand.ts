@@ -5,8 +5,8 @@ import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {ItemConstants} from "../../constants/ItemConstants";
-import Potion from "../../database/game/models/Potion";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
 export default class Wand extends WitchEvent {
 
@@ -20,7 +20,7 @@ export default class Wand extends WitchEvent {
 	/**
 	 * The wand will give a random potion with an epic maximum rarity and a rare minimum rarity.
 	 */
-	async generatePotion(): Promise<Potion> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.EPIC,

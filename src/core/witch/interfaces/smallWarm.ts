@@ -6,8 +6,8 @@ import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {ItemConstants} from "../../constants/ItemConstants";
-import Potion from "../../database/game/models/Potion";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
 export default class SmallWarm extends WitchEvent {
 
@@ -21,7 +21,7 @@ export default class SmallWarm extends WitchEvent {
 	/**
 	 * The small warm will give an attack potion with a special maximum rarity.
 	 */
-	async generatePotion(): Promise<Potion> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.SPECIAL);

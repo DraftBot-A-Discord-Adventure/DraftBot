@@ -456,9 +456,9 @@ export const generateRandomItem = async function(maxRarity = ItemConstants.RARIT
  * @param {number} minRarity
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL, minRarity = ItemConstants.RARITY.COMMON): Promise<Potion> {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL, minRarity = ItemConstants.RARITY.COMMON): Promise<GenericItemModel> {
 	if (potionType === null) {
-		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION, minRarity);
+		return await generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION, minRarity);
 	}
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	return await Potions.randomItem(potionType, rarity);

@@ -2,8 +2,8 @@ import {WitchEvent} from "../WitchEvent";
 import {generateRandomPotion} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
-import Potion from "../../database/game/models/Potion";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
 export default class Rat extends WitchEvent {
 
@@ -16,7 +16,7 @@ export default class Rat extends WitchEvent {
 	/**
 	 * The rat will give an attack potion with a common maximum rarity.
 	 */
-	async generatePotion(): Promise<Potion> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.COMMON);

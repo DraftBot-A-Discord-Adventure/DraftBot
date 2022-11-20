@@ -14,7 +14,7 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {generateRandomPotion, giveItemToPlayer} from "../utils/ItemUtils";
 import {InventorySlots} from "../database/game/models/InventorySlot";
-import Potion from "../database/game/models/Potion";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
 
 type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
 
@@ -35,7 +35,8 @@ function getRandomWitchEvents(): WitchEventSelection {
  * @param language
  * @param interaction
  */
-async function givePotion(player: Player, potionToGive: Potion, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+async function givePotion(player: Player, potionToGive: GenericItemModel, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+	console.log(potionToGive.fr);
 	await giveItemToPlayer(
 		player,
 		potionToGive,
@@ -90,7 +91,7 @@ export const smallEvent: SmallEvent = {
 				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
 					console.log("potion");
 					const potionToGive = await selectedEvent.generatePotion();
-					console.log("POTION À DONNER : " + potionToGive);
+					console.log("POTION À DONNER : ", potionToGive.fr);
 					await givePotion(player, potionToGive, language, interaction);
 				}
 
@@ -108,7 +109,6 @@ export const smallEvent: SmallEvent = {
 		let witchEventMenu = "";
 		for (const witchEvent of Object.entries(witchEvents)) {
 			embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
-			console.log(witchEvent[1]);
 			witchEventMenu += witchEvent[1].toString(language);
 		}
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");

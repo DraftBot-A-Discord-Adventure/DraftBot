@@ -4,8 +4,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {CommandInteraction} from "discord.js";
 import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
-import Potion from "../database/game/models/Potion";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {GenericItemModel} from "../database/game/models/GenericItemModel";
 
 export abstract class WitchEvent {
 	public readonly name: string;
@@ -40,7 +40,7 @@ export abstract class WitchEvent {
 	/**
 	 * generate a potion for the player each witch event will generate a different potion and will override this function
 	 */
-	public generatePotion(): Promise<Potion> | null {
+	public generatePotion(): Promise<GenericItemModel> {
 		return null;
 	}
 
