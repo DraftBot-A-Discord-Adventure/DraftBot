@@ -28,7 +28,7 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		choiceItems.push(new ChoiceItem(
-			(await item.getItem()).getName(language),
+			(await item.getItem()).toString(language, null),
 			item
 		));
 	}
@@ -41,7 +41,7 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
  * @param invInfo
  */
 function addDailyTimeBecauseSwitch(interaction: CommandInteraction, invInfo: InventoryInfo): void {
-	const nextDailyDate = moment(invInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h"); // eslint-disable-line new-cap
+	const nextDailyDate = moment(invInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h");
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - Date.now());
 	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - SwitchConstants.TIME_ADDED_MULTIPLIER;
 	if (timeToCheck < 0) {
@@ -103,8 +103,14 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
  * @param invInfo
  * @param invSlots
  */
-// eslint-disable-next-line max-len
-async function sendFinishSwitchEmbed(player: Player, interaction: CommandInteraction, tr: TranslationModule, itemProfileSlot: InventorySlot, invInfo: InventoryInfo, invSlots: InventorySlot[]): Promise<void> {
+async function sendFinishSwitchEmbed(
+	player: Player,
+	interaction: CommandInteraction,
+	tr: TranslationModule,
+	itemProfileSlot: InventorySlot,
+	invInfo: InventoryInfo,
+	invSlots: InventorySlot[]
+): Promise<void> {
 	if (itemProfileSlot.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(interaction, invInfo);
 	}
@@ -148,8 +154,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
 		choiceItems,
 		interaction.user.id,
 		async (item: InventorySlot) => {
-			[player] = await Players.getOrRegister(interaction.user.id);
-			await sendFinishSwitchEmbed(player, interaction, tr, item, invInfo, invSlots);
+			await sendFinishSwitchEmbed((await Players.getOrRegister(interaction.user.id))[0], interaction, tr, item, invInfo, invSlots);
 		},
 		async (endMessage) => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SWITCH);

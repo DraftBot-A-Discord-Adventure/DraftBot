@@ -9,7 +9,6 @@ import {countNbOfPotions, getItemValue, sortPlayerItemList} from "../../core/uti
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import InventorySlot, {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {draftBotInstance} from "../../core/bot";
@@ -18,25 +17,8 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 
-type ItemObject = { name: string, frenchMasculine: boolean, value: number, slot: number, itemCategory: number };
-type ItemObjectBase = { name: string, value: number, itemObject: ItemObject }
-
-/**
- * transform an item to an itemObject
- * @param item
- * @param tr
- */
-async function getItemObject(item: InventorySlot, tr: TranslationModule): Promise<ItemObjectBase> {
-	const itemInstance: GenericItemModel = await item.getItem();
-	const name = itemInstance.getName(tr.language);
-	const value = itemInstance.getCategory() === ItemConstants.CATEGORIES.POTION ? 0 : getItemValue(itemInstance);
-	const slot = item.slot;
-	const itemCategory = item.itemCategory;
-	const frenchMasculine = itemInstance.frenchMasculine;
-	const itemObject: ItemObject = {name, frenchMasculine, value, slot, itemCategory};
-	return {name, value, itemObject};
-}
 
 /**
  * transform an item slot to a choiceItem so that the item can be sold
@@ -45,22 +27,21 @@ async function getItemObject(item: InventorySlot, tr: TranslationModule): Promis
  * @param tr
  */
 async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[], tr: TranslationModule): Promise<void> {
-	const itemObject = await getItemObject(item, tr);
-	const value = itemObject.value;
-	if (value !== 0) {
+	const itemInstance = await item.getItem();
+	if (item.itemCategory !== ItemConstants.CATEGORIES.POTION) {
 		choiceItems.push(new ChoiceItem(
 			tr.format("sellField", {
-				name: itemObject.name,
-				value: value,
+				name: itemInstance.getName(tr.language),
+				value: getItemValue(itemInstance),
 				moneyIcon: Constants.REACTIONS.MONEY_ICON
-			}), itemObject.itemObject));
+			}), item));
 	}
 	else {
 		choiceItems.push(new ChoiceItem(
 			tr.format("throwAwayField", {
-				name: itemObject.name,
+				name: itemInstance.getName(tr.language),
 				throwEmote: Constants.REACTIONS.TRASH
-			}), itemObject.itemObject));
+			}), item));
 	}
 }
 
@@ -70,8 +51,9 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
  * @param interaction
  * @param item the item that has been selected
  * @param tr
+ * @param itemInstance
  */
-function sellEmbedCallback(player: Player, interaction: CommandInteraction, item: ItemObject, tr: TranslationModule) {
+function sellEmbedCallback(player: Player, interaction: CommandInteraction, tr: TranslationModule, item : InventorySlot, itemInstance : GenericItemModel) {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM);
 		if (!validateMessage.isValidated()) {
@@ -84,15 +66,9 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
 			);
 			return;
 		}
-		InventorySlot.findOne({
-			where: {
-				playerId: player.id,
-				slot: item.slot,
-				itemCategory: item.itemCategory
-			}
-		}).then(async item => await draftBotInstance.logsDatabase.logItemSell(player.discordUserId, await item.getItem()));
+		await draftBotInstance.logsDatabase.logItemSell(player.discordUserId, itemInstance);
 		[player] = await Players.getOrRegister(player.discordUserId);
-		const money = item.value;
+		const money = item.itemCategory === ItemConstants.CATEGORIES.POTION ? 0 : getItemValue(itemInstance);
 		await InventorySlot.destroy({
 			where: {
 				playerId: player.id,
@@ -122,8 +98,8 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
 				embeds: [new DraftBotEmbed().formatAuthor(tr.get("potionDestroyedTitle"), interaction.user)
 					.setDescription(
 						tr.format("potionDestroyedMessage", {
-							item: item.name,
-							frenchMasculine: item.frenchMasculine
+							item: itemInstance.getName(tr.language),
+							frenchMasculine: itemInstance.frenchMasculine
 						})
 					)]
 			});
@@ -133,7 +109,7 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
 			embeds: [new DraftBotEmbed().formatAuthor(tr.get("soldMessageTitle"), interaction.user)
 				.setDescription(tr.format("soldMessage",
 					{
-						item: item.name,
+						item: itemInstance.getName(tr.language),
 						money
 					}
 				))]
@@ -145,18 +121,21 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, item
  * Ask the player confirmation
  * @param player
  * @param interaction
- * @param item
  * @param tr
+ * @param item
+ * @param itemInstance
  */
-async function itemChoiceValidation(player: Player, interaction: CommandInteraction, item: ItemObject, tr: TranslationModule): Promise<void> {
+async function itemChoiceValidation(player: Player, interaction: CommandInteraction, tr: TranslationModule, item: InventorySlot, itemInstance: GenericItemModel): Promise<void> {
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL);
-	await new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(player, interaction, item, tr))
+	const reactionMessage = await new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(player, interaction, tr, item, itemInstance))
 		.formatAuthor(tr.get("sellTitle"), interaction.user)
 		.setDescription(tr.format(item.itemCategory === ItemConstants.CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
-			item: item.name,
-			money: item.value
-		}))
-		.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM, collector));
+			item: itemInstance.getName(tr.language),
+			money: getItemValue(itemInstance)
+		}));
+	interaction.replied ? await reactionMessage.send(interaction.channel, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM, collector
+	)) : await reactionMessage.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM, collector
+	));
 }
 
 /**
@@ -170,7 +149,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
-		async (item: ItemObject) => await itemChoiceValidation(player, interaction, item, tr),
+		async (item: InventorySlot) => await itemChoiceValidation(player, interaction, tr, item, await item.getItem()),
 		async (endMessage) => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL);
 			if (endMessage.isCanceled()) {
@@ -201,13 +180,18 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, tr.get("noItemToSell"));
 		return;
 	}
+
+	if (toSellItems.length === 1) {
+		await itemChoiceValidation(player, interaction, tr, toSellItems[0], await toSellItems[0].getItem());
+		return;
+	}
+
 	toSellItems = await sortPlayerItemList(toSellItems);
 
 	const choiceItems: ChoiceItem[] = [];
 	for (const item of toSellItems) {
 		await populateChoiceItems(item, choiceItems, tr);
 	}
-
 	await sendSellEmbed(choiceItems, interaction, player, tr);
 }
 
