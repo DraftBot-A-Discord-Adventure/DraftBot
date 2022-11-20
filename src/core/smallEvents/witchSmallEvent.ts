@@ -9,7 +9,19 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {WitchEvents} from "../witch/WitchEvents";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {WitchEvent} from "../witch/WitchEvent";
 
+type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
+
+/**
+ * Returns an object composed of three random witch events
+ */
+function getRandomWitchEvents() : WitchEventSelection {
+	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
+	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
+	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
+	return {randomAdvice,randomIngredient,nothingHappen};
+}
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -36,26 +48,21 @@ export const smallEvent: SmallEvent = {
 				const reactionEmoji = reaction ? reaction.emoji.name : "🔚";
 				await Promise.resolve();
 			});
-
+		const witchEvents = getRandomWitchEvents();
+		let witchEventMenu = "";
+		for (const witchEvent of Object.entries(witchEvents)) {
+			embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
+			witchEventMenu += witchEvent[1].toString(language);
+		}
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		let types = [SmallEventConstants.WITCH.ACTION_TYPE];
-		types.forEach((type) => {
-			console.log(type);
-		});
-		return;
-		const randomAdvice = WitchEvents.getRandomWitchEventByType(0);
-		const randomIngredient = WitchEvents.getRandomWitchEventByType(1);
-		const nothingHappen = WitchEvents.getRandomWitchEventByType(2);
-		embed.addReaction(new DraftBotReaction(randomAdvice.getEmoji()));
-		embed.addReaction(new DraftBotReaction(randomIngredient.getEmoji()));
-		embed.addReaction(new DraftBotReaction(nothingHappen.getEmoji()));
 		const builtEmbed = embed.build();
 		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 		builtEmbed.setDescription(
 			seEmbed.data.description
 			+ intro
-			+ tr.getRandom("intro.intrigue")
+			+ tr.getRandom("intro")
+			+ witchEventMenu
 		);
-		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE, collector));
+		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE, collector));
 	}
 };
