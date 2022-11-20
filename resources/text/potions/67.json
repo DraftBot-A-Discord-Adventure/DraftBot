@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Jus d'orange",
+		"en": "Orange juice"
+	},
+	"emote": "\uD83E\uDDC3",
+	"rarity": 2,
+	"power": 1,
+	"nature": 2,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

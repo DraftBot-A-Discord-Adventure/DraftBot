@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Potion de dureté extrême",
+		"en": "Extreme Hardness Potion"
+	},
+	"emote": "\uD83E\uDDF1",
+	"rarity": 8,
+	"power": 327,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

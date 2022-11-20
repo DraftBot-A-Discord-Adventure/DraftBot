@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Soupe à l'ognon",
+		"en": "Onion soup"
+	},
+	"emote": "\uD83E\uDDC5",
+	"rarity": 1,
+	"power": 5,
+	"nature": 1,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
