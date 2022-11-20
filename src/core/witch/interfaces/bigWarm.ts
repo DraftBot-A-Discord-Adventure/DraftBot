@@ -6,13 +6,13 @@ import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {ItemConstants} from "../../constants/ItemConstants";
-import Potion from "../../database/game/models/Potion";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
 export default class BigWarm extends WitchEvent {
 
 	public constructor() {
-		super("bigwarm");
+		super("bigWarm");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(30, 0, 10, 10);
 		this.forceEffect = true;
@@ -21,7 +21,7 @@ export default class BigWarm extends WitchEvent {
 	/**
 	 * The big warm will give very powerful attack potion.
 	 */
-	async generatePotion(): Promise<Potion> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.MYTHICAL,

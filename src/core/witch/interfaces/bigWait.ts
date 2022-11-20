@@ -5,13 +5,13 @@ import {Constants} from "../../Constants";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
-import Potion from "../../database/game/models/Potion";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
 export default class BigWait extends WitchEvent {
 
 	public constructor() {
-		super("bigwait");
+		super("bigWait");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(15, 0, 0, 35);
 		this.forceEffect = true;
@@ -20,7 +20,7 @@ export default class BigWait extends WitchEvent {
 	/**
 	 * The big wait advice will give a no effect potion.
 	 */
-	async generatePotion(): Promise<Potion> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.NO_EFFECT);
 	}
