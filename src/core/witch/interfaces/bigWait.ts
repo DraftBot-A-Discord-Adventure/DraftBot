@@ -1,12 +1,12 @@
-import {WitchEvent} from "../../WitchEvent";
-import Player from "../../../database/game/models/Player";
-import {generateRandomPotion} from "../../../utils/ItemUtils";
-import {Constants} from "../../../Constants";
-import {TravelTime} from "../../../maps/TravelTime";
-import {EffectsConstants} from "../../../constants/EffectsConstants";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
-import Potion from "../../../database/game/models/Potion";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import Player from "../../database/game/models/Player";
+import {generateRandomPotion} from "../../utils/ItemUtils";
+import {Constants} from "../../Constants";
+import {TravelTime} from "../../maps/TravelTime";
+import {EffectsConstants} from "../../constants/EffectsConstants";
+import {NumberChangeReason} from "../../constants/LogsConstants";
+import Potion from "../../database/game/models/Potion";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class BigWait extends WitchEvent {
 
@@ -35,8 +35,7 @@ export default class BigWait extends WitchEvent {
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
 			60,
 			new Date(),
-			NumberChangeReason.SMALL_EVENT,
-			new Date()
+			NumberChangeReason.SMALL_EVENT
 		);
 	}
 }

@@ -1,9 +1,9 @@
-import {WitchEvent} from "../../WitchEvent";
-import Player from "../../../database/game/models/Player";
-import {TravelTime} from "../../../maps/TravelTime";
-import {EffectsConstants} from "../../../constants/EffectsConstants";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import Player from "../../database/game/models/Player";
+import {TravelTime} from "../../maps/TravelTime";
+import {EffectsConstants} from "../../constants/EffectsConstants";
+import {NumberChangeReason} from "../../constants/LogsConstants";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class SmallWait extends WitchEvent {
 
@@ -24,8 +24,7 @@ export default class SmallWait extends WitchEvent {
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
 			15,
 			new Date(),
-			NumberChangeReason.SMALL_EVENT,
-			new Date()
+			NumberChangeReason.SMALL_EVENT
 		);
 	}
 }

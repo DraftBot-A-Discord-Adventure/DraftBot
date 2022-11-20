@@ -1,13 +1,13 @@
-import {WitchEvent} from "../../WitchEvent";
-import Player from "../../../database/game/models/Player";
-import {generateRandomPotion} from "../../../utils/ItemUtils";
-import {Constants} from "../../../Constants";
-import {TravelTime} from "../../../maps/TravelTime";
-import {EffectsConstants} from "../../../constants/EffectsConstants";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {ItemConstants} from "../../../constants/ItemConstants";
-import Potion from "../../../database/game/models/Potion";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import Player from "../../database/game/models/Player";
+import {generateRandomPotion} from "../../utils/ItemUtils";
+import {Constants} from "../../Constants";
+import {TravelTime} from "../../maps/TravelTime";
+import {EffectsConstants} from "../../constants/EffectsConstants";
+import {NumberChangeReason} from "../../constants/LogsConstants";
+import {ItemConstants} from "../../constants/ItemConstants";
+import Potion from "../../database/game/models/Potion";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class Cool extends WitchEvent {
 
@@ -36,8 +36,7 @@ export default class Cool extends WitchEvent {
 			EffectsConstants.EMOJI_TEXT.FROZEN,
 			0,
 			new Date(),
-			NumberChangeReason.SMALL_EVENT,
-			new Date()
+			NumberChangeReason.SMALL_EVENT
 		);
 	}
 }

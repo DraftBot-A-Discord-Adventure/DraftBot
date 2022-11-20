@@ -1,12 +1,12 @@
-import {WitchEvent} from "../../WitchEvent";
-import Player from "../../../database/game/models/Player";
-import {generateRandomPotion} from "../../../utils/ItemUtils";
-import {TravelTime} from "../../../maps/TravelTime";
-import {EffectsConstants} from "../../../constants/EffectsConstants";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {ItemConstants} from "../../../constants/ItemConstants";
-import Potion from "../../../database/game/models/Potion";
-import {SmallEventConstants} from "../../../constants/SmallEventConstants";
+import {WitchEvent} from "../WitchEvent";
+import Player from "../../database/game/models/Player";
+import {generateRandomPotion} from "../../utils/ItemUtils";
+import {TravelTime} from "../../maps/TravelTime";
+import {EffectsConstants} from "../../constants/EffectsConstants";
+import {NumberChangeReason} from "../../constants/LogsConstants";
+import {ItemConstants} from "../../constants/ItemConstants";
+import Potion from "../../database/game/models/Potion";
+import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
 export default class Stir extends WitchEvent {
 
@@ -36,8 +36,7 @@ export default class Stir extends WitchEvent {
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
 			5,
 			new Date(),
-			NumberChangeReason.SMALL_EVENT,
-			new Date()
+			NumberChangeReason.SMALL_EVENT
 		);
 	}
 }
