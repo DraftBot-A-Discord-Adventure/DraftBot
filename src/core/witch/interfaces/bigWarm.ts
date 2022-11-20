@@ -1,6 +1,6 @@
 import {WitchEvent} from "../WitchEvent";
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion, generateRandomRarity} from "../../utils/ItemUtils";
+import {generateRandomPotion} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
@@ -24,7 +24,8 @@ export default class BigWarm extends WitchEvent {
 	async generatePotion(): Promise<Potion> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
-			generateRandomRarity(ItemConstants.RARITY.EPIC, ItemConstants.RARITY.MYTHICAL));
+			ItemConstants.RARITY.MYTHICAL,
+			ItemConstants.RARITY.EPIC);
 	}
 
 	/**

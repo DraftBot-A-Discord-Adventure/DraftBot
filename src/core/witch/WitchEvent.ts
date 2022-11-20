@@ -1,12 +1,10 @@
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Interaction} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Potion from "../database/game/models/Potion";
-import {giveItemToPlayer} from "../utils/ItemUtils";
-import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 export abstract class WitchEvent {
@@ -31,7 +29,7 @@ export abstract class WitchEvent {
 	 */
 	public generateOutcome(): number {
 		let seed = RandomUtils.randInt(1, 51);
-		let outcome = 0;
+		let outcome = SmallEventConstants.WITCH.OUTCOME_TYPE.BASE;
 		do {
 			seed -= this.outcomeProbabilities[outcome];
 			outcome++;
@@ -44,26 +42,6 @@ export abstract class WitchEvent {
 	 */
 	public generatePotion(): Promise<Potion> | null {
 		return null;
-	}
-
-	/**
-	 * give a potion to the player, the potion will be generated differently for each witch event
-	 * @param interaction
-	 * @param player
-	 * @param language
-	 */
-	public async givePotion(interaction: Interaction, player: Player, language: string): Promise<void> {
-		const potionToGive = await this.generatePotion();
-		if (potionToGive) {
-			await giveItemToPlayer(
-				player,
-				potionToGive,
-				language,
-				interaction.user,
-				interaction.channel,
-				await InventorySlots.getOfPlayer(player.id)
-			);
-		}
 	}
 
 	/**
@@ -80,7 +58,7 @@ export abstract class WitchEvent {
 	 * @param player
 	 * @param language
 	 */
-	public async removeLifePoints(interaction: Interaction, player: Player, language: string): Promise<void> {
+	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
 		await player.addHealth(
 			RandomUtils.randInt(
 				SmallEventConstants.WITCH.MIN_LIFE_POINT_LOSS,

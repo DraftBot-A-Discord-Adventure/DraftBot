@@ -18,26 +18,26 @@ export class WitchEvents {
 					console.warn(`${file} doesn't have a default export`);
 					return;
 				}
-				const fightActionName = file.substring(0, file.length - 3);
-				const witchEventInstance = new DefaultClass(fightActionName);
+				const witchEventName = file.substring(0, file.length - 3);
+				const witchEventInstance = new DefaultClass(witchEventName);
 				if (!(witchEventInstance instanceof WitchEvent)) {
 					console.warn(`${file} initialized instance is incorrect`);
 					return;
 				}
-				WitchEvents.witchEvents.set(fightActionName, witchEventInstance);
+				WitchEvents.witchEvents.set(witchEventInstance.getEmoji(), witchEventInstance);
 			}
 		}
 	}
 
 	/**
 	 * allow to get a specific witch event
-	 * @param id
+	 * @param emoji
 	 */
-	static getWitchEventById(id: string): WitchEvent | null {
+	static getWitchEventByEmoji(emoji: string): WitchEvent | null {
 		if (!WitchEvents.witchEvents) {
 			WitchEvents.initWitchEventsMap();
 		}
-		return WitchEvents.witchEvents.get(id);
+		return WitchEvents.witchEvents.get(emoji);
 	}
 
 	/**
@@ -52,6 +52,4 @@ export class WitchEvents {
 
 		return RandomUtils.draftbotRandom.pick(possibleWitchEvents);
 	}
-
-
 }
