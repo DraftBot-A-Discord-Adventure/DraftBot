@@ -128,7 +128,7 @@ const sellOrKeepItem = async function(
 	}
 	const trSell = Translations.getModule("commands.sell", language);
 	if (item.getCategory() === ItemConstants.CATEGORIES.POTION) {
-		await MissionsController.update(player, channel, language, { missionId: "findOrBuyItem" });
+		await MissionsController.update(player, channel, language, {missionId: "findOrBuyItem"});
 		await channel.send(
 			{
 				embeds: [
@@ -453,13 +453,14 @@ export const generateRandomItem = async function(maxRarity = ItemConstants.RARIT
  * Generate a random potion
  * @param {number} maxRarity
  * @param {number} potionType
+ * @param {number} minRarity
  * @returns {Potions} generated potion
  */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL): Promise<Potion> {
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL, minRarity = ItemConstants.RARITY.COMMON): Promise<Potion> {
 	if (potionType === null) {
-		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION);
+		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION, minRarity);
 	}
-	const rarity = generateRandomRarity(ItemConstants.RARITY.COMMON, maxRarity);
+	const rarity = generateRandomRarity(minRarity, maxRarity);
 	return await Potions.randomItem(potionType, rarity);
 };
 
@@ -472,7 +473,7 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  */
 export const generateRandomObject = async function(objectType: number = null, minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): Promise<GenericItemModel> {
 	if (objectType === null) {
-		return this.generateRandomItem(minRarity, maxRarity, ItemConstants.CATEGORIES.OBJECT);
+		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.OBJECT, minRarity);
 	}
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	return await ObjectItems.randomItem(objectType, rarity);

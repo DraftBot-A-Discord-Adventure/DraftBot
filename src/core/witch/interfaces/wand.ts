@@ -1,6 +1,6 @@
 import {WitchEvent} from "../WitchEvent";
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion, generateRandomRarity} from "../../utils/ItemUtils";
+import {generateRandomPotion} from "../../utils/ItemUtils";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
@@ -23,7 +23,8 @@ export default class Wand extends WitchEvent {
 	async generatePotion(): Promise<Potion> {
 		return await generateRandomPotion(
 			null,
-			generateRandomRarity(ItemConstants.RARITY.RARE, ItemConstants.RARITY.EPIC)
+			ItemConstants.RARITY.EPIC,
+			ItemConstants.RARITY.RARE
 		);
 	}
 

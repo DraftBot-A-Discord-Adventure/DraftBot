@@ -1,4 +1,4 @@
-import {CommandInteraction} from "discord.js";
+import {CacheType, CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {Translations} from "../Translations";
@@ -10,17 +10,40 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {WitchEvents} from "../witch/WitchEvents";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {WitchEvent} from "../witch/WitchEvent";
+import {Constants} from "../Constants";
+import {RandomUtils} from "../utils/RandomUtils";
+import {generateRandomPotion, giveItemToPlayer} from "../utils/ItemUtils";
+import {InventorySlots} from "../database/game/models/InventorySlot";
+import Potion from "../database/game/models/Potion";
 
 type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
 
 /**
  * Returns an object composed of three random witch events
  */
-function getRandomWitchEvents() : WitchEventSelection {
+function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
 	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
-	return {randomAdvice,randomIngredient,nothingHappen};
+	return {randomAdvice, randomIngredient, nothingHappen};
+}
+
+/**
+ * Give a specific potion to a player
+ * @param player
+ * @param potionToGive
+ * @param language
+ * @param interaction
+ */
+async function givePotion(player: Player, potionToGive: Potion, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+	await giveItemToPlayer(
+		player,
+		potionToGive,
+		language,
+		interaction.user,
+		interaction.channel,
+		await InventorySlots.getOfPlayer(player.id)
+	);
 }
 
 export const smallEvent: SmallEvent = {
@@ -45,13 +68,47 @@ export const smallEvent: SmallEvent = {
 			.allowUser(interaction.user)
 			.endCallback(async (witchEventMessage) => {
 				const reaction = witchEventMessage.getFirstReaction();
-				const reactionEmoji = reaction ? reaction.emoji.name : "🔚";
-				await Promise.resolve();
+				// If the player did not react, we use the nothing happen event with the menu reaction deny
+				const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
+				const selectedEvent = WitchEvents.getWitchEventByEmoji(reactionEmoji);
+
+				const outcome = selectedEvent.generateOutcome();
+				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE);
+				// there is a 50 % chance that the player will get a no effect potion, no matter what he chose
+				if (RandomUtils.draftbotRandom.bool()) {
+					console.log("random force no effect");
+					const potionToGive = await generateRandomPotion(Constants.ITEM_NATURE.NO_EFFECT);
+					await givePotion(player, potionToGive, language, interaction);
+					return;
+				}
+
+				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.NOTHING) {
+					// nothing happen
+					console.log("nothing happen");
+				}
+
+				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
+					console.log("potion");
+					const potionToGive = await selectedEvent.generatePotion();
+					console.log("POTION À DONNER : " + potionToGive);
+					await givePotion(player, potionToGive, language, interaction);
+				}
+
+				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT || selectedEvent.forceEffect) {
+					await selectedEvent.giveEffect(player);
+					console.log("EFFECT GIVEN");
+				}
+
+				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.HEALTH_LOSS) {
+					await selectedEvent.removeLifePoints(interaction, player, language);
+					console.log("HEALTH LOSS");
+				}
 			});
 		const witchEvents = getRandomWitchEvents();
 		let witchEventMenu = "";
 		for (const witchEvent of Object.entries(witchEvents)) {
 			embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
+			console.log(witchEvent[1]);
 			witchEventMenu += witchEvent[1].toString(language);
 		}
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
