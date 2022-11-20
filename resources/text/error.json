@@ -83,6 +83,7 @@
 				"merchant": "choix chez le marchand",
 				"drink": "choix de boire une potion ou non",
 				"gobletChoose": "choix d'un gobelet",
+				"witchChoose": "choix d'une action pour la sorcière",
 				"unlock": "libération de quelqu'un",
 				"reportCommand": "commande {command:report}"
 			}
@@ -171,6 +172,7 @@
 				"merchant": "merchant",
 				"drink": "choice to drink a potion or not",
 				"gobletChoose": "choice of a goblet",
+				"witchChoose": "choice of a witch event",
 				"reportCommand": "{command:report} command"
 			}
 		}

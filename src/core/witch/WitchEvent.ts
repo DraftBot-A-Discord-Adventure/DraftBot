@@ -98,7 +98,7 @@ export abstract class WitchEvent {
 	 */
 	public toString(language: string): string {
 		if (!this.toStringCache[language]) {
-			this.toStringCache[language] = Translations.getModule(`smallEvents.witch.${this.name}`, language).get("name");
+			this.toStringCache[language] = this.getEmoji() + " " + Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`) + "\n";
 		}
 		return this.toStringCache[language];
 	}
