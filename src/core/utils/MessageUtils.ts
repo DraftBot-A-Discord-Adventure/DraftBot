@@ -1,30 +1,19 @@
 import {error} from "console";
-import {HexColorString, User} from "discord.js";
+import {User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
-import {Constants} from "../Constants";
 
 /**
  * Send a dm to a user
  * @param {User} user
- * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
- * @param {String} description - Description of the DM
- * @param {string} color - Color of the DM
+ * @param {DraftBotEmbed} embed - The embed to send
  * @param {("fr"|"en")} language - Language to use in the response
+ * @param DirectMessageFooter - Add the dmMessage footer
  */
-export function sendDirectMessage(user: User, title: string, description: string, color: string, language: string): void {
-
-	const directMessageEmbed = new DraftBotEmbed()
-		.formatAuthor(title, user)
-		.setDescription(description)
-		.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
-
-	if (color !== Constants.MESSAGES.COLORS.DEFAULT) {
-		directMessageEmbed.setColor(color as HexColorString);
-	}
-
+export function sendDirectMessage(user: User, embed : DraftBotEmbed, language: string, DirectMessageFooter = true): void {
+	DirectMessageFooter ? embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")}) : null;
 	user.send({
-		embeds: [directMessageEmbed]
+		embeds: [embed]
 	}).catch(() => {
 		error(`Can't send dm to user ${user.id}`);
 	});

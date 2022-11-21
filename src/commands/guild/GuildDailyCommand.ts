@@ -11,7 +11,6 @@ import {RandomUtils} from "../../core/utils/RandomUtils";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {GuildPets} from "../../core/database/game/models/GuildPet";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {GuildDailyConstants} from "../../core/constants/GuildDailyConstants";
@@ -331,7 +330,6 @@ const linkToFunction = getMapOfAllRewardCommands();
  */
 async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
 	for (const member of members) {
-		const user = await draftBotClient.users.fetch(member.discordUserId);
 		// we have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
 		if (member.isDead()) {
 			continue;
@@ -340,19 +338,16 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
 		}
 		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
-		if (member.dmNotification && member.discordUserId !== interaction.user.id) {
-			sendDirectMessage(
-				user,
-				guildDailyModule.get("dmNotification.title"),
-				guildDailyModule.format("dmNotification.description",
+		if (member.discordUserId !== interaction.user.id) {
+			const embedNotif = new DraftBotEmbed()
+				.setTitle(guildDailyModule.get("notifications.title"))
+				.setDescription(guildDailyModule.format("notifications.description",
 					{
 						serveur: interaction.guild.name,
 						pseudo: escapeUsername(interaction.user.username)
 					}
-				) + embed.data.description,
-				Constants.MESSAGES.COLORS.DEFAULT,
-				language
-			);
+				) + embed.data.description);
+			await member.sendNotificationToPlayer(embedNotif, language, interaction.channel);
 		}
 	}
 }

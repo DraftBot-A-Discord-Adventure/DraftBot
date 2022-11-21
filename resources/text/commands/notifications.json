@@ -1,0 +1,44 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "notifications",
+			"commandDescription": "Active ou désactive les notifications en messages privés ou sur un salon.",
+			"optionScopeName": "mode",
+			"optionScopeDescription": "Le mode de notification souhaité.",
+			"scopes": {
+				"dm": "dm",
+				"channel": "ce salon",
+				"none": "aucune notifications"
+			},
+			"title": "Notifications par messages",
+			"normal": "Vos prochaines notifications apparaitront ici.",
+			"description": "Vous avez sélectionné le mode **{mode}**.",
+			"noNotifications": "Vous ne receverez plus de notifications du bot.",
+			"error": "Vous avez les DMs fermés !",
+			"open": "activé",
+			"closed": "désactivé",
+			"noChannelAccess" : "Il semble que le bot n'est plus accès à votre channel de notification, le mode de notification à donc été réinitialisé. Afin de recevoir de nouvelles notifications, merci d'executer la commande {command:notifications}.",
+			"noChannelAccessTitle" : "Désactivation des notifications"
+		},
+		"en": {
+			"commandName": "notifications",
+			"commandDescription": "Enable or disable notifications in private messages or in a channel.",
+			"optionScopeName": "mode",
+			"optionScopeDescription": "The desired notification mode.",
+			"scopes": {
+				"dm": "dm",
+				"channel": "this channel",
+				"none": "no notifications"
+			},
+			"title": "Message notifications",
+			"normal": "Your next notifications will appear here.",
+			"description": "You select the mode {mode}.",
+			"noNotifications": "You will no longer receive notifications from the bot.",
+			"error": "You have closed your DMs !",
+			"open": "open",
+			"closed": "closed",
+			"noChannelAccess" : "It looks like the bot no longer has access to your notification channel, so the notification mode has been reset. In order to receive new notifications, please execute the command {command:notifications}.",
+			"noChannelAccessTitle" : "Disabling notifications"
+		}
+	}
+}

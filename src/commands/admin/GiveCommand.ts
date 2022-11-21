@@ -7,9 +7,8 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {APIApplicationCommandOptionChoice, CommandInteraction} from "discord.js";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
-import {draftBotClient, draftBotInstance} from "../../core/bot";
+import {draftBotInstance} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {discordIdToMention} from "../../core/utils/StringUtils";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {getItemByIdAndCategory} from "../../core/utils/ItemUtils";
@@ -59,17 +58,12 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 				user,
 				mention: discordIdToMention(user)
 			});
-			if (playerToEdit.dmNotification) {
-				sendDirectMessage(
-					await draftBotClient.users.fetch(user),
-					tr.get("dm.title"),
-					tr.format("dm.description", {
-						item: item.toString(tr.language, null)
-					}),
-					null,
-					tr.language
-				);
-			}
+			const embed = new DraftBotEmbed()
+				.setTitle(tr.get("dm.title"))
+				.setDescription(tr.format("dm.description", {
+					item: item.toString(tr.language, null)
+				}));
+			await playerToEdit.sendNotificationToPlayer(embed, tr.language, interaction.channel);
 			draftBotInstance.logsDatabase.logItemGain(playerToEdit.discordUserId, item).then();
 		}
 		await interaction.followUp({

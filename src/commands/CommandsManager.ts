@@ -34,6 +34,7 @@ import {MessageError} from "../core/MessageError";
 import {BotConstants} from "../core/constants/BotConstants";
 import Player, {Players} from "../core/database/game/models/Player";
 import {GuildConstants} from "../core/constants/GuildConstants";
+import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -527,7 +528,7 @@ export class CommandsManager {
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
 					username: escapeUsername(message.author.username),
-					alertIcon: player.dmNotification ? "" : BotConstants.DM.ALERT_ICON,
+					alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
 					id: message.author.id
 				}) + message.content
 			}
