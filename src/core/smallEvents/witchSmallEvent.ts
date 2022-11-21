@@ -3,7 +3,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {TranslationModule, Translations} from "../Translations";
 import {SmallEvent} from "./SmallEvent";
-import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
+import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
@@ -60,6 +60,85 @@ async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: Tr
 	await interaction.channel.send({embeds: [seEmbed]});
 }
 
+/**
+ * Execute the relevant action for the selected event and outcome
+ * @param outcome
+ * @param selectedEvent
+ * @param player
+ * @param language
+ * @param interaction
+ */
+async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
+		const potionToGive = await selectedEvent.generatePotion();
+		await givePotion(player, potionToGive, language, interaction);
+	}
+	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT || selectedEvent.forceEffect) {
+		await selectedEvent.giveEffect(player);
+	}
+	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.HEALTH_LOSS) {
+		await selectedEvent.removeLifePoints(interaction, player, language);
+	}
+}
+
+/**
+ * Get the selected event from the user's choice
+ * @param witchEventMessage
+ */
+function retrieveSelectedEvent(witchEventMessage: DraftBotReactionMessage): WitchEvent {
+	const reaction = witchEventMessage.getFirstReaction();
+	// If the player did not react, we use the nothing happen event with the menu reaction deny
+	const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
+	return WitchEvents.getWitchEventByEmoji(reactionEmoji);
+}
+
+/**
+ * Get the menu to display to the player and add the reactions to the embed
+ * @param witchEvents
+ * @param embed
+ * @param language
+ */
+function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBotReactionMessageBuilder, language: string): string {
+	let witchEventMenu = "";
+	for (const witchEvent of Object.entries(witchEvents)) {
+		embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
+		witchEventMenu += witchEvent[1].toString(language, false) + "\n";
+	}
+	return witchEventMenu;
+}
+
+/**
+ * generate an embed with the menu and a short introduction to the witch
+ * @param embed
+ * @param language
+ * @param interaction
+ * @param seEmbed
+ * @param tr
+ */
+function generateInitialEmbed(
+	embed: DraftBotReactionMessageBuilder,
+	language: string,
+	interaction: CommandInteraction<CacheType>,
+	seEmbed: DraftBotEmbed,
+	tr: TranslationModule
+): DraftBotReactionMessage {
+	const witchEvents = getRandomWitchEvents();
+	const witchEventMenu = generateWitchEventMenu(witchEvents, embed, language);
+	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+	const builtEmbed = embed.build();
+	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
+	builtEmbed.setDescription(
+		seEmbed.data.description
+		+ intro
+		+ tr.getRandom("intro")
+		+ tr.getRandom("description")
+		+ tr.getRandom("situation")
+		+ "\n\n"
+		+ witchEventMenu
+	);
+	return builtEmbed;
+}
+
 export const smallEvent: SmallEvent = {
 	/**
 	 * No restrictions on who can do it
@@ -81,10 +160,8 @@ export const smallEvent: SmallEvent = {
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
 			.endCallback(async (witchEventMessage) => {
-				const reaction = witchEventMessage.getFirstReaction();
-				// If the player did not react, we use the nothing happen event with the menu reaction deny
-				const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
-				const selectedEvent = WitchEvents.getWitchEventByEmoji(reactionEmoji);
+
+				const selectedEvent = retrieveSelectedEvent(witchEventMessage);
 				const outcome = selectedEvent.generateOutcome();
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE);
 
@@ -98,39 +175,12 @@ export const smallEvent: SmallEvent = {
 
 				await sendResultMessage(seEmbed, outcome, tr, selectedEvent, interaction);
 
-				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
-					const potionToGive = await selectedEvent.generatePotion();
-					await givePotion(player, potionToGive, language, interaction);
-				}
-
-				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT || selectedEvent.forceEffect) {
-					await selectedEvent.giveEffect(player);
-				}
-
-				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.HEALTH_LOSS) {
-					await selectedEvent.removeLifePoints(interaction, player, language);
-				}
-
+				await applyOutcome(outcome, selectedEvent, player, language, interaction);
 
 			});
-		const witchEvents = getRandomWitchEvents();
-		let witchEventMenu = "";
-		for (const witchEvent of Object.entries(witchEvents)) {
-			embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
-			witchEventMenu += witchEvent[1].toString(language, false) + "\n";
-		}
-		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-		const builtEmbed = embed.build();
-		builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
-		builtEmbed.setDescription(
-			seEmbed.data.description
-			+ intro
-			+ tr.getRandom("intro")
-			+ tr.getRandom("description")
-			+ tr.getRandom("situation")
-			+ "\n\n"
-			+ witchEventMenu
-		);
+
+		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, tr);
+
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE, collector));
 	}
 };
