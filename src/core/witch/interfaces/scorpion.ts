@@ -35,7 +35,7 @@ export default class Scorpion extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.SICK,
-			0,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);

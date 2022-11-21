@@ -16,6 +16,7 @@ export default class SmallWarm extends WitchEvent {
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(40, 0, 5, 5);
 		this.forceEffect = true;
+		this.timePenalty = 15;
 	}
 
 	/**
@@ -35,7 +36,7 @@ export default class SmallWarm extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
-			15,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);

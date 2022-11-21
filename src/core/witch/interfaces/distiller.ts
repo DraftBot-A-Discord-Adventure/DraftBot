@@ -16,6 +16,7 @@ export default class Distiller extends WitchEvent {
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(50, 0, 0, 0);
 		this.forceEffect = true;
+		this.timePenalty = 55;
 	}
 
 	/**
@@ -35,7 +36,7 @@ export default class Distiller extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
-			90,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);

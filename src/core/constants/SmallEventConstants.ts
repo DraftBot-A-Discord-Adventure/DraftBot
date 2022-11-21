@@ -123,15 +123,15 @@ export abstract class SmallEventConstants {
 			ADVICE: 1,
 			INGREDIENT: 2
 		},
-		MIN_LIFE_POINT_LOSS: 3,
-		MAX_LIFE_POINT_LOSS: 8,
+		BASE_LIFE_POINTS_REMOVED_AMOUNT: 5,
 		OUTCOME_TYPE: {
 			BASE: 0,
 			POTION: 1,
 			EFFECT: 2,
 			HEALTH_LOSS: 3,
 			NOTHING: 4
-		}
+		},
+		NO_EFFECT_CHANCE: 0.25
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {

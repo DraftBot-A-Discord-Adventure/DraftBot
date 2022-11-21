@@ -15,6 +15,7 @@ export default class BigWait extends WitchEvent {
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(15, 0, 0, 35);
 		this.forceEffect = true;
+		this.timePenalty = 45;
 	}
 
 	/**
@@ -33,7 +34,7 @@ export default class BigWait extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
-			60,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);

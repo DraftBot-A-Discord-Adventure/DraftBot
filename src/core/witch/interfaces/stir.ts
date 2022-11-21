@@ -15,6 +15,7 @@ export default class Stir extends WitchEvent {
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(10, 0, 0, 40);
 		this.forceEffect = true;
+		this.timePenalty = 5;
 	}
 
 	/**
@@ -34,7 +35,7 @@ export default class Stir extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
-			5,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);
