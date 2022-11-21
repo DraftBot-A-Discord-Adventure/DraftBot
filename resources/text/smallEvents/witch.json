@@ -2,9 +2,87 @@
 	"translations": {
 		"fr": {
 			"intro": [
-				"Au détour d'un chemin vous croisez une sorcière, celle-ci vous propose de l'aider.",
-				"Alors que vous progressez lentement sur votre route, vous entendez un bruit de pas derrière vous."
+				"vous rencontrez une vieille dame qui semble vouloir que vous la suiviez. ",
+				"vous apercevez une vieille femme et décidez de vous en approcher. ",
+				"vous remarquez une femme âgée, qui vous fait signe. ",
+				"vous remarquez la silhouette d'une vielle dame et vous décidez d'aller voir ce qu'elle fait. "
 			],
+			"description": [
+				"Elle vous paraît âgée, frêle, avec un nez long et fin. ",
+				"Ses habits sont en piteux état. Ils paraissent tomber en morceaux, comme faits de poussière. ",
+				"Elle est voûtée, squelettique, mais son regard vous paraît malicieux. ",
+				"Elle est vêtue de lambeaux de tissus ternes et sales. ",
+				"Vous vous souvenez de rumeurs concernant une sorcière maladroite qui se baladerait à travers le royaume. ",
+				"Complètement muette, elle parait abimée par les années, elle est fine, osseuse et sa peau presque grise. ",
+				"Elle semble ne pas comprendre ce que vous lui dites. "
+			],
+			"situation": [
+				"Vous entrez dans ce qui semble être sa cabane et découvrez qu'elle est en train de préparer une potion...",
+				"Vous découvrez qu'un chaudron bouillonne sur le feu et que la vieille dame semble préparer une potion...",
+				"Vous vous approchez et découvrez que sa préparation d'une potion ne semble pas se passer comme prévu...",
+				"Vous observez la vieille dame préparer une potion, mais vous constatez que son contenu déborde presque du chaudron...",
+				"La vielle dame est en train de préparer une potion, mais elle semble avoir du mal à obtenir un résultat satisfaisant...",
+				"Elle semble essayer de préparer une mixture étrange dans un énorme chaudron..."
+			],
+			"witchEventResults": {
+				"ingredientIntros": [
+					"Vous décidez d'**{witchEvent}** à la potion dans l'espoir de l'améliorer...",
+					"Vous prenez la décision d'**{witchEvent}** à la potion pendant que la sorcière a le dos tourné...",
+					"Vous conseillez à la sorcière d'**{witchEvent}** à sa potion...",
+					"Suivant votre conseil, la sorcière décide d'**{witchEvent}** à sa potion...",
+					"Vous suivez votre instinct et décidez d'**{witchEvent}** à la mixture douteuse...",
+					"Vous décidez d'**{witchEvent}** à la potion, espérant que cela améliorera le résultat...",
+					"Vous osez **{witchEvent}** à la potion...",
+					"Après avoir étudié le contenu de la marmite, vous décidez d'**{witchEvent}** à la liste des ingrédients..."
+				],
+				"adviceIntros": [
+					"Pris de pitié, vous lui conseillez de **{witchEvent}** afin d'obtenir un meilleur résultat...",
+					"Vous décidez d'aider la sorcière en lui conseillant de **{witchEvent}**..."
+				],
+				"outcomes": {
+					"1": [
+						"Une fois la potion terminée, la sorcière vous tend un verre. Vous décidez de garder cela pour la suite de votre aventure.",
+						"Grâce à votre intervention, la potion paraît buvable. Vous décidez d'en garder un peu pour la suite de votre aventure.",
+						"Après avoir fini la potion, la vieille dame en verse une partie dans un flacon qu'elle vous remet. Vous l'acceptez avec joie, avant de reprendre route.",
+						"Le résultat obtenu a un goût étrange, mais vous décidez de garder un peu de la potion pour la suite de votre aventure."
+					],
+					"2": {
+						"time": [
+							"En reprenant votre route, vous vous rendez compte que cet arrêt a été plus long que vous ne l'aviez anticipé. Vous perdez **{lostTime} Min :clock2:**",
+							"Alors que vous repartez, vous vous rendez compte de tout le temps perdu à cette préparation. Vous perdez **{lostTime} Min :clock2:**",
+							"En retournant sur vos pas, vous commencez à regretter le temps perdu à attendre cette préparation. Vous perdez **{lostTime} Min :clock2:**"
+						],
+						"scream": [
+							"Une fois la potion terminée, vous décidez de boire une petite gorgée. Immédiatement, vous êtes transporté à travers une intense hallucination. Votre futur ne semble pas très prometteur... :scream:",
+							"À peine la formule prononcée, vous goûtez déjà le liquide. Pris d'une crise de panique, vous n'êtes pas long à regretter votre choix. :scream:"
+						],
+						"drunk": [
+							"Vous décidez de goûter à la potion et le regrettez rapidement... Il semblerait qu'un des ingrédient vous reste en travers de la george. :zany_face:",
+							"Il semblerait que la potion ait un effet surprenant. Vous vous sentez un peu ivre... :zany_face:"
+						],
+						"sick": [
+							"Malheureusement, l'odeur de la potion était annonciatrice de ses effets. Vous regrettez rapidement d'avoir fait confiance au talent de la vieille sorcière. :sick:",
+							"Malgré votre intervention, la potion n'a pas l'air d'avoir été améliorée. Vous vous sentez mal à l'aise... :sick:"
+						],
+						"cold": [
+							"Vous décidez de goûter à la potion qui est très froide. La sensation de froid ne disparait cependant pas et vous ressentez impuissant chacun de vos membres se refroidir... :cold_face:",
+							"Alors que vous alliez terminer la potion, vous trébuchez et tombez dans le gouffre remplis de glace dans lequel vous prévoyiez de déposer la marmite. :cold_face:"
+						]
+					},
+					"3":  [
+						"Une fois la potion terminée, la sorcière vous tend un verre. Encore brulant, vous l'échappez maladroitement sur votre pied. Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Alors que vous alliez terminer la potion, vous êtes victime de la maladresse de la vieille sorcière qui échappe le chaudron sur vous. Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Malgré la bonne odeur de la potion, cette dernière n'est pas aussi bonne pour la santé que ce que vous auriez pu espérer. Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Le goût de la potion est très étrange. Peut être auriez vous du écouter votre instinct et ne pas y goûter... Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Les vapeurs de la potions auront suffit à vous rendre malade. Vous partez sans demander votre reste mais non sans avoir subi les conséquence de l'inhalation de ces vapeurs. Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Alors que la vieille dame s'apprête à verser la dernière goute dans la marmite un bruit sourd se fait entendre. Il semblerait que le chaudron ai explosé. Vous perdez **{lifeLoss} :broken_heart:**."
+					],
+					"4": [
+						"Malheureusement, la potion semble complètement carbonisée et imbuvable. Vous décidez de ne pas prendre le risque de la boire et repartez rapidement.",
+						"Vous terminez la potion avec la vieille dame, mais décidez de ne pas la consommer, préférant garder votre santé pour la suite de votre aventure."
+					]
+				}
+			},
 			"witchEventNames": {
 				"bat": "Ajouter une chauve-souris",
 				"beer": "Ajouter de la bière",
@@ -41,7 +119,26 @@
 		},
 		"en": {
 			"intro": [
-				"At the bend of a path you meet a witch, this one offers you to help her."
+				"You stumble upon an old lady, and it looks like she wants you to follow her.",
+				"You see an old woman, and choose to approach her.",
+				"You notice an old woman, who beckons to you.",
+				"You notice an old lady's silhouette, and decide to go and see what she is doing."
+			],
+			"description": [
+				"She appears to be very old, frail, and has a long and thin nose.",
+				"Her clothes are in a sorry state. They are so tattered they seem to be falling appart, as if made of dust.",
+				"Her back is curved, she seems to be nothing but bones, yet you catch in her eyes a glimpse of mischievousness. She is wearing tattered clothes, of a dull and dirty fabric.",
+				"You recall rumours regarding a clumsy witch, apparently wandering throughout the kingdom.",
+				"Completely mute, she seems worn by the years, frail, skeletal, her skin almost grey.",
+				"She doesn't really seem to understand what you are telling her."
+			],
+			"situation": [
+				"You enter what appears to be her hut, and discover that she is currently concocting a potion of sorts...",
+				"You discover a bubbling cauldron : the old woman seems to be making a potion...",
+				"You approach, only to discover that her potion-making isn't doing to well..",
+				"You observe as the old lady is brewing a potion, but soon realize that the liquid is nearly overflowing out of the cauldron...",
+				"The old woman is making a potion, but she seems to struggle with obtaining decent results in this endeavor...",
+				"She looks like she's trying to prepare a strange brew in an enormous cauldron..."
 			],
 			"witchEventNames": {
 				"bat": "Add a bat",
