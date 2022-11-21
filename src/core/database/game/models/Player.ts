@@ -9,8 +9,14 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {CommandInteraction, TextBasedChannel, TextChannel} from "discord.js";
-import {DraftBotPrivateMessage} from "../../../messages/DraftBotPrivateMessage";
+import {
+	CommandInteraction,
+	GuildChannel,
+	PermissionsBitField,
+	TextBasedChannel,
+	TextChannel,
+	User
+} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
@@ -30,6 +36,8 @@ import moment = require("moment");
 import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import {sendDirectMessage} from "../../../utils/MessageUtils";
+import {NotificationsConstants} from "../../../constants/NotificationsConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -94,7 +102,7 @@ export class Player extends Model {
 
 	public startTravelDate!: Date;
 
-	public dmNotification!: boolean;
+	public notifications!: string;
 
 	public updatedAt!: Date;
 
@@ -350,6 +358,52 @@ export class Player extends Model {
 		await this.save();
 	}
 
+
+	/**
+	 * This function is called to verify if the bot have access to a channel
+	 * @param user
+	 * @param embed
+	 * @param language
+	 */
+	private async checkChannelAccess(user: User, embed: DraftBotEmbed, language: string): Promise<void> {
+		let channel;
+		try {
+			channel = <TextChannel>(await draftBotClient.channels.fetch(this.notifications));
+		}
+		catch (error) {
+			channel = null;
+		}
+		if (channel === null || !(<GuildChannel>channel).permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel) ||
+			!(<GuildChannel>channel).permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessages)) {
+			this.notifications = NotificationsConstants.NO_NOTIFICATION;
+			await this.save();
+			const tr = Translations.getModule("commands.notifications", language);
+			const embedNoAccess = new DraftBotEmbed()
+				.formatAuthor(tr.get("noChannelAccessTitle"), user)
+				.setDescription(tr.get("noChannelAccess"));
+			sendDirectMessage(user, embedNoAccess, language, false);
+		}
+		else {
+			await channel.send({
+				content: this.getMention(),
+				embeds: [embed]
+			});
+		}
+	}
+
+	/**
+	 * This function is called to send a notification to the player (dm or channel or nothing)
+	 * @param embed
+	 * @param language
+	 * @param channel
+	 */
+	public async sendNotificationToPlayer(embed: DraftBotEmbed, language: string, channel: TextBasedChannel = null): Promise<void> {
+		const user = await draftBotClient.users.fetch(this.discordUserId);
+		this.notifications === NotificationsConstants.DM_VALUE ? sendDirectMessage(user, embed, language)
+			: this.notifications === NotificationsConstants.NO_NOTIFICATION ? channel ? await channel.send({content: this.getMention(), embeds: [embed]}) : null
+				: await this.checkChannelAccess(user, embed, language);
+	}
+
 	/**
 	 * Check if we need to kill the player (mouahaha)
 	 * @param channel
@@ -363,17 +417,10 @@ export class Player extends Model {
 		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
 		const tr = Translations.getModule("models.players", language);
 		await channel.send({content: tr.format("ko", {pseudo: this.getPseudo(language)})});
-
-		const guildMember = await (<TextChannel>channel).guild.members.fetch(this.discordUserId);
-		const user = guildMember.user;
-		this.dmNotification ? await user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
-			: channel.send({
-				embeds: [new DraftBotEmbed()
-					.setDescription(tr.get("koPM.description"))
-					.setTitle(tr.get("koPM.title"))
-					.setFooter({text: tr.get("dmDisabledFooter")})]
-			});
-
+		const embed = new DraftBotEmbed()
+			.setTitle(tr.get("koPM.title"))
+			.setDescription(tr.get("koPM.description"));
+		await this.sendNotificationToPlayer(embed, language, channel);
 		return true;
 	}
 
@@ -446,7 +493,7 @@ export class Player extends Model {
 		const query = `SELECT COUNT(*) as count
 					   FROM ${botConfig.MARIADB_PREFIX}_game.players
 					   WHERE (mapLinkId = :link
-						   OR mapLinkId = :linkInverse)
+						  OR mapLinkId = :linkInverse)
 						 AND score
 						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
@@ -834,7 +881,7 @@ export class Players {
 		const query = `SELECT rank
 					   FROM (SELECT ${botConfig.MARIADB_PREFIX}_game.players.discordUserId,
 									(RANK() OVER (ORDER BY ${botConfig.MARIADB_PREFIX}_game.players.${scoreLookup} DESC
-										, ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
+								  , ${botConfig.MARIADB_PREFIX}_game.players.level DESC)) AS rank
 							 FROM ${botConfig.MARIADB_PREFIX}_game.players
 							 WHERE ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${ids.toString()})) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
@@ -911,10 +958,11 @@ export class Players {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-					   FROM ${botConfig.MARIADB_PREFIX}_game.players
-					   WHERE ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
-						   > ${Constants.MINIMAL_PLAYER_SCORE}
-						 AND ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${listDiscordId.toString()})`;
+					   FROM ${botConfig.MARIADB_PREFIX} _game.players
+					   WHERE
+						   ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+						  > ${Constants.MINIMAL_PLAYER_SCORE}
+						   AND ${botConfig.MARIADB_PREFIX}_game.players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}
@@ -1167,9 +1215,9 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.DATE,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.START_TRAVEL_DATE
 		},
-		dmNotification: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.DM_NOTIFICATION
+		notifications: {
+			type: DataTypes.STRING,
+			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

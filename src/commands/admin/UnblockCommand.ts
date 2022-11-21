@@ -3,11 +3,10 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
-import {draftBotClient} from "../../core/bot";
 import {Translations} from "../../core/Translations";
-import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 
@@ -29,17 +28,11 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const unblockModule = Translations.getModule("commands.unblock", language);
 	blockingReason.forEach(reason => BlockingUtils.unblockPlayer(idToUnblock, reason));
 	await interaction.reply({content: "Unblocked with success", ephemeral: true});
-	const user = await draftBotClient.users.fetch(idToUnblock);
 	const [player] = await Players.getOrRegister(idToUnblock);
-	if (player.dmNotification) {
-		sendDirectMessage(
-			user,
-			unblockModule.get("title"),
-			unblockModule.get("description"),
-			null,
-			language
-		);
-	}
+	const embed = new DraftBotEmbed()
+		.setTitle( unblockModule.get("title"))
+		.setDescription(unblockModule.get("description"));
+	await player.sendNotificationToPlayer(embed, language, interaction.channel);
 
 
 }

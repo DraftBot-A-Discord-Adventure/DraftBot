@@ -4,8 +4,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../core/Translations";
 import {replyErrorMessage} from "../core/utils/ErrorUtils";
-import {sendDirectMessage} from "../core/utils/MessageUtils";
-import {draftBotClient} from "../core/bot";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player, {Players} from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
@@ -153,17 +151,12 @@ export class ChangeValueAdminCommands {
 					player: playersToEdit.getMention(),
 					value: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player]
 				});
-				if (playersToEdit.dmNotification) {
-					sendDirectMessage(
-						await draftBotClient.users.fetch(user),
-						changeValueModule.get("dm.title"),
-						changeValueModule.format("dm.description", {
-							valueGained: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
-						}),
-						null,
-						language
-					);
-				}
+				const embed = new DraftBotEmbed()
+					.setTitle(changeValueModule.get("dm.title"))
+					.setDescription(changeValueModule.format("dm.description", {
+						valueGained: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
+					}));
+				await playersToEdit.sendNotificationToPlayer(embed, language, interaction.channel);
 			}
 			await interaction.reply({
 				embeds: [new DraftBotEmbed()

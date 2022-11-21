@@ -16,7 +16,6 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {sendDirectMessage} from "../../core/utils/MessageUtils";
 
 type PlayerCouple = { unlocker: Player, locked?: Player }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -103,22 +102,12 @@ function callbackUnlockCommand(
 						pseudo: playerToUnlock.getPseudo(textInformation.language)
 					}));
 				await textInformation.interaction.followUp({embeds: [successEmbed]});
-				if (playerToUnlock.dmNotification) {
-					const user = await draftBotClient.users.fetch(playerToUnlock.discordUserId);
-					sendDirectMessage(
-						user,
-						textInformation.unlockModule.format("unlockedTitle", {
-							pseudo: playerToUnlock.getPseudo(textInformation.language)
-						}),
-						textInformation.unlockModule.format("unlockNotification",
-							{
-								pseudo: playerUnlocker.getPseudo(textInformation.language)
-							}
-						),
-						Constants.MESSAGES.COLORS.DEFAULT,
-						textInformation.language
-					);
-				}
+				const embed = new DraftBotEmbed()
+					.formatAuthor(textInformation.unlockModule.format("unlockedTitle",
+						{pseudo: playerToUnlock.getPseudo(textInformation.language)}), await draftBotClient.users.fetch(playerToUnlock.discordUserId))
+					.setDescription(textInformation.unlockModule.format("unlockNotification",
+						{pseudo: playerUnlocker.getPseudo(textInformation.language)}));
+				await playerToUnlock.sendNotificationToPlayer(embed, textInformation.language, textInformation.interaction.channel);
 				return;
 			}
 		}

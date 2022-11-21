@@ -57,8 +57,8 @@ export abstract class HelpConstants {
 		RARITY: ["rarity", "rarities", "rareté", "rarete", "rare"],
 		VOTE: ["vote", "ilovedraftbot", "votes", "voté", "voter", "votés"],
 		IDEA: ["idea", "ideas", "suggestions", "suggestion", "suggest", "idée", "idé", "idées", "idés", "idee", "ide", "idees", "ides"],
-		DM_NOTIFICATIONS: ["dmnotifications", "dmn", "notificationsmp", "notificationsprivées", "notificationsmps", "notificationmp",
-			"notifs", "dms", "notif", "dmnotification", "mp", "mpdésac", "mpdesac", "mpdésacactivé", "mpdesactive", "mpdésacactiver", "mpdésacactive"],
+		NOTIFICATIONS: ["notifications", "n", "notification",
+			"notifs", "notif", "désac", "desac", "désacactivé", "desactive", "désacactiver", "désacactive"],
 		UNLOCK: ["unlock", "bail", "release", "libérer", "liberer", "libére", "libere", "libéreration", "libereration", "jail", "prison"],
 		MAP: ["map", "world", "monde", "carte"],
 		MISSIONS: ["missions", "m", "mission", "quests", "quest", "q", "quête", "quete", "quêtes", "quetes"],
@@ -288,7 +288,7 @@ export abstract class HelpConstants {
 				CATEGORY:
 					"util"
 			},
-		DM_NOTIFICATIONS:
+		NOTIFICATIONS:
 			{
 				EMOTE: ":no_bell:",
 				CATEGORY:

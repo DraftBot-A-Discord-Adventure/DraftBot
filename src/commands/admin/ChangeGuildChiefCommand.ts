@@ -8,7 +8,6 @@ import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {format} from "../../core/utils/StringFormatter";
-import {sendDirectMessage} from "../../core/utils/MessageUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
@@ -30,19 +29,16 @@ function getEndCallbackChangeChief(
 			const formerChief = await Players.getById(guild.chiefId);
 
 			for (const member of await Players.getByGuild(guild.id)) {
-				sendDirectMessage(
-					await draftBotClient.users.fetch(member.discordUserId.toString()),
-					tr.get("DM.title"),
-					format(tr.get("DM.description"), {
+				const embed = new DraftBotEmbed()
+					.formatAuthor(tr.get("DM.title"),await draftBotClient.users.fetch(member.discordUserId.toString()))
+					.setDescription(format(tr.get("DM.description"), {
 						old: formerChief.getPseudo(tr.language),
 						oldID: formerChief.discordUserId,
 						new: userToPromote.getPseudo(tr.language),
 						newID: userToPromote.discordUserId,
 						guild: guild.name
-					}),
-					null,
-					tr.language
-				);
+					}));
+				await member.sendNotificationToPlayer(embed, tr.language, interaction.channel);
 			}
 			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
 			formerChief.guildId = null;
