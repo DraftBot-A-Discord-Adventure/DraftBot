@@ -1,7 +1,7 @@
 import {CacheType, CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {SmallEvent} from "./SmallEvent";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
@@ -36,7 +36,6 @@ function getRandomWitchEvents(): WitchEventSelection {
  * @param interaction
  */
 async function givePotion(player: Player, potionToGive: GenericItemModel, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
-	console.log(potionToGive.fr);
 	await giveItemToPlayer(
 		player,
 		potionToGive,
@@ -45,6 +44,20 @@ async function givePotion(player: Player, potionToGive: GenericItemModel, langua
 		interaction.channel,
 		await InventorySlots.getOfPlayer(player.id)
 	);
+}
+
+/**
+ * Send a message containing all the information about what happened to the player
+ * @param seEmbed
+ * @param outcome
+ * @param tr
+ * @param selectedEvent
+ * @param interaction
+ */
+async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: TranslationModule, selectedEvent: WitchEvent, interaction: CommandInteraction<CacheType>): Promise<void> {
+	const resultString = selectedEvent.generateResultString(outcome, tr);
+	seEmbed.setDescription(resultString);
+	await interaction.channel.send({embeds: [seEmbed]});
 }
 
 export const smallEvent: SmallEvent = {
@@ -62,7 +75,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	executeSmallEvent: async function(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.witch", language);
 
 		const embed = new DraftBotReactionMessageBuilder()
@@ -72,44 +85,39 @@ export const smallEvent: SmallEvent = {
 				// If the player did not react, we use the nothing happen event with the menu reaction deny
 				const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
 				const selectedEvent = WitchEvents.getWitchEventByEmoji(reactionEmoji);
-
 				const outcome = selectedEvent.generateOutcome();
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE);
-				// there is a 50 % chance that the player will get a no effect potion, no matter what he chose
-				if (RandomUtils.draftbotRandom.bool()) {
-					console.log("random force no effect");
+
+				// there is a chance that the player will get a no effect potion, no matter what he chose
+				if (RandomUtils.draftbotRandom.bool(SmallEventConstants.WITCH.NO_EFFECT_CHANCE)) {
+					await sendResultMessage(seEmbed, SmallEventConstants.WITCH.OUTCOME_TYPE.POTION, tr, selectedEvent, interaction);
 					const potionToGive = await generateRandomPotion(Constants.ITEM_NATURE.NO_EFFECT);
 					await givePotion(player, potionToGive, language, interaction);
 					return;
 				}
 
-				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.NOTHING) {
-					// nothing happen
-					console.log("nothing happen");
-				}
+				await sendResultMessage(seEmbed, outcome, tr, selectedEvent, interaction);
 
 				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
-					console.log("potion");
 					const potionToGive = await selectedEvent.generatePotion();
-					console.log("POTION À DONNER : ", potionToGive.fr);
 					await givePotion(player, potionToGive, language, interaction);
 				}
 
 				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT || selectedEvent.forceEffect) {
 					await selectedEvent.giveEffect(player);
-					console.log("EFFECT GIVEN");
 				}
 
 				if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.HEALTH_LOSS) {
 					await selectedEvent.removeLifePoints(interaction, player, language);
-					console.log("HEALTH LOSS");
 				}
+
+
 			});
 		const witchEvents = getRandomWitchEvents();
 		let witchEventMenu = "";
 		for (const witchEvent of Object.entries(witchEvents)) {
 			embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
-			witchEventMenu += witchEvent[1].toString(language);
+			witchEventMenu += witchEvent[1].toString(language, false) + "\n";
 		}
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const builtEmbed = embed.build();
@@ -118,6 +126,9 @@ export const smallEvent: SmallEvent = {
 			seEmbed.data.description
 			+ intro
 			+ tr.getRandom("intro")
+			+ tr.getRandom("description")
+			+ tr.getRandom("situation")
+			+ "\n\n"
 			+ witchEventMenu
 		);
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE, collector));

@@ -1,4 +1,4 @@
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {Data} from "../Data";
 import {RandomUtils} from "../utils/RandomUtils";
 import {CommandInteraction} from "discord.js";
@@ -6,13 +6,14 @@ import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {format} from "../utils/StringFormatter";
 
 export abstract class WitchEvent {
 	public readonly name: string;
 
 	public type: number;
 
-	private toStringCache: { [key: string]: string } = {};
+	protected timePenalty = 0;
 
 	private emojiCache: string;
 
@@ -53,6 +54,13 @@ export abstract class WitchEvent {
 	}
 
 	/**
+	 * Base function to get the amount of life points this witch event will remove
+	 */
+	protected getLifePointsRemovedAmount(): number {
+		return SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
+	}
+
+	/**
 	 * remove life points from the player
 	 * @param interaction
 	 * @param player
@@ -60,10 +68,7 @@ export abstract class WitchEvent {
 	 */
 	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
 		await player.addHealth(
-			RandomUtils.randInt(
-				SmallEventConstants.WITCH.MIN_LIFE_POINT_LOSS,
-				SmallEventConstants.WITCH.MAX_LIFE_POINT_LOSS
-			),
+			this.getLifePointsRemovedAmount(),
 			interaction.channel,
 			language,
 			NumberChangeReason.SMALL_EVENT
@@ -73,12 +78,12 @@ export abstract class WitchEvent {
 	/**
 	 * return the name of the attack as it will appear in the list of actions
 	 * @param language
+	 * @param forceEndOfStringEmojiPlacement
 	 */
-	public toString(language: string): string {
-		if (!this.toStringCache[language]) {
-			this.toStringCache[language] = this.getEmoji() + " " + Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`) + "\n";
-		}
-		return this.toStringCache[language];
+	public toString(language: string, forceEndOfStringEmojiPlacement: boolean): string {
+		return forceEndOfStringEmojiPlacement ?
+			Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`) + " " + this.getEmoji()
+			: this.getEmoji() + " " + Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`);
 	}
 
 	/**
@@ -100,10 +105,26 @@ export abstract class WitchEvent {
 	 */
 	public setOutcomeProbabilities(potionProbability: number, effectProbability: number, lifePointLostProbability: number, nothingProbability: number): void {
 		this.outcomeProbabilities = [
-			potionProbability,
-			potionProbability + effectProbability,
-			potionProbability + effectProbability + lifePointLostProbability,
-			potionProbability + effectProbability + lifePointLostProbability + nothingProbability
+			potionProbability, effectProbability, lifePointLostProbability, nothingProbability
 		];
+	}
+
+	/**
+	 * return a string describing the outcome of the witch event
+	 * @param outcome what will happen to the player
+	 * @param translationModule
+	 */
+	public generateResultString(outcome: number, translationModule: TranslationModule): string {
+		const introToLoad = this.type === SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT ? "witchEventResults.ingredientIntros" : "witchEventResults.adviceIntros";
+		const timeOutro = this.forceEffect ?
+			" " + format(translationModule.getRandom(`witchEventResults.outcomes.${SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT}.time`), {lostTime: this.timePenalty})
+			: "";
+		return format(translationModule.getRandom(introToLoad),
+			{
+				witchEvent: this.toString(translationModule.language, true).toLowerCase()
+			}) + " " + format(translationModule.getRandom(`witchEventResults.outcomes.${outcome}`),
+			{
+				lifeLoss: this.getLifePointsRemovedAmount()
+			}) + timeOutro;
 	}
 }
