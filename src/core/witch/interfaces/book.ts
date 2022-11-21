@@ -15,6 +15,7 @@ export default class Book extends WitchEvent {
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
 		this.setOutcomeProbabilities(50, 0, 0, 0);
 		this.forceEffect = true;
+		this.timePenalty = 25;
 	}
 
 	/**
@@ -35,7 +36,7 @@ export default class Book extends WitchEvent {
 		await TravelTime.applyEffect(
 			player,
 			EffectsConstants.EMOJI_TEXT.OCCUPIED,
-			30,
+			this.timePenalty,
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);
