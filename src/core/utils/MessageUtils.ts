@@ -11,7 +11,10 @@ import {Translations} from "../Translations";
  * @param DirectMessageFooter - Add the dmMessage footer
  */
 export function sendDirectMessage(user: User, embed : DraftBotEmbed, language: string, DirectMessageFooter = true): void {
-	DirectMessageFooter ? embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")}) : null;
+	if (DirectMessageFooter){
+		embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
+	}
+
 	user.send({
 		embeds: [embed]
 	}).catch(() => {
