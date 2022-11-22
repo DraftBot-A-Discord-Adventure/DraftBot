@@ -395,13 +395,23 @@ export class Player extends Model {
 	 * This function is called to send a notification to the player (dm or channel or nothing)
 	 * @param embed
 	 * @param language
-	 * @param channel
+	 * @param {TextBasedChannel} channel - If a channel is entered, then if the user has chosen the "no notification" mode, a notification will still be sent to the channel.
 	 */
 	public async sendNotificationToPlayer(embed: DraftBotEmbed, language: string, channel: TextBasedChannel = null): Promise<void> {
 		const user = await draftBotClient.users.fetch(this.discordUserId);
-		this.notifications === NotificationsConstants.DM_VALUE ? sendDirectMessage(user, embed, language)
-			: this.notifications === NotificationsConstants.NO_NOTIFICATION ? channel ? await channel.send({content: this.getMention(), embeds: [embed]}) : null
-				: await this.checkChannelAccess(user, embed, language);
+		switch (this.notifications) {
+		case NotificationsConstants.DM_VALUE:
+			sendDirectMessage(user, embed, language);
+			break;
+		case NotificationsConstants.NO_NOTIFICATION:
+			if (channel) {
+				await channel.send({content: this.getMention(), embeds: [embed]});
+			}
+			break;
+		default:
+			await this.checkChannelAccess(user, embed, language);
+			break;
+		}
 	}
 
 	/**
@@ -626,51 +636,51 @@ export class Player extends Model {
 
 	/**
 	 * calculate the cumulative attack of the player
-	 * @param playerActiveObjects
+	 * @param playerActiveObject
 	 */
-	public async getCumulativeAttack(playerActiveObjects: playerActiveObjects): Promise<number> {
+	public async getCumulativeAttack(playerActiveObject: playerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.class)).getAttackValue(this.level);
 		const attack = playerAttack
-			+ (playerActiveObjects.weapon.getAttack() < playerAttack
-				? playerActiveObjects.weapon.getAttack() : playerAttack)
-			+ (playerActiveObjects.armor.getAttack() < playerAttack
-				? playerActiveObjects.armor.getAttack() : playerAttack)
-			+ playerActiveObjects.object.getAttack()
-			+ playerActiveObjects.potion.getAttack();
+			+ (playerActiveObject.weapon.getAttack() < playerAttack
+				? playerActiveObject.weapon.getAttack() : playerAttack)
+			+ (playerActiveObject.armor.getAttack() < playerAttack
+				? playerActiveObject.armor.getAttack() : playerAttack)
+			+ playerActiveObject.object.getAttack()
+			+ playerActiveObject.potion.getAttack();
 		return attack > 0 ? attack : 0;
 	}
 
 	/**
 	 * calculate the cumulative defense of the player
-	 * @param playerActiveObjects
+	 * @param playerActiveObject
 	 */
-	public async getCumulativeDefense(playerActiveObjects: playerActiveObjects): Promise<number> {
+	public async getCumulativeDefense(playerActiveObject: playerActiveObjects): Promise<number> {
 		const playerDefense = (await Classes.getById(this.class)).getDefenseValue(this.level);
 		const defense = playerDefense
-			+ (playerActiveObjects.weapon.getDefense() < playerDefense
-				? playerActiveObjects.weapon.getDefense() : playerDefense)
-			+ (playerActiveObjects.armor.getDefense() < playerDefense
-				? playerActiveObjects.armor.getDefense() : playerDefense)
-			+ playerActiveObjects.object.getDefense()
-			+ playerActiveObjects.potion.getDefense();
+			+ (playerActiveObject.weapon.getDefense() < playerDefense
+				? playerActiveObject.weapon.getDefense() : playerDefense)
+			+ (playerActiveObject.armor.getDefense() < playerDefense
+				? playerActiveObject.armor.getDefense() : playerDefense)
+			+ playerActiveObject.object.getDefense()
+			+ playerActiveObject.potion.getDefense();
 		return defense > 0 ? defense : 0;
 	}
 
 	/**
 	 * calculate the cumulative speed of the player
-	 * @param playerActiveObjects
+	 * @param playerActiveObject
 	 */
-	public async getCumulativeSpeed(playerActiveObjects: playerActiveObjects): Promise<number> {
+	public async getCumulativeSpeed(playerActiveObject: playerActiveObjects): Promise<number> {
 		const playerSpeed = (await Classes.getById(this.class)).getSpeedValue(this.level);
 		const speed = playerSpeed
-			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
-				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
-			+ (playerActiveObjects.armor.getSpeed() < playerSpeed
-				? playerActiveObjects.armor.getSpeed() : playerSpeed)
-			+ (playerActiveObjects.object.getSpeed() / 2 < playerSpeed
-				? playerActiveObjects.object.getSpeed()
+			+ (playerActiveObject.weapon.getSpeed() < playerSpeed
+				? playerActiveObject.weapon.getSpeed() : playerSpeed)
+			+ (playerActiveObject.armor.getSpeed() < playerSpeed
+				? playerActiveObject.armor.getSpeed() : playerSpeed)
+			+ (playerActiveObject.object.getSpeed() / 2 < playerSpeed
+				? playerActiveObject.object.getSpeed()
 				: playerSpeed * 2)
-			+ playerActiveObjects.potion.getSpeed();
+			+ playerActiveObject.potion.getSpeed();
 		return speed > 0 ? speed : 0;
 	}
 

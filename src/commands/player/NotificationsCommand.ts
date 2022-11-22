@@ -31,7 +31,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	switch (interaction.options.get("mode").value) {
 	case NotificationsConstants.CHANNEL_SCOPE:
 		player.notifications = interaction.channelId;
-		notificationsEmbed.setDescription(notificationsEmbed.data.description + "\n\n" + translations.get("normal"));
+		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
 		ephemeral = false;
 		break;
 	case NotificationsConstants.DM_SCOPE:
@@ -42,13 +42,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		break;
 	case NotificationsConstants.NO_NOTIFICATION_SCOPE:
 		player.notifications = NotificationsConstants.NO_NOTIFICATION;
-		notificationsEmbed.setDescription(notificationsEmbed.data.description + "\n\n" + translations.get("noNotifications"));
+		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("noNotifications")}`);
 		break;
 	default:
 		return;
 	}
-
-	await interaction.reply({embeds: [notificationsEmbed], ephemeral: ephemeral});
+	await interaction.reply({embeds: [notificationsEmbed], ephemeral: ephemeral as boolean});
 	await player.save();
 }
 

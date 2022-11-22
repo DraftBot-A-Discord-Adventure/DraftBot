@@ -94,7 +94,8 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const itemId = interaction.options.get("itemid").value as number;
 	const item = await getItemByIdAndCategory(itemId, category);
 	if (item === null) {
-		return replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
+		await replyErrorMessage(interaction, language, tr.get("errors.wrongItemId"));
+		return;
 	}
 
 	const users = await ChangeValueAdminCommands.getConcernedUsers(usersToChange, interaction, tr);
