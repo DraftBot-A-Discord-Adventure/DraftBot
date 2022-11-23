@@ -63,7 +63,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 				.setDescription(tr.format("dm.description", {
 					item: item.toString(tr.language, null)
 				}));
-			await playerToEdit.sendNotificationToPlayer(embed, tr.language, interaction.channel);
+			await playerToEdit.sendNotificationToPlayer(embed, tr.language);
 			draftBotInstance.logsDatabase.logItemGain(playerToEdit.discordUserId, item).then();
 		}
 		await interaction.followUp({

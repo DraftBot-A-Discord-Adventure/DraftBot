@@ -38,7 +38,7 @@ function getEndCallbackChangeChief(
 						newID: userToPromote.discordUserId,
 						guild: guild.name
 					}));
-				await member.sendNotificationToPlayer(embed, tr.language, interaction.channel);
+				await member.sendNotificationToPlayer(embed, tr.language);
 			}
 			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
 			formerChief.guildId = null;
