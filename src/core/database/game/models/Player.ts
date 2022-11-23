@@ -38,6 +38,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendDirectMessage} from "../../../utils/MessageUtils";
 import {NotificationsConstants} from "../../../constants/NotificationsConstants";
+import {format} from "../../../utils/StringFormatter";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -373,17 +374,16 @@ export class Player extends Model {
 		catch (error) {
 			channel = null;
 		}
+		const tr = Translations.getModule("commands.notifications", language);
 		if (channel === null || !(<GuildChannel>channel).permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel) ||
 			!(<GuildChannel>channel).permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessages)) {
-			this.notifications = NotificationsConstants.NO_NOTIFICATION;
+			this.notifications = NotificationsConstants.DM_VALUE;
 			await this.save();
-			const tr = Translations.getModule("commands.notifications", language);
-			const embedNoAccess = new DraftBotEmbed()
-				.formatAuthor(tr.get("noChannelAccessTitle"), user)
-				.setDescription(tr.get("noChannelAccess"));
-			sendDirectMessage(user, embedNoAccess, language, false);
+			embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"),{})}`);
+			sendDirectMessage(user, embed, language);
 		}
 		else {
+			embed.setFooter({text: tr.get("channelNotification")});
 			await channel.send({
 				content: this.getMention(),
 				embeds: [embed]
@@ -395,22 +395,20 @@ export class Player extends Model {
 	 * This function is called to send a notification to the player (dm or channel or nothing)
 	 * @param embed
 	 * @param language
-	 * @param {TextBasedChannel} channel - If a channel is entered, then if the user has chosen the "no notification" mode, a notification will still be sent to the channel.
 	 */
-	public async sendNotificationToPlayer(embed: DraftBotEmbed, language: string, channel: TextBasedChannel = null): Promise<void> {
+	public async sendNotificationToPlayer(embed: DraftBotEmbed, language: string): Promise<void> {
 		const user = await draftBotClient.users.fetch(this.discordUserId);
-		switch (this.notifications) {
-		case NotificationsConstants.DM_VALUE:
+
+		if (!embed.data.author) {
+			embed.formatAuthor(embed.data.title, user);
+			embed.setTitle(null);
+		}
+
+		if (this.notifications === NotificationsConstants.DM_VALUE) {
 			sendDirectMessage(user, embed, language);
-			break;
-		case NotificationsConstants.NO_NOTIFICATION:
-			if (channel) {
-				await channel.send({content: this.getMention(), embeds: [embed]});
-			}
-			break;
-		default:
+		}
+		else if (this.notifications !== NotificationsConstants.NO_NOTIFICATION) {
 			await this.checkChannelAccess(user, embed, language);
-			break;
 		}
 	}
 
@@ -430,7 +428,7 @@ export class Player extends Model {
 		const embed = new DraftBotEmbed()
 			.setTitle(tr.get("koPM.title"))
 			.setDescription(tr.get("koPM.description"));
-		await this.sendNotificationToPlayer(embed, language, channel);
+		await this.sendNotificationToPlayer(embed, language);
 		return true;
 	}
 

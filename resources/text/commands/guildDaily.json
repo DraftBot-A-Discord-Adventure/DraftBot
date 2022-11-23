@@ -3,7 +3,7 @@
 		"fr": {
 			"commandName": "bonusjournalierguilde",
 			"commandDescription": "Récupérer la récompense journalière de la guilde.",
-			"dmNotification": {
+			"notifications": {
 				"title": "🏟️ Notification de guilde :",
 				"description": "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
 			},
@@ -25,7 +25,7 @@
 		"en": {
 			"commandName": "guilddailybonus",
 			"commandDescription": "Get the guild's daily reward.",
-			"dmNotification": {
+			"notifications": {
 				"title": "🏟️ Guild notification :",
 				"description": "On the server {serveur}, {pseudo} made a guilddaily."
 			},

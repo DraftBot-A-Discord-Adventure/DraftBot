@@ -336,9 +336,6 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 		}
 		if (member.discordUserId !== interaction.user.id) {
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
-		}
-		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
-		if (member.discordUserId !== interaction.user.id) {
 			const embedNotif = new DraftBotEmbed()
 				.setTitle(guildDailyModule.get("notifications.title"))
 				.setDescription(guildDailyModule.format("notifications.description",
@@ -347,8 +344,9 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 						pseudo: escapeUsername(interaction.user.username)
 					}
 				) + embed.data.description);
-			await member.sendNotificationToPlayer(embedNotif, language, interaction.channel);
+			await member.sendNotificationToPlayer(embedNotif, language);
 		}
+		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
 	}
 }
 

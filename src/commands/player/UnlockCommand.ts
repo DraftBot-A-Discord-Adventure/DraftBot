@@ -107,7 +107,7 @@ function callbackUnlockCommand(
 						{pseudo: playerToUnlock.getPseudo(textInformation.language)}), await draftBotClient.users.fetch(playerToUnlock.discordUserId))
 					.setDescription(textInformation.unlockModule.format("unlockNotification",
 						{pseudo: playerUnlocker.getPseudo(textInformation.language)}));
-				await playerToUnlock.sendNotificationToPlayer(embed, textInformation.language, textInformation.interaction.channel);
+				await playerToUnlock.sendNotificationToPlayer(embed, textInformation.language);
 				return;
 			}
 		}

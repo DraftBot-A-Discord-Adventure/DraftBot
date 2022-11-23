@@ -30,9 +30,9 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	await interaction.reply({content: "Unblocked with success", ephemeral: true});
 	const [player] = await Players.getOrRegister(idToUnblock);
 	const embed = new DraftBotEmbed()
-		.setTitle( unblockModule.get("title"))
+		.setTitle(unblockModule.get("title"))
 		.setDescription(unblockModule.get("description"));
-	await player.sendNotificationToPlayer(embed, language, interaction.channel);
+	await player.sendNotificationToPlayer(embed, language);
 
 
 }

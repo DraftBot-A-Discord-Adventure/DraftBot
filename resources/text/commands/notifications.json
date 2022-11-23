@@ -6,9 +6,9 @@
 			"optionScopeName": "mode",
 			"optionScopeDescription": "Le mode de notification souhaité.",
 			"scopes": {
-				"dm": "dm",
-				"channel": "ce salon",
-				"none": "aucune notifications"
+				"dm": "\uD83D\uDCEC En message privé",
+				"channel": "\uD83D\uDCE2 Dans ce salon",
+				"none": "\uD83D\uDEAB Désactiver les notifications "
 			},
 			"title": "Notifications par messages",
 			"normal": "Vos prochaines notifications apparaitront ici.",
@@ -17,7 +17,8 @@
 			"error": "Vous avez les DMs fermés !",
 			"open": "activé",
 			"closed": "désactivé",
-			"noChannelAccess" : "Il semble que le bot n'est plus accès à votre channel de notification, le mode de notification à donc été réinitialisé. Afin de recevoir de nouvelles notifications, merci d'executer la commande {command:notifications}.",
+			"channelNotification": "Ce message vous est envoyé via le système de notification. Si vous souhaitez que le bot ne vous envoie plus de messages, utilisez la commande /notifications.",
+			"noChannelAccess" : "❌ Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'executer la commande {command:notifications}.",
 			"noChannelAccessTitle" : "Désactivation des notifications"
 		},
 		"en": {
@@ -26,9 +27,9 @@
 			"optionScopeName": "mode",
 			"optionScopeDescription": "The desired notification mode.",
 			"scopes": {
-				"dm": "dm",
-				"channel": "this channel",
-				"none": "no notifications"
+				"dm": "\uD83D\uDCEC In private message",
+				"channel": "\uD83D\uDCE2 In this channel",
+				"none": "\uD83D\uDEAB Disable notifications "
 			},
 			"title": "Message notifications",
 			"normal": "Your next notifications will appear here.",
@@ -37,7 +38,8 @@
 			"error": "You have closed your DMs !",
 			"open": "open",
 			"closed": "closed",
-			"noChannelAccess" : "It looks like the bot no longer has access to your notification channel, so the notification mode has been reset. In order to receive new notifications, please execute the command {command:notifications}.",
+			"channelNotification": "This message is sent to you through the notification system. If you no longer wish to receive messages from this bot, please use the command /notifications.",
+			"noChannelAccess" : "❌ It seems the bot no longer has access to your notification channel, notifications will now be in private messages. In order to change the notification mode, please run the command {command:notifications}.",
 			"noChannelAccessTitle" : "Disabling notifications"
 		}
 	}

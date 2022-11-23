@@ -20,7 +20,7 @@
 				"description": "Il semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`"
 			},
 			"dmDisabledFooter": "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites la commande notification et activez les messages privés dans vos paramètres utilisateurs.",
-			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notification (les commandes ne fonctionnent pas en message privé)."
+			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé)."
 		},
 		"en": {
 			"pseudo": "Player 404",

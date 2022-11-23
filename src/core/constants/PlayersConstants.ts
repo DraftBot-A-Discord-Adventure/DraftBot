@@ -15,6 +15,6 @@ export abstract class PlayersConstants {
 		EFFECT: EffectsConstants.EMOJI_TEXT.BABY,
 		EFFECT_DURATION: EffectsConstants.DURATION[":baby:"],
 		START_TRAVEL_DATE: 0,
-		NOTIFICATIONS: null as string
+		NOTIFICATIONS: "-1"
 	};
 }

@@ -156,7 +156,7 @@ export class ChangeValueAdminCommands {
 					.setDescription(changeValueModule.format("dm.description", {
 						valueGained: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
 					}));
-				await playersToEdit.sendNotificationToPlayer(embed, language, interaction.channel);
+				await playersToEdit.sendNotificationToPlayer(embed, language);
 			}
 			await interaction.reply({
 				embeds: [new DraftBotEmbed()
