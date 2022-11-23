@@ -8,17 +8,21 @@
 			"scopes": {
 				"dm": "\uD83D\uDCEC En message privé",
 				"channel": "\uD83D\uDCE2 Dans ce salon",
-				"none": "\uD83D\uDEAB Désactiver les notifications "
+				"none": "\uD83D\uDEAB Désactiver les notifications"
 			},
 			"title": "Notifications par messages",
 			"normal": "Vos prochaines notifications apparaitront ici.",
-			"description": "Vous avez sélectionné le mode **{mode}**.",
-			"noNotifications": "Vous ne receverez plus de notifications du bot.",
+			"description": {
+				"dm": "\uD83D\uDCEC Vous recevrez désormais vos notifications en messages privés.",
+				"channel": "\uD83D\uDCE2 Vous recevrez vos notifications dans ce salon. Si le salon est supprimé où que le bot n'y a plus accès, les notifications seront envoyées en message privé.",
+				"none": "\uD83D\uDEAB Les notifications ont été désactivées."
+			},
+			"none": "Vous ne recevrez plus de notifications du bot.",
 			"error": "Vous avez les DMs fermés !",
 			"open": "activé",
 			"closed": "désactivé",
-			"channelNotification": "Ce message vous est envoyé via le système de notification. Si vous souhaitez que le bot ne vous envoie plus de messages, utilisez la commande /notifications.",
-			"noChannelAccess" : "❌ Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'executer la commande {command:notifications}.",
+			"channelNotification": "Ce message vous est envoyé via le système de notification. Si vous ne souhaitez pas que le bot puisse vous envoyer des messages, utilisez la commande /notifications.",
+			"noChannelAccess" : "❌ Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'exécuter la commande {command:notifications}.",
 			"noChannelAccessTitle" : "Désactivation des notifications"
 		},
 		"en": {
@@ -29,11 +33,15 @@
 			"scopes": {
 				"dm": "\uD83D\uDCEC In private message",
 				"channel": "\uD83D\uDCE2 In this channel",
-				"none": "\uD83D\uDEAB Disable notifications "
+				"none": "\uD83D\uDEAB Disable notifications"
 			},
 			"title": "Message notifications",
 			"normal": "Your next notifications will appear here.",
-			"description": "You select the mode {mode}.",
+			"description": {
+				"dm": "\uD83D\uDCEC You will now receive your notifications in private messages.",
+				"channel": "\uD83D\uDCE2 You will receive your notifications in this channel. If the channel is deleted or the bot no longer has access to it, the notifications will be sent in private message.",
+				"none": "\uD83D\uDEAB Notifications have been disabled."
+			},
 			"noNotifications": "You will no longer receive notifications from the bot.",
 			"error": "You have closed your DMs !",
 			"open": "open",

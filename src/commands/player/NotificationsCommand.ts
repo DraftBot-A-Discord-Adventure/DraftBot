@@ -9,7 +9,7 @@ import Player from "../../core/database/game/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {NotificationsConstants} from "../../core/constants/NotificationsConstants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {format} from "../../core/utils/StringFormatter";
+
 
 /**
  * Activate or deactivate notifications.
@@ -24,9 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const translations = Translations.getModule("commands.notifications", language);
 	const notificationsEmbed = new DraftBotEmbed()
 		.formatAuthor(translations.get("title"), interaction.user)
-		.setDescription(format(translations.get("description"),
-			{mode: interaction.options.get("mode").value}
-		));
+		.setDescription(translations.get(`description.${interaction.options.get("mode").value}`));
 
 	switch (interaction.options.get("mode").value) {
 	case NotificationsConstants.CHANNEL_SCOPE:
@@ -41,7 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		break;
 	case NotificationsConstants.NO_NOTIFICATION_SCOPE:
 		player.notifications = NotificationsConstants.NO_NOTIFICATION;
-		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("noNotifications")}`);
+		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
 		break;
 	default:
 		return;

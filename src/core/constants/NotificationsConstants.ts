@@ -7,5 +7,5 @@ export abstract class NotificationsConstants {
 
 	static readonly CHANNEL_SCOPE = "channel";
 
-	static readonly NO_NOTIFICATION_SCOPE = "no notifications";
+	static readonly NO_NOTIFICATION_SCOPE = "none";
 }
