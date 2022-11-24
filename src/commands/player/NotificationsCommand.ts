@@ -21,12 +21,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
+	const choice = interaction.options.get("mode").value;
 	const translations = Translations.getModule("commands.notifications", language);
 	const notificationsEmbed = new DraftBotEmbed()
 		.formatAuthor(translations.get("title"), interaction.user)
-		.setDescription(translations.get(`description.${interaction.options.get("mode").value}`));
+		.setDescription(translations.get(`description.${choice}`));
 
-	switch (interaction.options.get("mode").value) {
+	switch (choice) {
 	case NotificationsConstants.CHANNEL_SCOPE:
 		player.notifications = interaction.channelId;
 		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
@@ -44,7 +45,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	default:
 		return;
 	}
-	await interaction.reply({embeds: [notificationsEmbed], ephemeral: interaction.options.get("mode").value !== NotificationsConstants.CHANNEL_SCOPE});
+	await interaction.reply({embeds: [notificationsEmbed], ephemeral: choice !== NotificationsConstants.CHANNEL_SCOPE});
 	await player.save();
 }
 
