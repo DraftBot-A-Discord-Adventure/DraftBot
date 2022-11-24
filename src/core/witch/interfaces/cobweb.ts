@@ -1,6 +1,9 @@
 import {WitchEvent} from "../WitchEvent";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
+/**
+ * The cobweb will hurt the player or do nothing.
+ */
 export default class Cobweb extends WitchEvent {
 
 	public constructor() {

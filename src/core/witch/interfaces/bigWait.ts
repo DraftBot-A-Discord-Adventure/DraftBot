@@ -8,6 +8,9 @@ import {NumberChangeReason} from "../../constants/LogsConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The big wait will do nothing, cost time and can give a no effect potion
+ */
 export default class BigWait extends WitchEvent {
 
 	public constructor() {
@@ -21,7 +24,7 @@ export default class BigWait extends WitchEvent {
 	/**
 	 * The big wait advice will give a no effect potion.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.NO_EFFECT);
 	}

@@ -8,24 +8,26 @@ import {NumberChangeReason} from "../../constants/LogsConstants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
-import {TranslationModule} from "../../Translations";
-import {format} from "../../utils/StringFormatter";
 
+/**
+ * Moving the potion in the ice can make the player frozen or do nothing or give a time potion
+ */
 export default class Cool extends WitchEvent {
 
 	public constructor() {
 		super("cool");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.ADVICE;
+		this.effectName = "cold";
 		this.setOutcomeProbabilities(20, 15, 0, 15);
 	}
 
 	/**
 	 * The cool will give a time potion with a special maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
-			ItemConstants.RARITY.SPECIAL,ItemConstants.RARITY.RARE);
+			ItemConstants.RARITY.SPECIAL, ItemConstants.RARITY.RARE);
 	}
 
 	/**
@@ -40,21 +42,5 @@ export default class Cool extends WitchEvent {
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);
-	}
-
-	/**
-	 * return a string describing the outcome of the witch event
-	 * @param outcome what will happen to the player
-	 * @param translationModule
-	 */
-	public generateResultString(outcome: number, translationModule: TranslationModule): string {
-		const outcomeString = outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT ? `witchEventResults.outcomes.${outcome}.cold` : `witchEventResults.outcomes.${outcome}`;
-		return format(translationModule.getRandom("witchEventResults.adviceIntros"),
-			{
-				witchEvent: this.toString(translationModule.language, true).toLowerCase()
-			}) + " " + format(translationModule.getRandom(outcomeString),
-			{
-				lifeLoss: this.getLifePointsRemovedAmount()
-			});
 	}
 }

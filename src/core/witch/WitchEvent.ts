@@ -21,6 +21,10 @@ export abstract class WitchEvent {
 
 	public forceEffect = false;
 
+	protected effectName = "";
+
+	protected lifePointsRemovedAmount = SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
+
 	protected constructor(name: string) {
 		this.name = name;
 	}
@@ -29,7 +33,7 @@ export abstract class WitchEvent {
 	 * Generates the outcome of the witch event
 	 */
 	public generateOutcome(): number {
-		let seed = RandomUtils.randInt(1, 51);
+		let seed = RandomUtils.randInt(SmallEventConstants.WITCH.MIN_PROBABILITY, SmallEventConstants.WITCH.MAX_PROBABILITY);
 		let outcome = SmallEventConstants.WITCH.OUTCOME_TYPE.BASE;
 		do {
 			seed -= this.outcomeProbabilities[outcome];
@@ -54,13 +58,6 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * Base function to get the amount of life points this witch event will remove
-	 */
-	protected getLifePointsRemovedAmount(): number {
-		return SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
-	}
-
-	/**
 	 * remove life points from the player
 	 * @param interaction
 	 * @param player
@@ -68,11 +65,12 @@ export abstract class WitchEvent {
 	 */
 	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
 		await player.addHealth(
-			this.getLifePointsRemovedAmount(),
+			- this.lifePointsRemovedAmount,
 			interaction.channel,
 			language,
 			NumberChangeReason.SMALL_EVENT
 		);
+		await player.save();
 	}
 
 	/**
@@ -82,17 +80,15 @@ export abstract class WitchEvent {
 	 */
 	public toString(language: string, forceEndOfStringEmojiPlacement: boolean): string {
 		return forceEndOfStringEmojiPlacement ?
-			Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`) + " " + this.getEmoji()
-			: this.getEmoji() + " " + Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`);
+			`${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)} ${this.getEmoji()}`
+			: `${this.getEmoji()} ${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)}`;
 	}
 
 	/**
 	 * return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
-		if (!this.emojiCache) {
-			this.emojiCache = Data.getModule("smallEvents.witch").getString(`witchEventEmotes.${this.name}`);
-		}
+		this.emojiCache = this.emojiCache ?? Data.getModule("smallEvents.witch").getString(`witchEventEmotes.${this.name}`);
 		return this.emojiCache;
 	}
 
@@ -117,14 +113,16 @@ export abstract class WitchEvent {
 	public generateResultString(outcome: number, translationModule: TranslationModule): string {
 		const introToLoad = this.type === SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT ? "witchEventResults.ingredientIntros" : "witchEventResults.adviceIntros";
 		const timeOutro = this.forceEffect ?
-			" " + format(translationModule.getRandom(`witchEventResults.outcomes.${SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT}.time`), {lostTime: this.timePenalty})
+			` ${format(translationModule.getRandom(`witchEventResults.outcomes.${SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT}.time`), {lostTime: this.timePenalty})}`
 			: "";
-		return format(translationModule.getRandom(introToLoad),
+		const outcomeTranslationToLoad = outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT ?
+			`witchEventResults.outcomes.${outcome}.${this.effectName}` : `witchEventResults.outcomes.${outcome}`;
+		return `${format(translationModule.getRandom(introToLoad),
 			{
 				witchEvent: this.toString(translationModule.language, true).toLowerCase()
-			}) + " " + format(translationModule.getRandom(`witchEventResults.outcomes.${outcome}`),
+			})} ${format(translationModule.getRandom(outcomeTranslationToLoad),
 			{
-				lifeLoss: this.getLifePointsRemovedAmount()
-			}) + timeOutro;
+				lifeLoss: this.lifePointsRemovedAmount
+			})}${timeOutro}`;
 	}
 }

@@ -15,13 +15,14 @@ export default class Scorpion extends WitchEvent {
 	public constructor() {
 		super("scorpion");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
+		this.effectName = "sick";
 		this.setOutcomeProbabilities(35, 5, 0, 10);
 	}
 
 	/**
 	 * The scorpion will give an attack potion with a rare maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.RARE);

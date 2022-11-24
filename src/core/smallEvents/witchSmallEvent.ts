@@ -69,15 +69,15 @@ async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: Tr
  * @param interaction
  */
 async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
-	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
-		const potionToGive = await selectedEvent.generatePotion();
-		await givePotion(player, potionToGive, language, interaction);
-	}
-	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT || selectedEvent.forceEffect) {
+	if (selectedEvent.forceEffect || outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
 	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.HEALTH_LOSS) {
 		await selectedEvent.removeLifePoints(interaction, player, language);
+	}
+	if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.POTION) {
+		const potionToGive = await selectedEvent.generatePotion();
+		await givePotion(player, potionToGive, language, interaction);
 	}
 }
 
@@ -102,7 +102,7 @@ function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBo
 	let witchEventMenu = "";
 	for (const witchEvent of Object.entries(witchEvents)) {
 		embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
-		witchEventMenu += witchEvent[1].toString(language, false) + "\n";
+		witchEventMenu += `${witchEvent[1].toString(language, false)}\n`;
 	}
 	return witchEventMenu;
 }
@@ -128,13 +128,11 @@ function generateInitialEmbed(
 	const builtEmbed = embed.build();
 	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
-		seEmbed.data.description
+		`${seEmbed.data.description
 		+ intro
 		+ tr.getRandom("intro")
 		+ tr.getRandom("description")
-		+ tr.getRandom("situation")
-		+ "\n\n"
-		+ witchEventMenu
+		+ tr.getRandom("situation")}\n\n${witchEventMenu}`
 	);
 	return builtEmbed;
 }
@@ -154,7 +152,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	executeSmallEvent: async function(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.witch", language);
 
 		const embed = new DraftBotReactionMessageBuilder()

@@ -5,6 +5,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The turtle will give a defense potion sometimes.
+ */
 export default class Turtle extends WitchEvent {
 
 	public constructor() {
@@ -16,7 +19,7 @@ export default class Turtle extends WitchEvent {
 	/**
 	 * The turtle will give a defense potion with a special maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.DEFENSE,
 			ItemConstants.RARITY.SPECIAL);

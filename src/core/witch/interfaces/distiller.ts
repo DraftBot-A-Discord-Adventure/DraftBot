@@ -9,6 +9,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The distiller will give a time potion but cost time
+ */
 export default class Distiller extends WitchEvent {
 
 	public constructor() {
@@ -22,7 +25,7 @@ export default class Distiller extends WitchEvent {
 	/**
 	 * The distiller will give a time skip potion with a mythical maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.MYTHICAL);

@@ -6,6 +6,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The frog will give a time or speed potion or nothing.
+ */
 export default class Frog extends WitchEvent {
 
 	public constructor() {
@@ -17,9 +20,10 @@ export default class Frog extends WitchEvent {
 	/**
 	 * The frog will give either a speed potion or a time potion with a rare maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
+			ItemConstants.RARITY.RARE,
 			ItemConstants.RARITY.RARE);
 	}
 }

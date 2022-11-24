@@ -8,6 +8,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The wand will give a pretty good random potion but cost time
+ */
 export default class Wand extends WitchEvent {
 
 	public constructor() {
@@ -21,7 +24,7 @@ export default class Wand extends WitchEvent {
 	/**
 	 * The wand will give a random potion with an epic maximum rarity and a rare minimum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.EPIC,
