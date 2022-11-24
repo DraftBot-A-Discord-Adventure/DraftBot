@@ -5,6 +5,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The mushroom will give a health potion sometimes. or hurt the player (50 50)
+ */
 export default class Mushroom extends WitchEvent {
 
 	public constructor() {
@@ -16,7 +19,7 @@ export default class Mushroom extends WitchEvent {
 	/**
 	 * The mushroom will give a health potion with an uncommon maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.UNCOMMON);

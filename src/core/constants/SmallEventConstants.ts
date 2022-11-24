@@ -131,7 +131,9 @@ export abstract class SmallEventConstants {
 			HEALTH_LOSS: 3,
 			NOTHING: 4
 		},
-		NO_EFFECT_CHANCE: 0.25
+		NO_EFFECT_CHANCE: 0.25,
+		MIN_PROBABILITY: 1,
+		MAX_PROBABILITY: 51
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {

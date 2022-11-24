@@ -4,14 +4,16 @@ import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
-import {TranslationModule} from "../../Translations";
-import {format} from "../../utils/StringFormatter";
 
+/**
+ * The beer can make the player drunk or do nothing
+ */
 export default class Beer extends WitchEvent {
 
 	public constructor() {
 		super("beer");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
+		this.effectName = "drunk";
 		this.setOutcomeProbabilities(0, 25, 0, 25);
 	}
 
@@ -28,21 +30,4 @@ export default class Beer extends WitchEvent {
 			NumberChangeReason.SMALL_EVENT
 		);
 	}
-
-	/**
-	 * return a string describing the outcome of the witch event
-	 * @param outcome what will happen to the player
-	 * @param translationModule
-	 */
-	public generateResultString(outcome: number, translationModule: TranslationModule): string {
-		const outcomeString = outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT ? `witchEventResults.outcomes.${outcome}.drunk` : `witchEventResults.outcomes.${outcome}`;
-		return format(translationModule.getRandom("witchEventResults.adviceIntros"),
-			{
-				witchEvent: this.toString(translationModule.language, true).toLowerCase()
-			}) + " " + format(translationModule.getRandom(outcomeString),
-			{
-				lifeLoss: this.getLifePointsRemovedAmount()
-			});
-	}
-
 }

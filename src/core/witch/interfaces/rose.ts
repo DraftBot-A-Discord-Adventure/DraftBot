@@ -5,6 +5,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * Chance of healing potion or hurt the player (also chance of nothing)
+ */
 export default class Rose extends WitchEvent {
 
 	public constructor() {
@@ -16,7 +19,7 @@ export default class Rose extends WitchEvent {
 	/**
 	 * The rose will give a health potion with an uncommon maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.UNCOMMON);

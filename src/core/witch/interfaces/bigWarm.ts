@@ -9,6 +9,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The big warm can give a powerful attack potion or hurt the player or do nothing
+ */
 export default class BigWarm extends WitchEvent {
 
 	public constructor() {
@@ -22,7 +25,7 @@ export default class BigWarm extends WitchEvent {
 	/**
 	 * The big warm will give very powerful attack potion.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.MYTHICAL,

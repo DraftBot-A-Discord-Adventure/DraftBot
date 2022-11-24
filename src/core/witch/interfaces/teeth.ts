@@ -5,7 +5,10 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
-export default class Snake extends WitchEvent {
+/**
+ * The teeth will give either an attack potion or hurt the player
+ */
+export default class Teeth extends WitchEvent {
 
 	public constructor() {
 		super("teeth");
@@ -16,7 +19,7 @@ export default class Snake extends WitchEvent {
 	/**
 	 * The teeth will give an attack potion with a special maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.SPECIAL);

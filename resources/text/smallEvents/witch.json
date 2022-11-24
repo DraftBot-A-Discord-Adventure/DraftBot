@@ -43,7 +43,7 @@
 					"1": [
 						"Une fois la potion terminée, la sorcière vous tend un verre. Vous décidez de garder cela pour la suite de votre aventure.",
 						"Grâce à votre intervention, la potion paraît buvable. Vous décidez d'en garder un peu pour la suite de votre aventure.",
-						"Après avoir fini la potion, la vieille dame en verse une partie dans un flacon qu'elle vous remet. Vous l'acceptez avec joie, avant de reprendre route.",
+						"Après avoir fini la potion, la vieille dame en verse une partie dans un flacon qu'elle vous remet. Vous l'acceptez avec joie, avant de reprendre votre route.",
 						"Le résultat obtenu a un goût étrange, mais vous décidez de garder un peu de la potion pour la suite de votre aventure."
 					],
 					"2": {
@@ -52,7 +52,7 @@
 							"Alors que vous repartez, vous vous rendez compte de tout le temps perdu à cette préparation. Vous perdez **{lostTime} Min :clock2:**",
 							"En retournant sur vos pas, vous commencez à regretter le temps perdu à attendre cette préparation. Vous perdez **{lostTime} Min :clock2:**"
 						],
-						"scream": [
+						"scared": [
 							"Une fois la potion terminée, vous décidez de boire une petite gorgée. Immédiatement, vous êtes transporté à travers une intense hallucination. Votre futur ne semble pas très prometteur... :scream:",
 							"À peine la formule prononcée, vous goûtez déjà le liquide. Pris d'une crise de panique, vous n'êtes pas long à regretter votre choix. :scream:"
 						],

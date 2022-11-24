@@ -8,21 +8,26 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The package will probably give you a random potion but can make you sick.
+ */
 export default class Package extends WitchEvent {
 
 	public constructor() {
 		super("package");
 		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
+		this.effectName = "sick";
 		this.setOutcomeProbabilities(45, 5, 0, 0);
 	}
 
 	/**
 	 * The package will give a random potion with a legendary maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
-			ItemConstants.RARITY.LEGENDARY);
+			ItemConstants.RARITY.LEGENDARY
+		);
 	}
 
 	/**

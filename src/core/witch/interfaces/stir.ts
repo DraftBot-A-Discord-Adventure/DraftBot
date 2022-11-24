@@ -8,6 +8,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The stir will very rarely give a random potion
+ */
 export default class Stir extends WitchEvent {
 
 	public constructor() {
@@ -21,7 +24,7 @@ export default class Stir extends WitchEvent {
 	/**
 	 * The stir will give a random potion with a rare maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.RARE);

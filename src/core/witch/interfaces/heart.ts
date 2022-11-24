@@ -5,6 +5,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The heart will give a health potion
+ */
 export default class Heart extends WitchEvent {
 
 	public constructor() {
@@ -16,7 +19,7 @@ export default class Heart extends WitchEvent {
 	/**
 	 * The heart will give a health potion with a legendary maximum rarity.
 	 */
-	async generatePotion(): Promise<GenericItemModel> {
+	static async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.LEGENDARY);

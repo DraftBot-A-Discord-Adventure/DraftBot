@@ -5,6 +5,9 @@ import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 
+/**
+ * The player waits for a bit and nothing happens.
+ */
 export default class SmallWait extends WitchEvent {
 
 	public constructor() {
