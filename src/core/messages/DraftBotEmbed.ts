@@ -31,6 +31,18 @@ export class DraftBotEmbed extends EmbedBuilder {
 		return this;
 	}
 
+	/**
+	 * @param title
+	 * @param iconUrl
+	 */
+	formatAuthorWithUrl(title: string, iconUrl: string): this {
+		this.setAuthor({
+			name: title,
+			iconURL: iconUrl
+		});
+		return this;
+	}
+
 	setErrorColor(): this {
 		this.setColor(<HexColorString>Constants.MESSAGES.COLORS.ERROR);
 		return this;

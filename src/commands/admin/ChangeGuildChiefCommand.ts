@@ -30,7 +30,7 @@ function getEndCallbackChangeChief(
 
 			for (const member of await Players.getByGuild(guild.id)) {
 				const embed = new DraftBotEmbed()
-					.formatAuthor(tr.get("DM.title"),await draftBotClient.users.fetch(member.discordUserId.toString()))
+					.formatAuthor(tr.get("DM.title"), await draftBotClient.users.fetch(member.discordUserId.toString()))
 					.setDescription(format(tr.get("DM.description"), {
 						old: formerChief.getPseudo(tr.language),
 						oldID: formerChief.discordUserId,

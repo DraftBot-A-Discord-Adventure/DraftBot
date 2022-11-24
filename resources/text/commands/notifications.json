@@ -43,7 +43,7 @@
 				"none": "\uD83D\uDEAB Notifications have been disabled."
 			},
 			"noNotifications": "You will no longer receive notifications from the bot.",
-			"error": "You have closed your DMs !",
+			"error": "You closed your DMs !",
 			"open": "open",
 			"closed": "closed",
 			"channelNotification": "This message is sent to you through the notification system. If you no longer wish to receive messages from this bot, please use the command /notifications.",
