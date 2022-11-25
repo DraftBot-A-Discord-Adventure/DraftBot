@@ -149,6 +149,7 @@ async function getEndCallbackSkipMissionShopItem(
 		BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
 		await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 		draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MISSION_SKIP).then();
+		return true;
 	};
 }
 
