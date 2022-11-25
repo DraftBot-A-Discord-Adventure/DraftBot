@@ -37,6 +37,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendDirectMessage} from "../../../utils/MessageUtils";
 import {NotificationsConstants} from "../../../constants/NotificationsConstants";
+import {format} from "../../../utils/StringFormatter";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -365,39 +366,26 @@ export class Player extends Model {
 	 * @param language
 	 */
 	private async checkChannelAccess(user: User, embed: DraftBotEmbed, language: string): Promise<void> {
-		await draftBotClient.shard.broadcastEval(async (client, context) => {
-			const channel = client.channels.cache.get(context.player.notifications);
-			if (channel) {
-				const tr = require("../../../../dist/src/core/Translations").Translations.getModule("commands.notifications", context.language);
-				if (!(<GuildChannel>channel).permissionsFor(client.user).has(<PermissionResolvable>context.flags.viewChannel) ||
-					!(<GuildChannel>channel).permissionsFor(client.user).has(<PermissionResolvable>context.flags.sendMessage)) {
-					client.users.fetch(context.player.discordId).then((user) => {
-						/*
-						context.player.notifications = context.constantDMValue;
-						need save player here
-						*/
-						require("../../../../dist/src/core/utils/MessageUtils").sendDirectMessage(user,
-							new (require("../../../../dist/src/core/messages/DraftBotEmbed").DraftBotEmbed)()
-								.formatAuthorWithUrl(context.embed.author.name, context.embed.author.icon_url)
-								.setDescription(`${context.embed.description}\n\n${require("../../../../dist/src/core/utils/StringFormatter").format(tr.get("noChannelAccess"), {})}`)
-								.setFooter({text: tr.get("channelNotification")}),
-							context.language);
-					});
-				}
-				else {
+		const channelAccess = await draftBotClient.shard.broadcastEval((client, context) => {
+			return client.channels.fetch(context.player.notifications).then(async (channel) => {
+				if (channel) {
+					if (!(<GuildChannel>channel).permissionsFor(client.user).has(<PermissionResolvable>context.flags.viewChannel) ||
+						!(<GuildChannel>channel).permissionsFor(client.user).has(<PermissionResolvable>context.flags.sendMessage)) {
+						return null;
+					}
 					await (<TextChannel>channel).send({
 						content: `<@${context.player.discordId}>`,
 						embeds: [new (require("../../../../dist/src/core/messages/DraftBotEmbed").DraftBotEmbed)()
 							.formatAuthorWithUrl(context.embed.author.name, context.embed.author.icon_url)
 							.setDescription(context.embed.description)
-							.setFooter({text: tr.get("channelNotification")})
+							.setFooter({text: require("../../../../dist/src/core/Translations").Translations.getModule("commands.notifications", context.playerLanguage).get("channelNotification")})
 						]
 					});
+					return channel;
 				}
-			}
+			});
 		}, {
 			context: {
-				constantDMValue: NotificationsConstants.DM_VALUE,
 				flags: {
 					viewChannel: PermissionsBitField.Flags.ViewChannel.toString(),
 					sendMessage: PermissionsBitField.Flags.SendMessages.toString()
@@ -410,9 +398,15 @@ export class Player extends Model {
 					author: embed.data.author,
 					description: embed.data.description
 				},
-				language: language
+				playerLanguage: language
 			}
 		});
+		if (!channelAccess[1]) {
+			this.notifications = NotificationsConstants.DM_VALUE;
+			await this.save();
+			const tr = Translations.getModule("commands.notifications", language);
+			sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"), {})}`), language);
+		}
 	}
 
 	/**
