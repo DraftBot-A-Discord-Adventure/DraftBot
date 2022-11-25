@@ -18,7 +18,7 @@ export default class TestTube extends WitchEvent {
 	/**
 	 * The test tube will give a random potion with a special maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.SPECIAL);

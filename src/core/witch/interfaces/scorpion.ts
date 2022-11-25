@@ -10,6 +10,9 @@ import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 
+/**
+ * The scorpion will do nothing or give an attack potion or hurt the player.
+ */
 export default class Scorpion extends WitchEvent {
 
 	public constructor() {
@@ -22,7 +25,7 @@ export default class Scorpion extends WitchEvent {
 	/**
 	 * The scorpion will give an attack potion with a rare maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.RARE);

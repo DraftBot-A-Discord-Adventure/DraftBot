@@ -25,7 +25,7 @@ export default class Distiller extends WitchEvent {
 	/**
 	 * The distiller will give a time skip potion with a mythical maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.MYTHICAL);

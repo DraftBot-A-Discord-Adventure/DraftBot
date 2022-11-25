@@ -209,10 +209,10 @@ async function manageMoreThan2ItemsSwitching(
 	const choiceList: ChoiceItem[] = [];
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-	for (const item of items) {
+	for (const inventorySlot of items) {
 		choiceList.push(new ChoiceItem(
-			(await item.getItem()).toString(tr.language, null),
-			item
+			(await inventorySlot.getItem()).toString(tr.language, null),
+			inventorySlot
 		));
 	}
 	const choiceMessage = new DraftBotListChoiceMessage(

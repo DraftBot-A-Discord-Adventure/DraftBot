@@ -19,7 +19,7 @@ export default class Turtle extends WitchEvent {
 	/**
 	 * The turtle will give a defense potion with a special maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.DEFENSE,
 			ItemConstants.RARITY.SPECIAL);

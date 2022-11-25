@@ -19,7 +19,7 @@ export default class Snake extends WitchEvent {
 	/**
 	 * The snake will give an attack potion with a rare maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.RARE);

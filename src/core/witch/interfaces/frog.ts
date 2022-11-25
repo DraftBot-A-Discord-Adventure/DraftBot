@@ -20,7 +20,7 @@ export default class Frog extends WitchEvent {
 	/**
 	 * The frog will give either a speed potion or a time potion with a rare maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.RARE,

@@ -19,7 +19,7 @@ export default class Spider extends WitchEvent {
 	/**
 	 * The spider will give an attack potion with a common maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.COMMON);

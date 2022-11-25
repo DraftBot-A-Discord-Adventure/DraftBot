@@ -8,6 +8,9 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {format} from "../utils/StringFormatter";
 
+/**
+ * The base class for the different events that can happen after the player encounters the witch
+ */
 export abstract class WitchEvent {
 	public readonly name: string;
 
