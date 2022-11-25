@@ -59,9 +59,10 @@ export abstract class ItemConstants {
 				9375, // special
 				9875, // epic
 				9975, // legendary
-				9998 // mythic
+				9998, // mythic
+				10000
 			],
-			MAX_VALUE: 10000
+			MAX_VALUE: 10000 // be sure this number is the same as the last value in the VALUES array
 		}
 	};
 

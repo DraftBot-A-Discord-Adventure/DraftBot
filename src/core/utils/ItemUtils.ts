@@ -209,10 +209,10 @@ async function manageMoreThan2ItemsSwitching(
 	const choiceList: ChoiceItem[] = [];
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-	for (const item of items) {
+	for (const inventorySlot of items) {
 		choiceList.push(new ChoiceItem(
-			(await item.getItem()).toString(tr.language, null),
-			item
+			(await inventorySlot.getItem()).toString(tr.language, null),
+			inventorySlot
 		));
 	}
 	const choiceMessage = new DraftBotListChoiceMessage(
@@ -388,29 +388,11 @@ export const generateRandomRarity = function(minRarity = ItemConstants.RARITY.CO
 		- (maxRarity === ItemConstants.RARITY.MYTHICAL ? 0 : ItemConstants.RARITY.GENERATOR.MAX_VALUE
 			- ItemConstants.RARITY.GENERATOR.VALUES[maxRarity - 1])
 	);
-
-	if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[0]) {
-		return ItemConstants.RARITY.COMMON;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[1]) {
-		return ItemConstants.RARITY.UNCOMMON;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[2]) {
-		return ItemConstants.RARITY.EXOTIC;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[3]) {
-		return ItemConstants.RARITY.RARE;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[4]) {
-		return ItemConstants.RARITY.SPECIAL;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[5]) {
-		return ItemConstants.RARITY.EPIC;
-	}
-	else if (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[6]) {
-		return ItemConstants.RARITY.LEGENDARY;
-	}
-	return ItemConstants.RARITY.MYTHICAL;
+	let rarity = ItemConstants.RARITY.BASIC;
+	do {
+		rarity++; // we increase rarity until we find the generated one
+	} while (randomValue <= ItemConstants.RARITY.GENERATOR.VALUES[rarity - 1]);
+	return rarity;
 };
 
 /**
@@ -450,14 +432,13 @@ export const generateRandomItem = async function(
 		}
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
 		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	case ItemConstants.CATEGORIES.OBJECT:
+	default:
+		// This will be triggered by ItemConstants.CATEGORIES.OBJECT
 		if (itemSubType) {
 			return await ObjectItems.randomItem(itemSubType, rarity);
 		}
 		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
 		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-	default:
-		return null;
 	}
 };
 
