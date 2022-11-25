@@ -57,7 +57,7 @@
 							"À peine la formule prononcée, vous goûtez déjà le liquide. Pris d'une crise de panique, vous n'êtes pas long à regretter votre choix. :scream:"
 						],
 						"drunk": [
-							"Vous décidez de goûter à la potion et le regrettez rapidement... Il semblerait qu'un des ingrédient vous reste en travers de la george. :zany_face:",
+							"Vous décidez de goûter à la potion et le regrettez rapidement... Il semblerait qu'un des ingrédient vous reste en travers de la gorge. :zany_face:",
 							"Il semblerait que la potion ait un effet surprenant. Vous vous sentez un peu ivre... :zany_face:"
 						],
 						"sick": [
@@ -69,7 +69,7 @@
 							"Alors que vous alliez terminer la potion, vous trébuchez et tombez dans le gouffre remplis de glace dans lequel vous prévoyiez de déposer la marmite. :cold_face:"
 						]
 					},
-					"3":  [
+					"3": [
 						"Une fois la potion terminée, la sorcière vous tend un verre. Encore brulant, vous l'échappez maladroitement sur votre pied. Vous perdez **{lifeLoss} :broken_heart:**.",
 						"Alors que vous alliez terminer la potion, vous êtes victime de la maladresse de la vieille sorcière qui échappe le chaudron sur vous. Vous perdez **{lifeLoss} :broken_heart:**.",
 						"Malgré la bonne odeur de la potion, cette dernière n'est pas aussi bonne pour la santé que ce que vous auriez pu espérer. Vous perdez **{lifeLoss} :broken_heart:**.",
@@ -87,9 +87,9 @@
 				"bat": "Ajouter une chauve-souris",
 				"beer": "Ajouter de la bière",
 				"bigWait": "Laisser reposer la potion",
-				"bigWarm": "Augmenter la température",
+				"bigWarm": "Faire bouillir longuement la potion",
 				"blood": "Ajouter du sang",
-				"book": "Utiliser une incantation du livre de sortilèges",
+				"book": "Prononcer une incantation du livre de sortilèges",
 				"cobweb": "Ajouter une toile d'araignée",
 				"cool": "Laisser refroidir la potion",
 				"crystalBall": "Réciter une formule magique",
@@ -106,7 +106,7 @@
 				"rose": "Ajouter une rose",
 				"scorpion": "Ajouter un scorpion",
 				"smallWait": "Laisser reposer la potion un tout petit peu",
-				"smallWarm": "Augmenter un tout petit peu la température",
+				"smallWarm": "Réchauffer un petit peu la marmite",
 				"snake": "Ajouter un serpent",
 				"spider": "Ajouter une araignée",
 				"stir": "Mélanger la potion",
@@ -140,6 +140,65 @@
 				"The old woman is making a potion, but she seems to struggle with obtaining decent results in this endeavor...",
 				"She looks like she's trying to prepare a strange brew in an enormous cauldron..."
 			],
+			"witchEventResults": {
+				"ingredientIntros": [
+					"You decide to **{witchEvent}** to the potion in the hope of improving it...",
+					"You decide to **{witchEvent}** to the potion while the witch's back is turned...",
+					"You advise the witch to **{witchEvent}** to her potion...",
+					"Following your advice, the witch decides to **{witchEvent}** to her potion...",
+					"You follow your instincts and decide to **{witchEvent}** to the dubious mixture...",
+					"You decide to **{witchEvent}** to the potion, hoping that it will improve the result...",
+					"You dare to **{witchEvent}** to the potion...",
+					"After studying the contents of the pot, you decide to **{witchEvent}** to the list of ingredients..."
+				],
+				"adviceIntros": [
+					"Feeling pity, you advise her to **{witchEvent}** in order to get a better result...",
+					"You decide to help the witch by advising her to **{witchEvent}**..."
+				],
+				"outcomes": {
+					"1": [
+						"Once the potion is finished, the witch hands you a drink. You decide to save it for the rest of your adventure.",
+						"Thanks to your intervention, the potion seems drinkable. You decide to keep some of it for the rest of your adventure.",
+						"After finishing the potion, the old lady pours some of it into a bottle and gives it to you. You accept it happily, before going on your way.",
+						"The result tastes strange, but you decide to save some of the potion for your next adventure."
+					],
+					"2": {
+						"time": [
+							"As you continue on your way, you realise that this stop has been longer than you anticipated. You lose **{lostTime} Min :clock2:**",
+							"As you drive away, you realize how much time was wasted on this preparation. You lose **{lostTime} Min :clock2:**",
+							"As you turn back, you begin to regret the time you wasted waiting for this preparation. You lose **{lostTime} Min :clock2:**"
+						],
+						"scared": [
+							"Once the potion is finished, you decide to take a sip. Immediately, you are transported through an intense hallucination. Your future doesn't look very promising... :scream:",
+							"As soon as you say the formula, you already taste the liquid. A panic attack takes hold of you and you soon regret your choice. :scream:"
+						],
+						"drunk": [
+							"You decide to try the potion and quickly regret it... It seems that one of the ingredients is sticking in your throat. :zany_face:",
+							"It seems that the potion has a surprising effect. You feel a bit drunk... :zany_face:"
+						],
+						"sick": [
+							"Unfortunately, the smell of the potion was a harbinger of its effects. You quickly regret trusting the old witch's talent. :sick:",
+							"Despite your intervention, the potion does not seem to have improved. You feel uncomfortable... :sick:"
+						],
+						"cold": [
+							"You decide to taste the potion which is very cold. The cold sensation does not go away, however, and you helplessly feel each of your limbs getting colder... :cold_face:",
+							"As you were about to finish the potion, you stumble and fall into the ice-filled chasm in which you were planning to place the pot. :cold_face:"
+						]
+					},
+					"3": [
+						"Once the potion is finished, the witch hands you a glass. Still burning, you clumsily drop it on your foot. You lose **{lifeLoss} :broken_heart:**.",
+						"Just as you are about to finish the potion, you fall victim to the old witch's clumsiness and drop the cauldron on you. You lose **{lifeLoss} :broken_heart:**.",
+						"Despite the good smell of the potion, it is not as healthy as you might have hoped. You lose **{lifeLoss} :broken_heart:**.",
+						"The taste of the potion is very strange. Maybe you should have listened to your instincts and not tasted it... You are losing **{lifeLoss} :broken_heart:**.",
+						"The fumes from the potion are enough to make you sick. You leave without asking for help, but not without having suffered the consequences of inhaling the fumes. You lose **{lifeLoss} :broken_heart:**.",
+						"As the old woman is about to pour the last drop into the pot a thud is heard. It seems that the pot has exploded. You lose **{lifeLoss} :broken_heart:**."
+					],
+					"4": [
+						"Unfortunately, the potion looks completely charred and undrinkable. You decide not to risk drinking it and quickly leave",
+						"You finish the potion with the old lady, but decide not to consume it, preferring to save your health for the rest of your adventure."
+					]
+				}
+			},
 			"witchEventNames": {
 				"bat": "Add a bat",
 				"beer": "Add beer",

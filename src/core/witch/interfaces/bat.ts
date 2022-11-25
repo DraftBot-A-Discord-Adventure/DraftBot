@@ -23,7 +23,7 @@ export default class Bat extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
+			ItemConstants.RARITY.RARE,
 			ItemConstants.RARITY.SPECIAL,
 			RandomUtils.draftbotRandom.bool(0.625) ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP
 		);

@@ -26,7 +26,7 @@ export default class Package extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
+			ItemConstants.RARITY.COMMON,
 			ItemConstants.RARITY.LEGENDARY
 		);
 	}

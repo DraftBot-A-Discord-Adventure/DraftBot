@@ -28,8 +28,8 @@ export default class BigWait extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
-			null,
+			ItemConstants.RARITY.COMMON,
+			ItemConstants.RARITY.MYTHICAL,
 			Constants.ITEM_NATURE.NO_EFFECT
 		);
 	}

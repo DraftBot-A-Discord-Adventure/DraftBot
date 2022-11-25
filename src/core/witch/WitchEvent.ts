@@ -26,6 +26,8 @@ export abstract class WitchEvent {
 
 	protected effectName = "";
 
+	public tags: string[] = []; // tags for mission completion
+
 	protected lifePointsRemovedAmount = SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
 
 	protected constructor(name: string) {
@@ -68,7 +70,7 @@ export abstract class WitchEvent {
 	 */
 	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
 		await player.addHealth(
-			- this.lifePointsRemovedAmount,
+			-this.lifePointsRemovedAmount,
 			interaction.channel,
 			language,
 			NumberChangeReason.SMALL_EVENT
@@ -127,5 +129,17 @@ export abstract class WitchEvent {
 			{
 				lifeLoss: this.lifePointsRemovedAmount
 			})}${timeOutro}`;
+	}
+
+	/**
+	 * check the mission validation for the witch event
+	 * @param interaction
+	 * @param player
+	 * @param language
+	 * @param outcome
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public async checkMissions(interaction: CommandInteraction, player: Player, language: string, outcome: number): Promise<void> {
+		return await Promise.resolve();
 	}
 }

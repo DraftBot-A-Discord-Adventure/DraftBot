@@ -22,7 +22,7 @@ export default class RedApple extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
+			ItemConstants.RARITY.COMMON,
 			ItemConstants.RARITY.COMMON,
 			Constants.ITEM_NATURE.HEALTH
 		);
