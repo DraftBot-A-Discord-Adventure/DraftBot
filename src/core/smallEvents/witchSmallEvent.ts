@@ -1,4 +1,4 @@
-import {CacheType, CommandInteraction} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {TranslationModule, Translations} from "../Translations";
@@ -36,7 +36,7 @@ function getRandomWitchEvents(): WitchEventSelection {
  * @param language
  * @param interaction
  */
-async function givePotion(player: Player, potionToGive: GenericItemModel, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+async function givePotion(player: Player, potionToGive: GenericItemModel, language: string, interaction: CommandInteraction): Promise<void> {
 	await giveItemToPlayer(
 		player,
 		potionToGive,
@@ -55,7 +55,7 @@ async function givePotion(player: Player, potionToGive: GenericItemModel, langua
  * @param selectedEvent
  * @param interaction
  */
-async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: TranslationModule, selectedEvent: WitchEvent, interaction: CommandInteraction<CacheType>): Promise<void> {
+async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: TranslationModule, selectedEvent: WitchEvent, interaction: CommandInteraction): Promise<void> {
 	const resultString = selectedEvent.generateResultString(outcome, tr);
 	seEmbed.setDescription(resultString);
 	await interaction.channel.send({embeds: [seEmbed]});
@@ -69,7 +69,7 @@ async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: Tr
  * @param language
  * @param interaction
  */
-async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: string, interaction: CommandInteraction<CacheType>): Promise<void> {
+async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: string, interaction: CommandInteraction): Promise<void> {
 	if (selectedEvent.forceEffect || outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
@@ -119,7 +119,7 @@ function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBo
 function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
 	language: string,
-	interaction: CommandInteraction<CacheType>,
+	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
 	tr: TranslationModule
 ): DraftBotReactionMessage {
