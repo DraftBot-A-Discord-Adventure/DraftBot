@@ -22,7 +22,7 @@ export default class Teeth extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
+			ItemConstants.RARITY.COMMON,
 			ItemConstants.RARITY.SPECIAL,
 			Constants.ITEM_NATURE.ATTACK
 		);

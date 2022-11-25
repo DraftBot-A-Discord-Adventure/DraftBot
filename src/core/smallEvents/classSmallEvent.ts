@@ -45,12 +45,12 @@ export const smallEvent: SmallEvent = {
 			case 0:
 				// winAttackPotion
 				seEmbed.setDescription(base + tr.getRandom("attack.winPotion"));
-				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, null, null, Constants.ITEM_NATURE.ATTACK);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.ATTACK);
 				break;
 			case 1:
 				// winAttackObject
 				seEmbed.setDescription(base + tr.getRandom("attack.winObject"));
-				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, null, null, Constants.ITEM_NATURE.ATTACK);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.ATTACK);
 				break;
 			default:
 				// winWeapon
@@ -67,12 +67,12 @@ export const smallEvent: SmallEvent = {
 			case 0:
 				// winDefensePotion
 				seEmbed.setDescription(base + tr.getRandom("defense.winPotion"));
-				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, null, null, Constants.ITEM_NATURE.DEFENSE);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			case 1:
 				// winDefenseObject
 				seEmbed.setDescription(base + tr.getRandom("defense.winObject"));
-				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, null, null, Constants.ITEM_NATURE.DEFENSE);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			default:
 				// winArmor

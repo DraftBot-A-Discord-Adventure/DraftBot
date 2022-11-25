@@ -22,7 +22,7 @@ export default class Heart extends WitchEvent {
 	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomItem(
 			ItemConstants.CATEGORIES.POTION,
-			null,
+			ItemConstants.RARITY.COMMON,
 			ItemConstants.RARITY.LEGENDARY,
 			Constants.ITEM_NATURE.HEALTH
 		);

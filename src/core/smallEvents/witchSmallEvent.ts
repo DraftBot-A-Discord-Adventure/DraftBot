@@ -24,7 +24,7 @@ type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEv
  */
 function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
-	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
+	const randomIngredient = WitchEvents.getRandomWitchEventByType(4);
 	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
 	return {randomAdvice, randomIngredient, nothingHappen};
 }
@@ -169,8 +169,8 @@ export const smallEvent: SmallEvent = {
 					await sendResultMessage(seEmbed, SmallEventConstants.WITCH.OUTCOME_TYPE.POTION, tr, selectedEvent, interaction);
 					const potionToGive = await generateRandomItem(
 						ItemConstants.CATEGORIES.POTION,
-						null,
-						null,
+						ItemConstants.RARITY.COMMON,
+						ItemConstants.RARITY.MYTHICAL,
 						Constants.ITEM_NATURE.NO_EFFECT
 					);
 					await givePotion(player, potionToGive, language, interaction);
@@ -181,6 +181,7 @@ export const smallEvent: SmallEvent = {
 
 				await applyOutcome(outcome, selectedEvent, player, language, interaction);
 
+				await selectedEvent.checkMissions(interaction, player, language, outcome);
 			});
 
 		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, tr);
