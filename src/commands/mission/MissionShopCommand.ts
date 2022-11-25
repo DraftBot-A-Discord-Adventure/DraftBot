@@ -241,7 +241,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			const item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, null, ItemConstants.RARITY.SPECIAL);
+			const item = await generateRandomItem(null, ItemConstants.RARITY.SPECIAL, ItemConstants.RARITY.MYTHICAL);
 			await giveItemToPlayer(player, item, message.language, message.user, message.sentMessage.channel, await InventorySlots.getOfPlayer(player.id));
 			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.TREASURE).then();

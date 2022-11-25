@@ -1,10 +1,10 @@
 import {WitchEvent} from "../WitchEvent";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {generateRandomPotion} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
+import {generateRandomItem} from "../../utils/ItemUtils";
 
 /**
  * The frog will give a time or speed potion or nothing.
@@ -21,9 +21,11 @@ export default class Frog extends WitchEvent {
 	 * The frog will give either a speed potion or a time potion with a rare maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP,
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
 			ItemConstants.RARITY.RARE,
-			ItemConstants.RARITY.RARE);
+			ItemConstants.RARITY.RARE,
+			RandomUtils.draftbotRandom.bool() ? Constants.ITEM_NATURE.SPEED : Constants.ITEM_NATURE.TIME_SPEEDUP
+		);
 	}
 }

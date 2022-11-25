@@ -23,7 +23,7 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.POTION);
+		const randomItem = await generateRandomItem(ItemConstants.CATEGORIES.POTION, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL);
 		seEmbed.setDescription(
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +

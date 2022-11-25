@@ -1,6 +1,6 @@
 import {WitchEvent} from "../WitchEvent";
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
@@ -25,7 +25,8 @@ export default class Book extends WitchEvent {
 	 * The book will give a random potion with a special maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
 			null,
 			ItemConstants.RARITY.SPECIAL
 		);

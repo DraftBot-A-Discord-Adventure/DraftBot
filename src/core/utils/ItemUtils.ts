@@ -209,10 +209,10 @@ async function manageMoreThan2ItemsSwitching(
 	const choiceList: ChoiceItem[] = [];
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-	for (const inventorySlot of items) {
+	for (const item of items) {
 		choiceList.push(new ChoiceItem(
-			(await inventorySlot.getItem()).toString(tr.language, null),
-			inventorySlot
+			(await item.getItem()).toString(tr.language, null),
+			item
 		));
 	}
 	const choiceMessage = new DraftBotListChoiceMessage(
@@ -423,11 +423,17 @@ export const generateRandomItemCategory = function(): number {
 
 /**
  * Generates a random item given its category and the rarity limits
- * @param maxRarity
  * @param itemCategory
  * @param minRarity
+ * @param maxRarity
+ * @param itemSubType
  */
-export const generateRandomItem = async function(maxRarity = ItemConstants.RARITY.MYTHICAL, itemCategory: number = null, minRarity = ItemConstants.RARITY.COMMON): Promise<GenericItemModel> {
+export const generateRandomItem = async function(
+	itemCategory: number = null,
+	minRarity: number = ItemConstants.RARITY.COMMON,
+	maxRarity: number = ItemConstants.RARITY.MYTHICAL,
+	itemSubType: number = null
+): Promise<GenericItemModel> {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
@@ -439,44 +445,20 @@ export const generateRandomItem = async function(maxRarity = ItemConstants.RARIT
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
 		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case ItemConstants.CATEGORIES.POTION:
+		if (itemSubType) {
+			return await Potions.randomItem(itemSubType, rarity);
+		}
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
 		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case ItemConstants.CATEGORIES.OBJECT:
+		if (itemSubType) {
+			return await ObjectItems.randomItem(itemSubType, rarity);
+		}
 		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
 		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	default:
 		return null;
 	}
-};
-
-/**
- * Generate a random potion
- * @param {number} maxRarity
- * @param {number} potionType
- * @param {number} minRarity
- * @returns {Potions} generated potion
- */
-export const generateRandomPotion = async function(potionType: number = null, maxRarity = ItemConstants.RARITY.MYTHICAL, minRarity = ItemConstants.RARITY.COMMON): Promise<GenericItemModel> {
-	if (potionType === null) {
-		return await generateRandomItem(maxRarity, ItemConstants.CATEGORIES.POTION, minRarity);
-	}
-	const rarity = generateRandomRarity(minRarity, maxRarity);
-	return await Potions.randomItem(potionType, rarity);
-};
-
-/**
- * Generate a random object
- * @param {number} maxRarity
- * @param {number} objectType
- * @param minRarity
- * @returns {ObjectItem} generated object
- */
-export const generateRandomObject = async function(objectType: number = null, minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): Promise<GenericItemModel> {
-	if (objectType === null) {
-		return this.generateRandomItem(maxRarity, ItemConstants.CATEGORIES.OBJECT, minRarity);
-	}
-	const rarity = generateRandomRarity(minRarity, maxRarity);
-	return await ObjectItems.randomItem(objectType, rarity);
 };
 
 /**

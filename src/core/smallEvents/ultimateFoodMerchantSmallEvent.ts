@@ -75,7 +75,7 @@ async function generateReward(player: Player): Promise<RewardType> {
 			option: 0
 		} : {
 			type: "item",
-			option: await generateRandomItem(maxRarity(player), null, minRarity(player))
+			option: await generateRandomItem(null, minRarity(player), maxRarity(player))
 		};
 	}
 	if (GuildConstants.MAX_COMMON_PET_FOOD > guild.commonFood) {

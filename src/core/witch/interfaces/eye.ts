@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
@@ -20,9 +20,11 @@ export default class Eye extends WitchEvent {
 	 * The eye will give a time potion with an epic maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.TIME_SPEEDUP,
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			ItemConstants.RARITY.RARE,
 			ItemConstants.RARITY.EPIC,
-			ItemConstants.RARITY.RARE);
+			Constants.ITEM_NATURE.TIME_SPEEDUP
+		);
 	}
 }

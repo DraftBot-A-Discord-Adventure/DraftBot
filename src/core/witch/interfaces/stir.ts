@@ -1,6 +1,6 @@
 import {WitchEvent} from "../WitchEvent";
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
 import {NumberChangeReason} from "../../constants/LogsConstants";
@@ -25,9 +25,11 @@ export default class Stir extends WitchEvent {
 	 * The stir will give a random potion with a rare maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
 			null,
-			ItemConstants.RARITY.RARE);
+			ItemConstants.RARITY.RARE
+		);
 	}
 
 	/**

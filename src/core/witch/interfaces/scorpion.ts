@@ -1,7 +1,7 @@
 import {WitchEvent} from "../WitchEvent";
 
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
@@ -26,9 +26,12 @@ export default class Scorpion extends WitchEvent {
 	 * The scorpion will give an attack potion with a rare maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.ATTACK,
-			ItemConstants.RARITY.RARE);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			null,
+			ItemConstants.RARITY.RARE,
+			Constants.ITEM_NATURE.ATTACK
+		);
 	}
 
 	/**
