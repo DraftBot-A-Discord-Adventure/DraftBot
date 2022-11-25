@@ -24,7 +24,7 @@ export default class BigWait extends WitchEvent {
 	/**
 	 * The big wait advice will give a no effect potion.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.NO_EFFECT);
 	}

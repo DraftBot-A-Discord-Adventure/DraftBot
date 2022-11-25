@@ -24,7 +24,7 @@ export default class Cool extends WitchEvent {
 	/**
 	 * The cool will give a time potion with a special maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.SPECIAL, ItemConstants.RARITY.RARE);

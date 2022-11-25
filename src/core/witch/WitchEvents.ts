@@ -2,6 +2,9 @@ import {readdirSync} from "fs";
 import {WitchEvent} from "./WitchEvent";
 import {RandomUtils} from "../utils/RandomUtils";
 
+/**
+ * This allows to load and manage all the witch events
+ */
 export class WitchEvents {
 	static witchEvents: Map<string, WitchEvent> = null;
 

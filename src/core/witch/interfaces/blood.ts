@@ -19,7 +19,7 @@ export default class Blood extends WitchEvent {
 	/**
 	 * The blood will give a health potion with a rare maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.RARE);

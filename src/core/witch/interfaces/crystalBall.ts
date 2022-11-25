@@ -24,7 +24,7 @@ export default class CrystalBall extends WitchEvent {
 	/**
 	 * The crystal ball will give a time skip potion with a rare maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.RARE,ItemConstants.RARITY.RARE

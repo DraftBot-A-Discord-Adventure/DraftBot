@@ -19,7 +19,7 @@ export default class RedApple extends WitchEvent {
 	/**
 	 * The red apple will give a health potion with a common maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.COMMON);

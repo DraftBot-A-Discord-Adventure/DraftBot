@@ -19,7 +19,7 @@ export default class Heart extends WitchEvent {
 	/**
 	 * The heart will give a health potion with a legendary maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.LEGENDARY);

@@ -24,7 +24,7 @@ export default class Wand extends WitchEvent {
 	/**
 	 * The wand will give a random potion with an epic maximum rarity and a rare minimum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.EPIC,

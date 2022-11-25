@@ -19,7 +19,7 @@ export default class Eye extends WitchEvent {
 	/**
 	 * The eye will give a time potion with an epic maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.TIME_SPEEDUP,
 			ItemConstants.RARITY.EPIC,

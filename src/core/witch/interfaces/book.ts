@@ -24,7 +24,7 @@ export default class Book extends WitchEvent {
 	/**
 	 * The book will give a random potion with a special maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.SPECIAL

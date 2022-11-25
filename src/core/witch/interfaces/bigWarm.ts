@@ -25,7 +25,7 @@ export default class BigWarm extends WitchEvent {
 	/**
 	 * The big warm will give very powerful attack potion.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.MYTHICAL,

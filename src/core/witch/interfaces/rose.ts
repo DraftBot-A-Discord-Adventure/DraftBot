@@ -19,7 +19,7 @@ export default class Rose extends WitchEvent {
 	/**
 	 * The rose will give a health potion with an uncommon maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.HEALTH,
 			ItemConstants.RARITY.UNCOMMON);

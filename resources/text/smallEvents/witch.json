@@ -5,7 +5,7 @@
 				"vous rencontrez une vieille dame qui semble vouloir que vous la suiviez. ",
 				"vous apercevez une vieille femme et décidez de vous en approcher. ",
 				"vous remarquez une femme âgée, qui vous fait signe. ",
-				"vous remarquez la silhouette d'une vielle dame et vous décidez d'aller voir ce qu'elle fait. "
+				"vous remarquez la silhouette d'une vieille dame et vous décidez d'aller voir ce qu'elle fait. "
 			],
 			"description": [
 				"Elle vous paraît âgée, frêle, avec un nez long et fin. ",
@@ -21,8 +21,8 @@
 				"Vous découvrez qu'un chaudron bouillonne sur le feu et que la vieille dame semble préparer une potion...",
 				"Vous vous approchez et découvrez que sa préparation d'une potion ne semble pas se passer comme prévu...",
 				"Vous observez la vieille dame préparer une potion, mais vous constatez que son contenu déborde presque du chaudron...",
-				"La vielle dame est en train de préparer une potion, mais elle semble avoir du mal à obtenir un résultat satisfaisant...",
-				"Elle semble essayer de préparer une mixture étrange dans un énorme chaudron..."
+				"La vieille dame est en train de préparer une potion, mais elle semble avoir du mal à obtenir un résultat satisfaisant...",
+				"Elle semble être en train préparer une mixture étrange dans un énorme chaudron..."
 			],
 			"witchEventResults": {
 				"ingredientIntros": [

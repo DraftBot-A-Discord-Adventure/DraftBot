@@ -23,7 +23,7 @@ export default class Package extends WitchEvent {
 	/**
 	 * The package will give a random potion with a legendary maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			null,
 			ItemConstants.RARITY.LEGENDARY

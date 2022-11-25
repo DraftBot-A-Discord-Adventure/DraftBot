@@ -19,7 +19,7 @@ export default class WiltedRose extends WitchEvent {
 	/**
 	 * The wilted rose will give a defense potion with an uncommon maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.DEFENSE,
 			ItemConstants.RARITY.UNCOMMON);

@@ -19,7 +19,7 @@ export default class Teeth extends WitchEvent {
 	/**
 	 * The teeth will give an attack potion with a special maximum rarity.
 	 */
-	static async generatePotion(): Promise<GenericItemModel> {
+	async generatePotion(): Promise<GenericItemModel> {
 		return await generateRandomPotion(
 			Constants.ITEM_NATURE.ATTACK,
 			ItemConstants.RARITY.SPECIAL);
