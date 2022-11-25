@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
@@ -20,8 +20,11 @@ export default class WiltedRose extends WitchEvent {
 	 * The wilted rose will give a defense potion with an uncommon maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.DEFENSE,
-			ItemConstants.RARITY.UNCOMMON);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			null,
+			ItemConstants.RARITY.UNCOMMON,
+			Constants.ITEM_NATURE.DEFENSE
+		);
 	}
 }

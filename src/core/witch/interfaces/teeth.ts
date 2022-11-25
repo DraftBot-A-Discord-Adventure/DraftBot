@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
@@ -20,8 +20,11 @@ export default class Teeth extends WitchEvent {
 	 * The teeth will give an attack potion with a special maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.ATTACK,
-			ItemConstants.RARITY.SPECIAL);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			null,
+			ItemConstants.RARITY.SPECIAL,
+			Constants.ITEM_NATURE.ATTACK
+		);
 	}
 }

@@ -7,8 +7,6 @@ import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {
 	generateRandomItem,
-	generateRandomObject,
-	generateRandomPotion,
 	giveItemToPlayer,
 	giveRandomItem
 } from "../utils/ItemUtils";
@@ -47,17 +45,17 @@ export const smallEvent: SmallEvent = {
 			case 0:
 				// winAttackPotion
 				seEmbed.setDescription(base + tr.getRandom("attack.winPotion"));
-				item = await generateRandomPotion(Constants.ITEM_NATURE.ATTACK);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, null, null, Constants.ITEM_NATURE.ATTACK);
 				break;
 			case 1:
 				// winAttackObject
 				seEmbed.setDescription(base + tr.getRandom("attack.winObject"));
-				item = await generateRandomObject(Constants.ITEM_NATURE.ATTACK);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, null, null, Constants.ITEM_NATURE.ATTACK);
 				break;
 			default:
 				// winWeapon
 				seEmbed.setDescription(base + tr.getRandom("attack.winWeapon"));
-				item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.WEAPON);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.WEAPON, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL);
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});
@@ -69,17 +67,17 @@ export const smallEvent: SmallEvent = {
 			case 0:
 				// winDefensePotion
 				seEmbed.setDescription(base + tr.getRandom("defense.winPotion"));
-				item = await generateRandomPotion(Constants.ITEM_NATURE.DEFENSE);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, null, null, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			case 1:
 				// winDefenseObject
 				seEmbed.setDescription(base + tr.getRandom("defense.winObject"));
-				item = await generateRandomObject(Constants.ITEM_NATURE.DEFENSE);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, null, null, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			default:
 				// winArmor
 				seEmbed.setDescription(base + tr.getRandom("defense.winArmor"));
-				item = await generateRandomItem(ItemConstants.RARITY.MYTHICAL, ItemConstants.CATEGORIES.ARMOR);
+				item = await generateRandomItem(ItemConstants.CATEGORIES.ARMOR, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL);
 				break;
 			}
 			await interaction.editReply({embeds: [seEmbed]});

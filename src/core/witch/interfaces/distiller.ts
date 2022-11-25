@@ -1,6 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
 import Player from "../../database/game/models/Player";
-import {generateRandomPotion} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {TravelTime} from "../../maps/TravelTime";
 import {EffectsConstants} from "../../constants/EffectsConstants";
@@ -8,6 +7,7 @@ import {NumberChangeReason} from "../../constants/LogsConstants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
+import {generateRandomItem} from "../../utils/ItemUtils";
 
 /**
  * The distiller will give a time potion but cost time
@@ -23,12 +23,15 @@ export default class Distiller extends WitchEvent {
 	}
 
 	/**
-	 * The distiller will give a time skip potion with a mythical maximum rarity.
+	 * The distiller will give a time skip potion with a legendary maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.TIME_SPEEDUP,
-			ItemConstants.RARITY.MYTHICAL);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			ItemConstants.RARITY.RARE,
+			ItemConstants.RARITY.LEGENDARY,
+			Constants.ITEM_NATURE.TIME_SPEEDUP
+		);
 	}
 
 	/**

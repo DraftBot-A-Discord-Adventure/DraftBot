@@ -6,6 +6,7 @@ import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
+import {ItemConstants} from "../constants/ItemConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -23,7 +24,7 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(SmallEventConstants.FIND_ITEM.MAXIMUM_RARITY);
+		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.FIND_ITEM.MAXIMUM_RARITY);
 		seEmbed.setDescription(
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +

@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
@@ -19,8 +19,10 @@ export default class TestTube extends WitchEvent {
 	 * The test tube will give a random potion with a special maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
 			null,
-			ItemConstants.RARITY.SPECIAL);
+			ItemConstants.RARITY.SPECIAL
+		);
 	}
 }

@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
@@ -20,8 +20,11 @@ export default class Heart extends WitchEvent {
 	 * The heart will give a health potion with a legendary maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.HEALTH,
-			ItemConstants.RARITY.LEGENDARY);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			null,
+			ItemConstants.RARITY.LEGENDARY,
+			Constants.ITEM_NATURE.HEALTH
+		);
 	}
 }

@@ -12,9 +12,10 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {WitchEvent} from "../witch/WitchEvent";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
-import {generateRandomPotion, giveItemToPlayer} from "../utils/ItemUtils";
+import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
+import {ItemConstants} from "../constants/ItemConstants";
 
 type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
 
@@ -166,7 +167,12 @@ export const smallEvent: SmallEvent = {
 				// there is a chance that the player will get a no effect potion, no matter what he chose
 				if (RandomUtils.draftbotRandom.bool(SmallEventConstants.WITCH.NO_EFFECT_CHANCE)) {
 					await sendResultMessage(seEmbed, SmallEventConstants.WITCH.OUTCOME_TYPE.POTION, tr, selectedEvent, interaction);
-					const potionToGive = await generateRandomPotion(Constants.ITEM_NATURE.NO_EFFECT);
+					const potionToGive = await generateRandomItem(
+						ItemConstants.CATEGORIES.POTION,
+						null,
+						null,
+						Constants.ITEM_NATURE.NO_EFFECT
+					);
 					await givePotion(player, potionToGive, language, interaction);
 					return;
 				}

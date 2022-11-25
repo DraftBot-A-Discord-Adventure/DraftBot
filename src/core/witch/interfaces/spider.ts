@@ -1,5 +1,5 @@
 import {WitchEvent} from "../WitchEvent";
-import {generateRandomPotion} from "../../utils/ItemUtils";
+import {generateRandomItem} from "../../utils/ItemUtils";
 import {Constants} from "../../Constants";
 import {ItemConstants} from "../../constants/ItemConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
@@ -20,8 +20,11 @@ export default class Spider extends WitchEvent {
 	 * The spider will give an attack potion with a common maximum rarity.
 	 */
 	async generatePotion(): Promise<GenericItemModel> {
-		return await generateRandomPotion(
-			Constants.ITEM_NATURE.ATTACK,
-			ItemConstants.RARITY.COMMON);
+		return await generateRandomItem(
+			ItemConstants.CATEGORIES.POTION,
+			null,
+			ItemConstants.RARITY.COMMON,
+			Constants.ITEM_NATURE.ATTACK
+		);
 	}
 }

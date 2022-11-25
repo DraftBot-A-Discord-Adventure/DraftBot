@@ -15,6 +15,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {ItemConstants} from "../constants/ItemConstants";
 
 /**
  * Get the callback of the shop small event
@@ -75,7 +76,7 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(SmallEventConstants.SHOP.MAX_RARITY);
+		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
 		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.RESALE_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
