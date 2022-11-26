@@ -2,7 +2,6 @@ import {Constants} from "../../../../core/Constants";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
-import {PlayerConstants} from "../../../../core/constants/PlayerConstants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
@@ -38,7 +37,7 @@ export const commandInfo: ITestCommand = {
 const playerEffectTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	try {
-		const effectMalus = ":" + args[0] + ":" as EffectType;
+		const effectMalus = `:${args[0]}:` as EffectType;
 		await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST);
 		await player.save();
 		return format(commandInfo.messageWhenExecuted, {effect: effectMalus});
