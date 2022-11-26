@@ -16,6 +16,7 @@ import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
+import {LanguageType} from "../constants/TypeConstants";
 
 type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
 
@@ -36,7 +37,7 @@ function getRandomWitchEvents(): WitchEventSelection {
  * @param language
  * @param interaction
  */
-async function givePotion(player: Player, potionToGive: GenericItemModel, language: string, interaction: CommandInteraction): Promise<void> {
+async function givePotion(player: Player, potionToGive: GenericItemModel, language: LanguageType, interaction: CommandInteraction): Promise<void> {
 	await giveItemToPlayer(
 		player,
 		potionToGive,
@@ -69,7 +70,7 @@ async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: Tr
  * @param language
  * @param interaction
  */
-async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: string, interaction: CommandInteraction): Promise<void> {
+async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: LanguageType, interaction: CommandInteraction): Promise<void> {
 	if (selectedEvent.forceEffect || outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
@@ -99,7 +100,7 @@ function retrieveSelectedEvent(witchEventMessage: DraftBotReactionMessage): Witc
  * @param embed
  * @param language
  */
-function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBotReactionMessageBuilder, language: string): string {
+function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBotReactionMessageBuilder, language: LanguageType): string {
 	let witchEventMenu = "";
 	for (const witchEvent of Object.entries(witchEvents)) {
 		embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
@@ -111,23 +112,21 @@ function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBo
 /**
  * generate an embed with the menu and a short introduction to the witch
  * @param embed
- * @param language
  * @param interaction
  * @param seEmbed
  * @param tr
  */
 function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
-	language: string,
 	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
 	tr: TranslationModule
 ): DraftBotReactionMessage {
 	const witchEvents = getRandomWitchEvents();
-	const witchEventMenu = generateWitchEventMenu(witchEvents, embed, language);
-	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+	const witchEventMenu = generateWitchEventMenu(witchEvents, embed, tr.language);
+	const intro = Translations.getModule("smallEventsIntros", tr.language).getRandom("intro");
 	const builtEmbed = embed.build();
-	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
+	builtEmbed.formatAuthor(Translations.getModule("commands.report", tr.language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
 		+ intro
@@ -153,7 +152,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.witch", language);
 
 		const embed = new DraftBotReactionMessageBuilder()
@@ -184,7 +183,7 @@ export const smallEvent: SmallEvent = {
 				await selectedEvent.checkMissions(interaction, player, language, outcome);
 			});
 
-		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, tr);
+		const builtEmbed = generateInitialEmbed(embed, interaction, seEmbed, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE, collector));
 	}

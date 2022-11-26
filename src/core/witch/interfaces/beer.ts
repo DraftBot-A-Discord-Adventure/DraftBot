@@ -6,6 +6,7 @@ import {NumberChangeReason} from "../../constants/LogsConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {MissionsController} from "../../missions/MissionsController";
 import {CommandInteraction} from "discord.js";
+import {LanguageType} from "../../constants/TypeConstants";
 
 /**
  * The beer can make the player drunk or do nothing
@@ -41,7 +42,7 @@ export default class Beer extends WitchEvent {
 	 * @param language
 	 * @param outcome
 	 */
-	async checkMissions(interaction: CommandInteraction, player: Player, language: string, outcome: number): Promise<void> {
+	async checkMissions(interaction: CommandInteraction, player: Player, language: LanguageType, outcome: number): Promise<void> {
 		if (outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT) {
 			await MissionsController.update(player, interaction.channel, language, {
 				missionId: this.tags[0],
