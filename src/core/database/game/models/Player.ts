@@ -363,10 +363,8 @@ export class Player extends Model {
 		const tr = Translations.getModule("commands.notifications", language);
 		const channelAccess = await draftBotClient.shard.broadcastEval(async (client, context) =>
 			await client.channels.fetch(context.player.notifications).then(async (channel) => {
-				if (channel) {
-					await (<TextBasedChannel>channel).send(context.embedNotification);
-					return true;
-				}
+				await (<TextBasedChannel>channel).send(context.embedNotification);
+				return true;
 			})
 				.catch(() => false), {
 			context: {
