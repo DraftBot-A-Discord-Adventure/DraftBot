@@ -755,6 +755,16 @@ export class CommandsManager {
 			return false;
 		}
 
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("noSpeakInThreadPermission")
+			);
+			console.log(`No perms to show i can't speak in thread : ${interaction.guild.id}/${channel.id}`);
+			return false;
+		}
+
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AddReactions)) {
 			await replyErrorMessage(
 				interaction,
