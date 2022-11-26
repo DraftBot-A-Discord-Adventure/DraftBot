@@ -32,17 +32,8 @@ export class DraftBotEmbed extends EmbedBuilder {
 	}
 
 	/**
-	 * @param title
-	 * @param iconUrl
+	 *Set the color of the embed to the error color
 	 */
-	formatAuthorWithUrl(title: string, iconUrl: string): this {
-		this.setAuthor({
-			name: title,
-			iconURL: iconUrl
-		});
-		return this;
-	}
-
 	setErrorColor(): this {
 		this.setColor(<HexColorString>Constants.MESSAGES.COLORS.ERROR);
 		return this;
