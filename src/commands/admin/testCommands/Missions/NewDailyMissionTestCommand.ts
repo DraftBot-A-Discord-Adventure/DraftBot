@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * Set the weapon of the player
  * @return {String} - The successful message formatted
  */
-const newDailyMissionTestCommand = async (language: string): Promise<string> => {
+const newDailyMissionTestCommand = async (language: LanguageType): Promise<string> => {
 	const newDM = await DailyMissions.regenerateDailyMission();
 	await PlayerMissionsInfo.update({
 		dailyMissionNumberDone: 0,
