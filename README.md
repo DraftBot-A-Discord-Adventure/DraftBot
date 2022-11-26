@@ -1,24 +1,17 @@
 <div style="text-align: center;">
-<img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px" alt="Couronne Draftbot">
+<img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px" alt="Couronne DraftBot">
 
 DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on a text adventure game. The
 story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by
 the king, to win the princess' hand. To achieve this, he must travel and earn points by going through a lot of danger,
 including thieves, wilderness, and scary children. Every few hours, the player can get a random event by using
-the `report` command: they interact with a multiple choice system, using reactions below the report. Each choice has
+the `/report` command: they interact with a multiple choice system, using reactions below the report. Each choice has
 multiple issues, which could hurt the character, heal them, or even give them some stuff. During the journey, they earn
 money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend
 the leaderboard.
 
-<br>
-
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
-[![Discord Bots](https://top.gg/api/widget/status/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
-[![Discord Bots](https://top.gg/api/widget/upvotes/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
-[![Discord Bots](https://top.gg/api/widget/owner/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
-[![Discord Bots](https://top.gg/api/widget/servers/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot?ref=badge_shield)
 
 </div>
 
@@ -139,7 +132,3 @@ services:
 - [Suggestion board _(in French)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in French)_](https://twitter.com/DraftBot_?s=09)
-
-## License
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot?ref=badge_large)
