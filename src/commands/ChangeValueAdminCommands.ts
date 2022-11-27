@@ -7,6 +7,7 @@ import {replyErrorMessage} from "../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player, {Players} from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
+import {sendNotificationToPlayer} from "../core/utils/MessageUtils";
 
 /**
  * Special class for mass editing player values (admin only)
@@ -156,7 +157,7 @@ export class ChangeValueAdminCommands {
 					.setDescription(changeValueModule.format("dm.description", {
 						valueGained: playersToEdit[changeValueModule.get("valueToEdit") as keyof Player] - valueBefore
 					}));
-				await playersToEdit.sendNotificationToPlayer(embed, language);
+				await sendNotificationToPlayer(playersToEdit, embed, language);
 			}
 			await interaction.reply({
 				embeds: [new DraftBotEmbed()

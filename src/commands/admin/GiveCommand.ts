@@ -15,6 +15,7 @@ import {getItemByIdAndCategory} from "../../core/utils/ItemUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 /**
  * Get the end callback of the give command
@@ -63,7 +64,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
 				.setDescription(tr.format("dm.description", {
 					item: item.toString(tr.language, null)
 				}));
-			await playerToEdit.sendNotificationToPlayer(embed, tr.language);
+			await sendNotificationToPlayer(playerToEdit, embed, tr.language);
 			draftBotInstance.logsDatabase.logItemGain(playerToEdit.discordUserId, item).then();
 		}
 		await interaction.followUp({

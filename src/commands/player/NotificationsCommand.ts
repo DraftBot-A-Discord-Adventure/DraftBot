@@ -7,8 +7,9 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {NotificationsConstants} from "../../core/constants/NotificationsConstants";
+import {NotificationsConstants, NotificationsScopes} from "../../core/constants/NotificationsConstants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 
 /**
@@ -28,24 +29,26 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(translations.get(`description.${choice}`));
 
 	switch (choice) {
-	case NotificationsConstants.CHANNEL_SCOPE:
+	case NotificationsScopes.CHANNEL_SCOPE:
 		player.notifications = interaction.channelId;
 		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
 		break;
-	case NotificationsConstants.DM_SCOPE:
+	case NotificationsScopes.DM_SCOPE:
 		player.notifications = NotificationsConstants.DM_VALUE;
-		await player.sendNotificationToPlayer(new DraftBotEmbed()
-			.formatAuthor(translations.get("title"), interaction.user)
-			.setDescription(translations.get("normal")), language);
+		await sendNotificationToPlayer(player,
+			new DraftBotEmbed()
+				.formatAuthor(translations.get("title"), interaction.user)
+				.setDescription(translations.get("normal")),
+			language);
 		break;
-	case NotificationsConstants.NO_NOTIFICATION_SCOPE:
-		player.notifications = NotificationsConstants.NO_NOTIFICATION;
+	case NotificationsScopes.NO_NOTIFICATION_SCOPE:
+		player.notifications = NotificationsConstants.NO_NOTIFICATIONS_VALUE;
 		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
 		break;
 	default:
 		return;
 	}
-	await interaction.reply({embeds: [notificationsEmbed], ephemeral: choice !== NotificationsConstants.CHANNEL_SCOPE});
+	await interaction.reply({embeds: [notificationsEmbed], ephemeral: choice !== NotificationsScopes.CHANNEL_SCOPE});
 	await player.save();
 }
 
@@ -69,7 +72,7 @@ export const commandInfo: ICommand = {
 							fr: currentCommandFrenchTranslations.get("scopes.dm")
 						}
 					,
-					value: NotificationsConstants.DM_SCOPE
+					value: NotificationsScopes.DM_SCOPE
 				},
 				{
 					name: currentCommandEnglishTranslations.get("scopes.channel"),
@@ -78,7 +81,7 @@ export const commandInfo: ICommand = {
 							fr: currentCommandFrenchTranslations.get("scopes.channel")
 						}
 					,
-					value: NotificationsConstants.CHANNEL_SCOPE
+					value: NotificationsScopes.CHANNEL_SCOPE
 				},
 				{
 					name: currentCommandEnglishTranslations.get("scopes.none"),
@@ -87,7 +90,7 @@ export const commandInfo: ICommand = {
 							fr: currentCommandFrenchTranslations.get("scopes.none")
 						}
 					,
-					value: NotificationsConstants.NO_NOTIFICATION_SCOPE
+					value: NotificationsScopes.NO_NOTIFICATION_SCOPE
 				}
 			)
 			.setRequired(true)) as SlashCommandBuilder,

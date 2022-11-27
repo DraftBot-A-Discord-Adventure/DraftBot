@@ -1,11 +1,10 @@
-export abstract class NotificationsConstants {
-	static readonly DM_VALUE = "-1";
+export enum NotificationsConstants {
+	DM_VALUE = "-1",
+	NO_NOTIFICATIONS_VALUE = "0"
+}
 
-	static readonly NO_NOTIFICATION: string = null;
-
-	static readonly DM_SCOPE = "dm";
-
-	static readonly CHANNEL_SCOPE = "channel";
-
-	static readonly NO_NOTIFICATION_SCOPE = "none";
+export enum NotificationsScopes {
+	DM_SCOPE = "dm",
+	CHANNEL_SCOPE = "channel",
+	NO_NOTIFICATION_SCOPE = "none"
 }

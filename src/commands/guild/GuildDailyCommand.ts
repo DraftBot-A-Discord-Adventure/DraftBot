@@ -22,6 +22,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -344,7 +345,7 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 						pseudo: escapeUsername(interaction.user.username)
 					}
 				) + embed.data.description);
-			await member.sendNotificationToPlayer(embedNotif, language);
+			await sendNotificationToPlayer(member, embedNotif, language);
 		}
 		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
 	}

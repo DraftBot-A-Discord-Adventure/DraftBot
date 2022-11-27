@@ -16,6 +16,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 type PlayerCouple = { unlocker: Player, locked?: Player }
 type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
@@ -107,7 +108,7 @@ function callbackUnlockCommand(
 						{pseudo: playerToUnlock.getPseudo(textInformation.language)}), await draftBotClient.users.fetch(playerToUnlock.discordUserId))
 					.setDescription(textInformation.unlockModule.format("unlockNotification",
 						{pseudo: playerUnlocker.getPseudo(textInformation.language)}));
-				await playerToUnlock.sendNotificationToPlayer(embed, textInformation.language);
+				await sendNotificationToPlayer(playerToUnlock, embed, textInformation.language);
 				return;
 			}
 		}

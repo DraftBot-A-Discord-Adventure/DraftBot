@@ -11,6 +11,7 @@ import {format} from "../../core/utils/StringFormatter";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 /**
  *Apply the changes due to validation
@@ -38,7 +39,7 @@ function getEndCallbackChangeChief(
 						newID: userToPromote.discordUserId,
 						guild: guild.name
 					}));
-				await member.sendNotificationToPlayer(embed, tr.language);
+				await sendNotificationToPlayer(member, embed, tr.language);
 			}
 			draftBotInstance.logsDatabase.logGuildKick(guild, formerChief.discordUserId).then();
 			formerChief.guildId = null;
