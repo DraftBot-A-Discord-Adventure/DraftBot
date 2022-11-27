@@ -35,9 +35,9 @@ export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: st
  */
 export async function checkChannelAccess(player: Player, user: User, embed: DraftBotEmbed, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.notifications", language);
-	const channelAccess = await draftBotClient.shard.broadcastEval(async (client, context) =>
-		await client.channels.fetch(context.player.notifications).then(async (channel) => {
-			await (<TextBasedChannel>channel).send(context.embedNotification);
+	const channelAccess = await draftBotClient.shard.broadcastEval( (client, context) =>
+		client.channels.fetch(context.player.notifications).then((channel) => {
+			(<TextBasedChannel>channel).send(context.embedNotification);
 			return true;
 		})
 			.catch(() => false), {
@@ -52,7 +52,7 @@ export async function checkChannelAccess(player: Player, user: User, embed: Draf
 			}
 		}
 	});
-	if (!channelAccess[1]) {
+	if (!channelAccess.includes(true)) {
 		player.notifications = NotificationsConstants.DM_VALUE;
 		await player.save();
 		sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"), {})}`), language);
