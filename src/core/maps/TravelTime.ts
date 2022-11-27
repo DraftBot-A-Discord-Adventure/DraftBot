@@ -55,7 +55,7 @@ export class TravelTime {
 		const data = await this.getTravelDataSimplified(player, date);
 
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
-		// The next small event in 10 minutes after the last thing that happened between last start of the travel, small event (if there's one since the start of the travel) and end of alteration
+		// The next small event in 9min45 after the last thing that happened between last start of the travel, small event (if there's one since the start of the travel) and end of alteration
 		const nextSmallEventTime = Math.max(
 			data.travelStartTime,
 			lastSmallEvent ? lastSmallEvent.time : -1,

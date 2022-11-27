@@ -68,7 +68,12 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			slots.potions.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, null),
 			slots.objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue)
 		];
-		this.mainFooter = trInventory.format("clickStock", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
+		this.mainFooter = userInformation.user.id === userInformation.player.discordUserId ?
+			trInventory.format("clickStock", {emote: Constants.REACTIONS.INVENTORY_RESERVE}) :
+			trInventory.format("clickStockUser", {
+				emote: Constants.REACTIONS.INVENTORY_RESERVE,
+				pseudo: userInformation.pseudo
+			});
 		this.stockTitle = trInventory.format("stockTitle", {pseudo: userInformation.pseudo});
 		this.stockFooter = trInventory.format("clickMainInventory", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
 		this.stockFields = [
