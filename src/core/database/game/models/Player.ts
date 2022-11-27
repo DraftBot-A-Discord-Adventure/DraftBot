@@ -9,12 +9,12 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
 import {botConfig, draftBotClient, draftBotInstance} from "../../../bot";
-import {playerActiveObjects} from "./PlayerActiveObjects";
+import {PlayerActiveObjects} from "./PlayerActiveObjects";
 import {TopConstants} from "../../../constants/TopConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
@@ -29,9 +29,7 @@ import moment = require("moment");
 import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
-import {sendDirectMessage} from "../../../utils/MessageUtils";
-import {NotificationsConstants} from "../../../constants/NotificationsConstants";
-import {format} from "../../../utils/StringFormatter";
+import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -352,60 +350,6 @@ export class Player extends Model {
 		await this.save();
 	}
 
-
-	/**
-	 * This function is called to verify if the bot have access to a channel
-	 * @param user
-	 * @param embed
-	 * @param language
-	 */
-	private async checkChannelAccess(user: User, embed: DraftBotEmbed, language: string): Promise<void> {
-		const tr = Translations.getModule("commands.notifications", language);
-		const channelAccess = await draftBotClient.shard.broadcastEval(async (client, context) =>
-			await client.channels.fetch(context.player.notifications).then(async (channel) => {
-				await (<TextBasedChannel>channel).send(context.embedNotification);
-				return true;
-			})
-				.catch(() => false), {
-			context: {
-				player: {
-					notifications: this.notifications
-				},
-				embedNotification: {
-					content: this.getMention(),
-					embeds: [embed.setFooter({text: tr.get("channelNotification")})
-					]
-				}
-			}
-		});
-		if (!channelAccess[1]) {
-			this.notifications = NotificationsConstants.DM_VALUE;
-			await this.save();
-			sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"), {})}`), language);
-		}
-	}
-
-	/**
-	 * This function is called to send a notification to the player (dm or channel or nothing)
-	 * @param embed
-	 * @param language
-	 */
-	public async sendNotificationToPlayer(embed: DraftBotEmbed, language: string): Promise<void> {
-		const user = await draftBotClient.users.fetch(this.discordUserId);
-
-		if (!embed.data.author) {
-			embed.formatAuthor(embed.data.title, user);
-			embed.setTitle(null);
-		}
-
-		if (this.notifications === NotificationsConstants.DM_VALUE) {
-			sendDirectMessage(user, embed, language);
-		}
-		else if (this.notifications !== NotificationsConstants.NO_NOTIFICATION) {
-			await this.checkChannelAccess(user, embed, language);
-		}
-	}
-
 	/**
 	 * Check if we need to kill the player (mouahaha)
 	 * @param channel
@@ -422,7 +366,7 @@ export class Player extends Model {
 		const embed = new DraftBotEmbed()
 			.setTitle(tr.get("koPM.title"))
 			.setDescription(tr.get("koPM.description"));
-		await this.sendNotificationToPlayer(embed, language);
+		await sendNotificationToPlayer(this, embed, language);
 		return true;
 	}
 
@@ -628,51 +572,51 @@ export class Player extends Model {
 
 	/**
 	 * calculate the cumulative attack of the player
-	 * @param playerActiveObject
+	 * @param playerActiveObjects
 	 */
-	public async getCumulativeAttack(playerActiveObject: playerActiveObjects): Promise<number> {
+	public async getCumulativeAttack(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.class)).getAttackValue(this.level);
 		const attack = playerAttack
-			+ (playerActiveObject.weapon.getAttack() < playerAttack
-				? playerActiveObject.weapon.getAttack() : playerAttack)
-			+ (playerActiveObject.armor.getAttack() < playerAttack
-				? playerActiveObject.armor.getAttack() : playerAttack)
-			+ playerActiveObject.object.getAttack()
-			+ playerActiveObject.potion.getAttack();
+			+ (playerActiveObjects.weapon.getAttack() < playerAttack
+				? playerActiveObjects.weapon.getAttack() : playerAttack)
+			+ (playerActiveObjects.armor.getAttack() < playerAttack
+				? playerActiveObjects.armor.getAttack() : playerAttack)
+			+ playerActiveObjects.object.getAttack()
+			+ playerActiveObjects.potion.getAttack();
 		return attack > 0 ? attack : 0;
 	}
 
 	/**
 	 * calculate the cumulative defense of the player
-	 * @param playerActiveObject
+	 * @param playerActiveObjects
 	 */
-	public async getCumulativeDefense(playerActiveObject: playerActiveObjects): Promise<number> {
+	public async getCumulativeDefense(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerDefense = (await Classes.getById(this.class)).getDefenseValue(this.level);
 		const defense = playerDefense
-			+ (playerActiveObject.weapon.getDefense() < playerDefense
-				? playerActiveObject.weapon.getDefense() : playerDefense)
-			+ (playerActiveObject.armor.getDefense() < playerDefense
-				? playerActiveObject.armor.getDefense() : playerDefense)
-			+ playerActiveObject.object.getDefense()
-			+ playerActiveObject.potion.getDefense();
+			+ (playerActiveObjects.weapon.getDefense() < playerDefense
+				? playerActiveObjects.weapon.getDefense() : playerDefense)
+			+ (playerActiveObjects.armor.getDefense() < playerDefense
+				? playerActiveObjects.armor.getDefense() : playerDefense)
+			+ playerActiveObjects.object.getDefense()
+			+ playerActiveObjects.potion.getDefense();
 		return defense > 0 ? defense : 0;
 	}
 
 	/**
 	 * calculate the cumulative speed of the player
-	 * @param playerActiveObject
+	 * @param playerActiveObjects
 	 */
-	public async getCumulativeSpeed(playerActiveObject: playerActiveObjects): Promise<number> {
+	public async getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerSpeed = (await Classes.getById(this.class)).getSpeedValue(this.level);
 		const speed = playerSpeed
-			+ (playerActiveObject.weapon.getSpeed() < playerSpeed
-				? playerActiveObject.weapon.getSpeed() : playerSpeed)
-			+ (playerActiveObject.armor.getSpeed() < playerSpeed
-				? playerActiveObject.armor.getSpeed() : playerSpeed)
-			+ (playerActiveObject.object.getSpeed() / 2 < playerSpeed
-				? playerActiveObject.object.getSpeed()
+			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
+				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
+			+ (playerActiveObjects.armor.getSpeed() < playerSpeed
+				? playerActiveObjects.armor.getSpeed() : playerSpeed)
+			+ (playerActiveObjects.object.getSpeed() / 2 < playerSpeed
+				? playerActiveObjects.object.getSpeed()
 				: playerSpeed * 2)
-			+ playerActiveObject.potion.getSpeed();
+			+ playerActiveObjects.potion.getSpeed();
 		return speed > 0 ? speed : 0;
 	}
 

@@ -7,6 +7,7 @@ import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 
@@ -32,7 +33,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	const embed = new DraftBotEmbed()
 		.setTitle(unblockModule.get("title"))
 		.setDescription(unblockModule.get("description"));
-	await player.sendNotificationToPlayer(embed, language);
+	await sendNotificationToPlayer(player, embed, language);
 
 
 }

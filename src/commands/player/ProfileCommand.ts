@@ -11,7 +11,7 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import MissionSlot, {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
-import {playerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
+import {PlayerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {log} from "console";
@@ -66,7 +66,7 @@ async function getInformationField(profileModule: TranslationModule, askedPlayer
  * @param askedPlayer
  * @param playerActiveObjects
  */
-async function getStatisticField(profileModule: TranslationModule, askedPlayer: Player, playerActiveObjects: playerActiveObjects): Promise<EmbedField> {
+async function getStatisticField(profileModule: TranslationModule, askedPlayer: Player, playerActiveObjects: PlayerActiveObjects): Promise<EmbedField> {
 	return {
 		name: profileModule.get("statistique.fieldName"),
 		value: profileModule.format("statistique.fieldValue", {

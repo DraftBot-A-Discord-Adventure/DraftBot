@@ -3,7 +3,7 @@ import Player from "../../database/game/models/Player";
 import Class from "../../database/game/models/Class";
 import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {playerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
+import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
 import Potion from "../../database/game/models/Potion";
 import {checkDrinkPotionMissions} from "../../utils/ItemUtils";
 import {BlockingUtils} from "../../utils/BlockingUtils";
@@ -132,7 +132,7 @@ export class PlayerFighter extends Fighter {
 	 * @public
 	 */
 	public async loadStats(friendly: boolean): Promise<void> {
-		const playerActiveObjects: playerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
+		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
 		this.stats.fightPoints = friendly ? await this.player.getMaxCumulativeFightPoint() : await this.player.getCumulativeFightPoint();
 		this.stats.maxFightPoint = await this.player.getMaxCumulativeFightPoint();
 		this.stats.attack = await this.player.getCumulativeAttack(playerActiveObjects);

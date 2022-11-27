@@ -1,4 +1,5 @@
 import {EffectsConstants} from "./EffectsConstants";
+import {NotificationsConstants} from "./NotificationsConstants";
 
 export abstract class PlayersConstants {
 	static readonly PLAYER_DEFAULT_VALUES = {
@@ -15,6 +16,6 @@ export abstract class PlayersConstants {
 		EFFECT: EffectsConstants.EMOJI_TEXT.BABY,
 		EFFECT_DURATION: EffectsConstants.DURATION[":baby:"],
 		START_TRAVEL_DATE: 0,
-		NOTIFICATIONS: "-1"
+		NOTIFICATIONS: NotificationsConstants.DM_VALUE
 	};
 }
