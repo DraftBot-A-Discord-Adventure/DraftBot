@@ -324,7 +324,7 @@ function getPrefixes(item: GenericItemModel): { [key: string]: string } {
 		else if (item.frenchMasculine) {
 			prefixItem = "son";
 		}
-		else if (/^[AEIOUYÉÈH].*$/u.test(item.fr)) {
+		else if (/^[AÂEIOUYÉÈH].*$/u.test(item.fr)) {
 			prefixItem = "son";
 			prefixItem2 = "sa";
 		}
