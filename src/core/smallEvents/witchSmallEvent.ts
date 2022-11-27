@@ -24,7 +24,7 @@ type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEv
  */
 function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
-	const randomIngredient = WitchEvents.getRandomWitchEventByType(4);
+	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
 	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
 	return {randomAdvice, randomIngredient, nothingHappen};
 }

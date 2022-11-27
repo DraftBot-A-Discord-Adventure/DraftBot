@@ -14,7 +14,7 @@ export default class Beer extends WitchEvent {
 
 	public constructor() {
 		super("beer");
-		this.type = 4;
+		this.type = SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT;
 		this.effectName = "drunk";
 		this.setOutcomeProbabilities(0, 25, 0, 25);
 		this.tags = ["drinkAlcohol"];
