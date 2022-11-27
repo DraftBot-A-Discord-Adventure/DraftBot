@@ -42,7 +42,7 @@
 				"channel": "\uD83D\uDCE2 You will receive your notifications in this channel. If the channel is deleted or the bot no longer has access to it, the notifications will be sent in private message.",
 				"none": "\uD83D\uDEAB Notifications have been disabled."
 			},
-			"noNotifications": "You will no longer receive notifications from the bot.",
+			"none": "You will no longer receive notifications from the bot.",
 			"error": "You closed your DMs !",
 			"open": "open",
 			"closed": "closed",
