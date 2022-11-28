@@ -34,7 +34,7 @@ export const getItemValue = function(item: GenericItemModel): number {
  * @param invSlots
  */
 export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
-	return invSlots.filter(slot => slot.isPotion()).length;
+	return invSlots.filter(slot => slot.isPotion() && slot.itemId !== 0).length;
 };
 
 /**
