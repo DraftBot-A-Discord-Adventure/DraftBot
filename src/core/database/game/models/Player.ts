@@ -904,7 +904,7 @@ export class Players {
 	 */
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-					   FROM ${botConfig.MARIADB_PREFIX} _game.players
+					   FROM ${botConfig.MARIADB_PREFIX}_game.players
 					   WHERE
 						   ${botConfig.MARIADB_PREFIX}_game.players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
 						  > ${Constants.MINIMAL_PLAYER_SCORE}
