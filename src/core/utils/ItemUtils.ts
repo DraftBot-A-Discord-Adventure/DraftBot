@@ -299,7 +299,7 @@ export const giveItemToPlayer = async function(
 		await MissionsController.update(player, channel, language, {missionId: "findOrBuyItem"});
 		await MissionsController.update(player, channel, language, {
 			missionId: "havePotions",
-			count: countNbOfPotions(inventorySlots),
+			count: countNbOfPotions(await InventorySlots.getOfPlayer(player.id)),
 			set: true
 		});
 		await MissionsController.update(player, channel, language, {
