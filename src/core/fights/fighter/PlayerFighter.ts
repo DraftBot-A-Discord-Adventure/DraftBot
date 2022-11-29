@@ -155,7 +155,7 @@ export class PlayerFighter extends Fighter {
 		}
 		await this.player.drinkPotion();
 		await this.player.save();
-		await checkDrinkPotionMissions(channel, language, this.player, drankPotion, inventorySlots);
+		await checkDrinkPotionMissions(channel, language, this.player, drankPotion, await InventorySlots.getOfPlayer(this.player.id));
 	}
 
 	/**
