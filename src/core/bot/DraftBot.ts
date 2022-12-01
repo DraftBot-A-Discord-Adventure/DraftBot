@@ -83,22 +83,24 @@ export class DraftBot {
 		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(`
 			SELECT discordUserId
 			FROM players
-			WHERE notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}`,{
+			WHERE notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}`, {
 			type: QueryTypes.SELECT
 		}));
 		const date = new Date();
+		const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
+
 		for (const playerId of playersToNotify) {
 			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
 			const travelTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+
 			if (travelTime >= date.valueOf() && travelTime <= date.valueOf() + 60000) {
-				const embed = new DraftBotEmbed()
-					.setTitle(Translations.getModule("commands.notifications", "en").get("title"))
-					.setDescription(`${
+				await sendNotificationToPlayer(player,
+					embed.setDescription(`${
 						Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
 					}\n\n${
 						Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
-					}`);
-				await sendNotificationToPlayer(player, embed, "en");
+					}`)
+					, "en");
 			}
 		}
 		setTimeout(draftBotInstance.reportNotifications, 60000);
@@ -474,10 +476,10 @@ export class DraftBot {
 						7 * 24 * 60 * 60 * 1000
 					) {
 						// 7 days
-						fs.unlink(`logs/${file}`, (err: Error) => {
-							if (err) {
+						fs.unlink(`logs/${file}`, (error: Error) => {
+							if (error) {
 								originalConsoleError(
-									`Error while deleting logs/${file}: ${err.toString()}`
+									`Error while deleting logs/${file}: ${error.toString()}`
 								);
 							}
 						});
