@@ -21,5 +21,5 @@ export function initPrometheus(defaultPort: number, shardId: number): void {
 		}
 	});
 	server.listen(serverPort);
-	console.log("Prometheus metrics exposed on port " + serverPort);
+	console.log(`Prometheus metrics exposed on port ${serverPort}`);
 }
