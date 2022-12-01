@@ -6,7 +6,6 @@ import {draftBotClient} from "../bot";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {format} from "./StringFormatter";
 import Player from "../database/game/models/Player";
-import {Constants} from "../Constants";
 import {Language} from "../constants/TypeConstants";
 
 /**
@@ -35,7 +34,7 @@ export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: La
  * @param embed
  * @param language
  */
-export async function checkChannelAccess(player: Player, user: User, embed: DraftBotEmbed, language: string): Promise<void> {
+export async function checkChannelAccess(player: Player, user: User, embed: DraftBotEmbed, language: Language): Promise<void> {
 	const tr = Translations.getModule("commands.notifications", language);
 	const channelAccess = await draftBotClient.shard.broadcastEval( (client, context) =>
 		client.channels.fetch(context.player.notifications).then((channel) => {
@@ -67,7 +66,7 @@ export async function checkChannelAccess(player: Player, user: User, embed: Draf
  * @param embed
  * @param language
  */
-export async function sendNotificationToPlayer(player: Player, embed: DraftBotEmbed, language: string): Promise<void> {
+export async function sendNotificationToPlayer(player: Player, embed: DraftBotEmbed, language: Language): Promise<void> {
 	const user = await draftBotClient.users.fetch(player.discordUserId);
 	if (!embed.data.author) {
 		embed.formatAuthor(embed.data.title, user);

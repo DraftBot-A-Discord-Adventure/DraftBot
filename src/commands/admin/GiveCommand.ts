@@ -16,7 +16,6 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
-import {LanguageType} from "../../core/constants/TypeConstants";
 import {Language} from "../../core/constants/TypeConstants";
 
 /**

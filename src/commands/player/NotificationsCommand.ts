@@ -10,6 +10,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {NotificationsConstants, NotificationsScopes} from "../../core/constants/NotificationsConstants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {Language} from "../../core/constants/TypeConstants";
 
 
 /**
@@ -18,7 +19,7 @@ import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

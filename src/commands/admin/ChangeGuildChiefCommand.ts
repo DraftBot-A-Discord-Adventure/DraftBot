@@ -12,7 +12,6 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
-import {LanguageType} from "../../core/constants/TypeConstants";
 import {Language} from "../../core/constants/TypeConstants";
 
 /**
