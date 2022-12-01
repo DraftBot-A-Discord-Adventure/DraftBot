@@ -1,6 +1,6 @@
 import Potion from "../database/game/models/Potion";
 import PetEntity from "../database/game/models/PetEntity";
-import Player from "../database/game/models/Player";
+import Player, {Players} from "../database/game/models/Player";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
@@ -13,12 +13,16 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
-import {Op, Sequelize} from "sequelize";
+import {Op, QueryTypes, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
 import {PetConstants} from "../constants/PetConstants";
 import {FightConstants} from "../constants/FightConstants";
 import {ItemConstants} from "../constants/ItemConstants";
+import {sendNotificationToPlayer} from "../utils/MessageUtils";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {TravelTime} from "../maps/TravelTime";
+import {NotificationsConstants} from "../constants/NotificationsConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -70,6 +74,34 @@ export class DraftBot {
 			return;
 		}
 		setTimeout(DraftBot.dailyTimeout, millisTill);
+	}
+
+	/**
+	 * Send a notification every minute for player who arrived in the last minute
+	 */
+	async reportNotifications(this: void): Promise<void> {
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(`
+			SELECT discordUserId
+			FROM players
+			WHERE notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}`,{
+			type: QueryTypes.SELECT
+		}));
+		const date = new Date();
+		for (const playerId of playersToNotify) {
+			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
+			const travelTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+			if (travelTime >= date.valueOf() && travelTime <= date.valueOf() + 60000) {
+				const embed = new DraftBotEmbed()
+					.setTitle(Translations.getModule("commands.notifications", "en").get("title"))
+					.setDescription(`${
+						Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+					}\n\n${
+						Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+					}`);
+				await sendNotificationToPlayer(player, embed, "en");
+			}
+		}
+		setTimeout(draftBotInstance.reportNotifications, 60000);
 	}
 
 	/**
@@ -286,6 +318,7 @@ export class DraftBot {
 				minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 			);
 			checkMissingTranslations();
+			await this.reportNotifications();
 		}
 	}
 
