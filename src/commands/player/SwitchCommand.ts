@@ -99,7 +99,7 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
  * @param player
  * @param interaction
  * @param tr
- * @param itemProfileSlot
+ * @param itemInventorySlot
  * @param invInfo
  * @param invSlots
  */
@@ -107,29 +107,30 @@ async function sendFinishSwitchEmbed(
 	player: Player,
 	interaction: CommandInteraction,
 	tr: TranslationModule,
-	itemProfileSlot: InventorySlot,
+	itemInventorySlot: InventorySlot,
 	invInfo: InventoryInfo,
 	invSlots: InventorySlot[]
 ): Promise<void> {
-	if (itemProfileSlot.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
+	if (itemInventorySlot.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
 		addDailyTimeBecauseSwitch(interaction, invInfo);
 	}
-	const itemInventorySlot = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemProfileSlot.itemCategory)[0];
+	const itemProfileSlot = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemInventorySlot.itemCategory)[0];
 	await switchItemSlots(itemInventorySlot, player, itemProfileSlot);
 	await invInfo.save();
 	const itemProfile = await itemProfileSlot.getItem();
 	const itemInventory = await itemInventorySlot.getItem();
 	let desc;
+
 	if (itemProfile.id === 0) {
 		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
-			item: itemProfile.getName(tr.language),
-			frenchMasculine: itemProfile.frenchMasculine
+			item: itemInventory.getName(tr.language),
+			frenchMasculine: itemInventory.frenchMasculine
 		});
 	}
 	else {
 		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
-			item1: itemProfile.getName(tr.language),
-			item2: itemInventory.getName(tr.language)
+			item1: itemInventory.getName(tr.language),
+			item2: itemProfile.getName(tr.language)
 		});
 	}
 	const embed = new DraftBotEmbed()
@@ -146,15 +147,15 @@ async function sendFinishSwitchEmbed(
  * @param player
  * @param tr
  * @param invInfo
- * @param invSlots
+ * @param profileSlots
  */
-async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, player: Player, tr: TranslationModule, invInfo: InventoryInfo, invSlots: InventorySlot[]): Promise<void> {
+async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, player: Player, tr: TranslationModule, invInfo: InventoryInfo, profileSlots: InventorySlot[]): Promise<void>{
 
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
 		async (item: InventorySlot) => {
-			await sendFinishSwitchEmbed((await Players.getOrRegister(interaction.user.id))[0], interaction, tr, item, invInfo, invSlots);
+			await sendFinishSwitchEmbed((await Players.getOrRegister(interaction.user.id))[0], interaction, tr, item, invInfo, profileSlots);
 		},
 		async (endMessage) => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SWITCH);
@@ -183,17 +184,17 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Translation variable
 	const tr = Translations.getModule("commands.switch", language);
 	const invInfo = await InventoryInfos.getOfPlayer(player.id);
-	const invSlots = await InventorySlots.getOfPlayer(player.id);
+	const profileSlots = await InventorySlots.getOfPlayer(player.id);
 
 	// Get the items that can be switched or send an error if none
-	let toSwitchItems = invSlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
+	let toSwitchItems = profileSlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
 		await replyErrorMessage(interaction, language, tr.get("noItemToSwitch"));
 		return;
 	}
 
 	if (toSwitchItems.length === 1) {
-		await sendFinishSwitchEmbed(player, interaction, tr, toSwitchItems[0], invInfo, invSlots);
+		await sendFinishSwitchEmbed(player, interaction, tr, toSwitchItems[0], invInfo, profileSlots);
 		return;
 	}
 
@@ -203,7 +204,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const choiceItems = await buildSwitchChoiceItems(toSwitchItems, language);
 
 	// Send the choice embed
-	await sendSwitchEmbed(choiceItems, interaction, player, tr, invInfo, invSlots);
+	await sendSwitchEmbed(choiceItems, interaction, player, tr, invInfo, profileSlots);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.switch", Constants.LANGUAGE.FRENCH);
