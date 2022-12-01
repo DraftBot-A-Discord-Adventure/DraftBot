@@ -69,3 +69,5 @@ token = ""
 [others]
 # The API key for the nasa API
 nasa_api_key = ""
+# Prometheus metrics first port (or 0 = disabled). Each shard will take a port starting with this one
+prometheus_port = 0

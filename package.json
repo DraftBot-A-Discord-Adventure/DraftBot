@@ -47,6 +47,7 @@
 		"mariadb": "3.0.2",
 		"moment": "2.29.4",
 		"node-ipc": "10.1.0",
+		"prom-client": "14.1.0",
 		"random-js": "2.1.0",
 		"sequelize": "6.25.3",
 		"toml": "3.0.0",

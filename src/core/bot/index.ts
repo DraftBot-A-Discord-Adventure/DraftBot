@@ -10,6 +10,7 @@ import {BotUtils} from "../utils/BotUtils";
 import {DBL} from "../DBL";
 import {BotConstants} from "../constants/BotConstants";
 import {Intents} from "../intents";
+import {initPrometheus} from "./Prometheus";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -39,6 +40,9 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 		const draftBot = new DraftBot(draftBotClient, botConfig, mainShard);
 		draftBotInstance = draftBot;
 		await draftBot.init();
+		if (botConfig.PROMETHEUS_PORT > 0) {
+			initPrometheus(botConfig.PROMETHEUS_PORT, shardId);
+		}
 		if (!mainShard) {
 			return;
 		}
