@@ -14,7 +14,7 @@ import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {GuildConstants} from "../constants/GuildConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 type RewardType = { type: string, option: number | GenericItemModel };
 
@@ -98,7 +98,7 @@ async function generateReward(player: Player): Promise<RewardType> {
  * @param seEmbed
  * @param language
  */
-function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: LanguageType): DraftBotEmbed {
+function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: Language): DraftBotEmbed {
 	const tr = Translations.getModule("smallEvents.ultimateFoodMerchant", language);
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 
@@ -118,7 +118,7 @@ function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: Lan
  * @param language
  * @param player
  */
-async function giveReward(reward: RewardType, interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function giveReward(reward: RewardType, interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	switch (reward.type) {
 	case "ultimateFood":
 		await giveFood(interaction, language, player, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
@@ -162,7 +162,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed) {
 		const reward = await generateReward(player);
 		await interaction.editReply({embeds: [generateEmbed(reward, seEmbed, language)]});
 		await giveReward(reward, interaction, language, player);

@@ -5,14 +5,14 @@ import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import * as fs from "fs";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Allow an admin to list all items
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const listItemsModule = Translations.getModule("commands.listItems", language);
 	await interaction.reply({
 		embeds: [

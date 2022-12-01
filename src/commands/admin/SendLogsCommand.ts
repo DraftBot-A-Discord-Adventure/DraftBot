@@ -7,7 +7,7 @@ import {botConfig} from "../../core/bot";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import * as fs from "fs";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
@@ -37,7 +37,7 @@ async function sendLogsMessage(inDM: boolean, interaction: CommandInteraction, m
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const sendLogsModule = Translations.getModule("commands.sendLogs", language);
 	if (interaction.channel.id !== botConfig.CONTRIBUTORS_CHANNEL) {
 		await replyErrorMessage(

@@ -10,7 +10,7 @@ import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {RandomUtils} from "./RandomUtils";
 import {GuildConstants} from "../constants/GuildConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Gives food to a given guild / player
@@ -23,7 +23,7 @@ import {LanguageType} from "../constants/TypeConstants";
  */
 export async function giveFood(
 	interaction: CommandInteraction,
-	language: LanguageType,
+	language: Language,
 	player: Player,
 	selectedFood: string,
 	quantity: number,

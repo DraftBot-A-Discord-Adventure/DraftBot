@@ -10,7 +10,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -27,7 +27,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		const translationSBE = Translations.getModule("smallEvents.smallBadEvent", language);
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");

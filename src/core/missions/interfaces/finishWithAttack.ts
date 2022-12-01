@@ -3,14 +3,14 @@ import {Translations} from "../../Translations";
 import {FightActionController} from "../../fights/actions/FightActionController";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {Classes} from "../../database/game/models/Class";
-import {LanguageType} from "../../constants/TypeConstants";
+import {Language} from "../../constants/TypeConstants";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return params.lastAttack === FightActionController.variantToFightActionId(variant);
 	},
 
-	getVariantFormatVariable(variant: number, objective: number, language: LanguageType): Promise<string> {
+	getVariantFormatVariable(variant: number, objective: number, language: Language): Promise<string> {
 		return Promise.resolve(
 			Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
 				.get(objective > 1 ? "namePlural" : "name")

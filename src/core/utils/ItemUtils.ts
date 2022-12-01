@@ -20,7 +20,7 @@ import {draftBotInstance} from "../bot";
 import Player, {Players} from "../database/game/models/Player";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import {ItemConstants} from "../constants/ItemConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Get the value of an item
@@ -46,7 +46,7 @@ export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
  * @param potion
  * @param inventorySlots
  */
-export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: LanguageType, player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
+export const checkDrinkPotionMissions = async function(channel: TextBasedChannel, language: Language, player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
 	await MissionsController.update(player, channel, language, {missionId: "drinkPotion"});
 	await MissionsController.update(player, channel, language, {
 		missionId: "drinkPotionRarity",
@@ -92,7 +92,7 @@ const sellOrKeepItem = async function(
 	keepOriginal: boolean,
 	discordUser: User,
 	channel: TextBasedChannel,
-	language: LanguageType,
+	language: Language,
 	item: GenericItemModel,
 	itemToReplace: InventorySlot,
 	itemToReplaceInstance: GenericItemModel,
@@ -279,7 +279,7 @@ async function manageMoreThan2ItemsSwitching(
 export const giveItemToPlayer = async function(
 	player: Player,
 	item: GenericItemModel,
-	language: LanguageType,
+	language: Language,
 	discordUser: User,
 	channel: TextBasedChannel,
 	inventorySlots: InventorySlot[],
@@ -450,7 +450,7 @@ export const generateRandomItem = async function(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Player} player
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: LanguageType, player: Player): Promise<void> {
+export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannel, language: Language, player: Player): Promise<void> {
 	await giveItemToPlayer(player, await generateRandomItem(), language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
 };
 

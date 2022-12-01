@@ -2,7 +2,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "myids",
@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const myIDsTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
+const myIDsTestCommand = async (language: Language, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	return format(commandInfo.messageWhenExecuted, { playerId: player.id });
 };

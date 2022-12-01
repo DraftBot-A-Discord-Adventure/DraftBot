@@ -20,7 +20,7 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {MissionsController} from "../missions/MissionsController";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {PetConstants} from "../constants/PetConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Allow to generate the embed that will be displayed to the player
@@ -35,7 +35,7 @@ import {LanguageType} from "../constants/TypeConstants";
  */
 // eslint-disable-next-line max-params
 async function generatePetEmbed(
-	language: LanguageType,
+	language: Language,
 	interaction: string,
 	seEmbed: DraftBotEmbed,
 	pet: PetEntity,
@@ -166,7 +166,7 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
 async function finishResolvingSpecialInteractions(
 	interaction: string,
 	interactionCommand: CommandInteraction,
-	language: LanguageType,
+	language: Language,
 	player: Player,
 	food: string
 ): Promise<void> {
@@ -196,7 +196,7 @@ async function finishResolvingSpecialInteractions(
 async function managePickedPetInteraction(
 	player: Player,
 	interactionCommand: CommandInteraction,
-	language: LanguageType,
+	language: Language,
 	pet: PetEntity,
 	petModel: Pet
 ): Promise<{ interaction: string, amount: number, food: string }> {
@@ -285,7 +285,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interactionCommand: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interactionCommand: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		if (!player.petId) {
 			// the player does not have a petEntity : do nothing
 			return await doNothing.executeSmallEvent(interactionCommand, language, player, seEmbed);

@@ -11,7 +11,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Allow to display the info of a guild
@@ -19,7 +19,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;

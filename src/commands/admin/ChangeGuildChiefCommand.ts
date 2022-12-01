@@ -13,6 +13,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  *Apply the changes due to validation
@@ -125,7 +126,7 @@ function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, 
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const tr = Translations.getModule("commands.changeGuildChief", language);
 
 	let userToPromote;

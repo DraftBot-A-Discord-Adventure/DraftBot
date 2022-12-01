@@ -18,14 +18,14 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../core/constants/ItemConstants";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Collect all the stored items and prepare them for the main embed
  * @param toSwitchItems
  * @param language
  */
-async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: LanguageType): Promise<ChoiceItem[]> {
+async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: Language): Promise<ChoiceItem[]> {
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		choiceItems.push(new ChoiceItem(
@@ -176,7 +176,7 @@ async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandIn
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	// Error if blocked
 	if (await sendBlockedError(interaction, language)) {
 		return;

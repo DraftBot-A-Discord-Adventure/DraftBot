@@ -7,7 +7,7 @@ import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
-import {EffectType, LanguageType} from "../constants/TypeConstants";
+import {Effect, Language} from "../constants/TypeConstants";
 
 export class Maps {
 
@@ -74,7 +74,7 @@ export class Maps {
 	 * @param {string|String} effect
 	 * @returns {Promise<string>}
 	 */
-	static async generateTravelPathString(player: Player, language: LanguageType, date: Date, effect: EffectType = null): Promise<string> {
+	static async generateTravelPathString(player: Player, language: Language, date: Date, effect: Effect = null): Promise<string> {
 		// Gather useful data
 		const prevMapInstance = await player.getPreviousMap();
 		const nextMapInstance = await player.getDestination();

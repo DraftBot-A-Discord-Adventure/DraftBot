@@ -16,7 +16,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 type RewardType = { type: string, value: number | string };
 
@@ -64,7 +64,7 @@ function generateMalus(player: Player, malus: string, notReacted: boolean): Rewa
  * @param language
  * @param player
  */
-async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function applyMalus(malus: RewardType, interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	switch (malus.type) {
 	case "life":
 		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
@@ -116,7 +116,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed) {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed) {
 		const tr = Translations.getModule("smallEvents.gobletsGame", language);
 		const data = Data.getModule("smallEvents.gobletsGame");
 

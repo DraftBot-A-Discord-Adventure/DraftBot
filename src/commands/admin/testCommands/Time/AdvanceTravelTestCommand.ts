@@ -5,7 +5,7 @@ import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetravel",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advanceTravelTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const advanceTravelTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	await TravelTime.timeTravel(player, parseInt(args[0], 10), NumberChangeReason.TEST);
 	await player.save();

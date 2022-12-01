@@ -4,10 +4,10 @@ import {format} from "../../../utils/StringFormatter";
 import {FightActionController} from "../FightActionController";
 import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export default class ViciousAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: Language): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
 

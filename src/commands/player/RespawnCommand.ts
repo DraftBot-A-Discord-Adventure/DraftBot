@@ -14,7 +14,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Allow a player who is dead to respawn
@@ -22,7 +22,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

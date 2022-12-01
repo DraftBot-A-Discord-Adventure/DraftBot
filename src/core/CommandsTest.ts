@@ -5,7 +5,7 @@ import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
-import {LanguageType} from "./constants/TypeConstants";
+import {Language} from "./constants/TypeConstants";
 
 const typeVariableChecks = [
 	{
@@ -38,7 +38,7 @@ export interface ITestCommand {
 	messageWhenExecuted?: string,
 	description: string,
 	commandTestShouldReply: boolean,
-	execute: (language: LanguageType, interaction: CommandInteraction, args: string[]) => Promise<string | DraftBotEmbed>,
+	execute: (language: Language, interaction: CommandInteraction, args: string[]) => Promise<string | DraftBotEmbed>,
 	category?: string
 }
 
@@ -115,13 +115,13 @@ export class CommandsTest {
 
 	/**
 	 * Execute the test command, and alert the user about its success or its failure
-	 * @param {LanguageType} language - Language to use in the response
+	 * @param {Language} language - Language to use in the response
 	 * @param interaction
 	 * @param testCommand - the executed test command
 	 * @param {string[]} args - Additional arguments sent with the test command
 	 */
 	static async executeAndAlertUser(
-		language: LanguageType,
+		language: Language,
 		interaction: CommandInteraction,
 		testCommand: ITestCommand,
 		args: string[]): Promise<void> {

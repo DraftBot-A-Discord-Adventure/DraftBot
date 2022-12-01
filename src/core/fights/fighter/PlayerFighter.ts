@@ -16,7 +16,7 @@ import {MissionSlots} from "../../database/game/models/MissionSlot";
 import {getDayNumber} from "../../utils/TimeUtils";
 import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
-import {LanguageType} from "../../constants/TypeConstants";
+import {Language} from "../../constants/TypeConstants";
 
 /**
  * @class PlayerFighter
@@ -148,7 +148,7 @@ export class PlayerFighter extends Fighter {
 	 * @param language
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: Language): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = await inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).getItem() as Potion;
 		if (friendly || !drankPotion.isFightPotion()) {

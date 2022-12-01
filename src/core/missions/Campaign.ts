@@ -6,7 +6,7 @@ import {Missions} from "../database/game/models/Mission";
 import {draftBotInstance} from "../bot";
 import Player from "../database/game/models/Player";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -29,7 +29,7 @@ export class Campaign {
 		missionInfo: PlayerMissionsInfo,
 		completedCampaign: boolean,
 		campaign: MissionSlot,
-		language: LanguageType
+		language: Language
 	): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		let firstMissionChecked = false;
@@ -70,7 +70,7 @@ export class Campaign {
 		return completedMissions;
 	}
 
-	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player, language: LanguageType): Promise<CompletedMission[]> {
+	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player, language: Language): Promise<CompletedMission[]> {
 		const campaign = await MissionSlots.getCampaignOfPlayer(player.id);
 		if (!campaign) {
 			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];

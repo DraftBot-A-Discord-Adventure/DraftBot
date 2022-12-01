@@ -4,7 +4,7 @@ import {Translations} from "../Translations";
 import {replyErrorMessage} from "./ErrorUtils";
 import {escapeUsername} from "./StringUtils";
 import {format} from "./StringFormatter";
-import {BlockingReason, LanguageType} from "../constants/TypeConstants";
+import {BlockingReason, Language} from "../constants/TypeConstants";
 
 /**
  * Functions to call when you want to manage the blocking of a player
@@ -69,7 +69,7 @@ export class BlockingUtils {
  * @param blockingReason
  * @param language
  */
-export function getErrorReasons(blockingReason: BlockingReason[], language: LanguageType): string {
+export function getErrorReasons(blockingReason: BlockingReason[], language: Language): string {
 	let errorReasons = "";
 	blockingReason.forEach(reason => {
 		errorReasons = errorReasons.concat(`${Translations.getModule("error", language).get(`blockedContext.${reason}`)}, `);
@@ -84,7 +84,7 @@ export function getErrorReasons(blockingReason: BlockingReason[], language: Lang
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(interaction: CommandInteraction, language: LanguageType, user: User = interaction.user): Promise<boolean> {
+export async function sendBlockedError(interaction: CommandInteraction, language: Language, user: User = interaction.user): Promise<boolean> {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
 		await replyErrorMessage(

@@ -8,7 +8,7 @@ import {Guilds} from "../database/game/models/Guild";
 import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -25,7 +25,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
 		if (guild === null || guild.isAtMaxLevel()) {
 			return await doNothing.executeSmallEvent(interaction, language, player, seEmbed);

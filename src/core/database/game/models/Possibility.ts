@@ -2,7 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import * as moment from "moment";
 import {format} from "../../../utils/StringFormatter";
-import {EffectType, LanguageType} from "../../../constants/TypeConstants";
+import {Effect, Language} from "../../../constants/TypeConstants";
 
 export class Possibility extends Model {
 	public id!: number;
@@ -15,7 +15,7 @@ export class Possibility extends Model {
 
 	public oneshot!: boolean;
 
-	public effect!: EffectType;
+	public effect!: Effect;
 
 	public experience!: number;
 
@@ -38,7 +38,7 @@ export class Possibility extends Model {
 	public createdAt!: Date;
 
 
-	public getText(language: LanguageType): string {
+	public getText(language: Language): string {
 		return format(language === Constants.LANGUAGE.FRENCH ? this.fr : this.en, {});
 	}
 }

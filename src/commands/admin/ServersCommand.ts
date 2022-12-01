@@ -6,14 +6,14 @@ import {draftBotClient} from "../../core/bot";
 import * as fs from "fs";
 import {BotUtils} from "../../core/utils/BotUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Allows an admin to check the server list
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	let count = 0;
 	let total = 0;
 	let result = "";

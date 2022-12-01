@@ -6,7 +6,7 @@ import {sendErrorMessage} from "../utils/ErrorUtils";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import {getMention} from "../utils/StringUtils";
-import {BlockingReason, LanguageType} from "../constants/TypeConstants";
+import {BlockingReason, Language} from "../constants/TypeConstants";
 
 export type BroadcastTranslationModuleLike = {
 	errorBroadcastCancelled: string,
@@ -40,7 +40,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 
 	private _answerer: User;
 
-	private readonly _language: LanguageType;
+	private readonly _language: Language;
 
 	private readonly _collectorTime: number;
 
@@ -59,7 +59,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 */
 	constructor(
 		interaction: CommandInteraction,
-		language: LanguageType,
+		language: Language,
 		acceptCallback: (user: User) => Promise<boolean>,
 		blockingReason: BlockingReason,
 		translationModule: BroadcastTranslationModuleLike = null,

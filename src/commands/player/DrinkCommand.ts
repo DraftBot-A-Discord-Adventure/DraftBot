@@ -19,7 +19,7 @@ import Player from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
 
@@ -109,7 +109,7 @@ function drinkPotionCallback(
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

@@ -8,7 +8,7 @@ import {EmbedField} from "discord.js";
 import {GuildPets} from "../database/game/models/GuildPet";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Shelter embed
@@ -45,14 +45,14 @@ export class DraftBotShelterMessageBuilder {
 	 * The language to display the shelter
 	 * @private
 	 */
-	private readonly _language: LanguageType;
+	private readonly _language: Language;
 
 	/**
 	 * Default constructor
 	 * @param guild
 	 * @param language
 	 */
-	constructor(guild: Guild, language: LanguageType) {
+	constructor(guild: Guild, language: Language) {
 		this._guild = guild;
 		this._language = language;
 	}

@@ -3,7 +3,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetopggvotetime",
@@ -25,7 +25,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advanceTopGGVoteTimeTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const advanceTopGGVoteTimeTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	player.topggVoteAt = new Date(player.topggVoteAt.valueOf() - parseInt(args[0], 10) * 60000);
 	await player.save();

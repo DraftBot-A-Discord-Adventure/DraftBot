@@ -7,7 +7,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "jailplayer",
@@ -29,7 +29,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const jailPlayerTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const jailPlayerTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(getIdFromMention(args[0]));
 	await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST);
 	await player.save();

@@ -5,7 +5,7 @@ import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../../../core/constants/ItemConstants";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const slotsTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const slotsTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const slots = parseInt(args[1], 10);
 	if (slots >= 5 || slots < 0) {

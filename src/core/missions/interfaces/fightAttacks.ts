@@ -4,14 +4,14 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {FightActionController} from "../../fights/actions/FightActionController";
 import {Classes} from "../../database/game/models/Class";
 import {Data} from "../../Data";
-import {LanguageType} from "../../constants/TypeConstants";
+import {Language} from "../../constants/TypeConstants";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return params.attackType === FightActionController.variantToFightActionId(variant);
 	},
 
-	getVariantFormatVariable(variant: number, objective: number, language: LanguageType): Promise<string> {
+	getVariantFormatVariable(variant: number, objective: number, language: Language): Promise<string> {
 		return Promise.resolve(
 			`${Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
 				.getString("emote")} ${Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)

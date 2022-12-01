@@ -1,7 +1,7 @@
 import {format, Replacements} from "./utils/StringFormatter";
 import {RandomUtils} from "./utils/RandomUtils";
 import {JsonModule} from "./Data";
-import {LanguageType} from "./constants/TypeConstants";
+import {Language} from "./constants/TypeConstants";
 
 declare const JsonReader: JsonModule;
 
@@ -10,21 +10,21 @@ const translationModulesCache: Record<string, TranslationModule> = {};
 export class TranslationModule {
 	private readonly _module: string;
 
-	private readonly _language: LanguageType;
+	private readonly _language: Language;
 
 	private readonly _moduleTranslationObject: JsonModule;
 
-	constructor(module: string, language: LanguageType) {
+	constructor(module: string, language: Language) {
 		this._module = module;
 		this._moduleTranslationObject = TranslationModule.getTranslationObject(module.split("."), language);
 		this._language = language;
 	}
 
-	get language(): LanguageType {
+	get language(): Language {
 		return this._language;
 	}
 
-	private static getTranslationObject(modulePath: string[], language: LanguageType): JsonModule {
+	private static getTranslationObject(modulePath: string[], language: Language): JsonModule {
 		let lastObject: JsonModule = JsonReader;
 		for (const path of modulePath) {
 			if (!(path in lastObject)) {
@@ -103,7 +103,7 @@ export class TranslationModule {
 }
 
 export class Translations {
-	static getModule(module: string, language: LanguageType): TranslationModule {
+	static getModule(module: string, language: Language): TranslationModule {
 		const moduleKey = module + language;
 		if (translationModulesCache[moduleKey]) {
 			return translationModulesCache[moduleKey];

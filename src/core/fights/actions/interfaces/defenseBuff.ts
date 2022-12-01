@@ -1,10 +1,10 @@
 import {Fighter} from "../../fighter/Fighter";
 import {Translations} from "../../../Translations";
 import {FightAction} from "../FightAction";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export default class DefenseBuff extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: Language): string {
 		const noneTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
 		// amount of times the sender has used the move already in its 5 last moves

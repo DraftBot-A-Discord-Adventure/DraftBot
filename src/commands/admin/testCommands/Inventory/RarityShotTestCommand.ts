@@ -3,7 +3,7 @@ import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "rarityshot",
@@ -51,7 +51,7 @@ function checkShotValues(nbShots: number, min: number, max: number): void {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const rarityShotTestCommand = (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const rarityShotTestCommand = (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const nbShots = parseInt(args[0], 10);
 	const min = parseInt(args[1], 10);
 	const max = parseInt(args[2], 10);

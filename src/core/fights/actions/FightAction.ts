@@ -2,7 +2,7 @@ import {Fighter} from "../fighter/Fighter";
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {FightConstants} from "../../constants/FightConstants";
-import {LanguageType} from "../../constants/TypeConstants";
+import {Language} from "../../constants/TypeConstants";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -25,13 +25,13 @@ export abstract class FightAction {
 	 * @param turn - the turn's number
 	 * @param language - the language of the message
 	 */
-	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string;
+	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: Language): string;
 
 	/**
 	 * return the name of the attack as it will appear in the list of actions
 	 * @param language
 	 */
-	public toString(language: LanguageType): string {
+	public toString(language: Language): string {
 		if (!this.toStringCache[language]) {
 			this.toStringCache[language] = Translations.getModule(`fightactions.${this.name}`, language).get("name");
 		}

@@ -7,7 +7,7 @@ import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {format} from "./StringFormatter";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Send a dm to a user
@@ -16,7 +16,7 @@ import {LanguageType} from "../constants/TypeConstants";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param DirectMessageFooter - Add the dmMessage footer
  */
-export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: LanguageType, DirectMessageFooter = true): void {
+export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: Language, DirectMessageFooter = true): void {
 	if (DirectMessageFooter) {
 		embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
 	}

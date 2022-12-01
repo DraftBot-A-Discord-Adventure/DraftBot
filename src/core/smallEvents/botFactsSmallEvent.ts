@@ -10,14 +10,14 @@ import {Guilds} from "../database/game/models/Guild";
 import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
 import {readdir} from "fs/promises";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Gives how many players have a random class
  * @param {("fr"|"en")} language
  * @return {Promise<(*)[]>}
  */
-const getNbPlayersWithGivenClass = async (language: LanguageType): Promise<[number, string]> => {
+const getNbPlayersWithGivenClass = async (language: Language): Promise<[number, string]> => {
 	const classToCheck = await Classes.getById(parseInt(RandomUtils.draftbotRandom.pick(await readdir("resources/text/classes"))
 		.slice(0, -5), 10));
 	return [await Players.getNbPlayersWithClass(classToCheck), language === Constants.LANGUAGE.FRENCH ? classToCheck.fr : classToCheck.en];
@@ -38,7 +38,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botFacts", language);
 
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");

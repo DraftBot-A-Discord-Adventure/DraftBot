@@ -4,7 +4,7 @@ import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {EmbedField} from "discord.js";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
 import moment = require("moment");
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 type Value = {
 	maxValue: number,
@@ -45,7 +45,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	public readonly speed!: number;
 
 
-	public toFieldObject(language: LanguageType, maxStatsValue: MaxStatsValues): EmbedField {
+	public toFieldObject(language: Language, maxStatsValue: MaxStatsValues): EmbedField {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
@@ -59,7 +59,7 @@ export abstract class MainItemModel extends GenericItemModel {
 		};
 	}
 
-	public toString(language: LanguageType): string {
+	public toString(language: Language): string {
 		const tr = Translations.getModule("items", language);
 		if (this.id === 0) {
 			return this.getName(language);
@@ -94,7 +94,7 @@ export abstract class MainItemModel extends GenericItemModel {
 	 * @param maxStatsValue
 	 * @protected
 	 */
-	protected getValues(language: LanguageType, maxStatsValue: MaxStatsValues = null): string {
+	protected getValues(language: Language, maxStatsValue: MaxStatsValues = null): string {
 		if (!maxStatsValue) {
 			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
 		}

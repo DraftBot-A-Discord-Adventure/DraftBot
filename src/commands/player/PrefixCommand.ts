@@ -5,14 +5,14 @@ import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * +DEPRECATED+, Allow a server's owner to change the prefix of the bot on the current server
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const prefixMessage = new DraftBotEmbed()
 		.setTitle(

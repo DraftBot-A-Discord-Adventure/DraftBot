@@ -35,7 +35,7 @@ import {BotConstants} from "../core/constants/BotConstants";
 import Player, {Players} from "../core/database/game/models/Player";
 import {GuildConstants} from "../core/constants/GuildConstants";
 import {NotificationsConstants} from "../core/constants/NotificationsConstants";
-import {LanguageType} from "../core/constants/TypeConstants";
+import {Language} from "../core/constants/TypeConstants";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -167,7 +167,7 @@ export class CommandsManager {
 	 * @param player
 	 * @param argsOfCommand
 	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: LanguageType, player: Player, ...argsOfCommand: unknown[]): Promise<void> {
+	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: Language, player: Player, ...argsOfCommand: unknown[]): Promise<void> {
 		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, player, ...argsOfCommand);
 	}
 

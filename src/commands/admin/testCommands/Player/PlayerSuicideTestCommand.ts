@@ -2,7 +2,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "playersuicide",
@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const playerSuicideTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
+const playerSuicideTestCommand = async (language: Language, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	await player.addHealth(-player.health, interaction.channel, language, NumberChangeReason.TEST, {

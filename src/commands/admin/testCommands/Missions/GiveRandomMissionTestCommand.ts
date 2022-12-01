@@ -7,7 +7,7 @@ import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "giveRandomMission",
@@ -28,7 +28,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param args
  */
-const giveRandomMissionTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const giveRandomMissionTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	if (!player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id))) {

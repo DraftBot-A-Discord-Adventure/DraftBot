@@ -4,7 +4,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {Data} from "../Data";
 import Player from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -21,7 +21,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		seEmbed.setDescription(
 			Data.getModule("smallEvents.doNothing").getString("emote") +
 			Translations.getModule("smallEvents.doNothing", language).getRandom("stories"));

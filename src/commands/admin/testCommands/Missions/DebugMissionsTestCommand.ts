@@ -5,7 +5,7 @@ import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 import {Missions} from "../../../../core/database/game/models/Mission";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "debugMissions",
@@ -23,7 +23,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const debugMissionsTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
+const debugMissionsTestCommand = async (language: Language, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);

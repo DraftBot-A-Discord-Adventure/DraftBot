@@ -4,7 +4,7 @@ import {DraftBotMissionsMessageBuilder} from "../../../../core/messages/DraftBot
 import {Translations} from "../../../../core/Translations";
 import {getTomorrowMidnight} from "../../../../core/utils/TimeUtils";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 import {Missions} from "../../../../core/database/game/models/Mission";
 import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 
@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * Set the weapon of the player
  * @return {String} - The successful message formatted
  */
-const newDailyMissionTestCommand = async (language: LanguageType): Promise<string> => {
+const newDailyMissionTestCommand = async (language: Language): Promise<string> => {
 	const newDM = await DailyMissions.regenerateDailyMission();
 	await PlayerMissionsInfo.update({
 		dailyMissionNumberDone: 0,

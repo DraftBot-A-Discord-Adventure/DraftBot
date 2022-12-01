@@ -16,7 +16,7 @@ import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {ItemConstants} from "../constants/ItemConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -33,7 +33,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const classId = player.class;
 		const tr = Translations.getModule("smallEvents.class", language);
 		const classDataModule = Data.getModule("smallEvents.class");

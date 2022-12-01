@@ -5,7 +5,7 @@ import {format} from "../../../utils/StringFormatter";
 import * as moment from "moment";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import {Constants} from "../../../Constants";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -39,7 +39,7 @@ export class Class extends Model {
 	 * @param language
 	 * @param level
 	 */
-	public toString(language: LanguageType, level: number): string {
+	public toString(language: Language, level: number): string {
 		return format(ClassInfoConstants.FIELDS_VALUE, {
 			name: this.getName(language),
 			attack: this.getAttackValue(level),
@@ -52,7 +52,7 @@ export class Class extends Model {
 		});
 	}
 
-	public statsToString(language: LanguageType, level: number): string {
+	public statsToString(language: Language, level: number): string {
 		return format(ClassInfoConstants.STATS_DISPLAY, {
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
@@ -66,7 +66,7 @@ export class Class extends Model {
 	 * get the name of the class in the given language
 	 * @param language
 	 */
-	public getName(language: LanguageType): string {
+	public getName(language: Language): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 
@@ -74,7 +74,7 @@ export class Class extends Model {
 	 * get the description of the class in the given language
 	 * @param language
 	 */
-	public getDescription(language: LanguageType): string {
+	public getDescription(language: Language): string {
 		return Translations.getModule("commands.class", language).get("description." + this.id);
 	}
 

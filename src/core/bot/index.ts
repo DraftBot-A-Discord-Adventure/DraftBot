@@ -10,7 +10,7 @@ import {BotUtils} from "../utils/BotUtils";
 import {DBL} from "../DBL";
 import {BotConstants} from "../constants/BotConstants";
 import {Intents} from "../intents";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export let draftBotInstance: DraftBot = null;
 export let draftBotClient: Client = null;
@@ -86,7 +86,7 @@ async function main(): Promise<void> {
 	 * @param {"fr"|"en"} language
 	 * @return {string}
 	 */
-	function getJoinLeaveMessage(guild: Guild, join: boolean, language: LanguageType): string {
+	function getJoinLeaveMessage(guild: Guild, join: boolean, language: Language): string {
 		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		return format(
 			join

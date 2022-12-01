@@ -16,7 +16,7 @@ import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
 
@@ -37,7 +37,7 @@ function getRandomWitchEvents(): WitchEventSelection {
  * @param language
  * @param interaction
  */
-async function givePotion(player: Player, potionToGive: GenericItemModel, language: LanguageType, interaction: CommandInteraction): Promise<void> {
+async function givePotion(player: Player, potionToGive: GenericItemModel, language: Language, interaction: CommandInteraction): Promise<void> {
 	await giveItemToPlayer(
 		player,
 		potionToGive,
@@ -70,7 +70,7 @@ async function sendResultMessage(seEmbed: DraftBotEmbed, outcome: number, tr: Tr
  * @param language
  * @param interaction
  */
-async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: LanguageType, interaction: CommandInteraction): Promise<void> {
+async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: Player, language: Language, interaction: CommandInteraction): Promise<void> {
 	if (selectedEvent.forceEffect || outcome === SmallEventConstants.WITCH.OUTCOME_TYPE.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
@@ -100,7 +100,7 @@ function retrieveSelectedEvent(witchEventMessage: DraftBotReactionMessage): Witc
  * @param embed
  * @param language
  */
-function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBotReactionMessageBuilder, language: LanguageType): string {
+function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBotReactionMessageBuilder, language: Language): string {
 	let witchEventMenu = "";
 	for (const witchEvent of Object.entries(witchEvents)) {
 		embed.addReaction(new DraftBotReaction(witchEvent[1].getEmoji()));
@@ -152,7 +152,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.witch", language);
 
 		const embed = new DraftBotReactionMessageBuilder()

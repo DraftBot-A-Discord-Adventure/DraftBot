@@ -3,7 +3,7 @@ import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import {CommandInteraction} from "discord.js";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import Player from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Change the money of a player
@@ -13,7 +13,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param language
  */
 
-function giveMoneyTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: LanguageType): void {
+function giveMoneyTo(playerToEdit: Player, amount: number, interaction: CommandInteraction, language: Language): void {
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.addMoney({
 			amount: amount - playerToEdit.money,

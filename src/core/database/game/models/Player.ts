@@ -30,21 +30,20 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
-import {LanguageType} from "../../../constants/TypeConstants";
-import {EffectType, LanguageType} from "../../../constants/TypeConstants";
+import {Effect, Language} from "../../../constants/TypeConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
 	amount: number,
 	channel: TextBasedChannel,
-	language: LanguageType,
+	language: Language,
 	reason: NumberChangeReason
 }
 
 export type EditValueParameters = {
 	amount: number,
 	channel: TextBasedChannel,
-	language: LanguageType,
+	language: Language,
 	reason: NumberChangeReason
 }
 
@@ -86,7 +85,7 @@ export class Player extends Model {
 
 	public lastPetFree!: Date;
 
-	public effect!: EffectType;
+	public effect!: Effect;
 
 	public effectEndDate!: Date;
 
@@ -222,7 +221,7 @@ export class Player extends Model {
 	 * get a player's pseudo
 	 * @param language
 	 */
-	public getPseudo(language: LanguageType): string {
+	public getPseudo(language: Language): string {
 		this.setPseudo(language);
 		return this.pseudo;
 	}
@@ -231,7 +230,7 @@ export class Player extends Model {
 	 * get the pseudo from the discord api + our custom treatment and saves it in the model
 	 * @param language
 	 */
-	public setPseudo(language: LanguageType): void {
+	public setPseudo(language: Language): void {
 		if (this.discordUserId) {
 			const user = draftBotClient.users.cache.get(this.discordUserId);
 			if (user) {
@@ -268,7 +267,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param channel
 	 */
-	public async getLvlUpReward(language: LanguageType, channel: TextBasedChannel): Promise<string[]> {
+	public async getLvlUpReward(language: Language, channel: TextBasedChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === FightConstants.REQUIRED_LEVEL) {
@@ -312,7 +311,7 @@ export class Player extends Model {
 	 * @param channel
 	 * @param language
 	 */
-	public async levelUpIfNeeded(channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	public async levelUpIfNeeded(channel: TextBasedChannel, language: Language): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -347,7 +346,7 @@ export class Player extends Model {
 	 * @param timeMalus
 	 * @param effectMalus
 	 */
-	public async setLastReportWithEffect(timeMalus: number, effectMalus: EffectType): Promise<void> {
+	public async setLastReportWithEffect(timeMalus: number, effectMalus: Effect): Promise<void> {
 		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
 		await this.save();
 	}
@@ -358,7 +357,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param reason
 	 */
-	public async killIfNeeded(channel: TextBasedChannel, language: LanguageType, reason: NumberChangeReason): Promise<boolean> {
+	public async killIfNeeded(channel: TextBasedChannel, language: Language, reason: NumberChangeReason): Promise<boolean> {
 		if (this.health > 0) {
 			return false;
 		}
@@ -661,7 +660,7 @@ export class Player extends Model {
 	 * @param reason
 	 * @param missionHealthParameter
 	 */
-	public async addHealth(health: number, channel: TextBasedChannel, language: LanguageType, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
+	public async addHealth(health: number, channel: TextBasedChannel, language: Language, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}): Promise<void> {
@@ -691,7 +690,7 @@ export class Player extends Model {
 	 * @param language
 	 * @private
 	 */
-	private async setScore(score: number, channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	private async setScore(score: number, channel: TextBasedChannel, language: Language): Promise<void> {
 		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
@@ -746,7 +745,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param missionHealthParameter
 	 */
-	private async setHealth(health: number, channel: TextBasedChannel, language: LanguageType, missionHealthParameter: MissionHealthParameter = {
+	private async setHealth(health: number, channel: TextBasedChannel, language: Language, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}): Promise<void> {

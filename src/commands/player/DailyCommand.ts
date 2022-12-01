@@ -18,10 +18,10 @@ import Player from "../../core/database/game/models/Player";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {ItemConstants} from "../../core/constants/ItemConstants";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 type EntityInformation = { player: Player, activeObject: ObjectItem };
-type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: LanguageType };
+type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: Language };
 
 /**
  * Checks if you have a right object you can daily with, and if you don't, sends an error
@@ -30,7 +30,7 @@ type TextInformation = { dailyModule: TranslationModule, interaction: CommandInt
  * @param language
  * @param dailyModule
  */
-async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: LanguageType, dailyModule: TranslationModule): Promise<boolean> {
+async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: Language, dailyModule: TranslationModule): Promise<boolean> {
 	if (activeObject.nature === ItemConstants.NATURE.NONE) {
 		if (activeObject.id !== InventoryConstants.OBJECT_DEFAULT_ID) {
 			// there is an object that do nothing in the inventory
@@ -60,7 +60,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
  * @param language
  * @param dailyModule
  */
-async function dailyNotReady(interaction: CommandInteraction, player: Player, language: LanguageType, dailyModule: TranslationModule): Promise<boolean> {
+async function dailyNotReady(interaction: CommandInteraction, player: Player, language: Language, dailyModule: TranslationModule): Promise<boolean> {
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	const time = millisecondsToHours(Date.now() - inventoryInfo.lastDailyAt.valueOf());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
@@ -123,7 +123,7 @@ async function activateDailyItem(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

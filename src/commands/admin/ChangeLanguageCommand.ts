@@ -5,7 +5,7 @@ import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
@@ -13,7 +13,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param {("fr"|"en")} language - Language to use in the response
  */
 
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const server = await Servers.getOrRegister(interaction.guild.id);
 	const languageModule = Translations.getModule("commands.changeLanguage", language);
 	if (server.language === Constants.LANGUAGE.FRENCH) {

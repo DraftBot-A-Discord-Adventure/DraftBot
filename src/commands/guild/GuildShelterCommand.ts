@@ -7,7 +7,7 @@ import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Shows the guild's shelter, where all the guild pets are stored
@@ -15,7 +15,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	await interaction.reply({embeds: [await new DraftBotShelterMessageBuilder(guild, language).build()]});
 }

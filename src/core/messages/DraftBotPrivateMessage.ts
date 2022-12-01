@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {User} from "discord.js";
 import {Translations} from "../Translations";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export class DraftBotPrivateMessage extends DraftBotEmbed {
-	constructor(user: User, title: string, description: string, language: LanguageType) {
+	constructor(user: User, title: string, description: string, language: Language) {
 		super();
 		this.formatAuthor(title, user);
 		this.setDescription(description);

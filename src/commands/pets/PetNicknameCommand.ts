@@ -13,7 +13,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {PetConstants} from "../../core/constants/PetConstants";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Renames your current pet
@@ -21,7 +21,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

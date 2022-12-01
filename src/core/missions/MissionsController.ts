@@ -17,7 +17,7 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -47,7 +47,7 @@ export class MissionsController {
 		missionSlots: MissionSlot[],
 		missionInfo: PlayerMissionsInfo,
 		channel: TextBasedChannel,
-		language: LanguageType,
+		language: Language,
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
 			completedCampaign: false
@@ -69,7 +69,7 @@ export class MissionsController {
 	static async update(
 		player: Player,
 		channel: TextBasedChannel,
-		language: LanguageType,
+		language: Language,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Player> {
 
 		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplit une autre
@@ -106,7 +106,7 @@ export class MissionsController {
 		missionSlots: MissionSlot[],
 		completedDailyMission: boolean,
 		completedCampaign: boolean,
-		language: LanguageType
+		language: Language
 	): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player, language));
@@ -141,7 +141,7 @@ export class MissionsController {
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(player: Player, completedMissions: CompletedMission[], channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	static async sendCompletedMissions(player: Player, completedMissions: CompletedMission[], channel: TextBasedChannel, language: Language): Promise<void> {
 		await channel.send({
 			embeds: [
 				new DraftBotCompletedMissions(draftBotClient.users.cache.get(player.discordUserId), completedMissions, language)
@@ -149,7 +149,7 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: Language): Promise<void> {
 		const actions = [];
 		for (const completedMission of completedMissions) {
 			actions.push(missionInfo.addGems(completedMission.gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED));
@@ -169,7 +169,7 @@ export class MissionsController {
 		await Promise.all(actions);
 	}
 
-	static async handleExpiredMissions(player: Player, missionSlots: MissionSlot[], user: User, channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	static async handleExpiredMissions(player: Player, missionSlots: MissionSlot[], user: User, channel: TextBasedChannel, language: Language): Promise<void> {
 		const expiredMissions: MissionSlot[] = [];
 		for (const mission of missionSlots) {
 			if (mission.hasExpired()) {
@@ -287,7 +287,7 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
-	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: LanguageType, saveBlob: Buffer): Promise<string> {
+	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: Language, saveBlob: Buffer): Promise<string> {
 		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language, saveBlob);
 	}
 

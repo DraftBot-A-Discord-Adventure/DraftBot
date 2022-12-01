@@ -7,7 +7,7 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {ItemConstants} from "../constants/ItemConstants";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -24,8 +24,8 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-        const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.FIND_ITEM.MAXIMUM_RARITY);
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.FIND_ITEM.MAXIMUM_RARITY);
 		seEmbed.setDescription(
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +

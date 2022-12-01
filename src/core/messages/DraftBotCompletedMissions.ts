@@ -3,10 +3,10 @@ import {User} from "discord.js";
 import {TranslationModule, Translations} from "../Translations";
 import {CompletedMission, CompletedMissionType} from "../missions/CompletedMission";
 import {escapeUsername} from "../utils/StringUtils";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export class DraftBotCompletedMissions extends DraftBotEmbed {
-	constructor(user: User, completedMissions: CompletedMission[], language: LanguageType) {
+	constructor(user: User, completedMissions: CompletedMission[], language: Language) {
 		super();
 		const tr = Translations.getModule("models.missions", language);
 		this.setAuthor({

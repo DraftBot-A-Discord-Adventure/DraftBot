@@ -5,7 +5,7 @@ import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import Player from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -22,7 +22,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: LanguageType, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: CommandInteraction, language: Language, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.staffMember", language);
 		const keys = tr.getKeys("members");
 		const key = keys[RandomUtils.randInt(0, keys.length)];

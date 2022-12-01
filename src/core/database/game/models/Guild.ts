@@ -13,7 +13,7 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import moment = require("moment");
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -107,7 +107,7 @@ export class Guild extends Model {
 	 * @param language the language to use to display the message
 	 * @param reason The reason of the experience change
 	 */
-	public async addExperience(experience: number, channel: TextBasedChannel, language: LanguageType, reason: NumberChangeReason): Promise<void> {
+	public async addExperience(experience: number, channel: TextBasedChannel, language: Language, reason: NumberChangeReason): Promise<void> {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
@@ -136,7 +136,7 @@ export class Guild extends Model {
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
 	 */
-	public async levelUpIfNeeded(channel: TextBasedChannel, language: LanguageType): Promise<void> {
+	public async levelUpIfNeeded(channel: TextBasedChannel, language: Language): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}

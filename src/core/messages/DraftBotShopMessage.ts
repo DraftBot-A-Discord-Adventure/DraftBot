@@ -8,7 +8,7 @@ import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {Players} from "../database/game/models/Player";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * Reasons when the shop ends
@@ -50,7 +50,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 
 	private readonly _shopItemReactions: string[];
 
-	private readonly _language: LanguageType;
+	private readonly _language: Language;
 
 	private readonly _translationModule: TranslationModule;
 
@@ -69,7 +69,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	// eslint-disable-next-line max-params
 	constructor(
 		shopItemCategories: ShopItemCategory[],
-		language: LanguageType,
+		language: Language,
 		title: string,
 		interaction: CommandInteraction,
 		currentMoney: number,
@@ -124,7 +124,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return this._interaction.user;
 	}
 
-	get language(): LanguageType {
+	get language(): Language {
 		return this._language;
 	}
 
@@ -290,7 +290,7 @@ export class DraftBotShopMessageBuilder {
 
 	private readonly _title: string;
 
-	private readonly _language: LanguageType;
+	private readonly _language: Language;
 
 	private _noShoppingCart = false;
 
@@ -305,7 +305,7 @@ export class DraftBotShopMessageBuilder {
 	constructor(
 		interaction: CommandInteraction,
 		title: string,
-		language: LanguageType
+		language: Language
 	) {
 		this._interaction = interaction;
 		this._title = title;

@@ -5,7 +5,7 @@ import {FightController} from "../../../../core/fights/FightController";
 import {Classes} from "../../../../core/database/game/models/Class";
 import {Constants} from "../../../../core/Constants";
 import {PlayerFighter} from "../../../../core/fights/fighter/PlayerFighter";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "solofight",
@@ -25,7 +25,7 @@ export const commandInfo: ITestCommand = {
  * @param args
  * @return {String} - The successful message formatted
  */
-const soloFightTestCommand = async (language: LanguageType, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const soloFightTestCommand = async (language: Language, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const playerClass = await Classes.getById(player.class);
 	const fighter1 = new PlayerFighter(interaction.user, player, playerClass);

@@ -3,14 +3,14 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Display the link to invite the bot to another server
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language): Promise<void> {
 	const tr = Translations.getModule("commands.invite", language);
 	await interaction.reply({content: tr.get("main")});
 }

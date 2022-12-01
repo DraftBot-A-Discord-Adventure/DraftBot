@@ -1,11 +1,11 @@
 import {Constants} from "../Constants";
-import { LanguageType } from "../constants/TypeConstants";
+import { Language } from "../constants/TypeConstants";
 
 /**
  * Get the elements to display a remaining time in the given language
  * @param language
  */
-function getMinutesDisplayStringConstants(language: LanguageType): { hoursDisplay: string; minutesDisplay: string; plural: string; linkWord: string } {
+function getMinutesDisplayStringConstants(language: Language): { hoursDisplay: string; minutesDisplay: string; plural: string; linkWord: string } {
 	return !language ? {
 		hoursDisplay: "H",
 		minutesDisplay: "Min",
@@ -143,7 +143,7 @@ export function resetIsNow(): boolean {
  * @param date2 - second date
  * @param language - the language to use
  */
-export function parseTimeDifference(date1: number, date2: number, language: LanguageType): string {
+export function parseTimeDifference(date1: number, date2: number, language: Language): string {
 	if (date1 > date2) {
 		date1 = [date2, date2 = date1][0];
 	}
@@ -195,7 +195,7 @@ export function getTimeFromXHoursAgo(hours: number): Date {
  * @param minutes - the time in minutes
  * @param language
  */
-export function minutesDisplay(minutes: number, language: LanguageType = null): string {
+export function minutesDisplay(minutes: number, language: Language = null): string {
 	const hours = Math.floor(minutesToHours(minutes));
 	minutes = Math.floor(minutes % 60);
 	const displayConstantValues = getMinutesDisplayStringConstants(language);

@@ -11,7 +11,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {Pets} from "../../core/database/game/models/Pet";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Displays information about a pet
@@ -19,7 +19,7 @@ import {LanguageType} from "../../core/constants/TypeConstants";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
 	if (!askedPlayer) { // no entity found using the options
 		askedPlayer = player;

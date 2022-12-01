@@ -1,10 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAction} from "../../FightAction";
-import {LanguageType} from "../../../../constants/TypeConstants";
+import {Language} from "../../../../constants/TypeConstants";
 
 export default class WeakAlteration extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: LanguageType): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: Language): string {
 		sender.alterationTurn++;
 		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (sender.alterationTurn > 1) { // this effect heals after one turn

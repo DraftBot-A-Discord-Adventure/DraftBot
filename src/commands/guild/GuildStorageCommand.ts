@@ -9,7 +9,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Add a food storage field for storage embeds
@@ -40,7 +40,7 @@ function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: Translat
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	const foodModule = Translations.getModule("food", language);
 	const translations = Translations.getModule("commands.guildStorage", language);
 	const guild = await Guilds.getById(player.guildId);

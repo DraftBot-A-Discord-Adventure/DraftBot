@@ -11,7 +11,7 @@ import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {PlayerEditValueParameters} from "./Player";
 import moment = require("moment");
 import {PetConstants} from "../../../constants/PetConstants";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -33,12 +33,12 @@ export class PetEntity extends Model {
 	public createdAt!: Date;
 
 
-	public getPetTypeName(petModel: Pet, language: LanguageType): string {
+	public getPetTypeName(petModel: Pet, language: Language): string {
 		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
 		return petModel[field as keyof Pet];
 	}
 
-	public getFeedCooldownDisplay(petModel: Pet, language: LanguageType): string {
+	public getFeedCooldownDisplay(petModel: Pet, language: Language): string {
 		if (!this.hungrySince || this.getFeedCooldown(petModel) <= 0) {
 			return Translations.getModule("models.pets", language).get("hungry");
 		}
@@ -57,12 +57,12 @@ export class PetEntity extends Model {
 		return petModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
 	}
 
-	public displayName(petModel: Pet, language: LanguageType): string {
+	public displayName(petModel: Pet, language: Language): string {
 		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(petModel, language);
 		return `${this.getPetEmote(petModel)} ${displayedName}`;
 	}
 
-	public getPetDisplay(petModel: Pet, language: LanguageType): string {
+	public getPetDisplay(petModel: Pet, language: Language): string {
 		return Translations.getModule("commands.guildShelter", language).format("petField", {
 			emote: this.getPetEmote(petModel),
 			type: this.getPetTypeName(petModel, language),
@@ -73,13 +73,13 @@ export class PetEntity extends Model {
 		});
 	}
 
-	public getPetTitle(language: LanguageType, petNumber: number): string {
+	public getPetTitle(language: Language, petNumber: number): string {
 		return Translations.getModule("commands.guildShelter", language).format("petFieldName", {
 			number: petNumber
 		});
 	}
 
-	public getLoveLevel(language: LanguageType): string {
+	public getLoveLevel(language: Language): string {
 		const translations = Translations.getModule("models.pets", language);
 		const loveLevel = this.getLoveLevelNumber();
 		let loveLevelText;
@@ -140,11 +140,11 @@ export class PetEntity extends Model {
 		return this.getLoveLevelNumber() === PetConstants.LOVE_LEVEL.FEISTY;
 	}
 
-	private getNickname(language: LanguageType): string {
+	private getNickname(language: Language): string {
 		return this.nickname ? this.nickname : Translations.getModule("models.pets", language).get("noNickname");
 	}
 
-	private getSexDisplay(language: LanguageType): string {
+	private getSexDisplay(language: Language): string {
 		return `${
 			Translations.getModule("models.pets", language).get(this.sex === "m" ? "male" : "female")
 		} ${

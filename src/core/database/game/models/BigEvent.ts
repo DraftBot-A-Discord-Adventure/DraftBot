@@ -4,7 +4,7 @@ import MapLocation from "./MapLocation";
 import {readdir} from "fs";
 import moment = require("moment");
 import {Possibilities} from "./Possibility";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export class BigEvent extends Model {
 	public readonly id!: number;
@@ -31,7 +31,7 @@ export class BigEvent extends Model {
 		return reactions;
 	}
 
-	public getText(language: LanguageType): string {
+	public getText(language: Language): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 }

@@ -23,7 +23,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {PetConstants} from "../../core/constants/PetConstants";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Obtiens la guilde du joueur
@@ -84,7 +84,7 @@ async function sendPetFeedMessageAndPrepareCollector(
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function withoutGuildPetFeed(language: LanguageType, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
+async function withoutGuildPetFeed(language: Language, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
 	const feedEmbed = new DraftBotEmbed()
 		.formatAuthor(petFeedModule.get("feedEmbedTitle2"), interaction.user);
 	feedEmbed.setDescription(
@@ -165,7 +165,7 @@ async function withoutGuildPetFeed(language: LanguageType, interaction: CommandI
 // eslint-disable-next-line max-params
 async function feedPet(
 	interaction: CommandInteraction,
-	language: LanguageType,
+	language: Language,
 	player: Player,
 	pet: PetEntity,
 	petModel: Pet,
@@ -231,7 +231,7 @@ async function feedPet(
  * @param petFeedModule
  * @returns {Promise<void>}
  */
-async function guildUserFeedPet(language: LanguageType, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
+async function guildUserFeedPet(language: Language, interaction: CommandInteraction, player: Player, authorPet: PetEntity, petModel: Pet, petFeedModule: TranslationModule): Promise<void> {
 	const foodItems = getFoodItems();
 
 	const feedEmbed = new DraftBotEmbed()
@@ -277,7 +277,7 @@ async function guildUserFeedPet(language: LanguageType, interaction: CommandInte
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	const petFeedModule = Translations.getModule("commands.petFeed", language);
 	if (await sendBlockedError(interaction, language)) {
 		return;

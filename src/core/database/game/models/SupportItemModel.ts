@@ -4,14 +4,14 @@ import {DataTypes} from "sequelize";
 import {Constants} from "../../../Constants";
 import {EmbedField} from "discord.js";
 import moment = require("moment");
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export abstract class SupportItemModel extends GenericItemModel {
 	public readonly power!: number;
 
 	public readonly nature!: number;
 
-	public toString(language: LanguageType, maxStatsValue: MaxStatsValues): string {
+	public toString(language: Language, maxStatsValue: MaxStatsValues): string {
 		const name = this.getName(language);
 		return this.id === 0 ? name : Translations.getModule("items", language).format("potions.fieldValue", {
 			name,
@@ -32,9 +32,9 @@ export abstract class SupportItemModel extends GenericItemModel {
 		return this.nature === Constants.ITEM_NATURE.SPEED ? this.power : 0;
 	}
 
-	public abstract getNatureTranslation(language: LanguageType, maxStatsValue: MaxStatsValues): string;
+	public abstract getNatureTranslation(language: Language, maxStatsValue: MaxStatsValues): string;
 
-	public toFieldObject(language: LanguageType, maxStatsValue: MaxStatsValues): EmbedField {
+	public toFieldObject(language: Language, maxStatsValue: MaxStatsValues): EmbedField {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {

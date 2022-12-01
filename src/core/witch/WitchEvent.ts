@@ -7,7 +7,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {format} from "../utils/StringFormatter";
-import {LanguageType} from "../constants/TypeConstants";
+import {Language} from "../constants/TypeConstants";
 
 /**
  * The base class for the different events that can happen after the player encounters the witch
@@ -69,7 +69,7 @@ export abstract class WitchEvent {
 	 * @param player
 	 * @param language
 	 */
-	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: LanguageType): Promise<void> {
+	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: Language): Promise<void> {
 		await player.addHealth(
 			-this.lifePointsRemovedAmount,
 			interaction.channel,
@@ -84,7 +84,7 @@ export abstract class WitchEvent {
 	 * @param language
 	 * @param forceEndOfStringEmojiPlacement
 	 */
-	public toString(language: LanguageType, forceEndOfStringEmojiPlacement: boolean): string {
+	public toString(language: Language, forceEndOfStringEmojiPlacement: boolean): string {
 		return forceEndOfStringEmojiPlacement ?
 			`${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)} ${this.getEmoji()}`
 			: `${this.getEmoji()} ${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)}`;
@@ -140,7 +140,7 @@ export abstract class WitchEvent {
 	 * @param outcome
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async checkMissions(interaction: CommandInteraction, player: Player, language: LanguageType, outcome: number): Promise<void> {
+	public async checkMissions(interaction: CommandInteraction, player: Player, language: Language, outcome: number): Promise<void> {
 		return await Promise.resolve();
 	}
 }

@@ -8,7 +8,7 @@ import {format} from "../../core/utils/StringFormatter";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Get the map image link with the cursor on the player position
@@ -34,7 +34,7 @@ async function getStrMapWithCursor(player: Player, inReport: boolean): Promise<s
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player): Promise<void> {
 	const mapModule = Translations.getModule("commands.map", language);
 	const mapEmbed = new DraftBotEmbed()
 		.formatAuthor(mapModule.get("text"), interaction.user);

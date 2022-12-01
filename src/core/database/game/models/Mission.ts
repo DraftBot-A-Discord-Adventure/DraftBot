@@ -5,7 +5,7 @@ import {MissionsController} from "../../../missions/MissionsController";
 import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 import {Constants} from "../../../Constants";
-import {LanguageType} from "../../../constants/TypeConstants";
+import {Language} from "../../../constants/TypeConstants";
 
 export class Mission extends Model {
 	public id!: string;
@@ -29,7 +29,7 @@ export class Mission extends Model {
 	public createdAt!: Date;
 
 
-	public async formatDescription(objective: number, variant: number, language: LanguageType, saveBlob: Buffer): Promise<string> {
+	public async formatDescription(objective: number, variant: number, language: Language, saveBlob: Buffer): Promise<string> {
 		return format(language === Constants.LANGUAGE.FRENCH ? this.descFr : this.descEn, {
 			objective,
 			variantText: await MissionsController.getVariantFormatText(this.id, variant, objective, language, saveBlob),

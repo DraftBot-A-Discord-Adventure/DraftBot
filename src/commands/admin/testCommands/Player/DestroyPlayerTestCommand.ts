@@ -5,7 +5,7 @@ import MissionSlot from "../../../../core/database/game/models/MissionSlot";
 import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
-import {LanguageType} from "../../../../core/constants/TypeConstants";
+import {Language} from "../../../../core/constants/TypeConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "destroyplayer",
@@ -23,7 +23,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const destroyPlayerTestCommand = async (language: LanguageType, interaction: CommandInteraction): Promise<string> => {
+const destroyPlayerTestCommand = async (language: Language, interaction: CommandInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	await MissionSlot.destroy({
 		where: {

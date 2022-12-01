@@ -19,7 +19,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
-import {LanguageType} from "../../core/constants/TypeConstants";
+import {Language} from "../../core/constants/TypeConstants";
 
 /**
  * Check if a player is blocked
@@ -218,7 +218,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * @param player
  * @param friendly true if the fight is friendly
  */
-async function executeCommand(interaction: CommandInteraction, language: LanguageType, player: Player, friendly = false): Promise<void> {
+async function executeCommand(interaction: CommandInteraction, language: Language, player: Player, friendly = false): Promise<void> {
 	const askingFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
