@@ -492,8 +492,7 @@ async function doPossibility(
 
 	if (possibility[0].eventId === 0 && possibility[0].possibilityKey === "end") { // Don't do anything if the player ends the first report
 		draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, possibility[0].eventId, possibility[0].possibilityKey, 0).then();
-		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
-		return await textInformation.interaction.channel.send({
+		const msg = await textInformation.interaction.channel.send({
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
 				result: "",
@@ -502,6 +501,8 @@ async function doPossibility(
 				alte: ""
 			})
 		});
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
+		return msg;
 	}
 
 	const randomPossibilityIndex = RandomUtils.randInt(0, possibility.length);
@@ -509,7 +510,6 @@ async function doPossibility(
 	draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, randomPossibility.eventId, randomPossibility.possibilityKey, randomPossibilityIndex).then();
 	const result = await getDescriptionPossibilityResult(time, player, randomPossibility, textInformation);
 
-	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	const resultMsg = await textInformation.interaction.channel.send({content: result});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
@@ -527,7 +527,7 @@ async function doPossibility(
 		}
 	}
 	await player.save();
-	await player.save();
+	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT);
 	return resultMsg;
 }
 
