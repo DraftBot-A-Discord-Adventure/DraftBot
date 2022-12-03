@@ -115,7 +115,7 @@ async function sendFinishSwitchEmbed(
 		addDailyTimeBecauseSwitch(interaction, invInfo);
 	}
 	const itemProfileSlot = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemInventorySlot.itemCategory)[0];
-	await switchItemSlots(itemInventorySlot, player, itemProfileSlot);
+	await switchItemSlots(itemProfileSlot, player, itemInventorySlot);
 	await invInfo.save();
 	const itemProfile = await itemProfileSlot.getItem();
 	const itemInventory = await itemInventorySlot.getItem();
