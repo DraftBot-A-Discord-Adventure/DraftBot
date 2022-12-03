@@ -26,7 +26,7 @@ export class BlockingUtils {
 	 * @param collector
 	 */
 	static blockPlayerWithCollector(discordId: string, reason: string, collector: ReactionCollector): void {
-		BlockingUtils.blockPlayer(discordId, reason, collector.options.time);
+		BlockingUtils.blockPlayer(discordId, reason, collector.options.time + 10 * 1000); // 10 seconds to prevent exploits
 	}
 
 	/**
