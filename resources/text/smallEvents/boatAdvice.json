@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": {
+			"intro": [
+				"Vous montez sur le pont et vous discutez avec un membre de l'équipage. Il vous donne un conseil pour vous aider dans votre aventure sur l'île :\n**{advice}**.",
+				"Vous grimpez sur le mât pour admirer l'horizon. Un homme baisse sa longue-vue et tient à vous donner ce conseil avant votre départ pour l'île :\n**{advice}**.",
+				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'îme :\n**{advice}**."
+			],
+			"advices": [
+				"Vous pouvez faire un mini-évent par minute une fois là-bas",
+				"Si vous combattez des petits monstres pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
+				"Il y a beaucoup de bonus si vous allez sur l'île en même temps que des membres de votre guilde",
+				"Votre énergie ne se régènère pas seule sur l'île. Vérifiez que vous êtes au maximum avant de vous aventurer sur l'île",
+				"Une fois votre énergie à 0, vous serez ramené sur le continent",
+				"Le trajet vers l'île peut être fait qu'une seule fois par semaine gratuitement. Il est possible d'y aller 2 fois de plus, mais il faudra payer des gemmes",
+				"Les monstres de fin de trajet sont très forts, et le dernier de l'île l'est d'autant plus",
+				"Battre des monstres de fin de trajet donne des points de guilde, qui influencent sur le classement de votre guilde",
+				"Les monstres ont des statistiques différentes : certains vont avoir beaucoup de défense, d'attaque, de vitesse ou de vie totale",
+				"Une île est composée d'un nombre fini de lieux. Une fois le dernier lieu visité, vous serez ramené sur le continent principal",
+				"L'île mystérieuse change chaque semaine"
+			]
+		},
+		"en": {
+			"intro": [
+				"You go up on deck and have a conversation with a crew member. He gives you a piece of advice to help you in your adventure on the island:\n**{advice}**.",
+				"You climb the mast to admire the horizon. A man lowers his spyglass and wishes to give you this advice before you leave for the island:\n**{advice}**.",
+				"In the joys of a meal in the fresh sea breeze, you chat with the sailors. Your neighbor at the table gives you the following advice about the island:\n**{advice}**."
+			],
+			"advices": [
+				"You can do one small event per minute once you get there",
+				"If you fight small monsters during the small events, the monster at the end of the journey will be easier to beat",
+				"There are a lot of bonuses if you go to the island at the same time as members of your guild",
+				"Your energy does not regenerate itself on the island. Make sure you are at maximum before venturing onto the island",
+				"Once your energy is at 0, you will be taken back to the mainland",
+				"The trip to the island can only be done once a week for free. It is possible to go 2 more times, but you will have to pay gems",
+				"The monsters at the end of the journey are very strong, and the last one on the island is even stronger",
+				"Beating end of the journey monsters gives guild points, which influence your guild ranking",
+				"Monsters have different statistics: some will have a lot of defense, attack, speed or total life",
+				"An island is composed of a finite number of places. Once you have visited the last place, you will be taken back to the mainland.",
+				"The mysterious island changes every week"
+				]
+		}
+	},
+	"rarity": 1,
+	"emote": ":ferry:"
+}
