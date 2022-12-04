@@ -347,7 +347,7 @@ export class MissionsController {
 	 */
 	private static async checkMissionSlots(player: Player, missionInterface: IMission, missionInformations: MissionInformations, missionSlots: MissionSlot[]): Promise<boolean> {
 		let completedCampaign = false;
-		for (const mission of missionSlots.filter((mission) => mission.missionId === missionInformations.missionId)) {
+		for (const mission of missionSlots.filter((missionSlot) => missionSlot.missionId === missionInformations.missionId)) {
 			if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
 				&& !mission.hasExpired() && !mission.isCompleted()
 			) {
