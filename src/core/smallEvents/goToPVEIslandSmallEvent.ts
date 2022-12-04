@@ -31,13 +31,12 @@ async function confirmationCallback(
 			embed.setDescription(`${emote} ${tr.get("notEnoughGems")}`);
 		}
 		else {
-			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT, msg.sentMessage.createdAt);
+			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
 				await MapLinks.getById(PVEConstants.MAPS.ENTRY_LINK),
 				msg.sentMessage.createdTimestamp,
-				NumberChangeReason.SMALL_EVENT,
-				msg.sentMessage.createdAt
+				NumberChangeReason.SMALL_EVENT
 			);
 			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 			await missionInfo.save();
