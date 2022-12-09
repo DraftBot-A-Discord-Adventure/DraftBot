@@ -78,7 +78,7 @@ export class DraftBot {
 	/**
 	 * Send a notification every minute for player who arrived in the last minute
 	 */
-	async reportNotifications(): Promise<void> {
+	async reportNotifications(this: void): Promise<void> {
 		const query = `
 			SELECT p.discordUserId
 			FROM players AS p
