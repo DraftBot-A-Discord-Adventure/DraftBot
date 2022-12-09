@@ -21,7 +21,6 @@ import {FightConstants} from "../constants/FightConstants";
 import {ItemConstants} from "../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../utils/MessageUtils";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {TravelTime} from "../maps/TravelTime";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 
 /**
@@ -57,7 +56,7 @@ export class DraftBot {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programTopWeekTimeout, 10000);
+			setTimeout(DraftBot.programTopWeekTimeout, Constants.TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.topWeekEnd, millisTill);
@@ -70,7 +69,7 @@ export class DraftBot {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(DraftBot.programDailyTimeout, 10000);
+			setTimeout(DraftBot.programDailyTimeout, Constants.TIMEOUT_FUNCTIONS.DAILY_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.dailyTimeout, millisTill);
@@ -79,31 +78,39 @@ export class DraftBot {
 	/**
 	 * Send a notification every minute for player who arrived in the last minute
 	 */
-	async reportNotifications(this: void): Promise<void> {
-		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(`
-			SELECT discordUserId
-			FROM players
-			WHERE notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}`, {
-			type: QueryTypes.SELECT
-		}));
-		const date = new Date();
+	async reportNotifications(): Promise<void> {
+		const query = `
+			SELECT p.discordUserId
+			FROM players AS p
+					 JOIN map_links AS m
+						  ON p.mapLinkId = m.id
+			WHERE p.notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}
+			  AND DATE_ADD(DATE_ADD(p.startTravelDate
+				, INTERVAL p.effectDuration minute)
+				, INTERVAL m.tripDuration minute)
+				BETWEEN NOW()
+			  AND DATE_ADD(NOW()
+				, INTERVAL 1 MINUTE)`;
+
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {type: QueryTypes.SELECT}));
+
+		const reportFR = Translations.getModule("commands.report", "fr");
+		const reportEN = Translations.getModule("commands.report", "en");
 		const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
 
 		for (const playerId of playersToNotify) {
 			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
-			const travelTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
 
-			if (travelTime >= date.valueOf() && travelTime <= date.valueOf() + 60000) {
-				await sendNotificationToPlayer(player,
-					embed.setDescription(`${
-						Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
-					}\n\n${
-						Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
-					}`)
-					, "en");
-			}
+			await sendNotificationToPlayer(player,
+				embed.setDescription(`${
+					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+				}\n\n${
+					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+				}`)
+				, "en");
 		}
-		setTimeout(draftBotInstance.reportNotifications, 60000);
+
+		setTimeout(draftBotInstance.reportNotifications, Constants.TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
 	/**

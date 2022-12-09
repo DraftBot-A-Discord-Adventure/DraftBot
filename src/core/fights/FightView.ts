@@ -5,6 +5,7 @@ import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
+import {Constants} from "../Constants";
 
 /**
  * @class FightController
@@ -119,7 +120,7 @@ export class FightView {
 	 */
 	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
 		if (this.lastSummary) {
-			setTimeout(() => this.lastSummary.delete(), 5000);
+			setTimeout(() => this.lastSummary.delete(), Constants.TIMEOUT_FUNCTIONS.OUTRO_FIGHT);
 		}
 		let msg;
 		if (!draw) {
