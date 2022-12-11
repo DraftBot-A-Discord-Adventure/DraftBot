@@ -22,6 +22,7 @@ import {ItemConstants} from "../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../utils/MessageUtils";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
+import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -56,7 +57,7 @@ export class DraftBot {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programTopWeekTimeout, Constants.TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
+			setTimeout(DraftBot.programTopWeekTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.topWeekEnd, millisTill);
@@ -69,7 +70,7 @@ export class DraftBot {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(DraftBot.programDailyTimeout, Constants.TIMEOUT_FUNCTIONS.DAILY_TIMEOUT);
+			setTimeout(DraftBot.programDailyTimeout, TIMEOUT_FUNCTIONS.DAILY_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.dailyTimeout, millisTill);
@@ -84,15 +85,20 @@ export class DraftBot {
 			FROM players AS p
 					 JOIN map_links AS m
 						  ON p.mapLinkId = m.id
-			WHERE p.notifications != ${NotificationsConstants.NO_NOTIFICATIONS_VALUE}
+			WHERE p.notifications != :noNotificationsValue
 			  AND DATE_ADD(DATE_ADD(p.startTravelDate
 				, INTERVAL p.effectDuration minute)
 				, INTERVAL m.tripDuration minute)
 				BETWEEN NOW()
 			  AND DATE_ADD(NOW()
-				, INTERVAL 1 MINUTE)`;
+				, INTERVAL :timeout MINUTE)`;
 
-		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {type: QueryTypes.SELECT}));
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
+			replacements: {
+				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
+				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
+			}, type: QueryTypes.SELECT
+		}));
 
 		const reportFR = Translations.getModule("commands.report", "fr");
 		const reportEN = Translations.getModule("commands.report", "en");
@@ -110,7 +116,7 @@ export class DraftBot {
 				, "en");
 		}
 
-		setTimeout(draftBotInstance.reportNotifications, Constants.TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
+		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
 	/**

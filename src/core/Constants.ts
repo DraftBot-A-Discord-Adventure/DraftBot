@@ -303,11 +303,4 @@ export abstract class Constants {
 	};
 
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
-
-	static readonly TIMEOUT_FUNCTIONS = {
-		TOP_WEEK_TIMEOUT: 10000,
-		DAILY_TIMEOUT: 10000,
-		REPORT_NOTIFICATIONS: 60000,
-		OUTRO_FIGHT: 5000
-	};
 }
