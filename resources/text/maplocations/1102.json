@@ -1,7 +1,7 @@
 {
-	"type": "continent",
-	"nameFr": "Continent principal",
-	"nameEn": "Principal continent",
+	"type": "ice_lake",
+	"nameFr": "sans nom",
+	"nameEn": "no name",
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "",

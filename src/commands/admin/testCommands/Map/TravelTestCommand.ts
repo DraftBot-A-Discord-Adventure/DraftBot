@@ -33,15 +33,8 @@ const travelTestCommand = async (language: string, interaction: CommandInteracti
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
-	const idMaxMap = await MapLocations.getIdMaxMap();
 	const mapStart = parseInt(args[0], 10);
 	const mapEnd = parseInt(args[1], 10);
-	if (mapStart > idMaxMap || mapStart <= 0) {
-		throw new Error(`Erreur travel : Map avec idStart inexistante. idStart doit être compris entre 1 et ${idMaxMap}`);
-	}
-	if (mapEnd > idMaxMap || mapEnd <= 0) {
-		throw new Error(`Erreur travel : Map avec idEnd inexistante. idEnd doit être compris entre 1 et ${idMaxMap}`);
-	}
 
 	const link = await MapLinks.getLinkByLocations(mapStart, mapEnd);
 	if (!link) {

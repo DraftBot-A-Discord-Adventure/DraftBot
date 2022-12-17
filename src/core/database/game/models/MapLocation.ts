@@ -175,10 +175,6 @@ export class MapLocations {
 			type: QueryTypes.SELECT
 		});
 	}
-
-	static async getIdMaxMap(): Promise<number> {
-		return (await readdir("resources/text/maplocations/")).length;
-	}
 }
 
 export function initModel(sequelize: Sequelize): void {

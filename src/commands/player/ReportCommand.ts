@@ -8,7 +8,7 @@ import {Constants} from "../../core/Constants";
 import {
 	getTimeFromXHoursAgo,
 	millisecondsToMinutes,
-	minutesToHours,
+	minutesDisplay,
 	parseTimeDifference
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -251,14 +251,15 @@ async function createDescriptionChooseDestination(
 	player: Player,
 	language: string
 ): Promise<string> {
+	const isPveMap = Maps.isOnPveMap(player);
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
 		const link = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[i]);
-		const duration = minutesToHours(link.tripDuration);
-		const displayedDuration = RandomUtils.draftbotRandom.bool() ? duration : "?";
+		const duration = minutesDisplay(link.tripDuration);
+		const displayedDuration = isPveMap || RandomUtils.draftbotRandom.bool() ? duration : "?h";
 		// we have to convert the duration to hours if it is not unknown
-		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration}h)\n`;
+		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration})\n`;
 	}
 	return desc;
 }
@@ -325,7 +326,7 @@ async function chooseDestination(
 		return;
 	}
 
-	if (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
+	if (!Maps.isOnPveMap(player) && (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);

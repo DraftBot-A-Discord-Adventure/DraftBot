@@ -130,6 +130,14 @@ export class Data {
 	}
 
 	static getKeys(path: string): string[] {
-		return Object.keys(JsonReader[path]);
+		const split = path.split(".");
+		let obj: JsonModule = JsonReader;
+		for (const s of split) {
+			obj = obj[s] as JsonModule;
+			if (!obj) {
+				return [];
+			}
+		}
+		return Object.keys(obj);
 	}
 }

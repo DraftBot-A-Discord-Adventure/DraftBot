@@ -3,7 +3,6 @@ import {BulkCreateOptions, DataTypes, DestroyOptions} from "sequelize";
 import Tag from "./models/Tag";
 import Mission from "./models/Mission";
 import MapLocation from "./models/MapLocation";
-import {MapConstants} from "../../constants/MapConstants";
 import Armor from "./models/Armor";
 import Weapon from "./models/Weapon";
 import ObjectItem from "./models/ObjectItem";
@@ -15,6 +14,7 @@ import {promises} from "fs";
 import Monster from "./models/Monster";
 import MonsterLocation from "./models/MonsterLocation";
 import MonsterAttack from "./models/MonsterAttack";
+import {Data} from "../../Data";
 
 type TagType = {
 	textTag: string,
@@ -194,9 +194,10 @@ export class GameDatabase extends Database {
 		}
 		const keys = Object.keys(dict);
 		const dirs: (keyof MapLocation)[] = ["northMap", "southMap", "westMap", "eastMap"] as unknown as (keyof MapLocation)[];
+		const mapTypes = Data.getKeys("models.maps.translations.en.types");
 		for (const key of keys) {
 			const map = dict[key];
-			if (!MapConstants.TYPES.includes(map.type)) {
+			if (!mapTypes.includes(map.type)) {
 				console.error(`Type of map ${map.id} doesn't exist`);
 			}
 			for (const dir1 of dirs) {
