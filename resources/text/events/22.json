@@ -21,6 +21,7 @@
 						"en": "You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground."
 					},
 					"health": -30,
+					"money": -50,
 					"effect": ":sick:"
 				},
 				{
