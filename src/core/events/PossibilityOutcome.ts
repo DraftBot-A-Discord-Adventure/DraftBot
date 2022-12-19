@@ -108,7 +108,7 @@ function getOutcomeAlterationEmoji(outcome: PossibilityOutcome): string {
 
 async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Promise<MapLink> {
 	if (outcome.mapTypesDestination || outcome.mapTypesExcludeDestination) {
-		let allowedMapTypes = await Maps.getConnectedMapTypes(player, !!outcome.mapTypesDestination);
+		let allowedMapTypes = await Maps.getConnectedMapTypes(player, Boolean(outcome.mapTypesDestination));
 		if (outcome.mapTypesDestination) {
 			allowedMapTypes = allowedMapTypes.filter(mapType => outcome.mapTypesDestination.includes(mapType));
 		}

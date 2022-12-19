@@ -1,6 +1,5 @@
 import {PossibilityCondition} from "./PossibilityCondition";
 import {PossibilityOutcome} from "./PossibilityOutcome";
-import {RandomUtils} from "../utils/RandomUtils";
 
 /**
  * A big event contains a set of possibilities which have a set of outcomes

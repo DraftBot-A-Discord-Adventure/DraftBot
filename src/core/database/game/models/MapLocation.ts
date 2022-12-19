@@ -140,9 +140,6 @@ export class MapLocations {
 	}
 
 	static async getMapTypesConnected(mapId: number, blacklistId: number): Promise<{ type: string }[]> {
-		if (!blacklistId) {
-			blacklistId = -1;
-		}
 		const query = `SELECT type
 					   FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
                        WHERE id != :blacklistId
@@ -152,7 +149,7 @@ export class MapLocations {
 			type: QueryTypes.SELECT,
 			replacements: {
 				mapId,
-				blacklistId
+				blacklistId: blacklistId ?? -1
 			}
 		});
 	}

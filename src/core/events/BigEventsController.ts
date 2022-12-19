@@ -29,7 +29,7 @@ export class BigEventsController {
 		for (const eventFile of bigEventsFiles) {
 			// Event data
 			const eventId = parseInt(eventFile.split(".")[0], 10);
-			const eventObj = await import("resources/text/events/" + eventFile);
+			const eventObj = await import(`resources/text/events/${eventFile}`);
 			const triggers: BigEventTrigger[] = eventObj.triggers ?? [];
 			const possibilities = [];
 			const eventTranslations = eventObj.translations;
