@@ -7,23 +7,29 @@ import {Possibility} from "./Possibility";
 import Player from "../database/game/models/Player";
 import {RandomUtils} from "../utils/RandomUtils";
 
-// Global events map
-let bigEvents: Map<number, BigEvent> = new Map<number, BigEvent>();
-
-// Link between maps and events, to search faster
-let bigEventsMaps: Map<number, BigEvent[]>;
-
-// Events not depending of a map
-let globalBigEvents: BigEvent[];
-
 export class BigEventsController {
+	/**
+	 * Global events map
+ 	 */
+	static bigEvents: Map<number, BigEvent> = new Map<number, BigEvent>();
+
+	/**
+	 * Link between maps and events, to search faster
+	 */
+	static bigEventsMaps: Map<number, BigEvent[]>;
+
+	/**
+	 * Events not depending of a map
+	 */
+	static globalBigEvents: BigEvent[];
+
 	/**
 	 * Load the events
 	 */
 	static async init(): Promise<void> {
-		bigEvents = new Map<number, BigEvent>();
-		bigEventsMaps = new Map<number, BigEvent[]>();
-		globalBigEvents = [];
+		BigEventsController.bigEvents = new Map<number, BigEvent>();
+		BigEventsController.bigEventsMaps = new Map<number, BigEvent[]>();
+		BigEventsController.globalBigEvents = [];
 
 		const bigEventsFiles = readdirSync("resources/text/events");
 		for (const eventFile of bigEventsFiles) {
@@ -48,15 +54,15 @@ export class BigEventsController {
 
 			// Register event and put in search maps
 			const bigEvent = new BigEvent(eventId, triggers, possibilities, eventTranslations, eventTags);
-			bigEvents.set(eventId, bigEvent);
+			BigEventsController.bigEvents.set(eventId, bigEvent);
 			for (const trigger of triggers) {
 				if (trigger.mapId) {
-					const bigEventMap = bigEventsMaps.get(trigger.mapId) ?? [];
+					const bigEventMap = BigEventsController.bigEventsMaps.get(trigger.mapId) ?? [];
 					bigEventMap.push(bigEvent);
-					bigEventsMaps.set(trigger.mapId, bigEventMap);
+					BigEventsController.bigEventsMaps.set(trigger.mapId, bigEventMap);
 				}
 				else {
-					globalBigEvents.push(bigEvent);
+					BigEventsController.globalBigEvents.push(bigEvent);
 				}
 			}
 		}
@@ -67,7 +73,7 @@ export class BigEventsController {
 	 * @param id
 	 */
 	static getEvent(id: number): BigEvent {
-		return bigEvents.get(id);
+		return BigEventsController.bigEvents.get(id);
 	}
 
 	/**
@@ -76,8 +82,8 @@ export class BigEventsController {
 	 * @param player
 	 */
 	static getRandomEvent(mapId: number, player: Player): BigEvent {
-		const possibleBigEvents = globalBigEvents
-			.concat(bigEventsMaps.get(mapId) ?? [])
+		const possibleBigEvents = BigEventsController.globalBigEvents
+			.concat(BigEventsController.bigEventsMaps.get(mapId) ?? [])
 			.filter(
 				(bigEvent) => bigEvent.triggers.find(
 					(trigger) => verifyTrigger(mapId, player, trigger)
