@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		3
+	"triggers": [
+		{
+			"mapId": 3
+		}
 	],
 	"translations": {
 		"fr": "🍎 Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants.",
@@ -12,18 +14,14 @@
 				"fr": "Aller acheter des fruits à cet homme.",
 				"en": "Go buy fruit from this man."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous approchez du fermier et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol.",
 						"en": "You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground."
 					},
-					"lostTime": 0,
 					"health": -30,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": -50,
-					"item": false
+					"effect": ":sick:"
 				},
 				{
 					"translations": {
@@ -33,21 +31,13 @@
 					"lostTime": 10,
 					"health": 5,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": -50,
-					"item": false
+					"money": -50
 				},
 				{
 					"translations": {
 						"fr": "Le fermier refuse de vous vendre des fruits, vous continuez donc votre route sans perdre plus de temps.",
 						"en": "The farmer refuses to sell you fruit, so you continue on your way without wasting any more time."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -56,18 +46,15 @@
 				"fr": "Aller voler des fruits dans l'arbre.",
 				"en": "Go steal fruit from the tree."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après quelques minutes passées sur place, vous repartez avec plusieurs fruits. Vous décidez d'en tirer profit en les vendant dans le village d'à côté.",
 						"en": "After a few minutes spent here, you leave with some fruit. You decide to make a profit by selling them in the next village."
 					},
 					"lostTime": 10,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 50,
-					"item": false
+					"money": 50
 				},
 				{
 					"translations": {
@@ -77,9 +64,7 @@
 					"lostTime": 15,
 					"health": -25,
 					"effect": ":clock2:",
-					"experience": 0,
-					"money": -50,
-					"item": false
+					"money": -50
 				},
 				{
 					"translations": {
@@ -88,10 +73,7 @@
 					},
 					"lostTime": 15,
 					"health": 10,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -99,11 +81,8 @@
 						"en": "The farmer quickly notices your attempt, and catches you. After retrieving his fruits, he asks you for compensation."
 					},
 					"lostTime": 10,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": -50,
-					"item": false
+					"money": -50
 				}
 			]
 		},
@@ -112,46 +91,31 @@
 				"fr": "Ne pas s'en préoccuper.",
 				"en": "Don't worry about it."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous continuez simplement votre route sans vous préoccuper de ces fruits qui semblaient pourtant appétissants.",
 						"en": "You carry on with your adventure without worrying about the fruit, however appetizing they may seem."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "👀 Vous observez l'arbre pendant une vingtaine de minutes et repartez.",
 						"en": "👀 You watch the tree for about twenty minutes, then leave."
 					},
 					"lostTime": 20,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "👀 Le fermier vous voit, et vous propose quelques fruits que vous acceptez volontiers.",
 						"en": "👀 The farmer sees you, and offers you some fruit you willingly accept."
 					},
-					"lostTime": 0,
-					"health": 5,
-					"effect": ":smiley:",
-					"experience": 350,
-					"money": 0,
-					"item": false
+					"health": 5
 				}
 			]
 		}

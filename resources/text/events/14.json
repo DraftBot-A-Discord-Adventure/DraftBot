@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		12
+	"triggers": [
+		{
+			"mapId": 12
+		}
 	],
 	"translations": {
 		"fr": "🏠 Alors que la fatigue commence à vous assaillir, vous découvrez une petite prairie où se tient une petite maison. Vous vous en approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.",
@@ -12,18 +14,15 @@
 				"fr": "Discuter avec l'ouvrier.",
 				"en": "Chat with the worker."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "L'homme vous aperçoit et vous propose de vous fabriquer un objet avec lui. Après près d'une heure, votre création est terminée. L'homme vous l'offre en récompense !",
 						"en": "The man sees you and suggests that you make an object with him. After almost an hour, your creation is finished. The man offers it to you as a reward!"
 					},
 					"lostTime": 60,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -31,23 +30,15 @@
 						"en": "You watch the worker make an axe for about ten minutes before you decide to hit the road again."
 					},
 					"lostTime": 10,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l'idée d'obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l'idée de créer votre propre arme.",
 						"en": "The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon."
 					},
-					"lostTime": 0,
 					"health": -70,
-					"effect": ":dizzy_face:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":dizzy_face:"
 				}
 			]
 		},
@@ -56,18 +47,14 @@
 				"fr": "Demander à rester là durant la nuit pour vous reposer et reprendre des forces.",
 				"en": "Ask to stay the night to rest and recover."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Épuisé, vous vous écroulez de fatigue sur le lit.",
 						"en": "After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed."
 					},
-					"lostTime": 0,
 					"health": 10,
-					"effect": ":sleeping:",
-					"experience": 220,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				},
 				{
 					"translations": {
@@ -75,23 +62,13 @@
 						"en": "The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way."
 					},
 					"lostTime": 5,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers.",
 						"en": "You only get a simple growl in response. The residents of the region seem to dislike foreigners."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -100,10 +77,7 @@
 					},
 					"lostTime": 100,
 					"health": 5,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -112,18 +86,12 @@
 				"fr": "Pas de temps à perdre ! Il faut continuer votre route !",
 				"en": "You don't have time to lose! Continue walking!"
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous partez sans perdre de temps.",
 						"en": "You leave without wasting any time."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -131,39 +99,27 @@
 						"en": "You continue on your way around the meadow."
 					},
 					"lostTime": 20,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin.",
 						"en": "You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road."
 					},
-					"lostTime": 0,
 					"health": -20,
-					"effect": ":sleeping:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous contournez la maison et continuez votre route.",
 						"en": "🚶 You go around the house and continue your journey."
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

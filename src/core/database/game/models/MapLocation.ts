@@ -139,6 +139,24 @@ export class MapLocations {
 		});
 	}
 
+	static async getMapTypesConnected(mapId: number, blacklistId: number): Promise<{ type: string }[]> {
+		if (!blacklistId) {
+			blacklistId = -1;
+		}
+		const query = `SELECT type
+					   FROM ${botConfig.MARIADB_PREFIX}_game.map_locations
+                       WHERE id != :blacklistId
+                         AND (
+                           id IN (SELECT endMap FROM ${botConfig.MARIADB_PREFIX}_game.map_links WHERE startMap = :mapId));`;
+		return await MapLocation.sequelize.query(query, {
+			type: QueryTypes.SELECT,
+			replacements: {
+				mapId,
+				blacklistId
+			}
+		});
+	}
+
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
 		const query = `SELECT discordUserId
 					   FROM ${botConfig.MARIADB_PREFIX}_game.players 

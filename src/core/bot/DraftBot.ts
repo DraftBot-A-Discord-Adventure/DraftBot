@@ -23,6 +23,7 @@ import {sendNotificationToPlayer} from "../utils/MessageUtils";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
+import {BigEventsController} from "../events/BigEventsController";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -320,6 +321,7 @@ export class DraftBot {
 		});
 		await this.gameDatabase.init(this.isMainShard);
 		await this.logsDatabase.init(this.isMainShard);
+		await BigEventsController.init();
 		await CommandsManager.register(draftBotClient, this.isMainShard);
 		if (this.config.TEST_MODE === true) {
 			await CommandsTest.init();

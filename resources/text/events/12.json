@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		18
+	"triggers": [
+		{
+			"mapId": 18
+		}
 	],
 	"translations": {
 		"fr": "🏞️ Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.",
@@ -12,30 +14,21 @@
 				"fr": "Traverser la rivière en nageant.",
 				"en": "Swim across the river."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer !",
 						"en": "The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing!"
 					},
-					"lostTime": 0,
 					"health": -30,
-					"effect": ":cold_face:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":cold_face:"
 				},
 				{
 					"translations": {
 						"fr": "Vous atteignez l'autre côté facilement, arrivé au village, les gens vous accueillent et vous donnent à manger.",
 						"en": "You reach the other side easily, and arrive at the village. People greet you and give you food."
 					},
-					"lostTime": 0,
-					"health": 5,
-					"effect": ":smiley:",
-					"experience": 350,
-					"money": 0,
-					"item": false
+					"health": 5
 				}
 			]
 		},
@@ -44,7 +37,7 @@
 				"fr": "Tenter de bricoler un petit bateau.",
 				"en": "Try to make a raft."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "En tentant de fabriquer votre embarcation vous vous blessez légèrement ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
@@ -52,22 +45,15 @@
 					},
 					"lostTime": 30,
 					"health": -5,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Après avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer !",
 						"en": "After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue!"
 					},
-					"lostTime": 0,
 					"health": -30,
-					"effect": ":cold_face:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":cold_face:"
 				},
 				{
 					"translations": {
@@ -75,11 +61,8 @@
 						"en": "You build a small raft in a few hours and reach the other side easily. When you leave your raft, you pick up an object that, if you don't use, will be easy to sell!"
 					},
 					"lostTime": 140,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -88,18 +71,14 @@
 				"fr": "Chercher un pont plus loin.",
 				"en": "Look for a bridge further away."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Au bout de 30 minutes vous finissez par abandonner et vous reprenez votre route dans une autre direction...",
 						"en": "After 30 minutes you finally give up and continue on your way in another direction..."
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -107,35 +86,22 @@
 						"en": "After 60 minutes, you finally find a river crossing. You decide not to go to the village, now too far away, and continue your journey in another direction."
 					},
 					"lostTime": 60,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Au bout de quelques minutes vous trouvez un petit pont en bois, vous arrivez rapidement au village où les habitants, heureux de rencontrer un étranger pour la première fois depuis des années, vous offrent quelques pièces.",
 						"en": "After a few minutes you find a little wooden bridge. You quickly reach the village where the locals, happy to meet a stranger for the first time in years, offer you some coins."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 250,
-					"money": 30,
-					"item": false
+					"money": 30
 				},
 				{
 					"translations": {
 						"fr": "Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement, il est délabré car personne ne l'a emprunté depuis des années, après quelques pas une planche s'effondre sous votre poids ! Vous parvenez à vous accrocher au garde-fou de justesse et retrouvez la terre ferme. Sonné, il faudra cependant aller vous soigner !",
 						"en": "After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing!"
 					},
-					"lostTime": 0,
 					"health": -25,
-					"effect": ":confounded:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":confounded:"
 				}
 			]
 		},
@@ -144,34 +110,26 @@
 				"fr": "Partir dans une autre direction.",
 				"en": "Go another way."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !",
 						"en": "You decide to go in another direction, but it takes you an entire hour to find a direction that suits you!"
 					},
 					"lostTime": 55,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🕑 Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire.",
 						"en": "🕑 After a few hours on the riverside, you finally walk away in a random direction."
 					},
 					"lostTime": 165,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

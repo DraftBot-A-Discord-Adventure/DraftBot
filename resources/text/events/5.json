@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		2
+	"triggers": [
+		{
+			"mapId": 2
+		}
 	],
 	"translations": {
 		"fr": "⛲ Vous avez trouvé une fontaine !",
@@ -12,7 +14,7 @@
 				"fr": "Se reposer et boire pour reprendre des forces.",
 				"en": "Rest and drink to regain strength."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Cela fait du bien de se reposer parfois... Ces 30 minutes de repos ont été bénéfiques !",
@@ -20,10 +22,7 @@
 					},
 					"lostTime": 30,
 					"health": 5,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -32,10 +31,7 @@
 					},
 					"lostTime": 60,
 					"health": 15,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -43,11 +39,7 @@
 						"en": "It feels good to rest sometimes... but don't forget to move on! After wasting 3 hours resting, you are back on the road."
 					},
 					"lostTime": 180,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -56,82 +48,51 @@
 				"fr": "Ne pas s'arrêter et continuer sa route.",
 				"en": "Do not stop and continue on your way."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Il est parfois bon de ne pas être trop paresseux vous n'avez pas perdu de temps !",
 						"en": "It's sometimes good to not be too lazy. You haven't wasted any time!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Pas de temps pour le repos ! Il y a une princesse à sauver !",
 						"en": "No time to rest! There's a princess to save!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
 						"en": "You make the choice to not stop and continue forward."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous continuez votre aventure sans prêter plus d'attention à cette fontaine.",
 						"en": "You continue your adventure without paying any more attention to this fountain."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Il faut savoir se reposer lorsqu'on est fatigué. Exténué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !",
 						"en": "You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
 					},
-					"lostTime": 0,
 					"health": -30,
-					"effect": ":sleeping:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🤑 Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ait valu la peine !",
 						"en": "🤑 You spent a good hour picking up the scattered pieces from the bottom of the water, but it seems to have been worth it!"
 					},
 					"lostTime": 60,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 65,
-					"item": false
+					"money": 65
 				}
 			]
 		}

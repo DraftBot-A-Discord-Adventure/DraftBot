@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		21
+	"triggers": [
+		{
+			"mapId": 21
+		}
 	],
 	"translations": {
 		"fr": "🔒 Alors que vous voyagez sur la Route des Merveilles, vous découvrez un coffret ! Malheureusement il est verrouillé...",
@@ -12,18 +14,15 @@
 				"fr": "Chercher la clef autour du lieu de découverte.",
 				"en": "Look around for the key."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir de nombreuses pièces d'or !",
 						"en": "After about fifty minutes of searching, you finally find the key! Buried next to the chest, you now can open the chest and find a lot of gold Coins!"
 					},
 					"lostTime": 50,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 576,
-					"item": false
+					"money": 576
 				},
 				{
 					"translations": {
@@ -31,11 +30,8 @@
 						"en": "After about one hour of searching, you finally find the key! Buried next to the chest, you now can open the chest and find some gold Coins!"
 					},
 					"lostTime": 60,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 139,
-					"item": false
+					"money": 139
 				},
 				{
 					"translations": {
@@ -43,11 +39,7 @@
 						"en": "After about forty minutes of searching, you finally find the key! Buried next to the chest, it's so damaged you can't even use it! You end giving up and carry on."
 					},
 					"lostTime": 40,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -55,11 +47,7 @@
 						"en": "After twenty minutes digging everywhere around the chest, you give up and carry on."
 					},
 					"lostTime": 20,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -67,11 +55,7 @@
 						"en": "After spending two hours searching for the key, you give up and carry on without opening the chest."
 					},
 					"lostTime": 120,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -80,18 +64,14 @@
 				"fr": "Attaquer le cadenas à coups de pioche.",
 				"en": "Attack the padlock with a pickaxe."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après avoir perdu 30 minutes à casser la serrure, vous découvrez que le coffre est vide !",
 						"en": "After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -99,11 +79,7 @@
 						"en": "After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -111,11 +87,8 @@
 						"en": "After wasting 15 minutes breaking the lock, you find some gold coins!"
 					},
 					"lostTime": 15,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 68,
-					"item": false
+					"money": 68
 				}
 			]
 		},
@@ -124,46 +97,28 @@
 				"fr": "Abandonner le coffret à l'endroit où vous l'avez trouvé.",
 				"en": "Abandon the box where you found it."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous passez votre chemin : le vol c'est mal et ce coffret ne vous appartient pas !",
 						"en": "You continue on your way; robbery is wrong, and this chest is not yours!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux.",
 						"en": "You decide not to get closer to the little chest; it's a stop not worth losing precious time over."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "▶️ C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route.",
 						"en": "▶️ It's surely a trap! In any case, there's no way you're getting any closer to that chest! You calmly continue on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		}

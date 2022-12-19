@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		4
+	"triggers": [
+		{
+			"mapId": 4
+		}
 	],
 	"translations": {
 		"fr": "🩸 Vous continuez votre chemin tranquillement dans une forêt, lorsque vous entendez un cri. La voix semble être celle d'un homme, vous décidez d'aller vers le cri et vous trouvez un homme gravement blessé près d'une sorte de campement.",
@@ -12,54 +14,35 @@
 				"fr": "Aller chercher de quoi soigner l'homme blessé.",
 				"en": "Try to find something to heal the wounded man."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous courez dans la forêt à la recherche de plantes médicinales, vous en trouvez et vous soignez la personne. L'homme vous remercie avec quelques pièces et vous décidez de reprendre votre route.",
 						"en": "You run in the forest in search of medicinal plants, you find some and you heal the man. He thanks you with a few coins and you go back on your way."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 250,
-					"money": 400,
-					"item": false
+					"money": 400
 				},
 				{
 					"translations": {
 						"fr": "Vous décidez d'aller chercher des plantes médicinales dans la forêt, malheureusement vous n'arrivez pas à le soigner, vous décidez de reprendre votre route, la tête baissée.",
 						"en": "You decide to fetch medicinal plants in the forest, unfortunately you can't cure him, you go back on your way, head down."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous allez chercher de l'aide dans le village le plus proche. Accompagné, vous revenez vers la personne, mais votre accompagnateur décide de vous assommer. A votre réveil, vous trouvez la personne morte et vous êtes dépouillé.",
 						"en": "You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you're butt-naked."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -200,
-					"item": false
+					"money": -200
 				},
 				{
 					"translations": {
 						"fr": "Vous foncez dans la ville la plus proche afin de chercher des outils pour soigner l'homme. Une fois revenu près de lui, vous le soignez : il survit et décide de vous donner une compensation pour votre courage. En repartant vous vous rendez compte que vous vous êtes blessé en le soignant.",
 						"en": "You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself when treating him."
 					},
-					"lostTime": 0,
 					"health": -15,
-					"effect": ":smiley:",
-					"experience": 0,
 					"money": 300,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -68,42 +51,27 @@
 				"fr": "Achever l'homme pour récupérer son équipement.",
 				"en": "Shorten the man's suffering to steal his equipment."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous dégainez votre épée et vous achevez le blessé. C'était cependant sans compter sur les témoins de la scène qui, révoltés par votre acte vous attaquent sauvagement.",
 						"en": "You draw your sword and finish the wounded. However, passers-by who witnessed your horrid acts are revolted and attack you fiercely."
 					},
-					"lostTime": 0,
-					"health": -10,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -10
 				},
 				{
 					"translations": {
 						"fr": "Vous vous apprêtiez à tuer la personne blessée lorsque vous êtes interrompu par un passant, vous décidez donc d'abandonner cette idée, et vous continuez votre chemin.",
 						"en": "You decide to kill the injured person but get interrupted by a bystander. He convinces you to give up this idea and you continue on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Lorsque vous dégainez votre épée l'homme crie mais personne ne l'entend, vous le tuez avant de le dépouiller.",
 						"en": "When you draw your sword, the man screams for help in vain, you kill him before..."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 550,
 					"money": 700,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -112,42 +80,26 @@
 				"fr": "Crier afin d'alerter des gens.",
 				"en": "Yell and try to alert people."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous criez encore et encore et finalement, quelqu'un arrive et vous aide. Pour vous remercier la personne vous donne un petit quelque chose avant que vous repartiez.",
 						"en": "You scream frantically and finally someone comes and helps you. To thank you, the wounded man gives you a little something before you leave."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 250,
-					"money": 200,
-					"item": false
+					"money": 200
 				},
 				{
 					"translations": {
 						"fr": "Vous criez encore et encore. Malheureusement, personne ne passe mais vous attirez les animaux : un sanglier arrive et vous charge.",
 						"en": "You scream frantically. Unfortunately, no one comes, but you attract animals and a wild boar charges right at you."
 					},
-					"lostTime": 0,
-					"health": -20,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -20
 				},
 				{
 					"translations": {
 						"fr": "Vous criez jusqu'à ce que vous repreniez votre souffle, malheureusement personne ne vient et la personne meurt. Pris d'un sentiment d'impuissance, vous repartez sur votre route.",
 						"en": "You scream frantically. Unfortunately, no one comes and the person dies. Feeling helpless, you go back on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -156,26 +108,18 @@
 					},
 					"lostTime": 60,
 					"health": 20,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 En continuant votre route, vous décidez de vous arrêter près d'un arbre et trouvez quelques pièces d'or.",
 						"en": "🚶 You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 250,
-					"money": 200,
-					"item": false
+					"money": 200
 				},
 				{
 					"translations": {
@@ -183,35 +127,20 @@
 						"en": "🚶 You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you."
 					},
 					"lostTime": 10,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "🚶 Vous continuez votre route comme si de rien n'était.",
 						"en": "🚶 You continue on as if nothing happened."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "🚶 En vous éloignant vous croisez des braconniers qui vous dépouillent.",
 						"en": "🚶 As you are getting away, you encounter a group of poachers who decide to rob you."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -200,
-					"item": false
+					"money": -200
 				}
 			]
 		}

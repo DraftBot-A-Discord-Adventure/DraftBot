@@ -1,4 +1,3 @@
-import {BigEvents} from "../../../../core/database/game/models/BigEvent";
 import {CommandsManager} from "../../../CommandsManager";
 import {format} from "../../../../core/utils/StringFormatter";
 import {CommandInteraction} from "discord.js";
@@ -28,11 +27,6 @@ export const commandInfo: ITestCommand = {
  */
 const forceReportTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const player = (await Players.getOrRegister(interaction.user.id))[0];
-	const eventId = parseInt(args[0], 10);
-	const idMaxEvents = await BigEvents.getIdMaxEvents();
-	if ((eventId > idMaxEvents || eventId <= 0) && args[0] !== "-1") {
-		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
-	}
 	await CommandsTest.getTestCommand("atravel").execute(language, interaction, ["5000"]);
 	await CommandsManager.executeCommandWithParameters("report", interaction, language, player, parseInt(args[0], 10));
 	return format(commandInfo.messageWhenExecuted, {id: args[0] === "-1" ? "aléatoire" : args[0]});

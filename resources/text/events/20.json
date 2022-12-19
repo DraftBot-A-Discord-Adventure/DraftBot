@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		23
+	"triggers": [
+		{
+			"mapId": 23
+		}
 	],
 	"translations": {
 		"fr": "👤 En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.",
@@ -12,30 +14,21 @@
 				"fr": "Attaquer le garde par surprise dans l'optique d'aider la femme.",
 				"en": "Attack the guard to help the lady."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait.",
 						"en": "You succeed in knocking out the guard and taking the precious object he was carrying."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "Au dernier moment, le garde se retourne et vous attaque. Après un féroce combat durant lequel la femme s'est enfuie, vous échouez à dévier une de ses attaques. Victorieux, le garde vous laisse néanmoins en vie et prend également la fuite.",
 						"en": "The guard dodges and the woman manages to run away. After all of that, you find her back out of danger. To greet you, she offers you some gold coins."
 					},
-					"lostTime": 0,
 					"health": -55,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				},
 				{
 					"translations": {
@@ -43,11 +36,8 @@
 						"en": "The guard dodges, and the woman manages to escape. She finds you further away, out of danger, thanking you with some gold coins."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 25,
-					"item": false
+					"money": 25
 				}
 			]
 		},
@@ -56,30 +46,19 @@
 				"fr": "Passer votre chemin.",
 				"en": "Keep walking."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous ne prêtez donc pas attention à la situation et poursuivez votre route.",
 						"en": "You ignore the guard."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "En passant votre chemin, vous trébuchez et tombez par terre.",
 						"en": "As you pass by, you fall to the ground."
 					},
-					"lostTime": 0,
-					"health": -5,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -5
 				}
 			]
 		},
@@ -88,46 +67,31 @@
 				"fr": "Alerter d'autres gardes sur les agissements de leur collègue.",
 				"en": "Contact another guard and warn them of the corrupt guard."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Les gardes vous suivent et appréhendent le garde véreux, la femme vous offre un objet en gage de remerciements.",
 						"en": "The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes.",
 						"en": "The guards, also being criminals, strike you on your hip, but leave you alive."
 					},
-					"lostTime": 0,
 					"health": -35,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous continuez votre chemin sans prêter attention au garde.",
 						"en": "🚶 You continue your journey without paying attention to the guard."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -135,11 +99,7 @@
 						"en": "🚶 Dazed, you watch the scene for five minutes. The guard finally notices you, so you hurry on."
 					},
 					"lostTime": 5,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

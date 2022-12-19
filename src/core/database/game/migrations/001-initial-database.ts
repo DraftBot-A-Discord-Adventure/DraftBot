@@ -270,6 +270,99 @@ export const playersAttributes001 = {
 	createdAt: DataTypes.DATE
 };
 
+export const bigEventsAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true
+	},
+	fr: {
+		type: DataTypes.TEXT,
+		allowNull: false
+	},
+	en: {
+		type: DataTypes.TEXT,
+		allowNull: false
+	},
+	restrictedMaps: {
+		type: DataTypes.INTEGER
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
+export const eventMapLocationIdsAttributes001 = {
+	eventId: {
+		type: DataTypes.INTEGER,
+		primaryKey: true
+	},
+	mapLocationId: {
+		type: DataTypes.INTEGER,
+		primaryKey: true
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
+export const possibilitiesAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	possibilityKey: {
+		type: DataTypes.STRING(32), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	lostTime: {
+		type: DataTypes.BIGINT,
+		allowNull: false
+	},
+	health: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	oneshot: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false
+	},
+	effect: {
+		type: DataTypes.STRING(32), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	experience: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	money: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	item: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false
+	},
+	fr: {
+		type: DataTypes.TEXT,
+		allowNull: false
+	},
+	en: {
+		type: DataTypes.TEXT,
+		allowNull: false
+	},
+	eventId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	nextEvent: {
+		type: DataTypes.INTEGER
+	},
+	restrictedMaps: {
+		type: DataTypes.TEXT
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes);
 	await context.createTable("classes", {
@@ -351,37 +444,8 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		createdAt: DataTypes.DATE
 	});
 	await context.createTable("entities", entitiesAttributes001);
-	await context.createTable("event_map_location_ids", {
-		eventId: {
-			type: DataTypes.INTEGER,
-			primaryKey: true
-		},
-		mapLocationId: {
-			type: DataTypes.INTEGER,
-			primaryKey: true
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
-	await context.createTable("events", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true
-		},
-		fr: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		en: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		restrictedMaps: {
-			type: DataTypes.INTEGER
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("event_map_location_ids", eventMapLocationIdsAttributes001);
+	await context.createTable("events", bigEventsAttributes001);
 	await context.createTable("guild_pets", {
 		id: {
 			type: DataTypes.INTEGER,
@@ -674,65 +738,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		createdAt: DataTypes.DATE
 	});
 	await context.createTable("players", playersAttributes001);
-	await context.createTable("possibilities", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		possibilityKey: {
-			type: DataTypes.STRING(32), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		lostTime: {
-			type: DataTypes.BIGINT,
-			allowNull: false
-		},
-		health: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		oneshot: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		effect: {
-			type: DataTypes.STRING(32), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		experience: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		money: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		item: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		fr: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		en: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		eventId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		nextEvent: {
-			type: DataTypes.INTEGER
-		},
-		restrictedMaps: {
-			type: DataTypes.TEXT
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("possibilities", possibilitiesAttributes001);
 	await context.createTable("potions", supportItemAttributes);
 	await context.createTable("servers", {
 		id: {

@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		3
+	"triggers": [
+		{
+			"mapId": 3
+		}
 	],
 	"translations": {
 		"fr": "👤 Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...",
@@ -12,18 +14,15 @@
 				"fr": "Aider le paysan à chercher sa fourche.",
 				"en": "Help the farmer to find his pitchfork."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
 						"en": "After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins."
 					},
 					"lostTime": 15,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 25,
-					"item": false
+					"money": 25
 				},
 				{
 					"translations": {
@@ -31,23 +30,16 @@
 						"en": "After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!"
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille.",
 						"en": "Looking for the pitchfork, you step on it and get a nasty cut."
 					},
-					"lostTime": 0,
 					"health": -15,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				},
 				{
 					"translations": {
@@ -55,11 +47,7 @@
 						"en": "You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey."
 					},
 					"lostTime": 50,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -68,46 +56,32 @@
 				"fr": "Passer son chemin.",
 				"en": "Carry on."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous continuez votre chemin sans prêter attention au paysan.",
 						"en": "You continue your way without paying attention to the peasant."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied.",
 						"en": "Continuing through the field, you fall on the pitchfork, severely cutting your foot."
 					},
-					"lostTime": 0,
 					"health": -15,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
 						"en": "🚶 You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

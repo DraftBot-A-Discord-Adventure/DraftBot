@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		22
+	"triggers": [
+		{
+			"mapId": 22
+		}
 	],
 	"translations": {
 		"fr": "⁉️ Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.",
@@ -12,18 +14,14 @@
 				"fr": "Traverser quand même la forêt.",
 				"en": "Keep going the same way."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégâts.",
 						"en": "You get lost for several hours in the forest but find your way out without damage."
 					},
 					"lostTime": 200,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -31,23 +29,16 @@
 						"en": "You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!"
 					},
 					"lostTime": 130,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner !",
 						"en": "While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself!"
 					},
-					"lostTime": 0,
 					"health": -20,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				}
 			]
 		},
@@ -56,30 +47,20 @@
 				"fr": "Suivre les conseils de l'inconnue.",
 				"en": "Follow the advice of the mysterious woman."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "C'était en effet un raccourci !",
 						"en": "Indeed, it was a shortcut!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous tombez dans une embuscade ! Après vous avoir volé tous vos biens, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui.",
 						"en": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious."
 					},
-					"lostTime": 0,
 					"health": -40,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				}
 			]
 		},
@@ -88,34 +69,26 @@
 				"fr": "Éviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.",
 				"en": "Avoid the forest by going the opposite way you were told."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port.",
 						"en": "You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
 					},
 					"lostTime": 140,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
 						"en": "🚶 After spending several minutes chatting with the mysterious woman you end up leaving. Following her directions, you arrive safely at the other end of the forest."
 					},
 					"lostTime": 45,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

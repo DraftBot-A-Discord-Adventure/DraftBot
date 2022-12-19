@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		14
+	"triggers": [
+		{
+			"mapId": 14
+		}
 	],
 	"translations": {
 		"fr": "🐟 Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !",
@@ -12,18 +14,12 @@
 				"fr": "Proposer son aide.",
 				"en": "Offer your help."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "L'homme refuse gentiment votre aide, vous poursuivez votre route.",
 						"en": "The man politely refuses your help, and you continue on your journey."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -31,11 +27,8 @@
 						"en": "Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you..."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -43,23 +36,16 @@
 						"en": "Thanks to you, the man catches a fish! He offer you some money to help you in your adventure."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 234,
-					"item": false
+					"money": 234
 				},
 				{
 					"translations": {
 						"fr": "Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner !",
 						"en": "The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water ! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing !"
 					},
-					"lostTime": 0,
 					"health": -10,
-					"effect": ":confounded:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":confounded:"
 				}
 			]
 		},
@@ -68,18 +54,12 @@
 				"fr": "Continuer votre route, pas de temps à perdre !",
 				"en": "Keep going, no time to waste!"
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin.",
 						"en": "You don't have even a minute to lose to help a fisherman! You go your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -88,34 +68,23 @@
 				"fr": "Pousser le pêcheur dans l'eau !",
 				"en": "Push the fisherman into the water!"
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Mais pourquoi avoir fait cela ? 🤔 Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner.",
 						"en": "But why did you do that? 🤔 Feeling remorse, you rescue the poor man and offer him some coins as compensation."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -500,
-					"item": false
+					"money": -500
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !",
 						"en": "🚶 You end up continuing on without paying any more attention to this rather boring situation!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		}

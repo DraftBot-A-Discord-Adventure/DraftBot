@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		16
+	"triggers": [
+		{
+			"mapId": 16
+		}
 	],
 	"translations": {
 		"fr": "🏰 Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous faites face à un immense festin.",
@@ -12,7 +14,7 @@
 				"fr": "Aller voir le duc.",
 				"en": "Go to the Duke."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui.",
@@ -21,9 +23,6 @@
 					"lostTime": 50,
 					"health": 10,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -34,11 +33,8 @@
 						"en": "You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
 					"money": 150,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -48,12 +44,7 @@
 						"fr": "Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer.",
 						"en": "You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":lock:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":lock:"
 				}
 			]
 		},
@@ -62,18 +53,14 @@
 				"fr": "Rester à la fête.",
 				"en": "Stay at the party."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
 						"en": "You go home and enjoy a party that is going to last for a while."
 					},
 					"lostTime": 155,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -84,11 +71,8 @@
 						"en": "The guard sees your dirty shoes and asks you to come back with something more appropriate. Fortunately, a young beggar standing right next to you offers you to wax them for a few coins."
 					},
 					"lostTime": 85,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
 					"money": -100,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -101,9 +85,6 @@
 					"lostTime": 60,
 					"health": 50,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -115,18 +96,13 @@
 				"fr": "Lui offrir un cadeau.",
 				"en": "Give him a present."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau.",
 						"en": "You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
 					"money": -400,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -137,11 +113,7 @@
 						"en": "You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party."
 					},
 					"lostTime": 35,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false,
 					"tags":  [
 						"bigFeast"
 					]
@@ -151,12 +123,8 @@
 						"fr": "Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants.",
 						"en": "As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
 					},
-					"lostTime": 0,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 450,
-					"money": 0,
-					"item": true,
+					"randomItem": true,
 					"tags":  [
 						"bigFeast"
 					]
@@ -168,70 +136,44 @@
 				"fr": "Sortir pour aller lui voler des bananes dans son exploitation.",
 				"en": "Go and steal bananas from his farm."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé.",
 						"en": "As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":lock:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":lock:"
 				},
 				{
 					"translations": {
 						"fr": "Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger.",
 						"en": "You discreetly come out with your delicious loot that joins your stomach swiftly."
 					},
-					"lostTime": 0,
-					"health": 20,
-					"effect": ":smiley:",
-					"experience": 350,
-					"money": 0,
-					"item": false
+					"health": 20
 				},
 				{
 					"translations": {
 						"fr": "À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade !",
 						"en": "To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick !"
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sick:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui, vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
 						"en": "🚶 You don't feel like partying today, so you decide to turn back and continue your journey quietly."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "🚶 Vous n'êtes pas prêt à faire la fête aujourd'hui, vous reprenez votre route. Lorsque vous trébuchez et tombez nez à nez avec une banane, cependant celle-ci semble ne pas être bonne.",
 						"en": "🚶 You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
 					},
-					"lostTime": 0,
-					"health": -1,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -1
 				}
 			]
 		}

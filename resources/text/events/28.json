@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		13
+	"triggers": [
+		{
+			"mapId": 13
+		}
 	],
 	"translations": {
 		"fr": "👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause.",
@@ -12,18 +14,14 @@
 				"fr": "Accepter de la rejoindre.",
 				"en": "Agree to join them."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
 						"en": "You join them... and lose 3 hours attending a religious ceremony."
 					},
 					"lostTime": 180,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -31,11 +29,7 @@
 						"en": "You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith."
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -44,10 +38,7 @@
 					},
 					"lostTime": 15,
 					"health": -25,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -55,11 +46,8 @@
 						"en": "You join them, then leave just as quickly, stealing an object that may be useful to you."
 					},
 					"lostTime": 20,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -68,18 +56,12 @@
 				"fr": "Refuser gentiment la proposition.",
 				"en": "Gently reject the proposal."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous coupez court à tout dialogue et continuez votre route.",
 						"en": "You cut the conversation short and continue your journey."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -88,26 +70,19 @@
 					},
 					"lostTime": 120,
 					"health": -10,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Face à votre béatitude, le groupe se lasse rapidement et part à la rencontre d'un autre passant.",
 						"en": "🚶 Faced with your bliss, the group quickly tires, and goes to meet another passerby."
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}
