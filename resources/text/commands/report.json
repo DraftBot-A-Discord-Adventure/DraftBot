@@ -26,7 +26,8 @@
 			"endPoint": "Point d'arrivée :",
 			"adviceTitle": "Conseil :",
 			"journal": "Journal de {pseudo}",
-			"collectedPointsTitle": "Points récoltés :"
+			"collectedPointsTitle": "Points récoltés :",
+			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !"
 		},
 		"en": {
 			"commandName": "report",
@@ -54,7 +55,8 @@
 			"endPoint": "End point:",
 			"adviceTitle": "Advice:",
 			"journal": "Journal of {pseudo}",
-			"collectedPointsTitle": "Collected points:"
+			"collectedPointsTitle": "Collected points:",
+			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!"
 		}
 	}
 }

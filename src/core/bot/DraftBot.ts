@@ -1,6 +1,6 @@
 import Potion from "../database/game/models/Potion";
 import PetEntity from "../database/game/models/PetEntity";
-import Player from "../database/game/models/Player";
+import Player, {Players} from "../database/game/models/Player";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
@@ -13,12 +13,16 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
-import {Op, Sequelize} from "sequelize";
+import {Op, QueryTypes, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
 import {PetConstants} from "../constants/PetConstants";
 import {FightConstants} from "../constants/FightConstants";
 import {ItemConstants} from "../constants/ItemConstants";
+import {sendNotificationToPlayer} from "../utils/MessageUtils";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {NotificationsConstants} from "../constants/NotificationsConstants";
+import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -53,7 +57,7 @@ export class DraftBot {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programTopWeekTimeout, 10000);
+			setTimeout(DraftBot.programTopWeekTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.topWeekEnd, millisTill);
@@ -66,10 +70,53 @@ export class DraftBot {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(DraftBot.programDailyTimeout, 10000);
+			setTimeout(DraftBot.programDailyTimeout, TIMEOUT_FUNCTIONS.DAILY_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.dailyTimeout, millisTill);
+	}
+
+	/**
+	 * Send a notification every minute for player who arrived in the last minute
+	 */
+	async reportNotifications(this: void): Promise<void> {
+		const query = `
+			SELECT p.discordUserId
+			FROM players AS p
+					 JOIN map_links AS m
+						  ON p.mapLinkId = m.id
+			WHERE p.notifications != :noNotificationsValue
+			  AND DATE_ADD(DATE_ADD(p.startTravelDate
+				, INTERVAL p.effectDuration minute)
+				, INTERVAL m.tripDuration minute)
+				BETWEEN NOW()
+			  AND DATE_ADD(NOW()
+				, INTERVAL :timeout MINUTE)`;
+
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
+			replacements: {
+				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
+				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
+			}, type: QueryTypes.SELECT
+		}));
+
+		const reportFR = Translations.getModule("commands.report", "fr");
+		const reportEN = Translations.getModule("commands.report", "en");
+		const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
+
+		for (const playerId of playersToNotify) {
+			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
+
+			await sendNotificationToPlayer(player,
+				embed.setDescription(`${
+					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+				}\n\n${
+					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+				}`)
+				, "en");
+		}
+
+		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
 	/**
@@ -286,6 +333,7 @@ export class DraftBot {
 				minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 			);
 			checkMissingTranslations();
+			await this.reportNotifications();
 		}
 	}
 
@@ -441,10 +489,10 @@ export class DraftBot {
 						7 * 24 * 60 * 60 * 1000
 					) {
 						// 7 days
-						fs.unlink(`logs/${file}`, (err: Error) => {
-							if (err) {
+						fs.unlink(`logs/${file}`, (error: Error) => {
+							if (error) {
 								originalConsoleError(
-									`Error while deleting logs/${file}: ${err.toString()}`
+									`Error while deleting logs/${file}: ${error.toString()}`
 								);
 							}
 						});
