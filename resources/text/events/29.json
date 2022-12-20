@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		19
+	"triggers": [
+		{
+			"mapId": 19
+		}
 	],
 	"translations": {
 		"fr": "🌡️ Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous réfléchissez à une stratégie à suivre...",
@@ -12,7 +14,7 @@
 				"fr": "Chercher un point d'eau aux alentours.",
 				"en": "Search the surroundings for a body of water."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
@@ -20,10 +22,7 @@
 					},
 					"lostTime": 50,
 					"health": 10,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -33,21 +32,15 @@
 					"lostTime": 30,
 					"health": 10,
 					"effect": ":clock2:",
-					"experience": 525,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise.",
 						"en": "You look for a body of water in vain.... Because of this fatigue, you fall ill."
 					},
-					"lostTime": 0,
 					"health": -10,
-					"effect": ":sleeping:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				}
 			]
 		},
@@ -56,7 +49,7 @@
 				"fr": "Se reposer au pied d'un arbre.",
 				"en": "Rest at the foot of a tree."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
@@ -64,10 +57,7 @@
 					},
 					"lostTime": 55,
 					"health": 10,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -75,11 +65,8 @@
 						"en": "You go to a shaded area where you can rest. But when you wake up, you notice you've been stripped of your belongings."
 					},
 					"lostTime": 60,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": -100,
-					"item": false
+					"money": -100
 				}
 			]
 		},
@@ -88,18 +75,14 @@
 				"fr": "Se reposer sur place.",
 				"en": "Rest right here."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous reposez, cependant, le sol est très inconfortable.",
 						"en": "You rest, however, the floor is very uncomfortable."
 					},
 					"lostTime": 180,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -108,38 +91,24 @@
 					},
 					"lostTime": 90,
 					"health": 1,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez.",
 						"en": "👀 You stay where you belong in full sunlight for about 15 minutes, then collapse."
 					},
-					"lostTime": 0,
-					"health": -20,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -20
 				},
 				{
 					"translations": {
 						"fr": "🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps.",
 						"en": "🚶 You decide to use your reserves, and continue your journey to not waste time."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		}

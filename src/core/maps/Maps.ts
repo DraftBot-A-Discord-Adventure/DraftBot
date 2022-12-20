@@ -16,7 +16,7 @@ export class Maps {
 	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player: Player, restrictedMapType: string = null): Promise<number[]> {
+	static async getNextPlayerAvailableMaps(player: Player): Promise<number[]> {
 		if (!player.mapLinkId) {
 			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
@@ -26,7 +26,7 @@ export class Maps {
 
 		const nextMaps = [];
 
-		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, restrictedMapType);
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, null);
 		for (const m of nextMapIds) {
 			nextMaps.push(m.id);
 		}
@@ -35,6 +35,20 @@ export class Maps {
 			nextMaps.push(previousMap);
 		}
 		return nextMaps;
+	}
+
+	/**
+	 * Get connected map types. There can be duplicates if multiple maps have the same type
+	 * @param player
+	 * @param excludePlayerLink Exclude the player link from the types
+	 */
+	static async getConnectedMapTypes(player: Player, excludePlayerLink: boolean): Promise<string[]> {
+		return (
+			await MapLocations.getMapTypesConnected(await player.getDestinationId(), excludePlayerLink
+				? await player.getPreviousMapId()
+				: null)
+		)
+			.map(mapType => mapType.type);
 	}
 
 	/**

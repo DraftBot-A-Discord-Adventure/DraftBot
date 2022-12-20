@@ -5,8 +5,8 @@ import Potion, {Potions} from "./Potion";
 import ObjectItem, {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import moment = require("moment");
 import {ItemConstants} from "../../../constants/ItemConstants";
+import moment = require("moment");
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;

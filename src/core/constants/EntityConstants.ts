@@ -1,7 +1,6 @@
 export abstract class EntityConstants {
 	static readonly DEFAULT_VALUES = {
-		MAX_HEALTH: 100,
-		HEALTH: 100,
+		HEALTH: 66,
 		ATTACK: 50,
 		DEFENSE: 20,
 		SPEED: 10,

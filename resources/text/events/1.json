@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		4
+	"triggers": [
+		{
+			"mapId": 4
+		}
 	],
 	"translations": {
 		"fr": "🌳 Un arbre est tombé sur le chemin et bloque le passage !",
@@ -12,18 +14,14 @@
 				"fr": "Couper l'arbre et continuer.",
 				"en": "Cut the tree up and continue."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Couper cet arbre aura pris 30 minutes !",
 						"en": "Felling this tree took half an hour!"
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -32,18 +30,12 @@
 				"fr": "Passer par un autre chemin.",
 				"en": "Go another way."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
 						"en": "Finding another way seemed to be a good decision, you didn't waste any time!"
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -52,26 +44,19 @@
 					},
 					"lostTime": 30,
 					"health": -5,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !",
 						"en": "🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen almost everything you collected since your last trip!"
 					},
 					"lostTime": 100,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

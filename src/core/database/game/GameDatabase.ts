@@ -1,12 +1,7 @@
 import {Database} from "../Database";
 import {BulkCreateOptions, DataTypes, DestroyOptions} from "sequelize";
 import Tag from "./models/Tag";
-import BigEvent from "./models/BigEvent";
-import EventMapLocationId from "./models/EventMapLocationId";
-import Possibility from "./models/Possibility";
 import Mission from "./models/Mission";
-import {format} from "../../utils/StringFormatter";
-import {Translations} from "../../Translations";
 import MapLocation from "./models/MapLocation";
 import {MapConstants} from "../../constants/MapConstants";
 import {PlayerConstants} from "../../constants/PlayerConstants";
@@ -19,7 +14,6 @@ import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
 import {EffectsConstants} from "../../constants/EffectsConstants";
-import {Constants} from "../../Constants";
 
 type IssueType = {
 	[key: string]: unknown,
@@ -117,10 +111,7 @@ export class GameDatabase extends Database {
 			await model.model.bulkCreate(filesContent);
 		}
 
-		// Handle special case Events & Possibilities
-		await BigEvent.destroy({truncate: true});
-		await EventMapLocationId.destroy({truncate: true});
-		await Possibility.destroy({truncate: true});
+		// Handle special case
 		await Mission.destroy({truncate: true});
 
 		const missionFiles = await promises.readdir("resources/text/missions");
@@ -139,96 +130,6 @@ export class GameDatabase extends Database {
 		}
 		await Mission.bulkCreate(missions);
 
-		const files = await promises.readdir("resources/text/events");
-		const eventsContent = [];
-		const eventsMapLocationsContent = [];
-		const possibilitiesContent = [];
-		const reportTranslationsFr = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
-		const reportTranslationsEn = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
-		for (const file of files) {
-			const fileName = file.split(".")[0];
-			const fileContent = await import(`resources/text/events/${file}`);
-
-			fileContent.id = fileName;
-
-			if (!GameDatabase.isEventValid(fileContent)) {
-				continue;
-			}
-
-			if (fileContent.map_location_ids) {
-				for (const mapLocationsId of fileContent.map_location_ids) {
-					eventsMapLocationsContent.push({
-						eventId: fileContent.id,
-						mapLocationId: mapLocationsId
-					});
-				}
-			}
-			fileContent.fr = `${fileContent.translations.fr}\n\n`;
-			fileContent.en = `${fileContent.translations.en}\n\n`;
-			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
-				if (possibilityKey !== "end") {
-					fileContent.fr += format(reportTranslationsFr.get("doChoice"), {
-						emoji: possibilityKey,
-						choiceText: fileContent.possibilities[possibilityKey].translations.fr
-					});
-					fileContent.en += format(reportTranslationsEn.get("doChoice"), {
-						emoji: possibilityKey,
-						choiceText: fileContent.possibilities[possibilityKey].translations.en
-					});
-				}
-			}
-			if (fileContent.tags) {
-				// If there's tags, populate them into the database
-				for (let i = 0; i < fileContent.tags.length; i++) {
-					const tagContent = {
-						textTag: fileContent.tags[i],
-						idObject: fileContent.id,
-						typeObject: BigEvent.name
-					};
-					tagsToInsert.push(tagContent);
-				}
-				delete fileContent["tags"];
-			}
-			eventsContent.push(fileContent);
-
-			for (const possibilityKey of Object.keys(
-				fileContent.possibilities
-			)) {
-				for (const possibility of fileContent.possibilities[possibilityKey].issues) {
-					const possibilityContent = {
-						possibilityKey,
-						lostTime: possibility.lostTime,
-						health: possibility.health,
-						oneshot: possibility.oneshot,
-						effect: possibility.effect,
-						experience: possibility.experience,
-						money: possibility.money,
-						item: possibility.item,
-						fr: possibility.translations.fr,
-						en: possibility.translations.en,
-						eventId: fileName,
-						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restrictedMaps: possibility.restrictedMaps
-					};
-					if (possibility.tags) {
-						// If there's tags, populate them into the database
-						for (let i = 0; i < possibility.tags.length; i++) {
-							const tagContent = {
-								textTag: possibility.tags[i],
-								idObject: possibilitiesContent.length + 1,
-								typeObject: Possibility.name
-							};
-							tagsToInsert.push(tagContent);
-						}
-						delete possibility["tags"];
-					}
-					possibilitiesContent.push(possibilityContent);
-				}
-			}
-		}
-		await BigEvent.bulkCreate(eventsContent);
-		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
-		await Possibility.bulkCreate(possibilitiesContent);
 		await Tag.bulkCreate(tagsToInsert);
 	}
 

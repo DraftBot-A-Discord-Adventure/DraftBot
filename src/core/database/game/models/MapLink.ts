@@ -55,6 +55,23 @@ export class MapLinks {
 	static async getById(id: number): Promise<MapLink> {
 		return await MapLink.findOne({where: {id}});
 	}
+
+	static async getMapLinksWithMapTypes(mapTypes: string[], startMapId: number, blacklistMapId: number): Promise<MapLink[]> {
+		const query = `SELECT map_links.* FROM map_links
+			JOIN map_locations ml_start ON map_links.startMap = ml_start.id
+			JOIN map_locations ml_end ON map_links.endMap = ml_end.id
+			WHERE ml_start.id = :startMapId
+				AND ml_end.id != :blacklistMapId
+			    AND ml_end.type IN (:mapTypes)`;
+		return await MapLink.sequelize.query(query, {
+			type: QueryTypes.SELECT,
+			replacements: {
+				startMapId,
+				blacklistMapId: blacklistMapId ?? -1,
+				mapTypes
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {

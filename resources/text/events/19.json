@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		8
+	"triggers": [
+		{
+			"mapId": 8
+		}
 	],
 	"translations": {
 		"fr": "🦊 Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.",
@@ -12,18 +14,13 @@
 				"fr": "Tenter de cuisiner le renard.",
 				"en": "Try to cook the fox."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation.",
 						"en": "Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sick:"
 				},
 				{
 					"translations": {
@@ -31,23 +28,14 @@
 						"en": "Despite your reduced cooking skills, your fox on the spit satiates you well."
 					},
 					"lostTime": 40,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
 						"en": "You approach the fox to pick him up, when all of a sudden, he jumps up and bites you! You run away, injured in your stomach and your heels."
 					},
-					"lostTime": 0,
-					"health": -20,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -20
 				},
 				{
 					"translations": {
@@ -56,10 +44,7 @@
 					},
 					"lostTime": 40,
 					"health": 20,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -68,30 +53,19 @@
 				"fr": "Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche.",
 				"en": "Simply ignore it and hurry to the nearest inn."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps.",
 						"en": "You choose to ignore this corpse and don't lose any time."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps.... A peine l'avez-vous dépassé que le renard se lève et vous mord violemment !",
 						"en": "You choose to ignore the fox and not waste time... but as soon as you pass him, the fox gets up and bites you violently!"
 					},
-					"lostTime": 0,
-					"health": -20,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -20
 				}
 			]
 		},
@@ -100,18 +74,15 @@
 				"fr": "Dépecer le renard pour revendre sa peau.",
 				"en": "Butcher the fox and resell its skin."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez.",
 						"en": "You approach the fox and butcher him. You sell his fur to the first wandering merchant you meet."
 					},
 					"lostTime": 90,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 500,
-					"item": false
+					"money": 500
 				},
 				{
 					"translations": {
@@ -119,39 +90,27 @@
 						"en": "You butcher the fox and go in search of a way to sell his skin. A few minutes later, you meet a merchant who offers to trade it for one of his quality items, and you accept."
 					},
 					"lostTime": 15,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point !",
 						"en": "You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill!"
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sick:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin.",
 						"en": "👀 For a few seconds you consider the beast on the ground, hesitating. Finally, you continue on your way."
 					},
 					"lostTime": 10,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		27
+	"triggers": [
+		{
+			"mapId": 27
+		}
 	],
 	"translations": {
 		"fr": "🍽️ Vous vous étiez arrêté dans une grotte pour manger et vous hésitez à repartir...",
@@ -12,18 +14,14 @@
 				"fr": "Entrer plus profondément dans la grotte.",
 				"en": "Delve deeper into the cave."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
 						"en": "You get quickly lost in the maze, but you end up coming out of it after a few hours!"
 					},
 					"lostTime": 200,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -31,23 +29,16 @@
 						"en": "You spend a few minutes exploring the cave from top to bottom and find an object which may be useful..."
 					},
 					"lostTime": 20,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdi ! Il faudra vous soigner !",
 						"en": "The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to be treated!"
 					},
-					"lostTime": 0,
 					"health": -1,
-					"effect": ":confounded:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":confounded:"
 				}
 			]
 		},
@@ -56,18 +47,12 @@
 				"fr": "Continuer votre route, pas de temps à perdre !",
 				"en": "keep going, no time to waste!"
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin.",
 						"en": "You're not the type to risk wasting time on meaningless explorations! You finish eating and move on."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -76,18 +61,15 @@
 				"fr": "Fouiller les alentours.",
 				"en": "Search the surroundings."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
 						"en": "After 30 minutes you finally discover a strange object..."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -95,51 +77,34 @@
 						"en": "After 60 minutes you end up abandoning your search without having discovered anything..."
 					},
 					"lostTime": 60,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Alors que vous commenciez vos recherches, vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
 						"en": "As you began your search, you drop a large bag of coins at the bottom of a large hole! It's not possible to recover it..."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -190,
-					"item": false
+					"money": -190
 				},
 				{
 					"translations": {
 						"fr": "Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner !",
 						"en": "As you were looking for things to pick up, a huge branch fell off the tree next to you and fell onto your leg! You can get up sound, but you'll have to go to the hospital!"
 					},
-					"lostTime": 0,
 					"health": -25,
-					"effect": ":confounded:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":confounded:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🕑 hum... Il semblerait que vous soyez resté là sans rien faire plus longtemps que prévu !",
 						"en": "🕑 um... It seems you've been sitting there doing nothing longer than expected!"
 					},
 					"lostTime": 270,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

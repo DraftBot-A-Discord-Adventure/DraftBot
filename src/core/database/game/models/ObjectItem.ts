@@ -5,10 +5,9 @@ import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
 import {minutesDisplay} from "../../../utils/TimeUtils";
 import {MaxStatsValues} from "./GenericItemModel";
+import {ItemConstants} from "../../../constants/ItemConstants";
 import fs = require("fs");
 import moment = require("moment");
-import {botConfig} from "../../../bot";
-import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -70,7 +69,7 @@ export class ObjectItems {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX}_game.objects
+					   FROM objects
 					   WHERE rarity = :rarity`;
 		return Promise.resolve(ObjectItem.sequelize.query(query, {
 			replacements: {

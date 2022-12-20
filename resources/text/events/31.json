@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		5
+	"triggers": [
+		{
+			"mapId": 5
+		}
 	],
 	"translations": {
 		"fr": "🏇 Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.",
@@ -12,42 +14,26 @@
 				"fr": "Continuer votre route normalement.",
 				"en": "Keep going normally."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
 						"en": "The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains..."
 					},
-					"lostTime": 0,
-					"health": -45,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -45
 				},
 				{
 					"translations": {
 						"fr": "Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
 						"en": "As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way."
 					},
-					"lostTime": 0,
-					"health": 10,
-					"effect": ":smiley:",
-					"experience": 350,
-					"money": 0,
-					"item": false
+					"health": 10
 				},
 				{
 					"translations": {
 						"fr": "Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple.",
 						"en": "The knight catches up to you and asks you for directions. You show him a route and continue on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -56,42 +42,26 @@
 				"fr": "Se cacher dans un buisson au bord de la route.",
 				"en": "Hide in a bush at the roadside."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous sautez dans le buisson juste à temps. Ce cavalier ténébreux allait vous bousculer... Vous vous remettez de vos émotions et partez.",
 						"en": "You hide in the bush just in time. This dark knight was about to push you over... You recover your emotions and leave."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous vous jetez dans le buisson. Cependant vous n'aviez pas remarqué que c'était en fait des ronces...",
 						"en": "You dive into the bush. However, you didn't notice that it was actually brambles..."
 					},
-					"lostTime": 0,
-					"health": -15,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"health": -15
 				},
 				{
 					"translations": {
 						"fr": "Après avoir sauté dans le buisson, vous regardez passer ce mystérieux chevalier et voyez un objet tomber de sa sacoche. Vous le récupérez.",
 						"en": "After diving into the bush, you watch the mysterious knight pass by and see an object falling out of his satchel. You pick it up."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -100,58 +70,37 @@
 				"fr": "Lui faire signe pour qu'il s'arrête.",
 				"en": "Motion to him to stop."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Ayant vu votre signe de la main, le chevalier s'arrête à vos côtés. Vous vous rendez vite compte qu'il est très sympathique. Vous discutez près d'une heure, avant de chacun reprendre route de votre côté.",
 						"en": "As he notices you waving, the knight comes to a halt by your side. You quickly realise that he his very friendly."
 					},
 					"lostTime": 50,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Le chevalier s'arrête près de vous et vous frappe violemment, vous tombez à terre, assommé. Quand vous vous réveillez, vous remarquez que vos poches sont vides...",
 						"en": "The knight comes to a halt next to you and violently hits you, you fall to the ground and pass out. When you wake up, you discover that your pockets have been emptied..."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -400,
-					"item": false
+					"money": -400
 				},
 				{
 					"translations": {
 						"fr": "Le chevalier vous passe à côté. Il n'a sûrement pas vu votre signe ou n'a pas de temps à perdre.",
 						"en": "The knight passes you by. Perhaps he didn't see your sign, or had no time to waste."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement.",
 						"en": "🚶 The knight passes by without paying attention to you. You continue on your way peacefully."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		}

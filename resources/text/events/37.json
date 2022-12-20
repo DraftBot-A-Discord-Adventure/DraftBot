@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		24
+	"triggers": [
+		{
+			"mapId": 24
+		}
 	],
 	"translations": {
 		"fr": "🚶 Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.",
@@ -12,42 +14,24 @@
 				"fr": "Continuer à marcher.",
 				"en": "Continue to walk."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous marchez tranquillement, après tout ce n'est qu'une faible pluie, et vous n'avez pas envie de courir juste pour ça.",
 						"en": "You keep walking quietly, after all it's only a light rain and you don't want to run just for that."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous continuez simplement à marcher... quelques minutes plus tard, la légère pluie s'arrête et vous arrivez en vue du village.",
 						"en": "You just keep walking... a few minutes later, the rain stops and you arrive at the village gates."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous continuez tranquillement à marcher.",
 						"en": "You keep walking quietly."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -56,35 +40,23 @@
 				"fr": "Accélérer afin de ne pas trop se mouiller.",
 				"en": "Speed up so you don't get too wet."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous vous mettez à courir, et moins d'un quart d'heure après, arrivez dans le village.",
 						"en": "You start running and you arrive at the village less than 15 minutes later."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village.",
 						"en": "You start running, fortunately, the rain stops quickly. So you return to your normal pace."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🌳 Vous remarquez une petite forêt sur votre droite. Ayant très soif, vous suivez le son du ruissellement d'un courant d'eau fraîche. Parvenu au ruisseau, vous vous désaltérez âprement et repartez en direction du village.",
@@ -92,22 +64,14 @@
 					},
 					"lostTime": 15,
 					"health": 5,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "🌳 Vous remarquez une petite forêt sur votre droite. Lors de votre traversée, vous récoltez un objet probablement abandonné par un passant et continuez en direction du village.",
 						"en": "🌳 You notice a small forest on your right. While crossing it, you pick up an item probably left here by a traveler and continue your journey to the village."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				}
 			]
 		}

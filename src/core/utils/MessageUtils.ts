@@ -1,11 +1,13 @@
 import {error} from "console";
-import {TextBasedChannel, User} from "discord.js";
+import {CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {Translations} from "../Translations";
+import {TranslationModule, Translations} from "../Translations";
 import {draftBotClient} from "../bot";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {format} from "./StringFormatter";
 import Player from "../database/game/models/Player";
+
+export type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
 /**
  * Send a dm to a user

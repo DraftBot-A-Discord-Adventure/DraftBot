@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		23
+	"triggers": [
+		{
+			"mapId": 23
+		}
 	],
 	"translations": {
 		"fr": "🏘️ Après avoir passé plusieurs semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.",
@@ -12,42 +14,29 @@
 				"fr": "Aller à l'auberge.",
 				"en": "Go to the inn."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
 						"en": "After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest."
 					},
 					"lostTime": 120,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure.",
 						"en": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure."
 					},
-					"lostTime": 0,
 					"health": 15,
 					"effect": ":sleeping:",
-					"experience": 220,
-					"money": -70,
-					"item": false
+					"money": -70
 				},
 				{
 					"translations": {
 						"fr": "L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions.",
 						"en": "The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
@@ -56,18 +45,12 @@
 				"fr": "Aller à la forge.",
 				"en": "Go to the forge."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Il n'y a rien d'intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
 						"en": "There's nothing interesting in this forge... You quickly leave the place and continue on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -75,35 +58,21 @@
 						"en": "While trying a sword, you broke the smithy's window! The blacksmith asks for compensation!"
 					},
 					"lostTime": 40,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": -300,
-					"item": false
+					"money": -300
 				},
 				{
 					"translations": {
 						"fr": "Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
 						"en": "No one is present at the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful to you for the rest of your adventure..."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
 						"en": "The forge looks like it's been abandoned for many years, so you continue on your way."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -111,11 +80,7 @@
 						"en": "You enter and greet the blacksmith. After a quick inspection of his work, you understand you won't find anything interesting here. You go back on your way."
 					},
 					"lostTime": 20,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -124,18 +89,15 @@
 				"fr": "Aller au marché.",
 				"en": "Go to the marketplace."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
 						"en": "You explore the market for 30 minutes before discovering a small object on the ground that could be useful to you..."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -143,23 +105,15 @@
 						"en": "After wasting 60 minutes strolling through the stalls, you end up leaving the city without having found anything interesting."
 					},
 					"lostTime": 60,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer !",
 						"en": "Your vigilance was at its lowest at the market. You were hit hard on the back of the head and fell to the ground... you remember nothing after that. You'll have to get better before you can keep moving forward!"
 					},
-					"lostTime": 0,
 					"health": -60,
-					"effect": ":dizzy_face:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":dizzy_face:"
 				}
 			]
 		},
@@ -168,18 +122,14 @@
 				"fr": "Repartir.",
 				"en": "Leave."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
 						"en": "You cross the little village in just half an hour and continue on your way."
 					},
 					"lostTime": 25,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -187,27 +137,19 @@
 						"en": "You lose a good hour going around the town but calmly continue on your way."
 					},
 					"lostTime": 70,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous visitez la ville pendant plusieurs heures avant de continuer votre route.",
 						"en": "🚶 You visit the city for many hours before continuing your journey."
 					},
 					"lostTime": 200,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

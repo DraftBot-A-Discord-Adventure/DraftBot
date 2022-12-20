@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		10
+	"triggers": [
+		{
+			"mapId": 10
+		}
 	],
 	"translations": {
 		"fr": "🏠 Vous avez découvert une maison ! Elle semble abandonnée...",
@@ -12,18 +14,14 @@
 				"fr": "Aller visiter l'intérieur.",
 				"en": "Check inside."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "En forçant la porte vous vous blessez profondément, il faut absolument vous soigner !",
 						"en": "By forcing the door open, you seriously hurt yourself, you must absolutely be healed!"
 					},
-					"lostTime": 0,
 					"health": -25,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				},
 				{
 					"translations": {
@@ -31,23 +29,15 @@
 						"en": "After spending almost an hour trying to get into the house, you give up. Leaving, you find an object which may be useful!"
 					},
 					"lostTime": 55,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure.",
 						"en": "You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sleeping:",
-					"experience": 20,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				},
 				{
 					"translations": {
@@ -55,11 +45,8 @@
 						"en": "You enter the house and search around for about fifteen minutes. On leaving, you find an object that may be useful to you!"
 					},
 					"lostTime": 15,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -67,11 +54,7 @@
 						"en": "You enter the house and search around for about fifteen minutes. You end up abandoning your search without finding anything."
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -80,34 +63,24 @@
 				"fr": "Ne pas s'arrêter et continuer sa route.",
 				"en": "Don't stop and keep going."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous continuez votre route sans vous soucier de la maison.",
 						"en": "You continue on your way without worrying about the house."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous avez passé près de quinze minutes sans bouger, il est temps de repartir !",
 						"en": "🚶 You spent almost fifteen minutes without moving, it's time to go back!"
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		10
+	"triggers": [
+		{
+			"mapId": 10
+		}
 	],
 	"translations": {
 		"fr": "🚶 En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\".",
@@ -12,18 +14,15 @@
 				"fr": "Voler des passants assistant au massacre.",
 				"en": "Steal from the audience."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après avoir dépouillé quelques personnes, vous repartez avec un objet qui semble fort intéressant ! Après avoir marché une trentaine de minutes, vous regardez ce que c'est.",
 						"en": "After robbing a few people, you leave with an object that seems very interesting! After walking for about 30 minutes, you look at what it is."
 					},
 					"lostTime": 30,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -32,10 +31,7 @@
 					},
 					"lostTime": 25,
 					"health": -15,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -44,18 +40,15 @@
 				"fr": "S'interposer et empêcher cet homme de mourir.",
 				"en": "Stand in the way to prevent the man from dying."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
 						"en": "After struggling to get through the crowd, you intervene as quickly as possible and manage to get the man out of there. After running through the village, the man, very grateful, offers you an object that will serve you for the rest of your adventure."
 					},
 					"lostTime": 15,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -64,10 +57,7 @@
 					},
 					"lostTime": 15,
 					"health": -10,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -77,21 +67,13 @@
 					"lostTime": 20,
 					"health": -15,
 					"effect": ":clock2:",
-					"experience": 0,
-					"money": -200,
-					"item": false
+					"money": -200
 				},
 				{
 					"translations": {
 						"fr": "Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale.",
 						"en": "After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false,
 					"oneshot": true
 				}
 			]
@@ -101,18 +83,12 @@
 				"fr": "Continuer votre route paisiblement.",
 				"en": "Continue on your journey peacefully."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Horrifié par cet acte de barbarie, vous continuez rapidement votre route.",
 						"en": "Horrified by this act of barbarity, you quickly continue on your journey."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -120,27 +96,20 @@
 						"en": "During your run, you see an open box in the distance. After a few minutes of walking, you discover a bag full of money inside it."
 					},
 					"lostTime": 10,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 75,
-					"item": false
+					"money": 75
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "👀 Après avoir passé 15 minutes à observer cette scène, vous repartez, choqué, mais continuez votre aventure.",
 						"en": "👀 After spending 15 minutes watching this scene, you leave, shocked, but continue your adventure."
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

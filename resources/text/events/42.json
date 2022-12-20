@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		5
+	"triggers": [
+		{
+			"mapId": 5
+		}
 	],
 	"translations": {
 		"fr": "🧝‍♀️ Au détour d'un chemin, une jeune femme apparaît. Vous ne saisissez d'abord pas très bien ce qu'elle dit mais finissez par comprendre qu'elle a besoin d'aide pour l'exploration d'une grotte.",
@@ -12,18 +14,14 @@
 				"fr": "Vous empresser de l'aider.",
 				"en": "Rush to help her."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous partez explorer sa grotte votre torche à la main. Malheureusement, il s'avère que la jeune femme avait la peste et qu'à son contact vous l'avez attrapée.",
 						"en": "You go to explore the cave with your torch in hand. Unfortunately, it turns out the young woman has the plague. She touches you, you're now infected."
 					},
-					"lostTime": 0,
 					"health": -70,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sick:"
 				},
 				{
 					"translations": {
@@ -31,11 +29,8 @@
 						"en": "After a few minutes, you arrive next to the entrance of the cave. You progress confidently towards the bottom. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. After a few hours negotiating with your tormentors, they decide to let you go in exchange for a good amount of your money. You leave sheepishly, swearing endlessly that you will never be caught again."
 					},
 					"lostTime": 90,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": -300,
-					"item": false
+					"money": -300
 				},
 				{
 					"translations": {
@@ -43,11 +38,9 @@
 						"en": "You progress with care, ready to face any trouble. It turns out that the cave is deeper than you thought, you spend a good hour looking for the bottom. Just as you decided to go back, a shiny metallic object catch your eye. Getting a closer look at it, you notice that it is a locked chest that has been wrapped in a rope. You pull on the rope which clears the lock easily. You open the chest : it contains an incredible amount of coins alongside an interesting object that you proudly claim. Out of the cave, you reassure the woman of its safety and go back on the road, satisfied of your loot."
 					},
 					"lostTime": 60,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 425,
 					"money": 3000,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
@@ -56,10 +49,7 @@
 					},
 					"lostTime": 10,
 					"health": -35,
-					"effect": ":clock2:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		},
@@ -68,18 +58,14 @@
 				"fr": "Faire mine de vous éloigner pour revenir seul fouiller la grotte.",
 				"en": "Feign to go on your way with the plan to come back explore alone."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Après avoir cherché la grotte durant une heure vous abandonnez les recherches et repartez bredouille.",
 						"en": "After exploring the cave for an hour you abandon the search and leave empty-handed."
 					},
 					"lostTime": 60,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -89,9 +75,7 @@
 					"lostTime": 60,
 					"health": -10,
 					"effect": ":clock2:",
-					"experience": 0,
-					"money": -200,
-					"item": false
+					"money": -200
 				},
 				{
 					"translations": {
@@ -100,10 +84,7 @@
 					},
 					"lostTime": 30,
 					"health": 10,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
@@ -113,9 +94,7 @@
 					"lostTime": 60,
 					"health": 30,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 600,
-					"item": false
+					"money": 600
 				}
 			]
 		},
@@ -124,18 +103,15 @@
 				"fr": "Lui demander l'auberge la plus proche.",
 				"en": "Ask her for the nearest hostel."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Elle vous répond gentiment qu'elle en tient elle-même une et vous invite à y passer. Vous acceptez et c'est après un périple de quelques minutes que vous arrivez devant l'auberge en question. Quelle n'est pas votre surprise quand vous vous rendez compte que celle-ci est aménagée à l'aplomb d'une grotte. Vous vous avancez d'un pas confiant en direction du fond de celle-ci où mijote une soupe qui exhale un parfum enivrant. C'est alors qu'un bruit sourd se fait entendre. Vous vous retournez et voyez s'abaisser une herse. Une quinzaine de personnes apparaissent alors de l'autre coté. C'était un piège et vous êtes tombé dedans. Trop faible pour parlementer vous décider de goûter à la soupe en premier lieu. Votre tête devient lourde, vous entendez vos gardes s'esclaffer, et sombrez dans un profond sommeil. Vous vous réveillez au bord d'une rivière, les poches plus légères qu'à votre souvenir.",
 						"en": "She tells you that she happens to own one and invites you to follow her. You accept and after walking for several minutes you arrive at the destination. You are very much surprised to find out the hostel is built on the side of a cliff, into a cave. You progress confidently towards the bottom from where arise the heavenly scent of a probably delicious stew. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. Too weak to negotiate with an empty stomach you decide to take a sip of the stew first. Your head gets heavy as you hear a roar of laughter from the thugs. You fall unconscious. You wake up next to a river, your pockets much lighter than you remember."
 					},
 					"lostTime": 240,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": -300,
-					"item": false
+					"money": -300
 				},
 				{
 					"translations": {
@@ -145,37 +121,26 @@
 					"lostTime": 60,
 					"health": 15,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": -100,
-					"item": false
+					"money": -100
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous l'ignorez totalement, et reprenez votre route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche emplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
 						"en": "🚶 You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 550,
 					"money": 500,
-					"item": true
+					"randomItem": true
 				},
 				{
 					"translations": {
 						"fr": "🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles.",
 						"en": "🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sick:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":sick:"
 				}
 			]
 		}

@@ -1,9 +1,8 @@
 import {QueryTypes, Sequelize} from "sequelize";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
+import {ItemConstants} from "../../../constants/ItemConstants";
 import fs = require("fs");
 import moment = require("moment");
-import {botConfig} from "../../../bot";
-import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class Weapon extends MainItemModel {
 	categoryName = "weapons";
@@ -50,7 +49,7 @@ export class Weapons {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX}_game.weapons
+					   FROM weapons
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Weapon.sequelize.query(query, {
 			replacements: {

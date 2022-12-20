@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		15
+	"triggers": [
+		{
+			"mapId": 15
+		}
 	],
 	"translations": {
 		"fr": "🏔️ Vous avez décidé de profiter de l'été pour passer par les montagnes tant que les cols ne sont pas trop enneigés, cependant l'ascension s'avère plus difficile que prévu...",
@@ -12,45 +14,30 @@
 				"fr": "Continuer à travers la forêt de sapin.",
 				"en": "Continue through the fir forest."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous traversez la forêt sans trop de difficultés et continuez votre route !",
 						"en": "You cross the forest without too many difficulties, and continue your journey!"
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false,
-					"restrictedMaps": "fo"
+					"mapTypesDestination": ["fo"]
 				},
 				{
 					"translations": {
 						"fr": "Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
 						"en": "You walk slowly through the firs. On the way, you pick up fir branches and make small objects you can use or sell..."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
-					"money": 0,
-					"item": true,
-					"restrictedMaps": "fo"
+					"randomItem": true,
+					"mapTypesDestination": ["fo"]
 				},
 				{
 					"translations": {
 						"fr": "Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé !",
 						"en": "You are progressing slowly through the forest. Unfortunately, the ground is slippery and you fall to the bottom of a ditch! You manage to come back out but you're hurt!"
 					},
-					"lostTime": 0,
 					"health": -25,
 					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false,
-					"restrictedMaps": "fo"
+					"mapTypesDestination": ["fo"]
 				}
 			]
 		},
@@ -59,19 +46,15 @@
 				"fr": "Renoncer à grimper jusqu'en haut et rester proche des plaines.",
 				"en": "Forget climbing to the top and stay close to the plains."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps !",
 						"en": "You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time!"
 					},
 					"lostTime": 150,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false,
-					"restrictedMaps": "pl"
+					"mapTypesDestination": ["pl"]
 				},
 				{
 					"translations": {
@@ -81,26 +64,18 @@
 					"lostTime": 150,
 					"health": 10,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false,
-					"restrictedMaps": "pl"
+					"mapTypesDestination": ["pl"]
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir !",
 						"en": "🚶 You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving!"
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":sleeping:",
-					"experience": 20,
-					"money": 0,
-					"item": false
+					"effect": ":sleeping:"
 				}
 			]
 		}

@@ -6,13 +6,13 @@ import {MissionsController} from "../../../missions/MissionsController";
 import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player, {Players} from "./Player";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
-import moment = require("moment");
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
+import moment = require("moment");
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -265,7 +265,7 @@ export class Guilds {
 
 	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-					   FROM ${botConfig.MARIADB_PREFIX}_game.guilds`;
+					   FROM guilds`;
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT

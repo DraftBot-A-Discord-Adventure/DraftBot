@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		22
+	"triggers": [
+		{
+			"mapId": 22
+		}
 	],
 	"translations": {
 		"fr": "🚶 Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.",
@@ -12,18 +14,15 @@
 				"fr": "Aider ces gens à réparer leur chariot.",
 				"en": "Help these people repair their cart."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent.",
 						"en": "You decide to come closer and help them. After spending 45 minutes helping them, these individuals thank you and give you money."
 					},
 					"lostTime": 45,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 125,
-					"money": 75,
-					"item": false
+					"money": 75
 				},
 				{
 					"translations": {
@@ -33,9 +32,7 @@
 					"lostTime": 55,
 					"health": -20,
 					"effect": ":clock2:",
-					"experience": 0,
-					"money": -50,
-					"item": false
+					"money": -50
 				},
 				{
 					"translations": {
@@ -43,11 +40,8 @@
 						"en": "You repair their cart quickly. Happy, they thank you and offer you a gift that will surely serve you for the rest of your journey."
 					},
 					"lostTime": 10,
-					"health": 0,
 					"effect": ":clock2:",
-					"experience": 325,
-					"money": 0,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -56,46 +50,32 @@
 				"fr": "Ne pas se préoccuper de ces individus vous semblant suspects.",
 				"en": "Don't worry about these individuals, they seem suspicious!"
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous ne voulez pas perdre de temps, et continuez votre route.",
 						"en": "You have no intention of wasting any time, and continue on your journey."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
 						"fr": "En partant, vous trébuchez dans un trou et vous blessez.",
 						"en": "When you leave, you stumble into a hole and hurt yourself."
 					},
-					"lostTime": 0,
 					"health": -35,
-					"effect": ":head_bandage:",
-					"experience": 0,
-					"money": 0,
-					"item": false
+					"effect": ":head_bandage:"
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "👀 Vous passez 15 minutes à les regarder et vous décidez de continuer votre route sans y prêter plus d'attention.",
 						"en": "👀 You spend 15 minutes watching them and decide to continue your journey without paying any more attention."
 					},
 					"lostTime": 15,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

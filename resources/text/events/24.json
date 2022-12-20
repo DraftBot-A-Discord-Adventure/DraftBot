@@ -1,6 +1,8 @@
 {
-	"map_location_ids": [
-		26
+	"triggers": [
+		{
+			"mapId": 26
+		}
 	],
 	"translations": {
 		"fr": "🎆 Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.",
@@ -12,18 +14,13 @@
 				"fr": "Aller à un stand de jeu.",
 				"en": "Go to a game stand."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous jouez à ce jeu plusieurs fois mais jamais vous ne réussissez à récupérer votre lot. Déçu de votre performance, vous payez le gérant et vous vous en allez.",
 						"en": "You play this game several times but never succeed in getting your prize back. Disappointed with your performance, you pay the manager and leave."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -200,
-					"item": false
+					"money": -200
 				},
 				{
 					"translations": {
@@ -31,23 +28,14 @@
 						"en": "You play this game again and again for a long time, but with no luck. However, since the manager became friends with you, he'll partially refund you. You leave with a warm thanks."
 					},
 					"lostTime": 30,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Vous avez réussi à gagner le gros lot ! Heureux et sautant d'excitation, vous le récupérez et sortez de la ville.",
 						"en": "You managed to win the jackpot! Happy and jumping with excitement, you pick it up and get out of town."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 250,
-					"money": 200,
-					"item": false
+					"money": 200
 				}
 			]
 		},
@@ -56,30 +44,22 @@
 				"fr": "Aller à un stand de vente d'objets.",
 				"en": "Go to an item stand."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous recherchez pendant des heures cet objet que vous vouliez mais personne ne l'a. Pour ne rien acheter d'inutile, vous décidez finalement de ne rien acheter du tout.",
 						"en": "For hours you search for the object you want, but no one has it. To avoid buying anything useless, you powerfully decide to buy nothing at all."
 					},
 					"lostTime": 240,
-					"health": 0,
-					"effect": ":clock2:",
-					"experience": 25,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				},
 				{
 					"translations": {
 						"fr": "Le voici ! Vous recherchiez cet objet depuis des jours et vous l'avez finalement trouvé ! Vous l'achetez rapidement sans faire attention au prix puis partez.",
 						"en": "There it is! You've been looking for this object for days and you finally found it! You buy it quickly without paying attention to the price and then leave."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 450,
 					"money": -200,
-					"item": true
+					"randomItem": true
 				}
 			]
 		},
@@ -88,7 +68,7 @@
 				"fr": "Aller à un stand de nourriture.",
 				"en": "Go to a food stand."
 			},
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "Cette nourriture est incroyable ! De votre vie, jamais vous n'avez mangé quelque chose d'aussi bon. Vous vous sentez revigoré et apaisé.",
@@ -97,49 +77,33 @@
 					"lostTime": 30,
 					"health": 75,
 					"effect": ":clock2:",
-					"experience": 225,
-					"money": -20,
-					"item": false
+					"money": -20
 				},
 				{
 					"translations": {
 						"fr": "Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
 						"en": "This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up."
 					},
-					"lostTime": 0,
 					"health": -100,
 					"effect": ":sick:",
-					"experience": 0,
-					"money": -20,
-					"item": false
+					"money": -20
 				},
 				{
 					"translations": {
 						"fr": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût.",
 						"en": "This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste."
 					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": -20,
-					"item": false
+					"money": -20
 				}
 			]
 		},
 		"end": {
-			"issues": [
+			"outcomes": [
 				{
 					"translations": {
 						"fr": "🚶 Aucun des stands ne vous intéresse et vous sortez rapidement de la ville après quelques coups d'œil.",
 						"en": "🚶 None of the stands interest you and you quickly leave the city after a few looks."
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 150,
-					"money": 0,
-					"item": false
+					}
 				},
 				{
 					"translations": {
@@ -148,10 +112,7 @@
 					},
 					"lostTime": 40,
 					"health": 5,
-					"effect": ":clock2:",
-					"experience": 225,
-					"money": 0,
-					"item": false
+					"effect": ":clock2:"
 				}
 			]
 		}

@@ -6,11 +6,11 @@ import {format} from "../../../utils/StringFormatter";
 import {Translations} from "../../../Translations";
 import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
-import {botConfig, draftBotInstance} from "../../../bot";
+import {draftBotInstance} from "../../../bot";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {PlayerEditValueParameters} from "./Player";
-import moment = require("moment");
 import {PetConstants} from "../../../constants/PetConstants";
+import moment = require("moment");
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -206,7 +206,7 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   FROM pet_entities
 					   WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -215,7 +215,7 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   FROM pet_entities
 					   WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
@@ -224,7 +224,7 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities
+					   FROM pet_entities
 					   WHERE sex = :sex`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
@@ -236,7 +236,7 @@ export class PetEntities {
 
 	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM ${botConfig.MARIADB_PREFIX}_game.pet_entities`;
+					   FROM pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
