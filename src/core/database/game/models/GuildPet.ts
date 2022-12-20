@@ -1,8 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import PetEntity from "./PetEntity";
-import moment = require("moment");
 import Guild from "./Guild";
 import {draftBotInstance} from "../../../bot";
+import moment = require("moment");
 
 export class GuildPet extends Model {
 	public readonly id!: number;

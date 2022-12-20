@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import moment = require("moment");
 import {ItemConstants} from "../../../constants/ItemConstants";
+import moment = require("moment");
 
 export class InventoryInfo extends Model {
 	public readonly playerId!: number;

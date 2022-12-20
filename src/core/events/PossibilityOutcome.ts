@@ -47,7 +47,7 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 	return "";
 }
 
-async function applyOutcomeEffect(player: Player, outcome: PossibilityOutcome, textInformation: TextInformation): Promise<string> {
+async function applyOutcomeEffect(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
 	await player.setLastReportWithEffect(
 		outcome.lostTime ?? 0,
 		outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY
@@ -162,7 +162,7 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	description += await applyOutcomeExperience(outcome, player, valuesToEditParameters, textInformation);
 
 	// effect + lost time
-	description += await applyOutcomeEffect(player, outcome, textInformation);
+	description += await applyOutcomeEffect(outcome, player, textInformation);
 
 	// random item
 	await applyOutcomeRandomItem(outcome, textInformation, player);

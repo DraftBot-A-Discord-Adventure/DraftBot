@@ -5,11 +5,7 @@ import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
-import {
-	generateRandomItem,
-	giveItemToPlayer,
-	giveRandomItem
-} from "../utils/ItemUtils";
+import {generateRandomItem, giveItemToPlayer, giveRandomItem} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";

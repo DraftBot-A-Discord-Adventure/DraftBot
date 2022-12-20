@@ -5,10 +5,9 @@ import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
 import ObjectItem from "./ObjectItem";
 import {minutesDisplay} from "../../../utils/TimeUtils";
+import {ItemConstants} from "../../../constants/ItemConstants";
 import fs = require("fs");
 import moment = require("moment");
-import {botConfig} from "../../../bot";
-import {ItemConstants} from "../../../constants/ItemConstants";
 
 export class Potion extends SupportItemModel {
 	categoryName = "potions";
@@ -56,7 +55,7 @@ export class Potions {
 
 	static getAllIdsForRarity(rarity: number): Promise<{ id: number }[]> {
 		const query = `SELECT id
-					   FROM ${botConfig.MARIADB_PREFIX}_game.potions
+					   FROM potions
 					   WHERE rarity = :rarity`;
 		return Promise.resolve(Potion.sequelize.query(query, {
 			replacements: {
