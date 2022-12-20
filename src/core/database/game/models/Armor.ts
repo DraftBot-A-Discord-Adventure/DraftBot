@@ -53,7 +53,7 @@ export class Armors {
                        WHERE rarity = :rarity`;
 		return Promise.resolve(Armor.sequelize.query(query, {
 			replacements: {
-				rarity: rarity
+				rarity
 			},
 			type: QueryTypes.SELECT
 		}));
