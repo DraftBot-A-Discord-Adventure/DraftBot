@@ -27,7 +27,7 @@
 						"fr": "Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez en mer, loin de tout, accompagné d'un seul et unique matelot, votre amour. Arrivant sur une île déserte, vous voyez une croix au sol. Il s'agit bel et bien d'un trésor, rempli d'un beau butin et d'un objet qui vous sera utile. Cupidité et avarice auront eu raison de vous, et vous décidez de repartir de l'île, seul. En retournant au pays, vous retombez sur Pérotin, qui chante pour faire donner l'argent gagné là-bas, comme pour un don à cette mélodie sans pareille. À la suite de ces péripéties vous reprenez votre route, accompagné de votre objet trouvé sur l'île.",
 						"en": "Immediately asked, immediately done. You find yourself in the sea, far from everything, with your only crew member, your lover. Arriving at a desert island, you find a cross on the floor. It is a treasure, full of a nice loot, and containing a very useful item. Greed and stinginess were right, you choose to leave the island alone. While coming back, you found Perotin, singing to get the money found there, as a gift. After those adventures, you start walking again, in with your item."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -116,7 +116,7 @@
 						"fr": "Pérotin, nostalgique, décide de raconter ses débuts dans le métier via sa chanson. Il racontait comment son ancien maître lui faisait ses cours mélodieux via ses drogues assouplissants. Vous ressentez cette douceur dans les mots du professeur qui vous inhibe de tout votre être. À la fin de sa dernière leçon, Périssien, le maître de Pérotin, décide de vous offrir un cadeau de départ, comme il l'avait reçu de ses prédécesseurs, mais pour éviter que ce soit cet instrument magique, cette mandoline, qui ne le quitte pas depuis ses débuts, Pérotin change la fin afin de vous donner un objet qui pourrait vous être utile pour la suite de votre aventure.",
 						"en": "Perotin, nostalgic, decides to tell his beginnings in the profession in his song. He tells how his master gave him his melodious lessons, and his softening drugs. You feel this sweetness in the teacher's words that inhibits you with all your being. At the end of his last lesson, Perissien, Perotin's master, decides to give you a present, as he had received from his predecessors, but to prevent this magical instrument, this mandolin, from leaving you since its beginnings, Perotin changes the end of the song in order to give you an object that could be useful to you for the rest of your adventure."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -156,7 +156,7 @@
 					},
 					"effect": ":sick:",
 					"money": 200,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -174,7 +174,7 @@
 						"en": "🔪 Seeing you not reacting, the minstrel, decided to earn money, at his risks, and seeing in you the perfect cobaye, decides to drug you and to bring you in the dark nearby alley. There, he starts to sing you a song about laboratory torture, in which you are hangman. Having the force of doing this experimentation, taking place in a perfect way on this beautiful pig, the minstrel, or in your hallucination your boss, decides to give you two objects in award. To continue this, waiting for you to come back as normal, Perotin takes the most valorous item, and leave you with the other item, which will be useful for your adventure."
 					},
 					"effect": ":confounded:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

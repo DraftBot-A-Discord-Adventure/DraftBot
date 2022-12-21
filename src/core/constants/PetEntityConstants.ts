@@ -23,3 +23,9 @@ export abstract class PetEntityConstants {
 		[0.3000, 0.2500, 0.2000, 0.1409, 0.1091]
 	];
 }
+
+export enum PET_ENTITY_GIVE_RETURN {
+	NO_SLOT,
+	GUILD,
+	PLAYER
+}

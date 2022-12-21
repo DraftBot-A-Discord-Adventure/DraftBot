@@ -32,7 +32,7 @@
 					"lostTime": 30,
 					"health": 10,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

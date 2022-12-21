@@ -34,7 +34,7 @@
 						"fr": "Vos généreux donateurs sont fiers de leur trouvaille, dénichée dans un marché. Ils vous tendent un objet qui, dès le premier coup d'œil, vous intéresse fortement.",
 						"en": "Your generous donors are proud of their gift, found in a market. They give you an object of which the sight excites you greatly."
 					},
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -49,7 +49,7 @@
 						"fr": "N'écoutant pas votre réponse, les quelques personnes préfèrent vous donner un objet. Pour eux, l'argent, ça n'est pas un vrai cadeau !",
 						"en": "Not listening to your answer, they would rather give you an object. For them, money is not a real gift!"
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -118,7 +118,7 @@
 						"en": "These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after."
 					},
 					"health": 20,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -136,7 +136,7 @@
 						"en": "🚶 Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leave ou with a gift before you set out on your journey."
 					},
 					"money": 250,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

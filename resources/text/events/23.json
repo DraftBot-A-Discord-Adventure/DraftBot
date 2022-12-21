@@ -41,7 +41,7 @@
 					},
 					"lostTime": 10,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},

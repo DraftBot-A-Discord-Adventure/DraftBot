@@ -125,7 +125,7 @@
 						"fr": "🚶 Vous ignorez la personne qui est devant vous, et un peu plus loin sur votre route vous trouvez un objet brillant que vous rangez dans votre sac.",
 						"en": "🚶 You ignore the person in front of you and continue along the road. A little further down you find a shiny object that you put in your bag."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

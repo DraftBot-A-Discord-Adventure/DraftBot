@@ -71,7 +71,7 @@
 						"fr": "🌳 Vous remarquez une petite forêt sur votre droite. Lors de votre traversée, vous récoltez un objet probablement abandonné par un passant et continuez en direction du village.",
 						"en": "🌳 You notice a small forest on your right. While crossing it, you pick up an item probably left here by a traveler and continue your journey to the village."
 					},
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		}

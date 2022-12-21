@@ -86,7 +86,7 @@
 						"fr": "Vous décidez de changer de chemin. Pour cela, vous montez le talus de votre actuelle route, et avancez dans la forêt. Vous trouvez, sur un cadavre en piteux état, un bel objet et une bourse rebondie. Sachant qu'ils seront plus utiles à vous qu'au corps, vous vous en emparez et continuez votre marche forestière.",
 						"en": "You decide to change of path. For it, you go up to the embankment of your way and progress in the forest. You find, on a dead body, a beautiful item and a lot of money. Knowing that it will be more useful for you than the body, you take it and continue your forest hike."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

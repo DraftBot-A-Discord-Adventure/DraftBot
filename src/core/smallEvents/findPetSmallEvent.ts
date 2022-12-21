@@ -4,7 +4,6 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {MissionsController} from "../missions/MissionsController";
 import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
-import {Guilds} from "../database/game/models/Guild";
 import {GuildPets} from "../database/game/models/GuildPet";
 import {format} from "../utils/StringFormatter";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -14,6 +13,8 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {Pets} from "../database/game/models/Pet";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {PET_ENTITY_GIVE_RETURN} from "../constants/PetEntityConstants";
+import {Guilds} from "../database/game/models/Guild";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -63,6 +64,10 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const pet = await PetEntities.generateRandomPetEntityNotGuild();
 		const petModel = await Pets.getById(pet.petId);
+		const trad = Translations.getModule("smallEvents.findPet", language);
+		const petLine = pet.displayName(petModel, language);
+		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
+		const seEmbedPetObtention = seEmbed;
 		let guild;
 
 		// search for a user's guild
@@ -73,13 +78,18 @@ export const smallEvent: SmallEvent = {
 			guild = null;
 		}
 
-		const petLine = pet.displayName(petModel, language);
-		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}`;
-		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
-		const seEmbedPetObtention = seEmbed;
-		const trad = Translations.getModule("smallEvents.findPet", language);
+		// Give the pet
+		const giveReturn = await pet.giveToPlayer(
+			player,
+			{
+				interaction,
+				language
+			},
+			false,
+			false);
 
-		if (noRoomInGuild && player.petId !== null) {
+		// Fail because no space
+		if (giveReturn === PET_ENTITY_GIVE_RETURN.NO_SLOT) {
 			let storiesObject = trad.getObject("noRoom.stories");
 			if (!guild) {
 				storiesObject = storiesObject.filter(story => story[PetConstants.IS_FOOD]);
@@ -93,10 +103,8 @@ export const smallEvent: SmallEvent = {
 				await giveFood(interaction, language, player, SmallEventConstants.FIND_PET.FOOD_GIVEN_NO_PLACE, 1, NumberChangeReason.SMALL_EVENT);
 			}
 		}
-		else if (!noRoomInGuild && player.petId !== null) {
-			// Place le pet dans la guilde
-			await pet.save();
-			await GuildPets.addPet(guild, pet, true).save();
+		// Gave pet to guild
+		else if (giveReturn === PET_ENTITY_GIVE_RETURN.GUILD) {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
@@ -105,11 +113,8 @@ export const smallEvent: SmallEvent = {
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});
 		}
+		// Gave pet to the player
 		else {
-			// Place le pet avec le joueur
-			await pet.save();
-			player.setPet(pet);
-			await player.save();
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
@@ -117,7 +122,6 @@ export const smallEvent: SmallEvent = {
 				pet: pet.getPetTypeName(petModel, language)
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});
-			await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 		}
 	}
 };

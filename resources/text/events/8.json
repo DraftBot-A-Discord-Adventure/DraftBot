@@ -27,7 +27,7 @@
 						"fr": "Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
 						"en": "You walk slowly through the firs. On the way, you pick up fir branches and make small objects you can use or sell..."
 					},
-					"randomItem": true,
+					"randomItem": {},
 					"mapTypesDestination": ["fo"]
 				},
 				{

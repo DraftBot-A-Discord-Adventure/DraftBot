@@ -16,7 +16,11 @@
 				"2": ":scream_cat: Crainti{typeSuffix}",
 				"3": ":smiley_cat: Apprivois{typeSuffix}",
 				"4": ":heart_eyes_cat: Dress{typeSuffix}"
-			}
+			},
+			"genericGiveTitle": "{pseudo}, obtention d'un familier",
+			"genericGiveNoSlot": "Vous obtenez un{feminine?e:} **{pet}**, cependant, vous n'avez pas de place pour l'accueillir.",
+			"genericGiveGuild": "Vous obtenez un{feminine?e:} **{pet}**. Vous l{feminine?a:e} placez dans le refuge de la guilde.",
+			"genericGivePlayer": "Vous obtenez un{feminine?e:} **{pet}**. Vous décidez de l'emmenez avec vous."
 		},
 		"en": {
 			"hungry": "\uD83E\uDD24 hungry",
@@ -34,7 +38,11 @@
 				"2": ":scream_cat: Fearful",
 				"3": ":smiley_cat: Tamed",
 				"4": ":heart_eyes_cat: Trained"
-			}
+			},
+			"genericGiveTitle": "{pseudo}, pet found",
+			"genericGiveNoSlot": "You obtain a **{pet}**. However, you don't have any space to accept it.",
+			"genericGiveGuild": "You obtain a **{pet}**. You accept it in your guild's shelter.",
+			"genericGivePlayer": "You obtain a **{pet}**. You decide to carry it with you."
 		}
 	}
 }

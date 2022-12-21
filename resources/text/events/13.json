@@ -66,7 +66,7 @@
 						"fr": "Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
 						"en": "No one is present at the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful to you for the rest of your adventure..."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -97,7 +97,7 @@
 					},
 					"lostTime": 30,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

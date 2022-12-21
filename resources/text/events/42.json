@@ -40,7 +40,7 @@
 					"lostTime": 60,
 					"effect": ":clock2:",
 					"money": 3000,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -133,7 +133,7 @@
 						"en": "🚶 You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey."
 					},
 					"money": 500,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

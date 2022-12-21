@@ -59,7 +59,7 @@
 						"en": "There it is! You've been looking for this object for days and you finally found it! You buy it quickly without paying attention to the price and then leave."
 					},
 					"money": -200,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},

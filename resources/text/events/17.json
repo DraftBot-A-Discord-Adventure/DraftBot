@@ -51,7 +51,7 @@
 						"fr": "Alors que vous vous penchez pour ramasser les champignons, vous apercevez un étrange objet briller sur le sol...",
 						"en": "As you bend down to pick up the mushrooms, you see a strange object shining on the ground..."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

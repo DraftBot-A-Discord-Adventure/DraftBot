@@ -29,7 +29,7 @@
 						"fr": "Vous arrivez en bas sans soucis, récupérez l'objet, et continuez votre route.",
 						"en": "You arrive at the bottom without any problems, get the object, and continue your journey."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

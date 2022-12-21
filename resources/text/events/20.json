@@ -20,7 +20,7 @@
 						"fr": "Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait.",
 						"en": "You succeed in knocking out the guard and taking the precious object he was carrying."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -73,7 +73,7 @@
 						"fr": "Les gardes vous suivent et appréhendent le garde véreux, la femme vous offre un objet en gage de remerciements.",
 						"en": "The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

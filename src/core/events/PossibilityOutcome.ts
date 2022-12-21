@@ -1,6 +1,6 @@
 import Player, {EditValueParameters} from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
-import {giveRandomItem} from "../utils/ItemUtils";
+import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import MapLink, {MapLinks} from "../database/game/models/MapLink";
 import {TextInformation} from "../utils/MessageUtils";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -9,9 +9,16 @@ import {Constants} from "../Constants";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {minutesDisplay} from "../utils/TimeUtils";
 import {Maps} from "../maps/Maps";
+import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {ItemConstants} from "../constants/ItemConstants";
+import {InventorySlots} from "../database/game/models/InventorySlot";
+import {PetEntities} from "../database/game/models/PetEntity";
 
-async function applyOutcomeScore(time: number, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
-	const scoreChange = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(player);
+async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
+	const scoreChange = time +
+		RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) +
+		await PlayerSmallEvents.calculateCurrentScore(player) +
+		(outcome.bonusPoints ?? 0);
 	await player.addScore(Object.assign(valuesToEditParameters, {amount: scoreChange}));
 	return textInformation.tr.format("points", {score: scoreChange});
 }
@@ -40,6 +47,7 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 	if (outcome.health < 0 || outcome.oneshot === true || experienceChange < 0) {
 		experienceChange = 0;
 	}
+	experienceChange += outcome.bonusExperience ?? 0;
 	if (experienceChange !== 0) {
 		await player.addExperience(Object.assign(valuesToEditParameters, {amount: experienceChange}));
 		return textInformation.tr.format("experience", {experience: experienceChange});
@@ -83,9 +91,34 @@ async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, play
 	return "";
 }
 
-async function applyOutcomeRandomItem(outcome: PossibilityOutcome, textInformation: TextInformation, player: Player): Promise<void> {
-	if (outcome.randomItem === true) {
-		await giveRandomItem((await textInformation.interaction.guild.members.fetch(player.discordUserId)).user, textInformation.interaction.channel, textInformation.language, player);
+async function applyOutcomeGems(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
+	if (outcome.gems && outcome.gems !== 0) {
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+		await missionInfo.addGems(outcome.gems, player.discordUserId, NumberChangeReason.BIG_EVENT);
+		return textInformation.tr.format("gems", { gems: outcome.gems });
+	}
+	return "";
+}
+
+async function applyOutcomeRandomItem(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<void> {
+	if (outcome.randomItem) {
+		const minRarity = outcome.randomItem.rarity && outcome.randomItem.rarity.min ? outcome.randomItem.rarity.min : ItemConstants.RARITY.COMMON;
+		const maxRarity = outcome.randomItem.rarity && outcome.randomItem.rarity.max ? outcome.randomItem.rarity.max : ItemConstants.RARITY.MYTHICAL;
+		const category = outcome.randomItem.category ?? null;
+
+		const item = await generateRandomItem(category, minRarity, maxRarity);
+		const inventorySlots = await InventorySlots.getOfPlayer(player.id);
+		await giveItemToPlayer(player, item, textInformation.language, textInformation.interaction.user, textInformation.interaction.channel, inventorySlots);
+	}
+}
+
+async function applyOutcomeRandomPet(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<void> {
+	if (outcome.randomPet) {
+		const minRarity = outcome.randomPet.rarity && outcome.randomPet.rarity.min ? outcome.randomPet.rarity.min : 1;
+		const maxRarity = outcome.randomPet.rarity && outcome.randomPet.rarity.max ? outcome.randomPet.rarity.max : 5;
+
+		const pet = await PetEntities.generateRandomPetEntityNotGuild(minRarity, maxRarity);
+		await pet.giveToPlayer(player, textInformation, true, false);
 	}
 }
 
@@ -107,6 +140,10 @@ function getOutcomeAlterationEmoji(outcome: PossibilityOutcome): string {
 }
 
 async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Promise<MapLink> {
+	if (outcome.mapLink) {
+		return MapLinks.getById(outcome.mapLink);
+	}
+
 	if (outcome.mapTypesDestination || outcome.mapTypesExcludeDestination) {
 		let allowedMapTypes = await Maps.getConnectedMapTypes(player, Boolean(outcome.mapTypesDestination));
 		if (outcome.mapTypesDestination) {
@@ -150,13 +187,16 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	let description = "";
 
 	// score
-	description += await applyOutcomeScore(time, player, valuesToEditParameters, textInformation);
+	description += await applyOutcomeScore(outcome, time, player, valuesToEditParameters, textInformation);
 
 	// money
 	description += await applyOutcomeMoney(outcome, time, player, valuesToEditParameters, textInformation);
 
 	// health
 	description += await applyOutcomeHealth(outcome, player, textInformation);
+
+	// gems
+	description += await applyOutcomeGems(outcome, player, textInformation);
 
 	// experience
 	description += await applyOutcomeExperience(outcome, player, valuesToEditParameters, textInformation);
@@ -165,7 +205,10 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	description += await applyOutcomeEffect(outcome, player, textInformation);
 
 	// random item
-	await applyOutcomeRandomItem(outcome, textInformation, player);
+	await applyOutcomeRandomItem(outcome, player, textInformation);
+
+	// random pet
+	await applyOutcomeRandomPet(outcome, player, textInformation);
 
 	// next event
 	applyOutcomeNextEvent(outcome, player);
@@ -202,9 +245,40 @@ export interface PossibilityOutcome {
 	money?: number;
 
 	/**
+	 * Gems lost or won
+	 */
+	gems?: number;
+
+	/**
+	 * Bonus experience (will be added to calculated experience)
+	 */
+	bonusExperience?: number;
+
+	/**
+	 * Bonus points (will be added to calculated points)
+	 */
+	bonusPoints?: number;
+
+	/**
 	 * Give a random item
 	 */
-	randomItem?: boolean;
+	randomItem?: {
+		category?: number;
+		rarity?: {
+			min?: number;
+			max?: number;
+		}
+	};
+
+	/**
+	 * Give a random pet
+	 */
+	randomPet?: {
+		rarity?: {
+			min?: number;
+			max?: number;
+		}
+	}
 
 	/**
 	 * One shot the player
@@ -225,6 +299,11 @@ export interface PossibilityOutcome {
 	 * Exclude these map types in the destination choice
 	 */
 	mapTypesExcludeDestination?: string[];
+
+	/**
+	 * Forced map link
+	 */
+	mapLink?: number;
 
 	/**
 	 * Translations

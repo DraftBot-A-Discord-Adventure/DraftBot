@@ -145,7 +145,7 @@
 						"fr": "Vous visitez le village et apercevez un objet au fond du puits. Vous le ramassez avant de reprendre votre route.",
 						"en": "You visit the village and see an object at the bottom of the well. You pick it up before getting back on your way."
 					},
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},

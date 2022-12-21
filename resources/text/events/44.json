@@ -40,7 +40,7 @@
 					},
 					"lostTime": 15,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -112,7 +112,7 @@
 						"fr": "🚶 Vous passez votre chemin, ne voulant pas être impliqué dans la mort de cet homme. Juste à côté, vous tombez sur un objet abandonné qui lui appartenait sûrement.",
 						"en": "🚶 You leave the scene, wanting to have no part in the man's fate. Nearby, you stumble upon an abandoned object which probably belonged to the bloke."
 					},
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		}

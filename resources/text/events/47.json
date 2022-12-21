@@ -64,7 +64,7 @@
 						"en": "You go see the Lord and announce him that a rebellion is being planned. After a long discussion, you manage to gain his trust and seize the opportunity to pierce his heart with a dagger. The loyal guards attack you, but other's that only wanted the Lord's death help you flee. Back in the village, we offer you a bit of money and an item that could be useful."
 					},
 					"money": 100,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -142,7 +142,7 @@
 						"fr": "Vous leur dites que vous ne pouvez pas combattre le seigneur car vous êtes épuisé. Ils acceptent de vous offrir un logement où vous vous reposez. Vous emportez un objet pendant la nuit et fuyez aussi vite que possible.",
 						"en": "You tell them that you cannot fight the Lord because you are exhausted. They agree to offer you shelter for you to rest. You take an item during the night and flee as quickly as possible."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

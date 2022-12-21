@@ -42,7 +42,7 @@
 					},
 					"health": -15,
 					"money": 300,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -71,7 +71,7 @@
 						"en": "When you draw your sword, the man screams for help in vain, you kill him before..."
 					},
 					"money": 700,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},

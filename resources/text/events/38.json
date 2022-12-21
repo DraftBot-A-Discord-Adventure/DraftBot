@@ -21,7 +21,7 @@
 						"en": "You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag."
 					},
 					"money": -100,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -44,7 +44,7 @@
 						"en": "You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves."
 					},
 					"money": -350,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -52,7 +52,7 @@
 						"en": "You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure."
 					},
 					"money": -350,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -88,7 +88,7 @@
 						"fr": "Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
 						"en": "You discreetly steal one of his items and flee."
 					},
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -123,7 +123,7 @@
 					},
 					"lostTime": 180,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {
