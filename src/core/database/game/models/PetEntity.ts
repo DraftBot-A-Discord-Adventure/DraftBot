@@ -255,7 +255,7 @@ export class PetEntities {
 		let totalProbabilities = 0;
 
 		// Calculate max probability value
-		for (let rarity = minRarity; rarity <= maxRarity; ++rarity) {
+		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
 			totalProbabilities += PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
 		}
 
