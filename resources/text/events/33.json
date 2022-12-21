@@ -31,7 +31,7 @@
 						"fr": "Vous vous liez d'amitié avec votre voisin de table qui vous donne un objet en guise de cadeau.",
 						"en": "You bond with the guy sitting next to you whom gifts you a present for the sake of it."
 					},
-					"randomItem": true,
+					"randomItem": {},
 					"tags":  [
 						"bigFeast"
 					]

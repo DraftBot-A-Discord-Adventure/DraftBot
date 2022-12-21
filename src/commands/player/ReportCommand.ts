@@ -384,6 +384,7 @@ async function doPossibility(
 	time: number
 ): Promise<Message> {
 	[player] = await Players.getOrRegister(player.discordUserId);
+	player.nextEvent = null;
 	textInformation.tr = Translations.getModule("commands.report", textInformation.language);
 
 	if (event.id === 0 && possibility.emoji === "end") { // Don't do anything if the player ends the first report
@@ -512,7 +513,7 @@ async function doRandomBigEvent(
 
 	if (forceSpecificEvent === -1 || !forceSpecificEvent) {
 		const mapId = await player.getDestinationId();
-		event = BigEventsController.getRandomEvent(mapId, player);
+		event = await BigEventsController.getRandomEvent(mapId, player);
 		if (!event) {
 			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
 			return;

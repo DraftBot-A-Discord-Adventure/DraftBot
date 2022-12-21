@@ -22,7 +22,7 @@
 					},
 					"lostTime": 60,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

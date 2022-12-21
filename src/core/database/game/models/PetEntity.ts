@@ -1,16 +1,20 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import Pet from "./Pet";
+import Pet, {Pets} from "./Pet";
 import {Constants} from "../../../Constants";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {format} from "../../../utils/StringFormatter";
-import {Translations} from "../../../Translations";
+import {TranslationModule, Translations} from "../../../Translations";
 import {MissionsController} from "../../../missions/MissionsController";
 import {finishInTimeDisplay} from "../../../utils/TimeUtils";
 import {draftBotInstance} from "../../../bot";
-import {PetEntityConstants} from "../../../constants/PetEntityConstants";
-import {PlayerEditValueParameters} from "./Player";
+import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {Player, PlayerEditValueParameters} from "./Player";
 import {PetConstants} from "../../../constants/PetConstants";
+import {Guild, Guilds} from "./Guild";
+import {GuildPets} from "./GuildPet";
 import moment = require("moment");
+import {TextInformation} from "../../../utils/MessageUtils";
+import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -150,6 +154,80 @@ export class PetEntity extends Model {
 			this.sex === "m" ? PetEntityConstants.EMOTE.MALE : PetEntityConstants.EMOTE.FEMALE
 		}`;
 	}
+
+	/**
+	 * Give the pet entity to a player, if no space then in their guild and if no space, don't give it.
+	 * Send an embed only if send generic message is true
+	 * @param player The player
+	 * @param textInformation The text information
+	 * @param sendGenericMessage Send a generic message which explains how the pet is earned
+	 * @param replyToInteraction Reply to the interaction or send another message
+	 */
+	public async giveToPlayer(player: Player, textInformation: TextInformation, sendGenericMessage: boolean, replyToInteraction: boolean): Promise<PET_ENTITY_GIVE_RETURN> {
+		let guild: Guild;
+		let embed: DraftBotEmbed;
+		let tr: TranslationModule;
+		let returnValue: PET_ENTITY_GIVE_RETURN;
+		let petDisplay: string;
+
+		if (sendGenericMessage) {
+			tr = Translations.getModule("models.pets", textInformation.language);
+			embed = new DraftBotEmbed()
+				.formatAuthor(tr.get("genericGiveTitle"), textInformation.interaction.user);
+			petDisplay = this.displayName(await Pets.getById(this.petId), textInformation.language);
+		}
+
+		// search for a user's guild
+		try {
+			guild = await Guilds.getById(player.guildId);
+		}
+		catch (error) {
+			guild = null;
+		}
+
+		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
+
+		if (noRoomInGuild && player.petId !== null) {
+			if (sendGenericMessage) {
+				embed.setErrorColor();
+				embed.setDescription(tr.get("genericGiveNoSlot"));
+			}
+			returnValue = PET_ENTITY_GIVE_RETURN.NO_SLOT;
+		}
+		else if (!noRoomInGuild && player.petId !== null) {
+			await this.save();
+			await GuildPets.addPet(guild, this, true).save();
+			if (sendGenericMessage) {
+				embed.setDescription(tr.get("genericGiveGuild"));
+			}
+			returnValue = PET_ENTITY_GIVE_RETURN.GUILD;
+		}
+		else {
+			await this.save();
+			player.setPet(this);
+			await player.save();
+			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {missionId: "havePet"});
+			if (sendGenericMessage) {
+				embed.setDescription(tr.get("genericGivePlayer"));
+			}
+			returnValue = PET_ENTITY_GIVE_RETURN.PLAYER;
+		}
+
+		if (sendGenericMessage) {
+			embed.setDescription(format(embed.data.description, {
+				feminine: this.sex === "f",
+				pet: petDisplay
+			}));
+			if (replyToInteraction) {
+				await textInformation.interaction.reply({ embeds: [embed] });
+			}
+			else {
+				await textInformation.interaction.channel.send({ embeds: [embed] });
+			}
+		}
+
+		return returnValue;
+	}
 }
 
 export class PetEntities {
@@ -170,25 +248,34 @@ export class PetEntities {
 		});
 	}
 
-	static async generateRandomPetEntity(level: number): Promise<PetEntity> {
+	static async generateRandomPetEntity(level: number, minRarity = 1, maxRarity = 5): Promise<PetEntity> {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
-		let randomTier = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 		const levelTier = Math.floor(level / 10);
 		let rarity;
-		for (rarity = 1; rarity < 6; ++rarity) {
+		let totalProbabilities = 0;
+
+		// Calculate max probability value
+		for (let rarity = minRarity; rarity <= maxRarity; ++rarity) {
+			totalProbabilities += PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
+		}
+
+		let randomTier = RandomUtils.draftbotRandom.real(0, totalProbabilities, true);
+
+		// Remove the rarity probabilities and stop when going under 0 to pick a rarity
+		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
 			randomTier -= PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
 		}
-		if (rarity === 6) {
+		if (rarity === maxRarity + 1) {
 			// Case that should never be reached if the probabilities are 1
 			rarity = 1;
 			console.log(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
 		}
 		const pet = await Pet.findOne({
 			where: {
-				rarity: rarity
+				rarity
 			},
 			order: [draftBotInstance.gameDatabase.sequelize.random()]
 		});
@@ -200,8 +287,8 @@ export class PetEntities {
 		});
 	}
 
-	static async generateRandomPetEntityNotGuild(): Promise<PetEntity> {
-		return await PetEntities.generateRandomPetEntity(PetConstants.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
+	static async generateRandomPetEntityNotGuild(minRarity = 1, maxRarity = 5): Promise<PetEntity> {
+		return await PetEntities.generateRandomPetEntity(PetConstants.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT, minRarity, maxRarity);
 	}
 
 	static async getNbTrainedPets(): Promise<number> {

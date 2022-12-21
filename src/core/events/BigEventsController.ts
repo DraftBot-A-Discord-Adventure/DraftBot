@@ -58,10 +58,12 @@ export class BigEventsController {
 			for (const trigger of triggers) {
 				if (trigger.mapId) {
 					const bigEventMap = BigEventsController.bigEventsMaps.get(trigger.mapId) ?? [];
-					bigEventMap.push(bigEvent);
-					BigEventsController.bigEventsMaps.set(trigger.mapId, bigEventMap);
+					if (bigEventMap.indexOf(bigEvent) === -1) {
+						bigEventMap.push(bigEvent);
+						BigEventsController.bigEventsMaps.set(trigger.mapId, bigEventMap);
+					}
 				}
-				else {
+				else if (BigEventsController.globalBigEvents.indexOf(bigEvent) === -1) {
 					BigEventsController.globalBigEvents.push(bigEvent);
 				}
 			}
@@ -81,17 +83,23 @@ export class BigEventsController {
 	 * @param mapId
 	 * @param player
 	 */
-	static getRandomEvent(mapId: number, player: Player): BigEvent {
+	static async getRandomEvent(mapId: number, player: Player): Promise<BigEvent> {
 		const possibleBigEvents = BigEventsController.globalBigEvents
-			.concat(BigEventsController.bigEventsMaps.get(mapId) ?? [])
-			.filter(
-				(bigEvent) => bigEvent.triggers.find(
-					(trigger) => verifyTrigger(mapId, player, trigger)
-				)
-			);
-		if (possibleBigEvents.length === 0) {
+			.concat(BigEventsController.bigEventsMaps.get(mapId) ?? []);
+		const possibleBigEventsFiltered = [];
+
+		for (const possibleBigEvent of possibleBigEvents) {
+			for (const trigger of possibleBigEvent.triggers) {
+				if (await verifyTrigger(possibleBigEvent, trigger, mapId, player)) {
+					possibleBigEventsFiltered.push(possibleBigEvent);
+					break;
+				}
+			}
+		}
+
+		if (possibleBigEventsFiltered.length === 0) {
 			return null;
 		}
-		return RandomUtils.draftbotRandom.pick(possibleBigEvents);
+		return RandomUtils.draftbotRandom.pick(possibleBigEventsFiltered);
 	}
 }

@@ -124,7 +124,7 @@
 						"en": "As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
 					},
 					"effect": ":clock2:",
-					"randomItem": true,
+					"randomItem": {},
 					"tags":  [
 						"bigFeast"
 					]

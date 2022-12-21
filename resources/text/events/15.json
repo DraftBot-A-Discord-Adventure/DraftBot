@@ -23,7 +23,7 @@
 					"lostTime": 45,
 					"effect": ":clock2:",
 					"money": -200,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

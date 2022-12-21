@@ -3,6 +3,8 @@ import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
 import {Op} from "sequelize";
 import {ShopItemType} from "../../constants/LogsConstants";
 import {LogsDatabase} from "./LogsDatabase";
+import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
+import {LogsPossibilities} from "./models/LogsPossibilities";
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
@@ -40,5 +42,31 @@ export class LogsReadRequests {
 			}
 			return 0;
 		});
+	}
+
+	/**
+	 * Get the date of the last event id for the player
+	 * @param discordId
+	 * @param eventId
+	 */
+	static async getLastEventDate(discordId: string, eventId: number): Promise<Date | null> {
+		// Get all possibilities id for the big event
+		const possibilityIds = (await LogsPossibilities.findAll({
+			where: {
+				bigEventId: eventId
+			}
+		})).map((possibility) => possibility.id);
+
+		// Find the last one
+		const lastEvent = await LogsPlayersPossibilities.findOne({
+			order: [["date", "DESC"]],
+			where: {
+				possibilityId: {
+					[Op.in]: possibilityIds
+				}
+			}
+		});
+
+		return lastEvent ? new Date(lastEvent.date * 1000) : null;
 	}
 }

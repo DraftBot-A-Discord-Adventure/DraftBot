@@ -28,7 +28,7 @@
 						"en": "For a little money, he agrees to come with you. During your journey, you come across an abandoned satchel along the way. Happy with this discovery, you decide to share its contents with Price. You thus obtain a small sum of money, and an item which you think will be useful for your adventure."
 					},
 					"money": 150,
-					"randomItem": true
+					"randomItem": {}
 				},
 				{
 					"translations": {

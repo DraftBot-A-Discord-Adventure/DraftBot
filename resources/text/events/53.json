@@ -40,7 +40,7 @@
 					},
 					"lostTime": 75,
 					"effect": ":clock2:",
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -84,7 +84,7 @@
 						"fr": "Vous partez avec le colis et dites au coursier qu'il arrivera à bon port. Quelques minutes après vous rencontrez une femme avec une allure de marchande. Celle-ci vous explique qu'elle n'a pas d'argent, mais qu'elle peut échanger votre colis contre un objet de sa carriole. Vous troquez le paquet contre un objet que vous pensez être utile et continuez votre route.",
 						"en": "You leave with the package and tell the courier that it will arrive safely. A few minutes later you meet a woman who looks like a merchant. She explains to you that she has no money, but that she can exchange your package for an item from her cart. You trade the packet for an item you think it's useful and continuing your journey."
 					},
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
@@ -117,7 +117,7 @@
 						"en": "You politely reject the offer. The outraged man throws the package in your face and orders you to deliver it for him! You take the package for yourself and go away from this obnoxious character. You come out with a pretty bruise on your face and an item that will surely come in handy."
 					},
 					"health": -10,
-					"randomItem": true
+					"randomItem": {}
 				}
 			]
 		},
