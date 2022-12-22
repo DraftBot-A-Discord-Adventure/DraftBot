@@ -88,11 +88,11 @@ export class DraftBot {
 						  ON p.mapLinkId = m.id
 			WHERE p.notifications != :noNotificationsValue
 			  AND DATE_ADD(DATE_ADD(p.startTravelDate
-				, INTERVAL p.effectDuration minute)
-				, INTERVAL m.tripDuration minute)
+				, INTERVAL p.effectDuration MINUTE)
+				, INTERVAL m.tripDuration MINUTE)
 				BETWEEN NOW()
 			  AND DATE_ADD(NOW()
-				, INTERVAL :timeout MINUTE)`;
+				, INTERVAL :timeout SECOND)`;
 
 		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
 			replacements: {
