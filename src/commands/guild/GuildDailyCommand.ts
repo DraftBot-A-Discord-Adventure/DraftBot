@@ -334,7 +334,7 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 		.setTitle(guildDailyModule.get("notifications.title"))
 		.setDescription(guildDailyModule.format("notifications.description",
 			{
-				serveur: interaction.guild.name,
+				server: interaction.guild.name,
 				pseudo: escapeUsername(interaction.user.username)
 			}
 		) + embed.data.description);

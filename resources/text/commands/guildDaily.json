@@ -5,7 +5,7 @@
 			"commandDescription": "Récupérer la récompense journalière de la guilde.",
 			"notifications": {
 				"title": "Notification de guilde :",
-				"description": "\uD83C\uDFDF️ {pseudo} a récupéré le bonus journalier de votre guilde sur le serveur {serveur}.\n\n"
+				"description": "\uD83C\uDFDF️ {pseudo} a récupéré le bonus journalier de votre guilde sur le serveur {server}.\n\n"
 			},
 			"rewardTitle": "Récompense de la guilde {guildName} :",
 			"personalXP": ":star: | Les membres de la guilde ont reçu de l'expérience. `+ {xp} ⭐`.",
@@ -27,7 +27,7 @@
 			"commandDescription": "Get the guild's daily reward.",
 			"notifications": {
 				"title": "Guild notification :",
-				"description": "\uD83C\uDFDF️ On the server {serveur}, {pseudo} requested guild daily reward."
+				"description": "\uD83C\uDFDF️ On the server {server}, {pseudo} requested guild daily reward."
 			},
 			"rewardTitle": "{guildName} Guild's rewards:",
 			"personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
