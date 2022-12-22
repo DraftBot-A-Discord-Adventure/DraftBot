@@ -79,13 +79,21 @@ export class BigEventsController {
 	}
 
 	/**
-	 * Get a random event on the map
+	 * Get events for this player on this map but don't check the triggers
+	 * @param mapId
+	 */
+	static getEventsNotFiltered(mapId: number): BigEvent[] {
+		return BigEventsController.globalBigEvents
+			.concat(BigEventsController.bigEventsMaps.get(mapId) ?? []);
+	}
+
+	/**
+	 * Get available events for this player on this map
 	 * @param mapId
 	 * @param player
 	 */
-	static async getRandomEvent(mapId: number, player: Player): Promise<BigEvent> {
-		const possibleBigEvents = BigEventsController.globalBigEvents
-			.concat(BigEventsController.bigEventsMaps.get(mapId) ?? []);
+	static async getAvailableEvents(mapId: number, player: Player): Promise<BigEvent[]> {
+		const possibleBigEvents = BigEventsController.getEventsNotFiltered(mapId);
 		const possibleBigEventsFiltered = [];
 
 		for (const possibleBigEvent of possibleBigEvents) {
@@ -97,9 +105,20 @@ export class BigEventsController {
 			}
 		}
 
-		if (possibleBigEventsFiltered.length === 0) {
+		return possibleBigEventsFiltered;
+	}
+
+	/**
+	 * Get a random event on the map
+	 * @param mapId
+	 * @param player
+	 */
+	static async getRandomEvent(mapId: number, player: Player): Promise<BigEvent> {
+		const possibleEvents = await BigEventsController.getAvailableEvents(mapId, player);
+
+		if (possibleEvents.length === 0) {
 			return null;
 		}
-		return RandomUtils.draftbotRandom.pick(possibleBigEventsFiltered);
+		return RandomUtils.draftbotRandom.pick(possibleEvents);
 	}
 }

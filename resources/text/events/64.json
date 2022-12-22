@@ -45,7 +45,7 @@
 				{
 					"translations": {
 						"fr": "Les fêtes ne sont pas pour vous. Vous décidez que vous avez mieux à faire que de vous amuser. Vous repartez vers l'aventure.",
-						"en": "arties are not for you. You decide you have better things to do than have fun. You head back to the adventure."
+						"en": "Parties are not for you. You decide you have better things to do than have fun. You head back to the adventure."
 					}
 				}
 			]
@@ -55,7 +55,7 @@
 				{
 					"translations": {
 						"fr": "🤔 Vous ne vous attendiez pas à lire cela. Vous restez de longues minutes à contempler la lettre. Le départ du messager vous tire de votre rêverie, et vous prenez la destination du château.",
-						"en": "\uD83E\uDD14 You didn't expect to read this. You stay for long minutes contemplating the letter. The departure of the messenger pulls you out of your reverie, and you take the destination of the castle."
+						"en": "🤔 You didn't expect to read this. You stay for long minutes contemplating the letter. The departure of the messenger pulls you out of your reverie, and you take the destination of the castle."
 					},
 					"mapLink": 84,
 					"nextEvent": 65
