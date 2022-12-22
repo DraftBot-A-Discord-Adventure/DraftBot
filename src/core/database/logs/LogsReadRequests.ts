@@ -5,6 +5,7 @@ import {ShopItemType} from "../../constants/LogsConstants";
 import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
+import {LogsPlayers} from "./models/LogsPlayers";
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
@@ -57,13 +58,21 @@ export class LogsReadRequests {
 			}
 		})).map((possibility) => possibility.id);
 
+		// Get logs player id
+		const playerId = (await LogsPlayers.findOne({
+			where: {
+				discordId
+			}
+		})).id;
+
 		// Find the last one
 		const lastEvent = await LogsPlayersPossibilities.findOne({
 			order: [["date", "DESC"]],
 			where: {
 				possibilityId: {
 					[Op.in]: possibilityIds
-				}
+				},
+				playerId
 			}
 		});
 
