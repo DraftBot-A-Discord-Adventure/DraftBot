@@ -330,6 +330,14 @@ const linkToFunction = getMapOfAllRewardCommands();
  * @param embed
  */
 async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
+	const embedNotif = new DraftBotEmbed()
+		.setTitle(guildDailyModule.get("notifications.title"))
+		.setDescription(guildDailyModule.format("notifications.description",
+			{
+				serveur: interaction.guild.name,
+				pseudo: escapeUsername(interaction.user.username)
+			}
+		) + embed.data.description);
 	for (const member of members) {
 		// we have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
 		if (member.isDead()) {
@@ -337,14 +345,6 @@ async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInt
 		}
 		if (member.discordUserId !== interaction.user.id) {
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
-			const embedNotif = new DraftBotEmbed()
-				.setTitle(guildDailyModule.get("notifications.title"))
-				.setDescription(guildDailyModule.format("notifications.description",
-					{
-						serveur: interaction.guild.name,
-						pseudo: escapeUsername(interaction.user.username)
-					}
-				) + embed.data.description);
 			await sendNotificationToPlayer(member, embedNotif, language);
 		}
 		await MissionsController.update(member, interaction.channel, language, {missionId: "guildDaily"});
