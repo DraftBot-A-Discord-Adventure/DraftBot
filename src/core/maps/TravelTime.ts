@@ -6,6 +6,9 @@ import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {Translations} from "../Translations";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {sendNotificationToPlayer} from "../utils/MessageUtils";
 
 /**
  * Travel time functions class
@@ -166,7 +169,19 @@ export class TravelTime {
 				await lastSmallEvent.save();
 			}
 		}
-
+		const date = new Date();
+		const playerEndTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // check if the player arrived with this potion
+			await sendNotificationToPlayer(player,
+				new DraftBotEmbed()
+					.setTitle(Translations.getModule("commands.notifications", "en").get("title"))
+					.setDescription(`${
+						Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+					}\n\n${
+						Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+					}`)
+				, "en");
+		}
 		// Log
 		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason).then();
 	}

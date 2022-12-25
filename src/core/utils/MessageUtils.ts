@@ -73,6 +73,9 @@ export async function sendNotificationToPlayer(player: Player, embed: DraftBotEm
 		embed.formatAuthor(embed.data.title, user);
 		embed.setTitle(null);
 	}
+	else {
+		embed.formatAuthor(embed.data.author.name, user);
+	}
 	if (player.notifications === NotificationsConstants.DM_VALUE) {
 		sendDirectMessage(user, embed, language);
 	}
