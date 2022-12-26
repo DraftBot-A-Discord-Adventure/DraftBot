@@ -145,7 +145,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
 	}
 
 	if (outcome.mapTypesDestination || outcome.mapTypesExcludeDestination) {
-		let allowedMapTypes = await Maps.getConnectedMapTypes(player, Boolean(outcome.mapTypesDestination));
+		let allowedMapTypes = await Maps.getConnectedMapTypes(player, !outcome.mapTypesDestination);
 		if (outcome.mapTypesDestination) {
 			allowedMapTypes = allowedMapTypes.filter(mapType => outcome.mapTypesDestination.includes(mapType));
 		}
@@ -157,7 +157,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
 			await MapLinks.getMapLinksWithMapTypes(
 				allowedMapTypes,
 				await player.getDestinationId(),
-				outcome.mapTypesDestination ? await player.getPreviousMapId() : null
+				!outcome.mapTypesDestination ? await player.getPreviousMapId() : null
 			)
 		);
 	}
