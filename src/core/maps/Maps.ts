@@ -13,7 +13,6 @@ export class Maps {
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
-	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player: Player): Promise<number[]> {
@@ -26,7 +25,7 @@ export class Maps {
 
 		const nextMaps = [];
 
-		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, null);
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap);
 		for (const m of nextMapIds) {
 			nextMaps.push(m.id);
 		}
