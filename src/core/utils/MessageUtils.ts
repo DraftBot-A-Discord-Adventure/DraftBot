@@ -6,6 +6,7 @@ import {draftBotClient} from "../bot";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {format} from "./StringFormatter";
 import Player from "../database/game/models/Player";
+import {Constants} from "../Constants";
 
 export type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
@@ -14,12 +15,12 @@ export type TextInformation = { interaction: CommandInteraction, language: strin
  * @param player
  */
 export async function generateTravelNotification(player: Player = null): Promise<DraftBotEmbed> {
-	const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
+	const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", Constants.LANGUAGE.ENGLISH).get("title"));
 	if (player) {
 		embed.setDescription(`${
-			Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+			Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH).format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
 		}\n\n${
-			Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+			Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH).format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
 		}`);
 	}
 	return embed;

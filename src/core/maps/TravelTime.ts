@@ -172,7 +172,7 @@ export class TravelTime {
 		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // check if the player arrived with this potion
 			await sendNotificationToPlayer(player,
 				await generateTravelNotification(player)
-				, "en");
+				, Constants.LANGUAGE.ENGLISH);
 		}
 		// Log
 		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason).then();
