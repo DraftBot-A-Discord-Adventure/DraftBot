@@ -10,6 +10,22 @@ import Player from "../database/game/models/Player";
 export type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
 
 /**
+ * Generate a notification embed
+ * @param player
+ */
+export async function generateTravelNotification(player: Player = null): Promise<DraftBotEmbed> {
+	const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
+	if (player) {
+		embed.setDescription(`${
+			Translations.getModule("commands.report", "en").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+		}\n\n${
+			Translations.getModule("commands.report", "fr").format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+		}`);
+	}
+	return embed;
+}
+
+/**
  * Send a dm to a user
  * @param {User} user
  * @param {DraftBotEmbed} embed - The embed to send
@@ -37,7 +53,7 @@ export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: st
  */
 export async function checkChannelAccess(player: Player, user: User, embed: DraftBotEmbed, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.notifications", language);
-	const channelAccess = await draftBotClient.shard.broadcastEval( (client, context) =>
+	const channelAccess = await draftBotClient.shard.broadcastEval((client, context) =>
 		client.channels.fetch(context.player.notifications).then((channel) => {
 			(<TextBasedChannel>channel).send(context.embedNotification);
 			return true;

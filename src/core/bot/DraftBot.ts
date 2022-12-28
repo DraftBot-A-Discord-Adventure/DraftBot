@@ -19,8 +19,7 @@ import {CommandsTest} from "../CommandsTest";
 import {PetConstants} from "../constants/PetConstants";
 import {FightConstants} from "../constants/FightConstants";
 import {ItemConstants} from "../constants/ItemConstants";
-import {sendNotificationToPlayer} from "../utils/MessageUtils";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {generateTravelNotification, sendNotificationToPlayer} from "../utils/MessageUtils";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
@@ -90,9 +89,8 @@ export class DraftBot {
 			  AND DATE_ADD(DATE_ADD(p.startTravelDate
 				, INTERVAL p.effectDuration MINUTE)
 				, INTERVAL m.tripDuration MINUTE)
-				BETWEEN NOW()
-			  AND DATE_ADD(NOW()
-				, INTERVAL :timeout SECOND)`;
+				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
+			  AND NOW()`;
 
 		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
 			replacements: {
@@ -103,8 +101,7 @@ export class DraftBot {
 
 		const reportFR = Translations.getModule("commands.report", "fr");
 		const reportEN = Translations.getModule("commands.report", "en");
-		const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", "en").get("title"));
-
+		const embed = await generateTravelNotification();
 		for (const playerId of playersToNotify) {
 			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
 
