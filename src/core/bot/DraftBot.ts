@@ -99,19 +99,19 @@ export class DraftBot {
 			}, type: QueryTypes.SELECT
 		}));
 
-		const reportFR = Translations.getModule("commands.report", "fr");
-		const reportEN = Translations.getModule("commands.report", "en");
+		const reportFR = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
+		const reportEN = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
 		const embed = await generateTravelNotification();
 		for (const playerId of playersToNotify) {
 			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
 
 			await sendNotificationToPlayer(player,
 				embed.setDescription(`${
-					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("en")})
+					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
 				}\n\n${
-					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName("fr")})
+					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
 				}`)
-				, "en");
+				, Constants.LANGUAGE.ENGLISH);
 		}
 
 		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
