@@ -35,7 +35,8 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const classTranslations = Translations.getModule("commands.classInfo", language);
-	const allClasses = await Classes.getByGroupId(player.getClassGroup());
+	const classGroup = player.getClassGroup();
+	const allClasses = await Classes.getByGroupId(classGroup);
 
 	const emojis: string[] = [];
 	const classesLineDisplay: string[] = [];
@@ -65,7 +66,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 		let classToShow: Class = null;
 		if (emojis.includes(reactionEmoji)) {
-			classToShow = await Classes.getByEmoji(reactionEmoji);
+			classToShow = await Classes.getByEmoji(reactionEmoji, classGroup);
 			const newEmbed = new DraftBotEmbed()
 				.setTitle(classTranslations.format("classTitle", {class: classToShow.getName(language)}))
 				.setDescription(`${classToShow.getDescription(language)}\n${classToShow.statsToString(language, player.level)}\n${classTranslations.get("descriptionEnd")}`);

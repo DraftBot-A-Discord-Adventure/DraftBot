@@ -1,0 +1,21 @@
+{
+	"translations": {
+		"fr": ":shield: Tank impénétrable",
+		"en": ":shield: impenetrable tank"
+	},
+	"emoji": "🛡️",
+	"attack": 40,
+	"defense": 90,
+	"speed": 10,
+	"health": 170,
+	"fightPoint": 550,
+	"price": 12100,
+	"classGroup": 4,
+	"fightActionsIds": [
+		"simpleAttack",
+		"intenseAttack",
+		"poisonousAttack",
+		"shieldAttack",
+		"defenseBuff"
+	]
+}

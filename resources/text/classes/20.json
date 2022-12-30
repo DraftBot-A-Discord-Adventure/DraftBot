@@ -1,0 +1,21 @@
+{
+	"translations": {
+		"fr": ":gun: Canonnier redoutable",
+		"en": ":gun: Formidable gunner"
+	},
+	"emoji": "🔫",
+	"attack": 105,
+	"defense": 30,
+	"speed": 110,
+	"health": 45,
+	"fightPoint": 30,
+	"price": 9950,
+	"classGroup": 4,
+	"fightActionsIds": [
+		"quickAttack",
+		"sabotageAttack",
+		"viciousAttack",
+		"canonAttack",
+		"confusionAttack"
+	]
+}

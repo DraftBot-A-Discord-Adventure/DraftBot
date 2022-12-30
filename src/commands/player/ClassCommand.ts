@@ -173,7 +173,7 @@ function createClassCollectorAndManageIt(
 		}
 		await confirmPurchase(
 			classMessage,
-			await Classes.getByEmoji(reaction.emoji.name),
+			await Classes.getByEmoji(reaction.emoji.name, userInformation.player.getClassGroup()),
 			userInformation,
 			classTranslations,
 			interaction);

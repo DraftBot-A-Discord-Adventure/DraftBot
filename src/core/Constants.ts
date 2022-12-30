@@ -98,7 +98,8 @@ export abstract class Constants {
 		PRICE: 5000,
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
-		GROUP3LEVEL: 48
+		GROUP3LEVEL: 48,
+		GROUP4LEVEL: 80
 	};
 
 	static readonly LOGS = {
