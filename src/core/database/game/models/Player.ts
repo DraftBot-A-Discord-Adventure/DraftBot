@@ -255,10 +255,14 @@ export class Player extends Model {
 	 * Get the class group of a player
 	 */
 	public getClassGroup(): number {
-		return this.level < Constants.CLASS.GROUP1LEVEL ? 0 :
-			this.level < Constants.CLASS.GROUP2LEVEL ? 1 :
-				this.level < Constants.CLASS.GROUP3LEVEL ? 2 :
-					3;
+		const ranges = [
+			[Constants.CLASS.REQUIRED_LEVEL, Constants.CLASS.GROUP1LEVEL],
+			[Constants.CLASS.GROUP1LEVEL, Constants.CLASS.GROUP2LEVEL],
+			[Constants.CLASS.GROUP2LEVEL, Constants.CLASS.GROUP3LEVEL],
+			[Constants.CLASS.GROUP3LEVEL, Constants.CLASS.GROUP4LEVEL]
+		];
+		const index = ranges.findIndex(([min, max]) => this.level >= min && this.level < max);
+		return index >= 0 ? index : ranges.length;
 	}
 
 	/**
@@ -289,13 +293,16 @@ export class Player extends Model {
 		}
 
 		if (this.level === Constants.CLASS.GROUP1LEVEL) {
-			bonuses.push(tr.format("levelUp.classTiertwo", {}));
+			bonuses.push(tr.format("levelUp.classTierTwo", {}));
 		}
 		if (this.level === Constants.CLASS.GROUP2LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierthree", {}));
+			bonuses.push(tr.format("levelUp.classTierThree", {}));
 		}
 		if (this.level === Constants.CLASS.GROUP3LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierfour", {}));
+			bonuses.push(tr.format("levelUp.classTierFour", {}));
+		}
+		if (this.level === Constants.CLASS.GROUP4LEVEL) {
+			bonuses.push(tr.format("levelUp.classTierFive", {}));
 		}
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
 			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
@@ -439,7 +446,7 @@ export class Player extends Model {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
 					   WHERE (mapLinkId = :link
-						  OR mapLinkId = :linkInverse)
+						   OR mapLinkId = :linkInverse)
 						 AND score
 						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
@@ -827,7 +834,7 @@ export class Players {
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
-								  , players.level DESC)) AS rank
+										, players.level DESC)) AS rank
 							 FROM players
 							 WHERE players.discordUserId IN (${ids.toString()})) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
@@ -905,10 +912,9 @@ export class Players {
 	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM players
-					   WHERE
-						   players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
-						  > ${Constants.MINIMAL_PLAYER_SCORE}
-						   AND players.discordUserId IN (${listDiscordId.toString()})`;
+					   WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+						   > ${Constants.MINIMAL_PLAYER_SCORE}
+						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
 	}

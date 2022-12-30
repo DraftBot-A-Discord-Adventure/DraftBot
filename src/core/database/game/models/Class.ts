@@ -154,11 +154,13 @@ export class Classes {
 	/**
 	 * get the class by its emoji
 	 * @param emoji
+	 * @param classGroup - class can have the same emoji if they are in different groups
 	 */
-	static getByEmoji(emoji: string): Promise<Class | null> {
+	static getByEmoji(emoji: string, classGroup: number): Promise<Class | null> {
 		return Promise.resolve(Class.findOne({
 			where: {
-				emoji
+				emoji,
+				classGroup
 			}
 		}));
 	}

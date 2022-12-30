@@ -1,0 +1,21 @@
+{
+	"translations": {
+		"fr": ":mage: Mage mystique",
+		"en": ":mage: Mystic mage"
+	},
+	"emoji": "\uD83E\uDDD9",
+	"attack": 95,
+	"defense": 45,
+	"speed": 75,
+	"health": 80,
+	"fightPoint": 180,
+	"price": 21800,
+	"classGroup": 4,
+	"fightActionsIds": [
+		"quickAttack",
+		"energeticAttack",
+		"chargeChargingAttack",
+		"piercingAttack",
+		"concentration"
+	]
+}

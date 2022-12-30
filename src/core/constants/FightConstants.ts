@@ -1,5 +1,5 @@
 export abstract class FightConstants {
-	static readonly MAX_TURNS = 25;
+	static readonly MAX_TURNS = 24;
 
 	static readonly REQUIRED_LEVEL = 8;
 
