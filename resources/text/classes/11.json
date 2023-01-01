@@ -15,7 +15,6 @@
 		"quickAttack",
 		"sabotageAttack",
 		"viciousAttack",
-		"canonAttack",
-		"confusionAttack"
+		"canonAttack"
 	]
 }
