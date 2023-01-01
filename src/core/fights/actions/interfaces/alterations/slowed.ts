@@ -14,7 +14,7 @@ export default class SlowedAlteration extends FightAction {
 		}
 		if (!sender.hasSavedStats()) {
 			sender.saveStats();
-			sender.stats.speed = Math.round(sender.stats.speed * 0.1);
+			sender.stats.speed = Math.round(sender.stats.speed * 0.4);
 			return slowedTranslationModule.get("new");
 		}
 		return slowedTranslationModule.get("active");
