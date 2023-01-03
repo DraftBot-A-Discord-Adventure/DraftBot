@@ -13,6 +13,8 @@ export abstract class FightAction {
 
 	private emojiCache: string;
 
+	public isAlteration = false;
+
 	public constructor(name: string) {
 		this.name = name;
 	}
