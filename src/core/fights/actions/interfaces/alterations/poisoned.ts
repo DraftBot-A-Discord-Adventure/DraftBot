@@ -3,9 +3,10 @@ import {Translations} from "../../../../Translations";
 import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {FightAlteration} from "../../FightAlteration";
 
-export default class PoisonedAlteration extends FightAction {
+export default class PoisonedAlteration extends FightAlteration {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
 		const poisonTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);

@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque rapide",
 			"namePlural": "Attaques rapides",
-			"description": "Ignore une partie de la défense de votre adversaire. N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts."
+			"description": "N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts."
 		},
 		"en": {
 			"name": "Quick attack",
 			"namePlural": "Quick attacks",
-			"description": "Ignores a part of the opponent's defense. Never fails on a slower opponent. More your opponent is slow, more this attack will do damage."
+			"description": "Never fails on a slower opponent. More your opponent is slow, more this attack will do damage."
 		}
 	},
 	"emote": "\uD83D\uDDE1️",

@@ -13,14 +13,20 @@ export default class CanonAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.stats.speed + 20) / 320));
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.stats.speed + 20) / 320));
+
+		// if the attack was used two times in a row, the damage is divided by 2
+		const lastFightAction = sender.getLastFightActionUsed();
+		if (lastFightAction instanceof CanonAttack) {
+			damageDealt = Math.round(damageDealt / 2);
+		}
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		let sideEffects = "";
 
-		// the receiver has a 15% chance to be slowed
-		if (Math.random() < 0.15) {
+		// the receiver has a 65% chance to be slowed
+		if (Math.random() < 0.65) {
 			const alteration = receiver.newAlteration(FightAlterations.SLOWED);
 			if (alteration === FightAlterations.SLOWED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

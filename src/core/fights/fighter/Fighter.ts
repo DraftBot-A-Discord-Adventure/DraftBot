@@ -214,4 +214,17 @@ export abstract class Fighter {
 	getRandomAvailableFightAction(): FightAction {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.availableFightActions.values()));
 	}
+
+	/**
+	 * Get the last fight action used by a fighter (excluding alteration)
+	 */
+	getLastFightActionUsed(): FightAction {
+		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
+		// we have to check that the last action is not a fight alteration
+		if (lastAction && lastAction.isAlteration ) {
+			return this.fightActionsHistory[this.fightActionsHistory.length - 2];
+		}
+		return lastAction;
+	}
+
 }

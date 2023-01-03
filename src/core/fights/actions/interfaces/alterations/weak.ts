@@ -1,8 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
+import {FightAlteration} from "../../FightAlteration";
 
-export default class WeakAlteration extends FightAction {
+export default class WeakAlteration extends FightAlteration {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
 		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
