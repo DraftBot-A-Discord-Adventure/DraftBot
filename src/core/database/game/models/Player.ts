@@ -787,6 +787,13 @@ export class Player extends Model {
 		return playerClass.maxBreath;
 	}
 
+	/**
+	 * get the amount of breath a player will get at the end of each turn
+	 */
+	public async getBreathRegen(): Promise<number> {
+		const playerClass = await Classes.getById(this.class);
+		return playerClass.breathRegen;
+	}
 }
 
 /**
