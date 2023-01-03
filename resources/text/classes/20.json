@@ -9,9 +9,9 @@
 	"speed": 110,
 	"health": 45,
 	"fightPoint": 30,
-	"baseBreath": 1,
-	"maxBreath": 1,
-	"breathRegen": 2,
+	"baseBreath": 6,
+	"maxBreath": 12,
+	"breathRegen": 4,
 	"price": 9950,
 	"classGroup": 4,
 	"fightActionsIds": [
