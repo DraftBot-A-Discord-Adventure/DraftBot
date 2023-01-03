@@ -6,10 +6,25 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
 
 type FighterStats = {
-	fightPoints: number, maxFightPoint: number, speed: number, defense: number, attack: number
+	fightPoints: number,
+	maxFightPoint: number,
+	speed: number,
+	defense: number,
+	attack: number,
+	breath: number,
+	maxBreath: number,
+	breathRegen: number
 }
 
-const fighterStatusTranslation = ["summarize.notStarted", "summarize.attacker", "summarize.defender", "summarize.winner", "summarize.loser", "summarize.drawer", "summarize.bug"];
+const fighterStatusTranslation = [
+	"summarize.notStarted",
+	"summarize.attacker",
+	"summarize.defender",
+	"summarize.winner",
+	"summarize.loser",
+	"summarize.drawer",
+	"summarize.bug"
+];
 
 /**
  * @class Fighter
@@ -40,7 +55,10 @@ export abstract class Fighter {
 			maxFightPoint: null,
 			speed: null,
 			defense: null,
-			attack: null
+			attack: null,
+			breath: null,
+			maxBreath: null,
+			breathRegen: null
 		};
 		this.statsBackup = null;
 		this.ready = false;
@@ -221,7 +239,7 @@ export abstract class Fighter {
 	getLastFightActionUsed(): FightAction {
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
 		// we have to check that the last action is not a fight alteration
-		if (lastAction && lastAction.isAlteration ) {
+		if (lastAction && lastAction.isAlteration) {
 			return this.fightActionsHistory[this.fightActionsHistory.length - 2];
 		}
 		return lastAction;

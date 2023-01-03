@@ -94,10 +94,14 @@ export class PlayerFighter extends Fighter {
 				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, { missionId: "fightStreak" });
+					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
 				}
 				else if (lastDay !== currDay) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, { missionId: "fightStreak", count: 1, set: true });
+					await MissionsController.update(this.player, fightView.channel, fightView.language, {
+						missionId: "fightStreak",
+						count: 1,
+						set: true
+					});
 				}
 			}
 		}
@@ -138,6 +142,8 @@ export class PlayerFighter extends Fighter {
 		this.stats.attack = await this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = await this.player.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = await this.player.getCumulativeSpeed(playerActiveObjects);
+		this.stats.breath = await this.player.getBaseBreath();
+		this.stats.maxBreath = await this.player.getMaxBreath();
 	}
 
 	/**

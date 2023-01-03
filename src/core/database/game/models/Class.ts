@@ -19,6 +19,12 @@ export class Class extends Model {
 
 	public readonly fightPoint!: number;
 
+	public readonly baseBreath!: number;
+
+	public readonly maxBreath!: number;
+
+	public readonly breathRegen!: number;
+
 	public readonly emoji!: string;
 
 	public readonly classGroup!: number;
@@ -47,7 +53,9 @@ export class Class extends Model {
 			health: this.health + level,
 			price: this.price,
 			classGroup: this.classGroup,
-			fightPoint: this.getMaxCumulativeFightPointValue(level)
+			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			breath: `${this.baseBreath}/${this.maxBreath}`,
+			breathRegen: this.breathRegen
 		});
 	}
 
@@ -186,6 +194,15 @@ export function initModel(sequelize: Sequelize): void {
 				type: DataTypes.INTEGER
 			},
 			fightPoint: {
+				type: DataTypes.INTEGER
+			},
+			baseBreath: {
+				type: DataTypes.INTEGER
+			},
+			maxBreath: {
+				type: DataTypes.INTEGER
+			},
+			breathRegen: {
 				type: DataTypes.INTEGER
 			},
 			emoji: {

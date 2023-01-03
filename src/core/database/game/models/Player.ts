@@ -770,6 +770,23 @@ export class Player extends Model {
 			this.health = health;
 		}
 	}
+
+	/**
+	 * get the amount of breath a player has at the beginning of a fight
+	 */
+	public async getBaseBreath(): Promise<number> {
+		const playerClass = await Classes.getById(this.class);
+		return playerClass.baseBreath;
+	}
+
+	/**
+	 * get the max amount of breath a player can have
+	 */
+	public async getMaxBreath(): Promise<number> {
+		const playerClass = await Classes.getById(this.class);
+		return playerClass.maxBreath;
+	}
+
 }
 
 /**
