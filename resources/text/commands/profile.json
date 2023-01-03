@@ -14,7 +14,7 @@
 			},
 			"statistique": {
 				"fieldName": "Statistiques :",
-				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :wind_blowing_face: {baseBreath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"mission": {
 				"fieldName": "Missions :",
@@ -95,7 +95,7 @@
 			},
 			"statistique": {
 				"fieldName": "Stats:",
-				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :wind_blowing_face: {baseBreath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"mission": {
 				"fieldName": "Missions:",

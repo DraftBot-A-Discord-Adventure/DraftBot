@@ -74,7 +74,10 @@ async function getStatisticField(profileModule: TranslationModule, askedPlayer: 
 			cumulativeDefense: await askedPlayer.getCumulativeDefense(playerActiveObjects),
 			cumulativeSpeed: await askedPlayer.getCumulativeSpeed(playerActiveObjects),
 			cumulativeHealth: await askedPlayer.getCumulativeFightPoint(),
-			cumulativeMaxHealth: await askedPlayer.getMaxCumulativeFightPoint()
+			cumulativeMaxHealth: await askedPlayer.getMaxCumulativeFightPoint(),
+			baseBreath: await askedPlayer.getBaseBreath(),
+			maxBreath: await askedPlayer.getMaxBreath(),
+			breathRegen: await askedPlayer.getBreathRegen()
 		}),
 		inline: false
 	};

@@ -54,7 +54,8 @@ export class Class extends Model {
 			price: this.price,
 			classGroup: this.classGroup,
 			fightPoint: this.getMaxCumulativeFightPointValue(level),
-			breath: `${this.baseBreath}/${this.maxBreath}`,
+			baseBreath: this.baseBreath,
+			maxBreath: this.maxBreath,
 			breathRegen: this.breathRegen
 		});
 	}
@@ -65,7 +66,10 @@ export class Class extends Model {
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
-			fightPoint: this.getMaxCumulativeFightPointValue(level)
+			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			baseBreath: this.baseBreath,
+			maxBreath: this.maxBreath,
+			breathRegen: this.breathRegen
 		});
 	}
 
