@@ -10,7 +10,7 @@
 	"health": 110,
 	"fightPoint": 300,
 	"baseBreath": 4,
-	"maxBreath": 8,
+	"maxBreath": 12,
 	"breathRegen": 2,
 	"price": 980,
 	"classGroup": 1,
