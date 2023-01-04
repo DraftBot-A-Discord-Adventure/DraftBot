@@ -17,8 +17,8 @@ export default class PiercingAttack extends FightAction {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 
-		// 25% chance to lower the target's defense by 10%
-		if (Math.random() < 0.25) {
+		// 45% chance to lower the target's defense by 10%
+		if (Math.random() < 0.45) {
 			const reductionAmont = 10;
 			receiver.stats.defense = Math.round(receiver.stats.defense - receiver.stats.defense * reductionAmont / 100);
 			sideEffects = attackTranslationModule.format("actions.sideEffects.defense", {

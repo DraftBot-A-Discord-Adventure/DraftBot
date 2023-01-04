@@ -18,6 +18,7 @@
 		"simpleAttack",
 		"intenseAttack",
 		"shieldAttack",
-		"defenseBuff"
+		"defenseBuff",
+		"counterAttack"
 	]
 }
