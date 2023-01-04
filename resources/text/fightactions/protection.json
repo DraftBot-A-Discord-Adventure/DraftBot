@@ -3,7 +3,7 @@
 		"fr": {
 			"name": "Protection",
 			"namePlural": "Protections",
-			"active": "Se protège.",
+			"active": "se protège.",
 			"fail": "ne parvient pas à protéger.",
 			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense."
 		},

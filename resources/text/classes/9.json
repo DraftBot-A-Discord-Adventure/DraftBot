@@ -11,7 +11,7 @@
 	"fightPoint": -20,
 	"baseBreath": 3,
 	"maxBreath": 9,
-	"breathRegen": 4,
+	"breathRegen": 5,
 	"price": 750,
 	"classGroup": 1,
 	"fightActionsIds": [
