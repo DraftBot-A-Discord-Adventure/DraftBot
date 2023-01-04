@@ -40,6 +40,9 @@ export abstract class FightConstants {
 	// multiplier of the damage a fight action will deal if it is a critical hit
 	static readonly CRITICAL_HIT_MULTIPLIER = 1.5;
 
+	// out of breath attack failure probability
+	static readonly OUT_OF_BREATH_FAILURE_PROBABILITY = 0.8;
+
 	// divider of the damage a fight action will deal if it is a miss
 	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
 

@@ -12,5 +12,6 @@
 		}
 	},
 	"emote": "⚔️",
+	"breath": 2,
 	"missionVariant": 26
 }
