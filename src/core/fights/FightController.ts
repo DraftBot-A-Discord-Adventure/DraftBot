@@ -130,14 +130,15 @@ export class FightController {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
+
 		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
-		let receivedMessage;
+
 		if (!enoughBreath && RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-			receivedMessage = FightActions.getFightActionById("outOfBreath").use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+			fightAction = FightActions.getFightActionById("outOfBreath");
 		}
-		else {
-			receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
-		}
+
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {

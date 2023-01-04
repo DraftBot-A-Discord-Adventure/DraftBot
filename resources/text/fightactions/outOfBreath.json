@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"active": "reprend son souffle"
+			"active": "est trop essoufflé pour attaquer et doit reprendre son souffle."
 		},
 		"en": {
-			"active": "catches breath"
+			"active": "is too winded to attack and must recover."
 		}
 	},
 	"emote": "\uD83D\uDE2E\u200D\uD83D\uDCA8",

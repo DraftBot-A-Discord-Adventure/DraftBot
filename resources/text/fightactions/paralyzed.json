@@ -2,17 +2,18 @@
 	"translations": {
 		"fr": {
 			"new": "est paralysé. `Vitesse : - 100%`",
-			"active": "est paralysé",
-			"noAttack": "est paralysé et ne parvient pas à attaquer",
-			"inactive": "n'est plus paralysé"
+			"active": "est paralysé.",
+			"noAttack": "est paralysé et ne parvient pas à attaquer.",
+			"inactive": "n'est plus paralysé."
 		},
 		"en": {
 			"new": "is paralyzed. `Speed: - 100%`",
-			"active": "is paralyzed",
-			"noAttack": "is paralyzed and cannot attack",
-			"inactive": "is no longer paralyzed"
+			"active": "is paralyzed.",
+			"noAttack": "is paralyzed and cannot attack.",
+			"inactive": "is no longer paralyzed."
 		}
 	},
 	"emote": "\uD83D\uDEB7",
+	"breath": 0,
 	"missionVariant": 32
 }

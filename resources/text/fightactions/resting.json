@@ -3,13 +3,13 @@
 		"fr": {
 			"name": "Repos",
 			"namePlural": "Repos",
-			"active": "se repose et récupère `{amount} points de combats`",
+			"active": "se repose et récupère `{amount} points de combats.`",
 			"description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations."
 		},
 		"en": {
 			"name": "Rest",
 			"namePlural": "Rests",
-			"active": "rests and recovers `{amount} fight points`",
+			"active": "rests and recovers `{amount} fight points.`",
 			"description": "Applies to the caster. The amount of fight points recovered is divided by 4 after 4 uses."
 		}
 	},
