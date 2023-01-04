@@ -147,14 +147,16 @@ export abstract class Fighter {
 		return fightTranslationModule.format(
 			fighterStatusTranslation[this.status],
 			{
-				pseudo: this.getName(),
-				charging: "" // TODO : add the charging if needed
+				pseudo: this.getName()
 			}
 		) + fightTranslationModule.format("summarize.stats", {
 			power: this.stats.fightPoints,
 			attack: this.stats.attack,
 			defense: this.stats.defense,
-			speed: this.stats.speed
+			speed: this.stats.speed,
+			breath: this.stats.breath,
+			maxBreath: this.stats.maxBreath,
+			breathRegen: this.stats.breathRegen
 		});
 	}
 
@@ -245,4 +247,25 @@ export abstract class Fighter {
 		return lastAction;
 	}
 
+	/**
+	 * Remove the breathCost of a fight action from the fighter if possible. Returns true if the breath cost has been removed
+	 * @param breathCost
+	 */
+	useBreath(breathCost: number): boolean {
+		if (this.stats.breath >= breathCost) {
+			this.stats.breath -= breathCost;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Add the breathRegen of the fighter to its breath
+	 */
+	regenerateBreath(): void {
+		this.stats.breath += this.stats.breathRegen;
+		if (this.stats.breath > this.stats.maxBreath) {
+			this.stats.breath = this.stats.maxBreath;
+		}
+	}
 }

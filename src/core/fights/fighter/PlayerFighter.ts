@@ -144,6 +144,7 @@ export class PlayerFighter extends Fighter {
 		this.stats.speed = await this.player.getCumulativeSpeed(playerActiveObjects);
 		this.stats.breath = await this.player.getBaseBreath();
 		this.stats.maxBreath = await this.player.getMaxBreath();
+		this.stats.breathRegen = await this.player.getBreathRegen();
 	}
 
 	/**

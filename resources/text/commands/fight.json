@@ -13,17 +13,18 @@
 			"turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
 			"turnIndicationsDescription": "Choisissez une action",
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
+			"fightActionNameDisplay" : "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
-				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-				"winner": ":crossed_swords: |** Gagnant : {pseudo}** {charging}\n",
-				"loser": ":crossed_swords: |** Perdant : {pseudo}** {charging}\n",
-				"drawer": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"bug": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
+				"defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
+				"winner": ":crossed_swords: |** Gagnant : {pseudo}**\n",
+				"loser": ":crossed_swords: |** Perdant : {pseudo}**\n",
+				"drawer": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
@@ -147,17 +148,18 @@
 			"turnIndicationsTitle": "It's {pseudo}'s turn to play ⚔️",
 			"turnIndicationsDescription": "Choose an action",
 			"statsOfPlayer": "**{pseudo}**'s stats: ",
+			"fightActionNameDisplay" : "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":crossed_swords: | **Current fight state**\n\n",
-				"notStarted": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"attacker": ":crossed_swords: |**Attacker: {pseudo}** {charging}\n",
-				"defender": ":crossed_swords: |**Defender: {pseudo}** {charging}\n",
-				"winner": ":crossed_swords: |**Winner: {pseudo}** {charging}\n",
-				"loser": ":crossed_swords: |**Loser: {pseudo}** {charging}\n",
-				"drawer": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"bug": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"notStarted": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"attacker": ":crossed_swords: |**Attacker: {pseudo}**\n",
+				"defender": ":crossed_swords: |**Defender: {pseudo}**\n",
+				"winner": ":crossed_swords: |**Winner: {pseudo}**\n",
+				"loser": ":crossed_swords: |**Loser: {pseudo}**\n",
+				"drawer": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"bug": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
 				"draw": ":newspaper: |**{player1} and {player2} end their fight with a draw!**\n\n",
@@ -178,7 +180,7 @@
 					"direct": "You need to be **LVL {level}** if you want to fight!",
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
 				},
-				"dead" :{
+				"dead": {
 					"direct": "{pseudo}, You can't fight while KO ! Please use the {command:respawn} command to continue playing.",
 					"indirect": "This opponent is dead, thus can't fight yet!"
 				},

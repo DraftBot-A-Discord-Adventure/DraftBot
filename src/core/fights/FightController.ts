@@ -9,6 +9,7 @@ import {draftBotInstance} from "../bot";
 import Benediction from "./actions/interfaces/benediction";
 import DivineAttack from "./actions/interfaces/divineAttack";
 import {FightAction} from "./actions/FightAction";
+import {FightActions} from "./actions/FightActions";
 
 /**
  * @class FightController
@@ -129,7 +130,14 @@ export class FightController {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
+		let receivedMessage;
+		if (!enoughBreath && RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+			receivedMessage = FightActions.getFightActionById("outOfBreath").use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		}
+		else {
+			receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		}
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
@@ -138,6 +146,7 @@ export class FightController {
 		}
 		if (endTurn) {
 			this.turn++;
+			await this.getPlayingFighter().regenerateBreath();
 			await this.prepareNextTurn();
 		}
 	}
