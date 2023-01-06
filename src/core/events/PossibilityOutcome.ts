@@ -30,7 +30,7 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 		(outcome.money > 0 ? 100 : 0);
 	switch (outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY) {
 	case EffectsConstants.EMOJI_TEXT.OCCUPIED:
-		experienceChange -= 150;
+		experienceChange -= 125;
 		break;
 	case EffectsConstants.EMOJI_TEXT.SLEEPING:
 	case EffectsConstants.EMOJI_TEXT.STARVING:
