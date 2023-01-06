@@ -1,0 +1,17 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque mutation",
+			"namePlural": "Attaques mutation",
+			"description": "Échange la meilleur statistique de votre adversaire avec sa plus mauvaise statistique."
+		},
+		"en": {
+			"name": "Mutation",
+			"namePlural": "Mutations",
+			"description": "Swaps the best stat of your opponent with its worst stat."
+		}
+	},
+	"emote": "\uD83E\uDDCC",
+	"breath": 10,
+	"missionVariant": 7
+}

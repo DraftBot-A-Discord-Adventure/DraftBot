@@ -18,6 +18,7 @@
 		"poisonousAttack",
 		"fireAttack",
 		"breathTakingAttack",
-		"cursedAttack"
+		"cursedAttack",
+		"mutationAttack"
 	]
 }
