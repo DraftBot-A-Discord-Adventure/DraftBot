@@ -60,7 +60,7 @@
 						"en": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious."
 					},
 					"health": -40,
-					"money": -200,
+					"money": -1,
 					"effect": ":head_bandage:"
 				}
 			]
