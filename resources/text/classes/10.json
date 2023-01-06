@@ -17,7 +17,7 @@
 	"fightActionsIds": [
 		"quickAttack",
 		"sabotageAttack",
-		"viciousAttack",
+		"boomerangAttack",
 		"canonAttack"
 	]
 }

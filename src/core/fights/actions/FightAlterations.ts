@@ -5,6 +5,7 @@ import SlowedAlteration from "./interfaces/alterations/slowed";
 import StunnedAlteration from "./interfaces/alterations/stunned";
 import WeakAlteration from "./interfaces/alterations/weak";
 import ParalyzedAlteration from "./interfaces/alterations/paralyzed";
+import TargetedAlteration from "./interfaces/alterations/targeted";
 
 export const FightAlterations = {
 	CONCENTRATED: new ConcentratedAlteration("concentrated"),
@@ -13,5 +14,6 @@ export const FightAlterations = {
 	SLOWED: new SlowedAlteration("slowed"),
 	STUNNED: new StunnedAlteration("stunned"),
 	WEAK: new WeakAlteration("weak"),
-	PARALYZED: new ParalyzedAlteration("paralyzed")
+	PARALYZED: new ParalyzedAlteration("paralyzed"),
+	TARGETED: new TargetedAlteration("targeted")
 };

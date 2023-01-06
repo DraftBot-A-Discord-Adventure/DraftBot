@@ -1,0 +1,17 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque boomerang",
+			"namePlural": "Attaques boomerang",
+			"description": "Lance un boomerang qui inflige des dégâts à l'ennemi 2 fois."
+		},
+		"en": {
+			"name": "Boomerang attack",
+			"namePlural": "Boomerang attacks",
+			"description": "Throws a boomerang that deals damage to the enemy 2 times."
+		}
+	},
+	"emote": "\uD83E\uDE83",
+	"breath": 9,
+	"missionVariant": 30
+}

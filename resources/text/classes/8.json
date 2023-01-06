@@ -16,6 +16,6 @@
 	"classGroup": 0,
 	"fightActionsIds": [
 		"quickAttack",
-		"viciousAttack"
+		"boomerangAttack"
 	]
 }
