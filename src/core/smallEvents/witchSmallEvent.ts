@@ -166,6 +166,9 @@ export const smallEvent: SmallEvent = {
 
 				// there is a chance that the player will get a no effect potion, no matter what he chose
 				if (RandomUtils.draftbotRandom.bool(SmallEventConstants.WITCH.NO_EFFECT_CHANCE)) {
+					if (selectedEvent.forceEffect) {
+						await selectedEvent.giveEffect(player);
+					}
 					await sendResultMessage(seEmbed, SmallEventConstants.WITCH.OUTCOME_TYPE.POTION, tr, selectedEvent, interaction);
 					const potionToGive = await generateRandomItem(
 						ItemConstants.CATEGORIES.POTION,
