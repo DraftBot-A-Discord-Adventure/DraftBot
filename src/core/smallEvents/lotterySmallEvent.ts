@@ -72,7 +72,7 @@ export const smallEvent: SmallEvent = {
 
 		const collectorLottery = lotteryIntro.createReactionCollector({
 			time: Constants.MESSAGES.COLLECTOR_TIME,
-			filter: (reaction, user) => emojiLottery.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id
+			filter: (reaction, user) => (emojiLottery.includes(reaction.emoji.name) || reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_EMOTE) && user.id === interaction.user.id
 		});
 		collectorLottery.on("collect", () => {
 			collectorLottery.stop();
@@ -81,7 +81,7 @@ export const smallEvent: SmallEvent = {
 		collectorLottery.on("end", async (collected) => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.LOTTERY);
 
-			if (!collected.first()) {
+			if (!collected.first() || collected.first().emoji.name === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
 				seEmbed.setDescription(seEmbedEmote + translationLottery.get("end"));
 				return await interaction.channel.send({embeds: [seEmbed]});
 			}
