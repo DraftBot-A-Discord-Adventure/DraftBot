@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque vol de souffle",
-			"namePlural": "Attaques à couper le souffle",
+			"namePlural": "Attaques vol de souffle",
 			"description": "Inflige une faible quantité de dégât mais peut voler le souffle de votre adversaire où le ralentir."
 		},
 		"en": {
@@ -13,5 +13,5 @@
 	},
 	"emote": "\uD83D\uDCA8",
 	"breath": 1,
-	"missionVariant": 17
+	"missionVariant": 37
 }
