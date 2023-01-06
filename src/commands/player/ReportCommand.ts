@@ -424,7 +424,7 @@ async function doPossibility(
 
 	const tagsToVerify = (randomOutcome.tags ?? [])
 		.concat(possibility.tags ?? [])
-		.concat(randomOutcome.tags ?? []);
+		.concat(event.tags ?? []);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
 			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {
