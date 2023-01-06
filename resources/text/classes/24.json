@@ -15,6 +15,7 @@
 	"price": 21800,
 	"classGroup": 4,
 	"fightActionsIds": [
-		"poisonousAttack"
+		"poisonousAttack",
+		"fireAttack"
 	]
 }
