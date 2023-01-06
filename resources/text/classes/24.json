@@ -16,6 +16,7 @@
 	"classGroup": 4,
 	"fightActionsIds": [
 		"poisonousAttack",
-		"fireAttack"
+		"fireAttack",
+		"breathTakingAttack"
 	]
 }
