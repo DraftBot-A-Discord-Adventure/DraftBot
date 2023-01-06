@@ -23,6 +23,10 @@ export default class CounterAttack extends FightAction {
 			"protection",
 			"counterAttack",
 			"defenseBuff",
+			"fireAttack",
+			"breathTakingAttack",
+			"mutationAttack",
+			"cursedAttack",
 			"outOfBreath"].includes(lastAttack.name)) {
 			return couterAttackTranslationModule.get("fail");
 		}

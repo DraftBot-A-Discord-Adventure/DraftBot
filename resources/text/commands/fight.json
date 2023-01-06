@@ -135,7 +135,6 @@
 				"slowed": "Ralenti",
 				"concentrated": "Concentré",
 				"weak": "Affaibli",
-				"confused": "Confus",
 				"protected": "Protégé"
 			}
 		},
@@ -274,7 +273,6 @@
 				"slowed": "Slowed down",
 				"concentrated": "Focused",
 				"weak": "Weakened",
-				"confused": "Confused",
 				"protected": "Shielded"
 			}
 		}

@@ -14,7 +14,6 @@ export default class MutationAttack extends FightAction {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// the opponent has his best stat (attack defense or speed) exchanged with his worst stat
 		const {opponentStats, oldStatsBackup} = this.permuteStats(receiver);
 		const sideEffects = this.displaySideEffects(oldStatsBackup, opponentStats, attackTranslationModule);
 
@@ -36,12 +35,11 @@ export default class MutationAttack extends FightAction {
 	 * @param attackTranslationModule
 	 * @private
 	 */
-	private displaySideEffects(oldStatsBackup: number[], opponentStats: number[], attackTranslationModule: TranslationModule) : string {
-		let sideEffects;
-		// then we need to display the stats changes
+	private displaySideEffects(oldStatsBackup: number[], opponentStats: number[], attackTranslationModule: TranslationModule): string {
+		let sideEffects = "";
 		if (oldStatsBackup[0] !== opponentStats[0]) {
 			const percentage = Math.abs(Math.round((oldStatsBackup[0] - opponentStats[0]) / oldStatsBackup[0] * 100));
-			sideEffects = attackTranslationModule.format("actions.sideEffects.attack", {
+			sideEffects += attackTranslationModule.format("actions.sideEffects.attack", {
 				adversary: FightConstants.TARGET.OPPONENT,
 				operator: oldStatsBackup[0] > opponentStats[0] ? FightConstants.OPERATOR.MINUS : FightConstants.OPERATOR.PLUS,
 				amount: percentage
@@ -71,7 +69,7 @@ export default class MutationAttack extends FightAction {
 	 * @param receiver
 	 * @private
 	 */
-	private permuteStats(receiver: Fighter) : {opponentStats: number[], oldStatsBackup: number[]} {
+	private permuteStats(receiver: Fighter): { opponentStats: number[], oldStatsBackup: number[] } {
 		const opponentStats = [receiver.stats.attack, receiver.stats.defense, receiver.stats.speed];
 		const oldStatsBackup = [...opponentStats];
 		const bestStat = Math.max(...opponentStats);

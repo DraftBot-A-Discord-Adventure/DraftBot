@@ -31,7 +31,7 @@ export default class DivineAttack extends FightAction {
 			if (alteration === FightAlterations.PARALYZED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.confused").toLowerCase()
+					effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
 				});
 			}
 		}
