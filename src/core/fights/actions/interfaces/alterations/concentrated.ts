@@ -3,20 +3,20 @@ import {Translations} from "../../../../Translations";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class ConcentratedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const concentratedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (sender.alterationTurn > 1) { // this effect heals after one turn
-			sender.stats.speed = sender.readSavedStats().speed;
-			sender.stats.attack = sender.readSavedStats().attack;
-			sender.eraseSavedStats();
-			sender.removeAlteration();
+		if (victim.alterationTurn > 1) { // this effect heals after one turn
+			victim.stats.speed = victim.readSavedStats().speed;
+			victim.stats.attack = victim.readSavedStats().attack;
+			victim.eraseSavedStats();
+			victim.removeAlteration();
 			return concentratedTranslationModule.get("heal");
 		}
-		if (!sender.hasSavedStats()) {
-			sender.saveStats();
-			sender.stats.speed *= 2;
-			sender.stats.attack *= 2;
+		if (!victim.hasSavedStats()) {
+			victim.saveStats();
+			victim.stats.speed *= 2;
+			victim.stats.attack *= 2;
 			return concentratedTranslationModule.get("new");
 		}
 		return concentratedTranslationModule.get("active");

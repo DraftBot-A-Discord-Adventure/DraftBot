@@ -3,19 +3,19 @@ import {Translations} from "../../../../Translations";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class WeakAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (sender.alterationTurn > 1) { // this effect heals after one turn
-			sender.stats.attack = sender.readSavedStats().attack;
-			sender.eraseSavedStats();
-			sender.removeAlteration();
+		if (victim.alterationTurn > 1) { // this effect heals after one turn
+			victim.stats.attack = victim.readSavedStats().attack;
+			victim.eraseSavedStats();
+			victim.removeAlteration();
 			return weakTranslationModule.get("heal");
 		}
-		if (!sender.hasSavedStats()) {
-			sender.saveStats();
+		if (!victim.hasSavedStats()) {
+			victim.saveStats();
 			// attack is reduced by 70%
-			sender.stats.attack = Math.round(sender.stats.attack * 0.3);
+			victim.stats.attack = Math.round(victim.stats.attack * 0.3);
 			return weakTranslationModule.get("new");
 		}
 		return weakTranslationModule.get("active");

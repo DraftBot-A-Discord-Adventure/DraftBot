@@ -8,21 +8,21 @@ import {FightAlteration} from "../../FightAlteration";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class TargetedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const targetedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
-		if (sender.alterationTurn === 1) {
+		if (victim.alterationTurn === 1) {
 			return targetedTranslationModule.get("boomerangSpin");
 		}
 
-		if (sender.alterationTurn > 2 || RandomUtils.draftbotRandom.bool(0.2)) {
-			sender.removeAlteration();
+		if (victim.alterationTurn > 2 || RandomUtils.draftbotRandom.bool(0.2)) {
+			victim.removeAlteration();
 			return targetedTranslationModule.get("heal");
 		}
 
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-		sender.stats.fightPoints -= damageDealt;
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		victim.stats.fightPoints -= damageDealt;
 		return format(targetedTranslationModule.get("damage"), {damages: damageDealt});
 	}
 
@@ -30,12 +30,12 @@ export default class TargetedAlteration extends FightAlteration {
 		return {minDamage: 45, averageDamage: 90, maxDamage: 150};
 	}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack
 			], defenderStats: [
-				receiver.stats.defense
+				victim.stats.defense
 			], statsEffect: [
 				1
 			]

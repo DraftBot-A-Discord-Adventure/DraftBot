@@ -4,23 +4,23 @@ import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class ParalyzedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const paralyzedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (sender.alterationTurn > 2) { // this effect heals after two turns
-			sender.removeAlteration();
+		if (victim.alterationTurn > 2) { // this effect heals after two turns
+			victim.removeAlteration();
 			return paralyzedTranslationModule.get("inactive");
 		}
 
 		// 20% chance to not attack this turn
 		if (Math.random() < 0.2) {
-			sender.nextFightAction = FightActions.getNoAttack();
+			victim.nextFightAction = FightActions.getNoAttack();
 			return paralyzedTranslationModule.get("noAttack");
 		}
 
-		if (!sender.hasSavedStats()) {
-			sender.saveStats();
-			sender.stats.speed = Math.round(0);
+		if (!victim.hasSavedStats()) {
+			victim.saveStats();
+			victim.stats.speed = Math.round(0);
 			return paralyzedTranslationModule.get("new");
 		}
 		return paralyzedTranslationModule.get("active");

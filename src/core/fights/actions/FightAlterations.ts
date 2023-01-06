@@ -7,6 +7,7 @@ import WeakAlteration from "./interfaces/alterations/weak";
 import ParalyzedAlteration from "./interfaces/alterations/paralyzed";
 import TargetedAlteration from "./interfaces/alterations/targeted";
 import BurnedAlteration from "./interfaces/alterations/burned";
+import CursedAlteration from "./interfaces/alterations/cursed";
 
 export const FightAlterations = {
 	CONCENTRATED: new ConcentratedAlteration("concentrated"),
@@ -17,5 +18,6 @@ export const FightAlterations = {
 	WEAK: new WeakAlteration("weak"),
 	PARALYZED: new ParalyzedAlteration("paralyzed"),
 	TARGETED: new TargetedAlteration("targeted"),
-	BURNED: new BurnedAlteration("burned")
+	BURNED: new BurnedAlteration("burned"),
+	CURSED: new CursedAlteration("cursed")
 };
