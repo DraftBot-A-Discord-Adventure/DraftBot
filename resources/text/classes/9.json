@@ -16,7 +16,7 @@
 	"classGroup": 1,
 	"fightActionsIds": [
 		"quickAttack",
-		"viciousAttack",
+		"boomerangAttack",
 		"canonAttack"
 	]
 }
