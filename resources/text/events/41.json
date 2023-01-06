@@ -90,8 +90,7 @@
 						"fr": "Vous tentez de vous échapper, vous vous dîtes que l'autre détenu sera un fardeau pour vous et vous décidez de ne pas le mettre au courant de votre évasion. En cherchant quelque chose qui pourrait vous être utile pour ce plan, vous tombez sur une latte de bois cassée. Vous essayez d'en agrandir l'ouverture sans succès, vous abandonnez donc cette idée.",
 						"en": "You try to escape, you tell yourself that your cellmate will be a burden so you decide to not tell him your plans. While looking for something that could be useful, you find a broken wooden slat. You try to widen the opening, without success. You abandon the idea of escaping."
 					},
-					"lostTime": 360,
-					"effect": ":clock2:"
+					"effect": ":lock:"
 				},
 				{
 					"translations": {
