@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "subit les conséquence du maléfice.  `Dégâts reçus : {damages}`",
+			"damage": "est maudit..."
+		},
+		"en": {
+			"heal": "is hurt by the curse. `Damages received : {damages}`",
+			"damage": "is cursed..."
+		}
+	},
+	"emote": "\uD83D\uDC7B",
+	"breath": 0,
+	"missionVariant": 16
+}

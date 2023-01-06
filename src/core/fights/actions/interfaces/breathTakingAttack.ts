@@ -17,7 +17,7 @@ export default class BreathTakingAttack extends FightAction {
 
 		// 50% chance of reducing the opponent's speed by 20%. Otherwise, steal 1 point of breath from the opponent.
 		let sideEffects;
-		if (RandomUtils.draftbotRandom.bool(0.5)) {
+		if (RandomUtils.draftbotRandom.bool(0.4) || receiver.stats.breath < 1) {
 			// Reduce target speed by 20%
 			const reduceAmount = 20;
 			receiver.stats.defense = Math.round(receiver.stats.speed - receiver.stats.speed * reduceAmount / 100);

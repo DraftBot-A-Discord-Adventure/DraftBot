@@ -4,17 +4,17 @@ import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class StunnedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const stunnedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (sender.alterationTurn > 1) { // this effect heals after one turn
-			sender.removeAlteration();
+		if (victim.alterationTurn > 1) { // this effect heals after one turn
+			victim.removeAlteration();
 			return stunnedTranslationModule.get("inactive");
 		}
 
 		// 50% chance to not attack this turn
 		if (Math.random() < 0.5) {
-			sender.nextFightAction = FightActions.getNoAttack();
+			victim.nextFightAction = FightActions.getNoAttack();
 			return stunnedTranslationModule.get("noAttack");
 		}
 		return stunnedTranslationModule.get("active");

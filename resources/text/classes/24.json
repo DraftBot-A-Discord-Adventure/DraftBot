@@ -9,7 +9,7 @@
 	"speed": 75,
 	"health": 80,
 	"fightPoint": 180,
-	"baseBreath": 7,
+	"baseBreath": 5,
 	"maxBreath": 15,
 	"breathRegen": 4,
 	"price": 21800,
@@ -17,6 +17,7 @@
 	"fightActionsIds": [
 		"poisonousAttack",
 		"fireAttack",
-		"breathTakingAttack"
+		"breathTakingAttack",
+		"cursedAttack"
 	]
 }

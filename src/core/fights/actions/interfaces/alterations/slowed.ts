@@ -3,18 +3,18 @@ import {Translations} from "../../../../Translations";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class SlowedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const slowedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (sender.alterationTurn > 1) { // this effect heals after one turn
-			sender.stats.speed = sender.readSavedStats().speed;
-			sender.eraseSavedStats();
-			sender.removeAlteration();
+		if (victim.alterationTurn > 1) { // this effect heals after one turn
+			victim.stats.speed = victim.readSavedStats().speed;
+			victim.eraseSavedStats();
+			victim.removeAlteration();
 			return slowedTranslationModule.get("inactive");
 		}
-		if (!sender.hasSavedStats()) {
-			sender.saveStats();
-			sender.stats.speed = Math.round(sender.stats.speed * 0.4);
+		if (!victim.hasSavedStats()) {
+			victim.saveStats();
+			victim.stats.speed = Math.round(victim.stats.speed * 0.4);
 			return slowedTranslationModule.get("new");
 		}
 		return slowedTranslationModule.get("active");

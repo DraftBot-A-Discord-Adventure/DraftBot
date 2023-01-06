@@ -13,7 +13,7 @@
 			"turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
 			"turnIndicationsDescription": "Choisissez une action",
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
-			"fightActionNameDisplay" : "{name} | :wind_blowing_face: {breathCost}",
+			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
@@ -129,6 +129,7 @@
 				"stunned": "Étourdi",
 				"paralyzed": "Paralysé",
 				"poisoned": "Empoisonné",
+				"cursed": "Maudit",
 				"burned": "Brûlé",
 				"targeted": "Ciblé par un boomerang",
 				"slowed": "Ralenti",
@@ -151,7 +152,7 @@
 			"turnIndicationsTitle": "It's {pseudo}'s turn to play ⚔️",
 			"turnIndicationsDescription": "Choose an action",
 			"statsOfPlayer": "**{pseudo}**'s stats: ",
-			"fightActionNameDisplay" : "{name} | :wind_blowing_face: {breathCost}",
+			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":crossed_swords: | **Current fight state**\n\n",
@@ -267,6 +268,7 @@
 				"stunned": "Stunned",
 				"paralyzed": "Paralyzed",
 				"poisoned": "Poisoned",
+				"cursed": "Cursed",
 				"burned": "Burned",
 				"targeted": "Targeted by a boomerang",
 				"slowed": "Slowed down",

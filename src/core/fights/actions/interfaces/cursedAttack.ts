@@ -7,29 +7,23 @@ import {PlayerFighter} from "../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightAlterations} from "../FightAlterations";
 
-export default class UltimateAttack extends FightAction {
+export default class CursedAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-
-		let failureProbability = 70;
-		// check if the sender has less than 45% of his fight points
-		if (sender.stats.fightPoints < sender.stats.maxFightPoint * 0.45) {
-			failureProbability = 0;
-		}
-
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, failureProbability);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 0);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		let sideEffects = "";
 
-		const alteration = receiver.newAlteration(FightAlterations.SLOWED);
-		if (alteration === FightAlterations.SLOWED) {
+		const alteration = receiver.newAlteration(FightAlterations.CURSED);
+		if (alteration === FightAlterations.CURSED) {
 			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.slowed").toLowerCase()
+				effect: attackTranslationModule.get("effects.cursed").toLowerCase()
 			});
 		}
+
 		receiver.stats.fightPoints -= damageDealt;
 
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
@@ -42,20 +36,17 @@ export default class UltimateAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 100, averageDamage: 250, maxDamage: 350};
+		return {minDamage: 60, averageDamage: 95, maxDamage: 135};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed * 3
+				sender.stats.attack
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.stats.defense
 			], statsEffect: [
-				0.7,
-				0.3
+				1
 			]
 		};
 	}

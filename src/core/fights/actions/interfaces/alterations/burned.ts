@@ -7,16 +7,16 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 
 export default class BurnedAlteration extends FightAlteration {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.alterationTurn++;
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+		victim.alterationTurn++;
 		const poisonTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 60 % chance to be healed from the poison (except for the first two turns)
-		if (Math.random() < 0.6 && sender.alterationTurn > 1) {
-			sender.removeAlteration();
+		if (Math.random() < 0.6 && victim.alterationTurn > 1) {
+			victim.removeAlteration();
 			return poisonTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-		sender.stats.fightPoints -= damageDealt;
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		victim.stats.fightPoints -= damageDealt;
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	}
 
@@ -24,12 +24,12 @@ export default class BurnedAlteration extends FightAlteration {
 		return {minDamage: 5, averageDamage: 50, maxDamage: 65};
 	}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
 				sender.stats.attack
 			], defenderStats: [
-				receiver.stats.defense / 4
+				victim.stats.defense / 4
 			], statsEffect: [
 				1
 			]
