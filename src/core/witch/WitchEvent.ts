@@ -58,7 +58,7 @@ export abstract class WitchEvent {
 	 * Base function to generate a give effect outcome, some witch events will override this
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public giveEffect(player: Player): Promise<void> | null {
+	public giveEffect(player: Player): Promise<void> {
 		return null;
 	}
 

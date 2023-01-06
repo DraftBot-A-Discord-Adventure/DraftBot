@@ -410,7 +410,7 @@ export const generateRandomItemCategory = function(): number {
  * @param maxRarity
  * @param itemSubType
  */
-export const generateRandomItem = async function(
+export async function generateRandomItem(
 	itemCategory: number = null,
 	minRarity: number = ItemConstants.RARITY.COMMON,
 	maxRarity: number = ItemConstants.RARITY.MYTHICAL,
@@ -427,20 +427,20 @@ export const generateRandomItem = async function(
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
 		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case ItemConstants.CATEGORIES.POTION:
-		if (itemSubType) {
+		if (itemSubType !== null) { // 0 (no effect) is a false value
 			return await Potions.randomItem(itemSubType, rarity);
 		}
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
-		return await Potions.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await Potions.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
 	default:
 		// This will be triggered by ItemConstants.CATEGORIES.OBJECT
-		if (itemSubType) {
+		if (itemSubType !== null) {
 			return await ObjectItems.randomItem(itemSubType, rarity);
 		}
 		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
-		return await ObjectItems.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+		return await ObjectItems.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
 	}
-};
+}
 
 /**
  * give a random item
