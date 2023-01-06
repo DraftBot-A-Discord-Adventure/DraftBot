@@ -80,7 +80,7 @@ async function applyOutcomeHealth(outcome: PossibilityOutcome, player: Player, t
 async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
 	let moneyChange = (outcome.money ?? 0) + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (outcome.money && outcome.money < 0 && moneyChange > 0) {
-		moneyChange = Math.round(outcome.money / 2);
+		moneyChange = Math.floor(outcome.money / 2);
 	}
 	if (moneyChange !== 0) {
 		await player.addMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
