@@ -6,12 +6,12 @@ import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 
-export default class PoisonedAlteration extends FightAlteration {
+export default class BurnedAlteration extends FightAlteration {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
 		const poisonTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		// 25 % chance to be healed from the poison (except for the first turn)
-		if (Math.random() < 0.25 && sender.alterationTurn > 1) {
+		// 60 % chance to be healed from the poison (except for the first two turns)
+		if (Math.random() < 0.6 && sender.alterationTurn > 1) {
 			sender.removeAlteration();
 			return poisonTranslationModule.get("heal");
 		}
@@ -21,23 +21,17 @@ export default class PoisonedAlteration extends FightAlteration {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 10, averageDamage: 25, maxDamage: 45};
+		return {minDamage: 5, averageDamage: 50, maxDamage: 65};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				receiver.stats.attack,// we use the defender's attack because the poison is applied to the attacker
-				sender.stats.attack,
-				receiver.stats.fightPoints
+				sender.stats.attack
 			], defenderStats: [
-				100,
-				100,
-				receiver.stats.maxFightPoint
+				receiver.stats.defense / 4
 			], statsEffect: [
-				0.5,
-				0.1,
-				0.4
+				1
 			]
 		};
 	}
