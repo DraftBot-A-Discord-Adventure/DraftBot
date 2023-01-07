@@ -45,6 +45,10 @@
 					"direct": "Vous devez atteindre le **LVL {level}** avant de combattre !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
+				"baby": {
+					"indirect": "Cet adversaire n'a pas encore débuté son aventure ! Utilisez la commande {command:report} pour la commencer !",
+					"direct": "Vous n'avez pas encore débuté votre aventure ! Utilisez la commande {command:report} pour la commencer !"
+				},
 				"dead": {
 					"direct": "{pseudo}, Il n'est pas possible de combattre en étant K.O! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O.!"
@@ -182,6 +186,10 @@
 				"levelTooLow": {
 					"direct": "You need to be **LVL {level}** if you want to fight!",
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
+				},
+				"baby": {
+					"indirect": "This opponent hasn't started his adventure yet! Use the {command:report} command to start it!",
+					"direct": "You haven't started your adventure yet! Use the {command:report} command to start it!"
 				},
 				"dead": {
 					"direct": "{pseudo}, You can't fight while KO ! Please use the {command:respawn} command to continue playing.",

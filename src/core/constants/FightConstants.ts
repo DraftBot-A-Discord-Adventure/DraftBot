@@ -9,6 +9,7 @@ export abstract class FightConstants {
 
 	static readonly FIGHT_ERROR = {
 		NONE: "none",
+		BABY: "error.baby",
 		WRONG_LEVEL: "error.levelTooLow",
 		DEAD: "error.dead",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
