@@ -56,7 +56,7 @@ function hasEffect(player: Player, date: Date, friendly: boolean): boolean {
  */
 async function canFight(player: Player, friendly: boolean, date: Date): Promise<string> {
 	if (player === null) {
-		return null;
+		return FightConstants.FIGHT_ERROR.BABY;
 	}
 
 	if (player.level < FightConstants.REQUIRED_LEVEL) {

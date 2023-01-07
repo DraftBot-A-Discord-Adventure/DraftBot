@@ -228,12 +228,18 @@ async function petSell(
  */
 function getAcceptCallback(sellerInformation: SellerInformation, textInformation: TextInformation): (user: User) => Promise<boolean> {
 	return async (user: User): Promise<boolean> => {
-		const buyerInformation = {user, buyer: await Players.getByDiscordUserId(user.id)};
-		if (buyerInformation.buyer.effect === EffectsConstants.EMOJI_TEXT.BABY ||
-			await sendBlockedError(textInformation.interaction, textInformation.petSellModule.language, buyerInformation.user)) {
+		const [buyer] = await Players.getOrRegister(user.id);
+		const buyerInformation = {user, buyer};
+		if (await sendBlockedError(textInformation.interaction, textInformation.petSellModule.language, buyerInformation.user)) {
 			buyerInformation.buyer = null;
 			return false;
 		}
+		if (buyerInformation.buyer.effect === EffectsConstants.EMOJI_TEXT.BABY) {
+			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("babyError", {}), false, false);
+			buyerInformation.buyer = null;
+			return false;
+		}
+
 		await petSell(textInformation, sellerInformation, buyerInformation);
 		return true;
 	};
