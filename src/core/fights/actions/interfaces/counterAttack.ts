@@ -1,6 +1,7 @@
 import {Fighter} from "../../fighter/Fighter";
 import {FightAction} from "../FightAction";
 import {Translations} from "../../../Translations";
+import {FightConstants} from "../../../constants/FightConstants";
 
 export default class CounterAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -13,21 +14,7 @@ export default class CounterAttack extends FightAction {
 
 		const lastAttack = receiver.getLastFightActionUsed();
 		// we also want to check for a few moves that should not be countered
-		if (["ultimateAttack",
-			"benediction",
-			"divineAttack",
-			"none",
-			"poisonousAttack",
-			"concentration",
-			"resting",
-			"protection",
-			"counterAttack",
-			"defenseBuff",
-			"fireAttack",
-			"breathTakingAttack",
-			"mutationAttack",
-			"cursedAttack",
-			"outOfBreath"].includes(lastAttack.name)) {
+		if (FightConstants.UNCOUNTERABLE_ACTIONS.includes(lastAttack.name)) {
 			return couterAttackTranslationModule.get("fail");
 		}
 

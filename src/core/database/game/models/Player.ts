@@ -293,16 +293,16 @@ export class Player extends Model {
 		}
 
 		if (this.level === Constants.CLASS.GROUP1LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierTwo", {}));
+			bonuses.push(tr.format("levelUp.classTier", {tier: 2}));
 		}
 		if (this.level === Constants.CLASS.GROUP2LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierThree", {}));
+			bonuses.push(tr.format("levelUp.classTier", {tier: 3}));
 		}
 		if (this.level === Constants.CLASS.GROUP3LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierFour", {}));
+			bonuses.push(tr.format("levelUp.classTier", {tier: 4}));
 		}
 		if (this.level === Constants.CLASS.GROUP4LEVEL) {
-			bonuses.push(tr.format("levelUp.classTierFive", {}));
+			bonuses.push(tr.format("levelUp.classTier", {tier: 5}));
 		}
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
 			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
