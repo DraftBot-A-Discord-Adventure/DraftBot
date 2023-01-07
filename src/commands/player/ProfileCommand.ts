@@ -68,8 +68,8 @@ async function getInformationField(profileModule: TranslationModule, askedPlayer
  */
 async function getStatisticField(profileModule: TranslationModule, askedPlayer: Player, playerActiveObjects: PlayerActiveObjects): Promise<EmbedField> {
 	return {
-		name: profileModule.get("statistique.fieldName"),
-		value: profileModule.format("statistique.fieldValue", {
+		name: profileModule.get("statistics.fieldName"),
+		value: profileModule.format("statistics.fieldValue", {
 			cumulativeAttack: await askedPlayer.getCumulativeAttack(playerActiveObjects),
 			cumulativeDefense: await askedPlayer.getCumulativeDefense(playerActiveObjects),
 			cumulativeSpeed: await askedPlayer.getCumulativeSpeed(playerActiveObjects),

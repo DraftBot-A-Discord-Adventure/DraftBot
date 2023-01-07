@@ -12,7 +12,7 @@
 				"fieldName": "Informations :",
 				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
 			},
-			"statistique": {
+			"statistics": {
 				"fieldName": "Statistiques :",
 				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :wind_blowing_face: {baseBreath} / {maxBreath} | :lungs: {breathRegen}"
 			},
@@ -93,7 +93,7 @@
 				"fieldName": "Information:",
 				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
 			},
-			"statistique": {
+			"statistics": {
 				"fieldName": "Stats:",
 				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :wind_blowing_face: {baseBreath} / {maxBreath} | :lungs: {breathRegen}"
 			},
