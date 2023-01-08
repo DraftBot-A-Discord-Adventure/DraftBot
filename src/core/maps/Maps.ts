@@ -7,15 +7,14 @@ import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
-import {PVEConstants} from "../constants/PVEConstants";
 import {MapConstants} from "../constants/MapConstants";
+import {MapCache} from "./MapCache";
 
 export class Maps {
 
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
-	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player: Player): Promise<number[]> {
@@ -158,14 +157,8 @@ export class Maps {
 	 * Check if the player is on a PVE map
 	 * @param player
 	 */
-	static isOnPveMap(player: Player): boolean {
-		for (const range of PVEConstants.MAPS.PVE_LINK_RANGES) {
-			if (player.mapLinkId >= range[0] && player.mapLinkId <= range[1]) {
-				return true;
-			}
-		}
-
-		return false;
+	static isOnPveIsland(player: Player): boolean {
+		return MapCache.pveIslandMapLinks.includes(player.mapLinkId);
 	}
 
 	/**
@@ -181,6 +174,14 @@ export class Maps {
 	 * @param player
 	 */
 	static isOnBoat(player: Player): boolean {
-		return player.mapLinkId === PVEConstants.MAPS.BOAT_LINK;
+		return MapCache.boatMapLinks.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Check if the player is on a continent
+	 * @param player
+	 */
+	static isOnContinent(player: Player): boolean {
+		return MapCache.continentMapLinks.includes(player.mapLinkId);
 	}
 }

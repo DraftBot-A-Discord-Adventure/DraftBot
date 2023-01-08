@@ -38,14 +38,8 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.FLOAT,
 			allowNull: false
 		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		}
+		updatedAt: DataTypes.DATE,
+		createdAt: DataTypes.DATE
 	});
 	await context.createTable("monster_attacks", {
 		monsterId: {
@@ -62,14 +56,8 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		}
+		updatedAt: DataTypes.DATE,
+		createdAt: DataTypes.DATE
 	});
 	await context.createTable("monster_locations", {
 		monsterId: {
@@ -81,14 +69,12 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
-		}
+		updatedAt: DataTypes.DATE,
+		createdAt: DataTypes.DATE
+	});
+	await context.addColumn("map_locations", "attribute", {
+		type: DataTypes.TEXT,
+		allowNull: false
 	});
 }
 

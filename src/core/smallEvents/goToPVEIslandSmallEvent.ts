@@ -15,6 +15,8 @@ import {MapLinks} from "../database/game/models/MapLink";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
+import {RandomUtils} from "../utils/RandomUtils";
+import {MapCache} from "../maps/MapCache";
 
 async function confirmationCallback(
 	player: Player,
@@ -34,7 +36,7 @@ async function confirmationCallback(
 			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
-				await MapLinks.getById(PVEConstants.MAPS.ENTRY_LINK),
+				await MapLinks.getById(RandomUtils.draftbotRandom.pick(MapCache.boatMapLinks)),
 				msg.sentMessage.createdTimestamp,
 				NumberChangeReason.SMALL_EVENT
 			);

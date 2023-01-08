@@ -13,7 +13,7 @@ export const smallEvent: SmallEvent = {
 	 * Check if small event can be executed
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
-		return !Maps.isOnPveMap(player) && player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));
+		return Maps.isOnContinent(player) && player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));
 	},
 
 	/**

@@ -6,4 +6,13 @@ export abstract class MapConstants {
 		46, 47, 49, 54, 55, 56,
 		57, 59
 	];
+
+	static readonly MAP_ATTRIBUTES = {
+		CONTINENT1: "continent1",
+		KING_CASTLE: "king_castle",
+		MAIN_CONTINENT: "main_continent",
+		PVE_EXIT: "pve_exit",
+		PVE_ISLAND_ENTRY: "pve_island_entry",
+		PVE_ISLAND: "pve_island"
+	};
 }

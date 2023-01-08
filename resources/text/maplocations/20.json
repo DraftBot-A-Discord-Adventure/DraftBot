@@ -9,5 +9,6 @@
 	"tags": [
 		"detALa"
 	],
-	"canBeGoToPlaceMissionDestination": false
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "continent1"
 }

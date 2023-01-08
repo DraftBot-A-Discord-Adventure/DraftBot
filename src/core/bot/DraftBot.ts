@@ -24,7 +24,9 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
-import {PVEConstants} from "../constants/PVEConstants";
+import {MapLinks} from "../database/game/models/MapLink";
+import {MapConstants} from "../constants/MapConstants";
+import {MapCache} from "../maps/MapCache";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -279,12 +281,6 @@ export class DraftBot {
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {
-		const mapLinkIdWhere = [];
-		for (const mapLinkId of PVEConstants.MAPS.PVE_LINK_RANGES) {
-			for (let i = mapLinkId[0]; i <= mapLinkId[1]; ++i) {
-				mapLinkIdWhere.push(i);
-			}
-		}
 		Player.update(
 			{
 				fightPointsLost: Sequelize.literal(
@@ -293,8 +289,8 @@ export class DraftBot {
 			},
 			{
 				where: {
-					fightPointsLost: { [Op.not]: 0 },
-					mapLinkId: { [Op.notIn]: mapLinkIdWhere }
+					fightPointsLost: {[Op.not]: 0},
+					mapLinkId: {[Op.notIn]: MapCache.regenFightPointsMapLinks}
 				}
 			}
 		).finally(() => null);
@@ -333,6 +329,7 @@ export class DraftBot {
 		});
 		await this.gameDatabase.init(this.isMainShard);
 		await this.logsDatabase.init(this.isMainShard);
+		await MapCache.init();
 		await BigEventsController.init();
 		await CommandsManager.register(draftBotClient, this.isMainShard);
 		if (this.config.TEST_MODE === true) {

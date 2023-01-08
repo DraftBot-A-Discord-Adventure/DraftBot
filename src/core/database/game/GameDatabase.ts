@@ -100,6 +100,7 @@ export class GameDatabase extends Database {
 			filesContent.push(fileContent);
 		}
 
+		model.model.bulkCreate(filesContent);
 	}
 
 	private static async populateMissions(): Promise<void> {

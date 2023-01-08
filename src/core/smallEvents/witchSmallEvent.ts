@@ -144,7 +144,7 @@ export const smallEvent: SmallEvent = {
 	 * No restrictions on who can do it
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(!Maps.isOnPveMap(player));
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

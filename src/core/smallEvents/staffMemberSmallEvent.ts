@@ -12,7 +12,7 @@ export const smallEvent: SmallEvent = {
 	 * Check if small event can be executed
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(!Maps.isOnPveMap(player));
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

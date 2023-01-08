@@ -14,8 +14,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(
-			Maps.isOnPveMap(player) &&
-			!Maps.isOnBoat(player) &&
+			Maps.isOnPveIsland(player) &&
 			player.fightPointsLost > 0
 		);
 	},

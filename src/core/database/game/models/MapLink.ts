@@ -72,6 +72,21 @@ export class MapLinks {
 			}
 		});
 	}
+
+	static async getFromAttributeToAttribute(attributeFrom: string, attributeTo: string): Promise<MapLink[]> {
+		const query = `SELECT map_links.* FROM map_links
+			JOIN map_locations ml_start ON map_links.startMap = ml_start.id
+			JOIN map_locations ml_end ON map_links.endMap = ml_end.id
+			WHERE ml_start.attribute = :attributeFrom
+				AND ml_end.attribute = :attributeTo`;
+		return await MapLink.sequelize.query(query, {
+			type: QueryTypes.SELECT,
+			replacements: {
+				attributeFrom,
+				attributeTo
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {

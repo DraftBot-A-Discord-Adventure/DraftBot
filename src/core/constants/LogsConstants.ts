@@ -43,7 +43,8 @@ export enum NumberChangeReason {
 	UNLOCK,
 	LEVEL_UP,
 	RESPAWN,
-	NEW_PLAYER
+	NEW_PLAYER,
+	PVE_ISLAND
 }
 
 export enum ShopItemType {

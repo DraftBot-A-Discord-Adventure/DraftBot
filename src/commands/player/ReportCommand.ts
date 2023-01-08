@@ -29,7 +29,6 @@ import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Possibility} from "../../core/events/Possibility";
-import {TextInformation} from "../../core/utils/MessageUtils";
 import {BigEventsController} from "../../core/events/BigEventsController";
 import {BigEvent} from "../../core/events/BigEvent";
 import {applyPossibilityOutcome} from "../../core/events/PossibilityOutcome";
@@ -213,7 +212,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		}
 	}
 
-	if (Maps.isOnPveMap(player)) {
+	if (Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) {
 		travelEmbed.addFields({
 			name: tr.get("remainingEnergyTitle"),
 			value: `⚡ ${await player.getCumulativeFightPoint()} / ${await player.getMaxCumulativeFightPoint()}`,
@@ -251,7 +250,7 @@ async function createDescriptionChooseDestination(
 	player: Player,
 	language: string
 ): Promise<string> {
-	const isPveMap = Maps.isOnPveMap(player);
+	const isPveMap = Maps.isOnPveIsland(player);
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
@@ -326,7 +325,7 @@ async function chooseDestination(
 		return;
 	}
 
-	if (!Maps.isOnPveMap(player) && (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
+	if (!Maps.isOnPveIsland(player) && (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);
@@ -571,7 +570,7 @@ async function executeCommand(
 	const currentDate = new Date();
 
 	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
-		if (Maps.isOnPveMap(player)) {
+		if (Maps.isOnPveIsland(player)) {
 			await interaction.deferReply();
 			await doPVEBoss(interaction, language, player);
 		}

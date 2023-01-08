@@ -1,6 +1,5 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {Translations} from "../../../Translations";
-import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {draftBotInstance} from "../../../bot";
 import * as moment from "moment";
@@ -24,6 +23,8 @@ export class MapLocation extends Model {
 	public readonly particleEn!: string;
 
 	public readonly canBeGoToPlaceMissionDestination!: boolean;
+
+	public readonly attribute!: string;
 
 	public updatedAt!: Date;
 
@@ -175,6 +176,16 @@ export class MapLocations {
 			type: QueryTypes.SELECT
 		});
 	}
+
+	static async getWithAttributes(attributes: string[]): Promise<MapLocation[]> {
+		return await MapLocation.findAll({
+			where: {
+				attribute: {
+					[Op.in]: attributes
+				}
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -206,6 +217,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		canBeGoToPlaceMissionDestination: {
 			type: DataTypes.BOOLEAN
+		},
+		attribute: {
+			type: DataTypes.TEXT,
+			allowNull: false
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

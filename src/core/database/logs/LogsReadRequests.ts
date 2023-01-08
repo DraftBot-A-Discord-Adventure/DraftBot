@@ -8,8 +8,9 @@ import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
 import {getNextSundayMidnight} from "../../utils/TimeUtils";
-import {PVEConstants} from "../../constants/PVEConstants";
 import {LogsMapLinks} from "./models/LogsMapLinks";
+import {MapLocations} from "../game/models/MapLocation";
+import {MapConstants} from "../../constants/MapConstants";
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
@@ -95,8 +96,10 @@ export class LogsReadRequests {
 				date: {
 					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
-				"$LogsMapLink.start$": PVEConstants.MAPS.CONTINENT_MAP,
-				"$LogsMapLink.end$": PVEConstants.MAPS.ENTRY_MAP
+				"$LogsMapLink.start$": (await MapLocations.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT]))[0].id,
+				"$LogsMapLink.end$": {
+					[Op.in]: (await MapLocations.getWithAttributes([MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY])).map((mapLocation) => mapLocation.id)
+				}
 			},
 			include: [{
 				model: LogsPlayers,

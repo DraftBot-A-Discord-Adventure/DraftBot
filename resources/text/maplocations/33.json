@@ -6,5 +6,6 @@
 	"particleEn": "of",
 	"descFr": "",
 	"descEn": "",
-	"canBeGoToPlaceMissionDestination": false
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "main_continent"
 }
