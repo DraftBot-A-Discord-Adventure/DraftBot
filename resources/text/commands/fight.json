@@ -50,7 +50,7 @@
 					"direct": "Vous n'avez pas encore débuté votre aventure ! Utilisez la commande {command:report} pour la commencer !"
 				},
 				"dead": {
-					"direct": "{pseudo}, Il n'est pas possible de combattre en étant K.O! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+					"direct": "{pseudo}, il n'est pas possible de combattre en étant K.O ! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O.!"
 				},
 				"cantFightStatus": {
