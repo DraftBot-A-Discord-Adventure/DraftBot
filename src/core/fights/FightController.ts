@@ -106,7 +106,7 @@ export class FightController {
 	}
 
 	/**
-	 * Get the winner of the fight (or null if it's a draw)
+	 * Get the winner of the fight does not check for draw
 	 * @private
 	 */
 	public getWinner(): number {
