@@ -1,0 +1,17 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque sombre",
+			"namePlural": "Attaques sombre",
+			"description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée."
+		},
+		"en": {
+			"name": "Dark attack",
+			"namePlural": "Dark attacks",
+			"description": "Ignores the opponent's defense. More effective against a player with a high attack."
+		}
+	},
+	"emote": "✴️",
+	"breath": 8,
+	"missionVariant": 7
+}
