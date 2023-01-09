@@ -40,7 +40,7 @@ export default class DarkAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 10, averageDamage: 75, maxDamage: 110};
+		return {minDamage: 40, averageDamage: 75, maxDamage: 155};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
