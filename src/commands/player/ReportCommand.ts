@@ -408,6 +408,7 @@ async function doPossibility(
 	draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, event.id, possibility.emoji, randomOutcomeIndex).then();
 
 	const outcomeResult = await applyPossibilityOutcome(randomOutcome, textInformation, player, time);
+
 	const outcomeMsg = await textInformation.interaction.channel.send({
 		content: textInformation.tr.format("doPossibility", {
 			pseudo: textInformation.interaction.user,

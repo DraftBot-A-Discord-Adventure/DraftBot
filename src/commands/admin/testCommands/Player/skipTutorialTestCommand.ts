@@ -8,7 +8,7 @@ import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "skiptutorial",
-	aliases: ["skiptuto"],
+	aliases: ["skiptuto", "init"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
 	description: "Initialise votre joueur pour des tests",
