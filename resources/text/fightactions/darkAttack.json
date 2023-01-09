@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"name": "Attaque sombre",
-			"namePlural": "Attaques sombre",
+			"namePlural": "Attaques sombres",
 			"description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée."
 		},
 		"en": {
