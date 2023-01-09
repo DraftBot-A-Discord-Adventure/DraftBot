@@ -372,7 +372,7 @@ export class Player extends Model {
 		await channel.send({content: tr.format("ko", {pseudo: this.getPseudo(language)})});
 		const embed = new DraftBotEmbed()
 			.setTitle(tr.get("koPM.title"))
-			.setDescription(tr.get("koPM.description"));
+			.setDescription(tr.format("koPM.description", {}));
 		await sendNotificationToPlayer(this, embed, language);
 		return true;
 	}

@@ -135,13 +135,13 @@
 			],
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est {playerDisplay} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
-				"{playerDisplay} vomit dans un buisson. C'est donc ça, me bruit que vous entendez depuis tout à l'heure ! Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
+				"{playerDisplay} vomit dans un buisson. C'est donc ça, le bruit que vous entendez depuis tout à l'heure ! Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
 				"{playerDisplay} ne peut se retenir et vomit à vos pieds. Vous esquivez de justesse l'attaque et accélérez votre cadence pour vous éloigner du massacre."
 			],
 			":head_bandage:": [
 				"Vous apercevez une momie au loin ! Ah non, ce n'est que {playerDisplay} recouvert de bandages...",
 				"Sur votre chemin, vous croisez {playerDisplay}. Il est recouvert de bandages, que lui est-il arrivé ?",
-				"Alors que vous êtes élancé pour atteindre votre destination, {playerDisplay} vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
+				"Alors que vous vous êtes élancé pour atteindre votre destination, {playerDisplay} vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
 			],
 			":dizzy_face:": [
 				"Vous trébuchez sur {playerDisplay} qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès.",

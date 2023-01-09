@@ -411,7 +411,7 @@ async function doPossibility(
 	const outcomeMsg = await textInformation.interaction.channel.send({ content: textInformation.tr.format("doPossibility", {
 		pseudo: textInformation.interaction.user,
 		result: outcomeResult.description,
-		event: randomOutcome.translations[textInformation.language],
+		event: format(randomOutcome.translations[textInformation.language], {}),
 		emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 		alte: outcomeResult.alterationEmoji
 	})});

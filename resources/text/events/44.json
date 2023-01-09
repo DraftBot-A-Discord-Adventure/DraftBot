@@ -26,7 +26,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l'abris pour la nuit.",
+						"fr": "Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l'abri pour la nuit.",
 						"en": "You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soaked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
 					},
 					"lostTime": 180,
@@ -59,7 +59,7 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous regardez nonchalamment l'homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environ pour voir s'il n'a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
+						"fr": "Vous regardez nonchalamment l'homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environs pour voir s'il n'a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
 						"en": "Apathetically, you watch as the man sinks following his rock. You search around to see if he left any things and find a filled moneybag. You leave, satisfied."
 					},
 					"lostTime": 10,
