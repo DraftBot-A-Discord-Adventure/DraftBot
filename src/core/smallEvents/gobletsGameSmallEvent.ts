@@ -69,7 +69,7 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "time":
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.value as number, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.value as number, new Date(), NumberChangeReason.SMALL_EVENT);
 		malus.value = minutesDisplay(malus.value as number);
 		break;
 	case "nothing":

@@ -46,7 +46,7 @@ export const smallEvent: SmallEvent = {
 				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
 				alteEmoji: seFallen.alte as string
 			}));
-			await TravelTime.applyEffect(player, seFallen.alte as string, 0, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
 				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
 					await MissionsController.update(player, interaction.channel, language, {
