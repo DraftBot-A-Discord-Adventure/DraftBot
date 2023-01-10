@@ -251,7 +251,7 @@ async function managePickedPetInteraction(
 		break;
 	case "loseTime":
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, interactionCommand.createdAt, NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, new Date(), NumberChangeReason.SMALL_EVENT);
 		break;
 	case "petFlee":
 		LogsDatabase.logPetFree(pet).then();
