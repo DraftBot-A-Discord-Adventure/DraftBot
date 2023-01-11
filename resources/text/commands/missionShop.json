@@ -29,7 +29,7 @@
 					"giveDescription": "Vous avez reçu `{amount}` :moneybag:."
 				},
 				"valuableItem": {
-					"emote": "✨",
+					"emote": "\uD83D\uDC51",
 					"name": "Trésor du roi",
 					"price": 30,
 					"info": "Vous octroie un objet de valeur provenant de la salle aux trésors du roi.",
@@ -126,7 +126,7 @@
 					"giveDescription": "You have received `{amount}` :moneybag:."
 				},
 				"valuableItem": {
-					"emote": "✨",
+					"emote": "\uD83D\uDC51",
 					"name": "King's Treasure",
 					"price": 30,
 					"info": "Grants you a valuable item from the king's treasure room.",
