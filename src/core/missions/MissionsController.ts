@@ -153,15 +153,15 @@ export class MissionsController {
 			xpToWin += completedMission.xpToWin;
 			moneyToWin += completedMission.moneyToWin;
 		}
-
-		actions.push(missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED));
-		actions.push(player.addExperience({
+		const [newPlayer] = await Players.getOrRegister(player.discordUserId);
+		actions.push(missionInfo.addGems(gemsToWin, newPlayer.discordUserId, NumberChangeReason.MISSION_FINISHED));
+		actions.push(newPlayer.addExperience({
 			amount: xpToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
 		}));
-		actions.push(player.addMoney({
+		actions.push(newPlayer.addMoney({
 			amount: moneyToWin,
 			channel,
 			language,
