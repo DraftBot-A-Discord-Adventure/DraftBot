@@ -454,10 +454,7 @@ export class CommandsManager {
 			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply) {
 				return;
 			}
-			if (message.mentions.has(client.user.id)) {
-				if (!this.hasChannelPermission(message.channel as GuildChannel)[0]){
-					return;
-				}
+			if (message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0]) {
 				message.channel.send({
 					content:
 						Translations.getModule("bot", server.language).format("mentionHelp", {})
@@ -695,11 +692,12 @@ export class CommandsManager {
 
 		const channelAccess = this.hasChannelPermission(interaction.channel as GuildChannel);
 		if (!channelAccess[0]) {
-			return await replyErrorMessage(
+			await replyErrorMessage(
 				interaction,
 				tr.language,
 				tr.get(channelAccess[1])
 			);
+			return;
 		}
 
 
