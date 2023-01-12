@@ -505,10 +505,6 @@ export class CommandsManager {
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [player] = await Players.getOrRegister(author);
 		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
-			if (!user) {
-				console.warn("WARNING : could not find a place to forward the DM message.");
-				return;
-			}
 			for (const attachment of Array.from(message.attachments.values())) {
 				await user.send({
 					files: [{
@@ -523,7 +519,8 @@ export class CommandsManager {
 				id: message.author.id
 			}) + message.content;
 			await user.send({content: supportAlert});
-		});
+		})
+			.catch(() => console.warn("WARNING : could not find a place to forward the DM message."));
 	}
 
 	/**
