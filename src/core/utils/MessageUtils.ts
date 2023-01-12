@@ -1,5 +1,5 @@
 import {error} from "console";
-import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {BaseGuildTextChannel, CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {draftBotClient} from "../bot";
@@ -56,10 +56,13 @@ export async function checkChannelAccess(player: Player, user: User, embed: Draf
 	const tr = Translations.getModule("commands.notifications", language);
 	const channelAccess = await draftBotClient.shard.broadcastEval((client, context) =>
 		client.channels.fetch(context.player.notifications).then((channel) => {
-			(<TextBasedChannel>channel).send(context.embedNotification);
-			return client.shard.ids[0];
+			if ((<BaseGuildTextChannel>channel).guild.shardId === client.shard.ids[0]) {
+				(<TextBasedChannel>channel).send(context.embedNotification);
+				return true;
+			}
+			return false;
 		})
-			.catch(), {
+			.catch(() => false), {
 		context: {
 			player: {
 				notifications: player.notifications
@@ -71,8 +74,7 @@ export async function checkChannelAccess(player: Player, user: User, embed: Draf
 			}
 		}
 	});
-
-	if (!channelAccess) { // à changer dû au nouveau tableau
+	if (!channelAccess.includes(true)) {
 		player.notifications = NotificationsConstants.DM_VALUE;
 		await player.save();
 		sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"), {})}`), language);
