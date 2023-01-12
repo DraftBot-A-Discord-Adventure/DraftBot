@@ -455,6 +455,9 @@ export class CommandsManager {
 				return;
 			}
 			if (message.mentions.has(client.user.id)) {
+				if (!this.hasChannelPermission(message.channel as GuildChannel)[0]){
+					return;
+				}
 				message.channel.send({
 					content:
 						Translations.getModule("bot", server.language).format("mentionHelp", {})
@@ -690,8 +693,13 @@ export class CommandsManager {
 			return;
 		}
 
-		if (!await this.hasChannelPermission(interaction, tr)) {
-			return;
+		const channelAccess = this.hasChannelPermission(interaction.channel as GuildChannel);
+		if (!channelAccess[0]) {
+			return await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get(channelAccess[1])
+			);
 		}
 
 
@@ -717,72 +725,40 @@ export class CommandsManager {
 
 	/**
 	 * Check if the bot has every needed permission in the channel where the command is launched
-	 * @param interaction - Command interaction that has to be launched
-	 * @param tr - Translation module
+	 * @param channel
 	 * @private
 	 */
-	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
-		const channel = interaction.channel as GuildChannel;
+	private static hasChannelPermission(channel: GuildChannel): [boolean, string] {
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noChannelAccess")
-			);
-			console.log(`No way to access the channel where the command has been executed : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
+			return [false, "noChannelAccess"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessages)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noSpeakPermission")
-			);
-			console.log(`No perms to show i can't speak in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't speak in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noSpeakPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noSpeakInThreadPermission")
-			);
-			console.log(`No perms to show i can't speak in thread : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't speak in thread : ${channel.guildId}/${channel.id}`);
+			return [false, "noSpeakInThreadPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AddReactions)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noReacPermission")
-			);
-			console.log(`No perms to show i can't react in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't react in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noReacPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.EmbedLinks)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noEmbedPermission")
-			);
-			console.log(`No perms to show i can't embed in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't embed in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noEmbedPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AttachFiles)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noFilePermission")
-			);
-			console.log(`No perms to show i can't attach files in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noFilePermission"];
 		}
-		return true;
+		return [true, ""];
 	}
 }
