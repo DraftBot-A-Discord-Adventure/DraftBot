@@ -543,7 +543,7 @@ export class CommandsManager {
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(author.username)}), author)
-						.setDescription(tr.get("dmHelpMessage"))]
+						.setDescription(tr.format("dmHelpMessage", {}))]
 				});
 			})
 			.build()
