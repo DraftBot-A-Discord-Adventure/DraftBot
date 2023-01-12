@@ -2,7 +2,6 @@ import {
 	ApplicationCommand,
 	ApplicationCommandOption,
 	ApplicationCommandOptionBase,
-	Attachment,
 	ChannelType,
 	Client,
 	CommandInteraction,
@@ -38,7 +37,6 @@ import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
-type ContextType = { mainServerId: string; dmManagerID: string; attachments: Attachment[]; supportAlert: string; };
 
 /**
  * The manager for creating and executing classic commands
@@ -506,33 +504,23 @@ export class CommandsManager {
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [player] = await Players.getOrRegister(author);
-		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
-			const dmChannel = client.users.cache.get(context.dmManagerID);
-			if (!dmChannel) {
-				console.warn("WARNING : could not find a place to forward the DM message.");
-				return;
-			}
-			for (const attachment of context.attachments) {
-				dmChannel.send({
+		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
+			for (const attachment of Array.from(message.attachments.values())) {
+				await user.send({
 					files: [{
 						attachment: attachment.url,
 						name: attachment.name
 					}]
 				});
 			}
-			dmChannel.send({content: context.supportAlert});
-		}, {
-			context: {
-				mainServerId: botConfig.MAIN_SERVER_ID,
-				dmManagerID: botConfig.DM_MANAGER_ID,
-				attachments: Array.from(message.attachments.values()),
-				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
-					username: escapeUsername(message.author.username),
-					alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
-					id: message.author.id
-				}) + message.content
-			}
-		});
+			const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
+				username: escapeUsername(message.author.username),
+				alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
+				id: message.author.id
+			}) + message.content;
+			await user.send({content: supportAlert});
+		})
+			.catch(() => console.warn("WARNING : could not find a place to forward the DM message."));
 	}
 
 	/**
