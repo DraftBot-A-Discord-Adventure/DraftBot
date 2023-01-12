@@ -504,26 +504,26 @@ export class CommandsManager {
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [player] = await Players.getOrRegister(author);
-
-		const dmChannel = draftBotClient.users.cache.get(botConfig.DM_MANAGER_ID);
-		if (!dmChannel) {
-			console.warn("WARNING : could not find a place to forward the DM message.");
-			return;
-		}
-		for (const attachment of Array.from(message.attachments.values())) {
-			await dmChannel.send({
-				files: [{
-					attachment: attachment.url,
-					name: attachment.name
-				}]
-			});
-		}
-		const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
-			username: escapeUsername(message.author.username),
-			alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
-			id: message.author.id
-		}) + message.content;
-		await dmChannel.send({content: supportAlert});
+		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
+			if (!user) {
+				console.warn("WARNING : could not find a place to forward the DM message.");
+				return;
+			}
+			for (const attachment of Array.from(message.attachments.values())) {
+				await user.send({
+					files: [{
+						attachment: attachment.url,
+						name: attachment.name
+					}]
+				});
+			}
+			const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
+				username: escapeUsername(message.author.username),
+				alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
+				id: message.author.id
+			}) + message.content;
+			await user.send({content: supportAlert});
+		});
 	}
 
 	/**
