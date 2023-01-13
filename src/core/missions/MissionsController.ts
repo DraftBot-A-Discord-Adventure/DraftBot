@@ -1,4 +1,4 @@
-import Player, {Players} from "../database/game/models/Player";
+import Player from "../database/game/models/Player";
 import {IMission} from "./IMission";
 import {TextBasedChannel, User} from "discord.js";
 import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
@@ -50,12 +50,13 @@ export class MissionsController {
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
 			completedCampaign: false
-		}): Promise<void> {
+		}): Promise<Player> {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
-			await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, channel, language);
+			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(player, completedMissions, channel, language);
 		}
+		return player;
 	}
 
 	/**
@@ -73,7 +74,6 @@ export class MissionsController {
 
 		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplit une autre
 		await player.save();
-		[player] = await Players.getOrRegister(player.discordUserId);
 		const missionSlots = await MissionSlots.getOfPlayer(player.id);
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 
@@ -84,7 +84,7 @@ export class MissionsController {
 			params,
 			set
 		}, missionSlots, missionInfo);
-		await MissionsController.checkCompletedMissions(player, missionSlots, missionInfo, channel, language, {
+		player = await MissionsController.checkCompletedMissions(player, missionSlots, missionInfo, channel, language, {
 			completedDaily,
 			completedCampaign
 		});
@@ -142,7 +142,7 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
+	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<Player> {
 		const actions = [];
 		let gemsToWin = 0;
 		let xpToWin = 0;
@@ -153,21 +153,22 @@ export class MissionsController {
 			xpToWin += completedMission.xpToWin;
 			moneyToWin += completedMission.moneyToWin;
 		}
-		const [newPlayer] = await Players.getOrRegister(player.discordUserId);
-		actions.push(missionInfo.addGems(gemsToWin, newPlayer.discordUserId, NumberChangeReason.MISSION_FINISHED));
-		actions.push(newPlayer.addExperience({
+
+		actions.push(missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED));
+		actions.push(player.addExperience({
 			amount: xpToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
 		}));
-		actions.push(newPlayer.addMoney({
+		actions.push(player.addMoney({
 			amount: moneyToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
 		}));
 		await Promise.all(actions);
+		return player;
 	}
 
 	static async handleExpiredMissions(player: Player, missionSlots: MissionSlot[], user: User, channel: TextBasedChannel, language: string): Promise<void> {
