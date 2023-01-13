@@ -21,11 +21,12 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
 	for (const action of classToShow.getFightActions()) {
 		const actionTr = Translations.getModule(`fightactions.${action}`, language);
 		embed.addFields({
-			name: `${Data.getModule(`fightactions.${action}`).getString("emote")} ${actionTr.get("name")}`,
+			name: `${Data.getModule(`fightactions.${action}`).getString("emote")} ${actionTr.get("name")} | ${Data.getModule(`fightactions.${action}`).getNumber("breath")} :wind_blowing_face:`,
 			value: actionTr.get("description")
 		});
 	}
 }
+// | ${Data.getModule(`fightactions.${action}`).getNumber("breath")
 
 /**
  * Display information about classes
