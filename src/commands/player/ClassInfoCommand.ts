@@ -26,7 +26,6 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
 		});
 	}
 }
-// | ${Data.getModule(`fightactions.${action}`).getNumber("breath")
 
 /**
  * Display information about classes
