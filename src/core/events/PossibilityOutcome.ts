@@ -26,7 +26,7 @@ async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, play
 async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
 	let experienceChange = 150 +
 		(outcome.health > 0 ? 200 : 0) +
-		(outcome.randomItem === true ? 300 : 0) +
+		(outcome.randomItem ? 300 : 0) +
 		(outcome.money > 0 ? 100 : 0);
 	switch (outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY) {
 	case EffectsConstants.EMOJI_TEXT.OCCUPIED:
