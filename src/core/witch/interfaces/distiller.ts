@@ -35,7 +35,7 @@ export default class Distiller extends WitchEvent {
 	}
 
 	/**
-	 * The distiller will make the player lose 1 hour and 30 minutes.
+	 * The distiller will make the player lose 55 minutes.
 	 * @param player
 	 */
 	async giveEffect(player: Player): Promise<void> {

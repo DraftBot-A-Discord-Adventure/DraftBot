@@ -241,7 +241,7 @@ function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
 }
 
 /**
- * Get the display of an Player
+ * Get the display of a Player
  * @param tr
  * @param otherPlayer
  * @param numberOfPlayers
@@ -352,7 +352,7 @@ async function sendAndManagePoorInteraction(
 	await new DraftBotReactionMessageBuilder()
 		.allowUser(textInformation.interaction.user)
 		.addReaction(new DraftBotReaction(SmallEventConstants.INTERACT_OTHER_PLAYERS.COIN_EMOTE))
-		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
+		.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()

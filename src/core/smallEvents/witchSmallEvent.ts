@@ -18,7 +18,7 @@ import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
 import {Maps} from "../maps/Maps";
 
-type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
+type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent };
 
 /**
  * Returns an object composed of three random witch events
@@ -26,8 +26,8 @@ type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEv
 function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
-	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
-	return {randomAdvice, randomIngredient, nothingHappen};
+	const fullRandom = WitchEvents.getRandomWitchEvent([randomAdvice, randomIngredient]);
+	return {randomAdvice, randomIngredient, fullRandom};
 }
 
 /**
@@ -90,7 +90,7 @@ async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: 
 function retrieveSelectedEvent(witchEventMessage: DraftBotReactionMessage): WitchEvent {
 	const reaction = witchEventMessage.getFirstReaction();
 	// If the player did not react, we use the nothing happen event with the menu reaction deny
-	const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
+	const reactionEmoji = reaction ? reaction.emoji.name : Constants.REACTIONS.NOT_REPLIED_REACTION;
 	return WitchEvents.getWitchEventByEmoji(reactionEmoji);
 }
 
@@ -159,6 +159,7 @@ export const smallEvent: SmallEvent = {
 
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
+			.allowEndReaction()
 			.endCallback(async (witchEventMessage) => {
 
 				const selectedEvent = retrieveSelectedEvent(witchEventMessage);
@@ -167,6 +168,9 @@ export const smallEvent: SmallEvent = {
 
 				// there is a chance that the player will get a no effect potion, no matter what he chose
 				if (RandomUtils.draftbotRandom.bool(SmallEventConstants.WITCH.NO_EFFECT_CHANCE)) {
+					if (selectedEvent.forceEffect) {
+						await selectedEvent.giveEffect(player);
+					}
 					await sendResultMessage(seEmbed, SmallEventConstants.WITCH.OUTCOME_TYPE.POTION, tr, selectedEvent, interaction);
 					const potionToGive = await generateRandomItem(
 						ItemConstants.CATEGORIES.POTION,

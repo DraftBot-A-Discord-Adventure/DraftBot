@@ -9,6 +9,7 @@ import {draftBotInstance} from "../bot";
 import Benediction from "./actions/interfaces/benediction";
 import DivineAttack from "./actions/interfaces/divineAttack";
 import {FightAction} from "./actions/FightAction";
+import {FightActions} from "./actions/FightActions";
 
 /**
  * @class FightController
@@ -109,7 +110,7 @@ export class FightController {
 	}
 
 	/**
-	 * Get the winner of the fight (or null if it's a draw)
+	 * Get the winner of the fight does not check for draw
 	 * @private
 	 */
 	public getWinner(): number {
@@ -133,7 +134,15 @@ export class FightController {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
+
+		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
+
+		if (!enoughBreath && RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+			fightAction = FightActions.getFightActionById("outOfBreath");
+		}
+
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+
 		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
@@ -142,6 +151,10 @@ export class FightController {
 		}
 		if (endTurn) {
 			this.turn++;
+			if (this.turn > 2) {
+				// No regen on first turn for the second player
+				this.getPlayingFighter().regenerateBreath();
+			}
 			await this.prepareNextTurn();
 		}
 	}

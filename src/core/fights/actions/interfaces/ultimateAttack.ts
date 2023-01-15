@@ -16,7 +16,7 @@ export default class UltimateAttack extends FightAction {
 			failureProbability = 0;
 		}
 
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, failureProbability);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, failureProbability);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 

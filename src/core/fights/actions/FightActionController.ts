@@ -92,7 +92,7 @@ export class FightActionController {
 		/*
 		 * this function allows to exacerbate the difference between the attacker stat and the defender stat
 		 */
-		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 70;
+		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 50;
 
 		const damage = ratio < 0 ? Math.round(
 			// if the attacker is weaker than the defender, the damage is selected in the under the average damage interval

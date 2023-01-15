@@ -106,26 +106,11 @@ export class MapLocations {
 		});
 	}
 
-	static async getMapConnected(mapId: number, blacklistId: number, mapTypes: string = null): Promise<{ id: number }[]> {
+	static async getMapConnected(mapId: number, blacklistId: number): Promise<{ id: number }[]> {
 		if (!blacklistId) {
 			blacklistId = -1;
 		}
-		if (mapTypes) {
-			const query = `SELECT id
-						   FROM map_locations
-                           WHERE type LIKE ':mapTypes'
-                             AND id != :blacklistId
-                             AND (
-                               id IN (SELECT endMap FROM map_links WHERE startMap = :mapId));`;
-			return await MapLocation.sequelize.query(query, {
-				type: QueryTypes.SELECT,
-				replacements: {
-					mapTypes,
-					blacklistId,
-					mapId
-				}
-			});
-		}
+
 		const query = `SELECT id
 					   FROM map_locations
                        WHERE id != :blacklistId

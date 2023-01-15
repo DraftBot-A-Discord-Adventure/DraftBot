@@ -19,6 +19,12 @@ export class Class extends Model {
 
 	public readonly fightPoint!: number;
 
+	public readonly baseBreath!: number;
+
+	public readonly maxBreath!: number;
+
+	public readonly breathRegen!: number;
+
 	public readonly emoji!: string;
 
 	public readonly classGroup!: number;
@@ -47,7 +53,10 @@ export class Class extends Model {
 			health: this.health + level,
 			price: this.price,
 			classGroup: this.classGroup,
-			fightPoint: this.getMaxCumulativeFightPointValue(level)
+			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			baseBreath: this.baseBreath,
+			maxBreath: this.maxBreath,
+			breathRegen: this.breathRegen
 		});
 	}
 
@@ -57,7 +66,10 @@ export class Class extends Model {
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
-			fightPoint: this.getMaxCumulativeFightPointValue(level)
+			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			baseBreath: this.baseBreath,
+			maxBreath: this.maxBreath,
+			breathRegen: this.breathRegen
 		});
 	}
 
@@ -154,11 +166,13 @@ export class Classes {
 	/**
 	 * get the class by its emoji
 	 * @param emoji
+	 * @param classGroup - class can have the same emoji if they are in different groups
 	 */
-	static getByEmoji(emoji: string): Promise<Class | null> {
+	static getByEmoji(emoji: string, classGroup: number): Promise<Class | null> {
 		return Promise.resolve(Class.findOne({
 			where: {
-				emoji
+				emoji,
+				classGroup
 			}
 		}));
 	}
@@ -184,6 +198,15 @@ export function initModel(sequelize: Sequelize): void {
 				type: DataTypes.INTEGER
 			},
 			fightPoint: {
+				type: DataTypes.INTEGER
+			},
+			baseBreath: {
+				type: DataTypes.INTEGER
+			},
+			maxBreath: {
+				type: DataTypes.INTEGER
+			},
+			breathRegen: {
 				type: DataTypes.INTEGER
 			},
 			emoji: {

@@ -8,7 +8,7 @@ import {attackInfo, FightAction, statsInfo} from "../FightAction";
 export default class EnergeticAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 35, 5);
 		receiver.stats.fightPoints -= damageDealt;
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

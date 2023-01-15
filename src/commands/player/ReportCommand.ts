@@ -32,6 +32,7 @@ import {Possibility} from "../../core/events/Possibility";
 import {BigEventsController} from "../../core/events/BigEventsController";
 import {BigEvent} from "../../core/events/BigEvent";
 import {applyPossibilityOutcome} from "../../core/events/PossibilityOutcome";
+import {TextInformation} from "../../core/utils/MessageUtils";
 
 /**
  * Initiates a new player on the map
@@ -407,13 +408,16 @@ async function doPossibility(
 	draftBotInstance.logsDatabase.logBigEvent(player.discordUserId, event.id, possibility.emoji, randomOutcomeIndex).then();
 
 	const outcomeResult = await applyPossibilityOutcome(randomOutcome, textInformation, player, time);
-	const outcomeMsg = await textInformation.interaction.channel.send({ content: textInformation.tr.format("doPossibility", {
-		pseudo: textInformation.interaction.user,
-		result: outcomeResult.description,
-		event: randomOutcome.translations[textInformation.language],
-		emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
-		alte: outcomeResult.alterationEmoji
-	})});
+
+	const outcomeMsg = await textInformation.interaction.channel.send({
+		content: textInformation.tr.format("doPossibility", {
+			pseudo: textInformation.interaction.user,
+			result: outcomeResult.description,
+			event: randomOutcome.translations[textInformation.language],
+			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
+			alte: outcomeResult.alterationEmoji
+		})
+	});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
 		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination);
@@ -423,7 +427,7 @@ async function doPossibility(
 
 	const tagsToVerify = (randomOutcome.tags ?? [])
 		.concat(possibility.tags ?? [])
-		.concat(randomOutcome.tags ?? []);
+		.concat(event.tags ?? []);
 	if (tagsToVerify) {
 		for (let i = 0; i < tagsToVerify.length; i++) {
 			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {
@@ -461,7 +465,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
-		if (reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			return;
 		}
 
@@ -469,12 +473,12 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 	});
 
 	collector.on("end", async (collected) => {
-		if (!collected.first() || collected.firstKey() === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (!collected.first() || collected.firstKey() === Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			await doPossibility(textInformation, event, event.getPossibilityWithReaction("end"), player, time);
 		}
 	});
 	for (const reaction of reactionsAndText.reactions) {
-		if (reaction !== "end" && reaction !== Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (reaction !== "end" && reaction !== Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			await eventDisplayed.react(reaction)
 				.catch();
 		}
@@ -569,6 +573,10 @@ async function executeCommand(
 
 	const currentDate = new Date();
 
+	if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
+		await MissionsController.update(player, interaction.channel, language, {missionId: "recoverAlteration"});
+	}
+
 	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
 		if (Maps.isOnPveIsland(player)) {
 			await interaction.deferReply();
@@ -590,10 +598,6 @@ async function executeCommand(
 	if (!player.currentEffectFinished(currentDate)) {
 		await sendTravelPath(player, interaction, language, currentDate, player.effect);
 		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
-	}
-
-	if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
-		await MissionsController.update(player, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
 	if (player.mapLinkId === null) {

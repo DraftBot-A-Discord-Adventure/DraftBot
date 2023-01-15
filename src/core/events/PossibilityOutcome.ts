@@ -26,11 +26,11 @@ async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, play
 async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
 	let experienceChange = 150 +
 		(outcome.health > 0 ? 200 : 0) +
-		(outcome.randomItem === true ? 300 : 0) +
+		(outcome.randomItem ? 300 : 0) +
 		(outcome.money > 0 ? 100 : 0);
 	switch (outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY) {
 	case EffectsConstants.EMOJI_TEXT.OCCUPIED:
-		experienceChange -= 150;
+		experienceChange -= 125;
 		break;
 	case EffectsConstants.EMOJI_TEXT.SLEEPING:
 	case EffectsConstants.EMOJI_TEXT.STARVING:
@@ -80,7 +80,7 @@ async function applyOutcomeHealth(outcome: PossibilityOutcome, player: Player, t
 async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, player: Player, valuesToEditParameters: EditValueParameters, textInformation: TextInformation): Promise<string> {
 	let moneyChange = (outcome.money ?? 0) + Math.round(time / 10 + RandomUtils.draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (outcome.money && outcome.money < 0 && moneyChange > 0) {
-		moneyChange = Math.round(outcome.money / 2);
+		moneyChange = Math.floor(outcome.money / 2);
 	}
 	if (moneyChange !== 0) {
 		await player.addMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
@@ -145,7 +145,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
 	}
 
 	if (outcome.mapTypesDestination || outcome.mapTypesExcludeDestination) {
-		let allowedMapTypes = await Maps.getConnectedMapTypes(player, Boolean(outcome.mapTypesDestination));
+		let allowedMapTypes = await Maps.getConnectedMapTypes(player, !outcome.mapTypesDestination);
 		if (outcome.mapTypesDestination) {
 			allowedMapTypes = allowedMapTypes.filter(mapType => outcome.mapTypesDestination.includes(mapType));
 		}
@@ -157,7 +157,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
 			await MapLinks.getMapLinksWithMapTypes(
 				allowedMapTypes,
 				await player.getDestinationId(),
-				outcome.mapTypesDestination ? await player.getPreviousMapId() : null
+				!outcome.mapTypesDestination ? await player.getPreviousMapId() : null
 			)
 		);
 	}

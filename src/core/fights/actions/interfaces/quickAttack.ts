@@ -31,7 +31,7 @@ export default class QuickAttack extends FightAction {
 				sender.stats.attack,
 				sender.stats.speed
 			], defenderStats: [
-				receiver.stats.defense / 2,
+				receiver.stats.defense,
 				receiver.stats.speed
 			], statsEffect: [
 				0.5,

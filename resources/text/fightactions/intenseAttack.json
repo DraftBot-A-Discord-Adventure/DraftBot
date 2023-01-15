@@ -11,6 +11,7 @@
 			"description": "Ignore a part of the enemy's defense. Never fails on a slower enemy. Works better on slower enemies. Forces the user to use the \"repos\" action next turn. Cannot kill the enemy."
 		}
 	},
-	"emote": "\uD83D\uDD25",
+	"emote": "\uD83D\uDE24",
+	"breath": 4,
 	"missionVariant": 13
 }

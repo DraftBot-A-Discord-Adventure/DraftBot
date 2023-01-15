@@ -7,11 +7,16 @@ export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: 
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export abstract class FightAction {
+
 	public readonly name: string;
 
 	private toStringCache: { [key: string]: string } = {};
 
 	private emojiCache: string;
+
+	private breathCostCache: number;
+
+	public isAlteration = false;
 
 	public constructor(name: string) {
 		this.name = name;
@@ -32,7 +37,11 @@ export abstract class FightAction {
 	 */
 	public toString(language: string): string {
 		if (!this.toStringCache[language]) {
-			this.toStringCache[language] = Translations.getModule(`fightactions.${this.name}`, language).get("name");
+			const name = Translations.getModule(`fightactions.${this.name}`, language).get("name");
+			this.toStringCache[language] = Translations.getModule("commands.fight", language).format("fightActionNameDisplay", {
+				name,
+				breathCost: this.getBreathCost()
+			});
 		}
 		return this.toStringCache[language];
 	}
@@ -45,6 +54,16 @@ export abstract class FightAction {
 			this.emojiCache = Data.getModule(`fightactions.${this.name}`).getString("emote");
 		}
 		return this.emojiCache;
+	}
+
+	/**
+	 * return the amount of breath the action cost
+	 */
+	public getBreathCost(): number {
+		if (!this.breathCostCache) {
+			this.breathCostCache = Data.getModule(`fightactions.${this.name}`).getNumber("breath");
+		}
+		return this.breathCostCache;
 	}
 
 	/**

@@ -9,7 +9,10 @@
 	"speed": 80,
 	"health": 0,
 	"fightPoint": -50,
-	"price": 16900,
+	"baseBreath": 1,
+	"maxBreath": 10,
+	"breathRegen": 5,
+	"price": 13900,
 	"classGroup": 3,
 	"fightActionsIds": [
 		"quickAttack",

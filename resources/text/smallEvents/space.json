@@ -61,7 +61,7 @@
 			],
 			"specific": {
 				"neoWS": [
-					"{count} objets traverseront le ciel aujourd'hui",
+					"{count} objet{count>1?s:} traverseront le ciel aujourd'hui",
 					"l'objet nommé \"{randomObjectName}\" avec un diamètre d'environ {randomObjectDiameter} mètres passe proche de la planète aujourd'hui",
 					"l'objet nommé \"{randomObjectName}\" passe à une distance d'environ {randomObjectDistance} millions de kilomètres de la planète",
 					"l'astéroïde du nom de \"{randomObjectName}\" dépasse notre planète d'environ {randomObjectDistance} millions de kilomètres",
@@ -177,7 +177,7 @@
 			],
 			"specific": {
 				"neoWS": [
-					"{count} objects will cross the sky today",
+					"{count} object{count>1?s:} will cross the sky today",
 					"the object named \"{randomObjectName}\" with a diameter of about {randomObjectDiameter} meters passes close to the planet today",
 					"the object named \"{randomObjectName}\" passes at a distance of approximately {randomObjectDistance} million kilometers from the planet",
 					"the asteroid named \"{randomObjectName}\" passes next to our planet by about {randomObjectDistance} million kilometers",
@@ -205,9 +205,9 @@
 				],
 				"nextTotalLunarEclipse": [
 					"the next total lunar eclipse is in {days} day{days>1?s:}",
-					"within {days} you will see a complete lunar eclipse",
+					"within {days} day{days>1?s:} you will see a complete lunar eclipse",
 					"in the next {days} day{days>1?s:} you will have the chance to witness a total lunar eclipse",
-					"if you observe the sky in {days} you will be able to see a total lunar eclipse"
+					"if you observe the sky in {days} day{days>1?s:} you will be able to see a total lunar eclipse"
 				]
 			},
 			"moonPhases": [

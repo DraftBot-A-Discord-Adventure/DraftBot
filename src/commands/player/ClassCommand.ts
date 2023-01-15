@@ -46,8 +46,8 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 
 	const collector = confirmMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => (
-			reaction.emoji.name === Constants.MENU_REACTION.ACCEPT ||
-			reaction.emoji.name === Constants.MENU_REACTION.DENY
+			reaction.emoji.name === Constants.REACTIONS.VALIDATE_REACTION ||
+			reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION
 		) && user.id === userInformation.player.discordUserId,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: 1
@@ -58,7 +58,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		const playerClass = await Classes.getById(userInformation.player.class);
 		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
 		if (reaction.first()) {
-			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
+			if (reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 				if (!canBuy(selectedClass.price, userInformation.player)) {
 					return await sendErrorMessage(userInformation.user, interaction, classTranslations.language,
 						classTranslations.format("error.cannotBuy",
@@ -104,8 +104,8 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 	});
 
 	await Promise.all([
-		confirmMessage.react(Constants.MENU_REACTION.ACCEPT),
-		confirmMessage.react(Constants.MENU_REACTION.DENY)
+		confirmMessage.react(Constants.REACTIONS.VALIDATE_REACTION),
+		confirmMessage.react(Constants.REACTIONS.REFUSE_REACTION)
 	]);
 }
 
@@ -167,13 +167,13 @@ function createClassCollectorAndManageIt(
 	// Fetch the choice from the user
 	collector.on("collect", async (reaction) => {
 		collector.stop();
-		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
+		if (reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 			await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.get("error.leaveClass"), true);
 			return;
 		}
 		await confirmPurchase(
 			classMessage,
-			await Classes.getByEmoji(reaction.emoji.name),
+			await Classes.getByEmoji(reaction.emoji.name, userInformation.player.getClassGroup()),
 			userInformation,
 			classTranslations,
 			interaction);
@@ -194,7 +194,7 @@ async function addClassEmbedReactions(allClasses: Class[], classMessage: Message
 		await classMessage.react(allClasses[k].emoji);
 		classEmojis.set(allClasses[k].emoji, k);
 	}
-	await classMessage.react(Constants.MENU_REACTION.DENY);
+	await classMessage.react(Constants.REACTIONS.REFUSE_REACTION);
 }
 
 /**

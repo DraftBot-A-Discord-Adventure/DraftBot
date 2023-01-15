@@ -1,0 +1,24 @@
+{
+	"translations": {
+		"fr": ":trident: Vétéran chevronné",
+		"en": ":trident: Experienced veteran"
+	},
+	"emoji": "🔱",
+	"attack": 90,
+	"defense": 90,
+	"speed": 90,
+	"health": 10,
+	"fightPoint": -15,
+	"baseBreath": 2,
+	"maxBreath": 12,
+	"breathRegen": 5,
+	"price": 16900,
+	"classGroup": 4,
+	"fightActionsIds": [
+		"quickAttack",
+		"energeticAttack",
+		"chargeChargingAttack",
+		"piercingAttack",
+		"concentration"
+	]
+}

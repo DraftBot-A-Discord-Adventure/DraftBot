@@ -2,7 +2,6 @@ import {
 	ApplicationCommand,
 	ApplicationCommandOption,
 	ApplicationCommandOptionBase,
-	Attachment,
 	ChannelType,
 	Client,
 	CommandInteraction,
@@ -38,7 +37,6 @@ import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
-type ContextType = { mainServerId: string; dmManagerID: string; attachments: Attachment[]; supportAlert: string; };
 
 /**
  * The manager for creating and executing classic commands
@@ -456,7 +454,7 @@ export class CommandsManager {
 			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply) {
 				return;
 			}
-			if (message.mentions.has(client.user.id)) {
+			if (message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0]) {
 				message.channel.send({
 					content:
 						Translations.getModule("bot", server.language).format("mentionHelp", {})
@@ -506,33 +504,23 @@ export class CommandsManager {
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [player] = await Players.getOrRegister(author);
-		await draftBotClient.shard.broadcastEval((client: Client, context: ContextType) => {
-			const dmChannel = client.users.cache.get(context.dmManagerID);
-			if (!dmChannel) {
-				console.warn("WARNING : could not find a place to forward the DM message.");
-				return;
-			}
-			for (const attachment of context.attachments) {
-				dmChannel.send({
+		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
+			for (const attachment of Array.from(message.attachments.values())) {
+				await user.send({
 					files: [{
 						attachment: attachment.url,
 						name: attachment.name
 					}]
 				});
 			}
-			dmChannel.send({content: context.supportAlert});
-		}, {
-			context: {
-				mainServerId: botConfig.MAIN_SERVER_ID,
-				dmManagerID: botConfig.DM_MANAGER_ID,
-				attachments: Array.from(message.attachments.values()),
-				supportAlert: format(BotConstants.DM.SUPPORT_ALERT, {
-					username: escapeUsername(message.author.username),
-					alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
-					id: message.author.id
-				}) + message.content
-			}
-		});
+			const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
+				username: escapeUsername(message.author.username),
+				alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
+				id: message.author.id
+			}) + message.content;
+			await user.send({content: supportAlert});
+		})
+			.catch(() => console.warn("WARNING : could not find a place to forward the DM message."));
 	}
 
 	/**
@@ -544,18 +532,18 @@ export class CommandsManager {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
 		const helpMessage = await new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
+			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
+			.addReaction(new DraftBotReaction(Constants.REACTIONS.FRENCH_FLAG))
 			.endCallback((msg) => {
 				if (!msg.getFirstReaction()) {
 					return;
 				}
-				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
+				const language = msg.getFirstReaction().emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				const tr = Translations.getModule("bot", language);
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(author.username)}), author)
-						.setDescription(tr.get("dmHelpMessage"))]
+						.setDescription(tr.format("dmHelpMessage", {}))]
 				});
 			})
 			.build()
@@ -702,7 +690,13 @@ export class CommandsManager {
 			return;
 		}
 
-		if (!await this.hasChannelPermission(interaction, tr)) {
+		const channelAccess = this.hasChannelPermission(interaction.channel as GuildChannel);
+		if (!channelAccess[0]) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get(channelAccess[1])
+			);
 			return;
 		}
 
@@ -729,72 +723,40 @@ export class CommandsManager {
 
 	/**
 	 * Check if the bot has every needed permission in the channel where the command is launched
-	 * @param interaction - Command interaction that has to be launched
-	 * @param tr - Translation module
+	 * @param channel
 	 * @private
 	 */
-	private static async hasChannelPermission(interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
-		const channel = interaction.channel as GuildChannel;
+	private static hasChannelPermission(channel: GuildChannel): [boolean, string] {
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noChannelAccess")
-			);
-			console.log(`No way to access the channel where the command has been executed : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
+			return [false, "noChannelAccess"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessages)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noSpeakPermission")
-			);
-			console.log(`No perms to show i can't speak in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't speak in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noSpeakPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noSpeakInThreadPermission")
-			);
-			console.log(`No perms to show i can't speak in thread : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't speak in thread : ${channel.guildId}/${channel.id}`);
+			return [false, "noSpeakInThreadPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AddReactions)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noReacPermission")
-			);
-			console.log(`No perms to show i can't react in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't react in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noReacPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.EmbedLinks)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noEmbedPermission")
-			);
-			console.log(`No perms to show i can't embed in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't embed in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noEmbedPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.AttachFiles)) {
-			await replyErrorMessage(
-				interaction,
-				tr.language,
-				tr.get("noFilePermission")
-			);
-			console.log(`No perms to show i can't attach files in server / channel : ${interaction.guild.id}/${channel.id}`);
-			return false;
+			console.log(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noFilePermission"];
 		}
-		return true;
+		return [true, ""];
 	}
 }

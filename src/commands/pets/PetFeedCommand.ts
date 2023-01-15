@@ -100,7 +100,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
 		if (
 			!reaction.first() ||
-			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
+			reaction.first().emoji.name === Constants.REACTIONS.REFUSE_REACTION
 		) {
 			return await sendErrorMessage(
 				interaction.user,
@@ -146,8 +146,8 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 	});
 
 	await Promise.all([
-		feedMsg.react(Constants.MENU_REACTION.ACCEPT),
-		feedMsg.react(Constants.MENU_REACTION.DENY)
+		feedMsg.react(Constants.REACTIONS.VALIDATE_REACTION),
+		feedMsg.react(Constants.REACTIONS.REFUSE_REACTION)
 	]);
 }
 
@@ -245,7 +245,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 	collector.on("end", async (reaction) => {
 		if (
 			!reaction.first() ||
-			reaction.first().emoji.name === Constants.MENU_REACTION.DENY
+			reaction.first().emoji.name === Constants.REACTIONS.REFUSE_REACTION
 		) {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
 			return await sendErrorMessage(
@@ -267,7 +267,7 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 	for (const foodEmote of Constants.PET_FOOD_GUILD_SHOP.EMOTE) {
 		await feedMsg.react(foodEmote);
 	}
-	await feedMsg.react(Constants.MENU_REACTION.DENY);
+	await feedMsg.react(Constants.REACTIONS.REFUSE_REACTION);
 }
 
 /**

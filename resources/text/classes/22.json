@@ -1,0 +1,24 @@
+{
+	"translations": {
+		"fr": ":fleur_de_lis: Paladin lumineux",
+		"en": ":fleur_de_lis: Luminous paladin"
+	},
+	"emoji": "⚜️",
+	"attack": 65,
+	"defense": 105,
+	"speed": 15,
+	"health": 115,
+	"fightPoint": 395,
+	"baseBreath": 17,
+	"maxBreath": 25,
+	"breathRegen": 3,
+	"price": 18200,
+	"classGroup": 4,
+	"fightActionsIds": [
+		"simpleAttack",
+		"ramAttack",
+		"chargeUltimateAttack",
+		"shieldAttack",
+		"divineAttack"
+	]
+}

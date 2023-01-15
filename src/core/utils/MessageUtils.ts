@@ -1,13 +1,30 @@
 import {error} from "console";
-import {CommandInteraction, TextBasedChannel, User} from "discord.js";
+import {BaseGuildTextChannel, CommandInteraction, TextBasedChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {draftBotClient} from "../bot";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {format} from "./StringFormatter";
 import Player from "../database/game/models/Player";
+import {Constants} from "../Constants";
 
 export type TextInformation = { interaction: CommandInteraction, language: string, tr?: TranslationModule }
+
+/**
+ * Generate a notification embed
+ * @param player
+ */
+export async function generateTravelNotification(player: Player = null): Promise<DraftBotEmbed> {
+	const embed = new DraftBotEmbed().setTitle(Translations.getModule("commands.notifications", Constants.LANGUAGE.ENGLISH).get("title"));
+	if (player) {
+		embed.setDescription(`${
+			Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH).format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
+		}\n\n${
+			Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH).format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
+		}`);
+	}
+	return embed;
+}
 
 /**
  * Send a dm to a user
@@ -37,10 +54,13 @@ export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: st
  */
 export async function checkChannelAccess(player: Player, user: User, embed: DraftBotEmbed, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.notifications", language);
-	const channelAccess = await draftBotClient.shard.broadcastEval( (client, context) =>
+	const channelAccess = await draftBotClient.shard.broadcastEval((client, context) =>
 		client.channels.fetch(context.player.notifications).then((channel) => {
-			(<TextBasedChannel>channel).send(context.embedNotification);
-			return true;
+			if ((<BaseGuildTextChannel>channel).guild.shardId === client.shard.ids[0]) {
+				(<TextBasedChannel>channel).send(context.embedNotification);
+				return true;
+			}
+			return false;
 		})
 			.catch(() => false), {
 		context: {
@@ -72,6 +92,9 @@ export async function sendNotificationToPlayer(player: Player, embed: DraftBotEm
 	if (!embed.data.author) {
 		embed.formatAuthor(embed.data.title, user);
 		embed.setTitle(null);
+	}
+	else {
+		embed.formatAuthor(embed.data.author.name, user);
 	}
 	if (player.notifications === NotificationsConstants.DM_VALUE) {
 		sendDirectMessage(user, embed, language);

@@ -7,6 +7,7 @@ export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
+		NOT_REPLIED_REACTION: "🔚",
 		SHOPPING_CART: "🛒",
 		WARNING: "⚠️",
 		NUMBERS: [
@@ -22,6 +23,8 @@ export abstract class Constants {
 			"9️⃣",
 			"🔟"
 		],
+		FRENCH_FLAG: "🇫🇷",
+		ENGLISH_FLAG: "🇬🇧",
 		INVENTORY_RESERVE: "🔃",
 		MONEY_ICON: "💰",
 		TRASH: "🗑️",
@@ -31,8 +34,7 @@ export abstract class Constants {
 			"🛡️",
 			"⚗️",
 			"🧸"
-		],
-		NOT_REPLIED_EMOTE: "🔚"
+		]
 	};
 
 	static readonly MESSAGES = {
@@ -98,7 +100,8 @@ export abstract class Constants {
 		PRICE: 5000,
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
-		GROUP3LEVEL: 48
+		GROUP3LEVEL: 48,
+		GROUP4LEVEL: 80
 	};
 
 	static readonly LOGS = {
@@ -205,13 +208,6 @@ export abstract class Constants {
 	static readonly LANGUAGE = {
 		FRENCH: "fr",
 		ENGLISH: "en"
-	};
-
-	static readonly MENU_REACTION = {
-		ACCEPT: "✅",
-		DENY: "❌",
-		FRENCH_FLAG: "🇫🇷",
-		ENGLISH_FLAG: "🇬🇧"
 	};
 
 	static readonly PET_FOOD = {

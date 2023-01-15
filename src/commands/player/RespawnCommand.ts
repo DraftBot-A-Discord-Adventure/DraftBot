@@ -44,13 +44,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	await player.save();
 
-	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN);
 	await Maps.stopTravel(player);
 	const newlink = await MapLinks.getLinkByLocations(
 		await player.getPreviousMapId(),
 		await player.getDestinationId()
 	);
 	await Maps.startTravel(player, newlink, Date.now(), NumberChangeReason.RESPAWN);
+	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN);
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 

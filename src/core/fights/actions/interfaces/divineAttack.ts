@@ -26,11 +26,11 @@ export default class DivineAttack extends FightAction {
 		let sideEffects = "";
 
 		if (Math.random() < 0.2) {
-			const alteration = receiver.newAlteration(FightAlterations.CONFUSED);
-			if (alteration === FightAlterations.CONFUSED) {
+			const alteration = receiver.newAlteration(FightAlterations.PARALYZED);
+			if (alteration === FightAlterations.PARALYZED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.confused").toLowerCase()
+					effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
 				});
 			}
 		}

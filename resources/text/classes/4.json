@@ -9,11 +9,14 @@
 	"speed": 1,
 	"health": 80,
 	"fightPoint": 150,
+	"baseBreath": 3,
+	"maxBreath": 10,
+	"breathRegen": 3,
 	"price": 30,
 	"classGroup": 0,
 	"fightActionsIds": [
 		"simpleAttack",
 		"intenseAttack",
-		"poisonousAttack"
+		"defenseBuff"
 	]
 }

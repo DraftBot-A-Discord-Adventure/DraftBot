@@ -8,6 +8,7 @@ import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {Maps} from "./Maps";
 import {PVEConstants} from "../constants/PVEConstants";
+import {generateTravelNotification, sendNotificationToPlayer} from "../utils/MessageUtils";
 
 /**
  * Travel time functions class
@@ -169,7 +170,13 @@ export class TravelTime {
 				await lastSmallEvent.save();
 			}
 		}
-
+		const date = new Date();
+		const playerEndTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // check if the player arrived with this potion
+			await sendNotificationToPlayer(player,
+				await generateTravelNotification(player)
+				, Constants.LANGUAGE.ENGLISH);
+		}
 		// Log
 		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason).then();
 	}

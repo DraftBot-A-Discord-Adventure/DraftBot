@@ -27,7 +27,7 @@ export class Maps {
 
 		const nextMaps = [];
 
-		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, null);
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap);
 		for (const m of nextMapIds) {
 			nextMaps.push(m.id);
 		}

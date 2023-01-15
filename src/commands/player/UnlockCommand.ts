@@ -78,7 +78,7 @@ function callbackUnlockCommand(
 		if (reaction.first()) { // a reaction exist
 			const [playerToUnlock] = await Players.getOrRegister(entityCouple.locked.discordUserId); // released player
 			const [playerUnlocker] = await Players.getOrRegister(entityCouple.unlocker.discordUserId); // player who unlocks
-			if (reaction.first().emoji.name === Constants.MENU_REACTION.ACCEPT) {
+			if (reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK);
 				await playerUnlocker.addMoney({
 					amount: -UnlockConstants.PRICE_FOR_UNLOCK,
@@ -123,8 +123,8 @@ function callbackUnlockCommand(
 async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 	try {
 		await Promise.all([
-			unlockMessage.react(Constants.MENU_REACTION.ACCEPT),
-			unlockMessage.react(Constants.MENU_REACTION.DENY)
+			unlockMessage.react(Constants.REACTIONS.VALIDATE_REACTION),
+			unlockMessage.react(Constants.REACTIONS.REFUSE_REACTION)
 		]);
 	}
 	catch (e) {
@@ -146,7 +146,7 @@ async function sendAndManageUnlockMessage(
 	const unlockMessage = await textInformation.interaction.reply({embeds: [embed], fetchReply: true}) as Message;
 
 	const collector = unlockMessage.createReactionCollector({
-		filter: (reaction, user) => [Constants.MENU_REACTION.ACCEPT, Constants.MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === textInformation.interaction.user.id,
+		filter: (reaction, user) => [Constants.REACTIONS.VALIDATE_REACTION, Constants.REACTIONS.REFUSE_REACTION].indexOf(reaction.emoji.name) !== -1 && user.id === textInformation.interaction.user.id,
 		time: UnlockConstants.COLLECTOR_TIME_FOR_UNLOCK_COLLECTOR,
 		max: UnlockConstants.MAX_ACCEPTED_REACTION
 	});

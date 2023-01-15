@@ -104,6 +104,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		super(
 			{
 				reactions,
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: [interaction.user.id]
 			}, DraftBotShopMessage.shopCallback
 		);
@@ -225,6 +226,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		const confirmBuyMessage = new DraftBotReactionMessage(
 			{
 				reactions: numberReactions,
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: [shopMessage.user.id]
 			}
 		);

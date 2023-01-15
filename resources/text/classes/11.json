@@ -9,13 +9,16 @@
 	"speed": 110,
 	"health": 40,
 	"fightPoint": 0,
+	"baseBreath": 5,
+	"maxBreath": 11,
+	"breathRegen": 4,
 	"price": 6950,
 	"classGroup": 3,
 	"fightActionsIds": [
 		"quickAttack",
 		"sabotageAttack",
-		"viciousAttack",
+		"boomerangAttack",
 		"canonAttack",
-		"confusionAttack"
+		"intenseAttack"
 	]
 }

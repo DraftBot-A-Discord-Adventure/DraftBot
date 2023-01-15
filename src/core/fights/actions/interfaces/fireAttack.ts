@@ -5,32 +5,28 @@ import {FightActionController} from "../FightActionController";
 import {FightConstants} from "../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {FightAlterations} from "../FightAlterations";
+import {RandomUtils} from "../../../utils/RandomUtils";
 
-export default class ConfusionAttack extends FightAction {
+export default class FireAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 20);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		let sideEffects = "";
 
-		// check how many times the attack appears in the fight action history of the sender
-		const count = sender.fightActionsHistory.filter(action => action instanceof ConfusionAttack).length;
-
-		// if the attack is repeated more than 4 times, there is only 25% chance to make the receiver confused
-		if (Math.random() > 0.25 && count > 4 || count <= 3) {
-			const alteration = receiver.newAlteration(FightAlterations.CONFUSED);
-			if (alteration === FightAlterations.CONFUSED) {
+		if (RandomUtils.draftbotRandom.bool(0.8)) {
+			const alteration = receiver.newAlteration(FightAlterations.BURNED);
+			if (alteration === FightAlterations.BURNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.confused").toLowerCase()
+					effect: attackTranslationModule.get("effects.burned").toLowerCase()
 				});
 			}
 		}
 
 		receiver.stats.fightPoints -= damageDealt;
-
 		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
 			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
@@ -41,20 +37,17 @@ export default class ConfusionAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 10, averageDamage: 20, maxDamage: 45};
+		return {minDamage: 15, averageDamage: 100, maxDamage: 130};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.stats.attack
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.stats.defense / 4
 			], statsEffect: [
-				0.7,
-				0.3
+				1
 			]
 		};
 	}

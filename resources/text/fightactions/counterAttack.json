@@ -1,0 +1,19 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque riposte",
+			"namePlural": "Attaques riposte",
+			"description": "Réplique avec la même action que celle que vient de jouer votre adversaire.",
+			"fail": "ne parvient pas à contrer l'attaque de son adversaire !"
+		},
+		"en": {
+			"name": "Counter attack",
+			"namePlural": "Counter attacks",
+			"description": "Reply with the same action your opponent just played.",
+			"fail": "fails to counter his opponent's attack!"
+		}
+	},
+	"emote": "\uD83E\uDD4A",
+	"breath": 5,
+	"missionVariant": 33
+}

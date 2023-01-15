@@ -109,7 +109,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		});
 		BlockingUtils.blockPlayerWithCollector(this._interaction.user.id, this._blockingReason, this._collector);
 		this.manageCollectedAnswers();
-		await Promise.all([this._broadcastMessage.react(Constants.MENU_REACTION.ACCEPT), this._broadcastMessage.react(Constants.MENU_REACTION.DENY)]);
+		await Promise.all([this._broadcastMessage.react(Constants.REACTIONS.VALIDATE_REACTION), this._broadcastMessage.react(Constants.REACTIONS.REFUSE_REACTION)]);
 	}
 
 	/**
@@ -145,12 +145,12 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			return;
 		}
 		switch (reaction.emoji.name) {
-		case Constants.MENU_REACTION.ACCEPT:
+		case Constants.REACTIONS.VALIDATE_REACTION:
 			if (!await this.manageAcceptReaction(user)) {
 				return;
 			}
 			break;
-		case Constants.MENU_REACTION.DENY:
+		case Constants.REACTIONS.REFUSE_REACTION:
 			if (!await this.manageDenyReaction(user)) {
 				return;
 			}
@@ -167,15 +167,15 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * @param reaction
 	 */
 	private isBroadcastStillActive(reaction: MessageReaction): boolean {
-		const hasMainDenied = this._collector.collected.get(Constants.MENU_REACTION.DENY) &&
-			this._collector.collected.get(Constants.MENU_REACTION.DENY).users.cache.has(this._interaction.user.id);
+		const hasMainDenied = this._collector.collected.get(Constants.REACTIONS.REFUSE_REACTION) &&
+			this._collector.collected.get(Constants.REACTIONS.REFUSE_REACTION).users.cache.has(this._interaction.user.id);
 		// has the main user cancelled the broadcast
 		if (hasMainDenied && this._interaction.user.id !== reaction.users.cache.at(reaction.users.cache.keys.length - 1).id) {
 			return false;
 		}
 		// has any user already accepted correctly the broadcast
-		return !(this._collector.collected.get(Constants.MENU_REACTION.ACCEPT) &&
-			this._collector.collected.get(Constants.MENU_REACTION.ACCEPT).count > this._spamCount + this._wrongAnswer + 1 +
+		return !(this._collector.collected.get(Constants.REACTIONS.VALIDATE_REACTION) &&
+			this._collector.collected.get(Constants.REACTIONS.VALIDATE_REACTION).count > this._spamCount + this._wrongAnswer + 1 +
 			(hasMainDenied ? 0 : 1));
 	}
 

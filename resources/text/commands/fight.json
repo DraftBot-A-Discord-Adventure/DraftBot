@@ -13,17 +13,18 @@
 			"turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
 			"turnIndicationsDescription": "Choisissez une action",
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
+			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
-				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-				"winner": ":crossed_swords: |** Gagnant : {pseudo}** {charging}\n",
-				"loser": ":crossed_swords: |** Perdant : {pseudo}** {charging}\n",
-				"drawer": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"bug": ":crossed_swords: |** Combattant : {pseudo}** {charging}\n",
-				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
+				"defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
+				"winner": ":crossed_swords: |** Gagnant : {pseudo}**\n",
+				"loser": ":crossed_swords: |** Perdant : {pseudo}**\n",
+				"drawer": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
@@ -44,8 +45,12 @@
 					"direct": "Vous devez atteindre le **LVL {level}** avant de combattre !",
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
+				"baby": {
+					"indirect": "Cet adversaire n'a pas encore débuté son aventure ! Utilisez la commande {command:report} pour la commencer !",
+					"direct": "Vous n'avez pas encore débuté votre aventure ! Utilisez la commande {command:report} pour la commencer !"
+				},
 				"dead": {
-					"direct": "{pseudo}, Il n'est pas possible de combattre en étant K.O! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+					"direct": "{pseudo}, il n'est pas possible de combattre en étant K.O ! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O.!"
 				},
 				"cantFightStatus": {
@@ -118,6 +123,7 @@
 					"newAlteration": " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
 					"damage": " `Dégâts reçus : {amount}`",
 					"defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+					"breath": " `Souffle{adversary>0? de l'adversaire:}: {operator} {amount}`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
@@ -128,10 +134,12 @@
 				"stunned": "Étourdi",
 				"paralyzed": "Paralysé",
 				"poisoned": "Empoisonné",
+				"cursed": "Maudit",
+				"burned": "Brûlé",
+				"targeted": "Ciblé par un boomerang",
 				"slowed": "Ralenti",
 				"concentrated": "Concentré",
 				"weak": "Affaibli",
-				"confused": "Confus",
 				"protected": "Protégé"
 			}
 		},
@@ -148,17 +156,18 @@
 			"turnIndicationsTitle": "It's {pseudo}'s turn to play ⚔️",
 			"turnIndicationsDescription": "Choose an action",
 			"statsOfPlayer": "**{pseudo}**'s stats: ",
+			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":crossed_swords: | **Current fight state**\n\n",
-				"notStarted": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"attacker": ":crossed_swords: |**Attacker: {pseudo}** {charging}\n",
-				"defender": ":crossed_swords: |**Defender: {pseudo}** {charging}\n",
-				"winner": ":crossed_swords: |**Winner: {pseudo}** {charging}\n",
-				"loser": ":crossed_swords: |**Loser: {pseudo}** {charging}\n",
-				"drawer": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"bug": ":crossed_swords: |**Fighter: {pseudo}** {charging}\n",
-				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"notStarted": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"attacker": ":crossed_swords: |**Attacker: {pseudo}**\n",
+				"defender": ":crossed_swords: |**Defender: {pseudo}**\n",
+				"winner": ":crossed_swords: |**Winner: {pseudo}**\n",
+				"loser": ":crossed_swords: |**Loser: {pseudo}**\n",
+				"drawer": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"bug": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
 				"draw": ":newspaper: |**{player1} and {player2} end their fight with a draw!**\n\n",
@@ -179,7 +188,11 @@
 					"direct": "You need to be **LVL {level}** if you want to fight!",
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
 				},
-				"dead" :{
+				"baby": {
+					"indirect": "This opponent hasn't started his adventure yet! Use the {command:report} command to start it!",
+					"direct": "You haven't started your adventure yet! Use the {command:report} command to start it!"
+				},
+				"dead": {
 					"direct": "{pseudo}, You can't fight while KO ! Please use the {command:respawn} command to continue playing.",
 					"indirect": "This opponent is dead, thus can't fight yet!"
 				},
@@ -253,6 +266,7 @@
 					"newAlteration": " `{adversary>0?Your opponent is: You are} now {effect}!`",
 					"damage": " `Damage received: {amount}`",
 					"defense": " `{adversary>0?Opponent's d:D}efence: {operator}{amount}%`",
+					"breath": " `{adversary>0?Opponent's b:B}reath: {operator}{amount}`",
 					"speed": " `{adversary>0?Opponent's s:S}peed: {operator}{amount}%`",
 					"attack": " `{adversary>0?Opponent's a:A}ttack: {operator}{amount}%`",
 					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`"
@@ -263,10 +277,12 @@
 				"stunned": "Stunned",
 				"paralyzed": "Paralyzed",
 				"poisoned": "Poisoned",
+				"cursed": "Cursed",
+				"burned": "Burned",
+				"targeted": "Targeted by a boomerang",
 				"slowed": "Slowed down",
 				"concentrated": "Focused",
 				"weak": "Weakened",
-				"confused": "Confused",
 				"protected": "Shielded"
 			}
 		}

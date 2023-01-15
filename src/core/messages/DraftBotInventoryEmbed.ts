@@ -57,6 +57,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 						DraftBotInventoryEmbed.reactionCallback
 					)
 				],
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: [userInformation.user.id]
 			}
 		);

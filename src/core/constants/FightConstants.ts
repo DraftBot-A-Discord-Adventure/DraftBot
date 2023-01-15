@@ -1,5 +1,5 @@
 export abstract class FightConstants {
-	static readonly MAX_TURNS = 25;
+	static readonly MAX_TURNS = 24;
 
 	static readonly REQUIRED_LEVEL = 8;
 
@@ -9,6 +9,7 @@ export abstract class FightConstants {
 
 	static readonly FIGHT_ERROR = {
 		NONE: "none",
+		BABY: "error.baby",
 		WRONG_LEVEL: "error.levelTooLow",
 		DEAD: "error.dead",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
@@ -40,6 +41,9 @@ export abstract class FightConstants {
 	// multiplier of the damage a fight action will deal if it is a critical hit
 	static readonly CRITICAL_HIT_MULTIPLIER = 1.5;
 
+	// out of breath attack failure probability
+	static readonly OUT_OF_BREATH_FAILURE_PROBABILITY = 0.8;
+
 	// divider of the damage a fight action will deal if it is a miss
 	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
 
@@ -70,4 +74,20 @@ export abstract class FightConstants {
 
 	// empty string to register cancellation of an alteration display
 	static CANCEL_ALTERATION_DISPLAY = "";
+
+	static readonly UNCOUNTERABLE_ACTIONS = ["ultimateAttack",
+		"benediction",
+		"divineAttack",
+		"none",
+		"poisonousAttack",
+		"concentration",
+		"resting",
+		"protection",
+		"counterAttack",
+		"defenseBuff",
+		"fireAttack",
+		"breathTakingAttack",
+		"darkAttack",
+		"cursedAttack",
+		"outOfBreath"];
 }

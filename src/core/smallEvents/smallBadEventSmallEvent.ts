@@ -45,7 +45,7 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(
 				base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
 			);
-			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, interaction.createdAt, NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, new Date(), NumberChangeReason.SMALL_EVENT);
 			break;
 		default:
 			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
