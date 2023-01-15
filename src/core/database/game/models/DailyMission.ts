@@ -61,6 +61,7 @@ export class DailyMissions {
 			dailyMission.pointsToWin = missionData.getNumberFromArray("points", prop.index);
 			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
 			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
+			dailyMission.moneyToWin = missionData.getNumberFromArray("money", prop.index);
 			dailyMission.lastDate = new Date();
 			await dailyMission.save();
 		}

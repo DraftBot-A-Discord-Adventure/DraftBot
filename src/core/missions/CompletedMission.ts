@@ -17,7 +17,7 @@ export class CompletedMission {
 
 	public readonly completedMissionType: CompletedMissionType;
 
-	constructor(pointsToWin: number,xpToWin: number, gemsToWin: number, moneyToWin: number, desc: string, type: CompletedMissionType) {
+	constructor(pointsToWin: number, xpToWin: number, gemsToWin: number, moneyToWin: number, desc: string, type: CompletedMissionType) {
 		this.pointsToWin = pointsToWin;
 		this.xpToWin = xpToWin;
 		this.gemsToWin = gemsToWin;
