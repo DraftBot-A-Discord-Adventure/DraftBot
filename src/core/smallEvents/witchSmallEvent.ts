@@ -17,7 +17,7 @@ import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
 
-type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, nothingHappen: WitchEvent };
+type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent };
 
 /**
  * Returns an object composed of three random witch events
@@ -25,8 +25,8 @@ type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEv
 function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
-	const nothingHappen = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
-	return {randomAdvice, randomIngredient, nothingHappen};
+	const fullRandom = WitchEvents.getRandomWitchEvent();
+	return {randomAdvice, randomIngredient, fullRandom};
 }
 
 /**
@@ -89,7 +89,7 @@ async function applyOutcome(outcome: number, selectedEvent: WitchEvent, player: 
 function retrieveSelectedEvent(witchEventMessage: DraftBotReactionMessage): WitchEvent {
 	const reaction = witchEventMessage.getFirstReaction();
 	// If the player did not react, we use the nothing happen event with the menu reaction deny
-	const reactionEmoji = reaction ? reaction.emoji.name : Constants.MENU_REACTION.DENY;
+	const reactionEmoji = reaction ? reaction.emoji.name : Constants.REACTIONS.NOT_REPLIED_REACTION;
 	return WitchEvents.getWitchEventByEmoji(reactionEmoji);
 }
 

@@ -351,7 +351,7 @@ async function sendAndManagePoorInteraction(
 	await new DraftBotReactionMessageBuilder()
 		.allowUser(textInformation.interaction.user)
 		.addReaction(new DraftBotReaction(SmallEventConstants.INTERACT_OTHER_PLAYERS.COIN_EMOTE))
-		.addReaction(new DraftBotReaction(Constants.MENU_REACTION.DENY))
+		.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION))
 		.endCallback(async (reactMsg) => {
 			const reaction = reactMsg.getFirstReaction();
 			const poorEmbed = new DraftBotEmbed()

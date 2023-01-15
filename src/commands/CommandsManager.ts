@@ -532,13 +532,13 @@ export class CommandsManager {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
 		const helpMessage = await new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.ENGLISH_FLAG))
-			.addReaction(new DraftBotReaction(Constants.MENU_REACTION.FRENCH_FLAG))
+			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
+			.addReaction(new DraftBotReaction(Constants.REACTIONS.FRENCH_FLAG))
 			.endCallback((msg) => {
 				if (!msg.getFirstReaction()) {
 					return;
 				}
-				const language = msg.getFirstReaction().emoji.name === Constants.MENU_REACTION.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
+				const language = msg.getFirstReaction().emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				const tr = Translations.getModule("bot", language);
 				message.channel.send({
 					embeds: [new DraftBotEmbed()

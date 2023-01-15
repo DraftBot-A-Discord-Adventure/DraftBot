@@ -465,7 +465,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
-		if (reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			return;
 		}
 
@@ -473,12 +473,12 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
 	});
 
 	collector.on("end", async (collected) => {
-		if (!collected.first() || collected.firstKey() === Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (!collected.first() || collected.firstKey() === Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			await doPossibility(textInformation, event, event.getPossibilityWithReaction("end"), player, time);
 		}
 	});
 	for (const reaction of reactionsAndText.reactions) {
-		if (reaction !== "end" && reaction !== Constants.REACTIONS.NOT_REPLIED_EMOTE) {
+		if (reaction !== "end" && reaction !== Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			await eventDisplayed.react(reaction)
 				.catch();
 		}

@@ -192,8 +192,8 @@ async function petSell(
 	const confirmCollector = confirmMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => user.id === buyerInformation.buyer.discordUserId &&
 			reaction.me &&
-			(reaction.emoji.name === Constants.MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === Constants.MENU_REACTION.DENY),
+			(reaction.emoji.name === Constants.REACTIONS.VALIDATE_REACTION ||
+				reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION),
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: 1
 	});
@@ -201,12 +201,12 @@ async function petSell(
 	BlockingUtils.blockPlayerWithCollector(buyerInformation.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
 	BlockingUtils.blockPlayerWithCollector(sellerInformation.player.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM, confirmCollector);
 	confirmCollector.on("collect", async (reaction) => {
-		if (reaction.emoji.name === Constants.MENU_REACTION.DENY) {
+		if (reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 			confirmCollector.stop();
 			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sellCancelled"), true);
 			return;
 		}
-		if (reaction.emoji.name === Constants.MENU_REACTION.ACCEPT) {
+		if (reaction.emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 			confirmCollector.stop();
 			await executeTheTransaction(buyerInformation, sellerInformation, textInformation);
 		}
@@ -218,7 +218,7 @@ async function petSell(
 		BlockingUtils.unblockPlayer(buyerInformation.buyer.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
 		BlockingUtils.unblockPlayer(sellerInformation.player.discordUserId, BlockingConstants.REASONS.PET_SELL_CONFIRM);
 	});
-	await Promise.all([confirmMessage.react(Constants.MENU_REACTION.ACCEPT), confirmMessage.react(Constants.MENU_REACTION.DENY)]);
+	await Promise.all([confirmMessage.react(Constants.REACTIONS.VALIDATE_REACTION), confirmMessage.react(Constants.REACTIONS.REFUSE_REACTION)]);
 }
 
 /**
