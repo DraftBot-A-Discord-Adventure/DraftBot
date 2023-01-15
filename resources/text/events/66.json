@@ -1,0 +1,69 @@
+{
+	"triggers": [
+		{
+			"mapAttributes": ["pve_island_entry"]
+		}
+	],
+	"translations": {
+		"fr": "🚢 Après une brève traversée, le capitaine amarre son navire à ce qui semble être un ponton. Vous êtes bien trop absorbé dans votre contemplation de l'île pour vous en soucier. Elle vous semble à la fois minuscule et immense, chaleureuse et glaciale. Une étrange sensation vous saisit, entre angoisse et admiration. Un mouvement sur le navire vous tire de votre observation.",
+		"en": "🚢 After a brief crossing, the captain moors his ship at what appears to be a pier. You are far too absorbed in your contemplation of the island to care. It seems to you at the same time tiny and immense, warm and cold. A strange sensation seizes you, between anguish and admiration. A movement on the ship pulls you out of your observation."
+	},
+	"possibilities": {
+		"🏝️": {
+			"translations": {
+				"fr": "Foncer vers l'île.",
+				"en": "Run to the island."
+			},
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "Vous sautez brusquement par-dessus le pont du bateau et foncez droit devant, tel un animal, sans vous retourner. Tout cela sous les regards stupéfaits des membres de l'équipage.",
+						"en": "You suddenly jump over the deck of the boat and run straight ahead, like an animal, without looking back. All this under the stunned eyes of the crew members."
+					}
+				},
+				{
+					"translations": {
+						"fr": "Tout en remerciant l'équipage pour cette merveilleuse traversée, vous débarquez. Vous vous éloignez, d'un pas assuré et confiant.",
+						"en": "While thanking the crew for this wonderful crossing, you disembark. You walk away, confident and sure-footed."
+					}
+				}
+			]
+		},
+		"ℹ️": {
+			"translations": {
+				"fr": "Demander plus d'informations.",
+				"en": "Request more information."
+			},
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "Vous vous tournez lentement vers le capitaine pour lui demander s'il aurait l'immense amabilité de vous fournir un complément d'information. Il vous en donne quelques uns et vous partez plus prêt que jamais pour affronter l'île.",
+						"en": "You slowly turn to the captain and ask him if he would be so kind as to provide you with some additional information. He gives you some and you leave more ready than ever to face the island."
+					}
+				},
+				{
+					"translations": {
+						"fr": "Inquiet, vous regardez le capitaine et le remerciez poliment pour la traversée. Vous lui exprimez vos craintes et demandez quelques conseils. Il vous en donne quelques uns et vous partez plus prêt que jamais pour affronter l'île.",
+						"en": "Worried, you look at the captain and politely thank him for the crossing. You express your fears and ask for some advice. He gives you some and you leave more ready than ever to face the island."
+					}
+				}
+			]
+		},
+		"end": {
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "😖 Subitement, vous êtes allongé sur le sol, l'équipage penché au-dessus de vous. Le capitaine vous explique que vous êtes évanoui. Ils vous saisissent et, tel un paquet, vous lancent par dessus bord; avant de s'éloigner rapidement.",
+						"en": "😖 Suddenly, you are lying on the floor, the crew leaning over you. The captain explains that you are passed out. They grab you and, like a package, throw you overboard; before quickly walking away."
+					}
+				},
+				{
+					"translations": {
+						"fr": "😖 Subitement, vous êtes allongé sur le sol, l'équipage penché au-dessus de vous. Le capitaine vous explique que vous êtes évanoui. Il vous donne quelques conseils supplémentaires avant de vous laisser partir pour l'île.",
+						"en": "😖 Suddenly, you are lying on the floor, the crew bent over you. The captain explains that you are passed out. He gives you a few more tips before letting you go to the island."
+					}
+				}
+			]
+		}
+	}
+}
