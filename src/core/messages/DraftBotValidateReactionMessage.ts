@@ -26,6 +26,7 @@ export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
 					new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, validateCallback),
 					new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, refuseCallback)
 				],
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: allowedUser ? [allowedUser.id] : null,
 				anyUserAllowed: !allowedUser
 			},

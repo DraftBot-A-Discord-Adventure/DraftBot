@@ -22,6 +22,7 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 		super(
 			{
 				reactions,
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: [userId]
 			},
 			cancelCallbackToCall

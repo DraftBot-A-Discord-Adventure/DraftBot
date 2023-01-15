@@ -59,6 +59,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 					new DraftBotReaction(Constants.REACTIONS.VALIDATE_REACTION, DraftBotTradeMessage.validateCallback),
 					new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION, DraftBotTradeMessage.refuseCallback)
 				],
+				allowEnd: false,
 				allowedUsersDiscordIdToReact: [
 					trader1.id,
 					trader2.id

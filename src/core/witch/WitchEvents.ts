@@ -1,6 +1,8 @@
 import {readdirSync} from "fs";
 import {WitchEvent} from "./WitchEvent";
 import {RandomUtils} from "../utils/RandomUtils";
+import {Constants} from "../Constants";
+import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * This allows to load and manage all the witch events
@@ -40,6 +42,9 @@ export class WitchEvents {
 		if (!WitchEvents.witchEvents) {
 			WitchEvents.initWitchEventsMap();
 		}
+		if (emoji === Constants.REACTIONS.NOT_REPLIED_REACTION) {
+			return WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
+		}
 		return WitchEvents.witchEvents.get(emoji);
 	}
 
@@ -58,11 +63,13 @@ export class WitchEvents {
 
 	/**
 	 * Get a random witchEvent from all the possible one
+	 * @param excludedWitchEvents the witchEvents that should not be selected
 	 */
-	static getRandomWitchEvent(): WitchEvent | null {
+	static getRandomWitchEvent(excludedWitchEvents: WitchEvent[]): WitchEvent | null {
 		if (!WitchEvents.witchEvents) {
 			WitchEvents.initWitchEventsMap();
 		}
-		return RandomUtils.draftbotRandom.pick(Array.from(WitchEvents.witchEvents.values()));
+		const possibleWitchEvents = Array.from(WitchEvents.witchEvents.values()).filter((witchEvent) => !excludedWitchEvents.includes(witchEvent));
+		return RandomUtils.draftbotRandom.pick(possibleWitchEvents);
 	}
 }

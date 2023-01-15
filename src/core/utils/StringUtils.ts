@@ -44,8 +44,7 @@ export function progressBar(value: number, maxValue: number): string {
 /**
  * Check if a name is valid (his is used to check guilds names and descriptions)
  * @param name - the name to check
- * @param minLength
- * @param maxLength
+ * @param range
  */
 export function checkNameString(name: string, range: ConstantRange): boolean {
 	// Here are the characters that are allowed in a name or description
