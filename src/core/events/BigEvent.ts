@@ -68,7 +68,7 @@ export class BigEvent {
 				reactions.push(possibility.emoji);
 			}
 		}
-		reactions.push(Constants.REACTIONS.NOT_REPLIED_EMOTE);
+		reactions.push(Constants.REACTIONS.NOT_REPLIED_REACTION);
 		return {
 			text,
 			reactions

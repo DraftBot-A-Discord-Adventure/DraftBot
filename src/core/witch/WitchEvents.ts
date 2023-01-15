@@ -55,4 +55,14 @@ export class WitchEvents {
 
 		return RandomUtils.draftbotRandom.pick(possibleWitchEvents);
 	}
+
+	/**
+	 * Get a random witchEvent from all the possible one
+	 */
+	static getRandomWitchEvent(): WitchEvent | null {
+		if (!WitchEvents.witchEvents) {
+			WitchEvents.initWitchEventsMap();
+		}
+		return RandomUtils.draftbotRandom.pick(Array.from(WitchEvents.witchEvents.values()));
+	}
 }

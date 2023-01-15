@@ -123,12 +123,12 @@ export const smallEvent: SmallEvent = {
 			.allowUser(interaction.user)
 			.endCallback(async (chooseGobletMessage) => {
 				const reaction = chooseGobletMessage.getFirstReaction();
-				const reactionEmoji = !reaction ? Constants.REACTIONS.NOT_REPLIED_EMOTE : reaction.emoji.name;
+				const reactionEmoji = !reaction ? Constants.REACTIONS.NOT_REPLIED_REACTION : reaction.emoji.name;
 				const malus = generateMalus(player, data.getRandomStringFromArray("malusTypes"), !reaction);
 				let currentGoblet: JsonModule;
 				for (let i = 0; i < tr.getObjectSize("intro.goblets"); i++) {
 					currentGoblet = tr.getObject("intro.goblets")[i];
-					if (reactionEmoji === Constants.REACTIONS.NOT_REPLIED_EMOTE || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
+					if (reactionEmoji === Constants.REACTIONS.NOT_REPLIED_REACTION || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
 						BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
 						await applyMalus(malus, interaction, language, player);
 						await chooseGobletMessage.sentMessage.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name as string, seEmbed, tr)]});
