@@ -240,7 +240,7 @@ function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
 }
 
 /**
- * Get the display of an Player
+ * Get the display of a Player
  * @param tr
  * @param otherPlayer
  * @param numberOfPlayers

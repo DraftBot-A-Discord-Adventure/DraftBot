@@ -25,7 +25,7 @@ type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEv
 function getRandomWitchEvents(): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
-	const fullRandom = WitchEvents.getRandomWitchEvent();
+	const fullRandom = WitchEvents.getRandomWitchEvent([randomAdvice, randomIngredient]);
 	return {randomAdvice, randomIngredient, fullRandom};
 }
 
@@ -158,6 +158,7 @@ export const smallEvent: SmallEvent = {
 
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
+			.allowEndReaction()
 			.endCallback(async (witchEventMessage) => {
 
 				const selectedEvent = retrieveSelectedEvent(witchEventMessage);

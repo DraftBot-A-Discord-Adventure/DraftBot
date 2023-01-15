@@ -22,6 +22,7 @@ const MESSAGE_NOT_SENT_ERROR = "Message has not been sent";
 
 type ReactionInformation = {
 	reactions: DraftBotReaction[],
+	allowEnd: boolean,
 	allowedUsersDiscordIdToReact: string[],
 	maxReactions?: number,
 	anyUserAllowed?: boolean,
@@ -35,6 +36,11 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * The list of reactions of the message
 	 */
 	private readonly _reactions: DraftBotReaction[];
+
+	/**
+	 * True if the collector allows the user to react with an "end" reaction
+	 */
+	private readonly _allowEnd: boolean;
 
 	/**
 	 * The ids used to filter the allowed reactions
@@ -79,6 +85,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		collectorTime = 0) {
 		super();
 		this._reactions = reactionInformation.reactions;
+		this._allowEnd = reactionInformation.allowEnd;
 		this._allowedUsersDiscordIdToReact = reactionInformation.allowedUsersDiscordIdToReact;
 		this._endCallback = endCallback;
 		this._maxReactions = reactionInformation.maxReactions ?? 0;
@@ -175,27 +182,31 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @private
 	 */
 	private async collectAndReact(collectorCallback: (collector: ReactionCollector) => void = null): Promise<void> {
+
 		const collectorFilter = (reaction: MessageReaction, user: User): boolean =>
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
-			&& (this._reactionsNames.indexOf(reaction.emoji.name) !== -1 || this._reactionsNames.indexOf(reaction.emoji.id) !== -1);
+			&& (this._reactionsNames.indexOf(reaction.emoji.name) !== -1 || this._reactionsNames.indexOf(reaction.emoji.id) !== -1)
+			|| reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && this._allowEnd;
+
 		this._collector = this._sentMessage.createReactionCollector({
 			filter: collectorFilter,
 			time: this._collectorTime <= 0 ? Constants.MESSAGES.COLLECTOR_TIME : this._collectorTime,
 			max: this._maxReactions,
 			dispose: true
 		});
+
 		if (collectorCallback) {
 			collectorCallback(this._collector);
 		}
 		this._collector.on("collect", (reaction, user) => {
 			const reactionName = this._reactionsNames.indexOf(reaction.emoji.id) !== -1 ? reaction.emoji.id : reaction.emoji.name;
-			const callback = this._reactions[this._reactionsNames.indexOf(reactionName)].callback;
-			if (!callback) {
+			if (this._reactionsNames.indexOf(reactionName) === -1 || !this._reactions[this._reactionsNames.indexOf(reactionName)].callback) {
+				// The reaction is an end reaction or the reaction has no callback associated
 				this._collector.stop();
 			}
 			else {
-				callback(this, reaction, user);
+				this._reactions[this._reactionsNames.indexOf(reactionName)].callback(this, reaction, user);
 			}
 		});
 		this._collector.on("remove", (reaction, user) => {
@@ -236,6 +247,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
  */
 export class DraftBotReactionMessageBuilder {
 	private _reactions: DraftBotReaction[] = [];
+
+	private _allowEnd = false;
 
 	private _allowedUsersDiscordIdToReact: string[] = [];
 
@@ -301,6 +314,14 @@ export class DraftBotReactionMessageBuilder {
 	}
 
 	/**
+	 * Allow the user to react with the end reaction
+	 */
+	allowEndReaction(): DraftBotReactionMessageBuilder {
+		this._allowEnd = true;
+		return this;
+	}
+
+	/**
 	 * Indicate the time of the collector
 	 * @param time
 	 */
@@ -316,6 +337,7 @@ export class DraftBotReactionMessageBuilder {
 		return new DraftBotReactionMessage(
 			{
 				reactions: this._reactions,
+				allowEnd: this._allowEnd,
 				allowedUsersDiscordIdToReact: this._allowedUsersDiscordIdToReact,
 				maxReactions: this._maxReactions,
 				anyUserAllowed: this._anyUserAllowed
