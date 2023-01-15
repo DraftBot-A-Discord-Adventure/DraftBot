@@ -123,7 +123,7 @@ export class MissionsController {
 		if (completedDailyMission) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			completedMissions.push(new CompletedMission(
-				dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER, // daily missions give more points than secondary missions,
+				Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // daily missions give more points than secondary missions,
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
 				Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // daily missions gives less money than secondary missions

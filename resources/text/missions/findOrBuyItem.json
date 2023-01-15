@@ -13,22 +13,33 @@
 		"medium": [
 			0
 		],
-		"hard": []
+		"hard": [
+			1
+		]
 	},
 	"objectives": [
-		1
+		1,
+		5
 	],
 	"gems": [
-		2
+		2,
+		0
+	],
+	"points": [
+		20,
+		60
 	],
 	"xp": [
-		30
+		30,
+		60
 	],
 	"money": [
-		50
+		50,
+		125
 	],
 	"expirations": [
-		24
+		24,
+		72
 	],
 	"dailyIndexes": [
 		0
