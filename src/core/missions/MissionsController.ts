@@ -108,6 +108,7 @@ export class MissionsController {
 				const missionModel = await Missions.getById(mission.missionId);
 				completedMissions.push(
 					new CompletedMission(
+						mission.pointsToWin,
 						mission.xpToWin,
 						0, // Don't win gems in secondary missions
 						mission.moneyToWin,
@@ -122,9 +123,10 @@ export class MissionsController {
 		if (completedDailyMission) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			completedMissions.push(new CompletedMission(
+				dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER, // daily missions give more points than secondary missions,
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
-				Math.round(dailyMission.moneyToWin / Constants.MISSIONS.DAILY_MISSION_MONEY_PENALITY), // daily missions gives less money than secondary missions
+				Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // daily missions gives less money than secondary missions
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language, null),
 				CompletedMissionType.DAILY
 			));
@@ -146,11 +148,13 @@ export class MissionsController {
 		const actions = [];
 		let gemsToWin = 0;
 		let xpToWin = 0;
+		let pointsToWin = 0;
 		let moneyToWin = 0;
 
 		for (const completedMission of completedMissions) {
 			gemsToWin += completedMission.gemsToWin;
 			xpToWin += completedMission.xpToWin;
+			pointsToWin += completedMission.pointsToWin;
 			moneyToWin += completedMission.moneyToWin;
 		}
 
@@ -163,6 +167,12 @@ export class MissionsController {
 		}));
 		actions.push(player.addMoney({
 			amount: moneyToWin,
+			channel,
+			language,
+			reason: NumberChangeReason.MISSION_FINISHED
+		}));
+		actions.push(player.addScore({
+			amount: pointsToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
@@ -276,6 +286,7 @@ export class MissionsController {
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.getNumberFromArray("expirations", prop.index))),
 			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.getNumberFromArray("gems", prop.index),
+			pointsToWin: missionData.getNumberFromArray("points", prop.index),
 			xpToWin: missionData.getNumberFromArray("xp", prop.index),
 			moneyToWin: missionData.getNumberFromArray("money", prop.index)
 		});

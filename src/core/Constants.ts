@@ -162,7 +162,8 @@ export abstract class Constants {
 				HARD: 0.5
 			}
 		],
-		DAILY_MISSION_MONEY_PENALITY: 2
+		DAILY_MISSION_MONEY_MULTIPLIER: 0.5,
+		DAILY_MISSION_POINTS_MULTIPLIER: 7
 	};
 
 	static readonly PROFILE = {
