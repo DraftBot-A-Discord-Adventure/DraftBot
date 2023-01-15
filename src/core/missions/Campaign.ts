@@ -31,6 +31,7 @@ export class Campaign {
 				const missionModel = await Missions.getById(campaign.missionId);
 				completedMissions.push(
 					new CompletedMission(
+						0, // campaign mission does not award points
 						campaign.xpToWin,
 						campaign.gemsToWin,
 						campaign.moneyToWin,

@@ -71,6 +71,11 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 	private static getMissionDisplay(tr: TranslationModule, completedMission: CompletedMission): string {
 		const missionDisplay = `• ${completedMission.desc}`;
 		const rewardDisplays = [];
+		if (completedMission.pointsToWin > 0) {
+			rewardDisplays.push(tr.format("pointsDisplay", {
+				points: completedMission.pointsToWin
+			}));
+		}
 		if (completedMission.gemsToWin > 0) {
 			rewardDisplays.push(tr.format("gemsDisplay", {
 				gems: completedMission.gemsToWin

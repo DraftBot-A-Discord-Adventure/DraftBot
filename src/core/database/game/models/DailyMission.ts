@@ -20,6 +20,8 @@ export class DailyMission extends Model {
 
 	public xpToWin!: number;
 
+	public pointsToWin!: number;
+
 	public moneyToWin!: number;
 
 	public lastDate!: Date;
@@ -56,6 +58,7 @@ export class DailyMissions {
 			dailyMission.missionId = prop.mission.id;
 			dailyMission.objective = missionData.getNumberFromArray("objectives", prop.index);
 			dailyMission.variant = prop.variant;
+			dailyMission.pointsToWin = missionData.getNumberFromArray("points", prop.index);
 			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
 			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
 			dailyMission.lastDate = new Date();
@@ -67,6 +70,7 @@ export class DailyMissions {
 				missionId: prop.mission.id,
 				objective: missionData.getNumberFromArray("objectives", prop.index),
 				variant: prop.variant,
+				pointsToWin: missionData.getNumberFromArray("points", prop.index),
 				gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 				xpToWin: missionData.getNumberFromArray("xp", prop.index),
 				moneyToWin: missionData.getNumberFromArray("money", prop.index),
@@ -94,6 +98,9 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER
 		},
 		gemsToWin: {
+			type: DataTypes.INTEGER
+		},
+		pointsToWin: {
 			type: DataTypes.INTEGER
 		},
 		xpToWin: {
