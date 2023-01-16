@@ -184,24 +184,26 @@ export class Player extends Model {
 	 * Add or remove points from the score of a player
 	 * @param parameters
 	 */
-	public async addScore(parameters: EditValueParameters): Promise<void> {
+	public async addScore(parameters: EditValueParameters): Promise<Player> {
 		this.score += parameters.amount;
 		if (parameters.amount > 0) {
-			await MissionsController.update(this, parameters.channel, parameters.language, {
+			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
 				missionId: "earnPoints",
 				count: parameters.amount
 			});
+			Object.assign(this, newPlayer);
 		}
 		await this.setScore(this.score, parameters.channel, parameters.language);
 		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason).then();
 		this.addWeeklyScore(parameters.amount);
+		return this;
 	}
 
 	/**
 	 * add or remove money to the player
 	 * @param parameters
 	 */
-	public async addMoney(parameters: EditValueParameters): Promise<void> {
+	public async addMoney(parameters: EditValueParameters): Promise<Player> {
 		this.money += parameters.amount;
 		if (parameters.amount > 0) {
 			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
@@ -214,6 +216,7 @@ export class Player extends Model {
 		}
 		this.setMoney(this.money);
 		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason).then();
+		return this;
 	}
 
 	/**
@@ -545,7 +548,7 @@ export class Player extends Model {
 	 * give experience to a player
 	 * @param parameters
 	 */
-	public async addExperience(parameters: EditValueParameters): Promise<void> {
+	public async addExperience(parameters: EditValueParameters): Promise<Player> {
 		this.experience += parameters.amount;
 		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason).then();
 		if (parameters.amount > 0) {
@@ -559,6 +562,7 @@ export class Player extends Model {
 		}
 
 		await this.levelUpIfNeeded(parameters.channel, parameters.language);
+		return this;
 	}
 
 	/**

@@ -145,7 +145,6 @@ export class MissionsController {
 	}
 
 	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<Player> {
-		const actions = [];
 		let gemsToWin = 0;
 		let xpToWin = 0;
 		let pointsToWin = 0;
@@ -158,26 +157,27 @@ export class MissionsController {
 			moneyToWin += completedMission.moneyToWin;
 		}
 
-		actions.push(missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED));
-		actions.push(player.addExperience({
+		await missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED);
+
+		player = await player.addExperience({
 			amount: xpToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
-		}));
-		actions.push(player.addMoney({
+		});
+		player = await player.addMoney({
 			amount: moneyToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
-		}));
-		actions.push(player.addScore({
+		});
+		player = await player.addScore({
 			amount: pointsToWin,
 			channel,
 			language,
 			reason: NumberChangeReason.MISSION_FINISHED
-		}));
-		await Promise.all(actions);
+		});
+
 		return player;
 	}
 
