@@ -102,12 +102,14 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.addMoney({
-		amount: moneyWon,
-		channel: stringInfos.interaction.channel,
-		language: guildDailyModule.language,
-		reason: NumberChangeReason.GUILD_DAILY
-	}));
+	await genericAwardingFunction(guildLike.members, member => {
+		member.addMoney({
+			amount: moneyWon,
+			channel: stringInfos.interaction.channel,
+			language: guildDailyModule.language,
+			reason: NumberChangeReason.GUILD_DAILY
+		});
+	});
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
 	}));
@@ -210,12 +212,14 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
  */
 async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const xpWon = RandomUtils.rangedInt(GuildDailyConstants.XP, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.addExperience({
-		amount: xpWon,
-		channel: stringInfos.interaction.channel,
-		language: guildDailyModule.language,
-		reason: NumberChangeReason.GUILD_DAILY
-	}));
+	await genericAwardingFunction(guildLike.members, member => {
+		member.addExperience({
+			amount: xpWon,
+			channel: stringInfos.interaction.channel,
+			language: guildDailyModule.language,
+			reason: NumberChangeReason.GUILD_DAILY
+		});
+	});
 	stringInfos.embed.setDescription(guildDailyModule.format("personalXP", {
 		xp: xpWon
 	}));
