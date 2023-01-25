@@ -25,6 +25,11 @@
 				"fieldValue": ":trophy: {rank}{isUnranked?:/}{numberOfPlayer} | :medal: {score}",
 				"unranked": "Non classé"
 			},
+			"fightRanking": {
+				"fieldName": "Points de combat et ligue :",
+				"fieldValue": ":sparkles: {fightPoints} | {league}",
+				"unranked": "Non classé"
+			},
 			"timeLeft": {
 				"fieldName": "Temps restant :",
 				"fieldValue": "{effect} {timeLeft}"
@@ -104,6 +109,11 @@
 			"ranking": {
 				"fieldName": "Ranking and score:",
 				"fieldValue": ":trophy: {rank}{isUnranked?:/}{numberOfPlayer} | :medal: {score}",
+				"unranked": "Unranked"
+			},
+			"fightRanking": {
+				"fieldName": "Fight points and league :",
+				"fieldValue": ":sparkles: {fightPoints} | {league}",
 				"unranked": "Unranked"
 			},
 			"timeLeft": {
