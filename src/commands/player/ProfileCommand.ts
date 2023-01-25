@@ -137,6 +137,28 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 }
 
 /**
+ * Get the ranking field of the profile
+ * @param profileModule
+ * @param rank
+ * @param numberOfPlayers
+ * @param askedPlayer
+ */
+function getFightRankingField(profileModule: TranslationModule, askedPlayer: Player): EmbedField {
+	const isUnranked = askedPlayer.getFightPoints() === 0;
+	return {
+		name: profileModule.get("fightRanking.fieldName"),
+		value:
+			profileModule.format("fightRanking.fieldValue", {
+				isUnranked: isUnranked,
+				rank: isUnranked ? profileModule.get("fightRanking.unranked") : rank,
+				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
+				score: askedPlayer.score
+			}),
+		inline: false
+	};
+}
+
+/**
  * Get the class field of the profile
  * @param profileModule
  * @param playerClass
