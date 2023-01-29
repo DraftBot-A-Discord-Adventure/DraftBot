@@ -92,6 +92,7 @@ export async function verifyTrigger(bigEvent: BigEvent, trigger: BigEventTrigger
 	return (trigger.mapId ? mapId === trigger.mapId : true) &&
 		(trigger.level ? player.level > trigger.level : true) &&
 		verifyTriggerDate(trigger) &&
+		(trigger.mapAttributes ? trigger.mapAttributes.includes((await player.getDestination()).attribute) : true) &&
 		await verifyOncePer(bigEvent, trigger, player);
 }
 
@@ -131,5 +132,6 @@ export interface BigEventTrigger {
 			to?: number
 		};
 	};
-	oncePer?: "year" | "month" | "week" | "day"
+	oncePer?: "year" | "month" | "week" | "day",
+	mapAttributes?: string[]
 }

@@ -14,7 +14,7 @@ export default class PoisonedAlteration extends FightAlteration {
 		// 50 % chance to be healed from the cursed (except for the first two turn) and 100 % after 5 turns of being cursed
 		if (Math.random() < 0.25 && victim.alterationTurn > 2 || victim.alterationTurn > 4) {
 			victim.removeAlteration();
-			let damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+			let damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim.level, this.getAttackInfo());
 			damageDealt += MathUtils.getIntervalValue(0, damageDealt * 2, (victim.alterationTurn - 2) / 3);
 			damageDealt += MathUtils.getIntervalValue(0, damageDealt, turn / FightConstants.MAX_TURNS);
 			damageDealt = Math.round(damageDealt);

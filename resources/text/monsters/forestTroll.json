@@ -1,0 +1,27 @@
+{
+	"translations": {
+		"fr": "Troll de la forêt",
+		"en": "Forest troll"
+	},
+	"fightPointsRatio": 100,
+	"attackRatio": 100,
+	"defenseRatio": 100,
+	"speedRatio": 100,
+	"breath": 10,
+	"maxBreath": 15,
+	"breathRegen": 3,
+	"rewardMultiplier": 1.0,
+	"attacks": [
+		{
+			"id": "chargeClubSmashAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "grabAndThrowAttack",
+			"minLevel": 0
+		}
+	],
+	"maps": [
+		1001
+	]
+}

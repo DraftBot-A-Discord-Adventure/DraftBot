@@ -6,8 +6,8 @@ import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
 import {draftBotInstance} from "../bot";
-import Benediction from "./actions/interfaces/benediction";
-import DivineAttack from "./actions/interfaces/divineAttack";
+import Benediction from "./actions/interfaces/players/benediction";
+import DivineAttack from "./actions/interfaces/players/divineAttack";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
 

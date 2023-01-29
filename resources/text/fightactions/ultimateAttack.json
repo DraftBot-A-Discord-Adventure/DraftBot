@@ -11,5 +11,6 @@
 	},
 	"emote": "☄️",
 	"breath": 0,
-	"missionVariant": 29
+	"missionVariant": 29,
+	"type": "physical"
 }

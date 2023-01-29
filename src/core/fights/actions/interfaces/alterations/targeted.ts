@@ -21,7 +21,7 @@ export default class TargetedAlteration extends FightAlteration {
 			return targetedTranslationModule.get("heal");
 		}
 
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim.level, this.getAttackInfo());
 		victim.stats.fightPoints -= damageDealt;
 		return format(targetedTranslationModule.get("damage"), {damages: damageDealt});
 	}

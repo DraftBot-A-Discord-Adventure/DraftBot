@@ -17,6 +17,12 @@ export class Monster extends Model {
 
 	public readonly baseSpeed!: number;
 
+	public readonly breath!: number;
+
+	public readonly maxBreath!: number;
+
+	public readonly breathRegen!: number;
+
 	public readonly rewardMultiplier!: number;
 
 	public updatedAt!: Date;
@@ -46,19 +52,31 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.STRING(64),
 			allowNull: false
 		},
-		baseFightPoints: {
+		fightPointsRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseAttack: {
+		attackRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseDefense: {
+		defenseRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseSpeed: {
+		speedRatio: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		breath: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		maxBreath: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		breathRegen: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},

@@ -13,7 +13,7 @@ import {
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {CommandInteraction, Message} from "discord.js";
+import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {effectsErrorTextValue} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -21,7 +21,7 @@ import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
-import {draftBotInstance} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ReportConstants} from "../../core/constants/ReportConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -32,6 +32,12 @@ import {Possibility} from "../../core/events/Possibility";
 import {BigEventsController} from "../../core/events/BigEventsController";
 import {BigEvent} from "../../core/events/BigEvent";
 import {applyPossibilityOutcome} from "../../core/events/PossibilityOutcome";
+import {FightController} from "../../core/fights/FightController";
+import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
+import {Classes} from "../../core/database/game/models/Class";
+import {MonsterFighter} from "../../core/fights/fighter/MonsterFighter";
+import {MonsterLocations} from "../../core/database/game/models/MonsterLocation";
+import {PVEConstants} from "../../core/constants/PVEConstants";
 import {TextInformation} from "../../core/utils/MessageUtils";
 
 /**
@@ -542,6 +548,63 @@ async function doPVEBoss(
 ): Promise<void> {
 	await Maps.stopTravel(player);
 	await chooseDestination(player, interaction, language, null);
+	const fightCallback = async (fight: FightController): Promise<void> => {
+		if (fight) {
+			player.fightPointsLost = fight.fightInitiator.stats.maxFightPoint - fight.fightInitiator.stats.fightPoints;
+		}
+
+		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
+			await Maps.stopTravel(player);
+			await chooseDestination(player, interaction, language, null);
+		}
+	};
+
+	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id);
+
+	if (!monsterObj) {
+		await interaction.editReply("There is no monster here... This is a bug, please report this bug to the draftbot's team");
+		await fightCallback(null);
+		return;
+	}
+
+	const monsterFighter = new MonsterFighter(player.level, monsterObj.monster, monsterObj.attacks, language);
+
+	const tr = Translations.getModule("commands.report", language);
+	const msg = await interaction.editReply({ content:
+			tr.format("pveEvent", {
+				pseudo: player.getMention(),
+				event: `${tr.getRandom("encounterMonster")}`,
+				monsterDisplay: tr.format("encounterMonsterStats", {
+					monsterName: monsterFighter.getName(),
+					fightPoints: monsterFighter.stats.fightPoints,
+					attack: monsterFighter.stats.attack,
+					defense: monsterFighter.stats.defense,
+					speed: monsterFighter.stats.speed
+				})
+			})});
+	const collector = msg.createReactionCollector({
+		filter: (reaction: MessageReaction, user: User) =>
+			user.id === player.discordUserId &&
+			reaction.users.cache.has(draftBotClient.user.id),
+		time: PVEConstants.COLLECTOR_TIME,
+		max: 1
+	});
+	collector.on("end", async () => {
+		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
+		await playerFighter.loadStats(true);
+		playerFighter.stats.fightPoints = playerFighter.stats.maxFightPoint - player.fightPointsLost;
+
+		const fight = new FightController(
+			playerFighter,
+			monsterFighter,
+			true,
+			interaction.channel,
+			language
+		);
+		fight.setEndCallback(() => fightCallback(fight));
+		await fight.startFight();
+	});
+	await msg.react("⚔️");
 }
 
 /**

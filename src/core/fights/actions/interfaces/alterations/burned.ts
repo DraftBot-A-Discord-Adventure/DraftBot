@@ -15,7 +15,7 @@ export default class BurnedAlteration extends FightAlteration {
 			victim.removeAlteration();
 			return burnedTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim.level, this.getAttackInfo());
 		victim.stats.fightPoints -= damageDealt;
 		return format(burnedTranslationModule.get("damage"), {damages: damageDealt});
 	}

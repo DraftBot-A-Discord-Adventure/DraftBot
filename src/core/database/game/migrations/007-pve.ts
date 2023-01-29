@@ -1,5 +1,4 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import * as moment from "moment/moment";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("monsters", {
@@ -18,19 +17,31 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.STRING(64),
 			allowNull: false
 		},
-		baseFightPoints: {
+		fightPointsRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseAttack: {
+		attackRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseDefense: {
+		defenseRatio: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		baseSpeed: {
+		speedRatio: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		breath: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		maxBreath: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		breathRegen: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
@@ -82,4 +93,5 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("monster_locations");
 	await context.dropTable("monster_attacks");
 	await context.dropTable("monsters");
+	await context.removeColumn("map_locations", "attribute");
 }

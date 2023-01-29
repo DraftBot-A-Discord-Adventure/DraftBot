@@ -2,6 +2,7 @@ import {Fighter} from "../fighter/Fighter";
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {FightConstants} from "../../constants/FightConstants";
+import {FightActionType} from "./FightActionType";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -15,6 +16,8 @@ export abstract class FightAction {
 	private emojiCache: string;
 
 	private breathCostCache: number;
+
+	private typeCache: FightActionType;
 
 	public isAlteration = false;
 
@@ -75,5 +78,14 @@ export abstract class FightAction {
 			: damageDealt < initialDamage
 				? FightConstants.ATTACK_STATUS.MISSED
 				: FightConstants.ATTACK_STATUS.NORMAL;
+	}
+
+	public getType(): FightActionType {
+		if (!this.typeCache) {
+			this.typeCache = FightActionType[Data.getModule(`fightactions.${this.name}`)
+				.getString("type")
+				.toUpperCase() as keyof typeof FightActionType];
+		}
+		return this.typeCache;
 	}
 }
