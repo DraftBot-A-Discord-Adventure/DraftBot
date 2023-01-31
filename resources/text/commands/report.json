@@ -29,7 +29,12 @@
 			"journal": "Journal de {pseudo}",
 			"collectedPointsTitle": "Points récoltés :",
 			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !",
-			"remainingEnergyTitle": "Énergie restante :"
+			"remainingEnergyTitle": "Énergie restante :",
+			"pveEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n\n{monsterDisplay}\n\n*Réagissez avec ⚔️ pour démarrer le combat*",
+			"encounterMonster": [
+				"Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
+			],
+			"encounterMonsterStats": "**{monsterName}**\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}"
 		},
 		"en": {
 			"commandName": "report",
@@ -60,7 +65,12 @@
 			"journal": "Journal of {pseudo}",
 			"collectedPointsTitle": "Collected points:",
 			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!",
-			"remainingEnergyTitle": "Remaining energy :"
+			"remainingEnergyTitle": "Remaining energy :",
+			"pveEvent": ":newspaper: ** Journal of {pseudo} : ** {event}\n\n{monsterDisplay}\n\n*React with ⚔️ to start the fight*",
+			"encounterMonster": [
+				"You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you !"
+			],
+			"encounterMonsterStats": "**{monsterName}**\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}"
 		}
 	}
 }

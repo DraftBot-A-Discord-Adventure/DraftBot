@@ -30,7 +30,10 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
+import {Maps} from "../../../maps/Maps";
 import {PVEConstants} from "../../../constants/PVEConstants";
+import {MapConstants} from "../../../constants/MapConstants";
+import {RandomUtils} from "../../../utils/RandomUtils";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -773,6 +776,33 @@ export class Player extends Model {
 		else {
 			this.health = health;
 		}
+	}
+
+	/**
+	 * Leave the PVE island if no fight points left
+	 * @param interaction
+	 * @param language
+	 */
+	public async leavePVEIslandIfNoFightPoints(interaction: CommandInteraction, language: string): Promise<boolean> {
+		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= await this.getMaxCumulativeFightPoint()) {
+			const tr = Translations.getModule("models.players", language);
+			await interaction.channel.send({ embeds: [
+				new DraftBotEmbed().formatAuthor(tr.get("leavePVEIslandTitle"), interaction.user)
+					.setDescription(tr.get("leavePVEIsland"))
+			]});
+			await Maps.stopTravel(this);
+			await Maps.startTravel(
+				this,
+				await MapLinks.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
+				Date.now(),
+				NumberChangeReason.PVE_ISLAND
+			);
+			await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

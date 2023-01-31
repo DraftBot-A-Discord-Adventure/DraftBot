@@ -19,7 +19,9 @@
 				"description": "Il semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}."
 			},
 			"dmDisabledFooter": "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites la commande notification et activez les messages privés dans vos paramètres utilisateurs.",
-			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé)."
+			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé).",
+			"leavePVEIslandTitle": "{pseudo}, évanouissement",
+			"leavePVEIsland": "\uD83D\uDE16 Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\nUn bateau vient vous chercher et vous ramène sur une côté du continent principal."
 		},
 		"en": {
 			"pseudo": "Player 404",
@@ -40,7 +42,9 @@
 				"description": "Looks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricey, and your total score was impacted by it...\n\nTo play again, use {command:respawn}"
 			},
 			"dmDisabledFooter": "Your private messages are locked, or you have disabled bot's private messages with notification. If you wish to enable them use the notification command, and unlock dm messages in your user settings",
-			"dmEnabledFooter": "This message is sent to you via the notification system by private messages. If you no longer wish to receive private messages from this bot, please use the command notification (commands do not work in private messages)"
+			"dmEnabledFooter": "This message is sent to you via the notification system by private messages. If you no longer wish to receive private messages from this bot, please use the command notification (commands do not work in private messages)",
+			"leavePVEIslandTitle": "{pseudo}, fainting",
+			"leavePVEIsland": "\uD83D\uDE16 You feel your strength leaving you, you are exhausted. You suddenly faint...\nA boat comes for you and leave you on the coast of the main continent."
 		}
 	}
 }
