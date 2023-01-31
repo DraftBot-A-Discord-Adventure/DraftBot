@@ -19,6 +19,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import Pet, {Pets} from "../../core/database/game/models/Pet";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {FightConstants} from "../../core/constants/FightConstants";
 
 /**
  * Display badges for the given player
@@ -139,20 +140,16 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 /**
  * Get the ranking field of the profile
  * @param profileModule
- * @param rank
- * @param numberOfPlayers
  * @param askedPlayer
  */
 function getFightRankingField(profileModule: TranslationModule, askedPlayer: Player): EmbedField {
-	const isUnranked = askedPlayer.getFightPoints() === 0;
+	const leagueDisplay = askedPlayer.getLeagueDisplay(profileModule.language);
 	return {
 		name: profileModule.get("fightRanking.fieldName"),
 		value:
 			profileModule.format("fightRanking.fieldValue", {
-				isUnranked: isUnranked,
-				rank: isUnranked ? profileModule.get("fightRanking.unranked") : rank,
-				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
-				score: askedPlayer.score
+				gloryPoints: askedPlayer.gloryPoints,
+				league: leagueDisplay
 			}),
 		inline: false
 	};
@@ -323,6 +320,10 @@ async function generateFields(
 	}
 	catch (error) {
 		log(`Error while getting class of player for profile: ${error}`);
+	}
+
+	if (askedPlayer.level >= FightConstants.REQUIRED_LEVEL) {
+		fields.push(getFightRankingField(profileModule, askedPlayer));
 	}
 
 	try {
