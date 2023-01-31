@@ -30,6 +30,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
+import {Leagues} from "./League";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -79,6 +80,8 @@ export class Player extends Model {
 	public topggVoteAt!: Date;
 
 	public nextEvent!: number;
+
+	public gloryPoints: number;
 
 	public petId!: number;
 
@@ -797,6 +800,14 @@ export class Player extends Model {
 	public async getBreathRegen(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
 		return playerClass.breathRegen;
+	}
+
+	/**
+	 * display the league of the player
+	 * @param language
+	 */
+	public async getLeagueDisplay(language: string): Promise<string> {
+		return (await Leagues.getByGlory(this.gloryPoints)).toString(language);
 	}
 }
 
