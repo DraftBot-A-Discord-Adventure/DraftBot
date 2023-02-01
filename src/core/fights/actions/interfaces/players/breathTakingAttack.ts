@@ -1,10 +1,8 @@
-import {Fighter} from "../../../fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {format} from "../../../../utils/StringFormatter";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class BreathTakingAttack extends FightAction {
@@ -17,10 +15,14 @@ export default class BreathTakingAttack extends FightAction {
 
 		// 60% chance of reducing the opponent's speed by 20%. Otherwise, steal 1 point of breath from the opponent.
 		let sideEffects;
-		if (RandomUtils.draftbotRandom.bool(0.4) || receiver.stats.breath < 1) {
+		if (RandomUtils.draftbotRandom.bool(0.4) || receiver.getBreath() < 1) {
 			// Reduce target speed by 20%
 			const reduceAmount = 20;
-			receiver.stats.speed = Math.round(receiver.stats.speed * (1 - reduceAmount / 100)) ;
+			receiver.applySpeedModifier({
+				origin: this,
+				operation: FightStatModifierOperation.MULTIPLIER,
+				value: 1 - reduceAmount / 100
+			});
 			sideEffects = attackTranslationModule.format("actions.sideEffects.speed", {
 				adversary: FightConstants.TARGET.OPPONENT,
 				operator: FightConstants.OPERATOR.MINUS,
@@ -39,22 +41,13 @@ export default class BreathTakingAttack extends FightAction {
 				operator: FightConstants.OPERATOR.PLUS,
 				amount: 1
 			});
-			receiver.stats.breath -= 1;
-			sender.stats.breath += 1;
+			receiver.addBreath(-1);
+			sender.addBreath(1);
 		}
 
+		receiver.damage(damageDealt);
 
-		receiver.stats.fightPoints -= damageDealt;
-
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -64,11 +57,11 @@ export default class BreathTakingAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.7,
 				0.3

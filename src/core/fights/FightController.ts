@@ -63,7 +63,7 @@ export class FightController {
 		}
 
 		// the player with the highest speed start the fight
-		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
+		if (this.fighters[1].getSpeed() > this.fighters[0].getSpeed() || RandomUtils.draftbotRandom.bool() && this.fighters[1].getSpeed() === this.fighters[0].getSpeed()) {
 			this.invertFighters();
 		}
 		await this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
@@ -166,8 +166,8 @@ export class FightController {
 	private checkNegativeFightPoints(): void {
 		// set the fight points to 0 if any of the fighters have fight points under 0
 		for (const fighter of this.fighters) {
-			if (fighter.stats.fightPoints < 0) {
-				fighter.stats.fightPoints = 0;
+			if (fighter.getFightPoints() < 0) {
+				fighter.setBaseFightPoints(0);
 			}
 		}
 	}

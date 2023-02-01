@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {MathUtils} from "../../../../utils/MathUtils";
@@ -12,7 +11,7 @@ export default class CanonAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.stats.speed + 20) / 320));
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
 
 		// if the attack was used two times in a row, the damage is divided by 2
 		const lastFightAction = sender.getLastFightActionUsed();
@@ -35,17 +34,9 @@ export default class CanonAttack extends FightAction {
 			}
 		}
 
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -55,11 +46,11 @@ export default class CanonAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
+				sender.getAttack(),
 				120
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.5,
 				0.5

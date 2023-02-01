@@ -1,8 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
@@ -24,14 +22,9 @@ export default class BoomerangAttack extends FightAction {
 			});
 		}
 
-		receiver.stats.fightPoints -= damageDealt;
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		receiver.damage(damageDealt);
+
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -41,9 +34,9 @@ export default class BoomerangAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack
+				sender.getAttack()
 			], defenderStats: [
-				receiver.stats.defense
+				receiver.getDefense()
 			], statsEffect: [
 				1
 			]

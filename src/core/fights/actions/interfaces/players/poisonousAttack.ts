@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
@@ -23,14 +22,9 @@ export default class PoisonousAttack extends FightAction {
 			});
 		}
 
-		receiver.stats.fightPoints -= damageDealt;
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		receiver.damage(damageDealt);
+
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -40,11 +34,11 @@ export default class PoisonousAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.7,
 				0.3

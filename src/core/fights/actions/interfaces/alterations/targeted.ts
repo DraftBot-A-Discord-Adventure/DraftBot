@@ -22,7 +22,7 @@ export default class TargetedAlteration extends FightAlteration {
 		}
 
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim.level, this.getAttackInfo());
-		victim.stats.fightPoints -= damageDealt;
+		victim.damage(damageDealt);
 		return format(targetedTranslationModule.get("damage"), {damages: damageDealt});
 	}
 
@@ -33,9 +33,9 @@ export default class TargetedAlteration extends FightAlteration {
 	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack
+				sender.getAttack()
 			], defenderStats: [
-				victim.stats.defense
+				victim.getDefense()
 			], statsEffect: [
 				1
 			]

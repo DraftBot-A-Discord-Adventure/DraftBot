@@ -1,4 +1,4 @@
-import {Fighter} from "../../../fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAction} from "../../FightAction";
 
@@ -11,7 +11,11 @@ export default class DefenseBuff extends FightAction {
 
 		const defenseBuffArray = [20, 25, 35, 40];
 
-		sender.stats.defense += Math.round(sender.stats.defense * defenseBuffArray[streak] / 100 + 1);
+		sender.applyDefenseModifier({
+			origin: this,
+			operation: FightStatModifierOperation.ADDITION,
+			value: sender.getDefense() * defenseBuffArray[streak] / 100 + 1
+		});
 
 		return noneTranslationModule.format("active", {
 			amount: defenseBuffArray[streak]

@@ -144,8 +144,8 @@ export class FightView {
 		for (const fighter of [winner, loser]) {
 			msg += this.fightTranslationModule.format("end.fighterStats", {
 				pseudo: fighter.getName(),
-				health: fighter.stats.fightPoints,
-				maxHealth: fighter.stats.maxFightPoint
+				health: fighter.getFightPoints(),
+				maxHealth: fighter.getMaxFightPoints()
 			});
 		}
 

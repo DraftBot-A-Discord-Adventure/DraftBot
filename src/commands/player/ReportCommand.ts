@@ -550,7 +550,7 @@ async function doPVEBoss(
 	await chooseDestination(player, interaction, language, null);
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
-			player.fightPointsLost = fight.fightInitiator.stats.maxFightPoint - fight.fightInitiator.stats.fightPoints;
+			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
 		}
 
 		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
@@ -576,10 +576,10 @@ async function doPVEBoss(
 				event: `${tr.getRandom("encounterMonster")}`,
 				monsterDisplay: tr.format("encounterMonsterStats", {
 					monsterName: monsterFighter.getName(),
-					fightPoints: monsterFighter.stats.fightPoints,
-					attack: monsterFighter.stats.attack,
-					defense: monsterFighter.stats.defense,
-					speed: monsterFighter.stats.speed
+					fightPoints: monsterFighter.getFightPoints(),
+					attack: monsterFighter.getAttack(),
+					defense: monsterFighter.getDefense(),
+					speed: monsterFighter.getSpeed()
 				})
 			})});
 	const collector = msg.createReactionCollector({
@@ -592,7 +592,7 @@ async function doPVEBoss(
 	collector.on("end", async () => {
 		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 		await playerFighter.loadStats(true);
-		playerFighter.stats.fightPoints = playerFighter.stats.maxFightPoint - player.fightPointsLost;
+		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
 
 		const fight = new FightController(
 			playerFighter,

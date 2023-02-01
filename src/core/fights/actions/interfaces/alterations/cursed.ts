@@ -1,7 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 import {MathUtils} from "../../../../utils/MathUtils";
@@ -18,7 +17,7 @@ export default class PoisonedAlteration extends FightAlteration {
 			damageDealt += MathUtils.getIntervalValue(0, damageDealt * 2, (victim.alterationTurn - 2) / 3);
 			damageDealt += MathUtils.getIntervalValue(0, damageDealt, turn / FightConstants.MAX_TURNS);
 			damageDealt = Math.round(damageDealt);
-			victim.stats.fightPoints -= damageDealt;
+			victim.damage(damageDealt);
 			return curseTranslationModule.format("heal", {damages: damageDealt});
 		}
 
@@ -32,9 +31,9 @@ export default class PoisonedAlteration extends FightAlteration {
 	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack
+				sender.getAttack()
 			], defenderStats: [
-				victim.stats.defense
+				victim.getDefense()
 			], statsEffect: [
 				1
 			]

@@ -1,6 +1,5 @@
-import {Fighter} from "../../../fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {FightController} from "../../../FightController";
@@ -25,39 +24,42 @@ export default class Benediction extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 		let sideEffects = "";
 		const buff = turn < 15 ? Math.round(1.67 * turn) : 25;
 
-		sender.stats.defense = Math.round(sender.stats.defense + sender.stats.defense * buff / 100);
+		sender.applyDefenseModifier({
+			origin: this,
+			operation: FightStatModifierOperation.ADDITION,
+			value: sender.getDefense() * buff / 100
+		});
 		sideEffects += attackTranslationModule.format("actions.sideEffects.defense", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
 			amount: buff
 		});
-		sender.stats.attack = Math.round(sender.stats.attack + sender.stats.attack * buff / 100);
+		sender.applyAttackModifier({
+			origin: this,
+			operation: FightStatModifierOperation.ADDITION,
+			value: sender.getAttack() * buff / 100
+		});
 		sideEffects += attackTranslationModule.format("actions.sideEffects.attack", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
 			amount: buff
 		});
-		sender.stats.speed = Math.round(sender.stats.speed - sender.stats.speed * buff / 100);
+		sender.applySpeedModifier({
+			origin: this,
+			operation: FightStatModifierOperation.ADDITION,
+			value: - (sender.getDefense() * buff / 100)
+		});
 		sideEffects += attackTranslationModule.format("actions.sideEffects.speed", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
 			amount: buff
 		});
 
-
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -67,11 +69,11 @@ export default class Benediction extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.7,
 				0.3

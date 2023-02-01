@@ -27,7 +27,7 @@ export default class ConfusedAlteration extends FightAction {
 		if (randomValue < 0.85) {
 			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 			sender.nextFightAction = FightActions.getNoAttack();
-			sender.stats.fightPoints -= damageDealt;
+			sender.damage(damageDealt);
 			return confusionTranslationModule.format("damage", {damages: damageDealt});
 		}
 
@@ -41,8 +41,8 @@ export default class ConfusedAlteration extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				receiver.stats.attack,
-				sender.stats.attack
+				receiver.getAttack(),
+				sender.getAttack()
 			], defenderStats: [
 				100,
 				100

@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
@@ -38,22 +37,16 @@ export default class RamAttack extends FightAction {
 		}
 		else {
 			const ownDamage = Math.round(damageDealt * 0.33);
-			sender.stats.fightPoints -= ownDamage;
+			sender.damage(ownDamage);
 			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
 				amount: ownDamage
 			});
 		}
 
 		damageDealt = Math.round(damageDealt);
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -63,11 +56,11 @@ export default class RamAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.defense,
-				sender.stats.speed
+				sender.getDefense(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.85,
 				0.15

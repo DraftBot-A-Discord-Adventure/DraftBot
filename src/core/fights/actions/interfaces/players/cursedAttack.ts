@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
@@ -23,15 +22,9 @@ export default class CursedAttack extends FightAction {
 			});
 		}
 
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -41,9 +34,9 @@ export default class CursedAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack
+				sender.getAttack()
 			], defenderStats: [
-				receiver.stats.defense
+				receiver.getDefense()
 			], statsEffect: [
 				1
 			]

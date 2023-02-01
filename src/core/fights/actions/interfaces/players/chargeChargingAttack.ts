@@ -1,6 +1,5 @@
-import {Fighter} from "../../../fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
@@ -16,7 +15,11 @@ export default class ChargeChargingAttack extends FightAction {
 
 		// Increase defense of the sender by 50 %
 		const increaseAmount = 50;
-		sender.stats.defense = Math.round(sender.stats.defense + sender.stats.defense * increaseAmount / 100);
+		sender.applyDefenseModifier({
+			origin: this,
+			operation: FightStatModifierOperation.MULTIPLIER,
+			value: 1 + increaseAmount / 100
+		});
 		const sideEffects = attackTranslationModule.format("actions.sideEffects.defense", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
@@ -25,17 +28,9 @@ export default class ChargeChargingAttack extends FightAction {
 
 		sender.nextFightAction = FightActions.getFightActionById("chargingAttack");
 
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -45,11 +40,11 @@ export default class ChargeChargingAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.7,
 				0.3

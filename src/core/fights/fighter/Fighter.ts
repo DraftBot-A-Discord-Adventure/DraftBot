@@ -16,6 +16,18 @@ type FighterStats = {
 	breathRegen: number
 }
 
+export enum FightStatModifierOperation {
+	ADDITION,
+	MULTIPLIER,
+	SET_VALUE
+}
+
+export type FightStatModifier = {
+	origin: FightAction,
+	operation: FightStatModifierOperation,
+	value: number
+}
+
 const fighterStatusTranslation = [
 	"summarize.notStarted",
 	"summarize.attacker",
@@ -30,8 +42,7 @@ const fighterStatusTranslation = [
  * @class Fighter
  */
 export abstract class Fighter {
-
-	public stats: FighterStats;
+	protected stats: FighterStats;
 
 	public nextFightAction: FightAction;
 
@@ -43,7 +54,11 @@ export abstract class Fighter {
 
 	public readonly level: number;
 
-	private statsBackup: FighterStats;
+	private attackModifiers: FightStatModifier[];
+
+	private defenseModifiers: FightStatModifier[];
+
+	private speedModifiers: FightStatModifier[];
 
 	private ready: boolean;
 
@@ -62,7 +77,9 @@ export abstract class Fighter {
 			maxBreath: null,
 			breathRegen: null
 		};
-		this.statsBackup = null;
+		this.attackModifiers = [];
+		this.defenseModifiers = [];
+		this.speedModifiers = [];
 		this.ready = false;
 		this.nextFightAction = null;
 		this.fightActionsHistory = [];
@@ -114,32 +131,207 @@ export abstract class Fighter {
 		this.status = newStatus;
 	}
 
-	/**
-	 * save the stats of the fighter to the backup stat storage
-	 */
-	public saveStats(): void {
-		this.statsBackup = {...this.stats};
+	private calculateModifiedStat(base: number, modifiers: FightStatModifier[]): number {
+		let value = base;
+		for (const modifier of modifiers) {
+			switch (modifier.operation) {
+			case FightStatModifierOperation.ADDITION:
+				value += modifier.value;
+				break;
+			case FightStatModifierOperation.MULTIPLIER:
+				value *= modifier.value;
+				break;
+			case FightStatModifierOperation.SET_VALUE:
+				value = modifier.value;
+				return Math.round(value);
+			default:
+				break;
+			}
+		}
+
+		return Math.round(value);
 	}
 
 	/**
-	 * recover the stats of the fighter from the backup stat storage
+	 * Get fighter attack
 	 */
-	public readSavedStats(): FighterStats {
-		return this.statsBackup;
+	public getAttack(): number {
+		return this.calculateModifiedStat(this.stats.attack, this.attackModifiers);
 	}
 
 	/**
-	 * erase the saved stats of the fighter
+	 * Get fighter defense
 	 */
-	eraseSavedStats(): void {
-		this.statsBackup = null;
+	public getDefense(): number {
+		return this.calculateModifiedStat(this.stats.defense, this.defenseModifiers);
 	}
 
 	/**
-	 * check if a fighter has an active backup of its stats
+	 * Get fighter speed
 	 */
-	hasSavedStats(): boolean {
-		return this.statsBackup !== null;
+	public getSpeed(): number {
+		return this.calculateModifiedStat(this.stats.speed, this.speedModifiers);
+	}
+
+	/**
+	 * Get fight points
+	 */
+	public getFightPoints(): number {
+		return this.stats.fightPoints;
+	}
+
+	/**
+	 * Get the maximum fight points
+	 */
+	public getMaxFightPoints(): number {
+		return this.stats.maxFightPoint;
+	}
+
+	/**
+	 * Get the breath of the fighter
+	 */
+	public getBreath(): number {
+		return this.stats.breath;
+	}
+
+	/**
+	 * Get the maximum breath of the fighter
+	 */
+	public getMaxBreath(): number {
+		return this.stats.maxBreath;
+	}
+
+	/**
+	 * Get the regen breath of the fighter
+	 */
+	public getRegenBreath(): number {
+		return this.stats.breathRegen;
+	}
+
+	/**
+	 * Add (or remove if negative) breath to the fighter
+	 * @param value The new breath
+	 */
+	public addBreath(value: number): number {
+		this.stats.breath += value;
+		if (this.stats.breath < 0) {
+			this.stats.breath = 0;
+		}
+		else if (this.stats.breath > this.stats.maxBreath) {
+			this.stats.breath = this.stats.maxBreath;
+		}
+		return this.stats.breath;
+	}
+
+	/**
+	 * Set the base fight points
+	 * @param value
+	 */
+	public setBaseFightPoints(value: number): void {
+		this.stats.fightPoints = value;
+	}
+
+	/**
+	 * Apply an attack modifier
+	 * @param modifier
+	 */
+	public applyAttackModifier(modifier: FightStatModifier): void {
+		this.attackModifiers.push(modifier);
+	}
+
+	/**
+	 * Apply a defense modifier
+	 * @param modifier
+	 */
+	public applyDefenseModifier(modifier: FightStatModifier): void {
+		this.defenseModifiers.push(modifier);
+	}
+
+	/**
+	 * Apply a speed modifier
+	 * @param modifier
+	 */
+	public applySpeedModifier(modifier: FightStatModifier): void {
+		this.speedModifiers.push(modifier);
+	}
+
+	/**
+	 * Remove all attack modifiers for an origin
+	 * @param origin
+	 */
+	public removeAttackModifiers(origin: FightAction): void {
+		this.attackModifiers = this.attackModifiers.filter((modifier) => modifier.origin !== origin);
+	}
+
+	/**
+	 * Remove all defense modifiers for an origin
+	 * @param origin
+	 */
+	public removeDefenseModifiers(origin: FightAction): void {
+		this.defenseModifiers = this.defenseModifiers.filter((modifier) => modifier.origin !== origin);
+	}
+
+	/**
+	 * Remove all speed modifiers for an origin
+	 * @param origin
+	 */
+	public removeSpeedModifiers(origin: FightAction): void {
+		this.speedModifiers = this.speedModifiers.filter((modifier) => modifier.origin !== origin);
+	}
+
+	/**
+	 * Check if the fighter has an attack modifier with an origin
+	 * @param origin
+	 */
+	public hasAttackModifier(origin: FightAction): boolean {
+		return this.attackModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+	}
+
+	/**
+	 * Check if the fighter has a defense modifier with an origin
+	 * @param origin
+	 */
+	public hasDefenseModifier(origin: FightAction): boolean {
+		return this.defenseModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+	}
+
+	/**
+	 * Check if the fighter has a speed modifier with an origin
+	 * @param origin
+	 */
+	public hasSpeedModifier(origin: FightAction): boolean {
+		return this.speedModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+	}
+
+	/**
+	 * Damage the fighter
+	 * @param value
+	 * @param keepAlive Prevent the fighter to die of these damages
+	 * @return The new value of energy
+	 */
+	public damage(value: number, keepAlive = false): number {
+		this.stats.fightPoints -= value;
+		if (this.stats.fightPoints < 0) {
+			this.stats.fightPoints = 0;
+		}
+		if (keepAlive && this.stats.fightPoints === 0) {
+			this.stats.fightPoints = 1;
+		}
+		return this.stats.fightPoints;
+	}
+
+	/**
+	 * Heal the fighter
+	 * @param value
+	 * @return The new value of energy
+	 */
+	public heal(value: number): number {
+		this.stats.fightPoints += value;
+		const max = this.getMaxFightPoints();
+		if (this.stats.fightPoints > max) {
+			this.stats.fightPoints = max;
+		}
+		return this.stats.fightPoints;
 	}
 
 	/**
@@ -153,13 +345,13 @@ export abstract class Fighter {
 				pseudo: this.getName()
 			}
 		) + fightTranslationModule.format("summarize.stats", {
-			power: this.stats.fightPoints,
-			attack: this.stats.attack,
-			defense: this.stats.defense,
-			speed: this.stats.speed,
-			breath: this.stats.breath,
-			maxBreath: this.stats.maxBreath,
-			breathRegen: this.stats.breathRegen
+			power: this.getFightPoints(),
+			attack: this.getAttack(),
+			defense: this.getDefense(),
+			speed: this.getSpeed(),
+			breath: this.getBreath(),
+			maxBreath: this.getMaxBreath(),
+			breathRegen: this.getRegenBreath()
 		});
 	}
 
@@ -167,7 +359,7 @@ export abstract class Fighter {
 	 * check if the player is dead
 	 */
 	public isDead(): boolean {
-		return this.stats.fightPoints <= 0;
+		return this.getFightPoints() <= 0;
 	}
 
 	/**

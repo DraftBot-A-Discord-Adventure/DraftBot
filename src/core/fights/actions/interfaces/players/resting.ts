@@ -19,10 +19,7 @@ export default class Resting extends FightAction {
 				FightActionController.getAttackDamage(this.getStatsInfo(sender), sender.level, this.getAttackInfo()) / 4
 			);
 
-		sender.stats.fightPoints += recoveredFightPoints;
-		if (sender.stats.fightPoints > sender.stats.maxFightPoint) {
-			sender.stats.fightPoints = sender.stats.maxFightPoint;
-		}
+		sender.heal(recoveredFightPoints);
 		return restingTranslationModule.format("active", {
 			amount: recoveredFightPoints
 		});
@@ -35,9 +32,9 @@ export default class Resting extends FightAction {
 	getStatsInfo(sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.maxFightPoint // we are comparing the max fight points to the current health to get the amount of recovered fight points
+				sender.getMaxFightPoints() // we are comparing the max fight points to the current health to get the amount of recovered fight points
 			], defenderStats: [
-				sender.stats.fightPoints
+				sender.getFightPoints()
 			], statsEffect: [
 				1
 			]

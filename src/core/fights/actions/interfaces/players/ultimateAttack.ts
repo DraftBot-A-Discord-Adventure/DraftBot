@@ -12,7 +12,7 @@ export default class UltimateAttack extends FightAction {
 
 		let failureProbability = 70;
 		// check if the sender has less than 45% of his fight points
-		if (sender.stats.fightPoints < sender.stats.maxFightPoint * 0.45) {
+		if (sender.getFightPoints() < sender.getMaxFightPoints() * 0.45) {
 			failureProbability = 0;
 		}
 
@@ -29,15 +29,9 @@ export default class UltimateAttack extends FightAction {
 				effect: attackTranslationModule.get("effects.slowed").toLowerCase()
 			});
 		}
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -47,11 +41,11 @@ export default class UltimateAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed * 3
+				sender.getAttack(),
+				sender.getSpeed() * 3
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.7,
 				0.3

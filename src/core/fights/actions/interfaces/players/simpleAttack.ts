@@ -1,6 +1,4 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 
@@ -8,17 +6,9 @@ export default class SimpleAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
-		receiver.stats.fightPoints -= damageDealt;
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-		return format(chosenString, {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		receiver.damage(damageDealt);
+
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -28,11 +18,11 @@ export default class SimpleAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.8,
 				0.2

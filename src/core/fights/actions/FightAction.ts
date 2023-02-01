@@ -3,6 +3,7 @@ import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {FightConstants} from "../../constants/FightConstants";
 import {FightActionType} from "./FightActionType";
+import {format} from "../../utils/StringFormatter";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -87,5 +88,25 @@ export abstract class FightAction {
 				.toUpperCase() as keyof typeof FightActionType];
 		}
 		return this.typeCache;
+	}
+
+	/**
+	 * Get the generic attack output message
+	 * @param damageDealt
+	 * @param initialDamage
+	 * @param language
+	 * @param sideEffects Additional effects to output
+	 */
+	public getGenericAttackOutput(damageDealt: number, initialDamage: number, language: string, sideEffects = ""): string {
+		const attackTranslationModule = Translations.getModule("commands.fight", language);
+		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
+		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
+		return format(chosenString, {
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
+				.get("name")
+				.toLowerCase()
+		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
+			damages: damageDealt
+		});
 	}
 }

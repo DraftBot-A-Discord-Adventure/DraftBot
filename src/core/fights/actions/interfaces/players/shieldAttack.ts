@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
@@ -10,7 +9,7 @@ export default class ShieldAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
-		receiver.stats.fightPoints -= damageDealt;
+		receiver.damage(damageDealt);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		let sideEffects = "";
@@ -23,13 +22,7 @@ export default class ShieldAttack extends FightAction {
 			});
 		}
 
-		return format(attackTranslationModule.getRandom(`actions.attacksResults.${this.getAttackStatus(damageDealt, initialDamage)}`), {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
@@ -39,11 +32,11 @@ export default class ShieldAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.defense,
-				sender.stats.attack
+				sender.getDefense(),
+				sender.getAttack()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.defense
+				receiver.getDefense(),
+				receiver.getDefense()
 			], statsEffect: [
 				0.8,
 				0.2

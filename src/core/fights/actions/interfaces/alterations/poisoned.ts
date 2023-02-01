@@ -15,7 +15,7 @@ export default class PoisonedAlteration extends FightAlteration {
 			return poisonTranslationModule.get("heal");
 		}
 		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), sender.level, this.getAttackInfo());
-		victim.stats.fightPoints -= damageDealt;
+		victim.damage(damageDealt);
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	}
 
@@ -26,13 +26,13 @@ export default class PoisonedAlteration extends FightAlteration {
 	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				victim.stats.attack,// we use the defender's attack because the poison is applied to the attacker
-				sender.stats.attack,
-				victim.stats.fightPoints
+				victim.getAttack(), // we use the defender's attack because the poison is applied to the attacker
+				sender.getAttack(),
+				victim.getFightPoints()
 			], defenderStats: [
 				100,
 				100,
-				victim.stats.maxFightPoint
+				victim.getMaxFightPoints()
 			], statsEffect: [
 				0.5,
 				0.1,

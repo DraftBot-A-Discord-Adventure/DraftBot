@@ -31,7 +31,7 @@ export default class GrabAndThrowAttack extends FightAction {
 			}
 
 			// Deal damages
-			receiver.stats.fightPoints -= damageDealt;
+			receiver.damage(damageDealt);
 
 			// Action message
 			const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
@@ -55,11 +55,11 @@ export default class GrabAndThrowAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack,
-				sender.stats.speed
+				sender.getAttack(),
+				sender.getSpeed()
 			], defenderStats: [
-				receiver.stats.defense,
-				receiver.stats.speed
+				receiver.getDefense(),
+				receiver.getSpeed()
 			], statsEffect: [
 				0.8,
 				0.2
