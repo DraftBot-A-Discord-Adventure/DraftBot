@@ -140,7 +140,8 @@
 				"slowed": "Ralenti",
 				"concentrated": "Concentré",
 				"weak": "Affaibli",
-				"protected": "Protégé"
+				"protected": "Protégé",
+				"outrage": "En colère"
 			}
 		},
 		"en": {
@@ -283,7 +284,8 @@
 				"slowed": "Slowed down",
 				"concentrated": "Focused",
 				"weak": "Weakened",
-				"protected": "Shielded"
+				"protected": "Shielded",
+				"outrage": "In a outrage"
 			}
 		}
 	}

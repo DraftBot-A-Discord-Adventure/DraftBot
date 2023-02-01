@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "n'est plus en colère mais devient confus.",
+			"new": "est en colère. `Attaque : + 100%` `Défense : - 75%`",
+			"active": "est en colère."
+		},
+		"en": {
+			"heal": "is no longer in an outrage but becomes confused.",
+			"new": "is in an outrage. `Attack: + 100%` `Defend: - 75%`",
+			"active": "is in an outrage."
+		}
+	},
+	"emote": "💢",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "alteration"
+}

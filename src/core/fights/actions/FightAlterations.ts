@@ -8,6 +8,7 @@ import ParalyzedAlteration from "./interfaces/alterations/paralyzed";
 import TargetedAlteration from "./interfaces/alterations/targeted";
 import BurnedAlteration from "./interfaces/alterations/burned";
 import CursedAlteration from "./interfaces/alterations/cursed";
+import OutrageAlteration from "./interfaces/alterations/outrage";
 
 export const FightAlterations = {
 	CONCENTRATED: new ConcentratedAlteration("concentrated"),
@@ -19,5 +20,6 @@ export const FightAlterations = {
 	PARALYZED: new ParalyzedAlteration("paralyzed"),
 	TARGETED: new TargetedAlteration("targeted"),
 	BURNED: new BurnedAlteration("burned"),
-	CURSED: new CursedAlteration("cursed")
+	CURSED: new CursedAlteration("cursed"),
+	OUTRAGE: new OutrageAlteration("outrage")
 };

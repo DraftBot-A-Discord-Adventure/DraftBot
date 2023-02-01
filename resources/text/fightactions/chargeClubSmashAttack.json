@@ -7,8 +7,8 @@
 		},
 		"en": {
 			"name": "Club smash",
-			"namePlural": "",
-			"description": ""
+			"namePlural": "Club smashes",
+			"description": "Requires one turn to charge the attack. Delivers a powerful charge the next turn."
 		}
 	},
 	"emote": "🏏",

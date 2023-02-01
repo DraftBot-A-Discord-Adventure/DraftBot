@@ -19,6 +19,10 @@
 		{
 			"id": "grabAndThrowAttack",
 			"minLevel": 0
+		},
+		{
+			"id": "outrageAttack",
+			"minLevel": 0
 		}
 	],
 	"maps": [
