@@ -4,7 +4,7 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 
-export default class Concentration extends FightAction {
+export default class OutrageAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Rugissement",
+			"namePlural": "Rugissements",
+			"active": "rugit...",
+			"description": "Baisse l'attaque et la vitesse de l'adversaire."
+		},
+		"en": {
+			"name": "Roar",
+			"namePlural": "Roars",
+			"active": "roars...",
+			"description": "Lowers the attack and speed of the adversary."
+		}
+	},
+	"emote": "🔊️",
+	"breath": 4,
+	"missionVariant": -1,
+	"type": "stats"
+}

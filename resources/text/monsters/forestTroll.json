@@ -23,6 +23,10 @@
 		{
 			"id": "outrageAttack",
 			"minLevel": 0
+		},
+		{
+			"id": "roarAttack",
+			"minLevel": 0
 		}
 	],
 	"maps": [
