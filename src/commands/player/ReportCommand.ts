@@ -546,8 +546,6 @@ async function doPVEBoss(
 	language: string,
 	player: Player
 ): Promise<void> {
-	await Maps.stopTravel(player);
-	await chooseDestination(player, interaction, language, null);
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
 			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();

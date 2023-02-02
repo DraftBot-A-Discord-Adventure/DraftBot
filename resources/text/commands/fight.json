@@ -126,7 +126,8 @@
 					"breath": " `Souffle{adversary>0? de l'adversaire:}: {operator} {amount}`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
+					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`",
+					"summoning": " `Invocation de {amount} alliés`"
 				},
 				"aiChoose": "\uD83E\uDDE0 L'adversaire choisit une attaque..."
 			},
@@ -270,7 +271,8 @@
 					"breath": " `{adversary>0?Opponent's b:B}reath: {operator}{amount}`",
 					"speed": " `{adversary>0?Opponent's s:S}peed: {operator}{amount}%`",
 					"attack": " `{adversary>0?Opponent's a:A}ttack: {operator}{amount}%`",
-					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`"
+					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`",
+					"summoning": " `Summon of {amount} allies`"
 				},
 				"aiChoose": "\uD83E\uDDE0 The opponent chooses an attack..."
 			},

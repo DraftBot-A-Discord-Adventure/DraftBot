@@ -1,0 +1,39 @@
+{
+	"translations": {
+		"fr": "Squelette",
+		"en": "Skeleton"
+	},
+	"fightPointsRatio": 100,
+	"attackRatio": 100,
+	"defenseRatio": 100,
+	"speedRatio": 100,
+	"breath": 12,
+	"maxBreath": 20,
+	"breathRegen": 5,
+	"rewardMultiplier": 1.0,
+	"attacks": [
+		{
+			"id": "simpleAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "shieldAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "resting",
+			"minLevel": 0
+		},
+		{
+			"id": "cursedAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "summonAttack",
+			"minLevel": 50
+		}
+	],
+	"maps": [
+		1002
+	]
+}

@@ -75,7 +75,8 @@ export abstract class FightConstants {
 	// empty string to register cancellation of an alteration display
 	static CANCEL_ALTERATION_DISPLAY = "";
 
-	static readonly UNCOUNTERABLE_ACTIONS = ["ultimateAttack",
+	static readonly UNCOUNTERABLE_ACTIONS = [
+		"ultimateAttack",
 		"benediction",
 		"divineAttack",
 		"none",
@@ -89,5 +90,9 @@ export abstract class FightConstants {
 		"breathTakingAttack",
 		"darkAttack",
 		"cursedAttack",
-		"outOfBreath"];
+		"outOfBreath",
+		"outrageAttack",
+		"roarAttack",
+		"summonAttack"
+	];
 }
