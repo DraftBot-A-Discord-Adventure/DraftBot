@@ -91,7 +91,7 @@ export class FightView {
 	 * @param receivedMessage
 	 */
 	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
-		const lastMessage = this.actionMessages[this.actionMessages.length - 1];
+		let lastMessage = this.actionMessages[this.actionMessages.length - 1];
 		const messageToSend = this.fightTranslationModule.format("actions.intro", {
 			emote,
 			player
@@ -100,7 +100,8 @@ export class FightView {
 			// message character limit reached : creation of a new message
 			await this.lastSummary.delete();
 			this.lastSummary = null;
-			this.actionMessages.push(await this.channel.send({content: messageToSend}));
+			lastMessage = await this.channel.send({content: messageToSend});
+			this.actionMessages.push(lastMessage);
 		}
 		else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
@@ -110,6 +111,9 @@ export class FightView {
 			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
+
+		// Fetch to get the new content
+		await lastMessage.fetch(true);
 	}
 
 	/**
