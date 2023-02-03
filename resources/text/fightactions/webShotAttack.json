@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque jet de toile",
+			"namePlural": "Attaques jets de toile",
+			"description": "Envoie une jet de toile qui blesse et ralentit l'adversaire."
+		},
+		"en": {
+			"name": "Web shot",
+			"namePlural": "Web shots",
+			"description": "Do a web shot that hurts and slows the opponent."
+		}
+	},
+	"emote": "🕸️",
+	"breath": 8,
+	"missionVariant": -1,
+	"type": "distance"
+}

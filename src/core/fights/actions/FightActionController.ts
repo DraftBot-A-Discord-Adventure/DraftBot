@@ -2,6 +2,7 @@ import {FightConstants} from "../../constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {MathUtils} from "../../utils/MathUtils";
 import {Data, JsonModule} from "../../Data";
+import {Fighter} from "../fighter/Fighter";
 
 declare const JsonReader: JsonModule;
 
@@ -15,17 +16,22 @@ export class FightActionController {
 	 * attackerStats - array of the stats to use for the attacker
 	 * defenderStats - array of the stats to use for the defender
 	 * statsEffect - array of ratios to apply to the stats
-	 * @param attackerLevel - the level of the attacker (used to get the bonus ratio)
+	 * @param attacker - The attacker (used to get the bonus ratio and damage multiplier)
 	 * @param attackInfo - the attack info of the fight action
+	 * @param ignoreMultiplier - ignore the damage multiplier
 	 */
-	static getAttackDamage(statsInfo: statsInfo, attackerLevel: number, attackInfo: attackInfo): number {
-		const levelBonusRatio = this.getLevelBonusRatio(attackerLevel);
+	static getAttackDamage(statsInfo: statsInfo, attacker: Fighter, attackInfo: attackInfo, ignoreMultiplier = false): number {
+		const levelBonusRatio = this.getLevelBonusRatio(attacker.level);
 		let attackDamage = 0;
 		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
 		// add a random variation of 5% of the damage
 		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.variationInt(FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
+		// Damage multiplier
+		if (!ignoreMultiplier) {
+			attackDamage *= attacker.getDamageMultiplier();
+		}
 		return Math.round(attackDamage * (1 + levelBonusRatio));
 	}
 
@@ -57,6 +63,7 @@ export class FightActionController {
 		if (randomValue < failureProbability + criticalHitProbability) {
 			return Math.round(damageDealt * RandomUtils.draftbotRandom.pick(FightConstants.FAILURE_DIVIDERS));
 		}
+
 		return damageDealt;
 	}
 

@@ -7,7 +7,7 @@ import {FightActions} from "../../FightActions";
 
 export default class ChargeChargingAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
 

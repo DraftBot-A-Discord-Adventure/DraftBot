@@ -1,31 +1,31 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {FightAlterations} from "../../FightAlterations";
+import {FightConstants} from "../../../../constants/FightConstants";
+import {Translations} from "../../../../Translations";
 
-export default class EnergeticAttack extends FightAction {
+export default class WebShotAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 35, 5);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 5);
 		receiver.damage(damageDealt);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// half of the damage is converted to fight points
-		const healAmount = Math.round(damageDealt / 2);
-		sender.heal(healAmount);
-		const sideEffects = attackTranslationModule.format("actions.sideEffects.energy", {
-			adversary: FightConstants.TARGET.SELF,
-			operator: FightConstants.OPERATOR.PLUS,
-			amount: healAmount
-		});
+		let sideEffects = "";
+		const alteration = receiver.newAlteration(FightAlterations.SLOWED);
+		if (alteration === FightAlterations.SLOWED) {
+			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
+				adversary: FightConstants.TARGET.OPPONENT,
+				effect: attackTranslationModule.get("effects.slowed").toLowerCase()
+			});
+		}
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 60, maxDamage: 90};
+		return {minDamage: 10, averageDamage: 50, maxDamage: 60};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -34,11 +34,11 @@ export default class EnergeticAttack extends FightAction {
 				sender.getAttack(),
 				sender.getSpeed()
 			], defenderStats: [
-				receiver.getDefense() * 0.2,
+				receiver.getDefense(),
 				receiver.getSpeed()
 			], statsEffect: [
-				0.75,
-				0.25
+				0.8,
+				0.2
 			]
 		};
 	}

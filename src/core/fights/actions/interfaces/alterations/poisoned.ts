@@ -14,7 +14,7 @@ export default class PoisonedAlteration extends FightAlteration {
 			victim.removeAlteration();
 			return poisonTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), sender.level, this.getAttackInfo());
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), sender, this.getAttackInfo(), true);
 		victim.damage(damageDealt);
 		return format(poisonTranslationModule.get("damage"), {damages: damageDealt});
 	}

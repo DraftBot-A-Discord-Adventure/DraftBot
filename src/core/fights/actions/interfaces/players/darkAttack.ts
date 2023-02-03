@@ -7,7 +7,7 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class DarkAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), receiver.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), receiver, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 40, 15);
 
 		receiver.damage(damageDealt);

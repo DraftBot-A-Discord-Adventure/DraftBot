@@ -19,7 +19,7 @@ export default class SummonAttack extends FightAction {
 			amount: alliesCount
 		});
 
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo()) * alliesCount;
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo()) * alliesCount;
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 		receiver.damage(damageDealt);
 

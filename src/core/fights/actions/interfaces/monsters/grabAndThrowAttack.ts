@@ -12,7 +12,7 @@ export default class GrabAndThrowAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		if (receiver.getLastFightActionUsed()?.getType() === FightActionType.PHYSICAL) {
 			// Calculate damages
-			const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+			const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 			const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
 
 			// Message variables

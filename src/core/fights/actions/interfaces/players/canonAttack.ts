@@ -8,7 +8,7 @@ import {FightAlterations} from "../../FightAlterations";
 
 export default class CanonAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));

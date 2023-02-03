@@ -7,7 +7,7 @@ import {FightAlterations} from "../../FightAlterations";
 
 export default class HeavyAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
 		// this attack will do less damage if the opponent has low defense

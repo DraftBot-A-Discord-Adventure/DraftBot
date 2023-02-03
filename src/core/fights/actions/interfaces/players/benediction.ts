@@ -21,7 +21,7 @@ export default class Benediction extends FightAction {
 			});
 		}
 
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
 		receiver.damage(damageDealt);

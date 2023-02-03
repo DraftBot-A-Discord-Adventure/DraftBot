@@ -1,0 +1,35 @@
+{
+	"translations": {
+		"fr": "Araignée",
+		"en": "Spider"
+	},
+	"fightPointsRatio": 100,
+	"attackRatio": 100,
+	"defenseRatio": 100,
+	"speedRatio": 100,
+	"breath": 10,
+	"maxBreath": 15,
+	"breathRegen": 6,
+	"rewardMultiplier": 1.0,
+	"attacks": [
+		{
+			"id": "poisonousAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "webShotAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "stealth",
+			"minLevel": 0
+		},
+		{
+			"id": "simpleAttack",
+			"minLevel": 0
+		}
+	],
+	"maps": [
+		1003
+	]
+}

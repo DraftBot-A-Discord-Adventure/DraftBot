@@ -25,7 +25,7 @@ export default class ConfusedAlteration extends FightAction {
 
 		// 15 % chance that the confusion hurt the sender
 		if (randomValue < 0.85) {
-			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+			const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo(), true);
 			sender.nextFightAction = FightActions.getNoAttack();
 			sender.damage(damageDealt);
 			return confusionTranslationModule.format("damage", {damages: damageDealt});

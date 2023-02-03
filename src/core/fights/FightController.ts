@@ -185,6 +185,7 @@ export class FightController {
 			return;
 		}
 		await this.fightView.displayFightStatus();
+		this.getPlayingFighter().reduceCounters();
 		if (this.getPlayingFighter().nextFightAction === null) {
 			this.getPlayingFighter().chooseAction(this.fightView);
 		}

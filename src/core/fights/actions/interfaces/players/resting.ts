@@ -14,9 +14,9 @@ export default class Resting extends FightAction {
 		// recovered fight points are reduced after the fourth use of this action
 		const recoveredFightPoints = count < 4 ?
 			FightActionController.getAttackDamage(
-				this.getStatsInfo(sender), sender.level, this.getAttackInfo()
+				this.getStatsInfo(sender), sender, this.getAttackInfo(), true
 			) : Math.round(
-				FightActionController.getAttackDamage(this.getStatsInfo(sender), sender.level, this.getAttackInfo()) / 4
+				FightActionController.getAttackDamage(this.getStatsInfo(sender), sender, this.getAttackInfo(), true) / 4
 			);
 
 		sender.heal(recoveredFightPoints);

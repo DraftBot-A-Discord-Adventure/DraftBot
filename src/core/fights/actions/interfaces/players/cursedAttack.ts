@@ -7,7 +7,7 @@ import {FightAlterations} from "../../FightAlterations";
 
 export default class CursedAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender.level, this.getAttackInfo());
+		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 0);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

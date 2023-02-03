@@ -28,6 +28,11 @@ export type FightStatModifier = {
 	value: number
 }
 
+type FightDamageMultiplier = {
+	value: number,
+	turns: number
+}
+
 const fighterStatusTranslation = [
 	"summarize.notStarted",
 	"summarize.attacker",
@@ -66,6 +71,8 @@ export abstract class Fighter {
 
 	protected status: FighterStatus;
 
+	private damageMultiplier: FightDamageMultiplier;
+
 	protected constructor(level: number, availableFightActions: FightAction[]) {
 		this.stats = {
 			fightPoints: null,
@@ -87,6 +94,7 @@ export abstract class Fighter {
 		this.alteration = null;
 		this.alterationTurn = 0;
 		this.level = level;
+		this.damageMultiplier = null;
 
 		this.availableFightActions = new Map();
 		for (const fightAction of availableFightActions) {
@@ -304,6 +312,29 @@ export abstract class Fighter {
 	}
 
 	/**
+	 * Apply a multiplier which multiply the total damages of the fighter
+	 * @param multiplier
+	 * @param turns The number of turn it lasts
+	 */
+	public applyDamageMultiplier(multiplier: number, turns: number): void {
+		this.damageMultiplier = {
+			value: multiplier,
+			turns
+		};
+	}
+
+	/**
+	 * Get the damage multiplier
+	 */
+	public getDamageMultiplier(): number {
+		if (this.damageMultiplier) {
+			return this.damageMultiplier.value;
+		}
+
+		return 1;
+	}
+
+	/**
 	 * Damage the fighter
 	 * @param value
 	 * @param keepAlive Prevent the fighter to die of these damages
@@ -461,6 +492,18 @@ export abstract class Fighter {
 		this.stats.breath += this.stats.breathRegen;
 		if (this.stats.breath > this.stats.maxBreath) {
 			this.stats.breath = this.stats.maxBreath;
+		}
+	}
+
+	/**
+	 * Lowers the current counters by 1 turn
+	 */
+	reduceCounters(): void {
+		if (this.damageMultiplier) {
+			this.damageMultiplier.turns--;
+			if (this.damageMultiplier.turns < 0) {
+				this.damageMultiplier = null;
+			}
 		}
 	}
 }

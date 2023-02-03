@@ -93,6 +93,7 @@ export abstract class FightConstants {
 		"outOfBreath",
 		"outrageAttack",
 		"roarAttack",
-		"summonAttack"
+		"summonAttack",
+		"stealth"
 	];
 }
