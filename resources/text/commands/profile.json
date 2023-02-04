@@ -26,7 +26,7 @@
 				"unranked": "Non classé"
 			},
 			"fightRanking": {
-				"fieldName": "Points de combat et ligue :",
+				"fieldName": "Gloire et ligue :",
 				"fieldValue": ":sparkles: {gloryPoints} | {league}"
 			},
 			"timeLeft": {
@@ -111,7 +111,7 @@
 				"unranked": "Unranked"
 			},
 			"fightRanking": {
-				"fieldName": "Fight points and league :",
+				"fieldName": "Glory points and league :",
 				"fieldValue": ":sparkles: {gloryPoints} | {league}"
 			},
 			"timeLeft": {

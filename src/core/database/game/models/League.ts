@@ -7,6 +7,8 @@ import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 export class League extends Model {
 	public readonly id!: number;
 
+	public readonly color!: string;
+
 	public readonly minGloryPoints!: number;
 
 	public readonly maxGloryPoints!: number;
@@ -28,9 +30,7 @@ export class League extends Model {
 	public toString(language: string): string {
 		return format(LeagueInfoConstants.FIELDS_VALUE, {
 			emoji: this.emoji,
-			name: this.getName(language),
-			minGloryPoints: this.minGloryPoints,
-			maxGloryPoints: this.maxGloryPoints
+			name: this.getName(language)
 		});
 	}
 
@@ -73,10 +73,10 @@ export class Leagues {
 		return Promise.resolve(League.findOne({
 			where: {
 				minGloryPoints: {
-					[Op.lt]: gloryPoints
+					[Op.lte]: gloryPoints
 				},
 				maxGloryPoints: {
-					[Op.gt]: gloryPoints
+					[Op.gte]: gloryPoints
 				}
 			}
 		}));
@@ -89,6 +89,9 @@ export function initModel(sequelize: Sequelize): void {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true
+			},
+			color: {
+				type: DataTypes.STRING
 			},
 			minGloryPoints: {
 				type: DataTypes.INTEGER

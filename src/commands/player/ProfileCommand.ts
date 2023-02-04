@@ -142,8 +142,8 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
  * @param profileModule
  * @param askedPlayer
  */
-function getFightRankingField(profileModule: TranslationModule, askedPlayer: Player): EmbedField {
-	const leagueDisplay = askedPlayer.getLeagueDisplay(profileModule.language);
+async function getFightRankingField(profileModule: TranslationModule, askedPlayer: Player): Promise<EmbedField> {
+	const leagueDisplay = await askedPlayer.getLeagueDisplay(profileModule.language);
 	return {
 		name: profileModule.get("fightRanking.fieldName"),
 		value:
@@ -323,7 +323,7 @@ async function generateFields(
 	}
 
 	if (askedPlayer.level >= FightConstants.REQUIRED_LEVEL) {
-		fields.push(getFightRankingField(profileModule, askedPlayer));
+		fields.push(await getFightRankingField(profileModule, askedPlayer));
 	}
 
 	try {
@@ -375,9 +375,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		fields,
 		titleEffect
 	} = await generateFields(profileModule, askedPlayer, interaction, askedPlayer.effect, language);
+	const profileColor = await askedPlayer.getProfileColor();
 	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
+				.setColor(profileColor)
 				.setTitle(profileModule.format("title", {
 					effect: titleEffect,
 					pseudo: askedPlayer.getPseudo(language),
