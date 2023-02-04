@@ -4,6 +4,7 @@
 		"en": "Legend league"
 	},
 	"emoji": "🏆",
+	"color": "#ffdbba",
 	"minGloryPoints": 2400,
 	"maxGloryPoints": 100000
 }

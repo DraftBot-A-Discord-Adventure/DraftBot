@@ -4,6 +4,7 @@
 		"en": "Wooden league"
 	},
 	"emoji": "🌲",
-	"minGloryPoints": 0,
+	"color": "#a06253",
+	"minGloryPoints": -1,
 	"maxGloryPoints": 499
 }

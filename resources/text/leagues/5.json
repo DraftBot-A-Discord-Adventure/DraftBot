@@ -4,6 +4,7 @@
 		"en": "Gold league"
 	},
 	"emoji": "🥇",
+	"color": "#ffac33",
 	"minGloryPoints": 1400,
 	"maxGloryPoints": 1599
 }

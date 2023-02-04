@@ -9,7 +9,7 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {CommandInteraction, TextBasedChannel} from "discord.js";
+import {ColorResolvable, CommandInteraction, TextBasedChannel} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
@@ -807,7 +807,16 @@ export class Player extends Model {
 	 * @param language
 	 */
 	public async getLeagueDisplay(language: string): Promise<string> {
-		return (await Leagues.getByGlory(this.gloryPoints)).toString(language);
+		const playerLeague = await Leagues.getByGlory(this.gloryPoints);
+		return playerLeague.toString(language);
+	}
+
+	public async getProfileColor(): Promise<ColorResolvable> {
+		if (this.level < FightConstants.REQUIRED_LEVEL) {
+			return null;
+		}
+		const playerLeague = await Leagues.getByGlory(this.gloryPoints);
+		return parseInt(playerLeague.color.slice(1), 16);
 	}
 }
 

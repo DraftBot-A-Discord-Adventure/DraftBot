@@ -18,6 +18,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			primaryKey: true
 		},
+		color: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
 		minGloryPoints: {
 			type: DataTypes.INTEGER,
 			allowNull: false
