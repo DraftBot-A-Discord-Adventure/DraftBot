@@ -21,8 +21,7 @@ jobs:
                 run: yarn install
 
             -   name: Build and test
-                run: |
-                    tsc && jest dist/test
+                run: yarn test
 
     test-node-18:
         runs-on: ubuntu-latest
@@ -40,5 +39,4 @@ jobs:
                 run: yarn install
 
             -   name: Build and test
-                run: |
-                    tsc && jest dist/test
+                run: yarn test
