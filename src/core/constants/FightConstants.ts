@@ -90,4 +90,6 @@ export abstract class FightConstants {
 		"darkAttack",
 		"cursedAttack",
 		"outOfBreath"];
+
+	static readonly DEFAULT_ELO = 1000;
 }

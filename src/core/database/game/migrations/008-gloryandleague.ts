@@ -1,14 +1,15 @@
 import {DataTypes, QueryInterface} from "sequelize";
+import {FightConstants} from "../../../constants/FightConstants";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.addColumn("players", "gloryPoints", {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		defaultValue: 0
+		defaultValue: FightConstants.DEFAULT_ELO
 	});
 	await context.sequelize.query(`
 		UPDATE players
-		SET players.gloryPoints = 0
+		SET players.gloryPoints = ${FightConstants.DEFAULT_ELO}
 	`);
 
 	// add league table

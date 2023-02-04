@@ -81,8 +81,6 @@ export class Player extends Model {
 
 	public nextEvent!: number;
 
-	public gloryPoints: number;
-
 	public petId!: number;
 
 	public lastPetFree!: Date;
@@ -98,6 +96,8 @@ export class Player extends Model {
 	public startTravelDate!: Date;
 
 	public notifications!: string;
+
+	public gloryPoints: number;
 
 	public updatedAt!: Date;
 
@@ -1209,6 +1209,10 @@ export function initModel(sequelize: Sequelize): void {
 		notifications: {
 			type: DataTypes.STRING,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
+		},
+		gloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.DEFAULT_ELO
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
