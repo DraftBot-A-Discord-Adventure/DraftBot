@@ -5,7 +5,7 @@ on:
         branches: [ master, develop ]
 
 jobs:
-    test:
+    test-node-14:
         runs-on: ubuntu-latest
 
         steps:
@@ -15,7 +15,83 @@ jobs:
             -   name: Setup Node.js
                 uses: actions/setup-node@v2
                 with:
-                    node-version: 18,16,14
+                    node-version: 14
+
+            -   name: Install dependencies
+                run: npm ci
+
+            -   name: Build and test
+                run: |
+                    tsc && jest dist/test
+
+    test-node-15:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: 15
+
+            -   name: Install dependencies
+                run: npm ci
+
+            -   name: Build and test
+                run: |
+                    tsc && jest dist/test
+
+    test-node-16:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: 16
+
+            -   name: Install dependencies
+                run: npm ci
+
+            -   name: Build and test
+                run: |
+                    tsc && jest dist/test
+
+    test-node-17:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: 17
+
+            -   name: Install dependencies
+                run: npm ci
+
+            -   name: Build and test
+                run: |
+                    tsc && jest dist/test
+
+    test-node-18:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: 18
 
             -   name: Install dependencies
                 run: npm ci
