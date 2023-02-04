@@ -4,6 +4,6 @@
 		"en": "Gold League"
 	},
 	"emoji": "\uD83C\uDF8F",
-	"minGlory": 501,
-	"maxGlory": 600
+	"minGloryPoints": 501,
+	"maxGloryPoints": 600
 }

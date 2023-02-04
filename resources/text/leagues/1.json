@@ -4,6 +4,6 @@
 		"en": "Stone League"
 	},
 	"emoji": "\uD83C\uDF0F",
-	"minGlory": 101,
-	"maxGlory": 200
+	"minGloryPoints": 101,
+	"maxGloryPoints": 200
 }

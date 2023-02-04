@@ -4,6 +4,6 @@
 		"en": "Iron League"
 	},
 	"emoji": "\u2694",
-	"minGlory": 201,
-	"maxGlory": 300
+	"minGloryPoints": 201,
+	"maxGloryPoints": 300
 }

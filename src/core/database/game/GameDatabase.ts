@@ -14,6 +14,7 @@ import Pet from "./models/Pet";
 import MapLink from "./models/MapLink";
 import {promises} from "fs";
 import {EffectsConstants} from "../../constants/EffectsConstants";
+import League from "./models/League";
 
 type IssueType = {
 	[key: string]: unknown,
@@ -504,6 +505,10 @@ export class GameDatabase extends Database {
 				{
 					model: MapLocation,
 					folder: "maplocations"
+				},
+				{
+					model: League,
+					folder: "leagues"
 				}
 			]);
 			await GameDatabase.verifyMaps();
