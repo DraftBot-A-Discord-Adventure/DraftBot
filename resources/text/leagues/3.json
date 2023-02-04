@@ -4,6 +4,6 @@
 		"en": "Bronze League"
 	},
 	"emoji": "\uD83D\uDE42",
-	"minGlory": 301,
-	"maxGlory": 400
+	"minGloryPoints": 301,
+	"maxGloryPoints": 400
 }

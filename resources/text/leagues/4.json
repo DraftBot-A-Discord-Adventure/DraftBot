@@ -4,6 +4,6 @@
 		"en": "Silver League"
 	},
 	"emoji": "\uD83C\uDF8E",
-	"minGlory": 401,
-	"maxGlory": 500
+	"minGloryPoints": 401,
+	"maxGloryPoints": 500
 }

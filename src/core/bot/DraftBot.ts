@@ -351,7 +351,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Handle the managment of the logs
+	 * Handle the management of the logs
 	 */
 	handleLogs(): void {
 		const originalConsoleError = console.error;
