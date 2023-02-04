@@ -1,9 +1,9 @@
 {
 	"translations": {
 		"fr": "Ligue argent",
-		"en": "Silver League"
+		"en": "Silver league"
 	},
-	"emoji": "\uD83C\uDF8E",
-	"minGloryPoints": 401,
-	"maxGloryPoints": 500
+	"emoji": "🥈",
+	"minGloryPoints": 1200,
+	"maxGloryPoints": 1399
 }

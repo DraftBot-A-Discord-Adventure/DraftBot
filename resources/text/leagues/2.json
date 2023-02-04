@@ -1,9 +1,9 @@
 {
 	"translations": {
 		"fr": "Ligue fer",
-		"en": "Iron League"
+		"en": "Iron league"
 	},
-	"emoji": "\u2694",
-	"minGloryPoints": 201,
-	"maxGloryPoints": 300
+	"emoji": "⚔️",
+	"minGloryPoints": 800,
+	"maxGloryPoints": 999
 }

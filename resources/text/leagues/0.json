@@ -1,9 +1,9 @@
 {
 	"translations": {
 		"fr": "Ligue bois",
-		"en": "Wooden League"
+		"en": "Wooden league"
 	},
-	"emoji": "\uD83C\uDF33",
+	"emoji": "🌲",
 	"minGloryPoints": 0,
-	"maxGloryPoints": 100
+	"maxGloryPoints": 499
 }
