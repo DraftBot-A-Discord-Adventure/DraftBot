@@ -6,7 +6,7 @@ import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
-import {getNextSundayMidnight} from "../../utils/TimeUtils";
+import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 
 /**
@@ -103,7 +103,7 @@ export class LogsReadRequests {
 					}
 				],
 				date: {
-					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+					[Op.gt]: Math.floor((getNextSaturdayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
 				friendly: false
 			},

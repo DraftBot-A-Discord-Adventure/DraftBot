@@ -3,7 +3,7 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {ChatInputCommandInteraction, CommandInteraction} from "discord.js";
+import {CacheType, ChatInputCommandInteraction, CommandInteraction} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -156,6 +156,7 @@ function getScoreToShow(type: string, playerToShow: Player, timing: string): num
  * @param numberOfPlayers
  * @param rankCurrentPlayer
  * @param scoreTooLow
+ * @param fightNeeded
  * @param playersToShow
  */
 async function displayTop(
@@ -243,6 +244,40 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
 }
 
 /**
+ * true if the player has a score too low to be displayed in the top
+ * @param type
+ * @param player
+ * @param timing
+ */
+function getScoreTooLow(type: string, player: Player, timing: string): boolean {
+	return type === TopConstants.TYPE_GLORY ? player.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+		: player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
+}
+
+/**
+ * Get the rank of the current player relevant to the asked top
+ * @param scoreTooLow
+ * @param numberOfPlayers
+ * @param interaction
+ * @param listDiscordId
+ * @param timing
+ * @param type
+ */
+async function getRankCurrentPlayer(scoreTooLow: boolean, numberOfPlayers: number, interaction: CommandInteraction<CacheType>, listDiscordId: string[], timing: string, type: string): Promise<number> {
+	return scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing, type === TopConstants.TYPE_GLORY);
+}
+
+/**
+ * Get the number of players competing in the top
+ * @param type
+ * @param listDiscordId
+ * @param timing
+ */
+async function getNumberOfPlayers(type: string, listDiscordId: string[], timing: string) : Promise<number> {
+	return type === TopConstants.TYPE_GLORY ? await Players.getNumberOfFightingPlayersInList(listDiscordId, timing) : await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+}
+
+/**
  * Allow to display the rankings of the players
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
@@ -263,15 +298,15 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
 	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
-	const scoreTooLow = player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
+	const scoreTooLow = getScoreTooLow(type, player, timing);
 
 	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Players.getAllStoredDiscordIds();
-	const numberOfPlayers = await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+	const numberOfPlayers = await getNumberOfPlayers(type, listDiscordId, timing);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
 
 	const page = getShownPage(interaction, pageMax);
 
-	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing);
+	const rankCurrentPlayer = await getRankCurrentPlayer(scoreTooLow, numberOfPlayers, interaction, listDiscordId, timing, type);
 
 	const fightNeeded = player.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE;
 
