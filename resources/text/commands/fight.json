@@ -53,13 +53,13 @@
 					"{player1} et {player2} ont livré un combat acharné rempli de détermination.",
 					"Malgré la différence de niveau, les deux joueurs ont donné tout ce qu'ils avaient pour remporter le match.",
 					"Aucun des deux ne parvenait à prendre l'avantage décisif, ce qui a mené à une égalité surprenante.",
+					"Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
 					"Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
 					"{player1} et {player2} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
 				],
 				"sameElo": [
 					"Ce match a été un match passionnant entre deux joueurs de même niveau.",
 					"{player1} et {player2} ont tous les deux livré une performance solide et équilibrée.",
-					"Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
 					"Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
 					"Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
 				]
@@ -253,13 +253,13 @@
 					"{player1} and {player2} put up a fierce fight filled with determination.",
 					"Despite the difference in skill levels, both players gave everything they had to win the match.",
 					"Neither player was able to gain the decisive advantage, which led to a surprising tie.",
+					"Neither player was able to gain the decisive advantage, resulting in a tie.",
 					"This match will probably go down as one of the closest and most exciting matches in history.",
 					"{player1} and {player2} both showed why they are considered talented competitors in this epic match."
 				],
 				"sameElo": [
 					"This match was an exciting match between two players of the same level.",
 					"{player1} and {player2} both delivered a solid and balanced performance.",
-					"Neither player was able to gain the decisive advantage, resulting in a tie.",
 					"This match was a very close game with clever tactics on both sides.",
 					"The spectators witnessed an epic match between two talented players who competed on equal terms."
 				]

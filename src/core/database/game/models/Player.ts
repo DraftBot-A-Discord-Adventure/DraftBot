@@ -886,12 +886,13 @@ export class Players {
 	 */
 	static async getRankFromUserList(discordId: string, ids: string[], timing: string, isGloryTop: boolean): Promise<number> {
 		const scoreLookup = isGloryTop ? "gloryPoints" : timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+		const secondCondition = isGloryTop ? "players.fightCountdown <= " + FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE : "1";
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
 										, players.level DESC)) AS rank
 							 FROM players
-							 WHERE players.discordUserId IN (${ids.toString()})) subquery
+							 WHERE (players.discordUserId IN (${ids.toString()})) AND ${secondCondition}) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
