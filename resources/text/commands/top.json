@@ -2,7 +2,11 @@
 	"translations": {
 		"fr": {
 			"commandName": "classement",
+			"mainTopCommandName": "score",
+			"gloryTopCommandName": "glorieux",
 			"commandDescription": "Afficher le classement des joueurs.",
+			"mainTopCommandDescription": "Afficher le classement des joueurs.",
+			"gloryTopCommandDescription": "Afficher le classement des joueurs en fonction de leur gloire.",
 			"optionScopeName": "portee",
 			"optionScopeDescription": "La portée du classement affiché (Classement général par défaut).",
 			"scopes": {
@@ -30,7 +34,11 @@
 		},
 		"en": {
 			"commandName": "top",
+			"mainTopCommandName": "score",
+			"gloryTopCommandName": "glory",
 			"commandDescription": "Displays the ranking of the players.",
+			"mainTopCommandDescription": "Displays the ranking of the players.",
+			"gloryTopCommandDescription": "Displays the ranking of the players according to their glory.",
 			"optionScopeName": "scope",
 			"optionScopeDescription": "The scope of the displayed ranking (Global ranking by default).",
 			"scopes": {
@@ -45,7 +53,7 @@
 			},
 			"optionPageName": "page",
 			"optionPageDescription": "The desired ranking page.",
-			"topTitle": ":trophy: Display of {alltime?: weekly}{global?: server} top {start} to {end}",
+			"topTitle": ":trophy: Display of{alltime?: weekly}{global?: server} top {start} to {end}",
 			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
 			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
