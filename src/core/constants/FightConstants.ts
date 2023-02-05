@@ -97,4 +97,13 @@ export abstract class FightConstants {
 		DEFAULT_ELO: 1000,
 		MAX_ELO_GAP: 400
 	};
+
+	// if a player has a fight countdown higher than this value, he will not appear in the glory top
+	static readonly FIGHT_COUNTDOWN_MAXIMAL_VALUE = 3;
+
+	// a player will not earn more fightCountdown than this value
+	static readonly FIGHT_COUNTDOWN_REGEN_LIMIT = 10;
+
+	// fightCountdown value for new players
+	static readonly DEFAULT_FIGHT_COUNTDOWN = 13;
 }

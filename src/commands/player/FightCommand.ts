@@ -28,7 +28,7 @@ import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
  * Check if a player is blocked
  * @param player
  */
-async function isBlocked(player: Player) : Promise<boolean> {
+async function isBlocked(player: Player): Promise<boolean> {
 	return (await BlockingUtils.getPlayerBlockingReason(player.discordUserId)).length !== 0;
 }
 
@@ -277,9 +277,17 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 		}));
 	}
 
-	// Change glory and save
+	// Change glory and fightCountdown and save
 	player1.gloryPoints = player1NewRating;
+	player1.fightCountdown--;
+	if (player1.fightCountdown < 0) {
+		player1.fightCountdown = 0;
+	}
 	player2.gloryPoints = player2NewRating;
+	player2.fightCountdown--;
+	if (player2.fightCountdown < 0) {
+		player2.fightCountdown = 0;
+	}
 	await Promise.all([
 		player1.save(),
 		player2.save()

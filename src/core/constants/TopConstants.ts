@@ -30,4 +30,9 @@ export abstract class TopConstants {
 	static readonly FIFTEEN_DAYS = 1296000000;
 
 	static readonly SEPARATOR = " | ";
+
+	static EMOTE = {
+		GLORY: ":sparkles:",
+		SCORE: ":trophy:"
+	};
 }
