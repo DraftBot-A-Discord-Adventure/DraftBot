@@ -130,6 +130,21 @@ export function getNextSundayMidnight(): number {
 }
 
 /**
+ * Get the next season's start
+ */
+export function getNextSaturdayMidnight(): number {
+	const now = new Date();
+	const dateOfReset = new Date();
+	dateOfReset.setDate(now.getDate() + (6 - now.getDay()) % 7);
+	dateOfReset.setHours(23, 59, 59);
+	let dateOfResetTimestamp = dateOfReset.valueOf();
+	while (dateOfResetTimestamp < now.valueOf()) {
+		dateOfResetTimestamp += 1000 * 60 * 60 * 24 * 7;
+	}
+	return dateOfResetTimestamp;
+}
+
+/**
  * check if the reset is being done currently
  */
 export function resetIsNow(): boolean {

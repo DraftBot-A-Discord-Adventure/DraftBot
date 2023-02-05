@@ -821,7 +821,7 @@ export class Player extends Model {
 		return parseInt(playerLeague.color.slice(1), 16);
 	}
 
-	public async getLeague() : Promise<League> {
+	public async getLeague(): Promise<League> {
 		return await Leagues.getByGlory(this.gloryPoints);
 	}
 }
@@ -882,9 +882,10 @@ export class Players {
 	 * @param discordId
 	 * @param ids - list of discordIds to compare to
 	 * @param timing
+	 * @param isGloryTop
 	 */
-	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
-		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+	static async getRankFromUserList(discordId: string, ids: string[], timing: string, isGloryTop: boolean): Promise<number> {
+		const scoreLookup = isGloryTop ? "gloryPoints" : timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
@@ -968,6 +969,21 @@ export class Players {
 					   FROM players
 					   WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
+						 AND players.discordUserId IN (${listDiscordId.toString()})`;
+		const queryResult = await Player.sequelize.query(query);
+		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+	}
+
+	/**
+	 * Get the number of players that are considered playing the game inside the list of ids
+	 * @param listDiscordId
+	 * @param timing
+	 */
+	static async getNumberOfFightingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
+		const query = `SELECT COUNT(*) as nbPlayers
+					   FROM players
+					   WHERE players.fightCountdown
+						   <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
 						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
