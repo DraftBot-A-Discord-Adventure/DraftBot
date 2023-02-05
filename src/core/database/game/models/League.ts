@@ -41,6 +41,34 @@ export class League extends Model {
 	public getName(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
+
+	/**
+	 * get the amount of money to award to the player
+	 */
+	public getMoneyToAward(): number {
+		return LeagueInfoConstants.MONEY_TO_AWARD[this.id];
+	}
+
+	/**
+	 * get the amount of xp to award to the player
+	 */
+	public getXPToAward(): number {
+		return LeagueInfoConstants.XP_TO_AWARD[this.id];
+	}
+
+	/**
+	 * True if the player will lose glory points at the end of the season
+	 */
+	public hasPointsReset(): boolean {
+		return this.minGloryPoints >= LeagueInfoConstants.GLORY_RESET_THRESHOLD;
+	}
+
+	public pointsLostAtReset(currentPoints: number): number {
+		if (currentPoints < LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
+			return 0;
+		}
+		return Math.round((currentPoints - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
+	}
 }
 
 export class Leagues {
