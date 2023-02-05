@@ -30,7 +30,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
-import {Leagues} from "./League";
+import {League, Leagues} from "./League";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -807,7 +807,7 @@ export class Player extends Model {
 	 * @param language
 	 */
 	public async getLeagueDisplay(language: string): Promise<string> {
-		const playerLeague = await Leagues.getByGlory(this.gloryPoints);
+		const playerLeague = await this.getLeague();
 		return playerLeague.toString(language);
 	}
 
@@ -815,8 +815,12 @@ export class Player extends Model {
 		if (this.level < FightConstants.REQUIRED_LEVEL) {
 			return null;
 		}
-		const playerLeague = await Leagues.getByGlory(this.gloryPoints);
+		const playerLeague = await this.getLeague();
 		return parseInt(playerLeague.color.slice(1), 16);
+	}
+
+	public async getLeague() : Promise<League> {
+		return await Leagues.getByGlory(this.gloryPoints);
 	}
 }
 
