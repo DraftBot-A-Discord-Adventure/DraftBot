@@ -14,7 +14,8 @@ export abstract class FightConstants {
 		DEAD: "error.dead",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
 		OCCUPIED: "error.occupied",
-		NO_FIGHT_POINTS: "error.noFightPoints"
+		NO_FIGHT_POINTS: "error.noFightPoints",
+		ELO_GAP: "error.eloGap"
 	};
 
 	// duration of the menu that search for an opponent in milliseconds
@@ -91,5 +92,8 @@ export abstract class FightConstants {
 		"cursedAttack",
 		"outOfBreath"];
 
-	static readonly DEFAULT_ELO = 1000;
+	static readonly ELO = {
+		DEFAULT_ELO: 1000,
+		MAX_ELO_GAP: 400
+	};
 }

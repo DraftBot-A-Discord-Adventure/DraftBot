@@ -24,9 +24,11 @@ export class FightController {
 
 	public readonly fightInitiator: Fighter;
 
-	private readonly fightView: FightView;
+	private readonly _fightView: FightView;
 
 	private state: FightState;
+
+	private endCallback: (fight: FightController) => Promise<void>;
 
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
@@ -34,7 +36,7 @@ export class FightController {
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
 		this.friendly = friendly;
-		this.fightView = new FightView(channel, language, this);
+		this._fightView = new FightView(channel, language, this);
 	}
 
 	/**
@@ -57,14 +59,14 @@ export class FightController {
 	public async startFight(): Promise<void> {
 		// make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
-			await this.fighters[i].startFight(this.fightView);
+			await this.fighters[i].startFight(this._fightView);
 		}
 
 		// the player with the highest speed start the fight
 		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
 			this.invertFighters();
 		}
-		await this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
+		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 		this.state = FightState.RUNNING;
 		await this.prepareNextTurn();
 	}
@@ -98,11 +100,13 @@ export class FightController {
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
 
-		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
+		this._fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].endFight(this.fightView, i === winner);
+			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
+
+		await this.endCallback(this);
 	}
 
 	/**
@@ -137,9 +141,9 @@ export class FightController {
 			fightAction = FightActions.getFightActionById("outOfBreath");
 		}
 
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
-		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
 			await this.endFight();
@@ -180,9 +184,9 @@ export class FightController {
 			// a player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this.fightView.displayFightStatus();
+		await this._fightView.displayFightStatus();
 		if (this.getPlayingFighter().nextFightAction === null) {
-			this.getPlayingFighter().chooseAction(this.fightView);
+			this.getPlayingFighter().chooseAction(this._fightView);
 		}
 		else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
@@ -203,6 +207,14 @@ export class FightController {
 	}
 
 	/**
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
+		this.endCallback = callback;
+	}
+
+	/**
 	 * check if a fight has ended or not
 	 * @private
 	 */
@@ -212,5 +224,9 @@ export class FightController {
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
+	}
+
+	public getFightView(): FightView {
+		return this._fightView;
 	}
 }
