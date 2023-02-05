@@ -3,7 +3,7 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
+import {ChatInputCommandInteraction, CommandInteraction} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -16,6 +16,7 @@ type TextInformation = { interaction: CommandInteraction, language: string };
 type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
 type TopInformation = {
 	scope: string,
+	type: string,
 	timing: string,
 	page: number,
 	numberOfPlayers: number
@@ -124,6 +125,7 @@ function getBadgeStatesOfList(playersToShow: Player[], language: string, date: D
  * @param interaction
  * @param language
  * @param scope
+ * @param type
  * @param timing
  * @param page
  * @param numberOfPlayers
@@ -133,7 +135,7 @@ function getBadgeStatesOfList(playersToShow: Player[], language: string, date: D
  */
 async function displayTop(
 	{interaction, language}: TextInformation,
-	{scope, timing, page, numberOfPlayers}: TopInformation,
+	{scope, type, timing, page, numberOfPlayers}: TopInformation,
 	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
 	playersToShow: Player[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
@@ -222,6 +224,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
 	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
+	let type = TopConstants.TYPE_SCORE;
+	if (interaction.isChatInputCommand()) {
+		const banane = interaction as ChatInputCommandInteraction;
+		const typeUntested = banane.options.getSubcommand();
+		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("gloryTopCommandName")) {
+			type = TopConstants.TYPE_GLORY;
+		}
+	}
 	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
 	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
 	const scoreTooLow = player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
@@ -236,7 +246,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const playersToShow = await Players.getPlayersToPrintTop(listDiscordId, page, timing);
 
-	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
+	await displayTop({interaction, language}, {scope, type, timing, page, numberOfPlayers}, {
 		rankCurrentPlayer,
 		scoreTooLow
 	}, playersToShow);
@@ -246,67 +256,76 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.top", 
 const currentCommandEnglishTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionScopeName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionScopeName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionScopeDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionScopeDescription")
-			})
-			.addChoices(
-				{
-					name: currentCommandEnglishTranslations.get("scopes.global"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("scopes.global")
-					}, value: TopConstants.GLOBAL_SCOPE
-				},
-				{
-					name: currentCommandEnglishTranslations.get("scopes.server"),
-					"name_localizations":
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName(currentCommandEnglishTranslations.get("mainTopCommandName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("mainTopCommandName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("mainTopCommandDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionScopeDescription")
+				})
+				.addStringOption(option =>
+					SlashCommandBuilderGenerator.generateTopScopeOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					).setRequired(false)
+				)
+				.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionTimingName"))
+					.setNameLocalizations({
+						fr: currentCommandFrenchTranslations.get("optionTimingName")
+					})
+					.setDescription(currentCommandEnglishTranslations.get("optionTimingDescription"))
+					.setDescriptionLocalizations({
+						fr: currentCommandFrenchTranslations.get("optionTimingDescription")
+					})
+					.addChoices(
 						{
-							fr: currentCommandFrenchTranslations.get("scopes.server")
+							name: currentCommandEnglishTranslations.get("timings.allTime"),
+							"name_localizations": {
+								fr: currentCommandFrenchTranslations.get("timings.allTime")
+							}, value: TopConstants.TIMING_ALLTIME
+						},
+						{
+							name: currentCommandEnglishTranslations.get("timings.weekly"),
+							"name_localizations": {
+								fr: currentCommandFrenchTranslations.get("timings.weekly")
+							}, value: TopConstants.TIMING_WEEKLY
 						}
-					,
-					value: TopConstants.SERVER_SCOPE
-				}
-			)
-			.setRequired(false)
+					)
+					.setRequired(false)
+				)
+				.addIntegerOption(option =>
+					SlashCommandBuilderGenerator.generateTopPageOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setMinValue(1)
+						.setRequired(false)
+				)
 		)
-		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionTimingName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionTimingName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionTimingDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionTimingDescription")
-			})
-			.addChoices(
-				{
-					name: currentCommandEnglishTranslations.get("timings.allTime"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("timings.allTime")
-					}, value: TopConstants.TIMING_ALLTIME
-				},
-				{
-					name: currentCommandEnglishTranslations.get("timings.weekly"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("timings.weekly")
-					}, value: TopConstants.TIMING_WEEKLY
-				}
-			)
-			.setRequired(false)
-		)
-		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionPageName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionPageName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionPageDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionPageDescription")
-			})
-			.setMinValue(1)
-			.setRequired(false)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName(currentCommandEnglishTranslations.get("gloryTopCommandName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("gloryTopCommandName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("gloryTopCommandDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("gloryTopCommandDescription")
+				})
+				.addStringOption(option =>
+					SlashCommandBuilderGenerator.generateTopScopeOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setRequired(false)
+				)
+				.addIntegerOption(option =>
+					SlashCommandBuilderGenerator.generateTopPageOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setMinValue(1)
+						.setRequired(false)
+				)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
