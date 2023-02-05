@@ -97,7 +97,9 @@ export class Player extends Model {
 
 	public notifications!: string;
 
-	public gloryPoints: number;
+	public gloryPoints!: number;
+
+	public fightCountdown!: number;
 
 	public updatedAt!: Date;
 
@@ -1008,6 +1010,36 @@ export class Players {
 	}
 
 	/**
+	 * Get the players in the list of Ids that will be printed into the glory top at the given page
+	 * @param listDiscordId
+	 * @param page
+	 */
+	static async getPlayersToPrintGloryTop(listDiscordId: string[], page: number): Promise<Player[]> {
+		const restrictionsTopEntering = {
+			fightCountdown: {
+				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+			}
+		};
+		return await Player.findAll({
+			where: {
+				[Op.and]: {
+					discordUserId: {
+						[Op.in]: listDiscordId
+					},
+					...restrictionsTopEntering
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"]
+			],
+			limit: TopConstants.PLAYERS_BY_PAGE,
+			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+		});
+	}
+
+
+	/**
 	 * Get the player with the given rank
 	 * @param rank
 	 */
@@ -1226,6 +1258,10 @@ export function initModel(sequelize: Sequelize): void {
 		gloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		fightCountdown: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

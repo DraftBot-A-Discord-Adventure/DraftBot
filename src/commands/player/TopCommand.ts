@@ -11,9 +11,14 @@ import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeU
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {FightConstants} from "../../core/constants/FightConstants";
 
 type TextInformation = { interaction: CommandInteraction, language: string };
-type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
+type PlayerInformation = {
+	rankCurrentPlayer: number,
+	scoreTooLow: boolean,
+	fightNeeded: number
+}
 type TopInformation = {
 	scope: string,
 	type: string,
@@ -27,8 +32,15 @@ type TopInformation = {
  * @param playerToLook
  * @param language
  * @param date
+ * @param isGloryTop
  */
-async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date): Promise<string> {
+async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date, isGloryTop: boolean): Promise<string> {
+
+	if (isGloryTop) {
+		const playerLeague = await playerToLook.getLeague();
+		return playerLeague.emoji + TopConstants.SEPARATOR;
+	}
+
 	if (date.valueOf() < playerToLook.effectEndDate.valueOf()) {
 		return playerToLook.effect + TopConstants.SEPARATOR;
 	}
@@ -111,13 +123,26 @@ function getPseudosOfList(playersToShow: Player[], language: string): Promise<st
  * @param playersToShow
  * @param language
  * @param date
+ * @param isGloryTop
  */
-function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date): Promise<string[]> {
+function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date, isGloryTop: boolean): Promise<string[]> {
 	const badgeStates = [];
 	for (const entityToShow of playersToShow) {
-		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date));
+		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date, isGloryTop));
 	}
 	return Promise.all(badgeStates);
+}
+
+/**
+ * Get the number to display as a score for a given player
+ * @param type
+ * @param playerToShow
+ * @param timing
+ */
+function getScoreToShow(type: string, playerToShow: Player, timing: string): number {
+	return type === TopConstants.TYPE_GLORY ? playerToShow.gloryPoints : timing === TopConstants.TIMING_WEEKLY
+		? playerToShow.weeklyScore
+		: playerToShow.score;
 }
 
 /**
@@ -136,7 +161,7 @@ function getBadgeStatesOfList(playersToShow: Player[], language: string, date: D
 async function displayTop(
 	{interaction, language}: TextInformation,
 	{scope, type, timing, page, numberOfPlayers}: TopInformation,
-	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
+	{rankCurrentPlayer, scoreTooLow, fightNeeded}: PlayerInformation,
 	playersToShow: Player[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
@@ -146,24 +171,27 @@ async function displayTop(
 	const start = end - TopConstants.PLAYERS_BY_PAGE + 1;
 	const topDisplay: DraftBotEmbed = new DraftBotEmbed()
 		.setTitle(topModule.format("topTitle", {
+			topEmote: type === TopConstants.TYPE_GLORY ? TopConstants.EMOTE.GLORY : TopConstants.EMOTE.SCORE,
 			start,
 			end,
 			alltime: timing === TopConstants.TIMING_ALLTIME,
-			global: scope === TopConstants.GLOBAL_SCOPE
+			global: scope === TopConstants.GLOBAL_SCOPE,
+			gloryTop: type === TopConstants.TYPE_GLORY
 		}));
 	let description = [];
 	const pseudos = await getPseudosOfList(playersToShow, language);
-	const badgeStates = await getBadgeStatesOfList(playersToShow, language, new Date());
+	const badgeStates = await getBadgeStatesOfList(playersToShow, language, new Date(), type === TopConstants.TYPE_GLORY);
+
 	for (const playerToShow of playersToShow) {
 		const rank = playersToShow.indexOf(playerToShow);
+		const scoreToShow = getScoreToShow(type, playerToShow, timing);
+
 		description.push(topModule.format("playerRankLine", {
 			badge: getBadgeTopPositionOfPlayer(interaction, playerToShow, page, rank),
 			rank: start + rank,
 			pseudo: pseudos[rank],
 			badgeState: badgeStates[rank],
-			score: timing === TopConstants.TIMING_WEEKLY
-				? playerToShow.weeklyScore
-				: playerToShow.score,
+			score: scoreToShow,
 			level: playerToShow.level
 		}));
 	}
@@ -175,14 +203,15 @@ async function displayTop(
 			name: topModule.get("yourRanking"),
 			value: topModule.format(
 				scoreTooLow
-					? "lowScore"
+					? type === TopConstants.TYPE_GLORY ? "notEnoughRankedFight" : "lowScore"
 					: `end${rankCurrentPlayer === 1 ? "First" : "Any"}${end >= rankCurrentPlayer && rankCurrentPlayer >= start ? "Right" : "Wrong"}Page`, {
 					badge: getBadgePositionOfCurrentPlayer(rankCurrentPlayer),
 					pseudo: actualPlayer,
 					rank: rankCurrentPlayer,
 					totalPlayer: numberOfPlayers,
 					page: getPageOfRank(rankCurrentPlayer),
-					pageMax
+					pageMax,
+					fightNeeded: fightNeeded
 				})
 		});
 	if (timing === TopConstants.TIMING_WEEKLY) {
@@ -244,11 +273,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing);
 
-	const playersToShow = await Players.getPlayersToPrintTop(listDiscordId, page, timing);
+	const fightNeeded = player.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE;
+
+	const playersToShow = type === TopConstants.TYPE_GLORY ? await Players.getPlayersToPrintGloryTop(listDiscordId, page) : await Players.getPlayersToPrintTop(listDiscordId, page, timing);
 
 	await displayTop({interaction, language}, {scope, type, timing, page, numberOfPlayers}, {
 		rankCurrentPlayer,
-		scoreTooLow
+		scoreTooLow,
+		fightNeeded
 	}, playersToShow);
 }
 

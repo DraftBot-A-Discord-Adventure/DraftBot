@@ -7,9 +7,18 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		allowNull: false,
 		defaultValue: FightConstants.ELO.DEFAULT_ELO
 	});
+	await context.addColumn("players", "fightCountdown", {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
+	});
 	await context.sequelize.query(`
 		UPDATE players
 		SET players.gloryPoints = ${FightConstants.ELO.DEFAULT_ELO}
+	`);
+	await context.sequelize.query(`
+		UPDATE players
+		SET players.fightCountdown = ${FightConstants.DEFAULT_FIGHT_COUNTDOWN}
 	`);
 
 	// add league table
