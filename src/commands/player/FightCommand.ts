@@ -22,6 +22,7 @@ import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
 import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Leagues} from "../../core/database/game/models/League";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Check if a player is blocked
@@ -83,8 +84,15 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
 		return FightConstants.FIGHT_ERROR.OCCUPIED;
 	}
 
-	if (opponent && !friendly && Math.abs(player.gloryPoints - opponent.gloryPoints) > FightConstants.ELO.MAX_ELO_GAP) {
-		return FightConstants.FIGHT_ERROR.ELO_GAP;
+	if (opponent && !friendly) {
+		if (Math.abs(player.gloryPoints - opponent.gloryPoints) > FightConstants.ELO.MAX_ELO_GAP) {
+			return FightConstants.FIGHT_ERROR.ELO_GAP;
+		}
+
+		const bo3 = await LogsReadRequests.getRankedFightsThisWeek(player.discordUserId, opponent.discordUserId);
+		if (bo3.notDraw > 1 || bo3.draw + bo3.notDraw >= 3) {
+			return FightConstants.FIGHT_ERROR.BEST_OF_3;
+		}
 	}
 
 	// the player is able to fight

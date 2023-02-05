@@ -116,8 +116,12 @@
 					"indirect": "Cette personne n'a plus d'énergie !"
 				},
 				"eloGap": {
-					"direct": "Vous ne pouvez pas faire un match classé contre cette personne car votre écart de points de gloire est trop important !",
-					"indirect": "Vous ne pouvez pas faire un match classé contre cette personne car votre écart de points de gloire est trop important !"
+					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car votre écart de points de gloire est trop important !",
+					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car votre écart de points de gloire est trop important !"
+				},
+				"bestOf3": {
+					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne par vous avez déjà fait trop de duels avec elle cette semaine!",
+					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne par vous avez déjà fait trop de duels avec elle cette semaine!"
 				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
@@ -314,6 +318,10 @@
 				"eloGap": {
 					"direct": "You can't make a ranked match against this person because your distance gap is too big!",
 					"indirect": "You can't make a ranked match against this person because your distance gap is too big!"
+				},
+				"bestOf3": {
+					"direct": "You can't make a ranked fight against this person by you've already made too many duels with them this week!",
+					"indirect": "You can't make a ranked fight against this person by you've already made too many duels with them this week!"
 				},
 				"defenderDoesntExist": "The requested user doesn't exist!"
 			},
