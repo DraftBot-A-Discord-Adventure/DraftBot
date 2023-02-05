@@ -1225,7 +1225,7 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		gloryPoints: {
 			type: DataTypes.INTEGER,
-			defaultValue: FightConstants.DEFAULT_ELO
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
