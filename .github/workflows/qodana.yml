@@ -1,0 +1,7 @@
+-   name: 'Qodana Scan'
+    on:
+        pull_request:
+            branches: [ master, develop ]
+    uses: JetBrains/qodana-action@main
+    env:
+        QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
