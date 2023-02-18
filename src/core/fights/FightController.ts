@@ -106,7 +106,9 @@ export class FightController {
 			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
 
-		await this.endCallback(this);
+		if (this.endCallback) {
+			await this.endCallback(this);
+		}
 	}
 
 	/**

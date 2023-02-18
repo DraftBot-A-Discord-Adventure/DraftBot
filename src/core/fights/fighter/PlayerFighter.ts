@@ -1,5 +1,5 @@
 import {Fighter} from "./Fighter";
-import Player from "../../database/game/models/Player";
+import Player, {Players} from "../../database/game/models/Player";
 import Class from "../../database/game/models/Class";
 import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
@@ -82,10 +82,20 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
+		if (!fightView.fightController.friendly) {
+			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
+			newPlayer.fightPointsLost = this.stats.maxFightPoint - this.stats.fightPoints;
+			await newPlayer.save();
+		}
+
 		await this.checkFightActionHistory(fightView);
-		// TODO : REDO WHEN RANKED FIGHTS ARE IMPLEMENTED
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "friendlyFight"});
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "rankedFight"});
+
+		if (fightView.fightController.friendly) {
+			await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "friendlyFight"});
+		}
+		else {
+			await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "rankedFight"});
+		}
 		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);
