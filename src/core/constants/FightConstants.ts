@@ -94,7 +94,7 @@ export abstract class FightConstants {
 		"outOfBreath"];
 
 	static readonly ELO = {
-		DEFAULT_ELO: 1000,
+		DEFAULT_ELO: 0,
 		MAX_ELO_GAP: 400
 	};
 

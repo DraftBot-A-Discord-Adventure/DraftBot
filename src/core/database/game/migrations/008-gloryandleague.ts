@@ -14,7 +14,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 	await context.sequelize.query(`
 		UPDATE players
-		SET players.gloryPoints = ${FightConstants.ELO.DEFAULT_ELO}
+		SET players.gloryPoints = ROUND(GREATEST(0, (players.level - 8) * 800 / 112))
 	`);
 	await context.sequelize.query(`
 		UPDATE players
@@ -58,5 +58,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("players", "gloryPoints");
+	await context.removeColumn("players", "fightCountdown");
 	await context.dropTable("leagues");
 }
