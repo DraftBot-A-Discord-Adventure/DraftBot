@@ -365,16 +365,23 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const askingFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
+	const optionFriendly = interaction.options.get(currentCommandEnglishTranslations.get("optionFriendlyName"));
+	if (optionFriendly !== null) {
+		friendly = optionFriendly.value as boolean;
+	}
+
 	if (askedEntity && player.discordUserId === askedEntity.discordUserId) {
 		// the user is trying to fight himself
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}
+
 	const attackerFightErrorStatus = await canFight(player, askedEntity, friendly, new Date());
 	if (attackerFightErrorStatus !== FightConstants.FIGHT_ERROR.NONE) {
 		await sendError(interaction, fightTranslationModule, attackerFightErrorStatus, false, true);
 		return;
 	}
+
 	let askedFighter: PlayerFighter | null;
 	if (askedEntity) {
 		const defenderFightErrorStatus = await canFight(askedEntity, player, friendly, new Date());
@@ -384,6 +391,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		askedFighter = new PlayerFighter(interaction.options.getUser("user"), askedEntity, await Classes.getById(askedEntity.class));
 	}
+
 	const fightAskingDescription = await getFightDescription(askingFighter, friendly, askedEntity, fightTranslationModule, askedFighter);
 	await new DraftBotBroadcastValidationMessage(
 		interaction, language,
@@ -404,6 +412,17 @@ export const commandInfo: ICommand = {
 			SlashCommandBuilderGenerator.generateUserOption(
 				currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
 			).setRequired(false)
+		)
+		.addBooleanOption(option =>
+			option.setName(currentCommandEnglishTranslations.get("optionFriendlyName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionFriendlyName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("optionFriendlyDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionFriendlyDescription")
+				})
+				.setRequired(false)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {
