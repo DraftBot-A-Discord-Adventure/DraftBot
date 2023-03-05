@@ -3,6 +3,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "glorypoints",
@@ -30,7 +31,7 @@ const gloryPointsTestCommand = async (language: string, interaction: CommandInte
 	if (gloryPoints < 0) {
 		throw new Error("Erreur glory points : glory points inférieurs à 0 interdits !");
 	}
-	player.gloryPoints = gloryPoints;
+	await player.setGloryPoints(gloryPoints, NumberChangeReason.TEST, null);
 	await player.save();
 
 	return format(commandInfo.messageWhenExecuted, { points: player.gloryPoints });

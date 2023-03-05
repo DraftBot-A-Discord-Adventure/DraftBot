@@ -23,6 +23,7 @@ import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Leagues} from "../../core/database/game/models/League";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
+import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
 /**
  * Check if a player is blocked
@@ -177,7 +178,7 @@ async function getFightDescription(
 	return fightAskingDescription;
 }
 
-async function fightEndCallback(fight: FightController): Promise<void> {
+async function fightEndCallback(fight: FightController, fightLogId: number): Promise<void> {
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
 	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
@@ -278,12 +279,12 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 	}
 
 	// Change glory and fightCountdown and save
-	player1.gloryPoints = player1NewRating;
+	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fightLogId);
 	player1.fightCountdown--;
 	if (player1.fightCountdown < 0) {
 		player1.fightCountdown = 0;
 	}
-	player2.gloryPoints = player2NewRating;
+	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fightLogId);
 	player2.fightCountdown--;
 	if (player2.fightCountdown < 0) {
 		player2.fightCountdown = 0;

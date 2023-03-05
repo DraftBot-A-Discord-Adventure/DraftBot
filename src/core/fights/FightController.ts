@@ -28,7 +28,7 @@ export class FightController {
 
 	private state: FightState;
 
-	private endCallback: (fight: FightController) => Promise<void>;
+	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
 
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
@@ -93,7 +93,7 @@ export class FightController {
 	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		draftBotInstance.logsDatabase.logFight(this).then();
+		const fightLogId = await draftBotInstance.logsDatabase.logFight(this);
 
 		this.checkNegativeFightPoints();
 
@@ -107,7 +107,7 @@ export class FightController {
 		}
 
 		if (this.endCallback) {
-			await this.endCallback(this);
+			await this.endCallback(this, fightLogId);
 		}
 	}
 
@@ -212,7 +212,7 @@ export class FightController {
 	 * Set a callback to be called when the fight ends
 	 * @param callback
 	 */
-	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
+	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
 		this.endCallback = callback;
 	}
 

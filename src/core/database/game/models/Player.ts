@@ -31,6 +31,7 @@ import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
 import {League, Leagues} from "./League";
+import {LogsDatabase} from "../../logs/LogsDatabase";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -823,6 +824,18 @@ export class Player extends Model {
 
 	public async getLeague(): Promise<League> {
 		return await Leagues.getByGlory(this.gloryPoints);
+	}
+
+	/**
+	 * set the glory points of the player
+	 * @param gloryPoints
+	 * @param reason
+	 * @param fightId
+	 * @private
+	 */
+	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.discordUserId, gloryPoints, reason, fightId);
+		this.gloryPoints = gloryPoints;
 	}
 }
 
