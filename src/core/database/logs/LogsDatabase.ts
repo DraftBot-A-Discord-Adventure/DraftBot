@@ -88,6 +88,7 @@ import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
 import {getDateLogs} from "../../utils/TimeUtils";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
+import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
 
 /**
  * This class is used to log all the changes in the game database
@@ -956,7 +957,7 @@ export class LogsDatabase extends Database {
 	 * log all the information about a fight, this is called at the end of a fight
 	 * @param fight
 	 */
-	public async logFight(fight: FightController): Promise<void> {
+	public async logFight(fight: FightController): Promise<number> {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
 			const player1 = fight.fightInitiator as PlayerFighter;
 			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
@@ -992,6 +993,7 @@ export class LogsDatabase extends Database {
 					});
 				}
 			}
+			return fightResult.id;
 		}
 	}
 
@@ -1124,5 +1126,23 @@ export class LogsDatabase extends Database {
 	 */
 	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
 		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
+	}
+
+	/**
+	 * log when a player's elo changes
+	 * @param discordId
+	 * @param gloryPoints
+	 * @param reason
+	 * @param fightId
+	 */
+	public async logPlayersGloryPoints(discordId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayersGloryPoints.create({
+			playerId: player.id,
+			value: gloryPoints,
+			reason,
+			fightId,
+			date: getDateLogs()
+		});
 	}
 }
