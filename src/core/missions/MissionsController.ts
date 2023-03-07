@@ -88,7 +88,7 @@ export class MissionsController {
 			completedDaily,
 			completedCampaign
 		});
-
+		await player.save();
 		return player;
 	}
 
