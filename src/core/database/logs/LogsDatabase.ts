@@ -982,7 +982,8 @@ export class LogsDatabase extends Database {
 				for (const [action, count] of Object.entries(fightActionsUsed)) {
 					const [fightAction] = await LogsFightsActions.findOrCreate({
 						where: {
-							name: action
+							name: action,
+							classId: player.player.class
 						}
 					});
 					await LogsFightsActionsUsed.create({

@@ -21,7 +21,7 @@ export function initModel(sequelize: Sequelize): void {
 			allowNull: false
 		},
 		actionId: {
-			type: DataTypes.TINYINT,
+			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
 		count: {

@@ -4,18 +4,24 @@ export class LogsFightsActions extends Model {
 	public readonly id!: number;
 
 	public readonly name!: string;
+
+	public readonly classId!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
 	LogsFightsActions.init({
 		id: {
-			type: DataTypes.TINYINT.UNSIGNED,
+			type: DataTypes.SMALLINT.UNSIGNED,
 			primaryKey: true,
 			autoIncrement: true
 		},
 		name: {
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		classId: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: true
 		}
 	}, {
 		sequelize,

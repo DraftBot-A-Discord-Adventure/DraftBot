@@ -49,18 +49,106 @@ const logsShopLoggingAttributes = {
 	}
 };
 
+export const logsFightsResultsAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	player1Id: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	player1Points: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	},
+	player2Id: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	player2Points: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	},
+	turn: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		allowNull: false
+	},
+	winner: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		allowNull: false
+	},
+	friendly: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false
+	},
+	date: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	}
+};
+
+export const logsFightsActionsAttributes001 = {
+	id: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	name: {
+		type: DataTypes.STRING,
+		allowNull: false
+	}
+};
+
+export const logsFightsActionsUsedAttributes001 = {
+	fightId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	player: {
+		type: DataTypes.TINYINT,
+		allowNull: false
+	},
+	actionId: {
+		type: DataTypes.TINYINT,
+		allowNull: false
+	},
+	count: {
+		type: DataTypes.TINYINT,
+		allowNull: false
+	}
+};
+
+export const logsPlayersAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	discordId: {
+		type: DataTypes.STRING(20), // eslint-disable-line new-cap
+		allowNull: false
+	}
+};
+
+export const logsPlayersClassChangesAttributes001 = {
+	playerId: {
+		type: DataTypes.INTEGER,
+		allowNull: false
+	},
+	classId: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		allowNull: false
+	},
+	date: {
+		type: DataTypes.INTEGER.UNSIGNED,
+		allowNull: false
+	}
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
-	await context.createTable("players", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		discordId: {
-			type: DataTypes.STRING(20), // eslint-disable-line new-cap
-			allowNull: false
-		}
-	});
+	await context.createTable("players", logsPlayersAttributes001);
 	await context.createTable("players_money", logsPlayersNumbersAttributes);
 	await context.createTable("players_health", logsPlayersNumbersAttributes);
 	await context.createTable("players_experience", logsPlayersNumbersAttributes);
@@ -239,20 +327,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("players_class_changes", {
-		playerId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		classId: {
-			type: DataTypes.TINYINT.UNSIGNED,
-			allowNull: false
-		},
-		date: {
-			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
-		}
-	});
+	await context.createTable("players_class_changes", logsPlayersClassChangesAttributes001);
 	await context.createTable("players_votes", {
 		playerId: {
 			type: DataTypes.INTEGER,
@@ -638,74 +713,9 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
-	await context.createTable("fights_results", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		player1Id: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		player1Points: {
-			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
-		},
-		player2Id: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		player2Points: {
-			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
-		},
-		turn: {
-			type: DataTypes.TINYINT.UNSIGNED,
-			allowNull: false
-		},
-		winner: {
-			type: DataTypes.TINYINT.UNSIGNED,
-			allowNull: false
-		},
-		friendly: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
-		date: {
-			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false
-		}
-	});
-	await context.createTable("fights_actions", {
-		id: {
-			type: DataTypes.TINYINT.UNSIGNED,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false
-		}
-	});
-	await context.createTable("fights_actions_used", {
-		fightId: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		player: {
-			type: DataTypes.TINYINT,
-			allowNull: false
-		},
-		actionId: {
-			type: DataTypes.TINYINT,
-			allowNull: false
-		},
-		count: {
-			type: DataTypes.TINYINT,
-			allowNull: false
-		}
-	});
+	await context.createTable("fights_results", logsFightsResultsAttributes001);
+	await context.createTable("fights_actions", logsFightsActionsAttributes001);
+	await context.createTable("fights_actions_used", logsFightsActionsUsedAttributes001);
 	await context.createTable("guilds_creations", {
 		guildId: {
 			type: DataTypes.INTEGER,
