@@ -54,6 +54,21 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
+
+	// removal of badge 🥚
+	await context.sequelize.query(`
+		UPDATE players
+		SET players.badges = REPLACE(players.badges, "-🥚", "")
+	`);
+	await context.sequelize.query(`
+		UPDATE players
+		SET players.badges = REPLACE(players.badges, "🥚-", "")
+	`);
+	await context.sequelize.query(`
+		UPDATE players
+		SET players.badges = NULL
+		WHERE players.badges = "🥚"
+	`);
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
