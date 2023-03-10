@@ -272,6 +272,76 @@ export class DraftBot {
 	}
 
 	/**
+	 * End the fight season
+	 */
+	static async seasonEnd(this: void): Promise<void> {
+		draftBotInstance.logsDatabase.log15BestSeason().then();
+		const winner = await Player.findOne({
+			where: {
+				fightCountdown: {
+					[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"],
+				["score", "DESC"]
+			],
+			limit: 1
+		});
+		if (winner !== null) {
+			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
+				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
+					if (guild.shard) {
+						try {
+							guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.frSentence
+								}).then(message => {
+									message.react("🏆").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+						try {
+							guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.enSentence
+								}).then(message => {
+									message.react("🏆").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+					}
+				});
+			}, {
+				context: {
+					config: botConfig,
+					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("topWeekAnnouncement", {
+						mention: winner.getMention()
+					}),
+					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("topWeekAnnouncement", {
+						mention: winner.getMention()
+					})
+				}
+			});
+			winner.addBadge("🎗️");
+			await winner.save();
+		}
+		await Player.update({weeklyScore: 0}, {where: {}});
+		console.log("# WARNING # Weekly leaderboard has been reset !");
+		await PlayerMissionsInfo.resetShopBuyout();
+		console.log("All players can now buy again points from the mission shop !");
+		DraftBot.programTopWeekTimeout();
+		draftBotInstance.logsDatabase.logTopWeekEnd().then();
+	}
+
+	/**
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {

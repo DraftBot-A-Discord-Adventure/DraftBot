@@ -31,7 +31,6 @@ import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
 import {League, Leagues} from "./League";
-import {LogsDatabase} from "../../logs/LogsDatabase";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -161,7 +160,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the origin id of the player
+	 * get the origin id of the playe²r
 	 */
 	public async getPreviousMapId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);

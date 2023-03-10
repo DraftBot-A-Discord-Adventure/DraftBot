@@ -253,9 +253,28 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 
 	await addClassesToFightActions(context);
+	await context.createTable("players_15_best_season", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		position: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		},
+		seasonGlory: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("fights_actions", "classId");
 	await context.dropTable("players_glory_points");
+	await context.dropTable("players_15_best_season");
 }

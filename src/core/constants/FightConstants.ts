@@ -99,11 +99,11 @@ export abstract class FightConstants {
 	};
 
 	// if a player has a fight countdown higher than this value, he will not appear in the glory top
-	static readonly FIGHT_COUNTDOWN_MAXIMAL_VALUE = 3;
+	static readonly FIGHT_COUNTDOWN_MAXIMAL_VALUE = 0;
 
 	// a player will not earn more fightCountdown than this value
-	static readonly FIGHT_COUNTDOWN_REGEN_LIMIT = 10;
+	static readonly FIGHT_COUNTDOWN_REGEN_LIMIT = 7;
 
 	// fightCountdown value for new players
-	static readonly DEFAULT_FIGHT_COUNTDOWN = 13;
+	static readonly DEFAULT_FIGHT_COUNTDOWN = 10;
 }
