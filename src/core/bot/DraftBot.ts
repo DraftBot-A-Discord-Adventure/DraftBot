@@ -424,6 +424,7 @@ export class DraftBot {
 
 		if (this.isMainShard) { // Do this only if it's the main shard
 			DraftBot.programTopWeekTimeout();
+			DraftBot.programSeasonTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(
 				DraftBot.fightPowerRegenerationLoop.bind(DraftBot),

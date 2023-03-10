@@ -1169,7 +1169,7 @@ export class LogsDatabase extends Database {
 			await LogsPlayers15BestSeason.create({
 				playerId: player.id,
 				position: i + 1,
-				topWeekScore: players[i].weeklyScore,
+				seasonGlory: players[i].gloryPoints,
 				date: now
 			});
 		}
