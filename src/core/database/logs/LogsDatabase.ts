@@ -90,6 +90,7 @@ import {getDateLogs} from "../../utils/TimeUtils";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
 import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
+import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 
 /**
  * This class is used to log all the changes in the game database
@@ -816,6 +817,15 @@ export class LogsDatabase extends Database {
 	 */
 	public async logTopWeekEnd(): Promise<void> {
 		await LogsTopWeekEnd.create({
+			date: getDateLogs()
+		});
+	}
+
+	/**
+	 * log when the weekly top end
+	 */
+	public async logSeasonEnd(): Promise<void> {
+		await LogsSeasonEnd.create({
 			date: getDateLogs()
 		});
 	}

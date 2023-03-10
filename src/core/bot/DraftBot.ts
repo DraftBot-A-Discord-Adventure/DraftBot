@@ -11,7 +11,7 @@ import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
 import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
-import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
+import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {Op, QueryTypes, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
@@ -64,6 +64,19 @@ export class DraftBot {
 	}
 
 	/**
+	 * launch the program that execute the season reset
+	 */
+	static programSeasonTimeout(this: void): void {
+		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
+		if (millisTill === 0) {
+			// Case at 0:00:00
+			setTimeout(DraftBot.programSeasonTimeout, TIMEOUT_FUNCTIONS.SEASON_TIMEOUT);
+			return;
+		}
+		setTimeout(DraftBot.seasonEnd, millisTill);
+	}
+
+	/**
 	 * launch the program that execute the daily tasks
 	 */
 	static programDailyTimeout(this: void): void {
@@ -87,10 +100,10 @@ export class DraftBot {
 						  ON p.mapLinkId = m.id
 			WHERE p.notifications != :noNotificationsValue
 			  AND DATE_ADD(DATE_ADD(p.startTravelDate
-				, INTERVAL p.effectDuration MINUTE)
+							   , INTERVAL p.effectDuration MINUTE)
 				, INTERVAL m.tripDuration MINUTE)
 				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
-			  AND NOW()`;
+				AND NOW()`;
 
 		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
 			replacements: {
@@ -298,7 +311,7 @@ export class DraftBot {
 								(channel as TextChannel).send({
 									content: context.frSentence
 								}).then(message => {
-									message.react("🏆").then();
+									message.react("✨").then();
 								});
 							});
 						}
@@ -310,7 +323,7 @@ export class DraftBot {
 								(channel as TextChannel).send({
 									content: context.enSentence
 								}).then(message => {
-									message.react("🏆").then();
+									message.react("✨").then();
 								});
 							});
 						}
@@ -322,23 +335,38 @@ export class DraftBot {
 			}, {
 				context: {
 					config: botConfig,
-					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("topWeekAnnouncement", {
+					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("seasonEndAnnouncement", {
 						mention: winner.getMention()
 					}),
-					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("topWeekAnnouncement", {
+					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("seasonEndAnnouncement", {
 						mention: winner.getMention()
 					})
 				}
 			});
-			winner.addBadge("🎗️");
+			winner.addBadge("✨");
 			await winner.save();
 		}
-		await Player.update({weeklyScore: 0}, {where: {}});
-		console.log("# WARNING # Weekly leaderboard has been reset !");
-		await PlayerMissionsInfo.resetShopBuyout();
-		console.log("All players can now buy again points from the mission shop !");
-		DraftBot.programTopWeekTimeout();
-		draftBotInstance.logsDatabase.logTopWeekEnd().then();
+		// we add one to the fightCountdown
+		await Player.update(
+			{
+				fightCountdown: Sequelize.literal(
+					"fightCountdown + 1"
+				)
+			},
+			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
+		);
+		// we remove 33% of the glory points above the MIN_ELO_LEAGUE_COMPRESSION
+		await Player.update(
+			{
+				gloryPoints: Sequelize.literal(
+					`gloryPoints - (gloryPoints - ${FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}) / 3`
+				)
+			},
+			{where: {gloryPoints: {[Op.gt]: FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}}}
+		);
+		console.log("# WARNING # Season has been ended !");
+		DraftBot.programSeasonTimeout();
+		draftBotInstance.logsDatabase.logSeasonEnd().then();
 	}
 
 	/**
