@@ -89,6 +89,7 @@ import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../
 import {getDateLogs} from "../../utils/TimeUtils";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
+import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
 
 /**
  * This class is used to log all the changes in the game database
@@ -1145,5 +1146,22 @@ export class LogsDatabase extends Database {
 			fightId,
 			date: getDateLogs()
 		});
+	}
+
+	/**
+	 * save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
+	 */
+	public async log15BestSeason(): Promise<void> {
+		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1);
+		const now = getDateLogs();
+		for (let i = 0; i < players.length; i++) {
+			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
+			await LogsPlayers15BestSeason.create({
+				playerId: player.id,
+				position: i + 1,
+				topWeekScore: players[i].weeklyScore,
+				date: now
+			});
+		}
 	}
 }
