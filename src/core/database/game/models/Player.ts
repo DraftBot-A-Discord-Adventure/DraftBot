@@ -99,6 +99,8 @@ export class Player extends Model {
 
 	public gloryPoints!: number;
 
+	public gloryPointsLastSeason!: number;
+
 	public fightCountdown!: number;
 
 	public updatedAt!: Date;
@@ -926,6 +928,14 @@ export class Players {
 	}
 
 	/**
+	 * get the weekly rank of a player
+	 * @param playerId
+	 */
+	static async getLastSeasonGloryRankById(playerId: number): Promise<number> {
+		return await this.getRank(playerId, Constants.RANK_TYPES.LAST_SEASON_GLORY);
+	}
+
+	/**
 	 * get the rank of a player related to a specific type of value
 	 * @param playerId
 	 * @param rankType
@@ -1287,6 +1297,10 @@ export function initModel(sequelize: Sequelize): void {
 		gloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		gloryPointsLastSeason: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
 		},
 		fightCountdown: {
 			type: DataTypes.INTEGER,

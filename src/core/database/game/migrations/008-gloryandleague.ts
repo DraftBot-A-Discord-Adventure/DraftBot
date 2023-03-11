@@ -12,6 +12,11 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		allowNull: false,
 		defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
 	});
+	await context.addColumn("players", "gloryPointsLastSeason", {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		defaultValue: 0
+	});
 	await context.sequelize.query(`
 		UPDATE players
 		SET players.gloryPoints = ROUND(GREATEST(0, (players.level - 8) * 800 / 112))
@@ -19,6 +24,10 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.sequelize.query(`
 		UPDATE players
 		SET players.fightCountdown = ${FightConstants.DEFAULT_FIGHT_COUNTDOWN}
+	`);
+	await context.sequelize.query(`
+		UPDATE players
+		SET players.gloryPointsLastSeason = 0
 	`);
 
 	// add league table
@@ -74,5 +83,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("players", "gloryPoints");
 	await context.removeColumn("players", "fightCountdown");
+	await context.removeColumn("players", "gloryPointsLastSeason");
 	await context.dropTable("leagues");
 }
