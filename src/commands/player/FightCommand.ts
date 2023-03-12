@@ -25,6 +25,13 @@ import {Leagues} from "../../core/database/game/models/League";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
+type PlayerInformation = {
+	player: Player,
+	playerNewRating: number,
+	playerKFactor: number,
+	playerGameResult: EloGameResult
+};
+
 /**
  * Check if a player is blocked
  * @param player
@@ -179,11 +186,12 @@ async function getFightDescription(
 }
 
 async function fightEndCallback(fight: FightController, fightLogId: number): Promise<void> {
+	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
+	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;
+
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
 	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
-	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
-	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;
 
 	// Calculate elo
 	const player1KFactor = EloUtils.getKFactor(player1);
@@ -191,92 +199,20 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 	const player1NewRating = EloUtils.calculateNewRating(player1.gloryPoints, player2.gloryPoints, player1GameResult, player1KFactor);
 	const player2NewRating = EloUtils.calculateNewRating(player2.gloryPoints, player1.gloryPoints, player2GameResult, player2KFactor);
 
-	// Compute leagues
-	const player1OldLeague = await Leagues.getByGlory(player1.gloryPoints);
-	const player2OldLeague = await Leagues.getByGlory(player2.gloryPoints);
-	const player1NewLeague = await Leagues.getByGlory(player1NewRating);
-	const player2NewLeague = await Leagues.getByGlory(player2NewRating);
-
-	// Translation module
-	const fightTr = Translations.getModule("commands.fight", fight.getFightView().language);
-
-	// Create embed fields
-	const gloryField = fightTr.format("elo.glory", {
-		player: player1.getMention(),
-		ratingDiff: player1NewRating - player1.gloryPoints
-	}) + fightTr.format("elo.glory", {
-		player: player2.getMention(),
-		ratingDiff: player2NewRating - player2.gloryPoints
-	}) + "\n";
-	let leagueChange = "";
-	if (player1OldLeague.id !== player1NewLeague.id) {
-		leagueChange += fightTr.format(player1OldLeague.maxGloryPoints < player1NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
-			player: player1.getMention(),
-			oldLeague: player1OldLeague.toString(fightTr.language),
-			newLeague: player1NewLeague.toString(fightTr.language)
-		});
-	}
-	if (player2OldLeague.id !== player2NewLeague.id) {
-		leagueChange += fightTr.format(player2OldLeague.maxGloryPoints < player2NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
-			player: player2.getMention(),
-			oldLeague: player2OldLeague.toString(fightTr.language),
-			newLeague: player2NewLeague.toString(fightTr.language)
-		});
-	}
-
 	// Create embed
-	const embed = new DraftBotEmbed()
-		.setTitle(fightTr.get("elo.title"))
-		.addFields({
-			name: fightTr.get("elo.gloryField"),
-			value: gloryField,
-			inline: false
+	const embed = await createFightEndCallbackEmbed(fight,
+		{
+			player: player1,
+			playerNewRating: player1NewRating,
+			playerKFactor: player1KFactor,
+			playerGameResult: player1GameResult
+		},
+		{
+			player: player2,
+			playerNewRating: player2NewRating,
+			playerKFactor: player2KFactor,
+			playerGameResult: player2GameResult
 		});
-	if (leagueChange !== "") {
-		embed.addFields({
-			name: fightTr.get("elo.leagueField"),
-			value: leagueChange,
-			inline: false
-		});
-	}
-
-	// Description
-	if (Math.abs(player1.gloryPoints - player2.gloryPoints) < (player1KFactor + player2KFactor) / 2) {
-		embed.setDescription(format(fightTr.getRandom("elo.sameElo"), {
-			player1: player1.getMention(),
-			player2: player2.getMention()
-		}));
-	}
-	else if (player1GameResult === EloGameResult.WIN && player1.gloryPoints > player2.gloryPoints) {
-		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
-			winner: player1.getMention(),
-			loser: player2.getMention()
-		}));
-	}
-	else if (player2GameResult === EloGameResult.WIN && player2.gloryPoints > player1.gloryPoints) {
-		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
-			winner: player2.getMention(),
-			loser: player1.getMention()
-		}));
-	}
-	else if (player1GameResult === EloGameResult.WIN && player1.gloryPoints < player2.gloryPoints) {
-		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
-			winner: player1.getMention(),
-			loser: player2.getMention()
-		}));
-	}
-	else if (player2GameResult === EloGameResult.WIN && player2.gloryPoints < player1.gloryPoints) {
-		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
-			winner: player2.getMention(),
-			loser: player1.getMention()
-		}));
-	}
-	else {
-		embed.setDescription(format(fightTr.getRandom("elo.draw"), {
-			player1: player1.getMention(),
-			player2: player2.getMention()
-		}));
-	}
 
 	// Change glory and fightCountdown and save
 	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fightLogId);
@@ -299,6 +235,102 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 			embed
 		]
 	});
+}
+
+/**
+ * Create the embed fight end callback
+ * @param fight
+ * @param player1
+ * @param player2
+ */
+async function createFightEndCallbackEmbed(fight: FightController, player1: PlayerInformation, player2: PlayerInformation): Promise<DraftBotEmbed> {
+	// Translation module
+	const fightTr = Translations.getModule("commands.fight", fight.getFightView().language);
+
+	// Compute leagues
+	const player1OldLeague = await Leagues.getByGlory(player1.player.gloryPoints);
+	const player2OldLeague = await Leagues.getByGlory(player2.player.gloryPoints);
+	const player1NewLeague = await Leagues.getByGlory(player1.playerNewRating);
+	const player2NewLeague = await Leagues.getByGlory(player2.playerNewRating);
+
+	// Create embed fields
+	const gloryField = fightTr.format("elo.glory", {
+		player: player1.player.getMention(),
+		ratingDiff: player1.playerNewRating - player1.player.gloryPoints
+	}) + fightTr.format("elo.glory", {
+		player: player2.player.getMention(),
+		ratingDiff: player2.playerNewRating - player2.player.gloryPoints
+	});
+	let leagueChange = "";
+	if (player1OldLeague.id !== player1NewLeague.id) {
+		leagueChange += fightTr.format(player1OldLeague.maxGloryPoints < player1NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
+			player: player1.player.getMention(),
+			oldLeague: player1OldLeague.toString(fightTr.language),
+			newLeague: player1NewLeague.toString(fightTr.language)
+		});
+	}
+	if (player2OldLeague.id !== player2NewLeague.id) {
+		leagueChange += fightTr.format(player2OldLeague.maxGloryPoints < player2NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
+			player: player2.player.getMention(),
+			oldLeague: player2OldLeague.toString(fightTr.language),
+			newLeague: player2NewLeague.toString(fightTr.language)
+		});
+	}
+
+	// Create embed
+	const embed = new DraftBotEmbed()
+		.setTitle(fightTr.get("elo.title"))
+		.addFields({
+			name: fightTr.get("elo.gloryField"),
+			value: gloryField,
+			inline: false
+		});
+	if (leagueChange !== "") {
+		embed.addFields({
+			name: fightTr.get("elo.leagueField"),
+			value: leagueChange,
+			inline: false
+		});
+	}
+
+	// Description
+	if (Math.abs(player1.player.gloryPoints - player2.player.gloryPoints) < (player1.playerKFactor + player2.playerKFactor) / 2) {
+		embed.setDescription(format(fightTr.getRandom("elo.sameElo"), {
+			player1: player1.player.getMention(),
+			player2: player2.player.getMention()
+		}));
+	}
+	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints > player2.player.gloryPoints) {
+		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
+			winner: player1.player.getMention(),
+			loser: player2.player.getMention()
+		}));
+	}
+	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints > player1.player.gloryPoints) {
+		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
+			winner: player2.player.getMention(),
+			loser: player1.player.getMention()
+		}));
+	}
+	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints < player2.player.gloryPoints) {
+		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
+			winner: player1.player.getMention(),
+			loser: player2.player.getMention()
+		}));
+	}
+	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints < player1.player.gloryPoints) {
+		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
+			winner: player2.player.getMention(),
+			loser: player1.player.getMention()
+		}));
+	}
+	else {
+		embed.setDescription(format(fightTr.getRandom("elo.draw"), {
+			player1: player1.player.getMention(),
+			player2: player2.player.getMention()
+		}));
+	}
+	return embed;
 }
 
 /**
@@ -366,7 +398,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const askingFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);
-	const optionFriendly = interaction.options.get(currentCommandEnglishTranslations.get("optionFriendlyName"));
+	const optionFriendly = interaction.options.get("friendly");
 	if (optionFriendly !== null) {
 		friendly = optionFriendly.value as boolean;
 	}
