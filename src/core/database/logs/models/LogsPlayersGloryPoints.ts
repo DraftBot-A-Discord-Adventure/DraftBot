@@ -1,5 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
+/**
+ * @class LogsPlayersGloryPoints
+ */
 export class LogsPlayersGloryPoints extends Model {
 	public readonly playerId!: number;
 
@@ -12,6 +15,10 @@ export class LogsPlayersGloryPoints extends Model {
 	public readonly date!: number;
 }
 
+/**
+ * Init the model
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	LogsPlayersGloryPoints.init({
 		playerId: {

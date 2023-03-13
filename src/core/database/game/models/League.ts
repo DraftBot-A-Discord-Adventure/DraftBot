@@ -1,9 +1,12 @@
 import {DataTypes, Model, Op, Sequelize} from "sequelize";
 import {format} from "../../../utils/StringFormatter";
-import * as moment from "moment";
+import moment = require("moment");
 import {Constants} from "../../../Constants";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 
+/**
+ * @class League
+ */
 export class League extends Model {
 	public readonly id!: number;
 
@@ -24,7 +27,7 @@ export class League extends Model {
 	public createdAt!: Date;
 
 	/**
-	 * display the information of the class
+	 * Display the information of the class
 	 * @param language
 	 */
 	public toString(language: string): string {
@@ -35,7 +38,7 @@ export class League extends Model {
 	}
 
 	/**
-	 * get the name of the class in the given language
+	 * Get the name of the class in the given language
 	 * @param language
 	 */
 	public getName(language: string): string {
@@ -43,14 +46,14 @@ export class League extends Model {
 	}
 
 	/**
-	 * get the amount of money to award to the player
+	 * Get the amount of money to award to the player
 	 */
 	public getMoneyToAward(): number {
 		return LeagueInfoConstants.MONEY_TO_AWARD[this.id];
 	}
 
 	/**
-	 * get the amount of xp to award to the player
+	 * Get the amount of xp to award to the player
 	 */
 	public getXPToAward(): number {
 		return LeagueInfoConstants.XP_TO_AWARD[this.id];
@@ -63,6 +66,10 @@ export class League extends Model {
 		return this.minGloryPoints >= LeagueInfoConstants.GLORY_RESET_THRESHOLD;
 	}
 
+	/**
+	 * Give the point lose at the reset of the league
+	 * @param currentPoints
+	 */
 	public pointsLostAtReset(currentPoints: number): number {
 		if (currentPoints < LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
 			return 0;
@@ -74,7 +81,7 @@ export class League extends Model {
 export class Leagues {
 
 	/**
-	 * get the league by its id
+	 * Get the league by its id
 	 * @param id
 	 */
 	static getById(id: number): Promise<League | null> {
@@ -86,7 +93,7 @@ export class Leagues {
 	}
 
 	/**
-	 * get the league by its emoji
+	 * Get the league by its emoji
 	 * @param emoji
 	 */
 	static getByEmoji(emoji: string): Promise<League | null> {
@@ -97,6 +104,10 @@ export class Leagues {
 		}));
 	}
 
+	/**
+	 * Get the league by its glory
+	 * @param gloryPoints
+	 */
 	static getByGlory(gloryPoints: number): Promise<League | null> {
 		return Promise.resolve(League.findOne({
 			where: {
@@ -111,6 +122,10 @@ export class Leagues {
 	}
 }
 
+/**
+ * Init the model
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	League.init(
 		{

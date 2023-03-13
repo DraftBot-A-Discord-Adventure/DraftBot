@@ -1,5 +1,8 @@
 import {SimpleTextSmallEvent} from "./SimpleTextSmallEvent";
 
+/**
+ * @class DoNothingSmallEvent
+ */
 class DoNothingSmallEvent extends SimpleTextSmallEvent {
 	canBeExecuted = (): Promise<boolean> => Promise.resolve(true);
 }

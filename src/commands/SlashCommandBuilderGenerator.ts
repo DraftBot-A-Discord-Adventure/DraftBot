@@ -10,7 +10,7 @@ import {TopConstants} from "../core/constants/TopConstants";
 export class SlashCommandBuilderGenerator {
 
 	/**
-	 * this is used to avoid having to write the same code for each command this method create a base command with a name and a description from the translation modules of the command
+	 * This is used to avoid having to write the same code for each command this method create a base command with a name and a description from the translation modules of the command
 	 * @param currentCommandFrenchTranslations
 	 * @param currentCommandEnglishTranslations
 	 */
@@ -26,6 +26,12 @@ export class SlashCommandBuilderGenerator {
 			});
 	}
 
+	/**
+	 * Generate a user option
+	 * @param currentCommandFrenchTranslations
+	 * @param currentCommandEnglishTranslations
+	 * @param option
+	 */
 	static generateUserOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandUserOption): SlashCommandUserOption {
 		return option.setName(currentCommandEnglishTranslations.get("optionUserName"))
 			.setNameLocalizations({
@@ -37,6 +43,12 @@ export class SlashCommandBuilderGenerator {
 			});
 	}
 
+	/**
+	 * Generate a rank option
+	 * @param currentCommandFrenchTranslations
+	 * @param currentCommandEnglishTranslations
+	 * @param option
+	 */
 	static generateRankOption(currentCommandFrenchTranslations: TranslationModule, currentCommandEnglishTranslations: TranslationModule, option: SlashCommandIntegerOption): SlashCommandIntegerOption {
 		return option.setName(currentCommandEnglishTranslations.get("optionRankName"))
 			.setNameLocalizations({
@@ -48,6 +60,12 @@ export class SlashCommandBuilderGenerator {
 			});
 	}
 
+	/**
+	 * Generate a top scope option
+	 * @param currentCommandFrenchTranslations
+	 * @param currentCommandEnglishTranslations
+	 * @param option
+	 */
 	static generateTopScopeOption(
 		currentCommandFrenchTranslations: TranslationModule,
 		currentCommandEnglishTranslations: TranslationModule,
@@ -79,6 +97,12 @@ export class SlashCommandBuilderGenerator {
 			);
 	}
 
+	/**
+	 * Generate a top page option
+	 * @param currentCommandFrenchTranslations
+	 * @param currentCommandEnglishTranslations
+	 * @param option
+	 */
 	static generateTopPageOption(
 		currentCommandFrenchTranslations: TranslationModule,
 		currentCommandEnglishTranslations: TranslationModule,
