@@ -18,7 +18,7 @@ export default class CanonAttack extends FightAction {
 		// if the attack was used two times in a row, the damage is multiplied by 2
 		const lastFightAction = sender.getLastFightActionUsed();
 		if (lastFightAction instanceof CanonAttack) {
-			damageDealt = Math.round(damageDealt * 2);
+			damageDealt = Math.round(damageDealt * 1.5);
 		}
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
