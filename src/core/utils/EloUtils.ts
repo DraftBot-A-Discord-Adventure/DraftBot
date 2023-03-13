@@ -1,4 +1,5 @@
 import Player from "../database/game/models/Player";
+import {FightConstants} from "../constants/FightConstants";
 
 /**
  * Game result
@@ -15,15 +16,15 @@ export abstract class EloUtils {
 	 * @param player
 	 */
 	static getKFactor(player: Player): number {
-		if (player.gloryPoints < 2100) {
-			return 32;
+		if (player.gloryPoints < FightConstants.ELO.LOW_K_FACTOR_THRESHOLD) {
+			return FightConstants.ELO.DEFAULT_K_FACTOR;
 		}
 
-		if (player.gloryPoints < 2400) {
-			return 24;
+		if (player.gloryPoints < FightConstants.ELO.VERY_LOW_K_FACTOR_THRESHOLD) {
+			return FightConstants.ELO.LOW_K_FACTOR;
 		}
 
-		return 16;
+		return FightConstants.ELO.VERY_LOW_K_FACTOR;
 	}
 
 	/**
@@ -35,6 +36,10 @@ export abstract class EloUtils {
 	 */
 	static calculateNewRating(playerRating: number, opponentRating: number, gameResult: EloGameResult, kFactor: number): number {
 		const newElo = Math.round(playerRating + kFactor * (gameResult - 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400))));
-		return newElo < 0 ? 0 : newElo;
+		return newElo > playerRating ?
+			// We add a bonus to the low elo players
+			newElo + Math.round((newElo - playerRating) * (1.49 - Math.tanh((playerRating - 502) / 140) / 2 - 0.87)) :
+			// no malus if you are the loser
+			newElo < 0 ? 0 : newElo;
 	}
 }
