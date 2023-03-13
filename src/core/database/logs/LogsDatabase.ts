@@ -1007,6 +1007,7 @@ export class LogsDatabase extends Database {
 			}
 			return fightResult.id;
 		}
+		return null;
 	}
 
 	/**

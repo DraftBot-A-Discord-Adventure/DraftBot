@@ -4,20 +4,23 @@ import {Constants} from "../Constants";
  * Get the elements to display a remaining time in the given language
  * @param language
  */
-function getMinutesDisplayStringConstants(language: string): { hoursDisplay: string; minutesDisplay: string; plural: string; linkWord: string } {
+function getMinutesDisplayStringConstants(language: string): { hoursDisplay: string; minutesDisplay: string; secondsDisplay: string; plural: string; linkWord: string } {
 	return language === "" ? {
 		hoursDisplay: "H",
 		minutesDisplay: "Min",
+		secondsDisplay: "s",
 		linkWord: " ",
 		plural: ""
 	} : language === Constants.LANGUAGE.FRENCH ? {
 		hoursDisplay: "heure",
 		minutesDisplay: "minute",
+		secondsDisplay: "seconde",
 		linkWord: " et ",
 		plural: "s"
 	} : {
 		hoursDisplay: "hour",
 		minutesDisplay: "minute",
+		secondsDisplay: "second",
 		linkWord: " and ",
 		plural: "s"
 	};
@@ -170,14 +173,15 @@ export function parseTimeDifference(date1: number, date2: number, language: stri
 	}
 
 	const hours = Math.floor(seconds / (60 * 60));
+	const timeConstants = getMinutesDisplayStringConstants("");
 	if (hours !== 0) {
-		parsed += hours + " H ";
+		parsed += `${hours} ${timeConstants.hoursDisplay} `;
 	}
 	seconds -= hours * 60 * 60;
 	const minutes = Math.floor(seconds / 60);
-	parsed += minutes + " Min ";
+	parsed += `${minutes} ${timeConstants.minutesDisplay} `;
 	seconds -= minutes * 60;
-	parsed += seconds + " s";
+	parsed += `${seconds} ${timeConstants.secondsDisplay} `;
 	return parsed;
 }
 

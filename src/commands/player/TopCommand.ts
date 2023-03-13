@@ -3,7 +3,7 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CacheType, ChatInputCommandInteraction, CommandInteraction} from "discord.js";
+import {ChatInputCommandInteraction, CommandInteraction} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -212,7 +212,7 @@ async function displayTop(
 					totalPlayer: numberOfPlayers,
 					page: getPageOfRank(rankCurrentPlayer),
 					pageMax,
-					fightNeeded: fightNeeded
+					needFight: fightNeeded
 				})
 		});
 	if (timing === TopConstants.TIMING_WEEKLY) {
@@ -263,7 +263,7 @@ function getScoreTooLow(type: string, player: Player, timing: string): boolean {
  * @param timing
  * @param type
  */
-async function getRankCurrentPlayer(scoreTooLow: boolean, numberOfPlayers: number, interaction: CommandInteraction<CacheType>, listDiscordId: string[], timing: string, type: string): Promise<number> {
+async function getRankCurrentPlayer(scoreTooLow: boolean, numberOfPlayers: number, interaction: CommandInteraction, listDiscordId: string[], timing: string, type: string): Promise<number> {
 	return scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing, type === TopConstants.TYPE_GLORY);
 }
 
@@ -274,7 +274,7 @@ async function getRankCurrentPlayer(scoreTooLow: boolean, numberOfPlayers: numbe
  * @param timing
  */
 async function getNumberOfPlayers(type: string, listDiscordId: string[], timing: string) : Promise<number> {
-	return type === TopConstants.TYPE_GLORY ? await Players.getNumberOfFightingPlayersInList(listDiscordId, timing) : await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+	return type === TopConstants.TYPE_GLORY ? await Players.getNumberOfFightingPlayersInList(listDiscordId) : await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
 }
 
 /**
@@ -290,8 +290,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
 	let type = TopConstants.TYPE_SCORE;
 	if (interaction.isChatInputCommand()) {
-		const banane = interaction as ChatInputCommandInteraction;
-		const typeUntested = banane.options.getSubcommand();
+		const chatInput = interaction as ChatInputCommandInteraction;
+		const typeUntested = chatInput.options.getSubcommand();
 		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("gloryTopCommandName")) {
 			type = TopConstants.TYPE_GLORY;
 		}

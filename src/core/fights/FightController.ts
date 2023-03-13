@@ -53,7 +53,7 @@ export class FightController {
 	}
 
 	/**
-	 * start a fight
+	 * Start a fight
 	 * @public
 	 */
 	public async startFight(): Promise<void> {
@@ -120,7 +120,7 @@ export class FightController {
 	}
 
 	/**
-	 * check if the fight is a draw
+	 * Check if the fight is a draw
 	 * @private
 	 */
 	public isADraw(): boolean {
@@ -128,7 +128,7 @@ export class FightController {
 	}
 
 	/**
-	 * execute the next fight action
+	 * Execute the next fight action
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
@@ -162,7 +162,7 @@ export class FightController {
 	}
 
 	/**
-	 * check if any of the fighters has negative fight points
+	 * Check if any of the fighters has negative fight points
 	 * @private
 	 */
 	private checkNegativeFightPoints(): void {
@@ -175,7 +175,7 @@ export class FightController {
 	}
 
 	/**
-	 * execute a turn of a fight
+	 * Execute a turn of a fight
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
@@ -217,7 +217,7 @@ export class FightController {
 	}
 
 	/**
-	 * check if a fight has ended or not
+	 * Check if a fight has ended or not
 	 * @private
 	 */
 	private hadEnded(): boolean {
@@ -228,6 +228,9 @@ export class FightController {
 			this.state !== FightState.RUNNING);
 	}
 
+	/**
+	 * Get the fight view
+	 */
 	public getFightView(): FightView {
 		return this._fightView;
 	}

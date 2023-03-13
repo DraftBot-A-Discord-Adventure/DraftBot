@@ -29,8 +29,8 @@ export abstract class SimpleTextSmallEvent implements SmallEvent {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		seEmbed.setDescription(
-			Data.getModule("smallEvents." + this.smallEventName).getString("emote") +
-			Translations.getModule("smallEvents." + this.smallEventName, language).getRandom("stories"));
+			Data.getModule(`smallEvents.${this.smallEventName}`).getString("emote") +
+			Translations.getModule(`smallEvents.${this.smallEventName}`, language).getRandom("stories"));
 		await interaction.editReply({embeds: [seEmbed]});
 	}
 }
