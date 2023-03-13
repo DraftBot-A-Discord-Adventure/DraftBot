@@ -23,7 +23,7 @@ export default class SabotageAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 60, averageDamage: 85, maxDamage: 170};
+		return {minDamage: 55, averageDamage: 80, maxDamage: 160};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

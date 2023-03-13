@@ -12,11 +12,14 @@ export default class TargetedAlteration extends FightAlteration {
 		victim.alterationTurn++;
 		const targetedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
-		if (victim.alterationTurn === 1) {
+		if (victim.alterationTurn === 1 || victim.alterationTurn === 3) {
 			return targetedTranslationModule.get("boomerangSpin");
 		}
 
-		if (victim.alterationTurn > 2 || RandomUtils.draftbotRandom.bool(0.2)) {
+		if (victim.alterationTurn > 4 ||
+			RandomUtils.draftbotRandom.bool(0.05) ||
+			RandomUtils.draftbotRandom.bool(0.15)
+			&& victim.alterationTurn > 2) {
 			victim.removeAlteration();
 			return targetedTranslationModule.get("heal");
 		}

@@ -30,7 +30,7 @@ export default class Resting extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 0, averageDamage: 30, maxDamage: 50};
+		return {minDamage: 15, averageDamage: 60, maxDamage: 110};
 	}
 
 	getStatsInfo(sender: Fighter): statsInfo {
