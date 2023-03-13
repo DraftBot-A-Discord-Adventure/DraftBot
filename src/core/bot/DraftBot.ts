@@ -364,6 +364,13 @@ export class DraftBot {
 			},
 			{where: {gloryPoints: {[Op.gt]: FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}}}
 		);
+		await Player.update(
+			{
+				gloryPointsLastSeason: Sequelize.literal(
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
+			},
+			{where: {}});
+
 		console.log("# WARNING # Season has been ended !");
 		DraftBot.programSeasonTimeout();
 		draftBotInstance.logsDatabase.logSeasonEnd().then();

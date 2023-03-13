@@ -92,7 +92,8 @@ export abstract class Constants {
 	static readonly RANK_TYPES = {
 		LEVEL: "level",
 		SCORE: "score",
-		WEEKLY_SCORE: "weeklyScore"
+		WEEKLY_SCORE: "weeklyScore",
+		LAST_SEASON_GLORY: "gloryPointsLastSeason"
 	};
 
 	static readonly CLASS = {
