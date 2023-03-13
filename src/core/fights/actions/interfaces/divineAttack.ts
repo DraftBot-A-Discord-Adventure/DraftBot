@@ -40,7 +40,7 @@ export default class DivineAttack extends FightAction {
 
 
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, failureProbability);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, failureProbability);
 
 		receiver.stats.fightPoints -= damageDealt;
 

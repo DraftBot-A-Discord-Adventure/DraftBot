@@ -10,7 +10,7 @@ import {FightConstants} from "../../../constants/FightConstants";
 export default class BoomerangAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), (sender as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, 20);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 30, 5);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 

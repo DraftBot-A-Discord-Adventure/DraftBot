@@ -38,7 +38,7 @@ export default class RamAttack extends FightAction {
 			}
 		}
 		else {
-			const ownDamage = Math.round(damageDealt * 0.33);
+			const ownDamage = Math.round(damageDealt * 0.45);
 			sender.stats.fightPoints -= ownDamage;
 			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
 				amount: ownDamage
@@ -58,7 +58,7 @@ export default class RamAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 60, averageDamage: 125, maxDamage: 250};
+		return {minDamage: 60, averageDamage: 110, maxDamage: 210};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
