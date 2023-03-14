@@ -98,7 +98,11 @@ export class InventorySlots {
 		return slots;
 	}
 
-	static async getMainWeaponSlot(playerId: number): Promise<InventorySlot> {
+	/**
+	 * Return the main weapon slot of the player or null if the inventory of the player has not been initialized
+	 * @param playerId
+	 */
+	static async getMainWeaponSlot(playerId: number): Promise<InventorySlot> | null {
 		return await InventorySlot.findOne({
 			where: {
 				playerId,
@@ -108,7 +112,11 @@ export class InventorySlots {
 		});
 	}
 
-	static async getMainArmorSlot(playerId: number): Promise<InventorySlot> {
+	/**
+	 * Return the main armor slot of the player or null if the inventory of the player has not been initialized
+	 * @param playerId
+	 */
+	static async getMainArmorSlot(playerId: number): Promise<InventorySlot> | null {
 		return await InventorySlot.findOne({
 			where: {
 				playerId,
@@ -118,7 +126,11 @@ export class InventorySlots {
 		});
 	}
 
-	static async getMainPotionSlot(playerId: number): Promise<InventorySlot> {
+	/**
+	 * Return the main potion slot of the player or null if the inventory of the player has not been initialized
+	 * @param playerId
+	 */
+	static async getMainPotionSlot(playerId: number): Promise<InventorySlot> | null {
 		return await InventorySlot.findOne({
 			where: {
 				playerId,
@@ -128,7 +140,11 @@ export class InventorySlots {
 		});
 	}
 
-	static async getMainObjectSlot(playerId: number): Promise<InventorySlot> {
+	/**
+	 * Return the main object slot of the player or null if the inventory of the player has not been initialized
+	 * @param playerId
+	 */
+	static async getMainObjectSlot(playerId: number): Promise<InventorySlot> | null {
 		return await InventorySlot.findOne({
 			where: {
 				playerId,
