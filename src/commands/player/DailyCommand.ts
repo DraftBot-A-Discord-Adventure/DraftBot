@@ -127,8 +127,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const dailyModule = Translations.getModule("commands.daily", language);
-
-	const activeObject: ObjectItem = await (await InventorySlots.getMainObjectSlot(player.id)).getItem() as ObjectItem;
+	const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);
+	if ( !activeObjectSlot ) {
+		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
+		return;
+	}
+	const activeObject: ObjectItem = await activeObjectSlot.getItem() as ObjectItem;
 
 	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, player, language, dailyModule)) {
 		return;
