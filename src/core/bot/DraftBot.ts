@@ -359,7 +359,7 @@ export class DraftBot {
 		await Player.update(
 			{
 				gloryPoints: Sequelize.literal(
-					`gloryPoints - (gloryPoints - ${FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}) / 3`
+					`gloryPoints - (gloryPoints - ${FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}) / ${FightConstants.ELO.COMPRESSION_FACTOR}}`
 				)
 			},
 			{where: {gloryPoints: {[Op.gt]: FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}}}
