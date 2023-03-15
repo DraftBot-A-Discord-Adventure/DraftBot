@@ -10,15 +10,16 @@
 			"display": "{emote} **{name}** | `{price}💎`",
 			"success": "{pseudo}, transaction réussie !",
 			"items": {
-				"skipMapMission": {
+				"changeMapMission": {
 					"emote": "\uD83E\uDDFE",
-					"name": "Passe-mission",
+					"name": "Change-mission",
 					"price": 10,
-					"info": "Vous permet de passer une mission obtenue sur la carte, cependant, vous n'obtiendrez aucune récompense.",
-					"giveTitle": "{pseudo}, vous avez décidé de passer une mission",
-					"giveDesc": "Choisissez la mission à passer :",
-					"successTitle": "{pseudo}, vous avez passé une mission !",
-					"successDescription": "Vous avez passé la mission n°{num} : {missionInfo}"
+					"info": "Vous permet de supprimer une mission obtenue sur la carte et de l'échanger contre une nouvelle mission, cependant, vous n'aurez pas le choix de la mission choisie.",
+					"giveTitle": "{pseudo}, vous avez décidé de changer une mission",
+					"giveDesc": "Choisissez la mission à changer :",
+					"successTitle": "{pseudo}, vous avez changé une mission !",
+					"successDescription": "Vous avez supprimé la mission :scroll: **{missionInfo}**.",
+					"getNewMission": "Vous avez reçu la mission : \n\n:scroll: **{mission}**"
 				},
 				"money": {
 					"emote": "\uD83D\uDCB0",
@@ -107,15 +108,16 @@
 			"display": "{emote} **{name}** | `{price}💎`",
 			"success": "{pseudo}, successful transaction !",
 			"items": {
-				"skipMapMission": {
+				"changeMapMission": {
 					"emote": "\uD83E\uDDFE",
-					"name": "Mission skipper",
+					"name": "Change mission",
 					"price": 10,
-					"info": "Allows you to skip a mission obtained on the map, however, you will not get any reward.",
-					"giveTitle": "{pseudo}, you have decided to skip a mission",
-					"giveDesc": "Choose the mission to skip:",
-					"successTitle": "{pseudo}, you have skipped a mission!",
-					"successDescription": "You have skipped mission #{num}: {missionInfo}"
+					"info": "Allows you to delete an obtained mission on the map and exchange it for a new mission, however, you will not have the choice of the chosen mission.",
+					"giveTitle": "{pseudo}, you have decided to change a mission",
+					"giveDesc": "Choose the mission to change:",
+					"successTitle": "{pseudo}, you have changed a mission!",
+					"successDescription": "You have deleted mission :scroll: **{missionInfo}**.",
+					"getNewMission": "You have received the mission: \n\n:scroll: **{mission}**"
 				},
 				"money": {
 					"emote": "\uD83D\uDCB0",
