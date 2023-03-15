@@ -3,6 +3,8 @@ import {format} from "../../../utils/StringFormatter";
 import moment = require("moment");
 import {Constants} from "../../../Constants";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
+import {generateRandomItem} from "../../../utils/ItemUtils";
+import {GenericItemModel} from "./GenericItemModel";
 
 /**
  * @class League
@@ -57,6 +59,12 @@ export class League extends Model {
 	 */
 	public getXPToAward(): number {
 		return LeagueInfoConstants.XP_TO_AWARD[this.id];
+	}
+
+	public generateRewardItem(): Promise<GenericItemModel> {
+		return generateRandomItem(null,
+			LeagueInfoConstants.ITEM_MINIMAL_RARITY[this.id],
+			LeagueInfoConstants.ITEM_MAXIMAL_RARITY[this.id]);
 	}
 
 	/**

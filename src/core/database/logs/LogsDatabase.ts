@@ -91,6 +91,7 @@ import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
 import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
+import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
 
 /**
  * This class is used to log all the changes in the game database
@@ -1174,5 +1175,14 @@ export class LogsDatabase extends Database {
 				date: now
 			});
 		}
+	}
+
+	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number) : Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayerLeagueReward.create({
+			playerId: player.id,
+			leagueLastSeason,
+			date: getDateLogs()
+		});
 	}
 }

@@ -44,7 +44,8 @@ export enum NumberChangeReason {
 	LEVEL_UP,
 	RESPAWN,
 	NEW_PLAYER,
-	FIGHT
+	FIGHT,
+	LIGUE_REWARD,
 }
 
 export enum ShopItemType {

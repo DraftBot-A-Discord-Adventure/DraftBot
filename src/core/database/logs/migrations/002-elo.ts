@@ -277,6 +277,20 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			allowNull: false
 		}
 	});
+	await context.createTable("league_rewards", {
+		playerId: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		leagueLastSeason: {
+			type: DataTypes.TINYINT,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		}
+	});
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
@@ -284,4 +298,5 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.dropTable("players_glory_points");
 	await context.dropTable("players_15_best_season");
 	await context.dropTable("season_ends");
+	await context.dropTable("league_rewards");
 }
