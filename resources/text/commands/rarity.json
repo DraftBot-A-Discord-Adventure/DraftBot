@@ -10,7 +10,7 @@
 			"commandName": "rarity",
 			"commandDescription": "Displays information about the different equipment rarities.",
 			"title": "🎰  Rarity",
-			"rarities": "🔸 Basic | Rarity of the item owned at the beggining of the game.\n🔶 Common | {pourcentageCommon}%\n🔥 Uncommon | {pourcentageUncommon}%\n🔱 Exotic | {pourcentageExotic}%\n☄️ Rare | {pourcentageRare}%\n💫 Special | {pourcentageSpecial}%\n⭐ Epic | {pourcentageEpic}%\n🌟 Legendary | {pourcentageLegendary}%\n💎 Unique | {pourcentageUnique}%"
+			"rarities": "🔸 Basic | Rarity of the item owned at the beggining of the game.\n🔶 Common | {pourcentageCommon}%\n🔥 Uncommon | {pourcentageUncommon}%\n🔱 Exotic | {pourcentageExotic}%\n☄️ Rare | {pourcentageRare}%\n💫 Special | {pourcentageSpecial}%\n⭐ Epic | {pourcentageEpic}%\n🌟 Legendary | {pourcentageLegendary}%\n💎 Mythical | {pourcentageUnique}%"
 		}
 	}
 }
