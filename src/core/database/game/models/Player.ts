@@ -851,6 +851,35 @@ export class Player extends Model {
 		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.discordUserId, gloryPoints, reason, fightId);
 		this.gloryPoints = gloryPoints;
 	}
+
+	/**
+	 * Get the amount of points to award to the player at the end of the season
+	 */
+	public async getLastSeasonScoreToAward(): Promise<number> {
+		const rank = await Players.getLastSeasonGloryRankById(this.id);
+		if (rank > FightConstants.ELO.MAX_RANK_FOR_LEAGUE_POINTS_REWARD) {
+			return 0;
+		}
+		const pointsToAward = Math.round(
+			FightConstants.ELO.LEAGUE_POINTS_REWARD_BASE_VALUE *
+			Math.exp(
+				FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1 *
+				(1 - rank) / rank) -
+			FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_2 *
+			(rank - 1 - FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1)
+		);
+		return Math.ceil(pointsToAward / 10) * 10;
+	}
+
+	/**
+	 * Get the amount of points that was removed to the player at the end of the previous season
+	 */
+	public getCompressionImpact(): number {
+		if (this.gloryPointsLastSeason > FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION) {
+			return Math.floor((this.gloryPointsLastSeason - FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION) / FightConstants.ELO.COMPRESSION_FACTOR);
+		}
+		return 0;
+	}
 }
 
 /**
@@ -919,7 +948,8 @@ export class Players {
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
 										, players.level DESC)) AS rank
 							 FROM players
-							 WHERE (players.discordUserId IN (${ids.toString()})) AND ${secondCondition}) subquery
+							 WHERE (players.discordUserId IN (${ids.toString()}))
+							   AND ${secondCondition}) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}

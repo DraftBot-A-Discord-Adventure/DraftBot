@@ -3,17 +3,42 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import {getNextSaturdayMidnight, parseTimeDifference, todayIsSunday} from "../../core/utils/TimeUtils";
-import {Translations} from "../../core/Translations";
+import {getNextSaturdayMidnight, printTimeBeforeDate, todayIsSunday} from "../../core/utils/TimeUtils";
+import {TranslationModule, Translations} from "../../core/Translations";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import Player from "../../core/database/game/models/Player";
+import Player, {Players} from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {giveItemToPlayer} from "../../core/utils/ItemUtils";
+import League from "../../core/database/game/models/League";
 
+
+/**
+ * Load the description of the ligueReward command embed
+ * @param embed
+ * @param leagueRewardModule
+ * @param player
+ * @param leagueLastSeason
+ * @param language
+ * @param scoreToAward
+ */
+async function generateDescription(embed: DraftBotEmbed, leagueRewardModule: TranslationModule, player: Player, leagueLastSeason: League, language: string, scoreToAward: number): Promise<void> {
+	const rank = await Players.getLastSeasonGloryRankById(player.id);
+	embed.setDescription(
+		leagueRewardModule.format(rank === 1 ? "ligueRewardSuccessDescriptionFirstPosition" : "ligueRewardSuccessDescription", {
+			glory: player.gloryPointsLastSeason,
+			rank,
+			league: leagueLastSeason.toString(language),
+			money: leagueLastSeason.getMoneyToAward(),
+			scoreToAward,
+			xp: leagueLastSeason.getXPToAward(),
+			compressionImpact: player.getCompressionImpact()
+		})
+	);
+}
 
 /**
  * Activate your daily item effect
@@ -29,7 +54,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	if (!todayIsSunday()) {
 		await replyErrorMessage(interaction, language, leagueRewardModule.format("notSundayError", {
-			time: parseTimeDifference(Date.now(), getNextSaturdayMidnight(), language)
+			time: printTimeBeforeDate(getNextSaturdayMidnight())
 		}));
 		return;
 	}
@@ -54,7 +79,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		reason: NumberChangeReason.LIGUE_REWARD
 	});
 
-	// Give the reward to the player : money, xp and an item
 	await player.addExperience({
 		amount: leagueLastSeason.getXPToAward(),
 		channel: interaction.channel,
@@ -62,15 +86,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		reason: NumberChangeReason.LIGUE_REWARD
 	});
 
+	const scoreToAward = await player.getLastSeasonScoreToAward();
+	await player.addScore({
+		amount: scoreToAward,
+		channel: interaction.channel,
+		language: language,
+		reason: NumberChangeReason.LIGUE_REWARD
+	});
+
 	const embed = new DraftBotEmbed().formatAuthor(leagueRewardModule.get("ligueRewardSuccessTitle"), interaction.user);
-	embed.setDescription(
-		leagueRewardModule.format("ligueRewardSuccessDescription", {
-			glory: player.gloryPointsLastSeason,
-			league: leagueLastSeason.toString(language),
-			money: leagueLastSeason.getMoneyToAward(),
-			xp: leagueLastSeason.getXPToAward()
-		})
-	);
+	await generateDescription(embed, leagueRewardModule, player, leagueLastSeason, language, scoreToAward);
 	player.gloryPointsLastSeason = -1;
 	await player.save();
 	await interaction.reply({embeds: [embed]});
