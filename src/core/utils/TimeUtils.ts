@@ -133,6 +133,14 @@ export function getNextSundayMidnight(): number {
 }
 
 /**
+ * Returns true if we are currently on a sunday
+ */
+export function todayIsSunday(): boolean {
+	const now = new Date();
+	return now.getDay() === 0;
+}
+
+/**
  * Get the next season's start
  */
 export function getNextSaturdayMidnight(): number {
@@ -181,7 +189,7 @@ export function parseTimeDifference(date1: number, date2: number, language: stri
 	const minutes = Math.floor(seconds / 60);
 	parsed += `${minutes} ${timeConstants.minutesDisplay} `;
 	seconds -= minutes * 60;
-	parsed += `${seconds} ${timeConstants.secondsDisplay} `;
+	parsed += `${seconds} ${timeConstants.secondsDisplay}`;
 	return parsed;
 }
 

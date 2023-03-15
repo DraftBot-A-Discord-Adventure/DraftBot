@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "bonusligue",
+			"commandDescription": "Récupérer la récompense liée à votre ligue.",
+			"notSundayError": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez dans `{time}`.",
+			"noRewardError": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
+			"alreadyReceivedError": "Vous avez déjà récupéré votre récompense de ligue pour cette saison.",
+			"ligueRewardSuccessTitle" : "{pseudo}, vous avez reçu votre récompense de ligue !",
+			"ligueRewardSuccessDescription" : "Vous avez terminé la ligue précédente avec **{glory} gloire :sparkles:**.\nVotre ligue finale est : **{league}**.\n\n:moneybag: Argent gagné **{money}** !\n:star: XP gagné : **{xp}** !\n:gift: Vous recevez un équipement aléatoire !"
+		},
+		"en": {
+			"commandName": "leaguebonus",
+			"commandDescription": "Get the reward linked to your league.",
+			"notSundayError": "The league reward can only be collected on Sunday! Come back in `{time}`.",
+			"noRewardError": "The league reward is only available for players who fought during the previous season.",
+			"alreadyReceivedError": "You have already received your league reward for this season.",
+			"ligueRewardSuccessTitle" : "{pseudo}, you have received your league reward!",
+			"ligueRewardSuccessDescription" : "You finished the previous league with **{glory} glory :sparkles:**.\nYour final league is : **{league}**.\n\n:moneybag: Money won **{money}**!\n:star: XP won : **{xp}**!\n:gift: You receive a random equipment!"
+		}
+	}
+}

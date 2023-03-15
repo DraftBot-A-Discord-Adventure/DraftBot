@@ -8,22 +8,22 @@
 			"noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"noActiveObjectDescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
 			"dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
-			"healthDaily": "❤️ Vie gagnée : {value} !",
-			"moneyBonus": "💰 Argent gagné : {value} !",
-			"hospitalBonus": "🕥 Vous avez avancé de {value}",
+			"healthDaily": "❤️ Vie gagnée : **{value}** !",
+			"moneyBonus": "💰 Argent gagné : **{value}** !",
+			"hospitalBonus": "🕥 Vous avez avancé de **{value}**",
 			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez dans `{time}`."
 		},
 		"en": {
 			"commandName": "dailybonus",
 			"commandDescription": "Use your equipped item to get a daily bonus.",
-			"objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
+			"objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect!",
 			"objectIsActiveDuringFights": "The power of the object you are carrying is automatically activated during battle!",
 			"noDailyError": "{pseudo}, hmmm... It didn't work!",
 			"noActiveObjectDescription": "You unfortunately have no active items in your inventory!",
 			"dailySuccess": "{pseudo}, you have received your daily reward!",
-			"healthDaily": "❤️ HP recovered : {value}!",
-			"moneyBonus": "💰 Money Earned: {value} !",
-			"hospitalBonus": "🕥 You have moved up {value}",
+			"healthDaily": "❤️ HP recovered : **{value}**!",
+			"moneyBonus": "💰 Money Earned: **{value}**!",
+			"hospitalBonus": "🕥 You have moved up **{value}**",
 			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back in `{time}`."
 		}
 	}

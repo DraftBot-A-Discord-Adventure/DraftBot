@@ -834,6 +834,13 @@ export class Player extends Model {
 	}
 
 	/**
+	 * Get the league of the player at the end of the last season
+	 */
+	public async getLeagueLastSeason(): Promise<League> {
+		return await Leagues.getByGlory(this.gloryPointsLastSeason);
+	}
+
+	/**
 	 * Set the glory points of the player
 	 * @param gloryPoints
 	 * @param reason
