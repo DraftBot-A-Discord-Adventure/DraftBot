@@ -168,7 +168,7 @@ export function resetIsNow(): boolean {
  * @param date2 - second date
  * @param language - the language to use
  */
-export function parseTimeDifference(date1: number, date2: number, language: string): string {
+export function parseTimeDifferenceFooter(date1: number, date2: number, language: string): string {
 	if (date1 > date2) {
 		date1 = [date2, date2 = date1][0];
 	}
@@ -191,6 +191,16 @@ export function parseTimeDifference(date1: number, date2: number, language: stri
 	seconds -= minutes * 60;
 	parsed += `${seconds} ${timeConstants.secondsDisplay}`;
 	return parsed;
+}
+
+/**
+ * parse the time remaining before a date.
+ * @param date
+ */
+export function printTimeBeforeDate(date: number): string {
+	date /= 1000;
+	return `<t:${Math.floor(date).valueOf()
+		.toString()}:R>`;
 }
 
 /**

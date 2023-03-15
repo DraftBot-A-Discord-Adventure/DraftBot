@@ -3,7 +3,12 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
+import {
+	hoursToMilliseconds,
+	millisecondsToHours,
+	minutesDisplay,
+	printTimeBeforeDate
+} from "../../core/utils/TimeUtils";
 import ObjectItem from "../../core/database/game/models/ObjectItem";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
@@ -68,7 +73,7 @@ async function dailyNotReady(interaction: CommandInteraction, player: Player, la
 			language,
 			dailyModule.format("coolDown", {
 				coolDownTime: DailyConstants.TIME_BETWEEN_DAILIES,
-				time: minutesDisplay(hoursToMinutes(DailyConstants.TIME_BETWEEN_DAILIES - time))
+				time: printTimeBeforeDate(Date.now() + hoursToMilliseconds(DailyConstants.TIME_BETWEEN_DAILIES - time))
 			})
 		);
 		return true;

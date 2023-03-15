@@ -2,7 +2,12 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
+import {
+	hoursToMilliseconds,
+	hoursToMinutes,
+	millisecondsToHours,
+	printTimeBeforeDate
+} from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -399,7 +404,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			language,
 			guildDailyModule.format("coolDown", {
 				coolDownTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
-				time: minutesDisplay(hoursToMinutes(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
+				time: printTimeBeforeDate(Date.now() + hoursToMilliseconds(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
 			}));
 		return;
 	}

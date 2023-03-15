@@ -7,7 +7,7 @@ import {ChatInputCommandInteraction, CommandInteraction} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
+import {getNextSundayMidnight, parseTimeDifferenceFooter} from "../../core/utils/TimeUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
@@ -218,7 +218,7 @@ async function displayTop(
 	if (timing === TopConstants.TIMING_WEEKLY) {
 		topDisplay.setFooter({
 			text: topModule.format("nextReset", {
-				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
+				time: parseTimeDifferenceFooter(Date.now(), getNextSundayMidnight(), language)
 			}),
 			iconURL: TopConstants.LINK_CLOCK_FOOTER
 		});

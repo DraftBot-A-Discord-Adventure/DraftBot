@@ -9,7 +9,7 @@ import {
 	getTimeFromXHoursAgo,
 	millisecondsToMinutes,
 	minutesToHours,
-	parseTimeDifference
+	printTimeBeforeDate
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -208,7 +208,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		}
 		else {
 			const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
-			const timeBeforeSmallEvent = parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language);
+			const timeBeforeSmallEvent = printTimeBeforeDate(date.valueOf() + millisecondsBeforeSmallEvent);
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: lastMiniEvent && lastMiniEvent.time > timeData.travelStartTime
