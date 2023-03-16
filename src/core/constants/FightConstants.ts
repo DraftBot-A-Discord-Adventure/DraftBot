@@ -96,7 +96,6 @@ export abstract class FightConstants {
 	static readonly ELO = {
 		DEFAULT_ELO: 0,
 		MAX_ELO_GAP: 400,
-		MIN_ELO_LEAGUE_COMPRESSION: 1500,
 		DEFAULT_K_FACTOR: 32,
 		LOW_K_FACTOR: 24,
 		VERY_LOW_K_FACTOR: 16,
@@ -107,7 +106,6 @@ export abstract class FightConstants {
 		LEAGUE_POINTS_REWARDS_COEFFICIENT_2: 12.8819,
 		LEAGUE_POINTS_REWARD_BASE_VALUE: 3994,
 		MAX_RANK_FOR_LEAGUE_POINTS_REWARD: 200,
-		COMPRESSION_FACTOR: 3
 	};
 
 	// if a player has a fight countdown higher than this value, he will not appear in the glory top
