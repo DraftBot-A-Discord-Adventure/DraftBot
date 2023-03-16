@@ -355,14 +355,14 @@ export class DraftBot {
 			},
 			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
 		);
-		// we remove 33% of the glory points above the MIN_ELO_LEAGUE_COMPRESSION
+		// we remove 33% of the glory points above the GLORY_RESET_THRESHOLD
 		await Player.update(
 			{
 				gloryPoints: Sequelize.literal(
-					`gloryPoints - (gloryPoints - ${FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}) / ${FightConstants.ELO.COMPRESSION_FACTOR}}`
+					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}}`
 				)
 			},
-			{where: {gloryPoints: {[Op.gt]: FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION}}}
+			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
 		);
 		await Player.update(
 			{

@@ -875,8 +875,8 @@ export class Player extends Model {
 	 * Get the amount of points that was removed to the player at the end of the previous season
 	 */
 	public getCompressionImpact(): number {
-		if (this.gloryPointsLastSeason > FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION) {
-			return Math.floor((this.gloryPointsLastSeason - FightConstants.ELO.MIN_ELO_LEAGUE_COMPRESSION) / FightConstants.ELO.COMPRESSION_FACTOR);
+		if (this.gloryPointsLastSeason > LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
+			return Math.floor((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
 		}
 		return 0;
 	}
