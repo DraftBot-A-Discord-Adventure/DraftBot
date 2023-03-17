@@ -109,10 +109,18 @@ export class LogsReadRequests {
 			},
 			include: [{
 				model: LogsPlayers,
-				association: new HasOne(LogsFightsResults, LogsPlayers, { sourceKey: "player1Id", foreignKey: "id", as: "LogsPlayer1" })
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player1Id",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				})
 			}, {
 				model: LogsPlayers,
-				association: new HasOne(LogsFightsResults, LogsPlayers, { sourceKey: "player2Id", foreignKey: "id", as: "LogsPlayer2" })
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player2Id",
+					foreignKey: "id",
+					as: "LogsPlayer2"
+				})
 			}]
 		});
 
@@ -122,12 +130,7 @@ export class LogsReadRequests {
 		};
 
 		for (const fight of fights) {
-			if (fight.winner === 0) {
-				ret.draw++;
-			}
-			else {
-				ret.notDraw++;
-			}
+			fight.winner === 0 ? ret.draw++ : ret.notDraw++;
 		}
 
 		return ret;
