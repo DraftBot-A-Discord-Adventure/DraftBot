@@ -72,8 +72,6 @@ export class MissionsController {
 		language: string,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Player> {
 
-		// NE PAS ENLEVER, c'est dans le cas où une mission en accomplit une autre
-		await player.save();
 		const missionSlots = await MissionSlots.getOfPlayer(player.id);
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 
@@ -89,6 +87,7 @@ export class MissionsController {
 			completedCampaign
 		});
 
+		await player.save();
 		return player;
 	}
 
