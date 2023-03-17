@@ -1,10 +1,11 @@
 import {
 	ApplicationCommand,
+	ApplicationCommandOptionType,
 	ChannelType,
 	Client,
 	CommandInteraction,
 	GuildChannel,
-	GuildMember,
+	GuildMember, GuildResolvable,
 	Message,
 	MessageType,
 	PermissionsBitField,
@@ -131,6 +132,7 @@ export class CommandsManager {
 			// Store command instances
 			for (const command of commands) {
 				CommandsManager.commandsInstances.set(command[1].name, command[1]);
+				this.addSubCommandsToTheCommandsMentions(command);
 				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
 			}
 			if (isMainShard) {
@@ -158,6 +160,21 @@ export class CommandsManager {
 			console.log(err);
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
+		}
+	}
+
+	/**
+	 * Check if a command has subcommands and add them to the commandsMentions map
+	 * @param command
+	 * @private
+	 */
+	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]) : void {
+		if (command[1].options) {
+			for (const option of command[1].options) {
+				if (option.type === ApplicationCommandOptionType.Subcommand) {
+					commandsMentions.set(`${command[1].name} ${option.name}`, `</${command[1].name} ${option.name}:${command[0]}>`);
+				}
+			}
 		}
 	}
 
@@ -193,7 +210,7 @@ export class CommandsManager {
 	 */
 	public static async getAllCommandsToRegister(): Promise<RESTPostAPIChatInputApplicationCommandsJSONBody[]> {
 		const categories = await readdir("dist/src/commands");
-		const commandsToRegister : RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+		const commandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 		const commandsToCheck = [];
 		for (const category of categories) {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {

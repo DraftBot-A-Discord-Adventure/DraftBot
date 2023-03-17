@@ -13,10 +13,12 @@ import {PetConstants} from "../../core/constants/PetConstants";
  * Get the list of commands mention from the command data
  * @param commandData
  */
-function getListOfMentionFromCommandData(commandData: [string, unknown]): string {
-	return format("{command:" + commandData[0].toLowerCase().split("")
-		.filter((l: string) => l !== "_")
-		.join("") + "}", {});
+function getListOfMentionFromCommandData(commandData: [string, {
+	EMOTE: string,
+	NAME: string,
+	CATEGORY: string
+}]): string {
+	return format(`{command:${commandData[1].NAME}}`, {});
 }
 
 /**
