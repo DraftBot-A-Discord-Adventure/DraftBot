@@ -123,7 +123,7 @@ export class PlayerFighter extends Fighter {
 	 * @param winner Indicate if the fighter is the winner
 	 */
 	async endFight(fightView: FightView, winner: boolean): Promise<void> {
-		BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
+		this.unblock();
 		await this.manageMissionsOf(fightView);
 		if (winner) {
 			await MissionsController.update(this.player, fightView.channel, fightView.language, {
@@ -138,6 +138,14 @@ export class PlayerFighter extends Fighter {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Allow a fighter to unblock itself
+	 * @public
+	 */
+	async unblock(): Promise<void> {
+		await BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -248,14 +256,20 @@ export class PlayerFighter extends Fighter {
 			});
 			collector.on("end", async (reaction) => {
 				const selectedAction = this.getSelectedAction(reaction);
-				await chooseActionEmbedMessage.delete();
-				if (selectedAction === null) {
-					// USER HASN'T SELECTED AN ACTION
-					this.suicide();
-					await fightView.fightController.endFight();
-					return;
+				try {
+					await chooseActionEmbedMessage.delete();
+					if (selectedAction === null) {
+						// USER HASN'T SELECTED AN ACTION
+						this.suicide();
+						await fightView.fightController.endFight();
+						return;
+					}
+					await fightView.fightController.executeFightAction(selectedAction, true);
 				}
-				await fightView.fightController.executeFightAction(selectedAction, true);
+				catch (e) {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
+					await fightView.fightController.endBugFight();
+				}
 			});
 			const reactions = [];
 			for (const [, action] of actions) {

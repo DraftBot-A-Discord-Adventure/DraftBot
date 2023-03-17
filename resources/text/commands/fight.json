@@ -16,6 +16,8 @@
 			"turnIndicationsDescription": "Choisissez une action",
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
 			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
+			"bugFightTitle": "Hmmm... Cela n'a pas fonctionné !",
+			"bugFightDescription": "Un message essentiel au combat a été supprimé ou une erreur de communication s'est produite. Le combat a été annulé.",
 			"elo": {
 				"title": ":postal_horn: Rapport de gloire",
 				"gloryField": "Changements de gloire",
@@ -218,12 +220,14 @@
 			"turnIndicationsDescription": "Choose an action",
 			"statsOfPlayer": "**{pseudo}**'s stats: ",
 			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
+			"bugFightTitle": "Hmmm... That didn't work",
+			"bugFightDescription": "An essential message to the fight was deleted or a communication error occurred. The fight has been canceled.",
 			"elo": {
 				"title": ":postal_horn: Glory report",
 				"gloryField": "Glory changes",
 				"glory": "**{player} :** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
 				"leagueField": "Leagues changes",
-				"leagueChangeUp":"️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"leagueChangeUp": "️ **{player} :** {oldLeague} -> {newLeague}\n",
 				"leagueChangeDown": "↘️️ **{player} :** {oldLeague} -> {newLeague}\n",
 				"higherEloWins": [
 					"{winner} takes the field with a marked performance.",

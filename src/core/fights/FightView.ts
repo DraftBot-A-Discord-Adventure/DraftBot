@@ -111,7 +111,6 @@ export class FightView {
 			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
-
 		// Fetch to get the new content
 		await lastMessage.fetch(true);
 	}
@@ -197,5 +196,13 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
+	}
+
+	displayBugFight(): void {
+		this.channel.send({embeds: [
+			new DraftBotEmbed()
+				.setErrorColor()
+				.setTitle(this.fightTranslationModule.get("bugFightTitle"))
+				.setDescription(this.fightTranslationModule.get("bugFightDescription"))]});
 	}
 }

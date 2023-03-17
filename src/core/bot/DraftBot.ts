@@ -23,6 +23,7 @@ import {generateTravelNotification, sendNotificationToPlayer} from "../utils/Mes
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
+import {LeagueInfoConstants} from "../constants/LeagueInfoConstants";
 
 /**
  * The main class of the bot, manages the bot in general

@@ -111,6 +111,14 @@ export class FightController {
 		}
 	}
 
+	async endBugFight(): Promise<void> {
+		this.state = FightState.BUG;
+		for (let i = 0; i < this.fighters.length; ++i) {
+			await this.fighters[i].unblock();
+		}
+		this._fightView.displayBugFight();
+	}
+
 	/**
 	 * Get the winner of the fight does not check for draw
 	 * @private
@@ -145,7 +153,15 @@ export class FightController {
 
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
-		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
+			async () => {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
+				await this.endBugFight();
+			});
+		if (this.state !== FightState.RUNNING) {
+			// an error occurred during the update of the history
+			return;
+		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
 			await this.endFight();
@@ -186,9 +202,23 @@ export class FightController {
 			// a player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this._fightView.displayFightStatus();
+		await this._fightView.displayFightStatus().catch(
+			async () => {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				await this.endBugFight();
+			});
+		if (this.state !== FightState.RUNNING) {
+			// An issue occurred during the fight status display, no need to continue the fight
+			return;
+		}
 		if (this.getPlayingFighter().nextFightAction === null) {
-			this.getPlayingFighter().chooseAction(this._fightView);
+			try {
+				this.getPlayingFighter().chooseAction(this._fightView);
+			}
+			catch (e) {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				await this.endBugFight();
+			}
 		}
 		else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
