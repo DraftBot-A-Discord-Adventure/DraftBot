@@ -198,6 +198,9 @@ export class FightView {
 		return actionList;
 	}
 
+	/**
+	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 */
 	displayBugFight(): void {
 		this.channel.send({embeds: [
 			new DraftBotEmbed()

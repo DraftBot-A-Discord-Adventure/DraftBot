@@ -111,10 +111,13 @@ export class FightController {
 		}
 	}
 
-	async endBugFight(): Promise<void> {
+	/**
+	 * Cancel a fight and unblock the fighters, used when a fight has bugged (for example if a message was deleted)
+	 */
+	endBugFight(): void {
 		this.state = FightState.BUG;
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].unblock();
+			this.fighters[i].unblock();
 		}
 		this._fightView.displayBugFight();
 	}
@@ -154,9 +157,9 @@ export class FightController {
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
-			async () => {
+			() => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
-				await this.endBugFight();
+				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
 			// an error occurred during the update of the history
@@ -203,9 +206,9 @@ export class FightController {
 			return;
 		}
 		await this._fightView.displayFightStatus().catch(
-			async () => {
+			() => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-				await this.endBugFight();
+				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
 			// An issue occurred during the fight status display, no need to continue the fight
@@ -217,7 +220,7 @@ export class FightController {
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-				await this.endBugFight();
+				this.endBugFight();
 			}
 		}
 		else {

@@ -54,7 +54,7 @@
 			},
 			"optionPageName": "page",
 			"optionPageDescription": "The desired ranking page.",
-			"topTitle": "{topEmote} Display of{alltime?: weekly}{global?: server}{glory? glory:} top {start} to {end}",
+			"topTitle": "{topEmote} Display of{alltime?: weekly}{global?: server}{gloryTop? glory:} top {start} to {end}",
 			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
 			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
 			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
