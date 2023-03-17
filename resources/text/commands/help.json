@@ -58,8 +58,12 @@
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
 				"TOP": {
-					"usage": "{command:top}",
+					"usage": "{command:top score}",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+				},
+				"GLORY_TOP": {
+					"usage": "{command:top glory}",
+					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -212,6 +216,10 @@
 				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Affiche le magasin des missions."
+				},
+				"LEAGUE_BONUS": {
+					"usage": "{command:leaguebonus}",
+					"description": "Permet d'obtenir une récompense de ligue chaque dimanche."
 				}
 			}
 		},
@@ -275,6 +283,10 @@
 				"TOP": {
 					"usage": "{command:top}",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
+				},
+				"GLORY_TOP": {
+					"usage": "{command:top glory}",
+					"description": "Displays the ranking of the fights in 15 player intervals. Players in the same server as you are shown by a blue dot."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -427,6 +439,10 @@
 				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Display the mission's shop."
+				},
+				"LEAGUE_BONUS": {
+					"usage": "{command:leaguebonus}",
+					"description": "Claim your league's reward each sunday."
 				}
 			}
 		}

@@ -7,7 +7,8 @@ export abstract class HelpConstants {
 		SWITCH: ["switch", "sw", "échanger", "echanger", "échange", "echange", "intervertir"],
 		FIGHT: ["fight", "f", "combat", "duel"],
 		LANGUAGE: ["language", "langage", "langue", "l", "speak"],
-		TOP: ["top", "classement", "t", "points"],
+		TOP: ["top", "classement", "t", "points", "top score", "classement score", "topscore", "classementscore", "topscores", "classementscores"],
+		GLORY_TOP: ["topgloire", "classementgloire", "tgloire", "gloire", "glorytop", "glory", "topglory"],
 		HELP: ["help", "h", "aide", "a"],
 		INVENTORY: ["inventory", "inv", "i", "inventaire"],
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],
@@ -58,265 +59,312 @@ export abstract class HelpConstants {
 		VOTE: ["vote", "ilovedraftbot", "votes", "voté", "voter", "votés"],
 		IDEA: ["idea", "ideas", "suggestions", "suggestion", "suggest", "idée", "idé", "idées", "idés", "idee", "ide", "idees", "ides"],
 		NOTIFICATIONS: ["dmnotifications", "dmn", "notificationsmp", "notificationsprivées", "notificationsmps", "notificationmp", "notifs", "dms", "notif", "dmnotification", "mp", "mpdésac",
-			"mpdesac", "mpdésacactivé", "mpdesactive", "mpdésacactiver", "mpdésacactive","notifications", "n", "notification", "désac", "desac", "désactivé", "desactive", "désactiver", "désactive"],
+			"mpdesac", "mpdésacactivé", "mpdesactive", "mpdésacactiver", "mpdésacactive", "notifications", "n", "notification", "désac", "desac", "désactivé", "desactive", "désactiver", "désactive"],
 		UNLOCK: ["unlock", "bail", "release", "libérer", "liberer", "libére", "libere", "libéreration", "libereration", "jail", "prison"],
 		MAP: ["map", "world", "monde", "carte"],
 		MISSIONS: ["missions", "m", "mission", "quests", "quest", "q", "quête", "quete", "quêtes", "quetes"],
 		MISSIONS_SHOP: ["missionshop", "ms", "mshop", "questshop", "missionsshop", "questsshop", "qs", "shopmissions",
-			"shopmission", "magasindemissions", "magasindemission", "missionmagasin", "missionsmagasin", "magasinmissions", "magasinmission"]
+			"shopmission", "magasindemissions", "magasindemission", "missionmagasin", "missionsmagasin", "magasinmissions", "magasinmission"],
+		LEAGUE_BONUS: [
+			"leaguereward", "leaguerewards", "league", "leagues", "leagueaward", "bonusleague", "leaguebonus", "leagueaward", "leagueawards",
+			"bonusligue", "liguebonus", "récompenseligue", "liguerécompense", "leaguerécompense", "récompenseleague", "recompenseleague",
+			"recompenseligue", "liguerécompenses", "leaguerécompenses", "récompensesligue", "récompensesleague", "recompensesleague"]
 	};
 
 	static readonly COMMANDS_DATA = {
-		PREFIX: {
-			EMOTE: ":interrobang:",
-			CATEGORY: "server"
-		},
+		PREFIX:
+			{
+				EMOTE: ":interrobang:",
+				NAME: "prefix",
+				CATEGORY: "server"
+			},
 		PING:
 			{
 				EMOTE: ":ping_pong:",
+				NAME: "ping",
 				CATEGORY: "util"
 			},
 		RESPAWN:
 			{
 				EMOTE: ":angel:",
+				NAME: "respawn",
 				CATEGORY: "player"
 			},
 		PROFILE:
 			{
 				EMOTE: ":bust_in_silhouette:",
+				NAME: "profile",
 				CATEGORY: "player"
 			},
 		SWITCH:
 			{
 				EMOTE: ":repeat:",
+				NAME: "switch",
 				CATEGORY: "player"
 			},
 		FIGHT:
 			{
 				EMOTE: ":crossed_swords:",
+				NAME: "fight",
 				CATEGORY: "player"
 			},
 		HELP:
 			{
 				EMOTE: ":notebook_with_decorative_cover:",
+				NAME: "help",
 				CATEGORY: "util"
 			},
 		LANGUAGE:
 			{
 				EMOTE: ":flag_gb:",
+				NAME: "language",
 				CATEGORY: "server"
 			},
 		TOP:
 			{
 				EMOTE: ":trophy:",
+				NAME: "top score",
+				CATEGORY: "player"
+			},
+		GLORY_TOP:
+			{
+				EMOTE: ":sparkles:",
+				NAME: "top glory",
 				CATEGORY: "player"
 			},
 		INVENTORY:
 			{
 				EMOTE: ":school_satchel:",
+				NAME: "inventory",
 				CATEGORY: "player"
 			},
 		REPORT:
 			{
 				EMOTE: ":newspaper:",
+				NAME: "report",
 				CATEGORY: "player"
 			},
 		SELL:
 			{
 				EMOTE: ":moneybag:",
+				NAME: "sell",
 				CATEGORY: "player"
 			},
 		DAILY_BONUS:
 			{
 				EMOTE: ":calendar:",
+				NAME: "dailybonus",
 				CATEGORY: "player"
 			},
 		INVITE_DRAFTBOT:
 			{
 				EMOTE: ":inbox_tray:",
+				NAME: "invitedraftbot",
 				CATEGORY: "util"
 			},
 		BADGES:
 			{
 				EMOTE: ":military_medal:",
+				NAME: "badges",
 				CATEGORY: "util"
 			},
 		DRINK:
 			{
 				EMOTE: ":tropical_drink:",
+				NAME: "drink",
 				CATEGORY: "player"
 			},
 		SHOP:
 			{
 				EMOTE: ":shopping_cart:",
+				NAME: "shop",
 				CATEGORY: "player"
 			},
 		GUILD_CREATE:
 			{
 				EMOTE: ":pencil:",
+				NAME: "guildcreate",
 				CATEGORY: "guild"
 			},
 		GUILD_LEAVE:
 			{
 				EMOTE: ":outbox_tray:",
+				NAME: "guildleave",
 				CATEGORY: "guild"
 			},
 		GUILD:
 			{
 				EMOTE: ":stadium:",
+				NAME: "guild",
 				CATEGORY: "guild"
 			},
 		GUILD_DAILY_BONUS:
 			{
 				EMOTE: ":newspaper:",
+				NAME: "guilddailybonus",
 				CATEGORY: "guild"
 			},
 		GUILD_KICK:
 			{
 				EMOTE: ":leg:",
+				NAME: "guildkick",
 				CATEGORY: "guild"
 			},
 		GUILD_INVITE:
 			{
 				EMOTE: ":incoming_envelope:",
+				NAME: "guildinvite",
 				CATEGORY: "guild"
 			},
 		GUILD_DESCRIPTION:
 			{
 				EMOTE: ":writing_hand:",
+				NAME: "guilddescription",
 				CATEGORY: "guild"
 			},
 		GUILD_ELDER:
 			{
 				EMOTE: ":military_medal:",
+				NAME: "guildelder",
 				CATEGORY: "guild"
 			},
 		GUILD_ELDER_REMOVE:
 			{
 				EMOTE: ":outbox_tray:",
+				NAME: "guildelderremove",
 				CATEGORY: "guild"
 			},
 		GUILD_STORAGE:
 			{
 				EMOTE: ":pencil:",
+				NAME: "guildstorage",
 				CATEGORY: "guild"
 			},
 		GUILD_SHOP:
 			{
 				EMOTE: ":shopping_cart:",
+				NAME: "guildshop",
 				CATEGORY: "guild"
 			},
 		UPDATE:
 			{
 				EMOTE: ":scroll:",
+				NAME: "update",
 				CATEGORY: "util"
 			},
 		CLASSES:
 			{
 				EMOTE: ":bookmark:",
+				NAME: "classes",
 				CATEGORY: "player"
 			},
 		PET:
 			{
 				EMOTE: ":dog:",
-				CATEGORY:
-					"pet"
+				NAME: "pet",
+				CATEGORY: "pet"
 			},
 		PET_TRANSFER:
 			{
 				EMOTE: ":arrow_right:",
-				CATEGORY:
-					"pet"
+				NAME: "pettransfer",
+				CATEGORY: "pet"
 			},
 		PET_NICKNAME:
 			{
 				EMOTE: ":abcd:",
-				CATEGORY:
-					"pet"
+				NAME: "petnickname",
+				CATEGORY: "pet"
 			},
 		PET_FREE:
 			{
 				EMOTE: ":wave:",
-				CATEGORY:
-					"pet"
+				NAME: "petfree",
+				CATEGORY: "pet"
 			},
 		GUILD_SHELTER:
 			{
 				EMOTE: ":park:",
-				CATEGORY:
-					"guild"
+				NAME: "guildshelter",
+				CATEGORY: "guild"
 			},
 		PET_TRADE:
 			{
 				EMOTE: ":scales:",
-				CATEGORY:
-					"pet"
+				NAME: "pettrade",
+				CATEGORY: "pet"
 			},
 		PET_FEED:
 			{
 				EMOTE: ":candy:",
-				CATEGORY:
-					"pet"
+				NAME: "petfeed",
+				CATEGORY: "pet"
 			},
 		PET_SELL:
 			{
 				EMOTE: ":dollar:",
-				CATEGORY:
-					"pet"
+				NAME: "petsell",
+				CATEGORY: "pet"
 			},
 		CLASSES_INFO:
 			{
 				EMOTE: ":bookmark:",
-				CATEGORY:
-					"player"
+				NAME: "classesinfo",
+				CATEGORY: "player"
 			},
 		RARITY:
 			{
 				EMOTE: ":slot_machine:",
-				CATEGORY:
-					"util"
+				NAME: "rarity",
+				CATEGORY: "util"
 			},
 		VOTE:
 			{
 				EMOTE: ":ballot_box:",
-				CATEGORY:
-					"util"
+				NAME: "vote",
+				CATEGORY: "util"
 			},
 		IDEA:
 			{
 				EMOTE: ":bulb:",
-				CATEGORY:
-					"util"
+				NAME: "idea",
+				CATEGORY: "util"
 			},
 		NOTIFICATIONS:
 			{
 				EMOTE: ":no_bell:",
-				CATEGORY:
-					"util"
+				NAME: "notifications",
+				CATEGORY: "util"
 			},
 		UNLOCK:
 			{
 				EMOTE: ":slot_machine:",
-				CATEGORY:
-					"player"
+				NAME: "unlock",
+				CATEGORY: "player"
 			},
 		MAP:
 			{
 				EMOTE: ":map:",
-				CATEGORY:
-					"player"
+				NAME: "map",
+				CATEGORY: "player"
 			},
 		MISSIONS:
 			{
 				EMOTE: ":scroll:",
-				CATEGORY:
-					"mission"
+				NAME: "missions",
+				CATEGORY: "mission"
 			},
 		MISSIONS_SHOP:
 			{
 				EMOTE: ":shopping_cart:",
-				CATEGORY:
-					"mission"
+				NAME: "missionsshop",
+				CATEGORY: "mission"
+			},
+		LEAGUE_BONUS:
+			{
+				EMOTE: ":sparkles:",
+				NAME: "leaguebonus",
+				CATEGORY: "player"
 			}
 	};
 }
