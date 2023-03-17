@@ -140,7 +140,14 @@ async function getEndCallbackSkipMissionShopItem(
 									allMissions[i].saveBlob
 								)
 							})} \n ${translationModule.format("items.changeMapMission.getNewMission", {
-								mission: await (await Missions.getById(newMission.missionId)).formatDescription(newMission.missionObjective, newMission.missionVariant, translationModule.language, newMission.saveBlob)
+								mission: await (
+									await Missions.getById(newMission.missionId)
+								).formatDescription(
+									newMission.missionObjective,
+									newMission.missionVariant,
+									translationModule.language,
+									newMission.saveBlob
+								)
 							})
 							}`)
 					]

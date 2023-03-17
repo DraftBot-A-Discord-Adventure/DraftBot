@@ -1177,6 +1177,11 @@ export class LogsDatabase extends Database {
 		}
 	}
 
+	/**
+	 * Save when a player ask for his league reward
+	 * @param discordId
+	 * @param leagueLastSeason
+	 */
 	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number) : Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		await LogsPlayerLeagueReward.create({

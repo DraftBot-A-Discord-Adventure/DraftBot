@@ -144,8 +144,8 @@ export class PlayerFighter extends Fighter {
 	 * Allow a fighter to unblock itself
 	 * @public
 	 */
-	async unblock(): Promise<void> {
-		await BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
+	unblock(): void {
+		BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**

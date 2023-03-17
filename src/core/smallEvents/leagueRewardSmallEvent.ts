@@ -19,6 +19,12 @@ function rewardListToString(leagueRewardTranslationModule: TranslationModule, le
 	});
 }
 
+/**
+ * Load the description of the ligue reward small event
+ * @param leagueRewardTranslationModule
+ * @param player
+ * @param language
+ */
 async function generateEndMessage(leagueRewardTranslationModule: TranslationModule, player: Player, language: string) : Promise<string> {
 
 	if (todayIsSunday()) {
@@ -32,7 +38,7 @@ async function generateEndMessage(leagueRewardTranslationModule: TranslationModu
 		player.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE ? "notEnoughFight" : "endMessage",
 		{
 			league: league.toString(language),
-			rewards: rewards,
+			rewards,
 			time: printTimeBeforeDate(getNextSaturdayMidnight())
 		});
 }

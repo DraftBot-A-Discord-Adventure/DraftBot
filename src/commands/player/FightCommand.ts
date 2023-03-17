@@ -185,6 +185,11 @@ async function getFightDescription(
 	return fightAskingDescription;
 }
 
+/**
+ * Code that will be executed when a fight ends (except if the fight has a bug)
+ * @param fight
+ * @param fightLogId
+ */
 async function fightEndCallback(fight: FightController, fightLogId: number): Promise<void> {
 	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
 	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;

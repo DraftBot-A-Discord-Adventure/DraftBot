@@ -38,7 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await player.addScore({
 		amount: -lostScore,
 		channel: interaction.channel,
-		language: language,
+		language,
 		reason: NumberChangeReason.RESPAWN
 	});
 

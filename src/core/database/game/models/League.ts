@@ -61,6 +61,9 @@ export class League extends Model {
 		return LeagueInfoConstants.XP_TO_AWARD[this.id];
 	}
 
+	/**
+	 * Get the random item a player will get depending on the rarities that are tied to the league id
+	 */
 	public generateRewardItem(): Promise<GenericItemModel> {
 		return generateRandomItem(null,
 			LeagueInfoConstants.ITEM_MINIMAL_RARITY[this.id],

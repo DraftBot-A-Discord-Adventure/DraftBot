@@ -75,14 +75,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await player.addMoney({
 		amount: leagueLastSeason.getMoneyToAward(),
 		channel: interaction.channel,
-		language: language,
+		language,
 		reason: NumberChangeReason.LIGUE_REWARD
 	});
 
 	await player.addExperience({
 		amount: leagueLastSeason.getXPToAward(),
 		channel: interaction.channel,
-		language: language,
+		language,
 		reason: NumberChangeReason.LIGUE_REWARD
 	});
 
@@ -90,7 +90,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await player.addScore({
 		amount: scoreToAward,
 		channel: interaction.channel,
-		language: language,
+		language,
 		reason: NumberChangeReason.LIGUE_REWARD
 	});
 

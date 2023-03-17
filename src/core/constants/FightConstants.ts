@@ -105,7 +105,7 @@ export abstract class FightConstants {
 		LEAGUE_POINTS_REWARDS_COEFFICIENT_1: 0.4446,
 		LEAGUE_POINTS_REWARDS_COEFFICIENT_2: 12.8819,
 		LEAGUE_POINTS_REWARD_BASE_VALUE: 3994,
-		MAX_RANK_FOR_LEAGUE_POINTS_REWARD: 200,
+		MAX_RANK_FOR_LEAGUE_POINTS_REWARD: 200
 	};
 
 	// if a player has a fight countdown higher than this value, he will not appear in the glory top
