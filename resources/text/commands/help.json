@@ -281,7 +281,7 @@
 					"description": "Change the language the bot use to french. You can use this command if you are admin of a server."
 				},
 				"TOP": {
-					"usage": "{command:top}",
+					"usage": "{command:top score}",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
 				},
 				"GLORY_TOP": {
