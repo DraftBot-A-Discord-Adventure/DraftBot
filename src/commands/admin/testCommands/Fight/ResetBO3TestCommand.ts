@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
 };
 
 /**
- * Set the glory points of the player
+ * Reset the BO3 against a player
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
