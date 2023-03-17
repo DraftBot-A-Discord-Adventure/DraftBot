@@ -31,6 +31,7 @@ import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
 import {League, Leagues} from "./League";
+import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,

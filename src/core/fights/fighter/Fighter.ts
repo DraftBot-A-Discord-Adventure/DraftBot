@@ -104,6 +104,11 @@ export abstract class Fighter {
 	abstract endFight(fightView: FightView, winner: boolean): Promise<void>;
 
 	/**
+	 * Allow the fighter to unblock himself
+	 */
+	abstract unblock(): void;
+
+	/**
 	 * set the status of the fighter
 	 * @param newStatus
 	 */
