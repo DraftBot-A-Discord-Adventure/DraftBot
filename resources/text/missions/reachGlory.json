@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir {objective} points de gloire ou plus"
+		},
+		"en": {
+			"desc": "Have {objective} or more glory points"
+		}
+	},
+	"campaignOnly": true
+}

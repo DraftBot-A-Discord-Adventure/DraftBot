@@ -220,12 +220,12 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 		});
 
 	// Change glory and fightCountdown and save
-	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fightLogId);
+	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
 	player1.fightCountdown--;
 	if (player1.fightCountdown < 0) {
 		player1.fightCountdown = 0;
 	}
-	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fightLogId);
+	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT,fight.getFightView().channel, fight.getFightView().language, fightLogId);
 	player2.fightCountdown--;
 	if (player2.fightCountdown < 0) {
 		player2.fightCountdown = 0;

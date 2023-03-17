@@ -90,12 +90,6 @@ export class PlayerFighter extends Fighter {
 
 		await this.checkFightActionHistory(fightView);
 
-		if (fightView.fightController.friendly) {
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "friendlyFight"});
-		}
-		else {
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "rankedFight"});
-		}
 		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);

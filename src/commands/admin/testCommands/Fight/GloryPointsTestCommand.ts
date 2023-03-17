@@ -31,10 +31,10 @@ const gloryPointsTestCommand = async (language: string, interaction: CommandInte
 	if (gloryPoints < 0) {
 		throw new Error("Erreur glory points : glory points inférieurs à 0 interdits !");
 	}
-	await player.setGloryPoints(gloryPoints, NumberChangeReason.TEST, null);
+	await player.setGloryPoints(gloryPoints, NumberChangeReason.TEST, interaction.channel, language);
 	await player.save();
 
-	return format(commandInfo.messageWhenExecuted, { points: player.gloryPoints });
+	return format(commandInfo.messageWhenExecuted, {points: player.gloryPoints});
 };
 
 commandInfo.execute = gloryPointsTestCommand;
