@@ -169,11 +169,11 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "rankedFight",
+			"missionId": "reachGlory",
 			"missionVariant": 0,
-			"missionObjective": 5,
-			"gemsToWin": 4,
-			"xpToWin": 250,
+			"missionObjective": 100,
+			"gemsToWin": 1,
+			"xpToWin": 50,
 			"moneyToWin": 0
 		},
 		{
@@ -225,9 +225,9 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "rankedFight",
+			"missionId": "anyFight",
 			"missionVariant": 0,
-			"missionObjective": 10,
+			"missionObjective": 5,
 			"gemsToWin": 2,
 			"xpToWin": 100,
 			"moneyToWin": 0
@@ -305,11 +305,11 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "rankedFight",
+			"missionId": "reachGlory",
 			"missionVariant": 0,
-			"missionObjective": 15,
+			"missionObjective": 800,
 			"gemsToWin": 3,
-			"xpToWin": 125,
+			"xpToWin": 150,
 			"moneyToWin": 0
 		},
 		{
@@ -470,6 +470,14 @@
 			"missionObjective": 30,
 			"gemsToWin": 1,
 			"xpToWin": 125,
+			"moneyToWin": 0
+		},
+		{
+			"missionId": "reachGlory",
+			"missionVariant": 0,
+			"missionObjective": 1500,
+			"gemsToWin": 5,
+			"xpToWin": 200,
 			"moneyToWin": 0
 		}
 	]

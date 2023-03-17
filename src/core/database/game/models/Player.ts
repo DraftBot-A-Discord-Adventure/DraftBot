@@ -845,10 +845,17 @@ export class Player extends Model {
 	 * Set the glory points of the player
 	 * @param gloryPoints
 	 * @param reason
+	 * @param channel
+	 * @param language
 	 * @param fightId
 	 * @private
 	 */
-	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, channel: TextBasedChannel, language: string, fightId: number = null): Promise<void> {
+		Object.assign(this, await MissionsController.update(this, channel, language, {
+			missionId: "reachGlory",
+			count: gloryPoints,
+			set: true
+		}));
 		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.discordUserId, gloryPoints, reason, fightId);
 		this.gloryPoints = gloryPoints;
 	}
