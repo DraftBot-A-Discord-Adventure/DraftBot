@@ -268,7 +268,7 @@ export class PlayerFighter extends Fighter {
 				}
 				catch (e) {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
-					await fightView.fightController.endBugFight();
+					fightView.fightController.endBugFight();
 				}
 			});
 			const reactions = [];

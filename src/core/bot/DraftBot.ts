@@ -290,19 +290,7 @@ export class DraftBot {
 	 */
 	static async seasonEnd(this: void): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestSeason().then();
-		const winner = await Player.findOne({
-			where: {
-				fightCountdown: {
-					[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
-				}
-			},
-			order: [
-				["gloryPoints", "DESC"],
-				["level", "DESC"],
-				["score", "DESC"]
-			],
-			limit: 1
-		});
+		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
 			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
 				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
@@ -347,6 +335,18 @@ export class DraftBot {
 			winner.addBadge("✨");
 			await winner.save();
 		}
+		await DraftBot.seasonEndQueries();
+
+		console.log("# WARNING # Season has been ended !");
+		DraftBot.programSeasonTimeout();
+		draftBotInstance.logsDatabase.logSeasonEnd().then();
+	}
+
+	/**
+	 * Database queries to execute at the end of the season
+	 * @private
+	 */
+	private static async seasonEndQueries() : Promise<void>{
 		// we add one to the fightCountdown
 		await Player.update(
 			{
@@ -365,16 +365,33 @@ export class DraftBot {
 			},
 			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
 		);
+		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
 		await Player.update(
 			{
 				gloryPointsLastSeason: Sequelize.literal(
 					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
 			},
 			{where: {}});
+	}
 
-		console.log("# WARNING # Season has been ended !");
-		DraftBot.programSeasonTimeout();
-		draftBotInstance.logsDatabase.logSeasonEnd().then();
+	/**
+	 * Find the winner of the season
+	 * @private
+	 */
+	private static async findSeasonWinner() : Promise<Player>{
+		return await Player.findOne({
+			where: {
+				fightCountdown: {
+					[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"],
+				["score", "DESC"]
+			],
+			limit: 1
+		});
 	}
 
 	/**
