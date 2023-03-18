@@ -126,15 +126,7 @@ export class CommandsManager {
 	static async registerAllCommands(client: Client, isMainShard: boolean): Promise<void> {
 
 		try {
-			const commands = (await client.application.commands.fetch({withLocalizations: true}))
-				.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
 			const commandsToRegister = await this.getAllCommandsToRegister();
-			// Store command instances
-			for (const command of commands) {
-				CommandsManager.commandsInstances.set(command[1].name, command[1]);
-				this.addSubCommandsToTheCommandsMentions(command);
-				commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
-			}
 			if (isMainShard) {
 				// Construct and prepare an instance of the REST module
 				const rest = new REST({version: "10"}).setToken(botConfig.DISCORD_CLIENT_TOKEN);
@@ -155,11 +147,29 @@ export class CommandsManager {
 					console.error(error);
 				}
 			}
+			await this.refreshCommands(client);
 		}
 		catch (err) {
 			console.log(err);
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
+		}
+	}
+
+	/**
+	 * Get all commands to register and store them in the relevant maps
+	 * @param client
+	 * @private
+	 */
+	private static async refreshCommands(client: Client<boolean>) : Promise<void> {
+		console.log("Fetching and saving commands...");
+		const commands = (await client.application.commands.fetch({withLocalizations: true}))
+			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
+		// Store command instances
+		for (const command of commands) {
+			CommandsManager.commandsInstances.set(command[1].name, command[1]);
+			this.addSubCommandsToTheCommandsMentions(command);
+			commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
 		}
 	}
 
