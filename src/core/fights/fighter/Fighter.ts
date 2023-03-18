@@ -266,9 +266,10 @@ export abstract class Fighter {
 
 	/**
 	 * Add the breathRegen of the fighter to its breath
+	 * @param half - if true, the breath regeneration is divided by 2
 	 */
-	regenerateBreath(): void {
-		this.stats.breath += this.stats.breathRegen;
+	regenerateBreath(half : boolean): void {
+		this.stats.breath += half ? Math.ceil(this.stats.breathRegen / 2) : this.stats.breathRegen;
 		if (this.stats.breath > this.stats.maxBreath) {
 			this.stats.breath = this.stats.maxBreath;
 		}
