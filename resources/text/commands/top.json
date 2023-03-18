@@ -27,7 +27,7 @@
 			"endAnyWrongPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endAnyRightPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
 			"lowScore": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous avez un score égal ou inférieur à 100 !",
-			"notEnoughRankedFight": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous n'avez pas encore réalisé assez de ccombats classés ! Vous devez encore réaliser {needFight} combat{needFight>1?s:} classé{needFight>1?s:}.",
+			"notEnoughRankedFight": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous n'avez pas encore réalisé assez de combats classés ! Vous devez encore réaliser {needFight} combat{needFight>1?s:} classé{needFight>1?s:}.",
 			"yourRanking": "Votre classement",
 			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n",
 			"nextReset": "Classement réinitialisé dans {time}",

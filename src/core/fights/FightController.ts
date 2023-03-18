@@ -172,10 +172,7 @@ export class FightController {
 		}
 		if (endTurn) {
 			this.turn++;
-			if (this.turn > 2) {
-				// No regen on first turn for the second player
-				this.getPlayingFighter().regenerateBreath();
-			}
+			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
 	}
