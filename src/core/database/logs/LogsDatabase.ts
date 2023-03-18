@@ -975,7 +975,7 @@ export class LogsDatabase extends Database {
 			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
 			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
-			const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
+			const winner = fight.getWinner() + 1;
 			const fightResult = await LogsFightsResults.create({
 				player1Id: player1Id,
 				player1Points: player1.player.score,
@@ -1182,7 +1182,7 @@ export class LogsDatabase extends Database {
 	 * @param discordId
 	 * @param leagueLastSeason
 	 */
-	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number) : Promise<void> {
+	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(discordId);
 		await LogsPlayerLeagueReward.create({
 			playerId: player.id,
