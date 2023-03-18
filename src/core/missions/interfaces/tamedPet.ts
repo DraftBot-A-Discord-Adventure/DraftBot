@@ -4,7 +4,7 @@ import {PetEntities} from "../../database/game/models/PetEntity";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
-		return params.loveLevel >= 4;
+		return (params.loveLevel as number) >= 4;
 	},
 
 	getVariantFormatVariable(): Promise<string> {

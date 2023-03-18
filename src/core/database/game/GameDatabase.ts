@@ -245,15 +245,16 @@ export class GameDatabase extends Database {
 		if (!GameDatabase.checkPossibilityIssuesKey(issuesFields, event, possibilityKey, issue)) {
 			return false;
 		}
-		if (issue.lostTime < 0) {
+		if (issue.lostTime &&
+			(issue.lostTime as number) < 0) {
 			GameDatabase.sendEventLoadError(
 				event,
 				`Lost time must be positive in issue ${possibilityKey} `
 			);
 			return false;
 		}
-		if (
-			issue.lostTime > 0 &&
+		if (issue.lostTime &&
+			issue.lostTime as number > 0 &&
 			issue.effect !== EffectsConstants.EMOJI_TEXT.OCCUPIED
 		) {
 			GameDatabase.sendEventLoadError(
