@@ -63,7 +63,7 @@
 				},
 				"GLORY_TOP": {
 					"usage": "{command:top glory}",
-					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée."
+					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -286,7 +286,7 @@
 				},
 				"GLORY_TOP": {
 					"usage": "{command:top glory}",
-					"description": "Displays the ranking of the fights in 15 player intervals. Players in the same server as you are shown by a blue dot."
+					"description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
