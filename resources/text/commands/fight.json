@@ -210,7 +210,7 @@
 			"optionUserName": "user",
 			"optionUserDescription": "The user to fight against.",
 			"optionFriendlyName": "friendly",
-			"optionFriendlyDescription": "FDo a friendly fight (not ranked)",
+			"optionFriendlyDescription": "Do a friendly fight (not ranked)",
 			"fightAskingTitle": "{pseudo} requested a fight.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} wants to start a{friendly} fight! To participate, click on the reaction below!",
 			"wantsToFightSomeone": ":crossed_swords: | {player} defies {opponent} on a{friendly} fight! To accept it or not, click on the reaction below!",

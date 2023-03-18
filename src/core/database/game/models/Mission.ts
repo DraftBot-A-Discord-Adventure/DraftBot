@@ -48,6 +48,7 @@ export class Missions {
 		switch (difficulty) {
 		case MissionDifficulty.EASY:
 			whereClause.campaignOnly = false;
+			whereClause.canBeEasy = true;
 			return await Mission.findOne({
 				where: whereClause,
 				order: [draftBotInstance.gameDatabase.sequelize.random()]
