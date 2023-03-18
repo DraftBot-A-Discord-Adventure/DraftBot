@@ -9,6 +9,12 @@ import {LogsPlayers} from "./models/LogsPlayers";
 import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 
+type RankedFightResult = {
+	won: number,
+	lost: number,
+	draw: number
+};
+
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
  */
@@ -86,10 +92,7 @@ export class LogsReadRequests {
 	 * @param playerDiscordId
 	 * @param opponentDiscordId
 	 */
-	static async getRankedFightsThisWeek(playerDiscordId: string, opponentDiscordId: string): Promise<{
-		notDraw: number,
-		draw: number
-	}> {
+	static async getRankedFightsThisWeek(playerDiscordId: string, opponentDiscordId: string): Promise<RankedFightResult> {
 		const fights = await LogsFightsResults.findAll({
 			where: {
 				[Op.or]: [
@@ -124,15 +127,36 @@ export class LogsReadRequests {
 			}]
 		});
 
+		return this.parseFightListToRankedFightData(fights);
+	}
+
+	/**
+	 * parse the fights results to a ranked fight result
+	 * @param fights
+	 * @private
+	 */
+	private static parseFightListToRankedFightData(fights: LogsFightsResults[]): RankedFightResult {
 		const ret = {
-			notDraw: 0,
+			won: 0,
+			lost: 0,
 			draw: 0
 		};
-
+		const fightersId = [];
 		for (const fight of fights) {
-			fight.winner === 0 ? ret.draw++ : ret.notDraw++;
+			if (fightersId.length === 0) {
+				fightersId.push(fight.player1Id);
+				fightersId.push(fight.player2Id);
+			}
+			if (fight.winner === 0) {
+				ret.draw++;
+			}
+			else if (fight.winner === 1 && fight.player1Id === fightersId[0] || fight.winner === 2 && fight.player2Id === fightersId[0]) {
+				ret.won++;
+			}
+			else {
+				ret.lost++;
+			}
 		}
-
 		return ret;
 	}
 }

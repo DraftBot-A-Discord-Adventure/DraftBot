@@ -98,7 +98,7 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
 		}
 
 		const bo3 = await LogsReadRequests.getRankedFightsThisWeek(player.discordUserId, opponent.discordUserId);
-		if (bo3.notDraw > 1 || bo3.draw + bo3.notDraw >= 3) {
+		if (bo3.won > 1 || bo3.lost > 1 || bo3.draw + bo3.won + bo3.lost >= 3) {
 			return FightConstants.FIGHT_ERROR.BEST_OF_3;
 		}
 	}
