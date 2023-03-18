@@ -4,7 +4,7 @@ import {RandomUtils} from "../../utils/RandomUtils";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
-		return params.travelTime >= variant;
+		return (params.travelTime as number) >= variant;
 	},
 
 	getVariantFormatVariable(variant: number): Promise<string> {

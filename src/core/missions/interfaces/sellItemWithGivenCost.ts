@@ -5,7 +5,7 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => params.itemCost >= variant,
+	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => (params.itemCost as number) >= variant,
 
 	getVariantFormatVariable: (variant: number) => Promise.resolve(variant.toString()),
 

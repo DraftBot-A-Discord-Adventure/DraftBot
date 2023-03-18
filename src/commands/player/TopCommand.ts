@@ -237,10 +237,11 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
 	if (!page) {
 		return 1;
 	}
-	if (page.value > pageMax) {
+	const pageNumber = page.value as number;
+	if (pageNumber > pageMax) {
 		return pageMax;
 	}
-	return page.value as number;
+	return pageNumber;
 }
 
 /**

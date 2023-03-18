@@ -56,7 +56,7 @@ export class Armors {
 				rarity
 			},
 			type: QueryTypes.SELECT
-		}));
+		})) as Promise<{ id: number }[]>;
 	}
 }
 
