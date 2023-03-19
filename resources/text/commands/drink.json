@@ -16,7 +16,7 @@
 			"hospitalBonus": "🕥 Vous avez avancé de {value} !",
 			"confirmationTitle": "{pseudo}, confirmation :",
 			"confirmation": "Êtes-vous sûr de vouloir boire votre {potion} ({effect}) ?",
-			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre `forcer` !"
+			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
 		},
 		"en": {
 			"commandName": "drink",
@@ -34,7 +34,7 @@
 			"hospitalBonus": "🕥 You leapt forward {value}.",
 			"confirmationTitle": "{pseudo}, confirmation :",
 			"confirmation": "Are you sure you want to drink your {potion} ({effect})?",
-			"confirmationFooter": "It is possible to avoid this step by using the `force` parameter!"
+			"confirmationFooter": "It is possible to avoid this step by using the force parameter!"
 		}
 	}
 }
