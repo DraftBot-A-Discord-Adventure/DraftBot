@@ -347,6 +347,13 @@ export class DraftBot {
 	 * @private
 	 */
 	private static async seasonEndQueries() : Promise<void>{
+		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
+		await Player.update(
+			{
+				gloryPointsLastSeason: Sequelize.literal(
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
+			},
+			{where: {}});
 		// we add one to the fightCountdown
 		await Player.update(
 			{
@@ -360,18 +367,11 @@ export class DraftBot {
 		await Player.update(
 			{
 				gloryPoints: Sequelize.literal(
-					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}}`
+					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}`
 				)
 			},
 			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
 		);
-		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
-		await Player.update(
-			{
-				gloryPointsLastSeason: Sequelize.literal(
-					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
-			},
-			{where: {}});
 	}
 
 	/**
