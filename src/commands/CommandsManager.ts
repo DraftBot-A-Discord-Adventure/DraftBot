@@ -5,12 +5,15 @@ import {
 	Client,
 	CommandInteraction,
 	GuildChannel,
-	GuildMember, GuildResolvable,
+	GuildMember,
+	GuildResolvable,
 	Message,
 	MessageType,
 	PermissionsBitField,
 	REST,
+	RouteLike,
 	Routes,
+	Snowflake,
 	User
 } from "discord.js";
 
@@ -119,6 +122,28 @@ export class CommandsManager {
 	}
 
 	/**
+	 * Register all commands that should be registered
+	 * @param clientId
+	 * @param commands
+	 * @param regFunc
+	 */
+	static async registerCommands(clientId: Snowflake, commands: RESTPostAPIChatInputApplicationCommandsJSONBody[], regFunc: (clientId: Snowflake, serverId?: Snowflake) => RouteLike): Promise<void> {
+		const rest = new REST({version: "10"}).setToken(botConfig.DISCORD_CLIENT_TOKEN);
+		try {
+			console.log(`Started refreshing ${commands.length} application (/) commands.`);
+			const data = await rest.put(
+				regFunc(clientId, botConfig.MAIN_SERVER_ID),
+				{body: commands}
+			);
+			console.log(`Successfully reloaded ${Array.isArray(data) ? data.length : "###ERROR###"} application (/) commands.`);
+		}
+		catch (error) {
+			// And of course, make sure you catch and log any errors!
+			console.error(error);
+		}
+	}
+
+	/**
 	 * Register all commands at launch
 	 * @param client
 	 * @param isMainShard
@@ -127,33 +152,9 @@ export class CommandsManager {
 
 		try {
 			const allCommandToRegister = await this.getAllCommandsToRegister();
-			const globalCommandsToRegister = allCommandToRegister[0];
-			const guildsCommandsToRegister = allCommandToRegister[1];
 			if (isMainShard) {
-				// Construct and prepare an instance of the REST module
-				const rest = new REST({version: "10"}).setToken(botConfig.DISCORD_CLIENT_TOKEN);
-
-				try {
-					console.log(`Started refreshing ${guildsCommandsToRegister.length} application (/) commands.`);
-					// The put method is used to fully refresh all commands in the guild with the current set
-					const dataOne = await rest.put(
-						Routes.applicationGuildCommands(client.application.id, botConfig.MAIN_SERVER_ID),
-						{body: guildsCommandsToRegister}
-					);
-					console.log(`Successfully reloaded ${Array.isArray(dataOne) ? dataOne.length : "###ERROR###"} application (/) commands.`);
-					console.log(`Started refreshing ${globalCommandsToRegister.length} application (/) commands.`);
-					// The put method is used to fully refresh all commands in the guild with the current set
-					const dataTwo = await rest.put(
-						Routes.applicationCommands(client.application.id),
-						{body: globalCommandsToRegister}
-					);
-					console.log(`Successfully reloaded ${Array.isArray(dataTwo) ? dataTwo.length : "###ERROR###"} application (/) commands.`);
-
-				}
-				catch (error) {
-					// And of course, make sure you catch and log any errors!
-					console.error(error);
-				}
+				await CommandsManager.registerCommands(client.application.id, allCommandToRegister[1], Routes.applicationGuildCommands);
+				await CommandsManager.registerCommands(client.application.id, allCommandToRegister[0], Routes.applicationCommands);
 			}
 			await this.refreshCommands(client);
 		}
@@ -161,38 +162,6 @@ export class CommandsManager {
 			console.log(err);
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
-		}
-	}
-
-	/**
-	 * Get all commands to register and store them in the relevant maps
-	 * @param client
-	 * @private
-	 */
-	private static async refreshCommands(client: Client<boolean>): Promise<void> {
-		console.log("Fetching and saving commands...");
-		const commands = (await client.application.commands.fetch({withLocalizations: true}))
-			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
-		// Store command instances
-		for (const command of commands) {
-			CommandsManager.commandsInstances.set(command[1].name, command[1]);
-			this.addSubCommandsToTheCommandsMentions(command);
-			commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
-		}
-	}
-
-	/**
-	 * Check if a command has subcommands and add them to the commandsMentions map
-	 * @param command
-	 * @private
-	 */
-	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]): void {
-		if (command[1].options) {
-			for (const option of command[1].options) {
-				if (option.type === ApplicationCommandOptionType.Subcommand) {
-					commandsMentions.set(`${command[1].name} ${option.name}`, `</${command[1].name} ${option.name}:${command[0]}>`);
-				}
-			}
 		}
 	}
 
@@ -241,6 +210,37 @@ export class CommandsManager {
 		return [globalCommandsToRegister, guildsCommandsToRegister];
 	}
 
+	/**
+	 * Get all commands to register and store them in the relevant maps
+	 * @param client
+	 * @private
+	 */
+	private static async refreshCommands(client: Client<boolean>): Promise<void> {
+		console.log("Fetching and saving commands...");
+		const commands = (await client.application.commands.fetch({withLocalizations: true}))
+			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
+		// Store command instances
+		for (const command of commands) {
+			CommandsManager.commandsInstances.set(command[1].name, command[1]);
+			this.addSubCommandsToTheCommandsMentions(command);
+			commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
+		}
+	}
+
+	/**
+	 * Check if a command has subcommands and add them to the commandsMentions map
+	 * @param command
+	 * @private
+	 */
+	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]): void {
+		if (command[1].options) {
+			for (const option of command[1].options) {
+				if (option.type === ApplicationCommandOptionType.Subcommand) {
+					commandsMentions.set(`${command[1].name} ${option.name}`, `</${command[1].name} ${option.name}:${command[0]}>`);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Push the commands to check from a given category
