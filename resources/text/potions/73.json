@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Expresso",
+		"en": "Expresso"
+	},
+	"emote": "☕",
+	"rarity": 1,
+	"power": 24,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
