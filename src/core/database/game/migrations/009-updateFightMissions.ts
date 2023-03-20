@@ -39,7 +39,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	`);
 }
 
-export async function down(): Promise<void> {
+export async function down({context}: { context: QueryInterface }): Promise<void> {
 	// Down campaign
 	await context.sequelize.query(`
 		UPDATE mission_slots
