@@ -16,6 +16,7 @@ import {MissionSlots} from "../../database/game/models/MissionSlot";
 import {getDayNumber} from "../../utils/TimeUtils";
 import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
+import {NumberChangeReason} from "../../constants/LogsConstants";
 
 /**
  * @class PlayerFighter
@@ -84,7 +85,7 @@ export class PlayerFighter extends Fighter {
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
 		if (!fightView.fightController.friendly) {
 			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
-			newPlayer.fightPointsLost = this.stats.maxFightPoint - this.stats.fightPoints;
+			newPlayer.addEnergy(-this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
 			await newPlayer.save();
 		}
 
