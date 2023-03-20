@@ -126,21 +126,29 @@ export class CommandsManager {
 	static async registerAllCommands(client: Client, isMainShard: boolean): Promise<void> {
 
 		try {
-			const commandsToRegister = await this.getAllCommandsToRegister();
+			const allCommandToRegister = await this.getAllCommandsToRegister();
+			const globalCommandsToRegister = allCommandToRegister[0];
+			const guildsCommandsToRegister = allCommandToRegister[1];
 			if (isMainShard) {
 				// Construct and prepare an instance of the REST module
 				const rest = new REST({version: "10"}).setToken(botConfig.DISCORD_CLIENT_TOKEN);
 
 				try {
-					console.log(`Started refreshing ${commandsToRegister.length} application (/) commands.`);
-
+					console.log(`Started refreshing ${guildsCommandsToRegister.length} application (/) commands.`);
 					// The put method is used to fully refresh all commands in the guild with the current set
-					const data = await rest.put(
+					const dataOne = await rest.put(
 						Routes.applicationGuildCommands(client.application.id, botConfig.MAIN_SERVER_ID),
-						{body: commandsToRegister}
+						{body: guildsCommandsToRegister}
 					);
+					console.log(`Successfully reloaded ${Array.isArray(dataOne) ? dataOne.length : "###ERROR###"} application (/) commands.`);
+					console.log(`Started refreshing ${globalCommandsToRegister.length} application (/) commands.`);
+					// The put method is used to fully refresh all commands in the guild with the current set
+					const dataTwo = await rest.put(
+						Routes.applicationCommands(client.application.id),
+						{body: globalCommandsToRegister}
+					);
+					console.log(`Successfully reloaded ${Array.isArray(dataTwo) ? dataTwo.length : "###ERROR###"} application (/) commands.`);
 
-					console.log(`Successfully reloaded ${Array.isArray(data) ? data.length : "###ERROR###"} application (/) commands.`);
 				}
 				catch (error) {
 					// And of course, make sure you catch and log any errors!
@@ -161,7 +169,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static async refreshCommands(client: Client<boolean>) : Promise<void> {
+	private static async refreshCommands(client: Client<boolean>): Promise<void> {
 		console.log("Fetching and saving commands...");
 		const commands = (await client.application.commands.fetch({withLocalizations: true}))
 			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
@@ -178,7 +186,7 @@ export class CommandsManager {
 	 * @param command
 	 * @private
 	 */
-	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]) : void {
+	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]): void {
 		if (command[1].options) {
 			for (const option of command[1].options) {
 				if (option.type === ApplicationCommandOptionType.Subcommand) {
@@ -218,28 +226,34 @@ export class CommandsManager {
 	/**
 	 * Get the list of commands to register
 	 */
-	public static async getAllCommandsToRegister(): Promise<RESTPostAPIChatInputApplicationCommandsJSONBody[]> {
+	public static async getAllCommandsToRegister(): Promise<RESTPostAPIChatInputApplicationCommandsJSONBody[][]> {
 		const categories = await readdir("dist/src/commands");
-		const commandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+		const globalCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+		const guildsCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 		const commandsToCheck = [];
 		for (const category of categories) {
 			if (category.endsWith(".js") || category.endsWith(".js.map")) {
 				continue;
 			}
-			commandsToCheck.push(this.checkCommandFromCategory(category, commandsToRegister));
+			commandsToCheck.push(this.checkCommandFromCategory(category, globalCommandsToRegister, guildsCommandsToRegister));
 		}
 		await Promise.all(commandsToCheck);
-		return commandsToRegister;
+		return [globalCommandsToRegister, guildsCommandsToRegister];
 	}
 
 
 	/**
 	 * Push the commands to check from a given category
 	 * @param category
-	 * @param commandsToRegister
+	 * @param globalCommandsToRegister
+	 * @param guildsCommandsToRegister
 	 * @private
 	 */
-	private static async checkCommandFromCategory(category: string, commandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[]): Promise<void> {
+	private static async checkCommandFromCategory(
+		category: string,
+		globalCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[],
+		guildsCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[]
+	): Promise<void> {
 		let commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 		if (!botConfig.TEST_MODE) {
 			commandsFiles = commandsFiles.filter(command => !command.startsWith("Test"));
@@ -251,7 +265,12 @@ export class CommandsManager {
 				continue;
 			}
 			this.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
-			commandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
+			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
+				guildsCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
+			}
+			else {
+				globalCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
+			}
 		}
 	}
 
