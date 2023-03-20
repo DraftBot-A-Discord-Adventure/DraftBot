@@ -686,6 +686,11 @@ export class Player extends Model {
 		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
 	}
 
+	public addEnergy(energy: number, reason: NumberChangeReason): void {
+		this.fightPointsLost = Math.max(0, this.fightPointsLost - energy);
+		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason).then();
+	}
+
 	/**
 	 * Get the string that mention the user
 	 */

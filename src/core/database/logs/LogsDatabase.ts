@@ -92,6 +92,7 @@ import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
 import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
+import {LogsPlayersFightPoints} from "./models/LogsPlayersFightPoints";
 
 /**
  * This class is used to log all the changes in the game database
@@ -325,6 +326,16 @@ export class LogsDatabase extends Database {
 	 */
 	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersHealth);
+	}
+
+	/**
+	 * log a player's fightPoints change (except natural regeneration)
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
+	public logFightPointChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersFightPoints);
 	}
 
 	/**
