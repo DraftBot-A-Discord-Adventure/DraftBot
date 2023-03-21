@@ -338,8 +338,7 @@ async function generateGuildField(askedPlayer: Player, fields: EmbedField[], pro
  */
 async function generateLocationField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string): Promise<void> {
 	try {
-		const mapId = await askedPlayer.getDestinationId();
-		if (mapId !== null) {
+		if (await askedPlayer.getDestinationId()) {
 			fields.push(await getLocationField(profileModule, askedPlayer, language));
 		}
 	}
