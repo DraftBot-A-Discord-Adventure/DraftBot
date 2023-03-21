@@ -143,7 +143,7 @@ export class Player extends Model {
 	 */
 	async getDestinationId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return link.endMap;
+		return link ? link.endMap : null;
 	}
 
 	/**
@@ -151,7 +151,7 @@ export class Player extends Model {
 	 */
 	public async getDestination(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return await MapLocations.getById(link.endMap);
+		return link ? await MapLocations.getById(link.endMap) : null;
 	}
 
 	/**
@@ -159,7 +159,7 @@ export class Player extends Model {
 	 */
 	public async getPreviousMap(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return await MapLocations.getById(link.startMap);
+		return link ? await MapLocations.getById(link.startMap) : null;
 	}
 
 	/**
@@ -167,7 +167,7 @@ export class Player extends Model {
 	 */
 	public async getPreviousMapId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return link.startMap;
+		return link ? link.startMap : null;
 	}
 
 	/**
@@ -175,7 +175,7 @@ export class Player extends Model {
 	 */
 	public async getCurrentTripDuration(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return minutesToHours(link.tripDuration);
+		return link ? minutesToHours(link.tripDuration) : null;
 	}
 
 	/**
