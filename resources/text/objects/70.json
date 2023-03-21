@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Lit",
+		"en": "Bed"
+	},
+	"emote": ":bed:",
+	"rarity": 2,
+	"power": 111,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

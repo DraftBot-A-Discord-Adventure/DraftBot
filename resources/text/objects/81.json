@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Batterie pleine",
+		"en": "Full battery"
+	},
+	"emote": ":battery:",
+	"rarity": 3,
+	"power": 264,
+	"nature": 7,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

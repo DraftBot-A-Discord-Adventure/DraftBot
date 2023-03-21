@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Docteur de poche",
+		"en": "Pocket doctor"
+	},
+	"emote": ":health_worker:",
+	"rarity": 7,
+	"power": 955,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

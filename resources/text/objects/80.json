@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Batterie faible",
+		"en": "Low battery"
+	},
+	"emote": ":low_battery:",
+	"rarity": 1,
+	"power": 22,
+	"nature": 7,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

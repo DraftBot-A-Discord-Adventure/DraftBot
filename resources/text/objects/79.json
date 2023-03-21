@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Programme de dopage",
+		"en": "Doping program"
+	},
+	"emote": ":dna:",
+	"rarity": 6,
+	"power": 799,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
