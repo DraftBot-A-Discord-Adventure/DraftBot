@@ -1,0 +1,28 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "maintenance",
+			"commandDescription": "Mettre le bot en maintenance.",
+			"optionEnableName": "activer",
+			"optionEnableDescription": "Activer le mode maintenance ou non.",
+			"optionSaveName": "sauvegarder",
+			"optionSaveDescription": "Sauvegarder dans le fichier de configuration.",
+			"embedTitle": "{pseudo}, mode maintenance",
+			"successMaintenanceOn": "Le bot est maintenant en maintenance !",
+			"successMaintenanceOff": "Le bot est maintenant sorti de maintenance !",
+			"error": "Une erreur s'est produite pendant le changement de mode maintenance :\n```{error}```"
+		},
+		"en": {
+			"commandName": "maintenance",
+			"commandDescription": "Sets the bot in maintenance.",
+			"optionEnableName": "enable",
+			"optionEnableDescription": "Enable or not the maintenance mode.",
+			"optionSaveName": "save",
+			"optionSaveDescription": "Save to config file.",
+			"embedTitle": "{pseudo}, maintenance mode",
+			"successMaintenanceOn": "The bot is now in maintenance mode!",
+			"successMaintenanceOff": "The bot is now no longer in maintenance mode!",
+			"error": "An error occurred while changing the maintenance mode:\n```{error}```"
+		}
+	}
+}
