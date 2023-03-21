@@ -1,7 +1,8 @@
 import {ShardingManager} from "discord.js";
 import {loadConfig} from "./core/bot/DraftBotConfig";
-import {startIPCServer} from "./core/bot/ipc/IPCServer";
+import {IPCServer} from "./core/bot/ipc/IPCServer";
 import AutoPoster from "topgg-autoposter";
+import {initWebServer} from "./core/bot/DraftBotWebServer";
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err);
@@ -15,8 +16,13 @@ const shardCount = "auto";
  * Function executed when the bot starts : Creates the shards and starts the IPC server
  */
 function main(): void {
-	startIPCServer();
+	const ipcServer = new IPCServer();
+
 	const config = loadConfig();
+
+	if (config.WEBSERVER_PORT && config.WEBSERVER_PORT !== 0) {
+		initWebServer(config.WEBSERVER_PORT, ipcServer);
+	}
 
 	const shardingManager = new ShardingManager("./dist/src/core/bot/index.js", {
 		totalShards: shardCount,

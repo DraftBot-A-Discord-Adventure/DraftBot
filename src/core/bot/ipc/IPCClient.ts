@@ -1,5 +1,7 @@
 import RootIPC = require("node-ipc");
 import {IPC} from "node-ipc";
+import {botConfig, draftBotClient, draftBotInstance} from "../index";
+import {TextChannel} from "discord.js";
 
 // We need to use InstanceType because IPC is not exported
 let ipc: InstanceType<typeof IPC> = null;
@@ -68,6 +70,23 @@ export class IPCClient {
 					const callback = spamCallbacks.get(data.packet);
 					spamCallbacks.delete(data.packet);
 					callback(data.spamming);
+				}
+			);
+			ipc.of.draftbot.on(
+				"maintenance",
+				function(data) {
+					// Only execute it on the main server
+					const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
+					if (guild && guild.shard) {
+						const channel = guild.channels.cache.get(botConfig.CONSOLE_CHANNEL_ID) as TextChannel;
+						try {
+							draftBotInstance.setMaintenance(data.enable, false);
+							channel.send({ content: `Maintenance mode set from web server: ${data.enable}` }).then();
+						}
+						catch (err) {
+							channel.send({ content: `Maintenance mode set from web server failed with error:\n\`\`\`${data.enable}\`\`\`` }).then();
+						}
+					}
 				}
 			);
 		});
