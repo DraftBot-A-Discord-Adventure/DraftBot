@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Ticket de montagnes russes",
+		"en": "Roller coaster ticket"
+	},
+	"emote": ":roller_coaster:",
+	"rarity": 5,
+	"power": 527,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

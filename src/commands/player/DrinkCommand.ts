@@ -37,7 +37,7 @@ async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Playe
 		break;
 	case ItemConstants.NATURE.ENERGY:
 		embed.setDescription(textInformation.tr.format("energyBonus", {value: potion.power}));
-		await player.addEnergy(potion.power, NumberChangeReason.DRINK);
+		player.addEnergy(potion.power, NumberChangeReason.DRINK);
 		break;
 	case ItemConstants.NATURE.HOSPITAL:
 		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));

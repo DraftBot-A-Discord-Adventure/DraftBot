@@ -9,6 +9,7 @@
 			"noActiveObjectDescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
 			"dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
 			"healthDaily": "❤️ Vie gagnée : **{value}** !",
+			"energyDaily": "⚡️ Énergie gagnée : **{value}** !",
 			"moneyBonus": "💰 Argent gagné : **{value}** !",
 			"hospitalBonus": "🕥 Vous avez avancé de **{value}**",
 			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez {time}."
@@ -21,7 +22,8 @@
 			"noDailyError": "{pseudo}, hmmm... It didn't work!",
 			"noActiveObjectDescription": "You unfortunately have no active items in your inventory!",
 			"dailySuccess": "{pseudo}, you have received your daily reward!",
-			"healthDaily": "❤️ HP recovered : **{value}**!",
+			"healthDaily": "❤️ HP recovered: **{value}**!",
+			"energyDaily": "⚡️ Energy recovered: **{value}**!",
 			"moneyBonus": "💰 Money Earned: **{value}**!",
 			"hospitalBonus": "🕥 You have moved up **{value}**",
 			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back {time}."

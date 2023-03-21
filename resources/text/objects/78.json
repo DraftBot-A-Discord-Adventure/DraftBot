@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Coeur artificiel",
+		"en": "Artificial heart"
+	},
+	"emote": ":mending_heart:",
+	"rarity": 6,
+	"power": 813,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
