@@ -1,175 +1,180 @@
-import {IPC} from "node-ipc";
-import RootIPC = require("node-ipc");
+const NodeIPC = require("node-ipc");
+import {Socket} from "net";
 
-const spamDelay = 1000;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export class IPCServer extends NodeIPC.IPCModule {
+	private static spamDelay = 1000;
 
-// The limitTimestamp is the date when the blocking is finished
-const blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
-const spamPlayers: Map<string, number> = new Map();
+	// The limitTimestamp is the date when the blocking is finished
+	private blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
 
-/**
- * Remove the specified block reason from the given user
- * @param discordId
- * @param reason
- */
-function removeBlockedReason(discordId: string, reason: string): void {
-	const blockedPlayer = blockedPlayers.get(discordId);
-	if (blockedPlayer) {
-		blockedPlayers.set(discordId, blockedPlayer.filter(v => v.reason !== reason));
-		if (blockedPlayers.get(discordId).length === 0) {
-			blockedPlayers.delete(discordId);
+	private spamPlayers: Map<string, number> = new Map();
+
+	/**
+	 * Remove the specified block reason from the given user
+	 * @param discordId
+	 * @param reason
+	 */
+	public removeBlockedReason(discordId: string, reason: string): void {
+		const blockedPlayer = this.blockedPlayers.get(discordId);
+		if (blockedPlayer) {
+			this.blockedPlayers.set(discordId, blockedPlayer.filter(v => v.reason !== reason));
+			if (this.blockedPlayers.get(discordId).length === 0) {
+				this.blockedPlayers.delete(discordId);
+			}
 		}
 	}
-}
 
-/**
- * Answer to call when you want to block a player from doing another command
- * @param ipc
- */
-function prepareBlockAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"block",
-		(data: { discordId: string; reason: string; time: number; }) => {
-			if (!blockedPlayers.get(data.discordId)) {
-				blockedPlayers.set(data.discordId, []);
+	/**
+	 * Answer to call when you want to block a player from doing another command
+	 */
+	public prepareBlockAnswer(): void {
+		this.server.on(
+			"block",
+			(data: { discordId: string; reason: string; time: number; }) => {
+				if (!this.blockedPlayers.get(data.discordId)) {
+					this.blockedPlayers.set(data.discordId, []);
+				}
+				this.blockedPlayers.get(data.discordId).push({
+					reason: data.reason,
+					limitTimestamp: data.time !== 0 ? Date.now() + data.time : 0
+				});
 			}
-			blockedPlayers.get(data.discordId).push({
-				reason: data.reason,
-				limitTimestamp: data.time !== 0 ? Date.now() + data.time : 0
-			});
-		}
-	);
-}
+		);
+	}
 
-/**
- * Answer to call when you want to unblock a player
- * @param ipc
- */
-function prepareUnblockAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"unblock",
-		(data: { discordId: string; reason: string; }) => {
-			removeBlockedReason(data.discordId, data.reason);
-		}
-	);
-}
+	/**
+	 * Answer to call when you want to unblock a player
+	 */
+	public prepareUnblockAnswer(): void {
+		this.server.on(
+			"unblock",
+			(data: { discordId: string; reason: string; }) => {
+				this.removeBlockedReason(data.discordId, data.reason);
+			}
+		);
+	}
 
-/**
- * Get the reasons for why the player is blocked, if exists
- * @param ipc
- */
-function prepareIsBlockedAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"isBlocked",
-		(data: { discordId: string; packet: number; }, socket: unknown) => {
-			const blockedPlayer = blockedPlayers.get(data.discordId);
-			const response = [];
-			if (blockedPlayer) {
-				for (const block of blockedPlayer) {
-					if (block.limitTimestamp !== 0 && block.limitTimestamp < Date.now()) {
-						removeBlockedReason(data.discordId, block.reason);
+	/**
+	 * Get the reasons for why the player is blocked, if exists
+	 */
+	public prepareIsBlockedAnswer(): void {
+		this.server.on(
+			"isBlocked",
+			(data: { discordId: string; packet: number; }, socket: Socket) => {
+				const blockedPlayer = this.blockedPlayers.get(data.discordId);
+				const response = [];
+				if (blockedPlayer) {
+					for (const block of blockedPlayer) {
+						if (block.limitTimestamp !== 0 && block.limitTimestamp < Date.now()) {
+							this.removeBlockedReason(data.discordId, block.reason);
+						}
+						else {
+							response.push(block.reason);
+						}
+					}
+				}
+				this.server.emit(socket, "isBlocked", {
+					packet: data.packet,
+					reason: response
+				});
+			}
+		);
+	}
+
+	/**
+	 * Save when the last command has been entered, to avoid spam
+	 */
+	public prepareSpamAnswer(): void {
+		this.server.on(
+			"spam",
+			(data: { discordId: string; }) => {
+				this.spamPlayers.set(data.discordId, Date.now() + IPCServer.spamDelay);
+			}
+		);
+	}
+
+	/**
+	 * Check if the player is spamming
+	 */
+	public prepareIsSpammingAnswer(): void {
+		this.server.on("isSpamming",
+			(data: { discordId: string; packet: number; }, socket: Socket) => {
+				const spamPlayerLimitTimestamp = this.spamPlayers.get(data.discordId);
+				let response = false;
+				if (spamPlayerLimitTimestamp) {
+					if (spamPlayerLimitTimestamp < Date.now()) {
+						this.spamPlayers.delete(data.discordId);
 					}
 					else {
-						response.push(block.reason);
+						response = true;
 					}
 				}
+				this.server.emit(socket, "isSpamming", {
+					packet: data.packet,
+					spamming: response
+				});
 			}
-			ipc.server.emit(socket, "isBlocked", {
-				packet: data.packet,
-				reason: response
-			});
-		}
-	);
-}
+		);
+	}
 
-/**
- * Save when the last command has been entered, to avoid spam
- * @param ipc
- */
-function prepareSpamAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"spam",
-		(data: { discordId: string; }) => {
-			spamPlayers.set(data.discordId, Date.now() + spamDelay);
-		}
-	);
-}
-
-/**
- * Check if the player is spamming
- * @param ipc
- */
-function prepareIsSpammingAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"isSpamming",
-		(data: { discordId: string; packet: number; }, socket: unknown) => {
-			const spamPlayerLimitTimestamp = spamPlayers.get(data.discordId);
-			let response = false;
-			if (spamPlayerLimitTimestamp) {
-				if (spamPlayerLimitTimestamp < Date.now()) {
-					spamPlayers.delete(data.discordId);
-				}
-				else {
-					response = true;
-				}
+	/**
+	 * Socket connection
+	 */
+	public prepareConnexionSocketAnswer(): void {
+		this.server.on(
+			"socket.connected",
+			(socket: unknown, socketID: string) => {
+				this.log(`client ${socketID} has connected!`);
 			}
-			ipc.server.emit(socket, "isSpamming", {
-				packet: data.packet,
-				spamming: response
-			});
-		}
-	);
-}
+		);
+	}
 
-/**
- * Socket connexion
- * @param ipc
- */
-function prepareConnexionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"socket.connected",
-		(socket: unknown, socketID: string) => {
-			ipc.log(`client ${socketID} has connected!`);
-		}
-	);
-}
+	/**
+	 * Socket disconnection
+	 */
+	public prepareDisconnectionSocketAnswer(): void {
+		this.server.on(
+			"socket.disconnected",
+			(socket: unknown, destroyedSocketID: string) => {
+				this.log(`client ${destroyedSocketID} has disconnected!`);
+			}
+		);
+	}
 
-/**
- * Socket disconnection
- * @param ipc
- */
-function prepareDisconnectionSocketAnswer(ipc: InstanceType<typeof IPC>): void {
-	ipc.server.on(
-		"socket.disconnected",
-		(socket: unknown, destroyedSocketID: string) => {
-			ipc.log(`client ${destroyedSocketID} has disconnected!`);
-		}
-	);
-}
+	/**
+	 * Ask for maintenance
+	 * @param enable
+	 */
+	public broadcastMaintenance(enable: boolean): void {
+		this.server.broadcast("maintenance", {
+			enable
+		});
+	}
 
-/**
- * Starts the IPC server
- */
-export function startIPCServer(): void {
-	let ipc: InstanceType<typeof IPC> = null;
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore
-	ipc = new RootIPC.IPCModule();
-	ipc.config.id = "draftbot";
-	ipc.config.retry = 1500;
-	ipc.config.silent = true; // You can set this to false in order to debug, it's very useful
+	/**
+	 * Starts the IPC server
+	 */
+	constructor() {
+		super();
 
-	ipc.serve(
-		() => {
-			prepareBlockAnswer(ipc);
-			prepareUnblockAnswer(ipc);
-			prepareIsBlockedAnswer(ipc);
-			prepareSpamAnswer(ipc);
-			prepareIsSpammingAnswer(ipc);
-			prepareConnexionSocketAnswer(ipc);
-			prepareDisconnectionSocketAnswer(ipc);
-		}
-	);
+		this.config.id = "draftbot";
+		this.config.retry = 1500;
+		this.config.silent = true; // You can set this to false in order to debug, it's very useful
 
-	ipc.server.start();
+		this.serve(
+			() => {
+				this.prepareBlockAnswer();
+				this.prepareUnblockAnswer();
+				this.prepareIsBlockedAnswer();
+				this.prepareSpamAnswer();
+				this.prepareIsSpammingAnswer();
+				this.prepareConnexionSocketAnswer();
+				this.prepareDisconnectionSocketAnswer();
+			}
+		);
+
+		this.server.start();
+	}
 }
