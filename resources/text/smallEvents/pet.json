@@ -221,6 +221,10 @@
 				"minLevel": 2,
 				"probabilityWeight": 6
 			},
+			"gainEnergy": {
+				"minLevel": 1,
+				"probabilityWeight": 9
+			},
 			"food": {
 				"minLevel": 1,
 				"probabilityWeight": 5
