@@ -8,5 +8,8 @@
 	"power": 2048,
 	"nature": 7,
 	"frenchMasculine": 0,
-	"frenchPlural": 0
+	"frenchPlural": 0,
+	"tags": [
+		"drinkAlcohol"
+	]
 }
