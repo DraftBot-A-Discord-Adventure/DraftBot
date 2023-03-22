@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Bave d'escargot",
+		"en": "Snail slime"
+	},
+	"emote": "🐌",
+	"rarity": 6,
+	"power": 1,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

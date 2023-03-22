@@ -1,11 +1,11 @@
 {
 	"translations": {
-		"fr": "Miel",
-		"en": "Honey"
+		"fr": "Rhum",
+		"en": "Rhum"
 	},
-	"emote": "\uD83C\uDF6F",
+	"emote": "🏴‍☠️",
 	"rarity": 6,
-	"power": 1669,
+	"power": 1504,
 	"nature": 7,
 	"frenchMasculine": 1,
 	"frenchPlural": 0
