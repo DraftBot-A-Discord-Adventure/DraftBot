@@ -17,15 +17,25 @@ import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
 
-type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent };
+type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent, optional?: WitchEvent };
 
 /**
  * Returns an object composed of three random witch events
+ * @param isMage true if the player is a mage
  */
-function getRandomWitchEvents(): WitchEventSelection {
+function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 	const randomAdvice = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.ADVICE);
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
 	const fullRandom = WitchEvents.getRandomWitchEvent([randomAdvice, randomIngredient]);
+	if (isMage) {
+		// a mage can get an additional random event
+		const optional = WitchEvents.getRandomWitchEvent(
+			[randomAdvice,
+				randomIngredient,
+				fullRandom,
+				WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING)]);
+		return {randomAdvice, randomIngredient, optional, fullRandom};
+	}
 	return {randomAdvice, randomIngredient, fullRandom};
 }
 
@@ -114,6 +124,7 @@ function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBo
  * @param language
  * @param interaction
  * @param seEmbed
+ * @param player
  * @param tr
  */
 function generateInitialEmbed(
@@ -121,9 +132,10 @@ function generateInitialEmbed(
 	language: string,
 	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
+	player: Player,
 	tr: TranslationModule
 ): DraftBotReactionMessage {
-	const witchEvents = getRandomWitchEvents();
+	const witchEvents = getRandomWitchEvents(player.class === Constants.CLASSES.MYSTIC_MAGE);
 	const witchEventMenu = generateWitchEventMenu(witchEvents, embed, language);
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 	const builtEmbed = embed.build();
@@ -188,7 +200,7 @@ export const smallEvent: SmallEvent = {
 				await selectedEvent.checkMissions(interaction, player, language, outcome);
 			});
 
-		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, tr);
+		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, player, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE, collector));
 	}
