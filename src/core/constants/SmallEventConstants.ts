@@ -172,6 +172,10 @@ export abstract class SmallEventConstants {
 		POINTS: {
 			MIN: 20,
 			MAX: 70
+		},
+		ENERGY: {
+			MIN: 10,
+			MAX: 250
 		}
 	};
 }
