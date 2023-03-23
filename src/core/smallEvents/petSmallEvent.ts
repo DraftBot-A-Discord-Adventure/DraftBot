@@ -224,7 +224,7 @@ async function managePickedPetInteraction(
 		break;
 	case PetConstants.PET_INTERACTIONS.WIN_ENERGY:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.ENERGY);
-		await player.addEnergy(amount, NumberChangeReason.SMALL_EVENT);
+		player.addEnergy(amount, NumberChangeReason.SMALL_EVENT);
 		break;
 	case PetConstants.PET_INTERACTIONS.WIN_FOOD:
 		if (player.guildId) {

@@ -8,9 +8,12 @@ import {Missions} from "../database/game/models/Mission";
 import {MissionSlots} from "../database/game/models/MissionSlot";
 
 export const smallEvent: SmallEvent = {
+
 	/**
 	 * You must have an empty mission slot to have this small event
-	 */ async canBeExecuted(player: Player): Promise<boolean> {
+	 * @param player
+	 */
+	async canBeExecuted(player: Player): Promise<boolean> {
 		return player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));
 	},
 
