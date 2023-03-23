@@ -15,6 +15,11 @@
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fut pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ait volé à un marchand. Vous décidez de partir avant que celui-ci ne s'en aperçoive."
 			],
+			"gainEnergy": [
+				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :zap:.",
+				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état et vous la ramène. Vous la mangez avant qu'elle ne se détériore et gagnez **{amount}** :zap:.",
+				"Après être parti{feminine} quelques instants, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :zap:."
+			],
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
 				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état et vous la ramène. Vous la mangez avant qu'elle ne se détériore et gagnez **{amount}** :heart:.",
@@ -111,6 +116,11 @@
 				"**{pet}** sniffs a bush with great determination. You take a look and see {determinant} coming back with an **object**. This fills you with joy !",
 				"You see **{pet}** jump into the water. You are utterly surprised seeing {determinant} come out with a strange pouch containing an **object** !",
 				"After taking a short break from your travels, you see **{pet}** coming back with an **object**. It seems that {nominative} stole it from a merchant. You choose to go away before they notice it."
+			],
+			"gainEnergy": [
+				"Having **{pet}** traveling along with you makes you happy. This cheers you up and you gain **{amount}** :zap:.",
+				"**{pet}** suddenly rushes out, and comes back with some food that appears to be in good condition. {nominative} gives it to you, and you eat it immediately so as to not let it go to waste. You gain **{amount}** :zap:.",
+				"Getting away from a moment, **{pet}** soon comes back to you with an almost empty potion vial. You ingest the liquid before it's wasted. You earn **{amount}** :zap:."
 			],
 			"gainLife": [
 				"Having **{pet}** traveling along with you makes you happy. This cheers you up and you gain **{amount}** :heart:.",
