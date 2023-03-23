@@ -6,4 +6,6 @@ export abstract class EntityConstants {
 		SPEED: 10,
 		FIGHT_POINTS_LOST: 0
 	};
+
+	static readonly HEAL_ENERGY_PRICE = [151, 1550, 5550];
 }

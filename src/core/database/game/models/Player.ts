@@ -692,7 +692,16 @@ export class Player extends Model {
 	 * @param reason
 	 */
 	public addEnergy(energy: number, reason: NumberChangeReason): void {
-		this.fightPointsLost = Math.max(0, this.fightPointsLost - energy);
+		this.setFightPointsLost(Math.max(0, this.fightPointsLost - energy), reason);
+	}
+
+	/**
+	 * Set the energy lost of the player to a specific value
+	 * @param energy
+	 * @param reason
+	 */
+	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
+		this.fightPointsLost = energy;
 		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason).then();
 	}
 
