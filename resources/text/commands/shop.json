@@ -23,6 +23,12 @@
 					"info": "Vos altérations d'état seront supprimées et vous reprendrez votre route immédiatement.",
 					"give": ":hospital: Vos altérations d'état ont été supprimées."
 				},
+				"healEnergy": {
+					"emote": "⚡",
+					"name": "Récupération d'énergie",
+					"info": "Votre énergie de combat sera intégralement restaurée.",
+					"give": ":zap: Votre énergie a été restaurée."
+				},
 				"regen": {
 					"emote": "\uD83D\uDC97",
 					"name": "Regen complète de la vie",
@@ -48,7 +54,9 @@
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"moneyQuantity": "Vous avez `{money}💰`.",
 			"error": {
-				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
+				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état. :smiley:",
+				"nothingToHealEnergy": "Vous disposez de toute votre énergie de combat. :zap:",
+				"tooManyHealEnergy": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
 				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
@@ -100,6 +108,12 @@
 					"info": "Your status will be reset and you will be back on your road immediately.",
 					"give": ":hospital: Your status has been reset."
 				},
+				"healEnergy": {
+					"emote": "⚡",
+					"name": "Heal energy",
+					"info": "Your fight energy will be fully restored.",
+					"give": ":zap: Your energy has been restored."
+				},
 				"regen": {
 					"emote": "\uD83D\uDC97",
 					"name": "Complete health regeneration",
@@ -125,7 +139,9 @@
 			"confirm": "{pseudo}, you have selected this product:",
 			"moneyQuantity": "You have `{money}💰`.",
 			"error": {
-				"nothingToHeal": "You're not under status alterations.",
+				"nothingToHeal": "You're not under status alterations. :smiley:",
+				"nothingToHealEnergy": "You have all your fight energy. :zap:",
+				"tooManyHealEnergy": "You have bought the maximum amount of energy recovery for this week.",
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
 				"canceledPurchase": "Transaction canceled!",
 				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",

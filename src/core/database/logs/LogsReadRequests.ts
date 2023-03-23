@@ -8,6 +8,7 @@ import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
 import {LogsFightsResults} from "./models/LogsFightsResults";
+import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 
 type RankedFightResult = {
 	won: number,
@@ -44,6 +45,20 @@ export class LogsReadRequests {
 	 */
 	static getDateOfLastDailyPotionReset(): Promise<number> {
 		return LogsDailyPotions.findOne({
+			order: [["date", "DESC"]]
+		}).then((result) => {
+			if (result) {
+				return result.date;
+			}
+			return 0;
+		});
+	}
+
+	/**
+	 * Get the date of the last season reset
+	 */
+	static getDateOfLastSeasonReset(): Promise<number> {
+		return LogsSeasonEnd.findOne({
 			order: [["date", "DESC"]]
 		}).then((result) => {
 			if (result) {
@@ -158,5 +173,23 @@ export class LogsReadRequests {
 			}
 		}
 		return ret;
+	}
+
+	/**
+	 * Get the amount of time a specific player has bought the energy heal since the last season reset
+	 * @param playerDiscordId
+	 */
+	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerDiscordId: string): Promise<number> {
+		const dateOfLastSeasonReset = await this.getDateOfLastSeasonReset();
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsClassicalShopBuyouts.count({
+			where: {
+				playerId: logPlayer.id,
+				shopItem: ShopItemType.ENERGY_HEAL,
+				date: {
+					[Op.gte]: dateOfLastSeasonReset
+				}
+			}
+		});
 	}
 }

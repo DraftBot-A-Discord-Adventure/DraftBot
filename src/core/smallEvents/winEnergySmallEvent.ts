@@ -34,7 +34,7 @@ export const smallEvent: SmallEvent = {
 				{}
 			)
 		);
-		player.addEnergy(9999999, NumberChangeReason.SMALL_EVENT);
+		player.setFightPointsLost(0, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		await interaction.editReply({embeds: [seEmbed]});
 	}
