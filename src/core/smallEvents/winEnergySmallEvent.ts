@@ -1,21 +1,22 @@
 import {SmallEvent} from "./SmallEvent";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Translations} from "../Translations";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
+import {MapConstants} from "../constants/MapConstants";
 
 export const smallEvent: SmallEvent = {
 
 	/**
-	 * You must not be full of health to execute this small event
+	 * You must be near claire de ville and not be full of energy to execute this small event
 	 * @param player
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
-		return player.health < await player.getMaxHealth();
+		const destinationId = await player.getDestinationId();
+		const originId = await player.getPreviousMapId();
+		return player.fightPointsLost > 0 && destinationId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE || originId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE;
 	},
 
 	/**
@@ -26,15 +27,14 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const healthWon = RandomUtils.rangedInt(SmallEventConstants.HEALTH);
-		const translationWH = Translations.getModule("smallEvents.winHealth", language);
+		const translationWH = Translations.getModule("smallEvents.winEnergy", language);
 		seEmbed.setDescription(
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
-			format(translationWH.getRandom("intrigue"), {
-				health: healthWon
-			})
+			format(translationWH.getRandom("intrigue"),
+				{}
+			)
 		);
-		await player.addHealth(healthWon, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		player.addEnergy(9999999, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		await interaction.editReply({embeds: [seEmbed]});
 	}
