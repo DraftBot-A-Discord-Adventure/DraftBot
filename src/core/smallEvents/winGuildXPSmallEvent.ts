@@ -16,7 +16,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
 		const guild = await Guilds.getById(player.guildId);
-		return guild === null || guild.isAtMaxLevel();
+		return !(guild === null || guild.isAtMaxLevel());
 	},
 
 	/**

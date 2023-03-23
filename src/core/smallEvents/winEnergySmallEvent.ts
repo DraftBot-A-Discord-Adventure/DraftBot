@@ -16,7 +16,7 @@ export const smallEvent: SmallEvent = {
 	async canBeExecuted(player: Player): Promise<boolean> {
 		const destinationId = await player.getDestinationId();
 		const originId = await player.getPreviousMapId();
-		return player.fightPointsLost > 0 && destinationId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE || originId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE;
+		return player.fightPointsLost > 0 && (destinationId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE || originId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE);
 	},
 
 	/**
