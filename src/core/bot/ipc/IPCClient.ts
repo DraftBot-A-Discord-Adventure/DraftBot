@@ -32,7 +32,7 @@ export class IPCClient {
 		ipc.config.retry = 1500;
 		ipc.config.silent = true; // You can set this to false in order to debug, it's very useful
 
-		ipc.connectTo("draftbot", function() {
+		ipc.connectTo("draftbot", () => {
 			ipc.of.draftbot.on(
 				"connect",
 				function() {
@@ -74,7 +74,7 @@ export class IPCClient {
 			);
 			ipc.of.draftbot.on(
 				"maintenance",
-				function(data) {
+				data => {
 					// Only execute it on the main server
 					const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
 					if (guild && guild.shard) {
