@@ -422,14 +422,14 @@ export class DraftBot {
 		// Do it before setting the maintenance mode: if it fails, the mode will not be changed
 		if (saveToConfig) {
 			// Read the config file
-			const currentConfig = fs.readFileSync(process.cwd() + "/config/config.toml", "utf-8");
+			const currentConfig = fs.readFileSync(`${process.cwd()}/config/config.toml`, "utf-8");
 			const regexMaintenance = /(maintenance *= *)(true|false)/g;
 			// Search for the maintenance field
-			if (currentConfig.match(regexMaintenance)) {
+			if (regexMaintenance.test(currentConfig)) {
 				// Replace the value of the field. $1 is the group without true or false
 				const newConfig = currentConfig.replace(regexMaintenance, `$1${enable}`);
 				// Write the config
-				fs.writeFileSync(process.cwd() + "/config/config.toml", newConfig, "utf-8");
+				fs.writeFileSync(`${process.cwd()}/config/config.toml`, newConfig, "utf-8");
 			}
 			else {
 				throw new Error("Unable to get the maintenance field in the config file");
