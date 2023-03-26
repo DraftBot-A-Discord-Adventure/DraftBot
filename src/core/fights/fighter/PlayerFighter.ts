@@ -17,6 +17,7 @@ import {getDayNumber} from "../../utils/TimeUtils";
 import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
 import {NumberChangeReason} from "../../constants/LogsConstants";
+import {FighterStatus} from "../FighterStatus";
 
 /**
  * @class PlayerFighter
@@ -54,8 +55,10 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Function called when the fight starts
 	 * @param fightView The fight view
+	 * @param attacker If this player is the attacker
 	 */
-	async startFight(fightView: FightView): Promise<void> {
+	async startFight(fightView: FightView, attacker: boolean): Promise<void> {
+		this.status = attacker ? FighterStatus.ATTACKER : FighterStatus.DEFENDER;
 		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
 		this.block();
 	}
