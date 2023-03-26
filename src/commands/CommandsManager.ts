@@ -487,7 +487,7 @@ export class CommandsManager {
 		const tr = Translations.getModule("bot", language);
 
 		// check maintenance mode
-		if (interaction.user.id !== botConfig.BOT_OWNER_ID && botConfig.MODE_MAINTENANCE) {
+		if (interaction.user.id !== botConfig.BOT_OWNER_ID && botConfig.MODE_MAINTENANCE && interaction.commandName !== "maintenance") {
 			interaction.reply({
 				embeds: [
 					new DraftBotEmbed()
