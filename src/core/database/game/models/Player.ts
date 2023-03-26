@@ -20,7 +20,7 @@ import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
-import {minutesToHours} from "../../../utils/TimeUtils";
+import {getOneDayAgo, minutesToHours} from "../../../utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
@@ -32,6 +32,7 @@ import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
 import moment = require("moment");
 import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
+import {LogsReadRequests} from "../../logs/LogsReadRequests";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -906,6 +907,14 @@ export class Player extends Model {
 			return Math.floor((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
 		}
 		return 0;
+	}
+
+	/**
+	 * Check in the logs if the player has claimed the league reward for the current season
+	 */
+	async hasClaimedLeagueReward(): Promise<boolean> {
+		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
+		return dateOfLastLeagueReward && dateOfLastLeagueReward.getTime() > getOneDayAgo();
 	}
 }
 

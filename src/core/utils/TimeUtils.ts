@@ -133,6 +133,13 @@ export function getNextSundayMidnight(): number {
 }
 
 /**
+ * Get the date from one day ago as a timestamp
+ */
+export function getOneDayAgo(): number {
+	return Date.now() - hoursToMilliseconds(24);
+}
+
+/**
  * Returns true if we are currently on a sunday
  */
 export function todayIsSunday(): boolean {

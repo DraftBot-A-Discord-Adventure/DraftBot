@@ -64,7 +64,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	if (player.gloryPointsLastSeason === -1) {
+	if (await player.hasClaimedLeagueReward()) {
 		await replyErrorMessage(interaction, language, leagueRewardModule.get("alreadyReceivedError"));
 		return;
 	}
