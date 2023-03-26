@@ -40,7 +40,7 @@ export default class Benediction extends FightAction {
 			operator: FightConstants.OPERATOR.PLUS,
 			amount: buff
 		});
-		sender.stats.speed = Math.round(sender.stats.speed - sender.stats.speed * buff / 100);
+		sender.stats.speed = Math.round(sender.stats.speed + sender.stats.speed * buff / 100);
 		sideEffects += attackTranslationModule.format("actions.sideEffects.speed", {
 			adversary: FightConstants.TARGET.SELF,
 			operator: FightConstants.OPERATOR.PLUS,
