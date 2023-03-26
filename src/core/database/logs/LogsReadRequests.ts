@@ -9,6 +9,7 @@ import {LogsPlayers} from "./models/LogsPlayers";
 import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
+import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
 
 type RankedFightResult = {
 	won: number,
@@ -65,6 +66,24 @@ export class LogsReadRequests {
 				return result.date;
 			}
 			return 0;
+		});
+	}
+
+	/**
+	 * Get the date of the last season reset
+	 */
+	static async getDateOfLastLeagueReward(playerDiscordId: string): Promise<Date | null> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsPlayerLeagueReward.findOne({
+			order: [["date", "DESC"]],
+			where: {
+				playerId: logPlayer.id
+			}
+		}).then((result) => {
+			if (result) {
+				return result.date;
+			}
+			return null;
 		});
 	}
 
