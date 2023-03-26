@@ -12,6 +12,23 @@ export class IPCServer extends NodeIPC.IPCModule {
 	private spamPlayers: Map<string, number> = new Map();
 
 	/**
+	 * Get the count of blocked players
+	 */
+	public getBlockedPlayersCount(): number {
+		let count = 0;
+		const now = Date.now();
+		for (const blockedPlayer of this.blockedPlayers.entries()) {
+			for (const block of blockedPlayer[1]) {
+				if (block.limitTimestamp === 0 || block.limitTimestamp > now) {
+					count++;
+					break;
+				}
+			}
+		}
+		return count;
+	}
+
+	/**
 	 * Remove the specified block reason from the given user
 	 * @param discordId
 	 * @param reason

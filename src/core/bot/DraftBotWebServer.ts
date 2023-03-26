@@ -19,6 +19,12 @@ export function initWebServer(port: number, ipcServer: IPCServer): void {
 		res.end("OK");
 	});
 
+	// Get the count of blocked players
+	app.get("/blocked_players", (req, res) => {
+		res.status(200).send(ipcServer.getBlockedPlayersCount().toString(10));
+
+	});
+
 	// Start the web server
 	app.listen(port);
 	console.log(`Web server running at http://0.0.0.0:${port}`);
