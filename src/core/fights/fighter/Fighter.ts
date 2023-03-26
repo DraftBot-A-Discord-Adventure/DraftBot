@@ -94,7 +94,7 @@ export abstract class Fighter {
 	/**
 	 * Function called when the fight starts
 	 */
-	abstract startFight(fightView: FightView): Promise<void>;
+	abstract startFight(fightView: FightView, attacker: boolean): Promise<void>;
 
 	/**
 	 * Function called when the fight ends

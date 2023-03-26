@@ -59,7 +59,7 @@ export class FightController {
 	public async startFight(): Promise<void> {
 		// make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
-			await this.fighters[i].startFight(this._fightView);
+			await this.fighters[i].startFight(this._fightView, i === 0);
 		}
 
 		// the player with the highest speed start the fight
@@ -76,7 +76,7 @@ export class FightController {
 	 * @return {Fighter|null}
 	 */
 	public getPlayingFighter(): Fighter {
-		return this.state === FightState.RUNNING ? this.fighters[(this.turn - 1) % 2] : null;
+		return this.state === FightState.RUNNING ? this.fighters[0] : null;
 	}
 
 	/**
@@ -84,7 +84,7 @@ export class FightController {
 	 * @return {Fighter|null}
 	 */
 	public getDefendingFighter(): Fighter {
-		return this.state === FightState.RUNNING ? this.fighters[this.turn % 2] : null;
+		return this.state === FightState.RUNNING ? this.fighters[1] : null;
 	}
 
 	/**
@@ -172,6 +172,7 @@ export class FightController {
 		}
 		if (endTurn) {
 			this.turn++;
+			this.invertFighters();
 			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
@@ -227,7 +228,6 @@ export class FightController {
 
 	/**
 	 * Change who is the player 1 and who is the player 2.
-	 * The player 1 start the fight.
 	 * @private
 	 */
 	private invertFighters(): void {
