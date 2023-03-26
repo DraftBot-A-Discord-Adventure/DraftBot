@@ -96,7 +96,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const embed = new DraftBotEmbed().formatAuthor(leagueRewardModule.get("ligueRewardSuccessTitle"), interaction.user);
 	await generateDescription(embed, leagueRewardModule, player, leagueLastSeason, language, scoreToAward);
-	player.gloryPointsLastSeason = -1;
 	await player.save();
 	await interaction.reply({embeds: [embed]});
 
@@ -104,7 +103,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	await giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
 
 
-	draftBotInstance.logsDatabase.logPlayerLeagueReward(player.discordUserId, leagueLastSeason.id).then();
+	await draftBotInstance.logsDatabase.logPlayerLeagueReward(player.discordUserId, leagueLastSeason.id);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.leagueReward", Constants.LANGUAGE.FRENCH);

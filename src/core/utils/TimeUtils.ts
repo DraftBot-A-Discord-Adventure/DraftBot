@@ -99,6 +99,14 @@ export function millisecondsToHours(milliseconds: number): number {
 }
 
 /**
+ * convert milliseconds to seconds
+ * @param milliseconds
+ */
+export function millisecondsToSeconds(milliseconds: number): number {
+	return milliseconds / 1000;
+}
+
+/**
  * check if two dates are the same day
  * @param first - first date
  * @param second - second date

@@ -72,7 +72,7 @@ export class LogsReadRequests {
 	/**
 	 * Get the date of the last season reset
 	 */
-	static async getDateOfLastLeagueReward(playerDiscordId: string): Promise<Date | null> {
+	static async getDateOfLastLeagueReward(playerDiscordId: string): Promise<number | null> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
 		return LogsPlayerLeagueReward.findOne({
 			order: [["date", "DESC"]],
