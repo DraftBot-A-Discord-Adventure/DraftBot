@@ -20,7 +20,7 @@ import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
-import {getOneDayAgo, minutesToHours} from "../../../utils/TimeUtils";
+import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
@@ -910,11 +910,12 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Check in the logs if the player has claimed the league reward for the current season
+	 * Check in the logs if the player has claimed the league reward for the current season returns true if we find a value in the logs for the last 24 hours
 	 */
 	async hasClaimedLeagueReward(): Promise<boolean> {
 		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
-		return dateOfLastLeagueReward && dateOfLastLeagueReward.getTime() > getOneDayAgo();
+		// beware, the date of last league reward is in seconds
+		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 }
 

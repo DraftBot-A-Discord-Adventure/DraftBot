@@ -5,7 +5,7 @@ export class LogsPlayerLeagueReward extends Model {
 
 	public readonly leagueLastSeason!: number;
 
-	public readonly date!: Date;
+	public readonly date!: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -19,7 +19,7 @@ export function initModel(sequelize: Sequelize): void {
 			allowNull: false
 		},
 		date: {
-			type: DataTypes.DATE,
+			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		}
 	}, {
