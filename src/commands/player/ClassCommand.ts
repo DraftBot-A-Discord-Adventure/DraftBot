@@ -79,7 +79,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
-				await userInformation.player.setFightPointsLost(Math.ceil(
+				userInformation.player.setFightPointsLost(Math.ceil(
 					userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
 				), NumberChangeReason.CLASS);
 				await userInformation.player.addMoney({
