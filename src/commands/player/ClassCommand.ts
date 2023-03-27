@@ -72,12 +72,16 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 				}
 				userInformation.player.class = selectedClass.id;
 				const newClass = await Classes.getById(userInformation.player.class);
-				await userInformation.player.addHealth(Math.round(
-					userInformation.player.health / playerClass.getMaxHealthValue(userInformation.player.level) * newClass.getMaxHealthValue(userInformation.player.level)
+				const level = userInformation.player.level;
+				await userInformation.player.addHealth(Math.ceil(
+					userInformation.player.health / playerClass.getMaxHealthValue(level) * newClass.getMaxHealthValue(level)
 				) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
 					shouldPokeMission: false,
 					overHealCountsForMission: false
 				});
+				await userInformation.player.setFightPointsLost(Math.ceil(
+					userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
+				), NumberChangeReason.CLASS);
 				await userInformation.player.addMoney({
 					amount: -selectedClass.price,
 					channel: message.channel,
