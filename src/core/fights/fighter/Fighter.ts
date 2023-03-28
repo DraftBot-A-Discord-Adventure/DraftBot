@@ -15,7 +15,6 @@ type FighterStats = {
 	breath: number,
 	maxBreath: number,
 	breathRegen: number,
-	class: Class,
 	glory: number
 }
 
@@ -49,6 +48,8 @@ export abstract class Fighter {
 
 	protected status: FighterStatus;
 
+	protected class: Class;
+
 	protected constructor(availableFightActions: FightAction[]) {
 		this.stats = {
 			fightPoints: null,
@@ -59,7 +60,6 @@ export abstract class Fighter {
 			breath: null,
 			maxBreath: null,
 			breathRegen: null,
-			class: null,
 			glory: null
 		};
 		this.statsBackup = null;
@@ -156,7 +156,7 @@ export abstract class Fighter {
 			{
 				pseudo: this.getName(),
 				glory: this.stats.glory,
-				class: this.stats.class.getName(fightTranslationModule.language)
+				class: this.class.getName(fightTranslationModule.language)
 			}
 		) + fightTranslationModule.format("summarize.stats", {
 			power: this.stats.fightPoints,
