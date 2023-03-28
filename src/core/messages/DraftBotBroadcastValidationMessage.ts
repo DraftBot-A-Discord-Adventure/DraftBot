@@ -93,7 +93,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * Send a broadcast request and returns the message
 	 */
 	async reply(content = ""): Promise<Message> {
-		this._broadcastMessage = await this._interaction.reply({content: content, embeds: [this], fetchReply: true}) as Message;
+		this._broadcastMessage = await this._interaction.reply({content, embeds: [this], fetchReply: true}) as Message;
 		await this.createAndManageCollector();
 		return this._broadcastMessage;
 	}
