@@ -57,7 +57,7 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView The fight view
 	 * @param startStatus The first status of a player
 	 */
-	async startFight(fightView: FightView, startStatus): Promise<void> {
+	async startFight(fightView: FightView, startStatus: FighterStatus.ATTACKER | FighterStatus.DEFENDER): Promise<void> {
 		this.status = startStatus;
 		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
 		this.block();
