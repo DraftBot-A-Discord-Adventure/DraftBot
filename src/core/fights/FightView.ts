@@ -153,7 +153,7 @@ export class FightView {
 			});
 		}
 
-		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]});
+		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]}).then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
 	}
 
 	/**
