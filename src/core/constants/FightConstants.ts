@@ -116,4 +116,7 @@ export abstract class FightConstants {
 
 	// fightCountdown value for new players
 	static readonly DEFAULT_FIGHT_COUNTDOWN = 10;
+
+	// added at the end of the fight to the last message
+	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
 }
