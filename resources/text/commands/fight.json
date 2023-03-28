@@ -70,13 +70,10 @@
 			},
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"intro": ":clipboard: | **État actuel du combat** [{turn}/{maxTurns}]\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
-				"defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
-				"winner": ":crossed_swords: |** Gagnant : {pseudo}**\n",
-				"loser": ":crossed_swords: |** Perdant : {pseudo}**\n",
-				"drawer": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"defender": ":shield: |** Défenseur : {pseudo}**\n",
 				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
@@ -274,14 +271,11 @@
 			},
 			"summarize": {
 				"title": "Fight summary",
-				"intro": ":crossed_swords: | **Current fight state**\n\n",
-				"notStarted": ":crossed_swords: |**Fighter: {pseudo}**\n",
-				"attacker": ":crossed_swords: |**Attacker: {pseudo}**\n",
-				"defender": ":crossed_swords: |**Defender: {pseudo}**\n",
-				"winner": ":crossed_swords: |**Winner: {pseudo}**\n",
-				"loser": ":crossed_swords: |**Loser: {pseudo}**\n",
-				"drawer": ":crossed_swords: |**Fighter: {pseudo}**\n",
-				"bug": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"intro": ":clipboard: | **Current fight state** [{turn}/{maxTurns}]\n\n",
+				"notStarted": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
+				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
+				"defender": ":shield: | **Defender: {pseudo}**\n",
+				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {

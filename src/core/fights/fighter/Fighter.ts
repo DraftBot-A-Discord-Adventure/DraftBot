@@ -4,6 +4,7 @@ import {FightView} from "../FightView";
 import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
+import Class from "../../database/game/models/Class";
 
 type FighterStats = {
 	fightPoints: number,
@@ -13,16 +14,15 @@ type FighterStats = {
 	attack: number,
 	breath: number,
 	maxBreath: number,
-	breathRegen: number
+	breathRegen: number,
+	class: Class,
+	glory: number
 }
 
 const fighterStatusTranslation = [
 	"summarize.notStarted",
 	"summarize.attacker",
 	"summarize.defender",
-	"summarize.winner",
-	"summarize.loser",
-	"summarize.drawer",
 	"summarize.bug"
 ];
 
@@ -58,7 +58,9 @@ export abstract class Fighter {
 			attack: null,
 			breath: null,
 			maxBreath: null,
-			breathRegen: null
+			breathRegen: null,
+			class: null,
+			glory: null
 		};
 		this.statsBackup = null;
 		this.ready = false;
@@ -152,7 +154,9 @@ export abstract class Fighter {
 		return fightTranslationModule.format(
 			fighterStatusTranslation[this.status],
 			{
-				pseudo: this.getName()
+				pseudo: this.getName(),
+				glory: this.stats.glory,
+				class: this.stats.class.getName(fightTranslationModule.language)
 			}
 		) + fightTranslationModule.format("summarize.stats", {
 			power: this.stats.fightPoints,

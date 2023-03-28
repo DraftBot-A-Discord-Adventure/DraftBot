@@ -1,6 +1,6 @@
 import {Fighter} from "./Fighter";
 import Player, {Players} from "../../database/game/models/Player";
-import Class from "../../database/game/models/Class";
+import Class, {Classes} from "../../database/game/models/Class";
 import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
@@ -161,6 +161,8 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = await this.player.getBaseBreath();
 		this.stats.maxBreath = await this.player.getMaxBreath();
 		this.stats.breathRegen = await this.player.getBreathRegen();
+		this.stats.class = await Classes.getById(this.player.class);
+		this.stats.glory = this.player.gloryPoints;
 	}
 
 	/**
