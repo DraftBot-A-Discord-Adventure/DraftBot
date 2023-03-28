@@ -64,6 +64,7 @@ export class FightView {
 		this.addFightActionFieldFor(introEmbed, fighter1);
 		this.addFightActionFieldFor(introEmbed, fighter2);
 		this.fightLaunchMessage = await this.channel.send({
+			content: fighter1.getMention(),
 			embeds: [introEmbed]
 		});
 		this.actionMessages.push(await this.channel.send({content: "_ _"}));
@@ -164,7 +165,10 @@ export class FightView {
 	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): DraftBotEmbed {
 		return new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.get("summarize.title"))
-			.setDescription(`${this.fightTranslationModule.get("summarize.intro") +
+			.setDescription(`${this.fightTranslationModule.format("summarize.intro", {
+				turn: this.fightController.turn,
+				maxTurns: FightConstants.MAX_TURNS
+			}) +
 			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`);
 	}
 

@@ -439,7 +439,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		FightConstants.ASKING_MENU_DURATION)
 		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)
 		.setDescription(fightAskingDescription)
-		.reply();
+		.reply(askedEntity ? askedFighter.getMention() : "");
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.fight", Constants.LANGUAGE.FRENCH);
