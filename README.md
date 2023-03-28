@@ -46,7 +46,7 @@ We provide all the necessary guides below. If you have any questions, feel free 
 - Download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
 - Install NodeJS http://nodejs.org/fr/ 
   - Check package.json for the minimal required version
-  - Our docker image is based on node:16-alpine
+  - Our docker image is based on node alpine (see the DockerFile for the exact version)
   - We recommend that you use nvm to manage your node versions If you use nvm, you can use `nvm install` to install the correct version If you don't have nvm already install, you can use `npm install -g nvm` to install it
 - Install Yarn `npm install --global yarn`
 - Install the bot : `yarn install`
@@ -62,7 +62,7 @@ We provide all the necessary guides below. If you have any questions, feel free 
 - Install NodeJS `apt-get install nodejs`
   - Install npm `apt-get install npm`
   - Check package.json for the minimal required version
-  - Our docker image is based on node:16-alpine
+  - Our docker image is based on node alpine (see the DockerFile for the exact version)
   - We recommend that you use nvm to manage your node versions If you use nvm, you can use `nvm install` to install the correct version If you don't have nvm already install, you can use `npm install -g nvm` to install it
 - Install yarn `npm install -g yarn` (you may have to install npm and use sudo)
 - Install the bot : `yarn install`
