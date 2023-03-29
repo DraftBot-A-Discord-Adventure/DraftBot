@@ -25,7 +25,7 @@
 			],
 			"top100": [
 				"La persévérance mène à la réussite, c'est ce que vous dit {playerDisplay} qui fait partie du top 100 ! Vous continuez ensuite votre route vers votre destination.",
-				"Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si...  C'est {playerDisplay} !",
+				"Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si... C'est {playerDisplay} !",
 				"Alors que vous progressez vers votre but, vous faites la rencontre de {playerDisplay}, une étoile montante de DraftBot. En effet, il est dans le top 100 !"
 			],
 			"powerfulGuild": [
@@ -233,7 +233,7 @@
 			],
 			"top100": [
 				"Perseverance leads to success. That's what {playerDisplay}, who is part of the top 100, tells you! You then continue on your way to your destination.",
-				"Wow, you recognize one of the beginners of the tournaments, whom you already met in a village in the north! Yes...  It's {playerDisplay}!",
+				"Wow, you recognize one of the beginners of the tournaments, whom you already met in a village in the north! Yes... It's {playerDisplay}!",
 				"As you progress towards your goal, you meet {playerDisplay}, a rising star of DraftBot. Indeed, They are in the top 100!"
 			],
 			"powerfulGuild": [

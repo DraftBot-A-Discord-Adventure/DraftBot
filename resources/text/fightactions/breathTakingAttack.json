@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque vol de souffle",
 			"namePlural": "Attaques vol de souffle",
-			"description": "Inflige une faible quantité de dégât mais peut voler le souffle de votre adversaire où le ralentir."
+			"description": "Inflige une faible quantité de dégâts mais peut voler le souffle de votre adversaire ou le ralentir."
 		},
 		"en": {
 			"name": "Breath-taking attack",
 			"namePlural": "Breath-taking attacks",
-			"description": "Inflige une faible quantité de dégât mais peut voler le souffle de votre adversaire où le ralentir."
+			"description": "Inflige une faible quantité de dégâts mais peut voler le souffle de votre adversaire ou le ralentir."
 		}
 	},
 	"emote": "\uD83D\uDCA8",
