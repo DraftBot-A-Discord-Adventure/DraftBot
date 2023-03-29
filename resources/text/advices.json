@@ -62,7 +62,7 @@
 				"Les potions vendues dans le magasin sont souvent disponibles à des prix très attractifs.",
 				"Pour être le premier au classement de la semaine et remporter un badge, soyez assidus dans vos rapports et n'ayez pas peur des combats.",
 				"Le classement général est disponible en utilisant la commande {command:top score}.",
-				"Le classement de la semaine est disponible en utilisant la commande {command:top score} en utilisant l'option `timing`.",
+				"Le classement de la semaine est disponible en utilisant la commande {command:top score} et l'option `timing`.",
 				"Votre guilde est lvl 50 ? Vous avez alors 1% de chance d'obtenir un badge pour tous les membres de la guilde à chaque récompense journalière.",
 				"Une fois que votre familier est dressé, vous n'avez plus besoin de le nourrir.",
 				"Le temps pour pouvoir nourrir son familier à nouveau dépend de sa rareté ! Une étoile = une heure !",
@@ -187,8 +187,8 @@
 				"Lire les conseils peut vous permettre de progresser plus rapidement.",
 				"Vous pouvez préciser l'argument `force` de la commande {command:drink} à `true` pour éviter d'avoir à confirmer lorsque vous buvez une potion.",
 				"Les pastilles bleues sur le classement indiquent les joueurs présents sur le serveur où la commande a été effectuée.",
-				"Le passe-mission ne vous permet pas d'obtenir les récompenses de la mission passée.",
-				"Le passe-mission ne permet de passer que les missions secondaires.",
+				"Le change-mission ne vous permet pas d'obtenir les récompenses de la mission échangée.",
+				"Le change-mission vous permet d'échanger une mission secondaire que vous n'aimez pas contre une nouvelle.",
 				"Vous pouvez consulter notre politique de confidentialité en suivant ce lien : https://draftbot.com/confidentialite/",
 				"Vous pouvez consulter nos conditions d'utilisation en suivant ce lien : https://draftbot.com/conditionsutilisation/",
 				"En combattant des adversaire, vous obtenez des points de gloire.",
@@ -209,7 +209,11 @@
 				"Surveillez régulièrement votre souffle afin d'éviter de perdre un tour en optant pour une attaque trop chère.",
 				"Les combats classés consomment votre énergie. Vous devrez patienter afin d'en récupérer.",
 				"Les combats amicaux ne consomment pas votre énergie et n'impactent pas votre gloire.",
-				"Vous pouvez consulter votre classement glorieux à l'aide de la commande {command:top glory}."
+				"Vous pouvez consulter votre classement glorieux à l'aide de la commande {command:top glory}.",
+				"Les potions et objets permettant d'avancer le temps ne vous permettent pas de récupérer votre énergie.",
+				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses journalières.",
+				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses de guilde.",
+				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses de fin de saison."
 			]
 		},
 		"en": {
@@ -386,8 +390,8 @@
 				"Reading the hints can help you progress faster",
 				"The {command:drink} command with the `force` option set to `true` allows you to avoid having to confirm when you drink a potion",
 				"The blue dots on the leaderboard indicate the players that are on the server where the command was made",
-				"The mission skip does not allow you to get the rewards of the skipped mission",
-				"The mission skip only allows you to skip the secondary missions.",
+				"The change mission does not allow you to get the rewards of the changed mission",
+				"You can change a secondary mission for another one through the mission shop.",
 				"You can read our privacy policy by following this link: https://draftbot.com/privacy/",
 				"You can read our terms of services by following this link: https://draftbot.com/tos/",
 				"By fighting opponents, you earn glory points.",
@@ -408,7 +412,11 @@
 				"Regularly monitor your breath to avoid losing a turn by opting for an attack that is too expensive.",
 				"Ranked fights consume your energy. You will have to wait to recover it.",
 				"Friendly fights do not consume your energy and do not impact your glory.",
-				"You can check your Glorious Ranking using the {command:top glory} command."
+				"You can check your Glorious Ranking using the {command:top glory} command.",
+				"Potions and items that allow you to advance time do not allow you to recover your energy.",
+				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the daily rewards.",
+				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the guild rewards.",
+				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the end of season rewards."
 			]
 		}
 	}
