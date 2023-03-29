@@ -62,11 +62,12 @@ export class FightController {
 			await this.fighters[i].startFight(this._fightView, i === 0 ? FighterStatus.ATTACKER : FighterStatus.DEFENDER);
 		}
 
+		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
+
 		// the player with the highest speed start the fight
 		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
 			this.invertFighters();
 		}
-		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 		this.state = FightState.RUNNING;
 		await this.prepareNextTurn();
 	}
