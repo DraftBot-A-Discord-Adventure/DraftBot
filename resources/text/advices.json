@@ -213,7 +213,13 @@
 				"Les potions et objets permettant d'avancer le temps ne vous permettent pas de récupérer votre énergie.",
 				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses journalières.",
 				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses de guilde.",
-				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses de fin de saison."
+				"Les potions et objets permettant d'avancer le temps ne vous permettent pas d'avancer plus vite les temps de chargement des récompenses de fin de saison.",
+				"Vous pouvez récupérer votre énergie dans le magasin jusqu'à 3 fois par saison de combat.",
+				"On raconte qu'autour de Claire de ville, personne ne manque d'énergie pour combattre.",
+				"Vous pouvez trouver dans votre aventure des potions de soin qui vous permettent de récupérer de la vie.",
+				"Vous pouvez trouver dans votre aventure des potions d'énergie qui vous permettent de récupérer votre énergie.",
+				"Si vous perdez un combat pour innactivité, toute votre énergie sera perdue.",
+				"Avez vous remarqué des nouveaux conseils ? C'est parce que nous avons ajouté de nouveaux conseils ! (Si c'était pour une autre raison ça serait inquiétant)"
 			]
 		},
 		"en": {
@@ -416,7 +422,14 @@
 				"Potions and items that allow you to advance time do not allow you to recover your energy.",
 				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the daily rewards.",
 				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the guild rewards.",
-				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the end of season rewards."
+				"Potions and items that allow you to advance time do not allow you to advance faster the time of loading of the end of season rewards.",
+				"The potions and items that allow you to advance time do not allow you to speed up the loading times of end-of-season rewards.",
+				"You can recover your energy in the store up to 3 times per combat season.",
+				"It is said that around Claire de ville, no one lacks energy to fight.",
+				"You can find healing potions in your adventure that allow you to recover health.",
+				"You can find energy potions in your adventure that allow you to recover your energy.",
+				"If you lose a battle due to inactivity, all of your energy will be lost.",
+				"Have you noticed that there are new advices? It's because we are adding new ones regularly!"
 			]
 		}
 	}
