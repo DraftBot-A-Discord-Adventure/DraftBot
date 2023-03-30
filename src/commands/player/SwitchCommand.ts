@@ -7,13 +7,9 @@ import InventorySlot, {InventorySlots} from "../../core/database/game/models/Inv
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
-import {millisecondsToHours} from "../../core/utils/TimeUtils";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {DailyConstants} from "../../core/constants/DailyConstants";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
-import * as moment from "moment";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
-import {SwitchConstants} from "../../core/constants/SwitchConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
@@ -33,27 +29,6 @@ async function buildSwitchChoiceItems(toSwitchItems: InventorySlot[], language: 
 		));
 	}
 	return choiceItems;
-}
-
-/**
- * If needed, increase the time to wait for the next daily
- * @param interaction
- * @param invInfo
- */
-function addDailyTimeBecauseSwitch(interaction: CommandInteraction, invInfo: InventoryInfo): void {
-	const nextDailyDate = moment(invInfo.lastDailyAt).add(DailyConstants.TIME_BETWEEN_DAILIES, "h");
-	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - Date.now());
-	const maxTime = DailyConstants.TIME_BETWEEN_DAILIES - SwitchConstants.TIME_ADDED_MULTIPLIER;
-	if (timeToCheck < 0) {
-		invInfo.updateLastDailyAt();
-		invInfo.editDailyCooldown(-maxTime);
-	}
-	else if (timeToCheck < maxTime) {
-		invInfo.editDailyCooldown(SwitchConstants.TIME_ADDED_MULTIPLIER);
-	}
-	else {
-		invInfo.updateLastDailyAt();
-	}
 }
 
 /**
@@ -111,9 +86,6 @@ async function sendFinishSwitchEmbed(
 	invInfo: InventoryInfo,
 	invSlots: InventorySlot[]
 ): Promise<void> {
-	if (itemInventorySlot.itemCategory === ItemConstants.CATEGORIES.OBJECT) {
-		addDailyTimeBecauseSwitch(interaction, invInfo);
-	}
 	const itemProfileSlot = invSlots.filter(slot => slot.isEquipped() && slot.itemCategory === itemInventorySlot.itemCategory)[0];
 	await switchItemSlots(itemProfileSlot, player, itemInventorySlot);
 	await invInfo.save();
