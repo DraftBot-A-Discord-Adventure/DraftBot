@@ -77,10 +77,10 @@ export class IPCClient {
 				data => {
 					// Only execute it on the main server
 					const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
-					if (guild && guild.shard) {
+					draftBotInstance.setMaintenance(data.enable, false);
+					if (!data.fromCommand && guild && guild.shard) {
 						const channel = guild.channels.cache.get(botConfig.CONSOLE_CHANNEL_ID) as TextChannel;
 						try {
-							draftBotInstance.setMaintenance(data.enable, false);
 							channel.send({ content: `Maintenance mode set from web server: ${data.enable}` }).then();
 						}
 						catch (err) {
@@ -141,5 +141,13 @@ export class IPCClient {
 			ipc.of.draftbot.emit("isSpamming", {packet: requestCount, discordId});
 			requestCount++;
 		});
+	}
+
+	/**
+	 * Set maintenance mode
+	 * @param enable
+	 */
+	static ipcSetMaintenance(enable: boolean): void {
+		ipc.of.draftbot.emit("maintenanceCommand", { enable });
 	}
 }

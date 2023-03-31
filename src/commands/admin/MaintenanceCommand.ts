@@ -7,6 +7,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {draftBotInstance} from "../../core/bot";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {IPCClient} from "../../core/bot/ipc/IPCClient";
 
 /**
  * Set the bot in maintenance mode
@@ -20,6 +21,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 	try {
 		draftBotInstance.setMaintenance(enable, save);
+		IPCClient.ipcSetMaintenance(enable);
 
 		await interaction.reply({
 			embeds: [
