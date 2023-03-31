@@ -12,7 +12,6 @@
 	"baseBreath": 5,
 	"maxBreath": 15,
 	"breathRegen": 4,
-	"price": 21800,
 	"classGroup": 4,
 	"fightActionsIds": [
 		"poisonousAttack",
