@@ -155,6 +155,11 @@ export class FightController {
 			fightAction = FightActions.getFightActionById("outOfBreath");
 		}
 
+		// the fight was lucky enough to launch his attack without having enough breath, so he loses all his breath
+		if (!enoughBreath) {
+			this.getPlayingFighter().stats.breath = 0;
+		}
+
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
