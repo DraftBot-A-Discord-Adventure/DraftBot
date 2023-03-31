@@ -3,7 +3,7 @@
 		"fr": {
 			"titlePermissionError": "{pseudo}, vous n'avez pas la permission d'utiliser cette commande !",
 			"badgeManagerPermissionMissing": "Vous devez être badge manager pour utiliser cette commande !",
-			"dmSupportPermissionMissing": "Vous devez être membre de l'équipe de support du bot pour utiliser cette commande !",
+			"dmSupportPermissionMissing": "Vous devez être poisson de l'équipe de support du bot pour utiliser cette commande !",
 			"administratorPermissionMissing": "Vous devez posséder la permission `Administrateur` sur ce serveur pour utiliser cette commande !",
 			"botOwnerPermissionMissing": "Cette commande est réservée au propriétaire du bot !",
 			"contributorPermissionMissing": "Cette commande est réservée aux collaborateurs du bot !",

@@ -75,7 +75,7 @@ export class Class extends Model {
 	 * @param language
 	 */
 	public getName(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+		return language === Constants.LANGUAGE.FRENCH ? "🐟 Poisson" : "🐟 Fish";
 	}
 
 	/**

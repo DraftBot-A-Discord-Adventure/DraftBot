@@ -39,22 +39,17 @@ export abstract class GenericItemModel extends Model {
 
 	public getName(language: string): string {
 		return Translations.getModule("items", language).format("nameDisplay", {
-			emote: this.getEmote(),
-			name: language === Constants.LANGUAGE.FRENCH ? this.fr : this.en
+			emote: "🐟",
+			name: language === Constants.LANGUAGE.FRENCH ? "Poisson" : "Fish"
 		});
 	}
 
 	public getSimpleName(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+		return language === Constants.LANGUAGE.FRENCH ? "Poisson" : "Fish";
 	}
 
 	public getEmote(): string {
-		let emote = this.emote;
-		if (/:[0-9]/u.test(this.emote)) {
-			emote = draftBotClient.emojis.cache.has(this.emote.split(":")[2].split(">")[0])
-				? this.emote : this.fallbackEmote;
-		}
-		return emote;
+		return "🐟";
 	}
 
 	public abstract getAttack(): number;

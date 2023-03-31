@@ -51,7 +51,7 @@ async function generatePetEmbed(
 		randomAnimalModel = await Pets.getById(randomAnimal.petId);
 	}
 	seEmbed.setDescription(format(sentence, {
-		pet: `${pet.getPetEmote(petModel)} ${pet.nickname ? pet.nickname : pet.getPetTypeName(petModel, language)}`,
+		pet: `${pet.getPetEmote()} ${pet.nickname ? pet.nickname : pet.getPetTypeName(petModel, language)}`,
 		nominative: tr.get(`nominative.${pet.sex}`),
 		nominativeShift: tr.get(`nominative.${pet.sex}`).charAt(0)
 			.toUpperCase() + tr.get(`nominative.${pet.sex}`).slice(1),
@@ -65,7 +65,7 @@ async function generatePetEmbed(
 		food: food ? `${foodModule.get(`${food}.name`).toLowerCase()} ${Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(food)]} ` : "",
 		badge: Constants.BADGES.PET_TAMER,
 		feminine: pet.sex === "f" ? "e" : "",
-		randomAnimal: randomAnimal ? `${randomAnimal.getPetEmote(randomAnimalModel)} ${randomAnimal.getPetTypeName(randomAnimalModel, language)}` : "",
+		randomAnimal: randomAnimal ? `${randomAnimal.getPetEmote()} ${randomAnimal.getPetTypeName(randomAnimalModel, language)}` : "",
 		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",
 		petFemale: pet.sex === "f"
 	}));

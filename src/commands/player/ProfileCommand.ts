@@ -165,7 +165,7 @@ function getClassField(profileModule: TranslationModule, playerClass: Class, lan
 	return {
 		name: profileModule.get("playerClass.fieldName"),
 		value: profileModule.format("playerClass.fieldValue", {
-			class: playerClass.getDataValue(language)
+			class: language === Constants.LANGUAGE.FRENCH ? "🐟 Poisson" : "🐟 Fish"
 		}),
 		inline: true
 	};
@@ -180,7 +180,7 @@ function getGuildField(profileModule: TranslationModule, guild: Guild): EmbedFie
 	return {
 		name: profileModule.get("guild.fieldName"),
 		value: profileModule.format("guild.fieldValue", {
-			guild: guild.name
+			guild: "Poisson"
 		}),
 		inline: true
 	};
@@ -212,7 +212,7 @@ function getPetField(profileModule: TranslationModule, pet: PetEntity, petModel:
 		name: profileModule.get("pet.fieldName"),
 		value: profileModule.format("pet.fieldValue", {
 			rarity: petModel.getRarityDisplay(),
-			emote: pet.getPetEmote(petModel),
+			emote: pet.getPetEmote(),
 			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(petModel, language)
 		}),
 		inline: false

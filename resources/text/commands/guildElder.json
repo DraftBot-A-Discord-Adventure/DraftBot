@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "aineguilde",
-			"commandDescription": "Promouvoir un membre de la guilde au rang d'aîné.",
+			"commandDescription": "Promouvoir un poisson de la guilde au rang d'aîné.",
 			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
 			"notInTheGuild": "Ce joueur n'appartient pas à votre guilde.",
@@ -18,7 +18,7 @@
 		},
 		"en": {
 			"commandName": "guildelder",
-			"commandDescription": "Promote a guild member to elder.",
+			"commandDescription": "Promote a guild fish to elder.",
 			"optionUserName": "user",
 			"optionUserDescription": "The user concerned by the command.",
 			"notInTheGuild": "This player is not in your guild.",

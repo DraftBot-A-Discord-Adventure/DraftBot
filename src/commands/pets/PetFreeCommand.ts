@@ -60,7 +60,7 @@ function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFre
 			const freedEmbed = new DraftBotEmbed()
 				.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 				.setDescription(petFreeModule.format("petFreed", {
-					pet: `${pPet.getPetEmote(pet)} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(pet, petFreeModule.language)}`
+					pet: `${pPet.getPetEmote()} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(pet, petFreeModule.language)}`
 				}));
 
 			if (pPet.isFeisty()) {
@@ -155,7 +155,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotValidateReactionMessage(interaction.user, getPetFreeEndCallback(player, pPet, petModel, petFreeModule, interaction))
 		.formatAuthor(petFreeModule.get("successTitle"), interaction.user)
 		.setDescription(petFreeModule.format("confirmDesc", {
-			pet: `${pPet.getPetEmote(petModel)} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(petModel, language)}`
+			pet: `${pPet.getPetEmote()} ${pPet.nickname ? pPet.nickname : pPet.getPetTypeName(petModel, language)}`
 		}));
 
 	if (pPet.isFeisty()) {

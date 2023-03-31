@@ -47,7 +47,7 @@ async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDai
 	await pet.save();
 	await GuildPets.addPet(guild, pet, true).save();
 	embed.setDescription(`${embed.data.description}\n\n${guildDailyModule.format("pet", {
-		emote: pet.getPetEmote(petModel),
+		emote: pet.getPetEmote(),
 		pet: pet.getPetTypeName(petModel, language)
 	})}`);
 }

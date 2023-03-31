@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"commandName": "invitationguilde",
-			"commandDescription": "Recruter un nouveau membre dans votre guilde.",
+			"commandDescription": "Recruter un nouveau poisson dans votre guilde.",
 			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
 			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
@@ -13,12 +13,12 @@
 			"successTitle": "{pseudo} a rejoint la guilde {guildName} !",
 			"invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
 			"invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
-			"guildFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
+			"guildFull": "Votre guilde est pleine et ne peut pas accueillir plus de poissons.",
 			"levelTooLow": "Ce joueur est actuellement niveau {playerLevel}. Or, il faut être **niveau {level}** pour rejoindre une guilde. Il lui reste donc {comeIn} niveau{comeIn>1?x:} avant de pouvoir vous rejoindre !"
 		},
 		"en": {
 			"commandName": "guildinvite",
-			"commandDescription": "Invite a new member in your guild.",
+			"commandDescription": "Invite a new fish in your guild.",
 			"optionUserName": "user",
 			"optionUserDescription": "The user concerned by the command.",
 			"alreadyInAGuild": "The player you are inviting is already in a guild.",

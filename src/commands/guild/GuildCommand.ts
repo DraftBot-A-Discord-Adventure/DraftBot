@@ -98,7 +98,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	embed.setTitle(
 		guildModule.format("title", {
-			guildName: guild.name,
+			guildName: "Poisson",
 			pseudo: chief.getPseudo(language)
 		})
 	);

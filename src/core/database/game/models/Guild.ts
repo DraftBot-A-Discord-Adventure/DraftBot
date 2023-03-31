@@ -147,7 +147,7 @@ export class Guild extends Model {
 		const embed = new DraftBotEmbed()
 			.setTitle(
 				tr.format("levelUp.title", {
-					guildName: this.name
+					guildName: "Poisson"
 				})
 			)
 			.setDescription(

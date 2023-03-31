@@ -115,7 +115,7 @@
 				},
 				"GUILD_KICK": {
 					"usage": "{command:guildkick}",
-					"description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
+					"description": "Permet d'expulser un poisson d'une guilde, nécessite d'être chef de guilde."
 				},
 				"GUILD_INVITE": {
 					"usage": "{command:guildinvite}",
@@ -338,7 +338,7 @@
 				},
 				"GUILD_KICK": {
 					"usage": "{command:guildkick}",
-					"description": "Kicks a member. Requires to be the guild's leader."
+					"description": "Kicks a fish. Requires to be the guild's leader."
 				},
 				"GUILD_INVITE": {
 					"usage": "{command:guildinvite}",
