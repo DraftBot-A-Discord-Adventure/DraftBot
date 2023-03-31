@@ -181,7 +181,7 @@ export function resetIsNow(): boolean {
  * check if the reset of the season end is being done currently
  */
 export function seasonEndIsNow(): boolean {
-	return getNextSaturdayMidnight() - Date.now() <= minutesToMilliseconds(5);
+	return getNextSaturdayMidnight() - Date.now() <= minutesToMilliseconds(20);
 }
 
 /**
