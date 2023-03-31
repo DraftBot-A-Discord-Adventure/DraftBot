@@ -13,7 +13,7 @@ export function initWebServer(port: number, ipcServer: IPCServer): void {
 
 	// Set maintenance mode
 	app.post("/maintenance", (req, res) => {
-		ipcServer.broadcastMaintenance(req.query.enable === "1");
+		ipcServer.broadcastMaintenance(req.query.enable === "1", false);
 
 		res.status(200);
 		res.end("OK");

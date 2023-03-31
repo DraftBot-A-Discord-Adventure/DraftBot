@@ -161,12 +161,25 @@ export class IPCServer extends NodeIPC.IPCModule {
 	}
 
 	/**
+	 * Maintenance command
+	 */
+	public prepareMaintenanceCommand(): void {
+		this.server.on(
+			"maintenanceCommand",
+			(data: { enable: boolean }) => {
+				this.broadcastMaintenance(data.enable, true);
+			}
+		);
+	}
+
+	/**
 	 * Ask for maintenance
 	 * @param enable
 	 */
-	public broadcastMaintenance(enable: boolean): void {
+	public broadcastMaintenance(enable: boolean, fromCommand: boolean): void {
 		this.server.broadcast("maintenance", {
-			enable
+			enable,
+			fromCommand
 		});
 	}
 
@@ -189,6 +202,7 @@ export class IPCServer extends NodeIPC.IPCModule {
 				this.prepareIsSpammingAnswer();
 				this.prepareConnexionSocketAnswer();
 				this.prepareDisconnectionSocketAnswer();
+				this.prepareMaintenanceCommand();
 			}
 		);
 
