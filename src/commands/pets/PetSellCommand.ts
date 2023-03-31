@@ -152,7 +152,7 @@ async function executeTheTransaction(
 		.formatAuthor(textInformation.petSellModule.get("addPetEmbed.author"), buyerInformation.user)
 		.setDescription(
 			textInformation.petSellModule.format("addPetEmbed.description", {
-				emote: sellerInformation.pet.getPetEmote(),
+				emote: sellerInformation.pet.getPetEmote(sellerInformation.petModel),
 				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(sellerInformation.petModel, textInformation.petSellModule.language)
 			})
 		);
@@ -178,7 +178,7 @@ async function petSell(
 		.formatAuthor(textInformation.petSellModule.get("confirmEmbed.author"), buyerInformation.user)
 		.setDescription(
 			textInformation.petSellModule.format("confirmEmbed.description", {
-				emote: sellerInformation.pet.getPetEmote(),
+				emote: sellerInformation.pet.getPetEmote(sellerInformation.petModel),
 				pet: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(sellerInformation.petModel, textInformation.petSellModule.language),
 				price: sellerInformation.petCost
 			})
@@ -320,7 +320,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			name: textInformation.petSellModule.get("petFieldName"),
 			value: Translations.getModule("commands.profile", textInformation.petSellModule.language).format("pet.fieldValue", {
 				rarity: (await Pets.getById(sellerInformation.pet.petId)).getRarityDisplay(),
-				emote: sellerInformation.pet.getPetEmote(),
+				emote: sellerInformation.pet.getPetEmote(petModel),
 				nickname: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(petModel, textInformation.petSellModule.language)
 			}),
 			inline: false

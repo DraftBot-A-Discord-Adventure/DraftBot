@@ -61,7 +61,7 @@ async function transferPetToGuild(
 	await GuildPets.addPet(playerInformation.guild, playerInformation.pet, false).save();
 	confirmEmbed.setDescription(petTransferModule.format("confirmDeposit", {
 		pet: `${
-			playerInformation.pet.getPetEmote()
+			playerInformation.pet.getPetEmote(playerPetModel)
 		} ${
 			playerInformation.pet.nickname ? playerInformation.pet.nickname : playerInformation.pet.getPetTypeName(playerPetModel, petTransferModule.language)
 		}`
@@ -139,13 +139,13 @@ async function setDescriptionPetTransferEmbed(
 	if (playerPet) {
 		const playerPetModel = await Pets.getById(playerPet.petId);
 		confirmEmbed.setDescription(petTransferModule.format("confirmSwitch", {
-			pet1: `${playerPet.getPetEmote()} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetModel, petTransferModule.language)}`,
-			pet2: `${swPetEntity.getPetEmote()} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
+			pet1: `${playerPet.getPetEmote(playerPetModel)} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetModel, petTransferModule.language)}`,
+			pet2: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
 	}
 	else {
 		confirmEmbed.setDescription(petTransferModule.format("confirmFollows", {
-			pet: `${swPetEntity.getPetEmote()} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
+			pet: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
 	}
 	draftBotInstance.logsDatabase.logPetTransfer(playerPet, swPetEntity).then();

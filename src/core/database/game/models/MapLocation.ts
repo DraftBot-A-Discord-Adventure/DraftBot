@@ -34,11 +34,11 @@ export class MapLocation extends Model {
 	}
 
 	public getNameWithoutEmote(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? "Poisson" : "Fish";
+		return language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn;
 	}
 
 	public getDisplayName(language: string): string {
-		return `🐟 ${language === Constants.LANGUAGE.FRENCH ? "Poisson" : "Fish"}`;
+		return `${this.getEmote(language)} ${language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn}`;
 	}
 
 	public getParticleName(language: string): string {

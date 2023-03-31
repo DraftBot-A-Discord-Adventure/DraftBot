@@ -37,7 +37,8 @@ export class PetEntity extends Model {
 
 
 	public getPetTypeName(petModel: Pet, language: string): string {
-		return language === "fr" ? this.sex === "m" ? "Poisson" : "Poissonne" : "Fish";
+		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
+		return petModel[field as keyof Pet];
 	}
 
 	public getFeedCooldownDisplay(petModel: Pet, language: string): string {
@@ -55,18 +56,18 @@ export class PetEntity extends Model {
 			(new Date().valueOf() - this.hungrySince.valueOf());
 	}
 
-	public getPetEmote(): string {
-		return "🐟";
+	public getPetEmote(petModel: Pet): string {
+		return petModel[`emote${this.sex === "m" ? "Male" : "Female"}` as keyof Pet];
 	}
 
 	public displayName(petModel: Pet, language: string): string {
-		const displayedName = this.getPetTypeName(petModel, language);
-		return `${this.getPetEmote()} ${displayedName}`;
+		const displayedName = this.nickname ? this.nickname : this.getPetTypeName(petModel, language);
+		return `${this.getPetEmote(petModel)} ${displayedName}`;
 	}
 
 	public getPetDisplay(petModel: Pet, language: string): string {
 		return Translations.getModule("commands.guildShelter", language).format("petField", {
-			emote: this.getPetEmote(),
+			emote: this.getPetEmote(petModel),
 			type: this.getPetTypeName(petModel, language),
 			rarity: petModel.getRarityDisplay(),
 			sex: this.getSexDisplay(language),

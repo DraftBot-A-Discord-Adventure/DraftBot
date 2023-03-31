@@ -106,7 +106,7 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInGuild.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionGuild", {
-				emote: pet.getPetEmote(),
+				emote: pet.getPetEmote(petModel),
 				pet: pet.getPetTypeName(petModel, language)
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});
@@ -116,7 +116,7 @@ export const smallEvent: SmallEvent = {
 			generatePetEmbed(seEmbed, base, trad, petLine, pet, trad.getRandom("roomInPlayer.stories"));
 			await interaction.editReply({embeds: [seEmbed]});
 			seEmbedPetObtention.setDescription(trad.format("petObtentionPlayer", {
-				emote: pet.getPetEmote(),
+				emote: pet.getPetEmote(petModel),
 				pet: pet.getPetTypeName(petModel, language)
 			}));
 			await interaction.channel.send({embeds: [seEmbedPetObtention]});

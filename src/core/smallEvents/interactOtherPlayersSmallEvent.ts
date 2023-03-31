@@ -263,7 +263,7 @@ async function getPetName(otherPlayer: Player, language: string): Promise<string
 	const petEntity = await PetEntities.getById(otherPlayer.petId);
 	const petModel = petEntity ? await Pets.getById(petEntity.petId) : null;
 	return petEntity
-		? `${petEntity.getPetEmote()} ${petEntity.nickname ? petEntity.nickname : petEntity.getPetTypeName(petModel, language)}`
+		? `${petEntity.getPetEmote(petModel)} ${petEntity.nickname ? petEntity.nickname : petEntity.getPetTypeName(petModel, language)}`
 		: "";
 }
 

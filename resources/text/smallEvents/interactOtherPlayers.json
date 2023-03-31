@@ -31,7 +31,7 @@
 			"powerfulGuild": [
 				"{playerDisplay}, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant.",
 				"Vous voyez un attroupement au loin. vous vous dépêchez d'aller voir, et vous entendez : \"faites place à {playerDisplay}\" ! En effet celui-ci est dans une guilde plutôt puissante !",
-				"La rumeur court qu'un poisson d'une guilde puissante trace son chemin sur le même que le vôtre. En effet, vous voyez {playerDisplay} passer au loin !"
+				"La rumeur court qu'un membre d'une guilde puissante trace son chemin sur le même que le vôtre. En effet, vous voyez {playerDisplay} passer au loin !"
 			],
 			"beginner": [
 				"Il y a un début à tout ! Vous faites la connaissance de {playerDisplay} qui débute dans son aventure dédiée à la princesse.",
@@ -50,7 +50,7 @@
 			],
 			"sameGuild": [
 				"Vous croisez sur votre chemin une tête très familière... En effet, {playerDisplay} fait partie de votre guilde !",
-				"Vous vous approchez de quelqu'un, sa tête familière vous rappelle des choses... Mais oui ! C'est {playerDisplay} un des poissons de votre guilde !",
+				"Vous vous approchez de quelqu'un, sa tête familière vous rappelle des choses... Mais oui ! C'est {playerDisplay} un des membres de votre guilde !",
 				"Vous rencontrez {playerDisplay} de votre guilde ! Vous réalisez la poignée de main secrète de la guilde et repartez chacun sur vos chemins respectifs."
 			],
 			"staffMember": [
@@ -237,9 +237,9 @@
 				"As you progress towards your goal, you meet {playerDisplay}, a rising star of DraftBot. Indeed, They are in the top 100!"
 			],
 			"powerfulGuild": [
-				"{playerDisplay}, whom you happen to encounter on your way, is a fish of a powerful guild! This is what you deduce from their sparkling badge.",
+				"{playerDisplay}, whom you happen to encounter on your way, is a member of a powerful guild! This is what you deduce from their sparkling badge.",
 				"You see a group of people in the distance. You hurriedly approach to take a look, and you hear: \"make way for {playerDisplay}\". Indeed, they are in a rather powerful guild!",
-				"Rumor has it that a fish of a powerful guild is making their way on the same path as you. Indeed, you see {playerDisplay} walking far away!"
+				"Rumor has it that a member of a powerful guild is making their way on the same path as you. Indeed, you see {playerDisplay} walking far away!"
 			],
 			"beginner": [
 				"One always has to start somewhere ! You meet {playerDisplay}, who're just starting their adventure dedicated to the princess.",
@@ -258,8 +258,8 @@
 			],
 			"sameGuild": [
 				"On your way, you stumble upon a very familiar face... Indeed, {playerDisplay} is part of your guild !",
-				"You approach someone, whose familiar face reminds you of someone... Of course! It's {playerDisplay}, a fellow guild fish of yours!",
-				"You meet {playerDisplay}, a fish of your guild! You perform the guild's secret handshake and then go separate ways."
+				"You approach someone, whose familiar face reminds you of someone... Of course! It's {playerDisplay}, a fellow guild member of yours!",
+				"You meet {playerDisplay}, a member of your guild! You perform the guild's secret handshake and then go separate ways."
 			],
 			"staffMember": [
 				"{playerDisplay}, who is part of the DraftBot staff, gives you a tip that should help for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",

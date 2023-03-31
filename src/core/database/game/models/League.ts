@@ -34,8 +34,8 @@ export class League extends Model {
 	 */
 	public toString(language: string): string {
 		return format(LeagueInfoConstants.FIELDS_VALUE, {
-			emoji: "🐟",
-			name: language === Constants.LANGUAGE.FRENCH ? "Ligue Poisson" : "Fish league"
+			emoji: this.emoji,
+			name: this.getName(language)
 		});
 	}
 
@@ -44,7 +44,7 @@ export class League extends Model {
 	 * @param language
 	 */
 	public getName(language: string): string {
-		return language === Constants.LANGUAGE.FRENCH ? "Ligue Poisson" : "Fish league";
+		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 
 	/**

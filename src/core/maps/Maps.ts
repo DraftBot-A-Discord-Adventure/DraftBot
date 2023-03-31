@@ -112,12 +112,12 @@ export class Maps {
 
 		index = Math.floor(index);
 
-		let str = "🐟";
+		let str = `${prevMapInstance.getEmote(language)} `;
 
 		for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 			if (j === index) {
 				if (effect === null) {
-					str += "🐟";
+					str += "🧍";
 				}
 				else {
 					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];
@@ -131,7 +131,7 @@ export class Maps {
 			}
 		}
 
-		return `${str} 🐟`;
+		return `${str} ${nextMapInstance.getEmote(language)}`;
 	}
 
 	/**
