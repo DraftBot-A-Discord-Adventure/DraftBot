@@ -126,6 +126,14 @@ export function finishInTimeDisplay(finishDate: Date): string {
 }
 
 /**
+ * Display the time before given date in a human-readable format
+ * @param finishDate - the date to use
+ */
+export function dateDisplay(finishDate: Date): string {
+	return `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:F>`;
+}
+
+/**
  * Get the next week's start
  */
 export function getNextSundayMidnight(): number {

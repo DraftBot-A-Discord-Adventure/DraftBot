@@ -10,6 +10,7 @@ import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
+import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
 
 type RankedFightResult = {
 	won: number,
@@ -22,6 +23,17 @@ type RankedFightResult = {
  */
 
 export class LogsReadRequests {
+
+	static async getLastTimeThePlayerHasEditedHisClass(playerDiscordId: string): Promise<Date> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsPlayersClassChanges.findOne({
+			where: {
+				playerId: logPlayer.id
+			},
+			order: [["date", "DESC"]],
+			limit: 1
+		}).then((res) => res ? new Date(res.date) : new Date(0));
+	}
 
 	/**
 	 * Get the amount of time a specific player has bought the daily potion since the last time it was reset
@@ -165,6 +177,24 @@ export class LogsReadRequests {
 	}
 
 	/**
+	 * Get the amount of time a specific player has bought the energy heal since the last season reset
+	 * @param playerDiscordId
+	 */
+	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerDiscordId: string): Promise<number> {
+		const dateOfLastSeasonReset = await this.getDateOfLastSeasonReset();
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsClassicalShopBuyouts.count({
+			where: {
+				playerId: logPlayer.id,
+				shopItem: ShopItemType.ENERGY_HEAL,
+				date: {
+					[Op.gte]: dateOfLastSeasonReset
+				}
+			}
+		});
+	}
+
+	/**
 	 * parse the fights results to a ranked fight result
 	 * @param fights
 	 * @private
@@ -192,23 +222,5 @@ export class LogsReadRequests {
 			}
 		}
 		return ret;
-	}
-
-	/**
-	 * Get the amount of time a specific player has bought the energy heal since the last season reset
-	 * @param playerDiscordId
-	 */
-	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerDiscordId: string): Promise<number> {
-		const dateOfLastSeasonReset = await this.getDateOfLastSeasonReset();
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
-		return LogsClassicalShopBuyouts.count({
-			where: {
-				playerId: logPlayer.id,
-				shopItem: ShopItemType.ENERGY_HEAL,
-				date: {
-					[Op.gte]: dateOfLastSeasonReset
-				}
-			}
-		});
 	}
 }

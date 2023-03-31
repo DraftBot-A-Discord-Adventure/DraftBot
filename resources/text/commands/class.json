@@ -32,18 +32,15 @@
 			},
 			"title": ":bookmark:  **Changer de classe :**",
 			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
-			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price} 💰` pour prendre cette classe ?",
+			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {time}.",
 			"success": "{pseudo}, votre classe a été modifiée !",
 			"newClass": "Votre nouvelle classe est : ",
 			"confirm": "{pseudo}, vous avez sélectionné la classe suivante :",
-			"moneyQuantity": "{money} 💰",
-			"moneyQuantityTitle": "Votre argent :",
-			"classMainDisplay": "{description}\nPrix : `{price} 💰`.",
 			"error": {
-				"cannotBuy": "Vous n'avez pas assez d'argent pour changer de classe ! Il vous manque `{missingMoney} 💰`.",
 				"canceledPurchase": "Changement de classe annulé.",
 				"sameClass": "Vous appartenez déjà à cette classe.",
-				"leaveClass": "Vous n'avez pas changé de classe."
+				"leaveClass": "Vous n'avez pas changé de classe.",
+				"changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {time}."
 			}
 		},
 		"en": {
@@ -78,18 +75,15 @@
 			},
 			"title": ":bookmark:  **Change your class :**",
 			"desc": "Choose a class in the list below for more information",
-			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to spend `{price} 💰` to choose this class?",
+			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to switch to this class? You will not be able to change your class again until {time}.",
 			"success": "{pseudo}, your class has been changed !",
 			"newClass": "Your new class is : ",
 			"confirm": "{pseudo}, you have chosen the following class:",
-			"moneyQuantity": "{money} 💰",
-			"moneyQuantityTitle": "Your money:",
-			"classMainDisplay": "{description}\nPrice: `{price} 💰`.",
 			"error": {
-				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney} 💰`.",
 				"canceledPurchase": "Class change canceled.",
 				"sameClass": "You already joined this class.",
-				"leaveClass": "You didn't change your class."
+				"leaveClass": "You didn't change your class.",
+				"changeClassTooEarly": "You already changed your class recently. You can change your class again {time}."
 			}
 		}
 	}
