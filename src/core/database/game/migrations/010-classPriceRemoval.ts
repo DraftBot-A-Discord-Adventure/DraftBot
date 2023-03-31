@@ -9,7 +9,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {
-	// Up classes
+	// Down classes
 	await context.sequelize.query(`
 		ALTER TABLE classes
 		ADD COLUMN price INTEGER NOT NULL DEFAULT 0

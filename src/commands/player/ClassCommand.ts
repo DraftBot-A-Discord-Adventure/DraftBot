@@ -14,7 +14,7 @@ import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {dateDisplay, finishInTimeDisplay} from "../../core/utils/TimeUtils";
+import {dateDisplay, finishInTimeDisplay, millisecondsToSeconds} from "../../core/utils/TimeUtils";
 
 type UserInformation = { user: User, player: Player }
 
@@ -183,8 +183,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const allClasses = await Classes.getByGroupId(player.getClassGroup());
 	const currentClassGroup = (await Classes.getById(player.class)).classGroup;
 	const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.discordUserId);
-	// Si la dernière fois que le joueur a changé de classe est plus récente que le temps avant de pouvoir changer de classe alors on envoie un message d'erreur
-	if (Date.now() / 1000 - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
+	if (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
 		await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
 			time: finishInTimeDisplay(new Date((lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) * 1000))
 		}));

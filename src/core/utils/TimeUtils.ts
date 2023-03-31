@@ -122,7 +122,7 @@ export function datesAreOnSameDay(first: Date, second: Date): boolean {
  * @param finishDate - the date to use
  */
 export function finishInTimeDisplay(finishDate: Date): string {
-	return `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:R>`;
+	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf())).toString()}:R>`;
 }
 
 /**
@@ -130,7 +130,7 @@ export function finishInTimeDisplay(finishDate: Date): string {
  * @param finishDate - the date to use
  */
 export function dateDisplay(finishDate: Date): string {
-	return `<t:${Math.floor(finishDate.valueOf() / 1000).toString()}:F>`;
+	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf())).toString()}:F>`;
 }
 
 /**
