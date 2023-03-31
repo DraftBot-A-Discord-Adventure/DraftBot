@@ -28,7 +28,8 @@ type UserInformation = { user: User, player: Player }
 async function confirmPurchase(message: Message, selectedClass: Class, userInformation: UserInformation, classTranslations: TranslationModule, interaction: CommandInteraction): Promise<void> {
 	const playerClass = await Classes.getById(userInformation.player.class);
 	if (selectedClass.id === playerClass.id) {
-		return await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
+		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
+		return;
 	}
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(classTranslations.get("confirm"), userInformation.user)
@@ -184,9 +185,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.discordUserId);
 	// Si la dernière fois que le joueur a changé de classe est plus récente que le temps avant de pouvoir changer de classe alors on envoie un message d'erreur
 	if (Date.now() / 1000 - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
-		return await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
+		await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
 			time: finishInTimeDisplay(new Date((lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) * 1000))
 		}));
+		return;
 	}
 	const classMessage = await createDisplayClassEmbedAndSendIt(classTranslations, allClasses, language, player, interaction);
 
