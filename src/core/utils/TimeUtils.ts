@@ -174,7 +174,14 @@ export function getNextSaturdayMidnight(): number {
  * check if the reset is being done currently
  */
 export function resetIsNow(): boolean {
-	return getNextSundayMidnight() - Date.now() <= 1000 * 5 * 60;
+	return getNextSundayMidnight() - Date.now() <= minutesToMilliseconds(5);
+}
+
+/**
+ * check if the reset of the season end is being done currently
+ */
+export function seasonEndIsNow(): boolean {
+	return getNextSaturdayMidnight() - Date.now() <= minutesToMilliseconds(5);
 }
 
 /**
