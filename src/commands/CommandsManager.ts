@@ -27,7 +27,7 @@ import {Constants} from "../core/Constants";
 import {TranslationModule, Translations} from "../core/Translations";
 import {Guilds} from "../core/database/game/models/Guild";
 import {BlockingUtils} from "../core/utils/BlockingUtils";
-import {resetIsNow} from "../core/utils/TimeUtils";
+import {resetIsNow, seasonEndIsNow} from "../core/utils/TimeUtils";
 import {escapeUsername} from "../core/utils/StringUtils";
 import {commandsMentions, format} from "../core/utils/StringFormatter";
 import {DraftBotReactionMessageBuilder} from "../core/messages/DraftBotReactionMessage";
@@ -517,6 +517,15 @@ export class CommandsManager {
 				interaction,
 				tr.language,
 				tr.get("resetIsNow")
+			).then();
+			return;
+		}
+
+		if (seasonEndIsNow()) {
+			replyErrorMessage(
+				interaction,
+				tr.language,
+				tr.get("seasonEndIsNow")
 			).then();
 			return;
 		}
