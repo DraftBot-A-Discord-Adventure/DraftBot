@@ -9,6 +9,8 @@ export default class ParalyzedAlteration extends FightAlteration {
 		const paralyzedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (victim.alterationTurn > 2) { // this effect heals after two turns
 			victim.removeAlteration();
+			victim.stats.speed = victim.readSavedStats().speed;
+			victim.eraseSavedStats();
 			return paralyzedTranslationModule.get("inactive");
 		}
 
