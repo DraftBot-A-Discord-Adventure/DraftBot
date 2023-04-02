@@ -151,14 +151,15 @@ export class FightController {
 
 		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
 
-		if (!enoughBreath && RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-			fightAction = FightActions.getFightActionById("outOfBreath");
+		if (!enoughBreath) {
+			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+				fightAction = FightActions.getFightActionById("outOfBreath");
+			}
+			else {
+				this.getPlayingFighter().stats.breath = 0;
+			}
 		}
 
-		// the fight was lucky enough to launch his attack without having enough breath, so he loses all his breath
-		if (!enoughBreath) {
-			this.getPlayingFighter().stats.breath = 0;
-		}
 
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
