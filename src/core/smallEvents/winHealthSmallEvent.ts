@@ -10,8 +10,10 @@ import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
+
 	/**
-	 * Check if small event can be executed
+	 * You must not be full of health to execute this small event
+	 * @param player
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(Maps.isOnContinent(player));

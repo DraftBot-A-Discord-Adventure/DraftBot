@@ -1,0 +1,30 @@
+{
+	"translations": {
+		"fr": {
+			"intrigue": [
+				"vous apercevez du coin de l'œil une grande affiche...",
+				"vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez un petit parchemin...",
+				"un oiseau s'approche de vous et dépose dans votre main un minuscule message...",
+				"vous découvrez une vieille cabane en bois abandonnée, vous décidez de l'explorer et n'y découvrez qu'un vieux grimoire qui semble traîner ici depuis des années..."
+			],
+			"reward" : ":moneybag: Argent: **{money}**\n:star: XP : **{xp}**\n:medal: Points : **Le nombre de points dépendra de votre classement final.**\n:gift: Un équipement aléatoire.",
+			"endMessage": "\n\n:newspaper: \"À l'aventurier appartenant à la {league} qui trouvera ce texte, **si vous maintenez votre gloire jusqu’à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{rewards}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {time}.",
+			"notEnoughFight": "\n\n:newspaper: \"À l'aventurier appartenant à la {league} qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande {command:fight}**, vous pourrez remporter ces récompenses :\n\n{rewards}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {time}.",
+			"sunday": "\n\n:newspaper: \"**Les récompenses de ligues sont disponibles !** Récupérez votre récompense avant la fin de la semaine grâce à la commande {command:leaguebonus} !\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus."
+		},
+		"en": {
+			"intrigue": [
+				"you spot a large poster from the corner of your eye...",
+				"you slip on the sidewalk and lie down. When you get up, you notice a small parchment...",
+				"a bird approaches you and drops a tiny message in your hand...",
+				"you discover an old wooden cabin abandoned, you decide to explore it and find only an old grimoire that seems to have been here for years..."
+			],
+			"reward" : ":moneybag: Money: **{money}**\n:star: XP : **{xp}**\n:medal: Points : **.**\n:gift: A random equipment.",
+			"endMessage": "\n\nTo the adventurer belonging to the {league} who will find this text, **if you keep your glory until the end of the season**, you will be able to win these rewards :\n\n{rewards}\n\nYou resume your route, while rejoicing to be able to recover your bonus {time}",
+			"notEnoughFight": "\n\nTo the adventurer belonging to the {league} who will find this text, **if you do some fights using the command {command:fight}**, you will be able to win these rewards :\n\n{rewards}\n\nYou resume your route quickly, fearing not to be able to fight enough players before the end of the season {time}.",
+			"sunday": "\n\n✨ League rewards are available! Recover your reward before the end of the week with the command {command:leaguebonus}!\n\nYou resume your route, while rejoicing to be able to recover your bonus."
+		}
+	},
+	"rarity": 2,
+	"emote": ":sparkles:"
+}

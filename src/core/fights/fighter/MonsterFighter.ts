@@ -66,4 +66,7 @@ export class MonsterFighter extends Fighter {
 		return Promise.resolve();
 	}
 
+	unblock(): void {
+		// Do nothing
+	}
 }

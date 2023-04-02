@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque bélier",
 			"namePlural": "Attaques béliers",
-			"description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit un tier des dégâts infligés."
+			"description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit 45% des dégâts infligés."
 		},
 		"en": {
 			"name": "Ram Attack",
 			"namePlural": "Ram Attacks",
-			"description": "If the attacker is not dazed by the attack, he takes half the damage."
+			"description": "If the attacker is not dazed by the attack, he takes 45% of the damage."
 		}
 	},
 	"emote": "\uD83D\uDC0F",

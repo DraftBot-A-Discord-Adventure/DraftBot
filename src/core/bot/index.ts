@@ -66,6 +66,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
  * The main function of the bot : makes the bot start
  */
 async function main(): Promise<void> {
+	require("source-map-support").install();
 	const client = new Client(
 		{
 			intents: Intents.LIST,

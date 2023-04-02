@@ -11,7 +11,7 @@ import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
 import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
-import {getNextDay2AM, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
+import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {Op, QueryTypes, Sequelize} from "sequelize";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
@@ -26,6 +26,7 @@ import {BigEventsController} from "../events/BigEventsController";
 import {MapLinks} from "../database/game/models/MapLink";
 import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "../maps/MapCache";
+import {LeagueInfoConstants} from "../constants/LeagueInfoConstants";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -67,6 +68,19 @@ export class DraftBot {
 	}
 
 	/**
+	 * launch the program that execute the season reset
+	 */
+	static programSeasonTimeout(this: void): void {
+		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
+		if (millisTill === 0) {
+			// Case at 0:00:00
+			setTimeout(DraftBot.programSeasonTimeout, TIMEOUT_FUNCTIONS.SEASON_TIMEOUT);
+			return;
+		}
+		setTimeout(DraftBot.seasonEnd, millisTill);
+	}
+
+	/**
 	 * launch the program that execute the daily tasks
 	 */
 	static programDailyTimeout(this: void): void {
@@ -90,10 +104,10 @@ export class DraftBot {
 						  ON p.mapLinkId = m.id
 			WHERE p.notifications != :noNotificationsValue
 			  AND DATE_ADD(DATE_ADD(p.startTravelDate
-				, INTERVAL p.effectDuration MINUTE)
+							   , INTERVAL p.effectDuration MINUTE)
 				, INTERVAL m.tripDuration MINUTE)
 				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
-			  AND NOW()`;
+				AND NOW()`;
 
 		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
 			replacements: {
@@ -275,6 +289,115 @@ export class DraftBot {
 	}
 
 	/**
+	 * End the fight season
+	 */
+	static async seasonEnd(this: void): Promise<void> {
+		draftBotInstance.logsDatabase.log15BestSeason().then();
+		const winner = await DraftBot.findSeasonWinner();
+		if (winner !== null) {
+			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
+				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
+					if (guild.shard) {
+						try {
+							guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.frSentence
+								}).then(message => {
+									message.react("✨").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+						try {
+							guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
+								(channel as TextChannel).send({
+									content: context.enSentence
+								}).then(message => {
+									message.react("✨").then();
+								});
+							});
+						}
+						catch (e) {
+							console.log(e);
+						}
+					}
+				});
+			}, {
+				context: {
+					config: botConfig,
+					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("seasonEndAnnouncement", {
+						mention: winner.getMention()
+					}),
+					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("seasonEndAnnouncement", {
+						mention: winner.getMention()
+					})
+				}
+			});
+			winner.addBadge("✨");
+			await winner.save();
+		}
+		await DraftBot.seasonEndQueries();
+
+		console.log("# WARNING # Season has been ended !");
+		DraftBot.programSeasonTimeout();
+		draftBotInstance.logsDatabase.logSeasonEnd().then();
+	}
+
+	/**
+	 * Database queries to execute at the end of the season
+	 * @private
+	 */
+	private static async seasonEndQueries() : Promise<void>{
+		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
+		await Player.update(
+			{
+				gloryPointsLastSeason: Sequelize.literal(
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
+			},
+			{where: {}});
+		// we add one to the fightCountdown
+		await Player.update(
+			{
+				fightCountdown: Sequelize.literal(
+					"fightCountdown + 1"
+				)
+			},
+			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
+		);
+		// we remove 33% of the glory points above the GLORY_RESET_THRESHOLD
+		await Player.update(
+			{
+				gloryPoints: Sequelize.literal(
+					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}`
+				)
+			},
+			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
+		);
+	}
+
+	/**
+	 * Find the winner of the season
+	 * @private
+	 */
+	private static async findSeasonWinner() : Promise<Player>{
+		return await Player.findOne({
+			where: {
+				fightCountdown: {
+					[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"],
+				["score", "DESC"]
+			],
+			limit: 1
+		});
+	}
+
+	/**
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {
@@ -295,6 +418,33 @@ export class DraftBot {
 			DraftBot.fightPowerRegenerationLoop,
 			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 		);
+	}
+
+	/**
+	 * Sets the maitenance mode of the bot
+	 * @param enable
+	 * @param saveToConfig Save the maintenance state to the config file
+	 * @throws
+	 */
+	public setMaintenance(enable: boolean, saveToConfig: boolean): void {
+		// Do it before setting the maintenance mode: if it fails, the mode will not be changed
+		if (saveToConfig) {
+			// Read the config file
+			const currentConfig = fs.readFileSync(`${process.cwd()}/config/config.toml`, "utf-8");
+			const regexMaintenance = /(maintenance *= *)(true|false)/g;
+			// Search for the maintenance field
+			if (regexMaintenance.test(currentConfig)) {
+				// Replace the value of the field. $1 is the group without true or false
+				const newConfig = currentConfig.replace(regexMaintenance, `$1${enable}`);
+				// Write the config
+				fs.writeFileSync(`${process.cwd()}/config/config.toml`, newConfig, "utf-8");
+			}
+			else {
+				throw new Error("Unable to get the maintenance field in the config file");
+			}
+		}
+
+		this.config.MODE_MAINTENANCE = enable;
 	}
 
 	/**
@@ -335,6 +485,7 @@ export class DraftBot {
 
 		if (this.isMainShard) { // Do this only if it's the main shard
 			DraftBot.programTopWeekTimeout();
+			DraftBot.programSeasonTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(
 				DraftBot.fightPowerRegenerationLoop.bind(DraftBot),
@@ -360,7 +511,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Handle the managment of the logs
+	 * Handle the management of the logs
 	 */
 	handleLogs(): void {
 		const originalConsoleError = console.error;

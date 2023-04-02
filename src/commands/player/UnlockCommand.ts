@@ -173,7 +173,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const lockedPlayer = await Players.getByOptions(interaction);
 	const playerCouple = {unlocker: player, locked: lockedPlayer};
-	const textInformation = {interaction: interaction, language: language, unlockModule: unlockModule};
+	const textInformation = {interaction: interaction, language, unlockModule};
 	if (!await conditionAreFulfilledForUnlocking(playerCouple, textInformation)) {
 		return;
 	}

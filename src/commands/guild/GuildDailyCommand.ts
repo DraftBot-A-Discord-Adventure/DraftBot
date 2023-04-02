@@ -2,7 +2,12 @@ import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
+import {
+	hoursToMilliseconds,
+	hoursToMinutes,
+	millisecondsToHours,
+	printTimeBeforeDate
+} from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -102,12 +107,14 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.addMoney({
-		amount: moneyWon,
-		channel: stringInfos.interaction.channel,
-		language: guildDailyModule.language,
-		reason: NumberChangeReason.GUILD_DAILY
-	}));
+	await genericAwardingFunction(guildLike.members, member => {
+		member.addMoney({
+			amount: moneyWon,
+			channel: stringInfos.interaction.channel,
+			language: guildDailyModule.language,
+			reason: NumberChangeReason.GUILD_DAILY
+		});
+	});
 	stringInfos.embed.setDescription(guildDailyModule.format("money", {
 		money: moneyWon
 	}));
@@ -210,12 +217,14 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
  */
 async function awardPersonalXpToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const xpWon = RandomUtils.rangedInt(GuildDailyConstants.XP, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.XP_MULTIPLIER);
-	await genericAwardingFunction(guildLike.members, member => member.addExperience({
-		amount: xpWon,
-		channel: stringInfos.interaction.channel,
-		language: guildDailyModule.language,
-		reason: NumberChangeReason.GUILD_DAILY
-	}));
+	await genericAwardingFunction(guildLike.members, member => {
+		member.addExperience({
+			amount: xpWon,
+			channel: stringInfos.interaction.channel,
+			language: guildDailyModule.language,
+			reason: NumberChangeReason.GUILD_DAILY
+		});
+	});
 	stringInfos.embed.setDescription(guildDailyModule.format("personalXP", {
 		xp: xpWon
 	}));
@@ -330,20 +339,20 @@ const linkToFunction = getMapOfAllRewardCommands();
  * @param embed
  */
 async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
-	const embedNotif = new DraftBotEmbed()
-		.setTitle(guildDailyModule.get("notifications.title"))
-		.setDescription(guildDailyModule.format("notifications.description",
-			{
-				server: interaction.guild.name,
-				pseudo: escapeUsername(interaction.user.username)
-			}
-		) + embed.data.description);
 	for (const member of members) {
 		// we have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
 		if (member.isDead()) {
 			continue;
 		}
 		if (member.discordUserId !== interaction.user.id) {
+			const embedNotif = new DraftBotEmbed() // Recreate it each time, so it will update the profile picture
+				.setTitle(guildDailyModule.get("notifications.title"))
+				.setDescription(guildDailyModule.format("notifications.description",
+					{
+						server: interaction.guild.name,
+						pseudo: escapeUsername(interaction.user.username)
+					}
+				) + embed.data.description);
 			await MissionsController.update(member, interaction.channel, language, {missionId: "guildDailyFromSomeoneElse"});
 			await sendNotificationToPlayer(member, embedNotif, language);
 		}
@@ -395,7 +404,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			language,
 			guildDailyModule.format("coolDown", {
 				coolDownTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
-				time: minutesDisplay(hoursToMinutes(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
+				time: printTimeBeforeDate(Date.now() + hoursToMilliseconds(GuildDailyConstants.TIME_BETWEEN_DAILIES - time))
 			}));
 		return;
 	}

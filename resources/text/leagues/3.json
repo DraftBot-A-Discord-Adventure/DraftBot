@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue bronze",
+		"en": "Bronze league"
+	},
+	"emoji": "🥉",
+	"color": "#ff8a3b",
+	"minGloryPoints": 800,
+	"maxGloryPoints": 999
+}

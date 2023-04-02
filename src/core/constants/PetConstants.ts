@@ -11,6 +11,23 @@ export abstract class PetConstants {
 		FEMALE: "f"
 	};
 
+	static readonly PET_INTERACTIONS = {
+		WIN_MONEY: "money",
+		WIN_HEALTH: "gainLife",
+		WIN_LOVE: "gainLove",
+		WIN_ENERGY: "gainEnergy",
+		WIN_FOOD: "food",
+		NOTHING: "nothing",
+		WIN_TIME: "gainTime",
+		WIN_POINTS: "points",
+		WIN_BADGE: "badge",
+		LOSE_HEALTH: "loseLife",
+		LOSE_MONEY: "loseMoney",
+		LOSE_TIME: "loseTime",
+		PET_FLEE: "petFlee",
+		LOSE_LOVE: "loseLove"
+	};
+
 	static readonly BREED_COOLDOWN = 60 * 60 * 1000; // 1 hour
 
 	static readonly MAX_LOVE_POINTS = 100;

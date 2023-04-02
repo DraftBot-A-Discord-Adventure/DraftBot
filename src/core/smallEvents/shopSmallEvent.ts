@@ -78,7 +78,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
-		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.RESALE_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
+		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.SCAM_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
 		const translationShop = Translations.getModule("smallEvents.shop", language);

@@ -36,9 +36,8 @@ export default class DivineAttack extends FightAction {
 
 		const failureProbability = Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7);
 
-
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, failureProbability);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, failureProbability);
 
 		receiver.damage(damageDealt);
 

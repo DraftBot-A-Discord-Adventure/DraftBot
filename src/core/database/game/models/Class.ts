@@ -29,8 +29,6 @@ export class Class extends Model {
 
 	public readonly classGroup!: number;
 
-	public readonly price!: number;
-
 	public readonly fr!: string;
 
 	public readonly en!: string;
@@ -51,7 +49,6 @@ export class Class extends Model {
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
-			price: this.price,
 			classGroup: this.classGroup,
 			fightPoint: this.getMaxCumulativeFightPointValue(level),
 			baseBreath: this.baseBreath,
@@ -213,9 +210,6 @@ export function initModel(sequelize: Sequelize): void {
 				type: DataTypes.TEXT
 			},
 			classGroup: {
-				type: DataTypes.INTEGER
-			},
-			price: {
 				type: DataTypes.INTEGER
 			},
 			fr: {

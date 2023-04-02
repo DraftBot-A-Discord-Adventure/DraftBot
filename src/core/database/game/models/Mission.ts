@@ -1,4 +1,4 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, Sequelize} from "sequelize";
 import {format} from "../../../utils/StringFormatter";
 import {MissionDifficulty} from "../../../missions/MissionDifficulty";
 import {MissionsController} from "../../../missions/MissionsController";
@@ -38,30 +38,33 @@ export class Mission extends Model {
 }
 
 export class Missions {
-	static async getRandomMission(difficulty: MissionDifficulty): Promise<Mission> {
+	static async getRandomMission(difficulty: MissionDifficulty, exceptions: string = null): Promise<Mission> {
+		const whereClause: { [key: string]: boolean | { [Op.ne]: string } } = {};
+
+		if (exceptions !== null) {
+			whereClause.id = {[Op.ne]: exceptions};
+		}
+
 		switch (difficulty) {
 		case MissionDifficulty.EASY:
+			whereClause.campaignOnly = false;
+			whereClause.canBeEasy = true;
 			return await Mission.findOne({
-				where: {
-					campaignOnly: false,
-					canBeEasy: true
-				},
+				where: whereClause,
 				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		case MissionDifficulty.MEDIUM:
+			whereClause.campaignOnly = false;
+			whereClause.canBeMedium = true;
 			return await Mission.findOne({
-				where: {
-					campaignOnly: false,
-					canBeMedium: true
-				},
+				where: whereClause,
 				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		case MissionDifficulty.HARD:
+			whereClause.campaignOnly = false;
+			whereClause.canBeHard = true;
 			return await Mission.findOne({
-				where: {
-					campaignOnly: false,
-					canBeHard: true
-				},
+				where: whereClause,
 				order: [draftBotInstance.gameDatabase.sequelize.random()]
 			});
 		default:

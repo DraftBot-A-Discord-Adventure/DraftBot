@@ -25,7 +25,8 @@ export abstract class ItemConstants {
 		ATTACK: 3,
 		DEFENSE: 4,
 		HOSPITAL: 5,
-		MONEY: 6
+		MONEY: 6,
+		ENERGY: 7
 	};
 
 	static readonly RARITY = {

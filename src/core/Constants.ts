@@ -92,7 +92,8 @@ export abstract class Constants {
 	static readonly RANK_TYPES = {
 		LEVEL: "level",
 		SCORE: "score",
-		WEEKLY_SCORE: "weeklyScore"
+		WEEKLY_SCORE: "weeklyScore",
+		LAST_SEASON_GLORY: "gloryPointsLastSeason"
 	};
 
 	static readonly CLASS = {
@@ -101,7 +102,42 @@ export abstract class Constants {
 		GROUP1LEVEL: 16,
 		GROUP2LEVEL: 32,
 		GROUP3LEVEL: 48,
-		GROUP4LEVEL: 80
+		GROUP4LEVEL: 80,
+		TIME_BEFORE_CHANGE_CLASS: [
+			2 * 7 * 24 * 60 * 60, // 2 weeks
+			2 * 7 * 24 * 60 * 60, // 2 weeks
+			4 * 7 * 24 * 60 * 60, // 4 weeks
+			4 * 7 * 24 * 60 * 60, // 4 weeks
+			4 * 7 * 24 * 60 * 60 // 4 weeks
+		]
+	};
+
+	static readonly CLASSES = {
+		RECRUIT: 0,
+		FIGHTER: 1,
+		SOLDIER: 2,
+		INFANTRYMAN: 3,
+		GLOVED: 4,
+		HELMETED: 5,
+		ENMESHED: 6,
+		TANK: 7,
+		ROCK_THROWER: 8,
+		SLINGER: 9,
+		ARCHER: 10,
+		GUNNER: 11,
+		ESQUIRE: 12,
+		HORSE_RIDER: 13,
+		PIKEMAN: 14,
+		KNIGHT: 15,
+		PALADIN: 16,
+		VETERAN: 17,
+		POWERFUL_INFANTRYMAN: 18,
+		IMPENETRABLE_TANK: 19,
+		FORMIDABLE_GUNNER: 20,
+		VALIANT_KNIGHT: 21,
+		LUMINOUS_PALADIN: 22,
+		EXPERIENCED_VETERAN: 23,
+		MYSTIC_MAGE: 24
 	};
 
 	static readonly LOGS = {
@@ -162,7 +198,8 @@ export abstract class Constants {
 				HARD: 0.5
 			}
 		],
-		DAILY_MISSION_MONEY_PENALITY: 2
+		DAILY_MISSION_MONEY_MULTIPLIER: 0.5,
+		DAILY_MISSION_POINTS_MULTIPLIER: 3.5
 	};
 
 	static readonly PROFILE = {
@@ -181,7 +218,7 @@ export abstract class Constants {
 			"🏅",
 			"👑",
 			"⚙️",
-			"🥚",
+			"✨",
 			"❤️",
 			"🍀",
 			"💸",

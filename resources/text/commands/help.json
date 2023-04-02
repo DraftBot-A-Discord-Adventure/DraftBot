@@ -47,7 +47,7 @@
 				"FIGHT": {
 					"usage": "{command:fight}",
 					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
-					"image": "https://draftbot.com/public/ressources/fightHelp.png"
+					"image": "https://draftbot.com/public/ressources/fighthelp/fr/4.3.3.png"
 				},
 				"HELP": {
 					"usage": "{command:help}",
@@ -58,8 +58,12 @@
 					"description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
 				},
 				"TOP": {
-					"usage": "{command:top}",
+					"usage": "{command:top score}",
 					"description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+				},
+				"GLORY_TOP": {
+					"usage": "{command:top glory}",
+					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -212,6 +216,10 @@
 				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Affiche le magasin des missions."
+				},
+				"LEAGUE_BONUS": {
+					"usage": "{command:leaguebonus}",
+					"description": "Permet d'obtenir une récompense de ligue chaque dimanche."
 				}
 			}
 		},
@@ -262,7 +270,7 @@
 				"FIGHT": {
 					"usage": "{command:fight}",
 					"description": "Use this command to challenge other players who are on the same server as you.",
-					"image": "https://cdn.discordapp.com/attachments/771370060848824350/1062142519053398096/image.png"
+					"image": "https://draftbot.com/public/ressources/fighthelp/en/4.3.3.png"
 				},
 				"HELP": {
 					"usage": "{command:help}",
@@ -273,8 +281,12 @@
 					"description": "Change the language the bot use to french. You can use this command if you are admin of a server."
 				},
 				"TOP": {
-					"usage": "{command:top}",
+					"usage": "{command:top score}",
 					"description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
+				},
+				"GLORY_TOP": {
+					"usage": "{command:top glory}",
+					"description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -427,6 +439,10 @@
 				"MISSIONS_SHOP": {
 					"usage": "{command:missionsshop}",
 					"description": "Display the mission's shop."
+				},
+				"LEAGUE_BONUS": {
+					"usage": "{command:leaguebonus}",
+					"description": "Claim your league's reward each sunday."
 				}
 			}
 		}

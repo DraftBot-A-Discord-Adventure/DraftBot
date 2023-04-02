@@ -14,7 +14,9 @@ export abstract class FightConstants {
 		DEAD: "error.dead",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
 		OCCUPIED: "error.occupied",
-		NO_FIGHT_POINTS: "error.noFightPoints"
+		NO_FIGHT_POINTS: "error.noFightPoints",
+		ELO_GAP: "error.eloGap",
+		BEST_OF_3: "error.bestOf3"
 	};
 
 	// duration of the menu that search for an opponent in milliseconds
@@ -96,4 +98,31 @@ export abstract class FightConstants {
 		"summonAttack",
 		"stealth"
 	];
+
+	static readonly ELO = {
+		DEFAULT_ELO: 0,
+		MAX_ELO_GAP: 400,
+		DEFAULT_K_FACTOR: 32,
+		LOW_K_FACTOR: 24,
+		VERY_LOW_K_FACTOR: 16,
+		LOW_K_FACTOR_THRESHOLD: 2100,
+		VERY_LOW_K_FACTOR_THRESHOLD: 2400,
+		LOW_LEVEL_BONUS_THRESHOLD: 1000,
+		LEAGUE_POINTS_REWARDS_COEFFICIENT_1: 0.4446,
+		LEAGUE_POINTS_REWARDS_COEFFICIENT_2: 12.8819,
+		LEAGUE_POINTS_REWARD_BASE_VALUE: 3994,
+		MAX_RANK_FOR_LEAGUE_POINTS_REWARD: 200
+	};
+
+	// if a player has a fight countdown higher than this value, he will not appear in the glory top
+	static readonly FIGHT_COUNTDOWN_MAXIMAL_VALUE = 0;
+
+	// a player will not earn more fightCountdown than this value
+	static readonly FIGHT_COUNTDOWN_REGEN_LIMIT = 7;
+
+	// fightCountdown value for new players
+	static readonly DEFAULT_FIGHT_COUNTDOWN = 10;
+
+	// added at the end of the fight to the last message
+	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
 }

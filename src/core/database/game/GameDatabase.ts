@@ -15,6 +15,7 @@ import Monster from "./models/Monster";
 import MonsterLocation from "./models/MonsterLocation";
 import MonsterAttack from "./models/MonsterAttack";
 import {Data} from "../../Data";
+import League from "./models/League";
 
 type TagType = {
 	textTag: string,
@@ -301,6 +302,10 @@ export class GameDatabase extends Database {
 				{
 					model: MapLocation,
 					folder: "maplocations"
+				},
+				{
+					model: League,
+					folder: "leagues"
 				}
 			]);
 			await GameDatabase.verifyMaps();

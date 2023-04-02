@@ -3,19 +3,25 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
+import {ChatInputCommandInteraction, CommandInteraction} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {getNextSundayMidnight, parseTimeDifference} from "../../core/utils/TimeUtils";
+import {getNextSundayMidnight, parseTimeDifferenceFooter} from "../../core/utils/TimeUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {FightConstants} from "../../core/constants/FightConstants";
 
 type TextInformation = { interaction: CommandInteraction, language: string };
-type PlayerInformation = { rankCurrentPlayer: number, scoreTooLow: boolean }
+type PlayerInformation = {
+	rankCurrentPlayer: number,
+	scoreTooLow: boolean,
+	fightNeeded: number
+}
 type TopInformation = {
 	scope: string,
+	type: string,
 	timing: string,
 	page: number,
 	numberOfPlayers: number
@@ -26,8 +32,15 @@ type TopInformation = {
  * @param playerToLook
  * @param language
  * @param date
+ * @param isGloryTop
  */
-async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date): Promise<string> {
+async function getBadgeStateOfPlayer(playerToLook: Player, language: string, date: Date, isGloryTop: boolean): Promise<string> {
+
+	if (isGloryTop) {
+		const playerLeague = await playerToLook.getLeague();
+		return playerLeague.emoji + TopConstants.SEPARATOR;
+	}
+
 	if (date.valueOf() < playerToLook.effectEndDate.valueOf()) {
 		return playerToLook.effect + TopConstants.SEPARATOR;
 	}
@@ -110,13 +123,26 @@ function getPseudosOfList(playersToShow: Player[], language: string): Promise<st
  * @param playersToShow
  * @param language
  * @param date
+ * @param isGloryTop
  */
-function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date): Promise<string[]> {
+function getBadgeStatesOfList(playersToShow: Player[], language: string, date: Date, isGloryTop: boolean): Promise<string[]> {
 	const badgeStates = [];
 	for (const entityToShow of playersToShow) {
-		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date));
+		badgeStates.push(getBadgeStateOfPlayer(entityToShow, language, date, isGloryTop));
 	}
 	return Promise.all(badgeStates);
+}
+
+/**
+ * Get the number to display as a score for a given player
+ * @param type
+ * @param playerToShow
+ * @param timing
+ */
+function getScoreToShow(type: string, playerToShow: Player, timing: string): number {
+	return type === TopConstants.TYPE_GLORY ? playerToShow.gloryPoints : timing === TopConstants.TIMING_WEEKLY
+		? playerToShow.weeklyScore
+		: playerToShow.score;
 }
 
 /**
@@ -124,17 +150,19 @@ function getBadgeStatesOfList(playersToShow: Player[], language: string, date: D
  * @param interaction
  * @param language
  * @param scope
+ * @param type
  * @param timing
  * @param page
  * @param numberOfPlayers
  * @param rankCurrentPlayer
  * @param scoreTooLow
+ * @param fightNeeded
  * @param playersToShow
  */
 async function displayTop(
 	{interaction, language}: TextInformation,
-	{scope, timing, page, numberOfPlayers}: TopInformation,
-	{rankCurrentPlayer, scoreTooLow}: PlayerInformation,
+	{scope, type, timing, page, numberOfPlayers}: TopInformation,
+	{rankCurrentPlayer, scoreTooLow, fightNeeded}: PlayerInformation,
 	playersToShow: Player[]): Promise<void> {
 	const topModule = Translations.getModule("commands.top", language);
 	const actualPlayer = escapeUsername(interaction.user.username);
@@ -144,24 +172,27 @@ async function displayTop(
 	const start = end - TopConstants.PLAYERS_BY_PAGE + 1;
 	const topDisplay: DraftBotEmbed = new DraftBotEmbed()
 		.setTitle(topModule.format("topTitle", {
+			topEmote: type === TopConstants.TYPE_GLORY ? TopConstants.EMOTE.GLORY : TopConstants.EMOTE.SCORE,
 			start,
 			end,
 			alltime: timing === TopConstants.TIMING_ALLTIME,
-			global: scope === TopConstants.GLOBAL_SCOPE
+			global: scope === TopConstants.GLOBAL_SCOPE,
+			gloryTop: type === TopConstants.TYPE_GLORY
 		}));
 	let description = [];
 	const pseudos = await getPseudosOfList(playersToShow, language);
-	const badgeStates = await getBadgeStatesOfList(playersToShow, language, new Date());
+	const badgeStates = await getBadgeStatesOfList(playersToShow, language, new Date(), type === TopConstants.TYPE_GLORY);
+
 	for (const playerToShow of playersToShow) {
 		const rank = playersToShow.indexOf(playerToShow);
+		const scoreToShow = getScoreToShow(type, playerToShow, timing);
+
 		description.push(topModule.format("playerRankLine", {
 			badge: getBadgeTopPositionOfPlayer(interaction, playerToShow, page, rank),
 			rank: start + rank,
 			pseudo: pseudos[rank],
 			badgeState: badgeStates[rank],
-			score: timing === TopConstants.TIMING_WEEKLY
-				? playerToShow.weeklyScore
-				: playerToShow.score,
+			score: scoreToShow,
 			level: playerToShow.level
 		}));
 	}
@@ -173,20 +204,21 @@ async function displayTop(
 			name: topModule.get("yourRanking"),
 			value: topModule.format(
 				scoreTooLow
-					? "lowScore"
+					? type === TopConstants.TYPE_GLORY ? "notEnoughRankedFight" : "lowScore"
 					: `end${rankCurrentPlayer === 1 ? "First" : "Any"}${end >= rankCurrentPlayer && rankCurrentPlayer >= start ? "Right" : "Wrong"}Page`, {
 					badge: getBadgePositionOfCurrentPlayer(rankCurrentPlayer),
 					pseudo: actualPlayer,
 					rank: rankCurrentPlayer,
 					totalPlayer: numberOfPlayers,
 					page: getPageOfRank(rankCurrentPlayer),
-					pageMax
+					pageMax,
+					needFight: fightNeeded
 				})
 		});
 	if (timing === TopConstants.TIMING_WEEKLY) {
 		topDisplay.setFooter({
 			text: topModule.format("nextReset", {
-				time: parseTimeDifference(Date.now(), getNextSundayMidnight(), language)
+				time: parseTimeDifferenceFooter(Date.now(), getNextSundayMidnight(), language)
 			}),
 			iconURL: TopConstants.LINK_CLOCK_FOOTER
 		});
@@ -205,10 +237,45 @@ function getShownPage(interaction: CommandInteraction, pageMax: number): number 
 	if (!page) {
 		return 1;
 	}
-	if (page.value > pageMax) {
+	const pageNumber = page.value as number;
+	if (pageNumber > pageMax) {
 		return pageMax;
 	}
-	return page.value as number;
+	return pageNumber;
+}
+
+/**
+ * true if the player has a score too low to be displayed in the top
+ * @param type
+ * @param player
+ * @param timing
+ */
+function getScoreTooLow(type: string, player: Player, timing: string): boolean {
+	return type === TopConstants.TYPE_GLORY ? player.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+		: player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
+}
+
+/**
+ * Get the rank of the current player relevant to the asked top
+ * @param scoreTooLow
+ * @param numberOfPlayers
+ * @param interaction
+ * @param listDiscordId
+ * @param timing
+ * @param type
+ */
+async function getRankCurrentPlayer(scoreTooLow: boolean, numberOfPlayers: number, interaction: CommandInteraction, listDiscordId: string[], timing: string, type: string): Promise<number> {
+	return scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing, type === TopConstants.TYPE_GLORY);
+}
+
+/**
+ * Get the number of players competing in the top
+ * @param type
+ * @param listDiscordId
+ * @param timing
+ */
+async function getNumberOfPlayers(type: string, listDiscordId: string[], timing: string) : Promise<number> {
+	return type === TopConstants.TYPE_GLORY ? await Players.getNumberOfFightingPlayersInList(listDiscordId) : await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
 }
 
 /**
@@ -222,23 +289,34 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
 	const scope = scopeUntested ? scopeUntested.value as string : TopConstants.GLOBAL_SCOPE;
+	let type = TopConstants.TYPE_SCORE;
+	if (interaction.isChatInputCommand()) {
+		const chatInput = interaction as ChatInputCommandInteraction;
+		const typeUntested = chatInput.options.getSubcommand();
+		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("gloryTopCommandName")) {
+			type = TopConstants.TYPE_GLORY;
+		}
+	}
 	const timingUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionTimingName"));
 	const timing = timingUntested ? timingUntested.value as string : TopConstants.TIMING_ALLTIME;
-	const scoreTooLow = player[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"] <= Constants.MINIMAL_PLAYER_SCORE;
+	const scoreTooLow = getScoreTooLow(type, player, timing);
 
 	const listDiscordId = scope === TopConstants.SERVER_SCOPE ? Array.from((await interaction.guild.members.fetch()).keys()) : await Players.getAllStoredDiscordIds();
-	const numberOfPlayers = await Players.getNumberOfPlayingPlayersInList(listDiscordId, timing);
+	const numberOfPlayers = await getNumberOfPlayers(type, listDiscordId, timing);
 	const pageMax = numberOfPlayers === 0 ? 1 : getPageOfRank(numberOfPlayers);
 
 	const page = getShownPage(interaction, pageMax);
 
-	const rankCurrentPlayer = scoreTooLow ? numberOfPlayers + 1 : await Players.getRankFromUserList(interaction.user.id, listDiscordId, timing);
+	const rankCurrentPlayer = await getRankCurrentPlayer(scoreTooLow, numberOfPlayers, interaction, listDiscordId, timing, type);
 
-	const playersToShow = await Players.getPlayersToPrintTop(listDiscordId, page, timing);
+	const fightNeeded = player.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE;
 
-	await displayTop({interaction, language}, {scope, timing, page, numberOfPlayers}, {
+	const playersToShow = type === TopConstants.TYPE_GLORY ? await Players.getPlayersToPrintGloryTop(listDiscordId, page) : await Players.getPlayersToPrintTop(listDiscordId, page, timing);
+
+	await displayTop({interaction, language}, {scope, type, timing, page, numberOfPlayers}, {
 		rankCurrentPlayer,
-		scoreTooLow
+		scoreTooLow,
+		fightNeeded
 	}, playersToShow);
 }
 
@@ -246,67 +324,76 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.top", 
 const currentCommandEnglishTranslations = Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH);
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations)
-		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionScopeName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionScopeName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionScopeDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionScopeDescription")
-			})
-			.addChoices(
-				{
-					name: currentCommandEnglishTranslations.get("scopes.global"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("scopes.global")
-					}, value: TopConstants.GLOBAL_SCOPE
-				},
-				{
-					name: currentCommandEnglishTranslations.get("scopes.server"),
-					"name_localizations":
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName(currentCommandEnglishTranslations.get("mainTopCommandName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("mainTopCommandName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("mainTopCommandDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("optionScopeDescription")
+				})
+				.addStringOption(option =>
+					SlashCommandBuilderGenerator.generateTopScopeOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					).setRequired(false)
+				)
+				.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionTimingName"))
+					.setNameLocalizations({
+						fr: currentCommandFrenchTranslations.get("optionTimingName")
+					})
+					.setDescription(currentCommandEnglishTranslations.get("optionTimingDescription"))
+					.setDescriptionLocalizations({
+						fr: currentCommandFrenchTranslations.get("optionTimingDescription")
+					})
+					.addChoices(
 						{
-							fr: currentCommandFrenchTranslations.get("scopes.server")
+							name: currentCommandEnglishTranslations.get("timings.allTime"),
+							"name_localizations": {
+								fr: currentCommandFrenchTranslations.get("timings.allTime")
+							}, value: TopConstants.TIMING_ALLTIME
+						},
+						{
+							name: currentCommandEnglishTranslations.get("timings.weekly"),
+							"name_localizations": {
+								fr: currentCommandFrenchTranslations.get("timings.weekly")
+							}, value: TopConstants.TIMING_WEEKLY
 						}
-					,
-					value: TopConstants.SERVER_SCOPE
-				}
-			)
-			.setRequired(false)
+					)
+					.setRequired(false)
+				)
+				.addIntegerOption(option =>
+					SlashCommandBuilderGenerator.generateTopPageOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setMinValue(1)
+						.setRequired(false)
+				)
 		)
-		.addStringOption(option => option.setName(currentCommandEnglishTranslations.get("optionTimingName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionTimingName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionTimingDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionTimingDescription")
-			})
-			.addChoices(
-				{
-					name: currentCommandEnglishTranslations.get("timings.allTime"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("timings.allTime")
-					}, value: TopConstants.TIMING_ALLTIME
-				},
-				{
-					name: currentCommandEnglishTranslations.get("timings.weekly"),
-					"name_localizations": {
-						fr: currentCommandFrenchTranslations.get("timings.weekly")
-					}, value: TopConstants.TIMING_WEEKLY
-				}
-			)
-			.setRequired(false)
-		)
-		.addIntegerOption(option => option.setName(currentCommandEnglishTranslations.get("optionPageName"))
-			.setNameLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionPageName")
-			})
-			.setDescription(currentCommandEnglishTranslations.get("optionPageDescription"))
-			.setDescriptionLocalizations({
-				fr: currentCommandFrenchTranslations.get("optionPageDescription")
-			})
-			.setMinValue(1)
-			.setRequired(false)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName(currentCommandEnglishTranslations.get("gloryTopCommandName"))
+				.setNameLocalizations({
+					fr: currentCommandFrenchTranslations.get("gloryTopCommandName")
+				})
+				.setDescription(currentCommandEnglishTranslations.get("gloryTopCommandDescription"))
+				.setDescriptionLocalizations({
+					fr: currentCommandFrenchTranslations.get("gloryTopCommandDescription")
+				})
+				.addStringOption(option =>
+					SlashCommandBuilderGenerator.generateTopScopeOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setRequired(false)
+				)
+				.addIntegerOption(option =>
+					SlashCommandBuilderGenerator.generateTopPageOption(
+						currentCommandFrenchTranslations, currentCommandEnglishTranslations, option
+					)
+						.setMinValue(1)
+						.setRequired(false)
+				)
 		) as SlashCommandBuilder,
 	executeCommand,
 	requirements: {

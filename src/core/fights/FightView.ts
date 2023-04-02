@@ -64,6 +64,7 @@ export class FightView {
 		this.addFightActionFieldFor(introEmbed, fighter1);
 		this.addFightActionFieldFor(introEmbed, fighter2);
 		this.fightLaunchMessage = await this.channel.send({
+			content: fighter1.getMention(),
 			embeds: [introEmbed]
 		});
 		this.actionMessages.push(await this.channel.send({content: "_ _"}));
@@ -91,7 +92,7 @@ export class FightView {
 	 * @param receivedMessage
 	 */
 	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
-		const lastMessage = this.actionMessages[this.actionMessages.length - 1];
+		let lastMessage = this.actionMessages[this.actionMessages.length - 1];
 		const messageToSend = this.fightTranslationModule.format("actions.intro", {
 			emote,
 			player
@@ -100,7 +101,8 @@ export class FightView {
 			// message character limit reached : creation of a new message
 			await this.lastSummary.delete();
 			this.lastSummary = null;
-			this.actionMessages.push(await this.channel.send({content: messageToSend}));
+			lastMessage = await this.channel.send({content: messageToSend});
+			this.actionMessages.push(lastMessage);
 		}
 		else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
@@ -110,6 +112,8 @@ export class FightView {
 			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
+		// Fetch to get the new content
+		await lastMessage.fetch(true);
 	}
 
 	/**
@@ -149,7 +153,7 @@ export class FightView {
 			});
 		}
 
-		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]});
+		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]}).then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
 	}
 
 	/**
@@ -161,7 +165,10 @@ export class FightView {
 	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): DraftBotEmbed {
 		return new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.get("summarize.title"))
-			.setDescription(`${this.fightTranslationModule.get("summarize.intro") +
+			.setDescription(`${this.fightTranslationModule.format("summarize.intro", {
+				turn: this.fightController.turn,
+				maxTurns: FightConstants.MAX_TURNS
+			}) +
 			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`);
 	}
 
@@ -193,5 +200,16 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
+	}
+
+	/**
+	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 */
+	displayBugFight(): void {
+		this.channel.send({embeds: [
+			new DraftBotEmbed()
+				.setErrorColor()
+				.setTitle(this.fightTranslationModule.get("bugFightTitle"))
+				.setDescription(this.fightTranslationModule.get("bugFightDescription"))]});
 	}
 }

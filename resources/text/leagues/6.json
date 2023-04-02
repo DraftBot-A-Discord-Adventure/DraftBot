@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue diamant",
+		"en": "Diamond league"
+	},
+	"emoji": "💎",
+	"color": "#5dadec",
+	"minGloryPoints": 1400,
+	"maxGloryPoints": 1599
+}

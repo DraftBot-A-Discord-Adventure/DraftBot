@@ -19,6 +19,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import Pet, {Pets} from "../../core/database/game/models/Pet";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import {FightConstants} from "../../core/constants/FightConstants";
 
 /**
  * Display badges for the given player
@@ -131,6 +132,24 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 				rank: isUnranked ? profileModule.get("ranking.unranked") : rank,
 				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
 				score: askedPlayer.score
+			}),
+		inline: false
+	};
+}
+
+/**
+ * Get the ranking field of the profile
+ * @param profileModule
+ * @param askedPlayer
+ */
+async function getFightRankingField(profileModule: TranslationModule, askedPlayer: Player): Promise<EmbedField> {
+	const leagueDisplay = await askedPlayer.getLeagueDisplay(profileModule.language);
+	return {
+		name: profileModule.get("fightRanking.fieldName"),
+		value:
+			profileModule.format("fightRanking.fieldValue", {
+				gloryPoints: askedPlayer.gloryPoints,
+				league: leagueDisplay
 			}),
 		inline: false
 	};
@@ -254,6 +273,101 @@ async function sendMessageAllBadgesTooMuchBadges(player: Player, language: strin
 }
 
 /**
+ * Add the field linked to the effect of the player
+ * @param askedPlayer
+ * @param titleEffect
+ * @param fields
+ * @param profileModule
+ */
+function generateEffectField(askedPlayer: Player, titleEffect: string, fields: EmbedField[], profileModule: TranslationModule): string {
+	if (!askedPlayer.checkEffect()) {
+		if (new Date() >= askedPlayer.effectEndDate) {
+			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
+			fields.push(getNoTimeLeftField(profileModule));
+		}
+		else {
+			fields.push(getTimeLeftField(profileModule, askedPlayer));
+		}
+	}
+	return titleEffect;
+}
+
+/**
+ * Add the field linked to the class of the player
+ * @param askedPlayer
+ * @param fields
+ * @param profileModule
+ * @param language
+ */
+async function generateClassField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string): Promise<void> {
+	try {
+		const playerClass = await Classes.getById(askedPlayer.class);
+		if (playerClass) {
+			fields.push(getClassField(profileModule, playerClass, language));
+		}
+	}
+	catch (error) {
+		log(`Error while getting class of player for profile: ${error}`);
+	}
+}
+
+/**
+ * Add the field linked to the guild of the player
+ * @param askedPlayer
+ * @param fields
+ * @param profileModule
+ */
+async function generateGuildField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule): Promise<void> {
+	try {
+		const guild = await Guilds.getById(askedPlayer.guildId);
+		if (guild) {
+			fields.push(getGuildField(profileModule, guild));
+		}
+	}
+	catch (error) {
+		log(`Error while getting guild of player for profile: ${error}`);
+	}
+}
+
+/**
+ * Add the field linked to the location of the player
+ * @param askedPlayer
+ * @param fields
+ * @param profileModule
+ * @param language
+ */
+async function generateLocationField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string): Promise<void> {
+	try {
+		if (await askedPlayer.getDestinationId()) {
+			fields.push(await getLocationField(profileModule, askedPlayer, language));
+		}
+	}
+	catch (error) {
+		log(`Error while getting map of player for profile: ${error}`);
+	}
+}
+
+/**
+ * Add the field linked to the pet of the player
+ * @param askedPlayer
+ * @param fields
+ * @param profileModule
+ * @param language
+ */
+async function generatePetField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string) : Promise<void> {
+	try {
+		const petEntity = await PetEntities.getById(askedPlayer.petId);
+		if (petEntity) {
+			const petModel = await Pets.getById(petEntity.petId);
+			fields.push(getPetField(profileModule, petEntity, petModel, language));
+		}
+	}
+	catch (error) {
+		log(`Error while getting pet of player for profile: ${error}`);
+	}
+}
+
+/**
  * Generates all the fields for the profile command
  * @param profileModule
  * @param askedPlayer
@@ -268,6 +382,7 @@ async function generateFields(
 	titleEffect: string,
 	language: string
 ): Promise<{ fields: EmbedField[], titleEffect: string }> {
+
 	const playerActiveObjects = await InventorySlots.getMainSlotsItems(askedPlayer.id);
 	const missionSlots = await MissionSlots.getOfPlayer(askedPlayer.id);
 	const [mc] = missionSlots.filter(m => m.isCampaign());
@@ -275,64 +390,31 @@ async function generateFields(
 	const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
 	const fields = await getInformationField(profileModule, askedPlayer);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(askedPlayer.id);
+
 	if (askedPlayer.level >= Constants.CLASS.REQUIRED_LEVEL) {
 		fields.push(await getStatisticField(profileModule, askedPlayer, playerActiveObjects));
 	}
+
 	fields.push(
 		getMissionField(profileModule, mc, missionsInfo));
+
 	fields.push(
 		getRankingField(profileModule, rank, numberOfPlayers, askedPlayer));
 
-	if (!askedPlayer.checkEffect()) {
-		if (new Date() >= askedPlayer.effectEndDate) {
-			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
-			fields.push(getNoTimeLeftField(profileModule));
-		}
-		else {
-			fields.push(getTimeLeftField(profileModule, askedPlayer));
-		}
+	titleEffect = generateEffectField(askedPlayer, titleEffect, fields, profileModule);
+
+	await generateClassField(askedPlayer, fields, profileModule, language);
+
+	if (askedPlayer.level >= FightConstants.REQUIRED_LEVEL) {
+		fields.push(await getFightRankingField(profileModule, askedPlayer));
 	}
 
-	try {
-		const playerClass = await Classes.getById(askedPlayer.class);
-		if (playerClass) {
-			fields.push(getClassField(profileModule, playerClass, language));
-		}
-	}
-	catch (error) {
-		log(`Error while getting class of player for profile: ${error}`);
-	}
+	await generateGuildField(askedPlayer, fields, profileModule);
 
-	try {
-		const guild = await Guilds.getById(askedPlayer.guildId);
-		if (guild) {
-			fields.push(getGuildField(profileModule, guild));
-		}
-	}
-	catch (error) {
-		log(`Error while getting guild of player for profile: ${error}`);
-	}
+	await generateLocationField(askedPlayer, fields, profileModule, language);
 
-	try {
-		const mapId = await askedPlayer.getDestinationId();
-		if (mapId !== null) {
-			fields.push(await getLocationField(profileModule, askedPlayer, language));
-		}
-	}
-	catch (error) {
-		log(`Error while getting map of player for profile: ${error}`);
-	}
+	await generatePetField(askedPlayer, fields, profileModule, language);
 
-	try {
-		const petEntity = await PetEntities.getById(askedPlayer.petId);
-		if (petEntity) {
-			const petModel = await Pets.getById(petEntity.petId);
-			fields.push(getPetField(profileModule, petEntity, petModel, language));
-		}
-	}
-	catch (error) {
-		log(`Error while getting pet of player for profile: ${error}`);
-	}
 	return {fields, titleEffect};
 }
 
@@ -352,9 +434,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		fields,
 		titleEffect
 	} = await generateFields(profileModule, askedPlayer, interaction, askedPlayer.effect, language);
+	const profileColor = await askedPlayer.getProfileColor();
 	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
+				.setColor(profileColor)
 				.setTitle(profileModule.format("title", {
 					effect: titleEffect,
 					pseudo: askedPlayer.getPseudo(language),

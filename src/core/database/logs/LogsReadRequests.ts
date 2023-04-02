@@ -7,16 +7,37 @@ import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {getNextSundayMidnight} from "../../utils/TimeUtils";
+import {getNextSaturdayMidnight, getNextSundayMidnight} from "../../utils/TimeUtils";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {MapLocations} from "../game/models/MapLocation";
 import {MapConstants} from "../../constants/MapConstants";
+import {LogsFightsResults} from "./models/LogsFightsResults";
+import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
+import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
+import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
+
+type RankedFightResult = {
+	won: number,
+	lost: number,
+	draw: number
+};
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
  */
 
 export class LogsReadRequests {
+
+	static async getLastTimeThePlayerHasEditedHisClass(playerDiscordId: string): Promise<Date> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsPlayersClassChanges.findOne({
+			where: {
+				playerId: logPlayer.id
+			},
+			order: [["date", "DESC"]],
+			limit: 1
+		}).then((res) => res ? new Date(res.date) : new Date(0));
+	}
 
 	/**
 	 * Get the amount of time a specific player has bought the daily potion since the last time it was reset
@@ -52,6 +73,41 @@ export class LogsReadRequests {
 
 	/**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	 * Get the date of the last season reset
+	 */
+	static getDateOfLastSeasonReset(): Promise<number> {
+		return LogsSeasonEnd.findOne({
+			order: [["date", "DESC"]]
+		}).then((result) => {
+			if (result) {
+				return result.date;
+			}
+			return 0;
+		});
+	}
+
+	/**
+	 * Get the date of the last season reset
+	 */
+	static async getDateOfLastLeagueReward(playerDiscordId: string): Promise<number | null> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsPlayerLeagueReward.findOne({
+			order: [["date", "DESC"]],
+			where: {
+				playerId: logPlayer.id
+			}
+		}).then((result) => {
+			if (result) {
+				return result.date;
+			}
+			return null;
+		});
+	}
+
+	/**
+>>>>>>> develop
 	 * Get the date of the last event id for the player
 	 * @param discordId
 	 * @param eventId
@@ -86,6 +142,7 @@ export class LogsReadRequests {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the number of time the player went on the PVE island this week
 	 * @param discordId
 	 */
@@ -110,5 +167,96 @@ export class LogsReadRequests {
 			}],
 			col: "playerId"
 		});
+	}
+
+	/*
+	 * Get the fights of a player against another this week
+	 * @param playerDiscordId
+	 * @param opponentDiscordId
+	 */
+	static async getRankedFightsThisWeek(playerDiscordId: string, opponentDiscordId: string): Promise<RankedFightResult> {
+		const fights = await LogsFightsResults.findAll({
+			where: {
+				[Op.or]: [
+					{
+						"$LogsPlayer1.discordId$": playerDiscordId,
+						"$LogsPlayer2.discordId$": opponentDiscordId
+					},
+					{
+						"$LogsPlayer1.discordId$": opponentDiscordId,
+						"$LogsPlayer2.discordId$": playerDiscordId
+					}
+				],
+				date: {
+					[Op.gt]: Math.floor((getNextSaturdayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				},
+				friendly: false
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player1Id",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				})
+			}, {
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player2Id",
+					foreignKey: "id",
+					as: "LogsPlayer2"
+				})
+			}]
+		});
+
+		return this.parseFightListToRankedFightData(fights);
+	}
+
+	/**
+	 * Get the amount of time a specific player has bought the energy heal since the last season reset
+	 * @param playerDiscordId
+	 */
+	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerDiscordId: string): Promise<number> {
+		const dateOfLastSeasonReset = await this.getDateOfLastSeasonReset();
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		return LogsClassicalShopBuyouts.count({
+			where: {
+				playerId: logPlayer.id,
+				shopItem: ShopItemType.ENERGY_HEAL,
+				date: {
+					[Op.gte]: dateOfLastSeasonReset
+				}
+			}
+		});
+	}
+
+	/**
+	 * parse the fights results to a ranked fight result
+	 * @param fights
+	 * @private
+	 */
+	private static parseFightListToRankedFightData(fights: LogsFightsResults[]): RankedFightResult {
+		const ret = {
+			won: 0,
+			lost: 0,
+			draw: 0
+		};
+		const fightersId = [];
+		for (const fight of fights) {
+			if (fightersId.length === 0) {
+				fightersId.push(fight.player1Id);
+				fightersId.push(fight.player2Id);
+			}
+			if (fight.winner === 0) {
+				ret.draw++;
+			}
+			else if (fight.winner === 1 && fight.player1Id === fightersId[0] || fight.winner === 2 && fight.player2Id === fightersId[0]) {
+				ret.won++;
+			}
+			else {
+				ret.lost++;
+			}
+		}
+		return ret;
 	}
 }

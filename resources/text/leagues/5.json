@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue or",
+		"en": "Gold league"
+	},
+	"emoji": "🥇",
+	"color": "#ffac33",
+	"minGloryPoints": 1200,
+	"maxGloryPoints": 1399
+}

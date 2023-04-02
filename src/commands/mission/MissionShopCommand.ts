@@ -49,6 +49,7 @@ async function removeUserGems(userId: string, amount: number): Promise<void> {
 	const player = await Players.getByDiscordUserId(userId);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	await missionsInfo.addGems(-amount, player.discordUserId, NumberChangeReason.MISSION_SHOP);
+	await missionsInfo.save();
 }
 
 /**
@@ -121,28 +122,36 @@ async function getEndCallbackSkipMissionShopItem(
 			);
 			return false;
 		}
-		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		for (let i = 0; i < allMissions.length; ++i) {
 			if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
-				await removeUserGems(player.discordUserId, parseInt(translationModule.get("items.skipMapMission.price"), 10));
-				await missionsInfo.save();
+				await removeUserGems(player.discordUserId, parseInt(translationModule.get("items.changeMapMission.price"), 10));
 				const mission = await Missions.getById(allMissions[i].missionId);
+				await allMissions[i].destroy();
+				const newMission = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player), allMissions[i].missionId);
 				await message.sentMessage.channel.send({
 					embeds: [
 						new DraftBotEmbed()
-							.formatAuthor(translationModule.get("items.skipMapMission.successTitle"), message.user)
-							.setDescription(translationModule.format("items.skipMapMission.successDescription", {
-								num: i + 1,
+							.formatAuthor(translationModule.get("items.changeMapMission.successTitle"), message.user)
+							.setDescription(`${translationModule.format("items.changeMapMission.successDescription", {
 								missionInfo: await mission.formatDescription(
 									allMissions[i].missionObjective,
 									allMissions[i].missionVariant,
 									message.language,
 									allMissions[i].saveBlob
 								)
-							}))
+							})} \n ${translationModule.format("items.changeMapMission.getNewMission", {
+								mission: await (
+									await Missions.getById(newMission.missionId)
+								).formatDescription(
+									newMission.missionObjective,
+									newMission.missionVariant,
+									translationModule.language,
+									newMission.saveBlob
+								)
+							})
+							}`)
 					]
 				});
-				await allMissions[i].destroy();
 				break;
 			}
 		}
@@ -160,7 +169,7 @@ async function getEndCallbackSkipMissionShopItem(
  */
 function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
 	return getItemShopItem(
-		"skipMapMission",
+		"changeMapMission",
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
@@ -190,8 +199,8 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			}
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();
-			chooseMissionBuilt.formatAuthor(translationModule.get("items.skipMapMission.giveTitle"), message.user);
-			chooseMissionBuilt.setDescription(`${translationModule.get("items.skipMapMission.giveDesc")}\n\n${desc}`);
+			chooseMissionBuilt.formatAuthor(translationModule.get("items.changeMapMission.giveTitle"), message.user);
+			chooseMissionBuilt.setDescription(`${translationModule.get("items.changeMapMission.giveDesc")}\n\n${desc}`);
 			await chooseMissionBuilt.send(message.sentMessage.channel);
 			BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MISSION_SHOP, chooseMissionBuilt.collector);
 			return false;

@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": ":shield: Tank impénétrable",
-		"en": ":shield: impenetrable tank"
+		"en": ":shield: Impenetrable tank"
 	},
 	"emoji": "🛡️",
 	"attack": 40,
@@ -12,7 +12,6 @@
 	"baseBreath": 7,
 	"maxBreath": 20,
 	"breathRegen": 3,
-	"price": 12100,
 	"classGroup": 4,
 	"fightActionsIds": [
 		"simpleAttack",

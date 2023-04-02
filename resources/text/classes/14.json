@@ -12,7 +12,6 @@
 	"baseBreath": 14,
 	"maxBreath": 14,
 	"breathRegen": 3,
-	"price": 9800,
 	"classGroup": 2,
 	"fightActionsIds": [
 		"simpleAttack",

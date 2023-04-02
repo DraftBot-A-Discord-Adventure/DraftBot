@@ -13,16 +13,10 @@ import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
+import {dateDisplay, finishInTimeDisplay, millisecondsToSeconds} from "../../core/utils/TimeUtils";
 
 type UserInformation = { user: User, player: Player }
-
-/**
- * @param {number} price - The item price
- * @param {Players} player
- */
-function canBuy(price: number, player: Player): boolean {
-	return player.money >= price;
-}
 
 /**
  * @param {*} message - message where the command is from
@@ -32,13 +26,18 @@ function canBuy(price: number, player: Player): boolean {
  * @param interaction
  */
 async function confirmPurchase(message: Message, selectedClass: Class, userInformation: UserInformation, classTranslations: TranslationModule, interaction: CommandInteraction): Promise<void> {
+	const playerClass = await Classes.getById(userInformation.player.class);
+	if (selectedClass.id === playerClass.id) {
+		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
+		return;
+	}
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(classTranslations.get("confirm"), userInformation.user)
 		.setDescription(
 			`\n\u200b\n${classTranslations.format("display", {
 				name: selectedClass.toString(classTranslations.language, userInformation.player.level),
-				price: selectedClass.price,
-				description: selectedClass.getDescription(classTranslations.language)
+				description: selectedClass.getDescription(classTranslations.language),
+				time: dateDisplay(new Date(Date.now() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[selectedClass.classGroup] * 1000))
 			})}`
 		);
 
@@ -55,50 +54,34 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 	BlockingUtils.blockPlayerWithCollector(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS, collector);
 
 	collector.on("end", async (reaction) => {
-		const playerClass = await Classes.getById(userInformation.player.class);
 		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
-		if (reaction.first()) {
-			if (reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
-				if (!canBuy(selectedClass.price, userInformation.player)) {
-					return await sendErrorMessage(userInformation.user, interaction, classTranslations.language,
-						classTranslations.format("error.cannotBuy",
-							{
-								missingMoney: selectedClass.price - userInformation.player.money
-							}
-						));
-				}
-				if (selectedClass.id === playerClass.id) {
-					return await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
-				}
-				userInformation.player.class = selectedClass.id;
-				const newClass = await Classes.getById(userInformation.player.class);
-				await userInformation.player.addHealth(Math.round(
-					userInformation.player.health / playerClass.getMaxHealthValue(userInformation.player.level) * newClass.getMaxHealthValue(userInformation.player.level)
-				) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
-					shouldPokeMission: false,
-					overHealCountsForMission: false
-				});
-				await userInformation.player.addMoney({
-					amount: -selectedClass.price,
-					channel: message.channel,
-					language: classTranslations.language,
-					reason: NumberChangeReason.CLASS
-				});
-				await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
-				await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
-					missionId: "chooseClassTier",
-					params: {tier: selectedClass.classGroup}
-				});
-				await userInformation.player.save();
-				draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
-				return message.channel.send({
-					embeds: [
-						new DraftBotEmbed()
-							.formatAuthor(classTranslations.get("success"), userInformation.user)
-							.setDescription(classTranslations.get("newClass") + selectedClass.getName(classTranslations.language))
-					]
-				});
-			}
+		if (reaction.first() && reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
+			userInformation.player.class = selectedClass.id;
+			const newClass = await Classes.getById(userInformation.player.class);
+			const level = userInformation.player.level;
+			await userInformation.player.addHealth(Math.ceil(
+				userInformation.player.health / playerClass.getMaxHealthValue(level) * newClass.getMaxHealthValue(level)
+			) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
+				shouldPokeMission: false,
+				overHealCountsForMission: false
+			});
+			userInformation.player.setFightPointsLost(Math.ceil(
+				userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
+			), NumberChangeReason.CLASS);
+			await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
+			await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
+				missionId: "chooseClassTier",
+				params: {tier: selectedClass.classGroup}
+			});
+			await userInformation.player.save();
+			draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
+			return message.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(classTranslations.get("success"), userInformation.user)
+						.setDescription(classTranslations.get("newClass") + selectedClass.getName(classTranslations.language))
+				]
+			});
 		}
 		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"), true);
 	});
@@ -125,21 +108,10 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 	for (let k = 0; k < allClasses.length; k++) {
 		embedClassMessage.addFields({
 			name: allClasses[k].getName(language),
-			value: classTranslations.format("classMainDisplay",
-				{
-					description: allClasses[k].getDescription(language),
-					price: allClasses[k].price
-				}
-			)
+			value: allClasses[k].getDescription(language)
 		});
 	}
 
-	embedClassMessage.addFields({
-		name: classTranslations.get("moneyQuantityTitle"),
-		value: classTranslations.format("moneyQuantity", {
-			money: player.money
-		})
-	});
 	// Creating class message
 	return await interaction.reply({embeds: [embedClassMessage], fetchReply: true}) as Message;
 }
@@ -209,6 +181,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const classTranslations = Translations.getModule("commands.class", language);
 	const allClasses = await Classes.getByGroupId(player.getClassGroup());
+	const currentClassGroup = (await Classes.getById(player.class)).classGroup;
+	const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.discordUserId);
+	if (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
+		await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
+			time: finishInTimeDisplay(new Date((lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) * 1000))
+		}));
+		return;
+	}
 	const classMessage = await createDisplayClassEmbedAndSendIt(classTranslations, allClasses, language, player, interaction);
 
 	createClassCollectorAndManageIt(classMessage, {

@@ -3,7 +3,12 @@ import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import {hoursToMinutes, millisecondsToHours, minutesDisplay} from "../../core/utils/TimeUtils";
+import {
+	hoursToMilliseconds,
+	millisecondsToHours,
+	minutesDisplay,
+	printTimeBeforeDate
+} from "../../core/utils/TimeUtils";
 import ObjectItem from "../../core/database/game/models/ObjectItem";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DailyConstants} from "../../core/constants/DailyConstants";
@@ -68,7 +73,7 @@ async function dailyNotReady(interaction: CommandInteraction, player: Player, la
 			language,
 			dailyModule.format("coolDown", {
 				coolDownTime: DailyConstants.TIME_BETWEEN_DAILIES,
-				time: minutesDisplay(hoursToMinutes(DailyConstants.TIME_BETWEEN_DAILIES - time))
+				time: printTimeBeforeDate(Date.now() + hoursToMilliseconds(DailyConstants.TIME_BETWEEN_DAILIES - time))
 			})
 		);
 		return true;
@@ -90,6 +95,10 @@ async function activateDailyItem(
 	case ItemConstants.NATURE.HEALTH:
 		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
 		await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
+		break;
+	case ItemConstants.NATURE.ENERGY:
+		embed.setDescription(textInformation.dailyModule.format("energyDaily", {value: entityInformation.activeObject.power}));
+		entityInformation.player.addEnergy(entityInformation.activeObject.power, NumberChangeReason.DAILY);
 		break;
 	case ItemConstants.NATURE.HOSPITAL:
 		embed.setDescription(
@@ -127,8 +136,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const dailyModule = Translations.getModule("commands.daily", language);
-
-	const activeObject: ObjectItem = await (await InventorySlots.getMainObjectSlot(player.id)).getItem() as ObjectItem;
+	const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);
+	if ( !activeObjectSlot ) {
+		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
+		return;
+	}
+	const activeObject: ObjectItem = await activeObjectSlot.getItem() as ObjectItem;
 
 	if (await isWrongObjectForDaily(activeObject, interaction, language, dailyModule) || await dailyNotReady(interaction, player, language, dailyModule)) {
 		return;

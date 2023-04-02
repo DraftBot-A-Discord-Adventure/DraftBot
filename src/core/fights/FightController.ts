@@ -24,11 +24,11 @@ export class FightController {
 
 	public readonly fightInitiator: Fighter;
 
-	private readonly fightView: FightView;
+	private readonly _fightView: FightView;
 
 	private state: FightState;
 
-	private endCallback: () => void;
+	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
 
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
@@ -36,7 +36,7 @@ export class FightController {
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
 		this.friendly = friendly;
-		this.fightView = new FightView(channel, language, this);
+		this._fightView = new FightView(channel, language, this);
 	}
 
 	/**
@@ -53,20 +53,21 @@ export class FightController {
 	}
 
 	/**
-	 * start a fight
+	 * Start a fight
 	 * @public
 	 */
 	public async startFight(): Promise<void> {
 		// make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
-			await this.fighters[i].startFight(this.fightView);
+			await this.fighters[i].startFight(this._fightView, i === 0 ? FighterStatus.ATTACKER : FighterStatus.DEFENDER);
 		}
+
+		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 
 		// the player with the highest speed start the fight
 		if (this.fighters[1].getSpeed() > this.fighters[0].getSpeed() || RandomUtils.draftbotRandom.bool() && this.fighters[1].getSpeed() === this.fighters[0].getSpeed()) {
 			this.invertFighters();
 		}
-		await this.fightView.introduceFight(this.fighters[0], this.fighters[1]);
 		this.state = FightState.RUNNING;
 		await this.prepareNextTurn();
 	}
@@ -76,7 +77,7 @@ export class FightController {
 	 * @return {Fighter|null}
 	 */
 	public getPlayingFighter(): Fighter {
-		return this.state === FightState.RUNNING ? this.fighters[(this.turn - 1) % 2] : null;
+		return this.state === FightState.RUNNING ? this.fighters[0] : null;
 	}
 
 	/**
@@ -84,7 +85,7 @@ export class FightController {
 	 * @return {Fighter|null}
 	 */
 	public getDefendingFighter(): Fighter {
-		return this.state === FightState.RUNNING ? this.fighters[this.turn % 2] : null;
+		return this.state === FightState.RUNNING ? this.fighters[1] : null;
 	}
 
 	/**
@@ -93,20 +94,32 @@ export class FightController {
 	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		draftBotInstance.logsDatabase.logFight(this).then();
+		const fightLogId = await draftBotInstance.logsDatabase.logFight(this);
 
 		this.checkNegativeFightPoints();
 
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
 
-		this.fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
+		this._fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].endFight(this.fightView, i === winner);
+			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
+		if (this.endCallback) {
+			await this.endCallback(this, fightLogId);
+		}
+	}
 
-		this.endCallback();
+	/**
+	 * Cancel a fight and unblock the fighters, used when a fight has bugged (for example if a message was deleted)
+	 */
+	endBugFight(): void {
+		this.state = FightState.BUG;
+		for (let i = 0; i < this.fighters.length; ++i) {
+			this.fighters[i].unblock();
+		}
+		this._fightView.displayBugFight();
 	}
 
 	/**
@@ -118,7 +131,7 @@ export class FightController {
 	}
 
 	/**
-	 * check if the fight is a draw
+	 * Check if the fight is a draw
 	 * @private
 	 */
 	public isADraw(): boolean {
@@ -126,7 +139,7 @@ export class FightController {
 	}
 
 	/**
-	 * execute the next fight action
+	 * Execute the next fight action
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
@@ -137,13 +150,27 @@ export class FightController {
 
 		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
 
-		if (!enoughBreath && RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-			fightAction = FightActions.getFightActionById("outOfBreath");
+		if (!enoughBreath) {
+			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+				fightAction = FightActions.getFightActionById("outOfBreath");
+			}
+			else {
+				this.getPlayingFighter().setBreath(0);
+			}
 		}
 
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this.fightView.language);
 
-		await this.fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage);
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
+
+		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
+			() => {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
+				this.endBugFight();
+			});
+		if (this.state !== FightState.RUNNING) {
+			// an error occurred during the update of the history
+			return;
+		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 		if (this.hadEnded()) {
 			await this.endFight();
@@ -151,16 +178,14 @@ export class FightController {
 		}
 		if (endTurn) {
 			this.turn++;
-			if (this.turn > 2) {
-				// No regen on first turn for the second player
-				this.getPlayingFighter().regenerateBreath();
-			}
+			this.invertFighters();
+			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
 	}
 
 	/**
-	 * check if any of the fighters has negative fight points
+	 * Check if any of the fighters has negative fight points
 	 * @private
 	 */
 	private checkNegativeFightPoints(): void {
@@ -173,7 +198,7 @@ export class FightController {
 	}
 
 	/**
-	 * execute a turn of a fight
+	 * Execute a turn of a fight
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
@@ -184,10 +209,27 @@ export class FightController {
 			// a player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this.fightView.displayFightStatus();
+
+		await this._fightView.displayFightStatus().catch(
+			() => {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				this.endBugFight();
+			});
+		if (this.state !== FightState.RUNNING) {
+			// An issue occurred during the fight status display, no need to continue the fight
+			return;
+		}
+
 		this.getPlayingFighter().reduceCounters();
+
 		if (this.getPlayingFighter().nextFightAction === null) {
-			this.getPlayingFighter().chooseAction(this.fightView);
+			try {
+				this.getPlayingFighter().chooseAction(this._fightView);
+			}
+			catch (e) {
+				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				this.endBugFight();
+			}
 		}
 		else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
@@ -196,7 +238,6 @@ export class FightController {
 
 	/**
 	 * Change who is the player 1 and who is the player 2.
-	 * The player 1 start the fight.
 	 * @private
 	 */
 	private invertFighters(): void {
@@ -208,7 +249,15 @@ export class FightController {
 	}
 
 	/**
-	 * check if a fight has ended or not
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
+		this.endCallback = callback;
+	}
+
+	/**
+	 * Check if a fight has ended or not
 	 * @private
 	 */
 	private hadEnded(): boolean {
@@ -220,10 +269,9 @@ export class FightController {
 	}
 
 	/**
-	 * Set a callback to be called when the fight ends
-	 * @param callback
+	 * Get the fight view of the fight controller
 	 */
-	public setEndCallback(callback: () => void): void {
-		this.endCallback = callback;
+	public getFightView(): FightView {
+		return this._fightView;
 	}
 }

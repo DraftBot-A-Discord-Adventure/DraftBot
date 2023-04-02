@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Aile droite d'Icare",
+		"en": "Icarus' right Wing"
+	},
+	"emote": ":feather:",
+	"rarity": 6,
+	"rawDefense": 4,
+	"speed": 30,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

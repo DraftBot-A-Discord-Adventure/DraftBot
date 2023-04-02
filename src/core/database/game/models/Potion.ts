@@ -62,7 +62,7 @@ export class Potions {
 				rarity: rarity
 			},
 			type: QueryTypes.SELECT
-		}));
+		})) as Promise<{ id: number }[]>;
 	}
 
 	static randomItem(nature: number, rarity: number): Promise<Potion> {

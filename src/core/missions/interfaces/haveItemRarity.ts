@@ -7,7 +7,7 @@ import {InventorySlots} from "../../database/game/models/InventorySlot";
 export const missionInterface: IMission = {
 	generateRandomVariant: () => Promise.resolve(0),
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => params.rarity >= variant,
+	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => (params.rarity as number) >= variant,
 
 	getVariantFormatVariable: (variant: number, objective: number, language: string) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
 

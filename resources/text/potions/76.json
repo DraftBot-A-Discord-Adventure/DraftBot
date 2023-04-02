@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Eau de douche",
+		"en": "Shower water"
+	},
+	"emote": "🚿",
+	"rarity": 1,
+	"power": 12,
+	"nature": 7,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

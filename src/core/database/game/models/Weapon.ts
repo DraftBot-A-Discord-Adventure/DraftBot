@@ -56,7 +56,7 @@ export class Weapons {
 				rarity: rarity
 			},
 			type: QueryTypes.SELECT
-		}));
+		})) as Promise<{ id: number }[]>;
 	}
 }
 

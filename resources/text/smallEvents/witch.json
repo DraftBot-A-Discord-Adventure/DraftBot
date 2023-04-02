@@ -74,7 +74,7 @@
 						"Alors que vous alliez terminer la potion, vous êtes victime de la maladresse de la vieille sorcière qui échappe le chaudron sur vous. Vous perdez **{lifeLoss} :broken_heart:**.",
 						"Malgré la bonne odeur de la potion, cette dernière n'est pas aussi bonne pour la santé que ce que vous auriez pu espérer. Vous perdez **{lifeLoss} :broken_heart:**.",
 						"Le goût de la potion est très étrange. Peut être auriez vous du écouter votre instinct et ne pas y goûter... Vous perdez **{lifeLoss} :broken_heart:**.",
-						"Les vapeurs de la potions auront suffit à vous rendre malade. Vous partez sans demander votre reste mais non sans avoir subi les conséquence de l'inhalation de ces vapeurs. Vous perdez **{lifeLoss} :broken_heart:**.",
+						"Les vapeurs de la potion auront suffi à vous rendre malade. Vous partez sans demander votre reste mais non sans avoir subi les conséquences de l'inhalation de ces vapeurs. Vous perdez **{lifeLoss} :broken_heart:**.",
 						"Alors que la vieille dame s'apprête à verser la dernière goute dans la marmite un bruit sourd se fait entendre. Il semblerait que le chaudron ai explosé. Vous perdez **{lifeLoss} :broken_heart:**."
 					],
 					"4": [
@@ -90,8 +90,10 @@
 				"bigWarm": "Faire bouillir longuement la potion",
 				"blood": "Ajouter du sang",
 				"book": "Prononcer une incantation du livre de sortilèges",
+				"bone": "Ajouter un os",
 				"cobweb": "Ajouter une toile d'araignée",
 				"cool": "Laisser refroidir la potion",
+				"chicken": "Ajouter un poulet",
 				"crystalBall": "Réciter une formule magique",
 				"distiller": "Distiller la potion",
 				"eye": "Ajouter un œil",
@@ -114,7 +116,8 @@
 				"testTube": "Ajouter un tube à essai",
 				"turtle": "Ajouter une tortue",
 				"wand": "Jeter un sort",
-				"wiltedRose": "Ajouter une rose fanée"
+				"wiltedRose": "Ajouter une rose fanée",
+				"worm": "Ajouter un ver"
 			}
 		},
 		"en": {
@@ -206,8 +209,10 @@
 				"bigWarm": "Increase the temperature",
 				"blood": "Add blood",
 				"book": "Use a spell from the spell book",
+				"bone": "Add a bone",
 				"cobweb": "Add a cobweb",
 				"cool": "Let the potion cool",
+				"chicken": "Add a chicken",
 				"crystalBall": "Recite a magic formula",
 				"distiller": "Distill the potion",
 				"eye": "Add an eye",
@@ -230,7 +235,8 @@
 				"testTube": "Add a test tube",
 				"turtle": "Add a turtle",
 				"wand": "Cast a spell",
-				"wiltedRose": "Add a wilted rose"
+				"wiltedRose": "Add a wilted rose",
+				"worm": "Add a worm"
 			}
 		}
 	},
@@ -240,8 +246,10 @@
 		"bigWait": "🕙",
 		"bigWarm": "🔥",
 		"blood": "🩸",
+		"bone": "🦴",
 		"book": "📖",
 		"cobweb": "🕸️",
+		"chicken": "🐔",
 		"cool": "❄️",
 		"crystalBall": "🔮",
 		"distiller": "⚗️",
@@ -265,7 +273,8 @@
 		"testTube": "🧪",
 		"turtle": "🐢",
 		"wand": "🪄",
-		"wiltedRose": "🥀"
+		"wiltedRose": "🥀",
+		"worm": "🪱"
 	},
 	"rarity": 4,
 	"emote": ":broom:"

@@ -69,3 +69,5 @@ token = ""
 [others]
 # The API key for the nasa API
 nasa_api_key = ""
+# Web server port
+webserver_port = 8080

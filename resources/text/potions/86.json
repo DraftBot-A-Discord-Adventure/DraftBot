@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": "Cocktail tonique",
+		"en": "Tonic cocktail"
+	},
+	"emote": "🍸",
+	"rarity": 5,
+	"power": 963,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0,
+	"tags": [
+		"drinkAlcohol"
+	]
+}

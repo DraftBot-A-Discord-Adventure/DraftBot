@@ -10,10 +10,8 @@ export default class Benediction extends FightAction {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
-		const usedGodMoovs = FightController.getUsedGodMoves(sender, receiver);
-
 		// 1 god move per fight
-		if (usedGodMoovs >= 1) {
+		if (FightController.getUsedGodMoves(sender, receiver) >= 1) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {
 				attack: Translations.getModule(`fightactions.${this.name}`, language)
 					.get("name")
@@ -51,7 +49,7 @@ export default class Benediction extends FightAction {
 		sender.applySpeedModifier({
 			origin: this,
 			operation: FightStatModifierOperation.ADDITION,
-			value: - (sender.getDefense() * buff / 100)
+			value: sender.getSpeed() * buff / 100
 		});
 		sideEffects += attackTranslationModule.format("actions.sideEffects.speed", {
 			adversary: FightConstants.TARGET.SELF,

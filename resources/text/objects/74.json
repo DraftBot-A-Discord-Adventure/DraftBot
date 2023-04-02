@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Piment",
+		"en": "Hot pepper"
+	},
+	"emote": ":hot_pepper:",
+	"rarity": 1,
+	"power": 63,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

@@ -8,8 +8,7 @@ import {Constants} from "../../core/Constants";
 import {
 	getTimeFromXHoursAgo,
 	millisecondsToMinutes,
-	minutesDisplay,
-	parseTimeDifference
+	minutesDisplay, printTimeBeforeDate
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -204,7 +203,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		}
 		else {
 			const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
-			const timeBeforeSmallEvent = parseTimeDifference(date.valueOf() + millisecondsBeforeSmallEvent, date.valueOf(), language);
+			const timeBeforeSmallEvent = printTimeBeforeDate(date.valueOf() + millisecondsBeforeSmallEvent);
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: lastMiniEvent && lastMiniEvent.time > timeData.travelStartTime
@@ -399,7 +398,7 @@ async function doPossibility(
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
 				result: "",
-				event: possibility.getText(textInformation.language),
+				event: format(possibility.getText(textInformation.language),{}),
 				emoji: "",
 				alte: ""
 			})
@@ -419,7 +418,7 @@ async function doPossibility(
 		content: textInformation.tr.format("doPossibility", {
 			pseudo: textInformation.interaction.user,
 			result: outcomeResult.description,
-			event: randomOutcome.translations[textInformation.language],
+			event: format(randomOutcome.translations[textInformation.language],{}),
 			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 			alte: outcomeResult.alterationEmoji
 		})

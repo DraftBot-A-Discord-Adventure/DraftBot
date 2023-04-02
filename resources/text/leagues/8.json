@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue infinie",
+		"en": "Infinite league"
+	},
+	"emoji": "🌀",
+	"color": "#483891",
+	"minGloryPoints": 1800,
+	"maxGloryPoints": 1999
+}

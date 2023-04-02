@@ -62,8 +62,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs heures après.",
-						"en": "Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several hours later."
+						"fr": "Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs minutes plus tard.",
+						"en": "Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several minutes later."
 					},
 					"health": -40,
 					"effect": ":confounded:"

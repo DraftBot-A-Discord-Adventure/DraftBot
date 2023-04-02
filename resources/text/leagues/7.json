@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue d'élite",
+		"en": "Elite league"
+	},
+	"emoji": "💯",
+	"color": "#bb1934",
+	"minGloryPoints": 1600,
+	"maxGloryPoints": 1799
+}

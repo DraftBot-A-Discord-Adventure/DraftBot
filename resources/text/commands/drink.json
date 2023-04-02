@@ -12,11 +12,12 @@
 			"drinkSuccess": "{pseudo}, vous buvez le breuvage que vous transportiez !",
 			"drinkCanceled": "Vous n'avez pas bu votre potion !",
 			"healthBonus": "❤️ Vie gagnée : {value} !",
+			"energyBonus": "⚡ Énergie gagnée : {value} !",
 			"moneyBonus": "💰 Argent gagné : {value} !",
 			"hospitalBonus": "🕥 Vous avez avancé de {value} !",
 			"confirmationTitle": "{pseudo}, confirmation :",
 			"confirmation": "Êtes-vous sûr de vouloir boire votre {potion} ({effect}) ?",
-			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre `forcer` !"
+			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
 		},
 		"en": {
 			"commandName": "drink",
@@ -29,12 +30,13 @@
 			"noActiveObjectDescription": "Unfortunately, you don't have anything to drink in your inventory!",
 			"drinkSuccess": "{pseudo}, you have received your drink reward!",
 			"drinkCanceled": "You haven't drunk your potion!",
-			"healthBonus": "❤️ HP recovered : {value}!",
+			"healthBonus": "❤️ HP recovered: {value}!",
+			"energyBonus": "⚡ Energy recovered: {value}!",
 			"moneyBonus": "💰 Money Earned: {value}!",
 			"hospitalBonus": "🕥 You leapt forward {value}.",
 			"confirmationTitle": "{pseudo}, confirmation :",
 			"confirmation": "Are you sure you want to drink your {potion} ({effect})?",
-			"confirmationFooter": "It is possible to avoid this step by using the `force` parameter!"
+			"confirmationFooter": "It is possible to avoid this step by using the force parameter!"
 		}
 	}
 }

@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": "Essence de phénix",
+		"en": "Phoenix Essence"
+	},
+	"emote": "🪶",
+	"rarity": 8,
+	"power": 2048,
+	"nature": 7,
+	"frenchMasculine": 0,
+	"frenchPlural": 0,
+	"tags": [
+		"drinkAlcohol"
+	]
+}

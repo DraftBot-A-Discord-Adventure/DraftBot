@@ -1,5 +1,7 @@
 import RootIPC = require("node-ipc");
 import {IPC} from "node-ipc";
+import {botConfig, draftBotClient, draftBotInstance} from "../index";
+import {TextChannel} from "discord.js";
 
 // We need to use InstanceType because IPC is not exported
 let ipc: InstanceType<typeof IPC> = null;
@@ -30,7 +32,7 @@ export class IPCClient {
 		ipc.config.retry = 1500;
 		ipc.config.silent = true; // You can set this to false in order to debug, it's very useful
 
-		ipc.connectTo("draftbot", function() {
+		ipc.connectTo("draftbot", () => {
 			ipc.of.draftbot.on(
 				"connect",
 				function() {
@@ -68,6 +70,23 @@ export class IPCClient {
 					const callback = spamCallbacks.get(data.packet);
 					spamCallbacks.delete(data.packet);
 					callback(data.spamming);
+				}
+			);
+			ipc.of.draftbot.on(
+				"maintenance",
+				data => {
+					// Only execute it on the main server
+					const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
+					draftBotInstance.setMaintenance(data.enable, false);
+					if (!data.fromCommand && guild && guild.shard) {
+						const channel = guild.channels.cache.get(botConfig.CONSOLE_CHANNEL_ID) as TextChannel;
+						try {
+							channel.send({ content: `Maintenance mode set from web server: ${data.enable}` }).then();
+						}
+						catch (err) {
+							channel.send({ content: `Maintenance mode set from web server failed with error:\n\`\`\`${data.enable}\`\`\`` }).then();
+						}
+					}
 				}
 			);
 		});
@@ -122,5 +141,13 @@ export class IPCClient {
 			ipc.of.draftbot.emit("isSpamming", {packet: requestCount, discordId});
 			requestCount++;
 		});
+	}
+
+	/**
+	 * Set maintenance mode
+	 * @param enable
+	 */
+	static ipcSetMaintenance(enable: boolean): void {
+		ipc.of.draftbot.emit("maintenanceCommand", { enable });
 	}
 }

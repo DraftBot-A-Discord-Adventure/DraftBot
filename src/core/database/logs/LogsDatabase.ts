@@ -88,6 +88,11 @@ import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
 import {getDateLogs} from "../../utils/TimeUtils";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
+import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
+import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
+import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
+import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
+import {LogsPlayersFightPoints} from "./models/LogsPlayersFightPoints";
 
 /**
  * This class is used to log all the changes in the game database
@@ -321,6 +326,16 @@ export class LogsDatabase extends Database {
 	 */
 	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersHealth);
+	}
+
+	/**
+	 * log a player's fightPoints change (except natural regeneration)
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
+	public logFightPointChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersFightPoints);
 	}
 
 	/**
@@ -819,6 +834,15 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * log when the weekly top end
+	 */
+	public async logSeasonEnd(): Promise<void> {
+		await LogsSeasonEnd.create({
+			date: getDateLogs()
+		});
+	}
+
+	/**
 	 * log when anything is bought from the mission shop
 	 * @param discordId
 	 * @param shopItem
@@ -956,13 +980,13 @@ export class LogsDatabase extends Database {
 	 * log all the information about a fight, this is called at the end of a fight
 	 * @param fight
 	 */
-	public async logFight(fight: FightController): Promise<void> {
+	public async logFight(fight: FightController): Promise<number> {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
 			const player1 = fight.fightInitiator as PlayerFighter;
 			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
 			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
-			const winner = fight.getWinner() === 0 && player1 === fight.fighters[0] ? 1 : 2;
+			const winner = fight.getWinner() + 1;
 			const fightResult = await LogsFightsResults.create({
 				player1Id: player1Id,
 				player1Points: player1.player.score,
@@ -981,7 +1005,8 @@ export class LogsDatabase extends Database {
 				for (const [action, count] of Object.entries(fightActionsUsed)) {
 					const [fightAction] = await LogsFightsActions.findOrCreate({
 						where: {
-							name: action
+							name: action,
+							classId: player.player.class
 						}
 					});
 					await LogsFightsActionsUsed.create({
@@ -992,7 +1017,9 @@ export class LogsDatabase extends Database {
 					});
 				}
 			}
+			return fightResult.id;
 		}
+		return null;
 	}
 
 	/**
@@ -1124,5 +1151,54 @@ export class LogsDatabase extends Database {
 	 */
 	public async logPlayerDaily(discordId: string, item: GenericItemModel): Promise<void> {
 		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
+	}
+
+	/**
+	 * log when a player's elo changes
+	 * @param discordId
+	 * @param gloryPoints
+	 * @param reason
+	 * @param fightId
+	 */
+	public async logPlayersGloryPoints(discordId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayersGloryPoints.create({
+			playerId: player.id,
+			value: gloryPoints,
+			reason,
+			fightId,
+			date: getDateLogs()
+		});
+	}
+
+	/**
+	 * save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
+	 */
+	public async log15BestSeason(): Promise<void> {
+		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1);
+		const now = getDateLogs();
+		for (let i = 0; i < players.length; i++) {
+			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
+			await LogsPlayers15BestSeason.create({
+				playerId: player.id,
+				position: i + 1,
+				seasonGlory: players[i].gloryPoints,
+				date: now
+			});
+		}
+	}
+
+	/**
+	 * Save when a player ask for his league reward
+	 * @param discordId
+	 * @param leagueLastSeason
+	 */
+	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayerLeagueReward.create({
+			playerId: player.id,
+			leagueLastSeason,
+			date: getDateLogs()
+		});
 	}
 }

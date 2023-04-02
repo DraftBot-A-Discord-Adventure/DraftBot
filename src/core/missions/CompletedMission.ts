@@ -5,6 +5,8 @@ export enum CompletedMissionType {
 }
 
 export class CompletedMission {
+	public readonly pointsToWin: number;
+
 	public readonly xpToWin: number;
 
 	public readonly gemsToWin: number;
@@ -15,7 +17,8 @@ export class CompletedMission {
 
 	public readonly completedMissionType: CompletedMissionType;
 
-	constructor(xpToWin: number, gemsToWin: number, moneyToWin: number, desc: string, type: CompletedMissionType) {
+	constructor(pointsToWin: number, xpToWin: number, gemsToWin: number, moneyToWin: number, desc: string, type: CompletedMissionType) {
+		this.pointsToWin = pointsToWin;
 		this.xpToWin = xpToWin;
 		this.gemsToWin = gemsToWin;
 		this.moneyToWin = moneyToWin;

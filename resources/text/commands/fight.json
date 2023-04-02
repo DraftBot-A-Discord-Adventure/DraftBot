@@ -5,6 +5,8 @@
 			"commandDescription": "Commencer un nouveau combat.",
 			"optionUserName": "utilisateur",
 			"optionUserDescription": "L'utilisateur concerné par le combat.",
+			"optionFriendlyName": "amical",
+			"optionFriendlyDescription": "Faire un combat amical (non classé)",
 			"fightAskingTitle": "{pseudo}, a lancé une demande de combat.",
 			"wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
 			"wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
@@ -14,15 +16,64 @@
 			"turnIndicationsDescription": "Choisissez une action",
 			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
 			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
+			"bugFightTitle": "Hmmm... Cela n'a pas fonctionné !",
+			"bugFightDescription": "Un message essentiel au combat a été supprimé ou une erreur de communication s'est produite. Le combat a été annulé.",
+			"elo": {
+				"title": ":postal_horn: Rapport de gloire",
+				"gloryField": "Changements de gloire",
+				"glory": "**{player} :** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
+				"leagueField": "Changements de ligues",
+				"leagueChangeUp": "↗️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"leagueChangeDown": "↘️️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"higherEloWins": [
+					"{winner} s'impose sur le terrain avec une performance marquée.",
+					"{loser} a donné tout ce qu'il avait, mais {winner} a montré une meilleure maîtrise de son jeu.",
+					"La différence de niveau entre les deux joueurs s'est faite sentir lors de ce combat.",
+					"{winner} a démontré son expertise en remportant cette rencontre difficile.",
+					"{loser} peut être fier de sa performance malgré la défaite, mais {winner} est incontestablement le vainqueur de ce combat.",
+					"{winner} a écrasé {loser} avec une performance dominante.",
+					"{loser} a fait de son mieux, mais il était clairement en dessous du niveau de {winner}.",
+					"La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
+					"{winner} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
+					"{loser} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
+				],
+				"lowestEloWins": [
+					"Le plus inattendu s'est produit dans ce combat, {winner} a remporté la victoire face à un adversaire plus expérimenté.",
+					"{loser} a peut-être sous-estimé son adversaire, car {winner} a montré une détermination sans faille.",
+					"Malgré la différence de talent, {winner} a réussi à remporter ce match avec une stratégie solide.",
+					"Ce n'était pas un match facile, mais {winner} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+					"Ce combat aura certainement été un tournant dans la carrière de {winner}, qui a démontré sa détermination et sa capacité à vaincre les plus expérimentés.",
+					"{winner} a surmonté les attentes en remportant ce match serré contre un adversaire plus talentueux.",
+					"{loser} a peut-être sous-estimé son adversaire, car {winner} a montré une détermination sans faille.",
+					"Malgré la différence de niveau, {winner} a réussi à remporter ce combat grâce à une stratégie astucieuse.",
+					"Ce n'était pas un match facile, mais {winner} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+					"{winner} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
+				],
+				"draw": [
+					"Ce match a été un match très disputé entre deux joueurs talentueux.",
+					"{player1} et {player2} ont montré une détermination sans faille tout au long du match.",
+					"Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité inattendue.",
+					"Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+					"{player1} et {player2} ont livré un combat acharné rempli de détermination.",
+					"Malgré la différence de niveau, les deux joueurs ont donné tout ce qu'ils avaient pour remporter le match.",
+					"Aucun des deux ne parvenait à prendre l'avantage décisif, ce qui a mené à une égalité surprenante.",
+					"Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
+					"Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+					"{player1} et {player2} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
+				],
+				"sameElo": [
+					"Ce match a été un match passionnant entre deux joueurs de même niveau.",
+					"{player1} et {player2} ont tous les deux livré une performance solide et équilibrée.",
+					"Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
+					"Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
+				]
+			},
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":crossed_swords: | **État actuel du combat**\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"intro": ":clipboard: | **État actuel du combat** [{turn}/{maxTurns}]\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
-				"defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
-				"winner": ":crossed_swords: |** Gagnant : {pseudo}**\n",
-				"loser": ":crossed_swords: |** Perdant : {pseudo}**\n",
-				"drawer": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"defender": ":shield: |** Défenseur : {pseudo}**\n",
 				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
@@ -64,6 +115,14 @@
 				"noFightPoints": {
 					"direct": "{pseudo}, vous n'avez plus d'énergie !",
 					"indirect": "Cette personne n'a plus d'énergie !"
+				},
+				"eloGap": {
+					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car votre écart de points de gloire est trop important !",
+					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car votre écart de points de gloire est trop important !"
+				},
+				"bestOf3": {
+					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!",
+					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!"
 				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
@@ -150,25 +209,76 @@
 			"commandDescription": "Start a new fight.",
 			"optionUserName": "user",
 			"optionUserDescription": "The user to fight against.",
+			"optionFriendlyName": "friendly",
+			"optionFriendlyDescription": "Do a friendly fight (not ranked)",
 			"fightAskingTitle": "{pseudo} requested a fight.",
-			"wantsToFightAnyone": ":crossed_swords: | {player} wants to start a{friendly} fight! To participate, click on the reaction below!",
-			"wantsToFightSomeone": ":crossed_swords: | {player} defies {opponent} on a{friendly} fight! To accept it or not, click on the reaction below!",
+			"wantsToFightAnyone": ":crossed_swords: | {player} wants to start a {friendly} fight! To participate, click on the reaction below!",
+			"wantsToFightSomeone": ":crossed_swords: | {player} defies {opponent} on a {friendly} fight! To accept it or not, click on the reaction below!",
 			"friendly": " **friendly**",
 			"intro": ":crossed_swords: | **A fight between {player1} and {player2} has begun!**",
 			"turnIndicationsTitle": "It's {pseudo}'s turn to play ⚔️",
 			"turnIndicationsDescription": "Choose an action",
 			"statsOfPlayer": "**{pseudo}**'s stats: ",
 			"fightActionNameDisplay": "{name} | :wind_blowing_face: {breathCost}",
+			"bugFightTitle": "Hmmm... That didn't work",
+			"bugFightDescription": "An essential message to the fight was deleted or a communication error occurred. The fight has been canceled.",
+			"elo": {
+				"title": ":postal_horn: Glory report",
+				"gloryField": "Glory changes",
+				"glory": "**{player} :** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
+				"leagueField": "Leagues changes",
+				"leagueChangeUp": "️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"leagueChangeDown": "↘️️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"higherEloWins": [
+					"{winner} takes the field with a marked performance.",
+					"{loser} gave everything he had, but {winner} showed a better command of his game.",
+					"The difference in level between the two players was evident in this bout.",
+					"{winner} showed his expertise by winning this tough match.",
+					"{loser} can be proud of his performance despite the defeat, but {winner} is undoubtedly the winner of this fight.",
+					"{winner} crushed {loser} with a dominant performance.",
+					"{loser} did his best, but he was clearly below {winner}'s level.",
+					"The difference in talent between the two players was key in this fight.",
+					"{winner} showed why he is considered one of the best by winning this match easily.",
+					"{loser} can take this defeat as an opportunity to learn and improve for future fights."
+				],
+				"lowestEloWins": [
+					"The most unexpected thing happened in this fight, {winner} won against a more experienced opponent.",
+					"{loser} may have underestimated his opponent, as {winner} showed unwavering determination.",
+					"Despite the difference in talent, {winner} managed to win this match with a solid strategy.",
+					"It was not an easy match, but {winner} proved that he can stand up to the most talented players.",
+					"This fight will certainly have been a turning point in {winner}'s career, as he showed his determination and ability to defeat the most experienced.",
+					"{winner} overcame expectations by winning this close match against a more talented opponent.",
+					"{loser} may have underestimated his opponent, as {winner} showed unwavering determination.",
+					"Despite the difference in level, {winner} managed to win this fight with a clever strategy.",
+					"It was not an easy match, but {winner} proved that he can stand up to the most talented players.",
+					"{winner} certainly took a significant step forward in his career by winning this tough match."
+				],
+				"draw": [
+					"This match was a hard fought match between two talented players.",
+					"{player1} and {player2} showed unwavering determination throughout the match.",
+					"Neither player was able to gain the decisive advantage, resulting in an unexpected tie.",
+					"This match will probably go down as one of the closest and most exciting matches in history.",
+					"{player1} and {player2} put up a fierce fight filled with determination.",
+					"Despite the difference in skill levels, both players gave everything they had to win the match.",
+					"Neither player was able to gain the decisive advantage, which led to a surprising tie.",
+					"Neither player was able to gain the decisive advantage, resulting in a tie.",
+					"This match will probably go down as one of the closest and most exciting matches in history.",
+					"{player1} and {player2} both showed why they are considered talented competitors in this epic match."
+				],
+				"sameElo": [
+					"This match was an exciting match between two players of the same level.",
+					"{player1} and {player2} both delivered a solid and balanced performance.",
+					"This match was a very close game with clever tactics on both sides.",
+					"The spectators witnessed an epic match between two talented players who competed on equal terms."
+				]
+			},
 			"summarize": {
 				"title": "Fight summary",
-				"intro": ":crossed_swords: | **Current fight state**\n\n",
-				"notStarted": ":crossed_swords: |**Fighter: {pseudo}**\n",
-				"attacker": ":crossed_swords: |**Attacker: {pseudo}**\n",
-				"defender": ":crossed_swords: |**Defender: {pseudo}**\n",
-				"winner": ":crossed_swords: |**Winner: {pseudo}**\n",
-				"loser": ":crossed_swords: |**Loser: {pseudo}**\n",
-				"drawer": ":crossed_swords: |**Fighter: {pseudo}**\n",
-				"bug": ":crossed_swords: |**Fighter: {pseudo}**\n",
+				"intro": ":clipboard: | **Current fight state** [{turn}/{maxTurns}]\n\n",
+				"notStarted": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
+				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
+				"defender": ":shield: | **Defender: {pseudo}**\n",
+				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
@@ -209,6 +319,14 @@
 				"noFightPoints": {
 					"direct": "{pseudo}, you don't have any energy left!",
 					"indirect": "This person is out of energy!"
+				},
+				"eloGap": {
+					"direct": "You can't make a ranked match against this person because your distance gap is too big!",
+					"indirect": "You can't make a ranked match against this person because your distance gap is too big!"
+				},
+				"bestOf3": {
+					"direct": "You can't make a ranked fight against this person because you've already made too many duels with them this week!",
+					"indirect": "You can't make a ranked fight against this person because you've already made too many duels with them this week!"
 				},
 				"defenderDoesntExist": "The requested user doesn't exist!"
 			},

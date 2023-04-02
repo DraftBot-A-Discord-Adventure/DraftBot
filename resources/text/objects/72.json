@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Soleil",
+		"en": "Sun"
+	},
+	"emote": ":sunny:",
+	"rarity": 5,
+	"power": 618,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

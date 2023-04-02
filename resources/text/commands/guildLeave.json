@@ -9,7 +9,7 @@
 			"leaveChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
 			"leavingCancelled": "Votre départ a été annulé.",
 			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
-			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
 			"newChiefTitle": ":crown: | La guilde **{guild}** a un nouveau chef !",
 			"leaveGuildTitle": "Quitter la guilde",
 			"guildDestroy": "Il semblerait que vous ayez déjà quitté la guilde."
@@ -23,7 +23,7 @@
 			"leaveChiefDescWithElder": "Do you really want to leave the guild {guild}? {elderName} will become the new chief.",
 			"leavingCancelled": "Your departure has been cancelled.",
 			"successTitle": "{pseudo} left the guild {guildName}!",
-			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
 			"newChiefTitle": ":crown: | The guild **{guild}** has a new chief!",
 			"leaveGuildTitle": "Leave the guild",
 			"guildDestroy": "It seems that you have already left the guild."

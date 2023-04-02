@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Nourriture pour chien",
+		"en": "Dog food"
+	},
+	"emote": ":meat_on_bone:",
+	"rarity": 1,
+	"power": 15,
+	"nature": 7,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

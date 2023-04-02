@@ -9,8 +9,11 @@ import {MissionSlots} from "../database/game/models/MissionSlot";
 import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
+
 	/**
-	 * Check if small event can be executed
+	 * You must have an empty mission slot to have this small event
+	 * @param player
+	 *
 	 */
 	async canBeExecuted(player: Player): Promise<boolean> {
 		return Maps.isOnContinent(player) && player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id));

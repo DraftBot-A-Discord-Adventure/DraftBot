@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue pierre",
+		"en": "Stone league"
+	},
+	"emoji": "🗿",
+	"color": "#66757f",
+	"minGloryPoints": 250,
+	"maxGloryPoints": 499
+}

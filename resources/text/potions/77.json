@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": "SP 95",
+		"en": "Unleaded 95"
+	},
+	"emote": "🛵",
+	"rarity": 7,
+	"power": 1874,
+	"nature": 7,
+	"frenchMasculine": 1,
+	"frenchPlural": 0,
+	"tags": [
+		"drinkAlcohol"
+	]
+}

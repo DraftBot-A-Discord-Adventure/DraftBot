@@ -4,6 +4,7 @@ import {FightView} from "../FightView";
 import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
+import Class from "../../database/game/models/Class";
 
 type FighterStats = {
 	fightPoints: number,
@@ -13,7 +14,8 @@ type FighterStats = {
 	attack: number,
 	breath: number,
 	maxBreath: number,
-	breathRegen: number
+	breathRegen: number,
+	glory: number
 }
 
 export enum FightStatModifierOperation {
@@ -37,9 +39,6 @@ const fighterStatusTranslation = [
 	"summarize.notStarted",
 	"summarize.attacker",
 	"summarize.defender",
-	"summarize.winner",
-	"summarize.loser",
-	"summarize.drawer",
 	"summarize.bug"
 ];
 
@@ -71,6 +70,8 @@ export abstract class Fighter {
 
 	protected status: FighterStatus;
 
+	protected class: Class;
+
 	private damageMultiplier: FightDamageMultiplier;
 
 	protected constructor(level: number, availableFightActions: FightAction[]) {
@@ -82,7 +83,8 @@ export abstract class Fighter {
 			attack: null,
 			breath: null,
 			maxBreath: null,
-			breathRegen: null
+			breathRegen: null,
+			glory: null
 		};
 		this.attackModifiers = [];
 		this.defenseModifiers = [];
@@ -122,7 +124,7 @@ export abstract class Fighter {
 	/**
 	 * Function called when the fight starts
 	 */
-	abstract startFight(fightView: FightView): Promise<void>;
+	abstract startFight(fightView: FightView, startStatus: FighterStatus.ATTACKER | FighterStatus.DEFENDER): Promise<void>;
 
 	/**
 	 * Function called when the fight ends
@@ -130,6 +132,11 @@ export abstract class Fighter {
 	 * @param winner Indicate if the fighter is the winner
 	 */
 	abstract endFight(fightView: FightView, winner: boolean): Promise<void>;
+
+	/**
+	 * Allow the fighter to unblock himself
+	 */
+	abstract unblock(): void;
 
 	/**
 	 * set the status of the fighter
@@ -229,6 +236,14 @@ export abstract class Fighter {
 			this.stats.breath = this.stats.maxBreath;
 		}
 		return this.stats.breath;
+	}
+
+	/**
+	 *Set the breath of the fighter
+	 * @param value The new breath
+	 */
+	public setBreath(value: number): void {
+		this.stats.breath = value;
 	}
 
 	/**
@@ -373,7 +388,9 @@ export abstract class Fighter {
 		return fightTranslationModule.format(
 			fighterStatusTranslation[this.status],
 			{
-				pseudo: this.getName()
+				pseudo: this.getName(),
+				glory: this.stats.glory,
+				class: this.class.getName(fightTranslationModule.language)
 			}
 		) + fightTranslationModule.format("summarize.stats", {
 			power: this.getFightPoints(),
@@ -487,9 +504,10 @@ export abstract class Fighter {
 
 	/**
 	 * Add the breathRegen of the fighter to its breath
+	 * @param half - if true, the breath regeneration is divided by 2
 	 */
-	regenerateBreath(): void {
-		this.stats.breath += this.stats.breathRegen;
+	regenerateBreath(half : boolean): void {
+		this.stats.breath += half ? Math.ceil(this.stats.breathRegen / 2) : this.stats.breathRegen;
 		if (this.stats.breath > this.stats.maxBreath) {
 			this.stats.breath = this.stats.maxBreath;
 		}

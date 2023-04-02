@@ -3,6 +3,10 @@ export abstract class TopConstants {
 
 	static readonly SERVER_SCOPE = "server";
 
+	static readonly TYPE_GLORY = "glory";
+
+	static readonly TYPE_SCORE = "points";
+
 	static readonly TIMING_ALLTIME = "alltime";
 
 	static readonly TIMING_WEEKLY = "weekly";
@@ -26,4 +30,9 @@ export abstract class TopConstants {
 	static readonly FIFTEEN_DAYS = 1296000000;
 
 	static readonly SEPARATOR = " | ";
+
+	static EMOTE = {
+		GLORY: ":sparkles:",
+		SCORE: ":trophy:"
+	};
 }

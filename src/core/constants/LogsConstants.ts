@@ -44,6 +44,8 @@ export enum NumberChangeReason {
 	LEVEL_UP,
 	RESPAWN,
 	NEW_PLAYER,
+	FIGHT,
+	LEAGUE_REWARD,
 	PVE_ISLAND
 }
 
@@ -64,6 +66,7 @@ export enum ShopItemType {
 	MISSION_SKIP,
 	PET_INFORMATION,
 	GUILD_XP,
+	ENERGY_HEAL
 }
 
 export type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };

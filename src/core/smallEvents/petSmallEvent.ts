@@ -210,56 +210,60 @@ async function managePickedPetInteraction(
 		reason: NumberChangeReason.SMALL_EVENT
 	};
 	switch (interaction) {
-	case "money":
+	case PetConstants.PET_INTERACTIONS.WIN_MONEY:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount}));
 		break;
-	case "gainLife":
+	case PetConstants.PET_INTERACTIONS.WIN_HEALTH:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		await MissionsController.update(player, interactionCommand.channel, language, {missionId: "petEarnHealth"});
 		break;
-	case "gainLove":
+	case PetConstants.PET_INTERACTIONS.WIN_LOVE:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount}));
 		break;
-	case "food":
+	case PetConstants.PET_INTERACTIONS.WIN_ENERGY:
+		amount = RandomUtils.rangedInt(SmallEventConstants.PET.ENERGY);
+		player.addEnergy(amount, NumberChangeReason.SMALL_EVENT);
+		break;
+	case PetConstants.PET_INTERACTIONS.WIN_FOOD:
 		if (player.guildId) {
 			food = RandomUtils.draftbotRandom.pick(Object.values(Constants.PET_FOOD));
 		}
 		else {
-			interaction = "nothing";
+			interaction = PetConstants.PET_INTERACTIONS.NOTHING;
 		}
 		break;
-	case "gainTime":
+	case PetConstants.PET_INTERACTIONS.WIN_TIME:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.timeTravel(player, amount, NumberChangeReason.SMALL_EVENT);
 		break;
-	case "points":
+	case PetConstants.PET_INTERACTIONS.WIN_POINTS:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.POINTS);
 		await player.addScore(Object.assign(editValueChanges, {amount}));
 		break;
-	case "badge":
+	case PetConstants.PET_INTERACTIONS.WIN_BADGE:
 		player.addBadge(Constants.BADGES.PET_TAMER);
 		break;
-	case "loseLife":
+	case PetConstants.PET_INTERACTIONS.LOSE_HEALTH:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.HEALTH);
 		await player.addHealth(-amount, interactionCommand.channel, language, NumberChangeReason.SMALL_EVENT);
 		break;
-	case "loseMoney":
+	case PetConstants.PET_INTERACTIONS.LOSE_MONEY:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 		await player.addMoney(Object.assign(editValueChanges, {amount: -amount}));
 		break;
-	case "loseTime":
+	case PetConstants.PET_INTERACTIONS.LOSE_TIME:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.TIME);
 		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, amount, new Date(), NumberChangeReason.SMALL_EVENT);
 		break;
-	case "petFlee":
+	case PetConstants.PET_INTERACTIONS.PET_FLEE:
 		LogsDatabase.logPetFree(pet).then();
 		await pet.destroy();
 		player.petId = null;
 		break;
-	case "loseLove":
+	case PetConstants.PET_INTERACTIONS.LOSE_LOVE:
 		amount = RandomUtils.rangedInt(SmallEventConstants.PET.LOVE_POINTS);
 		await pet.changeLovePoints(Object.assign(editValueChanges, {amount: -amount}));
 		break;

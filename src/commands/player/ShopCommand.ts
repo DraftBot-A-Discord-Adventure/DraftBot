@@ -29,6 +29,7 @@ import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {EntityConstants} from "../../core/constants/EntityConstants";
 
 /**
  * Callback of the shop command
@@ -96,6 +97,46 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 					.setDescription(translationModule.get("permanentItems.healAlterations.give"))]
 			});
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.ALTERATION_HEAL).then();
+			return true;
+		}
+	);
+}
+
+
+/**
+ * Get the shop item for recovering energy
+ * @param translationModule
+ * @param healEnergyAlreadyPurchased
+ * @param interaction
+ */
+function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyAlreadyPurchased: number, interaction: CommandInteraction): ShopItem {
+	return new ShopItem(
+		translationModule.get("permanentItems.healEnergy.emote"),
+		translationModule.get("permanentItems.healEnergy.name"),
+		EntityConstants.HEAL_ENERGY_PRICE[healEnergyAlreadyPurchased > EntityConstants.HEAL_ENERGY_PRICE.length - 1 ? EntityConstants.HEAL_ENERGY_PRICE.length - 1 : healEnergyAlreadyPurchased],
+		translationModule.format("permanentItems.healEnergy.info", {}),
+		async (message) => {
+			const [player] = await Players.getOrRegister(message.user.id);
+
+			if (healEnergyAlreadyPurchased > EntityConstants.HEAL_ENERGY_PRICE.length - 1) {
+				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.tooManyHealEnergy"));
+				return false;
+			}
+
+			if (player.fightPointsLost === 0) {
+				await sendErrorMessage(message.user, interaction, message.language, translationModule.get("error.nothingToHealEnergy"));
+				return false;
+			}
+
+			player.setFightPointsLost(0, NumberChangeReason.SHOP);
+			await player.save();
+
+			await message.sentMessage.channel.send({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(translationModule.get("success"), message.user)
+					.setDescription(translationModule.get("permanentItems.healEnergy.give"))]
+			});
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.ENERGY_HEAL).then();
 			return true;
 		}
 	);
@@ -303,11 +344,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const shopTranslations = Translations.getModule("commands.shop", language);
+	const healEnergyAlreadyPurchased = await LogsReadRequests.getAmountOfHealEnergyBoughtByPlayerThisWeek(player.discordUserId);
 
 	const permanentItemsCategory = new ShopItemCategory(
 		[
 			getRandomItemShopItem(shopTranslations),
 			getHealAlterationShopItem(shopTranslations, interaction),
+			getHealEnergyShopItem(shopTranslations, healEnergyAlreadyPurchased, interaction),
 			getRegenShopItem(shopTranslations),
 			getBadgeShopItem(shopTranslations, interaction)
 		],

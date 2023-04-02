@@ -1,5 +1,5 @@
 import {Fighter} from "./Fighter";
-import Player from "../../database/game/models/Player";
+import Player, {Players} from "../../database/game/models/Player";
 import Class from "../../database/game/models/Class";
 import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
@@ -16,6 +16,8 @@ import {MissionSlots} from "../../database/game/models/MissionSlot";
 import {getDayNumber} from "../../utils/TimeUtils";
 import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
+import {NumberChangeReason} from "../../constants/LogsConstants";
+import {FighterStatus} from "../FighterStatus";
 
 /**
  * @class PlayerFighter
@@ -24,8 +26,6 @@ import {FightAction} from "../actions/FightAction";
  */
 export class PlayerFighter extends Fighter {
 	public player: Player;
-
-	private readonly class: Class;
 
 	private readonly user: User;
 
@@ -53,8 +53,10 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Function called when the fight starts
 	 * @param fightView The fight view
+	 * @param startStatus The first status of a player
 	 */
-	async startFight(fightView: FightView): Promise<void> {
+	async startFight(fightView: FightView, startStatus: FighterStatus.ATTACKER | FighterStatus.DEFENDER): Promise<void> {
+		this.status = startStatus;
 		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
 		this.block();
 	}
@@ -82,10 +84,14 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
+		if (!fightView.fightController.friendly) {
+			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
+			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
+			await newPlayer.save();
+		}
+
 		await this.checkFightActionHistory(fightView);
-		// TODO : REDO WHEN RANKED FIGHTS ARE IMPLEMENTED
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "friendlyFight"});
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "rankedFight"});
+
 		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);
@@ -113,7 +119,7 @@ export class PlayerFighter extends Fighter {
 	 * @param winner Indicate if the fighter is the winner
 	 */
 	async endFight(fightView: FightView, winner: boolean): Promise<void> {
-		BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
+		this.unblock();
 		await this.manageMissionsOf(fightView);
 		if (winner) {
 			await MissionsController.update(this.player, fightView.channel, fightView.language, {
@@ -131,6 +137,14 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
+	 * Allow a fighter to unblock itself
+	 * @public
+	 */
+	unblock(): void {
+		BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
+	}
+
+	/**
 	 * the fighter loads its various stats
 	 * @param friendly true if the fight is friendly
 	 * @public
@@ -145,6 +159,7 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = await this.player.getBaseBreath();
 		this.stats.maxBreath = await this.player.getMaxBreath();
 		this.stats.breathRegen = await this.player.getBreathRegen();
+		this.stats.glory = this.player.gloryPoints;
 	}
 
 	/**
@@ -231,14 +246,20 @@ export class PlayerFighter extends Fighter {
 			});
 			collector.on("end", async (reaction) => {
 				const selectedAction = this.getSelectedAction(reaction);
-				await chooseActionEmbedMessage.delete();
-				if (selectedAction === null) {
-					// USER HASN'T SELECTED AN ACTION
-					this.suicide();
-					await fightView.fightController.endFight();
-					return;
+				try {
+					await chooseActionEmbedMessage.delete();
+					if (selectedAction === null) {
+						// USER HASN'T SELECTED AN ACTION
+						this.suicide();
+						await fightView.fightController.endFight();
+						return;
+					}
+					await fightView.fightController.executeFightAction(selectedAction, true);
 				}
-				await fightView.fightController.executeFightAction(selectedAction, true);
+				catch (e) {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
+					fightView.fightController.endBugFight();
+				}
 			});
 			const reactions = [];
 			for (const [, action] of actions) {

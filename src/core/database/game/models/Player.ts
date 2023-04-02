@@ -9,7 +9,7 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {CommandInteraction, TextBasedChannel} from "discord.js";
+import {ColorResolvable, CommandInteraction, TextBasedChannel} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
@@ -20,7 +20,7 @@ import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
-import {minutesToHours} from "../../../utils/TimeUtils";
+import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
@@ -34,6 +34,9 @@ import {Maps} from "../../../maps/Maps";
 import {PVEConstants} from "../../../constants/PVEConstants";
 import {MapConstants} from "../../../constants/MapConstants";
 import {RandomUtils} from "../../../utils/RandomUtils";
+import {League, Leagues} from "./League";
+import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
+import {LogsReadRequests} from "../../logs/LogsReadRequests";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -100,6 +103,12 @@ export class Player extends Model {
 
 	public notifications!: string;
 
+	public gloryPoints!: number;
+
+	public gloryPointsLastSeason!: number;
+
+	public fightCountdown!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -107,7 +116,7 @@ export class Player extends Model {
 	private pseudo: string;
 
 	/**
-	 * add a badge to a player
+	 * Add a badge to a player
 	 * @param badge
 	 */
 	public addBadge(badge: string): boolean {
@@ -126,7 +135,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * check if a player has a specific badge
+	 * Check if a player has a specific badge
 	 * @param badge
 	 */
 	public hasBadge(badge: string): boolean {
@@ -135,47 +144,47 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the destination id of a player
+	 * Get the destination id of a player
 	 */
 	async getDestinationId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return link.endMap;
+		return link ? link.endMap : null;
 	}
 
 	/**
-	 * get the mapLocation object of the destination of the player
+	 * Get the mapLocation object of the destination of the player
 	 */
 	public async getDestination(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return await MapLocations.getById(link.endMap);
+		return link ? await MapLocations.getById(link.endMap) : null;
 	}
 
 	/**
-	 * get the origin mapLocation object of the player
+	 * Get the origin mapLocation object of the player
 	 */
 	public async getPreviousMap(): Promise<MapLocation> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return await MapLocations.getById(link.startMap);
+		return link ? await MapLocations.getById(link.startMap) : null;
 	}
 
 	/**
-	 * get the origin id of the player
+	 * Get the origin id of the playe²r
 	 */
 	public async getPreviousMapId(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return link.startMap;
+		return link ? link.startMap : null;
 	}
 
 	/**
-	 * get the current trip duration of a player
+	 * Get the current trip duration of a player
 	 */
 	public async getCurrentTripDuration(): Promise<number> {
 		const link = await MapLinks.getById(this.mapLinkId);
-		return minutesToHours(link.tripDuration);
+		return link ? minutesToHours(link.tripDuration) : null;
 	}
 
 	/**
-	 * get the amount of experience needed to level up
+	 * Get the amount of experience needed to level up
 	 */
 	public getExperienceNeededToLevelUp(): number {
 		return Math.round(
@@ -188,24 +197,26 @@ export class Player extends Model {
 	 * Add or remove points from the score of a player
 	 * @param parameters
 	 */
-	public async addScore(parameters: EditValueParameters): Promise<void> {
+	public async addScore(parameters: EditValueParameters): Promise<Player> {
 		this.score += parameters.amount;
 		if (parameters.amount > 0) {
-			await MissionsController.update(this, parameters.channel, parameters.language, {
+			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
 				missionId: "earnPoints",
 				count: parameters.amount
 			});
+			Object.assign(this, newPlayer);
 		}
 		await this.setScore(this.score, parameters.channel, parameters.language);
 		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason).then();
 		this.addWeeklyScore(parameters.amount);
+		return this;
 	}
 
 	/**
-	 * add or remove money to the player
+	 * Add or remove money to the player
 	 * @param parameters
 	 */
-	public async addMoney(parameters: EditValueParameters): Promise<void> {
+	public async addMoney(parameters: EditValueParameters): Promise<Player> {
 		this.money += parameters.amount;
 		if (parameters.amount > 0) {
 			const newPlayer = await MissionsController.update(this, parameters.channel, parameters.language, {
@@ -218,10 +229,11 @@ export class Player extends Model {
 		}
 		this.setMoney(this.money);
 		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason).then();
+		return this;
 	}
 
 	/**
-	 * get a player's pseudo
+	 * Get a player's pseudo
 	 * @param language
 	 */
 	public getPseudo(language: string): string {
@@ -230,7 +242,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the pseudo from the discord api + our custom treatment and saves it in the model
+	 * Get the pseudo from the discord api + our custom treatment and saves it in the model
 	 * @param language
 	 */
 	public setPseudo(language: string): void {
@@ -320,7 +332,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * level up a player if he has enough experience
+	 * Level up a player if he has enough experience
 	 * @param channel
 	 * @param language
 	 */
@@ -409,7 +421,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the amount of time remaining before the effect ends
+	 * Get the amount of time remaining before the effect ends
 	 */
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
@@ -440,14 +452,14 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the level of the player
+	 * Get the level of the player
 	 */
 	public getLevel(): number {
 		return this.level;
 	}
 
 	/**
-	 * get the number of player that are on the same map as the player
+	 * Get the number of player that are on the same map as the player
 	 */
 	public async getNbPlayersOnYourMap(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
@@ -469,7 +481,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * gives an item to the player
+	 * Gives an item to the player
 	 * @param item
 	 */
 	public async giveItem(item: GenericItemModel): Promise<boolean> {
@@ -509,7 +521,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * drink a potion
+	 * Drink a potion
 	 */
 	public async drinkPotion(): Promise<void> {
 		InventorySlot.findOne({
@@ -542,17 +554,17 @@ export class Player extends Model {
 	}
 
 	/**
-	 * check if a player has an empty mission slot
+	 * Check if a player has an empty mission slot
 	 */
 	public hasEmptyMissionSlot(missionSlots: MissionSlot[]): boolean {
 		return missionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
 	}
 
 	/**
-	 * give experience to a player
+	 * Give experience to a player
 	 * @param parameters
 	 */
-	public async addExperience(parameters: EditValueParameters): Promise<void> {
+	public async addExperience(parameters: EditValueParameters): Promise<Player> {
 		this.experience += parameters.amount;
 		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason).then();
 		if (parameters.amount > 0) {
@@ -566,10 +578,11 @@ export class Player extends Model {
 		}
 
 		await this.levelUpIfNeeded(parameters.channel, parameters.language);
+		return this;
 	}
 
 	/**
-	 * get the amount of secondary mission a player can have at maximum
+	 * Get the amount of secondary mission a player can have at maximum
 	 */
 	public getMissionSlots(): number {
 		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
@@ -585,7 +598,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * calculate the cumulative attack of the player
+	 * Calculate the cumulative attack of the player
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeAttack(playerActiveObjects: PlayerActiveObjects): Promise<number> {
@@ -601,7 +614,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * calculate the cumulative defense of the player
+	 * Calculate the cumulative defense of the player
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeDefense(playerActiveObjects: PlayerActiveObjects): Promise<number> {
@@ -617,7 +630,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * calculate the cumulative speed of the player
+	 * Calculate the cumulative speed of the player
 	 * @param playerActiveObjects
 	 */
 	public async getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects): Promise<number> {
@@ -635,7 +648,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the player cumulative Health
+	 * Get the player cumulative Health
 	 */
 	public async getCumulativeFightPoint(): Promise<number> {
 		const maxHealth = await this.getMaxCumulativeFightPoint();
@@ -650,7 +663,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * return the player max health
+	 * Return the player max health
 	 */
 	public async getMaxHealth(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
@@ -658,7 +671,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the player max cumulative fight point
+	 * Get the player max cumulative fight point
 	 */
 	public async getMaxCumulativeFightPoint(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
@@ -666,7 +679,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * add health to the player
+	 * Add health to the player
 	 * @param health
 	 * @param channel
 	 * @param language
@@ -682,14 +695,33 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the string that mention the user
+	 * Add and logs fight points lost to the player
+	 * @param energy
+	 * @param reason
+	 */
+	public addEnergy(energy: number, reason: NumberChangeReason): void {
+		this.setFightPointsLost(Math.max(0, this.fightPointsLost - energy), reason);
+	}
+
+	/**
+	 * Set the energy lost of the player to a specific value
+	 * @param energy
+	 * @param reason
+	 */
+	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
+		this.fightPointsLost = energy;
+		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason).then();
+	}
+
+	/**
+	 * Get the string that mention the user
 	 */
 	public getMention(): string {
 		return `<@${this.discordUserId}>`;
 	}
 
 	/**
-	 * returns true if the player is currently blocked by a report
+	 * Returns true if the player is currently blocked by a report
 	 */
 	public async isInEvent(): Promise<boolean> {
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(this.discordUserId);
@@ -697,7 +729,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * allow to set the score of a player to a specific value this is only called from addScore
+	 * Allow to set the score of a player to a specific value this is only called from addScore
 	 * @param score
 	 * @param channel
 	 * @param language
@@ -714,7 +746,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * allow to set the money of a player to a specific value this is only called from addMoney
+	 * Allow to set the money of a player to a specific value this is only called from addMoney
 	 * @param money
 	 * @private
 	 */
@@ -728,7 +760,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * add points to the weekly score of the player
+	 * Add points to the weekly score of the player
 	 * @param weeklyScore
 	 * @private
 	 */
@@ -738,7 +770,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * set the weekly score of the player to a specific value this is only called from addWeeklyScore
+	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
 	 * @param weeklyScore
 	 * @private
 	 */
@@ -752,7 +784,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * set the player health
+	 * Set the player health
 	 * @param health
 	 * @param channel
 	 * @param language
@@ -779,6 +811,7 @@ export class Player extends Model {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Leave the PVE island if no fight points left
 	 * @param interaction
 	 * @param language
@@ -825,6 +858,9 @@ export class Player extends Model {
 
 	/**
 	 * get the amount of breath a player has at the beginning of a fight
+=======
+	 * Get the amount of breath a player has at the beginning of a fight
+>>>>>>> develop
 	 */
 	public async getBaseBreath(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
@@ -832,7 +868,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the max amount of breath a player can have
+	 * Get the max amount of breath a player can have
 	 */
 	public async getMaxBreath(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
@@ -840,20 +876,111 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the amount of breath a player will get at the end of each turn
+	 * Get the amount of breath a player will get at the end of each turn
 	 */
 	public async getBreathRegen(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
 		return playerClass.breathRegen;
 	}
+
+	/**
+	 * Display the league of the player
+	 * @param language
+	 */
+	public async getLeagueDisplay(language: string): Promise<string> {
+		const playerLeague = await this.getLeague();
+		return playerLeague.toString(language);
+	}
+
+	/**
+	 * Get the profile's color of the player
+	 */
+	public async getProfileColor(): Promise<ColorResolvable> {
+		if (this.level < FightConstants.REQUIRED_LEVEL) {
+			return null;
+		}
+		const playerLeague = await this.getLeague();
+		return parseInt(playerLeague.color.slice(1), 16);
+	}
+
+	/**
+	 * Get the league of the player
+	 */
+	public async getLeague(): Promise<League> {
+		return await Leagues.getByGlory(this.gloryPoints);
+	}
+
+	/**
+	 * Get the league of the player at the end of the last season
+	 */
+	public async getLeagueLastSeason(): Promise<League> {
+		return await Leagues.getByGlory(this.gloryPointsLastSeason);
+	}
+
+	/**
+	 * Set the glory points of the player
+	 * @param gloryPoints
+	 * @param reason
+	 * @param channel
+	 * @param language
+	 * @param fightId
+	 * @private
+	 */
+	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, channel: TextBasedChannel, language: string, fightId: number = null): Promise<void> {
+		Object.assign(this, await MissionsController.update(this, channel, language, {
+			missionId: "reachGlory",
+			count: gloryPoints,
+			set: true
+		}));
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.discordUserId, gloryPoints, reason, fightId);
+		this.gloryPoints = gloryPoints;
+	}
+
+	/**
+	 * Get the amount of points to award to the player at the end of the season
+	 */
+	public async getLastSeasonScoreToAward(): Promise<number> {
+		const rank = await Players.getLastSeasonGloryRankById(this.id);
+		if (rank > FightConstants.ELO.MAX_RANK_FOR_LEAGUE_POINTS_REWARD) {
+			return 0;
+		}
+		const pointsToAward = Math.round(
+			FightConstants.ELO.LEAGUE_POINTS_REWARD_BASE_VALUE *
+			Math.exp(
+				FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1 *
+				(1 - rank) / rank) -
+			FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_2 *
+			(rank - 1 - FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1)
+		);
+		return Math.ceil(pointsToAward / 10) * 10;
+	}
+
+	/**
+	 * Get the amount of points that was removed to the player at the end of the previous season
+	 */
+	public getCompressionImpact(): number {
+		if (this.gloryPointsLastSeason > LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
+			return Math.floor((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
+		}
+		return 0;
+	}
+
+	/**
+	 * Check in the logs if the player has claimed the league reward for the current season returns true if we find a value in the logs for the last 24 hours
+	 */
+	async hasClaimedLeagueReward(): Promise<boolean> {
+		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
+		// beware, the date of last league reward is in seconds
+		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
+	}
 }
 
 /**
- * this class is used to store information about players
+ * This class is used to store information about players
  */
 export class Players {
 	/**
-	 * get or create a player
+	 * Get or create a player
 	 * @param discordUserId
 	 */
 	static getOrRegister(discordUserId: string): Promise<[Player, boolean] | null> {
@@ -868,7 +995,7 @@ export class Players {
 
 
 	/**
-	 * get a player by guildId
+	 * Get a player by guildId
 	 * @param guildId
 	 */
 	static getByGuild(guildId: number): Promise<Player[]> {
@@ -886,7 +1013,7 @@ export class Players {
 	}
 
 	/**
-	 * get a player by discordUserId
+	 * Get a player by discordUserId
 	 * @param discordUserId
 	 */
 	static getByDiscordUserId(discordUserId: string): Promise<Player | null> {
@@ -900,25 +1027,28 @@ export class Players {
 	}
 
 	/**
-	 * get the ranking of the player compared to a list of players
+	 * Get the ranking of the player compared to a list of players
 	 * @param discordId
 	 * @param ids - list of discordIds to compare to
 	 * @param timing
+	 * @param isGloryTop
 	 */
-	static async getRankFromUserList(discordId: string, ids: string[], timing: string): Promise<number> {
-		const scoreLookup = timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+	static async getRankFromUserList(discordId: string, ids: string[], timing: string, isGloryTop: boolean): Promise<number> {
+		const scoreLookup = isGloryTop ? "gloryPoints" : timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
 										, players.level DESC)) AS rank
 							 FROM players
-							 WHERE players.discordUserId IN (${ids.toString()})) subquery
+							 WHERE (players.discordUserId IN (${ids.toString()}))
+							   AND ${secondCondition}) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
 		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
 	}
 
 	/**
-	 * get the rank of a player
+	 * Get the rank of a player
 	 * @param playerId
 	 */
 	static async getRankById(playerId: number): Promise<number> {
@@ -926,7 +1056,7 @@ export class Players {
 	}
 
 	/**
-	 * get the weekly rank of a player
+	 * Get the weekly rank of a player
 	 * @param playerId
 	 */
 	static async getWeeklyRankById(playerId: number): Promise<number> {
@@ -934,7 +1064,15 @@ export class Players {
 	}
 
 	/**
-	 * get the rank of a player related to a specific type of value
+	 * Get the weekly rank of a player
+	 * @param playerId
+	 */
+	static async getLastSeasonGloryRankById(playerId: number): Promise<number> {
+		return await this.getRank(playerId, Constants.RANK_TYPES.LAST_SEASON_GLORY);
+	}
+
+	/**
+	 * Get the rank of a player related to a specific type of value
 	 * @param playerId
 	 * @param rankType
 	 */
@@ -947,7 +1085,7 @@ export class Players {
 	}
 
 	/**
-	 * get a player from the options of an interaction
+	 * Get a player from the options of an interaction
 	 * @param interaction
 	 */
 	static async getByOptions(interaction: CommandInteraction): Promise<Player | null> {
@@ -996,6 +1134,20 @@ export class Players {
 	}
 
 	/**
+	 * Get the number of players that are considered playing the game inside the list of ids
+	 * @param listDiscordId
+	 */
+	static async getNumberOfFightingPlayersInList(listDiscordId: string[]): Promise<number> {
+		const query = `SELECT COUNT(*) as nbPlayers
+					   FROM players
+					   WHERE players.fightCountdown
+						   <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
+						 AND players.discordUserId IN (${listDiscordId.toString()})`;
+		const queryResult = await Player.sequelize.query(query);
+		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+	}
+
+	/**
 	 * Get the players in the list of Ids that will be printed into the top at the given page
 	 * @param listDiscordId
 	 * @param page
@@ -1032,6 +1184,36 @@ export class Players {
 	}
 
 	/**
+	 * Get the players in the list of Ids that will be printed into the glory top at the given page
+	 * @param listDiscordId
+	 * @param page
+	 */
+	static async getPlayersToPrintGloryTop(listDiscordId: string[], page: number): Promise<Player[]> {
+		const restrictionsTopEntering = {
+			fightCountdown: {
+				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+			}
+		};
+		return await Player.findAll({
+			where: {
+				[Op.and]: {
+					discordUserId: {
+						[Op.in]: listDiscordId
+					},
+					...restrictionsTopEntering
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"]
+			],
+			limit: TopConstants.PLAYERS_BY_PAGE,
+			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+		});
+	}
+
+
+	/**
 	 * Get the player with the given rank
 	 * @param rank
 	 */
@@ -1049,6 +1231,10 @@ export class Players {
 		});
 	}
 
+	/**
+	 * Get the player with the given id
+	 * @param id
+	 */
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
 					   FROM (SELECT *,
@@ -1064,6 +1250,9 @@ export class Players {
 		return (await Players.getOrRegister(playerToReturn.discordUserId))[0];
 	}
 
+	/**
+	 *  Get the mean of all points of the players
+	 */
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
 					   FROM players
@@ -1075,6 +1264,9 @@ export class Players {
 		);
 	}
 
+	/**
+	 *  Get the mean of all weekly score of the players
+	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
 					   FROM players
@@ -1086,6 +1278,9 @@ export class Players {
 		);
 	}
 
+	/**
+	 *  Get the number of players who haven't started the adventure
+	 */
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
@@ -1095,6 +1290,9 @@ export class Players {
 		})))[0].count;
 	}
 
+	/**
+	 *  Get the number of players who have started the adventure
+	 */
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
@@ -1104,6 +1302,9 @@ export class Players {
 		})))[0].count;
 	}
 
+	/**
+	 *  Get the mean of all level of the players
+	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
 					   FROM players
@@ -1115,6 +1316,9 @@ export class Players {
 		);
 	}
 
+	/**
+	 *  Get the mean of all money of the players
+	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
 					   FROM players
@@ -1126,6 +1330,9 @@ export class Players {
 		);
 	}
 
+	/**
+	 * Get the sum of all money in game
+	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
 					   FROM players
@@ -1135,6 +1342,9 @@ export class Players {
 		})))[0].sum;
 	}
 
+	/**
+	 * Get the money of the richest player
+	 */
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
 					   FROM players`;
@@ -1143,6 +1353,10 @@ export class Players {
 		})))[0].max;
 	}
 
+	/**
+	 * Get the number of players with the given class
+	 * @param classEntity
+	 */
 	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
@@ -1160,6 +1374,10 @@ export class Players {
 	}
 }
 
+/**
+ * Init the model
+ * @param sequelize
+ */
 export function initModel(sequelize: Sequelize): void {
 	Player.init({
 		id: {
@@ -1246,6 +1464,18 @@ export function initModel(sequelize: Sequelize): void {
 		notifications: {
 			type: DataTypes.STRING,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
+		},
+		gloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		gloryPointsLastSeason: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
+		},
+		fightCountdown: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

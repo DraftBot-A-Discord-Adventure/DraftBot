@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "Ligue légende",
+		"en": "Legend league"
+	},
+	"emoji": "🏆",
+	"color": "#ffdbba",
+	"minGloryPoints": 2000,
+	"maxGloryPoints": 100000
+}

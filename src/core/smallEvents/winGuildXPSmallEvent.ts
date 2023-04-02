@@ -5,14 +5,15 @@ import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {Guilds} from "../database/game/models/Guild";
-import {smallEvent as doNothing} from "./doNothingSmallEvent";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
+
 	/**
-	 * Check if small event can be executed
+	 * You must not be in a guild at max level to execute this small event
+	 * @param player
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(Maps.isOnContinent(player));
@@ -27,9 +28,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
-		if (guild === null || guild.isAtMaxLevel()) {
-			return await doNothing.executeSmallEvent(interaction, language, player, seEmbed);
-		}
+
 		const xpWon = RandomUtils.draftbotRandom.integer(
 			SmallEventConstants.GUILD_EXPERIENCE.MIN + guild.level,
 			SmallEventConstants.GUILD_EXPERIENCE.MAX + guild.level * 2
