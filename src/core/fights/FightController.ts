@@ -163,8 +163,9 @@ export class FightController {
 		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
-			() => {
+			(e) => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
+				console.error(e.stack);
 				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
@@ -211,8 +212,9 @@ export class FightController {
 		}
 
 		await this._fightView.displayFightStatus().catch(
-			() => {
+			(e) => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				console.error(e.stack);
 				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
@@ -228,6 +230,7 @@ export class FightController {
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				console.error(e.stack);
 				this.endBugFight();
 			}
 		}

@@ -1,14 +1,11 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {SimpleDamageFightActionTemplate} from "../../templates/SimpleDamageFightActionTemplate";
 
-export default class SimpleAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
-		receiver.damage(damageDealt);
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language);
+export default class SimpleAttack extends SimpleDamageFightActionTemplate {
+	constructor(name: string) {
+		super(name, 5, 10);
 	}
 
 	getAttackInfo(): attackInfo {

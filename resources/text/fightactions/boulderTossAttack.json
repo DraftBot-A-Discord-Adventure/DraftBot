@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Lancer de rocher",
+			"namePlural": "Lancers de rocher",
+			"description": "Attaque moyenne qui a des chances d'étourdir l'adversaire."
+		},
+		"en": {
+			"name": "Boulder toss",
+			"namePlural": "Boulder tosses",
+			"description": "Average attack that have chances to stun the opponent."
+		}
+	},
+	"emote": "🪨",
+	"breath": 6,
+	"missionVariant": -1,
+	"type": "distance"
+}

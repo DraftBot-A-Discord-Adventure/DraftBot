@@ -18,6 +18,7 @@ import {FightActions} from "../actions/FightActions";
 import {FightAction} from "../actions/FightAction";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {FighterStatus} from "../FighterStatus";
+import {TranslationModule} from "../../Translations";
 
 /**
  * @class PlayerFighter
@@ -28,6 +29,10 @@ export class PlayerFighter extends Fighter {
 	public player: Player;
 
 	private readonly user: User;
+
+	private class: Class;
+
+	private glory: number;
 
 	public constructor(user: User, player: Player, playerClass: Class) {
 		super(player.level, FightActions.listFightActionsFromClass(playerClass));
@@ -55,7 +60,7 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView The fight view
 	 * @param startStatus The first status of a player
 	 */
-	async startFight(fightView: FightView, startStatus: FighterStatus.ATTACKER | FighterStatus.DEFENDER): Promise<void> {
+	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
 		this.status = startStatus;
 		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
 		this.block();
@@ -159,7 +164,7 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = await this.player.getBaseBreath();
 		this.stats.maxBreath = await this.player.getMaxBreath();
 		this.stats.breathRegen = await this.player.getBreathRegen();
-		this.stats.glory = this.player.gloryPoints;
+		this.glory = this.player.gloryPoints;
 	}
 
 	/**
@@ -267,6 +272,29 @@ export class PlayerFighter extends Fighter {
 			}
 
 			Promise.all(reactions).catch(() => null);
+		});
+	}
+
+	/**
+	 * Return a display of the player in a string format
+	 * @param fightTranslationModule
+	 */
+	public getStringDisplay(fightTranslationModule: TranslationModule): string {
+		return fightTranslationModule.format(
+			this.status.getTranslationField(),
+			{
+				pseudo: this.getName(),
+				glory: this.glory,
+				class: this.class.getName(fightTranslationModule.language)
+			}
+		) + fightTranslationModule.format("summarize.stats", {
+			power: this.getFightPoints(),
+			attack: this.getAttack(),
+			defense: this.getDefense(),
+			speed: this.getSpeed(),
+			breath: this.getBreath(),
+			maxBreath: this.getMaxBreath(),
+			breathRegen: this.getRegenBreath()
 		});
 	}
 }

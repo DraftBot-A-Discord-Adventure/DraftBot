@@ -7,6 +7,7 @@ import Monster from "../../database/game/models/Monster";
 import MonsterAttack from "../../database/game/models/MonsterAttack";
 import {FightAction} from "../actions/FightAction";
 import {PVEConstants} from "../../constants/PVEConstants";
+import {TranslationModule} from "../../Translations";
 
 export class MonsterFighter extends Fighter {
 
@@ -69,4 +70,26 @@ export class MonsterFighter extends Fighter {
 	unblock(): void {
 		// Do nothing
 	}
+
+	/**
+	 * Return a display of the monster in a string format
+	 * @param fightTranslationModule
+	 */
+	public getStringDisplay(fightTranslationModule: TranslationModule): string {
+		return fightTranslationModule.format(
+			this.status.getTranslationField(),
+			{
+				pseudo: this.getName()
+			}
+		) + fightTranslationModule.format("summarize.stats", {
+			power: this.getFightPoints(),
+			attack: this.getAttack(),
+			defense: this.getDefense(),
+			speed: this.getSpeed(),
+			breath: this.getBreath(),
+			maxBreath: this.getMaxBreath(),
+			breathRegen: this.getRegenBreath()
+		});
+	}
+
 }

@@ -1,10 +1,9 @@
-import {TranslationModule} from "../../Translations";
 import {FighterStatus} from "../FighterStatus";
 import {FightView} from "../FightView";
 import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
-import Class from "../../database/game/models/Class";
+import {TranslationModule} from "../../Translations";
 
 type FighterStats = {
 	fightPoints: number,
@@ -14,8 +13,7 @@ type FighterStats = {
 	attack: number,
 	breath: number,
 	maxBreath: number,
-	breathRegen: number,
-	glory: number
+	breathRegen: number
 }
 
 export enum FightStatModifierOperation {
@@ -34,13 +32,6 @@ type FightDamageMultiplier = {
 	value: number,
 	turns: number
 }
-
-const fighterStatusTranslation = [
-	"summarize.notStarted",
-	"summarize.attacker",
-	"summarize.defender",
-	"summarize.bug"
-];
 
 /**
  * @class Fighter
@@ -70,8 +61,6 @@ export abstract class Fighter {
 
 	protected status: FighterStatus;
 
-	protected class: Class;
-
 	private damageMultiplier: FightDamageMultiplier;
 
 	protected constructor(level: number, availableFightActions: FightAction[]) {
@@ -83,8 +72,7 @@ export abstract class Fighter {
 			attack: null,
 			breath: null,
 			maxBreath: null,
-			breathRegen: null,
-			glory: null
+			breathRegen: null
 		};
 		this.attackModifiers = [];
 		this.defenseModifiers = [];
@@ -124,7 +112,7 @@ export abstract class Fighter {
 	/**
 	 * Function called when the fight starts
 	 */
-	abstract startFight(fightView: FightView, startStatus: FighterStatus.ATTACKER | FighterStatus.DEFENDER): Promise<void>;
+	abstract startFight(fightView: FightView, startStatus: FighterStatus): Promise<void>;
 
 	/**
 	 * Function called when the fight ends
@@ -137,6 +125,12 @@ export abstract class Fighter {
 	 * Allow the fighter to unblock himself
 	 */
 	abstract unblock(): void;
+
+	/**
+	 * Summarize embed display string
+	 * @param fightTranslationModule
+	 */
+	abstract getStringDisplay(fightTranslationModule: TranslationModule): string;
 
 	/**
 	 * set the status of the fighter
@@ -378,29 +372,6 @@ export abstract class Fighter {
 			this.stats.fightPoints = max;
 		}
 		return this.stats.fightPoints;
-	}
-
-	/**
-	 * Return a display of the player in a string format
-	 * @param fightTranslationModule
-	 */
-	public getStringDisplay(fightTranslationModule: TranslationModule): string {
-		return fightTranslationModule.format(
-			fighterStatusTranslation[this.status],
-			{
-				pseudo: this.getName(),
-				glory: this.stats.glory,
-				class: this.class.getName(fightTranslationModule.language)
-			}
-		) + fightTranslationModule.format("summarize.stats", {
-			power: this.getFightPoints(),
-			attack: this.getAttack(),
-			defense: this.getDefense(),
-			speed: this.getSpeed(),
-			breath: this.getBreath(),
-			maxBreath: this.getMaxBreath(),
-			breathRegen: this.getRegenBreath()
-		});
 	}
 
 	/**

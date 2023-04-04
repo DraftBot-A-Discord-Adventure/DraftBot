@@ -1,9 +1,9 @@
 import {Fighter} from "../fighter/Fighter";
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
-import {FightConstants} from "../../constants/FightConstants";
 import {FightActionType} from "./FightActionType";
 import {format} from "../../utils/StringFormatter";
+import {FightActionStatus} from "./FightActionStatus";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -73,12 +73,12 @@ export abstract class FightAction {
 	/**
 	 * return the status of the attack (success, missed, critical)
 	 */
-	protected getAttackStatus(damageDealt: number, initialDamage: number): string {
+	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
 		return damageDealt > initialDamage
-			? FightConstants.ATTACK_STATUS.CRITICAL
+			? FightActionStatus.CRITICAL
 			: damageDealt < initialDamage
-				? FightConstants.ATTACK_STATUS.MISSED
-				: FightConstants.ATTACK_STATUS.NORMAL;
+				? FightActionStatus.MISSED
+				: FightActionStatus.NORMAL;
 	}
 
 	public getType(): FightActionType {
