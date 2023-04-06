@@ -4,6 +4,7 @@ import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {draftBotInstance} from "../../../../core/bot";
+import Class from "../../../../core/database/game/models/Class";
 
 export const commandInfo: ITestCommand = {
 	name: "changeClass",
@@ -27,8 +28,9 @@ export const commandInfo: ITestCommand = {
 const changeClassTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const newClassId = parseInt(args[0], 10);
-	if (newClassId <= 0 || newClassId > 24) {
-		throw new Error("Erreur class : choisissez une class qui existe !");
+	const classAmount = (await Class.findAll()).length - 1;
+	if (newClassId <= 0 || newClassId > classAmount) {
+		throw new Error("Erreur class : choisissez une classe qui existe !");
 	}
 	player.class = newClassId;
 	draftBotInstance.logsDatabase.logPlayerClassChange(player.discordUserId, newClassId).then();
