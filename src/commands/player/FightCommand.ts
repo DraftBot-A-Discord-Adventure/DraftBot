@@ -225,7 +225,7 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 	if (player1.fightCountdown < 0) {
 		player1.fightCountdown = 0;
 	}
-	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT,fight.getFightView().channel, fight.getFightView().language, fightLogId);
+	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
 	player2.fightCountdown--;
 	if (player2.fightCountdown < 0) {
 		player2.fightCountdown = 0;
@@ -257,15 +257,22 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 	const player2OldLeague = await Leagues.getByGlory(player2.player.gloryPoints);
 	const player1NewLeague = await Leagues.getByGlory(player1.playerNewRating);
 	const player2NewLeague = await Leagues.getByGlory(player2.playerNewRating);
-
+	const ratingDiff1 = player1.playerNewRating - player1.player.gloryPoints;
+	const ratingDiff2 = player2.playerNewRating - player2.player.gloryPoints;
+	let gloryField = "";
 	// Create embed fields
-	const gloryField = fightTr.format("elo.glory", {
-		player: player1.player.getMention(),
-		ratingDiff: player1.playerNewRating - player1.player.gloryPoints
-	}) + fightTr.format("elo.glory", {
-		player: player2.player.getMention(),
-		ratingDiff: player2.playerNewRating - player2.player.gloryPoints
-	});
+	if (ratingDiff1 !== 0) {
+		gloryField += fightTr.format("elo.glory", {
+			player: player1.player.getMention(),
+			ratingDiff: ratingDiff1
+		});
+	}
+	if (ratingDiff2 !== 0) {
+		gloryField += fightTr.format("elo.glory", {
+			player: player2.player.getMention(),
+			ratingDiff: ratingDiff2
+		});
+	}
 	let leagueChange = "";
 	if (player1OldLeague.id !== player1NewLeague.id) {
 		leagueChange += fightTr.format(player1OldLeague.maxGloryPoints < player1NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
@@ -284,12 +291,14 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 
 	// Create embed
 	const embed = new DraftBotEmbed()
-		.setTitle(fightTr.get("elo.title"))
-		.addFields({
+		.setTitle(fightTr.get("elo.title"));
+	if (ratingDiff1 !== 0 || ratingDiff2 !== 0) {
+		embed.addFields({
 			name: fightTr.get("elo.gloryField"),
 			value: gloryField,
 			inline: false
 		});
+	}
 	if (leagueChange !== "") {
 		embed.addFields({
 			name: fightTr.get("elo.leagueField"),
