@@ -57,5 +57,5 @@ export abstract class LeagueInfoConstants {
 	static readonly GLORY_RESET_THRESHOLD = 500;
 
 	// % of glory points lost at the end of the season (only points above the glory reset threshold are considered)
-	static readonly SEASON_END_LOSS_PERCENTAGE = 0.3;
+	static readonly SEASON_END_LOSS_PERCENTAGE = 0.04;
 }
