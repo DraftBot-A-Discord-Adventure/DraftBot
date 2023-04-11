@@ -4,11 +4,11 @@ import {Players} from "../../../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
-	name: "playersuicide",
-	aliases: ["suicide"],
+	name: "playerkill",
+	aliases: ["kill"],
 	commandFormat: "",
 	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
-	description: "Vous permet de vous suicider dans le plus grand des calmes",
+	description: "Vous permet de vous kill dans le plus grand des calmes",
 	commandTestShouldReply: true,
 	execute: null // defined later
 };
