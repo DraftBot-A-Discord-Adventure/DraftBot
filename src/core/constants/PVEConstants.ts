@@ -39,4 +39,16 @@ export abstract class PVEConstants {
 			C: 30.30303
 		}
 	};
+
+	static BLOCKED_COMMANDS = [
+		"dailybonus",
+		"drink",
+		"fight",
+		"leaguebonus",
+		"sell",
+		"shop",
+		"missionsshop",
+		"guildbonus",
+		"guildshop"
+	];
 }

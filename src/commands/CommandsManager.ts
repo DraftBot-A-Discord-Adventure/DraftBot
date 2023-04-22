@@ -39,6 +39,8 @@ import Player, {Players} from "../core/database/game/models/Player";
 import {GuildConstants} from "../core/constants/GuildConstants";
 import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 import {RESTPostAPIChatInputApplicationCommandsJSONBody} from "discord-api-types/v10";
+import {PVEConstants} from "../core/constants/PVEConstants";
+import {Maps} from "../core/maps/Maps";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -533,6 +535,7 @@ export class CommandsManager {
 		if (!interaction.commandName) {
 			return;
 		}
+
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
@@ -571,6 +574,16 @@ export class CommandsManager {
 		}
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
+
+		// check pve island blocking
+		if (Maps.isOnPveIsland(player) && PVEConstants.BLOCKED_COMMANDS.includes(interaction.commandName)) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				Translations.getModule("error", tr.language).get("pveIslandBlocking")
+			);
+			return;
+		}
 
 		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.commandName).then();
 		await commandInfo.executeCommand(interaction, tr.language, player);
