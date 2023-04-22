@@ -21,19 +21,19 @@ export class MonsterFighter extends Fighter {
 			}
 		}
 		super(level, attacks);
-		this.stats.fightPoints = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level);
+		this.stats.fightPoints = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level, monster.fightPointsRatio);
 		this.stats.maxFightPoint = this.stats.fightPoints;
-		this.stats.attack = this.calculateStat(PVEConstants.STATS_FORMULA.ATTACK, level);
-		this.stats.defense = this.calculateStat(PVEConstants.STATS_FORMULA.DEFENSE, level);
-		this.stats.speed = this.calculateStat(PVEConstants.STATS_FORMULA.SPEED, level);
+		this.stats.attack = this.calculateStat(PVEConstants.STATS_FORMULA.ATTACK, level, monster.attackRatio);
+		this.stats.defense = this.calculateStat(PVEConstants.STATS_FORMULA.DEFENSE, level, monster.defenseRatio);
+		this.stats.speed = this.calculateStat(PVEConstants.STATS_FORMULA.SPEED, level, monster.speedRatio);
 		this.stats.breath = monster.breath;
 		this.stats.maxBreath = monster.maxBreath;
 		this.stats.breathRegen = monster.breathRegen;
 		this.name = monster.getName(language);
 	}
 
-	calculateStat(stat: { A: number, B: number, C: number}, level: number): number {
-		return Math.round(stat.A * level * level + stat.B * level + stat.C);
+	calculateStat(stat: { A: number, B: number, C: number}, level: number, ratio: number): number {
+		return Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0;
 	}
 
 	chooseAction(fightView: FightView): void {

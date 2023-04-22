@@ -9,13 +9,13 @@ export class Monster extends Model {
 
 	public readonly en!: string;
 
-	public readonly baseFightPoints!: number;
+	public readonly fightPointsRatio!: number;
 
-	public readonly baseAttack!: number;
+	public readonly attackRatio!: number;
 
-	public readonly baseDefense!: number;
+	public readonly defenseRatio!: number;
 
-	public readonly baseSpeed!: number;
+	public readonly speedRatio!: number;
 
 	public readonly breath!: number;
 
