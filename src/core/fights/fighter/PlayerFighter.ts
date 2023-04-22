@@ -255,7 +255,7 @@ export class PlayerFighter extends Fighter {
 					await chooseActionEmbedMessage.delete();
 					if (selectedAction === null) {
 						// USER HASN'T SELECTED AN ACTION
-						this.suicide();
+						this.kill();
 						await fightView.fightController.endFight();
 						return;
 					}

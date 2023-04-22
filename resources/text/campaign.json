@@ -475,7 +475,7 @@
 		{
 			"missionId": "reachGlory",
 			"missionVariant": 0,
-			"missionObjective": 1500,
+			"missionObjective": 1200,
 			"gemsToWin": 5,
 			"xpToWin": 200,
 			"moneyToWin": 0

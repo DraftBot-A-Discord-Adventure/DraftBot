@@ -21,7 +21,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
 import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {Leagues} from "../../core/database/game/models/League";
+import {League, Leagues} from "../../core/database/game/models/League";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 
@@ -225,7 +225,7 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 	if (player1.fightCountdown < 0) {
 		player1.fightCountdown = 0;
 	}
-	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT,fight.getFightView().channel, fight.getFightView().language, fightLogId);
+	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
 	player2.fightCountdown--;
 	if (player2.fightCountdown < 0) {
 		player2.fightCountdown = 0;
@@ -243,29 +243,56 @@ async function fightEndCallback(fight: FightController, fightLogId: number): Pro
 }
 
 /**
- * Create the embed fight end callback
- * @param fight
+ * Create the description of the glory field
+ * @param ratingDiff1
+ * @param fightTr
  * @param player1
+ * @param ratingDiff2
  * @param player2
  */
-async function createFightEndCallbackEmbed(fight: FightController, player1: PlayerInformation, player2: PlayerInformation): Promise<DraftBotEmbed> {
-	// Translation module
-	const fightTr = Translations.getModule("commands.fight", fight.getFightView().language);
-
-	// Compute leagues
-	const player1OldLeague = await Leagues.getByGlory(player1.player.gloryPoints);
-	const player2OldLeague = await Leagues.getByGlory(player2.player.gloryPoints);
-	const player1NewLeague = await Leagues.getByGlory(player1.playerNewRating);
-	const player2NewLeague = await Leagues.getByGlory(player2.playerNewRating);
-
+function generateGloryField(
+	ratingDiff1: number,
+	fightTr: TranslationModule,
+	player1: PlayerInformation,
+	ratingDiff2: number,
+	player2: PlayerInformation
+): string {
+	let gloryField = "";
 	// Create embed fields
-	const gloryField = fightTr.format("elo.glory", {
-		player: player1.player.getMention(),
-		ratingDiff: player1.playerNewRating - player1.player.gloryPoints
-	}) + fightTr.format("elo.glory", {
-		player: player2.player.getMention(),
-		ratingDiff: player2.playerNewRating - player2.player.gloryPoints
-	});
+	if (ratingDiff1 !== 0) {
+		gloryField += fightTr.format("elo.glory", {
+			player: player1.player.getMention(),
+			ratingDiff: ratingDiff1
+		});
+	}
+	if (ratingDiff2 !== 0) {
+		gloryField += fightTr.format("elo.glory", {
+			player: player2.player.getMention(),
+			ratingDiff: ratingDiff2
+		});
+	}
+	return gloryField;
+}
+
+/**
+ * generate the description of the field that display the league change if there is one
+ * @param player1OldLeague
+ * @param player1NewLeague
+ * @param fightTr
+ * @param player1
+ * @param player2OldLeague
+ * @param player2NewLeague
+ * @param player2
+ */
+function generateLeagueChangeField(
+	player1OldLeague: League,
+	player1NewLeague: League,
+	fightTr: TranslationModule,
+	player1: PlayerInformation,
+	player2OldLeague: League,
+	player2NewLeague: League,
+	player2: PlayerInformation)
+	: string {
 	let leagueChange = "";
 	if (player1OldLeague.id !== player1NewLeague.id) {
 		leagueChange += fightTr.format(player1OldLeague.maxGloryPoints < player1NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
@@ -281,24 +308,17 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 			newLeague: player2NewLeague.toString(fightTr.language)
 		});
 	}
+	return leagueChange;
+}
 
-	// Create embed
-	const embed = new DraftBotEmbed()
-		.setTitle(fightTr.get("elo.title"))
-		.addFields({
-			name: fightTr.get("elo.gloryField"),
-			value: gloryField,
-			inline: false
-		});
-	if (leagueChange !== "") {
-		embed.addFields({
-			name: fightTr.get("elo.leagueField"),
-			value: leagueChange,
-			inline: false
-		});
-	}
-
-	// Description
+/**
+ * Generate the description of the embed depending on the elo of the players and the result of the fight
+ * @param player1
+ * @param player2
+ * @param embed
+ * @param fightTr
+ */
+function generateEmbedDescription(player1: PlayerInformation, player2: PlayerInformation, embed: DraftBotEmbed, fightTr: TranslationModule): void {
 	if (Math.abs(player1.player.gloryPoints - player2.player.gloryPoints) < (player1.playerKFactor + player2.playerKFactor) / 2) {
 		embed.setDescription(format(fightTr.getRandom("elo.sameElo"), {
 			player1: player1.player.getMention(),
@@ -335,6 +355,48 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 			player2: player2.player.getMention()
 		}));
 	}
+}
+
+/**
+ * Create the embed fight end callback
+ * @param fight
+ * @param player1
+ * @param player2
+ */
+async function createFightEndCallbackEmbed(fight: FightController, player1: PlayerInformation, player2: PlayerInformation): Promise<DraftBotEmbed> {
+	// Translation module
+	const fightTr = Translations.getModule("commands.fight", fight.getFightView().language);
+
+	// Compute leagues
+	const player1OldLeague = await Leagues.getByGlory(player1.player.gloryPoints);
+	const player2OldLeague = await Leagues.getByGlory(player2.player.gloryPoints);
+	const player1NewLeague = await Leagues.getByGlory(player1.playerNewRating);
+	const player2NewLeague = await Leagues.getByGlory(player2.playerNewRating);
+	const ratingDiff1 = player1.playerNewRating - player1.player.gloryPoints;
+	const ratingDiff2 = player2.playerNewRating - player2.player.gloryPoints;
+	const gloryField = generateGloryField(ratingDiff1, fightTr, player1, ratingDiff2, player2);
+	const leagueChange = generateLeagueChangeField(player1OldLeague, player1NewLeague, fightTr, player1, player2OldLeague, player2NewLeague, player2);
+
+	// Create embed
+	const embed = new DraftBotEmbed()
+		.setTitle(fightTr.get("elo.title"));
+	if (ratingDiff1 !== 0 || ratingDiff2 !== 0) {
+		embed.addFields({
+			name: fightTr.get("elo.gloryField"),
+			value: gloryField,
+			inline: false
+		});
+	}
+	if (leagueChange !== "") {
+		embed.addFields({
+			name: fightTr.get("elo.leagueField"),
+			value: leagueChange,
+			inline: false
+		});
+	}
+
+	// Description
+	generateEmbedDescription(player1, player2, embed, fightTr);
 	return embed;
 }
 

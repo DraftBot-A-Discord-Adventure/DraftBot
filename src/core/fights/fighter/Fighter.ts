@@ -391,7 +391,7 @@ export abstract class Fighter {
 	/**
 	 * the name of the function is very clear
 	 */
-	public suicide(): void {
+	public kill(): void {
 		this.stats.fightPoints = 0;
 	}
 
