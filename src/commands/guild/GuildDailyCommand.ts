@@ -413,7 +413,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const members = await Players.getByGuild(guild.id);
 	for (const member of members) {
 		if (Maps.isOnPveIsland(member)) {
-			await replyErrorMessage(interaction, language, guildDailyModule.get("pveIslandError"))
+			await replyErrorMessage(interaction, language, guildDailyModule.get("pveIslandError"));
 			return;
 		}
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(member.discordUserId);
