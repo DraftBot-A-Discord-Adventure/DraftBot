@@ -138,7 +138,7 @@ export class Maps {
 	}
 
 	/**
-	 * Check if the player has arrived to the destionation
+	 * Check if the player has arrived to the destination
 	 * @param player
 	 * @param date
 	 */
