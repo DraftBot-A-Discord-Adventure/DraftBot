@@ -28,6 +28,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {Maps} from "../../core/maps/Maps";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -411,6 +412,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const members = await Players.getByGuild(guild.id);
 	for (const member of members) {
+		if (Maps.isOnPveIsland(member)) {
+			await replyErrorMessage(interaction, language, guildDailyModule.get("pveIslandError"))
+			return;
+		}
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(member.discordUserId);
 		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {
 			continue;
