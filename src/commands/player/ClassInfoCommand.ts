@@ -10,6 +10,8 @@ import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {PlayerActiveObjects} from "../../core/database/game/models/PlayerActiveObjects";
+import InventorySlot, {InventorySlots} from "./InventorySlot";
 
 /**
  * Add the field containing the available actions for the given class
@@ -37,12 +39,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const classTranslations = Translations.getModule("commands.classInfo", language);
 	const classGroup = player.getClassGroup();
 	const allClasses = await Classes.getByGroupId(classGroup);
+	const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 
 	const emojis: string[] = [];
 	const classesLineDisplay: string[] = [];
 	for (const _class of allClasses) {
 		emojis.push(_class.emoji);
-		classesLineDisplay.push(_class.toString(language, player.level));
+		classesLineDisplay.push(_class.toStringInfo(language, PlayerActiveObjects, Player  ));
 	}
 
 	const baseEmbed = new DraftBotEmbed()

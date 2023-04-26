@@ -57,6 +57,21 @@ export class Class extends Model {
 		});
 	}
 
+	public toStringInfo(language: string, playerActiveObjects: PlayerActiveObjects, Player : Player): string {
+		return format(ClassInfoConstants.FIELDS_VALUE, {
+			name: this.getName(language),
+			attack: Player.getCumulativeAttack(PlayerActiveObjects),
+			defense: Player.getCumulativeDefense(PlayerActiveObjects),
+			speed: Player.getCumulativeSpeed(PlayerActiveObjects),
+			health: this.health + Player.level,
+			classGroup: this.classGroup,
+			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			baseBreath: this.baseBreath,
+			maxBreath: this.maxBreath,
+			breathRegen: this.breathRegen
+		});
+	}
+
 	public statsToString(language: string, level: number): string {
 		return format(ClassInfoConstants.STATS_DISPLAY, {
 			attack: this.getAttackValue(level),
