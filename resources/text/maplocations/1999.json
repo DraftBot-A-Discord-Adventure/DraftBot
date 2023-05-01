@@ -1,11 +1,11 @@
 {
 	"type": "pve_exit",
-	"nameFr": "Bâteau pour quitter l'île",
-	"nameEn": "",
-	"particleFr": "vers",
-	"particleEn": "of",
-	"descFr": "",
-	"descEn": "",
+	"nameFr": "Bateau pour quitter l'île",
+	"nameEn": "Boat to leave the island",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Le bateau permettant de quitter l'ile",
+	"descEn": "The boat to leave the island",
 	"canBeGoToPlaceMissionDestination": false,
 	"attribute": "pve_exit"
 }
