@@ -4,7 +4,7 @@
 	"nameEn": "Boat to leave the island",
 	"particleFr": "vers le",
 	"particleEn": "of the",
-	"descFr": "Le bateau permettant de quitter l'ile",
+	"descFr": "Le bateau permettant de quitter l'île",
 	"descEn": "The boat to leave the island",
 	"canBeGoToPlaceMissionDestination": false,
 	"attribute": "pve_exit"
