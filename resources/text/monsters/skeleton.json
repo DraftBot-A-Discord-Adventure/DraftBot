@@ -10,7 +10,6 @@
 	"breath": 12,
 	"maxBreath": 20,
 	"breathRegen": 5,
-	"rewardMultiplier": 1.0,
 	"attacks": [
 		{
 			"id": "simpleAttack",

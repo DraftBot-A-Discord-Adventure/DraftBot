@@ -45,10 +45,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		rewardMultiplier: {
-			type: DataTypes.FLOAT,
-			allowNull: false
-		},
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});

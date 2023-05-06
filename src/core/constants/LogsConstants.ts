@@ -46,7 +46,8 @@ export enum NumberChangeReason {
 	NEW_PLAYER,
 	FIGHT,
 	LEAGUE_REWARD,
-	PVE_ISLAND
+	PVE_ISLAND,
+	PVE_FIGHT
 }
 
 export enum ShopItemType {
