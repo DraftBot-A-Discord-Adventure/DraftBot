@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import * as moment from "moment";
 import {Constants} from "../../../Constants";
+import {RandomUtils} from "../../../utils/RandomUtils";
 
 export class Monster extends Model {
 	public readonly id!: string;
@@ -23,8 +24,6 @@ export class Monster extends Model {
 
 	public readonly breathRegen!: number;
 
-	public readonly rewardMultiplier!: number;
-
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -32,6 +31,21 @@ export class Monster extends Model {
 
 	public getName(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
+	}
+
+	public getRewards(level: number): {
+		money: number,
+		xp: number,
+		guildScore: number
+	} {
+		// TODO formula
+		// const totalRatio = this.fightPointsRatio + this.attackRatio + this.defenseRatio + this.speedRatio;
+
+		return {
+			money: 100,
+			xp: 100,
+			guildScore: 100
+		};
 	}
 }
 
@@ -78,10 +92,6 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		breathRegen: {
 			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		rewardMultiplier: {
-			type: DataTypes.FLOAT,
 			allowNull: false
 		},
 		updatedAt: {

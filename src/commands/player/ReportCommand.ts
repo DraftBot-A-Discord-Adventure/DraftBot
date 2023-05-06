@@ -547,7 +547,36 @@ async function doPVEBoss(
 ): Promise<void> {
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
-			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+			const rewards = monsterObj.monster.getRewards(player.level);
+
+			// Only give reward if draw or win
+			if (fight.isADraw() || fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
+				const fightView = fight.getFightView();
+				player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+				await player.addMoney({
+					amount: rewards.money,
+					channel: fightView.channel,
+					language: fightView.language,
+					reason: NumberChangeReason.PVE_FIGHT
+				});
+				await player.addExperience({
+					amount: rewards.xp,
+					channel: fightView.channel,
+					language: fightView.language,
+					reason: NumberChangeReason.PVE_FIGHT
+				});
+				// todo guild score
+				await fightView.channel.send({
+					embeds: [
+						new DraftBotEmbed()
+							.formatAuthor(tr.get("monsterRewardsTitle"), interaction.user)
+							.setDescription(tr.format("monsterRewardsDescription", {
+								money: rewards.money,
+								experience: rewards.xp
+							}))
+					]
+				});
+			}
 		}
 
 		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
