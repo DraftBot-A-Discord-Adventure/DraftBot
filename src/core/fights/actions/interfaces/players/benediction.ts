@@ -2,8 +2,8 @@ import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {FightController} from "../../../FightController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import DivineAttack from "./divineAttack";
 
 export default class Benediction extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -11,7 +11,7 @@ export default class Benediction extends FightAction {
 
 		// check the amount of ultimate attacks the sender already used
 		// 1 god move per fight
-		if (FightController.getUsedGodMoves(sender, receiver) >= 1) {
+		if (DivineAttack.getUsedGodMoves(sender, receiver) >= 1) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {
 				attack: Translations.getModule(`fightactions.${this.name}`, language)
 					.get("name")

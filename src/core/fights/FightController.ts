@@ -6,8 +6,6 @@ import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
 import {draftBotInstance} from "../bot";
-import Benediction from "./actions/interfaces/players/benediction";
-import DivineAttack from "./actions/interfaces/players/divineAttack";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
 
@@ -37,19 +35,6 @@ export class FightController {
 		this.turn = 1;
 		this.friendly = friendly;
 		this._fightView = new FightView(channel, language, this);
-	}
-
-	/**
-	 * Count the amount of god moves used by both players
-	 * @param sender
-	 * @param receiver
-	 */
-	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
-				action instanceof DivineAttack).length
-			+ receiver.fightActionsHistory.filter(action =>
-				action instanceof Benediction ||
-				action instanceof DivineAttack).length;
 	}
 
 	/**

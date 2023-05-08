@@ -2,16 +2,16 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {FightController} from "../../../FightController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import Benediction from "./benediction";
 
 export default class DivineAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
-		const usedGodMoves = FightController.getUsedGodMoves(sender, receiver);
+		const usedGodMoves = DivineAttack.getUsedGodMoves(sender, receiver);
 
 		// only works if less than 2 god moves have been used
 		if (usedGodMoves >= 2) {
@@ -61,5 +61,13 @@ export default class DivineAttack extends FightAction {
 				0.3
 			]
 		};
+	}
+
+	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
+		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
+			action instanceof DivineAttack).length
+		+ receiver.fightActionsHistory.filter(action =>
+			action instanceof Benediction ||
+			action instanceof DivineAttack).length;
 	}
 }
