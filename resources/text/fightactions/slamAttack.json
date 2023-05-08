@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"name": "Impact",
+			"name": "Attaque impact",
 			"namePlural": "Impacts",
 			"description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire."
 		},
