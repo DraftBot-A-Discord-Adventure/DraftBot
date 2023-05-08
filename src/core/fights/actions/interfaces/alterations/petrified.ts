@@ -17,7 +17,7 @@ export default class PetrifiedAlteration extends FightAlteration {
 			victim.applyDefenseModifier({
 				origin: this,
 				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 10
+				value: 2
 			});
 			return petrifiedTranslationModule.get("new");
 		}
