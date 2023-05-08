@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Pétrification",
+			"namePlural": "Pétrifications",
+			"active": "pétrifie son adversaire...",
+			"fail": "n'arrive pas à pétrifier son adversaire !",
+			"description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%."
+		},
+		"en": {
+			"name": "Petrification",
+			"namePlural": "Petrifications",
+			"active": "petrifies its opponent...",
+			"fail": "fails to petrify its opponent!",
+			"description": "Petrifies the target during 2 turns but raises its defense by 200%."
+		}
+	},
+	"emote": "🗿",
+	"breath": 8,
+	"missionVariant": -1,
+	"type": "distance"
+}

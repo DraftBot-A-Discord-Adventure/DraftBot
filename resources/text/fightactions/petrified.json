@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "n'est plus pétrifié.",
+			"new": "est pétrifié. `Défense: + 200%`",
+			"active": "est pétrifié."
+		},
+		"en": {
+			"heal": "is not longer petrified.",
+			"new": "is petrified. `Defense: + 200%`",
+			"active": "is petrified."
+		}
+	},
+	"emote": "🗿",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "alteration"
+}

@@ -201,7 +201,8 @@
 				"concentrated": "Concentré",
 				"weak": "Affaibli",
 				"protected": "Protégé",
-				"outrage": "En colère"
+				"outrage": "En colère",
+				"petrified": "Pétrifié"
 			}
 		},
 		"en": {
@@ -405,7 +406,8 @@
 				"concentrated": "Focused",
 				"weak": "Weakened",
 				"protected": "Shielded",
-				"outrage": "In a outrage"
+				"outrage": "In a outrage",
+				"petrified": "Petrified"
 			}
 		}
 	}

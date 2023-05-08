@@ -19,6 +19,18 @@
 		{
 			"id": "slamAttack",
 			"minLevel": 0
+		},
+		{
+			"id": "stoneSkinAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "rockShieldAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "petrificationAttack",
+			"minLevel": 50
 		}
 	],
 	"maps": [
