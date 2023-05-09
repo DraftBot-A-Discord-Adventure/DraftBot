@@ -2,6 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import * as moment from "moment";
 import {Constants} from "../../../Constants";
 import {RandomUtils} from "../../../utils/RandomUtils";
+import {PVEConstants} from "../../../constants/PVEConstants";
 
 export class Monster extends Model {
 	public readonly id!: string;
@@ -38,13 +39,14 @@ export class Monster extends Model {
 		xp: number,
 		guildScore: number
 	} {
-		// TODO formula
-		// const totalRatio = this.fightPointsRatio + this.attackRatio + this.defenseRatio + this.speedRatio;
+		let totalRatio = (this.fightPointsRatio + this.attackRatio + this.defenseRatio + this.speedRatio) / 10.0;
+		totalRatio = RandomUtils.draftbotRandom.real(totalRatio * (1 - PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE), totalRatio * (1 + PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE));
+		const rewardMultiplier = PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.A * level + PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.B;
 
 		return {
-			money: 100,
-			xp: 100,
-			guildScore: 100
+			money: Math.round((PVEConstants.FIGHT_REWARDS.MONEY.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.B * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.C) * rewardMultiplier),
+			xp: Math.round((PVEConstants.FIGHT_REWARDS.XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.XP.C) * rewardMultiplier),
+			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio / 3.0)
 		};
 	}
 }

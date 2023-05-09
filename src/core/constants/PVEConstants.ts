@@ -12,6 +12,8 @@ export abstract class PVEConstants {
 
 	static MIN_LEVEL = 20;
 
+	static MONSTER_LEVEL_RANDOM_RANGE = 10;
+
 	/**
 	 * The formula is
 	 * f(x) = ax² + bx + c
@@ -51,4 +53,32 @@ export abstract class PVEConstants {
 		"guildbonus",
 		"guildshop"
 	];
+
+	/**
+	 * The formula is
+	 * f(x) = ax² + bx + c
+	 * with x the total monster stats for xp and money
+	 *
+	 * The formula is
+	 * f(x) = ax + b
+	 * for the level multiplier
+	 */
+	static FIGHT_REWARDS = {
+		TOTAL_RATIO_RANDOM_RANGE: 0.1,
+		GUILD_SCORE_MULTIPLIER: 10,
+		XP: {
+			A: 0.1529,
+			B: 0.9686,
+			C: 106.4
+		},
+		MONEY: {
+			A: 0.1207,
+			B: 0.8671,
+			C: 84
+		},
+		LEVEL_MULTIPLIER: {
+			A: 0.0125,
+			B: 0.75
+		}
+	};
 }

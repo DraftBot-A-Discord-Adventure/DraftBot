@@ -77,7 +77,7 @@ export class Guild extends Model {
 		const pets = await GuildPets.getOfGuild(this.id);
 		for (const pet of pets) {
 			guildPetsToDestroy.push(pet.destroy());
-			petsEntitiesToDestroy.push(PetEntity.destroy({ where: { id: pet.petEntityId }}));
+			petsEntitiesToDestroy.push(PetEntity.destroy({where: {id: pet.petEntityId}}));
 		}
 		await Promise.all([
 			Player.update(
@@ -243,6 +243,44 @@ export class Guild extends Model {
 		else {
 			this.experience = 0;
 		}
+	}
+
+	/**
+	 * add guild points
+	 * @param points
+	 */
+	public addScore(points: number): void {
+		this.score += points;
+	}
+
+	/**
+	 * get guild ranking
+	 */
+	public async getRanking(): Promise<{
+		rank: number,
+		total: number
+	}> {
+		if (this.score < 100) {
+			return {
+				rank: -1,
+				total: -1
+			};
+		}
+		const query = `SELECT subquery.id, (RANK() OVER (ORDER BY subquery.score DESC)) AS rank, count
+					   FROM (SELECT guilds.id, guilds.score, count (*) OVER () AS count FROM guilds WHERE guilds.score >= 100) subquery
+					   WHERE subquery.id = :id`;
+		const result = (await Guild.sequelize.query(query, {
+			replacements: {
+				id: this.id
+			}
+		}))[0][0] as {
+			rank: number,
+			count: number
+		};
+		return {
+			rank: result.rank,
+			total: result.count
+		};
 	}
 }
 
