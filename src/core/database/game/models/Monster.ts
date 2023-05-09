@@ -34,6 +34,10 @@ export class Monster extends Model {
 		return language === Constants.LANGUAGE.FRENCH ? this.fr : this.en;
 	}
 
+	/**
+	 * Get the rewards of the monster
+	 * @param level Monster's level
+	 */
 	public getRewards(level: number): {
 		money: number,
 		xp: number,
@@ -46,7 +50,7 @@ export class Monster extends Model {
 		return {
 			money: Math.round((PVEConstants.FIGHT_REWARDS.MONEY.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.B * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.C) * rewardMultiplier),
 			xp: Math.round((PVEConstants.FIGHT_REWARDS.XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.XP.C) * rewardMultiplier),
-			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio / 3.0)
+			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio)
 		};
 	}
 }

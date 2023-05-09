@@ -57,8 +57,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 	const members = await Players.getByGuild(guild.id);
 
-	const chief = await Players.getById(guild.chiefId);
-
 	let membersInfos = "";
 
 	for (const member of members) {
@@ -126,7 +124,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	embed.addFields({
 		name: guildModule.get("infoTitle"),
-		value: guildModule.format("info", {
+		value: `${guildModule.format("info", {
 			experience: guild.isAtMaxLevel() ? guildModule.get("xpMax") : guildModule.format(
 				"xpNeeded",
 				{
@@ -139,7 +137,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				rank: ranking.rank,
 				rankTotal: ranking.total
 			}) : guildModule.get("notRanked")
-		}) + "\n" + (guild.isAtMaxLevel() ? progressBar(1,1) : progressBar(guild.experience, guild.getExperienceNeededToLevelUp()))
+		})}\n${guild.isAtMaxLevel() ? progressBar(1, 1) : progressBar(guild.experience, guild.getExperienceNeededToLevelUp())}`
 	});
 
 	await interaction.reply({embeds: [embed]});

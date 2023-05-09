@@ -546,9 +546,13 @@ async function doPVEBoss(
 	language: string,
 	player: Player
 ): Promise<void> {
+	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id);
+	const tr = Translations.getModule("commands.report", language);
+	const randomLevel = RandomUtils.randInt(player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE, player.level + PVEConstants.MONSTER_LEVEL_RANDOM_RANGE);
+
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
-			const rewards = monsterObj.monster.getRewards(player.level);
+			const rewards = monsterObj.monster.getRewards(randomLevel);
 			let desc = tr.format("monsterRewardsDescription", {
 				money: rewards.money,
 				experience: rewards.xp
@@ -595,8 +599,6 @@ async function doPVEBoss(
 		}
 	};
 
-	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id);
-
 	if (!monsterObj) {
 		await interaction.editReply("There is no monster here... This is a bug, please report this bug to the draftbot's team");
 		await fightCallback(null);
@@ -604,13 +606,12 @@ async function doPVEBoss(
 	}
 
 	const monsterFighter = new MonsterFighter(
-		RandomUtils.randInt(player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE, player.level + PVEConstants.MONSTER_LEVEL_RANDOM_RANGE),
+		randomLevel,
 		monsterObj.monster,
 		monsterObj.attacks,
 		language
 	);
 
-	const tr = Translations.getModule("commands.report", language);
 	const msg = await interaction.editReply({ content:
 			tr.format("pveEvent", {
 				pseudo: player.getMention(),
