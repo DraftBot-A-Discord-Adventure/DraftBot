@@ -38,6 +38,7 @@ import {MonsterFighter} from "../../core/fights/fighter/MonsterFighter";
 import {MonsterLocations} from "../../core/database/game/models/MonsterLocation";
 import {PVEConstants} from "../../core/constants/PVEConstants";
 import {TextInformation} from "../../core/utils/MessageUtils";
+import {Guilds} from "../../core/database/game/models/Guild";
 
 /**
  * Initiates a new player on the map
@@ -548,6 +549,10 @@ async function doPVEBoss(
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.monster.getRewards(player.level);
+			let desc = tr.format("monsterRewardsDescription", {
+				money: rewards.money,
+				experience: rewards.xp
+			});
 
 			// Only give reward if draw or win
 			if (fight.isADraw() || fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
@@ -565,15 +570,20 @@ async function doPVEBoss(
 					language: fightView.language,
 					reason: NumberChangeReason.PVE_FIGHT
 				});
-				// todo guild score
+				if (player.guildId) {
+					const guild = await Guilds.getById(player.guildId);
+					guild.addScore(rewards.guildScore);
+					await guild.save();
+					desc += tr.format("monsterRewardsGuildPoints", {
+						guildPoints: rewards.guildScore
+					});
+				}
+				await player.save();
 				await fightView.channel.send({
 					embeds: [
 						new DraftBotEmbed()
 							.formatAuthor(tr.get("monsterRewardsTitle"), interaction.user)
-							.setDescription(tr.format("monsterRewardsDescription", {
-								money: rewards.money,
-								experience: rewards.xp
-							}))
+							.setDescription(desc)
 					]
 				});
 			}
@@ -593,7 +603,12 @@ async function doPVEBoss(
 		return;
 	}
 
-	const monsterFighter = new MonsterFighter(player.level, monsterObj.monster, monsterObj.attacks, language);
+	const monsterFighter = new MonsterFighter(
+		RandomUtils.randInt(player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE, player.level + PVEConstants.MONSTER_LEVEL_RANDOM_RANGE),
+		monsterObj.monster,
+		monsterObj.attacks,
+		language
+	);
 
 	const tr = Translations.getModule("commands.report", language);
 	const msg = await interaction.editReply({ content:

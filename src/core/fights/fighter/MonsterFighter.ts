@@ -33,7 +33,7 @@ export class MonsterFighter extends Fighter {
 	}
 
 	calculateStat(stat: { A: number, B: number, C: number}, level: number, ratio: number): number {
-		return Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0;
+		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
 	chooseAction(fightView: FightView): void {

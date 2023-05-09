@@ -10,14 +10,18 @@
 			"optionRankName": "classement",
 			"optionRankDescription": "Le classement du joueur dont on veut afficher la guilde.",
 			"noGuildException": "Aucune guilde n'a été trouvée.",
-			"title": "Guilde {guildName}",
+			"title": "Guilde {guildName} | Niveau {level}",
 			"description": ":scroll: `{description}`",
 			"chiefinfos": ":crown: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"elderinfos": ":military_medal: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"members": ":person_pouting: {memberCount}/{maxGuildMembers} membres",
 			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-			"experience": ":star: {xp} / {xpToLevelUp} | Niveau {level}",
-			"lvlMax": ":star: Niveau maximum atteint !"
+			"infoTitle": "Informations",
+			"info": ":star: {experience} | :mirror_ball: {guildPoints} | :trophy: {ranking}",
+			"xpNeeded": "{xp} / {xpToLevelUp}",
+			"xpMax": "Max",
+			"ranking": "{rank} / {rankTotal}",
+			"notRanked": "Non classée"
 		},
 		"en": {
 			"commandName": "guild",
@@ -29,14 +33,18 @@
 			"optionRankName": "rank",
 			"optionRankDescription": "The rank of the player whose guild you want to display.",
 			"noGuildException": "No guild was found.",
-			"title": "Guild {guildName}",
+			"title": "Guild {guildName} | Level {level}",
 			"description": ":scroll: `{description}`",
 			"chiefinfos": ":crown: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"elderinfos": ":military_medal: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"members": ":person_pouting: {memberCount}/{maxGuildMembers} members",
 			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-			"experience": ":star: {xp} / {xpToLevelUp} | Level {level}",
-			"lvlMax": ":star: Maximum level reached!"
+			"infoTitle": "Informations",
+			"info": ":star: {experience} | :mirror_ball: {guildPoints} | :trophy: {ranking}",
+			"xpNeeded": "{xp} / {xpToLevelUp}",
+			"xpMax": "Max",
+			"ranking": "{rank} / {rankTotal}",
+			"notRanked": "Not ranked"
 		}
 	}
 }
