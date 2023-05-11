@@ -202,7 +202,8 @@
 				"weak": "Affaibli",
 				"protected": "Protégé",
 				"outrage": "En colère",
-				"petrified": "Pétrifié"
+				"petrified": "Pétrifié",
+				"full": "Repu"
 			}
 		},
 		"en": {
@@ -407,7 +408,8 @@
 				"weak": "Weakened",
 				"protected": "Shielded",
 				"outrage": "In a outrage",
-				"petrified": "Petrified"
+				"petrified": "Petrified",
+				"full": "Full"
 			}
 		}
 	}
