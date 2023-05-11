@@ -8,8 +8,8 @@
 	"defenseRatio": 100,
 	"speedRatio": 100,
 	"breath": 10,
-	"maxBreath": 15,
-	"breathRegen": 6,
+	"maxBreath": 20,
+	"breathRegen": 3,
 	"attacks": [
 		{
 			"id": "poisonousAttack",
@@ -26,6 +26,10 @@
 		{
 			"id": "simpleAttack",
 			"minLevel": 0
+		},
+		{
+			"id": "familyMealAttack",
+			"minLevel": 50
 		}
 	],
 	"maps": [
