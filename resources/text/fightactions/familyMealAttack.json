@@ -10,7 +10,7 @@
 		"en": {
 			"name": "Family meal",
 			"namePlural": "Family meals",
-			"description": "Summons allies to eat the target.",
+			"description": "Summons allies to eat the target and poison it.",
 			"fail": "fails to summon allies!",
 			"active": "calls allies to eat their opponent."
 		}
