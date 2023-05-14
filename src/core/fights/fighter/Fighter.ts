@@ -4,6 +4,7 @@ import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
 import {TranslationModule} from "../../Translations";
+import {PVEConstants} from "../../constants/PVEConstants";
 
 type FighterStats = {
 	fightPoints: number,
@@ -446,7 +447,11 @@ export abstract class Fighter {
 	 * get a random fight action id from the list of available fight actions of the fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.availableFightActions.values()));
+		return RandomUtils.draftbotRandom.pick(
+			Array.from(this.availableFightActions.values())
+				.filter((action) => action.getBreathCost() < this.getBreath()
+					|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY)
+		);
 	}
 
 	/**
@@ -477,7 +482,7 @@ export abstract class Fighter {
 	 * Add the breathRegen of the fighter to its breath
 	 * @param half - if true, the breath regeneration is divided by 2
 	 */
-	regenerateBreath(half : boolean): void {
+	regenerateBreath(half: boolean): void {
 		this.stats.breath += half ? Math.ceil(this.stats.breathRegen / 2) : this.stats.breathRegen;
 		if (this.stats.breath > this.stats.maxBreath) {
 			this.stats.breath = this.stats.maxBreath;
