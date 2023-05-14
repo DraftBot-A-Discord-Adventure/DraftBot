@@ -108,7 +108,7 @@ export abstract class Fighter {
 	 * Make the fighter choose his next action
 	 * @param fightView
 	 */
-	abstract chooseAction(fightView: FightView): void;
+	abstract chooseAction(fightView: FightView): Promise<void>;
 
 	/**
 	 * Function called when the fight starts

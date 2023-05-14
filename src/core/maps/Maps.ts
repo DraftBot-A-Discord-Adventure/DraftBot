@@ -9,6 +9,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
 import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "./MapCache";
+import {Op} from "sequelize";
 
 export class Maps {
 
@@ -183,5 +184,26 @@ export class Maps {
 	 */
 	static isOnContinent(player: Player): boolean {
 		return MapCache.continentMapLinks.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Get all the members of the player's guild on the pve island
+	 */
+	static async getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return [];
+		}
+
+		return await Player.findAll({
+			where: {
+				guildId: player.guildId,
+				mapLinkId: {
+					[Op.in]: MapCache.pveIslandMapLinks
+				},
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		});
 	}
 }

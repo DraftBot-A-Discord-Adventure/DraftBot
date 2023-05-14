@@ -36,7 +36,7 @@ export class MonsterFighter extends Fighter {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
-	chooseAction(fightView: FightView): void {
+	chooseAction(fightView: FightView): Promise<void> {
 		fightView.channel.send({
 			embeds: [
 				new DraftBotEmbed()
@@ -49,6 +49,7 @@ export class MonsterFighter extends Fighter {
 				await fightView.fightController.executeFightAction(fightAction, true);
 			}, RandomUtils.draftbotRandom.integer(500, 2000));
 		});
+		return Promise.resolve();
 	}
 
 	endFight(): Promise<void> {
