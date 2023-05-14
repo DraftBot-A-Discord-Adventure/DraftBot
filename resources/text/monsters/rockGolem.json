@@ -3,12 +3,12 @@
 		"fr": "Golem de roche",
 		"en": "Rock golem"
 	},
-	"fightPointsRatio": 100,
-	"attackRatio": 100,
-	"defenseRatio": 100,
-	"speedRatio": 100,
-	"breath": 10,
-	"maxBreath": 15,
+	"fightPointsRatio": 110,
+	"attackRatio": 50,
+	"defenseRatio": 120,
+	"speedRatio": 20,
+	"breath": 9,
+	"maxBreath": 14,
 	"breathRegen": 3,
 	"attacks": [
 		{
