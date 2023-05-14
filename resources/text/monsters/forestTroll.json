@@ -26,6 +26,10 @@
 		{
 			"id": "roarAttack",
 			"minLevel": 0
+		},
+		{
+			"id": "intenseAttack",
+			"minLevel": 50
 		}
 	],
 	"maps": [
