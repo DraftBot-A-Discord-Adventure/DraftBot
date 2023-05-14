@@ -11,6 +11,7 @@ import CursedAlteration from "./interfaces/alterations/cursed";
 import OutrageAlteration from "./interfaces/alterations/outrage";
 import PetrifiedAlteration from "./interfaces/alterations/petrified";
 import FullAlteration from "./interfaces/alterations/full";
+import FrozenAlteration from "./interfaces/alterations/frozen";
 
 export const FightAlterations = {
 	CONCENTRATED: new ConcentratedAlteration("concentrated"),
@@ -25,5 +26,6 @@ export const FightAlterations = {
 	CURSED: new CursedAlteration("cursed"),
 	OUTRAGE: new OutrageAlteration("outrage"),
 	PETRIFIED: new PetrifiedAlteration("petrified"),
-	FULL: new FullAlteration("full")
+	FULL: new FullAlteration("full"),
+	FROZEN: new FrozenAlteration("frozen")
 };

@@ -38,8 +38,6 @@ type FightDamageMultiplier = {
  * @class Fighter
  */
 export abstract class Fighter {
-	protected stats: FighterStats;
-
 	public nextFightAction: FightAction;
 
 	public fightActionsHistory: FightAction[];
@@ -50,6 +48,12 @@ export abstract class Fighter {
 
 	public readonly level: number;
 
+	public alteration: FightAction;
+
+	protected stats: FighterStats;
+
+	protected status: FighterStatus;
+
 	private attackModifiers: FightStatModifier[];
 
 	private defenseModifiers: FightStatModifier[];
@@ -57,10 +61,6 @@ export abstract class Fighter {
 	private speedModifiers: FightStatModifier[];
 
 	private ready: boolean;
-
-	public alteration: FightAction;
-
-	protected status: FighterStatus;
 
 	private damageMultiplier: FightDamageMultiplier;
 
@@ -139,27 +139,6 @@ export abstract class Fighter {
 	 */
 	setStatus(newStatus: FighterStatus): void {
 		this.status = newStatus;
-	}
-
-	private calculateModifiedStat(base: number, modifiers: FightStatModifier[]): number {
-		let value = base;
-		for (const modifier of modifiers) {
-			switch (modifier.operation) {
-			case FightStatModifierOperation.ADDITION:
-				value += modifier.value;
-				break;
-			case FightStatModifierOperation.MULTIPLIER:
-				value *= modifier.value;
-				break;
-			case FightStatModifierOperation.SET_VALUE:
-				value = modifier.value;
-				return Math.round(value);
-			default:
-				break;
-			}
-		}
-
-		return Math.round(value);
 	}
 
 	/**
@@ -447,10 +426,11 @@ export abstract class Fighter {
 	 * get a random fight action id from the list of available fight actions of the fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
+		const attacks = Array.from(this.availableFightActions.values());
+		const availableAttacks = attacks.filter((action) => action.getBreathCost() < this.getBreath()
+			|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY);
 		return RandomUtils.draftbotRandom.pick(
-			Array.from(this.availableFightActions.values())
-				.filter((action) => action.getBreathCost() < this.getBreath()
-					|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY)
+			availableAttacks.length === 0 ? attacks : availableAttacks
 		);
 	}
 
@@ -499,5 +479,26 @@ export abstract class Fighter {
 				this.damageMultiplier = null;
 			}
 		}
+	}
+
+	private calculateModifiedStat(base: number, modifiers: FightStatModifier[]): number {
+		let value = base;
+		for (const modifier of modifiers) {
+			switch (modifier.operation) {
+			case FightStatModifierOperation.ADDITION:
+				value += modifier.value;
+				break;
+			case FightStatModifierOperation.MULTIPLIER:
+				value *= modifier.value;
+				break;
+			case FightStatModifierOperation.SET_VALUE:
+				value = modifier.value;
+				return Math.round(value);
+			default:
+				break;
+			}
+		}
+
+		return Math.round(value);
 	}
 }
