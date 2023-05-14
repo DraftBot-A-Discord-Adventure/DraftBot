@@ -81,4 +81,6 @@ export abstract class PVEConstants {
 			B: 0.75
 		}
 	};
+
+	static OUT_OF_BREATH_CHOOSE_PROBABILITY = 0.1;
 }
