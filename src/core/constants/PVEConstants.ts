@@ -83,4 +83,6 @@ export abstract class PVEConstants {
 	};
 
 	static OUT_OF_BREATH_CHOOSE_PROBABILITY = 0.1;
+
+	static GUILD_ATTACK_PROBABILITY = 0.25;
 }

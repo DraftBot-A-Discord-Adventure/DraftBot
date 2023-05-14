@@ -1,7 +1,7 @@
 import {Fighter} from "./Fighter";
 import Player, {Players} from "../../database/game/models/Player";
 import Class from "../../database/game/models/Class";
-import {Collection, Message, MessageReaction, Snowflake, TextBasedChannel, User} from "discord.js";
+import {Message, TextBasedChannel, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
 import Potion from "../../database/game/models/Potion";
@@ -19,6 +19,9 @@ import {FightAction} from "../actions/FightAction";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {FighterStatus} from "../FighterStatus";
 import {TranslationModule} from "../../Translations";
+import {Maps} from "../../maps/Maps";
+import {RandomUtils} from "../../utils/RandomUtils";
+import {PVEConstants} from "../../constants/PVEConstants";
 
 /**
  * @class PlayerFighter
@@ -33,6 +36,8 @@ export class PlayerFighter extends Fighter {
 	private class: Class;
 
 	private glory: number;
+
+	private pveMembers: { attack: number, speed: number }[];
 
 	public constructor(user: User, player: Player, playerClass: Class) {
 		super(player.level, FightActions.listFightActionsFromClass(playerClass));
@@ -220,29 +225,31 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * Get the selected action from the reaction
-	 * @param reaction
-	 * @private
-	 */
-	private getSelectedAction(reaction: Collection<Snowflake, MessageReaction>): FightAction {
-		if (!reaction.first()) {
-			return null;
-		}
-		const selectedActionEmoji = reaction.first().emoji.name;
-		for (const [, action] of this.availableFightActions) {
-			if (action.getEmoji() === selectedActionEmoji) {
-				return action;
-			}
-		}
-		return null; // impossible in theory
-	}
-
-	/**
 	 * Send the embed to choose an action
 	 * @param fightView
 	 */
-	chooseAction(fightView: FightView): void {
-		const actions: Map<string, FightAction> = this.availableFightActions;
+	async chooseAction(fightView: FightView): Promise<void> {
+		const actions: Map<string, FightAction> = new Map(this.availableFightActions);
+
+		// Add guild attack if on PVE island and members are here
+		if (Maps.isOnPveIsland(this.player)) {
+			if (!this.pveMembers) {
+				const members = await Maps.getGuildMembersOnPveIsland(this.player);
+				this.pveMembers = [];
+				for (const member of members) {
+					const memberActiveObjects = await InventorySlots.getMainSlotsItems(member.id);
+					this.pveMembers.push({
+						attack: await member.getCumulativeAttack(memberActiveObjects),
+						speed: await member.getCumulativeSpeed(memberActiveObjects)
+					});
+				}
+			}
+
+			if (this.pveMembers.length !== 0 && RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.GUILD_ATTACK_PROBABILITY) {
+				actions.set("guildAttack", FightActions.getFightActionById("guildAttack"));
+			}
+		}
+
 		this.sendChooseActionEmbed(fightView).then((chooseActionEmbedMessage) => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
 				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
@@ -250,7 +257,8 @@ export class PlayerFighter extends Fighter {
 				max: 1
 			});
 			collector.on("end", async (reaction) => {
-				const selectedAction = this.getSelectedAction(reaction);
+				const emoji = reaction.first().emoji.name;
+				const selectedAction = Array.from(actions.values()).find((action) => action.getEmoji() === emoji);
 				try {
 					await chooseActionEmbedMessage.delete();
 					if (selectedAction === null) {
@@ -296,5 +304,9 @@ export class PlayerFighter extends Fighter {
 			maxBreath: this.getMaxBreath(),
 			breathRegen: this.getRegenBreath()
 		});
+	}
+
+	public getPveMembersOnIsland(): { attack: number, speed: number}[] {
+		return this.pveMembers;
 	}
 }
