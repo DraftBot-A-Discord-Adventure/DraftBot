@@ -306,6 +306,9 @@ export class PlayerFighter extends Fighter {
 		});
 	}
 
+	/**
+	 * Get the members of the guild of the player on the island of the fighter
+	 */
 	public getPveMembersOnIsland(): { attack: number, speed: number}[] {
 		return this.pveMembers;
 	}

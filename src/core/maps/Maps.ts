@@ -189,12 +189,12 @@ export class Maps {
 	/**
 	 * Get all the members of the player's guild on the pve island
 	 */
-	static async getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
+	static getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
 		if (!player.guildId) {
-			return [];
+			return Promise.resolve([]);
 		}
 
-		return await Player.findAll({
+		return Player.findAll({
 			where: {
 				guildId: player.guildId,
 				mapLinkId: {
