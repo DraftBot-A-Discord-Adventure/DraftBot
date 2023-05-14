@@ -3,13 +3,13 @@
 		"fr": "Araignée",
 		"en": "Spider"
 	},
-	"fightPointsRatio": 100,
+	"fightPointsRatio": 60,
 	"attackRatio": 100,
-	"defenseRatio": 100,
+	"defenseRatio": 40,
 	"speedRatio": 100,
-	"breath": 10,
+	"breath": 6,
 	"maxBreath": 20,
-	"breathRegen": 3,
+	"breathRegen": 4,
 	"attacks": [
 		{
 			"id": "poisonousAttack",

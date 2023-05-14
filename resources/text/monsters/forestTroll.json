@@ -3,13 +3,13 @@
 		"fr": "Troll de la forêt",
 		"en": "Forest troll"
 	},
-	"fightPointsRatio": 100,
-	"attackRatio": 100,
-	"defenseRatio": 100,
-	"speedRatio": 100,
+	"fightPointsRatio": 70,
+	"attackRatio": 60,
+	"defenseRatio": 40,
+	"speedRatio": 30,
 	"breath": 10,
 	"maxBreath": 15,
-	"breathRegen": 3,
+	"breathRegen": 4,
 	"attacks": [
 		{
 			"id": "chargeClubSmashAttack",
