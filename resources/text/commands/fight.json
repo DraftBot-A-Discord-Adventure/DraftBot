@@ -203,7 +203,8 @@
 				"protected": "Protégé",
 				"outrage": "En colère",
 				"petrified": "Pétrifié",
-				"full": "Repu"
+				"full": "Repu",
+				"frozen": "Gelé"
 			}
 		},
 		"en": {
@@ -409,7 +410,8 @@
 				"protected": "Shielded",
 				"outrage": "In a outrage",
 				"petrified": "Petrified",
-				"full": "Full"
+				"full": "Full",
+				"frozen": "Frozen"
 			}
 		}
 	}

@@ -1,0 +1,34 @@
+{
+	"translations": {
+		"fr": "Titan de magma",
+		"en": "Magma titan"
+	},
+	"fightPointsRatio": 150,
+	"attackRatio": 120,
+	"defenseRatio": 150,
+	"speedRatio": 30,
+	"breath": 50,
+	"maxBreath": 50,
+	"breathRegen": 10,
+	"attacks": [
+		{
+			"id": "slamAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "heatDrainAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "magmaBathAttack",
+			"minLevel": 0
+		},
+		{
+			"id": "lavaWaveAttack",
+			"minLevel": 50
+		}
+	],
+	"maps": [
+		1005
+	]
+}
