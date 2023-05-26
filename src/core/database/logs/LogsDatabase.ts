@@ -33,7 +33,6 @@ import {LogsMissionsDaily} from "./models/LogsMissionsDaily";
 import {LogsMissionsCampaignProgresses} from "./models/LogsMissionsCampaignProgresses";
 import {LogsMissions} from "./models/LogsMissions";
 import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
-import {TopConstants} from "../../constants/TopConstants";
 import {LogsItemGainsArmor} from "./models/LogsItemsGainsArmor";
 import {GenericItemModel} from "../game/models/GenericItemModel";
 import {LogsItemGainsObject} from "./models/LogsItemsGainsObject";
@@ -644,7 +643,7 @@ export class LogsDatabase extends Database {
 	 * save the top players from the top week. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestTopWeek(): Promise<void> {
-		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
+		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, 15, true);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
@@ -1175,7 +1174,7 @@ export class LogsDatabase extends Database {
 	 * save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestSeason(): Promise<void> {
-		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1);
+		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1, 15);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
