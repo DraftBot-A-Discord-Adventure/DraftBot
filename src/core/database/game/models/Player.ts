@@ -1030,11 +1030,11 @@ export class Players {
 	 * Get the ranking of the player compared to a list of players
 	 * @param discordId
 	 * @param ids - list of discordIds to compare to
-	 * @param timing
+	 * @param weekOnly - get from the week only
 	 * @param isGloryTop
 	 */
-	static async getRankFromUserList(discordId: string, ids: string[], timing: string, isGloryTop: boolean): Promise<number> {
-		const scoreLookup = isGloryTop ? "gloryPoints" : timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+	static async getRankFromUserList(discordId: string, ids: string[], weekOnly: boolean, isGloryTop: boolean): Promise<number> {
+		const scoreLookup = isGloryTop ? "gloryPoints" : weekOnly ? "weeklyScore" : "score";
 		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
@@ -1121,12 +1121,12 @@ export class Players {
 	/**
 	 * Get the number of players that are considered playing the game inside the list of ids
 	 * @param listDiscordId
-	 * @param timing
+	 * @param weekOnly Get of the current week only
 	 */
-	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
+	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM players
-					   WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+					   WHERE players.${weekOnly ? "weeklyScore" : "score"}
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
 						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
@@ -1150,18 +1150,19 @@ export class Players {
 	/**
 	 * Get the players in the list of Ids that will be printed into the top at the given page
 	 * @param listDiscordId
-	 * @param page
-	 * @param timing
+	 * @param minRank
+	 * @param maxRank
+	 * @param weekOnly Get from the current week only
 	 */
-	static async getPlayersToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Player[]> {
-		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
+	static async getPlayersToPrintTop(listDiscordId: string[], minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
+		const restrictionsTopEntering = weekOnly
 			? {
-				score: {
+				weeklyScore: {
 					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
 				}
 			}
 			: {
-				weeklyScore: {
+				score: {
 					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
 				}
 			};
@@ -1175,20 +1176,21 @@ export class Players {
 				}
 			},
 			order: [
-				[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
+				[weekOnly ? "weeklyScore" : "score", "DESC"],
 				["level", "DESC"]
 			],
-			limit: TopConstants.PLAYERS_BY_PAGE,
-			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
 		});
 	}
 
 	/**
 	 * Get the players in the list of Ids that will be printed into the glory top at the given page
 	 * @param listDiscordId
-	 * @param page
+	 * @param minRank
+	 * @param maxRank
 	 */
-	static async getPlayersToPrintGloryTop(listDiscordId: string[], page: number): Promise<Player[]> {
+	static async getPlayersToPrintGloryTop(listDiscordId: string[], minRank: number, maxRank: number): Promise<Player[]> {
 		const restrictionsTopEntering = {
 			fightCountdown: {
 				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
@@ -1207,8 +1209,8 @@ export class Players {
 				["gloryPoints", "DESC"],
 				["level", "DESC"]
 			],
-			limit: TopConstants.PLAYERS_BY_PAGE,
-			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
 		});
 	}
 
