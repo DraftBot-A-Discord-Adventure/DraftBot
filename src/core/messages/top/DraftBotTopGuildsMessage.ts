@@ -52,9 +52,9 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 		return elements;
 	}
 
-	private getRankText(guildRank: number, minRank: number, maxRank: number, totalRanks: number, isGuildScoreTooLow: boolean): string {
+	private getRankText(guildRank: number, minRank: number, maxRank: number, totalRanks: number): string {
 		let message;
-		if (isGuildScoreTooLow) {
+		if (guildRank === -1) {
 			message = "guilds.lowScore";
 		}
 		else {
@@ -83,7 +83,7 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 		return {
 			topElements: this.getTopElements(rankedGuilds),
 			elementRank: playerGuildRank,
-			rankText: this.getRankText(playerGuildRank, minRank, maxRank, totalRanks, playerGuild.score === 0)
+			rankText: this.getRankText(playerGuildRank, minRank, maxRank, totalRanks)
 		};
 	}
 }
