@@ -205,7 +205,26 @@
 				"petrified": "Pétrifié",
 				"full": "Repu",
 				"frozen": "Gelé"
-			}
+			},
+			"weatherChanges": {
+				"sunny": "Le soleil brille...",
+				"rainy": "Il se met à pleuvoir...",
+				"hail": "Il se met à grêler...",
+				"fog": "Un brouillard épais se lève...",
+				"firestorm": "Le volcan entre en éruption...",
+				"storm": "Un orage éclate...",
+				"tornado": "Une tornade se forme..."
+			},
+			"weatherContinues": {
+				"sunny": "Le soleil brille de mille feux...",
+				"rainy": "Il pleut à verse...",
+				"hail": "La grêle tombe à gros flocons...",
+				"fog": "Le brouillard est si épais que vous ne voyez pas à deux mètres...",
+				"firestorm": "Des rochers en fusion tombent du ciel...",
+				"storm": "L'orage fait rage...",
+				"tornado": "Vous sentez le vent tourbillonner autour de vous..."
+			},
+			"weatherDamages": " {player} subit la météo ! `Dégâts reçus : {damages}`"
 		},
 		"en": {
 			"commandName": "fight",

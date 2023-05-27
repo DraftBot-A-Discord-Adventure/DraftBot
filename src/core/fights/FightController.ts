@@ -207,6 +207,7 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
+		await this._fightView.displayWeatherStatus(this.weather, this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language));
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
