@@ -12,6 +12,10 @@
 	"breathRegen": 10,
 	"attacks": [
 		{
+			"id": "eruptionAttack",
+			"minLevel": 0
+		},
+		{
 			"id": "slamAttack",
 			"minLevel": 0
 		},

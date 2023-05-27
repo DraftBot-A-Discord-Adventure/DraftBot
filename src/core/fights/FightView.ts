@@ -6,6 +6,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
+import {FightWeather} from "./FightWeather";
 
 /**
  * @class FightController
@@ -157,6 +158,23 @@ export class FightView {
 	}
 
 	/**
+	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 */
+	displayBugFight(): void {
+		this.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.setErrorColor()
+					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
+					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
+		});
+	}
+
+	async displayWeatherStatus(weather: FightWeather, weatherString: string) {
+		await this.updateHistory(weather.getWeatherEmote(), "", weatherString);
+	}
+
+	/**
 	 * Get summarize embed message
 	 * @param {Fighter} attacker
 	 * @param {Fighter} defender
@@ -200,16 +218,5 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
-	}
-
-	/**
-	 * Send a message to the channel to display the status of the fight when a bug is detected
-	 */
-	displayBugFight(): void {
-		this.channel.send({embeds: [
-			new DraftBotEmbed()
-				.setErrorColor()
-				.setTitle(this.fightTranslationModule.get("bugFightTitle"))
-				.setDescription(this.fightTranslationModule.get("bugFightDescription"))]});
 	}
 }
