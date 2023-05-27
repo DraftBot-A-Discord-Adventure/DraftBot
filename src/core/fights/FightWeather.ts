@@ -40,7 +40,7 @@ export class FightWeather {
 			if (!isAPlayer) {
 				break;
 			}
-			damages = Math.round(player.getMaxFightPoints() * RandomUtils.randInt(1, 10) / 100);
+			damages = Math.round(player.getMaxFightPoints() * RandomUtils.randInt(5, 15) / 100);
 			player.damage(damages);
 			break;
 		default:
