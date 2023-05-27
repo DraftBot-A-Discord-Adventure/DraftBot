@@ -1,9 +1,10 @@
 import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAlteration} from "../../FightAlteration";
+import {FightWeather} from "../../../FightWeather";
 
 export default class ProtectedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
 		victim.alterationTurn++;
 		const protectedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (victim.alterationTurn > 2) { // this effect heals after two turns

@@ -8,6 +8,7 @@ import {FighterStatus} from "./FighterStatus";
 import {draftBotInstance} from "../bot";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
+import {FightWeather} from "./FightWeather";
 
 /**
  * @class FightController
@@ -28,6 +29,8 @@ export class FightController {
 
 	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
 
+	private readonly weather: FightWeather;
+
 	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighter1, fighter2];
 		this.fightInitiator = fighter1;
@@ -35,6 +38,7 @@ export class FightController {
 		this.turn = 1;
 		this.friendly = friendly;
 		this._fightView = new FightView(channel, language, this);
+		this.weather = new FightWeather();
 	}
 
 	/**
@@ -145,7 +149,7 @@ export class FightController {
 		}
 
 
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
 			(e) => {
@@ -168,6 +172,21 @@ export class FightController {
 			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
+	}
+
+	/**
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
+		this.endCallback = callback;
+	}
+
+	/**
+	 * Get the fight view of the fight controller
+	 */
+	public getFightView(): FightView {
+		return this._fightView;
 	}
 
 	/**
@@ -237,14 +256,6 @@ export class FightController {
 	}
 
 	/**
-	 * Set a callback to be called when the fight ends
-	 * @param callback
-	 */
-	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
-		this.endCallback = callback;
-	}
-
-	/**
 	 * Check if a fight has ended or not
 	 * @private
 	 */
@@ -254,12 +265,5 @@ export class FightController {
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
-	}
-
-	/**
-	 * Get the fight view of the fight controller
-	 */
-	public getFightView(): FightView {
-		return this._fightView;
 	}
 }

@@ -4,6 +4,7 @@ import {Data} from "../../Data";
 import {FightActionType} from "./FightActionType";
 import {format} from "../../utils/StringFormatter";
 import {FightActionStatus} from "./FightActionStatus";
+import {FightWeather} from "../FightWeather";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -32,8 +33,9 @@ export abstract class FightAction {
 	 * @param receiver - the one who undergo the action
 	 * @param turn - the turn's number
 	 * @param language - the language of the message
+	 * @param weather - current weather of the fight
 	 */
-	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string): string;
+	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string;
 
 	/**
 	 * return the name of the attack as it will appear in the list of actions

@@ -3,9 +3,10 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightWeather} from "../../../FightWeather";
 
 export default class SummonAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const summonAttackTranslations = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 

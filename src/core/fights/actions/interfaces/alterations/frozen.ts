@@ -1,9 +1,10 @@
 import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {FightAlteration} from "../../FightAlteration";
 import {Translations} from "../../../../Translations";
+import {FightWeather} from "../../../FightWeather";
 
 export default class FrozenAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
 		victim.alterationTurn++;
 		const frozenTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 50% chance to be healed from the frozen (except for the first two turns)
