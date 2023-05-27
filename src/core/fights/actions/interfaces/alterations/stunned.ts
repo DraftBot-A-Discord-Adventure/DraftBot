@@ -2,9 +2,10 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
+import {FightWeather} from "../../../FightWeather";
 
 export default class StunnedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
 		victim.alterationTurn++;
 		const stunnedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (victim.alterationTurn > 1) { // this effect heals after one turn

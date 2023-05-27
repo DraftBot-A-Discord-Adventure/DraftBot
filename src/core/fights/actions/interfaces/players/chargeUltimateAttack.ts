@@ -2,9 +2,10 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAction} from "../../FightAction";
 import {FightActions} from "../../FightActions";
+import {FightWeather} from "../../../FightWeather";
 
 export default class ChargeUltimateAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used

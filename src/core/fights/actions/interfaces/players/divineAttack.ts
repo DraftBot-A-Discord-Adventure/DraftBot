@@ -5,9 +5,37 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import Benediction from "./benediction";
+import {FightWeather} from "../../../FightWeather";
 
 export default class DivineAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
+		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
+				action instanceof DivineAttack).length
+			+ receiver.fightActionsHistory.filter(action =>
+				action instanceof Benediction ||
+				action instanceof DivineAttack).length;
+	}
+
+	getAttackInfo(): attackInfo {
+		return {minDamage: 75, averageDamage: 220, maxDamage: 360};
+	}
+
+	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+		return {
+			attackerStats: [
+				sender.getAttack(),
+				sender.getSpeed()
+			], defenderStats: [
+				receiver.getDefense(),
+				receiver.getSpeed()
+			], statsEffect: [
+				0.7,
+				0.3
+			]
+		};
+	}
+
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
@@ -42,32 +70,5 @@ export default class DivineAttack extends FightAction {
 		receiver.damage(damageDealt);
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
-	}
-
-	getAttackInfo(): attackInfo {
-		return {minDamage: 75, averageDamage: 220, maxDamage: 360};
-	}
-
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.7,
-				0.3
-			]
-		};
-	}
-
-	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
-			action instanceof DivineAttack).length
-		+ receiver.fightActionsHistory.filter(action =>
-			action instanceof Benediction ||
-			action instanceof DivineAttack).length;
 	}
 }

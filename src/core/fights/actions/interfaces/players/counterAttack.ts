@@ -2,9 +2,10 @@ import {Fighter} from "../../../fighter/Fighter";
 import {FightAction} from "../../FightAction";
 import {Translations} from "../../../../Translations";
 import {FightConstants} from "../../../../constants/FightConstants";
+import {FightWeather} from "../../../FightWeather";
 
 export default class CounterAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 
 		// Of course, it should not be possible to counter on the first turn
 		const counterAttackTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
@@ -18,6 +19,6 @@ export default class CounterAttack extends FightAction {
 			return counterAttackTranslationModule.get("fail");
 		}
 
-		return lastAttack.use(sender, receiver, turn, language);
+		return lastAttack.use(sender, receiver, turn, language, weather);
 	}
 }

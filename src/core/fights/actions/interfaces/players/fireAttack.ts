@@ -5,9 +5,10 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightWeather} from "../../../FightWeather";
 
 export default class FireAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 20);
 

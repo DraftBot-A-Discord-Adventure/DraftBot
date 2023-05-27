@@ -4,9 +4,10 @@ import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightWeather} from "../../../FightWeather";
 
 export default class DarkAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), receiver, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 40, 15);
 
@@ -19,7 +20,7 @@ export default class DarkAttack extends FightAction {
 			receiver.applyAttackModifier({
 				origin: this,
 				operation: FightStatModifierOperation.ADDITION,
-				value: - receiver.getAttack() * 0.15
+				value: -receiver.getAttack() * 0.15
 			});
 			sideEffects = attackTranslationModule.format("actions.sideEffects.attack", {
 				adversary: FightConstants.TARGET.OPPONENT,

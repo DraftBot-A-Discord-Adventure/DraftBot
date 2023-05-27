@@ -2,9 +2,10 @@ import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightActions} from "../../FightActions";
+import {FightWeather} from "../../../FightWeather";
 
 export default class IntenseAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
 
