@@ -857,10 +857,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * get the amount of breath a player has at the beginning of a fight
-=======
 	 * Get the amount of breath a player has at the beginning of a fight
->>>>>>> develop
 	 */
 	public async getBaseBreath(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);

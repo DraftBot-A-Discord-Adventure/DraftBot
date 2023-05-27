@@ -7,7 +7,9 @@ export abstract class TopConstants {
 
 	static readonly TIMING_WEEKLY = "weekly";
 
-	static readonly PLAYERS_BY_PAGE = 15;
+	static readonly PLAYERS_PER_PAGE = 15;
+
+	static readonly GUILDS_PER_PAGE = 15;
 
 	static readonly INACTIVE_BADGE = ":ghost:";
 

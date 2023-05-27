@@ -13,6 +13,7 @@ import {
 	TopScope,
 	TopTiming
 } from "../../core/messages/top/DraftBotTopPlayersMessage";
+import {DraftBotTopGuildsMessage} from "../../core/messages/top/DraftBotTopGuildsMessage";
 
 /**
  * Allow to display the rankings of the players
@@ -21,6 +22,23 @@ import {
  * @param player
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	// Get page
+	const pageOption = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionPageName"));
+	const page = pageOption ? pageOption.value as number : 1;
+
+	// Check if guilds top
+	if (interaction.isChatInputCommand()) {
+		const chatInput = interaction as ChatInputCommandInteraction;
+		const typeUntested = chatInput.options.getSubcommand();
+		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("guildsTopCommandName")) {
+			await new DraftBotTopGuildsMessage({
+				interaction,
+				language
+			}, player, page).reply(interaction);
+			return;
+		}
+	}
+
 	// Check if the scope is global
 	const scopeUntested = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionScopeName"));
 	const serverScope = scopeUntested && scopeUntested.value as string === TopConstants.SERVER_SCOPE;
@@ -38,10 +56,6 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			isGlory = true;
 		}
 	}
-
-	// Get page
-	const pageOption = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionPageName"));
-	const page = pageOption ? pageOption.value as number : 1;
 
 	// Send constructed embed
 	await new DraftBotTopPlayersMessage({
@@ -133,6 +147,28 @@ function getGlorySubCommand(
 		);
 }
 
+function getGuildsSubCommand(
+	frTr: TranslationModule,
+	enTr: TranslationModule
+): SlashCommandSubcommandBuilder {
+	return new SlashCommandSubcommandBuilder()
+		.setName(enTr.get("guildsTopCommandName"))
+		.setNameLocalizations({
+			fr: frTr.get("guildsTopCommandName")
+		})
+		.setDescription(enTr.get("guildsTopCommandDescription"))
+		.setDescriptionLocalizations({
+			fr: frTr.get("guildsTopCommandDescription")
+		})
+		.addIntegerOption(option =>
+			SlashCommandBuilderGenerator.generateTopPageOption(
+				frTr, enTr, option
+			)
+				.setMinValue(1)
+				.setRequired(false)
+		);
+}
+
 function getSlashCommandBuilder(): SlashCommandBuilder {
 	const frTr = Translations.getModule("commands.top", Constants.LANGUAGE.FRENCH);
 	const enTr = Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH);
@@ -143,7 +179,8 @@ function getSlashCommandBuilder(): SlashCommandBuilder {
 	// Add sub commands
 	command
 		.addSubcommand(getScoreSubCommand(frTr, enTr))
-		.addSubcommand(getGlorySubCommand(frTr, enTr));
+		.addSubcommand(getGlorySubCommand(frTr, enTr))
+		.addSubcommand(getGuildsSubCommand(frTr, enTr));
 
 	return command;
 }

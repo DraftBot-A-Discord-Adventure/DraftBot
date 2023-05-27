@@ -1,4 +1,4 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {TextBasedChannel} from "discord.js";
 import {Translations} from "../../../Translations";
@@ -256,31 +256,20 @@ export class Guild extends Model {
 	/**
 	 * get guild ranking
 	 */
-	public async getRanking(): Promise<{
-		rank: number,
-		total: number
-	}> {
-		if (this.score < 100) {
-			return {
-				rank: -1,
-				total: -1
-			};
+	public async getRanking(): Promise<number> {
+		if (this.score === 0) {
+			return -1;
 		}
-		const query = `SELECT subquery.id, (RANK() OVER (ORDER BY subquery.score DESC)) AS rank, count
-					   FROM (SELECT guilds.id, guilds.score, count (*) OVER () AS count FROM guilds WHERE guilds.score >= 100) subquery
+
+		const query = `SELECT ranking
+					   FROM (SELECT id, RANK() OVER (ORDER BY score desc, level desc) ranking
+							 FROM guilds) subquery
 					   WHERE subquery.id = :id`;
-		const result = (await Guild.sequelize.query(query, {
+		return ((await Guild.sequelize.query(query, {
 			replacements: {
 				id: this.id
 			}
-		}))[0][0] as {
-			rank: number,
-			count: number
-		};
-		return {
-			rank: result.rank,
-			total: result.count
-		};
+		}))[0][0] as { ranking: number }).ranking;
 	}
 }
 
@@ -309,6 +298,32 @@ export class Guilds {
 				type: QueryTypes.SELECT
 			})))[0]["avg"]
 		);
+	}
+
+	static getTotalRanked(): Promise<number> {
+		return Guild.count({
+			where: {
+				[Op.not]: {
+					score: 0
+				}
+			}
+		});
+	}
+
+	static getRankedGuilds(minRank: number, maxRank: number): Promise<Guild[]> {
+		return Guild.findAll({
+			where: {
+				[Op.not]: {
+					score: 0
+				}
+			},
+			order: [
+				["score", "DESC"],
+				["level", "DESC"]
+			],
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
+		});
 	}
 }
 

@@ -4,9 +4,11 @@
 			"commandName": "classement",
 			"mainTopCommandName": "score",
 			"gloryTopCommandName": "glorieux",
+			"guildsTopCommandName": "guildes",
 			"commandDescription": "Afficher le classement des joueurs.",
 			"mainTopCommandDescription": "Afficher le classement des joueurs.",
 			"gloryTopCommandDescription": "Afficher le classement des joueurs en fonction de leur gloire.",
+			"guildsTopCommandDescription": "Afficher le classement des guildes.",
 			"optionScopeName": "portee",
 			"optionScopeDescription": "La portée du classement affiché (Classement général par défaut).",
 			"scopes": {
@@ -36,7 +38,17 @@
 			"yourRanking": "Votre classement",
 			"levelAttribute": "Niveau {level}",
 			"nextReset": "Classement réinitialisé dans {time}",
-			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez."
+			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez.",
+			"guilds": {
+				"title": "🏟️ Affichage du top guilde des places {minRank} à {maxRank}",
+				"lowScore": ":x: | **{pseudo}, votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de point !",
+				"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Votre guilde est actuellement la meilleure sur un total de {totalGuilds} guilde{totalGuilds>1?s:} ! \n(Vous la trouverez à la page {page} / {pageMax})",
+				"endFirstRightPage": " :trophy: Félicitations **{pseudo}** ! Votre guilde est actuellement la meilleure sur un total de {totalGuilds} guilde{totalGuilds>1?s:} !",
+				"endAnyWrongPage": " {badge} **{pseudo}**, votre guilde est actuellement classée **{rank}ème** sur un total de {totalGuilds} guilde{totalGuilds>1?s:} ! \n(Vous la trouverez à la page {page} / {pageMax})",
+				"endAnyRightPage": " {badge} **{pseudo}**, votre guilde est actuellement classée **{rank}ème** sur un total de {totalGuilds} guilde{totalGuilds>1?s:} !",
+				"nobodyInTop": "Il n'y a actuellement aucune guilde dans le top ! Profitez en tant que vous le pouvez.",
+				"rankingTitle": "Classement de votre guilde"
+			}
 		},
 		"en": {
 			"commandName": "top",
@@ -45,6 +57,8 @@
 			"commandDescription": "Displays the ranking of the players.",
 			"mainTopCommandDescription": "Displays the ranking of the players.",
 			"gloryTopCommandDescription": "Displays the ranking of the players according to their glory.",
+			"guildsTopCommandDescription": "Displays the ranking of the guilds.",
+			"guildsTopCommandName": "guilds",
 			"optionScopeName": "scope",
 			"optionScopeDescription": "The scope of the displayed ranking (Global ranking by default).",
 			"scopes": {
@@ -65,16 +79,26 @@
 			"topScoreWeekServerTitle": "🏆 Display of top weekly server {minRank} to {maxRank}",
 			"topGloryGlobalTitle": "✨ Display of top glory {minRank} to {maxRank}",
 			"topGloryServerTitle": "✨ Display of server top glory {minRank} to {maxRank}",
-			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
-			"endFirstRightPage": " :trophy: Congratulations **{pseudo}** ! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
-			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:} ! \n(You are on page {page} / {pageMax})",
-			"endAnyRightPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:} !",
+			"endFirstWrongPage": " :trophy: Congratulations **{pseudo}**! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:}! \n(You are on page {page} / {pageMax})",
+			"endFirstRightPage": " :trophy: Congratulations **{pseudo}**! You are currently the best out of a total of {totalPlayer} player{totalPlayer>1?s:}!",
+			"endAnyWrongPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:}! \n(You are on page {page} / {pageMax})",
+			"endAnyRightPage": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} player{totalPlayer>1?s:}!",
 			"lowScore": ":x: | **{pseudo}**, unfortunately you do not appear in the ranking because your score is below or equal to 100!",
 			"notEnoughRankedFight": ":x: | **{pseudo}**, unfortunately you do not appear in the ranking because you have not enough ranked fights! You must do {needFight} more fight{needFight>1?s:}.",
 			"yourRanking": "Your rank",
 			"levelAttribute": "Level {level}",
 			"nextReset": "Next reset: {time}",
-			"nobodyInTop": "Nobody is in the top right now ! Take the occasion while you can."
+			"nobodyInTop": "Nobody is in the top right now ! Take the occasion while you can.",
+			"guilds": {
+				"title": "🏟️ Display of top guilds {minRank} to {maxRank}",
+				"lowScore": ":x: | **{pseudo}, unfortunately your guild does not appear in the ranking because its score is 0!",
+				"endFirstWrongPage": " :trophy: Congratulations **{pseudo}**! Your guild is currently the best out of a total of {totalGuilds} guild{totalGuilds>1?s:}! \n(You'll find it at page {page} / {pageMax})",
+				"endFirstRightPage": " :trophy: Congratulations **{pseudo}**! Your guild is currently the best out of a total of {totalGuilds} guild{totalGuilds>1?s:}!",
+				"endAnyWrongPage": " {badge} **{pseudo}**, your guild is ranked **{rank}** out of a total of {totalGuilds} guild{totalGuilds>1?s:}! \n(You'll find it at page {page} / {pageMax})",
+				"endAnyRightPage": " {badge} **{pseudo}**, your guild is ranked **{rank}** out of a total of {totalGuilds} guild{totalGuilds>1?s:}!",
+				"nobodyInTop": "No guild is in the top right now ! Take the occasion while you can.",
+				"rankingTitle": "Ranking of your guild"
+			}
 		}
 	}
 }

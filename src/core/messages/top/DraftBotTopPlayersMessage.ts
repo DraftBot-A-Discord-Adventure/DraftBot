@@ -77,7 +77,7 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 
 		super({
 			pageNumber: page,
-			pageSize: TopConstants.PLAYERS_BY_PAGE
+			pageSize: TopConstants.PLAYERS_PER_PAGE
 		}, {
 			language: topTrModule.language,
 			title: topTrModule.get(title),
