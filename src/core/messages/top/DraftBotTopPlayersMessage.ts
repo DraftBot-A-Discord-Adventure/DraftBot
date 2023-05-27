@@ -210,12 +210,11 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 	 * @param minRank
 	 * @param maxRank
 	 * @param totalRanks
-	 * @param isPlayerScoreTooLow
 	 * @private
 	 */
-	private getRankText(playerRank: number, minRank: number, maxRank: number, totalRanks: number, isPlayerScoreTooLow: boolean): string {
+	private getRankText(playerRank: number, minRank: number, maxRank: number, totalRanks: number): string {
 		let message;
-		if (isPlayerScoreTooLow) {
+		if (playerRank === -1) {
 			if (this._dataType === TopDataType.GLORY) {
 				message = "notEnoughRankedFight";
 			}
@@ -273,7 +272,7 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 				await this.buildTopElementsListGlory(rankedPlayers) :
 				await this.buildTopElementsListScore(rankedPlayers),
 			elementRank: playerRank,
-			rankText: this.getRankText(playerRank, minRank, maxRank, totalRanks, isPlayerScoreTooLow)
+			rankText: this.getRankText(playerRank, minRank, maxRank, totalRanks)
 		};
 	}
 }
