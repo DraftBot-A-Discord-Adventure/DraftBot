@@ -133,9 +133,9 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				}
 			),
 			guildPoints: guild.score,
-			ranking: ranking.rank !== -1 ? guildModule.format("ranking", {
-				rank: ranking.rank,
-				rankTotal: ranking.total
+			ranking: ranking !== -1 ? guildModule.format("ranking", {
+				rank: ranking,
+				rankTotal: await Guilds.getTotalRanked()
 			}) : guildModule.get("notRanked")
 		})}\n${guild.isAtMaxLevel() ? progressBar(1, 1) : progressBar(guild.experience, guild.getExperienceNeededToLevelUp())}`
 	});
