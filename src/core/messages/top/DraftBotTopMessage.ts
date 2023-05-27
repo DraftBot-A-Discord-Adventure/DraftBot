@@ -155,12 +155,12 @@ export abstract class DraftBotTopMessage extends DraftBotEmbed {
 	 */
 	private getAttributesString(attributes: TopElementAttribute[]): string {
 		let str = "";
-		for (let i = 0; i < attributes.length; ++i) {
-			if (attributes[i].formatted) {
-				str += ` | \`${attributes[i].value}\``;
+		for (const attribute of attributes) {
+			if (attribute.formatted) {
+				str += ` | \`${attribute.value}\``;
 			}
 			else {
-				str += ` | ${attributes[i].value}`;
+				str += ` | ${attribute.value}`;
 			}
 		}
 		return str;
