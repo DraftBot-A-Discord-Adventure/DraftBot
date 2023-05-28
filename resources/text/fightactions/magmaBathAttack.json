@@ -13,7 +13,7 @@
 			"description": "Applies to the launcher. He rests in the lava and recovers his fight points. The number of fight points recovered is divided by 4 after 4 uses."
 		}
 	},
-	"emote": "\uD83D\uDEC1",
+	"emote": "🛁",
 	"breath": 2,
 	"missionVariant": -1,
 	"type": "stats"

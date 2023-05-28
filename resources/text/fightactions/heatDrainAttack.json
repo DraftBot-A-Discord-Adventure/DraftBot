@@ -13,7 +13,7 @@
 			"description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent."
 		}
 	},
-	"emote": "\uD83C\uDF21",
+	"emote": "🌡",
 	"breath": 7,
 	"missionVariant": -1,
 	"type": "stats"

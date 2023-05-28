@@ -9,7 +9,7 @@
 			"damage": "is frozen. `Speed: - 60%` `Damage taken: {damage}`"
 		}
 	},
-	"emote": "\uD83E\uDD76",
+	"emote": "🥶",
 	"breath": 0,
 	"missionVariant": -1,
 	"type": "alteration"
