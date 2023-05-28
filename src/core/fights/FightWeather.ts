@@ -4,7 +4,7 @@ import {Translations} from "../Translations";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 
 export class FightWeatherEnum {
-	public static readonly SUNNY = new FightWeatherEnum("☀", "sunny");
+	public static readonly SUNNY = new FightWeatherEnum("☀️", "sunny");
 
 	public static readonly RAINY = new FightWeatherEnum("🌧", "rainy");
 

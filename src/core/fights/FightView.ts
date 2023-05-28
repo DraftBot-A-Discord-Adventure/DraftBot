@@ -170,7 +170,7 @@ export class FightView {
 		});
 	}
 
-	async displayWeatherStatus(weather: FightWeather, weatherString: string) {
+	async displayWeatherStatus(weather: FightWeather, weatherString: string): Promise<void> {
 		await this.updateHistory(weather.getWeatherEmote(), "", weatherString);
 	}
 

@@ -13,7 +13,7 @@
 			"description": "Very powerful attack that can only be used as a last resort and inflicts the \"Burned\" alteration to the opponent."
 		}
 	},
-	"emote": ":hotsprings:",
+	"emote": "♨️",
 	"breath": 10,
 	"missionVariant": -1,
 	"type": "physical"
