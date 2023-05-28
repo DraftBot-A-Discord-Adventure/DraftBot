@@ -3,10 +3,9 @@ import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightActions} from "../../FightActions";
-import {FightWeather} from "../../../FightWeather";
 
 export default class ConfusedAlteration extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
 		const randomValue = Math.random();
 

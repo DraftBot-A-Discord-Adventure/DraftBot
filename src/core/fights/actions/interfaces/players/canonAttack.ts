@@ -5,10 +5,9 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {MathUtils} from "../../../../utils/MathUtils";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import {FightWeather} from "../../../FightWeather";
 
 export default class CanonAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 
 		// this attack will miss more if the opponent is fast

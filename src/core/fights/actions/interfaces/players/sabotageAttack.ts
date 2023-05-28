@@ -4,10 +4,9 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
-import {FightWeather} from "../../../FightWeather";
 
 export default class SabotageAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, 5);

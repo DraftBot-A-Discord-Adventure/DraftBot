@@ -5,10 +5,9 @@ import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightWeather} from "../../../FightWeather";
 
 export default class TargetedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const targetedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 

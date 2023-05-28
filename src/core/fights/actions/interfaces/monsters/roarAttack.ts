@@ -2,10 +2,9 @@ import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAction} from "../../FightAction";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {FightWeather} from "../../../FightWeather";
 
 export default class RoarAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const roarTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
