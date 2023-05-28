@@ -70,6 +70,6 @@ export class FightWeather {
 	}
 
 	private getWeatherMessage(didWeatherChanged: boolean, language: string): string {
-		return Translations.getModule("commands.fight", language).get((didWeatherChanged ? "weatherChanges" : "weatherContinues") + "." + FightWeatherEnum[this.currentWeather].toLowerCase());
+		return Translations.getModule("commands.fight", language).get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${FightWeatherEnum[this.currentWeather].toLowerCase()}`);
 	}
 }
