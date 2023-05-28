@@ -2,10 +2,9 @@ import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
-import {FightWeather} from "../../../FightWeather";
 
 export default class FullAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const fullTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 

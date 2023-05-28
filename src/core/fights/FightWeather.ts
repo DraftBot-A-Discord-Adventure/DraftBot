@@ -1,18 +1,25 @@
 import {RandomUtils} from "../utils/RandomUtils";
 import {Fighter} from "./fighter/Fighter";
 import {Translations} from "../Translations";
-import {FightConstants} from "../constants/FightConstants";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 
-export enum FightWeatherEnum {
-	// Enumération des météos de combat
-	SUNNY,
-	RAINY,
-	HAIL,
-	FOG,
-	FIRESTORM,
-	STORM,
-	TORNADO,
+export class FightWeatherEnum {
+	public static readonly SUNNY = new FightWeatherEnum("☀", "sunny");
+
+	public static readonly RAINY = new FightWeatherEnum("🌧", "rainy");
+
+	public static readonly HAIL = new FightWeatherEnum("🌨", "hail");
+
+	public static readonly FOG = new FightWeatherEnum("🌫", "fog");
+
+	public static readonly FIRESTORM = new FightWeatherEnum("🌋", "firestorm");
+
+	public static readonly STORM = new FightWeatherEnum("🌩", "storm");
+
+	public static readonly TORNADO = new FightWeatherEnum("🌪", "tornado");
+
+	private constructor(public readonly emote: string, public readonly name: string) {
+	}
 }
 
 export class FightWeather {
@@ -61,7 +68,7 @@ export class FightWeather {
 	}
 
 	getWeatherEmote(): string {
-		return FightConstants.WEATHER_EMOTES[this.currentWeather];
+		return this.currentWeather.emote;
 	}
 
 	private setRandomWeather(): void {
@@ -70,6 +77,6 @@ export class FightWeather {
 	}
 
 	private getWeatherMessage(didWeatherChanged: boolean, language: string): string {
-		return Translations.getModule("commands.fight", language).get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${FightWeatherEnum[this.currentWeather].toLowerCase()}`);
+		return Translations.getModule("commands.fight", language).get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${this.currentWeather.name}`);
 	}
 }

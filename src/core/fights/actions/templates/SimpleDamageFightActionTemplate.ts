@@ -1,7 +1,6 @@
 import {attackInfo, FightAction, statsInfo} from "../FightAction";
 import {Fighter} from "../../fighter/Fighter";
 import {FightActionController} from "../FightActionController";
-import {FightWeather} from "../../FightWeather";
 
 export abstract class SimpleDamageFightActionTemplate extends FightAction {
 	private readonly criticalHitProbability: number;
@@ -14,7 +13,7 @@ export abstract class SimpleDamageFightActionTemplate extends FightAction {
 		this.failureProbability = failureProbability;
 	}
 
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, this.criticalHitProbability, this.failureProbability);
 		receiver.damage(damageDealt);

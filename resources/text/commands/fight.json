@@ -431,7 +431,26 @@
 				"petrified": "Petrified",
 				"full": "Full",
 				"frozen": "Frozen"
-			}
+			},
+			"weatherChanges": {
+				"sunny": "The sun is shining...",
+				"rainy": "It's raining...",
+				"hail": "It's hailing...",
+				"fog": "It's foggy...",
+				"firestorm": "The volcano is erupting...",
+				"storm": "A storm is raging...",
+				"tornado": "A tornado is brewing..."
+			},
+			"weatherContinues": {
+				"sunny": "The sun shines...",
+				"rainy": "It rains...",
+				"hail": "It hails...",
+				"fog": "It's foggy...",
+				"firestorm": "Melting rocks are falling from the sky...",
+				"storm": "The storm is raging...",
+				"tornado": "You feel the wind blowing around you..."
+			},
+			"weatherDamages": " {player} suffers from the weather! `Received damage: {damages}`"
 		}
 	}
 }

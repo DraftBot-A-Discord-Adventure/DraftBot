@@ -217,7 +217,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static async refreshCommands(client: Client<boolean>): Promise<void> {
+	private static async refreshCommands(client: Client): Promise<void> {
 		console.log("Fetching and saving commands...");
 		const commands = (await client.application.commands.fetch({withLocalizations: true}))
 			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));

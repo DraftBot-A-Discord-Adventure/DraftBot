@@ -4,10 +4,9 @@ import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
-import {FightWeather} from "../../../FightWeather";
 
 export default class BurnedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const burnedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 60 % chance to be healed from the poison (except for the first two turns)

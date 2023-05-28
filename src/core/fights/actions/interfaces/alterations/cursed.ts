@@ -5,10 +5,9 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 import {MathUtils} from "../../../../utils/MathUtils";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {FightWeather} from "../../../FightWeather";
 
 export default class PoisonedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const curseTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 50 % chance to be healed from the cursed (except for the first two turn) and 100 % after 5 turns of being cursed

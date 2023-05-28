@@ -2,10 +2,9 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {FightWeather} from "../../../FightWeather";
 
 export default class Resting extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const restingTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
 		const count = sender.fightActionsHistory.filter(action => action instanceof Resting).length;

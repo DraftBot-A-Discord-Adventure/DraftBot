@@ -5,7 +5,6 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import Benediction from "./benediction";
-import {FightWeather} from "../../../FightWeather";
 
 export default class DivineAttack extends FightAction {
 	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
@@ -35,7 +34,7 @@ export default class DivineAttack extends FightAction {
 		};
 	}
 
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// check the amount of ultimate attacks the sender already used
