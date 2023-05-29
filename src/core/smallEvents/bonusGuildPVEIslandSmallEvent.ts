@@ -43,15 +43,15 @@ async function applyPossibility(interaction: CommandInteraction, language: strin
 		await player.addMoney({
 			amount: -amount,
 			channel: interaction.channel,
-			language: language,
+			language,
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		break;
 	case "exp":
 		await player.addExperience({
-			amount: amount,
+			amount,
 			channel: interaction.channel,
-			language: language,
+			language,
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		break;
