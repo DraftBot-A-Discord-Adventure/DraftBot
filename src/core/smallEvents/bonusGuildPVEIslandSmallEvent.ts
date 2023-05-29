@@ -9,10 +9,19 @@ import {Guilds} from "../database/game/models/Guild";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {Data} from "../Data";
 
+
+/**
+ * Give possibility to the player or the guild and return the applied number
+ * @param interaction
+ * @param language
+ * @param player
+ * @param tr
+ * @param malusTarget
+ */
 async function applyPossibility(interaction: CommandInteraction, language: string, player: Player, tr: TranslationModule, malusTarget: string): Promise<string> {
 	const data = Data.getModule("smallEvents.bonusGuildPVEIsland");
-	const malusName = data.getString(malusTarget + ".name");
-	const amount = RandomUtils.randInt(data.getNumber(malusTarget + ".min"), data.getNumber(malusTarget + ".max"));
+	const malusName = data.getString(`${malusTarget}.name`);
+	const amount = RandomUtils.randInt(data.getNumber(`${malusTarget}.min`), data.getNumber(`${malusTarget}.max`));
 
 	if (malusName === "expOrPointsGuild") {
 		const guild = await Guilds.getById(player.guildId);
@@ -26,7 +35,7 @@ async function applyPossibility(interaction: CommandInteraction, language: strin
 			emoji = ":mirror_ball:";
 		}
 		await guild.save();
-		return amount.toString() + " " + emoji;
+		return `${amount.toString()} ${emoji}`;
 	}
 
 	switch (malusName) {
@@ -82,11 +91,8 @@ export const smallEvent: SmallEvent = {
 
 		let sentence;
 		if (player.isInGuild()) {
-			const nbMemberRequired = RandomUtils.randInt(2, 5);
-			const playersOnPVEIsland = (await Players.getByGuild(player.guildId)).filter(player => {
-				Maps.isOnPveIsland(player);
-			});
-
+			const nbMemberRequired = RandomUtils.randInt(1, 4);
+			const playersOnPVEIsland = await Maps.getGuildMembersOnPveIsland(player);
 			if (playersOnPVEIsland.length >= nbMemberRequired) {
 				sentence = tr.format(`events.${event}.success.withGuild`, {
 					amount: await applyPossibility(interaction, language, player, tr, `${event}.success.withGuild.malus`)

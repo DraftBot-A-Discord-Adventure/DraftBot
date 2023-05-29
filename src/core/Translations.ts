@@ -66,6 +66,10 @@ export class TranslationModule {
 		return RandomUtils.draftbotRandom.pick(this.getTranslationObject(translation) as unknown as string[]);
 	}
 
+	/**
+	* Get a random key from key array
+	* @param translation
+	*/
 	getRandomFromKeys(translation: string): string {
 		return RandomUtils.draftbotRandom.pick(this.getKeys(translation));
 	}
