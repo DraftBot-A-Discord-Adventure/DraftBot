@@ -83,7 +83,6 @@ async function applyMalus(malus: RewardType, interaction: CommandInteraction, la
 	}
 	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 	await player.save();
-	await player.save();
 }
 
 /**

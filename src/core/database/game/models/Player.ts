@@ -404,6 +404,13 @@ export class Player extends Model {
 	}
 
 	/**
+	 * Check if the player is in guild
+	 */
+	public isInGuild(): boolean {
+		return this.guildId !== null;
+	}
+
+	/**
 	 * Check if the current effect of a player is finished
 	 * @param date
 	 */
