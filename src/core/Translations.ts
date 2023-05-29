@@ -66,6 +66,10 @@ export class TranslationModule {
 		return RandomUtils.draftbotRandom.pick(this.getTranslationObject(translation) as unknown as string[]);
 	}
 
+	getRandomFromKeys(translation: string): string {
+		return RandomUtils.draftbotRandom.pick(this.getKeys(translation));
+	}
+
 	public getObject(translation: string): JsonModule[] {
 		return this.getTranslationObject(translation) as unknown as JsonModule[];
 	}
