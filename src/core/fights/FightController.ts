@@ -1,4 +1,4 @@
-import {Fighter} from "./fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -8,6 +8,8 @@ import {FighterStatus} from "./FighterStatus";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
 import {FightWeather} from "./FightWeather";
+import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
+import {MonsterFighter} from "./fighter/MonsterFighter";
 
 /**
  * @class FightController
@@ -30,14 +32,17 @@ export class FightController {
 
 	private readonly weather: FightWeather;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
-		this.fighters = [fighter1, fighter2];
-		this.fightInitiator = fighter1;
+	private readonly overtimeBehavior: FightOvertimeBehavior;
+
+	public constructor(fighters: {fighter1: Fighter, fighter2: Fighter}, fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior }, channel: TextBasedChannel, language: string) {
+		this.fighters = [fighters.fighter1, fighters.fighter2];
+		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
-		this.friendly = friendly;
+		this.friendly = fightParameters.friendly;
 		this._fightView = new FightView(channel, language, this);
 		this.weather = new FightWeather();
+		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
 	/**
@@ -214,10 +219,15 @@ export class FightController {
 			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
 		}
 
-		if (this.hadEnded()) {
+		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
 			await this.endFight();
 			return;
 		}
+
+		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
+			this.increaseDamagesPve();
+		}
+
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
@@ -254,6 +264,29 @@ export class FightController {
 		}
 	}
 
+	private increaseDamagesPve(): void {
+		for (const fighter of this.fighters) {
+			if (fighter instanceof MonsterFighter) {
+				fighter.applyAttackModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applyDefenseModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applySpeedModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applyDamageMultiplier(1.2, 9999999);
+			}
+		}
+	}
+
 	/**
 	 * Change who is the player 1 and who is the player 2.
 	 * @private
@@ -272,7 +305,6 @@ export class FightController {
 	 */
 	private hadEnded(): boolean {
 		return (
-			this.turn >= FightConstants.MAX_TURNS ||
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);

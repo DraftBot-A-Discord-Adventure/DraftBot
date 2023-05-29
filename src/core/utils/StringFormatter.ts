@@ -244,7 +244,7 @@ export function format(text: string, replacements: Replacements): string {
 	let newText = text;
 	for (let i = placeholders.length - 1; i >= 0; --i) {
 		const ph = placeholders[i];
-		newText = newText.substring(0, ph.start) + formatPlaceholder(ph, replacements) + newText.substring(ph.end + 1, newText.length);
+		newText = newText.substring(0, ph.start) + format(formatPlaceholder(ph, replacements), replacements) + newText.substring(ph.end + 1, newText.length);
 	}
 	return newText;
 }

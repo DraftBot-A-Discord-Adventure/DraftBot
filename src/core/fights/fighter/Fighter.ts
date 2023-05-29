@@ -62,7 +62,7 @@ export abstract class Fighter {
 
 	private ready: boolean;
 
-	private damageMultiplier: FightDamageMultiplier;
+	private damageMultipliers: FightDamageMultiplier[];
 
 	protected constructor(level: number, availableFightActions: FightAction[]) {
 		this.stats = {
@@ -85,7 +85,7 @@ export abstract class Fighter {
 		this.alteration = null;
 		this.alterationTurn = 0;
 		this.level = level;
-		this.damageMultiplier = null;
+		this.damageMultipliers = [];
 
 		this.availableFightActions = new Map();
 		for (const fightAction of availableFightActions) {
@@ -306,21 +306,23 @@ export abstract class Fighter {
 	 * @param turns The number of turn it lasts
 	 */
 	public applyDamageMultiplier(multiplier: number, turns: number): void {
-		this.damageMultiplier = {
+		this.damageMultipliers.push({
 			value: multiplier,
 			turns
-		};
+		});
 	}
 
 	/**
 	 * Get the damage multiplier
 	 */
 	public getDamageMultiplier(): number {
-		if (this.damageMultiplier) {
-			return this.damageMultiplier.value;
+		let multiplier = 1;
+
+		for (const damageMultiplier of this.damageMultipliers) {
+			multiplier *= damageMultiplier.value;
 		}
 
-		return 1;
+		return multiplier;
 	}
 
 	/**
@@ -473,12 +475,10 @@ export abstract class Fighter {
 	 * Lowers the current counters by 1 turn
 	 */
 	reduceCounters(): void {
-		if (this.damageMultiplier) {
-			this.damageMultiplier.turns--;
-			if (this.damageMultiplier.turns < 0) {
-				this.damageMultiplier = null;
-			}
-		}
+		this.damageMultipliers = this.damageMultipliers.filter((damageMultiplier) => {
+			damageMultiplier.turns--;
+			return damageMultiplier.turns >= 0;
+		});
 	}
 
 	private calculateModifiedStat(base: number, modifiers: FightStatModifier[]): number {

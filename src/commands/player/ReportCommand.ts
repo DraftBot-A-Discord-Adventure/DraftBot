@@ -41,6 +41,7 @@ import {PVEConstants} from "../../core/constants/PVEConstants";
 import {TextInformation} from "../../core/utils/MessageUtils";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {MapCache} from "../../core/maps/MapCache";
+import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 
 /**
  * Initiates a new player on the map
@@ -567,7 +568,7 @@ async function doPVEBoss(
 			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
 
 			// Only give reward if draw or win
-			if (fight.isADraw() || fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
+			if (fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
 				const fightView = fight.getFightView();
 				await player.addMoney({
 					amount: rewards.money,
@@ -651,9 +652,8 @@ async function doPVEBoss(
 		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
 
 		const fight = new FightController(
-			playerFighter,
-			monsterFighter,
-			true,
+			{ fighter1: playerFighter, fighter2: monsterFighter },
+			{ friendly: true, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE },
 			interaction.channel,
 			language
 		);
