@@ -6,6 +6,7 @@ import {Classes} from "../../../../core/database/game/models/Class";
 import {Constants} from "../../../../core/Constants";
 import {PlayerFighter} from "../../../../core/fights/fighter/PlayerFighter";
 import {FightStatModifierOperation} from "../../../../core/fights/fighter/Fighter";
+import {FightOvertimeBehavior} from "../../../../core/fights/FightOvertimeBehavior";
 
 export const commandInfo: ITestCommand = {
 	name: "solofight",
@@ -56,7 +57,7 @@ const soloFightTestCommand = async (language: string, interaction: CommandIntera
 		});
 	}
 
-	new FightController(fighter1, fighter2, false, interaction.channel, language)
+	new FightController({ fighter1, fighter2 }, { friendly: false, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW }, interaction.channel, language)
 		.startFight()
 		.then();
 

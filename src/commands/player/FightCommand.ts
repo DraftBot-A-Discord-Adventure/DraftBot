@@ -25,6 +25,7 @@ import {League, Leagues} from "../../core/database/game/models/League";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
+import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 
 type PlayerInformation = {
 	player: Player,
@@ -434,8 +435,15 @@ function getAcceptCallback(
 		}
 		const incomingFighter = new PlayerFighter(user, incomingFighterPlayer, await Classes.getById(incomingFighterPlayer.class));
 		await incomingFighter.loadStats(friendly);
-		const fightController = new FightController(askingFighter, incomingFighter, friendly, interaction.channel, fightTranslationModule.language);
+
+		const fightController = new FightController(
+			{ fighter1: askingFighter, fighter2: incomingFighter},
+			{ friendly, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW },
+			interaction.channel,
+			fightTranslationModule.language
+		);
 		fightController.setEndCallback(fightEndCallback);
+
 		fightController.startFight().then();
 		return true;
 	};
