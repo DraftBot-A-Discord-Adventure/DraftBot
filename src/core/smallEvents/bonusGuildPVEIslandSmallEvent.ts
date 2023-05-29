@@ -3,22 +3,21 @@ import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
-import {TranslationModule, Translations} from "../Translations";
+import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Guilds} from "../database/game/models/Guild";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {Data} from "../Data";
+import {TextInformation} from "../utils/MessageUtils";
 
 
 /**
  * Give possibility to the player or the guild and return the applied number
- * @param interaction
- * @param language
+ * @param textInformation
  * @param player
- * @param tr
  * @param malusTarget
  */
-async function applyPossibility(interaction: CommandInteraction, language: string, player: Player, tr: TranslationModule, malusTarget: string): Promise<string> {
+async function applyPossibility(textInformation: TextInformation,player: Player, malusTarget: string): Promise<string> {
 	const data = Data.getModule("smallEvents.bonusGuildPVEIsland");
 	const malusName = data.getString(`${malusTarget}.name`);
 	const amount = RandomUtils.randInt(data.getNumber(`${malusTarget}.min`), data.getNumber(`${malusTarget}.max`));
@@ -26,8 +25,8 @@ async function applyPossibility(interaction: CommandInteraction, language: strin
 	if (malusName === "expOrPointsGuild") {
 		const guild = await Guilds.getById(player.guildId);
 		let emoji;
-		if (RandomUtils.draftbotRandom.bool()){
-			await guild.addExperience(amount, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		if (RandomUtils.draftbotRandom.bool()) {
+			await guild.addExperience(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
 			emoji = ":star:";
 		}
 		else {
@@ -42,22 +41,22 @@ async function applyPossibility(interaction: CommandInteraction, language: strin
 	case "money":
 		await player.addMoney({
 			amount: -amount,
-			channel: interaction.channel,
-			language,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		break;
 	case "exp":
 		await player.addExperience({
 			amount,
-			channel: interaction.channel,
-			language,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		break;
 	case "life":
-		await player.addHealth(-amount, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		await player.addHealth(-amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
 		break;
 	case "energy":
 		player.addEnergy(-amount, NumberChangeReason.SMALL_EVENT);
@@ -95,7 +94,7 @@ export const smallEvent: SmallEvent = {
 			const playersOnPVEIsland = await Maps.getGuildMembersOnPveIsland(player);
 			if (playersOnPVEIsland.length >= nbMemberRequired) {
 				sentence = tr.format(`events.${event}.success.withGuild`, {
-					amount: await applyPossibility(interaction, language, player, tr, `${event}.success.withGuild.malus`)
+					amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.withGuild.malus`)
 				});
 				seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
 				await interaction.editReply({embeds: [seEmbed]});
@@ -106,9 +105,9 @@ export const smallEvent: SmallEvent = {
 		const probabilities = RandomUtils.randInt(0, 100);
 		if (probabilities < 10) {
 			sentence = player.isInGuild() ? tr.format(`events.${event}.success.soloWithGuild`, {
-				amount: await applyPossibility(interaction, language, player, tr, `${event}.success.withGuild.malus`)
+				amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.withGuild.malus`)
 			}) : tr.format(`events.${event}.success.solo`,{
-				amount: await applyPossibility(interaction, language, player, tr, `${event}.success.solo.malus`)
+				amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.solo.malus`)
 			});
 		}
 		else if (probabilities < 40) {
@@ -116,9 +115,9 @@ export const smallEvent: SmallEvent = {
 		}
 		else {
 			sentence = player.isInGuild() ? sentence = tr.format(`events.${event}.lose.withGuild`, {
-				amount: await applyPossibility(interaction, language, player, tr, `${event}.lose.withGuild.malus`)
+				amount: await applyPossibility({interaction, language, tr}, player, `${event}.lose.withGuild.malus`)
 			}) : tr.format(`events.${event}.lose.solo`, {
-				amount: await applyPossibility(interaction, language, player, tr, `${event}.lose.solo.malus`)
+				amount: await applyPossibility({interaction, language, tr}, player, `${event}.lose.solo.malus`)
 			});
 		}
 
