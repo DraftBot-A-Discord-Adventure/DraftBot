@@ -1,7 +1,7 @@
 import {SmallEvent} from "./SmallEvent";
 import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import Player, {Players} from "../database/game/models/Player";
+import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
 import {TranslationModule, Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
