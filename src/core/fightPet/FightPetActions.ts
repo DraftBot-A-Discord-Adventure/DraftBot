@@ -5,7 +5,7 @@ import {Constants} from "../Constants";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
- * This allows to load and manage all the witch events
+ * This allows to load and manage all FightPetActions
  */
 export class FightPetActions {
 	static fightPetActions: Map<string, FightPetAction> = null;
@@ -32,33 +32,6 @@ export class FightPetActions {
 				FightPetActions.fightPetActions.set(FightPetActionInstance.getEmoji(), FightPetActionInstance);
 			}
 		}
-	}
-
-	/**
-	 * allow to get a specific witch event
-	 * @param emoji
-	 */
-	static getFightPetActionByEmoji(emoji: string): FightPetAction | null {
-		if (!FightPetActions.fightPetActions) {
-			FightPetActions.initFightPetActionsMap();
-		}
-		if (emoji === Constants.REACTIONS.NOT_REPLIED_REACTION) {
-			return FightPetActions.getRandomFightPetActionByType(SmallEventConstants.WITCH.ACTION_TYPE.NOTHING);
-		}
-		return FightPetActions.fightPetActions.get(emoji);
-	}
-
-	/**
-	 * Get a random FightPetAction from all the possible one given a type of FightPetAction (ingredient or actions)
-	 * @param type
-	 */
-	static getRandomFightPetActionByType(type: number): FightPetAction | null {
-		if (!FightPetActions.fightPetActions) {
-			FightPetActions.initFightPetActionsMap();
-		}
-		const possibleFightPetActions = Array.from(FightPetActions.fightPetActions.values()).filter((FightPetAction) => FightPetAction.type === type);
-
-		return RandomUtils.draftbotRandom.pick(possibleFightPetActions);
 	}
 
 	/**
