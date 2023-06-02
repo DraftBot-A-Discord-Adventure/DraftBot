@@ -3,6 +3,7 @@ import {readdir} from "fs";
 import * as moment from "moment";
 import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {Translations} from "../../../Translations";
+import {RandomUtils} from "../../../utils/RandomUtils";
 
 export class Pet extends Model {
 	public readonly id!: number;
@@ -37,6 +38,11 @@ export class Pet extends Model {
 }
 
 export class Pets {
+
+	/**
+	 * Get a pet from its id
+	 * @param id
+	 */
 	static getById(id: number): Promise<Pet> {
 		return Pet.findOne({
 			where: {
@@ -45,6 +51,17 @@ export class Pets {
 		});
 	}
 
+	/**
+	 * Get a random pet
+	 */
+	static async getRandom(): Promise<Pet> {
+		const randomId = RandomUtils.draftbotRandom.integer(1, await this.getMaxId());
+		return this.getById(randomId);
+	}
+
+	/**
+	 * Get the maximum id of the pets (used for test commands and random pet generation)
+	 */
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
 			readdir("resources/text/pets/",
