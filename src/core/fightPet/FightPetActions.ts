@@ -1,8 +1,6 @@
 import {readdirSync} from "fs";
 import {FightPetAction} from "./FightPetAction";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Constants} from "../Constants";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * This allows to load and manage all FightPetActions
