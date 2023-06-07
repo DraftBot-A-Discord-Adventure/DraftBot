@@ -136,6 +136,11 @@ export abstract class SmallEventConstants {
 		MAX_PROBABILITY: 51
 	};
 
+	static readonly FIGHT_PET = {
+		BASE_ACTION_AMOUNT: 2,
+		LEVEL_TO_UNLOCK_NEW_ACTION: 30
+	};
+
 	static readonly INTERACT_OTHER_PLAYERS = {
 		COIN_EMOTE: "🪙"
 	};
