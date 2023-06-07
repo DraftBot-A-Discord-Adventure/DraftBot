@@ -4,6 +4,8 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {draftBotInstance} from "../../../../core/bot";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "guildpoints",
@@ -35,6 +37,7 @@ const guildScoreTestCommand = async (language: string, interaction: CommandInter
 		throw new Error("Erreur gpoints : score de guilde invalide ! Il doit être supérieur à 0 !");
 	}
 	guild.score = guildScore;
+	draftBotInstance.logsDatabase.logGuildPointsChange(guild, NumberChangeReason.TEST).then();
 	await guild.save();
 	return format(commandInfo.messageWhenExecuted, {points: args[0]});
 };

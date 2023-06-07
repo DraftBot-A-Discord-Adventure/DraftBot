@@ -13,6 +13,8 @@ export class MonsterFighter extends Fighter {
 
 	private readonly name: string;
 
+	public readonly monster: Monster;
+
 	public constructor(level: number, monster: Monster, monsterAttacks: MonsterAttack[], language: string) {
 		const attacks: FightAction[] = [];
 		for (const attack of monsterAttacks) {
@@ -30,6 +32,7 @@ export class MonsterFighter extends Fighter {
 		this.stats.maxBreath = monster.maxBreath;
 		this.stats.breathRegen = monster.breathRegen;
 		this.name = monster.getName(language);
+		this.monster = monster;
 	}
 
 	calculateStat(stat: { A: number, B: number, C: number}, level: number, ratio: number): number {

@@ -119,6 +119,10 @@ export class FightController {
 		return this.fighters[0].isDead() ? 1 : 0;
 	}
 
+	public getWinnerFighter(): Fighter {
+		return this.fighters[0].isDead() ? this.fighters[1].isDead() ? null : this.fighters[1] : this.fighters[0];
+	}
+
 	/**
 	 * Check if the fight is a draw
 	 * @private

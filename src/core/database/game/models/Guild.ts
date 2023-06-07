@@ -248,9 +248,11 @@ export class Guild extends Model {
 	/**
 	 * add guild points
 	 * @param points
+	 * @param reason
 	 */
-	public addScore(points: number): void {
+	public addScore(points: number, reason: NumberChangeReason): void {
 		this.score += points;
+		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason).then();
 	}
 
 	/**

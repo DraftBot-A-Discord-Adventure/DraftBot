@@ -8,7 +8,8 @@ import {Constants} from "../../core/Constants";
 import {
 	getTimeFromXHoursAgo,
 	millisecondsToMinutes,
-	minutesDisplay, printTimeBeforeDate
+	minutesDisplay,
+	printTimeBeforeDate
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -576,7 +577,7 @@ async function doPVEBoss(
 				});
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
-					guild.addScore(rewards.guildScore);
+					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
 					desc += tr.format("monsterRewardsGuildPoints", {
 						guildPoints: rewards.guildScore
@@ -591,6 +592,8 @@ async function doPVEBoss(
 					]
 				});
 			}
+
+			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
 		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
