@@ -12,6 +12,8 @@ export abstract class FightPetAction {
 
 	public tags: string[] = []; // tags for mission completion
 
+	public linkedPetId: number[] = []; // all the pet ids that have this action as one of their actions
+
 	protected constructor(name: string) {
 		this.name = name;
 	}
@@ -45,5 +47,12 @@ export abstract class FightPetAction {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async checkMissions(interaction: CommandInteraction, player: Player, language: string, outcome: number): Promise<void> {
 		return await Promise.resolve();
+	}
+
+	/**
+	 * return the array of all the ids of pet that have this action as one of their actions
+	 */
+	public getPetIds(): number[] {
+		return this.linkedPetId;
 	}
 }

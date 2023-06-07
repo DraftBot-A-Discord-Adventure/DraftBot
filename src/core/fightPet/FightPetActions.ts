@@ -33,14 +33,37 @@ export class FightPetActions {
 	}
 
 	/**
+	 * allow to get a specific FightPetAction by its emoji
+	 * @param emoji
+	 */
+	static getFightPetActionByEmoji(emoji: string): FightPetAction {
+		if (!FightPetActions.fightPetActions) {
+			FightPetActions.initFightPetActionsMap();
+		}
+		return FightPetActions.fightPetActions.get(emoji);
+	}
+
+	/**
 	 * Get a random FightPetAction from all the possible one
 	 * @param excludedFightPetActions the FightPetActions that should not be selected
 	 */
-	static getRandomFightPetAction(excludedFightPetActions: FightPetAction[]): FightPetAction | null {
+	static getRandomFightPetAction(excludedFightPetActions: FightPetAction[]): FightPetAction {
 		if (!FightPetActions.fightPetActions) {
 			FightPetActions.initFightPetActionsMap();
 		}
 		const possibleFightPetActions = Array.from(FightPetActions.fightPetActions.values()).filter((FightPetAction) => !excludedFightPetActions.includes(FightPetAction));
+		return RandomUtils.draftbotRandom.pick(possibleFightPetActions);
+	}
+
+	/**
+	 * Get a random FightPetAction from the id of one of its pets
+	 * @param petId
+	 */
+	static getRandomFightActionFromPetId(petId: number): FightPetAction | undefined {
+		if (!FightPetActions.fightPetActions) {
+			FightPetActions.initFightPetActionsMap();
+		}
+		const possibleFightPetActions = Array.from(FightPetActions.fightPetActions.values()).filter((FightPetAction) => FightPetAction.getPetIds().includes(petId));
 		return RandomUtils.draftbotRandom.pick(possibleFightPetActions);
 	}
 }

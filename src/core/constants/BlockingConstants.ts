@@ -8,6 +8,7 @@ export abstract class BlockingConstants {
 		FIGHT: "fight",
 		GOBLET_CHOOSE: "gobletChoose",
 		WITCH_CHOOSE: "witchChoose",
+		FIGHT_PET_CHOOSE: "fightPetChoose",
 		GUILD_ADD: "guildInvite",
 		GUILD_CREATE: "guildCreate",
 		GUILD_DESCRIPTION: "guildDescription",
