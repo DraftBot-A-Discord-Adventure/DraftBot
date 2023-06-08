@@ -1092,6 +1092,7 @@ export class LogsDatabase extends Database {
 			date: getDateLogs()
 		});
 	}
+
 	/**
 	 * log when a guild points changes
 	 * @param guild
@@ -1106,7 +1107,6 @@ export class LogsDatabase extends Database {
 			date: getDateLogs()
 		});
 	}
-
 
 	/**
 	 * log when a guild description changes

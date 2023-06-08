@@ -5,7 +5,6 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
-import {draftBotInstance} from "../bot";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
 import {FightWeather} from "./FightWeather";
@@ -27,7 +26,7 @@ export class FightController {
 
 	private state: FightState;
 
-	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
+	private endCallback: (fight: FightController) => Promise<void>;
 
 	private readonly weather: FightWeather;
 
@@ -83,8 +82,6 @@ export class FightController {
 	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		const fightLogId = await draftBotInstance.logsDatabase.logFight(this);
-
 		this.checkNegativeFightPoints();
 
 		const winner = this.getWinner();
@@ -96,7 +93,7 @@ export class FightController {
 			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
 		if (this.endCallback) {
-			await this.endCallback(this, fightLogId);
+			await this.endCallback(this);
 		}
 	}
 
@@ -182,7 +179,7 @@ export class FightController {
 	 * Set a callback to be called when the fight ends
 	 * @param callback
 	 */
-	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
+	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
 		this.endCallback = callback;
 	}
 
