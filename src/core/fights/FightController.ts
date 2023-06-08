@@ -208,7 +208,13 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
-		await this._fightView.displayWeatherStatus(this.weather, this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language));
+		await this._fightView.displayWeatherStatus(
+			this.weather.getWeatherEmote(),
+			this.weather.applyWeatherEffect(
+				this.getPlayingFighter(),
+				this.turn,
+				this._fightView.language)
+		);
 		if (this.hadEnded()) {
 			await this.endFight();
 			return;
