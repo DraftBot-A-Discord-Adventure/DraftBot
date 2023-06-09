@@ -30,7 +30,7 @@ async function applyPossibility(textInformation: TextInformation,player: Player,
 			emoji = ":star:";
 		}
 		else {
-			await guild.addScore(amount);
+			await guild.addScore(amount, NumberChangeReason.SMALL_EVENT);
 			emoji = ":mirror_ball:";
 		}
 		await guild.save();

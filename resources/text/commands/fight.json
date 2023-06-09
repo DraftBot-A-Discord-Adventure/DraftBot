@@ -224,7 +224,7 @@
 				"storm": "L'orage fait rage...",
 				"tornado": "Vous sentez le vent tourbillonner autour de vous..."
 			},
-			"weatherDamages": " {player} subit la météo ! `Dégâts reçus : {damages}`"
+			"weatherDamages": " {fighter} subit la météo ! `Dégâts reçus : {damages}`"
 		},
 		"en": {
 			"commandName": "fight",
@@ -450,7 +450,7 @@
 				"storm": "The storm is raging...",
 				"tornado": "You feel the wind blowing around you..."
 			},
-			"weatherDamages": " {player} suffers from the weather! `Received damage: {damages}`"
+			"weatherDamages": " {fighter} suffers from the weather! `Received damage: {damages}`"
 		}
 	}
 }

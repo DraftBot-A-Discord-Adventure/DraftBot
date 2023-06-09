@@ -6,7 +6,6 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
-import {FightWeather} from "./FightWeather";
 
 /**
  * @class FightController
@@ -170,8 +169,8 @@ export class FightView {
 		});
 	}
 
-	async displayWeatherStatus(weather: FightWeather, weatherString: string): Promise<void> {
-		await this.updateHistory(weather.getWeatherEmote(), "", weatherString);
+	async displayWeatherStatus(weatherEmote: string, weatherString: string): Promise<void> {
+		await this.updateHistory(weatherEmote, "", weatherString);
 	}
 
 	/**
