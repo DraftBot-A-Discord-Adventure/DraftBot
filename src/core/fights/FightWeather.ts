@@ -1,7 +1,6 @@
 import {RandomUtils} from "../utils/RandomUtils";
 import {Fighter} from "./fighter/Fighter";
 import {Translations} from "../Translations";
-import {PlayerFighter} from "./fighter/PlayerFighter";
 
 export class FightWeatherEnum {
 	public static readonly SUNNY = new FightWeatherEnum("☀️", "sunny");
@@ -30,36 +29,38 @@ export class FightWeather {
 
 	lastWeatherUpdate: number;
 
+	weatherInitiator: Fighter;
+
 	constructor() {
 		this.setRandomWeather();
 	}
 
-	public applyWeatherEffect(player: Fighter, turn: number, language: string): string {
+	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): string {
 		// Applique les effets globaux de la météo
 		let damages;
-		const isAPlayer = player instanceof PlayerFighter;
 		const didWeatherChanged = this.currentWeather !== this.lastWeather;
 		let mustSendMessage = didWeatherChanged;
 		switch (this.currentWeather) {
 		case FightWeatherEnum.FIRESTORM:
 			if (turn - this.lastWeatherUpdate >= 8) {
-				this.setWeather(FightWeatherEnum.SUNNY, turn);
+				this.setWeather(FightWeatherEnum.SUNNY, turn, null);
 			}
-			if (!isAPlayer) {
+			if (this.weatherInitiator === fighter) {
 				break;
 			}
-			damages = Math.round(player.getMaxFightPoints() * RandomUtils.randInt(5, 15) / 100);
-			player.damage(damages);
+			damages = Math.round(fighter.getMaxFightPoints() * RandomUtils.randInt(5, 15) / 100);
+			fighter.damage(damages);
 			mustSendMessage = true;
 			break;
 		default:
 			break;
 		}
 		this.lastWeather = this.currentWeather;
+
 		if (mustSendMessage) {
 			return this.getWeatherMessage(didWeatherChanged, language)
-				+ (isAPlayer && damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
-					player: player.getName(),
+				+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
+					fighter: fighter.getName(),
 					damages
 				}) : "");
 		}
@@ -67,9 +68,10 @@ export class FightWeather {
 		return null;
 	}
 
-	setWeather(weatherEnum: FightWeatherEnum, turn: number): void {
+	setWeather(weatherEnum: FightWeatherEnum, turn: number, weatherInitiator: Fighter): void {
 		this.currentWeather = weatherEnum;
 		this.lastWeatherUpdate = turn;
+		this.weatherInitiator = weatherInitiator;
 	}
 
 	getWeatherEmote(): string {
@@ -78,7 +80,7 @@ export class FightWeather {
 
 	private setRandomWeather(): void {
 		// Défini une météo aléatoire
-		this.setWeather(RandomUtils.draftbotRandom.pick([FightWeatherEnum.SUNNY, FightWeatherEnum.RAINY]), 0);
+		this.setWeather(RandomUtils.draftbotRandom.pick([FightWeatherEnum.SUNNY, FightWeatherEnum.RAINY]), 0, null);
 	}
 
 	private getWeatherMessage(didWeatherChanged: boolean, language: string): string {

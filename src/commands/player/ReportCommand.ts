@@ -580,7 +580,7 @@ async function doPVEBoss(
 				});
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
-					guild.addScore(rewards.guildScore);
+					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
 					desc += tr.format("monsterRewardsGuildPoints", {
 						guildPoints: rewards.guildScore
@@ -596,6 +596,8 @@ async function doPVEBoss(
 			}
 
 			await player.save();
+
+			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
 		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {

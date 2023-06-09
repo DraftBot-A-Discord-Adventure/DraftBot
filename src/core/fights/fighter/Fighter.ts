@@ -501,4 +501,11 @@ export abstract class Fighter {
 
 		return Math.round(value);
 	}
+
+	/**
+	 * Get the base stats
+	 */
+	public getBaseStats(): FighterStats {
+		return this.stats;
+	}
 }
