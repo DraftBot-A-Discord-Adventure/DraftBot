@@ -6,6 +6,7 @@ import Player from "../database/game/models/Player";
 import League from "../database/game/models/League";
 import {getNextSaturdayMidnight, printTimeBeforeDate, todayIsSunday} from "../utils/TimeUtils";
 import {FightConstants} from "../constants/FightConstants";
+import {Maps} from "../maps/Maps";
 
 /**
  * Load the description of the reward the player will have
@@ -45,10 +46,10 @@ async function generateEndMessage(leagueRewardTranslationModule: TranslationModu
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Must be on continent
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

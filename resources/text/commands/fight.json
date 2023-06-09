@@ -71,7 +71,7 @@
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":clipboard: | **État actuel du combat** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
 				"defender": ":shield: |** Défenseur : {pseudo}**\n",
 				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
@@ -297,7 +297,7 @@
 			"summarize": {
 				"title": "Fight summary",
 				"intro": ":clipboard: | **Current fight state** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
+				"notStarted": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
 				"defender": ":shield: | **Defender: {pseudo}**\n",
 				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
