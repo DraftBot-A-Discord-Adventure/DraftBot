@@ -33,12 +33,13 @@ export class FightWeather {
 
 	constructor() {
 		this.setRandomWeather();
-		this.lastWeather = this.currentWeather;
 	}
 
 	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): string {
 		// Applique les effets globaux de la météo
 		let damages;
+		const didWeatherChanged = this.currentWeather !== this.lastWeather;
+		let mustSendMessage = didWeatherChanged;
 		switch (this.currentWeather) {
 		case FightWeatherEnum.FIRESTORM:
 			if (turn - this.lastWeatherUpdate >= 8) {
@@ -49,17 +50,22 @@ export class FightWeather {
 			}
 			damages = Math.round(fighter.getMaxFightPoints() * RandomUtils.randInt(5, 15) / 100);
 			fighter.damage(damages);
+			mustSendMessage = true;
 			break;
 		default:
 			break;
 		}
-		const didWeatherChanged = this.currentWeather !== this.lastWeather;
 		this.lastWeather = this.currentWeather;
-		return this.getWeatherMessage(didWeatherChanged, language)
-			+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
-				fighter: fighter.getName(),
-				damages
-			}) : "");
+
+		if (mustSendMessage) {
+			return this.getWeatherMessage(didWeatherChanged, language)
+				+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
+					fighter: fighter.getName(),
+					damages
+				}) : "");
+		}
+
+		return null;
 	}
 
 	setWeather(weatherEnum: FightWeatherEnum, turn: number, weatherInitiator: Fighter): void {

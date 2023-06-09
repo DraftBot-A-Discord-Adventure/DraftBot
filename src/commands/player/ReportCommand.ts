@@ -318,12 +318,14 @@ async function destinationChoseMessage(
  * @param interaction
  * @param language
  * @param forcedLink Forced map link to go to
+ * @param reason
  */
 async function chooseDestination(
 	player: Player,
 	interaction: CommandInteraction,
 	language: string,
-	forcedLink: MapLink
+	forcedLink: MapLink,
+	reason: NumberChangeReason
 ): Promise<void> {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(player);
@@ -335,7 +337,7 @@ async function chooseDestination(
 
 	if (!Maps.isOnPveIsland(player) && (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, Date.now(), reason);
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);
 		return;
 	}
@@ -360,7 +362,7 @@ async function chooseDestination(
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
-		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, Date.now(), reason);
 		await destinationChoseMessage(player, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
@@ -427,7 +429,7 @@ async function doPossibility(
 	});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
-		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination);
+		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination, NumberChangeReason.BIG_EVENT);
 	}
 
 	await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {missionId: "doReports"});
@@ -559,10 +561,11 @@ async function doPVEBoss(
 				experience: rewards.xp
 			});
 
+			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+
 			// Only give reward if draw or win
 			if (fight.isADraw() || fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
 				const fightView = fight.getFightView();
-				player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
 				await player.addMoney({
 					amount: rewards.money,
 					channel: fightView.channel,
@@ -583,7 +586,6 @@ async function doPVEBoss(
 						guildPoints: rewards.guildScore
 					});
 				}
-				await player.save();
 				await fightView.channel.send({
 					embeds: [
 						new DraftBotEmbed()
@@ -593,12 +595,18 @@ async function doPVEBoss(
 				});
 			}
 
+			await player.save();
+
 			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
 		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
 			await Maps.stopTravel(player);
-			await chooseDestination(player, interaction, language, null);
+			await player.setLastReportWithEffect(
+				0,
+				EffectsConstants.EMOJI_TEXT.SMILEY
+			);
+			await chooseDestination(player, interaction, language, null, NumberChangeReason.BIG_EVENT);
 		}
 	};
 
@@ -714,7 +722,7 @@ async function executeCommand(
 	}
 
 	if (!Maps.isTravelling(player)) {
-		await chooseDestination(player, interaction, language, null);
+		await chooseDestination(player, interaction, language, null, NumberChangeReason.PVE_FIGHT);
 		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
 	}
 
