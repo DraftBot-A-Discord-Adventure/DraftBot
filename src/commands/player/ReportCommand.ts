@@ -335,7 +335,9 @@ async function chooseDestination(
 		return;
 	}
 
-	if (!Maps.isOnPveIsland(player) && (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
+	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
+		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
+	) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(player, newLink, Date.now(), reason);
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);
