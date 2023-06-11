@@ -17,7 +17,7 @@ import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
 
-async function confirmationCallback(
+export async function confirmationCallback(
 	player: Player,
 	msg: DraftBotValidateReactionMessage,
 	tr: TranslationModule,
@@ -74,11 +74,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.goToPVEIsland", language);
-		let wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId);
-		if (wentCount >= PVEConstants.TRAVEL_COST.length) {
-			wentCount = PVEConstants.TRAVEL_COST.length - 1;
-		}
-		const price = PVEConstants.TRAVEL_COST[wentCount];
+		const price = await player.getTravelCostThisWeek();
 
 		const confirmEmbed = new DraftBotValidateReactionMessage(
 			interaction.user,

@@ -465,6 +465,11 @@ export class Player extends Model {
 		return this.level;
 	}
 
+	public async getTravelCostThisWeek() : Promise<number> {
+		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId);
+		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];
+	}
+
 	/**
 	 * Get the number of player that are on the same map as the player
 	 */
