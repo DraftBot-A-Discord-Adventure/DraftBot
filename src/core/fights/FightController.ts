@@ -1,14 +1,15 @@
-import {Fighter} from "./fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
-import {draftBotInstance} from "../bot";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
 import {FightWeather} from "./FightWeather";
+import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
+import {MonsterFighter} from "./fighter/MonsterFighter";
 
 /**
  * @class FightController
@@ -27,18 +28,21 @@ export class FightController {
 
 	private state: FightState;
 
-	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
+	private endCallback: (fight: FightController) => Promise<void>;
 
 	private readonly weather: FightWeather;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
-		this.fighters = [fighter1, fighter2];
-		this.fightInitiator = fighter1;
+	private readonly overtimeBehavior: FightOvertimeBehavior;
+
+	public constructor(fighters: {fighter1: Fighter, fighter2: Fighter}, fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior }, channel: TextBasedChannel, language: string) {
+		this.fighters = [fighters.fighter1, fighters.fighter2];
+		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
-		this.friendly = friendly;
+		this.friendly = fightParameters.friendly;
 		this._fightView = new FightView(channel, language, this);
 		this.weather = new FightWeather();
+		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
 	/**
@@ -83,8 +87,6 @@ export class FightController {
 	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		const fightLogId = await draftBotInstance.logsDatabase.logFight(this);
-
 		this.checkNegativeFightPoints();
 
 		const winner = this.getWinner();
@@ -96,7 +98,7 @@ export class FightController {
 			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
 		if (this.endCallback) {
-			await this.endCallback(this, fightLogId);
+			await this.endCallback(this);
 		}
 	}
 
@@ -117,6 +119,10 @@ export class FightController {
 	 */
 	public getWinner(): number {
 		return this.fighters[0].isDead() ? 1 : 0;
+	}
+
+	public getWinnerFighter(): Fighter {
+		return this.fighters[0].isDead() ? this.fighters[1].isDead() ? null : this.fighters[1] : this.fighters[0];
 	}
 
 	/**
@@ -178,7 +184,7 @@ export class FightController {
 	 * Set a callback to be called when the fight ends
 	 * @param callback
 	 */
-	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
+	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
 		this.endCallback = callback;
 	}
 
@@ -207,11 +213,21 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
-		await this._fightView.displayWeatherStatus(this.weather, this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language));
-		if (this.hadEnded()) {
+		// Weather related actions
+		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language);
+		if (weatherMessage) {
+			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
+		}
+
+		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
 			await this.endFight();
 			return;
 		}
+
+		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
+			this.increaseDamagesPve();
+		}
+
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
@@ -248,6 +264,29 @@ export class FightController {
 		}
 	}
 
+	private increaseDamagesPve(): void {
+		for (const fighter of this.fighters) {
+			if (fighter instanceof MonsterFighter) {
+				fighter.applyAttackModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applyDefenseModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applySpeedModifier({
+					operation: FightStatModifierOperation.MULTIPLIER,
+					value: 1.2,
+					origin: null
+				});
+				fighter.applyDamageMultiplier(1.2, Number.MAX_SAFE_INTEGER);
+			}
+		}
+	}
+
 	/**
 	 * Change who is the player 1 and who is the player 2.
 	 * @private
@@ -266,7 +305,6 @@ export class FightController {
 	 */
 	private hadEnded(): boolean {
 		return (
-			this.turn >= FightConstants.MAX_TURNS ||
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);

@@ -70,8 +70,8 @@
 			},
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":clipboard: | **État actuel du combat** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"intro": ":clipboard: | **État actuel du combat** [{turn>maxTurns?Prolongations:{{turn}/{maxTurns}}}]\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
 				"defender": ":shield: |** Défenseur : {pseudo}**\n",
 				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
@@ -80,7 +80,7 @@
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
 				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
-				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}\n- **Temps de combat** : {time}",
+				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}{turn>maxTurn? (prolongations):}\n- **Temps de combat** : {time}",
 				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
 				"drawElo": "\n- **Elo de la partie** : `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:"
@@ -224,7 +224,7 @@
 				"storm": "L'orage fait rage...",
 				"tornado": "Vous sentez le vent tourbillonner autour de vous..."
 			},
-			"weatherDamages": " {player} subit la météo ! `Dégâts reçus : {damages}`"
+			"weatherDamages": " {fighter} subit la météo ! `Dégâts reçus : {damages}`"
 		},
 		"en": {
 			"commandName": "fight",
@@ -296,8 +296,8 @@
 			},
 			"summarize": {
 				"title": "Fight summary",
-				"intro": ":clipboard: | **Current fight state** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
+				"intro": ":clipboard: | **Current fight state** [{turn>maxTurns?Overtime:{{turn}/{maxTurns}}}]\n\n",
+				"notStarted": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
 				"defender": ":shield: | **Defender: {pseudo}**\n",
 				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
@@ -306,7 +306,7 @@
 			"end": {
 				"draw": ":newspaper: |**{player1} and {player2} end their fight with a draw!**\n\n",
 				"win": ":newspaper: |**{winner} won the fight against {loser}**\n\n",
-				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fighting time elapsed**: {time}",
+				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}{turn>maxTurn? (overtime):}\n- **Fighting time elapsed**: {time}",
 				"winElo": "\n- **Elo**: `{elo}`\n- **Points gained/lost**: `{points}`",
 				"drawElo": "\n- **Elo**: `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | {pseudo}'s stats\n- **Final health**: {health}/{maxHealth} :zap:"
@@ -450,7 +450,7 @@
 				"storm": "The storm is raging...",
 				"tornado": "You feel the wind blowing around you..."
 			},
-			"weatherDamages": " {player} suffers from the weather! `Received damage: {damages}`"
+			"weatherDamages": " {fighter} suffers from the weather! `Received damage: {damages}`"
 		}
 	}
 }

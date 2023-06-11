@@ -11,6 +11,8 @@ export class MapLink extends Model {
 
 	public readonly tripDuration!: number;
 
+	public readonly forcedImage?: string;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -103,6 +105,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		tripDuration: {
 			type: DataTypes.INTEGER
+		},
+		forcedImage: {
+			type: DataTypes.TEXT,
+			allowNull: true
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

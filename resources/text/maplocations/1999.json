@@ -7,5 +7,6 @@
 	"descFr": "Le bateau permettant de quitter l'île",
 	"descEn": "The boat to leave the island",
 	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_exit"
+	"attribute": "pve_exit",
+	"forcedImage": "boat_left"
 }

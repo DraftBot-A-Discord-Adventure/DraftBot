@@ -1,0 +1,68 @@
+{
+	"triggers": [
+		{
+			"mapId": 1999
+		}
+	],
+	"translations": {
+		"fr": "🚢 Après un peu de marche, vous arrivez au niveau du bateau qui vous a emmené préalablement sur cette île peu hospitalière. Voyant votre fatigue et vos blessures, le capitaine s'empresse de donner l'ordre à son équipage de lever l'ancre. Une fois assis sur le pont, vous le voyez arriver avec une choppe de bière à la main, qu'il vous tend.",
+		"en": "🚢 After a short walk, you arrive at the boat that previously brought you to this inhospitable island. Seeing your fatigue and injuries, the captain hastens to order his crew to weigh anchor. Once seated on deck, you see him arrive with a mug of beer in his hand, which he hands to you."
+	},
+	"possibilities": {
+		"🍺": {
+			"translations": {
+				"fr": "Accepter la boisson.",
+				"en": "Accept the drink."
+			},
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "Vous prenez le temps d'apprécier ce breuvage qui vous a tant manqué lors de votre escapade. Elle vous fait le plus grand bien. Vous la buvez par petites gorgées, et vous commencez à sentir le navire tanguer sur les vagues, signe de la fin de cette expédition.",
+						"en": "You take the time to enjoy this beverage that you missed so much on your getaway. It does you a world of good. You sip it, and begin to feel the ship rocking on the waves, a sign of the end of this expedition."
+					},
+					"health": 10
+				},
+				{
+					"translations": {
+						"fr": "Ce breuvage n'est pas de bonne qualité, le goût malté se fait très ressentir. Voyant votre réaction, le capitaine rit et vous dit que la bière est comme ça sur les navires. Il reprend votre verre et part vous chercher de l'eau et un morceau de pain à la place, que vous appréciez un peu plus. Vous vous levez ensuite, regardez l'île s'éloigner à l'horizon et faites le point sur vos aventures.",
+						"en": "This beverage is not of good quality, the malty taste is very noticeable. Seeing your reaction, the captain laughs and tells you that beer is like that on ships. He takes your glass back and goes to fetch you water and a piece of bread instead, which you enjoy a little more. You then stand up, watch the island drift away on the horizon and take stock of your adventures."
+					},
+					"health": 15
+				}
+			]
+		},
+		"✋": {
+			"translations": {
+				"fr": "Refuser poliment le cadeau.",
+				"en": "Politely refuse the gift."
+			},
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "Vous n'avez pas la tête à boire après cette aventure périlleuse. Ne souhaitant pas vous laisser dans votre position inconfortable, le capitaine vous offre, sans que vous ayez vraiment le choix, un lit douillet dans sa cabine. Le mouvement du bateau vous berce, vous sentez vite votre esprit s'égarrer sur vos péripéties et vous vous endormez quelques minutes après.",
+						"en": "You're not in the mood to drink after this perilous adventure. Not wanting to leave you in your uncomfortable position, the captain offers you, without you really having a choice, a cosy bed in his cabin. The motion of the boat lulls you to sleep, and you soon feel your mind wandering to your adventures, falling asleep a few minutes later."
+					},
+					"energy": 250
+				},
+				{
+					"translations": {
+						"fr": "Ce voyage ayant été éprouvant, vous refusez pour ne pas vous déshydrater davantage. Vous demandez plutôt de l'eau au chef du navire. Vous ne vous rendez cependant pas compte que vous tombez dans un sommeil profond avant qu'il ne revienne.",
+						"en": "As this has been a trying journey, you refuse to drink to avoid further dehydration. Instead, you ask the ship's master for water. However, you don't realize that you're falling into a deep sleep until he returns."
+					},
+					"energy": 150
+				}
+			]
+		},
+		"end": {
+			"outcomes": [
+				{
+					"translations": {
+						"fr": "🥱 Le capitaine attend que vous preniez le cadeau qu'il vous offre. Vous vous êtes cependant endormi en une fraction de seconde, ce qu'il constate rapidement. Il repart donc diriger son bateau, en vous laissant dormir où vous êtes.",
+						"en": "🥱 The captain is waiting for you to take the gift he's offering you. However, you fall asleep in a split second, which he quickly notices. So he goes back to steering his boat, leaving you to sleep where you are."
+					},
+					"energy": 150
+				}
+			]
+		}
+	}
+}
