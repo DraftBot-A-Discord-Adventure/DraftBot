@@ -40,6 +40,7 @@ import {MonsterLocations} from "../../core/database/game/models/MonsterLocation"
 import {PVEConstants} from "../../core/constants/PVEConstants";
 import {TextInformation} from "../../core/utils/MessageUtils";
 import {Guilds} from "../../core/database/game/models/Guild";
+import {MapCache} from "../../core/maps/MapCache";
 
 /**
  * Initiates a new player on the map
@@ -258,7 +259,7 @@ async function createDescriptionChooseDestination(
 	player: Player,
 	language: string
 ): Promise<string> {
-	const isPveMap = Maps.isOnPveIsland(player);
+	const isPveMap = MapCache.allPveMapLinks.includes(player.mapLinkId);
 	let desc = tr.get("chooseDestinationIndications") + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);

@@ -91,6 +91,14 @@ async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, play
 	return "";
 }
 
+async function applyOutcomeEnergy(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
+	if (outcome.energy && outcome.energy !== 0) {
+		await player.addEnergy(outcome.energy, NumberChangeReason.BIG_EVENT);
+		return textInformation.tr.format("energy", {energy: outcome.energy});
+	}
+	return "";
+}
+
 async function applyOutcomeGems(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
 	if (outcome.gems && outcome.gems !== 0) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
@@ -195,6 +203,9 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	// health
 	description += await applyOutcomeHealth(outcome, player, textInformation);
 
+	// energy
+	description += await applyOutcomeEnergy(outcome, player, textInformation);
+
 	// gems
 	description += await applyOutcomeGems(outcome, player, textInformation);
 
@@ -243,6 +254,11 @@ export interface PossibilityOutcome {
 	 * Money lost or won
 	 */
 	money?: number;
+
+	/**
+	 * Energy lost or won
+	 */
+	energy?: number;
 
 	/**
 	 * Gems lost or won
