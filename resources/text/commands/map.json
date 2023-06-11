@@ -4,7 +4,7 @@
 			"commandName": "carte",
 			"commandDescription": "Afficher la carte.",
 			"text": "Voici la map de DraftBot, {pseudo} !",
-			"descText": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}",
+			"descText": "Actuellement, vous allez {particle} **{direction}** : {dirDesc}",
 			"descTextReached": "Vous êtes arrivés à votre destination : **{direction}**"
 		},
 		"en": {

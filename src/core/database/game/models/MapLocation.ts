@@ -26,6 +26,8 @@ export class MapLocation extends Model {
 
 	public readonly attribute!: string;
 
+	public readonly forcedImage?: string;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -206,6 +208,10 @@ export function initModel(sequelize: Sequelize): void {
 		attribute: {
 			type: DataTypes.TEXT,
 			allowNull: false
+		},
+		forcedImage: {
+			type: DataTypes.TEXT,
+			allowNull: true
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
