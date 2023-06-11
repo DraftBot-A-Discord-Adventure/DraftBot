@@ -4,7 +4,7 @@
 			"intro": [
 				"Vous montez sur le pont et vous discutez avec un membre de l'équipage. Il vous donne un conseil pour vous aider dans votre aventure sur l'île :\n**{advice}**.",
 				"Vous grimpez sur le mât pour admirer l'horizon. Un homme baisse sa longue-vue et tient à vous donner ce conseil avant votre départ pour l'île :\n**{advice}**.",
-				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'îme :\n**{advice}**."
+				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'île :\n**{advice}**."
 			],
 			"advices": [
 				"Vous pouvez faire un mini-évent par minute une fois là-bas",

@@ -576,7 +576,7 @@ export class CommandsManager {
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
 		// check pve island blocking
-		if (Maps.isOnPveIsland(player) && PVEConstants.BLOCKED_COMMANDS.includes(interaction.commandName)) {
+		if ((Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && PVEConstants.BLOCKED_COMMANDS.includes(interaction.commandName)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,

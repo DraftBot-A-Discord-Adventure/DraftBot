@@ -51,7 +51,8 @@ export abstract class PVEConstants {
 		"shop",
 		"missionsshop",
 		"guildbonus",
-		"guildshop"
+		"guildshop",
+		"joinboat"
 	];
 
 	/**
