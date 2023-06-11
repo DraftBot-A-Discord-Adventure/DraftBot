@@ -34,7 +34,7 @@ async function getMapToShowInfo(player: Player, destMap: MapLocation, inReport: 
 	if (inReport) {
 		return {
 			name: destMap.forcedImage ?? `${destMap.id}_`,
-			forced: !!destMap.forcedImage
+			forced: Boolean(destMap.forcedImage)
 		};
 	}
 
