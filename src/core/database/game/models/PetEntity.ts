@@ -37,8 +37,7 @@ export class PetEntity extends Model {
 
 
 	public getPetTypeName(petModel: Pet, language: string): string {
-		const field = `${this.sex === "m" ? "male" : "female"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
-		return petModel[field as keyof Pet];
+		return petModel.toString(language,this.sex === "f");
 	}
 
 	public getFeedCooldownDisplay(petModel: Pet, language: string): string {

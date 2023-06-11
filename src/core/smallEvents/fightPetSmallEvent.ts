@@ -7,25 +7,27 @@ import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../messag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {WitchEvents} from "../witch/WitchEvents";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
-import {WitchEvent} from "../witch/WitchEvent";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
-import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
-import {InventorySlots} from "../database/game/models/InventorySlot";
-import {GenericItemModel} from "../database/game/models/GenericItemModel";
-import {ItemConstants} from "../constants/ItemConstants";
 import {Maps} from "../maps/Maps";
 import {FightPetActions} from "../fightPet/FightPetActions";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {FightPetAction} from "../fightPet/FightPetAction";
+import Pet, {Pets} from "../database/game/models/Pet";
+import {format} from "../utils/StringFormatter";
+
+type feralPet = {
+	feralName: string,
+	originalPet: Pet,
+	isFemale: boolean
+}
 
 /**
  * Returns an object composed of three random witch events
  * @param player all the information about the player
  */
-async function getRandomFightPetActions(player: Player): Promise<FightPetActions[]> {
+async function getRandomFightPetActions(player: Player): Promise<FightPetAction[]> {
 	let amountOfActions = SmallEventConstants.FIGHT_PET.BASE_ACTION_AMOUNT;
 
 	// higher level players get more actions
@@ -38,7 +40,7 @@ async function getRandomFightPetActions(player: Player): Promise<FightPetActions
 		amountOfActions++;
 	}
 
-	const actions: FightPetActions[] = Array.from({length: amountOfActions}, () => FightPetActions.getRandomFightPetAction([]));
+	const actions: FightPetAction[] = Array.from({length: amountOfActions}, () => FightPetActions.getRandomFightPetAction([]));
 
 	// some pet may give a bonus action (50% chance)
 	const petEntity = await PetEntities.getById(player.petId);
@@ -87,6 +89,21 @@ function generateFightPetActionMenu(fightPetActions: FightPetAction[], embed: Dr
 }
 
 /**
+ * Generate a feral pet
+ * @param language
+ */
+async function generateFeralPet(language: string): Promise<feralPet> {
+	const isFemale = RandomUtils.draftbotRandom.bool();
+	const originalPet = await Pets.getRandom();
+	const adjective = format(Translations.getModule("smallEvents.fightPet", language).getRandom("adjectives"), {feminine: isFemale});
+	return {
+		feralName: Translations.getModule("smallEvents.fightPet", language).format("nameDisplay",{adjective: adjective, petName: originalPet.toString(language, isFemale)}),
+		originalPet,
+		isFemale
+	};
+}
+
+/**
  * generate an embed with the menu and a short introduction to the witch
  * @param embed
  * @param language
@@ -103,17 +120,17 @@ async function generateInitialEmbed(
 	player: Player,
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
+	const feralPet = await generateFeralPet(language);
 	const fightPetActions = await getRandomFightPetActions(player);
-	const witchEventMenu = generateFightPetActionMenu(fightPetActions, embed, language);
+	const fightPetMenu = generateFightPetActionMenu(fightPetActions, embed, language);
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 	const builtEmbed = embed.build();
 	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
 		+ intro
-		+ tr.getRandom("intro")
-		+ tr.getRandom("description")
-		+ tr.getRandom("situation")}\n\n${witchEventMenu}`
+		+ format(tr.getRandom("intro"), {feminine: feralPet.isFemale, feralPet: feralPet.feralName})
+		+ tr.getRandom("situation")}\n\n${fightPetMenu}`
 	);
 	return builtEmbed;
 }
@@ -145,14 +162,12 @@ export const smallEvent: SmallEvent = {
 				const selectedFightPetAction = retrieveSelectedEvent(fightPetEventMessage);
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 
-				const outcome = await applyOutcome(selectedFightPetAction, player, language, interaction);
+				await applyOutcome(selectedFightPetAction, player, language, interaction);
 
-				await sendResultMessage(seEmbed, tr, selectedFightPetAction, interaction);
-
-				await selectedFightPetAction.checkMissions(interaction, player, language, outcome);
+				await selectedFightPetAction.checkMissions(interaction, player, language);
 			});
 
-		const builtEmbed = generateInitialEmbed(embed, language, interaction, seEmbed, player, tr);
+		const builtEmbed = await generateInitialEmbed(embed, language, interaction, seEmbed, player, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE, collector));
 	}

@@ -35,6 +35,17 @@ export class Pet extends Model {
 	public getDietDisplay(language: string): string {
 		return Translations.getModule("models.pets", language).get(`diet.diet_${this.diet}`);
 	}
+
+	/**
+	 * Get the name of the pet type in the specified language
+	 * @param language
+	 * @param isFemale
+	 */
+	public toString(language: string, isFemale: boolean): string {
+		const field = `${isFemale ? "female" : "male"}Name${language.toUpperCase().slice(0, 1)}${language.slice(1)}`;
+		return this[field as keyof Pet];
+	}
+
 }
 
 export class Pets {
