@@ -5,8 +5,8 @@
 				"0": {
 					"intro": "Le ciel est gris, la température est moyenne. C’est un temps idéal pour marcher et avancer dans votre aventure. Cependant, au bout de quelques pas, le sol frêle se dérobe sous vos pieds et vous chutez dans un trou.",
 					"success": {
-						"withGuild": "Grâce à l’aide de vos camarades de guilde, vous parvenez à vous hisser hors de cette crevasse et à les sauver à leur tour. Cette épreuve surmontée a renforcé vos liens, votre guilde reçoit **{amount}**.",
-						"soloWithGuild": "Ne perdant pas votre sang-froid, vous appliquez immédiatement les enseignements de votre guilde et parvenez aisément à escalader la paroi. Votre guilde reçoit **{amount}**.",
+						"withGuild": "Grâce à l’aide de vos camarades de guilde, vous parvenez à vous hisser hors de cette crevasse et à les sauver à leur tour. Cette épreuve surmontée a renforcé vos liens, votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Ne perdant pas votre sang-froid, vous appliquez immédiatement les enseignements de votre guilde et parvenez aisément à escalader la paroi. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Ne perdant pas votre sang-froid, vous appliquez ce que vous avez appris durant vos aventures et parvenez aisément à escalader la paroi. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
@@ -21,8 +21,8 @@
 				"1": {
 					"intro": "Vous décidez de vous reposer un peu après une traversée intense sur l'île. Mais, au moment où vous vous allongez sur le sol, la terre se mit à trembler.",
 					"success": {
-						"withGuild": "Cependant, vous vous agrippez les uns les autres, afin d'éviter qu'une potentielle crevasse fasse tomber l'un d'entre vous. La secousse se termine, et vous êtes tous sains et saufs. Votre guilde gagne **{amount}**.",
-						"soloWithGuild": "Vous suivez les instructions qui vous ont été données en cas de seisme par votre guilde, et décidez de vous abriter sous une structure qui, heureusement, ne s'est pas écroulée sur vous. Sain et sauf, vous vous promettez de remercier votre guilde dès votre retour de votre expédition. Votre guilde gagne **{amount}**.",
+						"withGuild": "Cependant, vous vous agrippez les uns les autres, afin d'éviter qu'une potentielle crevasse fasse tomber l'un d'entre vous. La secousse se termine, et vous êtes tous sains et saufs. Votre guilde gagne **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Vous suivez les instructions qui vous ont été données en cas de seisme par votre guilde, et décidez de vous abriter sous une structure qui, heureusement, ne s'est pas écroulée sur vous. Sain et sauf, vous vous promettez de remercier votre guilde dès votre retour de votre expédition. Votre guilde gagne **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Vous essayez de tenir malgré la secousse. Heureusement, elle n'a causé aucun dégât autour, vous continuez à vous reposer un peu en admirant le ciel et les environs. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
@@ -35,10 +35,10 @@
 					}
 				},
 				"2": {
-					"intro": "Vous avanciez tranquillement dans votre aventure (avec vos compagnons de guilde), lorsque votre instinct vous signale un danger. Petit à petit, une brume blanchâtre presque opaque s’élève du sol accidenté et tombe du ciel pour vous encercler. Vous ne voyez rapidement plus rien autour de vous.",
+					"intro": "Vous avancez tranquillement dans votre aventure (avec vos compagnons de guilde), lorsque votre instinct vous signale un danger. Petit à petit, une brume blanchâtre presque opaque s’élève du sol accidenté et tombe du ciel pour vous encercler. Vous ne voyez rapidement plus rien autour de vous.",
 					"success": {
-						"withGuild": "Plusieurs paires d'yeux valent mieux qu'une ! Grâce à la coopération de vos visions, vos compagnons et vous parvenez à avancer entre les rochers et les crevasses sans qu’un seul ne soit blessé ou perdu. Votre guilde reçoit **{amount}**.",
-						"soloWithGuild": "Dans cette situation urgente, vous gardez votre sang-froid et utilisez les techniques de pistage apprises grâce à votre guilde afin de vous sortir de ce pétrin sans encombre. Votre guilde reçoit **{amount}**.",
+						"withGuild": "Plusieurs paires d'yeux valent mieux qu'une ! Grâce à la coopération de vos visions, vos compagnons et vous parvenez à avancer entre les rochers et les crevasses sans qu’un seul ne soit blessé ou perdu. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Dans cette situation urgente, vous gardez votre sang-froid et utilisez les techniques de pistage apprises grâce à votre guilde afin de vous sortir de ce pétrin sans encombre. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Dans cette situation urgente, vous gardez votre sang-froid et utilisez des techniques de pistage apprises un peu plus tôt afin de vous sortir de ce pétrin sans encombre. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
@@ -51,14 +51,14 @@
 					}
 				},
 				"3": {
-					"intro": "Vous avanciez tranquillement pour de nouvelles aventures lorsqu’un petit caillou sournois, insolent et pointu décida de faire de vous sa victime et vous entaille cruellement la cheville.",
+					"intro": "Vous avancez tranquillement pour de nouvelles aventures lorsqu’un petit caillou sournois, insolent et pointu décida de faire de vous sa victime et vous entaille cruellement la cheville.",
 					"success": {
-						"withGuild": "Heureusement pour vous, vos compagnons de guilde sont experts en soin et vous êtes rapidement sur pied. Votre guilde reçoit **{amount}**.",
-						"soloWithGuild": "Malgré la douleur, vous parvenez à vous souvenir des enseignements de votre guilde et parvenez grâce à ces connaissances à vous soigner rapidement. Votre guilde reçoit **{amount}**.",
+						"withGuild": "Heureusement pour vous, vos compagnons de guilde pansent votre blessure et vous remette rapidement sur pied. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Malgré la douleur, vous parvenez à vous souvenir des enseignements de votre guilde et parvenez grâce à ces connaissances à vous soigner rapidement. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Malgré la douleur, vous parvenez à désinfecter et à bander la plaie afin de reprendre votre route au plus vite. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
-						"withGuild": "Voulant éviter d’être retardés, vos compagnons de guilde décidèrent de vous porter afin de vous soigner plus tard, une fois arrivés à destination.",
+						"withGuild": "Voulant éviter d’être retardés, vos compagnons de guilde décident de vous porter afin de vous soigner une fois arrivés à destination.",
 						"solo": "Malgré la douleur, vous parvenez à continuer à marcher en clopinant. Vous vous soignerez une fois arrivé à destination."
 					},
 					"lose": {
@@ -67,10 +67,10 @@
 					}
 				},
 				"4": {
-					"intro": "Vous marchez tranquillement en direction de votre destination lorsqu’une nuit soudaine s’installe brutalement sur la région. L’obscurité est totale.",
+					"intro": "Vous marchez tranquillement en direction de votre destination lorsque de gros nuages noirs se forment sur la région. L’obscurité est totale.",
 					"success": {
-						"withGuild": "Vos compagnons de guilde sont cependant prévoyants et l’un d’eux sort une torche de son sac afin d’éclairer votre route. Votre guilde reçoit **{amount}**.",
-						"soloWithGuild": "Heureusement que vous aviez une torche dans votre sacoche, qu’un de vos compagnons de guilde vous a donné à votre départ ! Vous pouvez ainsi aisément voir votre chemin et continuer votre route. Votre guilde reçoit **{amount}**.",
+						"withGuild": "Vos compagnons de guilde sont cependant prévoyants et l’un d’eux sort une torche de son sac afin d’éclairer votre route. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Heureusement que vous aviez une torche dans votre sacoche, qu’un de vos compagnons de guilde vous a donné à votre départ ! Vous pouvez ainsi aisément voir votre chemin et continuer votre route. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Heureusement que vous aviez une torche dans votre poche, préparée avant votre départ ! Vous pouvez ainsi aisément voir votre chemin et continuer votre route. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
@@ -85,8 +85,8 @@
 				"5": {
 					"intro": "Vous marchiez déjà depuis un certain temps sur un chemin qui vous paraît ne jamais finir lorsque soudain les forces vous manquent et vous vous écroulez de fatigue.",
 					"success": {
-						"withGuild": "Voyant votre malaise, vos compagnons accourent pour vous soutenir et vous offrent à manger l’énergie nécessaire pour vous relever et continuer à avancer dans votre quête. Votre guilde reçoit **{amount}**.",
-						"soloWithGuild": "Malgré ce malaise, vous utilisez le peu d’énergie qui vous reste pour sortir de votre inventaire un peu de nourriture offerte par votre guilde afin de reprendre des forces et continuer votre quête. Votre guilde reçoit **{amount}**.",
+						"withGuild": "Voyant votre malaise, vos compagnons accourent pour vous soutenir et vous offrent à manger l’énergie nécessaire pour vous relever et continuer à avancer dans votre quête. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Malgré ce malaise, vous utilisez le peu d’énergie qui vous reste pour sortir de votre inventaire un peu de nourriture offerte par votre guilde afin de reprendre des forces et continuer votre quête. Votre guilde reçoit **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Malgré ce malaise, vous utilisez le peu d’énergie qui vous reste pour sortir de votre inventaire un peu de nourriture préparée à l’avance afin de reprendre des forces et continuer votre quête. Vous recevez **{amount} :star:**."
 					},
 					"escape": {
@@ -105,8 +105,8 @@
 				"0": {
 					"intro": "The sky is gray, the temperature average. It's ideal weather for walking and getting on with your adventure. However, after a few steps, the frail ground gives way beneath your feet and you fall into a hole.",
 					"success": {
-						"withGuild": "With the help of your guild mates, you manage to pull yourself out of the crevasse and save them in turn. This ordeal has strengthened your bond, and your guild receives **{amount}**.",
-						"soloWithGuild": "Never losing your cool, you immediately apply your guild's teachings and climb the wall with ease. Your guild receives **{amount}**.",
+						"withGuild": "With the help of your guild mates, you manage to pull yourself out of the crevasse and save them in turn. This ordeal has strengthened your bond, and your guild receives **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Never losing your cool, you immediately apply your guild's teachings and climb the wall with ease. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Never losing your cool, you apply what you've learned on your adventures and scale the wall with ease. You receive **{amount} :star:**."
 					},
 					"escape": {
@@ -121,8 +121,8 @@
 				"1": {
 					"intro": "You decide to rest for a while after an intense crossing of the island. But just as you lay down on the ground, the earth began to shake.",
 					"success": {
-						"withGuild": "However, you hold on to each other to avoid a potential crevasse that could cause one of you to fall. The tremor ends, and you're all safe and sound. Your guild wins **{amount}**.",
-						"soloWithGuild": "You follow the instructions given to you by your guild in the event of an earthquake, and decide to take shelter under a structure which, fortunately, has not collapsed on you. Safe and sound, you promise to thank your guild as soon as you return from your expedition. Your guild wins **{amount}**.",
+						"withGuild": "However, you hold on to each other to avoid a potential crevasse that could cause one of you to fall. The tremor ends, and you're all safe and sound. Your guild wins **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "You follow the instructions given to you by your guild in the event of an earthquake, and decide to take shelter under a structure which, fortunately, has not collapsed on you. Safe and sound, you promise to thank your guild as soon as you return from your expedition. Your guild wins **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "You try to hold on despite the tremor. Fortunately, it hasn't caused any damage around you, so you continue to rest a while, admiring the sky and the surroundings. You receive **{amount} :star:**."
 					},
 					"escape": {
@@ -137,8 +137,8 @@
 				"2": {
 					"intro": "You (and your guild mates) were making good progress on your adventure, when your instincts warned you of danger. Gradually, a whitish, almost opaque mist rises from the uneven ground and falls from the sky, encircling you. Before long, you can see nothing around you.",
 					"success": {
-						"withGuild": "Several pairs of eyes are better than one! Thanks to the cooperation of your visions, you and your companions manage to advance between rocks and crevasses without anyone getting hurt or lost. Your guild receives **{amount}**.",
-						"soloWithGuild": "In this urgent situation, you keep your cool and use the tracking techniques you've learned from your guild to get out of this mess safely. Your guild receives **{amount}**.",
+						"withGuild": "Several pairs of eyes are better than one! Thanks to the cooperation of your visions, you and your companions manage to advance between rocks and crevasses without anyone getting hurt or lost. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "In this urgent situation, you keep your cool and use the tracking techniques you've learned from your guild to get out of this mess safely. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "In this urgent situation, you keep your cool and use the tracking techniques you learned earlier to get out of this mess safely. You receive **{amount} :star:**."
 					},
 					"escape": {
@@ -153,8 +153,8 @@
 				"3": {
 					"intro": "You were quietly moving on to new adventures when a sneaky, cheeky, pointy little pebble decided to make you its victim and cruelly nicked your ankle.",
 					"success": {
-						"withGuild": "Luckily for you, your guild mates are experts in healing and you're back on your feet in no time. Your guild receives **{amount}**.",
-						"soloWithGuild": "Despite the pain, you remember your guild's teachings and use this knowledge to heal yourself quickly. Your guild receives **{amount}**.",
+						"withGuild": "Luckily for you, your guild mates are on hand to dress your wound and get you back on your feet in no time. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Despite the pain, you remember your guild's teachings and use this knowledge to heal yourself quickly. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Despite the pain, you manage to disinfect and bandage the wound so you can get back on the road as quickly as possible. You receive **{amount} :star:**."
 					},
 					"escape": {
@@ -169,8 +169,8 @@
 				"4": {
 					"intro": "You're quietly walking towards your destination when a sudden darkness descends on the region. The darkness is total.",
 					"success": {
-						"withGuild": "Your guild mates are far-sighted, however, and one of them pulls a torch from his bag to light your way. Your guild receives **{amount}**.",
-						"soloWithGuild": "It's a good thing you had a torch in your saddlebag, which one of your guild mates gave you when you left! So you can easily see your way and continue on your way. Your guild receives **{amount}**.",
+						"withGuild": "Your guild mates are far-sighted, however, and one of them pulls a torch from his bag to light your way. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "It's a good thing you had a torch in your saddlebag, which one of your guild mates gave you when you left! So you can easily see your way and continue on your way. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Luckily you had a torch in your pocket, prepared before you set off! So you can easily see your way and continue on your way. You receive **{amount} :star:**."
 					},
 					"escape": {
@@ -185,8 +185,8 @@
 				"5": {
 					"intro": "You've already been walking for some time on a path that never seems to end, when suddenly your strength fails you and you collapse from exhaustion.",
 					"success": {
-						"withGuild": "Seeing your discomfort, your companions rush to support you and offer you food to give you the energy you need to get back on your feet and continue your quest. Your guild receives **{amount}**.",
-						"soloWithGuild": "Despite this discomfort, you use what little energy you have left to pull some food offered by your guild from your inventory to regain your strength and continue your quest. Your guild receives **{amount}**.",
+						"withGuild": "Seeing your discomfort, your companions rush to support you and offer you food to give you the energy you need to get back on your feet and continue your quest. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
+						"soloWithGuild": "Despite this discomfort, you use what little energy you have left to pull some food offered by your guild from your inventory to regain your strength and continue your quest. Your guild receives **{amount} :{xp?star:mirror_ball}:**.",
 						"solo": "Despite this discomfort, you use what little energy you have left to pull some pre-prepared food from your inventory to regain your strength and continue your quest. You receive **{amount} :star:**."
 					},
 					"escape": {
