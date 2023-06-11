@@ -1,6 +1,13 @@
 {
 	"translations": {
 		"fr": {
+			"intro": [
+				"vous tombez nez à nez avec un{feminine?e:} {feralPet} ! "
+			],
+			"situation": [
+				"La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action."
+			],
+			"nameDisplay": "{petName} {adjective}",
 			"adjectives": [
 				"faché{feminine?e:}",
 				"affamé{feminine?e:}",
@@ -33,9 +40,19 @@
 				"machiavélique",
 				"malveillant{feminine?e:}",
 				"féroce"
-			]
+			],
+			"fightPetActionNames": {
+				"fistHit": "Coup de poing"
+			}
 		},
 		"en": {
+			"intro": [
+				"You come face to face with a {feralPet}! "
+			],
+			"situation": [
+				"The beast seems impossible to calm down... You try to calm down and think of a plan of action."
+			],
+			"nameDisplay": "{adjective} {petName}",
 			"adjectives": [
 				"angry",
 				"hungry",
@@ -70,6 +87,9 @@
 				"fierce"
 			]
 		}
+	},
+	"fightPetActionEmotes": {
+		"fistHit": "👊"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"

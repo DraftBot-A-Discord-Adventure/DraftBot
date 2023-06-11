@@ -3,7 +3,7 @@ import {Data} from "../Data";
 import {CommandInteraction} from "discord.js";
 import Player from "../database/game/models/Player";
 /**
- * The base class for the different events that can happen after the player encounters the witch
+ * The base class for the different events that can happen after the player encounters a feral pet
  */
 export abstract class FightPetAction {
 	public readonly name: string;
@@ -25,27 +25,26 @@ export abstract class FightPetAction {
 	 */
 	public toString(language: string, forceEndOfStringEmojiPlacement: boolean): string {
 		return forceEndOfStringEmojiPlacement ?
-			`${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)} ${this.getEmoji()}`
-			: `${this.getEmoji()} ${Translations.getModule("smallEvents.witch", language).get(`witchEventNames.${this.name}`)}`;
+			`${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActionNames.${this.name}`)} ${this.getEmoji()}`
+			: `${this.getEmoji()} ${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActionNames.${this.name}`)}`;
 	}
 
 	/**
 	 * return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
-		this.emojiCache = this.emojiCache ?? Data.getModule("smallEvents.witch").getString(`witchEventEmotes.${this.name}`);
+		this.emojiCache = this.emojiCache ?? Data.getModule("smallEvents.fightPet").getString(`fightPetActionEmotes.${this.name}`);
 		return this.emojiCache;
 	}
 
 	/**
-	 * check the mission validation for the witch event
+	 * check the mission validation for the fightPet event
 	 * @param interaction
 	 * @param player
 	 * @param language
-	 * @param outcome
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async checkMissions(interaction: CommandInteraction, player: Player, language: string, outcome: number): Promise<void> {
+	public async checkMissions(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
 		return await Promise.resolve();
 	}
 
