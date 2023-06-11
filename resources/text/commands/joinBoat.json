@@ -1,0 +1,26 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "rejoindrebateau",
+			"commandDescription": "Permet de rejoindre le bateau d'un membre de votre guilde.",
+			"noGuild": "Vous n'appartenez à aucune guilde.",
+			"noMemberOnBoat": "Aucun membre de votre guilde n'est sur le bateau.",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"joinMember": "Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\n{priceText}",
+			"endStoryAccept": "Vous rejoignez vote guilde sur le bateau.",
+			"endStoryRefuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau.",
+			"notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer."
+		},
+		"en": {
+			"commandName": "joinboat",
+			"commandDescription": "Permet de rejoindre le bateau d'un membre de votre guilde.",
+			"noGuild": "Vous n'appartenez à aucune guilde.",
+			"noMemberOnBoat": "Aucun membre de votre guilde n'est sur le bateau.",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"joinMember": "Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\n{priceText}",
+			"endStoryAccept": "Vous rejoignez vote guilde sur le bateau.",
+			"endStoryRefuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau.",
+			"notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer."
+		}
+	}
+}
