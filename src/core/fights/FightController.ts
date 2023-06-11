@@ -282,7 +282,7 @@ export class FightController {
 					value: 1.2,
 					origin: null
 				});
-				fighter.applyDamageMultiplier(1.2, 9999999);
+				fighter.applyDamageMultiplier(1.2, Number.MAX_SAFE_INTEGER);
 			}
 		}
 	}
