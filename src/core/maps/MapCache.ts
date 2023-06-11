@@ -14,7 +14,9 @@ export abstract class MapCache {
 
 	static async init(): Promise<void> {
 		// Boat links
-		this.boatMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY)).map((mapLink) => mapLink.id);
+		this.boatMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY))
+			.concat(await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1))
+			.map((mapLink) => mapLink.id);
 
 		// PVE island map links
 		this.pveIslandMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND))
