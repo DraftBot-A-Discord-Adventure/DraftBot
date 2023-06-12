@@ -66,43 +66,42 @@ async function applyPossibility(textInformation: TextInformation, player: Player
 	return [amount.toString()];
 }
 
-async function drawPossibilities(textInformation: TextInformation, player: Player, event: string): Promise<string> {
+
+async function getText(textInformation: TextInformation, player: Player, malus: string, sentence: string): Promise<string> {
+	const [amount, isXp] = await applyPossibility(textInformation, player, malus);
+	return textInformation.tr.format(sentence, {
+		amount,
+		isXp
+	});
+}
+
+
+async function drawPossibilities(textInformation: TextInformation, player: Player, event: string, forceWin: boolean): Promise<string> {
+	if (forceWin) {
+		return await getText(textInformation, player, `${event}.success.withGuild.malus`, `events.${event}.success.withGuild`);
+	}
+
 	const probabilities = RandomUtils.randInt(0, 100);
 	if (probabilities < 10) {
 		if (player.isInGuild()) {
-			const [amount, isXp] = await applyPossibility(textInformation, player, `${event}.success.withGuild.malus`);
-			return textInformation.tr.format(`events.${event}.success.soloWithGuild`, {
-				amount,
-				isXp
-			});
+			return await getText(textInformation, player, `${event}.success.withGuild.malus`, `events.${event}.success.soloWithGuild`);
 		}
-		return textInformation.tr.format(`events.${event}.success.solo`, {
-			amount: await applyPossibility(textInformation, player, `${event}.success.solo.malus`)
-		});
+		return await getText(textInformation, player, `${event}.success.solo.malus`, `events.${event}.success.solo`);
 	}
 	else if (probabilities < 40) {
 		return player.isInGuild() ? textInformation.tr.get(`events.${event}.escape.withGuild`) : textInformation.tr.get(`events.${event}.escape.solo`);
 	}
 
-	return player.isInGuild() ? textInformation.tr.format(`events.${event}.lose.withGuild`, {
-		amount: await applyPossibility(textInformation, player, `${event}.lose.withGuild.malus`)
-	}) : textInformation.tr.format(`events.${event}.lose.solo`, {
-		amount: await applyPossibility(textInformation, player, `${event}.lose.solo.malus`)
-	});
+	return player.isInGuild() ?
+		await getText(textInformation, player, `${event}.lose.withGuild.malus`, `events.${event}.lose.withGuild`) :
+		await getText(textInformation, player, `${event}.lose.solo.malus`, `events.${event}.lose.solo`);
 }
 
-async function hasEnoughMemberOnPVEIsland(textInformation: TextInformation, player: Player, event: string) : Promise<string> {
-	const nbGuildMembersRequired = RandomUtils.randInt(1, 4);
-	const guildMembersOnPVEIsland = await Maps.getGuildMembersOnPveIsland(player);
-	if (guildMembersOnPVEIsland.length >= nbGuildMembersRequired) {
-		const [amount, xp] = await applyPossibility(textInformation, player, `${event}.success.withGuild.malus`);
-		return textInformation.tr.format(`events.${event}.success.withGuild`, {
-			amount,
-			xp
-		});
-	}
-	return null;
+
+async function hasEnoughMemberOnPVEIsland(player: Player): Promise<boolean> {
+	return (await Maps.getGuildMembersOnPveIsland(player)).length >= RandomUtils.randInt(1, 4);
 }
+
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -124,17 +123,7 @@ export const smallEvent: SmallEvent = {
 		const event = tr.getRandomFromKeys("events");
 		const intro = tr.get(`events.${event}.intro`);
 
-		let sentence;
-		if (player.isInGuild()) {
-			sentence = await hasEnoughMemberOnPVEIsland({interaction, language, tr}, player, event);
-			if (sentence) {
-				seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
-				await interaction.editReply({embeds: [seEmbed]});
-				return;
-			}
-		}
-
-		sentence = await drawPossibilities({interaction, language, tr}, player, event);
+		const sentence = await drawPossibilities({interaction, language, tr}, player, event, player.isInGuild() ? await hasEnoughMemberOnPVEIsland(player) : false);
 
 		seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
 		await interaction.editReply({embeds: [seEmbed]});
