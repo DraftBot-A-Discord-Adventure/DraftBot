@@ -17,24 +17,22 @@ import {TextInformation} from "../utils/MessageUtils";
  * @param player
  * @param malusTarget
  */
-async function applyPossibility(textInformation: TextInformation,player: Player, malusTarget: string): Promise<string> {
+async function applyPossibility(textInformation: TextInformation, player: Player, malusTarget: string): Promise<[string, boolean?]> {
 	const data = Data.getModule("smallEvents.bonusGuildPVEIsland");
 	const malusName = data.getString(`${malusTarget}.name`);
 	const amount = RandomUtils.randInt(data.getNumber(`${malusTarget}.min`), data.getNumber(`${malusTarget}.max`));
 
 	if (malusName === "expOrPointsGuild") {
 		const guild = await Guilds.getById(player.guildId);
-		let emoji;
-		if (RandomUtils.draftbotRandom.bool()) {
+		const draw = RandomUtils.draftbotRandom.bool();
+		if (draw) {
 			await guild.addExperience(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
-			emoji = ":star:";
 		}
 		else {
 			await guild.addScore(amount, NumberChangeReason.SMALL_EVENT);
-			emoji = ":mirror_ball:";
 		}
 		await guild.save();
-		return `${amount.toString()} ${emoji}`;
+		return [amount.toString(), draw];
 	}
 
 	switch (malusName) {
@@ -65,8 +63,45 @@ async function applyPossibility(textInformation: TextInformation,player: Player,
 		break;
 	}
 	await player.save();
-	return amount.toString();
+	return [amount.toString()];
 }
+
+
+async function getText(textInformation: TextInformation, player: Player, malus: string, sentence: string): Promise<string> {
+	const [amount, isXp] = await applyPossibility(textInformation, player, malus);
+	return textInformation.tr.format(sentence, {
+		amount,
+		isXp
+	});
+}
+
+
+async function hasEnoughMemberOnPVEIsland(player: Player): Promise<boolean> {
+	return player.isInGuild() ? (await Maps.getGuildMembersOnPveIsland(player)).length >= RandomUtils.randInt(1, 4) : false;
+}
+
+
+async function drawPossibilities(textInformation: TextInformation, player: Player, event: string): Promise<string> {
+	if (await hasEnoughMemberOnPVEIsland(player)) {
+		return await getText(textInformation, player, `${event}.success.withGuild.malus`, `events.${event}.success.withGuild`);
+	}
+
+	const probabilities = RandomUtils.randInt(0, 100);
+	if (probabilities < 10) {
+		if (player.isInGuild()) {
+			return await getText(textInformation, player, `${event}.success.withGuild.malus`, `events.${event}.success.soloWithGuild`);
+		}
+		return await getText(textInformation, player, `${event}.success.solo.malus`, `events.${event}.success.solo`);
+	}
+	else if (probabilities < 40) {
+		return player.isInGuild() ? textInformation.tr.get(`events.${event}.escape.withGuild`) : textInformation.tr.get(`events.${event}.escape.solo`);
+	}
+
+	return player.isInGuild() ?
+		await getText(textInformation, player, `${event}.lose.withGuild.malus`, `events.${event}.lose.withGuild`) :
+		await getText(textInformation, player, `${event}.lose.solo.malus`, `events.${event}.lose.solo`);
+}
+
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -88,38 +123,7 @@ export const smallEvent: SmallEvent = {
 		const event = tr.getRandomFromKeys("events");
 		const intro = tr.get(`events.${event}.intro`);
 
-		let sentence;
-		if (player.isInGuild()) {
-			const nbMemberRequired = RandomUtils.randInt(1, 4);
-			const playersOnPVEIsland = await Maps.getGuildMembersOnPveIsland(player);
-			if (playersOnPVEIsland.length >= nbMemberRequired) {
-				sentence = tr.format(`events.${event}.success.withGuild`, {
-					amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.withGuild.malus`)
-				});
-				seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
-				await interaction.editReply({embeds: [seEmbed]});
-				return;
-			}
-		}
-
-		const probabilities = RandomUtils.randInt(0, 100);
-		if (probabilities < 10) {
-			sentence = player.isInGuild() ? tr.format(`events.${event}.success.soloWithGuild`, {
-				amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.withGuild.malus`)
-			}) : tr.format(`events.${event}.success.solo`,{
-				amount: await applyPossibility({interaction, language, tr}, player, `${event}.success.solo.malus`)
-			});
-		}
-		else if (probabilities < 40) {
-			sentence = player.isInGuild() ? tr.get(`events.${event}.escape.withGuild`) : tr.get(`events.${event}.escape.solo`);
-		}
-		else {
-			sentence = player.isInGuild() ? sentence = tr.format(`events.${event}.lose.withGuild`, {
-				amount: await applyPossibility({interaction, language, tr}, player, `${event}.lose.withGuild.malus`)
-			}) : tr.format(`events.${event}.lose.solo`, {
-				amount: await applyPossibility({interaction, language, tr}, player, `${event}.lose.solo.malus`)
-			});
-		}
+		const sentence = await drawPossibilities({interaction, language, tr}, player, event);
 
 		seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
 		await interaction.editReply({embeds: [seEmbed]});
