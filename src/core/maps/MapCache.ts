@@ -1,8 +1,11 @@
 import {MapLink, MapLinks} from "../database/game/models/MapLink";
 import {MapConstants} from "../constants/MapConstants";
+import {RandomUtils} from "../utils/RandomUtils";
 
 export abstract class MapCache {
-	static boatMapLinks: number[];
+	static boatEntryMapLinks: number[];
+
+	static entryAndExitBoatMapLinks: number[];
 
 	static regenFightPointsMapLinks: number[];
 
@@ -13,10 +16,14 @@ export abstract class MapCache {
 	static continentMapLinks: number[];
 
 	static async init(): Promise<void> {
-		// Boat links
-		this.boatMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY))
-			.concat(await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1))
+		// Boat links entry only
+		this.boatEntryMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY))
 			.map((mapLink) => mapLink.id);
+
+		// Boat links entry and exit
+		this.entryAndExitBoatMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1))
+			.map((mapLink) => mapLink.id)
+			.concat(this.boatEntryMapLinks);
 
 		// PVE island map links
 		this.pveIslandMapLinks = (await MapLinks.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND))
@@ -36,5 +43,13 @@ export abstract class MapCache {
 
 		// Continent maps (for now it's the same as fight regen maps, but later it may evolve, so we do this granularity
 		this.continentMapLinks = this.regenFightPointsMapLinks;
+	}
+
+	static randomPveBoatLinkId(excludeLinkId = -1): number {
+		if (MapCache.entryAndExitBoatMapLinks.length === 1) {
+			return MapCache.entryAndExitBoatMapLinks[0];
+		}
+
+		return RandomUtils.draftbotRandom.pick(MapCache.boatEntryMapLinks.filter((id) => excludeLinkId !== id));
 	}
 }

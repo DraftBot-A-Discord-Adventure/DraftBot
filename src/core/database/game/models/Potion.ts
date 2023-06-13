@@ -1,9 +1,8 @@
-import {QueryTypes, Sequelize} from "sequelize";
+import {Op, QueryTypes, Sequelize} from "sequelize";
 import {Constants} from "../../../Constants";
 import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {Translations} from "../../../Translations";
 import {format} from "../../../utils/StringFormatter";
-import ObjectItem from "./ObjectItem";
 import {minutesDisplay} from "../../../utils/TimeUtils";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import fs = require("fs");
@@ -71,8 +70,26 @@ export class Potions {
 				nature,
 				rarity
 			},
-			order: ObjectItem.sequelize.random()
+			order: Potion.sequelize.random()
 		}));
+	}
+
+	static randomShopPotion(excludeId = -1): Promise<Potion> {
+		return Potion.findOne({
+			where: {
+				nature: {
+					[Op.ne]: ItemConstants.NATURE.NONE
+				},
+				rarity: {
+					[Op.lt]: ItemConstants.RARITY.LEGENDARY
+				},
+				id: {
+					[Op.ne]: excludeId
+				}
+			},
+			order: Sequelize.literal("rand()"),
+			limit: 1
+		});
 	}
 }
 

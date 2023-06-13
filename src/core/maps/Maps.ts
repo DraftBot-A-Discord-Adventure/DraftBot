@@ -175,7 +175,7 @@ export class Maps {
 	 * @param player
 	 */
 	static isOnBoat(player: Player): boolean {
-		return MapCache.boatMapLinks.includes(player.mapLinkId);
+		return MapCache.entryAndExitBoatMapLinks.includes(player.mapLinkId);
 	}
 
 	/**
