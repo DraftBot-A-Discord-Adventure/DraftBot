@@ -74,6 +74,10 @@ export class Potions {
 		}));
 	}
 
+	/**
+	 * Get a random shop potion
+	 * @param excludeId Prevent the potion to be with this id
+	 */
 	static randomShopPotion(excludeId = -1): Promise<Potion> {
 		return Potion.findOne({
 			where: {
