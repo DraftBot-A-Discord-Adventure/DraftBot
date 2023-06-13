@@ -15,8 +15,7 @@ import {MapLinks} from "../database/game/models/MapLink";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
-import {RandomUtils} from "../utils/RandomUtils";
-import {MapCache} from "../maps/MapCache";
+import {Settings} from "../database/game/models/Setting";
 
 async function confirmationCallback(
 	player: Player,
@@ -36,7 +35,7 @@ async function confirmationCallback(
 			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
-				await MapLinks.getById(RandomUtils.draftbotRandom.pick(MapCache.boatMapLinks)),
+				await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
 				msg.sentMessage.createdTimestamp,
 				NumberChangeReason.SMALL_EVENT
 			);

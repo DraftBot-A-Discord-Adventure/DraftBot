@@ -1,4 +1,4 @@
-import Potion from "../database/game/models/Potion";
+import {Potions} from "../database/game/models/Potion";
 import PetEntity from "../database/game/models/PetEntity";
 import Player, {Players} from "../database/game/models/Player";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
@@ -8,7 +8,6 @@ import {Client, TextChannel} from "discord.js";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
-import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
@@ -18,15 +17,13 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
 import {PetConstants} from "../constants/PetConstants";
 import {FightConstants} from "../constants/FightConstants";
-import {ItemConstants} from "../constants/ItemConstants";
 import {generateTravelNotification, sendNotificationToPlayer} from "../utils/MessageUtils";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
-import {MapLinks} from "../database/game/models/MapLink";
-import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "../maps/MapCache";
 import {LeagueInfoConstants} from "../constants/LeagueInfoConstants";
+import {Settings} from "../database/game/models/Setting";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -57,14 +54,14 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the top week reset
 	 */
-	static programTopWeekTimeout(this: void): void {
+	static programWeeklyTimeout(this: void): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programTopWeekTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
+			setTimeout(DraftBot.programWeeklyTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
 			return;
 		}
-		setTimeout(DraftBot.topWeekEnd, millisTill);
+		setTimeout(DraftBot.weeklyTimeout, millisTill);
 	}
 
 	/**
@@ -145,52 +142,23 @@ export class DraftBot {
 	}
 
 	/**
+	 * execute all the daily tasks
+	 */
+	static weeklyTimeout(this: void): void {
+		DraftBot.topWeekEnd().then();
+		DraftBot.newPveIsland().then();
+	}
+
+	/**
 	 * update the random potion sold in the shop
 	 */
 	static async randomPotion(): Promise<void> {
 		console.log("INFO: Daily timeout");
-		const shopPotion = await Shop.findOne({
-			attributes: ["shopPotionId"]
-		});
-		Potion.findAll({
-			where: {
-				nature: {
-					[Op.ne]: ItemConstants.NATURE.NONE
-				},
-				rarity: {
-					[Op.lt]: ItemConstants.RARITY.LEGENDARY
-				}
-			},
-			order: Sequelize.literal("rand()")
-		}).then(async potions => {
-			let potionId: number;
-			if (shopPotion) {
-				potionId = potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id;
-				await Shop.update(
-					{
-						shopPotionId: potionId
-					},
-					{
-						where: {
-							shopPotionId: {
-								[Op.col]: "shop.shopPotionId"
-							}
-						}
-					}
-				);
-			}
-			else {
-				potionId = potions[0].id;
-				console.log("WARN : no potion in shop");
-				await Shop.create(
-					{
-						shopPotionId: potions[0].id
-					}
-				);
-			}
-			console.info(`INFO : new potion in shop : ${potionId}`);
-			draftBotInstance.logsDatabase.logDailyPotion(potionId).then();
-		});
+		const previousPotionId = await Settings.SHOP_POTION.getValue();
+		const newPotionId = (await Potions.randomShopPotion(previousPotionId)).id;
+		await Settings.SHOP_POTION.setValue(newPotionId);
+		console.info(`INFO : new potion in shop : ${newPotionId}`);
+		draftBotInstance.logsDatabase.logDailyPotion(newPotionId).then();
 	}
 
 	/**
@@ -284,7 +252,7 @@ export class DraftBot {
 		console.log("# WARNING # Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
-		DraftBot.programTopWeekTimeout();
+		DraftBot.programWeeklyTimeout();
 		draftBotInstance.logsDatabase.logTopWeekEnd().then();
 	}
 
@@ -398,6 +366,16 @@ export class DraftBot {
 	}
 
 	/**
+	 * choose a new pve island
+	 */
+	static async newPveIsland(this: void): Promise<void> {
+		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
+		console.log(`New pve island map link of the week: ${newMapLink}`);
+		await Settings.PVE_ISLAND.setValue(newMapLink);
+	}
+
+
+	/**
 	 * update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(this: void): void {
@@ -484,7 +462,7 @@ export class DraftBot {
 		}
 
 		if (this.isMainShard) { // Do this only if it's the main shard
-			DraftBot.programTopWeekTimeout();
+			DraftBot.programWeeklyTimeout();
 			DraftBot.programSeasonTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(

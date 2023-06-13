@@ -12,7 +12,6 @@ import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../cor
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/database/game/models/Potion";
-import Shop from "../../core/database/game/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
@@ -30,6 +29,7 @@ import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstan
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {EntityConstants} from "../../core/constants/EntityConstants";
+import {Settings} from "../../core/database/game/models/Setting";
 
 /**
  * Callback of the shop command
@@ -205,10 +205,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
  * @param interaction
  */
 async function getDailyPotionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): Promise<ShopItem> {
-	const shopPotion = await Shop.findOne({
-		attributes: ["shopPotionId"]
-	});
-	const potion = await Potions.getById(shopPotion.shopPotionId);
+	const potion = await Potions.getById(await Settings.SHOP_POTION.getValue());
 
 	return new ShopItem(
 		potion.getEmote(),

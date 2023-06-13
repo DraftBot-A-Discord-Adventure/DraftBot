@@ -75,6 +75,9 @@ export class GameDatabase extends Database {
 
 		const filesContent = [];
 		for (const file of files) {
+			if (!file.endsWith("json")) {
+				continue;
+			}
 			const fileName = file.split(".")[0];
 			const fileContent = await import(`resources/text/${model.folder.toLowerCase()}/${file}`);
 			fileContent.id = fileName;
@@ -111,6 +114,9 @@ export class GameDatabase extends Database {
 		const missionFiles = await promises.readdir("resources/text/missions");
 		const missions = [];
 		for (const file of missionFiles) {
+			if (!file.endsWith("json")) {
+				continue;
+			}
 			const fileName = file.split(".")[0];
 			const fileContent = await import(`resources/text/missions/${file}`);
 			fileContent.id = fileName;
@@ -135,6 +141,9 @@ export class GameDatabase extends Database {
 		const monsterAttacks = [];
 		const monsterLocations = [];
 		for (const file of monsterFiles) {
+			if (!file.endsWith("json")) {
+				continue;
+			}
 			const fileName = file.split(".")[0];
 			const fileContent = await import(`resources/text/monsters/${file}`);
 			fileContent.id = fileName;
