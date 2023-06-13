@@ -99,7 +99,7 @@ async function drawPossibilities(textInformation: TextInformation, player: Playe
 
 
 async function hasEnoughMemberOnPVEIsland(player: Player): Promise<boolean> {
-	return (await Maps.getGuildMembersOnPveIsland(player)).length >= RandomUtils.randInt(1, 4);
+	return player.isInGuild() ? (await Maps.getGuildMembersOnPveIsland(player)).length >= RandomUtils.randInt(1, 4) : false;
 }
 
 
@@ -123,7 +123,7 @@ export const smallEvent: SmallEvent = {
 		const event = tr.getRandomFromKeys("events");
 		const intro = tr.get(`events.${event}.intro`);
 
-		const sentence = await drawPossibilities({interaction, language, tr}, player, event, player.isInGuild() ? await hasEnoughMemberOnPVEIsland(player) : false);
+		const sentence = await drawPossibilities({interaction, language, tr}, player, event, await hasEnoughMemberOnPVEIsland(player));
 
 		seEmbed.setDescription(`${seEmbed.data.description}${intro}\n\n${sentence}`);
 		await interaction.editReply({embeds: [seEmbed]});
