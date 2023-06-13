@@ -54,7 +54,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the top week reset
 	 */
-	static programWeeklyTimeout(this: void): void {
+	static programWeeklyTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -67,7 +67,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the season reset
 	 */
-	static programSeasonTimeout(this: void): void {
+	static programSeasonTimeout(): void {
 		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -80,7 +80,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the daily tasks
 	 */
-	static programDailyTimeout(this: void): void {
+	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
@@ -93,7 +93,7 @@ export class DraftBot {
 	/**
 	 * Send a notification every minute for player who arrived in the last minute
 	 */
-	async reportNotifications(this: void): Promise<void> {
+	async reportNotifications(): Promise<void> {
 		const query = `
 			SELECT p.discordUserId
 			FROM players AS p
@@ -134,7 +134,7 @@ export class DraftBot {
 	/**
 	 * execute all the daily tasks
 	 */
-	static dailyTimeout(this: void): void {
+	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
@@ -144,7 +144,7 @@ export class DraftBot {
 	/**
 	 * execute all the daily tasks
 	 */
-	static weeklyTimeout(this: void): void {
+	static weeklyTimeout(): void {
 		DraftBot.topWeekEnd().then();
 		DraftBot.newPveIsland().then();
 	}
@@ -190,7 +190,7 @@ export class DraftBot {
 	/**
 	 * End the top week
 	 */
-	static async topWeekEnd(this: void): Promise<void> {
+	static async topWeekEnd(): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Player.findOne({
 			where: {
@@ -259,7 +259,7 @@ export class DraftBot {
 	/**
 	 * End the fight season
 	 */
-	static async seasonEnd(this: void): Promise<void> {
+	static async seasonEnd(): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
@@ -368,7 +368,7 @@ export class DraftBot {
 	/**
 	 * choose a new pve island
 	 */
-	static async newPveIsland(this: void): Promise<void> {
+	static async newPveIsland(): Promise<void> {
 		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
 		console.log(`New pve island map link of the week: ${newMapLink}`);
 		await Settings.PVE_ISLAND.setValue(newMapLink);
@@ -378,7 +378,7 @@ export class DraftBot {
 	/**
 	 * update the fight points of the entities that lost some
 	 */
-	static fightPowerRegenerationLoop(this: void): void {
+	static fightPowerRegenerationLoop(): void {
 		Player.update(
 			{
 				fightPointsLost: Sequelize.literal(

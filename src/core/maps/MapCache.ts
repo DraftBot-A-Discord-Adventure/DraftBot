@@ -45,6 +45,10 @@ export abstract class MapCache {
 		this.continentMapLinks = this.regenFightPointsMapLinks;
 	}
 
+	/**
+	 * Get a random pve boat link id
+	 * @param excludeLinkId Exclude this link id from being returned if another one is available
+	 */
 	static randomPveBoatLinkId(excludeLinkId = -1): number {
 		if (MapCache.entryAndExitBoatMapLinks.length === 1) {
 			return MapCache.entryAndExitBoatMapLinks[0];
