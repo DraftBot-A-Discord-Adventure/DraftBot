@@ -7,9 +7,9 @@ import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../messag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {WitchEvents} from "../witch/WitchEvents";
+import {WitchEvents} from "./witch/WitchEvents";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
-import {WitchEvent} from "../witch/WitchEvent";
+import {WitchEvent} from "./witch/WitchEvent";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
