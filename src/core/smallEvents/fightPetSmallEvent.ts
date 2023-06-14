@@ -11,9 +11,9 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Maps} from "../maps/Maps";
-import {FightPetActions} from "../fightPet/FightPetActions";
+import {FightPetActions} from "./fightPet/FightPetActions";
 import {PetEntities} from "../database/game/models/PetEntity";
-import {FightPetAction} from "../fightPet/FightPetAction";
+import {FightPetAction} from "./fightPet/FightPetAction";
 import Pet, {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
 
