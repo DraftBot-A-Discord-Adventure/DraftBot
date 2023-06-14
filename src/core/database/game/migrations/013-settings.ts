@@ -19,7 +19,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		createdAt: DataTypes.DATE
 	});
 
-	const shopPotionId: number = <number> (<{ shopPotionId: number}> (await context.sequelize.query("SELECT shopPotionId FROM shop LIMIT 1"))[0][0]).shopPotionId;
+	const shopPotionId: number = <number> (<{ shopPotionId: number}> (await context.sequelize.query("SELECT shopPotionId FROM shop LIMIT 1"))[0][0])?.shopPotionId;
 	if (shopPotionId) {
 		await context.sequelize.query(`INSERT INTO settings(name, dataNumber, updatedAt, createdAt) VALUES ('shopPotion', ${shopPotionId}, NOW(), NOW())`);
 	}
