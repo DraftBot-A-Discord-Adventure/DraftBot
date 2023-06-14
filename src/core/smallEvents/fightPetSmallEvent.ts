@@ -97,7 +97,11 @@ async function generateFeralPet(language: string): Promise<feralPet> {
 	const originalPet = await Pets.getRandom();
 	const adjective = format(Translations.getModule("smallEvents.fightPet", language).getRandom("adjectives"), {feminine: isFemale});
 	return {
-		feralName: Translations.getModule("smallEvents.fightPet", language).format("nameDisplay",{adjective: adjective, petName: originalPet.toString(language, isFemale)}),
+		feralName: Translations.getModule("smallEvents.fightPet", language).format("nameDisplay", {
+			emoji: isFemale ? originalPet.emoteFemale : originalPet.emoteMale,
+			adjective: adjective,
+			petName: originalPet.toString(language, isFemale)
+		}),
 		originalPet,
 		isFemale
 	};

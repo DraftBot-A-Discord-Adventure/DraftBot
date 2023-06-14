@@ -7,7 +7,7 @@
 			"situation": [
 				"La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action."
 			],
-			"nameDisplay": "{petName} {adjective}",
+			"nameDisplay": "{emoji} {petName} {adjective}",
 			"adjectives": [
 				"faché{feminine?e:}",
 				"affamé{feminine?e:}",
@@ -52,7 +52,7 @@
 			"situation": [
 				"The beast seems impossible to calm down... You try to calm down and think of a plan of action."
 			],
-			"nameDisplay": "{adjective} {petName}",
+			"nameDisplay": "{emoji} {adjective} {petName}",
 			"adjectives": [
 				"angry",
 				"hungry",
