@@ -2,10 +2,25 @@
 	"translations": {
 		"fr": {
 			"intro": [
-				"vous tombez nez à nez avec un{feminine?e:} {feralPet} ! "
+				"vous tombez nez à nez avec un{feminine?e:} {feralPet} ! ",
+				"vous rencontrez un{feminine?e:} {feralPet}. ",
+				"vous croisez un{feminine?e:} {feralPet} qui ne semble pas vouloir vous laisser passer.",
+				"vous poussez soudain un couinement terrifié : un{feminine?e:} {feralPet} se tient juste devant vous ! ",
+				"vous restez interdit à la vue d'un{feminine?e:} {feralPet}.",
+				"vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un{feminine?e:} {feralPet} !",
+				"vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un{feminine?e:} {feralPet} surgit de nulle part !",
+				"vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un{feminine?e:} {feralPet} qui vous fixe avec insistance."
 			],
 			"situation": [
-				"La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action."
+				"La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action pour vous défaire de cet animal.",
+				"Absolument terrifié, vous commencez à réfléchir à vos différentes options pour vous débarrasser de cette bête.",
+				"Impossible de ne pas réagir, il vous faut prendre une décision pour sauver votre vie...",
+				"Distrait par les deux yeux rouges de l'animal qui vous fixent avec insistance, vous tentez de vous concentrer sur un plan d'action.",
+				"L'haleine fétide de l'animal vous fait tourner la tête. Vous tentez de vous concentrer...",
+				"Vous vous demandez si vous ne devriez pas vous enfuir en courant, mais vous vous dites que vous pourriez peut-être vous en sortir si vous réfléchissez à un plan d'action.",
+				"Vous raffermissez votre prise sur la garde de votre épée et, un peu rassuré, réfléchissez à ce que vous devez faire.",
+				"Pétrifié par la peur, vous regardez l'animal foncer vers vous, essayant de forcer votre cerveau tétanisé à trouver une solution",
+				"Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie"
 			],
 			"nameDisplay": "{emoji} {petName} {adjective}",
 			"adjectives": [
