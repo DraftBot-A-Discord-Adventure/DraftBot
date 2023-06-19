@@ -22,7 +22,7 @@
 				"Pétrifié par la peur, vous regardez l'animal foncer vers vous, essayant de forcer votre cerveau tétanisé à trouver une solution",
 				"Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie"
 			],
-			"nameDisplay": "{emoji} {petName} {adjective}",
+			"nameDisplay": "{emoji} **{petName} {adjective}**",
 			"adjectives": [
 				"faché{feminine?e:}",
 				"affamé{feminine?e:}",
@@ -59,8 +59,9 @@
 			"fightPetActions": {
 				"fistHit": {
 					"name": "Coup de poing",
-					"success": "Vous frappez l'animal en plein dans le museau ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :mirror_ball: Points de guilde gagnés : **{amount}**",
-					"failure": "Vous frappez l'animal en plein dans le museau ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :cloud_lightning: Énergie perdue : **{amount}**"
+					"success": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :mirror_ball: Points de guilde gagnés : **{amount}**",
+					"successWithoutGuild": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite !",
+					"failure": "Vous frappez l'animal d'un coup de poing faiblard ! Il recule, surpris mais ce n'est pas suffisant pour vous débarasser de lui. Vous subissez une attaque farouche avant de parvenir à vous enfuir ! :cloud_lightning: Énergie perdue : **{amount}**"
 				}
 			}
 		},
@@ -86,7 +87,7 @@
 				"Petrified by extreme fear, you see the animal charge at you, while you try and force your petrified mind to come up with a plan out of this situation.",
 				"Distraught, you try, with great despair, to come up with a solution that would let you keep your life."
 			],
-			"nameDisplay": "{emoji} {adjective} {petName}",
+			"nameDisplay": "{emoji} **{adjective} {petName}**",
 			"adjectives": [
 				"angry",
 				"hungry",
