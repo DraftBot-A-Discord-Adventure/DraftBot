@@ -7,17 +7,27 @@
 				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'île :\n**{advice}**."
 			],
 			"advices": [
-				"Vous pouvez faire un mini-évent par minute une fois là-bas",
-				"Si vous combattez des petits monstres pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
-				"Il y a beaucoup de bonus si vous allez sur l'île en même temps que des membres de votre guilde",
-				"Votre énergie ne se régènère pas seule sur l'île. Vérifiez que vous êtes au maximum avant de vous aventurer sur l'île",
+				"Vous pouvez faire un mini-évent par minute une fois sur l'île mystérieuse",
+				"Si vous combattez des animaux pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
+				"Aller sur l'île en même temps que d'autres membres de votre guilde vous garantit des bonus exclusifs",
+				"Votre énergie ne se régènère pas sur l'île. Vérifiez que vous êtes au maximum avant de vous y aventurer",
 				"Une fois votre énergie à 0, vous serez ramené sur le continent",
 				"Le trajet vers l'île peut être fait qu'une seule fois par semaine gratuitement. Il est possible d'y aller 2 fois de plus, mais il faudra payer des gemmes",
 				"Les monstres de fin de trajet sont très forts, et le dernier de l'île l'est d'autant plus",
-				"Battre des monstres de fin de trajet donne des points de guilde, qui influencent sur le classement de votre guilde",
+				"Battre des monstres de fin de trajet donne des points de guilde, qui déterminent le classement de guildes",
 				"Les monstres ont des statistiques différentes : certains vont avoir beaucoup de défense, d'attaque, de vitesse ou de vie totale",
 				"Une île est composée d'un nombre fini de lieux. Une fois le dernier lieu visité, vous serez ramené sur le continent principal",
-				"L'île mystérieuse change chaque semaine"
+				"L'île mystérieuse change chaque semaine",
+				"Lors d'un combat contre un monstre, si le maximum de tour est dépassé, le monstre deviendra très vite très puissant",
+				"Si un membre de votre guilde souhaite vous rejoindre sur le bateau, il peut exécuter {command:joinboat}",
+				"Les actions disponibles pendant les combats contre des animaux dépendent de vos statistiques, vos objets, vos familiers etc",
+				"L'hostilité de l'île ne vous fera pas de cadeau vis-à-vis des péripéties. Mais en y allant à plusieurs avec des membres de votre guilde, vous serez bien plus forts ensembles",
+				"La commande {command:map} permet de voir la carte de l'île",
+				"Vous pouvez choisir de quitter l'île après chaque combat de monstre. Si votre énergie est faible, il est plus intéressant de partir en étant encore conscient",
+				"Certaines actions comme boire une potion, accéder au magasin ou encore obtenir les bonus quotidiens sont indisponibles sur l'île",
+				"Votre niveau n'influence pas le nombre de points de guilde, mais influence les autres récompenses",
+				"Gagner contre un monstre plus loin dans l'île rapportera plus de points de guilde que ceux du début",
+				"On raconte que si plusieurs membres d'une même guilde sont sur l'île en même temps, il est possible de combiner les forces de chacun pour faire une attaque dévastatrice"
 			]
 		},
 		"en": {
@@ -27,17 +37,27 @@
 				"In the joys of a meal in the fresh sea breeze, you chat with the sailors. Your neighbor at the table gives you the following advice about the island:\n**{advice}**."
 			],
 			"advices": [
-				"You can do one small event per minute once you get there",
-				"If you fight small monsters during the small events, the monster at the end of the journey will be easier to beat",
-				"There are a lot of bonuses if you go to the island at the same time as members of your guild",
-				"Your energy does not regenerate itself on the island. Make sure you are at maximum before venturing onto the island",
-				"Once your energy is at 0, you will be taken back to the mainland",
-				"The trip to the island can only be done once a week for free. It is possible to go 2 more times, but you will have to pay gems",
-				"The monsters at the end of the journey are very strong, and the last one on the island is even stronger",
-				"Beating end of the journey monsters gives guild points, which influence your guild ranking",
-				"Monsters have different statistics: some will have a lot of defense, attack, speed or total life",
-				"An island is composed of a finite number of places. Once you have visited the last place, you will be taken back to the mainland.",
-				"The mysterious island changes every week"
+					"You can do one small event per minute once on the mysterious island",
+					"If you fight animals during small events, the monster at the end of the journey will be easier to beat",
+					"Going to the island at the same time as other members of your guild guarantees you exclusive bonuses",
+					"Your energy does not regenerate on the island. Make sure you're at maximum before venturing there",
+					"Once your energy is at 0, you'll be taken back to the mainland",
+					"The trip to the island can only be made once a week for free. It is possible to go 2 more times, but you will have to pay gems",
+					"The monsters at the end of the journey are very strong, and the last one on the island is even stronger",
+					"Beating end-of-path monsters gives guild points, which determine guild rankings",
+					"Monsters have different stats: some will have a lot of defense, attack, speed or total life",
+					"An island is made up of a finite number of locations. Once you've visited the last place, you'll be taken back to the main continent",
+					"The mysterious island changes every week",
+					"When fighting a monster, if the maximum turn is exceeded, the monster will quickly become very powerful",
+					"If a member of your guild wishes to join you on the boat, they can execute {command:joinboat}",
+					"The actions available during fights against animals depend on your stats, items, pets etc",
+					"The island's hostility won't do you any favors when it comes to adventures. But if you get together with other members of your guild, you'll be much stronger together",
+					"The {command:map} command allows you to view the island's map",
+					"You can choose to leave the island after each monster fight. If your energy is low, it's more interesting to leave while still conscious",
+					"Certain actions such as drinking a potion, accessing the store or obtaining daily bonuses are unavailable on the island",
+					"Your level doesn't influence the number of guild points, but it does influence other rewards",
+					"Winning against a monster further down the island will yield more guild points than those at the start",
+					"It is said that if several members of the same guild are on the island at the same time, it is possible to combine the forces of each to make a devastating attack"
 				]
 		}
 	},
