@@ -4,12 +4,12 @@
 			"intro": [
 				"vous tombez nez à nez avec un{feminine?e:} {feralPet} ! ",
 				"vous rencontrez un{feminine?e:} {feralPet}. ",
-				"vous croisez un{feminine?e:} {feralPet} qui ne semble pas vouloir vous laisser passer.",
+				"vous croisez un{feminine?e:} {feralPet} qui ne semble pas vouloir vous laisser passer. ",
 				"vous poussez soudain un couinement terrifié : un{feminine?e:} {feralPet} se tient juste devant vous ! ",
-				"vous restez interdit à la vue d'un{feminine?e:} {feralPet}.",
-				"vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un{feminine?e:} {feralPet} !",
-				"vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un{feminine?e:} {feralPet} surgit de nulle part !",
-				"vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un{feminine?e:} {feralPet} qui vous fixe avec insistance."
+				"vous restez interdit à la vue d'un{feminine?e:} {feralPet}. ",
+				"vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un{feminine?e:} {feralPet} ! ",
+				"vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un{feminine?e:} {feralPet} surgit de nulle part ! ",
+				"vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un{feminine?e:} {feralPet} qui vous fixe avec insistance. "
 			],
 			"situation": [
 				"La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action pour vous défaire de cet animal.",
@@ -63,6 +63,7 @@
 		"en": {
 			"intro": [
 				"You come face to face with a {feralPet}! "
+
 			],
 			"situation": [
 				"The beast seems impossible to calm down... You try to calm down and think of a plan of action."
