@@ -61,7 +61,12 @@
 					"name": "Coup de poing",
 					"success": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :mirror_ball: Points de guilde gagnés : **{amount}**",
 					"successWithoutGuild": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite !",
-					"failure": "Vous frappez l'animal d'un coup de poing faiblard ! Il recule, surpris mais ce n'est pas suffisant pour vous débarasser de lui. Vous subissez une attaque farouche avant de parvenir à vous enfuir ! :cloud_lightning: Énergie perdue : **{amount}**"
+					"failure": "Vous frappez l'animal d'un coup de poing faiblard ! Il recule, surpris mais ce n'est pas suffisant pour vous débarrasser de lui. Vous subissez une attaque farouche avant de parvenir à vous enfuir ! :cloud_lightning: Énergie perdue : **{amount}**"
+				},
+				"runAway": {
+					"name": "Fuir",
+					"success": "Vous ne réfléchissez pas une seule seconde et partez immédiatement en courant ! L'animal vous poursuit mais vous parvenez à vous en défaire.",
+					"failure": "Vous tentez de prendre la fuite, mais vous êtes rapidement rattrapé par la bête qui vous assène un coup violent avant de vous laisser seul. :cloud_lightning: Énergie perdue : **{amount}**"
 				}
 			}
 		},
@@ -124,7 +129,8 @@
 		}
 	},
 	"fightPetActionEmotes": {
-		"fistHit": "👊"
+		"fistHit": "👊",
+		"runAway": "🏃"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"

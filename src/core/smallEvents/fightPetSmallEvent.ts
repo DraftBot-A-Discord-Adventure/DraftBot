@@ -163,7 +163,7 @@ export const smallEvent: SmallEvent = {
 				const selectedFightPetAction = retrieveSelectedEvent(fightPetEventMessage);
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 
-				const resultString = selectedFightPetAction.getEmoji() + " " + await selectedFightPetAction.applyOutcome(player, feralPet, language, interaction);
+				const resultString = selectedFightPetAction.getEmoji() + " " + await selectedFightPetAction.applyOutcome(player, feralPet, language);
 				await sendResultMessage(seEmbed, resultString, interaction);
 			});
 
