@@ -105,7 +105,7 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
 
-	for (const classe in allClasses) {
+	for (const classe of allClasses) {
 		embedClassMessage.addFields({
 			name: classe.getName(language),
 			value: classe.getDescription(language)
