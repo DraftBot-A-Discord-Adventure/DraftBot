@@ -206,4 +206,25 @@ export class Maps {
 			}
 		});
 	}
+
+	/**
+	 * Get all the members of the player's guild on a boat
+	 */
+	static getGuildMembersOnBoat(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return Promise.resolve([]);
+		}
+
+		return Player.findAll({
+			where: {
+				guildId: player.guildId,
+				mapLinkId: {
+					[Op.in]: MapCache.boatMapLinks
+				},
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		});
+	}
 }

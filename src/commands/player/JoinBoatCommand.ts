@@ -3,7 +3,7 @@ import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import Player, {Players} from "../../core/database/game/models/Player";
+import Player from "../../core/database/game/models/Player";
 import {confirmationCallback} from "../../core/smallEvents/goToPVEIslandSmallEvent";
 import {Maps} from "../../core/maps/Maps";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
@@ -11,6 +11,10 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {format} from "../../core/utils/StringFormatter";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
+import {EffectsConstants} from "../../core/constants/EffectsConstants";
+import {PVEConstants} from "../../core/constants/PVEConstants";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -21,9 +25,24 @@ import {BlockingConstants} from "../../core/constants/BlockingConstants";
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const tr = Translations.getModule("commands.joinBoat", language);
 
-	const guildOnBoat = (await Players.getByGuild(player.guildId)).filter(guildMember => Maps.isOnBoat(guildMember) && guildMember.discordUserId !== player.discordUserId);
-	if (guildOnBoat.length !== 0){
+	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) >= PVEConstants.TRAVEL_COST.length){
+		await replyErrorMessage(interaction, language, tr.get("tooManyBoatInWeek"));
+		return;
+	}
+
+	const guildOnBoat = await Maps.getGuildMembersOnBoat(player);
+	if (guildOnBoat.length === 0){
 		await replyErrorMessage(interaction, language, tr.get("noMemberOnBoat"));
+		return;
+	}
+
+	if (player.level <= PVEConstants.MIN_LEVEL){
+		await replyErrorMessage(interaction, language, tr.get("noEnoughLevel"));
+		return;
+	}
+
+	if (await player.getMaxCumulativeFightPoint() - player.fightPointsLost === 0){
+		await replyErrorMessage(interaction, language, tr.get("noEnoughEnergy"));
 		return;
 	}
 
@@ -31,12 +50,13 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotValidateReactionMessage(
 		interaction.user,
 		(confirmMessage: DraftBotValidateReactionMessage) => {
-			confirmationCallback(player, confirmMessage, tr, ":ferry:", price).then();
+			confirmationCallback(player, confirmMessage, tr, new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user), ":ferry:", price, guildOnBoat[0]).then();
 		}
 	);
 	await interaction.deferReply();
 
 	const boatTr = Translations.getModule("smallEvents.goToPVEIsland", language);
+	confirmEmbed.formatAuthor(tr.get("confirmationTitle"), interaction.user);
 	confirmEmbed.setDescription(
 		format(tr.get("joinMember"), {
 			priceText: price === 0 ? boatTr.get("priceFree") : boatTr.format("priceMoney", { price })
@@ -57,7 +77,8 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
-		guildRequired: true
+		guildRequired: true,
+		disallowEffects: [EffectsConstants.EMOJI_TEXT.DEAD]
 	},
 	mainGuildCommand: false
 };
