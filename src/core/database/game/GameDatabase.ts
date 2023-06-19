@@ -48,9 +48,9 @@ export class GameDatabase extends Database {
 	): void {
 		if (fileContent.tags) {
 			// If there's tags, populate them into the database
-			for (let i = 0; i < fileContent.tags.length; i++) {
+			for (const textTag of fileContent.tags) {
 				const tagContent = {
-					textTag: fileContent.tags[i],
+					textTag,
 					idObject: fileContent.id,
 					typeObject: model.name ?? "ERRORNONAME"
 				};
@@ -91,11 +91,10 @@ export class GameDatabase extends Database {
 				}
 				else {
 					const keys = Object.keys(fileContent.translations.en);
-					for (let i = 0; i < keys.length; ++i) {
-						const key = keys[i];
-						fileContent[key + "En"] =
+					for (const key of keys) {
+						fileContent[`${key}En`] =
 							fileContent.translations.en[key];
-						fileContent[key + "Fr"] =
+						fileContent[`${key}Fr`] =
 							fileContent.translations.fr[key];
 					}
 				}

@@ -103,15 +103,15 @@ async function applyOutcomeGems(outcome: PossibilityOutcome, player: Player, tex
 	if (outcome.gems && outcome.gems !== 0) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		await missionInfo.addGems(outcome.gems, player.discordUserId, NumberChangeReason.BIG_EVENT);
-		return textInformation.tr.format("gems", { gems: outcome.gems });
+		return textInformation.tr.format("gems", {gems: outcome.gems});
 	}
 	return "";
 }
 
 async function applyOutcomeRandomItem(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<void> {
 	if (outcome.randomItem) {
-		const minRarity = outcome.randomItem.rarity && outcome.randomItem.rarity.min ? outcome.randomItem.rarity.min : ItemConstants.RARITY.COMMON;
-		const maxRarity = outcome.randomItem.rarity && outcome.randomItem.rarity.max ? outcome.randomItem.rarity.max : ItemConstants.RARITY.MYTHICAL;
+		const minRarity = outcome.randomItem.rarity?.min ?? ItemConstants.RARITY.COMMON;
+		const maxRarity = outcome.randomItem.rarity?.max ?? ItemConstants.RARITY.MYTHICAL;
 		const category = outcome.randomItem.category ?? null;
 
 		const item = await generateRandomItem(category, minRarity, maxRarity);
@@ -122,8 +122,8 @@ async function applyOutcomeRandomItem(outcome: PossibilityOutcome, player: Playe
 
 async function applyOutcomeRandomPet(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<void> {
 	if (outcome.randomPet) {
-		const minRarity = outcome.randomPet.rarity && outcome.randomPet.rarity.min ? outcome.randomPet.rarity.min : 1;
-		const maxRarity = outcome.randomPet.rarity && outcome.randomPet.rarity.max ? outcome.randomPet.rarity.max : 5;
+		const minRarity = outcome.randomPet.rarity?.min ?? 1;
+		const maxRarity = outcome.randomPet.rarity?.max ?? 5;
 
 		const pet = await PetEntities.generateRandomPetEntityNotGuild(minRarity, maxRarity);
 		await pet.giveToPlayer(player, textInformation, true, false);
@@ -181,7 +181,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
  * @param time
  */
 export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
-	textInformation: TextInformation, player: Player, time: number): Promise<{
+                                              textInformation: TextInformation, player: Player, time: number): Promise<{
 	description: string,
 	alterationEmoji: string,
 	forcedDestination: MapLink

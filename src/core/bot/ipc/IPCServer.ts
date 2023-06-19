@@ -2,7 +2,7 @@ const NodeIPC = require("node-ipc");
 import {Socket} from "net";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 export class IPCServer extends NodeIPC.IPCModule {
 	private static spamDelay = 1000;
 
@@ -10,6 +10,32 @@ export class IPCServer extends NodeIPC.IPCModule {
 	private blockedPlayers: Map<string, { reason: string, limitTimestamp: number }[]> = new Map();
 
 	private spamPlayers: Map<string, number> = new Map();
+
+	/**
+	 * Starts the IPC server
+	 */
+	constructor() {
+		super();
+
+		this.config.id = "draftbot";
+		this.config.retry = 1500;
+		this.config.silent = true; // You can set this to false in order to debug, it's very useful
+
+		this.serve(
+			() => {
+				this.prepareBlockAnswer();
+				this.prepareUnblockAnswer();
+				this.prepareIsBlockedAnswer();
+				this.prepareSpamAnswer();
+				this.prepareIsSpammingAnswer();
+				this.prepareConnexionSocketAnswer();
+				this.prepareDisconnectionSocketAnswer();
+				this.prepareMaintenanceCommand();
+			}
+		);
+
+		this.server.start();
+	}
 
 	/**
 	 * Get the count of blocked players
@@ -181,31 +207,5 @@ export class IPCServer extends NodeIPC.IPCModule {
 			enable,
 			fromCommand
 		});
-	}
-
-	/**
-	 * Starts the IPC server
-	 */
-	constructor() {
-		super();
-
-		this.config.id = "draftbot";
-		this.config.retry = 1500;
-		this.config.silent = true; // You can set this to false in order to debug, it's very useful
-
-		this.serve(
-			() => {
-				this.prepareBlockAnswer();
-				this.prepareUnblockAnswer();
-				this.prepareIsBlockedAnswer();
-				this.prepareSpamAnswer();
-				this.prepareIsSpammingAnswer();
-				this.prepareConnexionSocketAnswer();
-				this.prepareDisconnectionSocketAnswer();
-				this.prepareMaintenanceCommand();
-			}
-		);
-
-		this.server.start();
 	}
 }

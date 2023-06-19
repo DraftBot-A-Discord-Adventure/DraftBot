@@ -45,6 +45,6 @@ export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
 	 * Returns if someone reacted
 	 */
 	someoneReacted(): boolean {
-		return this.collector && !!this.collector.collected.first();
+		return this.collector && Boolean(this.collector.collected.first());
 	}
 }

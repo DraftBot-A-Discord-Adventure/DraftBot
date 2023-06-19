@@ -231,9 +231,9 @@ async function checkInventory(otherPlayer: Player, cList: string[]): Promise<voi
 function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
 	// We don't query other shards, it's not optimized
 	let selectedPlayer: string = null;
-	for (let i = 0; i < playersOnMap.length; ++i) {
-		if (draftBotClient.users.cache.has(playersOnMap[i].discordUserId)) {
-			selectedPlayer = playersOnMap[i].discordUserId;
+	for (const player of playersOnMap) {
+		if (draftBotClient.users.cache.has(player.discordUserId)) {
+			selectedPlayer = player.discordUserId;
 			break;
 		}
 	}
@@ -464,7 +464,7 @@ export const smallEvent: SmallEvent = {
 			guildName: guild ? guild.name : "",
 			item: item ? item.getName(language) : "",
 			pluralItem: item ? item.frenchPlural ? "s" : "" : "",
-			prefixItem: prefixItem,
+			prefixItem,
 			prefixItem2: prefixItem2 !== "" ? prefixItem2 : prefixItem
 		}));
 

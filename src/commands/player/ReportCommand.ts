@@ -82,23 +82,23 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		const keys = Data.getKeys("smallEvents");
 		let totalSmallEventsRarity = 0;
 		const updatedKeys = [];
-		for (let i = 0; i < keys.length; ++i) {
-			const file = await import(`../../core/smallEvents/${keys[i]}SmallEvent.js`);
-			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
-				await interaction.editReply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
+		for (const key of keys) {
+			const file = await import(`../../core/smallEvents/${key}SmallEvent.js`);
+			if (!file.smallEvent?.canBeExecuted) {
+				await interaction.editReply({content: `${key} doesn't contain a canBeExecuted function`});
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(player)) {
-				updatedKeys.push(keys[i]);
-				totalSmallEventsRarity += Data.getModule(`smallEvents.${keys[i]}`).getNumber("rarity");
+				updatedKeys.push(key);
+				totalSmallEventsRarity += Data.getModule(`smallEvents.${key}`).getNumber("rarity");
 			}
 		}
 		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity + 1);
 		let sum = 0;
-		for (let i = 0; i < updatedKeys.length; ++i) {
-			sum += Data.getModule(`smallEvents.${updatedKeys[i]}`).getNumber("rarity");
+		for (const updatedKey of updatedKeys) {
+			sum += Data.getModule(`smallEvents.${updatedKey}`).getNumber("rarity");
 			if (sum >= randomNb) {
-				event = updatedKeys[i];
+				event = updatedKey;
 				break;
 			}
 		}
@@ -108,7 +108,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 	}
 
 	// Execute the event
-	const filename = event + "SmallEvent.js";
+	const filename = `${event}SmallEvent.js`;
 	try {
 		const smallEventModule = require.resolve(`../../core/smallEvents/${filename}`);
 		try {
@@ -261,7 +261,7 @@ async function createDescriptionChooseDestination(
 	language: string
 ): Promise<string> {
 	const isPveMap = MapCache.allPveMapLinks.includes(player.mapLinkId);
-	let desc = tr.get("chooseDestinationIndications") + "\n";
+	let desc = `${tr.get("chooseDestinationIndications")}\n`;
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
 		const link = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[i]);
@@ -406,7 +406,7 @@ async function doPossibility(
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
 				result: "",
-				event: format(possibility.getText(textInformation.language),{}),
+				event: format(possibility.getText(textInformation.language), {}),
 				emoji: "",
 				alte: ""
 			})
@@ -426,7 +426,7 @@ async function doPossibility(
 		content: textInformation.tr.format("doPossibility", {
 			pseudo: textInformation.interaction.user,
 			result: outcomeResult.description,
-			event: format(randomOutcome.translations[textInformation.language],{}),
+			event: format(randomOutcome.translations[textInformation.language], {}),
 			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 			alte: outcomeResult.alterationEmoji
 		})
@@ -442,9 +442,9 @@ async function doPossibility(
 		.concat(possibility.tags ?? [])
 		.concat(event.tags ?? []);
 	if (tagsToVerify) {
-		for (let i = 0; i < tagsToVerify.length; i++) {
+		for (const tag of tagsToVerify) {
 			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {
-				missionId: tagsToVerify[i],
+				missionId: tag,
 				params: {tags: tagsToVerify}
 			});
 		}
@@ -627,7 +627,8 @@ async function doPVEBoss(
 		language
 	);
 
-	const msg = await interaction.editReply({ content:
+	const msg = await interaction.editReply({
+		content:
 			tr.format("pveEvent", {
 				pseudo: player.getMention(),
 				event: `${tr.getRandom("encounterMonster")}`,
@@ -638,7 +639,8 @@ async function doPVEBoss(
 					defense: monsterFighter.getDefense(),
 					speed: monsterFighter.getSpeed()
 				})
-			})});
+			})
+	});
 	const collector = msg.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) =>
 			user.id === player.discordUserId &&
@@ -652,8 +654,8 @@ async function doPVEBoss(
 		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
 
 		const fight = new FightController(
-			{ fighter1: playerFighter, fighter2: monsterFighter },
-			{ friendly: true, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE },
+			{fighter1: playerFighter, fighter2: monsterFighter},
+			{friendly: true, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE},
 			interaction.channel,
 			language
 		);

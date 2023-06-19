@@ -462,8 +462,8 @@ export class LogsDatabase extends Database {
 		case EffectsConstants.EMOJI_TEXT.OCCUPIED:
 			await LogsPlayersOccupiedAlterations.create({
 				playerId: player.id,
-				duration: duration,
-				reason: reason,
+				duration,
+				reason,
 				date: getDateLogs()
 			});
 			break;

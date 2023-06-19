@@ -12,9 +12,9 @@ import {Player, PlayerEditValueParameters} from "./Player";
 import {PetConstants} from "../../../constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
-import moment = require("moment");
 import {TextInformation} from "../../../utils/MessageUtils";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
+import moment = require("moment");
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -143,18 +143,6 @@ export class PetEntity extends Model {
 		return this.getLoveLevelNumber() === PetConstants.LOVE_LEVEL.FEISTY;
 	}
 
-	private getNickname(language: string): string {
-		return this.nickname ? this.nickname : Translations.getModule("models.pets", language).get("noNickname");
-	}
-
-	private getSexDisplay(language: string): string {
-		return `${
-			Translations.getModule("models.pets", language).get(this.sex === "m" ? "male" : "female")
-		} ${
-			this.sex === "m" ? PetEntityConstants.EMOTE.MALE : PetEntityConstants.EMOTE.FEMALE
-		}`;
-	}
-
 	/**
 	 * Give the pet entity to a player, if no space then in their guild and if no space, don't give it.
 	 * Send an embed only if send generic message is true
@@ -219,14 +207,26 @@ export class PetEntity extends Model {
 				pet: petDisplay
 			}));
 			if (replyToInteraction) {
-				await textInformation.interaction.reply({ embeds: [embed] });
+				await textInformation.interaction.reply({embeds: [embed]});
 			}
 			else {
-				await textInformation.interaction.channel.send({ embeds: [embed] });
+				await textInformation.interaction.channel.send({embeds: [embed]});
 			}
 		}
 
 		return returnValue;
+	}
+
+	private getNickname(language: string): string {
+		return this.nickname ? this.nickname : Translations.getModule("models.pets", language).get("noNickname");
+	}
+
+	private getSexDisplay(language: string): string {
+		return `${
+			Translations.getModule("models.pets", language).get(this.sex === "m" ? "male" : "female")
+		} ${
+			this.sex === "m" ? PetEntityConstants.EMOTE.MALE : PetEntityConstants.EMOTE.FEMALE
+		}`;
 	}
 }
 
@@ -241,9 +241,9 @@ export class PetEntities {
 
 	static createPet(petId: number, sex: string, nickname: string): PetEntity {
 		return PetEntity.build({
-			petId: petId,
-			sex: sex,
-			nickname: nickname,
+			petId,
+			sex,
+			nickname,
 			lovePoints: PetConstants.BASE_LOVE
 		});
 	}
@@ -281,7 +281,7 @@ export class PetEntities {
 		});
 		return PetEntity.build({
 			petId: pet.id,
-			sex: sex,
+			sex,
 			nickname: null,
 			lovePoints: PetConstants.BASE_LOVE
 		});

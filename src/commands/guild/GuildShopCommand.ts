@@ -76,9 +76,9 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(
 		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
-		foodJson.get(name + ".name"),
+		foodJson.get(`${name}.name`),
 		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
-		foodJson.get(name + ".info"),
+		foodJson.get(`${name}.info`),
 		async (message, amount) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);

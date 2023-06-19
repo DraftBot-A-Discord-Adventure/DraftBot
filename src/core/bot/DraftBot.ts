@@ -91,47 +91,6 @@ export class DraftBot {
 	}
 
 	/**
-	 * Send a notification every minute for player who arrived in the last minute
-	 */
-	async reportNotifications(): Promise<void> {
-		const query = `
-			SELECT p.discordUserId
-			FROM players AS p
-					 JOIN map_links AS m
-						  ON p.mapLinkId = m.id
-			WHERE p.notifications != :noNotificationsValue
-			  AND DATE_ADD(DATE_ADD(p.startTravelDate
-							   , INTERVAL p.effectDuration MINUTE)
-				, INTERVAL m.tripDuration MINUTE)
-				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
-				AND NOW()`;
-
-		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
-			replacements: {
-				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
-				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
-			}, type: QueryTypes.SELECT
-		}));
-
-		const reportFR = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
-		const reportEN = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
-		const embed = await generateTravelNotification();
-		for (const playerId of playersToNotify) {
-			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
-
-			await sendNotificationToPlayer(player,
-				embed.setDescription(`${
-					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
-				}\n\n${
-					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
-				}`)
-				, Constants.LANGUAGE.ENGLISH);
-		}
-
-		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
-	}
-
-	/**
 	 * execute all the daily tasks
 	 */
 	static dailyTimeout(): void {
@@ -314,10 +273,42 @@ export class DraftBot {
 	}
 
 	/**
+	 * choose a new pve island
+	 */
+	static async newPveIsland(): Promise<void> {
+		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
+		console.log(`New pve island map link of the week: ${newMapLink}`);
+		await Settings.PVE_ISLAND.setValue(newMapLink);
+	}
+
+	/**
+	 * update the fight points of the entities that lost some
+	 */
+	static fightPowerRegenerationLoop(): void {
+		Player.update(
+			{
+				fightPointsLost: Sequelize.literal(
+					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
+				)
+			},
+			{
+				where: {
+					fightPointsLost: {[Op.not]: 0},
+					mapLinkId: {[Op.notIn]: MapCache.regenFightPointsMapLinks}
+				}
+			}
+		).finally(() => null);
+		setTimeout(
+			DraftBot.fightPowerRegenerationLoop,
+			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
+		);
+	}
+
+	/**
 	 * Database queries to execute at the end of the season
 	 * @private
 	 */
-	private static async seasonEndQueries() : Promise<void>{
+	private static async seasonEndQueries(): Promise<void> {
 		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
 		await Player.update(
 			{
@@ -349,7 +340,7 @@ export class DraftBot {
 	 * Find the winner of the season
 	 * @private
 	 */
-	private static async findSeasonWinner() : Promise<Player>{
+	private static async findSeasonWinner(): Promise<Player> {
 		return await Player.findOne({
 			where: {
 				fightCountdown: {
@@ -366,36 +357,44 @@ export class DraftBot {
 	}
 
 	/**
-	 * choose a new pve island
+	 * Send a notification every minute for player who arrived in the last minute
 	 */
-	static async newPveIsland(): Promise<void> {
-		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
-		console.log(`New pve island map link of the week: ${newMapLink}`);
-		await Settings.PVE_ISLAND.setValue(newMapLink);
-	}
+	async reportNotifications(): Promise<void> {
+		const query = `
+			SELECT p.discordUserId
+			FROM players AS p
+					 JOIN map_links AS m
+						  ON p.mapLinkId = m.id
+			WHERE p.notifications != :noNotificationsValue
+			  AND DATE_ADD(DATE_ADD(p.startTravelDate
+							   , INTERVAL p.effectDuration MINUTE)
+				, INTERVAL m.tripDuration MINUTE)
+				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
+				AND NOW()`;
 
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
+			replacements: {
+				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
+				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
+			}, type: QueryTypes.SELECT
+		}));
 
-	/**
-	 * update the fight points of the entities that lost some
-	 */
-	static fightPowerRegenerationLoop(): void {
-		Player.update(
-			{
-				fightPointsLost: Sequelize.literal(
-					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
-				)
-			},
-			{
-				where: {
-					fightPointsLost: {[Op.not]: 0},
-					mapLinkId: {[Op.notIn]: MapCache.regenFightPointsMapLinks}
-				}
-			}
-		).finally(() => null);
-		setTimeout(
-			DraftBot.fightPowerRegenerationLoop,
-			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
-		);
+		const reportFR = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
+		const reportEN = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
+		const embed = await generateTravelNotification();
+		for (const playerId of playersToNotify) {
+			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
+
+			await sendNotificationToPlayer(player,
+				embed.setDescription(`${
+					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
+				}\n\n${
+					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
+				}`)
+				, Constants.LANGUAGE.ENGLISH);
+		}
+
+		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
 	/**
@@ -506,7 +505,7 @@ export class DraftBot {
 		this.overwriteGlobalLogs(addConsoleLog, originalConsoleError);
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
+		// @ts-expect-error
 		global.log = addConsoleLog;
 	}
 
@@ -566,15 +565,14 @@ export class DraftBot {
 			try {
 				fs.appendFileSync(
 					thisInstance.currLogsFile,
-					dateStr +
+					`${dateStr +
 					message/*
 					 // TODO sera remplacé par un vrai système de logs next maj
 					 .replace(
 						// eslint-disable-next-line no-control-regex
 						/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
 						""
-					)*/ +
-					"\n"
+					)*/}\n`
 				);
 				thisInstance.currLogsCount++;
 				if (thisInstance.currLogsCount > Constants.LOGS.LOG_COUNT_LINE_LIMIT) {

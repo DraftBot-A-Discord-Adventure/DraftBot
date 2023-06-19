@@ -26,35 +26,35 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		fs.unlinkSync("allArmors.txt");
 	}
 	catch (err) {
-		console.log("Cannot send allArmors.txt: " + err);
+		console.log(`Cannot send allArmors.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allWeapons.txt");
 		fs.unlinkSync("allWeapons.txt");
 	}
 	catch (err) {
-		console.log("Cannot send allWeapons.txt: " + err);
+		console.log(`Cannot send allWeapons.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allPotions.txt");
 		fs.unlinkSync("allPotions.txt");
 	}
 	catch (err) {
-		console.log("Cannot send allPotions.txt: " + err);
+		console.log(`Cannot send allPotions.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allItems.txt");
 		fs.unlinkSync("allItems.txt");
 	}
 	catch (err) {
-		console.log("Cannot send allItems.txt: " + err);
+		console.log(`Cannot send allItems.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allObjects.txt");
 		fs.unlinkSync("allObjects.txt");
 	}
 	catch (err) {
-		console.log("Cannot send allObjects.txt: " + err);
+		console.log(`Cannot send allObjects.txt: ${err}`);
 	}
 
 	// List armors
@@ -62,17 +62,17 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	fs.appendFileSync("allItems.txt", "ALL ARMORS :\n");
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
-			const data = fs.readFileSync("resources/text/armors/" + file);
+			const data = fs.readFileSync(`resources/text/armors/${file}`);
 			const armor = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
-				string = armor.translations[language] + " - Rareté: " + armor.rarity + " - Défense brute: " + armor.rawDefense;
+				string = `${armor.translations[language]} - Rareté: ${armor.rarity} - Défense brute: ${armor.rawDefense}`;
 			}
 			if (language === Constants.LANGUAGE.ENGLISH) {
-				string = armor.translations[language] + " - Rarity: " + armor.rarity + " - Raw defense: " + armor.rawDefense;
+				string = `${armor.translations[language]} - Rarity: ${armor.rarity} - Raw defense: ${armor.rawDefense}`;
 			}
-			fs.appendFileSync("allArmors.txt", string + "\n");
-			fs.appendFileSync("allItems.txt", string + "\n");
+			fs.appendFileSync("allArmors.txt", `${string}\n`);
+			fs.appendFileSync("allItems.txt", `${string}\n`);
 		}
 	});
 	fs.appendFileSync("allItems.txt", "\n");
@@ -88,17 +88,17 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	fs.appendFileSync("allItems.txt", "ALL WEAPONS :\n");
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
-			const data = fs.readFileSync("resources/text/weapons/" + file);
+			const data = fs.readFileSync(`resources/text/weapons/${file}`);
 			const weapons = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
-				string = weapons.translations[language] + " - Rareté: " + weapons.rarity + " - Attaque brute: " + weapons.rawAttack;
+				string = `${weapons.translations[language]} - Rareté: ${weapons.rarity} - Attaque brute: ${weapons.rawAttack}`;
 			}
 			if (language === Constants.LANGUAGE.ENGLISH) {
-				string = weapons.translations[language] + " - Rarity: " + weapons.rarity + " - Raw attack: " + weapons.rawAttack;
+				string = `${weapons.translations[language]} - Rarity: ${weapons.rarity} - Raw attack: ${weapons.rawAttack}`;
 			}
-			fs.appendFileSync("allWeapons.txt", string + "\n");
-			fs.appendFileSync("allItems.txt", string + "\n");
+			fs.appendFileSync("allWeapons.txt", `${string}\n`);
+			fs.appendFileSync("allItems.txt", `${string}\n`);
 		}
 	});
 	fs.appendFileSync("allItems.txt", "\n");
@@ -114,17 +114,17 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	fs.appendFileSync("allItems.txt", "ALL POTIONS :\n");
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
-			const data = fs.readFileSync("resources/text/potions/" + file);
+			const data = fs.readFileSync(`resources/text/potions/${file}`);
 			const Potions = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
-				string = Potions.translations[language] + " - Rareté: " + Potions.rarity + " - Pouvoir: " + Potions.power + " - Nature: " + Potions.nature;
+				string = `${Potions.translations[language]} - Rareté: ${Potions.rarity} - Pouvoir: ${Potions.power} - Nature: ${Potions.nature}`;
 			}
 			if (language === Constants.LANGUAGE.ENGLISH) {
-				string = Potions.translations[language] + " - Rarity: " + Potions.rarity + " - Power: " + Potions.power + " - Nature: " + Potions.nature;
+				string = `${Potions.translations[language]} - Rarity: ${Potions.rarity} - Power: ${Potions.power} - Nature: ${Potions.nature}`;
 			}
-			fs.appendFileSync("allPotions.txt", string + "\n");
-			fs.appendFileSync("allItems.txt", string + "\n");
+			fs.appendFileSync("allPotions.txt", `${string}\n`);
+			fs.appendFileSync("allItems.txt", `${string}\n`);
 		}
 	});
 	fs.appendFileSync("allItems.txt", "\n");
@@ -140,17 +140,17 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	fs.appendFileSync("allItems.txt", "ALL OBJECTS :\n");
 	files.forEach(function(file: string) {
 		if (file !== "0.json") {
-			const data = fs.readFileSync("resources/text/objects/" + file);
+			const data = fs.readFileSync(`resources/text/objects/${file}`);
 			const Objects = JSON.parse(data.toString());
 			let string;
 			if (language === Constants.LANGUAGE.FRENCH) {
-				string = Objects.translations[language] + " - Rareté: " + Objects.rarity + " - Pouvoir: " + Objects.power + " - Nature: " + Objects.nature;
+				string = `${Objects.translations[language]} - Rareté: ${Objects.rarity} - Pouvoir: ${Objects.power} - Nature: ${Objects.nature}`;
 			}
 			if (language === Constants.LANGUAGE.ENGLISH) {
-				string = Objects.translations[language] + " - Rarity: " + Objects.rarity + " - Power: " + Objects.power + " - Nature: " + Objects.nature;
+				string = `${Objects.translations[language]} - Rarity: ${Objects.rarity} - Power: ${Objects.power} - Nature: ${Objects.nature}`;
 			}
-			fs.appendFileSync("allObjects.txt", string + "\n");
-			fs.appendFileSync("allItems.txt", string + "\n");
+			fs.appendFileSync("allObjects.txt", `${string}\n`);
+			fs.appendFileSync("allItems.txt", `${string}\n`);
 		}
 	});
 	fs.appendFileSync("allItems.txt", "\n");

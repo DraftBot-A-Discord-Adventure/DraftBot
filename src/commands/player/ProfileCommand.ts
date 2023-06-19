@@ -128,7 +128,7 @@ function getRankingField(profileModule: TranslationModule, rank: number, numberO
 		name: profileModule.get("ranking.fieldName"),
 		value:
 			profileModule.format("ranking.fieldValue", {
-				isUnranked: isUnranked,
+				isUnranked,
 				rank: isUnranked ? profileModule.get("ranking.unranked") : rank,
 				numberOfPlayer: isUnranked ? "" : numberOfPlayers,
 				score: askedPlayer.score
@@ -259,7 +259,7 @@ async function sendMessageAllBadgesTooMuchBadges(player: Player, language: strin
 	const badges = player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
 	for (const badgeSentence of badges) {
-		content += profileModule.get(`badges.${badgeSentence}`) + "\n";
+		content += `${profileModule.get(`badges.${badgeSentence}`)}\n`;
 	}
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
@@ -354,7 +354,7 @@ async function generateLocationField(askedPlayer: Player, fields: EmbedField[], 
  * @param profileModule
  * @param language
  */
-async function generatePetField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string) : Promise<void> {
+async function generatePetField(askedPlayer: Player, fields: EmbedField[], profileModule: TranslationModule, language: string): Promise<void> {
 	try {
 		const petEntity = await PetEntities.getById(askedPlayer.petId);
 		if (petEntity) {

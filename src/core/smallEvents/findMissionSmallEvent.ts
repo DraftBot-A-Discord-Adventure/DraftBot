@@ -31,12 +31,11 @@ export const smallEvent: SmallEvent = {
 		const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const missionSlot = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player));
 		seEmbed.setDescription(
-			seEmbed.data.description
+			`${seEmbed.data.description
 			+ intro
-			+ tr.getRandom("intrigue")
-			+ "\n\n**"
-			+ await (await Missions.getById(missionSlot.missionId)).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, missionSlot.saveBlob)
-			+ "**"
+			+ tr.getRandom("intrigue")}\n\n**${
+				await (await Missions.getById(missionSlot.missionId)).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, missionSlot.saveBlob)
+			}**`
 		);
 		await interaction.editReply({embeds: [seEmbed]});
 	}

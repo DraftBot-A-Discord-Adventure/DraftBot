@@ -83,7 +83,7 @@ export class Class extends Model {
 	 * @param language
 	 */
 	public getDescription(language: string): string {
-		return Translations.getModule("commands.class", language).get("description." + this.id);
+		return Translations.getModule("commands.class", language).get(`description.${this.id}`);
 	}
 
 	/**
