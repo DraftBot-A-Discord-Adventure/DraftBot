@@ -465,6 +465,9 @@ export class Player extends Model {
 		return this.level;
 	}
 
+	/**
+	 * Get the travel cost of a player this week
+	 */
 	public async getTravelCostThisWeek() : Promise<number> {
 		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId);
 		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];

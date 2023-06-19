@@ -57,16 +57,16 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const boatTr = Translations.getModule("smallEvents.goToPVEIsland", language);
 	confirmEmbed.formatAuthor(tr.get("confirmationTitle"), interaction.user);
-	confirmEmbed.setDescription(
+	confirmEmbed.setDescription(`${
 		format(tr.get("joinMember"), {
 			priceText: price === 0 ? boatTr.get("priceFree") : boatTr.format("priceMoney", { price })
-		}) +
-		"\n\n" +
-		boatTr.format("confirm", {
-			fightPoints: await player.getCumulativeFightPoint(),
-			fightPointsMax: await player.getMaxCumulativeFightPoint()
-		})
-	);
+		})}
+		"\n\n"${
+	boatTr.format("confirm", {
+		fightPoints: await player.getCumulativeFightPoint(),
+		fightPointsMax: await player.getMaxCumulativeFightPoint()
+	})}
+	`);
 
 	await confirmEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND, collector));
 }
