@@ -14,10 +14,9 @@ import {Maps} from "../maps/Maps";
 import {FightPetActions} from "./fightPet/FightPetActions";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {FightPetAction} from "./fightPet/FightPetAction";
-import Pet, {Pets} from "../database/game/models/Pet";
+import {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
 import {FeralPet} from "../database/game/models/FeralPet";
-import {WitchEvent} from "./witch/WitchEvent";
 
 /**
  * Returns an object composed of three random witch events
@@ -164,7 +163,7 @@ export const smallEvent: SmallEvent = {
 				const selectedFightPetAction = retrieveSelectedEvent(fightPetEventMessage);
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 
-				const resultString = await selectedFightPetAction.applyOutcome(player, feralPet, language, interaction);
+				const resultString = selectedFightPetAction.getEmoji() + " " + await selectedFightPetAction.applyOutcome(player, feralPet, language, interaction);
 				await sendResultMessage(seEmbed, resultString, interaction);
 			});
 
