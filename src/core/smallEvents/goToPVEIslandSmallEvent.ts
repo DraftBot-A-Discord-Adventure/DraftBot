@@ -21,11 +21,11 @@ export async function confirmationCallback(
 	player: Player,
 	msg: DraftBotValidateReactionMessage,
 	tr: TranslationModule,
+	embed : DraftBotEmbed,
 	emote: string,
-	price: number
+	price: number,
+	anotherMemberOnBoat: Player = null
 ): Promise<void> {
-	const embed = new DraftBotEmbed()
-		.setAuthor(msg.sentMessage.embeds[0].author);
 	if (msg.isValidated()) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		if (missionInfo.gems < price) {
@@ -36,12 +36,12 @@ export async function confirmationCallback(
 			await Maps.startTravel(
 				player,
 				await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
-				msg.sentMessage.createdTimestamp,
+				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : msg.sentMessage.createdTimestamp,
 				NumberChangeReason.SMALL_EVENT
 			);
 			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 			await missionInfo.save();
-			embed.setDescription(`${emote} ${tr.get("endStoryAccept")}`);
+			embed.setDescription(`${emote} ${anotherMemberOnBoat ? tr.get("endStoryAcceptWithMember") : tr.get("endStoryAccept")}`);
 		}
 	}
 	else {
@@ -75,11 +75,13 @@ export const smallEvent: SmallEvent = {
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.goToPVEIsland", language);
 		const price = await player.getTravelCostThisWeek();
+		const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
 
 		const confirmEmbed = new DraftBotValidateReactionMessage(
 			interaction.user,
 			(confirmMessage: DraftBotValidateReactionMessage) => {
-				confirmationCallback(player, confirmMessage, tr, seEmbed.data.description, price).then();
+				confirmationCallback(player, confirmMessage, tr, new DraftBotEmbed()
+					.setAuthor(confirmMessage.sentMessage.embeds[0].author), seEmbed.data.description, price, anotherMemberOnBoat[0]).then();
 			}
 		);
 

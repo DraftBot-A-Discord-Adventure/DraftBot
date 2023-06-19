@@ -72,9 +72,6 @@ export class LogsReadRequests {
 	}
 
 	/**
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 	 * Get the date of the last season reset
 	 */
 	static getDateOfLastSeasonReset(): Promise<number> {
@@ -142,7 +139,6 @@ export class LogsReadRequests {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Get the number of time the player went on the PVE island this week
 	 * @param discordId
 	 */
