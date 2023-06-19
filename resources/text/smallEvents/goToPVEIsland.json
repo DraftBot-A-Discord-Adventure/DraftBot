@@ -17,7 +17,10 @@
 		},
 		"en": {
 			"stories": [
-				"Your gaze is attracted to a boat on the side of your field of view. Its captain beckons to you and presents you with a potential thrilling adventure, on a monster-filled island. They also add that {priceText}."
+				"your gaze is attracted to a boat on the side of your field of view. Its captain beckons to you and presents you with a potential thrilling adventure, on a monster-filled island. They also add that {priceText}.",
+				"a man approaches you and asks if you'd be interested in his services. He explains that he's the captain of a ship sailing between the mainland and a mysterious island full of monsters. He says he can take you there if you're looking for a rollicking adventure, and adds that {priceText}.",
+				"you are approached by a man in sailor's clothing, bearing the king's emblem. He tells you he's trying to send some of the adventurers competing for the princess's hand to an island full of monsters, which would be useful for the kingdom to get rid of. He also says that a ship is ready to leave for this island, and asks you if you're up for it, pointing out that {priceText}.",
+				"you're accosted by a tall, bearded man, introducing himself as the leader of a mercenary group renowned in the region. He tells you that he can make you an incredible offer. The offer is for you to travel to a mysterious new island, where opportunity and danger coexist, as a monster hunter. He also adds that {priceText}."
 			],
 			"priceFree": "the trip **is free**",
 			"priceMoney": "the trip **will cost you {price} \uD83D\uDC8E**",
