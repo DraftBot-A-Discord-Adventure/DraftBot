@@ -220,6 +220,10 @@
 				"LEAGUE_BONUS": {
 					"usage": "{command:leaguebonus}",
 					"description": "Permet d'obtenir une récompense de ligue chaque dimanche."
+				},
+				"JOIN_BOAT": {
+					"usage": "{command:joinboat}",
+					"description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
 				}
 			}
 		},
@@ -443,6 +447,10 @@
 				"LEAGUE_BONUS": {
 					"usage": "{command:leaguebonus}",
 					"description": "Claim your league's reward each sunday."
+				},
+				"JOIN_BOAT": {
+					"usage": "{command:joinboat}",
+					"description": "Allows you to join a guild member on a boat going to a mysterious island."
 				}
 			}
 		}

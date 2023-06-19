@@ -68,7 +68,8 @@ export abstract class HelpConstants {
 		LEAGUE_BONUS: [
 			"leaguereward", "leaguerewards", "league", "leagues", "leagueaward", "bonusleague", "leaguebonus", "leagueaward", "leagueawards",
 			"bonusligue", "liguebonus", "récompenseligue", "liguerécompense", "leaguerécompense", "récompenseleague", "recompenseleague",
-			"recompenseligue", "liguerécompenses", "leaguerécompenses", "récompensesligue", "récompensesleague", "recompensesleague"]
+			"recompenseligue", "liguerécompenses", "leaguerécompenses", "récompensesligue", "récompensesleague", "recompensesleague"],
+		JOIN_BOAT: ["joinboat", "boat", "bateau", "rejoindrebateau"]
 	};
 
 	static readonly COMMANDS_DATA = {
@@ -365,6 +366,12 @@ export abstract class HelpConstants {
 				EMOTE: ":sparkles:",
 				NAME: "leaguebonus",
 				CATEGORY: "player"
+			},
+		JOIN_BOAT:
+			{
+				EMOTE: ":ferry:",
+				NAME: "joinboat",
+				CATEGORY: "guild"
 			}
 	};
 }
