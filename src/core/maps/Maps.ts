@@ -219,7 +219,7 @@ export class Maps {
 			where: {
 				guildId: player.guildId,
 				mapLinkId: {
-					[Op.in]: MapCache.boatMapLinks
+					[Op.in]: MapCache.boatEntryMapLinks
 				},
 				id: {
 					[Op.not]: player.id
