@@ -153,7 +153,23 @@ export abstract class SmallEventConstants {
 				MAX: 50
 			}
 		},
-		FIST_HIT_ATTACK_NEEDED: 50
+		ENERGY_LOSS: {
+			SMALL: {
+				MIN: 10,
+				MAX: 30
+			},
+			MEDIUM: {
+				MIN: 30,
+				MAX: 75
+			},
+			BIG: {
+				MIN: 75,
+				MAX: 200
+			}
+		},
+		FIST_HIT_ATTACK_NEEDED: 50,
+		FIST_HIT_HIGHER_DAMAGE_MINIMUM_RARITY: 5
+
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {
