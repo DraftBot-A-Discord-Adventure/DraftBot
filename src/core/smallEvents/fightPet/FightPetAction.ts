@@ -27,8 +27,8 @@ export abstract class FightPetAction {
 	 */
 	public toString(language: string, forceEndOfStringEmojiPlacement: boolean): string {
 		return forceEndOfStringEmojiPlacement ?
-			`${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActionNames.${this.name}`)} ${this.getEmoji()}`
-			: `${this.getEmoji()} ${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActionNames.${this.name}`)}`;
+			`${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActions.${this.name}.name`)} ${this.getEmoji()}`
+			: `${this.getEmoji()} ${Translations.getModule("smallEvents.fightPet", language).get(`fightPetActions.${this.name}.name`)}`;
 	}
 
 	/**

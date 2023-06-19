@@ -56,17 +56,35 @@
 				"malveillant{feminine?e:}",
 				"féroce"
 			],
-			"fightPetActionNames": {
-				"fistHit": "Coup de poing"
+			"fightPetActions": {
+				"fistHit": {
+					"name": "Coup de poing",
+					"success": "Vous frappez l'animal en plein dans le museau ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :mirror_ball: Points de guilde gagnés : **{amount}**",
+					"failure": "Vous frappez l'animal en plein dans le museau ! Il recule, surpris. Vous en profitez pour prendre la fuite ! :cloud_lightning: Énergie perdue : **{amount}**"
+				}
 			}
 		},
 		"en": {
 			"intro": [
-				"You come face to face with a {feralPet}! "
-
+				"you run into some dangerous-looking {feralPet}! ",
+				"you encounter a wild {feralPet}. ",
+				"you cross paths with a grumpy {feralPet}, apparently disinclined to let you continue on your way",
+				"you suddenly let out a terrified whimper : a murderous {feralPet} is right in front of you! ",
+				"you are frozen in place upon catching sight of some {feralPet}. ",
+				"a dangerously-approaching dust cloud enters your field of vision... It turns out to be a wildly-running {feralPet}! ",
+				"you notice a mysterious mechanism... Full of curiosity, you choose to activate it. You soon feel deep regret, as a feral {feralPet} appears out of nowhere! ",
+				"you hear a thud. You turn around and catch a glimpse of a bizarre {feralPet}, strongly glaring at you. "
 			],
 			"situation": [
-				"The beast seems impossible to calm down... You try to calm down and think of a plan of action."
+				"You think the beast cannot be calmed down... You try to keep your cool, and think about an action plant to defeat the animal.",
+				"Completely horrified, you start thinking about various options that could help you overcome this beast.",
+				"You can't not act, you got to do something to save your life...",
+				"Distracted by the two deep-red eyes of the beast, fixating you, you still try to focus on an action plan.",
+				"The animal's fetid breath makes you dizzy. You try and focus...",
+				"You wonder whether it would be better to run away, but end up thinking you could get out of this sticky situation with a good enough action plan.",
+				"You tighten your grasp upon your sword's hilt and, heartened just a little, try to think about what you should do.",
+				"Petrified by extreme fear, you see the animal charge at you, while you try and force your petrified mind to come up with a plan out of this situation.",
+				"Distraught, you try, with great despair, to come up with a solution that would let you keep your life."
 			],
 			"nameDisplay": "{emoji} {adjective} {petName}",
 			"adjectives": [
