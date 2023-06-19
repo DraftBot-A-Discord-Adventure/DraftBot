@@ -2,6 +2,8 @@ import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {CommandInteraction} from "discord.js";
 import Player from "../../database/game/models/Player";
+import {FeralPet} from "../../database/game/models/FeralPet";
+
 /**
  * The base class for the different events that can happen after the player encounters a feral pet
  */
@@ -38,20 +40,23 @@ export abstract class FightPetAction {
 	}
 
 	/**
-	 * check the mission validation for the fightPet event
-	 * @param interaction
-	 * @param player
-	 * @param language
-	 */
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async checkMissions(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
-		return await Promise.resolve();
-	}
-
-	/**
 	 * return the array of all the ids of pet that have this action as one of their actions
 	 */
 	public getPetIds(): number[] {
 		return this.linkedPetId;
+	}
+
+
+	/**
+	 * Apply the outcome of the action
+	 * @param player
+	 * @param feralPet
+	 * @param language
+	 * @param interaction
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public async applyOutcome(player: Player, feralPet: FeralPet, language: string, interaction: CommandInteraction): Promise<string> {
+		// this function is overridden in the child classes
+		return await Promise.resolve("");
 	}
 }

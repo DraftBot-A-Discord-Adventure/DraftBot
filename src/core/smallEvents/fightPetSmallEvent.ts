@@ -16,12 +16,8 @@ import {PetEntities} from "../database/game/models/PetEntity";
 import {FightPetAction} from "./fightPet/FightPetAction";
 import Pet, {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
-
-type feralPet = {
-	feralName: string,
-	originalPet: Pet,
-	isFemale: boolean
-}
+import {FeralPet} from "../database/game/models/FeralPet";
+import {WitchEvent} from "./witch/WitchEvent";
 
 /**
  * Returns an object composed of three random witch events
@@ -52,17 +48,6 @@ async function getRandomFightPetActions(player: Player): Promise<FightPetAction[
 }
 
 /**
- * Execute the outcome of a dedicated FightPetAction
- * @param selectedFightPetAction
- * @param player
- * @param language
- * @param interaction
- */
-async function applyOutcome(selectedFightPetAction: FightPetAction, player: Player, language: string, interaction: CommandInteraction): Promise<void> {
-
-}
-
-/**
  * Get the selected event from the user's choice
  * @param fightPetActionMessage
  */
@@ -72,6 +57,18 @@ function retrieveSelectedEvent(fightPetActionMessage: DraftBotReactionMessage): 
 	const reactionEmoji = reaction ? reaction.emoji.name : Constants.REACTIONS.NOT_REPLIED_REACTION;
 	return FightPetActions.getFightPetActionByEmoji(reactionEmoji);
 }
+
+/**
+ * Send a message containing all the information about what happened to the player
+ * @param seEmbed
+ * @param resultString
+ * @param interaction
+ */
+async function sendResultMessage(seEmbed: DraftBotEmbed, resultString: string, interaction: CommandInteraction): Promise<void> {
+	seEmbed.setDescription(resultString);
+	await interaction.channel.send({embeds: [seEmbed]});
+}
+
 
 /**
  * Get the menu to display to the player and add the reactions to the embed
@@ -92,7 +89,7 @@ function generateFightPetActionMenu(fightPetActions: FightPetAction[], embed: Dr
  * Generate a feral pet
  * @param language
  */
-async function generateFeralPet(language: string): Promise<feralPet> {
+async function generateFeralPet(language: string): Promise<FeralPet> {
 	const isFemale = RandomUtils.draftbotRandom.bool();
 	const originalPet = await Pets.getRandom();
 	const adjective = format(Translations.getModule("smallEvents.fightPet", language).getRandom("adjectives"), {feminine: isFemale});
@@ -110,6 +107,7 @@ async function generateFeralPet(language: string): Promise<feralPet> {
 /**
  * generate an embed with the menu and a short introduction to the witch
  * @param embed
+ * @param feralPet
  * @param language
  * @param interaction
  * @param seEmbed
@@ -118,13 +116,13 @@ async function generateFeralPet(language: string): Promise<feralPet> {
  */
 async function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
+	feralPet: FeralPet,
 	language: string,
 	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
 	player: Player,
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
-	const feralPet = await generateFeralPet(language);
 	const fightPetActions = await getRandomFightPetActions(player);
 	const fightPetMenu = generateFightPetActionMenu(fightPetActions, embed, language);
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -157,7 +155,7 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.fightPet", language);
-
+		const feralPet = await generateFeralPet(language);
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
 			.allowEndReaction()
@@ -166,12 +164,12 @@ export const smallEvent: SmallEvent = {
 				const selectedFightPetAction = retrieveSelectedEvent(fightPetEventMessage);
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 
-				await applyOutcome(selectedFightPetAction, player, language, interaction);
-
-				await selectedFightPetAction.checkMissions(interaction, player, language);
+				const resultString = await selectedFightPetAction.applyOutcome(player, feralPet, language, interaction);
+				await sendResultMessage(seEmbed, resultString, interaction);
 			});
 
-		const builtEmbed = await generateInitialEmbed(embed, language, interaction, seEmbed, player, tr);
+
+		const builtEmbed = await generateInitialEmbed(embed, feralPet, language, interaction, seEmbed, player, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE, collector));
 	}

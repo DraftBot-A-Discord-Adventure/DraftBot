@@ -138,7 +138,22 @@ export abstract class SmallEventConstants {
 
 	static readonly FIGHT_PET = {
 		BASE_ACTION_AMOUNT: 2,
-		LEVEL_TO_UNLOCK_NEW_ACTION: 30
+		LEVEL_TO_UNLOCK_NEW_ACTION: 30,
+		GUILD_SCORE_REWARDS: {
+			SMALL: {
+				MIN: 1,
+				MAX: 15
+			},
+			MEDIUM: {
+				MIN: 15,
+				MAX: 30
+			},
+			BIG: {
+				MIN: 30,
+				MAX: 50
+			}
+		},
+		FIST_HIT_ATTACK_NEEDED: 50
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {
