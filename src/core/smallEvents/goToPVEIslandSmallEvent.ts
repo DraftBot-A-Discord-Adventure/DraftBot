@@ -17,6 +17,9 @@ import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
 
+/**
+ * Manage the callback to join the boat
+ */
 export async function confirmationCallback(
 	player: Player,
 	msg: DraftBotValidateReactionMessage,
