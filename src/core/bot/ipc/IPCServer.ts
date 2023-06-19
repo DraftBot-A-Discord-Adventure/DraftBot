@@ -2,7 +2,6 @@ const NodeIPC = require("node-ipc");
 import {Socket} from "net";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 export class IPCServer extends NodeIPC.IPCModule {
 	private static spamDelay = 1000;
 
@@ -201,6 +200,7 @@ export class IPCServer extends NodeIPC.IPCModule {
 	/**
 	 * Ask for maintenance
 	 * @param enable
+	 * @param fromCommand
 	 */
 	public broadcastMaintenance(enable: boolean, fromCommand: boolean): void {
 		this.server.broadcast("maintenance", {
