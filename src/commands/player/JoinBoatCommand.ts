@@ -25,23 +25,18 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const tr = Translations.getModule("commands.joinBoat", language);
 
-	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) >= PVEConstants.TRAVEL_COST.length){
+	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) >= PVEConstants.TRAVEL_COST.length) {
 		await replyErrorMessage(interaction, language, tr.get("tooManyBoatInWeek"));
 		return;
 	}
 
 	const guildOnBoat = await Maps.getGuildMembersOnBoat(player);
-	if (guildOnBoat.length === 0){
+	if (guildOnBoat.length === 0) {
 		await replyErrorMessage(interaction, language, tr.get("noMemberOnBoat"));
 		return;
 	}
 
-	if (player.level <= PVEConstants.MIN_LEVEL){
-		await replyErrorMessage(interaction, language, tr.get("noEnoughLevel"));
-		return;
-	}
-
-	if (await player.getMaxCumulativeFightPoint() - player.fightPointsLost === 0){
+	if (await player.getMaxCumulativeFightPoint() - player.fightPointsLost <= 0) {
 		await replyErrorMessage(interaction, language, tr.get("noEnoughEnergy"));
 		return;
 	}
@@ -59,13 +54,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	confirmEmbed.formatAuthor(tr.get("confirmationTitle"), interaction.user);
 	confirmEmbed.setDescription(`${
 		format(tr.get("joinMember"), {
-			priceText: price === 0 ? boatTr.get("priceFree") : boatTr.format("priceMoney", { price })
+			priceText: price === 0 ? boatTr.get("priceFree") : boatTr.format("priceMoney", {price})
+		})}"\n\n"${
+		boatTr.format("confirm", {
+			fightPoints: await player.getCumulativeFightPoint(),
+			fightPointsMax: await player.getMaxCumulativeFightPoint()
 		})}
-		"\n\n"${
-	boatTr.format("confirm", {
-		fightPoints: await player.getCumulativeFightPoint(),
-		fightPointsMax: await player.getMaxCumulativeFightPoint()
-	})}
 	`);
 
 	await confirmEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND, collector));
@@ -77,8 +71,9 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand(currentCommandFrenchTranslations, currentCommandEnglishTranslations),
 	executeCommand,
 	requirements: {
+		requiredLevel: PVEConstants.MIN_LEVEL,
 		guildRequired: true,
-		disallowEffects: [EffectsConstants.EMOJI_TEXT.DEAD]
+		allowEffects: [EffectsConstants.EMOJI_TEXT.SMILEY]
 	},
 	mainGuildCommand: false
 };
