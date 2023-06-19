@@ -13,7 +13,7 @@ export default class CanonAttack extends FightAction {
 		// this attack will miss more if the opponent is fast
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
 
-		// if the attack was used two times in a row, the damage is multiplied by 2
+		// if the attack was used two times in a row, the damage is multiplied by 1.5
 		const lastFightAction = sender.getLastFightActionUsed();
 		if (lastFightAction instanceof CanonAttack) {
 			damageDealt = Math.round(damageDealt * 1.5);
