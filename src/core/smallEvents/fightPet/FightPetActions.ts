@@ -12,7 +12,7 @@ export class FightPetActions {
 	 * populate a map will all the FightPetActions and their ids
 	 */
 	static initFightPetActionsMap(): void {
-		const files = readdirSync("dist/src/core/fightPet/interfaces");
+		const files = readdirSync("dist/src/core/smallEvents/fightPet/interfaces");
 		FightPetActions.fightPetActions = new Map();
 		for (const file of files) {
 			if (file.endsWith(".js")) {

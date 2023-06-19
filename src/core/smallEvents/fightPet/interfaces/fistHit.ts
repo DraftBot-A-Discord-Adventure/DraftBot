@@ -1,5 +1,4 @@
 import {FightPetAction} from "../FightPetAction";
-import {CommandInteraction} from "discord.js";
 import Player from "../../../database/game/models/Player";
 import {PlayerActiveObjects} from "../../../database/game/models/PlayerActiveObjects";
 import {InventorySlots} from "../../../database/game/models/InventorySlot";
@@ -15,7 +14,7 @@ import {Translations} from "../../../Translations";
  */
 export default class FistHit extends FightPetAction {
 
-	public async applyOutcome(player: Player, feralPet: FeralPet, language: string, interaction: CommandInteraction): Promise<string> {
+	public async applyOutcome(player: Player, feralPet: FeralPet, language: string): Promise<string> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(player.id);
 		if (await player.getCumulativeAttack(playerActiveObjects) > SmallEventConstants.FIGHT_PET.FIST_HIT_ATTACK_NEEDED * feralPet.originalPet.rarity) {
 			const guild = await Guilds.getById(player.guildId);

@@ -1,6 +1,5 @@
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
-import {CommandInteraction} from "discord.js";
 import Player from "../../database/game/models/Player";
 import {FeralPet} from "../../database/game/models/FeralPet";
 
@@ -52,10 +51,9 @@ export abstract class FightPetAction {
 	 * @param player
 	 * @param feralPet
 	 * @param language
-	 * @param interaction
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async applyOutcome(player: Player, feralPet: FeralPet, language: string, interaction: CommandInteraction): Promise<string> {
+	public async applyOutcome(player: Player, feralPet: FeralPet, language: string): Promise<string> {
 		// this function is overridden in the child classes
 		return await Promise.resolve("");
 	}
