@@ -33,7 +33,7 @@ export class MapLocation extends Model {
 	public createdAt!: Date;
 
 	public getEmote(language: string): string {
-		return Translations.getModule("models.maps", language).get("types." + this.type + ".emote");
+		return Translations.getModule("models.maps", language).get(`types.${this.type}.emote`);
 	}
 
 	public getNameWithoutEmote(language: string): string {
@@ -61,14 +61,14 @@ export class MapLocation extends Model {
 			return "";
 		}
 		const tags = await Tags.findTagsFromObject(this.id, "MapLocation");
-		for (let i = 0; i < tags.length; i++) {
-			if (tags[i].textTag === "detA") {
+		for (const tag of tags) {
+			if (tag.textTag === "detA") {
 				return "à";
 			}
-			if (tags[i].textTag === "detAu") {
+			if (tag.textTag === "detAu") {
 				return "au";
 			}
-			if (tags[i].textTag === "detALa") {
+			if (tag.textTag === "detALa") {
 				return "à la";
 			}
 		}

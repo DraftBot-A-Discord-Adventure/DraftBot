@@ -18,7 +18,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			{
 				latency: (reply as Message).createdTimestamp - interaction.createdTimestamp,
 				apiLatency: draftBotInstance.client.ws.ping,
-				shardId: shardId,
+				shardId,
 				totalShards: draftBotInstance.client.shard.count - 1
 			})
 	});

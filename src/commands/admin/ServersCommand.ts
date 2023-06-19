@@ -22,12 +22,12 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		total += humans;
 		result += `${Translations.getModule("bot", language).format("serverList", {
-			count: count,
-			guild: guild,
-			humans: humans,
+			count,
+			guild,
+			humans,
 			robots: bots,
-			ratio: ratio,
-			validation: validation
+			ratio,
+			validation
 		})}\n`;
 	}
 

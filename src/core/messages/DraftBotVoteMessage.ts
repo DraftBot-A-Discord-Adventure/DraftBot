@@ -26,7 +26,7 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 			desc += "1 day";
 		}
 		else {
-			desc += Constants.TOPGG.ROLE_DURATION + " hours";
+			desc += `${Constants.TOPGG.ROLE_DURATION} hours`;
 		}
 		this.setDescription(
 			format(BotConstants.NEW_VOTE, {

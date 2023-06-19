@@ -196,9 +196,9 @@ export class FightView {
 	private async scrollIfNeeded(): Promise<void> {
 		const messages = await this.channel.messages.fetch({limit: 1});
 		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
-			for (let i = 0; i < this.actionMessages.length; ++i) {
-				const content = (await this.channel.messages.fetch(this.actionMessages[i].id)).content;
-				await this.actionMessages[i].edit(content);
+			for (const actionMessage of this.actionMessages) {
+				const content = (await this.channel.messages.fetch(actionMessage.id)).content;
+				await actionMessage.edit(content);
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = null;

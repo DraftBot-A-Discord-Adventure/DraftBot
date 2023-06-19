@@ -262,7 +262,7 @@ export class CommandsManager {
 		}
 		for (const commandFile of commandsFiles) {
 			const commandInfo = (await import(`./${category}/${commandFile}`)).commandInfo as ICommand;
-			if (!commandInfo || !commandInfo.slashCommandBuilder) {
+			if (!commandInfo?.slashCommandBuilder) {
 				console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 				continue;
 			}
@@ -461,7 +461,7 @@ export class CommandsManager {
 		{interaction, tr}: TextInformations,
 		shouldReply: boolean): boolean {
 		if (!player.currentEffectFinished(new Date()) &&
-			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(player.effect) ||
+			(commandInfo.requirements.disallowEffects?.includes(player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(player.effect))) {
 			CommandsManager.effectError(user, tr, interaction, shouldReply).finally(() => null);
 			return true;

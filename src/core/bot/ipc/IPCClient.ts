@@ -26,7 +26,7 @@ export class IPCClient {
 	 */
 	static connectToIPCServer(shardId: number): void {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
+		// @ts-expect-error
 		ipc = new RootIPC.IPCModule();
 		ipc.config.id = `draftbot${shardId}`;
 		ipc.config.retry = 1500;
@@ -81,10 +81,10 @@ export class IPCClient {
 					if (!data.fromCommand && guild && guild.shard) {
 						const channel = guild.channels.cache.get(botConfig.CONSOLE_CHANNEL_ID) as TextChannel;
 						try {
-							channel.send({ content: `Maintenance mode set from web server: ${data.enable}` }).then();
+							channel.send({content: `Maintenance mode set from web server: ${data.enable}`}).then();
 						}
 						catch (err) {
-							channel.send({ content: `Maintenance mode set from web server failed with error:\n\`\`\`${data.enable}\`\`\`` }).then();
+							channel.send({content: `Maintenance mode set from web server failed with error:\n\`\`\`${data.enable}\`\`\``}).then();
 						}
 					}
 				}
@@ -148,6 +148,6 @@ export class IPCClient {
 	 * @param enable
 	 */
 	static ipcSetMaintenance(enable: boolean): void {
-		ipc.of.draftbot.emit("maintenanceCommand", { enable });
+		ipc.of.draftbot.emit("maintenanceCommand", {enable});
 	}
 }

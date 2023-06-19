@@ -34,7 +34,7 @@ export class FightController {
 
 	private readonly overtimeBehavior: FightOvertimeBehavior;
 
-	public constructor(fighters: {fighter1: Fighter, fighter2: Fighter}, fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior }, channel: TextBasedChannel, language: string) {
+	public constructor(fighters: { fighter1: Fighter, fighter2: Fighter }, fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior }, channel: TextBasedChannel, language: string) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
@@ -107,8 +107,8 @@ export class FightController {
 	 */
 	endBugFight(): void {
 		this.state = FightState.BUG;
-		for (let i = 0; i < this.fighters.length; ++i) {
-			this.fighters[i].unblock();
+		for (const fighter of this.fighters) {
+			fighter.unblock();
 		}
 		this._fightView.displayBugFight();
 	}

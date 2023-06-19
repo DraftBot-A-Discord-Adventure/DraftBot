@@ -24,7 +24,7 @@ export async function confirmationCallback(
 	player: Player,
 	msg: DraftBotValidateReactionMessage,
 	tr: TranslationModule,
-	embed : DraftBotEmbed,
+	embed: DraftBotEmbed,
 	emote: string,
 	price: number,
 	anotherMemberOnBoat: Player = null
@@ -92,16 +92,14 @@ export const smallEvent: SmallEvent = {
 		Object.assign(confirmEmbed.data, seEmbed.data);
 
 		confirmEmbed.setDescription(
-			seEmbed.data.description +
+			`${seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
 			format(tr.getRandom("stories"), {
-				priceText: price === 0 ? tr.get("priceFree") : tr.format("priceMoney", { price })
-			}) +
-			"\n\n" +
-			tr.format("confirm", {
+				priceText: price === 0 ? tr.get("priceFree") : tr.format("priceMoney", {price})
+			})}\n\n${tr.format("confirm", {
 				fightPoints: await player.getCumulativeFightPoint(),
 				fightPointsMax: await player.getMaxCumulativeFightPoint()
-			})
+			})}`
 		);
 
 		await confirmEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND, collector));

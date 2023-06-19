@@ -29,7 +29,6 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
-import moment = require("moment");
 import {Maps} from "../../../maps/Maps";
 import {PVEConstants} from "../../../constants/PVEConstants";
 import {MapConstants} from "../../../constants/MapConstants";
@@ -37,6 +36,7 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -358,7 +358,7 @@ export class Player extends Model {
 			level: this.level
 		});
 		for (let i = 0; i < bonuses.length - 1; ++i) {
-			msg += bonuses[i] + "\n";
+			msg += `${bonuses[i]}\n`;
 		}
 		msg += bonuses[bonuses.length - 1];
 		await channel.send({content: msg});
@@ -468,7 +468,7 @@ export class Player extends Model {
 	/**
 	 * Get the travel cost of a player this week
 	 */
-	public async getTravelCostThisWeek() : Promise<number> {
+	public async getTravelCostThisWeek(): Promise<number> {
 		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId);
 		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];
 	}
@@ -744,88 +744,6 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Allow to set the score of a player to a specific value this is only called from addScore
-	 * @param score
-	 * @param channel
-	 * @param language
-	 * @private
-	 */
-	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
-		if (score > 0) {
-			this.score = score;
-		}
-		else {
-			this.score = 0;
-		}
-	}
-
-	/**
-	 * Allow to set the money of a player to a specific value this is only called from addMoney
-	 * @param money
-	 * @private
-	 */
-	private setMoney(money: number): void {
-		if (money > 0) {
-			this.money = money;
-		}
-		else {
-			this.money = 0;
-		}
-	}
-
-	/**
-	 * Add points to the weekly score of the player
-	 * @param weeklyScore
-	 * @private
-	 */
-	private addWeeklyScore(weeklyScore: number): void {
-		this.weeklyScore += weeklyScore;
-		this.setWeeklyScore(this.weeklyScore);
-	}
-
-	/**
-	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
-	 * @param weeklyScore
-	 * @private
-	 */
-	private setWeeklyScore(weeklyScore: number): void {
-		if (weeklyScore > 0) {
-			this.weeklyScore = weeklyScore;
-		}
-		else {
-			this.weeklyScore = 0;
-		}
-	}
-
-	/**
-	 * Set the player health
-	 * @param health
-	 * @param channel
-	 * @param language
-	 * @param missionHealthParameter
-	 */
-	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
-		overHealCountsForMission: true,
-		shouldPokeMission: true
-	}): Promise<void> {
-		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
-			- this.health;
-		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
-			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
-		}
-		if (health < 0) {
-			this.health = 0;
-		}
-		else if (health > await this.getMaxHealth()) {
-			this.health = await this.getMaxHealth();
-		}
-		else {
-			this.health = health;
-		}
-	}
-
-	/**
 <<<<<<< HEAD
 	 * Leave the PVE island if no fight points left
 	 * @param interaction
@@ -834,10 +752,12 @@ export class Player extends Model {
 	public async leavePVEIslandIfNoFightPoints(interaction: CommandInteraction, language: string): Promise<boolean> {
 		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= await this.getMaxCumulativeFightPoint()) {
 			const tr = Translations.getModule("models.players", language);
-			await interaction.channel.send({ embeds: [
-				new DraftBotEmbed().formatAuthor(tr.get("leavePVEIslandTitle"), interaction.user)
-					.setDescription(tr.get("leavePVEIsland"))
-			]});
+			await interaction.channel.send({
+				embeds: [
+					new DraftBotEmbed().formatAuthor(tr.get("leavePVEIslandTitle"), interaction.user)
+						.setDescription(tr.get("leavePVEIsland"))
+				]
+			});
 			await Maps.stopTravel(this);
 			await Maps.startTravel(
 				this,
@@ -984,6 +904,88 @@ export class Player extends Model {
 		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
 		// beware, the date of last league reward is in seconds
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
+	}
+
+	/**
+	 * Allow to set the score of a player to a specific value this is only called from addScore
+	 * @param score
+	 * @param channel
+	 * @param language
+	 * @private
+	 */
+	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
+		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
+		if (score > 0) {
+			this.score = score;
+		}
+		else {
+			this.score = 0;
+		}
+	}
+
+	/**
+	 * Allow to set the money of a player to a specific value this is only called from addMoney
+	 * @param money
+	 * @private
+	 */
+	private setMoney(money: number): void {
+		if (money > 0) {
+			this.money = money;
+		}
+		else {
+			this.money = 0;
+		}
+	}
+
+	/**
+	 * Add points to the weekly score of the player
+	 * @param weeklyScore
+	 * @private
+	 */
+	private addWeeklyScore(weeklyScore: number): void {
+		this.weeklyScore += weeklyScore;
+		this.setWeeklyScore(this.weeklyScore);
+	}
+
+	/**
+	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
+	 * @param weeklyScore
+	 * @private
+	 */
+	private setWeeklyScore(weeklyScore: number): void {
+		if (weeklyScore > 0) {
+			this.weeklyScore = weeklyScore;
+		}
+		else {
+			this.weeklyScore = 0;
+		}
+	}
+
+	/**
+	 * Set the player health
+	 * @param health
+	 * @param channel
+	 * @param language
+	 * @param missionHealthParameter
+	 */
+	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}): Promise<void> {
+		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
+			- this.health;
+		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
+			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
+		}
+		if (health < 0) {
+			this.health = 0;
+		}
+		else if (health > await this.getMaxHealth()) {
+			this.health = await this.getMaxHealth();
+		}
+		else {
+			this.health = health;
+		}
 	}
 }
 

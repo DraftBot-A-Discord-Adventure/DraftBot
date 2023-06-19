@@ -131,7 +131,7 @@ async function sendError(
 	} : {
 		pseudo: (await Players.getOrRegister(user.id))[0].getMention()
 	};
-	const errorTranslationName = isAboutSelectedOpponent ? error + ".indirect" : error + ".direct";
+	const errorTranslationName = `${error}.${isAboutSelectedOpponent ? "in" : ""}direct`;
 	replyingError ?
 		await replyErrorMessage(
 			interaction,
@@ -437,8 +437,8 @@ function getAcceptCallback(
 		await incomingFighter.loadStats(friendly);
 
 		const fightController = new FightController(
-			{ fighter1: askingFighter, fighter2: incomingFighter},
-			{ friendly, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW },
+			{fighter1: askingFighter, fighter2: incomingFighter},
+			{friendly, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW},
 			interaction.channel,
 			fightTranslationModule.language
 		);

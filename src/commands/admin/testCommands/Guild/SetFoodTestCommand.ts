@@ -34,7 +34,7 @@ const setFoodTestCommand = async (language: string, interaction: CommandInteract
 		throw new Error("Erreur sf : vous n'êtes pas dans une guilde !");
 	}
 	if (getFoodIndexOf(args[0]) === -1) {
-		throw new Error("Erreur sf : mauvaise nourriture entrée, nourritures autorisées : " + Constants.PET_FOOD_GUILD_SHOP.TYPE.toString());
+		throw new Error(`Erreur sf : mauvaise nourriture entrée, nourritures autorisées : ${Constants.PET_FOOD_GUILD_SHOP.TYPE.toString()}`);
 	}
 	guild.setDataValue(args[0], args[1]);
 	await guild.save();

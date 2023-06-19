@@ -442,7 +442,7 @@ export abstract class Fighter {
 	getLastFightActionUsed(): FightAction {
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
 		// we have to check that the last action is not a fight alteration
-		if (lastAction && lastAction.isAlteration) {
+		if (lastAction?.isAlteration) {
 			return this.fightActionsHistory[this.fightActionsHistory.length - 2];
 		}
 		return lastAction;
@@ -481,6 +481,13 @@ export abstract class Fighter {
 		});
 	}
 
+	/**
+	 * Get the base stats
+	 */
+	public getBaseStats(): FighterStats {
+		return this.stats;
+	}
+
 	private calculateModifiedStat(base: number, modifiers: FightStatModifier[]): number {
 		let value = base;
 		for (const modifier of modifiers) {
@@ -500,12 +507,5 @@ export abstract class Fighter {
 		}
 
 		return Math.round(value);
-	}
-
-	/**
-	 * Get the base stats
-	 */
-	public getBaseStats(): FighterStats {
-		return this.stats;
 	}
 }

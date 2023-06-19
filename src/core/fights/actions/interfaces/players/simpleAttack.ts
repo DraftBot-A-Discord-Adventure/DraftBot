@@ -1,5 +1,4 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {SimpleDamageFightActionTemplate} from "../../templates/SimpleDamageFightActionTemplate";
 

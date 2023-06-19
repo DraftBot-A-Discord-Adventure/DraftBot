@@ -62,7 +62,7 @@ async function generatePetEmbed(
 		determinant: tr.get(`determinant.${pet.sex}`),
 		determinantShift: tr.get(`determinant.${pet.sex}`).charAt(0)
 			.toUpperCase() + tr.get(`determinant.${pet.sex}`).slice(1),
-		amount: amount,
+		amount,
 		food: food ? `${foodModule.get(`${food}.name`).toLowerCase()} ${Constants.PET_FOOD_GUILD_SHOP.EMOTE[getFoodIndexOf(food)]} ` : "",
 		badge: Constants.BADGES.PET_TAMER,
 		feminine: pet.sex === "f" ? "e" : "",
@@ -140,7 +140,7 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
 	const section: SectionType = Object.assign({}, (petEntity.isFeisty() ? petData.getObject("rarities.feisty") : petData.getObject("rarities.normal")) as SectionType);
 
 	// Filter if already have badge
-	if (player.badges && player.badges.includes(Constants.BADGES.PET_TAMER)) {
+	if (player.badges?.includes(Constants.BADGES.PET_TAMER)) {
 		delete section["badge"];
 	}
 
