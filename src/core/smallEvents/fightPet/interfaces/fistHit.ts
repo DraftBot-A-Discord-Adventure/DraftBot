@@ -7,37 +7,37 @@ import {SmallEventConstants} from "../../../constants/SmallEventConstants";
 import {Guild, Guilds} from "../../../database/game/models/Guild";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {RandomUtils} from "../../../utils/RandomUtils";
-import {Translations} from "../../../Translations";
+import {TranslationModule} from "../../../Translations";
 
 /**
  * The worm will give a random potion but cost a bit of time
  */
 export default class FistHit extends FightPetAction {
 
-	public async applyOutcome(player: Player, feralPet: FeralPet, language: string): Promise<string> {
+	public async applyOutcome(player: Player, feralPet: FeralPet, translationModule: TranslationModule): Promise<string> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(player.id);
 		if (await player.getCumulativeAttack(playerActiveObjects) > SmallEventConstants.FIGHT_PET.FIST_HIT_ATTACK_NEEDED * feralPet.originalPet.rarity) {
 			const guild = await Guilds.getById(player.guildId);
 			if (guild) {
-				return await this.earnGuildPoints(guild, language);
+				return await this.earnGuildPoints(guild, translationModule);
 			}
-			return Translations.getModule("smallEvents.fightPet", language).get("fightPetActions.fistHit.successWithoutGuild");
+			return translationModule.get(`fightPetActions.${this.name}.successWithoutGuild`);
 		}
 		const amount = await this.lowerEnergy(feralPet, player);
-		return Translations.getModule("smallEvents.fightPet", language).format("fightPetActions.fistHit.failure", {amount});
+		return translationModule.format(`fightPetActions.${this.name}.failure`, {amount});
 	}
 
 	/**
 	 * Give guild points to the guild of the player
 	 * @param guild
-	 * @param language
+	 * @param translationModule
 	 * @private
 	 */
-	private async earnGuildPoints(guild: Guild, language: string) : Promise<string> {
+	private async earnGuildPoints(guild: Guild, translationModule: TranslationModule) : Promise<string> {
 		const amount = RandomUtils.draftbotRandom.integer(SmallEventConstants.FIGHT_PET.GUILD_SCORE_REWARDS.SMALL.MIN, SmallEventConstants.FIGHT_PET.GUILD_SCORE_REWARDS.SMALL.MAX);
 		await guild.addScore(amount, NumberChangeReason.SMALL_EVENT);
 		await guild.save();
-		return Translations.getModule("smallEvents.fightPet", language).format("fightPetActions.fistHit.success", {amount});
+		return translationModule.format(`fightPetActions.${this.name}.success`, {amount});
 	}
 
 	/**

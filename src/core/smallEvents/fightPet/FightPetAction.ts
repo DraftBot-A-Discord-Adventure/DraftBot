@@ -1,4 +1,4 @@
-import {Translations} from "../../Translations";
+import {TranslationModule, Translations} from "../../Translations";
 import {Data} from "../../Data";
 import Player from "../../database/game/models/Player";
 import {FeralPet} from "../../database/game/models/FeralPet";
@@ -50,11 +50,7 @@ export abstract class FightPetAction {
 	 * Apply the outcome of the action
 	 * @param player
 	 * @param feralPet
-	 * @param language
+	 * @param translationModule
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async applyOutcome(player: Player, feralPet: FeralPet, language: string): Promise<string> {
-		// this function is overridden in the child classes
-		return await Promise.resolve("");
-	}
+	public abstract applyOutcome(player: Player, feralPet: FeralPet, translationModule: TranslationModule): Promise<string>;
 }
