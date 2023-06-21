@@ -576,7 +576,7 @@ export class CommandsManager {
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
 		// block not allowed commands on pve island but allow commands with permissions (admin, contributors...)
-		if ((Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && !PVEConstants.ALLOWED_COMMANDS.includes(interaction.commandName) && !commandInfo.requirements.userPermission) {
+		if (this.checkCommandDisallowedOnPveIsland(player, interaction, commandInfo)) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -587,6 +587,17 @@ export class CommandsManager {
 
 		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.commandName).then();
 		await commandInfo.executeCommand(interaction, tr.language, player);
+	}
+
+	/**
+	 * Check if a command is disallowed on the pve island
+	 * @param player
+	 * @param interaction
+	 * @param commandInfo
+	 * @private
+	 */
+	private static checkCommandDisallowedOnPveIsland(player: Player, interaction: CommandInteraction, commandInfo: ICommand): boolean {
+		return (Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && !PVEConstants.ALLOWED_COMMANDS.includes(interaction.commandName) && !commandInfo.requirements.userPermission;
 	}
 
 	/**
