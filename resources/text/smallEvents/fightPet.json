@@ -67,6 +67,16 @@
 					"name": "Fuir",
 					"success": "Vous ne réfléchissez pas une seule seconde et partez immédiatement en courant ! L'animal vous poursuit mais vous parvenez à vous en défaire.",
 					"failure": "Vous tentez de prendre la fuite, mais vous êtes rapidement rattrapé par la bête qui vous assène un coup violent avant de vous laisser seul. :cloud_lightning: Énergie perdue : **{amount}**"
+				},
+				"focusEnergy": {
+					"name": "Concentrer son énergie et attaquer",
+					"success": "Vous ralentissez votre respiration et vous sentez votre énergie parcourir vos bras ! Vous libérez cette énergie dans un coup brutal qui fait fuir l'animal !",
+					"failure": "Vous tentez de vous concentrer mais vous être trop fatigué pour cela ! Vous vacillez par terre, mais cela a tout de même comme effet de calmer la bête, qui s'en va."
+				},
+				"intimidate": {
+					"name": "Intimider la créature",
+					"success": "Vous démontrez votre force devant l'animal, qui recule vivement et fuit à vive à l'allure à l'horizon !",
+					"failure": "Vous bombez le torse en face de l'animal, ce qui n'a pour effet que de l'énerver d'autant plus. Dans la colère il rate son attaque, et vous en profitez pour déguerpir rapidement !"
 				}
 			}
 		},
@@ -130,7 +140,9 @@
 	},
 	"fightPetActionEmotes": {
 		"fistHit": "👊",
-		"runAway": "🏃"
+		"runAway": "🏃",
+		"focusEnergy": "⚡",
+		"intimidate": "💪"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"
