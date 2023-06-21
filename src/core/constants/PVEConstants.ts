@@ -42,17 +42,45 @@ export abstract class PVEConstants {
 		}
 	};
 
-	static BLOCKED_COMMANDS = [
-		"dailybonus",
-		"drink",
-		"fight",
-		"leaguebonus",
+	// Allow commands is better than disallowed commands because if there is a new command it will not be allowed by default
+	static ALLOWED_COMMANDS = [
+		"guild",
+		"guildcreate",
+		"guilddescription",
+		"guildelder",
+		"guildelderremove",
+		"guildinvite",
+		"guildkick",
+		"guildleave",
+		"guildshelter",
+		"guildstorage",
+		"missions",
+		"pet",
+		"petfeed",
+		"petfree",
+		"petnickname",
+		"petsell",
+		"pettrade",
+		"pettransfer",
+		"badge",
+		"help",
+		"idea",
+		"inventory",
+		"invite",
+		"map",
+		"notifications",
+		"ping",
+		"prefix",
+		"profile",
+		"rarity",
+		"report",
+		"respawn",
 		"sell",
-		"shop",
-		"missionsshop",
-		"guildbonus",
-		"guildshop",
-		"joinboat"
+		"switch",
+		"top",
+		"update",
+		"vote",
+		"test"
 	];
 
 	/**

@@ -575,8 +575,8 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		// check pve island blocking
-		if ((Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && PVEConstants.BLOCKED_COMMANDS.includes(interaction.commandName)) {
+		// block not allowed commands on pve island but allow commands with permissions (admin, contributors...)
+		if ((Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && !PVEConstants.ALLOWED_COMMANDS.includes(interaction.commandName) && !commandInfo.requirements.userPermission) {
 			await replyErrorMessage(
 				interaction,
 				tr.language,
