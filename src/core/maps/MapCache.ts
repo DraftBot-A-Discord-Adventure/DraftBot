@@ -50,8 +50,8 @@ export abstract class MapCache {
 	 * @param excludeLinkId Exclude this link id from being returned if another one is available
 	 */
 	static randomPveBoatLinkId(excludeLinkId = -1): number {
-		if (MapCache.entryAndExitBoatMapLinks.length === 1) {
-			return MapCache.entryAndExitBoatMapLinks[0];
+		if (MapCache.boatEntryMapLinks.length === 1) {
+			return MapCache.boatEntryMapLinks[0];
 		}
 
 		return RandomUtils.draftbotRandom.pick(MapCache.boatEntryMapLinks.filter((id) => excludeLinkId !== id));
