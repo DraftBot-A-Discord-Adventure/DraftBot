@@ -35,7 +35,11 @@ async function getRandomFightPetActions(player: Player): Promise<FightPetAction[
 		amountOfActions++;
 	}
 
-	const actions: FightPetAction[] = Array.from({length: amountOfActions}, () => FightPetActions.getRandomFightPetAction([]));
+	// get random actions
+	const actions: FightPetAction[] = [];
+	for (let i = 0; i < amountOfActions; ++i) {
+		actions.push(FightPetActions.getRandomFightPetAction(actions));
+	}
 
 	// some pet may give a bonus action (50% chance)
 	const petEntity = await PetEntities.getById(player.petId);
