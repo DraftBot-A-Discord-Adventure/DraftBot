@@ -5,16 +5,14 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {SmallEventConstants} from "../../../constants/SmallEventConstants";
 
 /**
- * Focus energy if the player is high level, this has more chances to succeed
+ * Focus energy if the player has low level of energy, this has more chances to succeed
  */
-export default class Intimidate extends FightPetAction {
+export default class LastEffort extends FightPetAction {
 
-	// eslint-disable-next-line require-await
 	public async applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> {
-		// Chances of success is based on the level of the player and the rarity of the pet
+		// Chances of success is the ratio of remaining energy on total energy minus the rarity of the pet
 		return RandomUtils.draftbotRandom.realZeroToOneInclusive() <=
-			Math.max(
-				Math.min(SmallEventConstants.FIGHT_PET.INTIMIDATE_MAXIMUM_LEVEL, player.level) - feralPet.originalPet.rarity * SmallEventConstants.FIGHT_PET.INTIMIDATE_RARITY_MULTIPLIER, 0
-			) / 100;
+			1 - await player.getCumulativeFightPoint() / await player.getMaxCumulativeFightPoint()
+			- feralPet.originalPet.rarity * SmallEventConstants.FIGHT_PET.ENERGY_BASED_ACTIONS_RARITY_MULTIPLIER;
 	}
 }

@@ -46,6 +46,19 @@ export class Pet extends Model {
 		return this[field as keyof Pet];
 	}
 
+	/**
+	 * Returns true if the pet can eat meat
+	 */
+	public canEatMeat(): boolean {
+		return this.diet === PetEntityConstants.RESTRICTIVES_DIETS.CARNIVOROUS || !this.diet;
+	}
+
+	/**
+	 * Returns true if the pet can eat vegetables
+	 */
+	public canEatVegetables(): boolean {
+		return this.diet === PetEntityConstants.RESTRICTIVES_DIETS.HERBIVOROUS || !this.diet;
+	}
 }
 
 export class Pets {
