@@ -29,7 +29,7 @@
 				"Fier de vous, vous sentez votre rage contre les créatures maléfiques de cette île augmenter.",
 				"Plus personne ne pourra vous arrêter ! Votre rage contre les créatures maléfiques n'est que renforcé par cet évènement."
 			],
-			"rageUpEnd" : " :anger: **Rage ++**",
+			"rageUpEnd": " :anger: **Rage ++**",
 			"nameDisplay": "{emoji} **{petName} {adjective}**",
 			"adjectives": [
 				"faché{feminine?e:}",
@@ -84,77 +84,98 @@
 					"name": "Intimider la créature",
 					"success": "Vous démontrez votre force devant l'animal, qui recule vivement et fuit à vive à l'allure à l'horizon !",
 					"failure": "Vous bombez le torse en face de l'animal, ce qui n'a pour effet que de l'énerver d'autant plus. Dans la colère il rate son attaque, et vous en profitez pour déguerpir rapidement !"
+				},
+				"baitWithMeat": {
+					"name": "Distraire la bête avec de la viande",
+					"success": "Vous sortez un morceau de viande de votre sac et le lancez à l'animal, qui se jette dessus avec avidité. Vous en profitez pour vous enfuir.",
+					"failure": "Vous essayez maladroitement de lancer un morceau de viande vers la bête afin de la distraire. Cependant, avant que vous n'ayez pu initier votre manoeuvre, l'animal se rapproche et vous assène un coup violent avant de vous laisser seul."
+				},
+				"baitWithVegetables": {
+					"name": "Distraire la bête avec un légume",
+					"success": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec intérêt. Cela vous laisse suffisamment de temps pour vous échapper.",
+					"failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. TODO finir"
 				}
 			}
-		},
-		"en": {
-			"intro": [
-				"you run into some dangerous-looking {feralPet}! ",
-				"you encounter a wild {feralPet}. ",
-				"you cross paths with a grumpy {feralPet}, apparently disinclined to let you continue on your way",
-				"you suddenly let out a terrified whimper : a murderous {feralPet} is right in front of you! ",
-				"you are frozen in place upon catching sight of some {feralPet}. ",
-				"a dangerously-approaching dust cloud enters your field of vision... It turns out to be a wildly-running {feralPet}! ",
-				"you notice a mysterious mechanism... Full of curiosity, you choose to activate it. You soon feel deep regret, as a feral {feralPet} appears out of nowhere! ",
-				"you hear a thud. You turn around and catch a glimpse of a bizarre {feralPet}, strongly glaring at you. "
-			],
-			"situation": [
-				"You think the beast cannot be calmed down... You try to keep your cool, and think about an action plant to defeat the animal.",
-				"Completely horrified, you start thinking about various options that could help you overcome this beast.",
-				"You can't not act, you got to do something to save your life...",
-				"Distracted by the two deep-red eyes of the beast, fixating you, you still try to focus on an action plan.",
-				"The animal's fetid breath makes you dizzy. You try and focus...",
-				"You wonder whether it would be better to run away, but end up thinking you could get out of this sticky situation with a good enough action plan.",
-				"You tighten your grasp upon your sword's hilt and, heartened just a little, try to think about what you should do.",
-				"Petrified by extreme fear, you see the animal charge at you, while you try and force your petrified mind to come up with a plan out of this situation.",
-				"Distraught, you try, with great despair, to come up with a solution that would let you keep your life."
-			],
-			"rageUp": [
-
-			],
-			"rageUpEnd" : " :anger: **Rage ++**",
-			"nameDisplay": "{emoji} **{adjective} {petName}**",
-			"adjectives": [
-				"angry",
-				"hungry",
-				"enraged",
-				"furious",
-				"mean",
-				"annoyed",
-				"aggressive",
-				"violent",
-				"hostile",
-				"irritated",
-				"wrathful",
-				"wroth",
-				"wild",
-				"evil",
-				"brutal",
-				"threatening",
-				"barbaric",
-				"atrocious",
-				"rabid",
-				"ruthless",
-				"fighting",
-				"mad",
-				"maleficent",
-				"corrupt",
-				"shady",
-				"crazy",
-				"destructive",
-				"cursed",
-				"machiavellian",
-				"malicious",
-				"fierce"
-			]
 		}
 	},
-	"fightPetActionEmotes": {
-		"fistHit": "👊",
-		"runAway": "🏃",
-		"focusEnergy": "⚡",
-		"intimidate": "💪"
-	},
-	"rarity": 4,
-	"emote": ":pouting_cat:"
+	"en": {
+		"intro": [
+			"you run into some dangerous-looking {feralPet}! ",
+			"you encounter a wild {feralPet}. ",
+			"you cross paths with a grumpy {feralPet}, apparently disinclined to let you continue on your way",
+			"you suddenly let out a terrified whimper : a murderous {feralPet} is right in front of you! ",
+			"you are frozen in place upon catching sight of some {feralPet}. ",
+			"a dangerously-approaching dust cloud enters your field of vision... It turns out to be a wildly-running {feralPet}! ",
+			"you notice a mysterious mechanism... Full of curiosity, you choose to activate it. You soon feel deep regret, as a feral {feralPet} appears out of nowhere! ",
+			"you hear a thud. You turn around and catch a glimpse of a bizarre {feralPet}, strongly glaring at you. "
+		],
+		"situation": [
+			"You think the beast cannot be calmed down... You try to keep your cool, and think about an action plant to defeat the animal.",
+			"Completely horrified, you start thinking about various options that could help you overcome this beast.",
+			"You can't not act, you got to do something to save your life...",
+			"Distracted by the two deep-red eyes of the beast, fixating you, you still try to focus on an action plan.",
+			"The animal's fetid breath makes you dizzy. You try and focus...",
+			"You wonder whether it would be better to run away, but end up thinking you could get out of this sticky situation with a good enough action plan.",
+			"You tighten your grasp upon your sword's hilt and, heartened just a little, try to think about what you should do.",
+			"Petrified by extreme fear, you see the animal charge at you, while you try and force your petrified mind to come up with a plan out of this situation.",
+			"Distraught, you try, with great despair, to come up with a solution that would let you keep your life."
+		],
+		"rageUp": [
+			"Glad that you made it out alive, you feel your rage against the possessed creatures of this island grow",
+			"You feel as strong as ever and your rage against the evil creatures of this island grows.",
+			"Your victory against the beast makes you feel stronger than ever, and your rage against the evil creatures of this island grows.",
+			"Proud of yourself, you feel your rage against the evil creatures of this island grow.",
+			"No one will ever stop you! Your rage against the evil creatures is reinforced with this event."
+		],
+		"rageUpEnd": " :anger: **Rage ++**",
+		"nameDisplay": "{emoji} **{adjective} {petName}**",
+		"adjectives": [
+			"angry",
+			"hungry",
+			"enraged",
+			"furious",
+			"mean",
+			"annoyed",
+			"aggressive",
+			"violent",
+			"hostile",
+			"irritated",
+			"wrathful",
+			"wroth",
+			"wild",
+			"evil",
+			"brutal",
+			"threatening",
+			"barbaric",
+			"atrocious",
+			"rabid",
+			"ruthless",
+			"fighting",
+			"mad",
+			"maleficent",
+			"corrupt",
+			"shady",
+			"crazy",
+			"destructive",
+			"cursed",
+			"machiavellian",
+			"malicious",
+			"fierce"
+		]
+	}
+},
+"fightPetActionEmotes": {
+"fistHit": "👊",
+"runAway": "🏃",
+"focusEnergy": "⚡",
+"intimidate": "💪",
+"baitWithMeat": "🍖",
+"baitWithVegetables": "🥕",
+"doNothing": "🤷",
+"lastEffort": "🔥",
+"protect": "🛡️",
+"usePlayerPet": "🐾"
+},
+"rarity": 4,
+"emote": ":pouting_cat:"
 }
