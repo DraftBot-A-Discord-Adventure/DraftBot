@@ -169,10 +169,9 @@ export const smallEvent: SmallEvent = {
 
 				const outcomeIsSuccess = await selectedFightPetAction.applyOutcome(player, feralPet);
 				const stringToGet = outcomeIsSuccess ? "success" : "failure";
-				const resultString = selectedFightPetAction.getEmoji()
-					+ " "
-					+ tr.get(`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`)
-					+ (outcomeIsSuccess ? " " + tr.getRandom("rageUp") + tr.get("rageUpEnd") : "");
+				const resultString = `${selectedFightPetAction.getEmoji()} ${tr.get(
+					`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`
+				)}${outcomeIsSuccess ? " " + tr.getRandom("rageUp") + tr.get("rageUpEnd") : ""}`;
 				await sendResultMessage(seEmbed, resultString, interaction);
 			});
 
