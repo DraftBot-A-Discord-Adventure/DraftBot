@@ -167,9 +167,12 @@ export const smallEvent: SmallEvent = {
 				const selectedFightPetAction = retrieveSelectedEvent(fightPetEventMessage);
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 
-				const translationModule = Translations.getModule("smallEvents.fightPet", language);
-
-				const resultString = selectedFightPetAction.getEmoji() + " " + await selectedFightPetAction.applyOutcome(player, feralPet, translationModule);
+				const outcomeIsSuccess = await selectedFightPetAction.applyOutcome(player, feralPet);
+				const stringToGet = outcomeIsSuccess ? "success" : "failure";
+				const resultString = selectedFightPetAction.getEmoji()
+					+ " "
+					+ tr.get(`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`)
+					+ (outcomeIsSuccess ? " " + tr.getRandom("rageUp") + tr.get("rageUpEnd") : "");
 				await sendResultMessage(seEmbed, resultString, interaction);
 			});
 
