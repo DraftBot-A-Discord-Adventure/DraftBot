@@ -13,7 +13,7 @@ export default class UsePlayerPet extends FightPetAction {
 	public async applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> {
 		const playerPet = await Pets.getById(player.petId);
 		// chances are higher if the pet is rare
-		return RandomUtils.draftbotRandom.realZeroToOneInclusive() <= (
+		return playerPet && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= (
 			playerPet.rarity * SmallEventConstants.FIGHT_PET.USE_PLAYER_PET_PLAYER_PET_MULTIPLIER - feralPet.originalPet.rarity * SmallEventConstants.FIGHT_PET.USE_PLAYER_PET_FERAL_PET_MULTIPLIER
 		) / 100;
 	}
