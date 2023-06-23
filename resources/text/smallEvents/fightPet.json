@@ -114,6 +114,11 @@
 					"name": "Se protéger",
 					"success": "Vous levez votre bouclier haut devant vous, prêt à encaisser le coup de la bête. Elle se rue sur vous, vous gardez les pieds au sol tant bien que mal et vous finissez par repousser l'assaut. L'animal prend alors la fuite après avoir subit cet échec.",
 					"failure": "Vous mettez votre bouclier devant vous, prêt à encaisser le coup de la bête mais l'assaut s'avère brutal. Votre défense ne tient pas, et vous valsez sur quelques mètres. Persuadé de vous avoir mis hors d'état de nuire, l'animal s'en va au loin."
+				},
+				"playDead": {
+					"name": "Faire le mort",
+					"success": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Après vous observer inerte par terre pendant quelques temps, il s'éloigne et vous laisser tranquille.",
+					"failure": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Il s'approche de vous et vous renifle, et constate que vous ne faites que semblant. Vous déconcertez la créature en vous levant rapidement et vous prenez vos jambes à votre cou, avant de finir mort pour de vrai."
 				}
 			}
 		},
@@ -193,7 +198,8 @@
 		"doNothing": "🤷",
 		"lastEffort": "🔥",
 		"protect": "🛡️",
-		"usePlayerPet": "🐾"
+		"usePlayerPet": "🐾",
+		"playDead": "💀"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"
