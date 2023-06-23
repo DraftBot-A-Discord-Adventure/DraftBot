@@ -744,7 +744,6 @@ export class Player extends Model {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Leave the PVE island if no fight points left
 	 * @param interaction
 	 * @param language
