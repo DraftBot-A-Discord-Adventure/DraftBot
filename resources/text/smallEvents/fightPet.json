@@ -95,6 +95,11 @@
 					"success": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec intérêt. Cela vous laisse suffisamment de temps pour vous échapper.",
 					"failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. Encore plus enragée qu'auparavant, la bête vous surprend d'un assault fulgurant ! Vous n'avez aucun moyen de vous en défaire et vous subissez l'attaque violente de plein fouet."
 				},
+				"provoke": {
+					"name": "Provoquer la bête",
+					"success": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Celui-ci fonce sur vous ! Vous vous écartez au dernier moment et il s'écrase contre un arbre. Vous le finissez d'un coup de pied et reprenez votre route.",
+					"failure": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Il se met à grogner et vous assène un coup violent avant de vous laisser seul."
+				},
 				"doNothing": {
 					"name": "Ne rien faire",
 					"success": "Vous ne bougez pas d'un pouce, et l'animal semble vous ignorer. Vous en profitez pour vous éclipser, ravi d'avoir eu autant de chance.",
@@ -194,6 +199,7 @@
 		"focusEnergy": "⚡",
 		"intimidate": "💪",
 		"baitWithMeat": "🍖",
+		"provoke": "😤",
 		"baitWithVegetables": "🥕",
 		"doNothing": "🤷",
 		"lastEffort": "🔥",

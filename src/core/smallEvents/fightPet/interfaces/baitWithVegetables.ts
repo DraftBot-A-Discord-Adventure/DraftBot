@@ -7,7 +7,7 @@ import {Guilds} from "../../../database/game/models/Guild";
 /**
  *  Bait with meat
  */
-export default class BaitWithMeat extends FightPetAction {
+export default class BaitWithVegetables extends FightPetAction {
 
 	public async applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> {
 		const guild = await Guilds.getById(player.guildId);
