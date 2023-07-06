@@ -71,58 +71,6 @@ export class PlayerFighter extends Fighter {
 		this.block();
 	}
 
-
-	/**
-	 * check the fight action history of a fighter
-	 * @private
-	 * @param fightView The fight view
-	 */
-	private async checkFightActionHistory(fightView: FightView): Promise<void> {
-		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
-		// iterate on each action in the history
-		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {
-				missionId: "fightAttacks",
-				count, params: {attackType: action}
-			});
-		}
-	}
-
-	/**
-	 * manage the mission of a fighter
-	 * @private
-	 * @param fightView
-	 */
-	private async manageMissionsOf(fightView: FightView): Promise<void> {
-		if (!fightView.fightController.friendly) {
-			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
-			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
-			await newPlayer.save();
-		}
-
-		await this.checkFightActionHistory(fightView);
-
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
-
-		const slots = await MissionSlots.getOfPlayer(this.player.id);
-		for (const slot of slots) {
-			if (slot.missionId === "fightStreak") {
-				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
-				const currDay = getDayNumber();
-				if (lastDay === currDay - 1) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
-				}
-				else if (lastDay !== currDay) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, {
-						missionId: "fightStreak",
-						count: 1,
-						set: true
-					});
-				}
-			}
-		}
-	}
-
 	/**
 	 * Function called when the fight ends
 	 * @param fightView
@@ -213,18 +161,6 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * Send the choose action embed message
-	 * @private
-	 * @param fightView
-	 */
-	private async sendChooseActionEmbed(fightView: FightView): Promise<Message> {
-		const chooseActionEmbed = new DraftBotEmbed();
-		chooseActionEmbed.formatAuthor(fightView.fightTranslationModule.format("turnIndicationsTitle", {pseudo: this.getName()}), this.getUser());
-		chooseActionEmbed.setDescription(fightView.fightTranslationModule.get("turnIndicationsDescription"));
-		return await fightView.channel.send({embeds: [chooseActionEmbed]});
-	}
-
-	/**
 	 * Send the embed to choose an action
 	 * @param fightView
 	 */
@@ -257,11 +193,11 @@ export class PlayerFighter extends Fighter {
 				max: 1
 			});
 			collector.on("end", async (reaction) => {
-				const emoji = reaction.first().emoji.name;
-				const selectedAction = Array.from(actions.values()).find((action) => action.getEmoji() === emoji);
+				const emoji = reaction.first()?.emoji.name;
+				const selectedAction = Array.from(actions.values()).find((action) => emoji && action.getEmoji() === emoji);
 				try {
 					await chooseActionEmbedMessage.delete();
-					if (selectedAction === null) {
+					if (!selectedAction) {
 						// USER HASN'T SELECTED AN ACTION
 						this.kill();
 						await fightView.fightController.endFight();
@@ -307,7 +243,70 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Get the members of the guild of the player on the island of the fighter
 	 */
-	public getPveMembersOnIsland(): { attack: number, speed: number}[] {
+	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
 		return this.pveMembers;
+	}
+
+	/**
+	 * check the fight action history of a fighter
+	 * @private
+	 * @param fightView The fight view
+	 */
+	private async checkFightActionHistory(fightView: FightView): Promise<void> {
+		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
+		// iterate on each action in the history
+		for (const [action, count] of playerFightActionsHistory) {
+			await MissionsController.update(this.player, fightView.channel, fightView.language, {
+				missionId: "fightAttacks",
+				count, params: {attackType: action}
+			});
+		}
+	}
+
+	/**
+	 * manage the mission of a fighter
+	 * @private
+	 * @param fightView
+	 */
+	private async manageMissionsOf(fightView: FightView): Promise<void> {
+		if (!fightView.fightController.friendly) {
+			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
+			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
+			await newPlayer.save();
+		}
+
+		await this.checkFightActionHistory(fightView);
+
+		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
+
+		const slots = await MissionSlots.getOfPlayer(this.player.id);
+		for (const slot of slots) {
+			if (slot.missionId === "fightStreak") {
+				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
+				const currDay = getDayNumber();
+				if (lastDay === currDay - 1) {
+					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
+				}
+				else if (lastDay !== currDay) {
+					await MissionsController.update(this.player, fightView.channel, fightView.language, {
+						missionId: "fightStreak",
+						count: 1,
+						set: true
+					});
+				}
+			}
+		}
+	}
+
+	/**
+	 * Send the choose action embed message
+	 * @private
+	 * @param fightView
+	 */
+	private async sendChooseActionEmbed(fightView: FightView): Promise<Message> {
+		const chooseActionEmbed = new DraftBotEmbed();
+		chooseActionEmbed.formatAuthor(fightView.fightTranslationModule.format("turnIndicationsTitle", {pseudo: this.getName()}), this.getUser());
+		chooseActionEmbed.setDescription(fightView.fightTranslationModule.get("turnIndicationsDescription"));
+		return await fightView.channel.send({embeds: [chooseActionEmbed]});
 	}
 }
