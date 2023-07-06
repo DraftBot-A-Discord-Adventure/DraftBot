@@ -173,6 +173,17 @@ export class InventorySlots {
 	static async getPlayerActiveObjects(playerId: number): Promise<PlayerActiveObjects> {
 		return await this.getMainSlotsItems(playerId);
 	}
+
+	static async hasItem(playerId: number, itemId: number, category: number): Promise<boolean> {
+		return await InventorySlot.findOne({
+			rejectOnEmpty: false,
+			where: {
+				playerId,
+				itemId,
+				itemCategory: category
+			}
+		}) !== null;
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {
