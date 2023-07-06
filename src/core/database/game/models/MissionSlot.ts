@@ -49,6 +49,7 @@ export class MissionSlots {
 	static getById(id: number): Promise<MissionSlot> {
 		return Promise.resolve(MissionSlot.findOne(
 			{
+				rejectOnEmpty: true,
 				where: {
 					id
 				}
@@ -70,6 +71,7 @@ export class MissionSlots {
 
 	static async getCampaignOfPlayer(playerId: number): Promise<MissionSlot> {
 		return await MissionSlot.findOne({
+			rejectOnEmpty: false,
 			where: {
 				playerId,
 				expiresAt: null

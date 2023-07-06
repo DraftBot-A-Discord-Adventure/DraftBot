@@ -124,6 +124,11 @@
 					"name": "Faire le mort",
 					"success": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Après vous observer inerte par terre pendant quelques temps, il s'éloigne et vous laisser tranquille.",
 					"failure": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Il s'approche de vous et vous renifle, et constate que vous ne faites que semblant. Vous déconcertez la créature en vous levant rapidement et vous prenez vos jambes à votre cou, avant de finir mort pour de vrai."
+				},
+				"scream": {
+					"name": "Crier",
+					"success": "Vous poussez un cri strident qui fait fuir l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
+					"failure": "Vous poussez un cri strident qui fait fuir l'animal. Cependant, celui-ci revient à la charge et vous assène un coup violent avant de vous laisser seul."
 				}
 			}
 		},
@@ -205,7 +210,8 @@
 		"lastEffort": "🔥",
 		"protect": "🛡️",
 		"usePlayerPet": "🐾",
-		"playDead": "💀"
+		"playDead": "💀",
+		"scream": "😱"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"
