@@ -129,6 +129,16 @@
 					"name": "Crier",
 					"success": "Vous poussez un cri strident qui fait fuir l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
 					"failure": "Vous poussez un cri strident qui fait fuir l'animal. Cependant, celui-ci revient à la charge et vous assène un coup violent avant de vous laisser seul."
+				},
+				"attackLeft": {
+					"name": "Attaquer par la gauche",
+					"success": "Vous vous élancez du côté gauche de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
+					"failure": "Vous vous élancez du côté gauche de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+				},
+				"attackRight": {
+					"name": "Attaquer par la droite",
+					"success": "Vous vous élancez du côté droit de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
+					"failure": "Vous vous élancez du côté droit de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
 				}
 			}
 		},
@@ -211,7 +221,9 @@
 		"protect": "🛡️",
 		"usePlayerPet": "🐾",
 		"playDead": "💀",
-		"scream": "😱"
+		"scream": "😱",
+		"attackLeft": "⬅️",
+		"attackRight": "➡️"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"
