@@ -67,6 +67,10 @@ export abstract class ItemConstants {
 		}
 	};
 
+	static readonly TAGS = {
+		HOLY: "holy"
+	};
+
 	static readonly CATEGORIES = {
 		WEAPON: 0,
 		ARMOR: 1,

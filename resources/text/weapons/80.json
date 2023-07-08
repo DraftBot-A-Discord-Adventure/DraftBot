@@ -8,5 +8,8 @@
 	"rawAttack": 7,
 	"speed": 50,
 	"frenchMasculine": 1,
-	"frenchPlural": 0
+	"frenchPlural": 0,
+	"tags": [
+		"holy"
+	]
 }
