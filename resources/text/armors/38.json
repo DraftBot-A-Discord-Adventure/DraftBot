@@ -7,5 +7,8 @@
 	"rarity": 4,
 	"rawDefense": 7,
 	"frenchMasculine": 0,
-	"frenchPlural": 0
+	"frenchPlural": 0,
+	"tags": [
+		"holy"
+	]
 }

@@ -130,6 +130,11 @@
 					"success": "Vous poussez un cri strident qui fait fuir l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
 					"failure": "Vous poussez un cri strident qui fait fuir l'animal. Cependant, celui-ci revient à la charge et vous assène un coup violent avant de vous laisser seul."
 				},
+				"prayGod": {
+					"name": "Prier Dieu",
+					"success": "Vous priez Dieu de vous venir en aide. Il vous entend et vous protège de l'attaque de l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
+					"failure": "Vous priez Dieu de vous venir en aide. L'animal vous charge et vos mains jointes ne vous protègent pas de son attaque. Vous reprenez votre route, honteux d'avoir pu imaginer que cette stratégie fonctionnerait."
+				},
 				"attackLeft": {
 					"name": "Attaquer par la gauche",
 					"success": "Vous vous élancez du côté gauche de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
@@ -221,9 +226,7 @@
 		"protect": "🛡️",
 		"usePlayerPet": "🐾",
 		"playDead": "💀",
-		"scream": "😱",
-		"attackLeft": "⬅️",
-		"attackRight": "➡️"
+		"scream": "😱"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"
