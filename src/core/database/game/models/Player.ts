@@ -109,6 +109,8 @@ export class Player extends Model {
 
 	public fightCountdown!: number;
 
+	public rage!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -905,6 +907,16 @@ export class Player extends Model {
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 
+	public async addRage(rage: number): Promise<void> {
+		this.rage += rage;
+		await this.save();
+	}
+
+	public async setRage(rage: number): Promise<void> {
+		this.rage = rage;
+		await this.save();
+	}
+
 	/**
 	 * Allow to set the score of a player to a specific value this is only called from addScore
 	 * @param score
@@ -1491,6 +1503,10 @@ export function initModel(sequelize: Sequelize): void {
 		fightCountdown: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
+		},
+		rage: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

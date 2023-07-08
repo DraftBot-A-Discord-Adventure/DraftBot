@@ -10,6 +10,7 @@ import {FightActions} from "./actions/FightActions";
 import {FightWeather} from "./FightWeather";
 import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
+import {PlayerFighter} from "./fighter/PlayerFighter";
 
 /**
  * @class FightController
@@ -34,7 +35,11 @@ export class FightController {
 
 	private readonly overtimeBehavior: FightOvertimeBehavior;
 
-	public constructor(fighters: { fighter1: Fighter, fighter2: Fighter }, fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior }, channel: TextBasedChannel, language: string) {
+	public constructor(
+		fighters: { fighter1: Fighter, fighter2: Fighter },
+		fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior },
+		channel: TextBasedChannel,
+		language: string) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
@@ -178,6 +183,14 @@ export class FightController {
 			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
+		else {
+			await this._fightView.displayFightStatus().catch(
+				(e) => {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+					console.error(e.stack);
+					this.endBugFight();
+				});
+		}
 	}
 
 	/**
@@ -249,9 +262,17 @@ export class FightController {
 
 		this.getPlayingFighter().reduceCounters();
 
+		// Si le joueur combat un monstre et que c'est son 1er tour, alors utilise l'action "exploser sa rage" sans changer de tour
+		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
+			await this.executeFightAction(FightActions.getFightActionById("rageExplosion"), false);
+			if (this.hadEnded()) {
+				return;
+			}
+		}
+
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
-				this.getPlayingFighter().chooseAction(this._fightView);
+				await this.getPlayingFighter().chooseAction(this._fightView);
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
