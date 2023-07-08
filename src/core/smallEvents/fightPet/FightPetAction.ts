@@ -1,4 +1,4 @@
-import {TranslationModule, Translations} from "../../Translations";
+import {Translations} from "../../Translations";
 import {Data} from "../../Data";
 import Player from "../../database/game/models/Player";
 import {FeralPet} from "../../database/game/models/FeralPet";
@@ -9,11 +9,11 @@ import {FeralPet} from "../../database/game/models/FeralPet";
 export abstract class FightPetAction {
 	public readonly name: string;
 
-	private emojiCache: string;
-
 	public tags: string[] = []; // tags for mission completion
 
 	public linkedPetId: number[] = []; // all the pet ids that have this action as one of their actions
+
+	private emojiCache: string;
 
 	protected constructor(name: string) {
 		this.name = name;
