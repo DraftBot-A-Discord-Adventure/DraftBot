@@ -36,8 +36,8 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
-import moment = require("moment");
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -915,13 +915,13 @@ export class Player extends Model {
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 
-	public async addRage(rage: number): Promise<void> {
-		this.rage += rage;
-		await this.save();
+	public async addRage(rage: number, reason: NumberChangeReason): Promise<void> {
+		await this.setRage(this.rage + rage, reason);
 	}
 
-	public async setRage(rage: number): Promise<void> {
+	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {
 		this.rage = rage;
+		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason).then();
 		await this.save();
 	}
 

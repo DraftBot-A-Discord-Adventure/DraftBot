@@ -18,6 +18,7 @@ import {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
 import {FeralPet} from "../database/game/models/FeralPet";
 import {ClassInfoConstants} from "../constants/ClassInfoConstants";
+import {NumberChangeReason} from "../constants/LogsConstants";
 
 /**
  * Returns an object composed of three random witch events
@@ -172,7 +173,7 @@ export const smallEvent: SmallEvent = {
 					`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`
 				)}${outcomeIsSuccess ? ` ${tr.getRandom("rageUp")}${tr.get("rageUpEnd")}` : ""}`;
 				await sendResultMessage(seEmbed, resultString, interaction);
-				await player.addRage(outcomeIsSuccess ? 1 : 0);
+				await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
 			});
 
 
