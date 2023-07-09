@@ -210,7 +210,89 @@
 				"machiavellian",
 				"malicious",
 				"fierce"
-			]
+			],
+			"fightPetActions": {
+				"fistHit": {
+					"name": "Punch",
+					"success": "You strike the animal with a powerful punch! It recoils in surprise. Seizing the opportunity, you flee!",
+					"failure": "You deliver a weak punch to the animal! It recoils in surprise, but it's not enough to get rid of it. You endure a fierce attack before managing to escape!"
+				},
+				"runAway": {
+					"name": "Run away",
+					"success": "Without thinking twice, you immediately start running! The animal chases after you, but you manage to get away.",
+					"failure": "You attempt to flee, but the beast quickly catches up to you and delivers a powerful blow before leaving you alone."
+				},
+				"focusEnergy": {
+					"name": "Focus energy and attack",
+					"success": "You slow down your breathing and feel your energy surging through your arms! You unleash this energy in a brutal strike that makes the animal flee!",
+					"failure": "You try to concentrate, but you're too tired to do so! You stumble to the ground, but it still has the effect of calming the beast, which walks away."
+				},
+				"intimidate": {
+					"name": "Intimidate the creature",
+					"success": "You demonstrate your strength in front of the animal, which quickly retreats and flees into the distance!",
+					"failure": "You puff up your chest in front of the animal, which only serves to make it more angry. In its rage, it misses its attack, and you take the opportunity to quickly flee!"
+				},
+				"baitWithMeat": {
+					"name": "Distract the beast with meat",
+					"success": "You take out a piece of meat from your bag and throw it towards the animal, which eagerly pounces on it. You use this opportunity to escape.",
+					"failure": "You clumsily attempt to throw a piece of meat towards the beast to distract it. However, before you can initiate your maneuver, the animal approaches and delivers a powerful blow before leaving you alone."
+				},
+				"baitWithVegetables": {
+					"name": "Distract the beast with a vegetable",
+					"success": "You take out a vegetable from your bag and throw it towards the animal, which sniffs it with interest. This gives you enough time to escape.",
+					"failure": "You take out a vegetable from your bag and throw it towards the animal, which sniffs it with disgust. Even more enraged than before, the beast surprises you with a swift assault! You have no way to escape and endure the full force of its violent attack."
+				},
+				"provoke": {
+					"name": "Provoke the beast",
+					"success": "You approach the animal and provoke it by making faces. It charges at you! At the last moment, you step aside, and it crashes into a tree. You finish it off with a kick and continue your journey.",
+					"failure": "You approach the animal and provoke it by making faces. It growls and delivers a powerful blow before leaving you alone."
+				},
+				"doNothing": {
+					"name": "Do Nothing",
+					"success": "You don't move a muscle, and the animal seems to ignore you. You take the opportunity to slip away, thrilled to have been so lucky.",
+					"failure": "You don't move a muscle, but the animal isn't fooled and delivers a powerful blow before leaving you alone. You continue your journey, ashamed to have thought this strategy would work."
+				},
+				"lastEffort": {
+					"name": "Use all your strength to attack",
+					"success": "You focus and gather all your strength to attack the animal. You strike it with a powerful blow that makes it flee!",
+					"failure": "You focus and gather all your strength to attack the animal. You strike it with a powerful blow, but it's not enough to make it flee. You endure a fierce counterattack before managing to escape!"
+				},
+				"usePlayerPet": {
+					"name": "Call upon your familiar",
+					"success": "After so many adventures together, it's finally time to call upon your faithful companion for an epic battle. However, the wild animal, surprised by the arrival of your familiar, flees without looking back!",
+					"failure": "In an instant, before you can call any other animal into the battlefield, you find yourself on the ground, knocked out by the wild beast that leaves you alone, not even sparing you a glance."
+				},
+				"protect": {
+					"name": "Protect yourself",
+					"success": "You raise your shield high in front of you, ready to withstand the beast's attack. It charges at you, and you manage to keep your ground and repel the assault. The animal then flees after experiencing this failure.",
+					"failure": "You hold your shield in front of you, ready to withstand the beast's attack, but the assault is brutal. Your defense doesn't hold, and you stumble back several meters. Convinced that it has rendered you helpless, the animal departs into the distance."
+				},
+				"playDead": {
+					"name": "Play dead",
+					"success": "As the animal stares at you, you pretend to fall to the ground and stay motionless. After observing you lying inert for a while, it moves away and leaves you alone.",
+					"failure": "As the animal stares at you, you pretend to fall to the ground and stay motionless. It approaches you, sniffs, and realizes that you're just pretending. You startle the creature by quickly getting up and sprinting away, only to end up truly dead."
+				},
+				"scream": {
+					"name": "Scream",
+					"success": "You let out a shrill scream that scares the animal away. You continue on your journey, relieved to have escaped unharmed.",
+					"failure": "You let out a shrill scream that scares the animal away. However, it returns and delivers a powerful blow before leaving you alone."
+				},
+				"prayGod": {
+					"name": "Pray to God",
+					"success": "You pray to God for help. He hears you and protects you from the animal's attack. You continue on your journey, relieved to have escaped unharmed.",
+					"failure": "You pray to God for help. The animal charges at you, and your clasped hands don't protect you from its attack. You continue on your journey, ashamed to have thought this strategy would work."
+				},
+				"attackLeft": {
+					"name": "Attack from the left",
+					"success": "You rush from the left side of the animal and deliver a powerful blow. Shocked by the pain, the animal flees and leaves you alone.",
+					"failure": "You rush from the left side of the animal and attempt to strike it. However, you fail, and you're within the animal's reach. It violently counterattacks before departing, leaving you lying on the ground."
+				},
+				"attackRight": {
+					"name": "Attack from the right",
+					"success": "You rush from the right side of the animal and deliver a powerful blow. Shocked by the pain, the animal flees and leaves you alone.",
+					"failure": "You rush from the right side of the animal and attempt to strike it. However, you fail, and you're within the animal's reach. It violently counterattacks before departing, leaving you lying on the ground."
+				}
+			}
 		}
 	},
 	"fightPetActionEmotes": {
