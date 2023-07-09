@@ -336,4 +336,9 @@ export abstract class Constants {
 	};
 
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
+
+	static EXCLUDED_TRANSLATION_MODULES = [
+		"classes.",
+		"advices"
+	];
 }
