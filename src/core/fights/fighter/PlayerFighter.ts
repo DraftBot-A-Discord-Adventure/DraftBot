@@ -186,7 +186,11 @@ export class PlayerFighter extends Fighter {
 			}
 		}
 
-		this.sendChooseActionEmbed(fightView).then((chooseActionEmbedMessage) => {
+		this.sendChooseActionEmbed(fightView).then(this.chooseActionCallback(actions, fightView));
+	}
+
+	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): (m: Message) => void {
+		return (chooseActionEmbedMessage) => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
 				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
 				time: FightConstants.TIME_FOR_ACTION_SELECTION,
@@ -216,7 +220,7 @@ export class PlayerFighter extends Fighter {
 			}
 
 			Promise.all(reactions).catch(() => null);
-		});
+		};
 	}
 
 	/**

@@ -52,5 +52,5 @@ export abstract class FightPetAction {
 	 * @param feralPet
 	 * @return true if the action was successful, false otherwise
 	 */
-	public abstract applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean>;
+	public abstract applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> | boolean;
 }

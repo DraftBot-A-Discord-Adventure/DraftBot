@@ -5,14 +5,13 @@ import {SmallEventConstants} from "../../../constants/SmallEventConstants";
 
 export default class AttackRight extends FightPetAction {
 
-	public applyOutcome(player: Player): Promise<boolean> {
+	public applyOutcome(player: Player): boolean {
 		const lastChar = player.discordUserId.charAt(player.discordUserId.length - 1);
-		return Promise.resolve(RandomUtils.draftbotRandom.realZeroToOneInclusive() <
+		return RandomUtils.draftbotRandom.realZeroToOneInclusive() <
 			(
-				lastChar === "0" || lastChar === "2" || lastChar === "4" || lastChar === "6" || lastChar === "8" ?
-					SmallEventConstants.FIGHT_PET.LEFT_RIGHT_WRONG_SIDE_CHANCES
-					: SmallEventConstants.FIGHT_PET.LEFT_RIGHT_GOOD_SIDE_CHANCES
-			)
-		);
+				lastChar !== SmallEventConstants.FIGHT_PET.LAST_DIGIT_LEFT_HANDED
+					? SmallEventConstants.FIGHT_PET.LEFT_RIGHT_GOOD_SIDE_CHANCES
+					: SmallEventConstants.FIGHT_PET.LEFT_RIGHT_WRONG_SIDE_CHANCES
+			);
 	}
 }

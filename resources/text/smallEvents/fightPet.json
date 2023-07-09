@@ -308,7 +308,10 @@
 		"protect": "🛡️",
 		"usePlayerPet": "🐾",
 		"playDead": "💀",
-		"scream": "😱"
+		"scream": "😱",
+		"prayGod": "🙏",
+		"attackLeft": "🤛",
+		"attackRight": "🤜"
 	},
 	"rarity": 4,
 	"emote": ":pouting_cat:"

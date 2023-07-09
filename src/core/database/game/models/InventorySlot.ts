@@ -58,6 +58,9 @@ export class InventorySlot extends Model {
 		return this.itemCategory === ItemConstants.CATEGORIES.OBJECT;
 	}
 
+	/**
+	 * Get the category's name of the item
+	 */
 	getItemCategory(): string {
 		switch (this.itemCategory) {
 		case ItemConstants.CATEGORIES.WEAPON:
@@ -190,6 +193,12 @@ export class InventorySlots {
 		return await this.getMainSlotsItems(playerId);
 	}
 
+	/**
+	 * Checks if a player have a given item in its inventory
+	 * @param playerId
+	 * @param itemId
+	 * @param category
+	 */
 	static async hasItem(playerId: number, itemId: number, category: number): Promise<boolean> {
 		return await InventorySlot.findOne({
 			rejectOnEmpty: false,
