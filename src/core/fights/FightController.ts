@@ -248,7 +248,6 @@ export class FightController {
 			// a player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-
 		await this._fightView.displayFightStatus().catch(
 			(e) => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
@@ -262,7 +261,7 @@ export class FightController {
 
 		this.getPlayingFighter().reduceCounters();
 
-		// Si le joueur combat un monstre et que c'est son 1er tour, alors utilise l'action "exploser sa rage" sans changer de tour
+		// If the player is fighting a monster, and it's his first turn, then use the "rage explosion" action without changing turns
 		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
 			await this.executeFightAction(FightActions.getFightActionById("rageExplosion"), false);
 			if (this.hadEnded()) {
