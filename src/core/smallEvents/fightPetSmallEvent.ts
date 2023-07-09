@@ -17,6 +17,7 @@ import {FightPetAction} from "./fightPet/FightPetAction";
 import {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
 import {FeralPet} from "../database/game/models/FeralPet";
+import {ClassInfoConstants} from "../constants/ClassInfoConstants";
 
 /**
  * Returns an object composed of three random witch events
@@ -31,7 +32,7 @@ async function getRandomFightPetActions(player: Player): Promise<FightPetAction[
 	}
 
 	// some classes get a bonus action
-	if (player.class === Constants.CLASSES.POWERFUL_INFANTRYMAN || player.class === Constants.CLASSES.INFANTRYMAN) {
+	if (player.class in ClassInfoConstants.CLASSES_WITH_BONUS_ACTION) {
 		amountOfActions++;
 	}
 
