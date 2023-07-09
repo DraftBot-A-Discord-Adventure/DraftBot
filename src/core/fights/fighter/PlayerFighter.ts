@@ -190,7 +190,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): (m: Message) => void {
-		return (chooseActionEmbedMessage) => {
+		return (chooseActionEmbedMessage: Message): void => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
 				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
 				time: FightConstants.TIME_FOR_ACTION_SELECTION,
