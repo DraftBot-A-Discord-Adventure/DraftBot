@@ -49,9 +49,9 @@ export const smallEvent: SmallEvent = {
 			}));
 			await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
-				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
+				for (const tag of (seFallen.tags as string[])) {
 					await MissionsController.update(player, interaction.channel, language, {
-						missionId: (seFallen.tags as string[])[i],
+						missionId: tag,
 						params: {tags: seFallen.tags}
 					});
 				}

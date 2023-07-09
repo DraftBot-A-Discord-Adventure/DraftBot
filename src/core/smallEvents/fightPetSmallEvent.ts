@@ -99,7 +99,7 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
 	return {
 		feralName: Translations.getModule("smallEvents.fightPet", language).format("nameDisplay", {
 			emoji: isFemale ? originalPet.emoteFemale : originalPet.emoteMale,
-			adjective: adjective,
+			adjective,
 			petName: originalPet.toString(language, isFemale)
 		}),
 		originalPet,
@@ -111,7 +111,6 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
  * generate an embed with the menu and a short introduction to the witch
  * @param embed
  * @param feralPet
- * @param language
  * @param interaction
  * @param seEmbed
  * @param player
@@ -120,17 +119,16 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
 async function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
 	feralPet: FeralPet,
-	language: string,
 	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
 	player: Player,
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
 	const fightPetActions = await getRandomFightPetActions(player);
-	const fightPetMenu = generateFightPetActionMenu(fightPetActions, embed, language);
-	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+	const fightPetMenu = generateFightPetActionMenu(fightPetActions, embed, tr.language);
+	const intro = Translations.getModule("smallEventsIntros", tr.language).getRandom("intro");
 	const builtEmbed = embed.build();
-	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
+	builtEmbed.formatAuthor(Translations.getModule("commands.report", tr.language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
 		+ intro
@@ -171,13 +169,13 @@ export const smallEvent: SmallEvent = {
 				const stringToGet = outcomeIsSuccess ? "success" : "failure";
 				const resultString = `${selectedFightPetAction.getEmoji()} ${tr.get(
 					`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`
-				)}${outcomeIsSuccess ? " " + tr.getRandom("rageUp") + tr.get("rageUpEnd") : ""}`;
+				)}${outcomeIsSuccess ? ` ${tr.getRandom("rageUp")}${tr.get("rageUpEnd")}` : ""}`;
 				await sendResultMessage(seEmbed, resultString, interaction);
 				await player.addRage(outcomeIsSuccess ? 1 : 0);
 			});
 
 
-		const builtEmbed = await generateInitialEmbed(embed, feralPet, language, interaction, seEmbed, player, tr);
+		const builtEmbed = await generateInitialEmbed(embed, feralPet, interaction, seEmbed, player, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE, collector));
 	}

@@ -9,12 +9,12 @@ import {SmallEventConstants} from "../../../constants/SmallEventConstants";
  */
 export default class Intimidate extends FightPetAction {
 
-	// eslint-disable-next-line require-await
-	public async applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> {
+	public applyOutcome(player: Player, feralPet: FeralPet): boolean {
 		// Chances of success is based on the level of the player and the rarity of the pet
 		return RandomUtils.draftbotRandom.realZeroToOneInclusive() <=
 			Math.max(
-				Math.min(SmallEventConstants.FIGHT_PET.INTIMIDATE_MAXIMUM_LEVEL, player.level) - feralPet.originalPet.rarity * SmallEventConstants.FIGHT_PET.INTIMIDATE_RARITY_MULTIPLIER, 0
+				Math.min(SmallEventConstants.FIGHT_PET.INTIMIDATE_MAXIMUM_LEVEL, player.level)
+				- feralPet.originalPet.rarity * SmallEventConstants.FIGHT_PET.INTIMIDATE_RARITY_MULTIPLIER, 0
 			) / 100;
 	}
 }
