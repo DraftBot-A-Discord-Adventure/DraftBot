@@ -96,6 +96,7 @@ import {LogsGuildsPoints} from "./models/LogsGuildsPoints";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {LogsPveFightsResults} from "./models/LogsPveFightsResults";
 import {LogsPveFightsActionsUsed} from "./models/LogsPveFightsActionsUsed";
+import {LogsPlayersRage} from "./models/LogsPlayersRage";
 
 /**
  * This class is used to log all the changes in the game database
@@ -359,6 +360,16 @@ export class LogsDatabase extends Database {
 	 */
 	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
 		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersScore);
+	}
+
+	/**
+	 * log a player's rage change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
+	public logRageChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersRage);
 	}
 
 	/**
