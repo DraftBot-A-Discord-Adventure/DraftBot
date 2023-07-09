@@ -37,6 +37,7 @@ import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import moment = require("moment");
+import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -473,6 +474,13 @@ export class Player extends Model {
 	public async getTravelCostThisWeek(): Promise<number> {
 		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId);
 		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];
+	}
+
+	/**
+	 * check if the player has a holy class
+	 */
+	public hasHolyClass(): boolean {
+		return this.class in ClassInfoConstants.HOLY_CLASSES;
 	}
 
 	/**

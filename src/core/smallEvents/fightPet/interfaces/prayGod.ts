@@ -15,6 +15,6 @@ export default class PrayGod extends FightPetAction {
 		return Math.random() <
 			SmallEventConstants.FIGHT_PET.PRAYER_CHANCE * feralPet.originalPet.rarity *
 			await InventorySlots.countObjectsOfPlayer(player.id, ItemConstants.TAGS.HOLY)
-			+ SmallEventConstants.FIGHT_PET.HAS_AN_HOLY_ATTACK_CHANCE * (player.class in [14, 15, 16, 21, 22] ? 1 : 0);
+			+ SmallEventConstants.FIGHT_PET.HAS_AN_HOLY_ATTACK_CHANCE * (player.hasHolyClass() ? 1 : 0);
 	}
 }
