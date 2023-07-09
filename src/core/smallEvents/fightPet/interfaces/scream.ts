@@ -7,7 +7,7 @@ import {FeralPet} from "../../../database/game/models/FeralPet";
  */
 export default class Scream extends FightPetAction {
 	public applyOutcome(player: Player, feralPet: FeralPet): boolean {
-		// Réussis 6/10 si le pet est masculin, 4/10 si le pet est féminin
-		return Math.random() > (feralPet.isFemale ? 0.4 : 0.6);
+		// Succeeds 4/10 if the pet is masculine, 6/10 if the pet is feminine
+		return Math.random() < (feralPet.isFemale ? 0.4 : 0.6);
 	}
 }

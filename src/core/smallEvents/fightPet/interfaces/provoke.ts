@@ -10,7 +10,7 @@ import {ItemConstants} from "../../../constants/ItemConstants";
 export default class Provoke extends FightPetAction {
 
 	public async applyOutcome(player: Player, feralPet: FeralPet): Promise<boolean> {
-		// Réussit si le joueur a une attaque supérieure à son niveau fois la rareté de l'animal et si random > niveau /100 OU si le joueur possède l'objet "injures" dans son inventaire
+		// Succeeds if the player has an attack greater than his level times the rarity of the animal and if random > level / 100 OR if the player has the "insults" object in his inventory
 		return await player.getCumulativeAttack(await InventorySlots.getMainSlotsItems(player.id)) >= player.level * feralPet.originalPet.rarity && Math.random() > player.level / 100
 			|| await InventorySlots.hasItem(player.id, 83, ItemConstants.CATEGORIES.WEAPON);
 	}
