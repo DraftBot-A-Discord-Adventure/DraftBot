@@ -673,7 +673,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player cumulative Health
+	 * Get the player cumulative fight points
 	 */
 	public async getCumulativeFightPoint(): Promise<number> {
 		const maxHealth = await this.getMaxCumulativeFightPoint();
@@ -1005,6 +1005,13 @@ export class Player extends Model {
 		else {
 			this.health = health;
 		}
+	}
+
+	/**
+	 * Check if the player has enough energy to join the island
+	 */
+	async hasEnoughEnergyToJoinTheIsland() : Promise<boolean> {
+		return await this.getCumulativeFightPoint() / await this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 }
 
