@@ -16,7 +16,6 @@ import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 
 /**
  * Manage the callback to join the boat
