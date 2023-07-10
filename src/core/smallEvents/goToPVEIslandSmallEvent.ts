@@ -63,7 +63,7 @@ export const smallEvent: SmallEvent = {
 	async canBeExecuted(player: Player): Promise<boolean> {
 		return player.level >= PVEConstants.MIN_LEVEL &&
 			Maps.isNearWater(player) &&
-			await player.getMaxCumulativeFightPoint() - player.fightPointsLost >= 0 &&
+			await player.hasEnoughEnergyToJoinTheIsland() &&
 			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
 			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) < PVEConstants.TRAVEL_COST.length;
 	},
