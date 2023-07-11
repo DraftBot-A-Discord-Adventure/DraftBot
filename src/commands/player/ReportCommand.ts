@@ -662,6 +662,7 @@ async function doPVEBoss(
 		fight.setEndCallback(() => fightCallback(fight));
 		await fight.startFight();
 	});
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 	await msg.react("⚔️");
 }
 
