@@ -648,6 +648,7 @@ async function doPVEBoss(
 		time: PVEConstants.COLLECTOR_TIME,
 		max: 1
 	});
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT, collector);
 	collector.on("end", async () => {
 		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 		await playerFighter.loadStats(true);
@@ -660,9 +661,9 @@ async function doPVEBoss(
 			language
 		);
 		fight.setEndCallback(() => fightCallback(fight));
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 		await fight.startFight();
 	});
-	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.REPORT, collector);
 	await msg.react("⚔️");
 }
 
@@ -689,7 +690,7 @@ async function executeCommand(
 		return;
 	}
 
-	BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
@@ -700,40 +701,39 @@ async function executeCommand(
 	}
 
 	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
+		await interaction.deferReply();
 		if (Maps.isOnPveIsland(player)) {
-			await interaction.deferReply();
 			await doPVEBoss(interaction, language, player);
 		}
 		else {
-			await interaction.deferReply();
 			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
 		}
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
 		await executeSmallEvent(interaction, language, player, forceSmallEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (!player.currentEffectFinished(currentDate)) {
 		await sendTravelPath(player, interaction, language, currentDate, player.effect);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (player.mapLinkId === null) {
 		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (!Maps.isTravelling(player)) {
 		await chooseDestination(player, interaction, language, null, NumberChangeReason.PVE_FIGHT);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	await sendTravelPath(player, interaction, language, currentDate, null);
-	BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);

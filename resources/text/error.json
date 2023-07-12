@@ -87,8 +87,9 @@
 				"witchChoose": "choix d'une action pour la sorcière",
 				"fightPetChoose": "choix d'une action pour le combat de familier",
 				"unlock": "libération de quelqu'un",
-				"reportCommand": "commande {command:report}",
-				"pveIsland": "mini-évent île PVE"
+				"pveIsland": "mini-évent île PVE",
+				"startBossFight": "début d'un combat de boss",
+				"reportCommand": "commande rapport"
 			}
 		},
 		"en": {
@@ -178,8 +179,9 @@
 				"gobletChoose": "choice of a goblet",
 				"witchChoose": "witch event choice",
 				"fightPetChoose": "choice of an action for the pet fight event",
-				"reportCommand": "{command:report} command",
-				"pveIsland": "PVE island small event"
+				"pveIsland": "PVE island small event",
+				"startBossFight": "start of a boss fight",
+				"reportCommand": "report command"
 			}
 		}
 	}
