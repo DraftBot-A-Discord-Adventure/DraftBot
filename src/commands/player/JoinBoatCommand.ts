@@ -36,7 +36,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 
-	if (await player.hasEnoughEnergyToJoinTheIsland()) {
+	if (!await player.hasEnoughEnergyToJoinTheIsland()) {
 		await replyErrorMessage(interaction, language, tr.get("noEnoughEnergy"));
 		return;
 	}
