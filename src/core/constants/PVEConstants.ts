@@ -3,7 +3,7 @@ export abstract class PVEConstants {
 
 	static TRAVEL_COST = [0, 25, 75];
 
-	static COLLECTOR_TIME: 30000;
+	static COLLECTOR_TIME = 30000;
 
 	static FIGHT_POINTS_SMALL_EVENT = {
 		MIN_PERCENT: 0.02,
