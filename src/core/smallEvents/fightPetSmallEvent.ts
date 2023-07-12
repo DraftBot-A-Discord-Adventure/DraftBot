@@ -43,12 +43,6 @@ async function getRandomFightPetActions(player: Player): Promise<FightPetAction[
 		actions.push(FightPetActions.getRandomFightPetAction(actions));
 	}
 
-	// some pet may give a bonus action (50% chance)
-	const petEntity = await PetEntities.getById(player.petId);
-	if (petEntity && RandomUtils.draftbotRandom.bool()) {
-		actions.push(FightPetActions.getRandomFightActionFromPetId(petEntity.petId));
-	}
-
 	return actions;
 }
 
