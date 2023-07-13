@@ -1,5 +1,5 @@
 export abstract class PVEConstants {
-	static readonly TIME_BETWEEN_SMALL_EVENTS = 30 * 1000; // 30 seconds
+	static readonly TIME_BETWEEN_SMALL_EVENTS = 18 * 1000; // 18 seconds
 
 	static TRAVEL_COST = [0, 25, 75];
 
@@ -116,4 +116,10 @@ export abstract class PVEConstants {
 	static GUILD_ATTACK_PROBABILITY = 0.25;
 
 	static MINIMAL_ENERGY_RATIO = 0.8;
+
+	static RAGE_MIN_MULTIPLIER = 1;
+
+	static RAGE_MAX_MULTIPLIER = 7;
+
+	static RAGE_MAX_PROPORTION = 2.7; // if damages by rage * this value > life of the monster, rage is capped
 }
