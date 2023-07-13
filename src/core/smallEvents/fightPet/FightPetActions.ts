@@ -54,16 +54,4 @@ export class FightPetActions {
 		const possibleFightPetActions = Array.from(FightPetActions.fightPetActions.values()).filter((FightPetAction) => !excludedFightPetActions.includes(FightPetAction));
 		return RandomUtils.draftbotRandom.pick(possibleFightPetActions);
 	}
-
-	/**
-	 * Get a random FightPetAction from the id of one of its pets
-	 * @param petId
-	 */
-	static getRandomFightActionFromPetId(petId: number): FightPetAction | undefined {
-		if (!FightPetActions.fightPetActions) {
-			FightPetActions.initFightPetActionsMap();
-		}
-		const possibleFightPetActions = Array.from(FightPetActions.fightPetActions.values()).filter((FightPetAction) => FightPetAction.getPetIds().includes(petId));
-		return RandomUtils.draftbotRandom.pick(possibleFightPetActions);
-	}
 }
