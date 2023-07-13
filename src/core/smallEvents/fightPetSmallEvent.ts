@@ -12,7 +12,6 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Maps} from "../maps/Maps";
 import {FightPetActions} from "./fightPet/FightPetActions";
-import {PetEntities} from "../database/game/models/PetEntity";
 import {FightPetAction} from "./fightPet/FightPetAction";
 import {Pets} from "../database/game/models/Pet";
 import {format} from "../utils/StringFormatter";
@@ -24,7 +23,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
  * Returns an object composed of three random witch events
  * @param player all the information about the player
  */
-async function getRandomFightPetActions(player: Player): Promise<FightPetAction[]> {
+function getRandomFightPetActions(player: Player): FightPetAction[] {
 	let amountOfActions = SmallEventConstants.FIGHT_PET.BASE_ACTION_AMOUNT;
 
 	// higher level players get more actions
@@ -112,15 +111,15 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
  * @param player
  * @param tr
  */
-async function generateInitialEmbed(
+function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
 	feralPet: FeralPet,
 	interaction: CommandInteraction,
 	seEmbed: DraftBotEmbed,
 	player: Player,
 	tr: TranslationModule
-): Promise<DraftBotReactionMessage> {
-	const fightPetActions = await getRandomFightPetActions(player);
+): DraftBotReactionMessage {
+	const fightPetActions = getRandomFightPetActions(player);
 	const fightPetMenu = generateFightPetActionMenu(fightPetActions, embed, tr.language);
 	const intro = Translations.getModule("smallEventsIntros", tr.language).getRandom("intro");
 	const builtEmbed = embed.build();
@@ -171,7 +170,7 @@ export const smallEvent: SmallEvent = {
 			});
 
 
-		const builtEmbed = await generateInitialEmbed(embed, feralPet, interaction, seEmbed, player, tr);
+		const builtEmbed = generateInitialEmbed(embed, feralPet, interaction, seEmbed, player, tr);
 
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE, collector));
 	}
