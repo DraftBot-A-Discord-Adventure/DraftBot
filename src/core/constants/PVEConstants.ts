@@ -1,5 +1,5 @@
 export abstract class PVEConstants {
-	static readonly TIME_BETWEEN_SMALL_EVENTS = 60 * 1000; // 1 minute
+	static readonly TIME_BETWEEN_SMALL_EVENTS = 30 * 1000; // 30 seconds
 
 	static TRAVEL_COST = [0, 25, 75];
 
