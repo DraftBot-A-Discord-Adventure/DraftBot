@@ -634,6 +634,7 @@ async function doPVEBoss(
 				event: `${tr.getRandom("encounterMonster")}`,
 				monsterDisplay: tr.format("encounterMonsterStats", {
 					monsterName: monsterFighter.getName(),
+					level: monsterFighter.level,
 					fightPoints: monsterFighter.getFightPoints(),
 					attack: monsterFighter.getAttack(),
 					defense: monsterFighter.getDefense(),

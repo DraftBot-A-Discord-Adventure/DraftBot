@@ -35,7 +35,7 @@
 			"encounterMonster": [
 				"Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
 			],
-			"encounterMonsterStats": "**{monsterName}**\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
+			"encounterMonsterStats": "**{monsterName}** | Niveau {level}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, récompenses de combat",
 			"monsterRewardsDescription": ":moneybag: Argent gagné : **{money}**\n:star: XP gagné : **{experience}**",
 			"monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{guildPoints}**"
@@ -75,7 +75,7 @@
 			"encounterMonster": [
 				"You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you !"
 			],
-			"encounterMonsterStats": "**{monsterName}**\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
+			"encounterMonsterStats": "**{monsterName}** | Level {level}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, fight rewards",
 			"monsterRewardsDescription": ":moneybag: Money earned: **{money}**\n:star: XP earned: **{experience}**",
 			"monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{guildPoints}**"

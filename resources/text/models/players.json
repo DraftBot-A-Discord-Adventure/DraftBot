@@ -21,7 +21,7 @@
 			"dmDisabledFooter": "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites la commande notification et activez les messages privés dans vos paramètres utilisateurs.",
 			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé).",
 			"leavePVEIslandTitle": "{pseudo}, évanouissement",
-			"leavePVEIsland": "\uD83D\uDE16 Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\nUn bateau vient vous chercher et vous ramène sur une côté du continent principal."
+			"leavePVEIsland": "\uD83D\uDE16 Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal."
 		},
 		"en": {
 			"pseudo": "Player 404",
