@@ -17,7 +17,7 @@ export default class RageExplosion extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 50, maxDamage: 100};
+		return {minDamage: 75, averageDamage: 450, maxDamage: 1000};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
