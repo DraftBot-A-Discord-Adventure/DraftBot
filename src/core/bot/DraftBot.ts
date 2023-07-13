@@ -294,7 +294,7 @@ export class DraftBot {
 			{
 				where: {
 					fightPointsLost: {[Op.not]: 0},
-					mapLinkId: {[Op.notIn]: MapCache.regenFightPointsMapLinks}
+					mapLinkId: {[Op.in]: MapCache.regenFightPointsMapLinks}
 				}
 			}
 		).finally(() => null);
