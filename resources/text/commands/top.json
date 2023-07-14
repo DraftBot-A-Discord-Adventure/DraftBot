@@ -41,7 +41,8 @@
 			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez.",
 			"guilds": {
 				"title": "🏟️ Affichage du top guilde des places {minRank} à {maxRank}",
-				"lowScore": ":x: | **{pseudo}, votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de point !",
+				"lowScore": ":x: | **{pseudo}**, votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de points de guilde !",
+				"noGuild": ":x: | **{pseudo}**, vous n'apparaissez pas dans ce classement puisque vous ne faites pas parti d'une guilde !",
 				"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Votre guilde est actuellement la meilleure sur un total de {totalGuilds} guilde{totalGuilds>1?s:} ! \n(Vous la trouverez à la page {page} / {pageMax})",
 				"endFirstRightPage": " :trophy: Félicitations **{pseudo}** ! Votre guilde est actuellement la meilleure sur un total de {totalGuilds} guilde{totalGuilds>1?s:} !",
 				"endAnyWrongPage": " {badge} **{pseudo}**, votre guilde est actuellement classée **{rank}ème** sur un total de {totalGuilds} guilde{totalGuilds>1?s:} ! \n(Vous la trouverez à la page {page} / {pageMax})",
@@ -92,6 +93,7 @@
 			"guilds": {
 				"title": "🏟️ Display of top guilds {minRank} to {maxRank}",
 				"lowScore": ":x: | **{pseudo}, unfortunately your guild does not appear in the ranking because its score is 0!",
+				"noGuild": ":x: | **{pseudo}**, you do not appear in this ranking because you are not part of a guild!",
 				"endFirstWrongPage": " :trophy: Congratulations **{pseudo}**! Your guild is currently the best out of a total of {totalGuilds} guild{totalGuilds>1?s:}! \n(You'll find it at page {page} / {pageMax})",
 				"endFirstRightPage": " :trophy: Congratulations **{pseudo}**! Your guild is currently the best out of a total of {totalGuilds} guild{totalGuilds>1?s:}!",
 				"endAnyWrongPage": " {badge} **{pseudo}**, your guild is ranked **{rank}** out of a total of {totalGuilds} guild{totalGuilds>1?s:}! \n(You'll find it at page {page} / {pageMax})",
