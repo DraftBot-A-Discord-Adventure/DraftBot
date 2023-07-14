@@ -54,8 +54,11 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 
 	private getRankText(guildRank: number, minRank: number, maxRank: number, totalRanks: number): string {
 		let message;
-		if (guildRank === -1) {
+		if (guildRank === TopConstants.TOP_GUILD_NOT_RANKED_REASON.ZERO_POINTS) {
 			message = "guilds.lowScore";
+		}
+		else if (guildRank === TopConstants.TOP_GUILD_NOT_RANKED_REASON.NO_GUILD) {
+			message = "guilds.noGuild";
 		}
 		else {
 			message = `guilds.end${guildRank === 1 ? "First" : "Any"}${maxRank >= guildRank && guildRank >= minRank ? "Right" : "Wrong"}Page`;
@@ -78,7 +81,7 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 	async getTopData(minRank: number, maxRank: number, totalRanks: number): Promise<TopData> {
 		const rankedGuilds = await Guilds.getRankedGuilds(minRank, maxRank);
 		const playerGuild = await Guilds.getById(this._player.guildId);
-		const playerGuildRank = await playerGuild.getRanking();
+		const playerGuildRank = playerGuild ? await playerGuild.getRanking() : TopConstants.TOP_GUILD_NOT_RANKED_REASON.NO_GUILD;
 
 		return {
 			topElements: this.getTopElements(rankedGuilds),

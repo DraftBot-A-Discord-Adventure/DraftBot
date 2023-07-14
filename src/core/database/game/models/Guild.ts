@@ -13,6 +13,7 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import moment = require("moment");
+import {TopConstants} from "../../../constants/TopConstants";
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -260,7 +261,7 @@ export class Guild extends Model {
 	 */
 	public async getRanking(): Promise<number> {
 		if (this.score === 0) {
-			return -1;
+			return TopConstants.TOP_GUILD_NOT_RANKED_REASON.ZERO_POINTS;
 		}
 
 		const query = `SELECT ranking
