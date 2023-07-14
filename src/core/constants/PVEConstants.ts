@@ -121,5 +121,5 @@ export abstract class PVEConstants {
 
 	static RAGE_MAX_MULTIPLIER = 7;
 
-	static RAGE_MAX_PROPORTION = 2.7; // if damages by rage * this value > life of the monster, rage is capped
+	static RAGE_MAX_PROPORTION = 3.5; // if damages by rage * this value > life of the monster, rage is capped
 }

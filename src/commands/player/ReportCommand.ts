@@ -631,6 +631,8 @@ async function doPVEBoss(
 		content:
 			tr.format("pveEvent", {
 				pseudo: player.getMention(),
+				startTheFightReaction: Constants.REACTIONS.START_FIGHT_REACTION,
+				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION,
 				event: `${tr.getRandom("encounterMonster")}`,
 				monsterDisplay: tr.format("encounterMonsterStats", {
 					monsterName: monsterFighter.getName(),
@@ -645,12 +647,20 @@ async function doPVEBoss(
 	const collector = msg.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) =>
 			user.id === player.discordUserId &&
-			reaction.users.cache.has(draftBotClient.user.id),
+			reaction.users.cache.has(draftBotClient.user.id) || reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION,
 		time: PVEConstants.COLLECTOR_TIME,
 		max: 1
 	});
 	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT, collector);
-	collector.on("end", async () => {
+	collector.on("end", async (reaction) => {
+		if (!reaction || reaction.first().emoji.name !== Constants.REACTIONS.WAIT_A_BIT_REACTION || reaction.first().emoji.name !== Constants.REACTIONS.NOT_REPLIED_REACTION) {
+			await interaction.channel.send(tr.format("noFight", {
+				pseudo: player.getMention(),
+				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION
+			}));
+			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
+			return;
+		}
 		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 		await playerFighter.loadStats(true);
 		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
@@ -665,7 +675,8 @@ async function doPVEBoss(
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 		await fight.startFight();
 	});
-	await msg.react("⚔️");
+	await msg.react(Constants.REACTIONS.START_FIGHT_REACTION);
+	await msg.react(Constants.REACTIONS.WAIT_A_BIT_REACTION);
 }
 
 /**
