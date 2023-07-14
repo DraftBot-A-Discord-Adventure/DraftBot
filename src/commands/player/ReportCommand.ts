@@ -653,7 +653,7 @@ async function doPVEBoss(
 	});
 	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT, collector);
 	collector.on("end", async (reaction) => {
-		if (!reaction || reaction.first().emoji.name !== Constants.REACTIONS.WAIT_A_BIT_REACTION || reaction.first().emoji.name !== Constants.REACTIONS.NOT_REPLIED_REACTION) {
+		if (!reaction || reaction.first().emoji.name in [Constants.REACTIONS.WAIT_A_BIT_REACTION, Constants.REACTIONS.NOT_REPLIED_REACTION]) {
 			await interaction.channel.send(tr.format("noFight", {
 				pseudo: player.getMention(),
 				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION
