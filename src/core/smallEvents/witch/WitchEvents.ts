@@ -14,7 +14,7 @@ export class WitchEvents {
 	 * populate a map will all the witchEvents and their ids
 	 */
 	static initWitchEventsMap(): void {
-		const files = readdirSync("dist/src/core/witch/interfaces");
+		const files = readdirSync("dist/src/core/smallEvents/witch/interfaces");
 		WitchEvents.witchEvents = new Map();
 		for (const file of files) {
 			if (file.endsWith(".js")) {
