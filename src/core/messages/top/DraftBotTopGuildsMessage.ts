@@ -81,7 +81,7 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 	async getTopData(minRank: number, maxRank: number, totalRanks: number): Promise<TopData> {
 		const rankedGuilds = await Guilds.getRankedGuilds(minRank, maxRank);
 		const playerGuild = await Guilds.getById(this._player.guildId);
-		const playerGuildRank = playerGuild ? await playerGuild.getRanking() : TopConstants.TOP_GUILD_NOT_RANKED_REASON.NO_GUILD;
+		const playerGuildRank = await playerGuild?.getRanking() ?? TopConstants.TOP_GUILD_NOT_RANKED_REASON.NO_GUILD;
 
 		return {
 			topElements: this.getTopElements(rankedGuilds),
