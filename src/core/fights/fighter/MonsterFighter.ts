@@ -19,7 +19,9 @@ export class MonsterFighter extends Fighter {
 		const attacks: FightAction[] = [];
 		for (const attack of monsterAttacks) {
 			if (level >= attack.minLevel) {
-				attacks.push(FightActions.getFightActionById(attack.attackId));
+				const monsterAttackToAdd = FightActions.getFightActionById(attack.attackId);
+				monsterAttackToAdd.setWeightForRandomSelection(attack.weight);
+				attacks.push(monsterAttackToAdd);
 			}
 		}
 		super(level, attacks);
@@ -35,7 +37,7 @@ export class MonsterFighter extends Fighter {
 		this.monster = monster;
 	}
 
-	calculateStat(stat: { A: number, B: number, C: number}, level: number, ratio: number): number {
+	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
