@@ -13,23 +13,28 @@
 	"attacks": [
 		{
 			"id": "poisonousAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "webShotAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "stealth",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "simpleAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "familyMealAttack",
-			"minLevel": 50
+			"minLevel": 50,
+			"weight": 1
 		}
 	],
 	"maps": [

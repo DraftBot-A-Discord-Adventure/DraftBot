@@ -13,23 +13,28 @@
 	"attacks": [
 		{
 			"id": "simpleAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "shieldAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "resting",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "cursedAttack",
-			"minLevel": 0
+			"minLevel": 0,
+			"weight": 1
 		},
 		{
 			"id": "summonAttack",
-			"minLevel": 50
+			"minLevel": 50,
+			"weight": 1
 		}
 	],
 	"maps": [

@@ -19,6 +19,8 @@ export abstract class FightAction {
 
 	private breathCostCache: number;
 
+	private weightForRandomSelection: number;
+
 	private typeCache: FightActionType;
 
 	public isAlteration = false;
@@ -60,6 +62,16 @@ export abstract class FightAction {
 			this.emojiCache = Data.getModule(`fightactions.${this.name}`).getString("emote");
 		}
 		return this.emojiCache;
+	}
+
+	/**
+	 * return the weight of the action for random selection
+	 */
+	public getWeightForRandomSelection(): number {
+		if (!this.weightForRandomSelection) {
+			return 0; // should never happen but this
+		}
+		return this.weightForRandomSelection;
 	}
 
 	/**
