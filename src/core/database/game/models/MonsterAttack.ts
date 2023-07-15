@@ -35,7 +35,8 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		weight: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
+			defaultValue: 1
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

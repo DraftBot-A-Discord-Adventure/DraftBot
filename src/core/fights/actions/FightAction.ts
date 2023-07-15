@@ -69,9 +69,18 @@ export abstract class FightAction {
 	 */
 	public getWeightForRandomSelection(): number {
 		if (!this.weightForRandomSelection) {
-			return 0; // should never happen but this
+			return 1; // default weight
 		}
 		return this.weightForRandomSelection;
+	}
+
+
+	/**
+	 * set the weight of the action for random selection
+	 * @param weight
+	 */
+	public setWeightForRandomSelection(weight: number): void {
+		this.weightForRandomSelection = weight;
 	}
 
 	/**
@@ -123,4 +132,5 @@ export abstract class FightAction {
 			damages: damageDealt
 		});
 	}
+
 }

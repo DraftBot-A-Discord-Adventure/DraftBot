@@ -429,11 +429,18 @@ export abstract class Fighter {
 	 */
 	getRandomAvailableFightAction(): FightAction {
 		const attacks = Array.from(this.availableFightActions.values());
-		const availableAttacks = attacks.filter((action) => action.getBreathCost() < this.getBreath()
+		let availableAttacks = attacks.filter((action) => action.getBreathCost() < this.getBreath()
 			|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY);
-		return RandomUtils.draftbotRandom.pick(
-			availableAttacks.length === 0 ? attacks : availableAttacks
-		);
+		availableAttacks = availableAttacks.length === 0 ? attacks : availableAttacks;
+		// each attack has a weight which can be get with the method .getWeightForRandomSelection() of the attack object (default weight is 1)
+		const totalWeight = availableAttacks.reduce((sum, attack) => sum + attack.getWeightForRandomSelection(), 0);
+		let random = RandomUtils.draftbotRandom.realZeroToOneInclusive() * totalWeight;
+		for (const attack of availableAttacks) {
+			random -= attack.getWeightForRandomSelection();
+			if (random <= 0) {
+				return attack;
+			}
+		}
 	}
 
 	/**
