@@ -10,6 +10,8 @@ export class MonsterAttack extends Model {
 
 	public readonly minLevel!: number;
 
+	public readonly weight!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -28,6 +30,10 @@ export function initModel(sequelize: Sequelize): void {
 			allowNull: false
 		},
 		minLevel: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		weight: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},

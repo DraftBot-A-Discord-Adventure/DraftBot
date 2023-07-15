@@ -155,7 +155,8 @@ export class GameDatabase extends Database {
 				monsterAttacks.push({
 					monsterId: fileName,
 					attackId: attack.id,
-					minLevel: attack.minLevel
+					minLevel: attack.minLevel,
+					weight: attack.weight
 				});
 			}
 
