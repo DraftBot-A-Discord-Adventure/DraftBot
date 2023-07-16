@@ -38,6 +38,7 @@ import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import moment = require("moment");
+import {PlayerSmallEvents} from "./PlayerSmallEvent";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -775,7 +776,7 @@ export class Player extends Model {
 				NumberChangeReason.PVE_ISLAND
 			);
 			await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
-
+			await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
 			return true;
 		}
 
