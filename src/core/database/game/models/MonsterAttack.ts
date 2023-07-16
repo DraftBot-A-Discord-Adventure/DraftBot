@@ -1,5 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import * as moment from "moment";
+import {FightConstants} from "../../../constants/FightConstants";
 
 export class MonsterAttack extends Model {
 	public readonly id!: number;
@@ -36,7 +37,7 @@ export function initModel(sequelize: Sequelize): void {
 		weight: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			defaultValue: 1
+			defaultValue: FightConstants.DEFAULT_ACTION_WEIGHT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

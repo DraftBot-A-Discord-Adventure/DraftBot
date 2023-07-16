@@ -5,6 +5,7 @@ import {FightActionType} from "./FightActionType";
 import {format} from "../../utils/StringFormatter";
 import {FightActionStatus} from "./FightActionStatus";
 import {FightWeather} from "../FightWeather";
+import {FightConstants} from "../../constants/FightConstants";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -68,10 +69,7 @@ export abstract class FightAction {
 	 * return the weight of the action for random selection
 	 */
 	public getWeightForRandomSelection(): number {
-		if (!this.weightForRandomSelection) {
-			return 1; // default weight
-		}
-		return this.weightForRandomSelection;
+		return this.weightForRandomSelection ?? FightConstants.DEFAULT_ACTION_WEIGHT;
 	}
 
 

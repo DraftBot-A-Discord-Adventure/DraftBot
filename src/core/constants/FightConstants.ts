@@ -118,4 +118,6 @@ export abstract class FightConstants {
 
 	// added at the end of the fight to the last message
 	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
+
+	static readonly DEFAULT_ACTION_WEIGHT = 1;
 }
