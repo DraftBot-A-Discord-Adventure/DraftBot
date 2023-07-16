@@ -14,22 +14,22 @@
 		{
 			"id": "eruptionAttack",
 			"minLevel": 0,
-			"weight": 1
+			"weight": 2
 		},
 		{
 			"id": "slamAttack",
 			"minLevel": 0,
-			"weight": 1
+			"weight": 5
 		},
 		{
 			"id": "heatDrainAttack",
 			"minLevel": 0,
-			"weight": 1
+			"weight": 3
 		},
 		{
 			"id": "magmaBathAttack",
 			"minLevel": 0,
-			"weight": 1
+			"weight": 4
 		},
 		{
 			"id": "lavaWaveAttack",
