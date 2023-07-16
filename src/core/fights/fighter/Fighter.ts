@@ -441,6 +441,7 @@ export abstract class Fighter {
 			random -= attack.getWeightForRandomSelection();
 			if (random <= 0) {
 				selectedAttack = attack;
+				break;
 			}
 		}
 		return selectedAttack;
