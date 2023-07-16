@@ -117,7 +117,7 @@
 				},
 				"protect": {
 					"name": "Se protéger",
-					"success": "Vous levez votre bouclier haut devant vous, prêt à encaisser le coup de la bête. Elle se rue sur vous, vous gardez les pieds au sol tant bien que mal et vous finissez par repousser l'assaut. L'animal prend alors la fuite après avoir subit cet échec.",
+					"success": "Vous levez votre bouclier haut devant vous, prêt à encaisser le coup de la bête. Elle se rue sur vous, vous gardez les pieds au sol tant bien que mal et vous finissez par repousser l'assaut. L'animal prend alors la fuite après avoir subi cet échec.",
 					"failure": "Vous mettez votre bouclier devant vous, prêt à encaisser le coup de la bête mais l'assaut s'avère brutal. Votre défense ne tient pas, et vous valsez sur quelques mètres. Persuadé de vous avoir mis hors d'état de nuire, l'animal s'en va au loin."
 				},
 				"playDead": {
@@ -144,6 +144,11 @@
 					"name": "Attaquer par la droite",
 					"success": "Vous vous élancez du côté droit de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
 					"failure": "Vous vous élancez du côté droit de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+				},
+				"helpFromMates": {
+					"name": "Faire appel aux membres de votre guilde",
+					"success": "Vous faites appel à vos coéquipiers, qui arrivent rapidement sur les lieux. L'animal, surpris par l'arrivée de ces renforts, prend la fuite sans demander son reste !",
+					"failure": "Vous faites appel à vos coéquipiers, mais ces derniers sont trop loin pour vous entendre. L'animal, rapide, vous assomme avant de repartir au loin."
 				}
 			}
 		},
@@ -291,6 +296,11 @@
 					"name": "Attack from the right",
 					"success": "You rush from the right side of the animal and deliver a powerful blow. Shocked by the pain, the animal flees and leaves you alone.",
 					"failure": "You rush from the right side of the animal and attempt to strike it. However, you fail, and you're within the animal's reach. It violently counterattacks before departing, leaving you lying on the ground."
+				},
+				"helpFromMates": {
+						"name": "Ask your teammates for help",
+						"success": "You call for help, and your teammates come to your rescue. Together, you manage to defeat the animal, which flees into the distance.",
+						"failure": "You call for help, but your teammates are too far away to hear you. You endure the animal's attack before it leaves you alone."
 				}
 			}
 		}
@@ -311,7 +321,8 @@
 		"scream": "😱",
 		"prayGod": "🙏",
 		"attackLeft": "🤛",
-		"attackRight": "🤜"
+		"attackRight": "🤜",
+		"helpFromMates": "🏟️"
 	},
 	"rarity": 8,
 	"emote": ":pouting_cat:"
