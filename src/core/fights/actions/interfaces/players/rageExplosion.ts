@@ -13,7 +13,7 @@ export default class RageExplosion extends FightAction {
 			Math.max(
 				(<PlayerFighter>sender).player.rage / 2,
 				PVEConstants.RAGE_MIN_MULTIPLIER),
-			Math.min(PVEConstants.RAGE_MAX_MULTIPLIER, Math.round(receiver.getFightPoints() / (damages * PVEConstants.RAGE_MAX_PROPORTION)))
+			Math.min(PVEConstants.RAGE_MAX_MULTIPLIER, Math.round(receiver.getMaxFightPoints() / (damages * PVEConstants.RAGE_MAX_PROPORTION)))
 		);
 		(<PlayerFighter>sender).player.setRage(0, NumberChangeReason.RAGE_EXPLOSION_ACTION).then();
 		receiver.damage(damages);

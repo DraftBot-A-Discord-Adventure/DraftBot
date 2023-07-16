@@ -653,7 +653,9 @@ async function doPVEBoss(
 	});
 	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT, collector);
 	collector.on("end", async (reaction) => {
-		if (!reaction || reaction.first().emoji.name in [Constants.REACTIONS.WAIT_A_BIT_REACTION, Constants.REACTIONS.NOT_REPLIED_REACTION]) {
+
+		const firstReaction = reaction.first()?.emoji.name;
+		if (!firstReaction || firstReaction === Constants.REACTIONS.WAIT_A_BIT_REACTION || firstReaction === Constants.REACTIONS.NOT_REPLIED_REACTION) {
 			await interaction.channel.send(tr.format("noFight", {
 				pseudo: player.getMention(),
 				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION
@@ -661,6 +663,7 @@ async function doPVEBoss(
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 			return;
 		}
+
 		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 		await playerFighter.loadStats(true);
 		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
