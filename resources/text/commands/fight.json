@@ -207,7 +207,6 @@
 				"frozen": "Gelé"
 			},
 			"weatherChanges": {
-				"sunny": "Le soleil brille...",
 				"rainy": "Il se met à pleuvoir...",
 				"hail": "Il se met à grêler...",
 				"fog": "Un brouillard épais se lève...",
@@ -223,6 +222,14 @@
 				"firestorm": "Des rochers en fusion tombent du ciel...",
 				"storm": "L'orage fait rage...",
 				"tornado": "Vous sentez le vent tourbillonner autour de vous..."
+			},
+			"weatherEnds": {
+				"rainy": "La pluie s'arrête...",
+				"hail": "La grêle cesse de tomber...",
+				"fog": "Le brouillard se dissipe...",
+				"firestorm": "Le volcan se calme...",
+				"storm": "L'orage s'éloigne...",
+				"tornado": "La tornade se dissipe..."
 			},
 			"weatherDamages": " {fighter} subit la météo ! `Dégâts reçus : {damages}`"
 		},
