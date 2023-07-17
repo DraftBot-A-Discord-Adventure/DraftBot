@@ -32,7 +32,7 @@ export class FightWeather {
 	weatherInitiator: Fighter;
 
 	constructor() {
-		this.setRandomWeather();
+		this.lastWeather = this.currentWeather = FightWeatherEnum.SUNNY;
 	}
 
 	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): string {
@@ -55,9 +55,12 @@ export class FightWeather {
 		default:
 			break;
 		}
-		this.lastWeather = this.currentWeather;
 
-		if (mustSendMessage) {
+		this.lastWeather = this.currentWeather;
+		if (didWeatherChanged && this.currentWeather === FightWeatherEnum.SUNNY) {
+			return this.getWeatherMessage(didWeatherChanged, language);
+		}
+		else if (mustSendMessage) {
 			return this.getWeatherMessage(didWeatherChanged, language)
 				+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
 					fighter: fighter.getName(),
@@ -78,12 +81,11 @@ export class FightWeather {
 		return this.currentWeather.emote;
 	}
 
-	private setRandomWeather(): void {
-		// Défini une météo aléatoire
-		this.setWeather(RandomUtils.draftbotRandom.pick([FightWeatherEnum.SUNNY, FightWeatherEnum.RAINY]), 0, null);
-	}
-
 	private getWeatherMessage(didWeatherChanged: boolean, language: string): string {
-		return Translations.getModule("commands.fight", language).get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${this.currentWeather.name}`);
+		const module = Translations.getModule("commands.fight", language);
+		if (this.currentWeather === FightWeatherEnum.SUNNY && didWeatherChanged) {
+			return module.get(`weatherEnd.${this.lastWeather.name}`);
+		}
+		return module.get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${this.currentWeather.name}`);
 	}
 }
