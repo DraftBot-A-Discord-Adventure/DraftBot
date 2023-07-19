@@ -31,12 +31,12 @@
 			"collectedPointsTitle": "Points récoltés :",
 			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !",
 			"remainingEnergyTitle": "Énergie restante :",
-			"pveEvent": ":newspaper: ** Journal de {pseudo} : ** {event} {monsterDescription}\n\n{monsterDisplay}\n\n{startTheFightReaction} Commencer le combat\n{waitABitReaction} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
+			"pveEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n\n{monsterDisplay}\n\n{startTheFightReaction} Commencer le combat\n{waitABitReaction} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
 			"noFight": ":newspaper: ** Journal de {pseudo} : **{waitABitReaction} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
 			"encounterMonster": [
 				"Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
 			],
-			"encounterMonsterStats": "**{monsterName}** | Niveau {level}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
+			"encounterMonsterStats": "> **{emoji} {monsterName} **| **Niveau {level}**\n> {description}\n\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, récompenses de combat",
 			"monsterRewardsDescription": ":moneybag: Argent gagné : **{money}**\n:star: XP gagné : **{experience}**",
 			"monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{guildPoints}**"
@@ -72,12 +72,12 @@
 			"collectedPointsTitle": "Collected points:",
 			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!",
 			"remainingEnergyTitle": "Remaining energy :",
-			"pveEvent": ":newspaper: ** Journal of {pseudo} : ** {event} {monsterDescription}\n\n{monsterDisplay}\n\n- {startTheFightReaction} Start the fight\n- {waitABitReaction} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
+			"pveEvent": ":newspaper: ** Journal of {pseudo} : ** {event}\n\n{monsterDisplay}\n\n- {startTheFightReaction} Start the fight\n- {waitABitReaction} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
 			"noFight" : ":newspaper: ** Journal of {pseudo} : **{waitABitReaction} | You run away as fast as possible and decide to hide for now... The monster is still ready to fight you when you are ready!",
 			"encounterMonster": [
 				"You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
 			],
-			"encounterMonsterStats": "**{monsterName}** | Level {level}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
+			"encounterMonsterStats": "> **{emoji} {monsterName}** | **Level {level}**\n> {description}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, fight rewards",
 			"monsterRewardsDescription": ":moneybag: Money earned: **{money}**\n:star: XP earned: **{experience}**",
 			"monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{guildPoints}**"
