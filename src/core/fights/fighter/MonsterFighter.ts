@@ -13,6 +13,10 @@ export class MonsterFighter extends Fighter {
 
 	private readonly name: string;
 
+	private readonly description: string;
+
+	private readonly emoji: string;
+
 	public readonly monster: Monster;
 
 	public constructor(level: number, monster: Monster, monsterAttacks: MonsterAttack[], language: string) {
@@ -34,6 +38,8 @@ export class MonsterFighter extends Fighter {
 		this.stats.maxBreath = monster.maxBreath;
 		this.stats.breathRegen = monster.breathRegen;
 		this.name = monster.getName(language);
+		this.description = monster.getDescription(language);
+		this.emoji = monster.getEmoji();
 		this.monster = monster;
 	}
 
@@ -98,4 +104,17 @@ export class MonsterFighter extends Fighter {
 		});
 	}
 
+	/**
+	 * Return the description of the monster
+	 */
+	getDescription(): string {
+		return this.description;
+	}
+
+	/**
+	 * Return the emoji of the monster
+	 */
+	getEmoji(): string {
+		return this.emoji;
+	}
 }

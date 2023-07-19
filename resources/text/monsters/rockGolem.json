@@ -3,6 +3,9 @@
 		"fr": "Golem de roche",
 		"en": "Rock golem"
 	},
+	"emoji": "🗿",
+	"descriptionFr": "Le troll de la forêt est un troll qui vit dans les forêts. Il est très fort et très résistant. Il est aussi très agressif et attaque tout ce qui bouge. Il est très dangereux pour les aventuriers qui s'aventurent dans les forêts.",
+	"descriptionEn": "The forest troll is a troll that lives in forests. It is very strong and very resistant. It is also very aggressive and attacks everything that moves. It is very dangerous for adventurers who venture into the forests.",
 	"fightPointsRatio": 110,
 	"attackRatio": 50,
 	"defenseRatio": 120,

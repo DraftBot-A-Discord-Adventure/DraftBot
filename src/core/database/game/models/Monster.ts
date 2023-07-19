@@ -11,6 +11,12 @@ export class Monster extends Model {
 
 	public readonly en!: string;
 
+	public readonly descriptionFr!: string;
+
+	public readonly descriptionEn!: string;
+
+	private readonly emoji: string;
+
 	public readonly fightPointsRatio!: number;
 
 	public readonly attackRatio!: number;
@@ -53,6 +59,21 @@ export class Monster extends Model {
 			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio)
 		};
 	}
+
+	/**
+	 * Get the description of the monster
+	 * @param language
+	 */
+	getDescription(language: string): string {
+		return language === Constants.LANGUAGE.FRENCH ? this.descriptionFr : this.descriptionEn;
+	}
+
+	/**
+	 * Get the emoji of the monster
+	 */
+	getEmoji() {
+		return this.emoji;
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -70,6 +91,21 @@ export function initModel(sequelize: Sequelize): void {
 		en: {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(64),
+			allowNull: false
+		},
+		descriptionFr: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(512),
+			allowNull: false
+		},
+		descriptionEn: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(512),
+			allowNull: false
+		},
+		emoji: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(10),
 			allowNull: false
 		},
 		fightPointsRatio: {

@@ -3,6 +3,9 @@
 		"fr": "Troll de la forêt",
 		"en": "Forest troll"
 	},
+	"emoji": "🧌",
+	"descriptionFr": "Un grand troll qui vit dans les forêts. Très fort et très résistant, il est aussi très agressif et attaque tout ce qui bouge. Il est très dangereux pour les aventuriers qui s'aventurent dans les forêts.",
+	"descriptionEn": "A big troll that lives in the forests. Very strong and very resistant, it is also very aggressive and attacks everything that moves. It is very dangerous for adventurers who venture into the forests.",
 	"fightPointsRatio": 70,
 	"attackRatio": 60,
 	"defenseRatio": 40,
