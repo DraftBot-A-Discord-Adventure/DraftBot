@@ -556,7 +556,6 @@ async function doPVEBoss(
 	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id);
 	const tr = Translations.getModule("commands.report", language);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + (player.experience + player.startTravelDate.valueOf() / 1000) % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
-	console.log(player.startTravelDate.valueOf() / 1000);
 	const fightCallback = async (fight: FightController): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.monster.getRewards(randomLevel);
@@ -636,6 +635,8 @@ async function doPVEBoss(
 				event: `${tr.getRandom("encounterMonster")}`,
 				monsterDisplay: tr.format("encounterMonsterStats", {
 					monsterName: monsterFighter.getName(),
+					emoji: monsterFighter.getEmoji(),
+					description: monsterFighter.getDescription(),
 					level: monsterFighter.level,
 					fightPoints: monsterFighter.getFightPoints(),
 					attack: monsterFighter.getAttack(),
