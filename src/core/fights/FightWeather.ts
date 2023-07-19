@@ -48,7 +48,7 @@ export class FightWeather {
 			if (this.weatherInitiator === fighter) {
 				break;
 			}
-			damages = Math.round(fighter.getMaxFightPoints() * RandomUtils.randInt(5, 15) / 100);
+			damages = Math.round(fighter.getMaxFightPoints() * RandomUtils.randInt(3, 8) / 100);
 			fighter.damage(damages);
 			mustSendMessage = true;
 			break;
