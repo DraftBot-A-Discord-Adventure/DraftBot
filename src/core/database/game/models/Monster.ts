@@ -71,7 +71,7 @@ export class Monster extends Model {
 	/**
 	 * Get the emoji of the monster
 	 */
-	getEmoji() {
+	getEmoji() :string {
 		return this.emoji;
 	}
 }
