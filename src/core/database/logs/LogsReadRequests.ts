@@ -1,6 +1,6 @@
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
-import {HasOne, Op} from "sequelize";
+import {HasOne, Op, Sequelize} from "sequelize";
 import {ShopItemType} from "../../constants/LogsConstants";
 import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
@@ -15,6 +15,9 @@ import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
 import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
+import Player from "../game/models/Player";
+import {MapCache} from "../../maps/MapCache";
+import {PVEConstants} from "../../constants/PVEConstants";
 
 type RankedFightResult = {
 	won: number,
@@ -52,6 +55,59 @@ export class LogsReadRequests {
 				shopItem: ShopItemType.DAILY_POTION,
 				date: {
 					[Op.gte]: dateOfLastDailyPotionReset
+				}
+			}
+		});
+	}
+
+	/**
+	 * Get all the members of the player's guild on the pve island
+	 */
+	static async getGuildMembersThatWereOnPveIsland(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return Promise.resolve([]);
+		}
+		const playersInGuild = await Player.findAll({
+			where: {
+				guildId: player.guildId,
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		});
+		const ids = playersInGuild.map((player) => player.discordUserId);
+
+		// get travels from the last hours of guildsMembers
+		const travelsInPveIsland = await LogsPlayersTravels.findAll({
+			where: {
+				mapLinkId: {
+					[Op.in]: MapCache.pveIslandMapLinks
+				},
+				date: {
+					[Op.gt]: Math.floor((Date.now() - PVEConstants.MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND * 60 * 1000) / 1000)
+				}
+			},
+			include: [
+				{
+					model: LogsPlayers,
+					where: {
+						discordId: {
+							[Op.in]: ids
+						}
+					},
+					required: true,
+					on: {
+						// Manually define the join condition
+						id: Sequelize.literal("`LogsPlayersTravels`.`playerId` = `Players`.`id`")
+					}
+				}
+			],
+			group: ["playerId"]
+		});
+		return await Player.findAll({
+			where: {
+				discordUserId: {
+					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.playerId)
 				}
 			}
 		});
@@ -104,7 +160,6 @@ export class LogsReadRequests {
 	}
 
 	/**
->>>>>>> develop
 	 * Get the date of the last event id for the player
 	 * @param discordId
 	 * @param eventId
