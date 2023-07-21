@@ -113,7 +113,7 @@ export abstract class PVEConstants {
 
 	static OUT_OF_BREATH_CHOOSE_PROBABILITY = 0.1;
 
-	static GUILD_ATTACK_PROBABILITY = 1;
+	static GUILD_ATTACK_PROBABILITY = 0.25;
 
 	static MINIMAL_ENERGY_RATIO = 0.8;
 
@@ -123,5 +123,5 @@ export abstract class PVEConstants {
 
 	static RAGE_MAX_PROPORTION = 3.5; // if damages by rage * this value > life of the monster, rage is capped
 
-	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 3;
+	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 15;
 }

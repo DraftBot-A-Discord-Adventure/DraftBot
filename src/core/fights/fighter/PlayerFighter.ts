@@ -22,7 +22,6 @@ import {TranslationModule} from "../../Translations";
 import {Maps} from "../../maps/Maps";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
-import {LogsReadRequests} from "../../database/logs/LogsReadRequests";
 
 /**
  * @class PlayerFighter
