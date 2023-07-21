@@ -1,6 +1,6 @@
 import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
-import {HasOne, Op, Sequelize} from "sequelize";
+import {HasOne, Op} from "sequelize";
 import {ShopItemType} from "../../constants/LogsConstants";
 import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
@@ -76,32 +76,27 @@ export class LogsReadRequests {
 			}
 		});
 		const ids = playersInGuild.map((player) => player.discordUserId);
-
+		const logsPlayers = await LogsPlayers.findAll({
+			where: {
+				discordId: {
+					[Op.in]: ids
+				}
+			}
+		});
+		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
 		// get travels from the last hours of guildsMembers
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
 			where: {
 				mapLinkId: {
 					[Op.in]: MapCache.pveIslandMapLinks
 				},
+				playerId: {
+					[Op.in]: logsPlayersIds
+				},
 				date: {
 					[Op.gt]: Math.floor((Date.now() - PVEConstants.MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND * 60 * 1000) / 1000)
 				}
 			},
-			include: [
-				{
-					model: LogsPlayers,
-					where: {
-						discordId: {
-							[Op.in]: ids
-						}
-					},
-					required: true,
-					on: {
-						// Manually define the join condition
-						id: Sequelize.literal("`LogsPlayersTravels`.`playerId` = `Players`.`id`")
-					}
-				}
-			],
 			group: ["playerId"]
 		});
 		return await Player.findAll({

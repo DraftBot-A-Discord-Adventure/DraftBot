@@ -171,7 +171,7 @@ export class PlayerFighter extends Fighter {
 		// Add guild attack if on PVE island and members are here
 		if (Maps.isOnPveIsland(this.player)) {
 			if (!this.pveMembers) {
-				const members = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(this.player);
+				const members = await Maps.getGuildMembersOnPveIsland(this.player);
 				this.pveMembers = [];
 				for (const member of members) {
 					const memberActiveObjects = await InventorySlots.getMainSlotsItems(member.id);
