@@ -10,6 +10,7 @@ import {TravelTime} from "./TravelTime";
 import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "./MapCache";
 import {Op} from "sequelize";
+import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 
 export class Maps {
 
@@ -189,12 +190,13 @@ export class Maps {
 	/**
 	 * Get all the members of the player's guild on the pve island
 	 */
-	static getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
+	static async getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
 		if (!player.guildId) {
 			return Promise.resolve([]);
 		}
 
-		return Player.findAll({
+		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);
+		const membersThatAre = await Player.findAll({
 			where: {
 				guildId: player.guildId,
 				mapLinkId: {
@@ -205,6 +207,7 @@ export class Maps {
 				}
 			}
 		});
+		return [...new Set([...membersThatWere, ...membersThatAre])];
 	}
 
 	/**
