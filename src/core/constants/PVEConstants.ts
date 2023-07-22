@@ -123,5 +123,5 @@ export abstract class PVEConstants {
 
 	static RAGE_MAX_PROPORTION = 3.5; // if damages by rage * this value > life of the monster, rage is capped
 
-	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 15;
+	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 60;
 }
