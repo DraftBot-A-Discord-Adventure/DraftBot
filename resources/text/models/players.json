@@ -9,7 +9,7 @@
 				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande {command:help}.",
 				"classUnlocked": ":bookmark: | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
 				"classTier": ":bookmark: | Classes de palier {tier} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
-				"newMissionSlot": ":scroll: | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:mission}.",
+				"newMissionSlot": ":scroll: | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
 				"pveUnlocked": ":island: | Accès aux îles lointaines débloquées ! Rendez-vous prêt d'un point d'eau pour de nouvelles aventures !",
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
@@ -32,7 +32,7 @@
 				"guildUnlocked": ":stadium: | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and more! For more information about guilds, please use the {command:help} command.",
 				"classUnlocked": ":bookmark: | Class unlocked with the commands {command:classes} and {command:classesinfo}! For more information about guilds, please use the {command:help} command.",
 				"classTier": ":bookmark: | Tier {tier} classes unlocked! For more information about guilds, please use the {command:classesinfo} and {command:help} commands.",
-				"newMissionSlot": ":scroll: | New mission slot unlocked! For more information about your missions, please use the {command:mission} command.",
+				"newMissionSlot": ":scroll: | New mission slot unlocked! For more information about your missions, please use the {command:missions} command.",
 				"pveUnlocked": ":island: | Access to far-away islands unlocked ! Go near a water point for new adventures!",
 				"noBonuses": ":arrow_up: | Stats upgraded."
 			},
