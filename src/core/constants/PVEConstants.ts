@@ -1,7 +1,7 @@
 export abstract class PVEConstants {
 	static readonly TIME_BETWEEN_SMALL_EVENTS = 18 * 1000; // 18 seconds
 
-	static TRAVEL_COST = [0, 25, 75];
+	static TRAVEL_COST = [0, 15, 25];
 
 	static COLLECTOR_TIME = 30000;
 
