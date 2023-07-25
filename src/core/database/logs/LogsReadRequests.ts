@@ -7,7 +7,7 @@ import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {getNextSaturdayMidnight, getNextSundayMidnight} from "../../utils/TimeUtils";
+import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../utils/TimeUtils";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {MapLocations} from "../game/models/MapLocation";
 import {MapConstants} from "../../constants/MapConstants";
@@ -88,21 +88,29 @@ export class LogsReadRequests {
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
 			where: {
 				mapLinkId: {
-					[Op.in]: MapCache.pveIslandMapLinks
+					[Op.in]: MapCache.logsPveIslandMapLinks
 				},
 				playerId: {
 					[Op.in]: logsPlayersIds
 				},
 				date: {
-					[Op.gt]: Math.floor((Date.now() - PVEConstants.MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND * 60 * 1000) / 1000)
+					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(PVEConstants.MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND)) / 1000)
 				}
 			},
-			group: ["playerId"]
-		});
+			group: ["playerId"],
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, {
+					sourceKey: "playerId",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				})
+			}]
+		}) as unknown as { LogsPlayer1: { discordId: string } }[];
 		return await Player.findAll({
 			where: {
 				discordUserId: {
-					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.playerId)
+					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.LogsPlayer1.discordId)
 				}
 			}
 		});
