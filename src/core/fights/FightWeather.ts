@@ -42,15 +42,16 @@ export class FightWeather {
 		let mustSendMessage = didWeatherChanged;
 		switch (this.currentWeather) {
 		case FightWeatherEnum.FIRESTORM:
+			if (this.weatherInitiator === fighter) {
+				break;
+			}
+			mustSendMessage = true;
 			if (turn - this.lastWeatherUpdate >= 8) {
 				this.setWeather(FightWeatherEnum.SUNNY, turn, null);
-			}
-			if (this.weatherInitiator === fighter) {
 				break;
 			}
 			damages = Math.round(fighter.getMaxFightPoints() * RandomUtils.randInt(3, 8) / 100);
 			fighter.damage(damages);
-			mustSendMessage = true;
 			break;
 		default:
 			break;

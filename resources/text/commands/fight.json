@@ -449,13 +449,20 @@
 				"tornado": "A tornado is brewing..."
 			},
 			"weatherContinues": {
-				"sunny": "The sun shines...",
 				"rainy": "It rains...",
 				"hail": "It hails...",
 				"fog": "It's foggy...",
 				"firestorm": "Melting rocks are falling from the sky...",
 				"storm": "The storm is raging...",
 				"tornado": "You feel the wind blowing around you..."
+			},
+			"weatherEnds": {
+				"rainy": "The rain stops...",
+				"hail": "The hail stops to fall...",
+				"fog": "The fog clears up...",
+				"firestorm": "The volcano calms down...",
+				"storm": "The storm moves away...",
+				"tornado": "The tornado stops..."
 			},
 			"weatherDamages": " {fighter} suffers from the weather! `Received damage: {damages}`"
 		}
