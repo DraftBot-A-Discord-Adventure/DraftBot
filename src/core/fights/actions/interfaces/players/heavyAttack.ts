@@ -10,15 +10,15 @@ export default class HeavyAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// this attack will do less damage if the opponent has low defense
-		damageDealt *= receiver.getDefense() < sender.getDefense() / 3 ? 0.1 : 1;
+		// this attack will do less damage if the opponent has lower defense than the attacker
+		damageDealt *= receiver.getDefense() < sender.getDefense() ? 0.1 : 1;
 		damageDealt = Math.round(damageDealt);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		receiver.damage(damageDealt);
 		let sideEffects = "";
 
-		// 50% chance to stun the defender
-		if (Math.random() < 0.5) {
+		// 25% chance to stun the receiver
+		if (Math.random() < 0.25) {
 			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
@@ -45,7 +45,7 @@ export default class HeavyAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 40, averageDamage: 120, maxDamage: 200};
+		return {minDamage: 40, averageDamage: 120, maxDamage: 180};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

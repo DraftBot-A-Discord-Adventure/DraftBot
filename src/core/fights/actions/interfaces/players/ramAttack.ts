@@ -14,8 +14,8 @@ export default class RamAttack extends FightAction {
 
 		let sideEffects = "";
 
-		// 50% chance to stun the defender
-		if (Math.random() < 0.50) {
+		// 70% chance to stun the defender
+		if (Math.random() < 0.70) {
 			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

@@ -31,7 +31,7 @@ export default class ChargingAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 120, maxDamage: 250};
+		return {minDamage: 30, averageDamage: 145, maxDamage: 250};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
