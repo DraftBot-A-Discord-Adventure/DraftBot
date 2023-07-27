@@ -584,8 +584,10 @@ async function doPVEBoss(
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
 					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
+					await guild.addExperience(rewards.guildXp, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
-					desc += tr.format("monsterRewardsGuildPoints", {
+					desc += tr.format("monsterRewardsGuildPointsAndXp", {
+						guildXp: rewards.guildXp,
 						guildPoints: rewards.guildScore
 					});
 				}
