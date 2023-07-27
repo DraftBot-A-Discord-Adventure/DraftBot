@@ -152,6 +152,61 @@ export abstract class GuildDailyConstants {
 			petFood: 30
 		},
 		{
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
+			badge: 10,
+			fullHeal: 10,
+			hospital: 100,
+			partialHeal: 50,
+			alterationHeal: 100,
+			petFood: 30
+		},
+		{
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
+			badge: 10,
+			fullHeal: 10,
+			hospital: 100,
+			partialHeal: 50,
+			alterationHeal: 100,
+			petFood: 30
+		},
+		{
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
+			badge: 10,
+			fullHeal: 10,
+			hospital: 100,
+			partialHeal: 50,
+			alterationHeal: 100,
+			petFood: 30
+		},
+		{
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
+			badge: 10,
+			fullHeal: 10,
+			hospital: 100,
+			partialHeal: 50,
+			alterationHeal: 100,
+			petFood: 30
+		},
+		{
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
+			badge: 10,
+			fullHeal: 10,
+			hospital: 100,
+			partialHeal: 50,
+			alterationHeal: 100,
+			petFood: 30
+		},
+		{
 			personalXP: 250,
 			guildXP: 0,
 			money: 400,
