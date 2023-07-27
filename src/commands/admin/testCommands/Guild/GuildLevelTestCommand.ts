@@ -32,8 +32,8 @@ const guildLevelTestCommand = async (language: string, interaction: CommandInter
 		throw new Error("Erreur glvl : vous n'êtes pas dans une guilde !");
 	}
 	const guildLvl = parseInt(args[0], 10);
-	if (guildLvl <= 0 || guildLvl > 100) {
-		throw new Error("Erreur glvl : niveau de guilde invalide ! Fourchette de niveau compris entre 0 et 100.");
+	if (guildLvl <= 0 || guildLvl > 150) {
+		throw new Error("Erreur glvl : niveau de guilde invalide ! Fourchette de niveau compris entre 0 et 150.");
 	}
 	guild.level = guildLvl;
 	await guild.save();
