@@ -7,10 +7,11 @@
 				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'île :\n**{advice}**."
 			],
 			"advices": [
-				"Vous pouvez faire un mini-évent par minute une fois sur l'île mystérieuse",
+				"Il y a beaucoup plus d'évènements qui vous attendent sur l'île mystérieuse",
+				"Chaque trajet sur l'île mystérieuse est composé d'arrêts plus nombreux",
 				"Si vous combattez des animaux pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
 				"Aller sur l'île en même temps que d'autres membres de votre guilde vous garantit des bonus exclusifs",
-				"Votre énergie ne se régènère pas sur l'île. Vérifiez que vous êtes au maximum avant de vous y aventurer",
+				"Votre énergie ne se régénère pas sur l'île. Vérifiez que vous êtes au maximum avant de vous y aventurer",
 				"Une fois votre énergie à 0, vous serez ramené sur le continent",
 				"Le trajet vers l'île peut être fait qu'une seule fois par semaine gratuitement. Il est possible d'y aller 2 fois de plus, mais il faudra payer des gemmes",
 				"Les monstres de fin de trajet sont très forts, et le dernier de l'île l'est d'autant plus",
@@ -37,7 +38,8 @@
 				"In the joys of a meal in the fresh sea breeze, you chat with the sailors. Your neighbor at the table gives you the following advice about the island:\n**{advice}**."
 			],
 			"advices": [
-					"You can do one small event per minute once on the mysterious island",
+					"You can do one small more ofter once on the mysterious island",
+					"Each trip to the mysterious island is made up of more stops",
 					"If you fight animals during small events, the monster at the end of the journey will be easier to beat",
 					"Going to the island at the same time as other members of your guild guarantees you exclusive bonuses",
 					"Your energy does not regenerate on the island. Make sure you're at maximum before venturing there",
