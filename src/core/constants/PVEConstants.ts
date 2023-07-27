@@ -62,6 +62,7 @@ export abstract class PVEConstants {
 		"petsell",
 		"pettrade",
 		"pettransfer",
+		"classesinfo",
 		"badge",
 		"help",
 		"idea",
@@ -100,10 +101,15 @@ export abstract class PVEConstants {
 			B: 0.9686,
 			C: 106.4
 		},
-		MONEY: {
+		GUILD_XP: {
 			A: 0.1207,
 			B: 0.8671,
 			C: 84
+		},
+		MONEY: {
+			A: 0.1089,
+			B: 0.7454,
+			C: 56
 		},
 		LEVEL_MULTIPLIER: {
 			A: 0.0125,
@@ -119,9 +125,7 @@ export abstract class PVEConstants {
 
 	static RAGE_MIN_MULTIPLIER = 1;
 
-	static RAGE_MAX_MULTIPLIER = 7;
-
-	static RAGE_MAX_PROPORTION = 3.5; // if damages by rage * this value > life of the monster, rage is capped
-
 	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 60;
+
+	static RAGE_MAX_DAMAGE = 250;
 }
