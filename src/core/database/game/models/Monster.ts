@@ -47,7 +47,8 @@ export class Monster extends Model {
 	public getRewards(level: number): {
 		money: number,
 		xp: number,
-		guildScore: number
+		guildScore: number,
+		guildXp: number
 	} {
 		let totalRatio = (this.fightPointsRatio + this.attackRatio + this.defenseRatio + this.speedRatio) / 10.0;
 		totalRatio = RandomUtils.draftbotRandom.real(totalRatio * (1 - PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE), totalRatio * (1 + PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE));
@@ -56,7 +57,9 @@ export class Monster extends Model {
 		return {
 			money: Math.round((PVEConstants.FIGHT_REWARDS.MONEY.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.B * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.C) * rewardMultiplier),
 			xp: Math.round((PVEConstants.FIGHT_REWARDS.XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.XP.C) * rewardMultiplier),
-			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio)
+			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio),
+			guildXp: Math.round((PVEConstants.FIGHT_REWARDS.GUILD_XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.GUILD_XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.GUILD_XP.C)
+				* rewardMultiplier)
 		};
 	}
 
@@ -71,7 +74,7 @@ export class Monster extends Model {
 	/**
 	 * Get the emoji of the monster
 	 */
-	getEmoji() :string {
+	getEmoji(): string {
 		return this.emoji;
 	}
 }
