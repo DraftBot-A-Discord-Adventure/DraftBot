@@ -128,4 +128,6 @@ export abstract class PVEConstants {
 	static MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND = 60;
 
 	static RAGE_MAX_DAMAGE = 250;
+
+	static DAMAGE_INCREASED_DURATION = 7;
 }

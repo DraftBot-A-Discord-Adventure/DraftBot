@@ -27,7 +27,7 @@
 		{
 			"id": "stoneSkinAttack",
 			"minLevel": 0,
-			"weight": 3
+			"weight": 1
 		},
 		{
 			"id": "rockShieldAttack",
