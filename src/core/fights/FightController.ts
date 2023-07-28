@@ -11,6 +11,7 @@ import {FightWeather} from "./FightWeather";
 import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
+import {PVEConstants} from "../constants/PVEConstants";
 
 /**
  * @class FightController
@@ -238,7 +239,7 @@ export class FightController {
 		}
 
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
-			this.increaseDamagesPve();
+			this.increaseDamagesPve(this.turn);
 		}
 
 		if (this.getPlayingFighter().hasFightAlteration()) {
@@ -284,25 +285,27 @@ export class FightController {
 		}
 	}
 
-	private increaseDamagesPve(): void {
+	private increaseDamagesPve(currentTurn: number): void {
 		for (const fighter of this.fighters) {
 			if (fighter instanceof MonsterFighter) {
-				fighter.applyAttackModifier({
-					operation: FightStatModifierOperation.MULTIPLIER,
-					value: 1.2,
-					origin: null
-				});
-				fighter.applyDefenseModifier({
-					operation: FightStatModifierOperation.MULTIPLIER,
-					value: 1.2,
-					origin: null
-				});
-				fighter.applySpeedModifier({
-					operation: FightStatModifierOperation.MULTIPLIER,
-					value: 1.2,
-					origin: null
-				});
-				fighter.applyDamageMultiplier(1.2, Number.MAX_SAFE_INTEGER);
+				if (currentTurn - FightConstants.MAX_TURNS < PVEConstants.DAMAGE_INCREASED_DURATION) {
+					fighter.applyAttackModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+					fighter.applyDefenseModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+					fighter.applySpeedModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+				}
+				fighter.applyDamageMultiplier(1.2, PVEConstants.DAMAGE_INCREASED_DURATION);
 			}
 		}
 	}
