@@ -1663,9 +1663,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.431:
-  version "1.4.475"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.475.tgz#2fee0e2a70cc1538b94f7f90aabcc436e4dcc827"
-  integrity sha512-mTye5u5P98kSJO2n7zYALhpJDmoSQejIGya0iR01GpoRady8eK3bw7YHHnjA1Rfi4ZSLdpuzlAC7Zw+1Zu7Z6A==
+  version "1.4.476"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.476.tgz#693df619ce1785ada6d5aec71fd3ce7ace71adc3"
+  integrity sha512-gzWl1m8pNy+5Kj17XcziNcbOhripjTqR2wAQmtdlFUngPYuFy7zUpJScVQAvCvQSFHNk3mS5fetNKW6BSpytFg==
 
 emittery@^0.12.1:
   version "0.12.1"
@@ -2921,16 +2921,17 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-mariadb@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/mariadb/-/mariadb-3.2.0.tgz#3b971647e5ab9f850939078f6bc0e28d2d7a3667"
-  integrity sha512-IH2nidQat1IBMxP5gjuNxG6dADtz1PESEC6rKrcATen5v3ngFyZITjehyYiwNfz3zUNQupfYmVntz93M+Pz8pQ==
+mariadb@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/mariadb/-/mariadb-3.0.2.tgz#427ae286b8fb35f4046b3457f4df729a5019d6c3"
+  integrity sha512-dVjiQZ6RW0IXFnX+T/ZEmnqs724DgkQsXqfCyInXn0XxVfO2Px6KbS4M3Ny6UiBg0zJ93SHHvfVBgYO4ZnFvvw==
   dependencies:
     "@types/geojson" "^7946.0.10"
     "@types/node" "^17.0.45"
     denque "^2.1.0"
     iconv-lite "^0.6.3"
     lru-cache "^7.14.0"
+    moment-timezone "^0.5.38"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -3013,7 +3014,7 @@ mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-moment-timezone@^0.5.43:
+moment-timezone@^0.5.38, moment-timezone@^0.5.43:
   version "0.5.43"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.43.tgz#3dd7f3d0c67f78c23cd1906b9b2137a09b3c4790"
   integrity sha512-72j3aNyuIsDxdF1i7CEgV2FfxM1r6aaqJyLB2vwb33mXYyoyLly+F1zbWqhA3/bVIoJ4szlUoMbUnVdid32NUQ==
