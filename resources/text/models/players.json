@@ -10,7 +10,7 @@
 				"classUnlocked": ":bookmark: | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
 				"classTier": ":bookmark: | Classes de palier {tier} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
 				"newMissionSlot": ":scroll: | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
-				"pveUnlocked": ":island: | Accès aux îles lointaines débloquées ! Rendez-vous prêt d'un point d'eau pour de nouvelles aventures !",
+				"pveUnlocked": ":island: | Accès aux îles lointaines débloquées ! Rendez-vous près d'un point d'eau pour de nouvelles aventures !",
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
