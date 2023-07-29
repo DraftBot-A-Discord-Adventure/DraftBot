@@ -39,7 +39,8 @@
 			"encounterMonsterStats": "> **{emoji} {monsterName} **| **Niveau {level}**\n> {description}\n\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, récompenses de combat",
 			"monsterRewardsDescription": ":moneybag: Argent gagné : **{money}**\n:star: XP gagnée : **{experience}**",
-			"monsterRewardsGuildPointsAndXp": "\n:star: XP de guilde gagnée: **{guildXp}**\n:mirror_ball: Points de guilde gagnés : **{guildPoints}**"
+			"monsterRewardGuildXp": "\n:star: XP de guilde gagnée: **{guildXp}**",
+			"monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{guildPoints}**"
 		},
 		"en": {
 			"commandName": "report",
@@ -80,7 +81,8 @@
 			"encounterMonsterStats": "> **{emoji} {monsterName}** | **Level {level}**\n> {description}\n⚡ {fightPoints} | \uD83D\uDDE1 {attack} | \uD83D\uDEE1 {defense} | \uD83D\uDE80 {speed}",
 			"monsterRewardsTitle": "{pseudo}, fight rewards",
 			"monsterRewardsDescription": ":moneybag: Money earned: **{money}**\n:star: XP earned: **{experience}**",
-			"monsterRewardsGuildPointsAndXp": "\n:star: Guild XP earned: **{guildXp}**\n:mirror_ball: Guild points earned: **{guildPoints}**"
+			"monsterRewardGuildXp": "\n:star: Guild XP earned: **{guildXp}**",
+			"monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{guildPoints}**"
 		}
 	}
 }

@@ -42,6 +42,7 @@ import {TextInformation} from "../../core/utils/MessageUtils";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {MapCache} from "../../core/maps/MapCache";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Initiates a new player on the map
@@ -586,8 +587,12 @@ async function doPVEBoss(
 					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
 					await guild.addExperience(rewards.guildXp, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
-					desc += tr.format("monsterRewardsGuildPointsAndXp", {
-						guildXp: rewards.guildXp,
+					if (guild.level < GuildConstants.MAX_LEVEL){
+						desc += tr.format("monsterRewardGuildXp", {
+							guildXp: rewards.guildXp
+						});
+					}
+					desc += tr.format("monsterRewardsGuildPoints", {
 						guildPoints: rewards.guildScore
 					});
 				}
