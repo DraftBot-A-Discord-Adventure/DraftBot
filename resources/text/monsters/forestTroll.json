@@ -6,7 +6,7 @@
 	"emoji": "🧌",
 	"descriptionFr": "Un grand troll qui vit dans les forêts. Très fort et très résistant, il est aussi très agressif et attaque tout ce qui bouge. Il est très dangereux pour les aventuriers qui s'aventurent dans les forêts.",
 	"descriptionEn": "A big troll that lives in the forests. Very strong and very resistant, it is also very aggressive and attacks everything that moves. It is very dangerous for adventurers who venture into the forests.",
-	"fightPointsRatio": 90,
+	"fightPointsRatio": 85,
 	"attackRatio": 80,
 	"defenseRatio": 80,
 	"speedRatio": 50,
@@ -37,7 +37,7 @@
 		{
 			"id": "intenseAttack",
 			"minLevel": 50,
-			"weight": 5
+			"weight": 2
 		}
 	],
 	"maps": [
