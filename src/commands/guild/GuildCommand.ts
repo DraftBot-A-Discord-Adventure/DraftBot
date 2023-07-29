@@ -11,6 +11,7 @@ import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {Maps} from "../../core/maps/Maps";
 
 /**
  * Allow to display the info of a guild
@@ -66,7 +67,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				{
 					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
-					score: member.score
+					score: member.score,
+					isOnPveIsland: Maps.isOnPveIsland(member)
 				}
 			);
 		}
@@ -76,7 +78,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				{
 					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
-					score: member.score
+					score: member.score,
+					isOnPveIsland: Maps.isOnPveIsland(member)
 				}
 			);
 		}
@@ -86,7 +89,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				{
 					pseudo: member.getPseudo(language),
 					ranking: await Players.getRankById(member.id),
-					score: member.score
+					score: member.score,
+					isOnPveIsland: Maps.isOnPveIsland(member)
 				}
 			);
 		}
