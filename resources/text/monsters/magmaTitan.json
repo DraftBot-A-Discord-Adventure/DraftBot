@@ -12,7 +12,7 @@
 	"speedRatio": 30,
 	"breath": 25,
 	"maxBreath": 50,
-	"breathRegen": 10,
+	"breathRegen": 6,
 	"attacks": [
 		{
 			"id": "eruptionAttack",
