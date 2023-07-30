@@ -12,6 +12,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Maps} from "../../core/maps/Maps";
+import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Allow to display the info of a guild
@@ -125,10 +126,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	});
 
 	const ranking = await guild.getRanking();
-
+	const pveIslandInfo = player.guildId === guild.id ? guildModule.format("islandInfo", {
+		membersOnPveIsland: (await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player)).length
+	}) : "";
 	embed.addFields({
 		name: guildModule.get("infoTitle"),
-		value: `${guildModule.format("info", {
+		value: `${pveIslandInfo}${guildModule.format("info", {
 			experience: guild.isAtMaxLevel() ? guildModule.get("xpMax") : guildModule.format(
 				"xpNeeded",
 				{
