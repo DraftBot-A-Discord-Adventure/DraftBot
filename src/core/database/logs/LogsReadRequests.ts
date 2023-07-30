@@ -64,9 +64,10 @@ export class LogsReadRequests {
 	 * Get all the members of the player's guild on the pve island
 	 */
 	static async getGuildMembersThatWereOnPveIsland(player: Player): Promise<Player[]> {
-		if (!player.guildId) {
+		if (!player.guildId) { // player has no guild
 			return Promise.resolve([]);
 		}
+		// get all the players in the guild excluding the player
 		const playersInGuild = await Player.findAll({
 			where: {
 				guildId: player.guildId,
@@ -75,7 +76,9 @@ export class LogsReadRequests {
 				}
 			}
 		});
+		// Extract ids from players
 		const ids = playersInGuild.map((player) => player.discordUserId);
+		// Convert the players to logs players
 		const logsPlayers = await LogsPlayers.findAll({
 			where: {
 				discordId: {
@@ -83,6 +86,7 @@ export class LogsReadRequests {
 				}
 			}
 		});
+		// Extract ids from players
 		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
 		// get travels from the last hours of guildsMembers
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
@@ -214,10 +218,10 @@ export class LogsReadRequests {
 			},
 			include: [{
 				model: LogsPlayers,
-				association: new HasOne(LogsPlayersTravels, LogsPlayers, { sourceKey: "playerId", foreignKey: "id" })
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, {sourceKey: "playerId", foreignKey: "id"})
 			}, {
 				model: LogsMapLinks,
-				association: new HasOne(LogsPlayersTravels, LogsMapLinks, { sourceKey: "mapLinkId", foreignKey: "id" })
+				association: new HasOne(LogsPlayersTravels, LogsMapLinks, {sourceKey: "mapLinkId", foreignKey: "id"})
 			}],
 			col: "playerId"
 		});
