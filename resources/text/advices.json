@@ -219,7 +219,11 @@
 				"Vous pouvez trouver dans votre aventure des potions d'énergie qui vous permettent de récupérer votre énergie.",
 				"Si vous perdez un combat pour inactivité, toute votre énergie sera perdue.",
 				"Avez vous remarqué des nouveaux conseils ? C'est parce que nous avons ajouté de nouveaux conseils ! (Si c'était pour une autre raison ça serait inquiétant)",
-				"On raconte qu'il y a des îles hostiles et quasi inexplorées par-delà les mers"
+				"On raconte qu'il y a des îles hostiles et quasi inexplorées par-delà les mers",
+				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse.",
+				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}.",
+				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse.",
+				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti."
 			]
 		},
 		"en": {
@@ -429,7 +433,11 @@
 				"You can find energy potions in your adventure that allow you to recover your energy.",
 				"If you lose a battle due to inactivity, all of your energy will be lost.",
 				"Have you noticed that there are new advices? It's because we are adding new ones regularly!",
-				"It is said that there are hostile, virtually unexplored islands beyond the seas."
+				"It is said that there are hostile, virtually unexplored islands beyond the seas.",
+				"Members of your guild can help you fight monsters when you visit a mysterious island.",
+				"You can see guild members who are on a mysterious island using the {command:guild} command.",
+				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island.",
+				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it."
 			]
 		}
 	}
