@@ -12,7 +12,6 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Maps} from "../../core/maps/Maps";
-import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 
 /**
  * Allow to display the info of a guild
