@@ -10,7 +10,7 @@
 	"attackRatio": 70,
 	"defenseRatio": 70,
 	"speedRatio": 60,
-	"breath": 12,
+	"breath": 3,
 	"maxBreath": 20,
 	"breathRegen": 5,
 	"attacks": [

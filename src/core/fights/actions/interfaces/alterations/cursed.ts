@@ -15,7 +15,7 @@ export default class PoisonedAlteration extends FightAlteration {
 			victim.removeAlteration();
 			let damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim, this.getAttackInfo(), true);
 			damageDealt += MathUtils.getIntervalValue(0, damageDealt * 2, (victim.alterationTurn - 2) / 3);
-			damageDealt += MathUtils.getIntervalValue(0, damageDealt, turn / FightConstants.MAX_TURNS);
+			damageDealt += MathUtils.getIntervalValue(0, damageDealt, Math.min(turn, FightConstants.MAX_TURNS) / FightConstants.MAX_TURNS);
 			damageDealt = Math.round(damageDealt);
 			victim.damage(damageDealt);
 			return curseTranslationModule.format("heal", {damages: damageDealt});

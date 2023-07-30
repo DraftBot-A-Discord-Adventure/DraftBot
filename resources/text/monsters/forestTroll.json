@@ -8,9 +8,9 @@
 	"descriptionEn": "A big troll that lives in the forests. Very strong and very resistant, it is also very aggressive and attacks everything that moves. It is very dangerous for adventurers who venture into the forests.",
 	"fightPointsRatio": 85,
 	"attackRatio": 80,
-	"defenseRatio": 80,
-	"speedRatio": 50,
-	"breath": 10,
+	"defenseRatio": 60,
+	"speedRatio": 45,
+	"breath": 8,
 	"maxBreath": 15,
 	"breathRegen": 4,
 	"attacks": [
