@@ -31,13 +31,13 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", interaction.user)
 		.addFields({
-			name: travelling ? "Next map" : "Current map",
-			value: currMap.getDisplayName(language) + " (id: " + currMap.id + ")",
+			name: "Previous map",
+			value: prevMap ? `${prevMap.getDisplayName(language)} (id: ${prevMap.id})` : "None",
 			inline: true
 		})
 		.addFields({
-			name: "Previous map",
-			value: prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None",
+			name: travelling ? "Next map" : "Current map",
+			value: `${currMap.getDisplayName(language)} (id: ${currMap.id})`,
 			inline: true
 		})
 		.setColor(Constants.TEST_EMBED_COLOR.SUCCESSFUL);
@@ -45,16 +45,16 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 	if (!travelling) {
 		const availableMaps = await Maps.getNextPlayerAvailableMaps(player);
 		let field = "";
-		for (let i = 0; i < availableMaps.length; ++i) {
-			const map = await MapLocations.getById(availableMaps[i]);
-			field += map.getDisplayName(language) + " (id: " + map.id + ")" + "\n";
+		for (const availableMap of availableMaps) {
+			const map = await MapLocations.getById(availableMap);
+			field += `${map.getDisplayName(language)} (id: ${map.id})\n`;
 		}
 		mapEmbed.addFields({name: "Next available maps", value: field, inline: true});
 	}
 	else {
 		mapEmbed.addFields({
 			name: "Players",
-			value: ":speech_balloon: " + await currMap.playersCount(prevMap.id) + " player(s) on this map",
+			value: `:speech_balloon: ${await currMap.playersCount(prevMap.id)} player(s) on this map`,
 			inline: true
 		});
 	}

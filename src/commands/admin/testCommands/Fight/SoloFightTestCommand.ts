@@ -5,6 +5,8 @@ import {FightController} from "../../../../core/fights/FightController";
 import {Classes} from "../../../../core/database/game/models/Class";
 import {Constants} from "../../../../core/Constants";
 import {PlayerFighter} from "../../../../core/fights/fighter/PlayerFighter";
+import {FightStatModifierOperation} from "../../../../core/fights/fighter/Fighter";
+import {FightOvertimeBehavior} from "../../../../core/fights/FightOvertimeBehavior";
 
 export const commandInfo: ITestCommand = {
 	name: "solofight",
@@ -33,13 +35,29 @@ const soloFightTestCommand = async (language: string, interaction: CommandIntera
 	await fighter2.loadStats(false);
 
 	if (args[0] === "1") {
-		fighter1.stats.attack = 9999;
-		fighter1.stats.fightPoints = 1;
-		fighter2.stats.attack = 9999;
-		fighter2.stats.fightPoints = 1;
+		fighter1.applyAttackModifier({
+			operation: FightStatModifierOperation.ADDITION,
+			origin: null,
+			value: 9999
+		});
+		fighter1.applyDefenseModifier({
+			operation: FightStatModifierOperation.MULTIPLIER,
+			origin: null,
+			value: 0.01
+		});
+		fighter2.applyAttackModifier({
+			operation: FightStatModifierOperation.ADDITION,
+			origin: null,
+			value: 9999
+		});
+		fighter2.applyDefenseModifier({
+			operation: FightStatModifierOperation.MULTIPLIER,
+			origin: null,
+			value: 0.01
+		});
 	}
 
-	new FightController(fighter1, fighter2, false, interaction.channel, language)
+	new FightController({ fighter1, fighter2 }, { friendly: false, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW }, interaction.channel, language)
 		.startFight()
 		.then();
 

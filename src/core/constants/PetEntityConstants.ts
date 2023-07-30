@@ -22,6 +22,11 @@ export abstract class PetEntityConstants {
 		[0.4140, 0.2196, 0.1637, 0.1143, 0.0884],
 		[0.3000, 0.2500, 0.2000, 0.1409, 0.1091]
 	];
+
+	static RESTRICTIVES_DIETS = {
+		CARNIVOROUS: "carnivorous",
+		HERBIVOROUS: "herbivorous"
+	};
 }
 
 export enum PET_ENTITY_GIVE_RETURN {

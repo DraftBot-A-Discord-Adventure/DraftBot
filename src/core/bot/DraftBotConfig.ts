@@ -37,7 +37,7 @@ export interface DraftBotConfig {
  * Loads the config from the config file
  */
 export function loadConfig(): DraftBotConfig {
-	const config = parse(readFileSync(process.cwd() + "/config/config.toml", "utf-8"));
+	const config = parse(readFileSync(`${process.cwd()}/config/config.toml`, "utf-8"));
 	return {
 		BADGE_MANAGER_ROLE: config.discord.roles.badge_manager_ids,
 		BOT_OWNER_ID: config.discord.users.owner_id,

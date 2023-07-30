@@ -21,8 +21,6 @@ export class BotUtils {
 		else if (ratio > 20 || bots > 15 || humans < 100) {
 			validation = ":warning:";
 		}
-		return {
-			validation: validation, humans: humans, bots: bots, ratio: ratio
-		};
+		return {validation, humans, bots, ratio};
 	}
 }

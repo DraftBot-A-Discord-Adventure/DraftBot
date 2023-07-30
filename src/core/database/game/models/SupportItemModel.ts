@@ -37,7 +37,7 @@ export abstract class SupportItemModel extends GenericItemModel {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
-			name: tr.get(this.categoryName + ".fieldName"),
+			name: tr.get(`${this.categoryName}.fieldName`),
 			value: this.id === 0 ? name : tr.format("potions.fieldValue", {
 				name,
 				rarity: this.getRarityTranslation(language),

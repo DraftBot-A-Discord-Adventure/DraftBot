@@ -10,6 +10,7 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {SpaceConstants} from "../constants/SpaceConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 /**
  * Gives an object that is going close to earth
@@ -116,10 +117,10 @@ function nextTotalLunarEclipse(): Promise<Record<string, unknown>> {
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

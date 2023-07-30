@@ -11,38 +11,38 @@ function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	const date = new Date();
 
 	// Year
-	const fromYear = trigger.date.year && trigger.date.year.from ? trigger.date.year.from : -1;
-	const toYear = trigger.date.year && trigger.date.year.to ? trigger.date.year.to : 99999;
+	const fromYear = trigger.date.year?.from ?? -1;
+	const toYear = trigger.date.year?.to ?? 99999;
 	const year = date.getFullYear();
 
 	// Month
-	const fromMonth = trigger.date.month && trigger.date.month.from ? trigger.date.month.from : -1;
-	const toMonth = trigger.date.month && trigger.date.month.to ? trigger.date.month.to : 99999;
+	const fromMonth = trigger.date.month?.from ?? -1;
+	const toMonth = trigger.date.month?.to ?? 99999;
 	const month = date.getMonth() + 1; // Starts at 0
 
 	// Day
-	const fromDay = trigger.date.day && trigger.date.day.from ? trigger.date.day.from : -1;
-	const toDay = trigger.date.day && trigger.date.day.to ? trigger.date.day.to : 99999;
+	const fromDay = trigger.date.day?.from ?? -1;
+	const toDay = trigger.date.day?.to ?? 99999;
 	const day = date.getDate();
 
 	// Day of the week
-	const fromDayOfTheWeek = trigger.date.dayOfTheWeek && trigger.date.dayOfTheWeek.from ? trigger.date.dayOfTheWeek.from : -1;
-	const toDayOfTheWeek = trigger.date.dayOfTheWeek && trigger.date.dayOfTheWeek.to ? trigger.date.dayOfTheWeek.to : 99999;
+	const fromDayOfTheWeek = trigger.date.dayOfTheWeek?.from ?? -1;
+	const toDayOfTheWeek = trigger.date.dayOfTheWeek?.to ?? 99999;
 	const dayOfTheWeek = date.getDay(); // 0 = sunday
 
 	// Hour
-	const fromHour = trigger.date.hour && trigger.date.hour.from ? trigger.date.hour.from : -1;
-	const toHour = trigger.date.hour && trigger.date.hour.to ? trigger.date.hour.to : 99999;
+	const fromHour = trigger.date.hour?.from ?? -1;
+	const toHour = trigger.date.hour?.to ?? 99999;
 	const hour = date.getHours();
 
 	// Minute
-	const fromMinute = trigger.date.minute && trigger.date.minute.from ? trigger.date.minute.from : -1;
-	const toMinute = trigger.date.minute && trigger.date.minute.to ? trigger.date.minute.to : 99999;
+	const fromMinute = trigger.date.minute?.from ?? -1;
+	const toMinute = trigger.date.minute?.to ?? 99999;
 	const minute = date.getMinutes();
 
 	// Second
-	const fromSecond = trigger.date.second && trigger.date.second.from ? trigger.date.second.from : -1;
-	const toSecond = trigger.date.second && trigger.date.second.to ? trigger.date.second.to : 99999;
+	const fromSecond = trigger.date.second?.from ?? -1;
+	const toSecond = trigger.date.second?.to ?? 99999;
 	const second = date.getSeconds();
 
 	return year >= fromYear && year <= toYear &&
@@ -92,6 +92,7 @@ export async function verifyTrigger(bigEvent: BigEvent, trigger: BigEventTrigger
 	return (trigger.mapId ? mapId === trigger.mapId : true) &&
 		(trigger.level ? player.level > trigger.level : true) &&
 		verifyTriggerDate(trigger) &&
+		(trigger.mapAttributes ? trigger.mapAttributes.includes((await player.getDestination()).attribute) : true) &&
 		await verifyOncePer(bigEvent, trigger, player);
 }
 
@@ -131,5 +132,6 @@ export interface BigEventTrigger {
 			to?: number
 		};
 	};
-	oncePer?: "year" | "month" | "week" | "day"
+	oncePer?: "year" | "month" | "week" | "day",
+	mapAttributes?: string[]
 }

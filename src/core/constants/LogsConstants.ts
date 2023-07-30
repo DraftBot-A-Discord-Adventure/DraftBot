@@ -45,7 +45,11 @@ export enum NumberChangeReason {
 	RESPAWN,
 	NEW_PLAYER,
 	FIGHT,
-	LIGUE_REWARD,
+	LEAGUE_REWARD,
+	PVE_ISLAND,
+	PVE_FIGHT,
+	FIGHT_PET_SMALL_EVENT,
+	RAGE_EXPLOSION_ACTION
 }
 
 export enum ShopItemType {

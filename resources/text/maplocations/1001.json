@@ -1,0 +1,11 @@
+{
+	"type": "fo",
+	"nameFr": "Forêt de la pénombre",
+	"nameEn": "Forest of twilight",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une immense forêt qui recouvre pratiquement l'entièreté de l'île. De fines particules de cendres tombent du Volcan Grondant, ce qui rend la visibilité dans cette forêt plutôt difficile. Elle est de ce fait que très peu explorée.",
+	"descEn": "A huge forest that covers almost the entire island. Fine particles of ash fall from the Grumble Volcano, which makes the visibility in this forest rather difficult. It is therefore very little explored.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

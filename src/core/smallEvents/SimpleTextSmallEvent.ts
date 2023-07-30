@@ -18,7 +18,7 @@ export abstract class SimpleTextSmallEvent implements SmallEvent {
 	/**
 	 * No restrictions on who can do it
 	 */
-	abstract canBeExecuted(): Promise<boolean>;
+	abstract canBeExecuted(player: Player): Promise<boolean>;
 
 	/**
 	 * Execute small event

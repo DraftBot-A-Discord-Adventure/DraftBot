@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "n'est plus gelé.",
+			"damage": "est gelé. `Vitesse : - 60%` `Dégâts reçus : {damage}`"
+		},
+		"en": {
+			"heal": "is no longer frozen.",
+			"damage": "is frozen. `Speed: - 60%` `Damage taken: {damage}`"
+		}
+	},
+	"emote": "🥶",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "alteration"
+}

@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Colère",
+			"namePlural": "Colères",
+			"active": "se met en colère.",
+			"fail": "essaye de s'énerver mais n'y parvient pas !",
+			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus."
+		},
+		"en": {
+			"name": "Outrage",
+			"namePlural": "Outrages",
+			"active": "enters in an outrage.",
+			"fail": "fails to enter in an outrage!",
+			"description": "Fails if you use this action while you have a state alteration. The alteration \"outrage\" doubles the attack but lowers the defense. After 2 turns, the effect disappears and the attacker becomes confused."
+		}
+	},
+	"emote": "😡",
+	"breath": 1,
+	"missionVariant": -1,
+	"type": "stats"
+}

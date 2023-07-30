@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": "Araignée",
+		"en": "Spider"
+	},
+	"emoji": "🕷️",
+	"descriptionFr": "Une grosse araignée poilue. D'une espèce inconnue, elle attaque tous les voyageurs qui s'approchent de son nid. Venimeuse, elle peut aussi projeter de la soie pour immobiliser ses proies.",
+	"descriptionEn": "A big hairy spider. From an unknown species, it attacks all travelers who approach its nest. Venomous, it can also project silk to immobilize its prey.",
+	"fightPointsRatio": 85,
+	"attackRatio": 100,
+	"defenseRatio": 50,
+	"speedRatio": 100,
+	"breath": 6,
+	"maxBreath": 20,
+	"breathRegen": 4,
+	"attacks": [
+		{
+			"id": "poisonousAttack",
+			"minLevel": 0,
+			"weight": 4
+		},
+		{
+			"id": "webShotAttack",
+			"minLevel": 0,
+			"weight": 7
+		},
+		{
+			"id": "stealth",
+			"minLevel": 0,
+			"weight": 3
+		},
+		{
+			"id": "simpleAttack",
+			"minLevel": 0,
+			"weight": 5
+		},
+		{
+			"id": "familyMealAttack",
+			"minLevel": 50,
+			"weight": 3
+		}
+	],
+	"maps": [
+		1003
+	]
+}

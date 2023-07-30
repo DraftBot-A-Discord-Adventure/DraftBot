@@ -7,6 +7,7 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Translations} from "../Translations";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 
@@ -14,8 +15,8 @@ export const smallEvent: SmallEvent = {
 	 * You must not be full of health to execute this small event
 	 * @param player
 	 */
-	async canBeExecuted(player: Player): Promise<boolean> {
-		return player.health < await player.getMaxHealth();
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

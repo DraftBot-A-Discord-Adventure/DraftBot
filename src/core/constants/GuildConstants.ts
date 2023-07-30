@@ -32,7 +32,7 @@ export abstract class GuildConstants {
 		MAX: 140
 	};
 
-	static readonly MAX_LEVEL = 100;
+	static readonly MAX_LEVEL = 150;
 
 	static readonly MAX_COMMON_PET_FOOD = 25;
 

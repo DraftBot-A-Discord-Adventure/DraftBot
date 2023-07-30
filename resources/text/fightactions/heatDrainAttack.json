@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Drain de chaleur",
+			"namePlural": "Drains de chaleur",
+			"active": "draine votre chaleur. `Attaque : + 20%`",
+			"description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire."
+		},
+		"en": {
+			"name": "Heat drain",
+			"namePlural": "Heat drains",
+			"active": "drains your heat. `Attack: + 20%`",
+			"description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent."
+		}
+	},
+	"emote": "🌡",
+	"breath": 7,
+	"missionVariant": -1,
+	"type": "stats"
+}

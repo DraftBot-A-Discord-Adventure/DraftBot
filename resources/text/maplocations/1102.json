@@ -1,0 +1,11 @@
+{
+	"type": "ice_lake",
+	"nameFr": "Lac du savoir",
+	"nameEn": "Lake of knowledge",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Grand lac gelé, le lac du savoir est un endroit calme et reposant. On peut y entendre une fine brise glissant sur la glace du lac. Idéale pour méditer après l'exploration de cette immense île sauvage.",
+	"descEn": "Large frozen lake, the lake of knowledge is a calm and restful place. You can hear a fine breeze sliding on the ice of the lake. Ideal to meditate after exploring this immense wild island.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

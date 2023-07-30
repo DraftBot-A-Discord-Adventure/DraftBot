@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Eruption",
+			"namePlural": "Eruptions",
+			"description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs.",
+			"active": "fait vibrer le sol intensément"
+		},
+		"en": {
+			"name": "Eruption",
+			"namePlural": "Eruptions",
+			"description": "Makes the volcano erupt, spewing molten rocks at players.",
+			"active": "makes the ground shake intensely"
+		}
+	},
+	"emote": "🌋",
+	"breath": 8,
+	"missionVariant": -1,
+	"type": "weather"
+}

@@ -33,7 +33,6 @@ import {LogsMissionsDaily} from "./models/LogsMissionsDaily";
 import {LogsMissionsCampaignProgresses} from "./models/LogsMissionsCampaignProgresses";
 import {LogsMissions} from "./models/LogsMissions";
 import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
-import {TopConstants} from "../../constants/TopConstants";
 import {LogsItemGainsArmor} from "./models/LogsItemsGainsArmor";
 import {GenericItemModel} from "../game/models/GenericItemModel";
 import {LogsItemGainsObject} from "./models/LogsItemsGainsObject";
@@ -93,6 +92,11 @@ import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
 import {LogsPlayersFightPoints} from "./models/LogsPlayersFightPoints";
+import {LogsGuildsPoints} from "./models/LogsGuildsPoints";
+import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
+import {LogsPveFightsResults} from "./models/LogsPveFightsResults";
+import {LogsPveFightsActionsUsed} from "./models/LogsPveFightsActionsUsed";
+import {LogsPlayersRage} from "./models/LogsPlayersRage";
 
 /**
  * This class is used to log all the changes in the game database
@@ -359,6 +363,16 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * log a player's rage change
+	 * @param discordId
+	 * @param value
+	 * @param reason
+	 */
+	public logRageChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersRage);
+	}
+
+	/**
 	 * log a player's gems change
 	 * @param discordId
 	 * @param value
@@ -459,8 +473,8 @@ export class LogsDatabase extends Database {
 		case EffectsConstants.EMOJI_TEXT.OCCUPIED:
 			await LogsPlayersOccupiedAlterations.create({
 				playerId: player.id,
-				duration: duration,
-				reason: reason,
+				duration,
+				reason,
 				date: getDateLogs()
 			});
 			break;
@@ -644,7 +658,7 @@ export class LogsDatabase extends Database {
 	 * save the top players from the top week. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestTopWeek(): Promise<void> {
-		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, TopConstants.TIMING_WEEKLY);
+		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, 15, true);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
@@ -1023,6 +1037,59 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * log all the information about a pve fight, this is called at the end of a fight
+	 * @param fight
+	 */
+	public async logPveFight(fight: FightController): Promise<void> {
+		let player: PlayerFighter;
+		let monster: MonsterFighter;
+
+		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof MonsterFighter) {
+			player = fight.fighters[0] as PlayerFighter;
+			monster = fight.fighters[1] as MonsterFighter;
+		}
+		else if (fight.fighters[0] instanceof MonsterFighter && fight.fighters[1] instanceof PlayerFighter) {
+			player = fight.fighters[1] as PlayerFighter;
+			monster = fight.fighters[0] as MonsterFighter;
+		}
+
+		if (player && monster) {
+			const playerId = (await LogsDatabase.findOrCreatePlayer(player.player.discordUserId)).id;
+			const monsterStats = monster.getBaseStats();
+			const winner = fight.getWinnerFighter();
+			const fightResult = await LogsPveFightsResults.create({
+				playerId,
+				monsterId: monster.monster.id,
+				monsterLevel: monster.level,
+				monsterFightPoints: monsterStats.maxFightPoint,
+				monsterAttack: monsterStats.attack,
+				monsterDefense: monsterStats.defense,
+				monsterSpeed: monsterStats.speed,
+				turn: fight.turn,
+				winner: winner === null ? 0 : winner === player ? 1 : 2,
+				date: getDateLogs()
+			});
+			const fightActionsUsed: { [action: string]: number } = {};
+			for (const fightAction of player.fightActionsHistory) {
+				fightActionsUsed[fightAction.name] ? fightActionsUsed[fightAction.name]++ : fightActionsUsed[fightAction.name] = 1;
+			}
+			for (const [action, count] of Object.entries(fightActionsUsed)) {
+				const [fightAction] = await LogsFightsActions.findOrCreate({
+					where: {
+						name: action,
+						classId: player.player.class
+					}
+				});
+				await LogsPveFightsActionsUsed.create({
+					pveFightId: fightResult.id,
+					actionId: fightAction.id,
+					count
+				});
+			}
+		}
+	}
+
+	/**
 	 * log when a guild experience changes
 	 * @param guild
 	 * @param reason
@@ -1032,6 +1099,21 @@ export class LogsDatabase extends Database {
 		await LogsGuildsExperiences.create({
 			guildId: guildInstance.id,
 			experience: guild.experience,
+			reason,
+			date: getDateLogs()
+		});
+	}
+
+	/**
+	 * log when a guild points changes
+	 * @param guild
+	 * @param reason
+	 */
+	public async logGuildPointsChange(guild: Guild, reason: NumberChangeReason): Promise<void> {
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsPoints.create({
+			guildId: guildInstance.id,
+			points: guild.score,
 			reason,
 			date: getDateLogs()
 		});
@@ -1175,7 +1257,7 @@ export class LogsDatabase extends Database {
 	 * save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestSeason(): Promise<void> {
-		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1);
+		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1, 15);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);

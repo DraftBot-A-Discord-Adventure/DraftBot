@@ -53,9 +53,9 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 	});
 	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
 	if (tagsToVerify) {
-		for (let i = 0; i < tagsToVerify.length; i++) {
+		for (const tag of tagsToVerify) {
 			await MissionsController.update(player, channel, language, {
-				missionId: tagsToVerify[i].textTag,
+				missionId: tag.textTag,
 				params: {tags: tagsToVerify}
 			});
 		}
@@ -167,7 +167,7 @@ const sellOrKeepItem = async function(
 					format(trSell.get("soldMessage"),
 						{
 							item: item.getName(language),
-							money: money
+							money
 						}
 					)
 				)

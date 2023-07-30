@@ -30,7 +30,7 @@ const experienceTestCommand = async (language: string, interaction: CommandInter
 	const maxXp = player.getExperienceNeededToLevelUp() * 2;
 	const xp = parseInt(args[0], 10);
 	if (xp < 0 || xp > maxXp) {
-		throw new Error("Erreur experience : expérience donnée doit être comprise entre 0 et " + maxXp + " !");
+		throw new Error(`Erreur experience : expérience donnée doit être comprise entre 0 et ${maxXp} !`);
 	}
 	await player.addExperience({
 		amount: xp - player.experience,

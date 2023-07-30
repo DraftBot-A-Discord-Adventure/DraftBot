@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque gourdin",
+			"namePlural": "Attaques gourdin",
+			"description": "Nécessite un tour pour charger l’attaque. Délivre une charge puissante au tour suivant."
+		},
+		"en": {
+			"name": "Club smash",
+			"namePlural": "Club smashes",
+			"description": "Requires one turn to charge the attack. Delivers a powerful charge the next turn."
+		}
+	},
+	"emote": "🏏",
+	"breath": 9,
+	"missionVariant": -1,
+	"type": "charge"
+}

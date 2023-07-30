@@ -10,11 +10,12 @@
 	"health": 10,
 	"fightPoint": -25,
 	"baseBreath": 3,
-	"maxBreath": 8,
+	"maxBreath": 9,
 	"breathRegen": 4,
 	"classGroup": 0,
 	"fightActionsIds": [
 		"quickAttack",
-		"boomerangAttack"
+		"boomerangAttack",
+		"canonAttack"
 	]
 }

@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Peau de roche",
+			"namePlural": "Peaux de roche",
+			"active": "accumule de la roche pour se défendre... `Défense: + {amount} %`",
+			"description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important."
+		},
+		"en": {
+			"name": "Stone skin",
+			"namePlural": "Stone skins",
+			"active": "accumulates rock to defend himself... `Defense: + {amount} %`",
+			"description": "More this action is done, more the defense boost is important."
+		}
+	},
+	"emote": "🧱",
+	"breath": 3,
+	"missionVariant": -1,
+	"type": "status"
+}

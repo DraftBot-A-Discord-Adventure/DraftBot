@@ -6,11 +6,18 @@ import {LogsDatabase} from "./LogsDatabase";
 import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
-import {getNextSaturdayMidnight} from "../../utils/TimeUtils";
+import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
+import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../utils/TimeUtils";
+import {LogsMapLinks} from "./models/LogsMapLinks";
+import {MapLocations} from "../game/models/MapLocation";
+import {MapConstants} from "../../constants/MapConstants";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
 import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
+import Player from "../game/models/Player";
+import {MapCache} from "../../maps/MapCache";
+import {PVEConstants} from "../../constants/PVEConstants";
 
 type RankedFightResult = {
 	won: number,
@@ -48,6 +55,62 @@ export class LogsReadRequests {
 				shopItem: ShopItemType.DAILY_POTION,
 				date: {
 					[Op.gte]: dateOfLastDailyPotionReset
+				}
+			}
+		});
+	}
+
+	/**
+	 * Get all the members of the player's guild on the pve island
+	 */
+	static async getGuildMembersThatWereOnPveIsland(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return Promise.resolve([]);
+		}
+		const playersInGuild = await Player.findAll({
+			where: {
+				guildId: player.guildId,
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		});
+		const ids = playersInGuild.map((player) => player.discordUserId);
+		const logsPlayers = await LogsPlayers.findAll({
+			where: {
+				discordId: {
+					[Op.in]: ids
+				}
+			}
+		});
+		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
+		// get travels from the last hours of guildsMembers
+		const travelsInPveIsland = await LogsPlayersTravels.findAll({
+			where: {
+				mapLinkId: {
+					[Op.in]: MapCache.logsPveIslandMapLinks
+				},
+				playerId: {
+					[Op.in]: logsPlayersIds
+				},
+				date: {
+					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(PVEConstants.MINUTES_CHECKED_FOR_PLAYERS_THAT_WERE_ON_THE_ISLAND)) / 1000)
+				}
+			},
+			group: ["playerId"],
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, {
+					sourceKey: "playerId",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				})
+			}]
+		}) as unknown as { LogsPlayer1: { discordId: string } }[];
+		return await Player.findAll({
+			where: {
+				discordUserId: {
+					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.LogsPlayer1.discordId)
 				}
 			}
 		});
@@ -134,6 +197,33 @@ export class LogsReadRequests {
 	}
 
 	/**
+	 * Get the number of time the player went on the PVE island this week
+	 * @param discordId
+	 */
+	static async getCountPVEIslandThisWeek(discordId: string): Promise<number> {
+		return await LogsPlayersTravels.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				},
+				"$LogsMapLink.start$": (await MapLocations.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT]))[0].id,
+				"$LogsMapLink.end$": {
+					[Op.in]: (await MapLocations.getWithAttributes([MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY])).map((mapLocation) => mapLocation.id)
+				}
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, { sourceKey: "playerId", foreignKey: "id" })
+			}, {
+				model: LogsMapLinks,
+				association: new HasOne(LogsPlayersTravels, LogsMapLinks, { sourceKey: "mapLinkId", foreignKey: "id" })
+			}],
+			col: "playerId"
+		});
+	}
+
+	/*
 	 * Get the fights of a player against another this week
 	 * @param playerDiscordId
 	 * @param opponentDiscordId

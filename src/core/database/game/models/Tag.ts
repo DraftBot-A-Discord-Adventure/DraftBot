@@ -23,7 +23,7 @@ export class Tags {
                          AND typeObject = :typeObject`;
 		return Tag.sequelize.query(query, {
 			replacements: {
-				idObject: idObject,
+				idObject,
 				typeObject: model
 			},
 			type: QueryTypes.SELECT

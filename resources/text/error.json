@@ -50,6 +50,7 @@
 			"anotherPlayerBlocked": "Vous ne pouvez pas effectuer cela car {username} a une action en attente ({context}) !",
 			"nameRules": "- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés\n- Entre {min} et {max} caractères",
 			"notANumber": "{text} n'est pas un nombre !",
+			"pveIslandBlocking": "Cette commande n'est pas autorisée sur une île mystérieuse ou sur un bateau !",
 			"blockedContext": {
 				"shop": "choix dans le magasin",
 				"confirmBuy": "confirmation d'achat",
@@ -84,8 +85,11 @@
 				"drink": "choix de boire une potion ou non",
 				"gobletChoose": "choix d'un gobelet",
 				"witchChoose": "choix d'une action pour la sorcière",
+				"fightPetChoose": "choix d'une action pour le combat de familier",
 				"unlock": "libération de quelqu'un",
-				"reportCommand": "commande {command:report}"
+				"pveIsland": "mini-évent île PVE",
+				"startBossFight": "début d'un combat de boss",
+				"reportCommand": "commande rapport"
 			}
 		},
 		"en": {
@@ -138,6 +142,7 @@
 			"anotherPlayerBlocked": "You can't do this because {username} currently has a pending action ({context})!",
 			"nameRules": "- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
 			"notANumber": "{text} is not a number!",
+			"pveIslandBlocking": "This command is not allowed on a mysterious island or on a boat!",
 			"blockedContext": {
 				"confirmBuy": "purchase confirmation",
 				"shop": "shop",
@@ -173,7 +178,10 @@
 				"drink": "choice to drink a potion or not",
 				"gobletChoose": "choice of a goblet",
 				"witchChoose": "witch event choice",
-				"reportCommand": "{command:report} command"
+				"fightPetChoose": "choice of an action for the pet fight event",
+				"pveIsland": "PVE island small event",
+				"startBossFight": "start of a boss fight",
+				"reportCommand": "report command"
 			}
 		}
 	}

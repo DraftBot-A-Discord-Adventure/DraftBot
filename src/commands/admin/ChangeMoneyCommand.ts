@@ -22,7 +22,7 @@ function giveMoneyTo(playerToEdit: Player, amount: number, interaction: CommandI
 	}
 	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addMoney({
-			amount: amount,
+			amount,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.ADMIN

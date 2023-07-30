@@ -22,7 +22,7 @@ function givePointsTo(playerToEdit: Player, amount: number, interaction: Command
 	}
 	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addScore({
-			amount: amount,
+			amount,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.ADMIN

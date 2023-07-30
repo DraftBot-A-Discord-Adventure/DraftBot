@@ -11,5 +11,6 @@
 	},
 	"emote": "\uD83E\uDD75",
 	"breath": 0,
-	"missionVariant": 36
+	"missionVariant": 36,
+	"type": "alteration"
 }

@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Repas de famille",
+			"namePlural": "Repas de famille",
+			"description": "Appelle des alliés pour dévorer l'adversaire et l'empoisonner.",
+			"fail": "n'arrive pas à appeler des alliés !",
+			"active": "appelle des alliés pour dévorer son adversaire."
+		},
+		"en": {
+			"name": "Family meal",
+			"namePlural": "Family meals",
+			"description": "Summons allies to eat the target and poison it.",
+			"fail": "fails to summon allies!",
+			"active": "calls allies to eat their opponent."
+		}
+	},
+	"emote": "🍽️",
+	"breath": 20,
+	"missionVariant": -1,
+	"type": "physical"
+}

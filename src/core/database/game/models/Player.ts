@@ -29,10 +29,16 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
 import {ItemConstants} from "../../../constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../../utils/MessageUtils";
-import moment = require("moment");
+import {Maps} from "../../../maps/Maps";
+import {PVEConstants} from "../../../constants/PVEConstants";
+import {MapConstants} from "../../../constants/MapConstants";
+import {RandomUtils} from "../../../utils/RandomUtils";
 import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
+import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
+import moment = require("moment");
+import {PlayerSmallEvents} from "./PlayerSmallEvent";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -104,6 +110,8 @@ export class Player extends Model {
 	public gloryPointsLastSeason!: number;
 
 	public fightCountdown!: number;
+
+	public rage!: number;
 
 	public updatedAt!: Date;
 
@@ -319,6 +327,9 @@ export class Player extends Model {
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
 			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
 		}
+		if (this.level === PVEConstants.MIN_LEVEL) {
+			bonuses.push(tr.get("levelUp.pveUnlocked"));
+		}
 
 		bonuses.push(tr.format("levelUp.noBonuses", {}));
 		return bonuses;
@@ -351,7 +362,7 @@ export class Player extends Model {
 			level: this.level
 		});
 		for (let i = 0; i < bonuses.length - 1; ++i) {
-			msg += bonuses[i] + "\n";
+			msg += `${bonuses[i]}\n`;
 		}
 		msg += bonuses[bonuses.length - 1];
 		await channel.send({content: msg});
@@ -394,6 +405,13 @@ export class Player extends Model {
 	 */
 	public isInactive(): boolean {
 		return this.startTravelDate.valueOf() + TopConstants.FIFTEEN_DAYS < Date.now();
+	}
+
+	/**
+	 * Check if the player is in guild
+	 */
+	public isInGuild(): boolean {
+		return this.guildId !== null;
 	}
 
 	/**
@@ -449,6 +467,21 @@ export class Player extends Model {
 	 */
 	public getLevel(): number {
 		return this.level;
+	}
+
+	/**
+	 * Get the travel cost of a player this week
+	 */
+	public async getTravelCostThisWeek(): Promise<number> {
+		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId);
+		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];
+	}
+
+	/**
+	 * check if the player has a holy class
+	 */
+	public hasHolyClass(): boolean {
+		return this.class in ClassInfoConstants.HOLY_CLASSES;
 	}
 
 	/**
@@ -641,7 +674,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player cumulative Health
+	 * Get the player cumulative fight points
 	 */
 	public async getCumulativeFightPoint(): Promise<number> {
 		const maxHealth = await this.getMaxCumulativeFightPoint();
@@ -722,84 +755,49 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Allow to set the score of a player to a specific value this is only called from addScore
-	 * @param score
-	 * @param channel
+	 * Leave the PVE island if no fight points left
+	 * @param interaction
 	 * @param language
-	 * @private
 	 */
-	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
-		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
-		if (score > 0) {
-			this.score = score;
+	public async leavePVEIslandIfNoFightPoints(interaction: CommandInteraction, language: string): Promise<boolean> {
+		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= await this.getMaxCumulativeFightPoint()) {
+			const tr = Translations.getModule("models.players", language);
+			await interaction.channel.send({
+				embeds: [
+					new DraftBotEmbed().formatAuthor(tr.get("leavePVEIslandTitle"), interaction.user)
+						.setDescription(tr.get("leavePVEIsland"))
+				]
+			});
+			await Maps.stopTravel(this);
+			await Maps.startTravel(
+				this,
+				await MapLinks.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
+				Date.now(),
+				NumberChangeReason.PVE_ISLAND
+			);
+			await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
+			await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
+			return true;
 		}
-		else {
-			this.score = 0;
-		}
+
+		return false;
 	}
 
 	/**
-	 * Allow to set the money of a player to a specific value this is only called from addMoney
-	 * @param money
-	 * @private
+	 * Add fight points
+	 * @param amount
+	 * @param maxPoints
 	 */
-	private setMoney(money: number): void {
-		if (money > 0) {
-			this.money = money;
+	public async addFightPoints(amount: number, maxPoints = -1): Promise<void> {
+		if (maxPoints === -1) {
+			maxPoints = await this.getMaxCumulativeFightPoint();
 		}
-		else {
-			this.money = 0;
+		this.fightPointsLost -= amount;
+		if (this.fightPointsLost < 0) {
+			this.fightPointsLost = 0;
 		}
-	}
-
-	/**
-	 * Add points to the weekly score of the player
-	 * @param weeklyScore
-	 * @private
-	 */
-	private addWeeklyScore(weeklyScore: number): void {
-		this.weeklyScore += weeklyScore;
-		this.setWeeklyScore(this.weeklyScore);
-	}
-
-	/**
-	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
-	 * @param weeklyScore
-	 * @private
-	 */
-	private setWeeklyScore(weeklyScore: number): void {
-		if (weeklyScore > 0) {
-			this.weeklyScore = weeklyScore;
-		}
-		else {
-			this.weeklyScore = 0;
-		}
-	}
-
-	/**
-	 * Set the player health
-	 * @param health
-	 * @param channel
-	 * @param language
-	 * @param missionHealthParameter
-	 */
-	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
-		overHealCountsForMission: true,
-		shouldPokeMission: true
-	}): Promise<void> {
-		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
-			- this.health;
-		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
-			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
-		}
-		if (health < 0) {
-			this.health = 0;
-		}
-		else if (health > await this.getMaxHealth()) {
-			this.health = await this.getMaxHealth();
-		}
-		else {
-			this.health = health;
+		else if (this.fightPointsLost > maxPoints) {
+			this.fightPointsLost = maxPoints;
 		}
 	}
 
@@ -917,6 +915,105 @@ export class Player extends Model {
 		// beware, the date of last league reward is in seconds
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
+
+	public async addRage(rage: number, reason: NumberChangeReason): Promise<void> {
+		await this.setRage(this.rage + rage, reason);
+	}
+
+	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {
+		this.rage = rage;
+		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason).then();
+		await this.save();
+	}
+
+	/**
+	 * Allow to set the score of a player to a specific value this is only called from addScore
+	 * @param score
+	 * @param channel
+	 * @param language
+	 * @private
+	 */
+	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
+		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
+		if (score > 0) {
+			this.score = score;
+		}
+		else {
+			this.score = 0;
+		}
+	}
+
+	/**
+	 * Allow to set the money of a player to a specific value this is only called from addMoney
+	 * @param money
+	 * @private
+	 */
+	private setMoney(money: number): void {
+		if (money > 0) {
+			this.money = money;
+		}
+		else {
+			this.money = 0;
+		}
+	}
+
+	/**
+	 * Add points to the weekly score of the player
+	 * @param weeklyScore
+	 * @private
+	 */
+	private addWeeklyScore(weeklyScore: number): void {
+		this.weeklyScore += weeklyScore;
+		this.setWeeklyScore(this.weeklyScore);
+	}
+
+	/**
+	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
+	 * @param weeklyScore
+	 * @private
+	 */
+	private setWeeklyScore(weeklyScore: number): void {
+		if (weeklyScore > 0) {
+			this.weeklyScore = weeklyScore;
+		}
+		else {
+			this.weeklyScore = 0;
+		}
+	}
+
+	/**
+	 * Set the player health
+	 * @param health
+	 * @param channel
+	 * @param language
+	 * @param missionHealthParameter
+	 */
+	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+		overHealCountsForMission: true,
+		shouldPokeMission: true
+	}): Promise<void> {
+		const difference = (health > await this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? await this.getMaxHealth() : health < 0 ? 0 : health)
+			- this.health;
+		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
+			await MissionsController.update(this, channel, language, {missionId: "earnLifePoints", count: difference});
+		}
+		if (health < 0) {
+			this.health = 0;
+		}
+		else if (health > await this.getMaxHealth()) {
+			this.health = await this.getMaxHealth();
+		}
+		else {
+			this.health = health;
+		}
+	}
+
+	/**
+	 * Check if the player has enough energy to join the island
+	 */
+	async hasEnoughEnergyToJoinTheIsland() : Promise<boolean> {
+		return await this.getCumulativeFightPoint() / await this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
+	}
 }
 
 /**
@@ -974,11 +1071,11 @@ export class Players {
 	 * Get the ranking of the player compared to a list of players
 	 * @param discordId
 	 * @param ids - list of discordIds to compare to
-	 * @param timing
+	 * @param weekOnly - get from the week only
 	 * @param isGloryTop
 	 */
-	static async getRankFromUserList(discordId: string, ids: string[], timing: string, isGloryTop: boolean): Promise<number> {
-		const scoreLookup = isGloryTop ? "gloryPoints" : timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore";
+	static async getRankFromUserList(discordId: string, ids: string[], weekOnly: boolean, isGloryTop: boolean): Promise<number> {
+		const scoreLookup = isGloryTop ? "gloryPoints" : weekOnly ? "weeklyScore" : "score";
 		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
 		const query = `SELECT rank
 					   FROM (SELECT players.discordUserId,
@@ -1065,12 +1162,12 @@ export class Players {
 	/**
 	 * Get the number of players that are considered playing the game inside the list of ids
 	 * @param listDiscordId
-	 * @param timing
+	 * @param weekOnly Get of the current week only
 	 */
-	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], timing: string): Promise<number> {
+	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM players
-					   WHERE players.${timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore"}
+					   WHERE players.${weekOnly ? "weeklyScore" : "score"}
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
 						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
@@ -1094,18 +1191,19 @@ export class Players {
 	/**
 	 * Get the players in the list of Ids that will be printed into the top at the given page
 	 * @param listDiscordId
-	 * @param page
-	 * @param timing
+	 * @param minRank
+	 * @param maxRank
+	 * @param weekOnly Get from the current week only
 	 */
-	static async getPlayersToPrintTop(listDiscordId: string[], page: number, timing: string): Promise<Player[]> {
-		const restrictionsTopEntering = timing === TopConstants.TIMING_ALLTIME
+	static async getPlayersToPrintTop(listDiscordId: string[], minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
+		const restrictionsTopEntering = weekOnly
 			? {
-				score: {
+				weeklyScore: {
 					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
 				}
 			}
 			: {
-				weeklyScore: {
+				score: {
 					[Op.gt]: Constants.MINIMAL_PLAYER_SCORE
 				}
 			};
@@ -1119,20 +1217,21 @@ export class Players {
 				}
 			},
 			order: [
-				[timing === TopConstants.TIMING_ALLTIME ? "score" : "weeklyScore", "DESC"],
+				[weekOnly ? "weeklyScore" : "score", "DESC"],
 				["level", "DESC"]
 			],
-			limit: TopConstants.PLAYERS_BY_PAGE,
-			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
 		});
 	}
 
 	/**
 	 * Get the players in the list of Ids that will be printed into the glory top at the given page
 	 * @param listDiscordId
-	 * @param page
+	 * @param minRank
+	 * @param maxRank
 	 */
-	static async getPlayersToPrintGloryTop(listDiscordId: string[], page: number): Promise<Player[]> {
+	static async getPlayersToPrintGloryTop(listDiscordId: string[], minRank: number, maxRank: number): Promise<Player[]> {
 		const restrictionsTopEntering = {
 			fightCountdown: {
 				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
@@ -1151,8 +1250,8 @@ export class Players {
 				["gloryPoints", "DESC"],
 				["level", "DESC"]
 			],
-			limit: TopConstants.PLAYERS_BY_PAGE,
-			offset: (page - 1) * TopConstants.PLAYERS_BY_PAGE
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
 		});
 	}
 
@@ -1420,6 +1519,10 @@ export function initModel(sequelize: Sequelize): void {
 		fightCountdown: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.DEFAULT_FIGHT_COUNTDOWN
+		},
+		rage: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

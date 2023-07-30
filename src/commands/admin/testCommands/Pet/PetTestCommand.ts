@@ -44,7 +44,7 @@ const petTestCommand = async (language: string, interaction: CommandInteraction,
 	const maxIdPet = await Pets.getMaxId();
 	const petId = parseInt(args[0], 10);
 	if (petId > maxIdPet || petId < 0) {
-		throw new Error("Erreur pet : id invalide. L'id doit être compris entre 0 et " + maxIdPet + " !");
+		throw new Error(`Erreur pet : id invalide. L'id doit être compris entre 0 et ${maxIdPet} !`);
 	}
 
 	pet = PetEntities.createPet(petId, args[1], null);

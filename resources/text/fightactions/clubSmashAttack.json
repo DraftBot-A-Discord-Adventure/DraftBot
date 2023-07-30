@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque gourdin",
+			"namePlural": "Attaques gourdin"
+		},
+		"en": {
+			"name": "Club smash",
+			"namePlural": "Club smashes"
+		}
+	},
+	"emote": "🏏",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "physical"
+}

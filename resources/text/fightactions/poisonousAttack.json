@@ -13,5 +13,6 @@
 	},
 	"emote": "\uD83E\uDDEA",
 	"breath": 3,
-	"missionVariant": 8
+	"missionVariant": 8,
+	"type": "physical"
 }

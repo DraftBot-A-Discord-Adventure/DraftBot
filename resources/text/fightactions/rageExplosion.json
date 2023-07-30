@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Explosion de rage",
+			"namePlural": "Explosions de rage",
+			"description": "Laisse exploser sa rage accumulée durant le trajet sur l'ennemi.",
+			"use": "déferle sa rage sur l'ennemi !"
+		},
+		"en": {
+			"name": "Rage explosion",
+			"namePlural": "Rage explosions",
+			"description": "Explodes the rage accumulated during the trip on the enemy.",
+			"use": "explodes the rage on the enemy!"
+		}
+	},
+	"emote": "🤬",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "physical"
+}

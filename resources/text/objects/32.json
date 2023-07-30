@@ -8,5 +8,8 @@
 	"power": 9,
 	"nature": 4,
 	"frenchMasculine": 0,
-	"frenchPlural": 0
+	"frenchPlural": 0,
+	"tags": [
+		"holy"
+	]
 }

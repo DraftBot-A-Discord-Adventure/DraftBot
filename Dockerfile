@@ -1,5 +1,5 @@
 # Base image to use
-FROM node:18-alpine
+FROM node:20-alpine
 
 # App directory
 WORKDIR /draftbot

@@ -1,0 +1,32 @@
+{
+	"translations": {
+		"fr": {
+			"commandName": "rejoindrebateau",
+			"commandDescription": "Permet de rejoindre le bateau d'un membre de votre guilde.",
+			"tooManyBoatInWeek": "Vous êtes allé trop de fois sur le bateau cette semaine.",
+			"noGuild": "Vous n'appartenez à aucune guilde.",
+			"noMemberOnBoat": "Aucun membre de votre guilde n'est sur le bateau.",
+			"noEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"confirmedTitle": "{pseudo}, votre choix :",
+			"joinMember": ":ferry: Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que {priceText}",
+			"endStoryAcceptWithMember": "Vous rejoignez votre guilde sur le bateau.",
+			"endStoryRefuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau.",
+			"notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer."
+		},
+		"en": {
+			"commandName": "joinboat",
+			"commandDescription": "Allows you to join the boat of a member of your guild.",
+			"tooManyBoatInWeek": "You've been on the boat too many times this week.",
+			"noGuild": "You don't belong to any guild.",
+			"noMemberOnBoat": "No members of your guild are on the boat.",
+			"noEnoughEnergy": "You don't have enough energy to get on the boat.",
+			"confirmationTitle": "{pseudo}, confirmation:",
+			"confirmedTitle": "{pseudo}, your choice:",
+			"joinMember": ":ferry: Are you sure you want to join your guild on the boat?\nThe captain tells you that {priceText}",
+			"endStoryAcceptWithMember": "You join your guild on the boat.",
+			"endStoryRefuse": "In the end, you decide to stay here and not join your guild on the boat.",
+			"notEnoughGems": "You want to join your guild, but when it's time to pay, you realize you don't have enough to pay."
+		}
+	}
+}

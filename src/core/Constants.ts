@@ -7,6 +7,8 @@ export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
+		WAIT_A_BIT_REACTION: "⏳",
+		START_FIGHT_REACTION: "⚔️",
 		NOT_REPLIED_REACTION: "🔚",
 		SHOPPING_CART: "🛒",
 		WARNING: "⚠️",
@@ -336,4 +338,9 @@ export abstract class Constants {
 	};
 
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
+
+	static EXCLUDED_TRANSLATION_MODULES = [
+		"classes.",
+		"advices"
+	];
 }

@@ -148,12 +148,29 @@ export class FightView {
 		for (const fighter of [winner, loser]) {
 			msg += this.fightTranslationModule.format("end.fighterStats", {
 				pseudo: fighter.getName(),
-				health: fighter.stats.fightPoints,
-				maxHealth: fighter.stats.maxFightPoint
+				health: fighter.getFightPoints(),
+				maxHealth: fighter.getMaxFightPoints()
 			});
 		}
 
 		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]}).then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
+	}
+
+	/**
+	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 */
+	displayBugFight(): void {
+		this.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.setErrorColor()
+					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
+					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
+		});
+	}
+
+	async displayWeatherStatus(weatherEmote: string, weatherString: string): Promise<void> {
+		await this.updateHistory(weatherEmote, "", weatherString);
 	}
 
 	/**
@@ -179,9 +196,9 @@ export class FightView {
 	private async scrollIfNeeded(): Promise<void> {
 		const messages = await this.channel.messages.fetch({limit: 1});
 		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
-			for (let i = 0; i < this.actionMessages.length; ++i) {
-				const content = (await this.channel.messages.fetch(this.actionMessages[i].id)).content;
-				await this.actionMessages[i].edit(content);
+			for (const actionMessage of this.actionMessages) {
+				const content = (await this.channel.messages.fetch(actionMessage.id)).content;
+				await actionMessage.edit(content);
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = null;
@@ -200,16 +217,5 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
-	}
-
-	/**
-	 * Send a message to the channel to display the status of the fight when a bug is detected
-	 */
-	displayBugFight(): void {
-		this.channel.send({embeds: [
-			new DraftBotEmbed()
-				.setErrorColor()
-				.setTitle(this.fightTranslationModule.get("bugFightTitle"))
-				.setDescription(this.fightTranslationModule.get("bugFightDescription"))]});
 	}
 }

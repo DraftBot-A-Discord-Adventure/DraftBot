@@ -1,0 +1,11 @@
+{
+	"type": "ice_cavern",
+	"nameFr": "Caverne cœur de glace",
+	"nameEn": "Cavern heart of ice",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
+	"descEn": "This cave, very similar to its sister, the Crystal Cave, has a great advantage. It leads to the snowy peak through the depths of the earth. It is a long way on the ice and the rock. It owes its name to the caves that go deep underground and show beautiful ice formations.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

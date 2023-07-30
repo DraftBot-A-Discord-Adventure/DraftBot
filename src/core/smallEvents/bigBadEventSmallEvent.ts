@@ -11,13 +11,14 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**
@@ -48,9 +49,9 @@ export const smallEvent: SmallEvent = {
 			}));
 			await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
 			if (seFallen.tags) {
-				for (let i = 0; i < (seFallen.tags as string[]).length; i++) {
+				for (const tag of (seFallen.tags as string[])) {
 					await MissionsController.update(player, interaction.channel, language, {
-						missionId: (seFallen.tags as string[])[i],
+						missionId: tag,
 						params: {tags: seFallen.tags}
 					});
 				}

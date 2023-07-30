@@ -8,6 +8,7 @@ export abstract class BlockingConstants {
 		FIGHT: "fight",
 		GOBLET_CHOOSE: "gobletChoose",
 		WITCH_CHOOSE: "witchChoose",
+		FIGHT_PET_CHOOSE: "fightPetChoose",
 		GUILD_ADD: "guildInvite",
 		GUILD_CREATE: "guildCreate",
 		GUILD_DESCRIPTION: "guildDescription",
@@ -24,12 +25,15 @@ export abstract class BlockingConstants {
 		PET_SELL: "petSell",
 		PET_SELL_CONFIRM: "petSellConfirm",
 		PET_TRADE: "petTrade",
+		PVE_ISLAND: "pveIsland",
 		REPORT: "report",
 		SELL: "sell",
 		SELL_CONFIRM: "sellConfirm",
 		SHOP: "shop",
 		SWITCH: "switch",
 		TEST: "test",
-		UNLOCK: "unlock"
+		UNLOCK: "unlock",
+		START_BOSS_FIGHT: "startBossFight",
+		REPORT_COMMAND: "reportCommand"
 	};
 }

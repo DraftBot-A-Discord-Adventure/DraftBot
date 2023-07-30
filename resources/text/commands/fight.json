@@ -70,8 +70,8 @@
 			},
 			"summarize": {
 				"title": "Résumé du combat",
-				"intro": ":clipboard: | **État actuel du combat** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"intro": ":clipboard: | **État actuel du combat** [{turn>maxTurns?Prolongations:{{turn}/{maxTurns}}}]\n\n",
+				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
 				"defender": ":shield: |** Défenseur : {pseudo}**\n",
 				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
@@ -80,7 +80,7 @@
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
 				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
-				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}\n- **Temps de combat** : {time}",
+				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}{turn>maxTurn? (prolongations):}\n- **Temps de combat** : {time}",
 				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
 				"drawElo": "\n- **Elo de la partie** : `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:"
@@ -185,8 +185,10 @@
 					"breath": " `Souffle{adversary>0? de l'adversaire:}: {operator} {amount}`",
 					"speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
 					"attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`"
-				}
+					"energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`",
+					"summoning": " `Invocation de {amount} alliés`"
+				},
+				"aiChoose": "\uD83E\uDDE0 L'adversaire choisit une attaque..."
 			},
 			"effects": {
 				"stunned": "Étourdi",
@@ -198,8 +200,38 @@
 				"slowed": "Ralenti",
 				"concentrated": "Concentré",
 				"weak": "Affaibli",
-				"protected": "Protégé"
-			}
+				"protected": "Protégé",
+				"outrage": "En colère",
+				"petrified": "Pétrifié",
+				"full": "Repu",
+				"frozen": "Gelé"
+			},
+			"weatherChanges": {
+				"rainy": "Il se met à pleuvoir...",
+				"hail": "Il se met à grêler...",
+				"fog": "Un brouillard épais se lève...",
+				"firestorm": "Le volcan entre en éruption...",
+				"storm": "Un orage éclate...",
+				"tornado": "Une tornade se forme..."
+			},
+			"weatherContinues": {
+				"sunny": "Le soleil brille de mille feux...",
+				"rainy": "Il pleut à verse...",
+				"hail": "La grêle tombe à gros flocons...",
+				"fog": "Le brouillard est si épais que vous ne voyez pas à deux mètres...",
+				"firestorm": "Des rochers en fusion tombent du ciel...",
+				"storm": "L'orage fait rage...",
+				"tornado": "Vous sentez le vent tourbillonner autour de vous..."
+			},
+			"weatherEnds": {
+				"rainy": "La pluie s'arrête...",
+				"hail": "La grêle cesse de tomber...",
+				"fog": "Le brouillard se dissipe...",
+				"firestorm": "Le volcan se calme...",
+				"storm": "L'orage s'éloigne...",
+				"tornado": "La tornade se dissipe..."
+			},
+			"weatherDamages": " {fighter} subit la météo ! `Dégâts reçus : {damages}`"
 		},
 		"en": {
 			"commandName": "fight",
@@ -271,8 +303,8 @@
 			},
 			"summarize": {
 				"title": "Fight summary",
-				"intro": ":clipboard: | **Current fight state** [{turn}/{maxTurns}]\n\n",
-				"notStarted": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
+				"intro": ":clipboard: | **Current fight state** [{turn>maxTurns?Overtime:{{turn}/{maxTurns}}}]\n\n",
+				"notStarted": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
 				"defender": ":shield: | **Defender: {pseudo}**\n",
 				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
@@ -281,7 +313,7 @@
 			"end": {
 				"draw": ":newspaper: |**{player1} and {player2} end their fight with a draw!**\n\n",
 				"win": ":newspaper: |**{winner} won the fight against {loser}**\n\n",
-				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fighting time elapsed**: {time}",
+				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}{turn>maxTurn? (overtime):}\n- **Fighting time elapsed**: {time}",
 				"winElo": "\n- **Elo**: `{elo}`\n- **Points gained/lost**: `{points}`",
 				"drawElo": "\n- **Elo**: `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | {pseudo}'s stats\n- **Final health**: {health}/{maxHealth} :zap:"
@@ -386,8 +418,10 @@
 					"breath": " `{adversary>0?Opponent's b:B}reath: {operator}{amount}`",
 					"speed": " `{adversary>0?Opponent's s:S}peed: {operator}{amount}%`",
 					"attack": " `{adversary>0?Opponent's a:A}ttack: {operator}{amount}%`",
-					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`"
-				}
+					"energy": " `{adversary>0?Opponent's c:C}ombat points regained: {operator}{amount}%`",
+					"summoning": " `Summon of {amount} allies`"
+				},
+				"aiChoose": "\uD83E\uDDE0 The opponent chooses an attack..."
 			},
 			"effects": {
 				"stunned": "Stunned",
@@ -399,8 +433,38 @@
 				"slowed": "Slowed down",
 				"concentrated": "Focused",
 				"weak": "Weakened",
-				"protected": "Shielded"
-			}
+				"protected": "Shielded",
+				"outrage": "In a outrage",
+				"petrified": "Petrified",
+				"full": "Full",
+				"frozen": "Frozen"
+			},
+			"weatherChanges": {
+				"sunny": "The sun is shining...",
+				"rainy": "It's raining...",
+				"hail": "It's hailing...",
+				"fog": "It's foggy...",
+				"firestorm": "The volcano is erupting...",
+				"storm": "A storm is raging...",
+				"tornado": "A tornado is brewing..."
+			},
+			"weatherContinues": {
+				"rainy": "It rains...",
+				"hail": "It hails...",
+				"fog": "It's foggy...",
+				"firestorm": "Melting rocks are falling from the sky...",
+				"storm": "The storm is raging...",
+				"tornado": "You feel the wind blowing around you..."
+			},
+			"weatherEnds": {
+				"rainy": "The rain stops...",
+				"hail": "The hail stops to fall...",
+				"fog": "The fog clears up...",
+				"firestorm": "The volcano calms down...",
+				"storm": "The storm moves away...",
+				"tornado": "The tornado stops..."
+			},
+			"weatherDamages": " {fighter} suffers from the weather! `Received damage: {damages}`"
 		}
 	}
 }

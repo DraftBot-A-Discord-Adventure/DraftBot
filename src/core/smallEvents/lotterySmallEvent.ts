@@ -14,6 +14,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {Maps} from "../maps/Maps";
 
 /**
  * Get a guild, may be null if the player isn't in a guild
@@ -48,10 +49,10 @@ async function effectIfGoodRisk(emoteName: string, player: Player, dataLottery: 
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

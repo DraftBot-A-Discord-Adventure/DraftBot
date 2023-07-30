@@ -1,0 +1,11 @@
+{
+	"type": "crystal_cavern",
+	"nameFr": "Caverne de cristal",
+	"nameEn": "Crystal cave",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une magnifique caverne de glace. Des centaines se stalactites et de stalagmites décorent cette caverne. Une lumière naturelle illumine ces cristaux de glace et donnent l'impression de milliers d'étoiles. Si on oublie les centaines de cadavres d'explorateurs qui ont glissé et se sont empalés sur les stalagmites, cette caverne est d'une beauté incroyable ou d'une tristesse sans nom. La caverne de cristal est un moyen dangereux d'atteindre le sommet du pic enneigé.",
+	"descEn": "A magnificent ice cave. Hundreds of stalactites and stalagmites decorate this cave. A natural light illuminates these ice crystals and gives the impression of thousands of stars. If we forget the hundreds of explorers' corpses that have slipped and impaled themselves on the stalagmites, this cave is of an incredible beauty or of a sadness without name. The crystal cave is a dangerous way to reach for the top of the snowy peak.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

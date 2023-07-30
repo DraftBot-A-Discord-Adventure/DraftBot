@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Bouclier de roche",
+			"namePlural": "Bouclier de roche",
+			"description": "Réduit de moitié la prochaine attaque reçue.",
+			"active": "durcit sa peau et se protège..."
+		},
+		"en": {
+			"name": "Stone shield",
+			"namePlural": "Stone shields",
+			"description": "Halves the damages of the next attack received.",
+			"active": "hardens its skin and protects himself..."
+		}
+	},
+	"emote": "🛡️",
+	"breath": 2,
+	"missionVariant": -1,
+	"type": "status"
+}

@@ -1,15 +1,17 @@
-import {Fighter} from "./fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
-import {draftBotInstance} from "../bot";
-import Benediction from "./actions/interfaces/benediction";
-import DivineAttack from "./actions/interfaces/divineAttack";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
+import {FightWeather} from "./FightWeather";
+import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
+import {MonsterFighter} from "./fighter/MonsterFighter";
+import {PlayerFighter} from "./fighter/PlayerFighter";
+import {PVEConstants} from "../constants/PVEConstants";
 
 /**
  * @class FightController
@@ -28,28 +30,25 @@ export class FightController {
 
 	private state: FightState;
 
-	private endCallback: (fight: FightController, fightLogId: number) => Promise<void>;
+	private endCallback: (fight: FightController) => Promise<void>;
 
-	public constructor(fighter1: Fighter, fighter2: Fighter, friendly: boolean, channel: TextBasedChannel, language: string) {
-		this.fighters = [fighter1, fighter2];
-		this.fightInitiator = fighter1;
+	private readonly weather: FightWeather;
+
+	private readonly overtimeBehavior: FightOvertimeBehavior;
+
+	public constructor(
+		fighters: { fighter1: Fighter, fighter2: Fighter },
+		fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior },
+		channel: TextBasedChannel,
+		language: string) {
+		this.fighters = [fighters.fighter1, fighters.fighter2];
+		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
-		this.friendly = friendly;
+		this.friendly = fightParameters.friendly;
 		this._fightView = new FightView(channel, language, this);
-	}
-
-	/**
-	 * Count the amount of god moves used by both players
-	 * @param sender
-	 * @param receiver
-	 */
-	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
-				action instanceof DivineAttack).length
-			+ receiver.fightActionsHistory.filter(action =>
-				action instanceof Benediction ||
-				action instanceof DivineAttack).length;
+		this.weather = new FightWeather();
+		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
 	/**
@@ -65,7 +64,7 @@ export class FightController {
 		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 
 		// the player with the highest speed start the fight
-		if (this.fighters[1].stats.speed > this.fighters[0].stats.speed || RandomUtils.draftbotRandom.bool() && this.fighters[1].stats.speed === this.fighters[0].stats.speed) {
+		if (this.fighters[1].getSpeed() > this.fighters[0].getSpeed() || RandomUtils.draftbotRandom.bool() && this.fighters[1].getSpeed() === this.fighters[0].getSpeed()) {
 			this.invertFighters();
 		}
 		this.state = FightState.RUNNING;
@@ -94,8 +93,6 @@ export class FightController {
 	public async endFight(): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		const fightLogId = await draftBotInstance.logsDatabase.logFight(this);
-
 		this.checkNegativeFightPoints();
 
 		const winner = this.getWinner();
@@ -106,9 +103,8 @@ export class FightController {
 		for (let i = 0; i < this.fighters.length; ++i) {
 			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
-
 		if (this.endCallback) {
-			await this.endCallback(this, fightLogId);
+			await this.endCallback(this);
 		}
 	}
 
@@ -117,8 +113,8 @@ export class FightController {
 	 */
 	endBugFight(): void {
 		this.state = FightState.BUG;
-		for (let i = 0; i < this.fighters.length; ++i) {
-			this.fighters[i].unblock();
+		for (const fighter of this.fighters) {
+			fighter.unblock();
 		}
 		this._fightView.displayBugFight();
 	}
@@ -129,6 +125,10 @@ export class FightController {
 	 */
 	public getWinner(): number {
 		return this.fighters[0].isDead() ? 1 : 0;
+	}
+
+	public getWinnerFighter(): Fighter {
+		return this.fighters[0].isDead() ? this.fighters[1].isDead() ? null : this.fighters[1] : this.fighters[0];
 	}
 
 	/**
@@ -156,16 +156,17 @@ export class FightController {
 				fightAction = FightActions.getFightActionById("outOfBreath");
 			}
 			else {
-				this.getPlayingFighter().stats.breath = 0;
+				this.getPlayingFighter().setBreath(0);
 			}
 		}
 
 
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language);
+		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
-			() => {
+			(e) => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
+				console.error(e.stack);
 				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
@@ -183,6 +184,29 @@ export class FightController {
 			this.getPlayingFighter().regenerateBreath(this.turn < 2);
 			await this.prepareNextTurn();
 		}
+		else {
+			await this._fightView.displayFightStatus().catch(
+				(e) => {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+					console.error(e.stack);
+					this.endBugFight();
+				});
+		}
+	}
+
+	/**
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
+		this.endCallback = callback;
+	}
+
+	/**
+	 * Get the fight view of the fight controller
+	 */
+	public getFightView(): FightView {
+		return this._fightView;
 	}
 
 	/**
@@ -192,8 +216,8 @@ export class FightController {
 	private checkNegativeFightPoints(): void {
 		// set the fight points to 0 if any of the fighters have fight points under 0
 		for (const fighter of this.fighters) {
-			if (fighter.stats.fightPoints < 0) {
-				fighter.stats.fightPoints = 0;
+			if (fighter.getFightPoints() < 0) {
+				fighter.setBaseFightPoints(0);
 			}
 		}
 	}
@@ -203,6 +227,21 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(): Promise<void> {
+		// Weather related actions
+		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language);
+		if (weatherMessage) {
+			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
+		}
+
+		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
+			await this.endFight();
+			return;
+		}
+
+		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
+			this.increaseDamagesPve(this.turn);
+		}
+
 		if (this.getPlayingFighter().hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
@@ -211,25 +250,63 @@ export class FightController {
 			return;
 		}
 		await this._fightView.displayFightStatus().catch(
-			() => {
+			(e) => {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				console.error(e.stack);
 				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
 			// An issue occurred during the fight status display, no need to continue the fight
 			return;
 		}
+
+		this.getPlayingFighter().reduceCounters();
+
+		// If the player is fighting a monster, and it's his first turn, then use the "rage explosion" action without changing turns
+		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
+			await this.executeFightAction(FightActions.getFightActionById("rageExplosion"), false);
+			if (this.hadEnded()) {
+				return;
+			}
+		}
+
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
-				this.getPlayingFighter().chooseAction(this._fightView);
+				await this.getPlayingFighter().chooseAction(this._fightView);
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+				console.error(e.stack);
 				this.endBugFight();
 			}
 		}
 		else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
+		}
+	}
+
+	private increaseDamagesPve(currentTurn: number): void {
+		for (const fighter of this.fighters) {
+			if (fighter instanceof MonsterFighter) {
+				if (currentTurn - FightConstants.MAX_TURNS < PVEConstants.DAMAGE_INCREASED_DURATION) {
+					fighter.applyAttackModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+					fighter.applyDefenseModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+					fighter.applySpeedModifier({
+						operation: FightStatModifierOperation.MULTIPLIER,
+						value: 1.2,
+						origin: null
+					});
+				}
+				fighter.applyDamageMultiplier(1.2, PVEConstants.DAMAGE_INCREASED_DURATION);
+			}
 		}
 	}
 
@@ -246,29 +323,13 @@ export class FightController {
 	}
 
 	/**
-	 * Set a callback to be called when the fight ends
-	 * @param callback
-	 */
-	public setEndCallback(callback: (fight: FightController, fightLogId: number) => Promise<void>): void {
-		this.endCallback = callback;
-	}
-
-	/**
 	 * Check if a fight has ended or not
 	 * @private
 	 */
 	private hadEnded(): boolean {
 		return (
-			this.turn >= FightConstants.MAX_TURNS ||
 			this.getPlayingFighter().isDeadOrBug() ||
 			this.getDefendingFighter().isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
-	}
-
-	/**
-	 * Get the fight view
-	 */
-	public getFightView(): FightView {
-		return this._fightView;
 	}
 }

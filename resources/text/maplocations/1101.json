@@ -1,0 +1,11 @@
+{
+	"type": "tundra",
+	"nameFr": "Toundra gelée",
+	"nameEn": "Frozen tundra",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Comme son nom l'indique, cette vaste étendue de terre gelée n'est pas propice pour le repos. Très froide et très aride, il y subsiste toutefois quelques arbres robustes.",
+	"descEn": "As its name indicates, this vast expanse of frozen land is not conducive to rest. Very cold and very dry, there remain however some robust trees.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

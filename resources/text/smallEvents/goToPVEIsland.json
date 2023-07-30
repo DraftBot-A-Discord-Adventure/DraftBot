@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {priceText}.",
+				"un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {priceText}.",
+				"vous êtes interpellé par un homme en habits de marin, et arborant l'emblême du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {priceText}.",
+				"vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {priceText}."
+			],
+			"priceFree": "le voyage **est gratuit**",
+			"priceMoney": "le voyage **coûtera {price} \uD83D\uDC8E**",
+			"confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{fightPoints} / {fightPointsMax}**.",
+			"endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
+			"endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
+			"endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
+			"notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
+		},
+		"en": {
+			"stories": [
+				"your gaze is attracted to a boat on the side of your field of view. Its captain beckons to you and presents you with a potential thrilling adventure, on a monster-filled island. They also add that {priceText}.",
+				"a man approaches you and asks if you'd be interested in his services. He explains that he's the captain of a ship sailing between the mainland and a mysterious island full of monsters. He says he can take you there if you're looking for a rollicking adventure, and adds that {priceText}.",
+				"you are approached by a man in sailor's clothing, bearing the king's emblem. He tells you he's trying to send some of the adventurers competing for the princess's hand to an island full of monsters, which would be useful for the kingdom to get rid of. He also says that a ship is ready to leave for this island, and asks you if you're up for it, pointing out that {priceText}.",
+				"you're accosted by a tall, bearded man, introducing himself as the leader of a mercenary group renowned in the region. He tells you that he can make you an incredible offer. The offer is for you to travel to a mysterious new island, where opportunity and danger coexist, as a monster hunter. He also adds that {priceText}."
+			],
+			"priceFree": "the trip **is free**",
+			"priceMoney": "the trip **will cost you {price} \uD83D\uDC8E**",
+			"confirm": "Do you wish to go to the island ? You have ⚡ **{fightPoints} / {fightPointsMax}**.",
+			"endStoryAccept": "You accept and embark on the boat in the direction of the island.",
+			"endStoryAcceptWithMember": "You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
+			"endStoryRefuse": "You politely decline and continue walking towards your planned destination.",
+			"notEnoughGems": "You accept but when the time to pay has come, you realize that you don't have enough gems. You leave disappointed."
+		}
+	},
+	"rarity": 40,
+	"emote": ":ferry:"
+}

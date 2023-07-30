@@ -77,8 +77,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 	} = getCommandByCategories();
 	helpMessage.formatAuthor(tr.get("helpEmbedTitle"), interaction.user);
 	helpMessage.setDescription(
-		tr.format("helpEmbedDescription", {}) +
-		"\n\u200b"
+		`${tr.format("helpEmbedDescription", {})}\n\u200b`
 	);
 	helpMessage.addFields([
 		{

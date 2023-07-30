@@ -4,6 +4,7 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {GuildConstants} from "../../../../core/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "guildlevel",
@@ -32,8 +33,8 @@ const guildLevelTestCommand = async (language: string, interaction: CommandInter
 		throw new Error("Erreur glvl : vous n'êtes pas dans une guilde !");
 	}
 	const guildLvl = parseInt(args[0], 10);
-	if (guildLvl <= 0 || guildLvl > 100) {
-		throw new Error("Erreur glvl : niveau de guilde invalide ! Fourchette de niveau compris entre 0 et 100.");
+	if (guildLvl <= 0 || guildLvl > GuildConstants.MAX_LEVEL) {
+		throw new Error(`Erreur glvl : niveau de guilde invalide ! Fourchette de niveau compris entre 0 et ${GuildConstants.MAX_LEVEL}.`);
 	}
 	guild.level = guildLvl;
 	await guild.save();

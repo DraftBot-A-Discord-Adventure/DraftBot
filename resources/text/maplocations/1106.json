@@ -1,0 +1,11 @@
+{
+	"type": "snow_mountain",
+	"nameFr": "Pic enneigé",
+	"nameEn": "Snowy peak",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
+	"descEn": "This gigantic peak dominates the whole island. It is visible from miles around. Very difficult to access, the snowy peak shelters old wooden structures dating from an ancient civilization. The two paths leading to it being very perilous, few people have been able to see these structures with their own eyes.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

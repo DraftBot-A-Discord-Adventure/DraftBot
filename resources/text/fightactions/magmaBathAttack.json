@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Bain de magma",
+			"namePlural": "Bains de magma",
+			"active": "se repose et récupère `{amount} points de combats.`",
+			"description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations."
+		},
+		"en": {
+			"name": "Magma bath",
+			"namePlural": "Magma baths",
+			"active": "rests and recovers `{amount} fight points.`",
+			"description": "Applies to the launcher. He rests in the lava and recovers his fight points. The number of fight points recovered is divided by 4 after 4 uses."
+		}
+	},
+	"emote": "🛁",
+	"breath": 2,
+	"missionVariant": -1,
+	"type": "stats"
+}
