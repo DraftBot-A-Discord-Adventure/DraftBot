@@ -127,7 +127,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const ranking = await guild.getRanking();
 	const pveIslandInfo = player.guildId === guild.id ? guildModule.format("islandInfo", {
-		membersOnPveIsland: (await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player)).length
+		membersOnPveIsland: (await Maps.getGuildMembersOnPveIsland(player)).length
 	}) : "";
 	embed.addFields({
 		name: guildModule.get("infoTitle"),
