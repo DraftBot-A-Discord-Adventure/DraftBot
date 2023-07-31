@@ -121,7 +121,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				}
 			),
 			guildPoints: guild.score,
-			ranking: ranking !== -1 ? guildModule.format("ranking", {
+			ranking: ranking > -1 ? guildModule.format("ranking", {
 				rank: ranking,
 				rankTotal: await Guilds.getTotalRanked()
 			}) : guildModule.get("notRanked")
