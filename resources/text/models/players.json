@@ -21,7 +21,9 @@
 			"dmDisabledFooter": "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites la commande notification et activez les messages privés dans vos paramètres utilisateurs.",
 			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé).",
 			"leavePVEIslandTitle": "{pseudo}, évanouissement",
-			"leavePVEIsland": "\uD83D\uDE16 Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal."
+			"leavePVEIsland": "\uD83D\uDE16 Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n:money_with_wings: Argent perdu : **{moneyLost}**",
+			"guildPlayerPointsMalusDescription": "\n:mirror_ball: Points de guilde perdus : **{guildPointsLost}**",
+			"leavePVEIslandBoatInfo": "\n\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal."
 		},
 		"en": {
 			"pseudo": "Player 404",
@@ -44,7 +46,9 @@
 			"dmDisabledFooter": "Your private messages are locked, or you have disabled bot's private messages with notification. If you wish to enable them use the notification command, and unlock dm messages in your user settings",
 			"dmEnabledFooter": "This message is sent to you via the notification system by private messages. If you no longer wish to receive private messages from this bot, please use the command notification (commands do not work in private messages)",
 			"leavePVEIslandTitle": "{pseudo}, fainting",
-			"leavePVEIsland": "\uD83D\uDE16 You feel your strength leaving you, you are exhausted. You suddenly faint...\nA boat comes for you and leave you on the coast of the main continent."
+			"leavePVEIsland": "\uD83D\uDE16 You feel your strength leaving you, you are exhausted. You faint on the ground...\n\n:money_with_wings: Money lost: **{moneyLost}**",
+			"guildPlayerPointsMalusDescription": "\n:mirror_ball: Guild points lost: **{guildPointsLost}**",
+			"leavePVEIslandBoatInfo": "\n\nA boat comes to pick you up and brings you back to a coast of the main continent."
 		}
 	}
 }
