@@ -39,7 +39,6 @@ import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import moment = require("moment");
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
-import {Random} from "random-js";
 import {Guilds} from "./Guild";
 
 export type PlayerEditValueParameters = {
