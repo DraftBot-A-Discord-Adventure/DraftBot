@@ -12,6 +12,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Maps} from "../../core/maps/Maps";
+import {MapCache} from "../../core/maps/MapCache";
 
 /**
  * Allow to display the info of a guild
@@ -57,43 +58,24 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const members = await Players.getByGuild(guild.id);
+	const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(player)).map((player) => player.discordUserId);
 
 	let membersInfos = "";
 
 	for (const member of members) {
 		// if member is the owner of guild
-		if (member.id === guild.chiefId) {
-			membersInfos += guildModule.format("chiefinfos",
-				{
-					pseudo: member.getPseudo(language),
-					ranking: await Players.getRankById(member.id),
-					score: member.score,
-					isOnPveIsland: Maps.isOnPveIsland(member)
-				}
-			);
-		}
-		else if (member.id === guild.elderId) {
-			membersInfos += guildModule.format(
-				"elderinfos",
-				{
-					pseudo: member.getPseudo(language),
-					ranking: await Players.getRankById(member.id),
-					score: member.score,
-					isOnPveIsland: Maps.isOnPveIsland(member)
-				}
-			);
-		}
-		else {
-			membersInfos += guildModule.format(
-				"memberinfos",
-				{
-					pseudo: member.getPseudo(language),
-					ranking: await Players.getRankById(member.id),
-					score: member.score,
-					isOnPveIsland: Maps.isOnPveIsland(member)
-				}
-			);
-		}
+		membersInfos += guildModule.format("memberinfos",
+			{
+				isChief: member.id === guild.chiefId,
+				isElder: member.id === guild.elderId,
+				pseudo: member.getPseudo(language),
+				ranking: await Players.getRankById(member.id),
+				score: member.score,
+				isOnPveIsland: Maps.isOnPveIsland(member),
+				isOnBoat: MapCache.boatEntryMapLinks.includes(member.mapLinkId),
+				isPveIslandAlly: membersPveAlliesIds.includes(member.discordUserId)
+			}
+		);
 	}
 
 	embed.setThumbnail(GuildConstants.ICON);
@@ -126,7 +108,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const ranking = await guild.getRanking();
 	const pveIslandInfo = player.guildId === guild.id ? guildModule.format("islandInfo", {
-		membersOnPveIsland: (await Maps.getGuildMembersOnPveIsland(player)).length
+		membersOnPveIsland: membersPveAlliesIds.length
 	}) : "";
 	embed.addFields({
 		name: guildModule.get("infoTitle"),
