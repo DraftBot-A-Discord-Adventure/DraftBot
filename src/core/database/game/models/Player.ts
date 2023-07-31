@@ -9,7 +9,7 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {ColorResolvable, CommandInteraction, TextBasedChannel} from "discord.js";
+import {CacheType, ColorResolvable, CommandInteraction, TextBasedChannel} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
@@ -39,6 +39,8 @@ import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import moment = require("moment");
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
+import {Random} from "random-js";
+import {Guilds} from "./Guild";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -59,6 +61,11 @@ type MissionHealthParameter = {
 	shouldPokeMission: boolean,
 	overHealCountsForMission: boolean
 };
+
+type ressourcesLostOnPveFaint = {
+	moneyLost: number,
+	guildPointsLost: number,
+}
 
 export class Player extends Model {
 	public readonly id!: number;
@@ -762,10 +769,16 @@ export class Player extends Model {
 	public async leavePVEIslandIfNoFightPoints(interaction: CommandInteraction, language: string): Promise<boolean> {
 		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= await this.getMaxCumulativeFightPoint()) {
 			const tr = Translations.getModule("models.players", language);
+			const {moneyLost, guildPointsLost} = await this.getAndApplyLostRessourcesOnPveFaint(interaction, language);
+			const guildPlayerPointsMalusDescription = this.hasAGuild() ? tr.format("guildPlayerPointsMalusDescription", {
+				guildPointsLost
+			}) : "";
 			await interaction.channel.send({
 				embeds: [
 					new DraftBotEmbed().formatAuthor(tr.get("leavePVEIslandTitle"), interaction.user)
-						.setDescription(tr.get("leavePVEIsland"))
+						.setDescription(tr.format("leavePVEIsland", {
+							moneyLost
+						}) + guildPlayerPointsMalusDescription + tr.get("leavePVEIslandBoatInfo"))
 				]
 			});
 			await Maps.stopTravel(this);
@@ -781,6 +794,39 @@ export class Player extends Model {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
+	 * @param interaction
+	 * @param language
+	 * @private
+	 */
+	private async getAndApplyLostRessourcesOnPveFaint(interaction: CommandInteraction<CacheType>, language: string): Promise<ressourcesLostOnPveFaint> {
+		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
+		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
+		if (moneyLost > this.money) {
+			moneyLost = this.money;
+		}
+		await this.addMoney({
+			amount: -moneyLost,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.PVE_ISLAND
+		});
+		await this.save();
+
+		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
+			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
+		if (this.hasAGuild()) {
+			const playerGuild = await Guilds.getById(this.guildId);
+			if (guildPointsLost > playerGuild.score) {
+				guildPointsLost = playerGuild.score;
+			}
+			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
+			await playerGuild.save();
+		}
+		return {moneyLost, guildPointsLost};
 	}
 
 	/**
@@ -807,6 +853,13 @@ export class Player extends Model {
 	public async getBaseBreath(): Promise<number> {
 		const playerClass = await Classes.getById(this.class);
 		return playerClass.baseBreath;
+	}
+
+	/**
+	 * Check if the player has a guild
+	 */
+	public hasAGuild(): boolean {
+		return this.guildId !== null;
 	}
 
 	/**
@@ -1011,7 +1064,7 @@ export class Player extends Model {
 	/**
 	 * Check if the player has enough energy to join the island
 	 */
-	async hasEnoughEnergyToJoinTheIsland() : Promise<boolean> {
+	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
 		return await this.getCumulativeFightPoint() / await this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 }
