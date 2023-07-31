@@ -196,7 +196,9 @@ export class Maps {
 		}
 
 		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);
-		const membersThatAre = await Player.findAll({
+		const membersThatWereDiscordIds = membersThatWere.map((player) => player.discordUserId);
+		// Filter discord ids that are already in the first array, because even if the players are the same the model instances are different
+		const membersThatAre = (await Player.findAll({
 			where: {
 				guildId: player.guildId,
 				mapLinkId: {
@@ -206,8 +208,8 @@ export class Maps {
 					[Op.not]: player.id
 				}
 			}
-		});
-		return [...new Set([...membersThatWere, ...membersThatAre])];
+		})).filter((player) => !membersThatWereDiscordIds.includes(player.discordUserId));
+		return [...membersThatWere, ...membersThatAre];
 	}
 
 	/**
