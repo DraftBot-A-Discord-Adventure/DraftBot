@@ -81,7 +81,7 @@ export abstract class Fighter {
 		this.ready = false;
 		this.nextFightAction = null;
 		this.fightActionsHistory = [];
-		this.status = FighterStatus.NOT_STARTED;
+		this.status = FighterStatus.NOT_STARTED_PLAYER;
 		this.alteration = null;
 		this.alterationTurn = 0;
 		this.level = level;
