@@ -6,7 +6,7 @@ import {FightActions} from "../../FightActions";
 export default class IntenseAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, sender.getSpeed() < receiver.getSpeed() ? 0 : 10);
 
 		// the sender has to rest for 1 turn
 		sender.nextFightAction = FightActions.getFightActionById("resting");
