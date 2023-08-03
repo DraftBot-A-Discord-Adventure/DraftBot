@@ -16,7 +16,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(Maps.isOnContinent(player));
+		return Promise.resolve(Maps.isOnContinent(player) && player.hasAGuild());
 	},
 
 	/**
