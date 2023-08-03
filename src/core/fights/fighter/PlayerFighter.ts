@@ -231,7 +231,9 @@ export class PlayerFighter extends Fighter {
 		return fightTranslationModule.format(
 			this.status.getTranslationField(),
 			{
-				pseudo: this.getName()
+				pseudo: this.getName(),
+				glory: this.glory,
+				class: this.class.getName(fightTranslationModule.language)
 			}
 		) + fightTranslationModule.format("summarize.stats", {
 			power: this.getFightPoints(),

@@ -8,6 +8,7 @@ import MonsterAttack from "../../database/game/models/MonsterAttack";
 import {FightAction} from "../actions/FightAction";
 import {PVEConstants} from "../../constants/PVEConstants";
 import {TranslationModule} from "../../Translations";
+import {FighterStatus} from "../FighterStatus";
 
 export class MonsterFighter extends Fighter {
 
@@ -41,6 +42,7 @@ export class MonsterFighter extends Fighter {
 		this.description = monster.getDescription(language);
 		this.emoji = monster.getEmoji();
 		this.monster = monster;
+		this.status = FighterStatus.NOT_STARTED;
 	}
 
 	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {
