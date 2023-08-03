@@ -66,7 +66,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
  */
 async function dailyNotReady(interaction: CommandInteraction, player: Player, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
-	const time = millisecondsToHours(Date.now() - inventoryInfo.lastDailyAt.valueOf());
+	const time = millisecondsToHours(Date.now() - inventoryInfo.getLastDailyAtTimestamp());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
 		await replyErrorMessage(
 			interaction,
