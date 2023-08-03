@@ -181,7 +181,7 @@ export class FightController {
 		if (endTurn) {
 			this.turn++;
 			this.invertFighters();
-			this.getPlayingFighter().regenerateBreath(this.turn < 2);
+			this.getPlayingFighter().regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn();
 		}
 		else {
