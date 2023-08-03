@@ -54,4 +54,6 @@ export abstract class GuildConstants {
 		ELDER: 2,
 		CHIEF: 3
 	};
+
+	static GOLDEN_GUILD_LEVEL = 100;
 }
