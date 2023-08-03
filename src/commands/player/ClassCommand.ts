@@ -83,7 +83,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 				]
 			});
 		}
-		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"), true);
+		await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
 	});
 
 	await Promise.all([
