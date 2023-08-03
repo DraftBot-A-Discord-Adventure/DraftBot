@@ -211,14 +211,13 @@ export abstract class Constants {
 
 	static readonly BADGES = {
 		POWERFUL_GUILD: "💎",
+		VERY_POWERFUL_GUILD: "🪩",
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
 		PET_TAMER: "💞",
-		LIST: [
-			"🏆",
+		LIST_FOR_GIVE_BADGE_COMMAND: [
 			"🏅",
-			"👑",
 			"⚙️",
 			"✨",
 			"❤️",
@@ -226,7 +225,6 @@ export abstract class Constants {
 			"💸",
 			"🐞",
 			"🎰",
-			"⛑️",
 			"🥇",
 			"🤑",
 			"🌟",
@@ -238,9 +236,9 @@ export abstract class Constants {
 			"💎",
 			"⚔️",
 			"🗳️",
-			"🔖",
 			"💞",
-			"💍"
+			"💍",
+			"🪩"
 		]
 	};
 

@@ -6,6 +6,7 @@ export abstract class GuildDailyConstants {
 		HOSPITAL: "hospital",
 		MONEY: "money",
 		BADGE: "badge",
+		SUPER_BADGE: "superBadge",
 		FULL_HEAL: "fullHeal",
 		PARTIAL_HEAL: "partialHeal",
 		ALTERATION: "alterationHeal",
@@ -167,55 +168,60 @@ export abstract class GuildDailyConstants {
 			guildXP: 150,
 			money: 350,
 			badge: 10,
+			superBadge: 10,
 			fullHeal: 10,
 			hospital: 100,
 			partialHeal: 50,
 			alterationHeal: 100,
-			petFood: 30
+			petFood: 20
 		},
 		{
 			personalXP: 200,
 			guildXP: 150,
 			money: 350,
 			badge: 10,
+			superBadge: 10,
 			fullHeal: 10,
 			hospital: 100,
 			partialHeal: 50,
 			alterationHeal: 100,
-			petFood: 30
+			petFood: 20
 		},
 		{
 			personalXP: 200,
 			guildXP: 150,
 			money: 350,
 			badge: 10,
+			superBadge: 10,
 			fullHeal: 10,
 			hospital: 100,
 			partialHeal: 50,
 			alterationHeal: 100,
-			petFood: 30
+			petFood: 20
 		},
 		{
 			personalXP: 200,
 			guildXP: 150,
 			money: 350,
 			badge: 10,
+			superBadge: 10,
 			fullHeal: 10,
 			hospital: 100,
 			partialHeal: 50,
 			alterationHeal: 100,
-			petFood: 30
+			petFood: 20
 		},
 		{
-			personalXP: 250,
-			guildXP: 0,
-			money: 400,
+			personalXP: 200,
+			guildXP: 150,
+			money: 350,
 			badge: 10,
-			fullHeal: 15,
-			hospital: 150,
+			superBadge: 10,
+			fullHeal: 10,
+			hospital: 100,
 			partialHeal: 50,
 			alterationHeal: 100,
-			petFood: 25
+			petFood: 20
 		}
 	];
 }

@@ -56,4 +56,6 @@ export abstract class GuildConstants {
 	};
 
 	static GOLDEN_GUILD_LEVEL = 100;
+
+	static SUPER_BADGE_MIN_RANK = 25;
 }
