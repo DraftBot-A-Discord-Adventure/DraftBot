@@ -337,6 +337,10 @@ export abstract class Constants {
 		ERROR: <HexColorString>"#FF0000"
 	};
 
+	static readonly COLOR = {
+		GOLD: <HexColorString>"#ffac33"
+	};
+
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
 
 	static EXCLUDED_TRANSLATION_MODULES = [

@@ -80,6 +80,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	embed.setThumbnail(GuildConstants.ICON);
 
+	if (guild.level >= GuildConstants.GOLDEN_GUILD_LEVEL) {
+		embed.setColor(Constants.COLOR.GOLD);
+	}
+
 	embed.setTitle(
 		guildModule.format("title", {
 			guildName: guild.name,
