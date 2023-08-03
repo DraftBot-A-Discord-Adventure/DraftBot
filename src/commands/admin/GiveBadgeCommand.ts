@@ -34,7 +34,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
  */
 function getAllBadgesForOptions(): { name: string, value: string }[] {
 	const tabBadges: { name: string, value: string }[] = [];
-	for (const badge of Constants.BADGES.LIST) {
+	for (const badge of Constants.BADGES.LIST_FOR_GIVE_BADGE_COMMAND) {
 		tabBadges.push({name: badge, value: badge});
 	}
 	return tabBadges;

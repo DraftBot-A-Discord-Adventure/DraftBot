@@ -107,7 +107,8 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  * @param guildDailyModule
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
+	const levelUsed = Math.min(guildLike.guild.level, GuildConstants.GOLDEN_GUILD_LEVEL);
+	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, levelUsed , levelUsed * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => {
 		member.addMoney({
 			amount: moneyWon,
@@ -283,6 +284,11 @@ async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfo
  * @param guildDailyModule
  */
 async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
+	const guildRank = await guildLike.guild.getRanking();
+	if (guildRank > GuildConstants.SUPER_BADGE_MIN_RANK || guildRank < 0) {
+		// only guilds that are in the top ranked guilds can get the badge
+		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+	}
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
 		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
@@ -294,7 +300,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
-	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.SUPER_BADGE).then();
 }
 
 /**
@@ -313,6 +319,24 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
 }
 
 /**
+ * Generic function to award the very powerful guild badge to members of a guild
+ */
+async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
+	let membersThatOwnTheBadge = 0;
+	await genericAwardingFunction(guildLike.members, member => {
+		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
+			membersThatOwnTheBadge++;
+		}
+	});
+	if (membersThatOwnTheBadge === guildLike.members.length) {
+		// everybody already has the badge, give something else instead
+		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+	}
+	stringInfos.embed.setDescription(guildDailyModule.get("superBadge"));
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
+}
+
+/**
  * Map all possible rewards to the corresponding rewarding function
  */
 function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
@@ -322,6 +346,7 @@ function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.MONEY, awardMoneyToMembers);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PET_FOOD, awardCommonFood);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.SUPER_BADGE, awardGuildSuperBadgeToMembers);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
