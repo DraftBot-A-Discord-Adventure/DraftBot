@@ -17,8 +17,14 @@ import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
 import {Maps} from "../maps/Maps";
+import {NumberChangeReason} from "../constants/LogsConstants";
 
-type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent, optional?: WitchEvent };
+type WitchEventSelection = {
+	randomAdvice: WitchEvent,
+	randomIngredient: WitchEvent,
+	fullRandom: WitchEvent,
+	optional?: WitchEvent
+};
 
 /**
  * Returns an object composed of three random witch events
@@ -197,6 +203,8 @@ export const smallEvent: SmallEvent = {
 				await sendResultMessage(seEmbed, outcome, tr, selectedEvent, interaction);
 
 				await applyOutcome(outcome, selectedEvent, player, language, interaction);
+
+				await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 
 				await selectedEvent.checkMissions(interaction, player, language, outcome);
 			});
