@@ -88,7 +88,7 @@ function getBigGuildXPShopItem(guildShopTranslations: TranslationModule): ShopIt
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);
-			const xpToAdd = calculateAmountOfXPToAdd(9999999);
+			const xpToAdd = calculateAmountOfXPToAdd(parseInt(guildShopTranslations.get("bigGuildXp.price")));
 			return await giveXpToGuild(guild, xpToAdd, message, guildShopTranslations);
 		}
 	);
