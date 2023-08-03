@@ -49,7 +49,7 @@ export const smallEvent: SmallEvent = {
 	 * Must be on continent
 	 */
 	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(Maps.isOnContinent(player));
+		return Promise.resolve(Maps.isOnContinent(player) && player.level > FightConstants.REQUIRED_LEVEL);
 	},
 
 	/**
