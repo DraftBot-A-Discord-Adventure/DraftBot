@@ -324,7 +324,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: 
 		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
+		if (!member.addBadge(Constants.BADGES.VERY_POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
 		}
 	});
