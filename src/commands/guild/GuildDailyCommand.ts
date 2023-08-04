@@ -284,11 +284,6 @@ async function fullHealEveryMember(guildLike: GuildLike, stringInfos: StringInfo
  * @param guildDailyModule
  */
 async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const guildRank = await guildLike.guild.getRanking();
-	if (guildRank > GuildConstants.SUPER_BADGE_MIN_RANK || guildRank < 0) {
-		// only guilds that are in the top ranked guilds can get the badge
-		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
-	}
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
 		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
@@ -300,7 +295,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
-	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.SUPER_BADGE).then();
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
 }
 
 /**
@@ -323,6 +318,11 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
  */
 async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	let membersThatOwnTheBadge = 0;
+	const guildRank = await guildLike.guild.getRanking();
+	if (guildRank > GuildConstants.SUPER_BADGE_MAX_RANK || guildRank < 0) {
+		// only guilds that are in the top ranked guilds can get the badge
+		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+	}
 	await genericAwardingFunction(guildLike.members, member => {
 		if (!member.addBadge(Constants.BADGES.POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
@@ -333,7 +333,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: 
 		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("superBadge"));
-	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.SUPER_BADGE).then();
 }
 
 /**
