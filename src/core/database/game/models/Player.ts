@@ -954,7 +954,7 @@ export class Player extends Model {
 	 */
 	public getCompressionImpact(): number {
 		if (this.gloryPointsLastSeason > LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
-			return Math.floor((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
+			return Math.round((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
 		}
 		return 0;
 	}
