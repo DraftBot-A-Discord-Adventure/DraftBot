@@ -40,7 +40,7 @@
 			"nextReset": "Classement réinitialisé dans {time}",
 			"nobodyInTop": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez.",
 			"guilds": {
-				"title": "🏟️ Affichage du top guilde des places {minRank} à {maxRank}",
+				"title": "🏟️ Affichage du top guildes des places {minRank} à {maxRank}",
 				"lowScore": ":x: | **{pseudo}**, votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de points de guilde !",
 				"noGuild": ":x: | **{pseudo}**, vous n'apparaissez pas dans ce classement puisque vous ne faites pas parti d'une guilde !",
 				"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Votre guilde est actuellement la meilleure sur un total de {totalGuilds} guilde{totalGuilds>1?s:} ! \n(Vous la trouverez à la page {page} / {pageMax})",
