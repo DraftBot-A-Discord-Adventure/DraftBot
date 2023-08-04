@@ -65,6 +65,10 @@
 					"usage": "{command:top glory}",
 					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
 				},
+				"GUILD_TOP": {
+					"usage": "{command:top guilds}",
+					"description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
+				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
 					"description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
@@ -291,6 +295,10 @@
 				"GLORY_TOP": {
 					"usage": "{command:top glory}",
 					"description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
+				},
+				"GUILD_TOP": {
+					"usage": "{command:top guilds}",
+					"description": "Displays the ranking of the guilds in 15 guild intervals. Guilds are ranked based on points acquired on mysterious islands."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
