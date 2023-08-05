@@ -14,9 +14,8 @@ test("Guild daily Rewards are set correctly", () => {
 });
 
 test("All guild daily reward objects have the same amount of properties", () => {
-	const expectedAmountOfProperties: number = Object.keys(GuildDailyConstants.GUILD_CHANCES[0]).length;
 	for (const guildDailyReward of GuildDailyConstants.GUILD_CHANCES) {
-		expect(Object.keys(guildDailyReward).length).toEqual(expectedAmountOfProperties);
+		expect(Object.keys(guildDailyReward)).toEqual(Object.keys(GuildDailyConstants.GUILD_CHANCES[0]));
 	}
 });
 
