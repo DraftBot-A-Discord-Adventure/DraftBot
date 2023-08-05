@@ -8,54 +8,51 @@ class SettingClass<T extends number | string> {
 
 	private readonly defaultValue: () => Promise<T>;
 
-	private cachedValue: T;
+	private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
 
 	constructor(name: string, defaultValue: () => Promise<T>) {
 		this.name = name;
 		this.defaultValue = defaultValue;
-		this.cachedValue = null;
 	}
 
 	public async getValue(): Promise<T> {
-		if (this.cachedValue === null) {
-			const settingInstance = await Setting.findOne({
-				where: {
-					name: this.name
-				}
-			});
+		let value: T;
 
-			if (settingInstance) {
-				let value: T;
-				if (typeof this.cachedValue === "string") {
-					value = <T>settingInstance.dataString;
-				}
-				else {
-					value = <T>settingInstance.dataNumber;
-				}
-				this.cachedValue = value;
+		const settingInstance = await Setting.findOne({
+			where: {
+				name: this.name
+			}
+		});
+
+		if (settingInstance) {
+			if (typeof this.junkVariable === "string") {
+				value = <T>settingInstance.dataString;
 			}
 			else {
-				this.cachedValue = await this.defaultValue();
-				if (typeof this.cachedValue === "string") {
-					await Setting.create({
-						name: this.name,
-						dataString: this.cachedValue
-					});
-				}
-				else {
-					await Setting.create({
-						name: this.name,
-						dataNumber: this.cachedValue
-					});
-				}
+				value = <T>settingInstance.dataNumber;
+			}
+		}
+		else {
+			value = await this.defaultValue();
+			if (typeof this.junkVariable === "string") {
+				await Setting.create({
+					name: this.name,
+					dataString: value
+				});
+			}
+			else {
+				await Setting.create({
+					name: this.name,
+					dataNumber: value
+				});
 			}
 		}
 
-		return this.cachedValue;
+		return value;
 	}
 
 	public async setValue(value: T): Promise<void> {
-		if (typeof this.cachedValue === "string") {
+		if (typeof this.junkVariable === "string") {
 			await Setting.update({
 				dataString: value
 			}, {
@@ -73,8 +70,6 @@ class SettingClass<T extends number | string> {
 				}
 			});
 		}
-
-		this.cachedValue = value;
 	}
 }
 
