@@ -996,11 +996,11 @@ export class LogsDatabase extends Database {
 	 */
 	public async logFight(fight: FightController): Promise<number> {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
-			const player1 = fight.fightInitiator as PlayerFighter;
+			const player1 = fight.fighters[(fight.turn + 1) % 2] as PlayerFighter; // Odd turn = fighters[0] is inverted
 			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
 			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
-			const winner = fight.getWinner() + 1;
+			const winner = fight.getWinnerFighter() === player1 ? 1 : 2;
 			const fightResult = await LogsFightsResults.create({
 				player1Id: player1Id,
 				player1Points: player1.player.score,
