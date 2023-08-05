@@ -319,19 +319,25 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
 async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	let membersThatOwnTheBadge = 0;
 	const guildRank = await guildLike.guild.getRanking();
+
 	if (guildRank > GuildConstants.SUPER_BADGE_MAX_RANK || guildRank < 0) {
 		// only guilds that are in the top ranked guilds can get the badge
-		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
+
 	await genericAwardingFunction(guildLike.members, member => {
 		if (!member.addBadge(Constants.BADGES.VERY_POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
 		}
 	});
+
 	if (membersThatOwnTheBadge === guildLike.members.length) {
 		// everybody already has the badge, give something else instead
-		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
+
 	stringInfos.embed.setDescription(guildDailyModule.get("superBadge"));
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.SUPER_BADGE).then();
 }
