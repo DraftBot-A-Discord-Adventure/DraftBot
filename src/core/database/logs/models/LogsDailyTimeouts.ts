@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsDailyTimeouts extends Model {
-	public readonly petLoveChange!: boolean;
+	declare readonly petLoveChange: boolean;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

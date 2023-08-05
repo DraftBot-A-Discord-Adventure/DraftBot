@@ -16,7 +16,7 @@
 	"moduleResolution": "node",
 	"skipLibCheck": true,
 	"resolveJsonModule": true,
-	"target": "es6",
+	"target": "es2022",
 	"allowSyntheticDefaultImports": true
 },
 "include": ["src/**/*", "test/**/*"],

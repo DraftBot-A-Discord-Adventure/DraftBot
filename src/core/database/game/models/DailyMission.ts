@@ -8,29 +8,29 @@ import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class DailyMission extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public missionId!: string;
+	declare missionId: string;
 
-	public objective!: number;
+	declare objective: number;
 
-	public variant!: number;
+	declare variant: number;
 
-	public gemsToWin!: number;
+	declare gemsToWin: number;
 
-	public xpToWin!: number;
+	declare xpToWin: number;
 
-	public pointsToWin!: number;
+	declare pointsToWin: number;
 
-	public moneyToWin!: number;
+	declare moneyToWin: number;
 
-	public lastDate!: Date;
+	declare lastDate: Date;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
-	public Mission: Mission;
+	declare Mission: Mission;
 }
 
 export class DailyMissions {

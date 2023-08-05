@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsTopWeekEnd extends Model {
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 /**

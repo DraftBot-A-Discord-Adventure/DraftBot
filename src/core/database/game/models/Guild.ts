@@ -16,37 +16,37 @@ import moment = require("moment");
 import {TopConstants} from "../../../constants/TopConstants";
 
 export class Guild extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public name!: string;
+	declare name: string;
 
-	public guildDescription!: string;
+	declare guildDescription: string;
 
-	public score!: number;
+	declare score: number;
 
-	public level!: number;
+	declare level: number;
 
-	public experience!: number;
+	declare experience: number;
 
-	public commonFood!: number;
+	declare commonFood: number;
 
-	public carnivorousFood!: number;
+	declare carnivorousFood: number;
 
-	public herbivorousFood!: number;
+	declare herbivorousFood: number;
 
-	public ultimateFood!: number;
+	declare ultimateFood: number;
 
-	public lastDailyAt!: Date;
+	declare lastDailyAt: Date;
 
-	public chiefId!: number;
+	declare chiefId: number;
 
-	public elderId!: number;
+	declare elderId: number;
 
-	public creationDate!: Date;
+	declare creationDate: Date;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	/**

@@ -3,19 +3,19 @@ import * as moment from "moment";
 import {FightConstants} from "../../../constants/FightConstants";
 
 export class MonsterAttack extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly monsterId!: number;
+	declare readonly monsterId: number;
 
-	public readonly attackId!: string;
+	declare readonly attackId: string;
 
-	public readonly minLevel!: number;
+	declare readonly minLevel: number;
 
-	public readonly weight!: number;
+	declare readonly weight: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export function initModel(sequelize: Sequelize): void {

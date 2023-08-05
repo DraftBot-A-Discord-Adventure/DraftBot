@@ -3,19 +3,19 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import moment = require("moment");
 
 export class MapLink extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly startMap!: number;
+	declare readonly startMap: number;
 
-	public readonly endMap!: number;
+	declare readonly endMap: number;
 
-	public readonly tripDuration!: number;
+	declare readonly tripDuration: number;
 
-	public readonly forcedImage?: string;
+	declare readonly forcedImage?: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class MapLinks {

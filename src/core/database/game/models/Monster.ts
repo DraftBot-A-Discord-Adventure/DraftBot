@@ -5,35 +5,35 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {PVEConstants} from "../../../constants/PVEConstants";
 
 export class Monster extends Model {
-	public readonly id!: string;
+	declare readonly id: string;
 
-	public readonly fr!: string;
+	declare readonly fr: string;
 
-	public readonly en!: string;
+	declare readonly en: string;
 
-	public readonly descriptionFr!: string;
+	declare readonly descriptionFr: string;
 
-	public readonly descriptionEn!: string;
+	declare readonly descriptionEn: string;
 
-	private readonly emoji: string;
+	declare readonly emoji: string;
 
-	public readonly fightPointsRatio!: number;
+	declare readonly fightPointsRatio: number;
 
-	public readonly attackRatio!: number;
+	declare readonly attackRatio: number;
 
-	public readonly defenseRatio!: number;
+	declare readonly defenseRatio: number;
 
-	public readonly speedRatio!: number;
+	declare readonly speedRatio: number;
 
-	public readonly breath!: number;
+	declare readonly breath: number;
 
-	public readonly maxBreath!: number;
+	declare readonly maxBreath: number;
 
-	public readonly breathRegen!: number;
+	declare readonly breathRegen: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	public getName(language: string): string {

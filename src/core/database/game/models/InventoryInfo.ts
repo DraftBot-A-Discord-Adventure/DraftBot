@@ -3,21 +3,21 @@ import {ItemConstants} from "../../../constants/ItemConstants";
 import moment = require("moment");
 
 export class InventoryInfo extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public lastDailyAt: Date;
+	declare lastDailyAt: Date;
 
-	public weaponSlots!: number;
+	declare weaponSlots: number;
 
-	public armorSlots!: number;
+	declare armorSlots: number;
 
-	public potionSlots!: number;
+	declare potionSlots: number;
 
-	public objectSlots!: number;
+	declare objectSlots: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	public slotLimitForCategory(category: number): number {

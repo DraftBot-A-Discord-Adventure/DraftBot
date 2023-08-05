@@ -1,23 +1,23 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsFightsResults extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly player1Id!: number;
+	declare readonly player1Id: number;
 
-	public readonly player1Points!: number;
+	declare readonly player1Points: number;
 
-	public readonly player2Id!: number;
+	declare readonly player2Id: number;
 
-	public readonly player2Points!: number;
+	declare readonly player2Points: number;
 
-	public readonly turn!: number;
+	declare readonly turn: number;
 
-	public readonly winner!: number;
+	declare readonly winner: number;
 
-	public readonly friendly!: boolean;
+	declare readonly friendly: boolean;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

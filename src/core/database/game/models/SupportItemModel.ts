@@ -6,9 +6,9 @@ import {EmbedField} from "discord.js";
 import moment = require("moment");
 
 export abstract class SupportItemModel extends GenericItemModel {
-	public readonly power!: number;
+	declare readonly power: number;
 
-	public readonly nature!: number;
+	declare readonly nature: number;
 
 	public toString(language: string, maxStatsValue: MaxStatsValues): string {
 		const name = this.getName(language);

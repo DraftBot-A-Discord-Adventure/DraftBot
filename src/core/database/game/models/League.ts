@@ -10,23 +10,23 @@ import {GenericItemModel} from "./GenericItemModel";
  * @class League
  */
 export class League extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly color!: string;
+	declare readonly color: string;
 
-	public readonly minGloryPoints!: number;
+	declare readonly minGloryPoints: number;
 
-	public readonly maxGloryPoints!: number;
+	declare readonly maxGloryPoints: number;
 
-	public readonly emoji!: string;
+	declare readonly emoji: string;
 
-	public readonly fr!: string;
+	declare readonly fr: string;
 
-	public readonly en!: string;
+	declare readonly en: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	/**
 	 * Display the information of the class

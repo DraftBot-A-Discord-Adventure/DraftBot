@@ -2,17 +2,17 @@ import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import moment = require("moment");
 
 export class Tag extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public textTag!: string;
+	declare textTag: string;
 
-	public idObject!: number;
+	declare idObject: number;
 
-	public typeObject!: string;
+	declare typeObject: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class Tags {

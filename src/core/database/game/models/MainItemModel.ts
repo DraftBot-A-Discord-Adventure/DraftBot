@@ -31,17 +31,17 @@ function getStringValueFor(tr: TranslationModule, values: string[], value: Value
 
 export abstract class MainItemModel extends GenericItemModel {
 
-	public readonly rawAttack!: number;
+	declare readonly rawAttack: number;
 
-	public readonly rawDefense!: number;
+	declare readonly rawDefense: number;
 
-	public readonly rawSpeed!: number;
+	declare readonly rawSpeed: number;
 
-	public readonly attack!: number;
+	declare readonly attack: number;
 
-	public readonly defense!: number;
+	declare readonly defense: number;
 
-	public readonly speed!: number;
+	declare readonly speed: number;
 
 
 	public toFieldObject(language: string, maxStatsValue: MaxStatsValues): EmbedField {

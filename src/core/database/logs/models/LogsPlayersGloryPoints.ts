@@ -4,15 +4,15 @@ import {DataTypes, Model, Sequelize} from "sequelize";
  * @class LogsPlayersGloryPoints
  */
 export class LogsPlayersGloryPoints extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly value!: number;
+	declare readonly value: number;
 
-	public readonly reason!: string;
+	declare readonly reason: string;
 
-	public readonly fightId!: number;
+	declare readonly fightId: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 /**

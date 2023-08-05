@@ -1,11 +1,11 @@
 import {DataTypes, Model} from "sequelize";
 
 export abstract class LogsItem extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly itemId!: number;
+	declare readonly itemId: number;
 
-	public readonly name!: string;
+	declare readonly name: string;
 }
 
 export const logsItemAttributes = {

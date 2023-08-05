@@ -3,17 +3,17 @@ import Player from "./Player";
 import moment = require("moment");
 
 export class PlayerSmallEvent extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly eventType!: string;
+	declare readonly eventType: string;
 
-	public time!: number;
+	declare time: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class PlayerSmallEvents {
