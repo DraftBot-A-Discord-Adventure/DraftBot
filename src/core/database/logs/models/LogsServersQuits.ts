@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsServersQuits extends Model {
-	public readonly serverId!: number;
+	declare readonly serverId: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

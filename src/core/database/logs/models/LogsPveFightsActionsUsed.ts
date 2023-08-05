@@ -1,11 +1,11 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsPveFightsActionsUsed extends Model {
-	public readonly pveFightId!: number;
+	declare readonly pveFightId: number;
 
-	public readonly actionId!: number;
+	declare readonly actionId: number;
 
-	public readonly count!: number;
+	declare readonly count: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

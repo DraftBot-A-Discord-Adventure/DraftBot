@@ -7,25 +7,25 @@ import {Constants} from "../../../Constants";
 import moment = require("moment");
 
 export class Mission extends Model {
-	public id!: string;
+	declare id: string;
 
-	public descFr!: string;
+	declare descFr: string;
 
-	public descEn!: string;
+	declare descEn: string;
 
-	public campaignOnly!: boolean;
+	declare campaignOnly: boolean;
 
-	public canBeDaily!: boolean;
+	declare canBeDaily: boolean;
 
-	public canBeEasy!: boolean;
+	declare canBeEasy: boolean;
 
-	public canBeMedium!: boolean;
+	declare canBeMedium: boolean;
 
-	public canBeHard!: boolean;
+	declare canBeHard: boolean;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	public async formatDescription(objective: number, variant: number, language: string, saveBlob: Buffer): Promise<string> {

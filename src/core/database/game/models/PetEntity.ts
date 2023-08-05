@@ -17,23 +17,23 @@ import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import moment = require("moment");
 
 export class PetEntity extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public petId!: number;
+	declare petId: number;
 
-	public sex!: string;
+	declare sex: string;
 
-	public nickname: string;
+	declare nickname: string;
 
-	public lovePoints!: number;
+	declare lovePoints: number;
 
-	public hungrySince!: Date;
+	declare hungrySince: Date;
 
-	public creationDate!: Date;
+	declare creationDate: Date;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	public getPetTypeName(petModel: Pet, language: string): string {

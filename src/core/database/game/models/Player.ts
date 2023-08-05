@@ -67,61 +67,61 @@ type ressourcesLostOnPveFaint = {
 }
 
 export class Player extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public discordUserId!: string;
+	declare discordUserId: string;
 
-	public health!: number;
+	declare health: number;
 
-	public fightPointsLost!: number;
+	declare fightPointsLost: number;
 
-	public score!: number;
+	declare score: number;
 
-	public weeklyScore!: number;
+	declare weeklyScore: number;
 
-	public level!: number;
+	declare level: number;
 
-	public experience!: number;
+	declare experience: number;
 
-	public money!: number;
+	declare money: number;
 
-	public class!: number;
+	declare class: number;
 
-	public badges: string;
+	declare badges: string;
 
-	public guildId: number;
+	declare guildId: number;
 
-	public topggVoteAt!: Date;
+	declare topggVoteAt: Date;
 
-	public nextEvent!: number;
+	declare nextEvent: number;
 
-	public petId!: number;
+	declare petId: number;
 
-	public lastPetFree!: Date;
+	declare lastPetFree: Date;
 
-	public effect!: string;
+	declare effect: string;
 
-	public effectEndDate!: Date;
+	declare effectEndDate: Date;
 
-	public effectDuration!: number;
+	declare effectDuration: number;
 
-	public mapLinkId!: number;
+	declare mapLinkId: number;
 
-	public startTravelDate!: Date;
+	declare startTravelDate: Date;
 
-	public notifications!: string;
+	declare notifications: string;
 
-	public gloryPoints!: number;
+	declare gloryPoints: number;
 
-	public gloryPointsLastSeason!: number;
+	declare gloryPointsLastSeason: number;
 
-	public fightCountdown!: number;
+	declare fightCountdown: number;
 
-	public rage!: number;
+	declare rage: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	private pseudo: string;
 

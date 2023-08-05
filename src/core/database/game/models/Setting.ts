@@ -74,15 +74,15 @@ class SettingClass<T extends number | string> {
 }
 
 export class Setting extends Model {
-	public name!: string;
+	declare name: string;
 
-	public dataString?: string;
+	declare dataString?: string;
 
-	public dataNumber?: number;
+	declare dataNumber?: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class Settings {

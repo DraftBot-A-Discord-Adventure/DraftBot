@@ -5,15 +5,15 @@ import {draftBotInstance} from "../../../bot";
 import moment = require("moment");
 
 export class GuildPet extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public guildId!: number;
+	declare guildId: number;
 
-	public petEntityId!: number;
+	declare petEntityId: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 /**

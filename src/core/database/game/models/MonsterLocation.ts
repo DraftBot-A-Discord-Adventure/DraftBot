@@ -5,15 +5,15 @@ import MonsterAttack from "./MonsterAttack";
 import {draftBotInstance} from "../../../bot";
 
 export class MonsterLocation extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly monsterId!: number;
+	declare readonly monsterId: number;
 
-	public readonly mapId!: number;
+	declare readonly mapId: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class MonsterLocations {

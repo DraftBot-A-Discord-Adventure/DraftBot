@@ -1,13 +1,13 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsGuildsDescriptionChanges extends Model {
-	public readonly guildId!: number;
+	declare readonly guildId: number;
 
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly description: string;
+	declare readonly description: string;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

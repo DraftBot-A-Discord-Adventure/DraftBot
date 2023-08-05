@@ -7,35 +7,35 @@ import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import {Constants} from "../../../Constants";
 
 export class Class extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly attack!: number;
+	declare readonly attack: number;
 
-	public readonly defense!: number;
+	declare readonly defense: number;
 
-	public readonly speed!: number;
+	declare readonly speed: number;
 
-	public readonly health!: number;
+	declare readonly health: number;
 
-	public readonly fightPoint!: number;
+	declare readonly fightPoint: number;
 
-	public readonly baseBreath!: number;
+	declare readonly baseBreath: number;
 
-	public readonly maxBreath!: number;
+	declare readonly maxBreath: number;
 
-	public readonly breathRegen!: number;
+	declare readonly breathRegen: number;
 
-	public readonly emoji!: string;
+	declare readonly emoji: string;
 
-	public readonly classGroup!: number;
+	declare readonly classGroup: number;
 
-	public readonly fr!: string;
+	declare readonly fr: string;
 
-	public readonly en!: string;
+	declare readonly en: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	/**
 	 * display the information of the class

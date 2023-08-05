@@ -2,7 +2,7 @@ import {DataTypes, Sequelize} from "sequelize";
 import {LogsShopBuyouts, logsShopLoggingAttributes} from "./LogsShopBuyouts";
 
 export class LogsGuildShopBuyouts extends LogsShopBuyouts {
-	public readonly amount!: number;
+	declare readonly amount: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

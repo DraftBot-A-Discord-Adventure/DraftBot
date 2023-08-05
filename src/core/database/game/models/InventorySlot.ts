@@ -10,17 +10,17 @@ import {Tags} from "./Tag";
 import moment = require("moment");
 
 export class InventorySlot extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public slot!: number;
+	declare slot: number;
 
-	public itemCategory!: number;
+	declare itemCategory: number;
 
-	public itemId!: number;
+	declare itemId: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	async getItem(): Promise<GenericItemModel> {

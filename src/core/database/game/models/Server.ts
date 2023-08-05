@@ -3,15 +3,15 @@ import {ServersConstants} from "../../../constants/ServersConstants";
 import moment = require("moment");
 
 export class Server extends Model {
-	public id!: number;
+	declare id: number;
 
-	public language!: string;
+	declare language: string;
 
-	public discordGuildId!: string;
+	declare discordGuildId: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 }
 
 export class Servers {

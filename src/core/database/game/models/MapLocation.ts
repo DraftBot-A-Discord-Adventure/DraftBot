@@ -6,31 +6,31 @@ import * as moment from "moment";
 import {Constants} from "../../../Constants";
 
 export class MapLocation extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly type!: string;
+	declare readonly type: string;
 
-	public readonly nameFr!: string;
+	declare readonly nameFr: string;
 
-	public readonly nameEn!: string;
+	declare readonly nameEn: string;
 
-	public readonly descFr!: string;
+	declare readonly descFr: string;
 
-	public readonly descEn!: string;
+	declare readonly descEn: string;
 
-	public readonly particleFr!: string;
+	declare readonly particleFr: string;
 
-	public readonly particleEn!: string;
+	declare readonly particleEn: string;
 
-	public readonly canBeGoToPlaceMissionDestination!: boolean;
+	declare readonly canBeGoToPlaceMissionDestination: boolean;
 
-	public readonly attribute!: string;
+	declare readonly attribute: string;
 
-	public readonly forcedImage?: string;
+	declare readonly forcedImage?: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	public getEmote(language: string): string {
 		return Translations.getModule("models.maps", language).get(`types.${this.type}.emote`);

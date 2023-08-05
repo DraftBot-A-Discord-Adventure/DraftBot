@@ -1,11 +1,11 @@
 import {DataTypes, Model} from "sequelize";
 
 export class LogsShopBuyouts extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly shopItem!: number;
+	declare readonly shopItem: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export const logsShopLoggingAttributes = {

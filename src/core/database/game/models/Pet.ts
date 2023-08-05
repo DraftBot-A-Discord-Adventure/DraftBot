@@ -6,27 +6,27 @@ import {Translations} from "../../../Translations";
 import {RandomUtils} from "../../../utils/RandomUtils";
 
 export class Pet extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly rarity!: number;
+	declare readonly rarity: number;
 
-	public readonly maleNameFr!: string;
+	declare readonly maleNameFr: string;
 
-	public readonly maleNameEn!: string;
+	declare readonly maleNameEn: string;
 
-	public readonly femaleNameFr!: string;
+	declare readonly femaleNameFr: string;
 
-	public readonly femaleNameEn!: string;
+	declare readonly femaleNameEn: string;
 
-	public readonly emoteMale!: string;
+	declare readonly emoteMale: string;
 
-	public readonly emoteFemale!: string;
+	declare readonly emoteFemale: string;
 
-	public readonly diet: string;
+	declare readonly diet: string;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	public getRarityDisplay(): string {
 		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
