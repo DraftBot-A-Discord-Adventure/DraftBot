@@ -1,0 +1,32 @@
+name: Daily Advice  
+  
+on:  
+  schedule:  
+    - cron: '0 16 * * *' # Runs every day at 16:00  
+  
+jobs:  
+  send_advice:  
+    runs-on: ubuntu-latest  
+  
+    steps:  
+    - name: Checkout repository  
+      uses: actions/checkout@v2  
+  
+    - name: Send daily advice  
+      env:  
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}  
+      run: |  
+        # Download JSON data  
+        advices_json_url="https://raw.githubusercontent.com/DraftBot-A-Discord-Adventure/DraftBot/master/resources/text/advices.json"  
+        advices_json=$(curl -s "$advices_json_url")  
+  
+        # Extract advice strings  
+        advices_list=$(echo "$advices_json" | jq -r '.translations.fr.advices[]')  
+  
+        # Get a random advice  
+        random_advice=$(echo "$advices_list" | shuf -n 1)  
+  
+        # Send advice to Discord webhook  
+        content=":bulb: **Astuce du jour** :\n\n$random_advice\n\n<@&1136367073317113917>"  
+        payload="{\"content\": \"$content\"}"  
+        curl -s -X POST -H "Content-Type: application/json" -d "$payload" $DISCORD_WEBHOOK_URL  
