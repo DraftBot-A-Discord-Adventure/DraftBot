@@ -9,10 +9,7 @@ jobs:
   send_advice:  
     runs-on: ubuntu-latest  
   
-    steps:  
-    - name: Checkout repository  
-      uses: actions/checkout@v2  
-  
+    steps:    
     - name: Send daily advice  
       env:  
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}  
