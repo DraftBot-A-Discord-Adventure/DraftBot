@@ -2,7 +2,8 @@ name: Daily Advice
   
 on:  
   schedule:  
-    - cron: '0 16 * * *' # Runs every day at 16:00  
+    - cron: '0 17 * * *' # Runs every day at 17:00  
+  workflow_dispatch:
   
 jobs:  
   send_advice:  
