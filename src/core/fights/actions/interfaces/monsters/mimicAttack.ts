@@ -9,12 +9,12 @@ export default class MimicAttack extends FightAction {
 		// Get a random monster, then choose one of its attacks, then try to use it
 		const mimicTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const chosenAttack = receiver.getRandomAvailableFightAction();
-		return mimicTranslationModule.format("active", {
+		return `${mimicTranslationModule.format("active", {
 			attackName: chosenAttack.toString(language)
-		}) + "\n" + Translations.getModule("commands.fight", language).format("actions.intro", {
+		})}\n${Translations.getModule("commands.fight", language).format("actions.intro", {
 			emote: chosenAttack.getEmoji(),
 			player: sender.getMention()
-		}) + (await FightController.tryToExecuteFightAction(chosenAttack, sender, receiver, turn, language, weather)).receivedMessage;
+		})}${(await FightController.tryToExecuteFightAction(chosenAttack, sender, receiver, turn, language, weather)).receivedMessage}`;
 	}
 
 }
