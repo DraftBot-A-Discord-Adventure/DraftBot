@@ -51,6 +51,26 @@ export class FightController {
 		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
+	public static async tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number, language: string, weather: FightWeather): Promise<{
+		fightAction: FightAction,
+		receivedMessage: string
+	}> {
+		const enoughBreath = attacker.useBreath(fightAction.getBreathCost());
+
+		if (!enoughBreath) {
+			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+				fightAction = FightActions.getFightActionById("outOfBreath");
+			}
+			else {
+				attacker.setBreath(0);
+			}
+		}
+
+
+		const receivedMessage = await fightAction.use(attacker, defender, turn, language, weather);
+		return {fightAction, receivedMessage};
+	}
+
 	/**
 	 * Start a fight
 	 * @public
@@ -149,19 +169,9 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 
-		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
-
-		if (!enoughBreath) {
-			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				fightAction = FightActions.getFightActionById("outOfBreath");
-			}
-			else {
-				this.getPlayingFighter().setBreath(0);
-			}
-		}
-
-
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
+		const returns = await FightController.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
+		fightAction = returns.fightAction;
+		const receivedMessage = returns.receivedMessage;
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
 			(e) => {

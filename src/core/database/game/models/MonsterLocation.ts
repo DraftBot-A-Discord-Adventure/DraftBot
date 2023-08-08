@@ -17,8 +17,10 @@ export class MonsterLocation extends Model {
 }
 
 export class MonsterLocations {
-	static async getRandomMonster(mapId: number): Promise<{ monster: Monster, attacks: MonsterAttack[] } | null> {
-		const randomLoc = await MonsterLocation.findOne({
+	static async getRandomMonster(mapId = -1): Promise<{ monster: Monster, attacks: MonsterAttack[] } | null> {
+		const randomLoc = await MonsterLocation.findOne(mapId === -1 ? {
+			order: [draftBotInstance.gameDatabase.sequelize.random()]
+		} : {
 			where: {
 				mapId
 			},

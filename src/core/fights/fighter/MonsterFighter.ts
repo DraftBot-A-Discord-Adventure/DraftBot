@@ -12,13 +12,13 @@ import {FighterStatus} from "../FighterStatus";
 
 export class MonsterFighter extends Fighter {
 
+	public readonly monster: Monster;
+
 	private readonly name: string;
 
 	private readonly description: string;
 
 	private readonly emoji: string;
-
-	public readonly monster: Monster;
 
 	public constructor(level: number, monster: Monster, monsterAttacks: MonsterAttack[], language: string) {
 		const attacks: FightAction[] = [];

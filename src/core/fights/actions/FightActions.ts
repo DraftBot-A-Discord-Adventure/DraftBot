@@ -5,28 +5,6 @@ import Class from "../../database/game/models/Class";
 export class FightActions {
 	static fightActions: Map<string, FightAction> = null;
 
-	private static loadFightActionsFromFolder(path: string, relativePath: string): void {
-		const files = readdirSync(path);
-		for (const file of files) {
-			if (file.endsWith(".js")) {
-				const DefaultClass = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
-				if (!DefaultClass) {
-					console.warn(`${file} doesn't have a default export`);
-					return;
-				}
-
-				const fightActionName = file.substring(0, file.length - 3);
-				const fightActionInstance = new DefaultClass(fightActionName);
-				if (!(fightActionInstance instanceof FightAction)) {
-					console.warn(`${file} initialized instance is incorrect`);
-					return;
-				}
-
-				FightActions.fightActions.set(fightActionName, fightActionInstance);
-			}
-		}
-	}
-
 	static initFightActionsMap(): void {
 		FightActions.fightActions = new Map();
 		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
@@ -57,5 +35,27 @@ export class FightActions {
 	 */
 	static getNoAttack(): FightAction {
 		return FightActions.fightActions.get("none");
+	}
+
+	private static loadFightActionsFromFolder(path: string, relativePath: string): void {
+		const files = readdirSync(path);
+		for (const file of files) {
+			if (file.endsWith(".js")) {
+				const DefaultClass = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
+				if (!DefaultClass) {
+					console.warn(`${file} doesn't have a default export`);
+					return;
+				}
+
+				const fightActionName = file.substring(0, file.length - 3);
+				const fightActionInstance = new DefaultClass(fightActionName);
+				if (!(fightActionInstance instanceof FightAction)) {
+					console.warn(`${file} initialized instance is incorrect`);
+					return;
+				}
+
+				FightActions.fightActions.set(fightActionName, fightActionInstance);
+			}
+		}
 	}
 }
