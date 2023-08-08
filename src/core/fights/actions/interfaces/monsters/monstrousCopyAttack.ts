@@ -19,13 +19,13 @@ export default class MonstrousCopyAttack extends FightAction {
 			monster = await MonsterLocations.getRandomMonster();
 			chosenAttack = FightActions.getFightActionById(RandomUtils.draftbotRandom.pick(monster.attacks).attackId);
 		} while (chosenAttack.name === this.name);
-		return monstrousCopyTranslationModule.format("active", {
+		return `${monstrousCopyTranslationModule.format("active", {
 			monsterName: monster.monster.getName(language),
 			attackName: chosenAttack.toString(language)
-		}) + "\n" + Translations.getModule("commands.fight", language).format("actions.intro", {
+		})}\n${Translations.getModule("commands.fight", language).format("actions.intro", {
 			emote: chosenAttack.getEmoji(),
 			player: sender.getMention()
-		}) + (await FightController.tryToExecuteFightAction(chosenAttack, sender, receiver, turn, language, weather)).receivedMessage;
+		})}${(await FightController.tryToExecuteFightAction(chosenAttack, sender, receiver, turn, language, weather)).receivedMessage}`;
 	}
 
 }
