@@ -1,0 +1,12 @@
+{
+	"type": "test_zone",
+	"nameFr": "Zone de test des monstres",
+	"nameEn": "Monsters test zone",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
+	"descEn": "A test zone for monsters. Should never appear in the game",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island",
+	"forcedImage": "road_to_boat"
+}
