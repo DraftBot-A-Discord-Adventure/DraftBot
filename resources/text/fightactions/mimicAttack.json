@@ -3,17 +3,17 @@
 		"fr": {
 			"name": "Mimique",
 			"namePlural": "Mimiques",
-			"active": "copie votre attaque \"{attackName}\" ! Coût en souffle : {breathCost}",
+			"active": "copie votre attaque \"{attackName}\" !",
 			"description": "Copie aléatoirement une de vos attaques."
 		},
 		"en": {
 			"name": "Mimic",
 			"namePlural": "Mimics",
-			"active": "copies your attack \"{attackName}\" ! Breath cost: {breathCost}",
+			"active": "copies your attack \"{attackName}\" !",
 			"description": "Randomly copies one of your attacks."
 		}
 	},
-	"emote": "�",
+	"emote": "🖼️",
 	"breath": 0,
 	"missionVariant": -1,
 	"type": "other"
