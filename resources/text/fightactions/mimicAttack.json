@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Mimique",
+			"namePlural": "Mimiques",
+			"active": "copie votre attaque \"{attackName}\" ! Coût en souffle : {breathCost}",
+			"description": "Copie aléatoirement une de vos attaques."
+		},
+		"en": {
+			"name": "Mimic",
+			"namePlural": "Mimics",
+			"active": "copies your attack \"{attackName}\" ! Breath cost: {breathCost}",
+			"description": "Randomly copies one of your attacks."
+		}
+	},
+	"emote": "�",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "other"
+}

@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Monstrueuse Copie",
+			"namePlural": "Monstrueuses Copies",
+			"active": "copie l'attaque **{attackName}** du monstre **{monsterName}** !",
+			"description": "Copie l'attaque d'un monstre aléatoire."
+		},
+		"en": {
+			"name": "Monstrous Copy",
+			"namePlural": "Monstrous Copies",
+			"active": "copies the attack **{attackName}** from the monster **{monsterName}** !",
+			"description": "Copies the attack of a random monster."
+		}
+	},
+	"emote": "📝",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "other"
+}
