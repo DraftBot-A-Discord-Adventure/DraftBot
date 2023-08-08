@@ -121,6 +121,11 @@
 					"name": "Pic",
 					"prefix": "du",
 					"emote": "\uD83C\uDFD4️️️️️️"
+				},
+				"test_zone": {
+					"name": "",
+					"prefix": "de la",
+					"emote": "\uD83D\uDC7E️️️️️️"
 				}
 			},
 			"directions": {
@@ -259,6 +264,11 @@
 					"name": "Peak",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFD4️️️️️️"
+				},
+				"test_zone": {
+					"name": "",
+					"prefix": "of the",
+					"emote": "\uD83D\uDC7E️️️️️️"
 				}
 			},
 			"directions": {
