@@ -14,6 +14,8 @@ export abstract class FightAction {
 
 	public readonly name: string;
 
+	public isAlteration = false;
+
 	private toStringCache: { [key: string]: string } = {};
 
 	private emojiCache: string;
@@ -23,8 +25,6 @@ export abstract class FightAction {
 	private weightForRandomSelection: number;
 
 	private typeCache: FightActionType;
-
-	public isAlteration = false;
 
 	public constructor(name: string) {
 		this.name = name;
@@ -38,7 +38,7 @@ export abstract class FightAction {
 	 * @param language - the language of the message
 	 * @param weather - current weather of the fight
 	 */
-	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string;
+	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string>;
 
 	/**
 	 * return the name of the attack as it will appear in the list of actions
@@ -91,17 +91,6 @@ export abstract class FightAction {
 		return this.breathCostCache;
 	}
 
-	/**
-	 * return the status of the attack (success, missed, critical)
-	 */
-	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
-		return damageDealt > initialDamage
-			? FightActionStatus.CRITICAL
-			: damageDealt < initialDamage
-				? FightActionStatus.MISSED
-				: FightActionStatus.NORMAL;
-	}
-
 	public getType(): FightActionType {
 		if (!this.typeCache) {
 			this.typeCache = FightActionType[Data.getModule(`fightactions.${this.name}`)
@@ -129,6 +118,17 @@ export abstract class FightAction {
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
+	}
+
+	/**
+	 * return the status of the attack (success, missed, critical)
+	 */
+	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
+		return damageDealt > initialDamage
+			? FightActionStatus.CRITICAL
+			: damageDealt < initialDamage
+				? FightActionStatus.MISSED
+				: FightActionStatus.NORMAL;
 	}
 
 }
