@@ -26,6 +26,7 @@ import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
+import {MapCache} from "../../core/maps/MapCache";
 
 type PlayerInformation = {
 	player: Player,
@@ -80,6 +81,10 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
 
 	if (player.isDead()) {
 		return FightConstants.FIGHT_ERROR.DEAD;
+	}
+
+	if (MapCache.allPveMapLinks.includes(player.mapLinkId)) {
+		return FightConstants.FIGHT_ERROR.PVE_ISLAND;
 	}
 
 	if (hasEffect(player, date, friendly)) {
