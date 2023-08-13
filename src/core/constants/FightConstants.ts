@@ -16,7 +16,8 @@ export abstract class FightConstants {
 		OCCUPIED: "error.occupied",
 		NO_FIGHT_POINTS: "error.noFightPoints",
 		ELO_GAP: "error.eloGap",
-		BEST_OF_3: "error.bestOf3"
+		BEST_OF_3: "error.bestOf3",
+		PVE_ISLAND: "error.onPveIsland"
 	};
 
 	// duration of the menu that search for an opponent in milliseconds
