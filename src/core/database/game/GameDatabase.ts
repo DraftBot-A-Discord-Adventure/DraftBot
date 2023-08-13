@@ -56,7 +56,7 @@ export class GameDatabase extends Database {
 				};
 				tagsToInsert.push(tagContent);
 			}
-			delete fileContent["tags"];
+			delete fileContent.tags;
 		}
 	}
 

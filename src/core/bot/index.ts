@@ -24,7 +24,7 @@ process.on("uncaughtException", function(error) {
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err);
 	console.log(err.stack);
-	// process.exit(1);
+	// Process.exit(1);
 });
 
 process.on("message", async (message: { type: string, data: { shardId: number } }) => {
@@ -40,7 +40,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 		draftBotInstance = draftBot;
 		await draftBot.init();
 		if (!mainShard) {
-			return;
+			return true;
 		}
 		console.log("Launched main shard");
 		draftBotClient.user
@@ -60,6 +60,8 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			DBL.startDBLWebhook();
 		}
 	}
+
+	return true;
 });
 
 /**

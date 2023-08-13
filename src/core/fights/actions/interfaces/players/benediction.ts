@@ -9,7 +9,7 @@ export default class Benediction extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// check the amount of ultimate attacks the sender already used
+		// Check the amount of ultimate attacks the sender already used
 		// 1 god move per fight
 		if (DivineAttack.getUsedGodMoves(sender, receiver) >= 1) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {

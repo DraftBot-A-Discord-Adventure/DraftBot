@@ -47,7 +47,7 @@ function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guild
 }
 
 /**
- * remove guild elder
+ * Remove guild elder
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
@@ -57,7 +57,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guildElderRemoveModule = Translations.getModule("commands.guildElderRemove", language);
 
 	if (guild.elderId === null) {
-		// trying to remove an elder that does not exist
+		// Trying to remove an elder that does not exist
 		await replyErrorMessage(
 			interaction,
 			language,

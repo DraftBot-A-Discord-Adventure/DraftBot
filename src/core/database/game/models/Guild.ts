@@ -50,14 +50,14 @@ export class Guild extends Model {
 
 
 	/**
-	 * update the lastDailyAt date
+	 * Update the lastDailyAt date
 	 */
 	public updateLastDailyAt(): void {
 		this.lastDailyAt = new Date();
 	}
 
 	/**
-	 * get the experience needed to level up
+	 * Get the experience needed to level up
 	 */
 	public getExperienceNeededToLevelUp(): number {
 		return (
@@ -69,7 +69,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * completely destroy a guild from the database
+	 * Completely destroy a guild from the database
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
 		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
@@ -101,7 +101,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * add experience to the guild
+	 * Add experience to the guild
 	 * @param experience the experience to add
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
@@ -125,14 +125,14 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * check if the guild need to level up
+	 * Check if the guild need to level up
 	 */
 	public needLevelUp(): boolean {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	}
 
 	/**
-	 * level up the guild if needed
+	 * Level up the guild if needed
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
 	 */
@@ -169,21 +169,21 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * get the guild's elder id
+	 * Get the guild's elder id
 	 */
 	public getElderId(): number {
 		return this.elderId;
 	}
 
 	/**
-	 * get the guild's chief id
+	 * Get the guild's chief id
 	 */
 	public getChiefId(): number {
 		return this.chiefId;
 	}
 
 	/**
-	 * check if the pet shelter is full
+	 * Check if the pet shelter is full
 	 */
 	public isPetShelterFull(guildPets: GuildPet[]): boolean {
 		if (!guildPets) {
@@ -193,14 +193,14 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * check if the guild is at max level
+	 * Check if the guild is at max level
 	 */
 	public isAtMaxLevel(): boolean {
 		return this.level >= GuildConstants.MAX_LEVEL;
 	}
 
 	/**
-	 * check the states of the guild storage for a given food type
+	 * Check the states of the guild storage for a given food type
 	 * @param selectedItemType the food type to check
 	 * @param quantity the quantity that need to be available
 	 */
@@ -209,7 +209,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * add food to the guild storage
+	 * Add food to the guild storage
 	 * @param selectedItemType the food type to add
 	 * @param quantity the quantity to add
 	 * @param reason change reason
@@ -223,7 +223,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * remove food from the guid storage
+	 * Remove food from the guid storage
 	 * @param item
 	 * @param quantity
 	 * @param reason
@@ -234,7 +234,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * set the guild's experience
+	 * Set the guild's experience
 	 * @param experience
 	 */
 	private setExperience(experience: number): void {
@@ -247,7 +247,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * add guild points
+	 * Add guild points
 	 * @param points
 	 * @param reason
 	 */
@@ -257,7 +257,7 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * get guild ranking
+	 * Get guild ranking
 	 */
 	public async getRanking(): Promise<number> {
 		if (this.score === 0) {
@@ -299,7 +299,7 @@ export class Guilds {
 		return Math.round(
 			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT
-			})))[0]["avg"]
+			})))[0].avg
 		);
 	}
 

@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Un pet a rejoint votre shelter :\n{petString} !",
 	description: "Ajoute un pet à votre shelter de guilde avec un id et un sexe donnés",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

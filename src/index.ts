@@ -7,7 +7,7 @@ import {initWebServer} from "./core/bot/DraftBotWebServer";
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err);
 	console.log(err.stack);
-	// process.exit(1);
+	// Process.exit(1);
 });
 
 const shardCount = "auto";

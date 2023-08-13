@@ -19,7 +19,7 @@ export class FightActions {
 	}
 
 	/**
-	 * list all fight actions for a class
+	 * List all fight actions for a class
 	 * @param playerClass
 	 */
 	static listFightActionsFromClass(playerClass: Class): FightAction[] {

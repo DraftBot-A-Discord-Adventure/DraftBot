@@ -40,7 +40,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	// .setImage(interaction.attachments.size > 0 ? [...message.attachments.values()][0].url : "");
 	try {
 		await user.send({content: messageToSend});
-		// sendMessageAttachments(message, user);
+		// SendMessageAttachments(message, user);
 		await interaction.reply({embeds: [embed]});
 	}
 	catch {

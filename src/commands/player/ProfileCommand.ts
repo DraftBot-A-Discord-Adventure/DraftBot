@@ -85,7 +85,7 @@ async function getStatisticField(profileModule: TranslationModule, askedPlayer: 
 }
 
 /**
- * get the current campaign progression of the player
+ * Get the current campaign progression of the player
  * @param mc
  * @param missionsInfo
  */
@@ -457,7 +457,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	collector.on("collect", async (reaction) => {
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
-			collector.stop(); // only one is allowed to avoid spam
+			collector.stop(); // Only one is allowed to avoid spam
 			await sendMessageAllBadgesTooMuchBadges(askedPlayer, language, interaction);
 		}
 		else {

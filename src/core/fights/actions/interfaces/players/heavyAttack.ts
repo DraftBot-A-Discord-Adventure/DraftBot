@@ -10,7 +10,7 @@ export default class HeavyAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// this attack will do less damage if the opponent has lower defense than the attacker
+		// This attack will do less damage if the opponent has lower defense than the attacker
 		damageDealt *= receiver.getDefense() < sender.getDefense() ? 0.1 : 1;
 		damageDealt = Math.round(damageDealt);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

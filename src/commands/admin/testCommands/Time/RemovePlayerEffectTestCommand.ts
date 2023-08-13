@@ -11,7 +11,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous n'avez plus d'effets !",
 	description: "Enlève votre effet actuel",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

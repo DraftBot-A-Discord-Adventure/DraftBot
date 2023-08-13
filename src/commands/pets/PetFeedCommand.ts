@@ -152,7 +152,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 }
 
 /**
- * feed the pet
+ * Feed the pet
  * @param interaction
  * @param {fr/en} language
  * @param {*} player
@@ -170,7 +170,7 @@ async function feedPet(
 	petModel: Pet,
 	item: string,
 	petFeedModule: TranslationModule
-): Promise<GuildCacheMessage<CacheType>> {
+): Promise<GuildCacheMessage<CacheType> | null> {
 	const guild = await Guilds.getById(player.guildId);
 	if (guild.getDataValue(item) <= 0) {
 		await sendErrorMessage(
@@ -179,7 +179,7 @@ async function feedPet(
 			language,
 			petFeedModule.get("notEnoughFood")
 		);
-		return;
+		return null;
 	}
 	const foodIndex = getFoodIndexOf(item);
 	const successEmbed = new DraftBotEmbed()
@@ -248,13 +248,14 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 			reaction.first().emoji.name === Constants.REACTIONS.REFUSE_REACTION
 		) {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			return await sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
 				interaction,
 				language,
 				petFeedModule.get("cancelFeed"),
 				true
 			);
+			return;
 		}
 
 		if (foodItems.has(reaction.first().emoji.name)) {

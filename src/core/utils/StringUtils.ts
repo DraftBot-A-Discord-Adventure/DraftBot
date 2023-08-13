@@ -1,7 +1,7 @@
 import {ConstantRange, Constants} from "../Constants";
 
 /**
- * remove discord formatting scrap from usernames
+ * Remove discord formatting scrap from usernames
  * @param username
  */
 export function escapeUsername(username: string): string {
@@ -51,7 +51,7 @@ export function checkNameString(name: string, range: ConstantRange): boolean {
 	const regexAllowed = /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû!,'.:()-]+$/u;
 
 	// Here are the scenarios where the name is not valid and checked by this regex :
-	// the name contains only numbers ^[0-9 ]+$ (only numbers and spaces)
+	// The name contains only numbers ^[0-9 ]+$ (only numbers and spaces)
 	// $|( {2}) is used to check if there are 2 spaces in a row
 	// $|([ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]{2}) is used to check if there are 2 special characters in a row
 	// $|([!,'.:()]{2}) is used to check if there are 2 punctuation characters in a row

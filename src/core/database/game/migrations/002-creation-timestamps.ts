@@ -13,7 +13,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			{},
 			guildsAttributes001,
 			{ creationDate: guildCreationDateAttributes }
-		)); // assign => Merge objects in the first one
+		)); // Assign => Merge objects in the first one
 	await guildModel.update({ creationDate: Sequelize.literal("createdAt") }, { where: {} });
 
 	// Pet entity creation date
@@ -27,7 +27,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			{},
 			petEntitiesAttributes001,
 			{ creationDate: petEntityCreationDateAttributes }
-		)); // assign => Merge objects in the first one
+		)); // Assign => Merge objects in the first one
 	await petEntityModel.update({ creationDate: Sequelize.literal("createdAt") }, { where: {} });
 }
 

@@ -55,7 +55,7 @@ export class FightView {
 	 * @param fighter2
 	 */
 	async introduceFight(fighter1: Fighter, fighter2: Fighter): Promise<void> {
-		// ce serait ici qu'il faudrait mettre les attaques ?
+		// Ce serait ici qu'il faudrait mettre les attaques ?
 		const introEmbed = new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.format("intro", {
 				player1: fighter1.getName(),
@@ -71,7 +71,7 @@ export class FightView {
 	}
 
 	/**
-	 *  summarize current fight status
+	 *  Summarize current fight status
 	 */
 	async displayFightStatus(): Promise<void> {
 		await this.scrollIfNeeded();
@@ -98,7 +98,7 @@ export class FightView {
 			player
 		}) + receivedMessage;
 		if (lastMessage.content.length + messageToSend.length > 1950) {
-			// message character limit reached : creation of a new message
+			// Message character limit reached : creation of a new message
 			await this.lastSummary.delete();
 			this.lastSummary = null;
 			lastMessage = await this.channel.send({content: messageToSend});

@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez enfermé {player} !",
 	description: "Enferme le joueur donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

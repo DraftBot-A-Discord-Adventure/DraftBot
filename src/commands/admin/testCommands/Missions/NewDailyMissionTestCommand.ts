@@ -14,7 +14,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "La mission quotidienne a été changée !\n Mission : {mission}",
 	description: "Permet d'obtenir une nouvelle mission quotidienne",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

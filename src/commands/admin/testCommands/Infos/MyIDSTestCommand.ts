@@ -9,7 +9,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Player id: {playerId}",
 	description: "Montre vos IDs d'entité et de joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

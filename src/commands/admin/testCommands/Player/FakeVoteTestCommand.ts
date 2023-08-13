@@ -8,7 +8,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez faussement voté !",
 	description: "Effectue un faux vote",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

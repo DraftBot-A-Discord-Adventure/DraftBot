@@ -41,7 +41,7 @@ async function getValidationCallback(
 			}
 
 			if (kickedGuild === null) {
-				// not the same guild
+				// Not the same guild
 				await sendErrorMessage(
 					textInformation.interaction.user,
 					textInformation.interaction,
@@ -97,7 +97,7 @@ async function getValidationCallback(
  */
 async function isNotEligible(entityInformation: PlayerInformation, textInformation: TextInformation, kickedPlayer: Player): Promise<boolean> {
 	if (kickedPlayer === null) {
-		// no user provided
+		// No user provided
 		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,
@@ -106,7 +106,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
 		return true;
 	}
 	let kickedGuild;
-	// search for a user's guild
+	// Search for a user's guild
 	try {
 		kickedGuild = await Guilds.getById(kickedPlayer.guildId);
 	}
@@ -115,7 +115,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
 	}
 
 	if (kickedGuild === null || kickedGuild.id !== entityInformation.guild.id) {
-		// not the same guild
+		// Not the same guild
 		await replyErrorMessage(
 			textInformation.interaction,
 			textInformation.language,

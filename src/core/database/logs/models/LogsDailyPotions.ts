@@ -7,7 +7,7 @@ export class LogsDailyPotions extends Model {
 }
 
 /**
- * init the model
+ * Init the model
  * @param sequelize
  */
 export function initModel(sequelize: Sequelize): void {

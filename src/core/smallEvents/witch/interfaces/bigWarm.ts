@@ -35,7 +35,7 @@ export default class BigWarm extends WitchEvent {
 	}
 
 	/**
-	 * the big warm advice will make the player occupied for 30 minutes
+	 * The big warm advice will make the player occupied for 30 minutes
 	 * @param player
 	 */
 	async giveEffect(player: Player): Promise<void> {

@@ -92,7 +92,7 @@ export class MapLocation extends Model {
 				prevId: originId
 			},
 			type: QueryTypes.SELECT
-		})))[0]["count"];
+		})))[0].count;
 	}
 }
 

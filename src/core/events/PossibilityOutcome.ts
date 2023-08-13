@@ -181,7 +181,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
  * @param time
  */
 export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
-                                              textInformation: TextInformation, player: Player, time: number): Promise<{
+	textInformation: TextInformation, player: Player, time: number): Promise<{
 	description: string,
 	alterationEmoji: string,
 	forcedDestination: MapLink
@@ -194,37 +194,37 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	};
 	let description = "";
 
-	// score
+	// Score
 	description += await applyOutcomeScore(outcome, time, player, valuesToEditParameters, textInformation);
 
-	// money
+	// Money
 	description += await applyOutcomeMoney(outcome, time, player, valuesToEditParameters, textInformation);
 
-	// health
+	// Health
 	description += await applyOutcomeHealth(outcome, player, textInformation);
 
-	// energy
+	// Energy
 	description += await applyOutcomeEnergy(outcome, player, textInformation);
 
-	// gems
+	// Gems
 	description += await applyOutcomeGems(outcome, player, textInformation);
 
-	// experience
+	// Experience
 	description += await applyOutcomeExperience(outcome, player, valuesToEditParameters, textInformation);
 
-	// effect + lost time
+	// Effect + lost time
 	description += await applyOutcomeEffect(outcome, player, textInformation);
 
-	// random item
+	// Random item
 	await applyOutcomeRandomItem(outcome, player, textInformation);
 
-	// random pet
+	// Random pet
 	await applyOutcomeRandomPet(outcome, player, textInformation);
 
-	// next event
+	// Next event
 	applyOutcomeNextEvent(outcome, player);
 
-	// oneshot
+	// Oneshot
 	await applyOutcomeOneshot(outcome, player, textInformation);
 
 	return {

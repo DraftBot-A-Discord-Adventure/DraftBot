@@ -6,7 +6,7 @@ import {SmallEventConstants} from "../../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../../database/game/models/GenericItemModel";
 
 /**
- * attack potion or get hurt (or nothing)
+ * Attack potion or get hurt (or nothing)
  */
 export default class Rat extends WitchEvent {
 

@@ -8,10 +8,10 @@ export default class IntenseAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, sender.getSpeed() < receiver.getSpeed() ? 0 : 10);
 
-		// the sender has to rest for 1 turn
+		// The sender has to rest for 1 turn
 		sender.nextFightAction = FightActions.getFightActionById("resting");
 
-		// this attack cannot kill the receiver
+		// This attack cannot kill the receiver
 		receiver.damage(damageDealt, true);
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language);

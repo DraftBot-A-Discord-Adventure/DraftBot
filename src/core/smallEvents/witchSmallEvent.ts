@@ -35,7 +35,7 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 	const randomIngredient = WitchEvents.getRandomWitchEventByType(SmallEventConstants.WITCH.ACTION_TYPE.INGREDIENT);
 	const fullRandom = WitchEvents.getRandomWitchEvent([randomAdvice, randomIngredient]);
 	if (isMage) {
-		// a mage can get an additional random event
+		// A mage can get an additional random event
 		const optional = WitchEvents.getRandomWitchEvent(
 			[randomAdvice,
 				randomIngredient,
@@ -126,7 +126,7 @@ function generateWitchEventMenu(witchEvents: WitchEventSelection, embed: DraftBo
 }
 
 /**
- * generate an embed with the menu and a short introduction to the witch
+ * Generate an embed with the menu and a short introduction to the witch
  * @param embed
  * @param language
  * @param interaction
@@ -184,7 +184,7 @@ export const smallEvent: SmallEvent = {
 				const outcome = selectedEvent.generateOutcome();
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.WITCH_CHOOSE);
 
-				// there is a chance that the player will get a no effect potion, no matter what he chose
+				// There is a chance that the player will get a no effect potion, no matter what he chose
 				if (RandomUtils.draftbotRandom.bool(SmallEventConstants.WITCH.NO_EFFECT_CHANCE)) {
 					if (selectedEvent.forceEffect) {
 						await selectedEvent.giveEffect(player);

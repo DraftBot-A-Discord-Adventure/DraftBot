@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Migration down puis up effectuée",
 	description: "Effectue une migration down de la base de données puis up à nouveau",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase {

@@ -373,7 +373,7 @@ export class Player extends Model {
 		msg += bonuses[bonuses.length - 1];
 		await channel.send({content: msg});
 
-		return this.levelUpIfNeeded(channel, language);
+		await this.levelUpIfNeeded(channel, language);
 	}
 
 	/**
@@ -484,7 +484,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * check if the player has a holy class
+	 * Check if the player has a holy class
 	 */
 	public hasHolyClass(): boolean {
 		return this.class in ClassInfoConstants.HOLY_CLASSES;
@@ -964,7 +964,7 @@ export class Player extends Model {
 	 */
 	async hasClaimedLeagueReward(): Promise<boolean> {
 		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
-		// beware, the date of last league reward is in seconds
+		// Beware, the date of last league reward is in seconds
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 

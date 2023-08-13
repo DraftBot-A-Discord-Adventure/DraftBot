@@ -10,10 +10,10 @@ export default class PowerfulAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// check how many times the attack appears in the fight action history of the sender
+		// Check how many times the attack appears in the fight action history of the sender
 		const count = sender.fightActionsHistory.filter(action => action instanceof PowerfulAttack).length;
 
-		// if the attack is repeated more than 3 times, the damage dealt is reduced by 70%
+		// If the attack is repeated more than 3 times, the damage dealt is reduced by 70%
 		damageDealt *= count > 3 ? 0.3 : 1;
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);

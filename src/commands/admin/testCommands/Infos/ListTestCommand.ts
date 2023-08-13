@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
 	description: "Affiche la liste des commandes tests",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

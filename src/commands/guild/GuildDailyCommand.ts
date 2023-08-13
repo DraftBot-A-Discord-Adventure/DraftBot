@@ -91,7 +91,7 @@ async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, i
  */
 async function genericAwardingFunction(members: Player[], awardingFunctionForAMember: (member: Player) => Promise<void> | void): Promise<void> {
 	for (const member of members) {
-		// we have to check if the member is not KO because if he is, he can't receive the reward
+		// We have to check if the member is not KO because if he is, he can't receive the reward
 		if (member.isDead()) {
 			continue;
 		}
@@ -147,7 +147,8 @@ async function healEveryMember(guildLike: GuildLike, stringInfos: StringInfos, g
 	const healthWon = Math.round(guildLike.guild.level * GuildDailyConstants.LEVEL_MULTIPLIER) + 1;
 	if (!await doesSomeoneNeedsHeal(guildLike)) {
 		// Pas de heal donné : don de money
-		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD) {
@@ -184,7 +185,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	await genericAwardingFunction(guildLike.members, async member => {
 		if (member.currentEffectFinished(stringInfos.interaction.createdAt)) {
 			if (needsHeal) {
-				return await member.addHealth(
+				await member.addHealth(
 					healthWon,
 					stringInfos.interaction.channel,
 					guildDailyModule.language,
@@ -194,6 +195,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 						overHealCountsForMission: true
 					}
 				);
+
 			}
 		}
 		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
@@ -203,7 +205,8 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 	});
 	if (!needsHeal && noAlteHeal) {
 		// Pas de heal donné : don de money
-		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
 	stringInfos.embed.setDescription(guildDailyModule.format(healthWon > 0 ? "alterationHeal" : "alterationNoHeal", {
 		healthWon: healthWon
@@ -257,7 +260,8 @@ async function awardGuildXp(guildLike: GuildLike, stringInfos: StringInfos, guil
  */
 async function awardCommonFood(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	if (guildLike.guild.commonFood + GuildDailyConstants.FIXED_PET_FOOD > GuildConstants.MAX_COMMON_PET_FOOD) {
-		return await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		await awardMoneyToMembers(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
 	guildLike.guild.commonFood += GuildDailyConstants.FIXED_PET_FOOD;
 	await Promise.all([guildLike.guild.save()]);
@@ -291,8 +295,9 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, stringInfos: Strin
 		}
 	});
 	if (membersThatOwnTheBadge === guildLike.members.length) {
-		// everybody already has the badge, give something else instead
-		return await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		// Everybody already has the badge, give something else instead
+		await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		return;
 	}
 	stringInfos.embed.setDescription(guildDailyModule.get("badge"));
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.BADGE).then();
@@ -321,7 +326,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: 
 	const guildRank = await guildLike.guild.getRanking();
 
 	if (guildRank > GuildConstants.SUPER_BADGE_MAX_RANK || guildRank < 0) {
-		// only guilds that are in the top ranked guilds can get the badge
+		// Only guilds that are in the top ranked guilds can get the badge
 		await healEveryMember(guildLike, stringInfos, guildDailyModule);
 		return;
 	}
@@ -333,7 +338,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: 
 	});
 
 	if (membersThatOwnTheBadge === guildLike.members.length) {
-		// everybody already has the badge, give something else instead
+		// Everybody already has the badge, give something else instead
 		await healEveryMember(guildLike, stringInfos, guildDailyModule);
 		return;
 	}
@@ -372,7 +377,7 @@ const linkToFunction = getMapOfAllRewardCommands();
  */
 async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
 	for (const member of members) {
-		// we have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
+		// We have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
 		if (member.isDead()) {
 			continue;
 		}

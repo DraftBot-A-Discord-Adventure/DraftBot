@@ -31,19 +31,19 @@ export const smallEvent: SmallEvent = {
 		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}${tr.getRandom("stories")}`;
 
 		if (await DBL.getTimeBeforeDBLRoleRemove(player.discordUserId) < 0) {
-			// hasn't voted
+			// Hasn't voted
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 
 		}
 		else if (RandomUtils.draftbotRandom.bool()) {
-			// item win
+			// Item win
 			seEmbed.setDescription(`${base + tr.get("itemWin")}\n\n${tr.get("thanksFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 			await giveRandomItem(interaction.user, interaction.channel, language, player);
 		}
 		else {
-			// money win
+			// Money win
 			const moneyWon = RandomUtils.rangedInt(SmallEventConstants.VOTE.MONEY);
 			await player.addMoney({
 				amount: moneyWon,

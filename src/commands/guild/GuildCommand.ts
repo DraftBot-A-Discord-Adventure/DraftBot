@@ -34,7 +34,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 	}
 	else {
-		// search for a user's guild
+		// Search for a user's guild
 		let playerToAnalise = await Players.getByOptions(interaction);
 		if (playerToAnalise === null) {
 			playerToAnalise = player;
@@ -63,7 +63,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	let membersInfos = "";
 
 	for (const member of members) {
-		// if member is the owner of guild
+		// If member is the owner of guild
 		membersInfos += guildModule.format("memberinfos",
 			{
 				isChief: member.id === guild.chiefId,

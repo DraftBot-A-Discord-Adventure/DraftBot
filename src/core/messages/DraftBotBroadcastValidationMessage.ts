@@ -99,7 +99,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * create and manage the collector
+	 * Create and manage the collector
 	 * @private
 	 */
 	private async createAndManageCollector(): Promise<void> {
@@ -113,7 +113,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * manage the collector reactions
+	 * Manage the collector reactions
 	 * @private
 	 */
 	private manageCollectedAnswers(): void {
@@ -135,7 +135,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * check if the reaction is a valid one
+	 * Check if the reaction is a valid one
 	 * @param user
 	 * @param reaction
 	 * @private
@@ -169,11 +169,11 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	private isBroadcastStillActive(reaction: MessageReaction): boolean {
 		const hasMainDenied = this._collector.collected.get(Constants.REACTIONS.REFUSE_REACTION) &&
 			this._collector.collected.get(Constants.REACTIONS.REFUSE_REACTION).users.cache.has(this._interaction.user.id);
-		// has the main user cancelled the broadcast
+		// Has the main user cancelled the broadcast
 		if (hasMainDenied && this._interaction.user.id !== reaction.users.cache.at(reaction.users.cache.keys.length - 1).id) {
 			return false;
 		}
-		// has any user already accepted correctly the broadcast
+		// Has any user already accepted correctly the broadcast
 		return !(this._collector.collected.get(Constants.REACTIONS.VALIDATE_REACTION) &&
 			this._collector.collected.get(Constants.REACTIONS.VALIDATE_REACTION).count > this._spamCount + this._wrongAnswer + 1 +
 			(hasMainDenied ? 0 : 1));
