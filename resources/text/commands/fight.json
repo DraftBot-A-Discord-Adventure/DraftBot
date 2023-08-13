@@ -125,6 +125,10 @@
 					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!",
 					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!"
 				},
+				"onPveIsland": {
+					"direct": "{pseudo}, vous ne pouvez pas lancer de combat en étant sur une île mystérieuse !",
+					"indirect": "Cette personne est sur une île mystérieuse !"
+				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
 			"actionsOf": "Attaques de {player} :",
@@ -358,6 +362,10 @@
 				"bestOf3": {
 					"direct": "You can't make a ranked fight against this person because you've already made too many duels with them this week!",
 					"indirect": "You can't make a ranked fight against this person because you've already made too many duels with them this week!"
+				},
+				"onPveIsland": {
+					"direct": "{pseudo}, you can't start a fight while being on a mysterious island!",
+					"indirect": "This person is on a mysterious island!"
 				},
 				"defenderDoesntExist": "The requested user doesn't exist!"
 			},
