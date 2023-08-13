@@ -8,12 +8,12 @@ import {Constants} from "../../core/Constants";
 import {
 	getTimeFromXHoursAgo,
 	millisecondsToMinutes,
-	minutesToHours,
+	minutesDisplay,
 	printTimeBeforeDate
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {CommandInteraction, Message} from "discord.js";
+import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
 import {effectsErrorTextValue} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -21,7 +21,7 @@ import {Data} from "../../core/Data";
 import {SmallEvent} from "../../core/smallEvents/SmallEvent";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
-import {draftBotInstance} from "../../core/bot";
+import {draftBotClient, draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ReportConstants} from "../../core/constants/ReportConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -29,10 +29,20 @@ import {format} from "../../core/utils/StringFormatter";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Possibility} from "../../core/events/Possibility";
-import {TextInformation} from "../../core/utils/MessageUtils";
 import {BigEventsController} from "../../core/events/BigEventsController";
 import {BigEvent} from "../../core/events/BigEvent";
 import {applyPossibilityOutcome} from "../../core/events/PossibilityOutcome";
+import {FightController} from "../../core/fights/FightController";
+import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
+import {Classes} from "../../core/database/game/models/Class";
+import {MonsterFighter} from "../../core/fights/fighter/MonsterFighter";
+import {MonsterLocations} from "../../core/database/game/models/MonsterLocation";
+import {PVEConstants} from "../../core/constants/PVEConstants";
+import {TextInformation} from "../../core/utils/MessageUtils";
+import {Guilds} from "../../core/database/game/models/Guild";
+import {MapCache} from "../../core/maps/MapCache";
+import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
+import {GuildConstants} from "../../core/constants/GuildConstants";
 
 /**
  * Initiates a new player on the map
@@ -73,23 +83,23 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 		const keys = Data.getKeys("smallEvents");
 		let totalSmallEventsRarity = 0;
 		const updatedKeys = [];
-		for (let i = 0; i < keys.length; ++i) {
-			const file = await import(`../../core/smallEvents/${keys[i]}SmallEvent.js`);
-			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
-				await interaction.editReply({content: `${keys[i]} doesn't contain a canBeExecuted function`});
+		for (const key of keys) {
+			const file = await import(`../../core/smallEvents/${key}SmallEvent.js`);
+			if (!file.smallEvent?.canBeExecuted) {
+				await interaction.editReply({content: `${key} doesn't contain a canBeExecuted function`});
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(player)) {
-				updatedKeys.push(keys[i]);
-				totalSmallEventsRarity += Data.getModule(`smallEvents.${keys[i]}`).getNumber("rarity");
+				updatedKeys.push(key);
+				totalSmallEventsRarity += Data.getModule(`smallEvents.${key}`).getNumber("rarity");
 			}
 		}
 		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity + 1);
 		let sum = 0;
-		for (let i = 0; i < updatedKeys.length; ++i) {
-			sum += Data.getModule(`smallEvents.${updatedKeys[i]}`).getNumber("rarity");
+		for (const updatedKey of updatedKeys) {
+			sum += Data.getModule(`smallEvents.${updatedKey}`).getNumber("rarity");
 			if (sum >= randomNb) {
-				event = updatedKeys[i];
+				event = updatedKey;
 				break;
 			}
 		}
@@ -99,7 +109,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 	}
 
 	// Execute the event
-	const filename = event + "SmallEvent.js";
+	const filename = `${event}SmallEvent.js`;
 	try {
 		const smallEventModule = require.resolve(`../../core/smallEvents/${filename}`);
 		try {
@@ -152,16 +162,6 @@ async function completeMissionsBigEvent(player: Player, interaction: CommandInte
 		missionId: "fromPlaceToPlace",
 		params: {mapId: endMapId}
 	});
-}
-
-/**
- * If the player reached his destination (= big event)
- * @param {Player} player
- * @param date
- * @returns {boolean}
- */
-async function needBigEvent(player: Player, date: Date): Promise<boolean> {
-	return await Maps.isArrived(player, date);
 }
 
 /**
@@ -223,11 +223,20 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		}
 	}
 
-	travelEmbed.addFields({
-		name: tr.get("collectedPointsTitle"),
-		value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
-		inline: true
-	});
+	if (Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) {
+		travelEmbed.addFields({
+			name: tr.get("remainingEnergyTitle"),
+			value: `⚡ ${await player.getCumulativeFightPoint()} / ${await player.getMaxCumulativeFightPoint()}`,
+			inline: true
+		});
+	}
+	else {
+		travelEmbed.addFields({
+			name: tr.get("collectedPointsTitle"),
+			value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
+			inline: true
+		});
+	}
 
 	travelEmbed.addFields({
 		name: tr.get("adviceTitle"),
@@ -252,14 +261,15 @@ async function createDescriptionChooseDestination(
 	player: Player,
 	language: string
 ): Promise<string> {
-	let desc = tr.get("chooseDestinationIndications") + "\n";
+	const isPveMap = MapCache.allPveMapLinks.includes(player.mapLinkId);
+	let desc = `${tr.get("chooseDestinationIndications")}\n`;
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
 		const link = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[i]);
-		const duration = minutesToHours(link.tripDuration);
-		const displayedDuration = RandomUtils.draftbotRandom.bool() ? duration : "?";
+		const duration = minutesDisplay(link.tripDuration);
+		const displayedDuration = isPveMap || RandomUtils.draftbotRandom.bool() ? duration : "?h";
 		// we have to convert the duration to hours if it is not unknown
-		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration}h)\n`;
+		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration})\n`;
 	}
 	return desc;
 }
@@ -311,12 +321,14 @@ async function destinationChoseMessage(
  * @param interaction
  * @param language
  * @param forcedLink Forced map link to go to
+ * @param reason
  */
 async function chooseDestination(
 	player: Player,
 	interaction: CommandInteraction,
 	language: string,
-	forcedLink: MapLink
+	forcedLink: MapLink,
+	reason: NumberChangeReason
 ): Promise<void> {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(player);
@@ -326,9 +338,11 @@ async function chooseDestination(
 		return;
 	}
 
-	if (forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
+	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
+		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
+	) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, Date.now(), reason);
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);
 		return;
 	}
@@ -353,7 +367,7 @@ async function chooseDestination(
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
-		await Maps.startTravel(player, newLink, Date.now(), NumberChangeReason.BIG_EVENT);
+		await Maps.startTravel(player, newLink, Date.now(), reason);
 		await destinationChoseMessage(player, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
@@ -393,7 +407,7 @@ async function doPossibility(
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
 				result: "",
-				event: format(possibility.getText(textInformation.language),{}),
+				event: format(possibility.getText(textInformation.language), {}),
 				emoji: "",
 				alte: ""
 			})
@@ -413,14 +427,14 @@ async function doPossibility(
 		content: textInformation.tr.format("doPossibility", {
 			pseudo: textInformation.interaction.user,
 			result: outcomeResult.description,
-			event: format(randomOutcome.translations[textInformation.language],{}),
+			event: format(randomOutcome.translations[textInformation.language], {}),
 			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 			alte: outcomeResult.alterationEmoji
 		})
 	});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
-		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination);
+		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination, NumberChangeReason.BIG_EVENT);
 	}
 
 	await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {missionId: "doReports"});
@@ -429,9 +443,9 @@ async function doPossibility(
 		.concat(possibility.tags ?? [])
 		.concat(event.tags ?? []);
 	if (tagsToVerify) {
-		for (let i = 0; i < tagsToVerify.length; i++) {
+		for (const tag of tagsToVerify) {
 			await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {
-				missionId: tagsToVerify[i],
+				missionId: tag,
 				params: {tags: tagsToVerify}
 			});
 		}
@@ -530,6 +544,151 @@ async function doRandomBigEvent(
 }
 
 /**
+ * Do a PVE boss fight
+ * @param interaction
+ * @param language
+ * @param player
+ */
+async function doPVEBoss(
+	interaction: CommandInteraction,
+	language: string,
+	player: Player
+): Promise<void> {
+	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id);
+	const tr = Translations.getModule("commands.report", language);
+	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + (player.experience + player.startTravelDate.valueOf() / 1000) % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
+	const fightCallback = async (fight: FightController): Promise<void> => {
+		if (fight) {
+			const rewards = monsterObj.monster.getRewards(randomLevel);
+			let desc = tr.format("monsterRewardsDescription", {
+				money: rewards.money,
+				experience: rewards.xp
+			});
+
+			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+
+			// Only give reward if draw or win
+			if (fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
+				const fightView = fight.getFightView();
+				await player.addMoney({
+					amount: rewards.money,
+					channel: fightView.channel,
+					language: fightView.language,
+					reason: NumberChangeReason.PVE_FIGHT
+				});
+				await player.addExperience({
+					amount: rewards.xp,
+					channel: fightView.channel,
+					language: fightView.language,
+					reason: NumberChangeReason.PVE_FIGHT
+				});
+				if (player.guildId) {
+					const guild = await Guilds.getById(player.guildId);
+					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
+					await guild.addExperience(rewards.guildXp, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
+					await guild.save();
+					if (guild.level < GuildConstants.MAX_LEVEL){
+						desc += tr.format("monsterRewardGuildXp", {
+							guildXp: rewards.guildXp
+						});
+					}
+					desc += tr.format("monsterRewardsGuildPoints", {
+						guildPoints: rewards.guildScore
+					});
+				}
+				await fightView.channel.send({
+					embeds: [
+						new DraftBotEmbed()
+							.formatAuthor(tr.get("monsterRewardsTitle"), interaction.user)
+							.setDescription(desc)
+					]
+				});
+			}
+
+			await player.save();
+
+			draftBotInstance.logsDatabase.logPveFight(fight).then();
+		}
+
+		if (!await player.leavePVEIslandIfNoFightPoints(interaction, language)) {
+			await Maps.stopTravel(player);
+			await player.setLastReportWithEffect(
+				0,
+				EffectsConstants.EMOJI_TEXT.SMILEY
+			);
+			await chooseDestination(player, interaction, language, null, NumberChangeReason.BIG_EVENT);
+		}
+	};
+
+	if (!monsterObj) {
+		await interaction.editReply("There is no monster here... This is a bug, please report this bug to the draftbot's team");
+		await fightCallback(null);
+		return;
+	}
+
+	const monsterFighter = new MonsterFighter(
+		randomLevel,
+		monsterObj.monster,
+		monsterObj.attacks,
+		language
+	);
+
+	const msg = await interaction.editReply({
+		content:
+			tr.format("pveEvent", {
+				pseudo: player.getMention(),
+				startTheFightReaction: Constants.REACTIONS.START_FIGHT_REACTION,
+				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION,
+				event: `${tr.getRandom("encounterMonster")}`,
+				monsterDisplay: tr.format("encounterMonsterStats", {
+					monsterName: monsterFighter.getName(),
+					emoji: monsterFighter.getEmoji(),
+					description: monsterFighter.getDescription(),
+					level: monsterFighter.level,
+					fightPoints: monsterFighter.getFightPoints(),
+					attack: monsterFighter.getAttack(),
+					defense: monsterFighter.getDefense(),
+					speed: monsterFighter.getSpeed()
+				})
+			})
+	});
+	const collector = msg.createReactionCollector({
+		filter: (reaction: MessageReaction, user: User) =>
+			user.id === player.discordUserId &&
+			reaction.users.cache.has(draftBotClient.user.id) || reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION,
+		time: PVEConstants.COLLECTOR_TIME,
+		max: 1
+	});
+	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT, collector);
+	collector.on("end", async (reaction) => {
+		if (!reaction.first() || [Constants.REACTIONS.WAIT_A_BIT_REACTION, Constants.REACTIONS.NOT_REPLIED_REACTION].includes(reaction.first().emoji.name)) {
+			await interaction.channel.send(tr.format("noFight", {
+				pseudo: player.getMention(),
+				waitABitReaction: Constants.REACTIONS.WAIT_A_BIT_REACTION
+			}));
+			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
+			return;
+		}
+
+		const playerFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
+		await playerFighter.loadStats(true);
+		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
+
+		const fight = new FightController(
+			{fighter1: playerFighter, fighter2: monsterFighter},
+			{friendly: true, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE},
+			interaction.channel,
+			language
+		);
+		fight.setEndCallback(() => fightCallback(fight));
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.START_BOSS_FIGHT);
+		await fight.startFight();
+	});
+	await msg.react(Constants.REACTIONS.START_FIGHT_REACTION);
+	await msg.react(Constants.REACTIONS.WAIT_A_BIT_REACTION);
+}
+
+/**
  * The main command of the bot : makes the player progress in the adventure
  * @param interaction
  * @param language
@@ -552,7 +711,7 @@ async function executeCommand(
 		return;
 	}
 
-	BlockingUtils.blockPlayer(player.discordUserId, "reportCommand", Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
@@ -562,35 +721,40 @@ async function executeCommand(
 		await MissionsController.update(player, interaction.channel, language, {missionId: "recoverAlteration"});
 	}
 
-	if (forceSpecificEvent || await needBigEvent(player, currentDate)) {
+	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
 		await interaction.deferReply();
-		await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		if (Maps.isOnPveIsland(player)) {
+			await doPVEBoss(interaction, language, player);
+		}
+		else {
+			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+		}
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
 		await executeSmallEvent(interaction, language, player, forceSmallEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (!player.currentEffectFinished(currentDate)) {
 		await sendTravelPath(player, interaction, language, currentDate, player.effect);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (player.mapLinkId === null) {
 		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	if (!Maps.isTravelling(player)) {
-		await chooseDestination(player, interaction, language, null);
-		return BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+		await chooseDestination(player, interaction, language, null, NumberChangeReason.PVE_FIGHT);
+		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 
 	await sendTravelPath(player, interaction, language, currentDate, null);
-	BlockingUtils.unblockPlayer(player.discordUserId, "reportCommand");
+	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 }
 
 const currentCommandFrenchTranslations = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);

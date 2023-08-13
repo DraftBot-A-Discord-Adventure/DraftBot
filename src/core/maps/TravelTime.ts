@@ -6,6 +6,8 @@ import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {draftBotInstance} from "../bot";
 import {EffectsConstants} from "../constants/EffectsConstants";
+import {Maps} from "./Maps";
+import {PVEConstants} from "../constants/PVEConstants";
 import {generateTravelNotification, sendNotificationToPlayer} from "../utils/MessageUtils";
 
 /**
@@ -56,11 +58,12 @@ export class TravelTime {
 		const data = await this.getTravelDataSimplified(player, date);
 
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
+		const timeBetweenSmallEvents = Maps.isOnPveIsland(player) ? PVEConstants.TIME_BETWEEN_SMALL_EVENTS : Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 		// The next small event in 9min45 after the last thing that happened between last start of the travel, small event (if there's one since the start of the travel) and end of alteration
 		const nextSmallEventTime = Math.max(
 			data.travelStartTime,
 			lastSmallEvent ? lastSmallEvent.time : -1,
-			data.effectEndTime) + Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+			data.effectEndTime) + timeBetweenSmallEvents;
 
 		return {
 			travelStartTime: data.travelStartTime,

@@ -14,6 +14,7 @@ import Player from "../database/game/models/Player";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {GuildConstants} from "../constants/GuildConstants";
+import {Maps} from "../maps/Maps";
 
 type RewardType = { type: string, option: number | GenericItemModel };
 
@@ -148,10 +149,10 @@ async function giveReward(reward: RewardType, interaction: CommandInteraction, l
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**

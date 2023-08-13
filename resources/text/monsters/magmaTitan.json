@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": "Titan de magma",
+		"en": "Magma titan"
+	},
+	"emoji": "🌋",
+	"descriptionFr": "Le monstre le plus puissant de l'île. Bouillant de chaleur, il est capable de faire fondre les roches les plus dures. Très peu d'aventuriers ont réussi à s'en défaire et il serait périlleux de l'attaquer seul.",
+	"descriptionEn": "The most powerful monster on the island. Boiling with heat, it is able to melt the hardest rocks. Very few adventurers have managed to get rid of it and it would be perilous to attack it alone.",
+	"fightPointsRatio": 150,
+	"attackRatio": 120,
+	"defenseRatio": 150,
+	"speedRatio": 30,
+	"breath": 25,
+	"maxBreath": 50,
+	"breathRegen": 6,
+	"attacks": [
+		{
+			"id": "eruptionAttack",
+			"minLevel": 0,
+			"weight": 2
+		},
+		{
+			"id": "slamAttack",
+			"minLevel": 0,
+			"weight": 5
+		},
+		{
+			"id": "heatDrainAttack",
+			"minLevel": 0,
+			"weight": 3
+		},
+		{
+			"id": "magmaBathAttack",
+			"minLevel": 0,
+			"weight": 4
+		},
+		{
+			"id": "lavaWaveAttack",
+			"minLevel": 50,
+			"weight": 1
+		}
+	],
+	"maps": [
+		1005
+	]
+}

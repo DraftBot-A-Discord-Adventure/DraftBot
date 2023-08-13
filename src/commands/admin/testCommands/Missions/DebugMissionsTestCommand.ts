@@ -50,26 +50,26 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 		missionsFieldContent = "Aucune mission";
 	}
 	else {
-		for (let i = 0; i < missionSlots.length; ++i) {
-			const mission = await Missions.getById(missionSlots[i].missionId);
+		for (const missionSlot of missionSlots) {
+			const mission = await Missions.getById(missionSlot.missionId);
 			missionsFieldContent += `${
-				await mission.formatDescription(missionSlots[i].missionObjective, missionSlots[i].missionVariant, language, null)
+				await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null)
 			} (id: ${
-				missionSlots[i].missionId
+				missionSlot.missionId
 			}\n				)\n-> ID DB: ${
-				missionSlots[i].id
+				missionSlot.id
 			}\n				\n-> Variant: ${
-				missionSlots[i].missionVariant
+				missionSlot.missionVariant
 			}\n				\n-> Number done: ${
-				missionSlots[i].numberDone
+				missionSlot.numberDone
 			}\n				\n-> Objective: ${
-				missionSlots[i].missionObjective
+				missionSlot.missionObjective
 			}\n				\n-> Expiration date: ${
-				missionSlots[i].expiresAt ? new Date(missionSlots[i].expiresAt).toISOString() : "Never"
+				missionSlot.expiresAt ? new Date(missionSlot.expiresAt).toISOString() : "Never"
 			}\n				\n-> Campaign only: ${
 				mission.campaignOnly
 			}\n				\n-> Save blob: ${
-				missionSlots[i].saveBlob
+				missionSlot.saveBlob
 			}\n\n`;
 		}
 	}

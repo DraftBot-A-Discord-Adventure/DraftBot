@@ -1,4 +1,4 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
 import {TextBasedChannel} from "discord.js";
 import {Translations} from "../../../Translations";
@@ -13,39 +13,40 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import moment = require("moment");
+import {TopConstants} from "../../../constants/TopConstants";
 
 export class Guild extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public name!: string;
+	declare name: string;
 
-	public guildDescription!: string;
+	declare guildDescription: string;
 
-	public score!: number;
+	declare score: number;
 
-	public level!: number;
+	declare level: number;
 
-	public experience!: number;
+	declare experience: number;
 
-	public commonFood!: number;
+	declare commonFood: number;
 
-	public carnivorousFood!: number;
+	declare carnivorousFood: number;
 
-	public herbivorousFood!: number;
+	declare herbivorousFood: number;
 
-	public ultimateFood!: number;
+	declare ultimateFood: number;
 
-	public lastDailyAt!: Date;
+	declare lastDailyAt: Date;
 
-	public chiefId!: number;
+	declare chiefId: number;
 
-	public elderId!: number;
+	declare elderId: number;
 
-	public creationDate!: Date;
+	declare creationDate: Date;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	/**
@@ -77,7 +78,7 @@ export class Guild extends Model {
 		const pets = await GuildPets.getOfGuild(this.id);
 		for (const pet of pets) {
 			guildPetsToDestroy.push(pet.destroy());
-			petsEntitiesToDestroy.push(PetEntity.destroy({ where: { id: pet.petEntityId }}));
+			petsEntitiesToDestroy.push(PetEntity.destroy({where: {id: pet.petEntityId}}));
 		}
 		await Promise.all([
 			Player.update(
@@ -244,6 +245,35 @@ export class Guild extends Model {
 			this.experience = 0;
 		}
 	}
+
+	/**
+	 * add guild points
+	 * @param points
+	 * @param reason
+	 */
+	public addScore(points: number, reason: NumberChangeReason): void {
+		this.score += points;
+		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason).then();
+	}
+
+	/**
+	 * get guild ranking
+	 */
+	public async getRanking(): Promise<number> {
+		if (this.score === 0) {
+			return TopConstants.TOP_GUILD_NOT_RANKED_REASON.ZERO_POINTS;
+		}
+
+		const query = `SELECT ranking
+					   FROM (SELECT id, RANK() OVER (ORDER BY score desc, level desc) ranking
+							 FROM guilds) subquery
+					   WHERE subquery.id = :id`;
+		return ((await Guild.sequelize.query(query, {
+			replacements: {
+				id: this.id
+			}
+		}))[0][0] as { ranking: number }).ranking;
+	}
 }
 
 export class Guilds {
@@ -271,6 +301,32 @@ export class Guilds {
 				type: QueryTypes.SELECT
 			})))[0]["avg"]
 		);
+	}
+
+	static getTotalRanked(): Promise<number> {
+		return Guild.count({
+			where: {
+				[Op.not]: {
+					score: 0
+				}
+			}
+		});
+	}
+
+	static getRankedGuilds(minRank: number, maxRank: number): Promise<Guild[]> {
+		return Guild.findAll({
+			where: {
+				[Op.not]: {
+					score: 0
+				}
+			},
+			order: [
+				["score", "DESC"],
+				["level", "DESC"]
+			],
+			limit: maxRank - minRank + 1,
+			offset: minRank - 1
+		});
 	}
 }
 

@@ -22,7 +22,7 @@ function addFoodStorageField(storageEmbed: DraftBotEmbed, translations: Translat
 	const foodIndex = getFoodIndexOf(food);
 	storageEmbed.addFields({
 		name: translations.format("foodTitle", {
-			foodType: foodModule.get(food + ".name"),
+			foodType: foodModule.get(`${food}.name`),
 			emote: Constants.PET_FOOD_GUILD_SHOP.EMOTE[foodIndex]
 		}),
 		value: translations.format("foodField", {

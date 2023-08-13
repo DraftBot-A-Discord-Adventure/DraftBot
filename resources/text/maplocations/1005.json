@@ -1,0 +1,11 @@
+{
+	"type": "volcano",
+	"nameFr": "Volcan grondant",
+	"nameEn": "Grumble volcano",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Pièce maîtresse de l'île volcanique, ce volcan est toujours en activité. Il déverse plusieurs tonnes de cendres par an sur cette petite île qui de ce fait ne fait que grandir. La lave qui coule en son centre est en si grande quantité qu'un canal souterrain qu'on appelle Canal Lavique circule sur plusieurs kilomètres. Depuis les bateaux sur l'eau, on peut apercevoir ce canal faire bouillir l'eau en profondeur. Ce volcan serait même le créateur de plusieurs petites îles aux alentours comme l'île de glace.",
+	"descEn": "The centerpiece of the volcanic island, this volcano is still active. It pours several tons of ash per year on this small island, which only grows. The lava that flows in the center of the island is in such great quantity that an underground channel called Lava Channel runs for several kilometers. From the boats on the water, you can see this channel boiling the water in depth. This volcano is said to be the creator of several small islands in the area, such as the Ice Island.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

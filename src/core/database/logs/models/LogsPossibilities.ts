@@ -1,13 +1,13 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsPossibilities extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly bigEventId!: number;
+	declare readonly bigEventId: number;
 
-	public readonly emote!: string;
+	declare readonly emote: string;
 
-	public readonly issueIndex!: number;
+	declare readonly issueIndex: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

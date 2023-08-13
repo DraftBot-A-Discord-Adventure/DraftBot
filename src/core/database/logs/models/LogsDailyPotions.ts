@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsDailyPotions extends Model {
-	public readonly potionId!: number;
+	declare readonly potionId: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 /**

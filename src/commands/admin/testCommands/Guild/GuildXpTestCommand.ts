@@ -37,7 +37,7 @@ const guildXpTestCommand = async (language: string, interaction: CommandInteract
 		throw new Error("Erreur gxp : expérience de guilde invalide. Interdit de mettre de l'expérience négative !");
 	}
 	if (xp > 3 * guild.getExperienceNeededToLevelUp()) {
-		throw new Error("Erreur gxp : expérience donnée trop élevée : montant autorisé entre 0 et " + 3 * guild.getExperienceNeededToLevelUp());
+		throw new Error(`Erreur gxp : expérience donnée trop élevée : montant autorisé entre 0 et ${3 * guild.getExperienceNeededToLevelUp()}`);
 	}
 	if (guild.isAtMaxLevel()) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");

@@ -39,6 +39,8 @@ import Player, {Players} from "../core/database/game/models/Player";
 import {GuildConstants} from "../core/constants/GuildConstants";
 import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 import {RESTPostAPIChatInputApplicationCommandsJSONBody} from "discord-api-types/v10";
+import {PVEConstants} from "../core/constants/PVEConstants";
+import {Maps} from "../core/maps/Maps";
 
 type UserPlayer = { user: User, player: Player };
 type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
@@ -215,7 +217,7 @@ export class CommandsManager {
 	 * @param client
 	 * @private
 	 */
-	private static async refreshCommands(client: Client<boolean>): Promise<void> {
+	private static async refreshCommands(client: Client): Promise<void> {
 		console.log("Fetching and saving commands...");
 		const commands = (await client.application.commands.fetch({withLocalizations: true}))
 			.concat(await (await client.guilds.fetch(botConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
@@ -260,7 +262,7 @@ export class CommandsManager {
 		}
 		for (const commandFile of commandsFiles) {
 			const commandInfo = (await import(`./${category}/${commandFile}`)).commandInfo as ICommand;
-			if (!commandInfo || !commandInfo.slashCommandBuilder) {
+			if (!commandInfo?.slashCommandBuilder) {
 				console.error(`Command dist/src/commands/${category}/${commandFile} is not a slash command`);
 				continue;
 			}
@@ -459,7 +461,7 @@ export class CommandsManager {
 		{interaction, tr}: TextInformations,
 		shouldReply: boolean): boolean {
 		if (!player.currentEffectFinished(new Date()) &&
-			(commandInfo.requirements.disallowEffects && commandInfo.requirements.disallowEffects.includes(player.effect) ||
+			(commandInfo.requirements.disallowEffects?.includes(player.effect) ||
 				commandInfo.requirements.allowEffects && !commandInfo.requirements.allowEffects.includes(player.effect))) {
 			CommandsManager.effectError(user, tr, interaction, shouldReply).finally(() => null);
 			return true;
@@ -533,6 +535,7 @@ export class CommandsManager {
 		if (!interaction.commandName) {
 			return;
 		}
+
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
@@ -572,8 +575,29 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
+		// block not allowed commands on pve island but allow commands with permissions (admin, contributors...)
+		if (this.checkCommandDisallowedOnPveIsland(player, interaction, commandInfo)) {
+			await replyErrorMessage(
+				interaction,
+				tr.language,
+				Translations.getModule("error", tr.language).get("pveIslandBlocking")
+			);
+			return;
+		}
+
 		draftBotInstance.logsDatabase.logCommandUsage(interaction.user.id, interaction.guild.id, interaction.commandName).then();
 		await commandInfo.executeCommand(interaction, tr.language, player);
+	}
+
+	/**
+	 * Check if a command is disallowed on the pve island
+	 * @param player
+	 * @param interaction
+	 * @param commandInfo
+	 * @private
+	 */
+	private static checkCommandDisallowedOnPveIsland(player: Player, interaction: CommandInteraction, commandInfo: ICommand): boolean {
+		return (Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && !PVEConstants.ALLOWED_COMMANDS.includes(interaction.commandName) && !commandInfo.requirements.userPermission;
 	}
 
 	/**

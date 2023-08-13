@@ -22,6 +22,7 @@ import {PetEntities} from "../database/game/models/PetEntity";
 import {Pets} from "../database/game/models/Pet";
 import {Op} from "sequelize";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {Maps} from "../maps/Maps";
 
 type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
 
@@ -230,9 +231,9 @@ async function checkInventory(otherPlayer: Player, cList: string[]): Promise<voi
 function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
 	// We don't query other shards, it's not optimized
 	let selectedPlayer: string = null;
-	for (let i = 0; i < playersOnMap.length; ++i) {
-		if (draftBotClient.users.cache.has(playersOnMap[i].discordUserId)) {
-			selectedPlayer = playersOnMap[i].discordUserId;
+	for (const player of playersOnMap) {
+		if (draftBotClient.users.cache.has(player.discordUserId)) {
+			selectedPlayer = player.discordUserId;
 			break;
 		}
 	}
@@ -413,10 +414,10 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 
 export const smallEvent: SmallEvent = {
 	/**
-	 * No restrictions on who can do it
+	 * Check if small event can be executed
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**
@@ -463,7 +464,7 @@ export const smallEvent: SmallEvent = {
 			guildName: guild ? guild.name : "",
 			item: item ? item.getName(language) : "",
 			pluralItem: item ? item.frenchPlural ? "s" : "" : "",
-			prefixItem: prefixItem,
+			prefixItem,
 			prefixItem2: prefixItem2 !== "" ? prefixItem2 : prefixItem
 		}));
 

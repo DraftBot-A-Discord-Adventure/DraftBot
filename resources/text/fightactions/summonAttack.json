@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Invocation d'alliés",
+			"namePlural": "Invocations d'alliés",
+			"description": "Invoque des alliés pour vous aider et attaquer très fort.",
+			"fail": "n'arrive pas à appeler des alliés !"
+		},
+		"en": {
+			"name": "Ally Summoning",
+			"namePlural": "Ally Summoning",
+			"description": "Summons allies to help you and attack very hard.",
+			"fail": "fails to summon allies!"
+		}
+	},
+	"emote": "🧑‍🤝‍🧑",
+	"breath": 10,
+	"missionVariant": -1,
+	"type": "physical"
+}

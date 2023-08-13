@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Discrétion",
+			"namePlural": "Discrétions",
+			"description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
+			"active": "se cache discrètement pour augmenter les dégâts de sa prochaine attaque..."
+		},
+		"en": {
+			"name": "Stealth",
+			"namePlural": "Stealth",
+			"description": "Discreetly hides to double the damage of the next attack.",
+			"active": "hides quietly to increase the damage of their next attack..."
+		}
+	},
+	"emote": "😶‍🌫️",
+	"breath": 6,
+	"missionVariant": -1,
+	"type": "stats"
+}

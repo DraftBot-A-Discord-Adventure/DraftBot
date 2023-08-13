@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque impact",
+			"namePlural": "Impacts",
+			"description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire."
+		},
+		"en": {
+			"name": "Slam attack",
+			"namePlural": "Slam attacks",
+			"description": "Below average attack that reduces the speed of the opponent."
+		}
+	},
+	"emote": "🦶",
+	"breath": 6,
+	"missionVariant": -1,
+	"type": "distance"
+}

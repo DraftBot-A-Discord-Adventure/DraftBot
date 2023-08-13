@@ -7,25 +7,25 @@ import {Constants} from "../../../Constants";
 export type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export abstract class GenericItemModel extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly rarity!: number;
+	declare readonly rarity: number;
 
-	public readonly fr!: string;
+	declare readonly fr: string;
 
-	public readonly en!: string;
+	declare readonly en: string;
 
-	public readonly emote!: string;
+	declare readonly emote: string;
 
-	public readonly fallbackEmote: string;
+	declare readonly fallbackEmote: string;
 
-	public readonly frenchMasculine!: boolean;
+	declare readonly frenchMasculine: boolean;
 
-	public readonly frenchPlural!: boolean;
+	declare readonly frenchPlural: boolean;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	abstract categoryName: string;
 

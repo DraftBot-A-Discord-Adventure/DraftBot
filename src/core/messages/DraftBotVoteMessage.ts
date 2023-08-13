@@ -21,12 +21,12 @@ export class DraftBotVoteMessage extends DraftBotEmbed {
 			url: DraftBotVoteMessage.getTopGGUrl()
 		});
 		this.setThumbnail(user.avatarURL());
-		let desc = `**${user.tag}** is now a <@&${role.id}> for \``;
+		let desc = `**${user.username}** is now a <@&${role.id}> for \``;
 		if (Constants.TOPGG.ROLE_DURATION === 24) {
 			desc += "1 day";
 		}
 		else {
-			desc += Constants.TOPGG.ROLE_DURATION + " hours";
+			desc += `${Constants.TOPGG.ROLE_DURATION} hours`;
 		}
 		this.setDescription(
 			format(BotConstants.NEW_VOTE, {

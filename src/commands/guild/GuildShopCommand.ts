@@ -6,7 +6,7 @@ import {
 } from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
-import {Guilds} from "../../core/database/game/models/Guild";
+import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
@@ -45,21 +45,51 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);
 			const xpToAdd = calculateAmountOfXPToAdd(parseInt(guildShopTranslations.get("guildXp.price")));
-			await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
+			return await giveXpToGuild(guild, xpToAdd, message, guildShopTranslations);
+		}
+	);
+}
 
-			await guild.save();
-			await message.sentMessage.channel.send(
-				{
-					embeds: [
-						new DraftBotEmbed()
-							.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
-							.setDescription(guildShopTranslations.format("guildXp.give", {
-								experience: xpToAdd
-							}))]
-				}
-			);
-			draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
-			return true;
+/**
+ * function used by the guild shop command when the player has bought the guild xp
+ * @param guild
+ * @param xpToAdd
+ * @param message
+ * @param guildShopTranslations
+ */
+async function giveXpToGuild(guild: Guild, xpToAdd: number, message: DraftBotShopMessage, guildShopTranslations: TranslationModule): Promise<boolean> {
+	await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
+
+	await guild.save();
+	await message.sentMessage.channel.send(
+		{
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
+					.setDescription(guildShopTranslations.format("guildXp.give", {
+						experience: xpToAdd
+					}))]
+		}
+	);
+	draftBotInstance.logsDatabase.logGuildShopBuyout(message.user.id, ShopItemType.GUILD_XP).then();
+	return true;
+}
+
+/**
+ * Get the shop item for winning xp
+ * @param guildShopTranslations
+ */
+function getBigGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem {
+	return new ShopItem(
+		guildShopTranslations.get("bigGuildXp.emote"),
+		guildShopTranslations.get("bigGuildXp.name"),
+		parseInt(guildShopTranslations.get("bigGuildXp.price"), 10),
+		guildShopTranslations.get("bigGuildXp.info"),
+		async (message) => {
+			const [player] = await Players.getOrRegister(message.user.id);
+			const guild = await Guilds.getById(player.guildId);
+			const xpToAdd = calculateAmountOfXPToAdd(parseInt(guildShopTranslations.get("bigGuildXp.price")));
+			return await giveXpToGuild(guild, xpToAdd, message, guildShopTranslations);
 		}
 	);
 }
@@ -76,9 +106,9 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(
 		Constants.PET_FOOD_GUILD_SHOP.EMOTE[indexFood],
-		foodJson.get(name + ".name"),
+		foodJson.get(`${name}.name`),
 		Constants.PET_FOOD_GUILD_SHOP.PRICE[indexFood],
-		foodJson.get(name + ".info"),
+		foodJson.get(`${name}.info`),
 		async (message, amount) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(player.guildId);
@@ -125,7 +155,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (!guild.isAtMaxLevel()) {
 		shopMessage.addCategory(new ShopItemCategory(
 			[
-				getGuildXPShopItem(guildShopTranslations)
+				getGuildXPShopItem(guildShopTranslations),
+				getBigGuildXPShopItem(guildShopTranslations)
 			],
 			guildShopTranslations.get("xpItem")
 		));

@@ -1,11 +1,11 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsMapLinks extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly start!: number;
+	declare readonly start: number;
 
-	public readonly end!: number;
+	declare readonly end: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

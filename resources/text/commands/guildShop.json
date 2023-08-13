@@ -19,6 +19,14 @@
 				"type": "guildXp",
 				"give": "Votre guilde a reçu {experience} ⭐."
 			},
+			"bigGuildXp": {
+				"emote": "🌟",
+				"name": "Beaucoup d'xp pour votre guilde",
+				"price": 15000,
+				"info": "Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 750 et 6750.",
+				"type": "bigGuildXp",
+				"give": "Votre guilde a reçu {experience} ⭐."
+			},
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"error": {
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
@@ -44,6 +52,14 @@
 				"price": 1000,
 				"info": "You will receive a random amount (between 50 and 450) of guild xp.",
 				"type": "guildXp",
+				"give": "Your guild has received {experience} ⭐."
+			},
+			"bigGuildXp": {
+				"emote": "🌟",
+				"name": "A lot of xp for your guild",
+				"price": 15000,
+				"info": "You will receive a random amount (between 750 and 6750) of guild xp.",
+				"type": "bigGuildXp",
 				"give": "Your guild has received {experience} ⭐."
 			},
 			"confirm": "{pseudo}, you have selected this product:",

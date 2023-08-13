@@ -9,6 +9,8 @@ export abstract class HelpConstants {
 		LANGUAGE: ["language", "langage", "langue", "l", "speak"],
 		TOP: ["top", "classement", "t", "points", "top score", "classement score", "topscore", "classementscore", "topscores", "classementscores"],
 		GLORY_TOP: ["topgloire", "classementgloire", "tgloire", "gloire", "glorytop", "glory", "topglory"],
+		GUILD_TOP: ["topguild", "classementguild","classementguilde", "topguilde", "tguild","tguilde", "guildrank", "guildranking", "guildrankings", "guildranks",
+			"topguilds","topguildes","classementguilds", "classementguildes"],
 		HELP: ["help", "h", "aide", "a"],
 		INVENTORY: ["inventory", "inv", "i", "inventaire"],
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],
@@ -68,7 +70,8 @@ export abstract class HelpConstants {
 		LEAGUE_BONUS: [
 			"leaguereward", "leaguerewards", "league", "leagues", "leagueaward", "bonusleague", "leaguebonus", "leagueaward", "leagueawards",
 			"bonusligue", "liguebonus", "récompenseligue", "liguerécompense", "leaguerécompense", "récompenseleague", "recompenseleague",
-			"recompenseligue", "liguerécompenses", "leaguerécompenses", "récompensesligue", "récompensesleague", "recompensesleague"]
+			"recompenseligue", "liguerécompenses", "leaguerécompenses", "récompensesligue", "récompensesleague", "recompensesleague"],
+		JOIN_BOAT: ["joinboat", "boat", "bateau", "rejoindrebateau"]
 	};
 
 	static readonly COMMANDS_DATA = {
@@ -131,6 +134,12 @@ export abstract class HelpConstants {
 				EMOTE: ":sparkles:",
 				NAME: "top glory",
 				CATEGORY: "player"
+			},
+		GUILD_TOP:
+			{
+				EMOTE: ":mirror_ball:",
+				NAME: "top guilds",
+				CATEGORY: "guild"
 			},
 		INVENTORY:
 			{
@@ -365,6 +374,12 @@ export abstract class HelpConstants {
 				EMOTE: ":sparkles:",
 				NAME: "leaguebonus",
 				CATEGORY: "player"
+			},
+		JOIN_BOAT:
+			{
+				EMOTE: ":ferry:",
+				NAME: "joinboat",
+				CATEGORY: "guild"
 			}
 	};
 }

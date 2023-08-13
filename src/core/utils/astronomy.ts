@@ -3790,7 +3790,7 @@ function QuadInterp(tm: number, dt: number, fa: number, fm: number, fb: number) 
 
 	let t = tm + x * dt;
 	let df_dt = (2 * Q * x + R) / dt;
-	return {x: x, t: t, df_dt: df_dt};
+	return {x, t, df_dt};
 }
 
 export interface SearchOptions {
@@ -4197,7 +4197,7 @@ function SaturnMagnitude(phase: number, helio_dist: number, geo_dist: number, gc
 	let mag = -9.0 + 0.044 * phase;
 	mag += sin_tilt * (-2.6 + 1.2 * sin_tilt);
 	mag += 5 * Math.log10(helio_dist * geo_dist);
-	return {mag: mag, ring_tilt: RAD2DEG * tilt};
+	return {mag, ring_tilt: RAD2DEG * tilt};
 }
 
 function MoonMagnitude(phase: number, helio_dist: number, geo_dist: number): number {

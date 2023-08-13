@@ -1,0 +1,11 @@
+{
+	"type": "be",
+	"nameFr": "Plage noire",
+	"nameEn": "Black beach",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une grande plage de sable volcanique noir. Elle tient son nom de sa couleur très particulière. Les premiers hommes à avoir posé le pied sur la plage noir redoutaient une grande malédiction. Il n'en est évidemment rien. Attention cependant, le sable noir tache les pieds et les habits.",
+	"descEn": "A large beach of black volcanic sand. It takes its name from its very particular color. The first men to set foot on the black beach feared a great curse. This is obviously not the case. Be careful though, the black sand stains your feet and clothes.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island_entry"
+}

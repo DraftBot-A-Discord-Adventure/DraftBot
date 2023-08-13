@@ -36,7 +36,7 @@ export const commandInfo: ITestCommand = {
  */
 const playerEffectTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
-	const effectMalus = ":" + args[0] + ":";
+	const effectMalus = `:${args[0]}:`;
 	if (Object.keys(PlayerConstants.EFFECT_MALUS).includes(effectMalus)) {
 		await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST);
 		await player.save();

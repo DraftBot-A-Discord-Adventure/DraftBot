@@ -5,21 +5,21 @@ import {NumberChangeReason} from "../../../constants/LogsConstants";
 import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public gems!: number;
+	declare gems: number;
 
-	public hasBoughtPointsThisWeek!: boolean;
+	declare hasBoughtPointsThisWeek: boolean;
 
-	public dailyMissionNumberDone!: number;
+	declare dailyMissionNumberDone: number;
 
-	public lastDailyMissionCompleted!: Date;
+	declare lastDailyMissionCompleted: Date;
 
-	public campaignProgression!: number;
+	declare campaignProgression: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 	static async resetShopBuyout(): Promise<void> {
 		await PlayerMissionsInfo.update(

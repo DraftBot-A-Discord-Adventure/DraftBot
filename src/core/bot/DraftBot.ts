@@ -1,4 +1,4 @@
-import Potion from "../database/game/models/Potion";
+import {Potions} from "../database/game/models/Potion";
 import PetEntity from "../database/game/models/PetEntity";
 import Player, {Players} from "../database/game/models/Player";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
@@ -8,7 +8,6 @@ import {Client, TextChannel} from "discord.js";
 import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, draftBotInstance, shardId} from "./index";
-import Shop from "../database/game/models/Shop";
 import {RandomUtils} from "../utils/RandomUtils";
 import {CommandsManager} from "../../commands/CommandsManager";
 import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../utils/TimeUtils";
@@ -18,12 +17,13 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {CommandsTest} from "../CommandsTest";
 import {PetConstants} from "../constants/PetConstants";
 import {FightConstants} from "../constants/FightConstants";
-import {ItemConstants} from "../constants/ItemConstants";
 import {generateTravelNotification, sendNotificationToPlayer} from "../utils/MessageUtils";
 import {NotificationsConstants} from "../constants/NotificationsConstants";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {BigEventsController} from "../events/BigEventsController";
+import {MapCache} from "../maps/MapCache";
 import {LeagueInfoConstants} from "../constants/LeagueInfoConstants";
+import {Settings} from "../database/game/models/Setting";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -54,20 +54,20 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the top week reset
 	 */
-	static programTopWeekTimeout(this: void): void {
+	static programWeeklyTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programTopWeekTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
+			setTimeout(DraftBot.programWeeklyTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
 			return;
 		}
-		setTimeout(DraftBot.topWeekEnd, millisTill);
+		setTimeout(DraftBot.weeklyTimeout, millisTill);
 	}
 
 	/**
 	 * launch the program that execute the season reset
 	 */
-	static programSeasonTimeout(this: void): void {
+	static programSeasonTimeout(): void {
 		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
@@ -80,7 +80,7 @@ export class DraftBot {
 	/**
 	 * launch the program that execute the daily tasks
 	 */
-	static programDailyTimeout(this: void): void {
+	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
@@ -91,50 +91,9 @@ export class DraftBot {
 	}
 
 	/**
-	 * Send a notification every minute for player who arrived in the last minute
-	 */
-	async reportNotifications(this: void): Promise<void> {
-		const query = `
-			SELECT p.discordUserId
-			FROM players AS p
-					 JOIN map_links AS m
-						  ON p.mapLinkId = m.id
-			WHERE p.notifications != :noNotificationsValue
-			  AND DATE_ADD(DATE_ADD(p.startTravelDate
-							   , INTERVAL p.effectDuration MINUTE)
-				, INTERVAL m.tripDuration MINUTE)
-				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
-				AND NOW()`;
-
-		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
-			replacements: {
-				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
-				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
-			}, type: QueryTypes.SELECT
-		}));
-
-		const reportFR = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
-		const reportEN = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
-		const embed = await generateTravelNotification();
-		for (const playerId of playersToNotify) {
-			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
-
-			await sendNotificationToPlayer(player,
-				embed.setDescription(`${
-					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
-				}\n\n${
-					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
-				}`)
-				, Constants.LANGUAGE.ENGLISH);
-		}
-
-		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
-	}
-
-	/**
 	 * execute all the daily tasks
 	 */
-	static dailyTimeout(this: void): void {
+	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
@@ -142,52 +101,23 @@ export class DraftBot {
 	}
 
 	/**
+	 * execute all the daily tasks
+	 */
+	static weeklyTimeout(): void {
+		DraftBot.topWeekEnd().then();
+		DraftBot.newPveIsland().then();
+	}
+
+	/**
 	 * update the random potion sold in the shop
 	 */
 	static async randomPotion(): Promise<void> {
 		console.log("INFO: Daily timeout");
-		const shopPotion = await Shop.findOne({
-			attributes: ["shopPotionId"]
-		});
-		Potion.findAll({
-			where: {
-				nature: {
-					[Op.ne]: ItemConstants.NATURE.NONE
-				},
-				rarity: {
-					[Op.lt]: ItemConstants.RARITY.LEGENDARY
-				}
-			},
-			order: Sequelize.literal("rand()")
-		}).then(async potions => {
-			let potionId: number;
-			if (shopPotion) {
-				potionId = potions[potions[0].id === shopPotion.shopPotionId ? 1 : 0].id;
-				await Shop.update(
-					{
-						shopPotionId: potionId
-					},
-					{
-						where: {
-							shopPotionId: {
-								[Op.col]: "shop.shopPotionId"
-							}
-						}
-					}
-				);
-			}
-			else {
-				potionId = potions[0].id;
-				console.log("WARN : no potion in shop");
-				await Shop.create(
-					{
-						shopPotionId: potions[0].id
-					}
-				);
-			}
-			console.info(`INFO : new potion in shop : ${potionId}`);
-			draftBotInstance.logsDatabase.logDailyPotion(potionId).then();
-		});
+		const previousPotionId = await Settings.SHOP_POTION.getValue();
+		const newPotionId = (await Potions.randomShopPotion(previousPotionId)).id;
+		await Settings.SHOP_POTION.setValue(newPotionId);
+		console.info(`INFO : new potion in shop : ${newPotionId}`);
+		draftBotInstance.logsDatabase.logDailyPotion(newPotionId).then();
 	}
 
 	/**
@@ -219,7 +149,7 @@ export class DraftBot {
 	/**
 	 * End the top week
 	 */
-	static async topWeekEnd(this: void): Promise<void> {
+	static async topWeekEnd(): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Player.findOne({
 			where: {
@@ -281,14 +211,14 @@ export class DraftBot {
 		console.log("# WARNING # Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
-		DraftBot.programTopWeekTimeout();
+		DraftBot.programWeeklyTimeout();
 		draftBotInstance.logsDatabase.logTopWeekEnd().then();
 	}
 
 	/**
 	 * End the fight season
 	 */
-	static async seasonEnd(this: void): Promise<void> {
+	static async seasonEnd(): Promise<void> {
 		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
@@ -343,10 +273,42 @@ export class DraftBot {
 	}
 
 	/**
+	 * choose a new pve island
+	 */
+	static async newPveIsland(): Promise<void> {
+		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
+		console.log(`New pve island map link of the week: ${newMapLink}`);
+		await Settings.PVE_ISLAND.setValue(newMapLink);
+	}
+
+	/**
+	 * update the fight points of the entities that lost some
+	 */
+	static fightPowerRegenerationLoop(): void {
+		Player.update(
+			{
+				fightPointsLost: Sequelize.literal(
+					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
+				)
+			},
+			{
+				where: {
+					fightPointsLost: {[Op.not]: 0},
+					mapLinkId: {[Op.in]: MapCache.regenFightPointsMapLinks}
+				}
+			}
+		).finally(() => null);
+		setTimeout(
+			DraftBot.fightPowerRegenerationLoop,
+			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
+		);
+	}
+
+	/**
 	 * Database queries to execute at the end of the season
 	 * @private
 	 */
-	private static async seasonEndQueries() : Promise<void>{
+	private static async seasonEndQueries(): Promise<void> {
 		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
 		await Player.update(
 			{
@@ -378,7 +340,7 @@ export class DraftBot {
 	 * Find the winner of the season
 	 * @private
 	 */
-	private static async findSeasonWinner() : Promise<Player>{
+	private static async findSeasonWinner(): Promise<Player> {
 		return await Player.findOne({
 			where: {
 				fightCountdown: {
@@ -395,21 +357,44 @@ export class DraftBot {
 	}
 
 	/**
-	 * update the fight points of the entities that lost some
+	 * Send a notification every minute for player who arrived in the last minute
 	 */
-	static fightPowerRegenerationLoop(this: void): void {
-		Player.update(
-			{
-				fightPointsLost: Sequelize.literal(
-					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
-				)
-			},
-			{where: {fightPointsLost: {[Op.not]: 0}}}
-		).finally(() => null);
-		setTimeout(
-			DraftBot.fightPowerRegenerationLoop,
-			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
-		);
+	async reportNotifications(): Promise<void> {
+		const query = `
+			SELECT p.discordUserId
+			FROM players AS p
+					 JOIN map_links AS m
+						  ON p.mapLinkId = m.id
+			WHERE p.notifications != :noNotificationsValue
+			  AND DATE_ADD(DATE_ADD(p.startTravelDate
+							   , INTERVAL p.effectDuration MINUTE)
+				, INTERVAL m.tripDuration MINUTE)
+				BETWEEN DATE_SUB(NOW(), INTERVAL :timeout SECOND)
+				AND NOW()`;
+
+		const playersToNotify = <{ discordUserId: string }[]>(await draftBotInstance.gameDatabase.sequelize.query(query, {
+			replacements: {
+				noNotificationsValue: NotificationsConstants.NO_NOTIFICATIONS_VALUE,
+				timeout: TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS / 1000
+			}, type: QueryTypes.SELECT
+		}));
+
+		const reportFR = Translations.getModule("commands.report", Constants.LANGUAGE.FRENCH);
+		const reportEN = Translations.getModule("commands.report", Constants.LANGUAGE.ENGLISH);
+		const embed = await generateTravelNotification();
+		for (const playerId of playersToNotify) {
+			const player = (await Players.getOrRegister(playerId.discordUserId))[0];
+
+			await sendNotificationToPlayer(player,
+				embed.setDescription(`${
+					reportEN.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.ENGLISH)})
+				}\n\n${
+					reportFR.format("newBigEvent", {destination: (await player.getDestination()).getDisplayName(Constants.LANGUAGE.FRENCH)})
+				}`)
+				, Constants.LANGUAGE.ENGLISH);
+		}
+
+		setTimeout(draftBotInstance.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
 	/**
@@ -468,6 +453,7 @@ export class DraftBot {
 		});
 		await this.gameDatabase.init(this.isMainShard);
 		await this.logsDatabase.init(this.isMainShard);
+		await MapCache.init();
 		await BigEventsController.init();
 		await CommandsManager.register(draftBotClient, this.isMainShard);
 		if (this.config.TEST_MODE === true) {
@@ -475,7 +461,7 @@ export class DraftBot {
 		}
 
 		if (this.isMainShard) { // Do this only if it's the main shard
-			DraftBot.programTopWeekTimeout();
+			DraftBot.programWeeklyTimeout();
 			DraftBot.programSeasonTimeout();
 			DraftBot.programDailyTimeout();
 			setTimeout(
@@ -519,7 +505,7 @@ export class DraftBot {
 		this.overwriteGlobalLogs(addConsoleLog, originalConsoleError);
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
+		// @ts-expect-error
 		global.log = addConsoleLog;
 	}
 
@@ -579,15 +565,14 @@ export class DraftBot {
 			try {
 				fs.appendFileSync(
 					thisInstance.currLogsFile,
-					dateStr +
+					`${dateStr +
 					message/*
 					 // TODO sera remplacé par un vrai système de logs next maj
 					 .replace(
 						// eslint-disable-next-line no-control-regex
 						/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
 						""
-					)*/ +
-					"\n"
+					)*/}\n`
 				);
 				thisInstance.currLogsCount++;
 				if (thisInstance.currLogsCount > Constants.LOGS.LOG_COUNT_LINE_LIMIT) {

@@ -1,6 +1,10 @@
 import {Fighter} from "../fighter/Fighter";
 import {Translations} from "../../Translations";
 import {Data} from "../../Data";
+import {FightActionType} from "./FightActionType";
+import {format} from "../../utils/StringFormatter";
+import {FightActionStatus} from "./FightActionStatus";
+import {FightWeather} from "../FightWeather";
 import {FightConstants} from "../../constants/FightConstants";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
@@ -16,6 +20,10 @@ export abstract class FightAction {
 
 	private breathCostCache: number;
 
+	private weightForRandomSelection: number;
+
+	private typeCache: FightActionType;
+
 	public isAlteration = false;
 
 	public constructor(name: string) {
@@ -28,8 +36,9 @@ export abstract class FightAction {
 	 * @param receiver - the one who undergo the action
 	 * @param turn - the turn's number
 	 * @param language - the language of the message
+	 * @param weather - current weather of the fight
 	 */
-	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string): string;
+	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string;
 
 	/**
 	 * return the name of the attack as it will appear in the list of actions
@@ -57,6 +66,22 @@ export abstract class FightAction {
 	}
 
 	/**
+	 * return the weight of the action for random selection
+	 */
+	public getWeightForRandomSelection(): number {
+		return this.weightForRandomSelection ?? FightConstants.DEFAULT_ACTION_WEIGHT;
+	}
+
+
+	/**
+	 * set the weight of the action for random selection
+	 * @param weight
+	 */
+	public setWeightForRandomSelection(weight: number): void {
+		this.weightForRandomSelection = weight;
+	}
+
+	/**
 	 * return the amount of breath the action cost
 	 */
 	public getBreathCost(): number {
@@ -69,11 +94,41 @@ export abstract class FightAction {
 	/**
 	 * return the status of the attack (success, missed, critical)
 	 */
-	protected getAttackStatus(damageDealt: number, initialDamage: number): string {
+	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
 		return damageDealt > initialDamage
-			? FightConstants.ATTACK_STATUS.CRITICAL
+			? FightActionStatus.CRITICAL
 			: damageDealt < initialDamage
-				? FightConstants.ATTACK_STATUS.MISSED
-				: FightConstants.ATTACK_STATUS.NORMAL;
+				? FightActionStatus.MISSED
+				: FightActionStatus.NORMAL;
 	}
+
+	public getType(): FightActionType {
+		if (!this.typeCache) {
+			this.typeCache = FightActionType[Data.getModule(`fightactions.${this.name}`)
+				.getString("type")
+				.toUpperCase() as keyof typeof FightActionType];
+		}
+		return this.typeCache;
+	}
+
+	/**
+	 * Get the generic attack output message
+	 * @param damageDealt
+	 * @param initialDamage
+	 * @param language
+	 * @param sideEffects Additional effects to output
+	 */
+	public getGenericAttackOutput(damageDealt: number, initialDamage: number, language: string, sideEffects = ""): string {
+		const attackTranslationModule = Translations.getModule("commands.fight", language);
+		const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
+		const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
+		return format(chosenString, {
+			attack: Translations.getModule(`fightactions.${this.name}`, language)
+				.get("name")
+				.toLowerCase()
+		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
+			damages: damageDealt
+		});
+	}
+
 }

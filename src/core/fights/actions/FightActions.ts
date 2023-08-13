@@ -5,12 +5,11 @@ import Class from "../../database/game/models/Class";
 export class FightActions {
 	static fightActions: Map<string, FightAction> = null;
 
-	static initFightActionsMap(): void {
-		const files = readdirSync("dist/src/core/fights/actions/interfaces");
-		FightActions.fightActions = new Map();
+	private static loadFightActionsFromFolder(path: string, relativePath: string): void {
+		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const DefaultClass = require(`./interfaces/${file}`).default;
+				const DefaultClass = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
 				if (!DefaultClass) {
 					console.warn(`${file} doesn't have a default export`);
 					return;
@@ -26,6 +25,12 @@ export class FightActions {
 				FightActions.fightActions.set(fightActionName, fightActionInstance);
 			}
 		}
+	}
+
+	static initFightActionsMap(): void {
+		FightActions.fightActions = new Map();
+		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
+		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "./interfaces/monsters");
 	}
 
 	static getFightActionById(id: string): FightAction | null {

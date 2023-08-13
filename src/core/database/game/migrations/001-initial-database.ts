@@ -363,6 +363,12 @@ export const possibilitiesAttributes001 = {
 	createdAt: DataTypes.DATE
 };
 
+export const shopAttributes001 = {
+	shopPotionId: DataTypes.INTEGER,
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes);
 	await context.createTable("classes", {
@@ -757,11 +763,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
-	await context.createTable("shop", {
-		shopPotionId: DataTypes.INTEGER,
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("shop", shopAttributes001);
 	await context.createTable("tags", {
 		id: {
 			type: DataTypes.INTEGER,

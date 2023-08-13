@@ -5,7 +5,7 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
-import {sendErrorMessage} from "../../core/utils/ErrorUtils";
+import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/database/game/models/Player";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -83,7 +83,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 				]
 			});
 		}
-		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"), true);
+		await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
 	});
 
 	await Promise.all([
@@ -105,10 +105,10 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
 
-	for (let k = 0; k < allClasses.length; k++) {
+	for (const classe of allClasses) {
 		embedClassMessage.addFields({
-			name: allClasses[k].getName(language),
-			value: allClasses[k].getDescription(language)
+			name: classe.getName(language),
+			value: classe.getDescription(language)
 		});
 	}
 
@@ -184,7 +184,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const currentClassGroup = (await Classes.getById(player.class)).classGroup;
 	const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.discordUserId);
 	if (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
-		await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
+		await replyErrorMessage(interaction, classTranslations.language, classTranslations.format("error.changeClassTooEarly", {
 			time: finishInTimeDisplay(new Date((lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) * 1000))
 		}));
 		return;

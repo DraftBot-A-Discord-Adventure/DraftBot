@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": "Golem de roche",
+		"en": "Rock golem"
+	},
+	"emoji": "🗿",
+	"descriptionFr": "Un immense golem de roche. Animé par le désir d'écraser tout ce qui s'en approche. Il est très lent, mais ses attaques sont dévastatrices.",
+	"descriptionEn": "A huge rock golem. Animated by the desire to crush everything that comes near it. It is very slow, but its attacks are devastating.",
+	"fightPointsRatio": 125,
+	"attackRatio": 50,
+	"defenseRatio": 120,
+	"speedRatio": 25,
+	"breath": 9,
+	"maxBreath": 14,
+	"breathRegen": 3,
+	"attacks": [
+		{
+			"id": "boulderTossAttack",
+			"minLevel": 0,
+			"weight": 5
+		},
+		{
+			"id": "slamAttack",
+			"minLevel": 0,
+			"weight": 4
+		},
+		{
+			"id": "stoneSkinAttack",
+			"minLevel": 0,
+			"weight": 1
+		},
+		{
+			"id": "rockShieldAttack",
+			"minLevel": 0,
+			"weight": 2
+		},
+		{
+			"id": "petrificationAttack",
+			"minLevel": 50,
+			"weight": 1
+		}
+	],
+	"maps": [
+		1004
+	]
+}

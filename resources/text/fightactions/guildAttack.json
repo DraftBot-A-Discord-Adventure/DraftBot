@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Attaque de guilde",
+			"namePlural": "Attaques de guilde",
+			"description": "Les joueurs de la guilde se réunissent pour réaliser une attaque groupée puissante."
+		},
+		"en": {
+			"name": "Guild attack",
+			"namePlural": "Guild attacks",
+			"description": "The players of the guild join together to carry out a powerful group attack."
+		}
+	},
+	"emote": "🏟️",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "physical"
+}

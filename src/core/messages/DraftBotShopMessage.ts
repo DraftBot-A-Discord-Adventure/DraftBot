@@ -85,11 +85,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		for (const shopItemCategory of shopItemCategories) {
 			content += `**${shopItemCategory.categoryTitle}${language === Constants.LANGUAGE.ENGLISH ? "" : " "}:**\n`;
 			for (const shopItem of shopItemCategory.items) {
-				content += format(translationModule.get("display"), {
+				content += `${format(translationModule.get("display"), {
 					emote: shopItem.emote,
 					name: shopItem.name,
 					price: shopItem.price
-				}) + "\n";
+				})}\n`;
 				const emoji = shopItem.emote.includes("<") ? shopItem.emote.split(":")[2].replace(">", "") : shopItem.emote;
 				reactions.push(new DraftBotReaction(emoji));
 				shopItems.push(shopItem);

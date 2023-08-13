@@ -6,9 +6,9 @@ import {EmbedField} from "discord.js";
 import moment = require("moment");
 
 export abstract class SupportItemModel extends GenericItemModel {
-	public readonly power!: number;
+	declare readonly power: number;
 
-	public readonly nature!: number;
+	declare readonly nature: number;
 
 	public toString(language: string, maxStatsValue: MaxStatsValues): string {
 		const name = this.getName(language);
@@ -37,7 +37,7 @@ export abstract class SupportItemModel extends GenericItemModel {
 		const tr = Translations.getModule("items", language);
 		const name = this.getName(language);
 		return {
-			name: tr.get(this.categoryName + ".fieldName"),
+			name: tr.get(`${this.categoryName}.fieldName`),
 			value: this.id === 0 ? name : tr.format("potions.fieldValue", {
 				name,
 				rarity: this.getRarityTranslation(language),

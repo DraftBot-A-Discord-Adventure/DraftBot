@@ -1,0 +1,11 @@
+{
+	"type": "mine",
+	"nameFr": "Mine brumeuse",
+	"nameEn": "Misty mine",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande est labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
+	"descEn": "This old abandoned mine passes under the steep path and the mountains. It is so large and labyrinthine that it ends up in the heart of the volcano. It is however difficult to get there. Be careful though, some people would have found old banana remains in the misty mine.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

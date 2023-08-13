@@ -7,6 +7,7 @@ import {format} from "../utils/StringFormatter";
 import {Guilds} from "../database/game/models/Guild";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import Player from "../database/game/models/Player";
+import {Maps} from "../maps/Maps";
 
 export const smallEvent: SmallEvent = {
 
@@ -14,9 +15,8 @@ export const smallEvent: SmallEvent = {
 	 * You must not be in a guild at max level to execute this small event
 	 * @param player
 	 */
-	async canBeExecuted(player: Player): Promise<boolean> {
-		const guild = await Guilds.getById(player.guildId);
-		return !(guild === null || guild.isAtMaxLevel());
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player) && player.hasAGuild());
 	},
 
 	/**

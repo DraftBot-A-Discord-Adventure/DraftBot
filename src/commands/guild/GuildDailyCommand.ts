@@ -28,6 +28,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {Maps} from "../../core/maps/Maps";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
@@ -106,7 +107,8 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  * @param guildDailyModule
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
-	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, guildLike.guild.level, guildLike.guild.level * GuildDailyConstants.MONEY_MULTIPLIER);
+	const levelUsed = Math.min(guildLike.guild.level, GuildConstants.GOLDEN_GUILD_LEVEL);
+	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, levelUsed , levelUsed * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => {
 		member.addMoney({
 			amount: moneyWon,
@@ -312,6 +314,35 @@ async function advanceTimeOfEveryMember(guildLike: GuildLike, stringInfos: Strin
 }
 
 /**
+ * Generic function to award the very powerful guild badge to members of a guild
+ */
+async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
+	let membersThatOwnTheBadge = 0;
+	const guildRank = await guildLike.guild.getRanking();
+
+	if (guildRank > GuildConstants.SUPER_BADGE_MAX_RANK || guildRank < 0) {
+		// only guilds that are in the top ranked guilds can get the badge
+		await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		return;
+	}
+
+	await genericAwardingFunction(guildLike.members, member => {
+		if (!member.addBadge(Constants.BADGES.VERY_POWERFUL_GUILD)) {
+			membersThatOwnTheBadge++;
+		}
+	});
+
+	if (membersThatOwnTheBadge === guildLike.members.length) {
+		// everybody already has the badge, give something else instead
+		await healEveryMember(guildLike, stringInfos, guildDailyModule);
+		return;
+	}
+
+	stringInfos.embed.setDescription(guildDailyModule.get("superBadge"));
+	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.SUPER_BADGE).then();
+}
+
+/**
  * Map all possible rewards to the corresponding rewarding function
  */
 function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
@@ -321,6 +352,7 @@ function getMapOfAllRewardCommands(): Map<string, FunctionRewardType> {
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.MONEY, awardMoneyToMembers);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PET_FOOD, awardCommonFood);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.BADGE, awardGuildBadgeToMembers);
+	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.SUPER_BADGE, awardGuildSuperBadgeToMembers);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.FULL_HEAL, fullHealEveryMember);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.HOSPITAL, advanceTimeOfEveryMember);
 	linkToFunction.set(GuildDailyConstants.REWARD_TYPES.PARTIAL_HEAL, healEveryMember);
@@ -411,6 +443,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const members = await Players.getByGuild(guild.id);
 	for (const member of members) {
+		if (Maps.isOnPveIsland(member)) {
+			await replyErrorMessage(interaction, language, guildDailyModule.get("pveIslandError"));
+			return;
+		}
 		const blockingReasons = await BlockingUtils.getPlayerBlockingReason(member.discordUserId);
 		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {
 			continue;

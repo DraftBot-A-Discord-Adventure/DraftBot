@@ -6,5 +6,6 @@
 	"particleEn": "of",
 	"descFr": "La route qui mène au château du Roi",
 	"descEn": "The road which leads to the King's castle",
-	"canBeGoToPlaceMissionDestination": false
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "king_castle"
 }

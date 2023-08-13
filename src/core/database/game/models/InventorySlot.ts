@@ -6,20 +6,21 @@ import ObjectItem, {ObjectItems} from "./ObjectItem";
 import {GenericItemModel} from "./GenericItemModel";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import {Tags} from "./Tag";
 import moment = require("moment");
 
 export class InventorySlot extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public slot!: number;
+	declare slot: number;
 
-	public itemCategory!: number;
+	declare itemCategory: number;
 
-	public itemId!: number;
+	declare itemId: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
 
 	async getItem(): Promise<GenericItemModel> {
@@ -55,6 +56,24 @@ export class InventorySlot extends Model {
 
 	isObject(): boolean {
 		return this.itemCategory === ItemConstants.CATEGORIES.OBJECT;
+	}
+
+	/**
+	 * Get the category's name of the item
+	 */
+	getItemCategory(): string {
+		switch (this.itemCategory) {
+		case ItemConstants.CATEGORIES.WEAPON:
+			return "Weapon";
+		case ItemConstants.CATEGORIES.ARMOR:
+			return "Armor";
+		case ItemConstants.CATEGORIES.POTION:
+			return "Potion";
+		case ItemConstants.CATEGORIES.OBJECT:
+			return "Object";
+		default:
+			return "Unknown";
+		}
 	}
 }
 
@@ -172,6 +191,43 @@ export class InventorySlots {
 	 */
 	static async getPlayerActiveObjects(playerId: number): Promise<PlayerActiveObjects> {
 		return await this.getMainSlotsItems(playerId);
+	}
+
+	/**
+	 * Checks if a player have a given item in its inventory
+	 * @param playerId
+	 * @param itemId
+	 * @param category
+	 */
+	static async hasItem(playerId: number, itemId: number, category: number): Promise<boolean> {
+		return await InventorySlot.findOne({
+			rejectOnEmpty: false,
+			where: {
+				playerId,
+				itemId,
+				itemCategory: category
+			}
+		}) !== null;
+	}
+
+	/**
+	 * Count the number of objects of a player that has the given tag
+	 * @param playerId
+	 * @param tag
+	 */
+	static async countObjectsOfPlayer(playerId: number, tag: string): Promise<number> {
+		const objs = await InventorySlot.findAll({
+			where: {
+				playerId
+			}
+		});
+		let count = 0;
+		for (const obj of objs) {
+			if ((await Tags.findTagsFromObject(obj.itemId, obj.getItemCategory())).find((t) => t.textTag === tag)) {
+				count++;
+			}
+		}
+		return count;
 	}
 }
 

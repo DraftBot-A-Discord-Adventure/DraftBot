@@ -1,13 +1,13 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsPlayers15BestTopweek extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly position!: number;
+	declare readonly position: number;
 
-	public readonly topWeekScore!: number;
+	declare readonly topWeekScore: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

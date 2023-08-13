@@ -1,13 +1,13 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsMissions extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly name!: string;
+	declare readonly name: string;
 
-	public readonly variant!: number;
+	declare readonly variant: number;
 
-	public readonly objective!: number;
+	declare readonly objective: number;
 }
 
 export function initModel(sequelize: Sequelize): void {

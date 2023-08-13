@@ -62,15 +62,65 @@
 					"prefix": "de la",
 					"emote": "\uD83E\uDE91"
 				},
-				"castle_forge": {
+				"continent": {
 					"name": "",
-					"prefix": "de la",
-					"emote": "\uD83D\uDD28"
+					"prefix": "du",
+					"emote": "\uD83C\uDFDE️"
 				},
-				"castle_carriage": {
+				"pve_exit": {
 					"name": "",
+					"prefix": "du",
+					"emote": "⛴️️"
+				},
+				"ruins": {
+					"name": "Ruines",
+					"prefix": "des",
+					"emote": "️\uD83C\uDFDA"
+				},
+				"mine": {
+					"name": "Mine",
 					"prefix": "de la",
-					"emote": "\uD83D\uDC0E"
+					"emote": "️\uD83E\uDEA8"
+				},
+				"volcano": {
+					"name": "Volcan",
+					"prefix": "du",
+					"emote": "️\uD83C\uDF0B"
+				},
+				"tundra": {
+					"name": "Toundra",
+					"prefix": "de la",
+					"emote": "\uD83C\uDF32"
+				},
+				"ice_beach": {
+					"name": "Plage glacée",
+					"prefix": "de la",
+					"emote": "\uD83C\uDF28️"
+				},
+				"ice_lake": {
+					"name": "Lac gelé",
+					"prefix": "du",
+					"emote": "❄️️️️"
+				},
+				"snowmen_field": {
+					"name": "Plaine",
+					"prefix": "de la",
+					"emote": "☃️️️️️"
+				},
+				"crystal_cavern": {
+					"name": "Caverne de crystal",
+					"prefix": "de la",
+					"emote": "\uD83D\uDC8E️️️️️"
+				},
+				"ice_cavern": {
+					"name": "Caverne de glace",
+					"prefix": "de la",
+					"emote": "\uD83E\uDDCA️️️️️"
+				},
+				"snow_mountain": {
+					"name": "Pic",
+					"prefix": "du",
+					"emote": "\uD83C\uDFD4️️️️️️"
 				}
 			},
 			"directions": {
@@ -150,15 +200,65 @@
 					"prefix": "of the",
 					"emote": "\uD83E\uDE91"
 				},
-				"castle_forge": {
+				"continent": {
 					"name": "",
 					"prefix": "of the",
-					"emote": "\uD83D\uDD28"
+					"emote": "\uD83C\uDFDE️"
 				},
-				"castle_carriage": {
+				"pve_exit": {
 					"name": "",
 					"prefix": "of the",
-					"emote": "\uD83D\uDC0E"
+					"emote": "⛴️️"
+				},
+				"ruins": {
+					"name": "Ruins",
+					"prefix": "of the",
+					"emote": "️\uD83C\uDFDA"
+				},
+				"mine": {
+					"name": "Mine",
+					"prefix": "of the",
+					"emote": "️\uD83E\uDEA8"
+				},
+				"volcano": {
+					"name": "Volcano",
+					"prefix": "of the",
+					"emote": "️\uD83C\uDF0B"
+				},
+				"tundra": {
+					"name": "Tundra",
+					"prefix": "of the",
+					"emote": "\uD83C\uDF32"
+				},
+				"ice_beach": {
+					"name": "Ice beach",
+					"prefix": "of the",
+					"emote": "\uD83C\uDF28️"
+				},
+				"ice_lake": {
+					"name": "Frozen lake",
+					"prefix": "of the",
+					"emote": "❄️️️️"
+				},
+				"snowmen_field": {
+					"name": "Plain",
+					"prefix": "of the",
+					"emote": "☃️️️️️"
+				},
+				"crystal_cavern": {
+					"name": "Crystal cavern",
+					"prefix": "of the",
+					"emote": "\uD83D\uDC8E️️️️️"
+				},
+				"ice_cavern": {
+					"name": "Ice cavern",
+					"prefix": "of the",
+					"emote": "\uD83E\uDDCA️️️️️"
+				},
+				"snow_mountain": {
+					"name": "Peak",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFD4️️️️️️"
 				}
 			},
 			"directions": {

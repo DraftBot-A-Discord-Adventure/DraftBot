@@ -1,6 +1,7 @@
 import {format, Replacements} from "./utils/StringFormatter";
 import {RandomUtils} from "./utils/RandomUtils";
 import {JsonModule} from "./Data";
+import {Constants} from "./Constants";
 
 declare const JsonReader: JsonModule;
 
@@ -66,6 +67,14 @@ export class TranslationModule {
 		return RandomUtils.draftbotRandom.pick(this.getTranslationObject(translation) as unknown as string[]);
 	}
 
+	/**
+	* Get a random key from key array
+	* @param translation
+	*/
+	getRandomFromKeys(translation: string): string {
+		return RandomUtils.draftbotRandom.pick(this.getKeys(translation));
+	}
+
 	public getObject(translation: string): JsonModule[] {
 		return this.getTranslationObject(translation) as unknown as JsonModule[];
 	}
@@ -129,6 +138,10 @@ const getDeepKeys = function(obj: JsonModule): string[] {
 
 const checkMissing = function(obj: JsonModule, name: string): void {
 	if (!obj || typeof obj !== "object" && typeof obj !== "function") {
+		return;
+	}
+	// check if the name include any of the strings in the Constants.EXCLUDED_TRANSLATION_MODULES array
+	if (Constants.EXCLUDED_TRANSLATION_MODULES.some((excludedModule) => name.includes(excludedModule))) {
 		return;
 	}
 	if (obj.translations) {

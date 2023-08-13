@@ -32,7 +32,7 @@ export abstract class GuildConstants {
 		MAX: 140
 	};
 
-	static readonly MAX_LEVEL = 100;
+	static readonly MAX_LEVEL = 150;
 
 	static readonly MAX_COMMON_PET_FOOD = 25;
 
@@ -54,4 +54,8 @@ export abstract class GuildConstants {
 		ELDER: 2,
 		CHIEF: 3
 	};
+
+	static GOLDEN_GUILD_LEVEL = 100;
+
+	static SUPER_BADGE_MAX_RANK = 25;
 }

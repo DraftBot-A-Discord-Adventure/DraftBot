@@ -1,4 +1,4 @@
-import {Fighter} from "../../../fighter/Fighter";
+import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
@@ -8,9 +8,8 @@ export default class ParalyzedAlteration extends FightAlteration {
 		victim.alterationTurn++;
 		const paralyzedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		if (victim.alterationTurn > 2) { // this effect heals after two turns
+			victim.removeSpeedModifiers(this);
 			victim.removeAlteration();
-			victim.stats.speed = victim.readSavedStats().speed;
-			victim.eraseSavedStats();
 			return paralyzedTranslationModule.get("inactive");
 		}
 
@@ -20,9 +19,12 @@ export default class ParalyzedAlteration extends FightAlteration {
 			return paralyzedTranslationModule.get("noAttack");
 		}
 
-		if (!victim.hasSavedStats()) {
-			victim.saveStats();
-			victim.stats.speed = Math.round(0);
+		if (!victim.hasSpeedModifier(this)) {
+			victim.applySpeedModifier({
+				origin: this,
+				operation: FightStatModifierOperation.SET_VALUE,
+				value: 0
+			});
 			return paralyzedTranslationModule.get("new");
 		}
 		return paralyzedTranslationModule.get("active");

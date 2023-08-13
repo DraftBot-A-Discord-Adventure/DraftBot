@@ -1,11 +1,11 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsUnlocks extends Model {
-	public readonly buyerId!: number;
+	declare readonly buyerId: number;
 
-	public readonly releasedId!: number;
+	declare readonly releasedId: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 /**

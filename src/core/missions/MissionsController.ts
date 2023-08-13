@@ -268,7 +268,7 @@ export class MissionsController {
 			index = missionData.getRandomNumberFromArray("dailyIndexes");
 		}
 		return {
-			mission: mission,
+			mission,
 			index,
 			variant: await this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player)
 		};
@@ -276,7 +276,7 @@ export class MissionsController {
 
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
 		const prop = await this.generateMissionProperties(missionId, difficulty, mission, false, player);
-		const missionData = Data.getModule("missions." + missionId);
+		const missionData = Data.getModule(`missions.${missionId}`);
 		const missionSlot = await MissionSlot.create({
 			playerId: player.id,
 			missionId: prop.mission.id,
@@ -294,7 +294,7 @@ export class MissionsController {
 		return retMission;
 	}
 
-	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exceptions : string = null): Promise<MissionSlot> {
+	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exceptions: string = null): Promise<MissionSlot> {
 		const mission = await Missions.getRandomMission(difficulty, exceptions);
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}

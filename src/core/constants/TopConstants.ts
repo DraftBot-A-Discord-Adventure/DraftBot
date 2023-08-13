@@ -3,15 +3,18 @@ export abstract class TopConstants {
 
 	static readonly SERVER_SCOPE = "server";
 
-	static readonly TYPE_GLORY = "glory";
-
-	static readonly TYPE_SCORE = "points";
-
 	static readonly TIMING_ALLTIME = "alltime";
 
 	static readonly TIMING_WEEKLY = "weekly";
 
-	static readonly PLAYERS_BY_PAGE = 15;
+	static readonly TOP_GUILD_NOT_RANKED_REASON = {
+		NO_GUILD: -1,
+		ZERO_POINTS: -2
+	};
+
+	static readonly PLAYERS_PER_PAGE = 15;
+
+	static readonly GUILDS_PER_PAGE = 15;
 
 	static readonly INACTIVE_BADGE = ":ghost:";
 
@@ -28,8 +31,6 @@ export abstract class TopConstants {
 	static readonly LINK_CLOCK_FOOTER = "https://i.imgur.com/OpL9WpR.png";
 
 	static readonly FIFTEEN_DAYS = 1296000000;
-
-	static readonly SEPARATOR = " | ";
 
 	static EMOTE = {
 		GLORY: ":sparkles:",

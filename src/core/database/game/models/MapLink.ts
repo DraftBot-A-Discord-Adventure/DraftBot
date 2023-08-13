@@ -3,17 +3,19 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import moment = require("moment");
 
 export class MapLink extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly startMap!: number;
+	declare readonly startMap: number;
 
-	public readonly endMap!: number;
+	declare readonly endMap: number;
 
-	public readonly tripDuration!: number;
+	declare readonly tripDuration: number;
 
-	public updatedAt!: Date;
+	declare readonly forcedImage?: string;
 
-	public createdAt!: Date;
+	declare updatedAt: Date;
+
+	declare createdAt: Date;
 }
 
 export class MapLinks {
@@ -72,6 +74,21 @@ export class MapLinks {
 			}
 		});
 	}
+
+	static async getFromAttributeToAttribute(attributeFrom: string, attributeTo: string): Promise<MapLink[]> {
+		const query = `SELECT map_links.* FROM map_links
+			JOIN map_locations ml_start ON map_links.startMap = ml_start.id
+			JOIN map_locations ml_end ON map_links.endMap = ml_end.id
+			WHERE ml_start.attribute = :attributeFrom
+				AND ml_end.attribute = :attributeTo`;
+		return await MapLink.sequelize.query(query, {
+			type: QueryTypes.SELECT,
+			replacements: {
+				attributeFrom,
+				attributeTo
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -88,6 +105,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		tripDuration: {
 			type: DataTypes.INTEGER
+		},
+		forcedImage: {
+			type: DataTypes.TEXT,
+			allowNull: true
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

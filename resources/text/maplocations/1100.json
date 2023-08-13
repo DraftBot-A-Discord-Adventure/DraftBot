@@ -1,0 +1,11 @@
+{
+	"type": "ice_beach",
+	"nameFr": "Rivage gla-gla",
+	"nameEn": "Cool cool shore",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Evidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
+	"descEn": "This shoreline is the first thing you see when you arrive on the ice island. It takes its name from the noise the sailors made when they landed. Obviously, they were coming back from the volcanic island where the temperature is much warmer.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island_entry"
+}

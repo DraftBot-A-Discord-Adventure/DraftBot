@@ -1,0 +1,20 @@
+{
+	"translations": {
+		"fr": {
+			"name": "Vague de lave",
+			"namePlural": "Vagues de lave",
+			"active": "déferle sur sa victime surfant sur une vague de lave `Dégâts infligés : {damages}`",
+			"description": "Attaque très puissante utilisable en dernier recours et infligeant à coup sûr l'altération \"Brûlé\" à l'adversaire."
+		},
+		"en": {
+			"name": "Lava wave",
+			"namePlural": "Lava waves",
+			"active": "surfs on a lava wave to attack its victim `Damage dealt: {damages}`",
+			"description": "Very powerful attack that can only be used as a last resort and inflicts the \"Burned\" alteration to the opponent."
+		}
+	},
+	"emote": "♨️",
+	"breath": 15,
+	"missionVariant": -1,
+	"type": "physical"
+}

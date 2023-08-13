@@ -47,7 +47,7 @@
 				"FIGHT": {
 					"usage": "{command:fight}",
 					"description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
-					"image": "https://draftbot.com/public/ressources/fighthelp/fr/4.3.3.png"
+					"image": "https://draftbot.com/public/ressources/fighthelp/fr/4.4.0.png"
 				},
 				"HELP": {
 					"usage": "{command:help}",
@@ -64,6 +64,10 @@
 				"GLORY_TOP": {
 					"usage": "{command:top glory}",
 					"description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+				},
+				"GUILD_TOP": {
+					"usage": "{command:top guilds}",
+					"description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -220,6 +224,10 @@
 				"LEAGUE_BONUS": {
 					"usage": "{command:leaguebonus}",
 					"description": "Permet d'obtenir une récompense de ligue chaque dimanche."
+				},
+				"JOIN_BOAT": {
+					"usage": "{command:joinboat}",
+					"description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
 				}
 			}
 		},
@@ -270,7 +278,7 @@
 				"FIGHT": {
 					"usage": "{command:fight}",
 					"description": "Use this command to challenge other players who are on the same server as you.",
-					"image": "https://draftbot.com/public/ressources/fighthelp/en/4.3.3.png"
+					"image": "https://draftbot.com/public/ressources/fighthelp/en/4.4.0.png"
 				},
 				"HELP": {
 					"usage": "{command:help}",
@@ -287,6 +295,10 @@
 				"GLORY_TOP": {
 					"usage": "{command:top glory}",
 					"description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
+				},
+				"GUILD_TOP": {
+					"usage": "{command:top guilds}",
+					"description": "Displays the ranking of the guilds in 15 guild intervals. Guilds are ranked based on points acquired on mysterious islands."
 				},
 				"INVENTORY": {
 					"usage": "{command:inventory}",
@@ -443,6 +455,10 @@
 				"LEAGUE_BONUS": {
 					"usage": "{command:leaguebonus}",
 					"description": "Claim your league's reward each sunday."
+				},
+				"JOIN_BOAT": {
+					"usage": "{command:joinboat}",
+					"description": "Allows you to join a guild member on a boat going to a mysterious island."
 				}
 			}
 		}

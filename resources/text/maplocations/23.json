@@ -9,5 +9,6 @@
 	"tags": [
 		"detA"
 	],
-	"canBeGoToPlaceMissionDestination": true
+	"canBeGoToPlaceMissionDestination": true,
+	"attribute": "continent1"
 }

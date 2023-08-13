@@ -1,36 +1,39 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {Translations} from "../../../Translations";
-import {readdir} from "fs/promises";
 import {Tags} from "./Tag";
 import {draftBotInstance} from "../../../bot";
 import * as moment from "moment";
 import {Constants} from "../../../Constants";
 
 export class MapLocation extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly type!: string;
+	declare readonly type: string;
 
-	public readonly nameFr!: string;
+	declare readonly nameFr: string;
 
-	public readonly nameEn!: string;
+	declare readonly nameEn: string;
 
-	public readonly descFr!: string;
+	declare readonly descFr: string;
 
-	public readonly descEn!: string;
+	declare readonly descEn: string;
 
-	public readonly particleFr!: string;
+	declare readonly particleFr: string;
 
-	public readonly particleEn!: string;
+	declare readonly particleEn: string;
 
-	public readonly canBeGoToPlaceMissionDestination!: boolean;
+	declare readonly canBeGoToPlaceMissionDestination: boolean;
 
-	public updatedAt!: Date;
+	declare readonly attribute: string;
 
-	public createdAt!: Date;
+	declare readonly forcedImage?: string;
+
+	declare updatedAt: Date;
+
+	declare createdAt: Date;
 
 	public getEmote(language: string): string {
-		return Translations.getModule("models.maps", language).get("types." + this.type + ".emote");
+		return Translations.getModule("models.maps", language).get(`types.${this.type}.emote`);
 	}
 
 	public getNameWithoutEmote(language: string): string {
@@ -58,14 +61,14 @@ export class MapLocation extends Model {
 			return "";
 		}
 		const tags = await Tags.findTagsFromObject(this.id, "MapLocation");
-		for (let i = 0; i < tags.length; i++) {
-			if (tags[i].textTag === "detA") {
+		for (const tag of tags) {
+			if (tag.textTag === "detA") {
 				return "à";
 			}
-			if (tags[i].textTag === "detAu") {
+			if (tag.textTag === "detAu") {
 				return "au";
 			}
-			if (tags[i].textTag === "detALa") {
+			if (tag.textTag === "detALa") {
 				return "à la";
 			}
 		}
@@ -161,8 +164,14 @@ export class MapLocations {
 		});
 	}
 
-	static async getIdMaxMap(): Promise<number> {
-		return (await readdir("resources/text/maplocations/")).length;
+	static async getWithAttributes(attributes: string[]): Promise<MapLocation[]> {
+		return await MapLocation.findAll({
+			where: {
+				attribute: {
+					[Op.in]: attributes
+				}
+			}
+		});
 	}
 }
 
@@ -195,6 +204,14 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		canBeGoToPlaceMissionDestination: {
 			type: DataTypes.BOOLEAN
+		},
+		attribute: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		forcedImage: {
+			type: DataTypes.TEXT,
+			allowNull: true
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

@@ -3,33 +3,33 @@ import moment = require("moment");
 import missionJson = require("resources/text/campaign.json");
 
 export class MissionSlot extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public missionId!: string;
+	declare missionId: string;
 
-	public missionVariant!: number;
+	declare missionVariant: number;
 
-	public missionObjective!: number;
+	declare missionObjective: number;
 
-	public expiresAt!: Date;
+	declare expiresAt: Date;
 
-	public numberDone!: number;
+	declare numberDone: number;
 
-	public gemsToWin!: number;
+	declare gemsToWin: number;
 
-	public xpToWin!: number;
+	declare xpToWin: number;
 
-	public pointsToWin!: number;
+	declare pointsToWin: number;
 
-	public moneyToWin!: number;
+	declare moneyToWin: number;
 
-	public updatedAt!: Date;
+	declare updatedAt: Date;
 
-	public createdAt!: Date;
+	declare createdAt: Date;
 
-	public saveBlob!: Buffer;
+	declare saveBlob: Buffer;
 
 
 	public isCompleted(): boolean {
@@ -49,6 +49,7 @@ export class MissionSlots {
 	static getById(id: number): Promise<MissionSlot> {
 		return Promise.resolve(MissionSlot.findOne(
 			{
+				rejectOnEmpty: true,
 				where: {
 					id
 				}
@@ -70,6 +71,7 @@ export class MissionSlots {
 
 	static async getCampaignOfPlayer(playerId: number): Promise<MissionSlot> {
 		return await MissionSlot.findOne({
+			rejectOnEmpty: false,
 			where: {
 				playerId,
 				expiresAt: null

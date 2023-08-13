@@ -4,13 +4,13 @@ import {DataTypes, Model, Sequelize} from "sequelize";
  * @class LogsPlayers15BestSeason
  */
 export class LogsPlayers15BestSeason extends Model {
-	public readonly playerId!: number;
+	declare readonly playerId: number;
 
-	public readonly position!: number;
+	declare readonly position: number;
 
-	public readonly seasonGlory!: number;
+	declare readonly seasonGlory: number;
 
-	public readonly date!: number;
+	declare readonly date: number;
 }
 
 /**

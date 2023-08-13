@@ -13,10 +13,10 @@
 				"Si vous souhaitez échanger avec la communauté ou les développeurs, rejoignez le discord du bot : https://discord.gg/AP3Wmzb",
 				"Il est possible de contribuer pour l'amélioration de DraftBot sur le discord du bot : https://discord.gg/AP3Wmzb",
 				"La commande {command:classesinfo} permet de comparer les différentes classes que vous pouvez acheter.",
-				"La commande {command:classes} permet d'acheter une classe.",
+				"La commande {command:classes} permet de changer de classe.",
 				"Certains objets donnent une récompense chaque jour. Pour la récolter, utilisez la commande {command:dailybonus}.",
 				"Si vous voulez équiper un objet, utilisez la commande {command:switch}.",
-				"Pour avoir plus d'information sur une commande, utilisez la commande {command:help} suivi de la commande sur laquelle vous souhaitez des renseignements.",
+				"Pour avoir plus d'informations sur une commande, utilisez la commande {command:help} suivi de la commande sur laquelle vous souhaitez des renseignements.",
 				"La commande {command:guilddailybonus} permet de recevoir une récompense toutes les 22 heures si vous êtes dans une guilde.",
 				"Les alias de commandes tels que `glouglou` qui existaient dans le bot ont été supprimés lors de l'arrivée des commandes slash.",
 				"Utilisez la commande {command:update} pour avoir des informations sur la dernière mise à jour du bot.",
@@ -48,7 +48,7 @@
 				"Les badges d'un joueur sont affichés sur son profil sous forme de réactions.",
 				"Certaines choses ne peuvent être achetées que depuis le magasin de guilde, à l'aide de la commande {command:guildshop}.",
 				"Une guilde de niveau supérieur permet d'obtenir de meilleures récompenses journalières de guilde.",
-				"Il n'est plus possible de changer le préfixe du bot suite à une mise à jour de discord forçant les commandes slash",
+				"Il n'est plus possible de changer le préfixe du bot suite à une mise à jour de discord forçant les commandes slash.",
 				"Une guilde dispose d'un entrepôt. Son contenu peut être affiché à l'aide de la commande {command:guildstorage}.",
 				"Il est plus simple de dresser un familier si les membres d'une guilde coopèrent.",
 				"Chaque guilde dispose d'un refuge. La liste des animaux qui se trouvent dans le refuge est accessible à l'aide de la commande {command:guildshelter}.",
@@ -114,7 +114,7 @@
 				"Un familier fielleux pourra occasionnellement vous causer du tort lors de votre aventure. N'oubliez pas de vous occuper de lui.",
 				"Pour nourrir votre familier, utilisez la commande {command:petfeed}.",
 				"Vous accédez à de meilleures sources de nourriture pour familier en rejoignant une guilde.",
-				"La rareté :gem: Mythique est la rareté maximale d'un item.",
+				"La rareté mythique est la rareté maximale d'un item.",
 				"Vous pouvez vendre l'objet stocké dans votre réserve d'item à l'aide de la commande {command:sell}.",
 				"Vous pouvez suivre les rares pannes du bot depuis ce site : https://status.draftbot.com/",
 				"Ceci est juste une blague qui a moins de 1% de chance d'apparaître.",
@@ -159,7 +159,7 @@
 				"Un familier dressé n'a pas besoin d'être nourri.",
 				"Chaque petit évènement vous rapporte quelques points.",
 				"Ne montez pas dans les charrettes des inconnus, même s'ils ont des bonbons.",
-				"Utilisez l'émoji `:end:` en réaction à un rapport afin d'accéder aux sorties cachées. Peut-être qu'une meilleure récompense vous attend !",
+				"Utilisez l'émoji nommé \"end\" en réaction à un rapport afin d'accéder aux sorties cachées. Peut-être qu'une meilleure récompense vous attend !",
 				"Vous ne vous y retrouvez pas entre tous les personnages que vous avez croisé ? Pas de panique, il existe une page dédiée à eux sur le wiki : https://guide.draftbot.com/lore/les-personnages",
 				"La commande {command:missions} vous permet d'afficher la liste de vos missions.",
 				"La commande {command:missionsshop} vous permet de dépenser vos gemmes.",
@@ -180,7 +180,7 @@
 				"Les missions plus difficiles vous offriront plus de récompenses.",
 				"Il est possible de recruter de nouveaux membres pour votre guilde via le discord officiel du bot.",
 				"Il existe 3 types de missions : celles de campagne, les journalières et les secondaires.",
-				"La mission journalière est la même pour tous les joueurs",
+				"La mission journalière est la même pour tous les joueurs.",
 				"Lors de l'échange d'un familier avec un autre joueur, les familiers perdent un peu de points d'amour.",
 				"Lors de la vente de familier à un autre joueur, le familier perd beaucoup de points d'amour.",
 				"Lire les conseils peut vous permettre de progresser plus rapidement.",
@@ -201,7 +201,7 @@
 				"Vous devez avoir réalisé suffisamment de combats classés à l'aide de la commande {command:fight} pour pouvoir recevoir un bonus de ligue à la fin de la saison.",
 				"Il est possible de combattre les joueurs qui ont un grand écart de gloire avec vous, si vous faites un combat amical.",
 				"Vous pouvez faire jusqu'à 3 combats classés par adversaire et par saison.",
-				"En cas d'égalité en combat, les points de gloire des combatants sont affectés.",
+				"En cas d'égalité en combat, les points de gloire des combattants sont affectés.",
 				"Plus votre ligue est élevée, plus l'équipement que vous recevez à l'aide de la commande {command:leaguebonus} est de qualité.",
 				"Le joueur ayant le plus de gloire à la fin d'une saison de combat remporte un badge.",
 				"Faire des combats réguliers permet de récupérer d'alléchantes récompenses en fin de semaine.",
@@ -217,8 +217,13 @@
 				"On raconte qu'autour de Claire de ville, personne ne manque d'énergie pour combattre.",
 				"Vous pouvez trouver dans votre aventure des potions de soin qui vous permettent de récupérer de la vie.",
 				"Vous pouvez trouver dans votre aventure des potions d'énergie qui vous permettent de récupérer votre énergie.",
-				"Si vous perdez un combat pour innactivité, toute votre énergie sera perdue.",
-				"Avez vous remarqué des nouveaux conseils ? C'est parce que nous avons ajouté de nouveaux conseils ! (Si c'était pour une autre raison ça serait inquiétant)"
+				"Si vous perdez un combat pour inactivité, toute votre énergie sera perdue.",
+				"Avez vous remarqué des nouveaux conseils ? C'est parce que nous avons ajouté de nouveaux conseils ! (Si c'était pour une autre raison ça serait inquiétant)",
+				"On raconte qu'il y a des îles hostiles et quasi inexplorées par-delà les mers",
+				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse.",
+				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}.",
+				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse.",
+				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti."
 			]
 		},
 		"en": {
@@ -427,7 +432,12 @@
 				"You can find healing potions in your adventure that allow you to recover health.",
 				"You can find energy potions in your adventure that allow you to recover your energy.",
 				"If you lose a battle due to inactivity, all of your energy will be lost.",
-				"Have you noticed that there are new advices? It's because we are adding new ones regularly!"
+				"Have you noticed that there are new advices? It's because we are adding new ones regularly!",
+				"It is said that there are hostile, virtually unexplored islands beyond the seas.",
+				"Members of your guild can help you fight monsters when you visit a mysterious island.",
+				"You can see guild members who are on a mysterious island using the {command:guild} command.",
+				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island.",
+				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it."
 			]
 		}
 	}

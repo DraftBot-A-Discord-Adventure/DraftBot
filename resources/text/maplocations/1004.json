@@ -1,0 +1,11 @@
+{
+	"type": "mo",
+	"nameFr": "Chemin escarpé",
+	"nameEn": "Steep path",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Ce chemin est le seul vrai chemin existant permettant d'aller jusqu'au sommet du Volcan Grondant. Il est très difficile de l'utiliser et surtout très dangereux. De nombreux hommes sont morts en voulant y grimper. À vos risques et périls.",
+	"descEn": "This path is the only real path to the top of the Grumble Volcano. It is very difficult to use and very dangerous. Many men have died trying to use it. At your own risk.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

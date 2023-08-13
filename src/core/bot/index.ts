@@ -47,7 +47,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			.setActivity(BotConstants.ACTIVITY);
 		console.log("############################################");
 		const guild = draftBotClient.guilds.cache.get(botConfig.MAIN_SERVER_ID);
-		if (guild && guild.shard) {
+		if (guild?.shard) {
 			(await guild.channels.fetch(botConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 				.send({
 					content: format(BotConstants.START_STATUS, {
@@ -93,11 +93,11 @@ async function main(): Promise<void> {
 				? Translations.getModule("bot", language).get("joinGuild")
 				: Translations.getModule("bot", language).get("leaveGuild"),
 			{
-				guild: guild,
-				humans: humans,
+				guild,
+				humans,
 				robots: bots,
-				ratio: ratio,
-				validation: validation
+				ratio,
+				validation
 			});
 	}
 
@@ -126,11 +126,11 @@ async function main(): Promise<void> {
 	client.on("guildDelete", onDiscordGuildDelete);
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore
+	// @ts-expect-error
 	global.client = client;
 	draftBotClient = client;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore
+	// @ts-expect-error
 	global.discord = require("discord.js");
 	await client.login(botConfig.DISCORD_CLIENT_TOKEN);
 }

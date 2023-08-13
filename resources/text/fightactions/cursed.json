@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"heal": "subit les conséquence du maléfice.  `Dégâts reçus : {damages}`",
+			"heal": "subit les conséquences du maléfice.  `Dégâts reçus : {damages}`",
 			"damage": "est maudit..."
 		},
 		"en": {
@@ -11,5 +11,6 @@
 	},
 	"emote": "\uD83D\uDC7B",
 	"breath": 0,
-	"missionVariant": 38
+	"missionVariant": 38,
+	"type": "alteration"
 }

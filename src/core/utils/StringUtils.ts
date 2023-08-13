@@ -36,7 +36,7 @@ export function progressBar(value: number, maxValue: number): string {
 	// Repeat is creating a string with empty progress * characters in it
 	const emptyProgressText = "—".repeat(emptyProgress);
 	// Displaying the percentage of the bar
-	const percentageText = Math.floor(percentage * 100) + "%";
+	const percentageText = `${Math.floor(percentage * 100)}%`;
 	// Creating the bar
 	return `\`\`\`[${progressText}${emptyProgressText}]${percentageText}\`\`\``;
 }

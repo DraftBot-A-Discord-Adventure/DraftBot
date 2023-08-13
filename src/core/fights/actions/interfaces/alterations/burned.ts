@@ -2,7 +2,6 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
 
@@ -15,8 +14,8 @@ export default class BurnedAlteration extends FightAlteration {
 			victim.removeAlteration();
 			return burnedTranslationModule.get("heal");
 		}
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), (victim as PlayerFighter).getPlayerLevel(), this.getAttackInfo());
-		victim.stats.fightPoints -= damageDealt;
+		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim, this.getAttackInfo(), true);
+		victim.damage(damageDealt);
 		return format(burnedTranslationModule.get("damage"), {damages: damageDealt});
 	}
 
@@ -27,9 +26,9 @@ export default class BurnedAlteration extends FightAlteration {
 	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.stats.attack
+				sender.getAttack()
 			], defenderStats: [
-				victim.stats.defense / 4
+				victim.getDefense() / 4
 			], statsEffect: [
 				1
 			]

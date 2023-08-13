@@ -1,0 +1,28 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend ⚡ **{fightPoints}**.",
+				"vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez ⚡ **{fightPoints}**.",
+				"vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend ⚡ **{fightPoints}**.",
+				"vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez ⚡ **{fightPoints}**.",
+				"vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend ⚡ **{fightPoints}**.",
+				"vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez ⚡ **{fightPoints}**.",
+				"vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez ⚡ **{fightPoints}**."
+			]
+		},
+		"en": {
+			"stories": [
+				"you see a bench on the side of the road and sit down for a few minutes. This gives you ⚡ **{fightPoints}**.",
+				"you untie your gourd from your belt and quench your thirst. You gain ⚡ **{fightPoints}**.",
+				"you take out a fruit that you were keeping in a cloth and eat it. This gives you ⚡ **{fightPoints}**.",
+				"you stop for a few seconds to catch your breath. You leave with a little more stamina, and gain ⚡ **{fightPoints}**.",
+				"you pull out a piece of bread and satiate yourself with it. This gives you ⚡ **{fightPoints}**.",
+				"you sit down for a few minutes and meditate to calm your mind. You recover ⚡ **{fightPoints}**.",
+				"you feel that your muscles are tensing up and you stop for a few moments to stretch them. You recover ⚡ **{fightPoints}**."
+			]
+		}
+	},
+	"rarity": 4,
+	"emote": ":battery:"
+}

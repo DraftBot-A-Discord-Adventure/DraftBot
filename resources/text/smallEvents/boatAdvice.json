@@ -1,0 +1,76 @@
+{
+	"translations": {
+		"fr": {
+			"intro": [
+				"Vous montez sur le pont et vous discutez avec un membre de l'équipage. Il vous donne un conseil pour vous aider dans votre aventure sur l'île :\n**{advice}**.",
+				"Vous grimpez sur le mât pour admirer l'horizon. Un homme baisse sa longue-vue et tient à vous donner ce conseil avant votre départ pour l'île :\n**{advice}**.",
+				"Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'île :\n**{advice}**."
+			],
+			"advices": [
+				"Il y a beaucoup plus d'évènements qui vous attendent sur l'île mystérieuse",
+				"Chaque trajet sur l'île mystérieuse est composé d'arrêts plus nombreux",
+				"Si vous combattez des animaux pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
+				"Aller sur l'île en même temps que d'autres membres de votre guilde vous garantit des bonus exclusifs",
+				"Votre énergie ne se régénère pas sur l'île. Vérifiez que vous êtes au maximum avant de vous y aventurer",
+				"Une fois votre énergie à 0, vous serez ramené sur le continent",
+				"Le trajet vers l'île peut être fait qu'une seule fois par semaine gratuitement. Il est possible d'y aller 2 fois de plus, mais il faudra payer des gemmes",
+				"Les monstres de fin de trajet sont très forts, et le dernier de l'île l'est d'autant plus",
+				"Battre des monstres de fin de trajet donne des points de guilde, qui déterminent le classement de guildes",
+				"Les monstres ont des statistiques différentes : certains vont avoir beaucoup de défense, d'attaque, de vitesse ou de vie totale",
+				"Une île est composée d'un nombre fini de lieux. Une fois le dernier lieu visité, vous serez ramené sur le continent principal",
+				"L'île mystérieuse change chaque semaine",
+				"Lors d'un combat contre un monstre, si le maximum de tour est dépassé, le monstre deviendra très vite très puissant",
+				"Si un membre de votre guilde souhaite vous rejoindre sur le bateau, il peut exécuter {command:joinboat}",
+				"Les actions disponibles pendant les combats contre des animaux dépendent de vos statistiques, vos objets, vos familiers etc",
+				"L'hostilité de l'île ne vous fera pas de cadeau vis-à-vis des péripéties. Mais en y allant à plusieurs avec des membres de votre guilde, vous serez bien plus forts ensembles",
+				"La commande {command:map} permet de voir la carte de l'île",
+				"Vous pouvez choisir de quitter l'île après chaque combat de monstre. Si votre énergie est faible, il est plus intéressant de partir en étant encore conscient",
+				"Certaines actions comme boire une potion, accéder au magasin ou encore obtenir les bonus quotidiens sont indisponibles sur l'île",
+				"Votre niveau n'influence pas le nombre de points de guilde, mais influence les autres récompenses",
+				"Gagner contre un monstre plus loin dans l'île rapportera plus de points de guilde que ceux du début",
+				"On raconte que si plusieurs membres d'une même guilde sont sur l'île en même temps, il est possible de combiner les forces de chacun pour faire une attaque dévastatrice",
+				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse.",
+				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}.",
+				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse.",
+				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti."
+			]
+		},
+		"en": {
+			"intro": [
+				"You go up on deck and have a conversation with a crew member. He gives you a piece of advice to help you in your adventure on the island:\n**{advice}**.",
+				"You climb the mast to admire the horizon. A man lowers his spyglass and wishes to give you this advice before you leave for the island:\n**{advice}**.",
+				"In the joys of a meal in the fresh sea breeze, you chat with the sailors. Your neighbor at the table gives you the following advice about the island:\n**{advice}**."
+			],
+			"advices": [
+				"You can do one small more ofter once on the mysterious island",
+				"Each trip to the mysterious island is made up of more stops",
+				"If you fight animals during small events, the monster at the end of the journey will be easier to beat",
+				"Going to the island at the same time as other members of your guild guarantees you exclusive bonuses",
+				"Your energy does not regenerate on the island. Make sure you're at maximum before venturing there",
+				"Once your energy is at 0, you'll be taken back to the mainland",
+				"The trip to the island can only be made once a week for free. It is possible to go 2 more times, but you will have to pay gems",
+				"The monsters at the end of the journey are very strong, and the last one on the island is even stronger",
+				"Beating end-of-path monsters gives guild points, which determine guild rankings",
+				"Monsters have different stats: some will have a lot of defense, attack, speed or total life",
+				"An island is made up of a finite number of locations. Once you've visited the last place, you'll be taken back to the main continent",
+				"The mysterious island changes every week",
+				"When fighting a monster, if the maximum turn is exceeded, the monster will quickly become very powerful",
+				"If a member of your guild wishes to join you on the boat, they can execute {command:joinboat}",
+				"The actions available during fights against animals depend on your stats, items, pets etc",
+				"The island's hostility won't do you any favors when it comes to adventures. But if you get together with other members of your guild, you'll be much stronger together",
+				"The {command:map} command allows you to view the island's map",
+				"You can choose to leave the island after each monster fight. If your energy is low, it's more interesting to leave while still conscious",
+				"Certain actions such as drinking a potion, accessing the store or obtaining daily bonuses are unavailable on the island",
+				"Your level doesn't influence the number of guild points, but it does influence other rewards",
+				"Winning against a monster further down the island will yield more guild points than those at the start",
+				"It is said that if several members of the same guild are on the island at the same time, it is possible to combine the forces of each to make a devastating attack",
+				"Members of your guild can help you fight monsters when you visit a mysterious island.",
+				"You can see guild members who are on a mysterious island using the {command:guild} command.",
+				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island.",
+				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it."
+			]
+		}
+	},
+	"rarity": 1,
+	"emote": ":ferry:"
+}

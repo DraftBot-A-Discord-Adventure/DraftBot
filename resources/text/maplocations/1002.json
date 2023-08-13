@@ -1,0 +1,11 @@
+{
+	"type": "ruins",
+	"nameFr": "Village en ruines",
+	"nameEn": "Village in ruins",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Un petit village d'une vingtaine de maisons, partiellement détruit, qui se trouve à proximité de la forêt de la pénombre. Personne ne sait exactement pourquoi ce village est en ruines. Beaucoup pensent qu'il s'agit du village des anciens habitants qui auraient succombé aux coulées de lave du Volcan Grondant. Mais d'autres avancent la théorie d'une maladie, la peste et de nombreux rats. Il ne reste plus un seul habitant ici...",
+	"descEn": "A small village of about twenty houses, partially destroyed, which is located near the forest of twilight. Nobody knows exactly why this village is in ruins. Many think that it is the village of the former inhabitants who succumbed to the lava flows of the Grumble Volcano. But others put forward the theory of a disease, the plague and many rats. There is not a single inhabitant left here...",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

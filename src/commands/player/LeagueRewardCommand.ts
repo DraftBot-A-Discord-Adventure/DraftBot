@@ -76,14 +76,14 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		amount: leagueLastSeason.getMoneyToAward(),
 		channel: interaction.channel,
 		language,
-		reason: NumberChangeReason.LIGUE_REWARD
+		reason: NumberChangeReason.LEAGUE_REWARD
 	});
 
 	await player.addExperience({
 		amount: leagueLastSeason.getXPToAward(),
 		channel: interaction.channel,
 		language,
-		reason: NumberChangeReason.LIGUE_REWARD
+		reason: NumberChangeReason.LEAGUE_REWARD
 	});
 
 	const scoreToAward = await player.getLastSeasonScoreToAward();
@@ -91,7 +91,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		amount: scoreToAward,
 		channel: interaction.channel,
 		language,
-		reason: NumberChangeReason.LIGUE_REWARD
+		reason: NumberChangeReason.LEAGUE_REWARD
 	});
 
 	const embed = new DraftBotEmbed().formatAuthor(leagueRewardModule.get("ligueRewardSuccessTitle"), interaction.user);

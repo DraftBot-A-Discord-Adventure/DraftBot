@@ -1,0 +1,11 @@
+{
+	"type": "snowmen_field",
+	"nameFr": "Plaine aux bonhommes de neige",
+	"nameEn": "Snowmen plain",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une très grande plaine où de nombreux bonhommes de neige y sont construits. Qui a créé le premier bonhomme de neige ? Personne ne le sait. Il fait bien trop froid pour qu'ils fondent. Cependant, certains voyageurs s'amusent à en créer de nouveaux.",
+	"descEn": "A very large plain where many snowmen are built. Who created the first snowman? Nobody knows. It's far too cold for them to melt. However, some travelers have fun creating new ones.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

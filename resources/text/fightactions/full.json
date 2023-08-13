@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"heal": "n'est plus repue.",
+			"new": "est repue et doit se reposer. `Vitesse: 0`",
+			"active": "est repue et doit se reposer."
+		},
+		"en": {
+			"heal": "is not longer full.",
+			"new": "is full and needs to rest. `Speed: 0`",
+			"active": "is full and needs to rest."
+		}
+	},
+	"emote": "😴",
+	"breath": 0,
+	"missionVariant": -1,
+	"type": "alteration"
+}

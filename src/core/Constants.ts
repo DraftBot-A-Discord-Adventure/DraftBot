@@ -7,6 +7,8 @@ export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
+		WAIT_A_BIT_REACTION: "⏳",
+		START_FIGHT_REACTION: "⚔️",
 		NOT_REPLIED_REACTION: "🔚",
 		SHOPPING_CART: "🛒",
 		WARNING: "⚠️",
@@ -209,14 +211,13 @@ export abstract class Constants {
 
 	static readonly BADGES = {
 		POWERFUL_GUILD: "💎",
+		VERY_POWERFUL_GUILD: "🪩",
 		STAFF_MEMBER: "⚙️",
 		QUEST_MASTER: "💍",
 		RICH_PERSON: "🤑",
 		PET_TAMER: "💞",
-		LIST: [
-			"🏆",
+		LIST_FOR_GIVE_BADGE_COMMAND: [
 			"🏅",
-			"👑",
 			"⚙️",
 			"✨",
 			"❤️",
@@ -224,7 +225,6 @@ export abstract class Constants {
 			"💸",
 			"🐞",
 			"🎰",
-			"⛑️",
 			"🥇",
 			"🤑",
 			"🌟",
@@ -236,9 +236,9 @@ export abstract class Constants {
 			"💎",
 			"⚔️",
 			"🗳️",
-			"🔖",
 			"💞",
-			"💍"
+			"💍",
+			"🪩"
 		]
 	};
 
@@ -335,5 +335,14 @@ export abstract class Constants {
 		ERROR: <HexColorString>"#FF0000"
 	};
 
+	static readonly COLOR = {
+		GOLD: <HexColorString>"#ffac33"
+	};
+
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
+
+	static EXCLUDED_TRANSLATION_MODULES = [
+		"classes.",
+		"advices"
+	];
 }

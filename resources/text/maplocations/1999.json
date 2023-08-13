@@ -1,0 +1,12 @@
+{
+	"type": "pve_exit",
+	"nameFr": "Bateau pour quitter l'île",
+	"nameEn": "Boat to leave the island",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Un vieux bateau en bois, il a l'air de tenir le coup grâce aux réparations des ouvriers. Il est prêt à partir et n'attend plus que votre arrivée.",
+	"descEn": "An old wooden boat, it seems to hold up thanks to the repairs of the workers. It is ready to leave and is waiting for your arrival.",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_exit",
+	"forcedImage": "boat_left"
+}

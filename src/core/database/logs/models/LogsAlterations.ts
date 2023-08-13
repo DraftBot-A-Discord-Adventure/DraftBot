@@ -1,9 +1,9 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
 export class LogsAlterations extends Model {
-	public readonly id!: number;
+	declare readonly id: number;
 
-	public readonly alteration!: string;
+	declare readonly alteration: string;
 }
 
 export function initModel(sequelize: Sequelize): void {

@@ -7,6 +7,10 @@ import {draftBotInstance} from "../bot";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
+import {MapConstants} from "../constants/MapConstants";
+import {MapCache} from "./MapCache";
+import {Op} from "sequelize";
+import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 
 export class Maps {
 
@@ -117,7 +121,7 @@ export class Maps {
 		for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 			if (j === index) {
 				if (effect === null) {
-					str += "🧍";
+					str += Maps.isOnBoat(player) ? "🚢" : "🧍";
 				}
 				else {
 					str += EffectsConstants.EMOJIS[effect as keyof typeof EffectsConstants.EMOJIS];
@@ -135,7 +139,7 @@ export class Maps {
 	}
 
 	/**
-	 * Check if the player has arrived to the destionation
+	 * Check if the player has arrived to the destination
 	 * @param player
 	 * @param date
 	 */
@@ -149,5 +153,83 @@ export class Maps {
 	 */
 	static isTravelling(player: Player): boolean {
 		return player.startTravelDate.valueOf() !== 0;
+	}
+
+	/**
+	 * Check if the player is on a PVE map
+	 * @param player
+	 */
+	static isOnPveIsland(player: Player): boolean {
+		return MapCache.pveIslandMapLinks.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Check if the player is near the water
+	 * @param player
+	 */
+	static isNearWater(player: Player): boolean {
+		return MapConstants.WATER_MAP_LINKS.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Check if the player is on the boat going to the PVE island
+	 * @param player
+	 */
+	static isOnBoat(player: Player): boolean {
+		return MapCache.entryAndExitBoatMapLinks.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Check if the player is on a continent
+	 * @param player
+	 */
+	static isOnContinent(player: Player): boolean {
+		return MapCache.continentMapLinks.includes(player.mapLinkId);
+	}
+
+	/**
+	 * Get all the members of the player's guild on the pve island
+	 */
+	static async getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return Promise.resolve([]);
+		}
+
+		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);
+		const membersThatWereDiscordIds = membersThatWere.map((player) => player.discordUserId);
+		// Filter discord ids that are already in the first array, because even if the players are the same the model instances are different
+		const membersThatAre = (await Player.findAll({
+			where: {
+				guildId: player.guildId,
+				mapLinkId: {
+					[Op.in]: MapCache.pveIslandMapLinks
+				},
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		})).filter((player) => !membersThatWereDiscordIds.includes(player.discordUserId));
+		return [...membersThatWere, ...membersThatAre];
+	}
+
+	/**
+	 * Get all the members of the player's guild on a boat
+	 */
+	static getGuildMembersOnBoat(player: Player): Promise<Player[]> {
+		if (!player.guildId) {
+			return Promise.resolve([]);
+		}
+
+		return Player.findAll({
+			where: {
+				guildId: player.guildId,
+				mapLinkId: {
+					[Op.in]: MapCache.boatEntryMapLinks
+				},
+				id: {
+					[Op.not]: player.id
+				}
+			}
+		});
 	}
 }

@@ -49,13 +49,6 @@ export abstract class FightConstants {
 	// divider of the damage a fight action will deal if it is a miss
 	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
 
-	// attack status
-	static readonly ATTACK_STATUS = {
-		CRITICAL: "critical",
-		NORMAL: "normal",
-		MISSED: "missed"
-	};
-
 	// Targets types
 	static readonly TARGET = {
 		SELF: 0,
@@ -77,7 +70,8 @@ export abstract class FightConstants {
 	// empty string to register cancellation of an alteration display
 	static CANCEL_ALTERATION_DISPLAY = "";
 
-	static readonly UNCOUNTERABLE_ACTIONS = ["ultimateAttack",
+	static readonly UNCOUNTERABLE_ACTIONS = [
+		"ultimateAttack",
 		"benediction",
 		"divineAttack",
 		"none",
@@ -91,7 +85,12 @@ export abstract class FightConstants {
 		"breathTakingAttack",
 		"darkAttack",
 		"cursedAttack",
-		"outOfBreath"];
+		"outOfBreath",
+		"outrageAttack",
+		"roarAttack",
+		"summonAttack",
+		"stealth"
+	];
 
 	static readonly ELO = {
 		DEFAULT_ELO: 0,
@@ -119,4 +118,6 @@ export abstract class FightConstants {
 
 	// added at the end of the fight to the last message
 	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
+
+	static readonly DEFAULT_ACTION_WEIGHT = 1;
 }

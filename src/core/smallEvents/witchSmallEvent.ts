@@ -7,17 +7,24 @@ import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../messag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
-import {WitchEvents} from "../witch/WitchEvents";
+import {WitchEvents} from "./witch/WitchEvents";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
-import {WitchEvent} from "../witch/WitchEvent";
+import {WitchEvent} from "./witch/WitchEvent";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {ItemConstants} from "../constants/ItemConstants";
+import {Maps} from "../maps/Maps";
+import {NumberChangeReason} from "../constants/LogsConstants";
 
-type WitchEventSelection = { randomAdvice: WitchEvent, randomIngredient: WitchEvent, fullRandom: WitchEvent, optional?: WitchEvent };
+type WitchEventSelection = {
+	randomAdvice: WitchEvent,
+	randomIngredient: WitchEvent,
+	fullRandom: WitchEvent,
+	optional?: WitchEvent
+};
 
 /**
  * Returns an object composed of three random witch events
@@ -154,8 +161,8 @@ export const smallEvent: SmallEvent = {
 	/**
 	 * No restrictions on who can do it
 	 */
-	canBeExecuted(): Promise<boolean> {
-		return Promise.resolve(true);
+	canBeExecuted(player: Player): Promise<boolean> {
+		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 	/**
@@ -196,6 +203,8 @@ export const smallEvent: SmallEvent = {
 				await sendResultMessage(seEmbed, outcome, tr, selectedEvent, interaction);
 
 				await applyOutcome(outcome, selectedEvent, player, language, interaction);
+
+				await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 
 				await selectedEvent.checkMissions(interaction, player, language, outcome);
 			});
