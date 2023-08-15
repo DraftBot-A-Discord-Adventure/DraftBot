@@ -152,3 +152,5 @@ services:
 - [Suggestion board _(in French)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in French)_](https://twitter.com/DraftBot_?s=09)
+
+test
