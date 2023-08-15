@@ -24,7 +24,6 @@ process.on("uncaughtException", function(error) {
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err);
 	console.log(err.stack);
-	// Process.exit(1);
 });
 
 process.on("message", async (message: { type: string, data: { shardId: number } }) => {

@@ -39,8 +39,7 @@ export class LogsReadRequests {
 			},
 			order: [["date", "DESC"]],
 			limit: 1
-			// eslint-disable-next-line @typescript-eslint/no-extra-parens
-		}).then((res) => (res ? new Date(res.date) : new Date(0)));
+		}).then((res) => new Date(res ? res.date : 0));
 	}
 
 	/**

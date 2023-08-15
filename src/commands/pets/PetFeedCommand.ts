@@ -170,7 +170,7 @@ async function feedPet(
 	petModel: Pet,
 	item: string,
 	petFeedModule: TranslationModule
-): Promise<GuildCacheMessage<CacheType> | null> {
+): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	if (guild.getDataValue(item) <= 0) {
 		await sendErrorMessage(
@@ -179,7 +179,7 @@ async function feedPet(
 			language,
 			petFeedModule.get("notEnoughFood")
 		);
-		return null;
+		return;
 	}
 	const foodIndex = getFoodIndexOf(item);
 	const successEmbed = new DraftBotEmbed()
@@ -217,7 +217,7 @@ async function feedPet(
 	}
 	pet.hungrySince = new Date();
 	await Promise.all([pet.save(), guild.save()]);
-	return interaction.followUp({embeds: [successEmbed]});
+	await interaction.followUp({embeds: [successEmbed]});
 }
 
 /**
