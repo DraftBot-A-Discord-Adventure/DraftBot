@@ -47,9 +47,9 @@ function getEndCallbackGuildAdd(
 			inviter.guild = null;
 		}
 
-		// check if the inviter is still in the guild (aka the guild still exists and the inviter is still in it)
+		// Check if the inviter is still in the guild (aka the guild still exists and the inviter is still in it)
 		if (inviter.guild === null) {
-			// guild is destroyed
+			// Guild is destroyed
 			await sendErrorMessage(
 				invited.invitedUser,
 				interaction,
@@ -61,7 +61,7 @@ function getEndCallbackGuildAdd(
 			return;
 		}
 
-		// check if the guild is full
+		// Check if the guild is full
 		if ((await Players.getByGuild(inviter.guild.id)).length === GuildConstants.MAX_GUILD_MEMBERS) {
 			await sendErrorMessage(
 				interaction.user,
@@ -72,7 +72,7 @@ function getEndCallbackGuildAdd(
 			return;
 		}
 
-		// check if the invited player is dead
+		// Check if the invited player is dead
 		if (invited.invitedPlayer.isDead()) {
 			await sendErrorMessage(
 				invited.invitedUser,
@@ -131,7 +131,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const invitedPlayer = await Players.getByOptions(interaction);
 
 	if (invitedPlayer.level < GuildConstants.REQUIRED_LEVEL) {
-		// invited user is low level
+		// Invited user is low level
 		await replyErrorMessage(
 			interaction,
 			language,
@@ -152,7 +152,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	const guild = await Guilds.getById(player.guildId);
-	// search for the invited's guild
+	// Search for the invited's guild
 	let invitedGuild;
 	try {
 		invitedGuild = await Guilds.getById(invitedPlayer.guildId);
@@ -161,7 +161,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		invitedGuild = null;
 	}
 	if (invitedGuild !== null) {
-		// already in a guild
+		// Already in a guild
 		await replyErrorMessage(
 			interaction,
 			language,

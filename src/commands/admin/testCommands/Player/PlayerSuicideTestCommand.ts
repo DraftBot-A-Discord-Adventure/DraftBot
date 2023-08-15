@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
 	description: "Vous permet de vous kill dans le plus grand des calmes",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

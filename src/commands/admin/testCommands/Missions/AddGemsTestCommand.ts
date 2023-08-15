@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
 	description: "Ajoute la valeur donnée de gemmes à votre joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

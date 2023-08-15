@@ -134,7 +134,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * edit the reply to a command interaction
+	 * Edit the reply to a command interaction
 	 * @param interaction
 	 * @param collectorCallback
 	 */
@@ -231,6 +231,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 					if (emoji) {
 						return emoji;
 					}
+					return null;
 				}, {
 					context: {
 						emote: reaction.emote

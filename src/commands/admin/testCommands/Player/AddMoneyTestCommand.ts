@@ -14,7 +14,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {money} :moneybag: !",
 	description: "Ajoute la valeur donnée d'argent à votre joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

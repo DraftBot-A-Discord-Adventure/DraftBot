@@ -21,7 +21,7 @@ import {GenericItemModel} from "../../core/database/game/models/GenericItemModel
 
 
 /**
- * transform an item slot to a choiceItem so that the item can be sold
+ * Transform an item slot to a choiceItem so that the item can be sold
  * @param item
  * @param choiceItems empty array
  * @param tr
@@ -46,7 +46,7 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 }
 
 /**
- * catch the response from the user
+ * Catch the response from the user
  * @param player
  * @param interaction
  * @param item the item that has been selected

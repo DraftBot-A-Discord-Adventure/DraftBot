@@ -90,26 +90,26 @@ async function executeTheTransaction(
 ): Promise<void> {
 	const buyerGuild = await Guilds.getById(buyerInformation.buyer.guildId);
 
-	// the buyer is dead
+	// The buyer is dead
 	if (buyerInformation.buyer.isDead()) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer", {}), false, false);
 		return;
 	}
 
-	// the buyer has the same guild as the seller
+	// The buyer has the same guild as the seller
 	if (buyerGuild && buyerGuild.id === sellerInformation.guild.id) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("sameGuild"), false, false);
 		return;
 	}
 	const buyerPet = await PetEntities.getById(buyerInformation.buyer.petId);
 
-	// the buyer already has a pet
+	// The buyer already has a pet
 	if (buyerPet) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("havePet"), false, false);
 		return;
 	}
 
-	// the buyer has not enough money
+	// The buyer has not enough money
 	if (sellerInformation.petCost > buyerInformation.buyer.money) {
 		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.get("noMoney"), false, false);
 		return;
@@ -120,7 +120,7 @@ async function executeTheTransaction(
 	buyerInformation.buyer.petId = sellerInformation.pet.id;
 	sellerInformation.player.petId = null;
 	sellerInformation.pet.lovePoints = PetConstants.BASE_LOVE;
-	// the money has to be edited before the player is saved to avoid cross writing to the database
+	// The money has to be edited before the player is saved to avoid cross writing to the database
 	await buyerInformation.buyer.addMoney({
 		amount: -sellerInformation.petCost,
 		channel: textInformation.interaction.channel,
@@ -222,7 +222,7 @@ async function petSell(
 }
 
 /**
- * executed when a potential buyer react to the message
+ * Executed when a potential buyer react to the message
  * @param sellerInformation
  * @param textInformation
  */
@@ -246,7 +246,7 @@ function getAcceptCallback(sellerInformation: SellerInformation, textInformation
 }
 
 /**
- * get the display message corresponding to the errors that can occur
+ * Get the display message corresponding to the errors that can occur
  * @param petSellModule
  */
 function getBroadcastErrorStrings(petSellModule: TranslationModule): BroadcastTranslationModuleLike {
@@ -286,7 +286,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guild = null;
 	}
 	if (guild === null) {
-		// not in a guild
+		// Not in a guild
 		await replyErrorMessage(
 			interaction,
 			petSellModule.language,

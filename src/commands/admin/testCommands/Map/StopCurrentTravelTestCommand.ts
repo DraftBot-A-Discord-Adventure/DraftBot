@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez arrêté de voyager !",
 	description: "Stoppe le voyage en cours",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

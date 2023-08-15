@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez avancé votre voyage de {time} minutes !",
 	description: "Avance votre voyage d'une durée en minutes donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

@@ -12,7 +12,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous êtes maintenant chef de votre guilde (Guilde {gName}) !",
 	description: "Vous passe chef de guilde de force",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

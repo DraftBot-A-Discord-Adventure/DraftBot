@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
 		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
 	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax.",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

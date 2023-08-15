@@ -11,7 +11,7 @@ export class WitchEvents {
 	static witchEvents: Map<string, WitchEvent> = null;
 
 	/**
-	 * populate a map will all the witchEvents and their ids
+	 * Populate a map will all the witchEvents and their ids
 	 */
 	static initWitchEventsMap(): void {
 		const files = readdirSync("dist/src/core/smallEvents/witch/interfaces");
@@ -35,7 +35,7 @@ export class WitchEvents {
 	}
 
 	/**
-	 * allow to get a specific witch event
+	 * Allow to get a specific witch event
 	 * @param emoji
 	 */
 	static getWitchEventByEmoji(emoji: string): WitchEvent | null {

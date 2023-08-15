@@ -37,11 +37,11 @@ type TextInformation = { dailyModule: TranslationModule, interaction: CommandInt
 async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	if (activeObject.nature === ItemConstants.NATURE.NONE) {
 		if (activeObject.id !== InventoryConstants.OBJECT_DEFAULT_ID) {
-			// there is an object that do nothing in the inventory
+			// There is an object that do nothing in the inventory
 			await replyErrorMessage(interaction, language, dailyModule.get("objectDoNothingError"));
 			return true;
 		}
-		// there is no object in the inventory
+		// There is no object in the inventory
 		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
 		return true;
 	}

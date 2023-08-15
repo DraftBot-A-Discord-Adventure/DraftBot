@@ -31,7 +31,7 @@ import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstan
 import {ItemConstants} from "../../core/constants/ItemConstants";
 
 /**
- * get the amount of gems a user has
+ * Get the amount of gems a user has
  * @param userId
  */
 const getUserGems = async (userId: string): Promise<number> => {
@@ -41,7 +41,7 @@ const getUserGems = async (userId: string): Promise<number> => {
 };
 
 /**
- * allow a user to pay
+ * Allow a user to pay
  * @param userId
  * @param amount
  */

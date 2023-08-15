@@ -8,7 +8,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez effectué une fin de saison !",
 	description: "Effectue une fin de saison (action hebdomadaire qui réinitialise le classement glorieux, et qui annonce le gagnant de la semaine)",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

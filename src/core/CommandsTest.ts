@@ -50,7 +50,7 @@ export class CommandsTest {
 	static testCommType: string[];
 
 	/**
-	 * load all the test commands from source files
+	 * Load all the test commands from source files
 	 */
 	static async init(): Promise<void> {
 		CommandsTest.testCommandsArray = {};

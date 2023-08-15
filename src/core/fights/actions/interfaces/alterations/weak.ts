@@ -6,13 +6,13 @@ export default class WeakAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 1) { // this effect heals after one turn
+		if (victim.alterationTurn > 1) { // This effect heals after one turn
 			victim.removeAttackModifiers(this);
 			victim.removeAlteration();
 			return weakTranslationModule.get("heal");
 		}
 		if (!victim.hasAttackModifier(this)) {
-			// attack is reduced by 70%
+			// Attack is reduced by 70%
 			victim.applyAttackModifier({
 				origin: this,
 				operation: FightStatModifierOperation.MULTIPLIER,

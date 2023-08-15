@@ -91,7 +91,7 @@ export async function giveFood(
 }
 
 /**
- * calculate the amount of xp the guild will receive from the price chosen by the user
+ * Calculate the amount of xp the guild will receive from the price chosen by the user
  * @param cost
  */
 export function calculateAmountOfXPToAdd(cost: number): number {

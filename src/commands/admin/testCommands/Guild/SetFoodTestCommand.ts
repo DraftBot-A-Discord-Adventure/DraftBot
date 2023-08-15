@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {amountOfFood} de {foodEdited}!",
 	description: "Set le montant d'une ressource de nourriture de la guilde à un montant donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

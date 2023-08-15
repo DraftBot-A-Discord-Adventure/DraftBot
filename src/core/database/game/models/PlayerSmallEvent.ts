@@ -62,7 +62,7 @@ export class PlayerSmallEvents {
 		let somme = 0;
 		for (let i = 1; i <= numberOfSmallEventsDone; i++) {
 			// By Pokegali Le sang (et romain22222 pour sa tentative)
-			// vive la tangente hyperbolique
+			// Vive la tangente hyperbolique
 			const init = 75 + ((tripDuration - 1) / 2) ** 2;
 			somme += Math.floor(init * Math.tanh(-(i - 1) / (tripDuration ** 0.75 * 2)) + init + 5);
 		}

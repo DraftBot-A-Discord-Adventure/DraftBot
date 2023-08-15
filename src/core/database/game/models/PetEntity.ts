@@ -164,7 +164,7 @@ export class PetEntity extends Model {
 			petDisplay = this.displayName(await Pets.getById(this.petId), textInformation.language);
 		}
 
-		// search for a user's guild
+		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}
@@ -296,7 +296,7 @@ export class PetEntities {
 					   WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
-		})))[0]["count"];
+		})))[0].count;
 	}
 
 	static async getNbFeistyPets(): Promise<number> {
@@ -305,7 +305,7 @@ export class PetEntities {
 					   WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
-		})))[0]["count"];
+		})))[0].count;
 	}
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
@@ -317,7 +317,7 @@ export class PetEntities {
 			replacements: {
 				sex: sex
 			}
-		})))[0]["count"];
+		})))[0].count;
 	}
 
 	static async getNbPets(): Promise<number> {
@@ -325,7 +325,7 @@ export class PetEntities {
 					   FROM pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
-		})))[0]["count"];
+		})))[0].count;
 	}
 }
 

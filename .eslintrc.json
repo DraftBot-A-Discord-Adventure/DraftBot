@@ -2,7 +2,7 @@
 	"env": {
 		"browser": false,
 		"commonjs": false,
-		"es2021": true
+		"es2022": true
 	},
 	"extends": [
 		"eslint:recommended",
@@ -10,7 +10,7 @@
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 2020
+		"ecmaVersion": 2022
 	},
 	"plugins": [
 		"@typescript-eslint"
@@ -59,7 +59,7 @@
 		"comma-dangle": "warn",
 		"func-call-spacing": "warn",
 		"key-spacing": "warn",
-		"keyword-spacing": "warn",
+		"keyword-spacing": "error",
 		"lines-between-class-members": "warn",
 		"max-depth": [
 			"warn",
@@ -109,6 +109,10 @@
 		"prefer-const": "warn",
 		"@typescript-eslint/no-explicit-any": "error",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"@typescript-eslint/explicit-function-return-type": "error"
+		"@typescript-eslint/explicit-function-return-type": "error",
+		"capitalized-comments": "error",
+		"consistent-return": "error",
+		"dot-notation": "error",
+		"space-before-blocks": "error"
 	}
 }

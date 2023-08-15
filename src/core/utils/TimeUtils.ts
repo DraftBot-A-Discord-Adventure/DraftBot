@@ -27,14 +27,14 @@ function getMinutesDisplayStringConstants(language: string): { hoursDisplay: str
 }
 
 /**
- * get the current date for logging purposes
+ * Get the current date for logging purposes
  */
 export function getDateLogs(): number {
 	return Math.trunc(Date.now() / 1000);
 }
 
 /**
- * get a date value of tomorrow
+ * Get a date value of tomorrow
  */
 export function getTomorrowMidnight(): Date {
 	const tomorrow = new Date();
@@ -44,14 +44,14 @@ export function getTomorrowMidnight(): Date {
 }
 
 /**
- * get the day number
+ * Get the day number
  */
 export function getDayNumber(): number {
 	return Math.floor(new Date().valueOf() / 8.64e7);
 }
 
 /**
- * convert milliseconds to minutes
+ * Convert milliseconds to minutes
  * @param milliseconds
  */
 export function millisecondsToMinutes(milliseconds: number): number {
@@ -59,7 +59,7 @@ export function millisecondsToMinutes(milliseconds: number): number {
 }
 
 /**
- * convert minutes to seconds
+ * Convert minutes to seconds
  * @param minutes
  */
 export function minutesToMilliseconds(minutes: number): number {
@@ -67,7 +67,7 @@ export function minutesToMilliseconds(minutes: number): number {
 }
 
 /**
- * convert hours to milliseconds
+ * Convert hours to milliseconds
  * @param hours
  */
 export function hoursToMilliseconds(hours: number): number {
@@ -75,7 +75,7 @@ export function hoursToMilliseconds(hours: number): number {
 }
 
 /**
- * convert hours to minutes
+ * Convert hours to minutes
  * @param hours
  */
 export function hoursToMinutes(hours: number): number {
@@ -83,7 +83,7 @@ export function hoursToMinutes(hours: number): number {
 }
 
 /**
- * convert minutes to hours
+ * Convert minutes to hours
  * @param minutes
  */
 export function minutesToHours(minutes: number): number {
@@ -91,7 +91,7 @@ export function minutesToHours(minutes: number): number {
 }
 
 /**
- * convert minutes to hours
+ * Convert minutes to hours
  * @param milliseconds
  */
 export function millisecondsToHours(milliseconds: number): number {
@@ -99,7 +99,7 @@ export function millisecondsToHours(milliseconds: number): number {
 }
 
 /**
- * convert milliseconds to seconds
+ * Convert milliseconds to seconds
  * @param milliseconds
  */
 export function millisecondsToSeconds(milliseconds: number): number {
@@ -107,7 +107,7 @@ export function millisecondsToSeconds(milliseconds: number): number {
 }
 
 /**
- * check if two dates are the same day
+ * Check if two dates are the same day
  * @param first - first date
  * @param second - second date
  */
@@ -179,21 +179,21 @@ export function getNextSaturdayMidnight(): number {
 }
 
 /**
- * check if the reset is being done currently
+ * Check if the reset is being done currently
  */
 export function resetIsNow(): boolean {
 	return getNextSundayMidnight() - Date.now() <= minutesToMilliseconds(5);
 }
 
 /**
- * check if the reset of the season end is being done currently
+ * Check if the reset of the season end is being done currently
  */
 export function seasonEndIsNow(): boolean {
 	return getNextSaturdayMidnight() - Date.now() <= minutesToMilliseconds(20);
 }
 
 /**
- * parse the time difference between two dates
+ * Parse the time difference between two dates
  * @param date1 - first date
  * @param date2 - second date
  * @param language - the language to use
@@ -224,7 +224,7 @@ export function parseTimeDifferenceFooter(date1: number, date2: number, language
 }
 
 /**
- * parse the time remaining before a date.
+ * Parse the time remaining before a date.
  * @param date
  */
 export function printTimeBeforeDate(date: number): string {
@@ -234,7 +234,7 @@ export function printTimeBeforeDate(date: number): string {
 }
 
 /**
- * get the date of the next day at 2 am
+ * Get the date of the next day at 2 am
  */
 export function getNextDay2AM(): Date {
 	const now = new Date();
@@ -247,7 +247,7 @@ export function getNextDay2AM(): Date {
 }
 
 /**
- * get the date of now minus the given number of hours
+ * Get the date of now minus the given number of hours
  * @param hours - the number of hours to remove
  */
 export function getTimeFromXHoursAgo(hours: number): Date {

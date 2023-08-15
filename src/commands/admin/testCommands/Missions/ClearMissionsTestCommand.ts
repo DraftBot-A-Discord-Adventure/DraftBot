@@ -9,7 +9,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
 	description: "Permet de supprimer toutes ses missions",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

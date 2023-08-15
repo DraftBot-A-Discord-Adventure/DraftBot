@@ -39,7 +39,7 @@ export class LogsReadRequests {
 			},
 			order: [["date", "DESC"]],
 			limit: 1
-		}).then((res) => res ? new Date(res.date) : new Date(0));
+		}).then((res) => new Date(res ? res.date : 0));
 	}
 
 	/**
@@ -64,10 +64,10 @@ export class LogsReadRequests {
 	 * Get all the members of the player's guild on the pve island
 	 */
 	static async getGuildMembersThatWereOnPveIsland(player: Player): Promise<Player[]> {
-		if (!player.guildId) { // player has no guild
+		if (!player.guildId) { // Player has no guild
 			return Promise.resolve([]);
 		}
-		// get all the players in the guild excluding the player
+		// Get all the players in the guild excluding the player
 		const playersInGuild = await Player.findAll({
 			where: {
 				guildId: player.guildId,
@@ -88,7 +88,7 @@ export class LogsReadRequests {
 		});
 		// Extract ids from players
 		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
-		// get travels from the last hours of guildsMembers
+		// Get travels from the last hours of guildsMembers
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
 			where: {
 				mapLinkId: {
@@ -289,7 +289,7 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * parse the fights results to a ranked fight result
+	 * Parse the fights results to a ranked fight result
 	 * @param fights
 	 * @private
 	 */

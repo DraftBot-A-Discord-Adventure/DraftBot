@@ -187,7 +187,7 @@ export class InventorySlots {
 	}
 
 	/**
-	 * get the list of all the active objects of the player
+	 * Get the list of all the active objects of the player
 	 */
 	static async getPlayerActiveObjects(playerId: number): Promise<PlayerActiveObjects> {
 		return await this.getMainSlotsItems(playerId);

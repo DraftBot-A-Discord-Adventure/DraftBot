@@ -40,12 +40,12 @@ export class PlayerMissionsInfo extends Model {
 }
 
 /**
- * this class is used to treat the missions of a player
+ * This class is used to treat the missions of a player
  */
 export class PlayerMissionsInfos {
 
 	/**
-	 * get the missions of a player
+	 * Get the missions of a player
 	 * @param playerId
 	 */
 	public static async getOfPlayer(playerId: number): Promise<PlayerMissionsInfo> {

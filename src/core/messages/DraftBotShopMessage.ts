@@ -399,7 +399,7 @@ export class DraftBotShopMessageBuilder {
 		await player.save();
 	};
 
-	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */
+	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* Do nothing */
 	};
 }
 

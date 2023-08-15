@@ -103,7 +103,7 @@ export class TravelTime {
 		}
 
 		// Check to avoid errors. If the effect starts before the start of the travel, cut the duration to make it begin
-		// at the start of the travel
+		// At the start of the travel
 		if (effectEndTime - effectDuration < travelStartTime) {
 			effectDuration = effectEndTime - travelStartTime;
 		}
@@ -159,7 +159,7 @@ export class TravelTime {
 
 		// Update the milliseconds to shave from small event
 		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
-			timeMs -= Date.now() - player.effectEndDate.valueOf();// we only want to move the start travel date by the amount of the
+			timeMs -= Date.now() - player.effectEndDate.valueOf();// We only want to move the start travel date by the amount of the
 		}
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
@@ -172,7 +172,7 @@ export class TravelTime {
 		}
 		const date = new Date();
 		const playerEndTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
-		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // check if the player arrived with this potion
+		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // Check if the player arrived with this potion
 			await sendNotificationToPlayer(player,
 				await generateTravelNotification(player)
 				, Constants.LANGUAGE.ENGLISH);

@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
 	description: "Donne une mission aléatoire",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

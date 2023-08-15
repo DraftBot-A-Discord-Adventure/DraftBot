@@ -45,7 +45,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const confirmEmbed = new DraftBotValidateReactionMessage(
 		interaction.user,
 		(confirmMessage: DraftBotValidateReactionMessage) => {
-			confirmationCallback(player, confirmMessage, tr, new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user), ":ferry:", price, guildOnBoat[0]).then();
+			confirmationCallback(player, {
+				reactionMessage: confirmMessage,
+				embed: new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user),
+				tr
+			},":ferry:", price, guildOnBoat[0]).then();
 		}
 	);
 	await interaction.deferReply();

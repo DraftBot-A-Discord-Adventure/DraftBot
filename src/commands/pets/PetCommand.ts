@@ -20,7 +20,7 @@ import {Pets} from "../../core/database/game/models/Pet";
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
-	if (!askedPlayer) { // no entity found using the options
+	if (!askedPlayer) { // No entity found using the options
 		askedPlayer = player;
 	}
 	const tr = Translations.getModule("commands.pet", language);

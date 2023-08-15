@@ -32,7 +32,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			try {
 				argsTest = testCommand.split(" ").slice(1);
 			}
-			catch { /* case no args given */
+			catch { /* Case no args given */
 			}
 
 			testCommand = testCommand.split(" ")[0];

@@ -8,7 +8,7 @@ export default class FullAlteration extends FightAlteration {
 		victim.alterationTurn++;
 		const fullTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
-		if (victim.alterationTurn > 2) { // this effect heals after two turns
+		if (victim.alterationTurn > 2) { // This effect heals after two turns
 			victim.removeAlteration();
 			return fullTranslationModule.get("heal");
 		}

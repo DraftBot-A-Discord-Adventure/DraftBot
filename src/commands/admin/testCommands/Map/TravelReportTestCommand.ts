@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez réinitialisé votre parcours !",
 	description: "Réinitialise le parcours que vous effectuez",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

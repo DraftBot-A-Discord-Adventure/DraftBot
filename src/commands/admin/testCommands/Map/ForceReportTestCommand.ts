@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Event {id} forcé !",
 	description: "Force un rapport donné",
 	commandTestShouldReply: false,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

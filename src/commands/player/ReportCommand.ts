@@ -200,7 +200,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 		const millisecondsBeforeSmallEvent = timeData.nextSmallEventTime - date.valueOf();
 		const millisecondsBeforeBigEvent = timeData.travelEndTime - timeData.travelStartTime - timeData.effectDuration - timeData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
-			// if there is no small event before the big event, do not display anything
+			// If there is no small event before the big event, do not display anything
 			travelEmbed.addFields({
 				name: tr.get("travellingTitle"),
 				value: tr.get("travellingDescriptionEndTravel")
@@ -268,7 +268,7 @@ async function createDescriptionChooseDestination(
 		const link = await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[i]);
 		const duration = minutesDisplay(link.tripDuration);
 		const displayedDuration = isPveMap || RandomUtils.draftbotRandom.bool() ? duration : "?h";
-		// we have to convert the duration to hours if it is not unknown
+		// We have to convert the duration to hours if it is not unknown
 		desc += `${destinationChoiceEmotes[i]} - ${map.getDisplayName(language)} (${displayedDuration})\n`;
 	}
 	return desc;
@@ -523,7 +523,7 @@ async function doRandomBigEvent(
 
 	let event;
 
-	// nextEvent is defined ?
+	// NextEvent is defined ?
 	if (player.nextEvent) {
 		forceSpecificEvent = player.nextEvent;
 	}
@@ -540,7 +540,7 @@ async function doRandomBigEvent(
 		event = BigEventsController.getEvent(forceSpecificEvent);
 	}
 	await Maps.stopTravel(player);
-	return await doEvent({interaction, language}, event, player, time);
+	await doEvent({interaction, language}, event, player, time);
 }
 
 /**
@@ -587,7 +587,7 @@ async function doPVEBoss(
 					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
 					await guild.addExperience(rewards.guildXp, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
-					if (guild.level < GuildConstants.MAX_LEVEL){
+					if (guild.level < GuildConstants.MAX_LEVEL) {
 						desc += tr.format("monsterRewardGuildXp", {
 							guildXp: rewards.guildXp
 						});
@@ -711,7 +711,7 @@ async function executeCommand(
 		return;
 	}
 
-	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // maxTime here is to prevent any accident permanent blocking
+	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
 
@@ -729,28 +729,33 @@ async function executeCommand(
 		else {
 			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
 		}
-		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		return;
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 		await interaction.deferReply();
 		await executeSmallEvent(interaction, language, player, forceSmallEvent);
-		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		return;
 	}
 
 	if (!player.currentEffectFinished(currentDate)) {
 		await sendTravelPath(player, interaction, language, currentDate, player.effect);
-		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		return;
 	}
 
 	if (player.mapLinkId === null) {
 		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
-		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		return;
 	}
 
 	if (!Maps.isTravelling(player)) {
 		await chooseDestination(player, interaction, language, null, NumberChangeReason.PVE_FIGHT);
-		return BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
+		return;
 	}
 
 	await sendTravelPath(player, interaction, language, currentDate, null);

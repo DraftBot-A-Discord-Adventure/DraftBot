@@ -6,7 +6,7 @@ export default class SlowedAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const slowedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 1) { // this effect heals after one turn
+		if (victim.alterationTurn > 1) { // This effect heals after one turn
 			victim.removeSpeedModifiers(this);
 			victim.removeAlteration();
 			return slowedTranslationModule.get("inactive");

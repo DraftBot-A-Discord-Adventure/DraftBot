@@ -14,7 +14,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {countdown} de fightcountdown !",
 	description: "Mets le fightcountdown de votre joueur à la valeur donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

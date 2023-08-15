@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Reset du BO3 contre {player}",
 	description: "Reset le BO3 contre un joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

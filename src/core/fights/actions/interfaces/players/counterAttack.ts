@@ -14,7 +14,7 @@ export default class CounterAttack extends FightAction {
 		}
 
 		const lastAttack = receiver.getLastFightActionUsed();
-		// we also want to check for a few moves that should not be countered
+		// We also want to check for a few moves that should not be countered
 		if (FightConstants.UNCOUNTERABLE_ACTIONS.includes(lastAttack.name)) {
 			return counterAttackTranslationModule.get("fail");
 		}

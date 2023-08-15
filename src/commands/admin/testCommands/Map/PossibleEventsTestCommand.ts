@@ -9,7 +9,7 @@ export const commandInfo: ITestCommand = {
 	commandFormat: "",
 	description: "Affiche les évents possibles",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

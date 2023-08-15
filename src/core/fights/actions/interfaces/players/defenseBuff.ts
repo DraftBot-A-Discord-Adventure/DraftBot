@@ -6,7 +6,7 @@ export default class DefenseBuff extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const defenseBuffTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
-		// amount of times the sender has used the move already in its 5 last moves
+		// Amount of times the sender has used the move already in its 5 last moves
 		const streak = sender.fightActionsHistory.slice(-3).filter(action => action instanceof DefenseBuff).length;
 
 		const defenseBuffArray = [20, 25, 35, 40];

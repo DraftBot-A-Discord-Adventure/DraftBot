@@ -8,7 +8,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez supprimé vos badges !",
 	description: "Supprime les badges de votre joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

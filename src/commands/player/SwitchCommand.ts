@@ -121,7 +121,14 @@ async function sendFinishSwitchEmbed(
  * @param invInfo
  * @param profileSlots
  */
-async function sendSwitchEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, player: Player, tr: TranslationModule, invInfo: InventoryInfo, profileSlots: InventorySlot[]): Promise<void>{
+async function sendSwitchEmbed(
+	choiceItems: ChoiceItem[],
+	interaction: CommandInteraction,
+	player: Player,
+	tr: TranslationModule,
+	invInfo: InventoryInfo,
+	profileSlots: InventorySlot[]
+): Promise<void> {
 
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
