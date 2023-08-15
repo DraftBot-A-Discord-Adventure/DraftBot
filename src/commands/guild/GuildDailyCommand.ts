@@ -195,7 +195,6 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 						overHealCountsForMission: true
 					}
 				);
-
 			}
 		}
 		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
