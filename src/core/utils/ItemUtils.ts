@@ -390,7 +390,7 @@ export const generateRandomRarity = function(minRarity = ItemConstants.RARITY.CO
 	);
 	let rarity = ItemConstants.RARITY.BASIC;
 	do {
-		rarity++; // we increase rarity until we find the generated one
+		rarity++; // We increase rarity until we find the generated one
 	} while (randomValue > ItemConstants.RARITY.GENERATOR.VALUES[rarity - 1]);
 	return rarity;
 };
@@ -443,7 +443,7 @@ export async function generateRandomItem(
 }
 
 /**
- * give a random item
+ * Give a random item
  * @param {User} discordUser
  * @param {TextBasedChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response

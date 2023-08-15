@@ -1,11 +1,9 @@
 name: CI
 
-on:
-    pull_request:
-        branches: [ master, develop ]
+on: [pull_request]
 
 jobs:
-    test-node-20:
+    eslint:
         runs-on: ubuntu-latest
 
         steps:
@@ -20,5 +18,5 @@ jobs:
             -   name: Install dependencies
                 run: yarn install
 
-            -   name: Build and test
-                run: yarn test
+            -   name: Run eslint
+                run: yarn eslint

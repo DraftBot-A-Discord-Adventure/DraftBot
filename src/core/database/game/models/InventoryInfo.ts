@@ -64,12 +64,12 @@ export class InventoryInfo extends Model {
 }
 
 /**
- * this class is used to treat the inventory info of a player
+ * This class is used to treat the inventory info of a player
  */
 export class InventoryInfos {
 
 	/**
-	 * get the inventory info of a player
+	 * Get the inventory info of a player
 	 * @param playerId
 	 */
 	public static async getOfPlayer(playerId: number): Promise<InventoryInfo> {

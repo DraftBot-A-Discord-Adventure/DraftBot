@@ -35,7 +35,7 @@ export default class BigWait extends WitchEvent {
 	}
 
 	/**
-	 * the big wait advice will make the player occupied for 60 minutes
+	 * The big wait advice will make the player occupied for 60 minutes
 	 * @param player
 	 */
 	async giveEffect(player: Player): Promise<void> {

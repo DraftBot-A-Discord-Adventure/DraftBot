@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Votre mission quotidienne a été réinitiliasée !",
 	description: "Permet de réinitialiser la mission quootidienne",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

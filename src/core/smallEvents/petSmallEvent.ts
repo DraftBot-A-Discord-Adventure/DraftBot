@@ -141,12 +141,12 @@ function pickRandomInteraction(player: Player, petEntity: PetEntity, petModel: P
 
 	// Filter if already have badge
 	if (player.badges?.includes(Constants.BADGES.PET_TAMER)) {
-		delete section["badge"];
+		delete section.badge;
 	}
 
 	// Filter if pet is already tamed
 	if (petEntity.lovePoints >= PetConstants.MAX_LOVE_POINTS) {
-		delete section["gainLove"];
+		delete section.gainLove;
 	}
 
 	const level = petModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
@@ -291,8 +291,9 @@ export const smallEvent: SmallEvent = {
 	 */
 	async executeSmallEvent(interactionCommand: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		if (!player.petId) {
-			// the player does not have a petEntity : do nothing
-			return await doNothing.executeSmallEvent(interactionCommand, language, player, seEmbed);
+			// The player does not have a petEntity : do nothing
+			await doNothing.executeSmallEvent(interactionCommand, language, player, seEmbed);
+			return;
 		}
 
 		const petEntity = await PetEntities.getById(player.petId);

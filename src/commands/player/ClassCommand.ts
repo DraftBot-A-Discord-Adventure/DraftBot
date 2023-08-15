@@ -75,13 +75,14 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 			});
 			await userInformation.player.save();
 			draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
-			return message.channel.send({
+			message.channel.send({
 				embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(classTranslations.get("success"), userInformation.user)
 						.setDescription(classTranslations.get("newClass") + selectedClass.getName(classTranslations.language))
 				]
 			});
+			return;
 		}
 		await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
 	});

@@ -94,13 +94,13 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * get the string referring to the fighter name
+	 * Get the string referring to the fighter name
 	 * @public
 	 */
 	abstract getName(): string;
 
 	/**
-	 * get the mention of a fighter
+	 * Get the mention of a fighter
 	 */
 	abstract getMention(): string;
 
@@ -134,7 +134,7 @@ export abstract class Fighter {
 	abstract getStringDisplay(fightTranslationModule: TranslationModule): string;
 
 	/**
-	 * set the status of the fighter
+	 * Set the status of the fighter
 	 * @param newStatus
 	 */
 	setStatus(newStatus: FighterStatus): void {
@@ -357,28 +357,28 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * check if the player is dead
+	 * Check if the player is dead
 	 */
 	public isDead(): boolean {
 		return this.getFightPoints() <= 0;
 	}
 
 	/**
-	 * check if the player is dead or buggy
+	 * Check if the player is dead or buggy
 	 */
 	public isDeadOrBug(): boolean {
 		return this.isDead() || this.status === FighterStatus.BUG;
 	}
 
 	/**
-	 * the name of the function is very clear
+	 * The name of the function is very clear
 	 */
 	public kill(): void {
 		this.stats.fightPoints = 0;
 	}
 
 	/**
-	 * get a map of the fight actions executed and the amont of time it has been done
+	 * Get a map of the fight actions executed and the amont of time it has been done
 	 */
 	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
@@ -410,7 +410,7 @@ export abstract class Fighter {
 			this.alterationTurn = 0;
 		}
 		if (this.alteration === null || alteration === null) {
-			// check for alteration conflict
+			// Check for alteration conflict
 			this.alteration = alteration;
 		}
 		return this.alteration;
@@ -425,7 +425,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * get a random fight action id from the list of available fight actions of the fighter
+	 * Get a random fight action id from the list of available fight actions of the fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
 
@@ -434,7 +434,7 @@ export abstract class Fighter {
 			|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY);
 
 		availableAttacks = availableAttacks.length === 0 ? attacks : availableAttacks;
-		let selectedAttack = availableAttacks[0]; // default value
+		let selectedAttack = availableAttacks[0]; // Default value
 		let random = RandomUtils.draftbotRandom.realZeroToOneInclusive() * availableAttacks.reduce((sum, attack) => sum + attack.getWeightForRandomSelection(), 0);
 
 		for (const attack of availableAttacks) {
@@ -452,7 +452,7 @@ export abstract class Fighter {
 	 */
 	getLastFightActionUsed(): FightAction {
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
-		// we have to check that the last action is not a fight alteration
+		// We have to check that the last action is not a fight alteration
 		if (lastAction?.isAlteration) {
 			return this.fightActionsHistory[this.fightActionsHistory.length - 2];
 		}

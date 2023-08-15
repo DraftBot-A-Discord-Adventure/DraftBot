@@ -140,7 +140,7 @@ const checkMissing = function(obj: JsonModule, name: string): void {
 	if (!obj || typeof obj !== "object" && typeof obj !== "function") {
 		return;
 	}
-	// check if the name include any of the strings in the Constants.EXCLUDED_TRANSLATION_MODULES array
+	// Check if the name include any of the strings in the Constants.EXCLUDED_TRANSLATION_MODULES array
 	if (Constants.EXCLUDED_TRANSLATION_MODULES.some((excludedModule) => name.includes(excludedModule))) {
 		return;
 	}

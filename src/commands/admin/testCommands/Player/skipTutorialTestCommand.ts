@@ -13,7 +13,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
 	description: "Initialise votre joueur pour des tests",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

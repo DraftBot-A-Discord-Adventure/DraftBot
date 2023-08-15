@@ -41,7 +41,7 @@ export abstract class FightAction {
 	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string>;
 
 	/**
-	 * return the name of the attack as it will appear in the list of actions
+	 * Return the name of the attack as it will appear in the list of actions
 	 * @param language
 	 */
 	public toString(language: string): string {
@@ -56,7 +56,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the emoji that is used to represent the action
+	 * Return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
 		if (!this.emojiCache) {
@@ -66,7 +66,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the weight of the action for random selection
+	 * Return the weight of the action for random selection
 	 */
 	public getWeightForRandomSelection(): number {
 		return this.weightForRandomSelection ?? FightConstants.DEFAULT_ACTION_WEIGHT;
@@ -74,7 +74,7 @@ export abstract class FightAction {
 
 
 	/**
-	 * set the weight of the action for random selection
+	 * Set the weight of the action for random selection
 	 * @param weight
 	 */
 	public setWeightForRandomSelection(weight: number): void {
@@ -82,7 +82,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the amount of breath the action cost
+	 * Return the amount of breath the action cost
 	 */
 	public getBreathCost(): number {
 		if (!this.breathCostCache) {
@@ -121,7 +121,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the status of the attack (success, missed, critical)
+	 * Return the status of the attack (success, missed, critical)
 	 */
 	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
 		return damageDealt > initialDamage

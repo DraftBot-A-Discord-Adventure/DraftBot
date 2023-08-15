@@ -25,7 +25,7 @@ async function neoWS(): Promise<Record<string, unknown>> {
 		// Si erreur durant récup data api
 		neoWSFeed = null;
 	}
-	// check if the list contains an object
+	// Check if the list contains an object
 	if (neoWSFeed && neoWSFeed.length > 0) {
 		const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed.near_earth_objects);
 		return Promise.resolve({
@@ -35,7 +35,7 @@ async function neoWS(): Promise<Record<string, unknown>> {
 			randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
 		});
 	}
-	// if the list is empty, return a random invented object
+	// If the list is empty, return a random invented object
 	return Promise.resolve({
 		count: 1,
 		randomObjectName: RandomUtils.draftbotRandom.pick(SpaceConstants.INVENTED_ASTEROIDS_NAMES),

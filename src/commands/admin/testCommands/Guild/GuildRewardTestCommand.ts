@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Reward {reward} forcé !",
 	description: stringDesc,
 	commandTestShouldReply: false,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

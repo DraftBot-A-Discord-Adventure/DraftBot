@@ -103,7 +103,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * the fighter loads its various stats
+	 * The fighter loads its various stats
 	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
@@ -121,7 +121,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * delete the potion from the inventory of the player if needed
+	 * Delete the potion from the inventory of the player if needed
 	 * @param friendly true if the fight is friendly
 	 * @param channel
 	 * @param language
@@ -147,14 +147,14 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * get the discord id of a fighter
+	 * Get the discord id of a fighter
 	 */
 	public getDiscordId(): string {
 		return this.player.discordUserId;
 	}
 
 	/**
-	 * get the user of a fighter
+	 * Get the user of a fighter
 	 */
 	public getUser(): User {
 		return this.user;
@@ -254,13 +254,13 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * check the fight action history of a fighter
+	 * Check the fight action history of a fighter
 	 * @private
 	 * @param fightView The fight view
 	 */
 	private async checkFightActionHistory(fightView: FightView): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
-		// iterate on each action in the history
+		// Iterate on each action in the history
 		for (const [action, count] of playerFightActionsHistory) {
 			await MissionsController.update(this.player, fightView.channel, fightView.language, {
 				missionId: "fightAttacks",
@@ -270,7 +270,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * manage the mission of a fighter
+	 * Manage the mission of a fighter
 	 * @private
 	 * @param fightView
 	 */

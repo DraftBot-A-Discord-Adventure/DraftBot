@@ -23,7 +23,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Mini event `{name}` forcé !",
 	description: strings.join("\n"),
 	commandTestShouldReply: false,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

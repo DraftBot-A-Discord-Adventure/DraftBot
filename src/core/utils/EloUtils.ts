@@ -40,7 +40,7 @@ export abstract class EloUtils {
 		return newElo > playerRating ?
 			// We add a bonus to the low elo players
 			newElo + Math.round((newElo - playerRating) * (1.49 - Math.tanh((playerRating - 502) / 140) / 2 - 0.87)) :
-			// no malus if you are the loser
+			// No malus if you are the loser
 			newElo < oldElo ? oldElo : newElo;
 	}
 }

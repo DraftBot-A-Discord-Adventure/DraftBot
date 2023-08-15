@@ -37,10 +37,10 @@ export default class DivineAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// check the amount of ultimate attacks the sender already used
+		// Check the amount of ultimate attacks the sender already used
 		const usedGodMoves = DivineAttack.getUsedGodMoves(sender, receiver);
 
-		// only works if less than 2 god moves have been used
+		// Only works if less than 2 god moves have been used
 		if (usedGodMoves >= 2) {
 			return attackTranslationModule.format("actions.attacksResults.maxUses", {
 				attack: Translations.getModule(`fightactions.${this.name}`, language)

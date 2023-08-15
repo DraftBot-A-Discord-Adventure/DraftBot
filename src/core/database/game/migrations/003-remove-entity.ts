@@ -15,12 +15,12 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		defaultValue: EntityConstants.DEFAULT_VALUES.FIGHT_POINTS_LOST
 	};
 
-	// we need to move some columns from the entity table to the players table : discordUserId, health, fightPointsLost
+	// We need to move some columns from the entity table to the players table : discordUserId, health, fightPointsLost
 	await context.addColumn("players", "discordUserId", discordUserIdAttributes);
 	await context.addColumn("players", "health", healthAttributes);
 	await context.addColumn("players", "fightPointsLost", fightPointsLostAttributes);
 
-	// then we need to copy the data from the entity table to the players table
+	// Then we need to copy the data from the entity table to the players table
 	await context.sequelize.query(`
 		UPDATE players, entities
 		SET players.discordUserId   = entities.discordUserId,

@@ -54,6 +54,7 @@ function generateMalus(player: Player, malus: string, notReacted: boolean): Rewa
 			value: 0
 		};
 	default:
+		return null;
 	}
 }
 

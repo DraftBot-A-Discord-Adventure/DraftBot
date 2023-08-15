@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez un nouveau pet :\n{petString} !",
 	description: "Vous donne un pet avec un id et un sexe donnés",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**
@@ -53,7 +53,7 @@ const petTestCommand = async (language: string, interaction: CommandInteraction,
 	await player.save();
 	await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 
-	pet = await PetEntities.getById(pet.id); // recall needed to refresh the pet
+	pet = await PetEntities.getById(pet.id); // Recall needed to refresh the pet
 	return format(
 		commandInfo.messageWhenExecuted, {
 			petString: pet.getPetDisplay(await Pets.getById(pet.petId), language)

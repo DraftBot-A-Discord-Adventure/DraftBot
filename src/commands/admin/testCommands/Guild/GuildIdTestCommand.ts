@@ -11,7 +11,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
 	description: "Renvoie l'id de votre guilde",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

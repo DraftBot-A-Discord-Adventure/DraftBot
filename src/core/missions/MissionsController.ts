@@ -60,7 +60,7 @@ export class MissionsController {
 	}
 
 	/**
-	 * update all the mission of the user
+	 * Update all the mission of the user
 	 * @param player
 	 * @param channel
 	 * @param language
@@ -92,7 +92,7 @@ export class MissionsController {
 	}
 
 	/**
-	 * complete and update mission of a user
+	 * Complete and update mission of a user
 	 * @param player
 	 * @param missionSlots
 	 * @param completedDailyMission
@@ -122,10 +122,10 @@ export class MissionsController {
 		if (completedDailyMission) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			completedMissions.push(new CompletedMission(
-				Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // daily missions give more points than secondary missions,
+				Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // Daily missions give more points than secondary missions,
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
-				Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // daily missions gives less money than secondary missions
+				Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language, null),
 				CompletedMissionType.DAILY
 			));
@@ -311,10 +311,12 @@ export class MissionsController {
 				return randomNumber < probability.EASY ? MissionDifficulty.EASY : randomNumber < probability.MEDIUM + probability.EASY ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD;
 			}
 		}
+
+		return MissionDifficulty.EASY;
 	}
 
 	/**
-	 * update the counts of the different mission the user has
+	 * Update the counts of the different mission the user has
 	 * @param player
 	 * @param missionInformations
 	 * @param missionSlots
@@ -349,7 +351,7 @@ export class MissionsController {
 	}
 
 	/**
-	 * updates the missions located in the mission slots of the player
+	 * Updates the missions located in the mission slots of the player
 	 * @param player
 	 * @param missionInterface
 	 * @param missionInformations

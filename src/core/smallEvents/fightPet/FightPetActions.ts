@@ -9,7 +9,7 @@ export class FightPetActions {
 	static fightPetActions: Map<string, FightPetAction> = null;
 
 	/**
-	 * populate a map will all the FightPetActions and their ids
+	 * Populate a map will all the FightPetActions and their ids
 	 */
 	static initFightPetActionsMap(): void {
 		const files = readdirSync("dist/src/core/smallEvents/fightPet/interfaces");
@@ -33,7 +33,7 @@ export class FightPetActions {
 	}
 
 	/**
-	 * allow to get a specific FightPetAction by its emoji
+	 * Allow to get a specific FightPetAction by its emoji
 	 * @param emoji
 	 */
 	static getFightPetActionByEmoji(emoji: string): FightPetAction {

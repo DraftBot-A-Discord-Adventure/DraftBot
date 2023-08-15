@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous êtes téléportés entre la map {mapNameStart} et la map {mapNameEnd} !",
 	description: "Vous téléporte sur un chemin donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

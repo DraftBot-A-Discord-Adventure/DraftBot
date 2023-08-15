@@ -9,9 +9,9 @@ import {FeralPet} from "../../database/game/models/FeralPet";
 export abstract class FightPetAction {
 	public readonly name: string;
 
-	public tags: string[] = []; // tags for mission completion
+	public tags: string[] = []; // Tags for mission completion
 
-	public linkedPetId: number[] = []; // all the pet ids that have this action as one of their actions
+	public linkedPetId: number[] = []; // All the pet ids that have this action as one of their actions
 
 	private emojiCache: string;
 
@@ -20,7 +20,7 @@ export abstract class FightPetAction {
 	}
 
 	/**
-	 * return the name of the attack as it will appear in the list of actions
+	 * Return the name of the attack as it will appear in the list of actions
 	 * @param language
 	 * @param forceEndOfStringEmojiPlacement
 	 */
@@ -31,7 +31,7 @@ export abstract class FightPetAction {
 	}
 
 	/**
-	 * return the emoji that is used to represent the action
+	 * Return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
 		this.emojiCache = this.emojiCache ?? Data.getModule("smallEvents.fightPet").getString(`fightPetActionEmotes.${this.name}`);
@@ -39,7 +39,7 @@ export abstract class FightPetAction {
 	}
 
 	/**
-	 * return the array of all the ids of pet that have this action as one of their actions
+	 * Return the array of all the ids of pet that have this action as one of their actions
 	 */
 	public getPetIds(): number[] {
 		return this.linkedPetId;

@@ -77,7 +77,7 @@ async function refreshMissionsOfTrader(
 ): Promise<void> {
 
 	/**
-	 * check if the mission is finished from its name
+	 * Check if the mission is finished from its name
 	 * @param missionName
 	 */
 	async function checkLoveLevelMission(missionName: string): Promise<void> {

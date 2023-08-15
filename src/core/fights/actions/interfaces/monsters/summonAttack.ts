@@ -9,7 +9,7 @@ export default class SummonAttack extends FightAction {
 		const summonAttackTranslations = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// fail if already used
+		// Fail if already used
 		if (sender.fightActionsHistory.filter((attack) => attack instanceof SummonAttack).length !== 0) {
 			return summonAttackTranslations.get("fail");
 		}

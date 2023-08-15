@@ -11,7 +11,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez libéré votre pet de force !",
 	description: "Libère votre pet de force, sans prendre en compte le cooldown",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

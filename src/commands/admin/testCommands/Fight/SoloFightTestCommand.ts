@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "",
 	description: "Faire un combat contre soi-même",
 	commandTestShouldReply: false,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

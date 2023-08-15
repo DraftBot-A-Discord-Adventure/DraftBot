@@ -9,7 +9,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Toutes les missions ont expiré",
 	description: "Expire toutes les missions",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

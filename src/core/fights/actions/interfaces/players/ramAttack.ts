@@ -25,7 +25,7 @@ export default class RamAttack extends FightAction {
 			}
 		}
 
-		// sender has a 25% chance to be stunned and 75% chance to be hurt by his own attack
+		// Sender has a 25% chance to be stunned and 75% chance to be hurt by his own attack
 		if (Math.random() < 0.25) {
 			const alteration = sender.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {

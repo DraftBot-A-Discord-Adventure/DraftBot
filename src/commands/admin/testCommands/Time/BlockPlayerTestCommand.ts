@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous êtes maintenant bloqué pendant {time} secondes !",
 	description: "Vous bloque pendant un temps en secondes donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

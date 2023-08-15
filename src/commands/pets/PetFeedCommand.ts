@@ -4,9 +4,7 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {
-	CacheType,
 	CommandInteraction,
-	GuildCacheMessage,
 	Message,
 	MessageReaction,
 	ReactionCollector,
@@ -152,7 +150,7 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 }
 
 /**
- * feed the pet
+ * Feed the pet
  * @param interaction
  * @param {fr/en} language
  * @param {*} player
@@ -170,7 +168,7 @@ async function feedPet(
 	petModel: Pet,
 	item: string,
 	petFeedModule: TranslationModule
-): Promise<GuildCacheMessage<CacheType>> {
+): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	if (guild.getDataValue(item) <= 0) {
 		await sendErrorMessage(
@@ -217,7 +215,7 @@ async function feedPet(
 	}
 	pet.hungrySince = new Date();
 	await Promise.all([pet.save(), guild.save()]);
-	return interaction.followUp({embeds: [successEmbed]});
+	await interaction.followUp({embeds: [successEmbed]});
 }
 
 /**
@@ -248,13 +246,14 @@ async function guildUserFeedPet(language: string, interaction: CommandInteractio
 			reaction.first().emoji.name === Constants.REACTIONS.REFUSE_REACTION
 		) {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FEED);
-			return await sendErrorMessage(
+			await sendErrorMessage(
 				interaction.user,
 				interaction,
 				language,
 				petFeedModule.get("cancelFeed"),
 				true
 			);
+			return;
 		}
 
 		if (foodItems.has(reaction.first().emoji.name)) {

@@ -54,7 +54,7 @@ function endCallbackGuildCreateValidationMessage(
 		if (validateMessage.isValidated()) {
 			guild = await getGuildByName(askedName);
 			if (guild !== null) {
-				// the name is already used
+				// The name is already used
 				await sendErrorMessage(interaction.user, interaction, language, guildCreateModule.get("nameAlreadyUsed"));
 				return;
 			}
@@ -137,7 +137,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		return;
 	}
 	const guildCreateModule = Translations.getModule("commands.guildCreate", language);
-	// search for a user's guild
+	// Search for a user's guild
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
@@ -146,7 +146,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		guild = null;
 	}
 	if (guild !== null) {
-		// already in a guild
+		// Already in a guild
 		await replyErrorMessage(interaction, language, guildCreateModule.get("alreadyInAGuild"));
 		return;
 	}
@@ -167,7 +167,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	guild = await getGuildByName(askedName);
 
 	if (guild !== null) {
-		// the name is already used
+		// The name is already used
 		await replyErrorMessage(
 			interaction,
 			language,

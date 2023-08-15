@@ -17,12 +17,12 @@ export class GuildPet extends Model {
 }
 
 /**
- * this class is used to information about pets that are in a shelter
+ * This class is used to information about pets that are in a shelter
  */
 export class GuildPets {
 
 	/**
-	 * add pet to a shelter
+	 * Add pet to a shelter
 	 * @param guild
 	 * @param petEntity
 	 * @param logInDatabase
@@ -35,7 +35,7 @@ export class GuildPets {
 	}
 
 	/**
-	 * get the list of pets that are in the shelter of a guild
+	 * Get the list of pets that are in the shelter of a guild
 	 * @param guildId
 	 */
 	static async getOfGuild(guildId: number): Promise<GuildPet[]> {
