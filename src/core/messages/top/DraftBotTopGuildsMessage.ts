@@ -69,7 +69,7 @@ export class DraftBotTopGuildsMessage extends DraftBotTopMessage {
 			pseudo: this._player.getPseudo(this._topTrModule.language),
 			rank: guildRank,
 			totalGuilds: totalRanks,
-			page: this._pageNumber,
+			page: Math.ceil(guildRank / this._pageSize),
 			pageMax: Math.ceil(totalRanks / this._pageSize)
 		});
 	}
