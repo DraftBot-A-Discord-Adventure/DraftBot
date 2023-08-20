@@ -20,14 +20,7 @@ export const commandInfo: ITestCommand = {
 	execute: null // Defined later
 };
 
-/**
- * Set the weapon of the player
- * @param {("fr"|"en")} language - Language to use in the response
- * @param interaction
- * @param {String[]} args=[] - Additional arguments sent with the command
- * @return {String} - The successful message formatted
- */
-const setCampaignTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const setCampaignTestCommand = async (_language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
@@ -36,6 +29,7 @@ const setCampaignTestCommand = async (language: string, interaction: CommandInte
 	const campaignMission = Data.getModule("campaign").getObjectFromArray("missions", progression - 1) as unknown as MissionSlot;
 
 	missionsInfo.campaignProgression = progression;
+	missionsInfo.campaignBlob = missionsInfo.campaignBlob.slice(0, progression - 1) + "0" + missionsInfo.campaignBlob.slice(progression);
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;

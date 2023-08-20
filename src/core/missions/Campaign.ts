@@ -19,8 +19,13 @@ export class Campaign {
 		return this.maxCampaignCache;
 	}
 
-	static hasNextCampaign(campaignIndex: number): boolean {
-		return campaignIndex < this.getMaxCampaignNumber();
+	// If the campaign blob is full of 1, it means that the player has completed all the campaign missions
+	static hasNextCampaign(campaignBlob: string): boolean {
+		return campaignBlob.includes("0");
+	}
+
+	static findNextCampaignIndex(campaignBlob: string): number {
+		return campaignBlob.indexOf("0");
 	}
 
 	public static async completeCampaignMissions(player: Player, missionInfo: PlayerMissionsInfo, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
@@ -38,10 +43,12 @@ export class Campaign {
 						await missionModel.formatDescription(campaign.missionObjective, campaign.missionVariant, language, campaign.saveBlob),
 						CompletedMissionType.CAMPAIGN)
 				);
+				missionInfo.campaignBlob = missionInfo.campaignBlob.slice(0, missionInfo.campaignProgression - 1) + "1" + missionInfo.campaignBlob.slice(missionInfo.campaignProgression);
+				missionInfo.campaignProgression = this.hasNextCampaign(missionInfo.campaignBlob) ? this.findNextCampaignIndex(missionInfo.campaignBlob) + 1 : 0;
 				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.discordUserId, missionInfo.campaignProgression).then();
 			}
-			if (this.hasNextCampaign(missionInfo.campaignProgression)) {
-				const prop = Campaign.getDataModule().getObjectFromArray("missions", missionInfo.campaignProgression);
+			if (this.hasNextCampaign(missionInfo.campaignBlob)) {
+				const prop = Campaign.getDataModule().getObjectFromArray("missions", missionInfo.campaignProgression - 1);
 				campaign.missionVariant = prop.missionVariant as number;
 				campaign.gemsToWin = prop.gemsToWin as number;
 				campaign.xpToWin = prop.xpToWin as number;
@@ -50,7 +57,6 @@ export class Campaign {
 				campaign.missionObjective = prop.missionObjective as number;
 				campaign.moneyToWin = prop.moneyToWin as number;
 				campaign.saveBlob = null;
-				missionInfo.campaignProgression++;
 			}
 			else {
 				break;
@@ -72,10 +78,21 @@ export class Campaign {
 			return this.updatePlayerCampaign(completedCampaign, player, language);
 		}
 		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignProgression)) {
+		if (missionsInfo.campaignBlob === null) {
+			missionsInfo.campaignBlob = this.getDefautCampaignBlob();
+		}
+		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignBlob)) {
 			return await this.completeCampaignMissions(player, missionsInfo, completedCampaign, campaign, language);
 		}
 		return [];
+	}
+
+	static getDefautCampaignBlob(): string {
+		return "0".repeat(this.getMaxCampaignNumber());
+	}
+
+	static getAmountOfCampaignCompleted(campaignBlob: string): number {
+		return campaignBlob.split("1").length - 1;
 	}
 
 	private static getDataModule(): DataModule {

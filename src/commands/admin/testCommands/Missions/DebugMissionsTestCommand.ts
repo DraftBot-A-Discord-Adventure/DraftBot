@@ -42,7 +42,9 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 			missionsInfo.gems
 		}\nCampaign progression: ${
 			missionsInfo.campaignProgression
-		}`,
+		}\nCampaign blob: ${
+			missionsInfo.campaignBlob
+		}\n\n`,
 		inline: false
 	});
 	let missionsFieldContent = "";
@@ -55,22 +57,14 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 			missionsFieldContent += `${
 				await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null)
 			} (id: ${
-				missionSlot.missionId
-			}\n				)\n-> ID DB: ${
-				missionSlot.id
-			}\n				\n-> Variant: ${
-				missionSlot.missionVariant
-			}\n				\n-> Number done: ${
-				missionSlot.numberDone
-			}\n				\n-> Objective: ${
-				missionSlot.missionObjective
-			}\n				\n-> Expiration date: ${
-				missionSlot.expiresAt ? new Date(missionSlot.expiresAt).toISOString() : "Never"
-			}\n				\n-> Campaign only: ${
-				mission.campaignOnly
-			}\n				\n-> Save blob: ${
-				missionSlot.saveBlob
-			}\n\n`;
+				missionSlot.missionId}\n				)\n-> ID DB: ${
+				missionSlot.id}\n				\n-> Variant: ${
+				missionSlot.missionVariant}\n				\n-> Number done: ${
+				missionSlot.numberDone}\n				\n-> Objective: ${
+				missionSlot.missionObjective}\n				\n-> Expiration date: ${
+				missionSlot.expiresAt ? new Date(missionSlot.expiresAt).toISOString() : "Never"}\n				\n-> Campaign only: ${
+				mission.campaignOnly}\n				\n-> Save blob: ${
+				missionSlot.saveBlob}\n\n`;
 		}
 	}
 	embed.addFields({name: "📜 Missions", value: missionsFieldContent});

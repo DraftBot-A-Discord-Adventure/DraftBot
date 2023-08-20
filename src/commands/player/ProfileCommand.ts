@@ -86,14 +86,10 @@ async function getStatisticField(profileModule: TranslationModule, askedPlayer: 
 
 /**
  * Get the current campaign progression of the player
- * @param mc
  * @param missionsInfo
  */
-function getCampaignProgression(mc: MissionSlot, missionsInfo: PlayerMissionsInfo): number {
-	return Math.round((missionsInfo.campaignProgression ===
-		Campaign.getMaxCampaignNumber() &&
-		mc.isCompleted() ? missionsInfo.campaignProgression : missionsInfo.campaignProgression - 1
-	) / Campaign.getMaxCampaignNumber() * 100);
+function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
+	return missionsInfo.campaignProgression === 0 ? 1 : Math.round(Campaign.getAmountOfCampaignCompleted(missionsInfo.campaignBlob) / Campaign.getMaxCampaignNumber() * 100);
 }
 
 /**
@@ -108,7 +104,7 @@ function getMissionField(profileModule: TranslationModule, mc: MissionSlot, miss
 		value: profileModule.format("mission.fieldValue",
 			{
 				gems: missionsInfo.gems,
-				campaign: getCampaignProgression(mc, missionsInfo)
+				campaign: getCampaignProgression(missionsInfo)
 			}
 		),
 		inline: false
