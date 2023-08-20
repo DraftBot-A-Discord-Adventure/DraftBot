@@ -17,6 +17,8 @@ export class PlayerMissionsInfo extends Model {
 
 	declare campaignProgression: number;
 
+	declare campaignBlob: string;
+
 	declare updatedAt: Date;
 
 	declare createdAt: Date;
@@ -82,6 +84,9 @@ export function initModel(sequelize: Sequelize): void {
 		campaignProgression: {
 			type: DataTypes.INTEGER,
 			defaultValue: 1
+		},
+		campaignBlob: {
+			type: DataTypes.STRING
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
