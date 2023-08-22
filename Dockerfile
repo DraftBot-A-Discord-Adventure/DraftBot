@@ -25,7 +25,8 @@ COPY package.json yarn.lock tsconfig.json ./
 RUN mkdir config resources && \
     yarn install --production
 # Copy the builded app from the builder
-COPY --from=builder /draftbot/dist /draftbot/resources ./
+COPY --from=builder /draftbot/dist ./dist
+COPY --from=builder /draftbot/resources ./resources
 
 # Command used to start the app
 CMD [ "yarn", "dockerStart" ]
