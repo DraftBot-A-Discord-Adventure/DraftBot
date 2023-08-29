@@ -1,5 +1,5 @@
 import MapLink, {MapLinks} from "../database/game/models/MapLink";
-import {MapLocations} from "../database/game/models/MapLocation";
+import {MapLocation, MapLocations} from "../database/game/models/MapLocation";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
 import {millisecondsToHours, millisecondsToMinutes} from "../utils/TimeUtils";
@@ -231,5 +231,12 @@ export class Maps {
 				}
 			}
 		});
+	}
+
+	/**
+	 * Get the lost of all the mapLocations
+	 */
+	static getMaps() : Promise<MapLocation[]> {
+		return MapLocations.getAll() ;
 	}
 }
