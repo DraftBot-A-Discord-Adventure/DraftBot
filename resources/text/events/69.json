@@ -29,11 +29,10 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que Donia commence à vous \"bénir\", elle vous envoie au visage une étrange poudre bleue. La forêt commence à tanguer sous vos yeux, et Donia vous guide jusqu'à un arbre voisin, contre lequel vous vous endormez. Vous rêvez alors du château royal, et vous voyez participer à un important banquet. La princesse vous approche, un voile distordu et noir dissimulant son visage, sans doute car vous ne connaissez pas sa réelle apparence. Vous passez le reste du rêve à danser avec elle. À votre réveil, vous vous trouvez toujours au pied du même arbre, le soleil est un peu plus bas à l'horizon, et vous vous sentez revigoré.",
-						"en": "As soon as Donia uses her blessing on you, she also throw some strange blue powder in your face. You get drowsy and she helps you to walk to one of the nearest trees, where you fall asleep. You dream of being in the royal palace, during a social event. You see the princess approaching you, with her face hidden by a dark veil, since you are actually oblivious to her physical appearance. You spend the rest of the dream dancing with her. When you wake up again you are still in the forest, some hours have passed and you feel better after having rested."
+						"fr": "Alors que Donia commence à vous \"bénir\", elle vous envoie au visage une étrange poudre bleue. La forêt commence à tanguer sous vos yeux, et Donia vous guide jusqu'à un arbre voisin, contre lequel vous vous endormez. Vous rêvez alors du château royal, et vous voyez participer à un important banquet. La princesse vous approche, un voile distordu et noir dissimulant son visage, sans doute car vous ne connaissez pas sa réelle apparence. Vous passez le reste du rêve à danser avec elle... Vous restez ainsi à dormir d'un sommeil revigorant.",
+						"en": "As soon as Donia uses her blessing on you, she also throw some strange blue powder in your face. You get drowsy and she helps you to walk to one of the nearest trees, where you fall asleep. You dream of being in the royal palace, during a social event. You see the princess approaching you, with her face hidden by a dark veil, since you are actually oblivious to her physical appearance. You spend the rest of the dream dancing with her. You sleep a few hours feeling refreshed."
 					},
-					"timeLost": 120,
-					"effect": ":clock2:",
+					"effect": ":sleeping:",
 					"health": 35
 				}
 			]
@@ -76,10 +75,10 @@
 				},
 				{
 					"translations": {
-						"fr": "Plutôt qu'une bénédiction vous lui demandez si elle connait un endroit en cette forêt où vous pourriez vous reposer un moment. Elle vous amène alors à sa maison, où vous recevez de la bonne nourriture ainsi que du vin. Ce dernier est incroyablement agréable et vous finissez la bouteille entière, vous traînant après cela jusqu'à un lit. Alors que vous dormez, vous faites un cauchemar assez particulier : Donia y est une vieille femme voûtée, archétype de la sorcière, et elle veut vous tuer avant de vous cuire en son four. Vous vous réveillez aussitôt, et c'est à la fois effrayé et confus que vous fuyez sa maison.",
-						"en": "Instead of a blessing, you ask her if she knows of a place where you can rest for a couple of hours, before getting back on your way. Donia brings you to her house, where she also offers you some food and wine. The latter is particularly good and you end up emptying the whole bottle, barely able to reach the bed before falling asleep. While sleeping, you have a nightmare: you see Donia as a creepy old woman, who plans to kill you and later cook your body in her oven. Waking up, you feel both scared and confused, and run away from her house as fast as you are able."
+						"fr": "Plutôt qu'une bénédiction vous lui demandez si elle connait un endroit en cette forêt où vous pourriez vous reposer un moment. Elle vous amène alors à sa maison, où vous recevez de la bonne nourriture ainsi que du vin. Ce dernier est incroyablement agréable et vous finissez la bouteille entière, vous traînant après cela jusqu'à un lit. Alors que vous dormez, vous faites un cauchemar assez particulier : Donia y est une vieille femme voûtée, archétype de la sorcière, et elle veut vous tuer avant de vous cuire en son four. La véritable Donia vous laisse ainsi endormi et continue sa route.",
+						"en": "Instead of a blessing, you ask her if she knows of a place where you can rest for a couple of hours, before getting back on your way. Donia brings you to her house, where she also offers you some food and wine. The latter is particularly good and you end up emptying the whole bottle, barely able to reach the bed before falling asleep. While sleeping, you have a nightmare: you see Donia as a creepy old woman, who plans to kill you and later cook your body in her oven. The real donia let you sleep and leaves."
 					},
-					"lostTime": 105,
+					"effect": ":sleeping:",
 					"tags" : [
 						"drinkAlcohol"
 					]
@@ -93,7 +92,7 @@
 						"fr": "👁️ Alors que vous la fixez en silence pendant un bon moment, Donia semble se désintéresser de vous, et s'en va sans rien dire de plus. Mais vous continuez de fixer. Sans la moindre pensée. Ce n'est que quelques heures plus tard que vous reprenez vos esprits, et continuez votre voyage, comme si rien ne venait de se passer...",
 						"en": "👁️ As you silently stare at her for a few minutes, Donia seemingly loses interest in you, and leaves without adding anything. But you are still staring at the same place. Without even a thought. It is only a couple of hours later that you come back to your senses, and continue on with your journey, as if nothing happened."
 					},
-					"lostTime": 130,
+					"lostTime": 135,
 					"effect": ":clock2:"
 				}
 			]
