@@ -28,16 +28,14 @@
 						"fr": "Vous sortez furtivement de la bibliothèque sans que personne ne vous remarque. Vous avez réussi à voler un livre et essayez de le vendre aux passants. Un homme décide de vous l'acheter pour quelques pièces d'or. Une fois la transaction effectuée, vous reprenez votre route.",
 						"en": "You sneak out of the library without anyone noticing you. You managed to steal a book, and now try to sell it to passers-by. A man decides to buy it for a few gold coins. Once the transaction is completed, you get back on track."
 					},
-					"lostTime": 10,
-					"money": 100,
-					"effect": ":clock2:"
+					"money": 100
 				},
 				{
 					"translations": {
-						"fr": "Vous tentez de voler un livre doré discrètement, mais la bibliothécaire vous prend la main dans le sac. Vous fuyez avec l'ouvrage, mais trébuchez contre une pierre. La bibliothécaire vous rattrape alors. Elle exige que vous lui restituez ce précieux livre, et par la même occasion, une compensation ! Déçu et penaud, vous lui rendez le livre et la dédommagez d'une large poignée de vos économies afin d'éviter la prison... ",
+						"fr": "Vous tentez de voler un livre doré discrètement, mais la bibliothécaire vous prend la main dans le sac. Elle exige que vous lui restituez ce précieux livre, et par la même occasion, une compensation ! Déçu et penaud, vous lui rendez le livre et la dédommagez d'une large poignée de vos économies afin d'éviter la prison... ",
 						"en": "You try to steal a book discreetly, but the librarian caught you red-handed. You run away with the book, but stumble over a stone, after which the librarian catches up to you. She requires that you give back the precious, golden-covered book along with compensation ! Disappointed, and quite sheepish, you give the book back to her, a large part of your savings, all in order to avoid prison..."
 					},
-					"money": -500
+					"money": -400
 				}
 			]
 		},
@@ -53,7 +51,7 @@
 						"en": "You decide to read a book. It is about cooking, and delicious meals to prepare. You write down the recipe before looking for the ingredients. Once these are found, you follow the instructions down to a t ! You taste your dish, and feel its benefits, then resume your journey."
 					},
 					"lostTime": 60,
-					"health": 7,
+					"health": 27,
 					"effect": ":clock2:"
 				},
 				{
@@ -89,12 +87,12 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous regardez le calendrier et y découvrez l’existence d’un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre. Après quelques heures vous arrivez en finale. Cependant, votre adversaire vous domine et vous perdez le combat. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
+						"fr": "Vous regardez le calendrier et y découvrez l’existence d’un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
 						"en": "You look at the calendar, and discover the existence of a tournament that will shortly start ! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way."
 					},
-					"lostTime": 180,
+					"lostTime": 190,
 					"effect": ":clock2:",
-					"money": 1000
+					"money": 700
 				},
 				{
 					"translations": {
@@ -103,7 +101,7 @@
 					},
 					"lostTime": 10,
 					"effect": ":clock2:",
-					"health": 1
+					"health": 7
 				},
 				{
 					"translations": {
@@ -118,7 +116,7 @@
 						"fr": "Vous regardez le calendrier, et à la date d'aujourd'hui vous voyez inscrit : Concours d'hydromel ! Vous sentant résistant à l'alcool vous décidez de tenter votre chance. Vous gagnez le concours ainsi qu'une récompense ! Cependant, vous finissez totalement ivre.",
 						"en": "You are looking at the calendar, and you notice something of interest in today's entry: Mead competition! Confident in your strong alcohol resistance, you decide to give it a try. You end up winning the contest, as well as a reward! You are also totally drunk."
 					},
-					"money": 500,
+					"money": 200,
 					"effect": ":zany_face:",
 					"tags": [
 						"drinkAlcohol"
