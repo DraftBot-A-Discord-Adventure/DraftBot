@@ -64,7 +64,7 @@ export class FightWeather {
 		else if (mustSendMessage) {
 			return this.getWeatherMessage(didWeatherChanged, language)
 				+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
-					fighter: fighter.getName(),
+					fighter: fighter.getMention(),
 					damages
 				}) : "");
 		}
