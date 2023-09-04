@@ -208,30 +208,14 @@ export class LogsReadRequests {
 	 * @param guildId
 	 */
 	static async getCountPVEIslandThisWeek(discordId: string, guildId: number): Promise<number> {
-		if (guildId) {
-			const joinedGuildThisWeek = await LogsGuildsJoins.count({
-				where: {
-					"$LogsPlayer.discordId$": discordId,
-					"$LogsGuild.gameId$": guildId,
-					date: {
-						[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
-					}
-				},
-				include: [{
-					model: LogsPlayers,
-					association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
-				}, {
-					model: LogsGuilds,
-					association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
-				}],
-				col: "addedId"
-			}) !== 0;
-
-			if (joinedGuildThisWeek) {
-				return PVEConstants.TRAVEL_COST.length;
-			}
+		if (guildId && await this.joinGuildThisWeekRequest(discordId, guildId)) {
+			return PVEConstants.TRAVEL_COST.length;
 		}
 
+		return await this.travelsOnPveIslandsCountThisWeekRequest(discordId);
+	}
+
+	private static async travelsOnPveIslandsCountThisWeekRequest(discordId: string): Promise<number> {
 		return await LogsPlayersTravels.count({
 			where: {
 				"$LogsPlayer.discordId$": discordId,
@@ -252,6 +236,26 @@ export class LogsReadRequests {
 			}],
 			col: "playerId"
 		});
+	}
+
+	private static async joinGuildThisWeekRequest(discordId: string, guildId: number): Promise<boolean> {
+		return await LogsGuildsJoins.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				"$LogsGuild.gameId$": guildId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				}
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
+			}, {
+				model: LogsGuilds,
+				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
+			}],
+			col: "addedId"
+		}) !== 0;
 	}
 
 	/*
