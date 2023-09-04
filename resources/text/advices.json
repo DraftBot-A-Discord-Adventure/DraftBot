@@ -221,7 +221,10 @@
 				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse.",
 				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}.",
 				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse.",
-				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti."
+				"Un \"allié\" est un membre de votre guilde qui est actuellement sur une île mystérieuse ou qui en est récemment parti.",
+				"Les autres aventuriers sont vos rivaux dans la quête pour la princesse ! Pensez à bien vous entourez grâce à vos partenaires de guilde",
+				"Vous ne pouvez libérer qu'un familier par heure.",
+				"Vous ne pouvez pas rejoindre une île mystérieuse si vous venez de rejoindre une guilde."
 			]
 		},
 		"en": {
@@ -433,7 +436,10 @@
 				"Members of your guild can help you fight monsters when you visit a mysterious island.",
 				"You can see guild members who are on a mysterious island using the {command:guild} command.",
 				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island.",
-				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it."
+				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it.",
+				"You will not be able to join a mysterious island if you have just joined a guild.",
+				"You can only free one pet per hour",
+				"The other adventurers are your rivals in the quest for the princess! Make sure you choose the correct ones to become your guild partners"
 			]
 		}
 	}
