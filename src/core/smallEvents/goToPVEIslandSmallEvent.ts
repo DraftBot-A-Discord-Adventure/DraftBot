@@ -67,7 +67,7 @@ export const smallEvent: SmallEvent = {
 			Maps.isNearWater(player) &&
 			await player.hasEnoughEnergyToJoinTheIsland() &&
 			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
-			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) < PVEConstants.TRAVEL_COST.length;
+			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId, player.guildId) < PVEConstants.TRAVEL_COST.length;
 	},
 
 	/**

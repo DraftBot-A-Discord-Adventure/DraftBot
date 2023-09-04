@@ -25,7 +25,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
 	const tr = Translations.getModule("commands.joinBoat", language);
 
-	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) >= PVEConstants.TRAVEL_COST.length) {
+	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
 		await replyErrorMessage(interaction, language, tr.get("tooManyBoatInWeek"));
 		return;
 	}
@@ -59,7 +59,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	confirmEmbed.setDescription(`${
 		format(tr.get("joinMember"), {
 			priceText: price === 0 ? boatTr.get("priceFree") : boatTr.format("priceMoney", {price})
-		})}"\n\n"${
+		})}\n\n${
 		boatTr.format("confirm", {
 			fightPoints: await player.getCumulativeFightPoint(),
 			fightPointsMax: await player.getMaxCumulativeFightPoint()
