@@ -41,6 +41,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		language,
 		reason: NumberChangeReason.RESPAWN
 	});
+	await player.addRage(-player.rage, NumberChangeReason.RESPAWN); // Remove rage in case the player died while in the pve island
 
 	await player.save();
 
