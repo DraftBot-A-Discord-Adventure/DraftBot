@@ -7,7 +7,7 @@
 	"descriptionFr": "Un squelette étrange, il semble être un ancien guerrier. Il paraît faible mais est en réalité très dangereux et nombreux sont ceux qui se sont laissé surprendre.",
 	"descriptionEn": "A strange skeleton, it seems to be an ancient warrior. It looks weak but is actually very dangerous and many have been surprised.",
 	"fightPointsRatio": 80,
-	"attackRatio": 70,
+	"attackRatio": 105,
 	"defenseRatio": 70,
 	"speedRatio": 60,
 	"breath": 3,
