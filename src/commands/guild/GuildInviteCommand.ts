@@ -92,7 +92,7 @@ function getEndCallbackGuildAdd(
 				invited.invitedUser,
 				interaction,
 				guildInviteModule.language,
-				guildInviteModule.format("playerInPveIsland", {}),
+				guildInviteModule.get("playerInPveIsland"),
 				false,
 				false
 			);
