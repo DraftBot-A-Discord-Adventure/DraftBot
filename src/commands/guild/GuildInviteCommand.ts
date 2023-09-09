@@ -16,6 +16,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {Maps} from "../../core/maps/Maps";
 
 type InvitedUserInformation = { invitedUser: User, invitedPlayer: Player };
 type InviterUserInformation = { guild: Guild, player: Player };
@@ -35,7 +36,7 @@ function getEndCallbackGuildAdd(
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(invited.invitedPlayer.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
 		if (!msg.isValidated()) {
-			// Cancel the creation
+			// Cancel the invitation
 			await sendErrorMessage(invited.invitedUser, interaction, guildInviteModule.language,
 				guildInviteModule.format("invitationCancelled", {guildName: inviter.guild.name}), true);
 			return;
@@ -79,6 +80,19 @@ function getEndCallbackGuildAdd(
 				interaction,
 				guildInviteModule.language,
 				guildInviteModule.format("playerDead", {}),
+				false,
+				false
+			);
+			return;
+		}
+
+		// Check if the invited player is in the pve island
+		if (Maps.isOnPveIsland(invited.invitedPlayer)) {
+			await sendErrorMessage(
+				invited.invitedUser,
+				interaction,
+				guildInviteModule.language,
+				guildInviteModule.format("playerInPveIsland", {}),
 				false,
 				false
 			);
