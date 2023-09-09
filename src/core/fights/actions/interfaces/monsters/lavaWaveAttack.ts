@@ -8,7 +8,7 @@ import {Translations} from "../../../../Translations";
 export default class LavaWaveAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 5);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 5);
 		receiver.damage(damageDealt);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -31,7 +31,7 @@ export default class LavaWaveAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 125, averageDamage: 230, maxDamage: 310};
+		return {minDamage: 100, averageDamage: 210, maxDamage: 280};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
