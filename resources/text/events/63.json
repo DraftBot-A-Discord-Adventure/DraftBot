@@ -185,8 +185,8 @@
 				},
 				{
 					"translations": {
-						"fr": "🍺 Vous décidez de surveiller le grenier depuis la taverne locale, mais vous vous laissez distraire par une délicieuse bière. Vous êtes ivre mort et perdez vos esprits. En vous réveillant, vous remarquez qu'ils ont simplement jeté votre corps inconscient sur la route et que vous avez quelques pièces de monnaie en moins.",
-						"en": "🍺 You decide to watch the granary from the local tavern, but get distracted by some delicious ale and beer. You get black out drunk and lose your spirits. Upon waking up, you notice that they simply tossed your unconscious body onto the road and that you are a few coins lighter."
+						"fr": "Vous décidez de surveiller la grange depuis la taverne locale, mais vous vous laissez distraire par les pitreries qui vous entourent. Vous finissez par vous endormir soudainement. À votre réveil, vous remarquez qu'ils ont tout simplement jeté votre corps inconscient sur la route et que vous êtes quelques pièces plus léger.",
+						"en": "You decide to watch the granary from the local tavern, but get distracted by the shenanigans around you. You suddenly fall asleep. Upon waking up, you notice that they simply tossed your unconscious body onto the road and that you are a few coins lighter."
 					},
 					"health": -5,
 					"effect": ":zany_face:",

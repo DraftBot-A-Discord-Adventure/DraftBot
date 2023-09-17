@@ -6,7 +6,7 @@
 	],
 	"translations": {
 		"fr": "🚢 Après un peu de marche, vous arrivez au niveau du bateau qui vous a emmené préalablement sur cette île peu hospitalière. Voyant votre fatigue et vos blessures, le capitaine s'empresse de donner l'ordre à son équipage de lever l'ancre. Une fois assis sur le pont, vous le voyez arriver avec une choppe de bière à la main, qu'il vous tend.",
-		"en": "🚢 After a short walk, you arrive at the boat that previously brought you to this inhospitable island. Seeing your fatigue and injuries, the captain hastens to order his crew to weigh anchor. Once seated on deck, you see him arrive with a mug of beer in his hand, which he hands to you."
+		"en": "🚢 After a short walk, you arrive at the boat that previously brought you to this inhospitable island. Seeing your fatigue and injuries, the captain hastens to order his crew to weigh anchor. Once seated on deck, you see him arrive with a mug in his hand, which he hands to you."
 	},
 	"possibilities": {
 		"🍺": {
@@ -25,7 +25,7 @@
 				{
 					"translations": {
 						"fr": "Ce breuvage n'est pas de bonne qualité, le goût malté se fait très ressentir. Voyant votre réaction, le capitaine rit et vous dit que la bière est comme ça sur les navires. Il reprend votre verre et part vous chercher de l'eau et un morceau de pain à la place, que vous appréciez un peu plus. Vous vous levez ensuite, regardez l'île s'éloigner à l'horizon et faites le point sur vos aventures.",
-						"en": "This beverage is not of good quality, the malty taste is very noticeable. Seeing your reaction, the captain laughs and tells you that beer is like that on ships. He takes your glass back and goes to fetch you water and a piece of bread instead, which you enjoy a little more. You then stand up, watch the island drift away on the horizon and take stock of your adventures."
+						"en": "This beverage is not of good quality, the taste is very noticeable. Seeing your reaction, the captain laughs and tells you that drink is like that on ships. He takes your glass back and goes to fetch you water and a piece of bread instead, which you enjoy a little more. You then stand up, watch the island drift away on the horizon and take stock of your adventures."
 					},
 					"health": 15
 				}

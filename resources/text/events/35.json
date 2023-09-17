@@ -46,8 +46,8 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous ne pensez pas que ce soit une bonne idée de boire des choses inconnues pour tester, alors vous déclinez poliment la proposition du barman. Cependant, vous lui commandez une bonne pinte de bière, que vous videz tranquillement en discutant avec des habitués.",
-						"en": "You think that drinking unknown things is a bad idea, so you politely decline the bartender's proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars."
+						"fr": "Vous pensez que boire des choses inconnues est une mauvaise idée, alors vous déclinez poliment la proposition du barman. Cependant, vous lui commandez plutôt une alternative appropriée que vous videz tranquillement tout en discutant avec les habitués.",
+						"en": "You think that drinking unknown things is a bad idea, so you politely decline the bartender's proposal. However, you order him a suitable alternative instead, which you empty quietly while chatting with regulars."
 					},
 					"lostTime": 30,
 					"effect": ":clock2:",

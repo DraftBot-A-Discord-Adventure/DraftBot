@@ -85,7 +85,6 @@
 			},
 			"witchEventNames": {
 				"bat": "Ajouter une chauve-souris",
-				"beer": "Ajouter de la bière",
 				"bigWait": "Laisser reposer la potion",
 				"bigWarm": "Faire bouillir longuement la potion",
 				"blood": "Ajouter du sang",
@@ -204,7 +203,6 @@
 			},
 			"witchEventNames": {
 				"bat": "Add a bat",
-				"beer": "Add beer",
 				"bigWait": "Let the potion rest",
 				"bigWarm": "Increase the temperature",
 				"blood": "Add blood",
@@ -242,7 +240,6 @@
 	},
 	"witchEventEmotes": {
 		"bat": "🦇",
-		"beer": "🍺",
 		"bigWait": "🕙",
 		"bigWarm": "🔥",
 		"blood": "🩸",
