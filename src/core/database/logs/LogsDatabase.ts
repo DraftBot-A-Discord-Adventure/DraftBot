@@ -108,7 +108,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a pet trade occurs
+	 * Log when a pet trade occurs
 	 * @param firstPet
 	 * @param secondPet
 	 */
@@ -123,7 +123,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a pet is freed
+	 * Log when a pet is freed
 	 * @param freedPet
 	 */
 	public static async logPetFree(freedPet: PetEntity): Promise<void> {
@@ -135,7 +135,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a pet is sold
+	 * Log when a pet is sold
 	 * @param soldPet
 	 * @param sellerId
 	 * @param buyerId
@@ -170,7 +170,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * find or create a player in the log database
+	 * Find or create a player in the log database
 	 * @param discordId
 	 * @private
 	 */
@@ -183,7 +183,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * find or create a pet entity in the log database
+	 * Find or create a pet entity in the log database
 	 * @param petEntity
 	 * @private
 	 */
@@ -197,7 +197,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * find or create a guild in the log database
+	 * Find or create a guild in the log database
 	 * @param guild
 	 * @private
 	 */
@@ -214,7 +214,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * allow to log a number that comes from a player but only for small numbers like his class, his level or campaign level
+	 * Allow to log a number that comes from a player but only for small numbers like his class, his level or campaign level
 	 * @param discordId
 	 * @param valueFieldName
 	 * @param value
@@ -232,7 +232,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * allow to log a thing that only is about a player and a date like his daily
+	 * Allow to log a thing that only is about a player and a date like his daily
 	 * @param discordId
 	 * @param model
 	 * @private
@@ -246,7 +246,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * allow to log a mission change about a player
+	 * Allow to log a mission change about a player
 	 * @param discordId
 	 * @param missionId
 	 * @param variant
@@ -271,7 +271,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * allow to log a number change for example the xp or the money
+	 * Allow to log a number change for example the xp or the money
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -289,7 +289,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * allow to log information about an item in the log database
+	 * Allow to log information about an item in the log database
 	 * @param discordId
 	 * @param item
 	 * @param model
@@ -313,7 +313,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's money change
+	 * Log a player's money change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -323,7 +323,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's health change
+	 * Log a player's health change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -333,7 +333,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's fightPoints change (except natural regeneration)
+	 * Log a player's fightPoints change (except natural regeneration)
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -343,7 +343,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's xp change
+	 * Log a player's xp change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -353,7 +353,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's score change
+	 * Log a player's score change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -363,7 +363,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's rage change
+	 * Log a player's rage change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -373,7 +373,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's gems change
+	 * Log a player's gems change
 	 * @param discordId
 	 * @param value
 	 * @param reason
@@ -383,7 +383,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's level change
+	 * Log a player's level change
 	 * @param discordId
 	 * @param level
 	 */
@@ -392,7 +392,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * record the usage of a command in the log database
+	 * Record the usage of a command in the log database
 	 * @param discordId
 	 * @param serverId
 	 * @param commandName
@@ -418,7 +418,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log the appearance of a small event
+	 * Log the appearance of a small event
 	 * @param discordId
 	 * @param name
 	 */
@@ -437,7 +437,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log the appearance of a big event
+	 * Log the appearance of a big event
 	 * @param discordId
 	 * @param eventId
 	 * @param possibilityEmote
@@ -461,7 +461,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a new alteration of a player
+	 * Log a new alteration of a player
 	 * @param discordId
 	 * @param alteration
 	 * @param reason
@@ -493,7 +493,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player has been unlocked from jail
+	 * Log when a player has been unlocked from jail
 	 * @param buyerDiscordId
 	 * @param releasedDiscordId
 	 */
@@ -516,7 +516,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's class change
+	 * Log a player's class change
 	 * @param discordId
 	 * @param classId
 	 */
@@ -525,7 +525,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a player's vote
+	 * Log a player's vote
 	 * @param discordId
 	 */
 	public logVote(discordId: string): Promise<void> {
@@ -533,7 +533,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player does not succeed a mission
+	 * Log when a player does not succeed a mission
 	 * @param discordId
 	 * @param missionId
 	 * @param variant
@@ -544,7 +544,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player succeeds a mission except for the daily mission
+	 * Log when a player succeeds a mission except for the daily mission
 	 * @param discordId
 	 * @param missionId
 	 * @param variant
@@ -555,7 +555,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player starts a mission
+	 * Log when a player starts a mission
 	 * @param discordId
 	 * @param missionId
 	 * @param variant
@@ -566,7 +566,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player finish a daily mission
+	 * Log when a player finish a daily mission
 	 * @param discordId
 	 */
 	public logMissionDailyFinished(discordId: string): Promise<void> {
@@ -574,7 +574,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player progress in the campaign
+	 * Log when a player progress in the campaign
 	 * @param discordId
 	 * @param campaignIndex
 	 */
@@ -583,7 +583,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a daily mission is refreshed
+	 * Log when a daily mission is refreshed
 	 * @param missionId
 	 * @param variant
 	 * @param objective
@@ -603,7 +603,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when the bot join a new server
+	 * Log when the bot join a new server
 	 * @param discordId
 	 */
 	public async logServerJoin(discordId: string): Promise<void> {
@@ -619,7 +619,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when the bot leave a server
+	 * Log when the bot leave a server
 	 * @param discordId
 	 */
 	public async logServerQuit(discordId: string): Promise<void> {
@@ -635,7 +635,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when new travel is started
+	 * Log when new travel is started
 	 * @param discordId
 	 * @param mapLink
 	 */
@@ -655,7 +655,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * save the top players from the top week. To avoid having too much data, we only save the top 15 players
+	 * Save the top players from the top week. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestTopWeek(): Promise<void> {
 		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, 15, true);
@@ -672,7 +672,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player gain a new item
+	 * Log when a player gain a new item
 	 * @param discordId
 	 * @param item
 	 */
@@ -698,7 +698,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player receive a time boost
+	 * Log when a player receive a time boost
 	 * @param discordId
 	 * @param time
 	 * @param reason
@@ -717,7 +717,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player sell an item
+	 * Log when a player sell an item
 	 * @param discordId
 	 * @param item
 	 */
@@ -743,7 +743,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player rename its pet
+	 * Log when a player rename its pet
 	 * @param petRenamed
 	 */
 	public async logPetNickname(petRenamed: PetEntity): Promise<void> {
@@ -756,7 +756,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when the shop refresh the daily potion
+	 * Log when the shop refresh the daily potion
 	 * @param potionId
 	 */
 	public async logDailyPotion(potionId: number): Promise<void> {
@@ -767,7 +767,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player is kicked from a guild
+	 * Log when a player is kicked from a guild
 	 * @param guild
 	 * @param kickedDiscordId
 	 */
@@ -782,7 +782,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when anything is bought from the shop
+	 * Log when anything is bought from the shop
 	 * @param discordId
 	 * @param shopItem
 	 */
@@ -796,7 +796,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when anything is bought from the guild shop
+	 * Log when anything is bought from the guild shop
 	 * @param discordId
 	 * @param shopItem
 	 */
@@ -811,7 +811,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log which type of food is bought from the guild shops
+	 * Log which type of food is bought from the guild shops
 	 * @param discordId
 	 * @param shopItemName
 	 * @param amount
@@ -828,7 +828,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a daily ti
+	 * Log when a daily ti
 	 * @param petLoveChange
 	 */
 	public async logDailyTimeout(petLoveChange: boolean): Promise<void> {
@@ -839,7 +839,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when the weekly top end
+	 * Log when the weekly top end
 	 */
 	public async logTopWeekEnd(): Promise<void> {
 		await LogsTopWeekEnd.create({
@@ -848,7 +848,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when the weekly top end
+	 * Log when the weekly top end
 	 */
 	public async logSeasonEnd(): Promise<void> {
 		await LogsSeasonEnd.create({
@@ -857,7 +857,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when anything is bought from the mission shop
+	 * Log when anything is bought from the mission shop
 	 * @param discordId
 	 * @param shopItem
 	 */
@@ -871,7 +871,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild ask for its daily reward
+	 * Log when a guild ask for its daily reward
 	 * @param guild
 	 * @param rewardResult
 	 */
@@ -886,7 +886,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log a pet transfer
+	 * Log a pet transfer
 	 * @param guildPet
 	 * @param playerPet
 	 */
@@ -901,7 +901,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild is destroyed
+	 * Log when a guild is destroyed
 	 * @param guild
 	 */
 	public async logGuildDestroy(guild: Guild): Promise<void> {
@@ -929,7 +929,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when an elder is demoted
+	 * Log when an elder is demoted
 	 * @param guild
 	 * @param removedPlayerId
 	 */
@@ -943,7 +943,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild's chief is changed
+	 * Log when a guild's chief is changed
 	 * @param guild
 	 * @param newChiefId
 	 */
@@ -958,7 +958,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild is created
+	 * Log when a guild is created
 	 * @param creatorDiscordId
 	 * @param guild
 	 */
@@ -973,7 +973,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player joins a guild
+	 * Log when a player joins a guild
 	 * @param adderDiscordId
 	 * @param addedDiscordId
 	 * @param guild
@@ -991,7 +991,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log all the information about a fight, this is called at the end of a fight
+	 * Log all the information about a fight, this is called at the end of a fight
 	 * @param fight
 	 */
 	public async logFight(fight: FightController): Promise<number> {
@@ -1037,7 +1037,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log all the information about a pve fight, this is called at the end of a fight
+	 * Log all the information about a pve fight, this is called at the end of a fight
 	 * @param fight
 	 */
 	public async logPveFight(fight: FightController): Promise<void> {
@@ -1090,7 +1090,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild experience changes
+	 * Log when a guild experience changes
 	 * @param guild
 	 * @param reason
 	 */
@@ -1105,7 +1105,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild points changes
+	 * Log when a guild points changes
 	 * @param guild
 	 * @param reason
 	 */
@@ -1120,7 +1120,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild description changes
+	 * Log when a guild description changes
 	 * @param discordId
 	 * @param guild
 	 */
@@ -1136,7 +1136,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a pet has its love changed
+	 * Log when a pet has its love changed
 	 * @param petEntity
 	 * @param reason
 	 */
@@ -1151,7 +1151,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when guild food changes
+	 * Log when guild food changes
 	 * @param guild
 	 * @param food
 	 * @param total
@@ -1169,7 +1169,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild gets a new pet
+	 * Log when a guild gets a new pet
 	 * @param guild
 	 * @param petEntity
 	 */
@@ -1184,7 +1184,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player gets a new pet
+	 * Log when a player gets a new pet
 	 * @param discordId
 	 * @param petEntity
 	 */
@@ -1199,7 +1199,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a member of a guild gets promoted to elder
+	 * Log when a member of a guild gets promoted to elder
 	 * @param guild
 	 * @param addedPlayerId
 	 */
@@ -1214,7 +1214,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a guild levels up
+	 * Log when a guild levels up
 	 * @param guild
 	 */
 	public async logGuildLevelUp(guild: Guild): Promise<void> {
@@ -1227,7 +1227,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player ask for his daily reward
+	 * Log when a player ask for his daily reward
 	 * @param discordId
 	 * @param item
 	 */
@@ -1236,7 +1236,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * log when a player's elo changes
+	 * Log when a player's elo changes
 	 * @param discordId
 	 * @param gloryPoints
 	 * @param reason
@@ -1254,7 +1254,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
+	 * Save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestSeason(): Promise<void> {
 		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1, 15);

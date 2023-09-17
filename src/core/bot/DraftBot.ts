@@ -52,7 +52,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * launch the program that execute the top week reset
+	 * Launch the program that execute the top week reset
 	 */
 	static programWeeklyTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
@@ -65,7 +65,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * launch the program that execute the season reset
+	 * Launch the program that execute the season reset
 	 */
 	static programSeasonTimeout(): void {
 		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
@@ -78,7 +78,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * launch the program that execute the daily tasks
+	 * Launch the program that execute the daily tasks
 	 */
 	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
@@ -91,7 +91,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * execute all the daily tasks
+	 * Execute all the daily tasks
 	 */
 	static dailyTimeout(): void {
 		DraftBot.randomPotion().finally(() => null);
@@ -101,7 +101,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * execute all the daily tasks
+	 * Execute all the daily tasks
 	 */
 	static weeklyTimeout(): void {
 		DraftBot.topWeekEnd().then();
@@ -109,7 +109,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * update the random potion sold in the shop
+	 * Update the random potion sold in the shop
 	 */
 	static async randomPotion(): Promise<void> {
 		console.log("INFO: Daily timeout");
@@ -121,7 +121,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * make some pet lose some love points
+	 * Make some pet lose some love points
 	 */
 	static async randomLovePointsLoose(): Promise<boolean> {
 		const sequelize = require("sequelize");
@@ -273,7 +273,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * choose a new pve island
+	 * Choose a new pve island
 	 */
 	static async newPveIsland(): Promise<void> {
 		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
@@ -282,7 +282,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * update the fight points of the entities that lost some
+	 * Update the fight points of the entities that lost some
 	 */
 	static fightPowerRegenerationLoop(): void {
 		Player.update(
@@ -309,14 +309,14 @@ export class DraftBot {
 	 * @private
 	 */
 	private static async seasonEndQueries(): Promise<void> {
-		// we set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
+		// We set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
 		await Player.update(
 			{
 				gloryPointsLastSeason: Sequelize.literal(
 					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`)
 			},
 			{where: {}});
-		// we add one to the fightCountdown
+		// We add one to the fightCountdown
 		await Player.update(
 			{
 				fightCountdown: Sequelize.literal(
@@ -325,7 +325,7 @@ export class DraftBot {
 			},
 			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
 		);
-		// we remove 33% of the glory points above the GLORY_RESET_THRESHOLD
+		// We remove 33% of the glory points above the GLORY_RESET_THRESHOLD
 		await Player.update(
 			{
 				gloryPoints: Sequelize.literal(
@@ -425,7 +425,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * initialize the bot
+	 * Initialize the bot
 	 */
 	async init(): Promise<void> {
 		this.handleLogs();

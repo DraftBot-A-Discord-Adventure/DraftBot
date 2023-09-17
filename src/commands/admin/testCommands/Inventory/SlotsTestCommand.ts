@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez désormais {slot} emplacements pour les {category} !",
 	description: "Change le nombre d'emplacements disponibles pour les armes",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

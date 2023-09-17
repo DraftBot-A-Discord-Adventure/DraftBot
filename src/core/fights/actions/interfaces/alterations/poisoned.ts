@@ -26,7 +26,7 @@ export default class PoisonedAlteration extends FightAlteration {
 	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				victim.getAttack(), // we use the defender's attack because the poison is applied to the attacker
+				victim.getAttack(), // We use the defender's attack because the poison is applied to the attacker
 				sender.getAttack(),
 				victim.getFightPoints()
 			], defenderStats: [

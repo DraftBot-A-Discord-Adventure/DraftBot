@@ -14,7 +14,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {weeklyscore} points de la semaine !",
 	description: "Mets le score de la semaine de votre joueur à la valeur donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

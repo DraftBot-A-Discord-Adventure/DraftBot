@@ -8,7 +8,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez effectué une fin de semaine !",
 	description: "Effectue une fin de semaine (actions hebdomadaires)",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

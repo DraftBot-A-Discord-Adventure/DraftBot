@@ -14,7 +14,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez avancé votre dernier vote top.gg de {time} minutes !",
 	description: "Avance le dernier vote top.gg de votre joueur d'une durée en minutes donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

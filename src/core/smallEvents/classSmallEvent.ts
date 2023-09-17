@@ -40,17 +40,17 @@ export const smallEvent: SmallEvent = {
 
 			switch (outRand) {
 			case 0:
-				// winAttackPotion
+				// WinAttackPotion
 				seEmbed.setDescription(base + tr.getRandom("attack.winPotion"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.ATTACK);
 				break;
 			case 1:
-				// winAttackObject
+				// WinAttackObject
 				seEmbed.setDescription(base + tr.getRandom("attack.winObject"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.ATTACK);
 				break;
 			default:
-				// winWeapon
+				// WinWeapon
 				seEmbed.setDescription(base + tr.getRandom("attack.winWeapon"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.WEAPON, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL);
 				break;
@@ -62,17 +62,17 @@ export const smallEvent: SmallEvent = {
 			const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 			switch (outRand) {
 			case 0:
-				// winDefensePotion
+				// WinDefensePotion
 				seEmbed.setDescription(base + tr.getRandom("defense.winPotion"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.POTION, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			case 1:
-				// winDefenseObject
+				// WinDefenseObject
 				seEmbed.setDescription(base + tr.getRandom("defense.winObject"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.OBJECT, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL, Constants.ITEM_NATURE.DEFENSE);
 				break;
 			default:
-				// winArmor
+				// WinArmor
 				seEmbed.setDescription(base + tr.getRandom("defense.winArmor"));
 				item = await generateRandomItem(ItemConstants.CATEGORIES.ARMOR, ItemConstants.RARITY.COMMON, ItemConstants.RARITY.MYTHICAL);
 				break;
@@ -82,13 +82,13 @@ export const smallEvent: SmallEvent = {
 		}
 		else if (classDataModule.getNumberArray("basicEligible").includes(classId)) {
 			if (RandomUtils.draftbotRandom.bool()) {
-				// winItem
+				// WinItem
 				seEmbed.setDescription(base + tr.getRandom("basic.winItem"));
 				await interaction.editReply({embeds: [seEmbed]});
 				await giveRandomItem(interaction.user, interaction.channel, language, player);
 			}
 			else {
-				// winMoney
+				// WinMoney
 				const moneyWon = RandomUtils.rangedInt(SmallEventConstants.CLASS.MONEY);
 				seEmbed.setDescription(base + format(tr.getRandom("basic.winMoney"), {money: moneyWon}));
 				await interaction.editReply({embeds: [seEmbed]});
@@ -102,13 +102,13 @@ export const smallEvent: SmallEvent = {
 		}
 		else if (classDataModule.getNumberArray("otherEligible").includes(classId)) {
 			if (RandomUtils.draftbotRandom.bool()) {
-				// winItem
+				// WinItem
 				seEmbed.setDescription(base + tr.getRandom("other.winItem"));
 				await interaction.editReply({embeds: [seEmbed]});
 				await giveRandomItem(interaction.user, interaction.channel, language, player);
 			}
 			else {
-				// winHealth
+				// WinHealth
 				const healthWon = RandomUtils.rangedInt(SmallEventConstants.CLASS.HEALTH);
 				seEmbed.setDescription(base + format(tr.getRandom("other.winHealth"), {health: healthWon}));
 				await interaction.editReply({embeds: [seEmbed]});

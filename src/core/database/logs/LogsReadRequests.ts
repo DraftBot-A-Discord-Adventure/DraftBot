@@ -18,6 +18,8 @@ import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
 import Player from "../game/models/Player";
 import {MapCache} from "../../maps/MapCache";
 import {PVEConstants} from "../../constants/PVEConstants";
+import {LogsGuildsJoins} from "./models/LogsGuildJoins";
+import {LogsGuilds} from "./models/LogsGuilds";
 
 type RankedFightResult = {
 	won: number,
@@ -39,7 +41,7 @@ export class LogsReadRequests {
 			},
 			order: [["date", "DESC"]],
 			limit: 1
-		}).then((res) => res ? new Date(res.date) : new Date(0));
+		}).then((res) => new Date(res ? res.date : 0));
 	}
 
 	/**
@@ -64,10 +66,10 @@ export class LogsReadRequests {
 	 * Get all the members of the player's guild on the pve island
 	 */
 	static async getGuildMembersThatWereOnPveIsland(player: Player): Promise<Player[]> {
-		if (!player.guildId) { // player has no guild
+		if (!player.guildId) { // Player has no guild
 			return Promise.resolve([]);
 		}
-		// get all the players in the guild excluding the player
+		// Get all the players in the guild excluding the player
 		const playersInGuild = await Player.findAll({
 			where: {
 				guildId: player.guildId,
@@ -88,7 +90,7 @@ export class LogsReadRequests {
 		});
 		// Extract ids from players
 		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
-		// get travels from the last hours of guildsMembers
+		// Get travels from the last hours of guildsMembers
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
 			where: {
 				mapLinkId: {
@@ -203,8 +205,17 @@ export class LogsReadRequests {
 	/**
 	 * Get the number of time the player went on the PVE island this week
 	 * @param discordId
+	 * @param guildId
 	 */
-	static async getCountPVEIslandThisWeek(discordId: string): Promise<number> {
+	static async getCountPVEIslandThisWeek(discordId: string, guildId: number): Promise<number> {
+		if (guildId && await this.joinGuildThisWeekRequest(discordId, guildId)) {
+			return PVEConstants.TRAVEL_COST.length;
+		}
+
+		return await this.travelsOnPveIslandsCountThisWeekRequest(discordId);
+	}
+
+	private static async travelsOnPveIslandsCountThisWeekRequest(discordId: string): Promise<number> {
 		return await LogsPlayersTravels.count({
 			where: {
 				"$LogsPlayer.discordId$": discordId,
@@ -225,6 +236,26 @@ export class LogsReadRequests {
 			}],
 			col: "playerId"
 		});
+	}
+
+	private static async joinGuildThisWeekRequest(discordId: string, guildId: number): Promise<boolean> {
+		return await LogsGuildsJoins.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				"$LogsGuild.gameId$": guildId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				}
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
+			}, {
+				model: LogsGuilds,
+				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
+			}],
+			col: "addedId"
+		}) !== 0;
 	}
 
 	/*
@@ -289,7 +320,7 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * parse the fights results to a ranked fight result
+	 * Parse the fights results to a ranked fight result
 	 * @param fights
 	 * @private
 	 */

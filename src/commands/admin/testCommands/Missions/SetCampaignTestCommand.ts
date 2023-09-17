@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous êtes maintenant à l'étape {progression} de la campagne",
 	description: "Vous mets à une certaine étape de la campagne",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

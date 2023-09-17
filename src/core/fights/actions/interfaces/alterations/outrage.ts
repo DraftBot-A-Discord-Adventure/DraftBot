@@ -7,7 +7,7 @@ export default class OutrageAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const outrageTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 2) { // this effect heals after two turns
+		if (victim.alterationTurn > 2) { // This effect heals after two turns
 			victim.removeAttackModifiers(this);
 			victim.removeSpeedModifiers(this);
 			victim.removeAlteration();

@@ -5,6 +5,38 @@ import Class from "../../database/game/models/Class";
 export class FightActions {
 	static fightActions: Map<string, FightAction> = null;
 
+	static initFightActionsMap(): void {
+		FightActions.fightActions = new Map();
+		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
+		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "./interfaces/monsters");
+	}
+
+	static getFightActionById(id: string): FightAction | null {
+		if (!FightActions.fightActions) {
+			FightActions.initFightActionsMap();
+		}
+		return FightActions.fightActions.get(id);
+	}
+
+	/**
+	 * List all fight actions for a class
+	 * @param playerClass
+	 */
+	static listFightActionsFromClass(playerClass: Class): FightAction[] {
+		const listActions: FightAction[] = [];
+		for (const action of playerClass.getFightActions()) {
+			listActions.push(FightActions.getFightActionById(action));
+		}
+		return listActions;
+	}
+
+	/**
+	 * Get fight action where the fighter does nothing
+	 */
+	static getNoAttack(): FightAction {
+		return FightActions.fightActions.get("none");
+	}
+
 	private static loadFightActionsFromFolder(path: string, relativePath: string): void {
 		const files = readdirSync(path);
 		for (const file of files) {
@@ -25,37 +57,5 @@ export class FightActions {
 				FightActions.fightActions.set(fightActionName, fightActionInstance);
 			}
 		}
-	}
-
-	static initFightActionsMap(): void {
-		FightActions.fightActions = new Map();
-		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
-		FightActions.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "./interfaces/monsters");
-	}
-
-	static getFightActionById(id: string): FightAction | null {
-		if (!FightActions.fightActions) {
-			FightActions.initFightActionsMap();
-		}
-		return FightActions.fightActions.get(id);
-	}
-
-	/**
-	 * list all fight actions for a class
-	 * @param playerClass
-	 */
-	static listFightActionsFromClass(playerClass: Class): FightAction[] {
-		const listActions: FightAction[] = [];
-		for (const action of playerClass.getFightActions()) {
-			listActions.push(FightActions.getFightActionById(action));
-		}
-		return listActions;
-	}
-
-	/**
-	 * Get fight action where the fighter does nothing
-	 */
-	static getNoAttack(): FightAction {
-		return FightActions.fightActions.get("none");
 	}
 }

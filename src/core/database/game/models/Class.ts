@@ -38,7 +38,7 @@ export class Class extends Model {
 	declare createdAt: Date;
 
 	/**
-	 * display the information of the class
+	 * Display the information of the class
 	 * @param language
 	 * @param level
 	 */
@@ -71,7 +71,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the name of the class in the given language
+	 * Get the name of the class in the given language
 	 * @param language
 	 */
 	public getName(language: string): string {
@@ -79,7 +79,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the description of the class in the given language
+	 * Get the description of the class in the given language
 	 * @param language
 	 */
 	public getDescription(language: string): string {
@@ -87,7 +87,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the attack value of the class in the given level
+	 * Get the attack value of the class in the given level
 	 * @param level
 	 */
 	public getAttackValue(level: number): number {
@@ -95,7 +95,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the defense value of the class in the given level
+	 * Get the defense value of the class in the given level
 	 * @param level
 	 */
 	public getDefenseValue(level: number): number {
@@ -103,7 +103,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the speed value of the class in the given level
+	 * Get the speed value of the class in the given level
 	 * @param level
 	 */
 	public getSpeedValue(level: number): number {
@@ -111,7 +111,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the max cumulative fight point value of the class in the given level
+	 * Get the max cumulative fight point value of the class in the given level
 	 * @param level
 	 */
 	public getMaxCumulativeFightPointValue(level: number): number {
@@ -119,7 +119,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the max health value of the class in the given level
+	 * Get the max health value of the class in the given level
 	 * @param level
 	 */
 	public getMaxHealthValue(level: number): number {
@@ -127,7 +127,7 @@ export class Class extends Model {
 	}
 
 	/**
-	 * get the fight actions of the class
+	 * Get the fight actions of the class
 	 */
 	public getFightActions(): string[] {
 		return Data.getModule(`classes.${this.id}`).getStringArray("fightActionsIds");
@@ -137,7 +137,7 @@ export class Class extends Model {
 export class Classes {
 
 	/**
-	 * get the class by its id
+	 * Get the class by its id
 	 * @param id
 	 */
 	static getById(id: number): Promise<Class | null> {
@@ -149,7 +149,7 @@ export class Classes {
 	}
 
 	/**
-	 * get the class by its group id
+	 * Get the class by its group id
 	 * @param groupId
 	 */
 	static getByGroupId(groupId: number): Promise<Class[]> {
@@ -161,7 +161,7 @@ export class Classes {
 	}
 
 	/**
-	 * get the class by its emoji
+	 * Get the class by its emoji
 	 * @param emoji
 	 * @param classGroup - class can have the same emoji if they are in different groups
 	 */

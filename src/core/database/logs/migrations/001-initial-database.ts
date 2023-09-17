@@ -259,7 +259,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		emote: {
 			type: DataTypes.STRING(5), // eslint-disable-line new-cap
-			allowNull: true // null for end
+			allowNull: true // Null for end
 		},
 		issueIndex: {
 			type: DataTypes.INTEGER,

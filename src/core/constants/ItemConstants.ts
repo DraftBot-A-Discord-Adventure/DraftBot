@@ -41,29 +41,29 @@ export abstract class ItemConstants {
 		MYTHICAL: 8,
 
 		VALUES: [
-			0, // basic
-			20, // common
-			40, // uncommon
-			100, // exotic
-			250, // rare
-			580, // special
-			1690, // epic
-			5000, // legendary
-			10000 // mythic
+			0, // Basic
+			20, // Common
+			40, // Uncommon
+			100, // Exotic
+			250, // Rare
+			580, // Special
+			1690, // Epic
+			5000, // Legendary
+			10000 // Mythic
 		],
 
 		GENERATOR: {
-			VALUES: [ // common
-				4375, // uncommon
-				6875, // exotic
-				8375, // rare
-				9375, // special
-				9875, // epic
-				9975, // legendary
-				9998, // mythic
+			VALUES: [ // Common
+				4375, // Uncommon
+				6875, // Exotic
+				8375, // Rare
+				9375, // Special
+				9875, // Epic
+				9975, // Legendary
+				9998, // Mythic
 				10000
 			],
-			MAX_VALUE: 10000 // be sure this number is the same as the last value in the VALUES array
+			MAX_VALUE: 10000 // Be sure this number is the same as the last value in the VALUES array
 		}
 	};
 

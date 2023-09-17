@@ -24,7 +24,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant l'effet {effect} !",
 	description: `Met l'effet donné à votre joueur\nListe des effets :\n${printableEffects}`,
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

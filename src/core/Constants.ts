@@ -82,7 +82,7 @@ export abstract class Constants {
 	};
 
 	static readonly REPORT = {
-		HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD: 1, // used to get the amount of point a user will get in the first report, 1 hour = 60 points ( + some bonus )
+		HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD: 1, // Used to get the amount of point a user will get in the first report, 1 hour = 60 points ( + some bonus )
 		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
@@ -238,7 +238,8 @@ export abstract class Constants {
 			"🗳️",
 			"💞",
 			"💍",
-			"🪩"
+			"🪩",
+			"🕊️"
 		]
 	};
 
@@ -302,10 +303,10 @@ export abstract class Constants {
 
 	static readonly PERMISSION = {
 		ROLE: {
-			BOT_OWNER: "owner", // is the owner of the bot
-			BADGE_MANAGER: "manager", // has the badge manager role
-			SUPPORT: "support", // has the support role
-			ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+			BOT_OWNER: "owner", // Is the owner of the bot
+			BADGE_MANAGER: "manager", // Has the badge manager role
+			SUPPORT: "support", // Has the support role
+			ADMINISTRATOR: "administrator", // Has the admin permission in a server where the bot is.
 			CONTRIBUTORS: "contributors",
 			ALL: "all"
 		}

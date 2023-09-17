@@ -3,7 +3,7 @@
 		"fr": {
 			"commandName": "rejoindrebateau",
 			"commandDescription": "Permet de rejoindre le bateau d'un membre de votre guilde.",
-			"tooManyBoatInWeek": "Vous êtes allé trop de fois sur le bateau cette semaine.",
+			"tooManyBoatInWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
 			"noGuild": "Vous n'appartenez à aucune guilde.",
 			"noMemberOnBoat": "Aucun membre de votre guilde n'est sur le bateau.",
 			"noEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
@@ -17,7 +17,7 @@
 		"en": {
 			"commandName": "joinboat",
 			"commandDescription": "Allows you to join the boat of a member of your guild.",
-			"tooManyBoatInWeek": "You've been on the boat too many times this week.",
+			"tooManyBoatInWeek": "You've been on the boat too many times or you joined a guild this week.",
 			"noGuild": "You don't belong to any guild.",
 			"noMemberOnBoat": "No members of your guild are on the boat.",
 			"noEnoughEnergy": "You don't have enough energy to get on the boat.",

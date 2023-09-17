@@ -32,32 +32,60 @@ export class MapLocation extends Model {
 
 	declare createdAt: Date;
 
+	/**
+	 * Get the emote for the map
+	 * @param language
+	 */
 	public getEmote(language: string): string {
 		return Translations.getModule("models.maps", language).get(`types.${this.type}.emote`);
 	}
 
+	/**
+	 * Get the name of the map without the emote
+	 * @param language
+	 */
 	public getNameWithoutEmote(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn;
 	}
 
+	/**
+	 * Get the display name of the map with the emote
+	 * @param language
+	 */
 	public getDisplayName(language: string): string {
 		return `${this.getEmote(language)} ${language === Constants.LANGUAGE.FRENCH ? this.nameFr : this.nameEn}`;
 	}
 
+	/**
+	 * Get the particle to use with this map Location
+	 * @param language
+	 */
 	public getParticleName(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.particleFr : this.particleEn;
 	}
 
+	/**
+	 * Get the description of the map
+	 * @param language
+	 */
 	public getDescription(language: string): string {
 		return language === Constants.LANGUAGE.FRENCH ? this.descFr : this.descEn;
 	}
 
+	/**
+	 * Get the map location with the added determinant if needed
+	 * @param language
+	 */
 	public async getFullName(language: string): Promise<string> {
 		return `${await this.getDeterminant(language)} ${this.getDisplayName(language)}`;
 	}
 
+	/**
+	 * Get the determinant for the map name to use in french
+	 * @param language
+	 */
 	public async getDeterminant(language: string): Promise<string> {
-		if (language === Constants.LANGUAGE.ENGLISH) {
+		if (language !== Constants.LANGUAGE.FRENCH) {
 			return "";
 		}
 		const tags = await Tags.findTagsFromObject(this.id, "MapLocation");
@@ -75,6 +103,10 @@ export class MapLocation extends Model {
 		return "";
 	}
 
+	/**
+	 * Count all players that have the given map as their current map of origin
+	 * @param originId
+	 */
 	public async playersCount(originId: number): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
@@ -92,15 +124,30 @@ export class MapLocation extends Model {
 				prevId: originId
 			},
 			type: QueryTypes.SELECT
-		})))[0]["count"];
+		})))[0].count;
 	}
 }
 
 export class MapLocations {
+
+	/**
+	 * Get a mapLocation by its id
+	 * @param id
+	 */
 	static async getById(id: number): Promise<MapLocation> {
 		return await MapLocation.findOne({where: {id}});
 	}
 
+	/**
+	 * Get all mapLocations
+	 */
+	static async getAll(): Promise<MapLocation[]> {
+		return await MapLocation.findAll();
+	}
+
+	/**
+	 * Get all mapLocations where the player can go in a random order.
+	 */
 	static async getRandomGotoableMap(): Promise<MapLocation> {
 		return await MapLocation.findOne({
 			order: [draftBotInstance.gameDatabase.sequelize.random()],
@@ -108,6 +155,11 @@ export class MapLocations {
 		});
 	}
 
+	/**
+	 * Get the list of mapLocations that are connected to the mapLocation with the given id
+	 * @param mapId
+	 * @param blacklistId
+	 */
 	static async getMapConnected(mapId: number, blacklistId: number): Promise<{ id: number }[]> {
 		if (!blacklistId) {
 			blacklistId = -1;
@@ -127,6 +179,11 @@ export class MapLocations {
 		});
 	}
 
+	/**
+	 * Get all mapLocation types adjacent to the given mapLocation id
+	 * @param mapId
+	 * @param blacklistId
+	 */
 	static async getMapTypesConnected(mapId: number, blacklistId: number): Promise<{ type: string }[]> {
 		const query = `SELECT type
 					   FROM map_locations
@@ -142,6 +199,12 @@ export class MapLocations {
 		});
 	}
 
+	/**
+	 * Get the list of players who are on the indicated path
+	 * @param mapId
+	 * @param previousMapId
+	 * @param playerId
+	 */
 	static async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{ discordUserId: string }[]> {
 		const query = `SELECT discordUserId
 					   FROM players 
@@ -164,6 +227,10 @@ export class MapLocations {
 		});
 	}
 
+	/**
+	 * Get the list of mapLocations that match one or more attribute(s).
+	 * @param attributes
+	 */
 	static async getWithAttributes(attributes: string[]): Promise<MapLocation[]> {
 		return await MapLocation.findAll({
 			where: {

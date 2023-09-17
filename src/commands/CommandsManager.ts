@@ -283,7 +283,7 @@ export class CommandsManager {
 	 */
 	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
-			// ignore all bot messages and own messages
+			// Ignore all bot messages and own messages
 			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
 				return;
 			}
@@ -416,7 +416,7 @@ export class CommandsManager {
 		}
 
 		if (guild === null) {
-			// not in a guild
+			// Not in a guild
 			await replyErrorMessage(
 				interaction,
 				tr.language,
@@ -470,7 +470,7 @@ export class CommandsManager {
 	}
 
 	/**
-	 * checks for the maintenance mode
+	 * Checks for the maintenance mode
 	 * @param interaction the interaction to reply to
 	 * @private
 	 */
@@ -488,7 +488,7 @@ export class CommandsManager {
 
 		const tr = Translations.getModule("bot", language);
 
-		// check maintenance mode
+		// Check maintenance mode
 		if (interaction.user.id !== botConfig.BOT_OWNER_ID &&
 			botConfig.MODE_MAINTENANCE &&
 			interaction.commandName !== Translations.getModule("commands.maintenance", Constants.LANGUAGE.ENGLISH).get("commandName")
@@ -575,7 +575,7 @@ export class CommandsManager {
 
 		BlockingUtils.spamBlockPlayer(interaction.user.id);
 
-		// block not allowed commands on pve island but allow commands with permissions (admin, contributors...)
+		// Block not allowed commands on pve island but allow commands with permissions (admin, contributors...)
 		if (this.checkCommandDisallowedOnPveIsland(player, interaction, commandInfo)) {
 			await replyErrorMessage(
 				interaction,

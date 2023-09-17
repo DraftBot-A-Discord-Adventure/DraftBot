@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez avancé votre daily de {time} minutes !",
 	description: "Avance le daily de votre joueur d'une durée en minutes donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

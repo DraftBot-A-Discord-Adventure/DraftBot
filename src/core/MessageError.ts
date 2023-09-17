@@ -50,7 +50,7 @@ export class MessageError {
 	}
 
 	/**
-	 * check if the user has the permission to use the command
+	 * Check if the user has the permission to use the command
 	 * @param {string} permission
 	 * @param {boolean} member
 	 * @private

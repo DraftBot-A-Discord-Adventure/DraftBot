@@ -2,58 +2,58 @@ export abstract class LeagueInfoConstants {
 	static readonly FIELDS_VALUE = "{emoji} {name}";
 
 	static readonly MONEY_TO_AWARD = [
-		250, // wood
-		300, // rock
-		500, // iron
-		600, // bronze
-		800, // silver
-		1000, // gold
-		1250, // diamond
-		1400, // elite
-		1500, // infinite
-		2000 // legendary
+		250, // Wood
+		300, // Rock
+		500, // Iron
+		600, // Bronze
+		800, // Silver
+		1000, // Gold
+		1250, // Diamond
+		1400, // Elite
+		1500, // Infinite
+		2000 // Legendary
 	];
 
 	static readonly XP_TO_AWARD = [
-		200, // wood
-		350, // rock
-		500, // iron
-		650, // bronze
-		750, // silver
-		1000, // gold
-		1300, // diamond
-		1350, // elite
-		1750, // infinite
-		2000 // legendary
+		200, // Wood
+		350, // Rock
+		500, // Iron
+		650, // Bronze
+		750, // Silver
+		1000, // Gold
+		1300, // Diamond
+		1350, // Elite
+		1750, // Infinite
+		2000 // Legendary
 	];
 
 	static readonly ITEM_MINIMAL_RARITY = [
-		2, // wood
-		2, // rock
-		3, // iron
-		3, // bronze
-		3, // silver
-		4, // gold
-		4, // diamond
-		4, // elite
-		5, // infinite
-		5 // legendary
+		2, // Wood
+		2, // Rock
+		3, // Iron
+		3, // Bronze
+		3, // Silver
+		4, // Gold
+		4, // Diamond
+		4, // Elite
+		5, // Infinite
+		5 // Legendary
 	];
 
 	static readonly ITEM_MAXIMAL_RARITY = [
-		3, // wood
-		4, // rock
-		4, // iron
-		5, // bronze
-		6, // silver
-		6, // gold
-		7, // diamond
-		8, // elite
-		8, // infinite
-		8 // legendary
+		3, // Wood
+		4, // Rock
+		4, // Iron
+		5, // Bronze
+		6, // Silver
+		6, // Gold
+		7, // Diamond
+		8, // Elite
+		8, // Infinite
+		8 // Legendary
 	];
 
-	// if the minimal glory of a league is higher than this value, the player will lose glory points at the end of the season
+	// If the minimal glory of a league is higher than this value, the player will lose glory points at the end of the season
 	static readonly GLORY_RESET_THRESHOLD = 500;
 
 	// % of glory points lost at the end of the season (only points above the glory reset threshold are considered)

@@ -30,7 +30,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				? BlockingConstants.REASONS.CHIEF_GUILD_LEAVE
 				: BlockingConstants.REASONS.GUILD_LEAVE);
 		if (msg.isValidated()) {
-			// the user confirmed the choice to leave
+			// The user confirmed the choice to leave
 			try {
 				userInformation.guild = await Guilds.getById(userInformation.player.guildId);
 			}
@@ -38,7 +38,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 				userInformation.guild = null;
 			}
 			if (userInformation.guild === null) {
-				// guild was destroyed since the command was launched
+				// Guild was destroyed since the command was launched
 				await sendErrorMessage(
 					interaction.user,
 					interaction,
@@ -49,15 +49,15 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			}
 
 			if (userInformation.guild.elderId === userInformation.player.id) {
-				// the elder of the guild is leaving
+				// The elder of the guild is leaving
 				await draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId);
 				userInformation.guild.elderId = null;
 			}
 
 			if (userInformation.player.id === userInformation.guild.chiefId) {
-				// the chief of the guild is leaving
+				// The chief of the guild is leaving
 				if (userInformation.guild.elderId) {
-					// an elder can recover the guild
+					// An elder can recover the guild
 
 					await draftBotInstance.logsDatabase.logGuildChiefChange(userInformation.guild, userInformation.guild.elderId);
 					userInformation.guild.chiefId = userInformation.guild.elderId;
@@ -70,7 +70,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 					});
 				}
 				else {
-					// no one can recover the guild.
+					// No one can recover the guild.
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
 			}
@@ -101,7 +101,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			return;
 		}
 
-		// the user chose to stay in the guild or did not respond
+		// The user chose to stay in the guild or did not respond
 		await sendErrorMessage(interaction.user, interaction, guildLeaveModule.language,
 			guildLeaveModule.get("leavingCancelled"), true);
 	};

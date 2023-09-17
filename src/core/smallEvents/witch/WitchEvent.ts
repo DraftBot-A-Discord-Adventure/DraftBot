@@ -26,7 +26,7 @@ export abstract class WitchEvent {
 
 	protected effectName = "";
 
-	public tags: string[] = []; // tags for mission completion
+	public tags: string[] = []; // Tags for mission completion
 
 	protected lifePointsRemovedAmount = SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
 
@@ -48,7 +48,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * generate a potion for the player each witch event will generate a different potion and will override this function
+	 * Generate a potion for the player each witch event will generate a different potion and will override this function
 	 */
 	public generatePotion(): Promise<GenericItemModel> {
 		return null;
@@ -63,7 +63,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * remove life points from the player
+	 * Remove life points from the player
 	 * @param interaction
 	 * @param player
 	 * @param language
@@ -79,7 +79,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * return the name of the attack as it will appear in the list of actions
+	 * Return the name of the attack as it will appear in the list of actions
 	 * @param language
 	 * @param forceEndOfStringEmojiPlacement
 	 */
@@ -90,7 +90,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * return the emoji that is used to represent the action
+	 * Return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
 		this.emojiCache = this.emojiCache ?? Data.getModule("smallEvents.witch").getString(`witchEventEmotes.${this.name}`);
@@ -98,7 +98,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * generate an array of all the possible actions from clear probabilities
+	 * Generate an array of all the possible actions from clear probabilities
 	 * @param potionProbability
 	 * @param effectProbability
 	 * @param lifePointLostProbability
@@ -111,7 +111,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * return a string describing the outcome of the witch event
+	 * Return a string describing the outcome of the witch event
 	 * @param outcome what will happen to the player
 	 * @param translationModule
 	 */
@@ -132,7 +132,7 @@ export abstract class WitchEvent {
 	}
 
 	/**
-	 * check the mission validation for the witch event
+	 * Check the mission validation for the witch event
 	 * @param interaction
 	 * @param player
 	 * @param language

@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Votre pet a maintenant un amour de {love}. Cela correspond à un pet {loveLevel} !",
 	description: "Mets le niveau d'amour de votre pet au niveau donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

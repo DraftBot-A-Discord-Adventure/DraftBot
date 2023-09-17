@@ -14,6 +14,8 @@ export abstract class FightAction {
 
 	public readonly name: string;
 
+	public isAlteration = false;
+
 	private toStringCache: { [key: string]: string } = {};
 
 	private emojiCache: string;
@@ -23,8 +25,6 @@ export abstract class FightAction {
 	private weightForRandomSelection: number;
 
 	private typeCache: FightActionType;
-
-	public isAlteration = false;
 
 	public constructor(name: string) {
 		this.name = name;
@@ -38,10 +38,10 @@ export abstract class FightAction {
 	 * @param language - the language of the message
 	 * @param weather - current weather of the fight
 	 */
-	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string;
+	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string>;
 
 	/**
-	 * return the name of the attack as it will appear in the list of actions
+	 * Return the name of the attack as it will appear in the list of actions
 	 * @param language
 	 */
 	public toString(language: string): string {
@@ -56,7 +56,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the emoji that is used to represent the action
+	 * Return the emoji that is used to represent the action
 	 */
 	public getEmoji(): string {
 		if (!this.emojiCache) {
@@ -66,7 +66,7 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the weight of the action for random selection
+	 * Return the weight of the action for random selection
 	 */
 	public getWeightForRandomSelection(): number {
 		return this.weightForRandomSelection ?? FightConstants.DEFAULT_ACTION_WEIGHT;
@@ -74,7 +74,7 @@ export abstract class FightAction {
 
 
 	/**
-	 * set the weight of the action for random selection
+	 * Set the weight of the action for random selection
 	 * @param weight
 	 */
 	public setWeightForRandomSelection(weight: number): void {
@@ -82,24 +82,13 @@ export abstract class FightAction {
 	}
 
 	/**
-	 * return the amount of breath the action cost
+	 * Return the amount of breath the action cost
 	 */
 	public getBreathCost(): number {
 		if (!this.breathCostCache) {
 			this.breathCostCache = Data.getModule(`fightactions.${this.name}`).getNumber("breath");
 		}
 		return this.breathCostCache;
-	}
-
-	/**
-	 * return the status of the attack (success, missed, critical)
-	 */
-	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
-		return damageDealt > initialDamage
-			? FightActionStatus.CRITICAL
-			: damageDealt < initialDamage
-				? FightActionStatus.MISSED
-				: FightActionStatus.NORMAL;
 	}
 
 	public getType(): FightActionType {
@@ -129,6 +118,17 @@ export abstract class FightAction {
 		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
 			damages: damageDealt
 		});
+	}
+
+	/**
+	 * Return the status of the attack (success, missed, critical)
+	 */
+	protected getAttackStatus(damageDealt: number, initialDamage: number): FightActionStatus {
+		return damageDealt > initialDamage
+			? FightActionStatus.CRITICAL
+			: damageDealt < initialDamage
+				? FightActionStatus.MISSED
+				: FightActionStatus.NORMAL;
 	}
 
 }

@@ -13,7 +13,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez été réinitialisé !",
 	description: "Réinitialise votre joueur",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

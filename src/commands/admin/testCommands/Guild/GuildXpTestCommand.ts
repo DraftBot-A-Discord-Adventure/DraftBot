@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Votre guilde a maintenant {experience} :star: !",
 	description: "Mets l'expérience de votre guilde au niveau donné",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

@@ -19,7 +19,7 @@ export default class GrabAndThrowAttack extends FightAction {
 			const attackTranslationModule = Translations.getModule("commands.fight", language);
 			let sideEffects = "";
 
-			// the receiver has a 50% chance to be stunned
+			// The receiver has a 50% chance to be stunned
 			if (RandomUtils.draftbotRandom.bool()) {
 				const alteration = receiver.newAlteration(FightAlterations.STUNNED);
 				if (alteration === FightAlterations.STUNNED) {

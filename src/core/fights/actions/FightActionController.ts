@@ -11,7 +11,7 @@ type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect
 
 export class FightActionController {
 	/**
-	 * get the attack damage for a fight action
+	 * Get the attack damage for a fight action
 	 * @param statsInfo object containing 3 arrays :
 	 * attackerStats - array of the stats to use for the attacker
 	 * defenderStats - array of the stats to use for the defender
@@ -26,7 +26,7 @@ export class FightActionController {
 		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
-		// add a random variation of 5% of the damage
+		// Add a random variation of 5% of the damage
 		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.variationInt(FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		// Damage multiplier
 		if (!ignoreMultiplier) {
@@ -36,7 +36,7 @@ export class FightActionController {
 	}
 
 	/**
-	 * return a value between 0 and 100, (more or less), representing the power of a stat
+	 * Return a value between 0 and 100, (more or less), representing the power of a stat
 	 * here is the formula: f(x) = 100 * tanh(0.0023*x - 0.03) + 3
 	 * (formula by Pokegali)
 	 * @param stat
@@ -46,17 +46,17 @@ export class FightActionController {
 	}
 
 	/**
-	 * execute a critical hit on a fight action (return the damage)
+	 * Execute a critical hit on a fight action (return the damage)
 	 * this function also check if the attack has missed
 	 * @param damageDealt
 	 * @param criticalHitProbability
 	 * @param failureProbability
 	 */
 	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): number {
-		// first we get a random %
+		// First we get a random %
 		const randomValue = RandomUtils.randInt(0, 100);
 
-		// then we use this % to determine if the attack has missed or is a critical hit
+		// Then we use this % to determine if the attack has missed or is a critical hit
 		if (randomValue < criticalHitProbability) {
 			return Math.round(damageDealt * FightConstants.CRITICAL_HIT_MULTIPLIER);
 		}
@@ -89,7 +89,7 @@ export class FightActionController {
 	}
 
 	/**
-	 * get the amount of damage a fight action will deal from stats
+	 * Get the amount of damage a fight action will deal from stats
 	 * @param attackerStat
 	 * @param defenderStat
 	 * @param attackInfo
@@ -97,23 +97,23 @@ export class FightActionController {
 	private static getAttackDamageByStat(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
 
 		/*
-		 * this function allows to exacerbate the difference between the attacker stat and the defender stat
+		 * This function allows to exacerbate the difference between the attacker stat and the defender stat
 		 */
 		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 50;
 
 		const damage = ratio < 0 ? Math.round(
-			// if the attacker is weaker than the defender, the damage is selected in the under the average damage interval
+			// If the attacker is weaker than the defender, the damage is selected in the under the average damage interval
 			MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
 		) : Math.round(
-			// if the attacker is stronger than the defender, the damage is selected in the over the average damage interval
+			// If the attacker is stronger than the defender, the damage is selected in the over the average damage interval
 			MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
 		);
-		// return damage caped between max and min
+		// Return damage caped between max and min
 		return damage > attackInfo.maxDamage ? attackInfo.maxDamage : damage < attackInfo.minDamage ? attackInfo.minDamage : damage;
 	}
 
 	/**
-	 * get the level bonus ratio for a level
+	 * Get the level bonus ratio for a level
 	 * @private
 	 * @param level - the level of the player
 	 */

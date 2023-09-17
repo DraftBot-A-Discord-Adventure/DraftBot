@@ -12,7 +12,7 @@ export default class EnergeticAttack extends FightAction {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
-		// half of the damage is converted to fight points
+		// Half of the damage is converted to fight points
 		const healAmount = Math.round(damageDealt / 2);
 		sender.heal(healAmount);
 		const sideEffects = attackTranslationModule.format("actions.sideEffects.energy", {

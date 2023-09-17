@@ -11,7 +11,7 @@ export default class Resting extends FightAction {
 
 		sender.nextFightAction = null;
 
-		// recovered fight points are reduced after the fourth use of this action
+		// Recovered fight points are reduced after the fourth use of this action
 		const recoveredFightPoints = count < 4 ?
 			FightActionController.getAttackDamage(
 				this.getStatsInfo(sender), sender, this.getAttackInfo(), true
@@ -32,7 +32,7 @@ export default class Resting extends FightAction {
 	getStatsInfo(sender: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.getMaxFightPoints() // we are comparing the max fight points to the current health to get the amount of recovered fight points
+				sender.getMaxFightPoints() // We are comparing the max fight points to the current health to get the amount of recovered fight points
 			], defenderStats: [
 				sender.getFightPoints()
 			], statsEffect: [

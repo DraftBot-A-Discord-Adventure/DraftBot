@@ -231,7 +231,7 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 			pseudo: this._player.getPseudo(this._topTrModule.language),
 			rank: playerRank,
 			totalPlayer: totalRanks,
-			page: this._pageNumber,
+			page: Math.ceil(playerRank / this._pageSize),
 			pageMax: Math.ceil(totalRanks / this._pageSize),
 			needFight: this._player.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
 		});

@@ -51,7 +51,7 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
 }
 
 /**
- * function used by the guild shop command when the player has bought the guild xp
+ * Function used by the guild shop command when the player has bought the guild xp
  * @param guild
  * @param xpToAdd
  * @param message

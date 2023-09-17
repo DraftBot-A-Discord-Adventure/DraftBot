@@ -30,7 +30,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		SET players.gloryPointsLastSeason = 0
 	`);
 
-	// add league table
+	// Add league table
 	await context.createTable("leagues", {
 		id: {
 			type: DataTypes.INTEGER,
@@ -64,7 +64,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		createdAt: DataTypes.DATE
 	});
 
-	// removal of badge 🥚
+	// Removal of badge 🥚
 	await context.sequelize.query(`
 		UPDATE players
 		SET players.badges = REPLACE(players.badges, "-🥚", "")

@@ -2,7 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import * as moment from "moment";
 import Monster from "./Monster";
 import MonsterAttack from "./MonsterAttack";
-import {draftBotInstance} from "../../../bot";
+import {RandomUtils} from "../../../utils/RandomUtils";
 
 export class MonsterLocation extends Model {
 	declare readonly id: number;
@@ -17,14 +17,19 @@ export class MonsterLocation extends Model {
 }
 
 export class MonsterLocations {
-	static async getRandomMonster(mapId: number): Promise<{ monster: Monster, attacks: MonsterAttack[] } | null> {
-		const randomLoc = await MonsterLocation.findOne({
+	static async getRandomMonster(mapId = -1, seed = RandomUtils.draftbotRandom.integer(1, 9999)): Promise<{ monster: Monster, attacks: MonsterAttack[] } | null> {
+		const amountOfMonsterAvailable = await MonsterLocation.count(mapId === -1 ? {} : {
 			where: {
 				mapId
-			},
-			order: [draftBotInstance.gameDatabase.sequelize.random()]
+			}
 		});
-
+		const indexToGet = seed % amountOfMonsterAvailable;
+		const randomLocs = await MonsterLocation.findAll(mapId === -1 ? {} : {
+			where: {
+				mapId
+			}
+		});
+		const randomLoc = randomLocs[indexToGet];
 		if (!randomLoc) {
 			return null;
 		}

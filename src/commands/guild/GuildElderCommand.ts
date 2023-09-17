@@ -20,7 +20,7 @@ type PersonInformation = { user: User, player: Player };
 type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
 
 /**
- * callback for the reaction collector
+ * Callback for the reaction collector
  * @param chief
  * @param elder
  * @param guild
@@ -36,16 +36,17 @@ function getEndCallbackGuildElder(
 		if (msg.isValidated()) {
 			const elderUpdated = await Players.getById(elder.id);
 			if (elder.guildId !== elderUpdated.guildId) {
-				return await sendErrorMessage(
+				await sendErrorMessage(
 					chief.user,
 					textInformation.interaction,
 					textInformation.guildElderModule.language,
 					textInformation.guildElderModule.get("problemWhilePromoting"),
 					true
 				);
+				return;
 			}
 
-			// change the elder
+			// Change the elder
 			guild.elderId = elder.id;
 			await guild.save();
 
@@ -70,7 +71,7 @@ function getEndCallbackGuildElder(
 		}
 
 		// Cancel the creation
-		return await sendErrorMessage(
+		await sendErrorMessage(
 			chief.user,
 			textInformation.interaction,
 			textInformation.guildElderModule.language,
@@ -87,7 +88,7 @@ function getEndCallbackGuildElder(
  * @param elderPlayer
  */
 async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInformation: TextInformation, elderPlayer: Player): Promise<boolean> {
-	// check if the elder is in the right guild
+	// Check if the elder is in the right guild
 	if (elderGuild === null || elderGuild.id !== guild.id) {
 		await replyErrorMessage(
 			textInformation.interaction,
@@ -97,7 +98,7 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
 		return false;
 	}
 
-	// chief cannot be the elder
+	// Chief cannot be the elder
 	if (guild.chiefId === elderPlayer.id) {
 		await replyErrorMessage(
 			textInformation.interaction,
@@ -107,7 +108,7 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
 		return false;
 	}
 
-	// check if the elder is already an elder
+	// Check if the elder is already an elder
 	if (elderGuild.elderId === elderPlayer.id) {
 		await replyErrorMessage(
 			textInformation.interaction,
@@ -134,7 +135,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const guild = await Guilds.getById(player.guildId);
 	const elderGuild = await Guilds.getById(elderPlayer.guildId);
 
-	// check if the elder is eligible
+	// Check if the elder is eligible
 	const eligible = await checkElderEligibility(elderGuild, guild, {interaction, guildElderModule}, elderPlayer);
 	if (!eligible) {
 		return;

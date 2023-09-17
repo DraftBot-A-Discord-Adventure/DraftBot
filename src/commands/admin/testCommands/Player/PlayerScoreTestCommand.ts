@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez maintenant {score} :medal: !",
 	description: "Mets le score de votre joueur à la valeur donnée",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

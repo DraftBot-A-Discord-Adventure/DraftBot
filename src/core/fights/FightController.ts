@@ -51,19 +51,39 @@ export class FightController {
 		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
+	public static async tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number, language: string, weather: FightWeather): Promise<{
+		fightAction: FightAction,
+		receivedMessage: string
+	}> {
+		const enoughBreath = attacker.useBreath(fightAction.getBreathCost());
+
+		if (!enoughBreath) {
+			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+				fightAction = FightActions.getFightActionById("outOfBreath");
+			}
+			else {
+				attacker.setBreath(0);
+			}
+		}
+
+
+		const receivedMessage = await fightAction.use(attacker, defender, turn, language, weather);
+		return {fightAction, receivedMessage};
+	}
+
 	/**
 	 * Start a fight
 	 * @public
 	 */
 	public async startFight(): Promise<void> {
-		// make the fighters ready
+		// Make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].startFight(this._fightView, i === 0 ? FighterStatus.ATTACKER : FighterStatus.DEFENDER);
 		}
 
 		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 
-		// the player with the highest speed start the fight
+		// The player with the highest speed start the fight
 		if (this.fighters[1].getSpeed() > this.fighters[0].getSpeed() || RandomUtils.draftbotRandom.bool() && this.fighters[1].getSpeed() === this.fighters[0].getSpeed()) {
 			this.invertFighters();
 		}
@@ -149,19 +169,9 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 
-		const enoughBreath = this.getPlayingFighter().useBreath(fightAction.getBreathCost());
-
-		if (!enoughBreath) {
-			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				fightAction = FightActions.getFightActionById("outOfBreath");
-			}
-			else {
-				this.getPlayingFighter().setBreath(0);
-			}
-		}
-
-
-		const receivedMessage = fightAction.use(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
+		const returns = await FightController.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
+		fightAction = returns.fightAction;
+		const receivedMessage = returns.receivedMessage;
 
 		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
 			(e) => {
@@ -170,7 +180,7 @@ export class FightController {
 				this.endBugFight();
 			});
 		if (this.state !== FightState.RUNNING) {
-			// an error occurred during the update of the history
+			// An error occurred during the update of the history
 			return;
 		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
@@ -214,7 +224,7 @@ export class FightController {
 	 * @private
 	 */
 	private checkNegativeFightPoints(): void {
-		// set the fight points to 0 if any of the fighters have fight points under 0
+		// Set the fight points to 0 if any of the fighters have fight points under 0
 		for (const fighter of this.fighters) {
 			if (fighter.getFightPoints() < 0) {
 				fighter.setBaseFightPoints(0);
@@ -246,7 +256,7 @@ export class FightController {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
 		if (this.state !== FightState.RUNNING) {
-			// a player was killed by a fight alteration, no need to continue the fight
+			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
 		await this._fightView.displayFightStatus().catch(

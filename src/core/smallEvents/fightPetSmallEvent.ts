@@ -26,17 +26,17 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 function getRandomFightPetActions(player: Player): FightPetAction[] {
 	let amountOfActions = SmallEventConstants.FIGHT_PET.BASE_ACTION_AMOUNT;
 
-	// higher level players get more actions
+	// Higher level players get more actions
 	if (player.level > SmallEventConstants.FIGHT_PET.LEVEL_TO_UNLOCK_NEW_ACTION) {
 		amountOfActions++;
 	}
 
-	// some classes get a bonus action
+	// Some classes get a bonus action
 	if (player.class in ClassInfoConstants.CLASSES_WITH_BONUS_ACTION) {
 		amountOfActions++;
 	}
 
-	// get random actions
+	// Get random actions
 	const actions: FightPetAction[] = [];
 	for (let i = 0; i < amountOfActions; ++i) {
 		actions.push(FightPetActions.getRandomFightPetAction(actions));
@@ -103,7 +103,7 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
 }
 
 /**
- * generate an embed with the menu and a short introduction to the witch
+ * Generate an embed with the menu and a short introduction to the witch
  * @param embed
  * @param feralPet
  * @param interaction

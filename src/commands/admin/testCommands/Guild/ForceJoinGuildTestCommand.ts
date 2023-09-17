@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Votre guilde est maintenant la guilde {guildToJoin} !",
 	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**
@@ -44,7 +44,7 @@ const forceJoinGuildTestCommand = async (language: string, interaction: CommandI
 		throw new Error("Erreur forcejoinguild : nombre de joueurs maximum dans cette guilde atteint !");
 	}
 	if (guildToLeave && guildToLeave.chiefId === player.id) {
-		// the chief is leaving : destroy the guild
+		// The chief is leaving : destroy the guild
 		await Guild.destroy({
 			where: {
 				id: guildToLeave.id

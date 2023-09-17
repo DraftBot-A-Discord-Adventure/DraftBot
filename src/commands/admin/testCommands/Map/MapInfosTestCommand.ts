@@ -12,7 +12,7 @@ export const commandInfo: ITestCommand = {
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes",
 	commandTestShouldReply: true,
 	commandFormat: "",
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

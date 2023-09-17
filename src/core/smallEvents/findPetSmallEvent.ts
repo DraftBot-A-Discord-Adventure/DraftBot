@@ -69,7 +69,7 @@ export const smallEvent: SmallEvent = {
 		const seEmbedPetObtention = seEmbed;
 		let guild;
 
-		// search for a user's guild
+		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}

@@ -22,36 +22,38 @@ import {Settings} from "../database/game/models/Setting";
  */
 export async function confirmationCallback(
 	player: Player,
-	msg: DraftBotValidateReactionMessage,
-	tr: TranslationModule,
-	embed: DraftBotEmbed,
+	messageData: {
+		reactionMessage: DraftBotValidateReactionMessage,
+		tr: TranslationModule,
+		embed: DraftBotEmbed,
+	},
 	emote: string,
 	price: number,
 	anotherMemberOnBoat: Player = null
 ): Promise<void> {
-	if (msg.isValidated()) {
+	if (messageData.reactionMessage.isValidated()) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		if (missionInfo.gems < price) {
-			embed.setDescription(`${emote} ${tr.get("notEnoughGems")}`);
+			messageData.embed.setDescription(`${emote} ${messageData.tr.get("notEnoughGems")}`);
 		}
 		else {
 			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
 				await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
-				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : msg.sentMessage.createdTimestamp,
+				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : messageData.reactionMessage.sentMessage.createdTimestamp,
 				NumberChangeReason.SMALL_EVENT
 			);
 			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 			await missionInfo.save();
-			embed.setDescription(`${emote} ${anotherMemberOnBoat ? tr.get("endStoryAcceptWithMember") : tr.get("endStoryAccept")}`);
+			messageData.embed.setDescription(`${emote} ${anotherMemberOnBoat ? messageData.tr.get("endStoryAcceptWithMember") : messageData.tr.get("endStoryAccept")}`);
 		}
 	}
 	else {
-		embed.setDescription(`${emote} ${tr.get("endStoryRefuse")}`);
+		messageData.embed.setDescription(`${emote} ${messageData.tr.get("endStoryRefuse")}`);
 	}
-	await msg.sentMessage.channel.send({
-		embeds: [embed]
+	await messageData.reactionMessage.sentMessage.channel.send({
+		embeds: [messageData.embed]
 	});
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND);
 }
@@ -65,7 +67,7 @@ export const smallEvent: SmallEvent = {
 			Maps.isNearWater(player) &&
 			await player.hasEnoughEnergyToJoinTheIsland() &&
 			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
-			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId) < PVEConstants.TRAVEL_COST.length;
+			await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId, player.guildId) < PVEConstants.TRAVEL_COST.length;
 	},
 
 	/**
@@ -83,8 +85,12 @@ export const smallEvent: SmallEvent = {
 		const confirmEmbed = new DraftBotValidateReactionMessage(
 			interaction.user,
 			(confirmMessage: DraftBotValidateReactionMessage) => {
-				confirmationCallback(player, confirmMessage, tr, new DraftBotEmbed()
-					.setAuthor(confirmMessage.sentMessage.embeds[0].author), seEmbed.data.description, price, anotherMemberOnBoat[0]).then();
+				confirmationCallback(player, {
+					reactionMessage: confirmMessage,
+					embed: new DraftBotEmbed()
+						.setAuthor(confirmMessage.sentMessage.embeds[0].author),
+					tr
+				}, seEmbed.data.description, price, anotherMemberOnBoat[0]).then();
 			}
 		);
 

@@ -6,7 +6,7 @@ import {ConstantRange} from "../Constants";
  */
 export class RandomUtils {
 	/**
-	 * redefining the random js library
+	 * Redefining the random js library
 	 */
 	public static draftbotRandom: Random = new Random();
 

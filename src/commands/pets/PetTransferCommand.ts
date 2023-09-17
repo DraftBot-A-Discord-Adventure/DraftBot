@@ -47,14 +47,17 @@ async function transferPetToGuild(
 ): Promise<void> {
 	const guildPetCount = (await GuildPets.getOfGuild(playerInformation.guild.id)).length;
 	if (!playerInformation.pet) {
-		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
+		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
+		return;
 	}
 	const playerPetModel = await Pets.getById(playerInformation.pet.petId);
 	if (playerInformation.pet.isFeisty()) {
-		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("isFeisty"));
+		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("isFeisty"));
+		return;
 	}
 	if (guildPetCount >= PetEntityConstants.SLOTS) {
-		return replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noSlotAvailable"));
+		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("noSlotAvailable"));
+		return;
 	}
 	playerInformation.player.petId = null;
 	await playerInformation.player.save();
@@ -213,7 +216,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const swPetEntity = await switchPets(shelterPosition, interaction, petTransferModule, {guild, player});
 	if (swPetEntity === null) {
-		return null;
+		return;
 	}
 	const swPetModel = await Pets.getById(swPetEntity.petId);
 

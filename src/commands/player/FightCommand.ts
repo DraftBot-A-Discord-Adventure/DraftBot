@@ -26,6 +26,7 @@ import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
+import {MapCache} from "../../core/maps/MapCache";
 
 type PlayerInformation = {
 	player: Player,
@@ -82,6 +83,10 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
 		return FightConstants.FIGHT_ERROR.DEAD;
 	}
 
+	if (MapCache.allPveMapLinks.includes(player.mapLinkId)) {
+		return FightConstants.FIGHT_ERROR.PVE_ISLAND;
+	}
+
 	if (hasEffect(player, date, friendly)) {
 		return FightConstants.FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
@@ -105,12 +110,12 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
 		}
 	}
 
-	// the player is able to fight
+	// The player is able to fight
 	return FightConstants.FIGHT_ERROR.NONE;
 }
 
 /**
- * send the error message to the user
+ * Send the error message to the user
  * @param interaction - the interaction
  * @param fightTranslationModule - the translation module
  * @param error - the error message
@@ -149,7 +154,7 @@ async function sendError(
 }
 
 /**
- * get the string that display the information about the fight for the menu
+ * Get the string that display the information about the fight for the menu
  * @param askingFighter
  * @param friendly
  * @param respondingPlayer
@@ -279,38 +284,36 @@ function generateGloryField(
 	return gloryField;
 }
 
+type PlayerLeagueInfo = {
+	player: Player,
+	playerOldLeague: League,
+	playerNewLeague: League
+}
+
 /**
- * generate the description of the field that display the league change if there is one
- * @param player1OldLeague
- * @param player1NewLeague
+ * Generate the description of the field that display the league change if there is one
+ * @param player1LeagueInfo
+ * @param player2LeagueInfo
  * @param fightTr
- * @param player1
- * @param player2OldLeague
- * @param player2NewLeague
- * @param player2
  */
 function generateLeagueChangeField(
-	player1OldLeague: League,
-	player1NewLeague: League,
-	fightTr: TranslationModule,
-	player1: PlayerInformation,
-	player2OldLeague: League,
-	player2NewLeague: League,
-	player2: PlayerInformation)
+	player1LeagueInfo: PlayerLeagueInfo,
+	player2LeagueInfo: PlayerLeagueInfo,
+	fightTr: TranslationModule)
 	: string {
 	let leagueChange = "";
-	if (player1OldLeague.id !== player1NewLeague.id) {
-		leagueChange += fightTr.format(player1OldLeague.maxGloryPoints < player1NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
-			player: player1.player.getMention(),
-			oldLeague: player1OldLeague.toString(fightTr.language),
-			newLeague: player1NewLeague.toString(fightTr.language)
+	if (player1LeagueInfo.playerOldLeague.id !== player1LeagueInfo.playerNewLeague.id) {
+		leagueChange += fightTr.format(player1LeagueInfo.playerOldLeague.maxGloryPoints < player1LeagueInfo.playerNewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
+			player: player1LeagueInfo.player.getMention(),
+			oldLeague: player1LeagueInfo.playerOldLeague.toString(fightTr.language),
+			newLeague: player1LeagueInfo.playerNewLeague.toString(fightTr.language)
 		});
 	}
-	if (player2OldLeague.id !== player2NewLeague.id) {
-		leagueChange += fightTr.format(player2OldLeague.maxGloryPoints < player2NewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
-			player: player2.player.getMention(),
-			oldLeague: player2OldLeague.toString(fightTr.language),
-			newLeague: player2NewLeague.toString(fightTr.language)
+	if (player2LeagueInfo.playerOldLeague.id !== player2LeagueInfo.playerNewLeague.id) {
+		leagueChange += fightTr.format(player2LeagueInfo.playerOldLeague.maxGloryPoints < player2LeagueInfo.playerNewLeague.maxGloryPoints ? "elo.leagueChangeUp" : "elo.leagueChangeDown", {
+			player: player2LeagueInfo.player.getMention(),
+			oldLeague: player2LeagueInfo.playerOldLeague.toString(fightTr.language),
+			newLeague: player2LeagueInfo.playerNewLeague.toString(fightTr.language)
 		});
 	}
 	return leagueChange;
@@ -380,7 +383,17 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 	const ratingDiff1 = player1.playerNewRating - player1.player.gloryPoints;
 	const ratingDiff2 = player2.playerNewRating - player2.player.gloryPoints;
 	const gloryField = generateGloryField(ratingDiff1, fightTr, player1, ratingDiff2, player2);
-	const leagueChange = generateLeagueChangeField(player1OldLeague, player1NewLeague, fightTr, player1, player2OldLeague, player2NewLeague, player2);
+	const leagueChange = generateLeagueChangeField(
+		{
+			player: player1.player,
+			playerNewLeague: player1NewLeague,
+			playerOldLeague: player1OldLeague
+		},
+		{
+			player: player2.player,
+			playerNewLeague: player2NewLeague,
+			playerOldLeague: player2OldLeague
+		}, fightTr);
 
 	// Create embed
 	const embed = new DraftBotEmbed()
@@ -406,7 +419,7 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
 }
 
 /**
- * analyze the result of the fight broadcast collector
+ * Analyze the result of the fight broadcast collector
  * @param interaction
  * @param fightTranslationModule
  * @param friendly
@@ -450,7 +463,7 @@ function getAcceptCallback(
 }
 
 /**
- * load the customs error messages for the broadcast collector
+ * Load the customs error messages for the broadcast collector
  * @param fightTranslationModule - the translation module
  * @param respondingPlayer - the player that is responding to the fight
  */
@@ -481,7 +494,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	}
 
 	if (askedEntity && player.discordUserId === askedEntity.discordUserId) {
-		// the user is trying to fight himself
+		// The user is trying to fight himself
 		await replyErrorMessage(interaction, language, fightTranslationModule.get("error.fightHimself"));
 		return;
 	}

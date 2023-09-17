@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "Vous avez avancé de {count} vos missions {missionId}",
 	description: "Avance les missions",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

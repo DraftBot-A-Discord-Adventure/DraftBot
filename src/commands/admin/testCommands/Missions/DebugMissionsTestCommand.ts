@@ -13,7 +13,7 @@ export const commandInfo: ITestCommand = {
 	messageWhenExecuted: "",
 	description: "Affiche des informations sur vos missions",
 	commandTestShouldReply: true,
-	execute: null // defined later
+	execute: null // Defined later
 };
 
 /**

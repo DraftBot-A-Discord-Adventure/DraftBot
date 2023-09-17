@@ -10,7 +10,7 @@ export default class UltimateAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 
 		let failureProbability = 70;
-		// check if the sender has less than 45% of his fight points
+		// Check if the sender has less than 45% of his fight points
 		if (sender.getFightPoints() < sender.getMaxFightPoints() * 0.45) {
 			failureProbability = 0;
 		}
