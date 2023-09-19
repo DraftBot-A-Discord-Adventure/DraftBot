@@ -677,7 +677,7 @@ async function doPVEBoss(
 
 		const fight = new FightController(
 			{fighter1: playerFighter, fighter2: monsterFighter},
-			{friendly: true, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE},
+			{friendly: false, overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE},
 			interaction.channel,
 			language
 		);
