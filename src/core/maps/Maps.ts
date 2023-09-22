@@ -4,7 +4,6 @@ import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
 import {millisecondsToHours, millisecondsToMinutes} from "../utils/TimeUtils";
 import {draftBotInstance} from "../bot";
-import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
 import {MapConstants} from "../constants/MapConstants";
