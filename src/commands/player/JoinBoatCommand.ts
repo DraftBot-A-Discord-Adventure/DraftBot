@@ -9,7 +9,7 @@ import {Maps} from "../../core/maps/Maps";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {format} from "../../core/utils/StringFormatter";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {PVEConstants} from "../../core/constants/PVEConstants";
@@ -23,6 +23,10 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
  * @param player
  */
 async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+	if (await sendBlockedError(interaction, language)) {
+		return;
+	}
+
 	const tr = Translations.getModule("commands.joinBoat", language);
 
 	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.discordUserId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
