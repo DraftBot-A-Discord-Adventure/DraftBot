@@ -58,7 +58,8 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 async function applyOutcomeEffect(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
 	await player.setLastReportWithEffect(
 		outcome.lostTime ?? 0,
-		outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY
+		outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY,
+		NumberChangeReason.BIG_EVENT
 	);
 	if (outcome.lostTime && outcome.lostTime > 0 && outcome.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 		return textInformation.tr.format("timeLost", {timeLost: minutesDisplay(outcome.lostTime)});

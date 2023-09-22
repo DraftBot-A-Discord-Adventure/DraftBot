@@ -41,8 +41,7 @@ export async function confirmationCallback(
 			await Maps.startTravel(
 				player,
 				await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
-				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : messageData.reactionMessage.sentMessage.createdTimestamp,
-				NumberChangeReason.SMALL_EVENT
+				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : messageData.reactionMessage.sentMessage.createdTimestamp
 			);
 			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 			await missionInfo.save();
