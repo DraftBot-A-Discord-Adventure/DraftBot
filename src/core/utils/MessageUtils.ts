@@ -33,7 +33,7 @@ export async function generateTravelNotification(player: Player = null): Promise
  * @param {("fr"|"en")} language - Language to use in the response
  * @param DirectMessageFooter - Add the dmMessage footer
  */
-export async function sendDirectMessage(user: User, embed: DraftBotEmbed, language: string, DirectMessageFooter = true): void {
+export async function sendDirectMessage(user: User, embed: DraftBotEmbed, language: string, DirectMessageFooter = true): Promise<void> {
 	if (DirectMessageFooter) {
 		embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
 	}
