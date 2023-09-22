@@ -380,9 +380,10 @@ export class Player extends Model {
 	 * This function is called when a player receives an effect after a report
 	 * @param timeMalus
 	 * @param effectMalus
+	 * @param reason
 	 */
-	public async setLastReportWithEffect(timeMalus: number, effectMalus: string): Promise<void> {
-		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), NumberChangeReason.BIG_EVENT);
+	public async setLastReportWithEffect(timeMalus: number, effectMalus: string, reason: NumberChangeReason): Promise<void> {
+		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), reason);
 		await this.save();
 	}
 
@@ -784,8 +785,7 @@ export class Player extends Model {
 			await Maps.startTravel(
 				this,
 				await MapLinks.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
-				Date.now(),
-				NumberChangeReason.PVE_ISLAND
+				Date.now()
 			);
 			await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
 			await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);

@@ -50,7 +50,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await player.getPreviousMapId(),
 		await player.getDestinationId()
 	);
-	await Maps.startTravel(player, newlink, Date.now(), NumberChangeReason.RESPAWN);
+	await Maps.startTravel(player, newlink, Date.now());
 	await TravelTime.removeEffect(player, NumberChangeReason.RESPAWN);
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);

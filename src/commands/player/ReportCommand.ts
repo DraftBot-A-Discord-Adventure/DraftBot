@@ -7,7 +7,8 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
 import {
 	getTimeFromXHoursAgo,
-	millisecondsToMinutes, millisecondsToSeconds,
+	millisecondsToMinutes,
+	millisecondsToSeconds,
 	minutesDisplay,
 	printTimeBeforeDate
 } from "../../core/utils/TimeUtils";
@@ -50,8 +51,7 @@ import {GuildConstants} from "../../core/constants/GuildConstants";
  */
 async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
 	await Maps.startTravel(player, await MapLinks.getById(Constants.BEGINNING.START_MAP_LINK),
-		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf(),
-		NumberChangeReason.NEW_PLAYER);
+		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf());
 	await player.save();
 }
 
@@ -321,14 +321,12 @@ async function destinationChoseMessage(
  * @param interaction
  * @param language
  * @param forcedLink Forced map link to go to
- * @param reason
  */
 async function chooseDestination(
 	player: Player,
 	interaction: CommandInteraction,
 	language: string,
-	forcedLink: MapLink,
-	reason: NumberChangeReason
+	forcedLink: MapLink
 ): Promise<void> {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(player);
@@ -342,7 +340,7 @@ async function chooseDestination(
 		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(1, 3) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
 	) {
 		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, Date.now(), reason);
+		await Maps.startTravel(player, newLink, Date.now());
 		await destinationChoseMessage(player, newLink.endMap, interaction, language);
 		return;
 	}
@@ -367,7 +365,7 @@ async function chooseDestination(
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[RandomUtils.randInt(0, destinationMaps.length)];
 		const newLink = await MapLinks.getLinkByLocations(await player.getDestinationId(), mapId);
-		await Maps.startTravel(player, newLink, Date.now(), reason);
+		await Maps.startTravel(player, newLink, Date.now());
 		await destinationChoseMessage(player, mapId, interaction, language);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	});
@@ -434,7 +432,7 @@ async function doPossibility(
 	});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
-		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination, NumberChangeReason.BIG_EVENT);
+		await chooseDestination(player, textInformation.interaction, textInformation.language, outcomeResult.forcedDestination);
 	}
 
 	await MissionsController.update(player, textInformation.interaction.channel, textInformation.language, {missionId: "doReports"});
@@ -615,9 +613,10 @@ async function doPVEBoss(
 			await Maps.stopTravel(player);
 			await player.setLastReportWithEffect(
 				0,
-				EffectsConstants.EMOJI_TEXT.SMILEY
+				EffectsConstants.EMOJI_TEXT.SMILEY,
+				NumberChangeReason.BIG_EVENT
 			);
-			await chooseDestination(player, interaction, language, null, NumberChangeReason.BIG_EVENT);
+			await chooseDestination(player, interaction, language, null);
 		}
 	};
 
@@ -748,13 +747,13 @@ async function executeCommand(
 	}
 
 	if (player.mapLinkId === null) {
-		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now(), NumberChangeReason.DEBUG);
+		await Maps.startTravel(player, await MapLinks.getRandomLink(), Date.now());
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 		return;
 	}
 
 	if (!Maps.isTravelling(player)) {
-		await chooseDestination(player, interaction, language, null, NumberChangeReason.PVE_FIGHT);
+		await chooseDestination(player, interaction, language, null);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 		return;
 	}
