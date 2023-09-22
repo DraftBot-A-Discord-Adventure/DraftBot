@@ -4,7 +4,6 @@ import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
 import {millisecondsToHours, millisecondsToMinutes} from "../utils/TimeUtils";
 import {draftBotInstance} from "../bot";
-import {NumberChangeReason} from "../constants/LogsConstants";
 import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
 import {MapConstants} from "../constants/MapConstants";
@@ -59,16 +58,13 @@ export class Maps {
 	 * @param {Players} player
 	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
-	 * @param reason
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player: Player, newLink: MapLink, time: number, reason: NumberChangeReason): Promise<void> {
+	static async startTravel(player: Player, newLink: MapLink, time: number): Promise<void> {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time);
 		await player.save();
-		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY) {
-			await TravelTime.applyEffect(player, player.effect, player.effectDuration, player.startTravelDate, reason);
-		}
+
 		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink).then();
 	}
 
