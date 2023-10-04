@@ -33,12 +33,12 @@ export async function generateTravelNotification(player: Player = null): Promise
  * @param {("fr"|"en")} language - Language to use in the response
  * @param DirectMessageFooter - Add the dmMessage footer
  */
-export function sendDirectMessage(user: User, embed: DraftBotEmbed, language: string, DirectMessageFooter = true): void {
+export async function sendDirectMessage(user: User, embed: DraftBotEmbed, language: string, DirectMessageFooter = true): Promise<void> {
 	if (DirectMessageFooter) {
 		embed.setFooter({text: Translations.getModule("models.players", language).get("dmEnabledFooter")});
 	}
 
-	user.send({
+	await user.send({
 		embeds: [embed]
 	}).catch(() => {
 		error(`Can't send dm to user ${user.id}`);
@@ -97,7 +97,7 @@ export async function sendNotificationToPlayer(player: Player, embed: DraftBotEm
 		embed.formatAuthor(embed.data.author.name, user);
 	}
 	if (player.notifications === NotificationsConstants.DM_VALUE) {
-		sendDirectMessage(user, embed, language);
+		await sendDirectMessage(user, embed, language);
 	}
 	else if (player.notifications !== NotificationsConstants.NO_NOTIFICATIONS_VALUE) {
 		await checkChannelAccess(player, user, embed, language);
