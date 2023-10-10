@@ -13,6 +13,7 @@ export abstract class EffectsConstants {
 		OCCUPIED: ":clock2:",
 		STARVING: ":drooling_face:",
 		CONFOUNDED: ":confounded:",
+		LOST: ":face_with_monocle:",
 		SCARED: ":scream:"
 	};
 
@@ -30,6 +31,7 @@ export abstract class EffectsConstants {
 		":clock2:": "🕑",
 		":drooling_face:": "🤤",
 		":confounded:": "😖",
+		":face_with_monocle:": "🧐",
 		":scream:": "😱"
 	};
 
@@ -47,6 +49,7 @@ export abstract class EffectsConstants {
 		":clock2:": "Occupied",
 		":drooling_face:": "Starving",
 		":confounded:": "Confounded",
+		":face_with_monocle:": "Lost",
 		":scream:": "Scared"
 	};
 
@@ -57,13 +60,14 @@ export abstract class EffectsConstants {
 		":sleeping:": 180,
 		":zany_face:": 240,
 		":cold_face:": 60,
-		":head_bandage:": 360,
+		":head_bandage:": 320,
 		":sick:": 360,
 		":lock:": 1440,
 		":dizzy_face:": 720,
 		":clock2:": 0,
 		":drooling_face:": 80,
 		":confounded:": 40,
+		":face_with_monocle:": 270,
 		":scream:": 10
 	};
 }
