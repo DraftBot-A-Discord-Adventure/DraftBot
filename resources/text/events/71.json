@@ -33,7 +33,7 @@
 						"fr": "Vous suivez le vieil homme jusqu'à la tente qui lui sert de maison, et partagez un repas ensemble autour de feu tout en racontant vos aventures. Après vous être bien rassasié et avoir remercié l'ermite, vous reprenez votre traversée du désert en vous enfonçant dans les méandres du désert nocturne.",
 						"en": "You follow the old man to the tent he calls home, and share a meal around a bonfire, recounting your adventures. After getting your fill and thanking the hermit, you resume your desert-traveling activities, traversing the meandering dunes of the nighttime desert."
 					},
-					"health": "30"
+					"health": 30
 				}
 			]
 		},
@@ -48,7 +48,7 @@
 						"fr": "Vous laissez l'homme vous guider à sa tente et ramassez discrètement une grosse pierre pendant qu'il vous tourne le dos. Vous lui assénez alors un grand coup sur son crâne encapuchonné. L'ermite s'effondre, et du sang se répand sur le sol craquelé de l'oasis. Vous décidez de laisser le cadavre giser ainsi, pour jeter un œil dans la tente. À l'intérieur, vous découvrez des coffres sertis de bijoux et des objets en grande quantité. Vous repartez avec une somme d'argent conséquente ainsi qu'un objet attrapé en vitesse. Vous reprenez rapidement votre traversée, peu désireux d'être pris dans l'acte.",
 						"en": "You let the man guide you to his tent, and covertly pick up a big stone, while behind him. You then powerfully smash the back of his hooded skull. The hermit collapses, and blood spills on the cracked earth of the oasis. You let the corpse lay there and focus on the tent. Inside, you find jewel-sets chests, and a great variety of items. You leave with a sizeable sum of money, as well as an hastily-chosen item. You quickly resume your walk across the desert, unwilling to be associated with the murder."
 					},
-					"money": "750",
+					"money": 750,
 					"item": {}
 				},
 				{
@@ -56,16 +56,16 @@
 						"fr": "Vous laissez l'homme vous guider à sa tente et ramassez discrètement une grosse pierre pendant qu'il vous tourne le dos. Alors que vous vous apprêtez à le frapper, celui-ci se retourne en sortant une dague de sa manche et parvient à vous entailler profondément le buste. Vous prenez vos jambes à votre cou en essayant au mieux d'empêcher le sang de couler. Dans votre fuite, vous entendez le vieux fou pousser des rires déments.",
 						"en": "You let the man guide you to his tent, and covertly pick up a big stone, while behind him. As you prepare to hit him with the rock, the hermit suddenly turns around, taking out a dagger from his sleeve, and manages to profoundly slash open your torso. You run aways immediatly, trying your best to contain the bleeding. As you flee, you hear demented laughs escape from the crazed hermit's mouth."
 					},
-					"health": "-40"
+					"health": -40
 				},
 				{
 					"translations": {
 						"fr": "Vous laissez l'homme vous guider à sa tente et ramassez discrètement une grosse pierre pendant qu'il vous tourne le dos. Vous lui assénez un gros coup sur son crâne encapuchonné, l'ermite s'effondre au sol, et vous êtes immédiatement pris de remords. Vous bandez la tête du vieil homme et l'allongez sur sa natte le temps qu'il récupère. À son réveil, vous vous confondez en excuses et lui donnez de l'argent en compensation de votre méfait.",
 						"en": "You follow the man as he guides you to his tent, and with much stealth, pick up a big stone. You then powerfully smash the back of his hooded skull. The hermit collapses, and you suddenly feel deeply remorseful. You bandage the old man's head, lay him down on his mat, and wait for him to recover. Once he wakes up, you apologize profusely, and give him some money as compensation for your wicked act."
 					},
-					"timeLost": "20",
+					"timeLost": 20,
 					"effect": ":clock2:",
-					"money": "-250"
+					"money": -250
 				},
 				{
 					"translations": {
@@ -98,7 +98,7 @@
 						"fr": "Vous refusez son offre mais au moment de reprendre votre route, il vous interpelle de nouveau et vous parle de tout et n'importe quoi. Au bout d'un moment, le trouvant beaucoup trop louche et pensant qu'il essaye de vous tendre un piège, vous décidez de couper court à son interminable monologue avant de vous enfuir le plus vite possible.",
 						"en": "You decline his offer, but, as you start walking again, he interrupts you and starts rambling about some random nonsense. After a bit, you find him a tad too strange and, thinking he might be laying a trap, you chose to stop his unending monologue and get out of there as fast as possible."
 					},
-					"timeLost": "10",
+					"timeLost": 10,
 					"effect": ":clock2:"
 				}
 			]

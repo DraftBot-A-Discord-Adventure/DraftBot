@@ -26,9 +26,9 @@
 						"fr": "Après avoir parcouru plusieurs pièces, dont une remplie de victuailles avariées, vous arrivez dans une vaste pièce où l'or est le maître-mot. Il constitue les murs, les divers objets, les vêtements et même les coffres. Vous décelez, dans un coin, un objet pouvant peut-être vous être utile. Vous remplissez ensuite votre plus grosse bourse, puis repartez du dédale.",
 						"en": "After going through a few rooms, one of which contained spoilt rations, you find your way into a place bathed in gold. Everything that you lay your eyes on seem to be made of gold, from the walls, to the items, such as chests and clothes. In a corner, a seemingly useful item catches your eye. You start filling your biggest sack with coins laying around, before making your way back."
 					},
-					"timeLost": "20",
+					"timeLost": 20,
 					"effect": ":clock2:",
-					"money": "1000",
+					"money": 1000,
 					"item": {}
 				},
 				{
@@ -36,16 +36,16 @@
 						"fr": "Une fois la trappe passée, vous marchez jusqu'à tomber devant un cul-de-sac. Vous décidez de sortir, par crainte de vous perdre. Une fois dehors, vous êtes sauvagement attaqué par un individu coiffé d'un chapeau marron et portant un fouet à sa ceinture. Vous parvenez tant bien que mal à esquiver ses coups, et ripostez. Vous vous battez une heure durant mais finissez par lui porter un coup décisif, le voilà neutralisé. Vous découvrez, en le fouillant, une petite bourse contenant une somme d'argent conséquente.",
 						"en": "Once inside, you make your way to a dead end. Disappointed, you make your way back, fearing getting lost. After getting out, you are aggressed by an unknown assaillant, sporting a brown, wide-brimmed fedora, and wielding a bullwhip. You manage to dodge his first flurry, and engage in a harrowing, hour-long confrontation. You lend a decisive hit, neutralizing him. You loot his satchel, finding a hefty pouch."
 					},
-					"timeLost": "90",
+					"timeLost": 90,
 					"effect": ":clock2:",
-					"money": "400"
+					"money": 400
 				},
 				{
 					"translations": {
 						"fr": "Une fois la trappe passée, vous marchez jusqu'à découvrir la chambre funéraire du tombeau. Voulant rebrousser chemin, vous ne parvenez pas à reconnaître les couloirs que vous traversez, et errez de nombreuses heures avant de trouver une sortie. Vous reprenez votre aventure tandis que la pleine lune éclaire, comme en plein jour, le désert silencieux.",
 						"en": "You quickly reach the funeral chamber of the tomb. As you start retracing your steps, you fail to recognize the different corridors, and err for hours on end, before finaly crawling your way out. The full moon peeks through the clouds, illuminating the silent landscape. "
 					},
-					"timeLost": "555",
+					"timeLost": 555,
 					"effect": ":clock2:"
 				},
 				{
@@ -53,9 +53,9 @@
 						"fr": "Une fois la trappe passée, vous marchez jusqu'à découvrir une pièce où trône un sphinx, intégralement en or ! Comme hypnotisé, vous vous en approchez jusqu'à ce que votre pied gauche se pose sur une dalle, qui s'enfonce dans le sol... Deux flèches dorées viennent siffler sinistrement à vos oreilles tandis qu'une troisième érafle votre bras. Ce n'est pas une vilaine blessure, mais ce piège vous pousse à évacuer les lieux.",
 						"en": "You quickly reach a room dominated by a sphynx, carved in gold ! Entranced, you make your way towards it, triggering a trap with your left foot. A sinister whistle tickles you ear, as an arrow grazes your arm. The wound doesn't seem to serious, but you feel compelled to leave."
 					},
-					"timeLost": "30",
+					"timeLost": 30,
 					"effect": ":clock2:",
-					"health": "-10"
+					"health": -10
 				}
 			]
 		},
@@ -76,7 +76,7 @@
 						"fr": "Vous décidez d'ignorer la trappe rocailleuse et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous attendez des heures avant de sortir de votre cachette.",
 						"en": "After ignoring the trapdoor and continuing your journey, the winds blast ever stronger. You promptly choose to go back and hide from the cataclysm in the discovered maze. you wait a few hours before leaving your safe place."
 					},
-					"timeLost": "180",
+					"timeLost": 180,
 					"effect": ":clock2:"
 				},
 				{
@@ -84,16 +84,16 @@
 						"fr": "Les rafales sableuses s'accentuent, vous déchirez donc un bout de votre haut pour protéger vos voies respiratoires. Vous faites difficilement quelques pas et discernez plusieurs cactus, certains dotés de fruits. Après avoir en avoir ramassé deux, vous trouvez rapidement une dune vous permettant de vous mettre à l'abri. Une fois pelés, vous découvrez que les fruits sont délicieux. De nombreuses minutes plus tard, la tempête s'est tue. Vous pouvez reprendre vos aventures.",
 						"en": "As the sand-imbued wind picks up, you cover your mouth and nose with a ripped piece of your top. Staggering forwards, you notice a few cacti growing some berries. You pick two, before hiding near a dune. Focusing on the fruits, you peel the skin, and revel in their delectable flesh. Once the storm has died down, you resume your travels."
 					},
-					"timeLost": "30",
+					"timeLost": 30,
 					"effect": ":clock2:",
-					"health": "20"
+					"health": 20
 				},
 				{
 					"translations": {
 						"fr": "Après avoir fermé soigneusement la trappe, vous continuez votre route. Soudain, le sol se dérobe sous vos pieds. Vous voilà tombé dans une des pièces du tombeau. Dans votre chute, vous vous entaillez la cuisse. Heureusement, vous ressortez avec facilité.",
 						"en": "After carefully closing the trapdoor, you continue on your way. Suddenly, the ground caves in under your yeet. You find yourself in one of the catacomb's rooms. Your thigh got slashed in the fall. Thankfully, you easily get out of there."
 					},
-					"health": "-10"
+					"health": -10
 				}
 			]
 		},
@@ -111,7 +111,7 @@
 						"fr": "🌪️ Alors que vous hésitez sur la marche à suivre, la tempête de sable s'accentue. Vous vous engagez dans le passage, le temps que les rafales se calment, bien en sécurité.",
 						"en": "🌪️ As you are wondering, the storm gets stronger. You go into the hidden area, to ensure safety while waiting for the winds to calm down."
 					},
-					"timeLost": "180",
+					"timeLost": 180,
 					"effect": ":clock2:"
 				},
 				{
@@ -119,7 +119,7 @@
 						"fr": "🏹  Alors que vous hésitez sur la marche à suivre, une femme portant à la ceinture un piolet surgit de la trappe. Elle vous menace à l'aide d'un arc bandé, puis vous ordonne de lui tourner le dos, ce que vous faites. Un violent coup à la tempe vous laisse confus de longues minutes.",
 						"en": "🏹 Lost in thought, a woman springs out of the hole. You notice climbing tools attached to her belt. she aims her charged bow at you, and forces you tot turn around and bend over. You immediately comply, and she quickly hits you, knocking you out. She then leaves you lying on the ground."
 					},
-					"health": "-10",
+					"health": -10,
                     "effect": ":dizzy_face:"
 				}
 			]
