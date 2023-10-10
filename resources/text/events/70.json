@@ -72,13 +72,13 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous décidez d'ignorer la trappe pierreuse : explorer un tombeau serait, à vos yeux, bien trop dangereux. Les rafales sableuses se sont cependant calmées, quelle aubaine pour vous !",
+						"fr": "Vous décidez d'ignorer la trappe : explorer un souterrain serait, à vos yeux, bien trop dangereux. Les rafales sableuses se sont quant à elles calmées, quelle aubaine pour vous !",
 						"en": "You rationality tells you that ignoring the situation is the right choice to keep yourself safe. The winds have since abated, allowing you to continue your way, unfettered."
 					}
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'ignorer la trappe rocailleuse et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous attendez des heures avant de sortir de votre cachette.",
+						"fr": "Vous décidez d'ignorer la trappe et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous attendez des heures avant de pouvoir sortir de votre cachette.",
 						"en": "After ignoring the trapdoor and continuing your journey, the winds blast ever stronger. You promptly choose to go back and hide from the cataclysm in the discovered maze. you wait a few hours before leaving your safe place."
 					},
 					"lostTime": 180,
