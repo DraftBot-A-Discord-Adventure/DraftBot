@@ -104,7 +104,7 @@
 						"fr": "💤 Après un petit temps de réflexion, vous décidez finalement d'entrer dans le tombeau pour vous rafraîchir à l'ombre, et vous reposer.",
 						"en": "💤 After deliberating for a bit, you choose to enter the tomb, to rest in the shade."
 					},
-                    "effect" : ":zzz:"
+                    "effect" : ":sleeping:"
 				},
 				{
 					"translations": {
