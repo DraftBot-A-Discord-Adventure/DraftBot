@@ -5,20 +5,20 @@
 		}
 	],
 	"translations": {
-		"fr": "🏜️ Alors que vous parcourez le désert de La Dune, l'air vous semble devenir de plus en plus sec. À mesure que vous avancez, les grains de sable virevoltent et vous obligent à plisser les yeux. Une tempête approche, vous devez trouver un endroit sûr. Soudain, vous sentez le sol se raffermir sous vos pieds l'espace d'un pas. Surpris, vous poussez le sable et découvrez une trappe rocheuse, puis vous l'ouvrez. Un gigantesque tombeau labyrinthique se révèle devant vos yeux ébahis.",
-		"en": "🏜️ As you are crossing The Dune, the air starts getting drier. Your eyes get itchy, forcing you to squint, overwhelmed by dust and sand. A storm is approaching, you need to find shelter. Under your step, a dull thump resounds. Interested, you push aside the sand with your feet, revealing a trapdoor carved in stone, which you open. A gigantic maze lays before your eyes."
+		"fr": "🏜️ Alors que vous parcourez le désert de La Dune, l'air vous semble devenir de plus en plus sec. À mesure que vous avancez, les grains de sable virevoltent et vous obligent à plisser les yeux. Soudain, vous sentez le sol se raffermir sous vos pieds l'espace d'un pas. Surpris, vous poussez le sable et découvrez une trappe et l'ouvrez. Un gigantesque labyrinthique se révèle devant vos yeux ébahis.",
+		"en": "🏜️ As you are crossing The Dune, the air starts getting drier. Your eyes get itchy, forcing you to squint, overwhelmed by dust and sand. Under your step, a dull thump resounds. Interested, you push aside the sand with your feet, revealing a trapdoor carved in stone, which you open. A gigantic maze lays before your eyes."
 	},
 	"possibilities": {
 		"🔍": {
 			"translations": {
-				"fr": "Explorer le tombeau.",
+				"fr": "Explorer le souterrain.",
 				"en": "Explore the crypt."
 			},
 			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous arpentez les galeries pendant un moment, cherchant une quelconque salle cachée. Vous finissez par tomber devant un cul-de-sac. craignant de vous perdre en continuant votre exploration, vous décidez de rebrousser chemin.",
-						"en": "You crawl through the dungeon for a bit, searching for some kind of hidden room. You are faced with a dead end. Worried about losing your way from venturing furthur, you choose to leave."
+						"en": "You crawl through the dungeon for a bit, searching for some kind of hidden room. You are faced with a dead end. Worried about losing your way from venturing further, you choose to leave."
 					}
 				},
 				{
@@ -28,34 +28,39 @@
 					},
 					"lostTime": 20,
 					"effect": ":clock2:",
-					"money": 1000,
+					"money": 785,
 					"randomItem": {}
 				},
 				{
 					"translations": {
-						"fr": "Une fois la trappe passée, vous marchez jusqu'à tomber devant un cul-de-sac. Vous décidez de sortir, par crainte de vous perdre. Une fois dehors, vous êtes sauvagement attaqué par un individu coiffé d'un chapeau marron et portant un fouet à sa ceinture. Vous parvenez tant bien que mal à esquiver ses coups, et ripostez. Vous vous battez une heure durant mais finissez par lui porter un coup décisif, le voilà neutralisé. Vous découvrez, en le fouillant, une petite bourse contenant une somme d'argent conséquente.",
-						"en": "Once inside, you make your way to a dead end. Disappointed, you make your way back, fearing getting lost. After getting out, you are aggressed by an unknown assaillant, sporting a brown, wide-brimmed fedora, and wielding a bullwhip. You manage to dodge his first flurry, and engage in a harrowing, hour-long confrontation. You lend a decisive hit, neutralizing him. You loot his satchel, finding a hefty pouch."
+						"fr": "Une fois la trappe passée, vous marchez jusqu'à tomber devant un cul-de-sac. Vous décidez de sortir, par crainte de vous perdre. Alors que vous atteignez la trappe, vous êtes sauvagement attaqué par un individu coiffé d'un chapeau marron et portant un fouet à sa ceinture. Vous parvenez tant bien que mal à esquiver la majorité des coups, et ripostez. Vous vous battez longuement mais finissez par lui porter un coup décisif. Vous découvrez, en le fouillant, une petite bourse contenant une somme d'argent conséquente.",
+						"en": "Once inside, you make your way to a dead end. Disappointed, you make your way back, fearing getting lost. Just before getting out, you are attacked by an unknown assaillant, sporting a brown, wide-brimmed fedora, and wielding a bullwhip. You manage to dodge his first flurry, and engage in a harrowing and long confrontation. You lend a decisive hit, neutralizing him. You loot his satchel, finding a hefty pouch."
 					},
-					"lostTime": 90,
+					"health": -20,
+					"lostTime": 25,
 					"effect": ":clock2:",
-					"money": 400
+					"money": 165
 				},
 				{
 					"translations": {
-						"fr": "Une fois la trappe passée, vous marchez jusqu'à découvrir la chambre funéraire du tombeau. Voulant rebrousser chemin, vous ne parvenez pas à reconnaître les couloirs que vous traversez, et errez de nombreuses heures avant de trouver une sortie. Vous reprenez votre aventure tandis que la pleine lune éclaire, comme en plein jour, le désert silencieux.",
-						"en": "You quickly reach the funeral chamber of the tomb. As you start retracing your steps, you fail to recognize the different corridors, and err for hours on end, before finaly crawling your way out. The full moon peeks through the clouds, illuminating the silent landscape. "
+						"fr": "Une fois la trappe passée, vous marchez jusqu'à découvrir une chambre funéraire, le souterrain est un tombeau ! Voulant rebrousser chemin, vous ne parvenez pas à reconnaître les couloirs que vous traversez, et errez de nombreuses heures avant de trouver une sortie. Vous reprenez votre aventure tandis que la pleine lune éclaire, comme en plein jour, le désert silencieux.",
+						"en": "You quickly reach a funeral chamber, this is a tomb! As you start retracing your steps, you fail to recognize the different corridors, and err for hours on end, before finally crawling your way out. The full moon peeks through the clouds, illuminating the silent landscape. "
 					},
-					"lostTime": 555,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
+				},
+				{
+					"translations": {
+						"fr": "Après avoir traversé la trappe, vous avancez dans l'obscurité et découvrez un lieu étrange : une crypte abandonnée, les tunnels souterrains ressemblent à un dédale funéraire ! L'envie de faire demi-tour vous prend, mais à votre consternation, les couloirs semblent se jouer de vos sens et se métamorphoser devant vous. Vous errez sans repères pendant un temps qui vous échappe avant de finalement dénicher une issue.",
+						"en": "After passing through the trapdoor, you venture forward into the darkness and stumble upon an eerie sight: an abandoned crypt, the underground tunnels resembling a maze of the deceased! The urge to retreat washes over you, but to your consternation, the corridors seem to toy with your senses, shape-shifting before your very eyes. You wander aimlessly for an indeterminate time before finally discovering an escape route."
+					},
+					"effect": ":face_with_monocle:"
 				},
 				{
 					"translations": {
 						"fr": "Une fois la trappe passée, vous marchez jusqu'à découvrir une pièce où trône un sphinx, intégralement en or ! Comme hypnotisé, vous vous en approchez jusqu'à ce que votre pied gauche se pose sur une dalle, qui s'enfonce dans le sol... Deux flèches dorées viennent siffler sinistrement à vos oreilles tandis qu'une troisième érafle votre bras. Ce n'est pas une vilaine blessure, mais ce piège vous pousse à évacuer les lieux.",
-						"en": "You quickly reach a room dominated by a sphynx, carved in gold ! Entranced, you make your way towards it, triggering a trap with your left foot. A sinister whistle tickles you ear, as an arrow grazes your arm. The wound doesn't seem to serious, but you feel compelled to leave."
+						"en": "You quickly reach a room dominated by a sphinx, carved in gold ! Entranced, you make your way towards it, triggering a trap with your left foot. A sinister whistle tickles you ear, as an arrow grazes your arm. The wound doesn't seem to serious, but you feel compelled to leave."
 					},
-					"lostTime": 30,
-					"effect": ":clock2:",
-					"health": -10
+					"health": -15
 				}
 			]
 		},
@@ -104,7 +109,7 @@
 						"fr": "💤 Après un petit temps de réflexion, vous décidez finalement d'entrer dans le tombeau pour vous rafraîchir à l'ombre, et vous reposer.",
 						"en": "💤 After deliberating for a bit, you choose to enter the tomb, to rest in the shade."
 					},
-                    "effect" : ":sleeping:"
+					"effect": ":sleeping:"
 				},
 				{
 					"translations": {
@@ -120,7 +125,7 @@
 						"en": "🏹 Lost in thought, a woman springs out of the hole. You notice climbing tools attached to her belt. she aims her charged bow at you, and forces you tot turn around and bend over. You immediately comply, and she quickly hits you, knocking you out. She then leaves you lying on the ground."
 					},
 					"health": -10,
-                    "effect": ":dizzy_face:"
+					"effect": ":dizzy_face:"
 				}
 			]
 		}
