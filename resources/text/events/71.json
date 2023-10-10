@@ -5,8 +5,8 @@
 		}
 	],
 	"translations": {
-		"fr": "� Alors que vous traversez le désert de la Vallée des Rois, vous apercevez une oasis. Assoiffé par votre voyage, vous vous élancez vers la petite étendue d'eau pour vous y abreuver. Tandis que vous buvez, un rire se fait entendre derrière vous et vous fait sursauter. Lorsque vous vous retournez, un vieil homme barbu au visage caché par une large capuche vous fait face. Il dit s'appeler Xirtex et habiter cette oasis. Celui-ci vous propose de vous héberger dans sa demeure pour vous remettre de votre voyage, et en profiter pour partager vos mésaventures.",
-		"en": "� As you walk through the Kings' Valley's iconic desert, you notice an oasis. Your throat is parched by your travels, so you run to the small pool of water, and drink from it. As you are drinking, a peal of laughter erupts, startling you. You turn around, and end up facing a bearded old man, his face hidden under a large hood. He tells you his name's Xirtex, and he resides in this oasis. He then offers to welcome you in his home so that you can recover from your journey, and share your adventures."
+		"fr": "🏜️ Alors que vous traversez le désert de la Vallée des Rois, vous apercevez une oasis. Assoiffé par votre voyage, vous vous élancez vers la petite étendue d'eau pour vous y abreuver. Tandis que vous buvez, un rire se fait entendre derrière vous et vous fait sursauter. Lorsque vous vous retournez, un vieil homme barbu au visage caché par une large capuche vous fait face. Il dit s'appeler Xirtex et habiter cette oasis. Celui-ci vous propose de vous héberger dans sa demeure pour vous remettre de votre voyage, et en profiter pour partager vos mésaventures.",
+		"en": "🏜️ As you walk through the Kings' Valley's iconic desert, you notice an oasis. Your throat is parched by your travels, so you run to the small pool of water, and drink from it. As you are drinking, a peal of laughter erupts, startling you. You turn around, and end up facing a bearded old man, his face hidden under a large hood. He tells you his name's Xirtex, and he resides in this oasis. He then offers to welcome you in his home so that you can recover from your journey, and share your adventures."
 	},
 	"possibilities": {
 		"🍖": {
@@ -107,14 +107,14 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "� Cet individu vous semble suspect et sa démarche est fourbe. Alors que celui-ci tend le bras pour vous demander si vous vous sentez bien, vous le saisissez brusquement et le poussez dans l'étendue d'eau avant de détaler à toutes jambes.",
-						"en": "� This person seems really suspicious, and his approach his deceitful. As he reach out with his arm, concerned about your wellbeing, you abruptly shove him into the water, before hurrying away from the oasis."
+						"fr": "🏃 Cet individu vous semble suspect et sa démarche est fourbe. Alors que celui-ci tend le bras pour vous demander si vous vous sentez bien, vous le saisissez brusquement et le poussez dans l'étendue d'eau avant de détaler à toutes jambes.",
+						"en": "🏃 This person seems really suspicious, and his approach his deceitful. As he reach out with his arm, concerned about your wellbeing, you abruptly shove him into the water, before hurrying away from the oasis."
 					}
 				},
 				{
 					"translations": {
-						"fr": "� Vous voyant sans réaction, le vieil homme se vexe, vous crie dessus et vous jette une poignée de sable au visage avant de s'en aller. Complétement aveuglé, vous vous orientez vers la petite étendue d'eau pour rincer le sable de vos yeux. Après quelques minutes, vous vous sentez mieux et reprenez votre chemin.",
-						"en": "� Seeing you unresponsive, the old man feels vexed, shouts at you and throws a bunch of sand to your face, before going away. Blinded, you go towards the small puddle of water and rinse your eyes of the sand. A few minutes later, you feel better and continue on your planned road."
+						"fr": "😠 Vous voyant sans réaction, le vieil homme se vexe, vous crie dessus et vous jette une poignée de sable au visage avant de s'en aller. Complétement aveuglé, vous vous orientez vers la petite étendue d'eau pour rincer le sable de vos yeux. Après quelques minutes, vous vous sentez mieux et reprenez votre chemin.",
+						"en": "😠 Seeing you unresponsive, the old man feels vexed, shouts at you and throws a bunch of sand to your face, before going away. Blinded, you go towards the small puddle of water and rinse your eyes of the sand. A few minutes later, you feel better and continue on your planned road."
 					}
 				}
 			]
