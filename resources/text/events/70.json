@@ -29,7 +29,7 @@
 					"lostTime": 20,
 					"effect": ":clock2:",
 					"money": 1000,
-					"item": {}
+					"randomItem": {}
 				},
 				{
 					"translations": {

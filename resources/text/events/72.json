@@ -39,7 +39,7 @@
 					"lostTime": 160,
 					"effect": ":clock2:",
 					"money": 600,
-					"item": {}
+					"randomItem": {}
 				},
 				{
 					"translations": {
@@ -111,7 +111,7 @@
 					},
 					"lostTime": 15,
 					"effect": ":clock2:",
-					"item": {}
+					"randomItem": {}
 				}
 			]
 		},
@@ -135,7 +135,7 @@
 					"lostTime": 120,
 					"effect": ":clock2:",
 					"money": 800,
-					"item": {}
+					"randomItem": {}
 				},
 				{
 					"translations": {
