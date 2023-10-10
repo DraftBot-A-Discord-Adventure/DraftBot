@@ -63,7 +63,7 @@
 						"fr": "Vous laissez l'homme vous guider à sa tente et ramassez discrètement une grosse pierre pendant qu'il vous tourne le dos. Vous lui assénez un gros coup sur son crâne encapuchonné, l'ermite s'effondre au sol, et vous êtes immédiatement pris de remords. Vous bandez la tête du vieil homme et l'allongez sur sa natte le temps qu'il récupère. À son réveil, vous vous confondez en excuses et lui donnez de l'argent en compensation de votre méfait.",
 						"en": "You follow the man as he guides you to his tent, and with much stealth, pick up a big stone. You then powerfully smash the back of his hooded skull. The hermit collapses, and you suddenly feel deeply remorseful. You bandage the old man's head, lay him down on his mat, and wait for him to recover. Once he wakes up, you apologize profusely, and give him some money as compensation for your wicked act."
 					},
-					"timeLost": 20,
+					"lostTime": 20,
 					"effect": ":clock2:",
 					"money": -250
 				},
@@ -98,7 +98,7 @@
 						"fr": "Vous refusez son offre mais au moment de reprendre votre route, il vous interpelle de nouveau et vous parle de tout et n'importe quoi. Au bout d'un moment, le trouvant beaucoup trop louche et pensant qu'il essaye de vous tendre un piège, vous décidez de couper court à son interminable monologue avant de vous enfuir le plus vite possible.",
 						"en": "You decline his offer, but, as you start walking again, he interrupts you and starts rambling about some random nonsense. After a bit, you find him a tad too strange and, thinking he might be laying a trap, you chose to stop his unending monologue and get out of there as fast as possible."
 					},
-					"timeLost": 10,
+					"lostTime": 10,
 					"effect": ":clock2:"
 				}
 			]
