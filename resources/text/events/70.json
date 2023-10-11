@@ -78,27 +78,26 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'ignorer la trappe et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous attendez des heures avant de pouvoir sortir de votre cachette.",
-						"en": "After ignoring the trapdoor and continuing your journey, the winds blast ever stronger. You promptly choose to go back and hide from the cataclysm in the discovered maze. you wait a few hours before leaving your safe place."
+						"fr": "Vous décidez d'ignorer la trappe et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous décidez de vous reposer ici en attendant la fin de la tempète.",
+						"en": "After ignoring the trapdoor and continuing your journey, the winds blast ever stronger. You promptly choose to go back and hide from the cataclysm in the discovered maze. You decide to sleep while waiting for the weather to calm down."
 					},
-					"lostTime": 180,
-					"effect": ":clock2:"
+					"effect": ":sleeping:"
 				},
 				{
 					"translations": {
-						"fr": "Les rafales sableuses s'accentuent, vous déchirez donc un bout de votre haut pour protéger vos voies respiratoires. Vous faites difficilement quelques pas et discernez plusieurs cactus, certains dotés de fruits. Après avoir en avoir ramassé deux, vous trouvez rapidement une dune vous permettant de vous mettre à l'abri. Une fois pelés, vous découvrez que les fruits sont délicieux. De nombreuses minutes plus tard, la tempête s'est tue. Vous pouvez reprendre vos aventures.",
+						"fr": "Les rafales s'accentuent, vous déchirez donc un bout de votre haut pour protéger vos voies respiratoires. Vous faites difficilement quelques pas et discernez plusieurs cactus, certains dotés de fruits. Après avoir en avoir ramassé deux, vous trouvez rapidement une dune vous permettant de vous mettre à l'abri. Une fois pelés, vous découvrez que les fruits sont délicieux. De nombreuses minutes plus tard, la tempête s'est tue. Vous pouvez reprendre vos aventures.",
 						"en": "As the sand-imbued wind picks up, you cover your mouth and nose with a ripped piece of your top. Staggering forwards, you notice a few cacti growing some berries. You pick two, before hiding near a dune. Focusing on the fruits, you peel the skin, and revel in their delectable flesh. Once the storm has died down, you resume your travels."
 					},
 					"lostTime": 30,
 					"effect": ":clock2:",
-					"health": 20
+					"health": 5
 				},
 				{
 					"translations": {
-						"fr": "Après avoir fermé soigneusement la trappe, vous continuez votre route. Soudain, le sol se dérobe sous vos pieds. Vous voilà tombé dans une des pièces du tombeau. Dans votre chute, vous vous entaillez la cuisse. Heureusement, vous ressortez avec facilité.",
+						"fr": "Après avoir fermé soigneusement la trappe, vous continuez votre route. Soudain, le sol se dérobe sous vos pieds. Vous voilà tombé dans une des pièces du souterrain. Dans votre chute, vous vous entaillez la cuisse. Heureusement, vous ressortez avec facilité.",
 						"en": "After carefully closing the trapdoor, you continue on your way. Suddenly, the ground caves in under your yeet. You find yourself in one of the catacomb's rooms. Your thigh got slashed in the fall. Thankfully, you easily get out of there."
 					},
-					"health": -10
+					"health": -25
 				}
 			]
 		},
@@ -124,7 +123,7 @@
 						"fr": "🏹  Alors que vous hésitez sur la marche à suivre, une femme portant à la ceinture un piolet surgit de la trappe. Elle vous menace à l'aide d'un arc bandé, puis vous ordonne de lui tourner le dos, ce que vous faites. Un violent coup à la tempe vous laisse confus de longues minutes.",
 						"en": "🏹 Lost in thought, a woman springs out of the hole. You notice climbing tools attached to her belt. she aims her charged bow at you, and forces you tot turn around and bend over. You immediately comply, and she quickly hits you, knocking you out. She then leaves you lying on the ground."
 					},
-					"health": -10,
+					"health": -45,
 					"effect": ":dizzy_face:"
 				}
 			]
