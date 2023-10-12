@@ -5,7 +5,7 @@
 		}
 	],
 	"translations": {
-		"fr": "🏜️ Alors que vous parcourez le désert de La Dune, l'air vous semble devenir de plus en plus sec. À mesure que vous avancez, les grains de sable virevoltent et vous obligent à plisser les yeux. Soudain, vous sentez le sol se raffermir sous vos pieds l'espace d'un pas. Surpris, vous poussez le sable et découvrez une trappe et l'ouvrez. Un gigantesque labyrinthique se révèle devant vos yeux ébahis.",
+		"fr": "🏜️ Alors que vous parcourez le désert de La Dune, l'air vous semble devenir de plus en plus sec. À mesure que vous avancez, les grains de sable virevoltent et vous obligent à plisser les yeux. Soudain, vous sentez le sol se raffermir sous vos pieds l'espace d'un pas. Surpris, vous poussez le sable et découvrez une trappe et l'ouvrez. Un gigantesque labyrinthe se révèle devant vos yeux ébahis.",
 		"en": "🏜️ As you are crossing The Dune, the air starts getting drier. Your eyes get itchy, forcing you to squint, overwhelmed by dust and sand. Under your step, a dull thump resounds. Interested, you push aside the sand with your feet, revealing a trapdoor carved in stone, which you open. A gigantic maze lays before your eyes."
 	},
 	"possibilities": {
@@ -85,7 +85,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Les rafales s'accentuent, vous déchirez donc un bout de votre haut pour protéger vos voies respiratoires. Vous faites difficilement quelques pas et discernez plusieurs cactus, certains dotés de fruits. Après avoir en avoir ramassé deux, vous trouvez rapidement une dune vous permettant de vous mettre à l'abri. Une fois pelés, vous découvrez que les fruits sont délicieux. De nombreuses minutes plus tard, la tempête s'est tue. Vous pouvez reprendre vos aventures.",
+						"fr": "Les rafales s'accentuent, vous déchirez donc un bout de votre haut pour protéger vos voies respiratoires. Vous faites difficilement quelques pas et discernez plusieurs cactus, certains dotés de fruits. Après avoir en avoir ramassé deux, vous trouvez rapidement une dune vous permettant de vous mettre à l'abri. Une fois pelés, vous découvrez que les fruits sont délicieux. De nombreuses minutes plus tard, la tempête s'est tue. Vous reprenez donc votre aventure.",
 						"en": "As the sand-imbued wind picks up, you cover your mouth and nose with a ripped piece of your top. Staggering forwards, you notice a few cacti growing some berries. You pick two, before hiding near a dune. Focusing on the fruits, you peel the skin, and revel in their delectable flesh. Once the storm has died down, you resume your travels."
 					},
 					"lostTime": 30,
