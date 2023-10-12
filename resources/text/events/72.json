@@ -27,13 +27,13 @@
 				{
 					"translations": {
 						"fr": "Une nouvelle épreuve de joute est sur le point de commencer, un palefrenier vous a fait don d'un double-poney gris dont l'ancien propriétaire est malheureusement décédé peu avant. Vous faites face à Yvain, un chevalier de renom. Vous entamez le galop ainsi que votre adversaire, celui-ci vous désarçonne avec aisance. Alors que vous atterrissez avec fracas sur le sol poussiéreux, votre monture marche malencontreusement sur une de vos clavicules, faisant retentir un craquement sinistre. ",
-						"en": "A new joust is about to start. A groom gives you a grey cob, whose previous master died recently. You now face Yvan, a renowned knight. As you start galloping, so does your foe. He knocks you off your horce with ease and, as you violently smash onto the dusty floor, your mount unfortunately steps on a collarbone, which lets out a nasty crunch."
+						"en": "A new joust is about to start. A groom gives you a grey cob, whose previous master died recently. You now face Yvan, a renowned knight. As you start galloping, so does your foe. He knocks you off your horse with ease and, as you violently smash onto the dusty floor, your mount unfortunately steps on a collarbone, which lets out a nasty crunch."
 					},
 					"health": -45
 				},
 				{
 					"translations": {
-						"fr": "Après avoir repéré un canasson bai laissé sans surveillance, vous vous en emparez afin de participer aux joutes. Vous voilà vainqueur ! L'épouse du Seigneur local, surnomée Yseldia, vous donne en mains propres vos récompenses. ",
+						"fr": "Après avoir repéré un canasson bai laissé sans surveillance, vous vous en emparez afin de participer aux joutes. Vous voilà vainqueur ! L'épouse du Seigneur local, surnommée Yseldia, vous donne en mains propres vos récompenses. ",
 						"en": "After noticing an unsupervised bay nag, you take it in order to joust. You end up as the grand winner ! The local lord's spouse, Yseldia, hand-delivers your prizes."
 					},
 					"lostTime": 160,
@@ -96,7 +96,7 @@
 				{
 					"translations": {
 						"fr": "Quelques minutes avant l'annonce des résultats, vous remarquez l'absence de votre bourse. Vous vous l'êtes sûrement faite voler avant votre passage. Heureusement que vous n'aviez pas tout votre or sur vous ! Vous repartez sans attendre le reste des festivités, bredouille.",
-						"en": "A few minutes before the reveal of the results, you notice the sad disappearance of your purse. You guess it was stolen from you somewhen into the event. Thankfully, you only had on you a small part of your funds ! Still heartbroken by this loss, you go back to your travels without continuing on with the festivities."
+						"en": "A few minutes before the reveal of the results, you notice the sad disappearance of your purse. You guess it was stolen from you sometime during the event. Thankfully, you only had on you a small part of your funds! Still heartbroken by this loss, you go back to your travels without continuing on with the festivities."
 					},
 					"money": -350
 				},

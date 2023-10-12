@@ -17,11 +17,10 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
-						"en": "You lose track of the dog after a few minutes, he was going too fast!"
+						"fr": "Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite ! Vous décidez de reprendre votre chemin mais vous rendez vite compte que vous n'aviez pas fait attention à votre orientation... Vous voilà perdu !",
+						"en": "You lose track of the dog after a few minutes, he was going too fast! You decide to continue your way but you quickly realize that you hadn't paid attention to your orientation... You're lost!"
 					},
-					"lostTime": 20,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				},
 				{
 					"translations": {
