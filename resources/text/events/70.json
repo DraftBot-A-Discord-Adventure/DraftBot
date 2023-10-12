@@ -78,7 +78,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'ignorer la trappe et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous décidez de vous reposer ici en attendant la fin de la tempète.",
+						"fr": "Vous décidez d'ignorer la trappe et de poursuivre votre chemin, mais la tempête de sable devient encore plus virulente. Sans la moindre hésitation, vous rebroussez chemin pour vous abriter. Vous décidez de vous reposer ici en attendant la fin de la tempête.",
 						"en": "After ignoring the trapdoor and continuing your journey, the winds blast ever stronger. You promptly choose to go back and hide from the cataclysm in the discovered maze. You decide to sleep while waiting for the weather to calm down."
 					},
 					"effect": ":sleeping:"
