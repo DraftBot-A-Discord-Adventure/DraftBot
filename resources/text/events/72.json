@@ -67,14 +67,14 @@
 				{
 					"translations": {
 						"fr": "L'épreuve vous semble un brin difficile : vous devez décocher trois flèches sur un paillon placé à une cinquantaine de mètres de vous. Vous n'êtes pas très adroit, vous ratez donc deux de vos flèches sur les trois et prenez la dernière place du classement ! Heureux d'avoir pu cependant participer à l'euphorie générale, vous reprenez joyeusement votre route.",
-						"en": "This event seems a bit hard : you need to fire three arrows straight into a paillon sitting some fifty meters away from you. You aren't really deft, and two of your arrows miss the target entirely. You end up last. Still happy from partaking in the festivities, you resume your journey with a smile on your lips."
+						"en": "This event seems a bit hard : you need to fire three arrows straight into a paillon sitting some fifty meters away from you. You aren't really deft, and two of your arrows miss the target entirely. You end up last but, still happy from partaking in the festivities, you resume your journey with a smile on your lips."
 					},
 					"lostTime": 60,
 					"effect": ":clock2:"
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous encochez votre première flèche, un éternuement vous surprend. Vous lâchez votre arc, et votre flèche vient se planter près de la tête d'un musculeux chevalier. Celui-ci vous lance un regard noir et commence à s'élancer vers vous. L'aventure n'attend pas : vous repprennez rapidement votre route !",
+						"fr": "Alors que vous encochez votre première flèche, un éternuement vous surprend. Vous lâchez votre arc, et votre flèche vient se planter près de la tête d'un musculeux chevalier. Celui-ci vous lance un regard noir et commence à s'élancer vers vous. L'aventure n'attend pas : vous reprenez rapidement votre route !",
 						"en": "As you notch your first arrow, a loud sneeze disrupts your moves. Your bow slips out of your hands, and the arrow flies straight towards a brawny knight, etching itself into a wooden panel, infinitely close to his head. The knight glances at you with a deathly stare, and starts moving towards you. You suddenly feel a great call for adventure, and quickly go away, resuming your usual journeying."
 					}
 				}
