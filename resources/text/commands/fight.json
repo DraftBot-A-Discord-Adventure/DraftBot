@@ -450,7 +450,6 @@
 				"frozen": "Frozen"
 			},
 			"weatherChanges": {
-				"sunny": "The sun is shining...",
 				"rainy": "It's raining...",
 				"hail": "It's hailing...",
 				"fog": "It's foggy...",
@@ -459,6 +458,7 @@
 				"tornado": "A tornado is brewing..."
 			},
 			"weatherContinues": {
+				"sunny": "The sun is shining...",
 				"rainy": "It rains...",
 				"hail": "It hails...",
 				"fog": "It's foggy...",
