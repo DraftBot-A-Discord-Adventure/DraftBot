@@ -3,7 +3,7 @@
 		"fr": {
 			"name": "Attaque projection",
 			"namePlural": "Attaques projections",
-			"description": "Projète l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
+			"description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
 			"fail": "échoue car l'adversaire n'est pas au contact physique."
 		},
 		"en": {

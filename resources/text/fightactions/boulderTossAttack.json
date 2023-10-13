@@ -1,8 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"name": "Lancer de rocher",
-			"namePlural": "Lancers de rocher",
+			"name": "Attaque rocheuse",
+			"namePlural": "Attaques rocheuses",
 			"description": "Attaque moyenne qui a des chances d'étourdir l'adversaire."
 		},
 		"en": {
