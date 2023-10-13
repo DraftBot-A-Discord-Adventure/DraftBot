@@ -106,9 +106,9 @@ export abstract class Constants {
 		GROUP3LEVEL: 48,
 		GROUP4LEVEL: 80,
 		TIME_BEFORE_CHANGE_CLASS: [
-			2 * 7 * 24 * 60 * 60, // 2 weeks
-			2 * 7 * 24 * 60 * 60, // 2 weeks
-			4 * 7 * 24 * 60 * 60, // 4 weeks
+			24 * 60 * 60, // 1 day
+			7 * 24 * 60 * 60, // 7 days
+			3 * 7 * 24 * 60 * 60, // 3 weeks
 			4 * 7 * 24 * 60 * 60, // 4 weeks
 			4 * 7 * 24 * 60 * 60 // 4 weeks
 		]
