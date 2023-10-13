@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+node_modules/
+config/config.toml
+*.iml
+logs/*
+package-lock.json
+.directory
+/dist/
+dist/

@@ -1,0 +1,15 @@
+{
+    "name": "draftbot_lib",
+    "version": "5.0.0",
+    "description": "Lib package of DaftBot, used my multiple module",
+    "private": "true",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@types/node": "20.4.8",
+        "@types/ws": "8.5.5",
+        "typescript": "5.1.6",
+        "ws": "8.13.0"
+    }
+}
