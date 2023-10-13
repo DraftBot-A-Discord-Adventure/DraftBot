@@ -27,7 +27,7 @@
 				"Fort de votre victoire, vous vous sentez plein de rage contre les créatures maléfiques de cette île.",
 				"Vous vous sentez plus fort que jamais et votre rage contre les créatures maléfiques de cette île augmente.",
 				"Fier de vous, vous sentez votre rage contre les créatures maléfiques de cette île augmenter.",
-				"Plus personne ne pourra vous arrêter ! Votre rage contre les créatures maléfiques n'est que renforcé par cet évènement."
+				"Plus personne ne pourra vous arrêter ! Votre rage contre les créatures maléfiques n'est que renforcée par cet évènement."
 			],
 			"rageUpEnd": " :anger: **Rage ++**",
 			"nameDisplay": "{emoji} **{petName} {adjective}**",
@@ -93,7 +93,7 @@
 				"baitWithVegetables": {
 					"name": "Distraire la bête avec un légume",
 					"success": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec intérêt. Cela vous laisse suffisamment de temps pour vous échapper.",
-					"failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. Encore plus enragée qu'auparavant, la bête vous surprend d'un assault fulgurant ! Vous n'avez aucun moyen de vous en défaire et vous subissez l'attaque violente de plein fouet."
+					"failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. Encore plus enragée qu'auparavant, la bête vous surprend d'un assaut fulgurant ! Vous n'avez aucun moyen de vous en défaire et vous subissez l'attaque violente de plein fouet."
 				},
 				"provoke": {
 					"name": "Provoquer la bête",
