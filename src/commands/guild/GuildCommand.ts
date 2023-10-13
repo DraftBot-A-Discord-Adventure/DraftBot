@@ -64,7 +64,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	for (const member of members) {
 		// If member is the owner of guild
-		membersInfos += guildModule.format("memberinfos",
+		membersInfos += guildModule.format("memberInfos",
 			{
 				isChief: member.id === guild.chiefId,
 				isElder: member.id === guild.elderId,
