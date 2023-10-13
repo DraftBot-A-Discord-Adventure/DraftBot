@@ -1,0 +1,5 @@
+{
+	"type": "ice_beach",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island_entry"
+}

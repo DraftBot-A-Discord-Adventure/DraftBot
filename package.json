@@ -1,0 +1,31 @@
+{
+    "name": "draftbot_core",
+    "version": "5.0.0",
+    "description": "Core package of DraftBot which manages the game mechanics",
+    "main": "src/index.js",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "engineStrict": true,
+    "scripts": {
+        "start": "cd ../Lib && yarn build && cp -r dist/* ../Core/node_modules/draftbot_lib && cd ../Core && tsc && node dist/index.js",
+        "test": "tsc && jest dist/test",
+        "eslint": "eslint src test",
+        "eslintFix": "eslint src test --fix",
+        "tsc": "tsc",
+        "yarnInstall": "yarn install",
+        "dockerStart": "node dist/src/index.js"
+    },
+    "dependencies": {
+        "@types/node": "20.4.8",
+        "@types/ws": "8.5.5",
+        "draftbot_lib": "file:../Lib/dist",
+        "mariadb": "3.0.2",
+        "random-js": "^2.1.0",
+        "sequelize": "6.32.1",
+        "toml": "3.0.0",
+        "typescript": "5.1.6",
+        "umzug": "3.2.1",
+        "ws": "8.13.0"
+    }
+}

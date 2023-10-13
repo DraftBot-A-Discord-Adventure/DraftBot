@@ -1,0 +1,19 @@
+{
+	"emoji": "⚔️",
+	"attack": 75,
+	"defense": 55,
+	"speed": 40,
+	"health": 110,
+	"fightPoint": 245,
+	"baseBreath": 6,
+	"maxBreath": 14,
+	"breathRegen": 4,
+	"classGroup": 3,
+	"fightActionsIds": [
+		"simpleAttack",
+		"piercingAttack",
+		"powerfulAttack",
+		"chargeChargingAttack",
+		"protection"
+	]
+}
