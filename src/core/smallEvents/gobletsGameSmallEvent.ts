@@ -104,9 +104,10 @@ function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBot
 export const smallEvent: SmallEvent = {
 	/**
 	 * Check if small event can be executed
-	 */
-	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(Maps.isOnContinent(player));
+	 */ async canBeExecuted(player: Player): Promise<boolean> {
+		const destination = await player.getDestination();
+		const origin = await player.getPreviousMap();
+		return Promise.resolve(Maps.isOnContinent(player) && (destination.id === 21 || destination.id === 13 || origin.id === 21 || origin.id === 13));
 	},
 
 	/**
