@@ -5,7 +5,6 @@ export interface MissionsExpiredPacket extends DraftBotPacket {
         missionId: string,
         objective: number
         variant: number,
-        saveBlob: Buffer,
         numberDone: number
     }[]
 }
