@@ -25,6 +25,22 @@ export class BlockingUtils {
 	}
 
 	/**
+	 * Block a player with a given reason and at an end time
+	 * @param playerId
+	 * @param reason
+	 * @param endTimestamp
+	 */
+	static blockPlayerUntil(playerId: number, reason: string, endTimestamp: number): void {
+		if (!BlockingUtils.blockedPlayers.get(playerId)) {
+			BlockingUtils.blockedPlayers.set(playerId, []);
+		}
+		BlockingUtils.blockedPlayers.get(playerId).push({
+			reason,
+			limitTimestamp: endTimestamp
+		});
+	}
+
+	/**
 	 * Unblock a player for a given reason
 	 * @param playerId
 	 * @param reason
