@@ -1,6 +1,4 @@
 import {IMission} from "../IMission";
-import {MapLocations} from "../../database/game/models/MapLocation";
-import {Translations} from "../../Translations";
 import {hoursToMilliseconds} from "../../utils/TimeUtils";
 
 const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
@@ -41,34 +39,6 @@ export const missionInterface: IMission = {
 		return (variantParams.toMap === params.mapId && variantParams.fromMap === saveData.startMap
 				|| variantParams.fromMap === params.mapId && variantParams.toMap === saveData.startMap)
 			&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
-	},
-
-	async getVariantFormatVariable(variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string> {
-		const tr = Translations.getModule("models.missions", language);
-		const variantParams = paramsFromVariant(variant);
-		const saveData = saveBlob ? dataFromSaveBlob(saveBlob) : null;
-		if (!saveBlob || saveData.startTimestamp + hoursToMilliseconds(variantParams.time) < Date.now()) {
-			const place1 = (await MapLocations.getById(variantParams.fromMap)).getNameWithoutEmote(language);
-			const place2 = (await MapLocations.getById(variantParams.toMap)).getNameWithoutEmote(language);
-			if (variantParams.orderMatter) {
-				return Promise.resolve(tr.format("fromPlaceToPlaceMission.baseOrder", {
-					place1,
-					place2,
-					time: variantParams.time
-				}));
-			}
-			return Promise.resolve(tr.format("fromPlaceToPlaceMission.baseNoOrder", {
-				place1,
-				place2,
-				time: variantParams.time
-			}));
-		}
-		return Promise.resolve(tr.format("fromPlaceToPlaceMission.toPlace", {
-			place: saveData.startMap === variantParams.fromMap ?
-				(await MapLocations.getById(variantParams.toMap)).getNameWithoutEmote(language) :
-				(await MapLocations.getById(variantParams.fromMap)).getNameWithoutEmote(language),
-			timestamp: Math.round(saveData.startTimestamp / 1000) + variantParams.time * 60 * 60
-		}));
 	},
 
 	generateRandomVariant(): Promise<number> {

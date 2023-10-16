@@ -1,14 +1,10 @@
 import {IMission} from "../IMission";
 import Player from "../../database/game/models/Player";
-import {Classes} from "../../database/game/models/Class";
+import {ClassDataController} from "../../../data/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
 		return (params.tier as number) >= variant;
-	},
-
-	getVariantFormatVariable(variant: number): Promise<string> {
-		return Promise.resolve((variant + 1).toString());
 	},
 
 	generateRandomVariant(): Promise<number> {
@@ -16,7 +12,7 @@ export const missionInterface: IMission = {
 	},
 
 	async initialNumberDone(player: Player, variant: number): Promise<number> {
-		return (await Classes.getById(player.class)).classGroup >= variant ? 1 : 0;
+		return (ClassDataController.instance.getById(player.class)).classGroup >= variant ? 1 : 0;
 	},
 
 	updateSaveBlob(): Promise<Buffer> {

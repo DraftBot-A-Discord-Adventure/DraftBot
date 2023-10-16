@@ -1,10 +1,11 @@
 import {DraftBotConfig} from "./DraftBotConfig";
-import {CommandPingPacketReq, PacketListener} from "draftbot_lib";
+import {PacketListener} from "draftbot_lib/packets/PacketListener";
 import {pingCommand} from "../../commands/player/PingCommand";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {ReactionCollectorReactPacket} from "draftbot_lib/packets/interaction/ReactionCollectorPacket";
 import {ReactionCollector} from "../utils/ReactionsCollector";
+import {CommandPingPacketReq} from "draftbot_lib/packets/commands/CommandPingPacket";
 
 export class DraftBot {
     private config: DraftBotConfig;

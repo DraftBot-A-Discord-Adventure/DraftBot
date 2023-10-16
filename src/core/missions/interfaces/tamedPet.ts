@@ -7,10 +7,6 @@ export const missionInterface: IMission = {
 		return (params.loveLevel as number) >= 4;
 	},
 
-	getVariantFormatVariable(): Promise<string> {
-		return Promise.resolve("");
-	},
-
 	generateRandomVariant(): Promise<number> {
 		return Promise.resolve(0);
 	},

@@ -6,8 +6,6 @@ export const missionInterface: IMission = {
 
 	areParamsMatchingVariantAndSave: () => true,
 
-	getVariantFormatVariable: () => Promise.resolve(""),
-
 	initialNumberDone: (player: Player) => Promise.resolve(player.guildId ? 1 : 0),
 
 	updateSaveBlob(): Promise<Buffer> {

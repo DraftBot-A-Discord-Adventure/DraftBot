@@ -7,8 +7,6 @@ export const missionInterface: IMission = {
 
 	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => (params.itemCost as number) >= variant,
 
-	getVariantFormatVariable: (variant: number) => Promise.resolve(variant.toString()),
-
 	initialNumberDone: () => Promise.resolve(0),
 
 	updateSaveBlob(): Promise<Buffer> {

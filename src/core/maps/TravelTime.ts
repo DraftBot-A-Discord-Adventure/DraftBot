@@ -170,7 +170,7 @@ export class TravelTime {
 			}
 		}
 		const date = new Date();
-		const playerEndTime = (await TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+		const playerEndTime = (TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
 		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // Check if the player arrived with this potion
 			await sendNotificationToPlayer(player,
 				await generateTravelNotification(player)

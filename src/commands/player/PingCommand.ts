@@ -1,4 +1,4 @@
-import {CommandPingPacketReq, CommandPingPacketRes} from "draftbot_lib";
+import {CommandPingPacketReq, CommandPingPacketRes} from "draftbot_lib/packets/commands/CommandPingPacket";
 import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
 
 export async function pingCommand(client: WebSocket, packet: CommandPingPacketReq, response: DraftBotPacket[]): Promise<void> {

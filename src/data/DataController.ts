@@ -2,7 +2,7 @@ import {readdirSync, readFileSync} from "fs";
 import {Data} from "./Data";
 import {GenericItem} from "./GenericItem";
 
-export abstract class DataController<T extends string | number, U extends Data> {
+export abstract class DataController<T extends string | number, U extends Data<number | string>> {
     private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
 
     protected data: Map<T, U> = new Map<T, U>();

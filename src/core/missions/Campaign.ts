@@ -1,19 +1,19 @@
 import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {MissionsController} from "./MissionsController";
-import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import Player from "../database/game/models/Player";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {MissionDataController} from "../../data/Mission";
 import {draftBotInstance} from "../../index";
+import {CampaignData} from "../../data/Campaign";
+import {CompletedMissionType} from "draftbot_lib/interfaces/CompletedMissionType";
+import {CompletedMission} from "draftbot_lib/interfaces/CompletedMission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
 
-	private static campaignModule: DataModule = null;
-
 	static getMaxCampaignNumber(): number {
 		if (this.maxCampaignCache === -1) {
-			this.maxCampaignCache = Campaign.getDataModule().getListSize("missions");
+			this.maxCampaignCache = CampaignData.getMissions().length;
 		}
 		return this.maxCampaignCache;
 	}
@@ -22,25 +22,27 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	public static async completeCampaignMissions(player: Player, missionInfo: PlayerMissionsInfo, completedCampaign: boolean, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+	public static async completeCampaignMissions(player: Player, missionInfo: PlayerMissionsInfo, completedCampaign: boolean, campaign: MissionSlot): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		let firstMissionChecked = false;
 		while (campaign.isCompleted()) {
 			if (completedCampaign || firstMissionChecked) {
 				const missionModel = MissionDataController.instance.getById(campaign.missionId);
-				completedMissions.push(
-					new CompletedMission(
-						0, // Campaign mission does not award points
-						campaign.xpToWin,
-						campaign.gemsToWin,
-						campaign.moneyToWin,
-						await missionModel.formatDescription(campaign.missionObjective, campaign.missionVariant, language, campaign.saveBlob),
-						CompletedMissionType.CAMPAIGN)
-				);
+				completedMissions.push({
+					completedMissionType: CompletedMissionType.CAMPAIGN,
+					gems: campaign.gemsToWin,
+					missionId: campaign.missionId,
+					money: campaign.moneyToWin,
+					numberDone: campaign.numberDone,
+					objective: campaign.missionObjective,
+					points: 0, // Campaign doesn't give points
+					variant: campaign.missionVariant,
+					xp: campaign.xpToWin,
+				});
 				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.discordUserId, missionInfo.campaignProgression).then();
 			}
 			if (this.hasNextCampaign(missionInfo.campaignProgression)) {
-				const prop = Campaign.getDataModule().getObjectFromArray("missions", missionInfo.campaignProgression);
+				const prop = CampaignData.getMissions()[missionInfo.campaignProgression];
 				campaign.missionVariant = prop.missionVariant as number;
 				campaign.gemsToWin = prop.gemsToWin as number;
 				campaign.xpToWin = prop.xpToWin as number;
@@ -63,24 +65,16 @@ export class Campaign {
 		return completedMissions;
 	}
 
-	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player, language: string): Promise<CompletedMission[]> {
+	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player): Promise<CompletedMission[]> {
 		const campaign = await MissionSlots.getCampaignOfPlayer(player.id);
 		if (!campaign) {
-			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
-			campaignJson.playerId = player.id;
-			return this.updatePlayerCampaign(completedCampaign, player, language);
+			const campaignJson = CampaignData.getMissions()[0];
+			return this.updatePlayerCampaign(completedCampaign, player);
 		}
 		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignProgression)) {
-			return await this.completeCampaignMissions(player, missionsInfo, completedCampaign, campaign, language);
+			return await this.completeCampaignMissions(player, missionsInfo, completedCampaign, campaign);
 		}
 		return [];
-	}
-
-	private static getDataModule(): DataModule {
-		if (!this.campaignModule) {
-			this.campaignModule = Data.getModule("campaign");
-		}
-		return this.campaignModule;
 	}
 }

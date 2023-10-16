@@ -10,8 +10,6 @@ export const missionInterface: IMission = {
 		return !saveBlob.toString().includes(params.metPlayerDiscordId);
 	},
 
-	getVariantFormatVariable: () => Promise.resolve(""),
-
 	initialNumberDone: () => Promise.resolve(0),
 
 	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: string }): Promise<Buffer> {

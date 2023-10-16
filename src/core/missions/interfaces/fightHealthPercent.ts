@@ -5,10 +5,6 @@ export const missionInterface: IMission = {
 		return (params.remainingPercent as number) <= variant / 100.0;
 	},
 
-	getVariantFormatVariable(variant: number): Promise<string> {
-		return Promise.resolve(variant.toString());
-	},
-
 	generateRandomVariant(): Promise<number> {
 		return Promise.resolve(0);
 	},

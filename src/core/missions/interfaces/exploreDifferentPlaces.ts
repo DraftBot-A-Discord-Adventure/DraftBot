@@ -11,8 +11,6 @@ export const missionInterface: IMission = {
 			.includes(params.placeId.toString());
 	},
 
-	getVariantFormatVariable: () => Promise.resolve(""),
-
 	initialNumberDone: () => Promise.resolve(0),
 
 	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer> {

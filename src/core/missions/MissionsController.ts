@@ -5,7 +5,6 @@ import {DailyMissions} from "../database/game/models/DailyMission";
 import {hoursToMilliseconds} from "../utils/TimeUtils";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Campaign} from "./Campaign";
-import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
@@ -14,6 +13,9 @@ import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
 import {MissionsExpiredPacket} from "draftbot_lib/packets/notifications/MissionsExpiredPacket";
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
+import {MissionsCompletedPacket} from "draftbot_lib/packets/notifications/MissionsCompletedPacket";
+import {CompletedMission} from "draftbot_lib/interfaces/CompletedMission";
+import {CompletedMissionType} from "draftbot_lib/interfaces/CompletedMissionType";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -46,10 +48,11 @@ export class MissionsController {
 			completedDaily: false,
 			completedCampaign: false
 		}): Promise<Player> {
-		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign, language);
+		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
-			await MissionsController.sendCompletedMissions(player, completedMissions, response);
+			const packet: MissionsCompletedPacket = { missions: completedMissions };
+			response.push(packet);
 		}
 		return player;
 	}
@@ -96,34 +99,37 @@ export class MissionsController {
 	 */
 	static async completeAndUpdateMissions(player: Player, missionSlots: MissionSlot[], completedDailyMission: boolean, completedCampaign: boolean): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
-		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player, language));
+		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player));
 		for (const mission of missionSlots) {
 			if (mission.isCompleted() && !mission.isCampaign()) {
-				const missionModel = await Missions.getById(mission.missionId);
-				completedMissions.push(
-					new CompletedMission(
-						mission.pointsToWin,
-						mission.xpToWin,
-						0, // Don't win gems in secondary missions
-						mission.moneyToWin,
-						await missionModel.formatDescription(mission.missionObjective, mission.missionVariant, language, mission.saveBlob),
-						CompletedMissionType.NORMAL
-					)
-				);
+				completedMissions.push({
+					completedMissionType: CompletedMissionType.NORMAL,
+					gems: 0, // Don't win gems in secondary missions
+					missionId: mission.missionId,
+					money: mission.moneyToWin,
+					numberDone: mission.numberDone,
+					objective: mission.missionObjective,
+					points: mission.pointsToWin,
+					variant: mission.missionVariant,
+					xp: mission.xpToWin
+				});
 				draftBotInstance.logsDatabase.logMissionFinished(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective).then();
 				await mission.destroy();
 			}
 		}
 		if (completedDailyMission) {
 			const dailyMission = await DailyMissions.getOrGenerate();
-			completedMissions.push(new CompletedMission(
-				Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // Daily missions give more points than secondary missions,
-				dailyMission.xpToWin,
-				dailyMission.gemsToWin,
-				Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
-				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language, null),
-				CompletedMissionType.DAILY
-			));
+			completedMissions.push({
+				completedMissionType: CompletedMissionType.DAILY,
+				gems: dailyMission.gemsToWin,
+				missionId: dailyMission.missionId,
+				money: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
+				numberDone: dailyMission.objective,
+				objective: dailyMission.objective,
+				points: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // Daily missions give more points than secondary missions
+				variant: dailyMission.variant,
+				xp: dailyMission.xpToWin
+			});
 			draftBotInstance.logsDatabase.logMissionDailyFinished(player.discordUserId).then();
 		}
 		await player.save();
@@ -137,10 +143,10 @@ export class MissionsController {
 		let moneyToWin = 0;
 
 		for (const completedMission of completedMissions) {
-			gemsToWin += completedMission.gemsToWin;
-			xpToWin += completedMission.xpToWin;
-			pointsToWin += completedMission.pointsToWin;
-			moneyToWin += completedMission.moneyToWin;
+			gemsToWin += completedMission.gems;
+			xpToWin += completedMission.xp;
+			pointsToWin += completedMission.points;
+			moneyToWin += completedMission.money;
 		}
 
 		await missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED);
@@ -182,7 +188,6 @@ export class MissionsController {
 			packet.missions.push({
 				missionId: mission.missionId,
 				variant: mission.missionVariant,
-				saveBlob: mission.saveBlob,
 				numberDone: mission.numberDone,
 				objective: mission.missionObjective
 			});
@@ -263,10 +268,6 @@ export class MissionsController {
 	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exceptions: string = null): Promise<MissionSlot> {
 		const mission = await MissionDataController.instance.getRandomMission(difficulty, exceptions);
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
-	}
-
-	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string> {
-		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language, saveBlob);
 	}
 
 	public static getRandomDifficulty(player: Player): MissionDifficulty {

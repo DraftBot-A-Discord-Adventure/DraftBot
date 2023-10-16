@@ -19,15 +19,6 @@ export type IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean;
 
 	/**
-	 * Get the format of the variant
-	 * @param variant - the variant of the mission
-	 * @param objective - the objective of the mission
-	 * @param language - the language to use
-	 * @param saveBlob - some binary data
-	 */
-	getVariantFormatVariable(variant: number, objective: number, language: string, saveBlob: Buffer): Promise<string>;
-
-	/**
 	 * Get the advancement of the mission at the beginning of the mission (maybe the player has already done it)
 	 * @param player - the player
 	 * @param variant - the variant of the mission

@@ -7,10 +7,6 @@ export const missionInterface: IMission = {
 		return (params.travelTime as number) >= variant;
 	},
 
-	getVariantFormatVariable(variant: number): Promise<string> {
-		return Promise.resolve(Promise.resolve(variant.toString()));
-	},
-
 	generateRandomVariant(difficulty: MissionDifficulty): Promise<number> {
 		switch (difficulty) {
 		case MissionDifficulty.MEDIUM:

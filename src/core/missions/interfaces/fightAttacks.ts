@@ -8,14 +8,6 @@ export const missionInterface: IMission = {
 		return params.attackType === FightActionController.variantToFightActionId(variant);
 	},
 
-	getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
-		return Promise.resolve(
-			`${Data.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`)
-				.getString("emote")} ${Translations.getModule(`fightactions.${FightActionController.variantToFightActionId(variant)}`, language)
-				.get(objective > 1 ? "namePlural" : "name")}`
-		);
-	},
-
 	async generateRandomVariant(difficulty, player): Promise<number> {
 		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick((ClassDataController.instance.getById(player.class)).fightActionsIds));
 	},
