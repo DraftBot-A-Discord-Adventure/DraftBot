@@ -29,7 +29,7 @@ const setCampaignTestCommand = async (_language: string, interaction: CommandInt
 	const campaignMission = Data.getModule("campaign").getObjectFromArray("missions", progression - 1) as unknown as MissionSlot;
 
 	missionsInfo.campaignProgression = progression;
-	missionsInfo.campaignBlob = missionsInfo.campaignBlob.slice(0, progression - 1) + "0" + missionsInfo.campaignBlob.slice(progression);
+	missionsInfo.campaignBlob = `${missionsInfo.campaignBlob.slice(0, progression - 1)}0${missionsInfo.campaignBlob.slice(progression)}`;
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;

@@ -23,13 +23,14 @@ const setCampaignBlobTestCommand = async (language: string, interaction: Command
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	const givenBlob = args[0];
-	if (givenBlob.length !== Campaign.getMaxCampaignNumber() || !givenBlob.match(/^[01]+$/)) {
+	const isGoodBlob = new RegExp(/^[01]+$/).test(givenBlob);
+	if (givenBlob.length !== Campaign.getMaxCampaignNumber() || !isGoodBlob) {
 		throw Error(`Blob invalide. Il doit être composé uniquement de 0 et de 1 et faire ${
 			Campaign.getMaxCampaignNumber()
 		} caractères (actuellement ${
 			givenBlob.length
 		} caractères, uniquement 0/1 : ${
-			!!givenBlob.match(/^[01]+$/)
+			isGoodBlob
 		}))`);
 	}
 	missionsInfo.campaignBlob = givenBlob;
