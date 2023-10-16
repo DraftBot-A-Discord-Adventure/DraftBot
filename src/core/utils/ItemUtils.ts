@@ -15,7 +15,7 @@ import {ArmorDataController} from "../../data/Armor";
 import {ObjectItemDataController} from "../../data/ObjectItem";
 import {ItemDataController} from "../../data/DataController";
 import {draftBotInstance} from "../../index";
-import {ChoiceItem, ChoiceReactionCollector, ValidationReactionCollector} from "./ReactionsCollector";
+import {ChoiceReactionCollector, ValidationReactionCollector} from "./ReactionsCollector";
 import {ItemRefusePacket} from "draftbot_lib/packets/notifications/ItemRefusePacket";
 import {ItemAcceptPacket} from "draftbot_lib/packets/notifications/ItemAcceptPacket";
 import {ReactionCollectorType} from "draftbot_lib/packets/interaction/ReactionCollectorPacket";
@@ -172,17 +172,13 @@ async function manageMoreThan2ItemsSwitching(
     resaleMultiplierActual: number,
     inventorySlots: InventorySlot[]
 ): Promise<void> {
-    const choiceList: ChoiceItem<InventorySlot>[] = [];
     // eslint-disable-next-line @typescript-eslint/no-extra-parens
     items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-    for (const inventorySlot of items) {
-        choiceList.push({ item: inventorySlot, reaction: (await inventorySlot.getItem()).id.toString() });
-    }
     response.push(ChoiceReactionCollector.create<InventorySlot>(
         context,
         ReactionCollectorType.ACCEPT_ITEM_CHOICE,
         [player.id],
-        choiceList,
+        items,
         async (collector, playerId, inventorySlot, response) => {
             player = await Players.getById(player.id);
             BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
@@ -389,11 +385,12 @@ export function generateRandomItem(
 
 /**
  * Give a random item
+ * @param context
  * @param response
  * @param {Player} player
  */
-export const giveRandomItem = async function (response: DraftBotPacket[], player: Player): Promise<void> {
-    await giveItemToPlayer(player, await generateRandomItem(), response, await InventorySlots.getOfPlayer(player.id));
+export const giveRandomItem = async function (context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
+    await giveItemToPlayer(player, await generateRandomItem(), context, response, await InventorySlots.getOfPlayer(player.id));
 };
 
 type TemporarySlotAndItemType = { slot: InventorySlot, item: GenericItem };

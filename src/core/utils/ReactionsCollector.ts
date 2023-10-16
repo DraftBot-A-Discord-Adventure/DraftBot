@@ -153,23 +153,21 @@ export class ValidationReactionCollector extends ReactionCollector {
     }
 }
 
-export type ChoiceItem<T> = { reaction: string, item: T };
-
 export class ChoiceReactionCollector<T> extends ReactionCollector {
     public static create<T>(
         context: PacketContext,
         collectorType: ReactionCollectorType,
         allowedPlayerIds: number[],
-        choices: ChoiceItem<T>[],
-        callback: (collector: ChoiceReactionCollector<T>, playerId: number, item: T, response: DraftBotPacket[]),
+        choices: T[],
+        callback: (collector: ChoiceReactionCollector<T>, playerId: number, item: T, response: DraftBotPacket[]) => Promise<void>,
         endCallback: EndCallback = null,
         time: number = Constants.MESSAGES.COLLECTOR_TIME
-    ): ChoiceReactionCollector {
+    ): ChoiceReactionCollector<T> {
         const reactions: string[] = [];
         const reactionsMap = new Map<string, T>();
-        for (const choice of choices) {
-            reactions.push(choice.reaction);
-            reactionsMap.set(choice.reaction, choice.item);
+        for (let i = 0; i < choices.length; ++i) {
+            reactions.push(Constants.REACTIONS.NUMBERS[i]);
+            reactionsMap.set(Constants.REACTIONS.NUMBERS[i], choices[i]);
         }
         const filter = (playerId: number, reaction: string) => Promise.resolve(allowedPlayerIds.includes(playerId) && reactions.includes(reaction));
         const callbackOverload: CollectCallback = async (collector: ChoiceReactionCollector<T>, playerId: number, reaction: string, response: DraftBotPacket[]) => {
