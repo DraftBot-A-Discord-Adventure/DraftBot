@@ -62,6 +62,10 @@
 						"alte": ":scream:"
 					},
 					{
+						"sentence": "vous vous rendez compte que vous avez pris la mauvaise direction à la dernière intersection. Vous décidez de ne pas faire demi-tour et de trouver votre propre chemin vers votre destination... Vous vous perdez complètement. {alteEmoji}",
+						"alte": ":face_with_monocle:"
+					},
+					{
 						"sentence": "vous vous faîtes surprendre par les nuits froides de la région. Sans vêtements adaptés à ce climat, vous vous refroidissez rapidement. {alteEmoji}",
 						"alte": ":cold_face:"
 					},
