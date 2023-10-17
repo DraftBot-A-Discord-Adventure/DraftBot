@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rejoindre un membre sur l'île via la commande {command:joinboat}"
+		},
+		"en": {
+			"desc": "Join a member on the island via the {command:joinboat} command"
+		}
+	},
+	"campaignOnly": true
+}

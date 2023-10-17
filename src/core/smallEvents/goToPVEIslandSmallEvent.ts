@@ -30,13 +30,15 @@ export async function confirmationCallback(
 	emote: string,
 	price: number,
 	anotherMemberOnBoat: Player = null
-): Promise<void> {
+): Promise<boolean> {
+	let isGoneOnIsland = false;
 	if (messageData.reactionMessage.isValidated()) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		if (missionInfo.gems < price) {
 			messageData.embed.setDescription(`${emote} ${messageData.tr.get("notEnoughGems")}`);
 		}
 		else {
+			isGoneOnIsland = true;
 			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 			await Maps.startTravel(
 				player,
@@ -55,6 +57,7 @@ export async function confirmationCallback(
 		embeds: [messageData.embed]
 	});
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND);
+	return isGoneOnIsland;
 }
 
 export const smallEvent: SmallEvent = {

@@ -15,6 +15,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {PVEConstants} from "../../core/constants/PVEConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -53,7 +54,12 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				reactionMessage: confirmMessage,
 				embed: new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user),
 				tr
-			},":ferry:", price, guildOnBoat[0]).then();
+			}, ":ferry:", price, guildOnBoat[0]).then(async (hasJoinedBoat) => {
+				await MissionsController.update(player, interaction.channel, language, {
+					missionId: "joinMemberOnBoat",
+					set: hasJoinedBoat
+				});
+			});
 		}
 	);
 	await interaction.deferReply();
