@@ -93,8 +93,7 @@
 						"fr": "Vous estimez qu'escalader l'arbre est trop dangereux et vous n'avez pas de quoi le couper. Par conséquent, vous êtes contraints de changer d'itinéraire. C'est sans compter sur votre sens de l'orientation que vous parvenez à perdre votre chemin. Vous ne parvenez à sortir de la forêt qu'à la nuit tombée.",
 						"en": "You think that climb the tree is too much dangerous and you don't have any tool to cut down it. Consequently, you have to change of way. But because of your bad sense of direction you succeed to lose your way. You arrive to go out of the forest only in the evening."
 					},
-					"lostTime": 180,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				}
 			]
 		},

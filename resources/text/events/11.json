@@ -20,8 +20,7 @@
 						"fr": "Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégâts.",
 						"en": "You get lost for several hours in the forest but find your way out without damage."
 					},
-					"lostTime": 200,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				},
 				{
 					"translations": {
@@ -76,8 +75,7 @@
 						"fr": "Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port.",
 						"en": "You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
 					},
-					"lostTime": 140,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				}
 			]
 		},
