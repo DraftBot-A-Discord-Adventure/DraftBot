@@ -16,6 +16,7 @@ import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
+import {MissionsController} from "../missions/MissionsController";
 
 /**
  * Manage the callback to join the boat
@@ -47,6 +48,12 @@ export async function confirmationCallback(
 			);
 			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 			await missionInfo.save();
+			if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
+				await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
+					missionId: "wealthyPayForPVEIsland",
+					set: true
+				});
+			}
 			messageData.embed.setDescription(`${emote} ${anotherMemberOnBoat ? messageData.tr.get("endStoryAcceptWithMember") : messageData.tr.get("endStoryAccept")}`);
 		}
 	}
