@@ -16,8 +16,9 @@ import MapLocation from "../../core/database/game/models/MapLocation";
  * @param player player
  * @param destMap
  * @param inReport
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-async function getMapToShowInfo(player: Player, destMap: MapLocation, inReport: boolean): Promise<{
+async function getMapToShowInfo(player: Player, destMap: MapLocation, inReport: boolean, language: string): Promise<{
 	name: string,
 	forced: boolean
 }> {
@@ -33,20 +34,20 @@ async function getMapToShowInfo(player: Player, destMap: MapLocation, inReport: 
 
 	if (inReport) {
 		return {
-			name: destMap.forcedImage ?? `${destMap.id}_`,
+			name: destMap.forcedImage ?? `${language}_${destMap.id}_`,
 			forced: Boolean(destMap.forcedImage)
 		};
 	}
 
 	if (destMap.id < depMap.id) {
 		return {
-			name: `${destMap.id}_${depMap.id}_`,
+			name: `${language}_${destMap.id}_${depMap.id}_`,
 			forced: false
 		};
 	}
 
 	return {
-		name: `${depMap.id}_${destMap.id}_`,
+		name: `${language}_${depMap.id}_${destMap.id}_`,
 		forced: false
 	};
 
@@ -65,7 +66,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const inReport = await player.isInEvent();
 	const destMap = await player.getDestination();
-	const mapToShowInfo = await getMapToShowInfo(player, destMap, inReport);
+	const mapToShowInfo = await getMapToShowInfo(player, destMap, inReport, language);
 	if (mapToShowInfo.forced) {
 		mapEmbed.setImage(
 			format(BotConstants.FORCED_MAPS_URL, { name: mapToShowInfo.name })
