@@ -3,9 +3,9 @@ export abstract class FightConstants {
 
 	static readonly REQUIRED_LEVEL = 8;
 
-	static readonly POINTS_REGEN_MINUTES = 15;
+	static readonly POINTS_REGEN_MINUTES = 7;
 
-	static readonly POINTS_REGEN_AMOUNT = 50;
+	static readonly POINTS_REGEN_AMOUNT = 170;
 
 	static readonly FIGHT_ERROR = {
 		NONE: "none",
