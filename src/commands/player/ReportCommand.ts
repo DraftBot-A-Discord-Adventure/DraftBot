@@ -552,7 +552,7 @@ async function doPVEBoss(
 	language: string,
 	player: Player
 ): Promise<void> {
-	const seed = player.experience + millisecondsToSeconds(player.startTravelDate.valueOf());
+	const seed = player.id + millisecondsToSeconds(player.startTravelDate.valueOf());
 	const monsterObj = await MonsterLocations.getRandomMonster((await player.getDestination()).id, seed);
 	const tr = Translations.getModule("commands.report", language);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + seed % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
