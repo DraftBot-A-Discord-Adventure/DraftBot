@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Montrez votre richesse au capitaine du bateau."
+		},
+		"en": {
+			"desc": "Show your wealth to the boat captain."
+		}
+	},
+	"campaignOnly": true
+}
