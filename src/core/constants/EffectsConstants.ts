@@ -60,14 +60,14 @@ export abstract class EffectsConstants {
 		":sleeping:": 180,
 		":zany_face:": 240,
 		":cold_face:": 60,
-		":head_bandage:": 320,
-		":sick:": 360,
+		":head_bandage:": 300,
+		":sick:": 330,
 		":lock:": 1440,
-		":dizzy_face:": 720,
+		":dizzy_face:": 660,
 		":clock2:": 0,
-		":drooling_face:": 80,
+		":drooling_face:": 50,
 		":confounded:": 40,
 		":face_with_monocle:": 270,
-		":scream:": 10
+		":scream:": 15
 	};
 }
