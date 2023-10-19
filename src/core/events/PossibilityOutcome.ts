@@ -83,18 +83,23 @@ async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, play
 	if (outcome.money && outcome.money < 0 && moneyChange > 0) {
 		moneyChange = Math.floor(outcome.money / 2);
 	}
-	if (moneyChange !== 0) {
-		await player.addMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
-		return moneyChange >= 0
-			? textInformation.tr.format("money", {money: moneyChange})
-			: textInformation.tr.format("moneyLoose", {money: -moneyChange});
+	if (moneyChange === 0) {
+		return "";
 	}
-	return "";
+	const isMoneyChangePositive = moneyChange > 0;
+	moneyChange = Math.abs(moneyChange);
+	if (!isMoneyChangePositive && outcome.tags.includes("moneyUsage")) {
+		await player.spendMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
+	}
+	else {
+		await player.addMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
+	}
+	return textInformation.tr.format(isMoneyChangePositive ? "money" : "moneyLoose", {money: moneyChange});
 }
 
-async function applyOutcomeEnergy(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): Promise<string> {
+function applyOutcomeEnergy(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): string {
 	if (outcome.energy && outcome.energy !== 0) {
-		await player.addEnergy(outcome.energy, NumberChangeReason.BIG_EVENT);
+		player.addEnergy(outcome.energy, NumberChangeReason.BIG_EVENT);
 		return textInformation.tr.format("energy", {energy: outcome.energy});
 	}
 	return "";
@@ -181,8 +186,7 @@ async function getNextMapLink(outcome: PossibilityOutcome, player: Player): Prom
  * @param player
  * @param time
  */
-export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
-	textInformation: TextInformation, player: Player, time: number): Promise<{
+export async function applyPossibilityOutcome(outcome: PossibilityOutcome, textInformation: TextInformation, player: Player, time: number): Promise<{
 	description: string,
 	alterationEmoji: string,
 	forcedDestination: MapLink
@@ -205,7 +209,7 @@ export async function applyPossibilityOutcome(outcome: PossibilityOutcome,
 	description += await applyOutcomeHealth(outcome, player, textInformation);
 
 	// Energy
-	description += await applyOutcomeEnergy(outcome, player, textInformation);
+	description += applyOutcomeEnergy(outcome, player, textInformation);
 
 	// Gems
 	description += await applyOutcomeGems(outcome, player, textInformation);

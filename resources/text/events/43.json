@@ -29,7 +29,10 @@
 					"lostTime": 210,
 					"health": 30,
 					"effect": ":clock2:",
-					"money": -200
+					"money": -200,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},

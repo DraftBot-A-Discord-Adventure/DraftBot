@@ -54,7 +54,10 @@
 						"en": "You approach the villagers and ask them about these strange fruits. They explain to you that they are coconuts and that their flesh is eaten when the shell of the fruit is opened and that their juice is famous throughout the country. The villagers offer you to taste it and you do not say no to the offer. Indeed, the juice is refreshing and the chair soothes your appetite. You leave after having thanked the villagers for this discovery by giving them some coins and continue on your way."
 					},
 					"health": 15,
-					"money": -50
+					"money": -50,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {

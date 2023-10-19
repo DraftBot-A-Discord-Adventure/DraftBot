@@ -74,7 +74,10 @@
 						"fr": "Mais pourquoi avoir fait cela ? 🤔 Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner.",
 						"en": "But why did you do that? 🤔 Feeling remorse, you rescue the poor man and offer him some coins as compensation."
 					},
-					"money": -500
+					"money": -500,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},

@@ -63,7 +63,10 @@
 					},
 					"lostTime": 30,
 					"effect": ":clock2:",
-					"money": -165
+					"money": -165,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -192,7 +195,8 @@
 					"effect": ":zany_face:",
 					"money": -75,
 					"tags": [
-						"drinkAlcohol"
+						"drinkAlcohol",
+						"moneyUsage"
 					]
 				},
 				{
@@ -201,7 +205,10 @@
 						"en": "🗯️ Deciding not to do anything you enter the local tavern and rent a room for the night. But during your slumber, black clothed figures attack you, beating you into submission and robbing you. They leave you bleeding on the floor and warn you to never snoop around in their affairs again, or else..."
 					},
 					"health": -30,
-					"money": -100
+					"money": -100,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -211,7 +218,10 @@
 					"lostTime": 10,
 					"effect": ":clock2:",
 					"money": -50,
-					"randomItem": {}
+					"randomItem": {},
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		}

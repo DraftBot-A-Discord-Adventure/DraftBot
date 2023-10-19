@@ -35,7 +35,10 @@
 						"fr": "Contre un peu d'argent, il accepte de vous accompagner. Vous cheminez ensemble pendant un petit moment sans que rien de particulier ne se passe, excepté un petit incident avec des voleurs qui ne firent pas long feu face à Price. Puis vous vous quittez.",
 						"en": "For a little money, he agrees to come with you. You walk together for a little while without anything special happening, except for a small incident with thieves which didn't last long with Price's help. You then split up."
 					},
-					"money": -150
+					"money": -150,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -44,7 +47,10 @@
 					},
 					"health": -20,
 					"effect": ":head_bandage:",
-					"money": -300
+					"money": -300,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},

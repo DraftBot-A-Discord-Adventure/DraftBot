@@ -30,7 +30,10 @@
 					},
 					"health": 15,
 					"effect": ":sleeping:",
-					"money": -70
+					"money": -70,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
