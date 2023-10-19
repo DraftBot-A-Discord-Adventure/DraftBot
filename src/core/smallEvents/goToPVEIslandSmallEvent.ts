@@ -18,6 +18,33 @@ import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
 import {MissionsController} from "../missions/MissionsController";
 
+async function startBoatTravel(player: Player, price: number, messageData: {
+	reactionMessage: DraftBotValidateReactionMessage;
+	tr: TranslationModule;
+	embed: DraftBotEmbed
+}, emote: string, anotherMemberOnBoat: Player): Promise<boolean> {
+	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	if (missionInfo.gems < price) {
+		messageData.embed.setDescription(`${emote} ${messageData.tr.get("notEnoughGems")}`);
+		return false;
+	}
+	await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
+	await Maps.startTravel(
+		player,
+		await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
+		anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : messageData.reactionMessage.sentMessage.createdTimestamp
+	);
+	await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
+	await missionInfo.save();
+	if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
+		await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
+			missionId: "wealthyPayForPVEIsland"
+		});
+	}
+	messageData.embed.setDescription(`${emote} ${messageData.tr.get(anotherMemberOnBoat ? "endStoryAcceptWithMember" : "endStoryAccept")}`);
+	return true;
+}
+
 /**
  * Manage the callback to join the boat
  */
@@ -34,28 +61,7 @@ export async function confirmationCallback(
 ): Promise<boolean> {
 	let isGoneOnIsland = false;
 	if (messageData.reactionMessage.isValidated()) {
-		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-		if (missionInfo.gems < price) {
-			messageData.embed.setDescription(`${emote} ${messageData.tr.get("notEnoughGems")}`);
-		}
-		else {
-			isGoneOnIsland = true;
-			await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
-			await Maps.startTravel(
-				player,
-				await MapLinks.getById(await Settings.PVE_ISLAND.getValue()),
-				anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : messageData.reactionMessage.sentMessage.createdTimestamp
-			);
-			await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
-			await missionInfo.save();
-			if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
-				await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
-					missionId: "wealthyPayForPVEIsland",
-					set: true
-				});
-			}
-			messageData.embed.setDescription(`${emote} ${anotherMemberOnBoat ? messageData.tr.get("endStoryAcceptWithMember") : messageData.tr.get("endStoryAccept")}`);
-		}
+		isGoneOnIsland = await startBoatTravel(player, price, messageData, emote, anotherMemberOnBoat);
 	}
 	else {
 		messageData.embed.setDescription(`${emote} ${messageData.tr.get("endStoryRefuse")}`);
