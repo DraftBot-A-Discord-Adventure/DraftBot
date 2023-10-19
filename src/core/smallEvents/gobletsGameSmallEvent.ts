@@ -17,6 +17,7 @@ import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {Constants} from "../Constants";
 import {Maps} from "../maps/Maps";
+import {MapConstants} from "../constants/MapConstants";
 
 type RewardType = { type: string, value: number | string };
 
@@ -107,7 +108,12 @@ export const smallEvent: SmallEvent = {
 	 */ async canBeExecuted(player: Player): Promise<boolean> {
 		const destination = await player.getDestination();
 		const origin = await player.getPreviousMap();
-		return Promise.resolve(Maps.isOnContinent(player) && (destination.id === 21 || destination.id === 13 || origin.id === 21 || origin.id === 13));
+		return Promise.resolve(Maps.isOnContinent(player) &&
+			(destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
+				|| destination.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
+				|| origin.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
+				|| origin.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
+			));
 	},
 
 	/**
