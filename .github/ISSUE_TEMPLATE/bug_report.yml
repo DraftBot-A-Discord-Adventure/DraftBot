@@ -20,18 +20,6 @@ body:
           placeholder: Donnez nous un maximum d'information. A quel heure avez vous eu le bug ? Quelle était la situation de votre personnage en jeu ? Essayez de réfléchir à toutes les informations qui pourraient nous être utiles.
       validations:
           required: true
-    - type: dropdown
-      id: level
-      attributes:
-          label: Selon vous, quelle est l'importance de ce bug ?
-          description: Dites nous si le bug rencontré impact beaucoup ou peu votre expérience de jeu
-          multiple: false
-          options:
-              - 🤔 Je ne sais pas
-              - 🙂 Faible
-              - 😐 Normale
-              - 😨 Grave
-              - 😱 Extrêmement grave
       validations:
           required: true
     - type: textarea
@@ -49,21 +37,11 @@ body:
           description: Envoyez ici toutes les captures d'écran qui vous semblent pertinentes
       validations:
           required: true
-    - type: dropdown
+    - type: textarea
       id: shard
       attributes:
           label: Sur quel shard avez vous rencontré le bug ?
-          description: Pour connaître votre numéro de shard, utilisez la commande /ping.
+          description: Pour connaître votre numéro de shard, utilisez la commande /ping **au même endroit que là où vous avez eu le bug** et envoyez une capture d'écran du résultat de la commande ici.
           multiple: false
-          options:
-              - Tous
-              - Shard 0
-              - Shard 1
-              - Shard 2
-              - Shard 3
-              - Shard 4
-              - Shard 5
-              - 🤖 bot de test 'officiel' (alpha ou bêta)
-              - ⚫ Autre (instance personnelle) (merci de préciser dans la description du bug)
       validations:
           required: true
