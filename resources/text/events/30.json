@@ -23,7 +23,7 @@
 					"lostTime": 50,
 					"health": 10,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -35,7 +35,7 @@
 					"lostTime": 30,
 					"effect": ":clock2:",
 					"money": 150,
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -61,7 +61,7 @@
 					},
 					"lostTime": 155,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -73,8 +73,9 @@
 					"lostTime": 85,
 					"effect": ":clock2:",
 					"money": -100,
-					"tags":  [
-						"bigFeast"
+					"tags": [
+						"bigFeast",
+						"moneyUsage"
 					]
 				},
 				{
@@ -85,7 +86,7 @@
 					"lostTime": 60,
 					"health": 50,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				}
@@ -103,8 +104,9 @@
 						"en": "You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift."
 					},
 					"money": -400,
-					"tags":  [
-						"bigFeast"
+					"tags": [
+						"bigFeast",
+						"moneyUsage"
 					]
 				},
 				{
@@ -114,7 +116,7 @@
 					},
 					"lostTime": 35,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -125,7 +127,7 @@
 					},
 					"effect": ":clock2:",
 					"randomItem": {},
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				}

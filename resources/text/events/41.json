@@ -121,7 +121,10 @@
 						"fr": "Le garde accepte votre argent et décide de vous libérer, mais il ne remarque pas que l'autre homme dans la cellule le lui vole juste après.",
 						"en": "The jailer accepts your bribe and lets you go. However, he does not notice that your cellmate steals the bribe from him right after."
 					},
-					"money": -150
+					"money": -150,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -131,7 +134,10 @@
 					"lostTime": 45,
 					"health": 20,
 					"effect": ":clock2:",
-					"money": -250
+					"money": -250,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {

@@ -21,14 +21,20 @@
 						"en": "You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag."
 					},
 					"money": -100,
-					"randomItem": {}
+					"randomItem": {},
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
 						"fr": "Vous achetez l'un de ses objets à faible valeur, mais au moment où vous le recevez et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur a profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type.",
 						"en": "You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
 					},
-					"money": -100
+					"money": -100,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},
@@ -44,7 +50,10 @@
 						"en": "You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves."
 					},
 					"money": -350,
-					"randomItem": {}
+					"randomItem": {},
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -52,14 +61,20 @@
 						"en": "You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure."
 					},
 					"money": -350,
-					"randomItem": {}
+					"randomItem": {},
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
 						"fr": "Vous achetez l'un de ses objets les plus chers, mais lorsque vous l'inspectez vous vous rendez compte qu'il vous a vendu une épée rouillée couverte de peinture. Malheureusement c'est trop tard et l'arnaqueur est parti en profitant du moment où vous inspectiez votre épée... En colère, vous jurez de venger cet affront à la première occasion.",
 						"en": "As you decide to buy one his most expensive items, you find it to be an old rusty sword covered in paint. Unfortunately it is now too late as the man already left when you were inspecting your sword... Frustrated, you swear ruthlessly to behead him the next time you see him."
 					},
-					"money": -350
+					"money": -350,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},

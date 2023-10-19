@@ -23,7 +23,8 @@
 					"health": 25,
 					"money": -300,
 					"tags": [
-						"meetGruffo"
+						"meetGruffo",
+						"moneyUsage"
 					]
 				},
 				{

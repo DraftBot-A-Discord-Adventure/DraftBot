@@ -20,7 +20,10 @@
 						"fr": "Vous jouez à ce jeu plusieurs fois mais jamais vous ne réussissez à récupérer votre lot. Déçu de votre performance, vous payez le gérant et vous vous en allez.",
 						"en": "You play this game several times but never succeed in getting your prize back. Disappointed with your performance, you pay the manager and leave."
 					},
-					"money": -200
+					"money": -200,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -59,7 +62,10 @@
 						"en": "There it is! You've been looking for this object for days and you finally found it! You buy it quickly without paying attention to the price and then leave."
 					},
 					"money": -200,
-					"randomItem": {}
+					"randomItem": {},
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},
@@ -77,7 +83,10 @@
 					"lostTime": 30,
 					"health": 75,
 					"effect": ":clock2:",
-					"money": -20
+					"money": -20,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -86,14 +95,20 @@
 					},
 					"health": -100,
 					"effect": ":sick:",
-					"money": -20
+					"money": -20,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
 						"fr": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût.",
 						"en": "This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste."
 					},
-					"money": -20
+					"money": -20,
+					"tags": [
+						"moneyUsage"
+					]
 				}
 			]
 		},

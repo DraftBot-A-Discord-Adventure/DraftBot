@@ -22,7 +22,10 @@
 					},
 					"health": -30,
 					"money": -50,
-					"effect": ":sick:"
+					"effect": ":sick:",
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
@@ -32,7 +35,10 @@
 					"lostTime": 10,
 					"health": 5,
 					"effect": ":clock2:",
-					"money": -50
+					"money": -50,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {

@@ -30,7 +30,10 @@
 					},
 					"lostTime": 90,
 					"effect": ":clock2:",
-					"money": -125
+					"money": -125,
+					"tags": [
+						"moneyUsage"
+					]
 				},
 				{
 					"translations": {
