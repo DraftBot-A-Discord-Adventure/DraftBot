@@ -12,6 +12,7 @@ export async function addCampaignMission(context: QueryInterface, position: numb
  * Add a list of missions to the campaign
  */
 export async function addCampaignMissionList(context: QueryInterface, positions: number[]): Promise<void> {
+	positions.sort((a, b) => b - a);
 	for (const position of positions) {
 		await addCampaignMission(context, position);
 	}
@@ -29,6 +30,7 @@ export async function removeCampaignMission(context: QueryInterface, position: n
  * Remove a list of missions from the campaign
  */
 export async function removeCampaignMissionList(context: QueryInterface, positions: number[]): Promise<void> {
+	positions.sort((a, b) => b - a);
 	for (const position of positions) {
 		await removeCampaignMission(context, position);
 	}

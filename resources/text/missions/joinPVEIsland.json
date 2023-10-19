@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rejoignez l'île mystérieuse."
+		},
+		"en": {
+			"desc": "Join the mysterious island."
+		}
+	},
+	"campaignOnly": true
+}

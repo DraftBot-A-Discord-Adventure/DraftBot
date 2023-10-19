@@ -390,10 +390,10 @@ export class DraftBotShopMessageBuilder {
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
 		const [player] = await Players.getOrRegister(userId);
-		await player.addMoney({
-			amount: -amount,
-			channel: null, // It is negative, so we don't care about the channel and language
-			language: "",
+		await player.spendMoney({
+			amount: amount,
+			channel: this._interaction.channel,
+			language: this._language,
 			reason: NumberChangeReason.SHOP
 		});
 		await player.save();

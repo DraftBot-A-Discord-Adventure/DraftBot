@@ -29,7 +29,7 @@ async function applyPossibility(textInformation: TextInformation, player: Player
 			await guild.addExperience(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
 		}
 		else {
-			await guild.addScore(amount, NumberChangeReason.SMALL_EVENT);
+			await guild.addScore(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
 		}
 		await guild.save();
 		return [amount.toString(), draw];

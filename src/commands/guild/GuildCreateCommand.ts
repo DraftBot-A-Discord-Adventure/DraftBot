@@ -69,8 +69,8 @@ function endCallbackGuildCreateValidationMessage(
 			});
 
 			player.guildId = newGuild.id;
-			await player.addMoney({
-				amount: -GuildCreateConstants.PRICE,
+			await player.spendMoney({
+				amount: GuildCreateConstants.PRICE,
 				channel: interaction.channel,
 				language,
 				reason: NumberChangeReason.GUILD_CREATE

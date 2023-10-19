@@ -283,8 +283,8 @@ async function sendACoin(otherPlayer: Player, channel: TextBasedChannel, languag
 		reason: NumberChangeReason.RECEIVE_COIN
 	});
 	await otherPlayer.save();
-	await player.addMoney({
-		amount: -1,
+	await player.spendMoney({
+		amount: 1,
 		channel,
 		language,
 		reason: NumberChangeReason.SMALL_EVENT
@@ -387,7 +387,10 @@ async function sendAndManagePoorInteraction(
  * @param numberOfPlayers
  * @param tr
  */
-async function getAvailableInteractions(otherPlayer: Player, player: Player, numberOfPlayers: number, tr: TranslationModule): Promise<{ guild: Guild, cList: string[] }> {
+async function getAvailableInteractions(otherPlayer: Player, player: Player, numberOfPlayers: number, tr: TranslationModule): Promise<{
+	guild: Guild,
+	cList: string[]
+}> {
 	let guild = null;
 	const cList: string[] = [];
 	const [playerRank, otherPlayerRank, otherPlayerWeeklyRank] = await Promise.all([

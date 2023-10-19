@@ -46,8 +46,8 @@ function callbackShopSmallEvent(
 				return;
 			}
 			await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER, 1);
-			await player.addMoney({
-				amount: -price,
+			await player.spendMoney({
+				amount: price,
 				channel: interaction.channel,
 				language,
 				reason: NumberChangeReason.SMALL_EVENT
