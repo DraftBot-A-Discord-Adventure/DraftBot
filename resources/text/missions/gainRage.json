@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagnez {objective} points de rage en battant des animaux sauvages."
+		},
+		"en": {
+			"desc": "Gain {objective} rage points by defeating wild animals."
+		}
+	},
+	"difficulties": {
+		"easy": [],
+		"medium": [],
+		"hard": []
+	},
+	"objectives": [],
+	"points": [],
+	"gems": [],
+	"xp": [],
+	"money": [],
+	"expirations": [],
+	"dailyIndexes": []
+}

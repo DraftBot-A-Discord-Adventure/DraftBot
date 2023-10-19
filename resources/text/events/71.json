@@ -8,6 +8,9 @@
 		"fr": "🏜️ Alors que vous traversez la Vallée des Rois, vous apercevez une oasis. Assoiffé par votre voyage, vous vous élancez vers la petite étendue d'eau pour vous y abreuver. Tandis que vous buvez, un rire se fait entendre derrière vous et vous fait sursauter. Lorsque vous vous retournez, un vieil homme barbu au visage caché par une large capuche vous fait face. Il dit s'appeler Xirtex et habiter cette oasis. Celui-ci vous propose de vous héberger dans sa demeure pour vous remettre de votre voyage, et en profiter pour partager vos mésaventures.",
 		"en": "🏜️ As you walk through the Kings' Valley's iconic desert, you notice an oasis. Your throat is parched by your travels, so you run to the small pool of water, and drink from it. As you are drinking, a peal of laughter erupts, startling you. You turn around, and end up facing a bearded old man, his face hidden under a large hood. He tells you his name's Xirtex, and he resides in this oasis. He then offers to welcome you in his home so that you can recover from your journey, and share your adventures."
 	},
+	"tags": [
+		"meetHermit"
+	],
 	"possibilities": {
 		"🍖": {
 			"translations": {
@@ -99,8 +102,8 @@
 				},
 				{
 					"translations": {
-					"fr": "Voyant que vous hésitez à accepter, le vieil homme décide de vous offrir \"un objet de sa collection personnelle\", vous acceptez le présent mais restez réservé quant à rester en sa compagnie et décidez de prendre congé rapidement.",
-					"en": "Seeing that you hesitate to accept, the old man decides to offer you \"an object from his personal collection.\" You accept the gift but remain reserved about staying in his company and decide to take your leave quickly."
+						"fr": "Voyant que vous hésitez à accepter, le vieil homme décide de vous offrir \"un objet de sa collection personnelle\", vous acceptez le présent mais restez réservé quant à rester en sa compagnie et décidez de prendre congé rapidement.",
+						"en": "Seeing that you hesitate to accept, the old man decides to offer you \"an object from his personal collection.\" You accept the gift but remain reserved about staying in his company and decide to take your leave quickly."
 					},
 					"randomItem": {}
 				},

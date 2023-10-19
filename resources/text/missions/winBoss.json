@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagnez {objective} combat{objective>1?s:} de boss."
+		},
+		"en": {
+			"desc": "Win {objective} boss fight{objective>1?s:}."
+		}
+	},
+	"difficulties": {
+		"easy": [],
+		"medium": [],
+		"hard": []
+	},
+	"objectives": [],
+	"points": [],
+	"gems": [],
+	"xp": [],
+	"money": [],
+	"expirations": [],
+	"dailyIndexes": []
+}

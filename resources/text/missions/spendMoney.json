@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Dépensez {objective} pièces."
+		},
+		"en": {
+			"desc": "Spend {objective} coins."
+		}
+	},
+	"difficulties": {
+		"easy": [],
+		"medium": [],
+		"hard": []
+	},
+	"objectives": [],
+	"points": [],
+	"gems": [],
+	"xp": [],
+	"money": [],
+	"expirations": [],
+	"dailyIndexes": []
+}

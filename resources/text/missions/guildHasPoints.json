@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Être dans une guilde qui possède plus de {objective} points de guilde."
+		},
+		"en": {
+			"desc": "Be in a guild that has more than {objective} guild points."
+		}
+	},
+	"campaignOnly": true
+}

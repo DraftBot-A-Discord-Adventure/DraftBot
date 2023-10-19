@@ -3,13 +3,7 @@ import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {
-	CommandInteraction,
-	Message,
-	MessageReaction,
-	ReactionCollector,
-	User
-} from "discord.js";
+import {CommandInteraction, Message, MessageReaction, ReactionCollector, User} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
@@ -108,8 +102,9 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 				true
 			);
 		}
+		const candyIndex = getFoodIndexOf("commonFood");
 
-		if (player.money - 20 < 0) {
+		if (player.money - Constants.PET_FOOD_GUILD_SHOP.PRICE[candyIndex] < 0) {
 			return await sendErrorMessage(
 				interaction.user,
 				interaction,
@@ -123,12 +118,12 @@ async function withoutGuildPetFeed(language: string, interaction: CommandInterac
 			language,
 			reason: NumberChangeReason.PET_FEED
 		};
-		await player.addMoney(Object.assign(editValueChanges, {
-			amount: -20
+		await player.spendMoney(Object.assign(editValueChanges, {
+			amount: Constants.PET_FOOD_GUILD_SHOP.PRICE[candyIndex]
 		}));
 		authorPet.hungrySince = new Date();
 		await authorPet.changeLovePoints(Object.assign(editValueChanges, {
-			amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[getFoodIndexOf("commonFood")]
+			amount: Constants.PET_FOOD_GUILD_SHOP.EFFECT[candyIndex]
 		}));
 		await Promise.all([
 			authorPet.save(),

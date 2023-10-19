@@ -256,8 +256,8 @@ function getBuySlotExtensionShopItemCallback(
 				[playerInformation.player] = await Players.getOrRegister(shopMessage.user.id);
 				for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-						await playerInformation.player.addMoney({
-							amount: -itemInformation.price,
+						await playerInformation.player.spendMoney({
+							amount: itemInformation.price,
 							channel: shopMessage.sentMessage.channel,
 							language: translationModule.language,
 							reason: NumberChangeReason.SHOP

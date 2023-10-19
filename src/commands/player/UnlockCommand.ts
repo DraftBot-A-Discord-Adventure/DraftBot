@@ -80,8 +80,8 @@ function callbackUnlockCommand(
 			const [playerUnlocker] = await Players.getOrRegister(entityCouple.unlocker.discordUserId); // Player who unlocks
 			if (reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 				await TravelTime.removeEffect(playerToUnlock, NumberChangeReason.UNLOCK);
-				await playerUnlocker.addMoney({
-					amount: -UnlockConstants.PRICE_FOR_UNLOCK,
+				await playerUnlocker.spendMoney({
+					amount: UnlockConstants.PRICE_FOR_UNLOCK,
 					channel: textInformation.interaction.channel,
 					language: textInformation.language,
 					reason: NumberChangeReason.UNLOCK

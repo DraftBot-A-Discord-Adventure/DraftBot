@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rencontrez un ermite"
+		},
+		"en": {
+			"desc": "Meet a hermit"
+		}
+	},
+	"campaignOnly": true
+}

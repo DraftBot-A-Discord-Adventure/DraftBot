@@ -166,7 +166,7 @@ export const smallEvent: SmallEvent = {
 					`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`
 				)}${outcomeIsSuccess ? ` ${tr.getRandom("rageUp")}${tr.get("rageUpEnd")}` : ""}`;
 				await sendResultMessage(seEmbed, resultString, interaction);
-				await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
+				await player.addRage(outcomeIsSuccess ? 1 : 0, fightPetEventMessage.collector.message.channel, language, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
 			});
 
 

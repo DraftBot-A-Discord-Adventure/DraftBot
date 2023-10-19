@@ -37,9 +37,9 @@ import {League, Leagues} from "./League";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
-import moment = require("moment");
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
 import {Guilds} from "./Guild";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -220,6 +220,19 @@ export class Player extends Model {
 		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason).then();
 		this.addWeeklyScore(parameters.amount);
 		return this;
+	}
+
+	/**
+	 * If the player is "spending" its money, you must use this function
+	 * @param parameters
+	 */
+	public async spendMoney(parameters: EditValueParameters): Promise<Player> {
+		await MissionsController.update(this, parameters.channel, parameters.language, {
+			missionId: "spendMoney",
+			count: parameters.amount
+		});
+		parameters.amount = -parameters.amount;
+		return this.addMoney(parameters);
 	}
 
 	/**
@@ -796,39 +809,6 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
-	 * @param interaction
-	 * @param language
-	 * @private
-	 */
-	private async getAndApplyLostRessourcesOnPveFaint(interaction: CommandInteraction<CacheType>, language: string): Promise<ressourcesLostOnPveFaint> {
-		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
-		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
-		if (moneyLost > this.money) {
-			moneyLost = this.money;
-		}
-		await this.addMoney({
-			amount: -moneyLost,
-			channel: interaction.channel,
-			language,
-			reason: NumberChangeReason.PVE_ISLAND
-		});
-		await this.save();
-
-		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
-			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
-		if (this.hasAGuild()) {
-			const playerGuild = await Guilds.getById(this.guildId);
-			if (guildPointsLost > playerGuild.score) {
-				guildPointsLost = playerGuild.score;
-			}
-			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
-			await playerGuild.save();
-		}
-		return {moneyLost, guildPointsLost};
-	}
-
-	/**
 	 * Add fight points
 	 * @param amount
 	 * @param maxPoints
@@ -968,14 +948,57 @@ export class Player extends Model {
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 
-	public async addRage(rage: number, reason: NumberChangeReason): Promise<void> {
+	public async addRage(rage: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		await this.setRage(this.rage + rage, reason);
+		if (rage > 0) {
+			await MissionsController.update(this, channel, language, {missionId: "gainRage", count: rage});
+		}
 	}
 
 	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {
 		this.rage = rage;
 		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason).then();
 		await this.save();
+	}
+
+	/**
+	 * Check if the player has enough energy to join the island
+	 */
+	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
+		return await this.getCumulativeFightPoint() / await this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
+	}
+
+	/**
+	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
+	 * @param interaction
+	 * @param language
+	 * @private
+	 */
+	private async getAndApplyLostRessourcesOnPveFaint(interaction: CommandInteraction<CacheType>, language: string): Promise<ressourcesLostOnPveFaint> {
+		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
+		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
+		if (moneyLost > this.money) {
+			moneyLost = this.money;
+		}
+		await this.addMoney({
+			amount: -moneyLost,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.PVE_ISLAND
+		});
+		await this.save();
+
+		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
+			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
+		if (this.hasAGuild()) {
+			const playerGuild = await Guilds.getById(this.guildId);
+			if (guildPointsLost > playerGuild.score) {
+				guildPointsLost = playerGuild.score;
+			}
+			await playerGuild.addScore(-guildPointsLost, interaction.channel, language, NumberChangeReason.PVE_ISLAND);
+			await playerGuild.save();
+		}
+		return {moneyLost, guildPointsLost};
 	}
 
 	/**
@@ -1058,13 +1081,6 @@ export class Player extends Model {
 		else {
 			this.health = health;
 		}
-	}
-
-	/**
-	 * Check if the player has enough energy to join the island
-	 */
-	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
-		return await this.getCumulativeFightPoint() / await this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 }
 

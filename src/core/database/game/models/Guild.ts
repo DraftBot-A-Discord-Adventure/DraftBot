@@ -12,8 +12,8 @@ import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
-import moment = require("moment");
 import {TopConstants} from "../../../constants/TopConstants";
+import moment = require("moment");
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -234,25 +234,23 @@ export class Guild extends Model {
 	}
 
 	/**
-	 * Set the guild's experience
-	 * @param experience
-	 */
-	private setExperience(experience: number): void {
-		if (experience > 0) {
-			this.experience = experience;
-		}
-		else {
-			this.experience = 0;
-		}
-	}
-
-	/**
 	 * Add guild points
 	 * @param points
+	 * @param channel
+	 * @param language
 	 * @param reason
 	 */
-	public addScore(points: number, reason: NumberChangeReason): void {
+	public async addScore(points: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.score += points;
+		if (points > 0) {
+			for (const member of await Players.getByGuild(this.id)) {
+				await MissionsController.update(member, channel, language, {
+					missionId: "guildHasPoints",
+					count: this.score,
+					set: true
+				});
+			}
+		}
 		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason).then();
 	}
 
@@ -273,6 +271,19 @@ export class Guild extends Model {
 				id: this.id
 			}
 		}))[0][0] as { ranking: number }).ranking;
+	}
+
+	/**
+	 * Set the guild's experience
+	 * @param experience
+	 */
+	private setExperience(experience: number): void {
+		if (experience > 0) {
+			this.experience = experience;
+		}
+		else {
+			this.experience = 0;
+		}
 	}
 }
 

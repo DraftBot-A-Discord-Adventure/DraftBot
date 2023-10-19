@@ -583,7 +583,7 @@ async function doPVEBoss(
 				});
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
-					guild.addScore(rewards.guildScore, NumberChangeReason.PVE_FIGHT);
+					await guild.addScore(rewards.guildScore, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
 					await guild.addExperience(rewards.guildXp, fightView.channel, fightView.language, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
 					if (guild.level < GuildConstants.MAX_LEVEL) {
@@ -602,6 +602,7 @@ async function doPVEBoss(
 							.setDescription(desc)
 					]
 				});
+				await MissionsController.update(player, fightView.channel, fightView.language, {missionId: "winBoss"});
 			}
 
 			await player.save();

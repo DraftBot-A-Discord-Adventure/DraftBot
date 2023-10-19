@@ -64,6 +64,12 @@ export async function confirmationCallback(
 		embeds: [messageData.embed]
 	});
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND);
+	if (isGoneOnIsland) {
+		await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
+			missionId: "joinPVEIsland",
+			set: true
+		});
+	}
 	return isGoneOnIsland;
 }
 
