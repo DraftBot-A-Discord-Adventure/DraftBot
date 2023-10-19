@@ -391,7 +391,7 @@ export class DraftBotShopMessageBuilder {
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
 		const [player] = await Players.getOrRegister(userId);
 		await player.spendMoney({
-			amount: amount,
+			amount,
 			channel: this._interaction.channel,
 			language: this._language,
 			reason: NumberChangeReason.SHOP
