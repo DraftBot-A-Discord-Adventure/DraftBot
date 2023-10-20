@@ -204,8 +204,8 @@
 			"missionId": "joinPVEIsland",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 5,
+			"xpToWin": 300,
 			"moneyToWin": 0
 		},
 		{
@@ -268,8 +268,8 @@
 			"missionId": "gainRage",
 			"missionVariant": 0,
 			"missionObjective": 3,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 120,
 			"moneyToWin": 0
 		},
 		{
@@ -300,8 +300,8 @@
 			"missionId": "joinMemberOnBoat",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 6,
+			"xpToWin": 350,
 			"moneyToWin": 0
 		},
 		{
@@ -324,8 +324,8 @@
 			"missionId": "winBoss",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 100,
 			"moneyToWin": 0
 		},
 		{
@@ -396,8 +396,8 @@
 			"missionId": "guildHasPoints",
 			"missionVariant": 0,
 			"missionObjective": 5000,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 10,
+			"xpToWin": 400,
 			"moneyToWin": 0
 		},
 		{
@@ -452,8 +452,8 @@
 			"missionId": "gainRage",
 			"missionVariant": 0,
 			"missionObjective": 25,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 3,
+			"xpToWin": 150,
 			"moneyToWin": 0
 		},
 		{
@@ -484,8 +484,8 @@
 			"missionId": "winBoss",
 			"missionVariant": 0,
 			"missionObjective": 8,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 8,
+			"xpToWin": 800,
 			"moneyToWin": 0
 		},
 		{
@@ -540,72 +540,72 @@
 			"missionId": "wealthyPayForPVEIsland",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 40,
+			"xpToWin": 225,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "drinkEnergyPotions",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 3,
+			"xpToWin": 110,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "anyFight",
 			"missionVariant": 0,
 			"missionObjective": 10,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 200,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "exploreDifferentPlaces",
 			"missionVariant": 0,
 			"missionObjective": 15,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 7,
+			"xpToWin": 400,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "haveItemRarity",
 			"missionVariant": 6,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 75,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "spendMoney",
 			"missionVariant": 0,
 			"missionObjective": 10000,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 3,
+			"xpToWin": 100,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "meetHermit",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 5,
+			"xpToWin": 225,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "drinkPotionRarity",
 			"missionVariant": 7,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 175,
 			"moneyToWin": 0
 		},
 		{
 			"missionId": "chooseClassTier",
 			"missionVariant": 3,
 			"missionObjective": 1,
-			"gemsToWin": 0,
-			"xpToWin": 0,
+			"gemsToWin": 2,
+			"xpToWin": 50,
 			"moneyToWin": 0
 		}
 	]
