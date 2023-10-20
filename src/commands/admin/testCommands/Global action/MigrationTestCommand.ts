@@ -29,7 +29,7 @@ function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase 
 }
 
 /**
- * Force a topweek end event
+ * Execute the migration test command
  * @return {String} - The successful message formatted
  */
 async function migrationTestCommand(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
