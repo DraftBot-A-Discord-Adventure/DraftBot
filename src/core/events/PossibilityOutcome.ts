@@ -88,7 +88,7 @@ async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, play
 	}
 	const isMoneyChangePositive = moneyChange > 0;
 	moneyChange = Math.abs(moneyChange);
-	if (!isMoneyChangePositive && outcome.tags.includes("moneyUsage")) {
+	if (!isMoneyChangePositive && outcome.tags?.includes("moneyUsage")) {
 		await player.spendMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
 	}
 	else {
