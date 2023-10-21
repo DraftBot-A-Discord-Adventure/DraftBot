@@ -19,7 +19,7 @@ const resetCampaignTestCommand = async (language: string, interaction: CommandIn
 	await sctcCommandInfo.execute(language, interaction, ["1"]);
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-	missionsInfo.campaignBlob = Campaign.getDefautCampaignBlob();
+	missionsInfo.campaignBlob = Campaign.getDefaultCampaignBlob();
 	await missionsInfo.save();
 	return commandInfo.messageWhenExecuted;
 };

@@ -88,9 +88,6 @@ export class Campaign {
 			return this.updatePlayerCampaign(completedCampaign, player, language);
 		}
 		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-		if (missionsInfo.campaignBlob === null) {
-			missionsInfo.campaignBlob = this.getDefautCampaignBlob();
-		}
 		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignBlob)) {
 			return await this.completeCampaignMissions(player, missionsInfo, completedCampaign, campaign, language);
 		}
@@ -100,7 +97,7 @@ export class Campaign {
 	/**
 	 * Get the default campaign blob
 	 */
-	static getDefautCampaignBlob(): string {
+	static getDefaultCampaignBlob(): string {
 		return "0".repeat(this.getMaxCampaignNumber());
 	}
 

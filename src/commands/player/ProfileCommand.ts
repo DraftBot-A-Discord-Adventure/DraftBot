@@ -390,9 +390,10 @@ async function generateFields(
 	if (askedPlayer.level >= Constants.CLASS.REQUIRED_LEVEL) {
 		fields.push(await getStatisticField(profileModule, askedPlayer, playerActiveObjects));
 	}
-
-	fields.push(
-		getMissionField(profileModule, mc, missionsInfo));
+	if (missionsInfo) {
+		fields.push(
+			getMissionField(profileModule, mc, missionsInfo));
+	}
 
 	fields.push(
 		getRankingField(profileModule, rank, numberOfPlayers, askedPlayer));

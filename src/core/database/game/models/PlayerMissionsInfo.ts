@@ -3,6 +3,7 @@ import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {draftBotInstance} from "../../../bot";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import moment = require("moment");
+import {Campaign} from "../../../missions/Campaign";
 
 export class PlayerMissionsInfo extends Model {
 	declare readonly playerId: number;
@@ -51,11 +52,15 @@ export class PlayerMissionsInfos {
 	 * @param playerId
 	 */
 	public static async getOfPlayer(playerId: number): Promise<PlayerMissionsInfo> {
-		return (await PlayerMissionsInfo.findOrCreate({
+		const missionsInfo = (await PlayerMissionsInfo.findOrCreate({
 			where: {
 				playerId
 			}
 		}))[0];
+		if (missionsInfo.campaignBlob === null || !missionsInfo.campaignBlob) {
+			missionsInfo.campaignBlob = Campaign.getDefaultCampaignBlob();
+		}
+		return missionsInfo;
 	}
 }
 
