@@ -109,7 +109,7 @@ export const smallEvent: SmallEvent = {
 		const destination = await player.getDestination();
 		const origin = await player.getPreviousMap();
 		return Promise.resolve(Maps.isOnContinent(player) &&
-			(destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
+			!(destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
 				|| destination.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
 				|| origin.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
 				|| origin.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
