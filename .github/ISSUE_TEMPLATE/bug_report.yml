@@ -42,6 +42,5 @@ body:
       attributes:
           label: Sur quel shard avez vous rencontré le bug ?
           description: Pour connaître votre numéro de shard, utilisez la commande /ping **au même endroit que là où vous avez eu le bug** et envoyez une capture d'écran du résultat de la commande ici.
-          multiple: false
       validations:
           required: true
