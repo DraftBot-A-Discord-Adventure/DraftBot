@@ -545,7 +545,7 @@
 			"moneyToWin": 0
 		},
 		{
-			"missionId": "drinkEnergyPotions",
+			"missionId": "drinkEnergyPotion",
 			"missionVariant": 0,
 			"missionObjective": 5,
 			"gemsToWin": 3,

@@ -63,6 +63,9 @@ export const checkDrinkPotionMissions = async function(channel: TextBasedChannel
 	if (potion.nature === ItemConstants.NATURE.NONE) {
 		await MissionsController.update(player, channel, language, {missionId: "drinkPotionWithoutEffect"});
 	}
+	if (potion.nature === ItemConstants.NATURE.ENERGY) {
+		await MissionsController.update(player, channel, language, {missionId: "drinkEnergyPotion"});
+	}
 	await MissionsController.update(player, channel, language, {
 		missionId: "havePotions",
 		count: countNbOfPotions(inventorySlots),
@@ -502,7 +505,10 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
  * Get a portion of the model corresponding to the category number
  * @param category
  */
-function getCategoryModelByName(category: number): { getMaxId: () => Promise<number>, getById: (itemId: number) => Promise<GenericItemModel> } {
+function getCategoryModelByName(category: number): {
+	getMaxId: () => Promise<number>,
+	getById: (itemId: number) => Promise<GenericItemModel>
+} {
 	switch (category) {
 	case ItemConstants.CATEGORIES.WEAPON:
 		return Weapons;
