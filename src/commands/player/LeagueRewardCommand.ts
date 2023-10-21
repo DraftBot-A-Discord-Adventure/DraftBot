@@ -97,7 +97,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const embed = new DraftBotEmbed().formatAuthor(leagueRewardModule.get("ligueRewardSuccessTitle"), interaction.user);
 	await generateDescription(embed, leagueRewardModule, player, leagueLastSeason, language, scoreToAward);
 	await player.save();
-	await interaction.reply({embeds: [embed]});
+	await interaction.followUp({embeds: [embed]});
 
 	const item = await leagueLastSeason.generateRewardItem();
 	await giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
