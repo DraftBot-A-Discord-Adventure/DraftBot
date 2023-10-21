@@ -41,7 +41,7 @@
 			"advanced": [
 				"Les cheveux gris de {playerDisplay} témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
 				"En vous baladant, vous croisez {playerDisplay}. C'est un héros puissant, il est en effet niveau **{level}** !",
-				"{playerDisplay} ne s'arrête pas de monter en niveau et de se rapprocher du niveau 100 ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
+				"{playerDisplay} ne s'arrête pas de monter en niveau et est l'un des meilleurs joueurs du jeu ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
 			],
 			"sameClass": [
 				"Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de {playerDisplay}. Il est **{class}** tout comme vous !",
@@ -249,7 +249,7 @@
 			"advanced": [
 				"The grey hair of {playerDisplay} shows the experience they have accumulated. They, indeed, are lvl **{level}**! You continue your way.",
 				"While walking around, you come across {playerDisplay} : They are a powerful lvl-**{level}** hero!",
-				"{playerDisplay} keeps leveling up, and is getting closer to level 100! They're currently level **{level}**."
+				"{playerDisplay} keeps leveling up, and is one of the best players! They're currently level **{level}**."
 			],
 			"sameClass": [
 				"On your way, you do not fail to recognize {playerDisplay}'s outfit. He is **{class}** just like you !",
