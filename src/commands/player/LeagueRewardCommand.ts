@@ -68,7 +68,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		await replyErrorMessage(interaction, language, leagueRewardModule.get("alreadyReceivedError"));
 		return;
 	}
-
+	await interaction.deferReply();
 	const leagueLastSeason = await player.getLeagueLastSeason();
 
 	// Give the reward to the player : money, xp and an item
