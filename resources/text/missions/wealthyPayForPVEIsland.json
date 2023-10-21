@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Montrez votre richesse au capitaine du bateau."
+			"desc": "Acheter un voyage vers une île mystérieuse au prix maximal"
 		},
 		"en": {
-			"desc": "Show your wealth to the boat captain."
+			"desc": "Buy a trip to a mysterious island at a very high price."
 		}
 	},
 	"campaignOnly": true
