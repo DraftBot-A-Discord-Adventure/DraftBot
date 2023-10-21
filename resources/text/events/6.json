@@ -20,8 +20,7 @@
 						"fr": "Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
 						"en": "You get quickly lost in the maze, but you end up coming out of it after a few hours!"
 					},
-					"lostTime": 200,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				},
 				{
 					"translations": {
