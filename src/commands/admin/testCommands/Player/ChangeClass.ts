@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * Add money to the player
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param args {String[]=[]} - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
 const changeClassTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
