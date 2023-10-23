@@ -5,6 +5,7 @@ import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventorySlots} from "../../../../core/database/game/models/InventorySlot";
+import {format} from "../../../../core/utils/StringFormatter";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",
@@ -13,7 +14,7 @@ export const commandInfo: ITestCommand = {
 		"category [0-3]": Constants.TEST_VAR_TYPES.INTEGER,
 		"item id": Constants.TEST_VAR_TYPES.INTEGER
 	},
-	messageWhenExecuted: "",
+	messageWhenExecuted: "Vous avez trouvé l'objet d'id {itemId} de la catégorie n°{category}.",
 	description: "Permet de trouver un objet défini",
 	commandTestShouldReply: true,
 	execute: null // Defined later
@@ -23,7 +24,7 @@ export const commandInfo: ITestCommand = {
  * Set the weapon of the player
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param args {String[]=[]} - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
 const findItemTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
@@ -38,7 +39,10 @@ const findItemTestCommand = async (language: string, interaction: CommandInterac
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 	ItemUtils.giveItemToPlayer(player, item, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id)).finally(() => null);
-	return commandInfo.messageWhenExecuted;
+	return format(commandInfo.messageWhenExecuted, {
+		itemId,
+		category
+	});
 };
 
 commandInfo.execute = findItemTestCommand;
