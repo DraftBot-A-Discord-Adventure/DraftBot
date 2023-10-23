@@ -280,6 +280,7 @@ export class CommandsManager {
 		}
 	}
 
+
 	/**
 	 * Manage the creation of a message from channels the bot have access to
 	 * @param client
@@ -288,28 +289,37 @@ export class CommandsManager {
 	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
 			// Ignore all bot messages and own messages
-			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content && message.channel.type !== ChannelType.DM) {
+			if (this.isAMessageFromBotOrEmpty(message)) {
 				return;
 			}
 			if (message.channel.type === ChannelType.DM) {
 				await CommandsManager.handlePrivateMessage(message);
 				return;
 			}
-			const [server] = await Server.findOrCreate({
-				where: {
-					discordGuildId: message.guild.id
-				}
-			});
-			if (message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply) {
+			if (this.isAMessageFromMassOrMissPing(message) || !this.shouldSendHelpMessage(message, client)) {
 				return;
 			}
-			if (message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0]) {
-				message.channel.send({
-					content:
-						Translations.getModule("bot", server.language).format("mentionHelp", {})
-				}).then();
-			}
+			message.channel.send({
+				content:
+					Translations.getModule("bot", (await Server.findOrCreate({
+						where: {
+							discordGuildId: message.guild.id
+						}
+					}))[0].language).format("mentionHelp", {})
+			}).then();
 		});
+	}
+
+	private static shouldSendHelpMessage(message: Message, client: Client): boolean {
+		return message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0];
+	}
+
+	private static isAMessageFromMassOrMissPing(message: Message): boolean {
+		return message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply;
+	}
+
+	private static isAMessageFromBotOrEmpty(message: Message): boolean {
+		return message.author.bot || message.author.id === draftBotClient.user.id || !message.content && message.channel.type !== ChannelType.DM;
 	}
 
 	/**
