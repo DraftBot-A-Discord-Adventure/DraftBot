@@ -367,18 +367,18 @@ export class Player extends Model {
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
 		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
-		this.level++;
+		const newLevel = ++this.level;
 		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level).then();
 		Object.assign(this, await MissionsController.update(this, channel, language, {
 			missionId: "reachLevel",
-			count: this.level,
+			count: newLevel,
 			set: true
 		}));
 		const bonuses = await this.getLvlUpReward(language, channel);
 
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {
 			mention: this.getMention(),
-			level: this.level
+			level: newLevel
 		});
 		for (let i = 0; i < bonuses.length - 1; ++i) {
 			msg += `${bonuses[i]}\n`;
