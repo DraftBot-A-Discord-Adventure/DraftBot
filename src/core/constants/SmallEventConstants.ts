@@ -241,9 +241,9 @@ export abstract class SmallEventConstants {
 		MIN_RARITY: ItemConstants.RARITY.EPIC,
 		MAX_RARITY: ItemConstants.RARITY.LEGENDARY,
 		GREAT_DEAL_PROBABILITY: 0.1,
-		GREAT_DEAL_MULTIPLAYER: 3,
-		BASE_MULTIPLIER: 7
-
-
+		GREAT_DEAL_MULTIPLAYER: 3.5,
+		BASE_MULTIPLIER: 5.5,
+		ROAD_OF_WONDERS_MULTIPLIER: 1.5,
+		REDUCTION_TIP_PROBABILITY: 0.2 // 20% chance to have a reduction tip
 	};
 }
