@@ -236,4 +236,14 @@ export abstract class SmallEventConstants {
 			MAX: 250
 		}
 	};
+
+	static EPIC_ITEM_SHOP = {
+		MIN_RARITY: ItemConstants.RARITY.EPIC,
+		MAX_RARITY: ItemConstants.RARITY.LEGENDARY,
+		GREAT_DEAL_PROBABILITY: 0.1,
+		GREAT_DEAL_MULTIPLAYER: 3,
+		BASE_MULTIPLIER: 7
+
+
+	};
 }

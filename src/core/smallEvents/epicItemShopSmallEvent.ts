@@ -11,9 +11,9 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {BlockingConstants} from "../constants/BlockingConstants";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
-import {ItemConstants} from "../constants/ItemConstants";
 import {Maps} from "../maps/Maps";
 import {callbackShopSmallEvent} from "../utils/SmallEventUtils";
+
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -31,11 +31,11 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
-		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.SCAM_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
+		const randomItem = await generateRandomItem(null, SmallEventConstants.EPIC_ITEM_SHOP.MIN_RARITY, SmallEventConstants.EPIC_ITEM_SHOP.MAX_RARITY);
+		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_PROBABILITY) ?
+			SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
 		const price = Math.round(getItemValue(randomItem) * multiplier);
-		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
-		const translationShop = Translations.getModule("smallEvents.shop", language);
+		const translationShop = Translations.getModule("smallEvents.epicItemShop", language);
 		const endCallback = callbackShopSmallEvent(player, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
@@ -47,9 +47,8 @@ export const smallEvent: SmallEvent = {
 			})
 			.setDescription(seEmbed.data.description
 				+ format(
-					translationShop.getRandom(`intro.${gender}`)
+					translationShop.getRandom("intro")
 					+ translationShop.get("end"), {
-						name: translationShop.getRandom(`names.${gender}`),
 						item: randomItem.toString(language, null),
 						price,
 						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${translationShop.get(`types.${randomItem.getCategory()}`)}`
