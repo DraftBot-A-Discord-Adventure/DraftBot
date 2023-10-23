@@ -26,19 +26,19 @@
 		},
 		"en": {
 			"intro": [
-				"While making your way toward your destination, an unexpected encounter occurs. Alderic the antiquarian emerges from the horizon, his treasure-laden cart in tow, ready to discuss a special deal.",
-				"As you're on the road, a peculiar individual makes an appearance. Alderic the wandering merchant with a mysterious charm emerges with a captivating offer.",
-				"While you walk unhurriedly into the unknown, a familiar silhouette appears: Alderic the antiquarian, the wandering merchant, presents you with an intriguing proposal.",
-				"As your journey unfolds smoothly, a unique event takes place. Alderic the traveling antiquities artist invites you to a memorable exchange.",
-				"During your journey, a surprising interruption occurs. It's Alderic the itinerant merchant, who reveals an unexpected treasure.",
-				"During a brief stop under a tree, a mysterious character enters the scene. It's Alderic the antiquarian, the wanderer of the unusual, ready to immerse you in a most enticing proposition.",
-				"As you advance at a leisurely pace on your path, the sound of cartwheels catches your attention. You spot Alderic the antiquarian, a man of a certain age dressed in a picturesque manner, who travels the roads as a wandering merchant. He beckons you with a benevolent smile, inviting you to explore his collection of fascinating objects.",
-				"While walking on a dusty, stone-covered path, a cart with the inscription 'Alderic the antiquarian - purveyor of superb objects' appears before you. A transaction is soon initiated.",
-				"While you walk peacefully, an attractive wooden cart on the horizon piques your curiosity. Aboard it stands Alderic the antiquarian, a distinguished man with a face marked by time. His cart is filled with carefully arranged antiques, and he offers to show you his treasures, each loaded with stories and value.",
-				"As you continue your journey after a short break, a remarkably well-dressed individual approaches you. He introduces himself as Alderic the renowned traveling merchant. His attire, a blend of ancient fabrics and enigmatic accessories, reflects his love for ancient objects. With an accent tinged with excitement, he details the history of his unique finds.",
-				"As you travel in tranquility, a cart resembling a traveling treasure stops before you. Its driver, Alderic the antiquarian, is a man with a warm personality, wearing a vintage-inspired outfit. He invites you to explore his collection of curiosities, each accompanied by a story that will enchant you.",
-				"During a pause in the shade of a large tree, a distinguished man approaches you with a friendly smile. This man is none other than Alderic the renowned antiquarian. He wears a suit reminiscent of another era and shares his interest in antique items, all carefully displayed in his cart.",
-				"After hours of walking, a middle-aged man dressed in attire evoking a bygone era approaches you with courtesy. He introduces himself as Alderic the passionate connoisseur of antiques. In his cart, you discover a collection of fascinating objects, and he takes pleasure in recounting the history of each one."
+				"While on your journey to an unknown destination, an unexpected encounter unfolds. Alderic the antiquarian emerges from the horizon, his treasure-laden cart in tow, ready to engage in a special transaction.",
+				"As you make your way, an intriguing figure appears. Alderic, the enigmatic itinerant merchant, presents you with a captivating proposition.",
+				"As you leisurely walk into the unknown, a familiar silhouette emerges: Alderic the antiquarian, a wandering merchant, offering you an intriguing proposal.",
+				"As your journey proceeds smoothly, a singular event takes place. Alderic, the wandering connoisseur of antiquities, invites you to a memorable exchange.",
+				"During your journey, an unexpected interruption occurs. It's Alderic the itinerant merchant, revealing an unforeseen treasure.",
+				"During a brief halt under a tree, a mysterious character makes his entrance. It's Alderic the antiquarian, the wanderer of the unusual, ready to immerse you in a most enticing offer.",
+				"As you advance at a leisurely pace on your path, the sound of cartwheels captures your attention. You spot Alderic the antiquarian, a man of a certain age dressed in a picturesque manner, who roams the roads as a traveling merchant. He beckons you with a benevolent smile, inviting you to explore his collection of captivating objects.",
+				"While strolling on a dusty, stone-covered path, a cart with the inscription 'Alderic the antiquarian - purveyor of superb objects' appears before you. A transaction is initiated without delay.",
+				"While you walk serenely, an attractive wooden cart on the horizon piques your curiosity. Aboard it stands Alderic the antiquarian, a distinguished man with a face marked by the passage of time. His cart is filled with carefully arranged antiques, and he offers to reveal his treasures, each laden with stories and value.",
+				"As you continue your journey after a brief respite, a remarkably well-dressed individual approaches you. He introduces himself as Alderic, the renowned traveling merchant. His attire, a blend of ancient fabrics and enigmatic accessories, reflects his love for ancient objects. With an accent tinged with excitement, he elaborates on the history of his unique finds.",
+				"While traveling in tranquility, a cart resembling a traveling treasure comes to a halt before you. Its driver, Alderic the antiquarian, is a man with a warm personality, wearing a vintage-inspired outfit. He invites you to explore his collection of curiosities, each accompanied by a story that will captivate you.",
+				"During a break in the shade of a large tree, a distinguished man approaches you with a friendly smile. This man is none other than Alderic, the renowned antiquarian. He wears a suit reminiscent of a bygone era and shares his passion for antique items, all meticulously displayed in his cart.",
+				"After hours of walking, a middle-aged man dressed in attire evoking a bygone era approaches you with courtesy. He introduces himself as Alderic, the passionate connoisseur of antiques. In his cart, you discover a collection of fascinating objects, and he takes pleasure in recounting the history of each one."
 			],
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type:** {type}",
 			"types": [
