@@ -1,5 +1,6 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
+import {MapConstants} from "../../../constants/MapConstants";
 import moment = require("moment");
 
 export class MapLink extends Model {
@@ -20,9 +21,16 @@ export class MapLink extends Model {
 
 export class MapLinks {
 	static async getRandomLink(): Promise<MapLink> {
-		const query = "SELECT id FROM map_links;";
+		const query = `SELECT ml.id FROM map_links ml
+			JOIN map_locations ml_start ON ml.startMap = ml_start.id
+			JOIN map_locations ml_end ON ml.endMap = ml_end.id
+			WHERE ml_start.attribute = :continentConst
+			AND ml_end.attribute = :continentConst;`;
 		const linkIds: { id: number }[] = await MapLink.sequelize.query(query, {
-			type: QueryTypes.SELECT
+			type: QueryTypes.SELECT,
+			replacements: {
+				continentConst: MapConstants.MAP_ATTRIBUTES.CONTINENT1
+			}
 		});
 		return await MapLinks.getById(linkIds[RandomUtils.randInt(0, linkIds.length)].id);
 	}
