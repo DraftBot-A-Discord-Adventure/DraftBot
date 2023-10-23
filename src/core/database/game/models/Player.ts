@@ -313,10 +313,10 @@ export class Player extends Model {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === FightConstants.REQUIRED_LEVEL) {
-			bonuses.push(tr.format("levelUp.fightUnlocked", {}));
+			bonuses.push(tr.format("levelUp.fightUnlocked"));
 		}
 		if (this.level === GuildConstants.REQUIRED_LEVEL) {
-			bonuses.push(tr.format("levelUp.guildUnlocked", {}));
+			bonuses.push(tr.format("levelUp.guildUnlocked"));
 		}
 
 		if (this.level % 10 === 0) {
@@ -324,11 +324,11 @@ export class Player extends Model {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
-			bonuses.push(tr.format("levelUp.healthRestored", {}));
+			bonuses.push(tr.format("levelUp.healthRestored"));
 		}
 
 		if (this.level === Constants.CLASS.REQUIRED_LEVEL) {
-			bonuses.push(tr.format("levelUp.classUnlocked", {}));
+			bonuses.push(tr.format("levelUp.classUnlocked"));
 		}
 
 		if (this.level === Constants.CLASS.GROUP1LEVEL) {
@@ -344,13 +344,13 @@ export class Player extends Model {
 			bonuses.push(tr.format("levelUp.classTier", {tier: 5}));
 		}
 		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
-			bonuses.push(tr.format("levelUp.newMissionSlot", {}));
+			bonuses.push(tr.format("levelUp.newMissionSlot"));
 		}
 		if (this.level === PVEConstants.MIN_LEVEL) {
 			bonuses.push(tr.get("levelUp.pveUnlocked"));
 		}
 
-		bonuses.push(tr.format("levelUp.noBonuses", {}));
+		bonuses.push(tr.format("levelUp.noBonuses"));
 		return bonuses;
 	}
 
@@ -415,7 +415,7 @@ export class Player extends Model {
 		await channel.send({content: tr.format("ko", {pseudo: this.getPseudo(language)})});
 		const embed = new DraftBotEmbed()
 			.setTitle(tr.get("koPM.title"))
-			.setDescription(tr.format("koPM.description", {}));
+			.setDescription(tr.format("koPM.description"));
 		await sendNotificationToPlayer(this, embed, language);
 		return true;
 	}

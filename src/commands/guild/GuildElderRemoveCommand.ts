@@ -36,7 +36,7 @@ function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guild
 					}
 				)
 				.setDescription(
-					guildElderRemoveModule.format("successElderRemove",{})
+					guildElderRemoveModule.format("successElderRemove")
 				);
 			await interaction.followUp({embeds: [confirmEmbed]});
 			return;

@@ -47,7 +47,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const baseEmbed = new DraftBotEmbed()
 		.setTitle(classTranslations.get("listTitle"))
-		.setDescription(classTranslations.format("listDesc",{}))
+		.setDescription(classTranslations.format("listDesc"))
 		.addFields({
 			name: "\u200b",
 			value: classesLineDisplay.join("\n")

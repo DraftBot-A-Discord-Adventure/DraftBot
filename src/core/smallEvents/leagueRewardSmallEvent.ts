@@ -26,10 +26,10 @@ function rewardListToString(leagueRewardTranslationModule: TranslationModule, le
  * @param player
  * @param language
  */
-async function generateEndMessage(leagueRewardTranslationModule: TranslationModule, player: Player, language: string) : Promise<string> {
+async function generateEndMessage(leagueRewardTranslationModule: TranslationModule, player: Player, language: string): Promise<string> {
 
 	if (todayIsSunday()) {
-		return leagueRewardTranslationModule.format("sunday", {});
+		return leagueRewardTranslationModule.format("sunday");
 	}
 
 	const league = await player.getLeague();

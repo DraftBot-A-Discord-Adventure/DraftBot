@@ -92,7 +92,7 @@ async function executeTheTransaction(
 
 	// The buyer is dead
 	if (buyerInformation.buyer.isDead()) {
-		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer", {}), false, false);
+		await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("deadBuyer"), false, false);
 		return;
 	}
 
@@ -235,7 +235,7 @@ function getAcceptCallback(sellerInformation: SellerInformation, textInformation
 			return false;
 		}
 		if (buyerInformation.buyer.effect === EffectsConstants.EMOJI_TEXT.BABY) {
-			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("babyError", {}), false, false);
+			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("babyError"), false, false);
 			buyerInformation.buyer = null;
 			return false;
 		}

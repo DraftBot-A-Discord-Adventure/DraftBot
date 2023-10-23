@@ -24,8 +24,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			.formatAuthor(Translations.getModule("commands.resetBadge", language).get("resetSuccess"), interaction.user)
 			.setDescription(
 				Translations.getModule("commands.resetBadge", language)
-					.format("descReset",
-						{player: playerToReset}))]
+					.format("descReset", {player: playerToReset}))]
 	});
 }
 

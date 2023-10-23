@@ -26,9 +26,9 @@ export const smallEvent: SmallEvent = {
 		seEmbed.setDescription(
 			`${seEmbed.data.description}${format(
 				tr.getRandom("intro"), {
-					advice: format(tr.getRandom("advices"), {})
+					advice: format(tr.getRandom("advices"))
 				})}`
 		);
-		await interaction.editReply({ embeds: [seEmbed] });
+		await interaction.editReply({embeds: [seEmbed]});
 	}
 };

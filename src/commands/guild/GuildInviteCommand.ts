@@ -79,7 +79,7 @@ function getEndCallbackGuildAdd(
 				invited.invitedUser,
 				interaction,
 				guildInviteModule.language,
-				guildInviteModule.format("playerDead", {}),
+				guildInviteModule.format("playerDead"),
 				false,
 				false
 			);
