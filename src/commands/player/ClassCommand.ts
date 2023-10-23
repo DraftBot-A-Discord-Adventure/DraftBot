@@ -55,36 +55,36 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 
 	collector.on("end", async (reaction) => {
 		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
-		if (reaction.first() && reaction.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
-			userInformation.player.class = selectedClass.id;
-			const newClass = await Classes.getById(userInformation.player.class);
-			const level = userInformation.player.level;
-			await userInformation.player.addHealth(Math.ceil(
-				userInformation.player.health / playerClass.getMaxHealthValue(level) * newClass.getMaxHealthValue(level)
-			) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
-				shouldPokeMission: false,
-				overHealCountsForMission: false
-			});
-			userInformation.player.setFightPointsLost(Math.ceil(
-				userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
-			), NumberChangeReason.CLASS);
-			await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
-			await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
-				missionId: "chooseClassTier",
-				params: {tier: selectedClass.classGroup}
-			});
-			await userInformation.player.save();
-			draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
-			message.channel.send({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(classTranslations.get("success"), userInformation.user)
-						.setDescription(classTranslations.get("newClass") + selectedClass.getName(classTranslations.language))
-				]
-			});
+		if (!reaction.first() || reaction.first()?.emoji.name !== Constants.REACTIONS.VALIDATE_REACTION) {
+			await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
 			return;
 		}
-		await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
+		userInformation.player.class = selectedClass.id;
+		const newClass = await Classes.getById(userInformation.player.class);
+		const level = userInformation.player.level;
+		await userInformation.player.addHealth(Math.ceil(
+			userInformation.player.health / playerClass.getMaxHealthValue(level) * newClass.getMaxHealthValue(level)
+		) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
+			shouldPokeMission: false,
+			overHealCountsForMission: false
+		});
+		userInformation.player.setFightPointsLost(Math.ceil(
+			userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
+		), NumberChangeReason.CLASS);
+		await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
+		await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
+			missionId: "chooseClassTier",
+			params: {tier: selectedClass.classGroup}
+		});
+		await userInformation.player.save();
+		draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
+		message.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(classTranslations.get("success"), userInformation.user)
+					.setDescription(classTranslations.get("newClass") + selectedClass.getName(classTranslations.language))
+			]
+		});
 	});
 
 	await Promise.all([
@@ -137,22 +137,18 @@ function createClassCollectorAndManageIt(
 
 	BlockingUtils.blockPlayerWithCollector(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS, collector);
 
-	// Fetch the choice from the user
-	collector.on("collect", async (reaction) => {
-		collector.stop();
-		if (reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
+	collector.on("end", async (reaction) => {
+		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
+		if (!reaction.first() || reaction.first().emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 			await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.get("error.leaveClass"), true);
 			return;
 		}
 		await confirmPurchase(
 			classMessage,
-			await Classes.getByEmoji(reaction.emoji.name, userInformation.player.getClassGroup()),
+			await Classes.getByEmoji(reaction.first().emoji.name, userInformation.player.getClassGroup()),
 			userInformation,
 			classTranslations,
 			interaction);
-	});
-	collector.on("end", () => {
-		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
 	});
 }
 
