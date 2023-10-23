@@ -1,6 +1,8 @@
 import {
 	ApplicationCommand,
 	ApplicationCommandOptionType,
+	Attachment,
+	AttachmentBuilder,
 	ChannelType,
 	Client,
 	CommandInteraction,
@@ -234,7 +236,9 @@ export class CommandsManager {
 	 * @param command
 	 * @private
 	 */
-	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{ guild: GuildResolvable }>]): void {
+	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{
+		guild: GuildResolvable
+	}>]): void {
 		if (command[1].options) {
 			for (const option of command[1].options) {
 				if (option.type === ApplicationCommandOptionType.Subcommand) {
@@ -284,7 +288,7 @@ export class CommandsManager {
 	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
 			// Ignore all bot messages and own messages
-			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content) {
+			if (message.author.bot || message.author.id === draftBotClient.user.id || !message.content && message.channel.type !== ChannelType.DM) {
 				return;
 			}
 			if (message.channel.type === ChannelType.DM) {
@@ -350,22 +354,28 @@ export class CommandsManager {
 	private static async sendBackDMMessageToSupportChannel(message: Message, author: string): Promise<void> {
 		const [player] = await Players.getOrRegister(author);
 		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
-			for (const attachment of Array.from(message.attachments.values())) {
-				await user.send({
-					files: [{
-						attachment: attachment.url,
-						name: attachment.name
-					}]
-				});
+			const attachmentList: (Attachment | AttachmentBuilder)[] = Array.from(message.attachments.values());
+			if (message.content.length > 1900) {
+				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
 			}
 			const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
 				username: escapeUsername(message.author.username),
 				alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
 				id: message.author.id
-			}) + message.content;
-			await user.send({content: supportAlert});
+			}) + (message.content.length > 1900
+				? BotConstants.DM.TOO_LONG_MESSAGE
+				: message.content.length === 0
+					? BotConstants.DM.NO_MESSAGE
+					: BotConstants.DM.COMMENT_MESSAGE_START + message.content);
+			await user.send({content: supportAlert, files: attachmentList.slice(0, BotConstants.DM.MAX_ATTACHMENTS)});
+			for (let i = 1; i < attachmentList.length / BotConstants.DM.MAX_ATTACHMENTS; i++) {
+				await user.send({
+					content: "",
+					files: attachmentList.slice(i * BotConstants.DM.MAX_ATTACHMENTS, (i + 1) * BotConstants.DM.MAX_ATTACHMENTS)
+				});
+			}
 		})
-			.catch(() => console.warn("WARNING : could not find a place to forward the DM message."));
+			.catch((e) => console.warn(e));
 	}
 
 	/**
@@ -375,7 +385,7 @@ export class CommandsManager {
 	 */
 	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof CommandInteraction ? message.user : message.author;
-		const helpMessage = await new DraftBotReactionMessageBuilder()
+		const helpMessage = new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
 			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
 			.addReaction(new DraftBotReaction(Constants.REACTIONS.FRENCH_FLAG))
