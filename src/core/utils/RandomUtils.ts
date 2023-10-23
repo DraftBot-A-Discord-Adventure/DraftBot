@@ -25,7 +25,7 @@ export class RandomUtils {
 	 * @param maxAdd - Amount to add to range.MAX ; Default : 1
 	 * @returns a random number in [MIN, MAX]
 	 */
-	public static rangedInt = (range: ConstantRange, minAdd = 0, maxAdd = 1): number =>
+	public static rangedInt = (range: ConstantRange, minAdd = 0, maxAdd = 0): number =>
 		RandomUtils.draftbotRandom.integer(range.MIN + minAdd, range.MAX + maxAdd);
 
 	/**
