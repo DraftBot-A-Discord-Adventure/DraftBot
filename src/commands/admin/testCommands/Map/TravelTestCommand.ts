@@ -6,6 +6,8 @@ import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {TravelTime} from "../../../../core/maps/TravelTime";
+import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "travel",
@@ -25,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {CommandInteraction} interaction
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {String[]} args - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
 const travelTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
@@ -44,6 +46,7 @@ const travelTestCommand = async (language: string, interaction: CommandInteracti
 		}
 		throw new Error(`Erreur travel : Maps non reliées. Maps reliées avec la map ${mapStart} : ${conMapsWthStart.toString()}`);
 	}
+	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
 
 	await Maps.startTravel(player, link, Date.now());
 	await player.save();
