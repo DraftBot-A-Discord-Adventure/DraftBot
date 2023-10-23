@@ -64,7 +64,7 @@ function getEndCallbackGuildElder(
 								iconURL: chief.user.displayAvatarURL()
 							}
 						)
-						.setDescription(textInformation.guildElderModule.format("successElderAdd", {}))
+						.setDescription(textInformation.guildElderModule.format("successElderAdd"))
 				]
 			});
 			return;

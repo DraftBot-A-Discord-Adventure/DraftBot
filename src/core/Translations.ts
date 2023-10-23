@@ -42,7 +42,7 @@ export class TranslationModule {
 		return lastObject[language] as JsonModule;
 	}
 
-	format(translation: string, replacements: Replacements): string {
+	format(translation: string, replacements: Replacements = {}): string {
 		return format(this.get(translation), replacements);
 	}
 
@@ -68,9 +68,9 @@ export class TranslationModule {
 	}
 
 	/**
-	* Get a random key from key array
-	* @param translation
-	*/
+	 * Get a random key from key array
+	 * @param translation
+	 */
 	getRandomFromKeys(translation: string): string {
 		return RandomUtils.draftbotRandom.pick(this.getKeys(translation));
 	}

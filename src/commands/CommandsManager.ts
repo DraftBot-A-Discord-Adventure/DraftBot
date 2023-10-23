@@ -305,7 +305,7 @@ export class CommandsManager {
 						where: {
 							discordGuildId: message.guild.id
 						}
-					}))[0].language).format("mentionHelp", {})
+					}))[0].language).format("mentionHelp")
 			}).then();
 		});
 	}
@@ -424,7 +424,7 @@ export class CommandsManager {
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(tr.format("dmHelpMessageTitle", {pseudo: escapeUsername(author.username)}), author)
-						.setDescription(tr.format("dmHelpMessage", {}))]
+						.setDescription(tr.format("dmHelpMessage"))]
 				});
 			})
 			.build()

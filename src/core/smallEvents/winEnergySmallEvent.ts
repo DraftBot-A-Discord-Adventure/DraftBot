@@ -30,9 +30,7 @@ export const smallEvent: SmallEvent = {
 		const translationWH = Translations.getModule("smallEvents.winEnergy", language);
 		seEmbed.setDescription(
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
-			format(translationWH.getRandom("intrigue"),
-				{}
-			)
+			format(translationWH.getRandom("intrigue"))
 		);
 		player.setFightPointsLost(0, NumberChangeReason.SMALL_EVENT);
 		await player.save();

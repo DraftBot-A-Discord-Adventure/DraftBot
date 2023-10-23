@@ -47,7 +47,7 @@ async function transferPetToGuild(
 ): Promise<void> {
 	const guildPetCount = (await GuildPets.getOfGuild(playerInformation.guild.id)).length;
 	if (!playerInformation.pet) {
-		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer", {}));
+		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.format("noPetToTransfer"));
 		return;
 	}
 	const playerPetModel = await Pets.getById(playerInformation.pet.petId);

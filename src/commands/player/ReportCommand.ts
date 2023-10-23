@@ -240,7 +240,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 
 	travelEmbed.addFields({
 		name: tr.get("adviceTitle"),
-		value: format(Translations.getModule("advices", language).getRandom("advices"), {}),
+		value: format(Translations.getModule("advices", language).getRandom("advices")),
 		inline: true
 	});
 	await interaction.reply({embeds: [travelEmbed]});
@@ -405,7 +405,7 @@ async function doPossibility(
 			content: textInformation.tr.format("doPossibility", {
 				pseudo: textInformation.interaction.user,
 				result: "",
-				event: format(possibility.getText(textInformation.language), {}),
+				event: format(possibility.getText(textInformation.language)),
 				emoji: "",
 				alte: ""
 			})
@@ -425,7 +425,7 @@ async function doPossibility(
 		content: textInformation.tr.format("doPossibility", {
 			pseudo: textInformation.interaction.user,
 			result: outcomeResult.description,
-			event: format(randomOutcome.translations[textInformation.language], {}),
+			event: format(randomOutcome.translations[textInformation.language]),
 			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 			alte: outcomeResult.alterationEmoji
 		})

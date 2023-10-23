@@ -219,7 +219,7 @@ export function formatPlaceholder(placeholder: ReplacementPlaceholder, replaceme
  * @param text
  * @param replacements
  */
-export function format(text: string, replacements: Replacements): string {
+export function format(text: string, replacements: Replacements = {}): string {
 	const placeholders = [];
 	for (let i = 0; i < text.length; ++i) {
 		if (text[i] === "{") {

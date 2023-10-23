@@ -18,7 +18,7 @@ function getListOfMentionFromCommandData(commandData: [string, {
 	NAME: string,
 	CATEGORY: string
 }]): string {
-	return format(`{command:${commandData[1].NAME}}`, {});
+	return format(`{command:${commandData[1].NAME}}`);
 }
 
 /**
@@ -77,7 +77,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
 	} = getCommandByCategories();
 	helpMessage.formatAuthor(tr.get("helpEmbedTitle"), interaction.user);
 	helpMessage.setDescription(
-		`${tr.format("helpEmbedDescription", {})}\n\u200b`
+		`${tr.format("helpEmbedDescription")}\n\u200b`
 	);
 	helpMessage.addFields([
 		{
@@ -175,7 +175,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			);
 		helpMessage.addFields({
 			name: tr.get("usageFieldTitle"),
-			value: tr.format(`commands.${command}.usage`, {}),
+			value: tr.format(`commands.${command}.usage`),
 			inline: true
 		});
 		await interaction.reply({

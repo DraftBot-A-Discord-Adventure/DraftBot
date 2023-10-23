@@ -77,7 +77,7 @@ export async function checkChannelAccess(player: Player, user: User, embed: Draf
 	if (!channelAccess.includes(true)) {
 		player.notifications = NotificationsConstants.DM_VALUE;
 		await player.save();
-		sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"), {})}`), language);
+		sendDirectMessage(user, embed.setDescription(`${embed.data.description}\n\n${format(tr.get("noChannelAccess"))}`), language);
 	}
 }
 

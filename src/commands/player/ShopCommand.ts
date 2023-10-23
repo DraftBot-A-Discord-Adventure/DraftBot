@@ -50,7 +50,7 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
 		translationModule.get(`permanentItems.${name}.emote`),
 		translationModule.get(`permanentItems.${name}.name`),
 		parseInt(translationModule.get(`permanentItems.${name}.price`), 10),
-		translationModule.format(`permanentItems.${name}.info`, {}),
+		translationModule.format(`permanentItems.${name}.info`),
 		buyCallback
 	);
 }
@@ -114,7 +114,7 @@ function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyA
 		translationModule.get("permanentItems.healEnergy.emote"),
 		translationModule.get("permanentItems.healEnergy.name"),
 		EntityConstants.HEAL_ENERGY_PRICE[healEnergyAlreadyPurchased > EntityConstants.HEAL_ENERGY_PRICE.length - 1 ? EntityConstants.HEAL_ENERGY_PRICE.length - 1 : healEnergyAlreadyPurchased],
-		translationModule.format("permanentItems.healEnergy.info", {}),
+		translationModule.format("permanentItems.healEnergy.info"),
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 
