@@ -4,13 +4,17 @@ export abstract class BotConstants {
 	static readonly START_STATUS = ":robot: **DraftBot** - v{version} - Shard {shardId}";
 
 	static readonly DM = {
-		SUPPORT_ALERT: ":love_letter: | **Nouveau message privé reçu !** \n`Auteur: {username} {alertIcon}(id : {id})`\n\n>>> ",
+		SUPPORT_ALERT: ":love_letter: | **Nouveau message privé reçu !** \n`Auteur: {username} {alertIcon}(id : {id})\n\n`",
 		TITLE_SUPPORT: "{pseudo}, welcome to the DraftBot Assistance Program.",
 		// eslint-disable-next-line max-len
 		MESSAGE_SUPPORT: ":flag_gb: If you want to receive help, select your language using reactions below. If you don't need help, please ignore this message.\n:warning: **Every message sent here can be read by human!**\n\n:flag_fr: Si vous avez besoin d'aide, sélectionnez votre langue en utilisant les réactions ci-dessous. Si vous n'avez pas besoin d'aide, ignorez ce message.\n:warning: **Chaque message envoyé ici peut être lu par un humain !**",
 		ALERT_ICON: "\uD83D\uDD15 ",
 		// eslint-disable-next-line max-len
-		INTERACTION_SUPPORT: ":flag_gb: Hello, commands are disabled in private messages. Please go on a server to play!\n\n:flag_fr: Bonjour, les commandes sont désactivées en messages privés. Merci d'aller sur un serveur pour jouer !"
+		INTERACTION_SUPPORT: ":flag_gb: Hello, commands are disabled in private messages. Please go on a server to play!\n\n:flag_fr: Bonjour, les commandes sont désactivées en messages privés. Merci d'aller sur un serveur pour jouer !",
+		TOO_LONG_MESSAGE: "*Message trop long, voir l'attaché dans le message.*",
+		NO_MESSAGE: "*Aucun message*",
+		COMMENT_MESSAGE_START: ">>> ",
+		MAX_ATTACHMENTS: 10
 	};
 
 	static readonly GUILD_JOIN = {
