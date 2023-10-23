@@ -16,6 +16,7 @@
 				"Lors d'une pause sous l'ombre d'un grand arbre, un homme distingué s'approche de vous avec un sourire aimable. Cet homme n'est autre qu'Aldéric l'antiquaire, un marchand de renom. Il porte un costume qui évoque une autre époque, et il vous fait part de son intérêt pour les objets anciens, tous exposés avec soin dans sa charrette.",
 				"Après de longues heures de marche, un homme d'âge mûr vêtu de vêtements rappelant une époque révolue vous aborde avec courtoisie. Il se présente comme Aldéric l'antiquaire, un connaisseur passionné d'antiquités. Dans sa charrette, vous découvrez une collection d'objets fascinants, et il se fait un plaisir de vous raconter l'histoire de chacun d'eux."
 			],
+			"reductionTip": "Il incline légèrement la tête et vous confie en confidence, 'Mais si vous avez le désir de vous aventurer jusqu'à la Route des Merveilles et que vous parvenez à me trouver par là bas, soyez assuré que je vous réserverai une proposition des plus avantageuses.'",
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type :** {type}",
 			"types": [
 				"Arme",
@@ -40,6 +41,7 @@
 				"During a break in the shade of a large tree, a distinguished man approaches you with a friendly smile. This man is none other than Alderic, the renowned antiquarian. He wears a suit reminiscent of a bygone era and shares his passion for antique items, all meticulously displayed in his cart.",
 				"After hours of walking, a middle-aged man dressed in attire evoking a bygone era approaches you with courtesy. He introduces himself as Alderic, the passionate connoisseur of antiques. In his cart, you discover a collection of fascinating objects, and he takes pleasure in recounting the history of each one."
 			],
+			"reductionTip": "He nods slightly and confides in you, 'But if you have the desire to venture to the Wonder Road and manage to find me there, rest assured that I will offer you a most advantageous proposition.'",
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type:** {type}",
 			"types": [
 				"Weapon",

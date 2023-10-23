@@ -13,7 +13,24 @@ import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Maps} from "../maps/Maps";
 import {callbackShopSmallEvent} from "../utils/SmallEventUtils";
+import {ItemConstants} from "../constants/ItemConstants";
+import {MapConstants} from "../constants/MapConstants";
 
+
+/**
+ * Make all the calculations to generate the multiplier to use for the price of the item
+ * @param player
+ */
+async function generateMultiplier(player: Player): Promise<number> {
+	const destination = await player.getDestination();
+	const origin = await player.getPreviousMap();
+	let multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_PROBABILITY) ?
+		SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
+	if (destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS || origin.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS) {
+		multiplier = SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER;
+	}
+	return multiplier;
+}
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -31,12 +48,22 @@ export const smallEvent: SmallEvent = {
 	 * @param seEmbed
 	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		const randomItem = await generateRandomItem(null, SmallEventConstants.EPIC_ITEM_SHOP.MIN_RARITY, SmallEventConstants.EPIC_ITEM_SHOP.MAX_RARITY);
-		const multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_PROBABILITY) ?
-			SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
+		const randomItem = await generateRandomItem(
+			RandomUtils.draftbotRandom.pick(
+				Object.values(ItemConstants.CATEGORIES).filter((category) => category !== ItemConstants.CATEGORIES.POTION)
+			),
+			SmallEventConstants.EPIC_ITEM_SHOP.MIN_RARITY,
+			SmallEventConstants.EPIC_ITEM_SHOP.MAX_RARITY
+		);
+
+		const multiplier = await generateMultiplier(player);
 		const price = Math.round(getItemValue(randomItem) * multiplier);
+
 		const translationShop = Translations.getModule("smallEvents.epicItemShop", language);
 		const endCallback = callbackShopSmallEvent(player, price, interaction, language, Translations.getModule("commands.shop", language), randomItem);
+		const reductionTip = RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.REDUCTION_TIP_PROBABILITY) && multiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
+			? translationShop.get("reductionTip")
+			: "";
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
 			endCallback
@@ -48,6 +75,7 @@ export const smallEvent: SmallEvent = {
 			.setDescription(seEmbed.data.description
 				+ format(
 					translationShop.getRandom("intro")
+					+ reductionTip
 					+ translationShop.get("end"), {
 						item: randomItem.toString(language, null),
 						price,
