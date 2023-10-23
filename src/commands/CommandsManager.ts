@@ -310,14 +310,30 @@ export class CommandsManager {
 		});
 	}
 
+	/**
+	 * Check if the bot has the right and the permissions to send messages in the channel of the received message
+	 * @param message
+	 * @param client
+	 * @private
+	 */
 	private static shouldSendHelpMessage(message: Message, client: Client): boolean {
 		return message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0];
 	}
 
+	/**
+	 * Check if the received message is a mass ping or a miss ping from a reply
+	 * @param message
+	 * @private
+	 */
 	private static isAMessageFromMassOrMissPing(message: Message): boolean {
 		return message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply;
 	}
 
+	/**
+	 * Check if the message comes from a bot (itself or another one) or if it's content is empty in case it's not a DM
+	 * @param message
+	 * @private
+	 */
 	private static isAMessageFromBotOrEmpty(message: Message): boolean {
 		return message.author.bot || message.author.id === draftBotClient.user.id || !message.content && message.channel.type !== ChannelType.DM;
 	}
