@@ -381,14 +381,14 @@ export class CommandsManager {
 		const [player] = await Players.getOrRegister(author);
 		await draftBotClient.users.fetch(botConfig.DM_MANAGER_ID).then(async (user) => {
 			const attachmentList: (Attachment | AttachmentBuilder)[] = Array.from(message.attachments.values());
-			if (message.content.length > 1900) {
+			if (message.content.length > BotConstants.DM.MAX_MESSAGE_LENGTH_ALLOWED) {
 				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
 			}
 			const supportAlert = format(BotConstants.DM.SUPPORT_ALERT, {
 				username: escapeUsername(message.author.username),
 				alertIcon: player.notifications === NotificationsConstants.DM_VALUE ? BotConstants.DM.ALERT_ICON : "",
 				id: message.author.id
-			}) + (message.content.length > 1900
+			}) + (message.content.length > BotConstants.DM.MAX_MESSAGE_LENGTH_ALLOWED
 				? BotConstants.DM.TOO_LONG_MESSAGE
 				: message.content.length === 0
 					? BotConstants.DM.NO_MESSAGE
@@ -401,7 +401,7 @@ export class CommandsManager {
 				});
 			}
 		})
-			.catch((e) => console.warn(e));
+			.catch((e) => console.warn(`WARNING : could not find a place to forward the DM message: ${e}`));
 	}
 
 	/**
