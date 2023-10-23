@@ -14,7 +14,8 @@ export abstract class BotConstants {
 		TOO_LONG_MESSAGE: "*Message trop long, voir l'attaché dans le message.*",
 		NO_MESSAGE: "*Aucun message*",
 		COMMENT_MESSAGE_START: ">>> ",
-		MAX_ATTACHMENTS: 10
+		MAX_ATTACHMENTS: 10,
+		MAX_MESSAGE_LENGTH_ALLOWED: 1900
 	};
 
 	static readonly GUILD_JOIN = {
