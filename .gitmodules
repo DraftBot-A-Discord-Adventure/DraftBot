@@ -1,0 +1,18 @@
+[submodule "Core"]
+	path = Core
+	url = https://github.com/DraftBot-A-Discord-Adventure/Core
+[submodule "Lib"]
+	path = Lib
+	url = https://github.com/DraftBot-A-Discord-Adventure/Lib
+[submodule "Lang"]
+	path = Lang
+	url = https://github.com/DraftBot-A-Discord-Adventure/Lang
+[submodule "Discord"]
+	path = Discord
+	url = https://github.com/DraftBot-A-Discord-Adventure/Discord
+[submodule "API"]
+	path = API
+	url = https://github.com/DraftBot-A-Discord-Adventure/API
+[submodule "Proxy"]
+	path = Proxy
+	url = https://github.com/DraftBot-A-Discord-Adventure/Proxy
