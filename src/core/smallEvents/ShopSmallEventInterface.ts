@@ -20,13 +20,17 @@ import {RandomUtils} from "../utils/RandomUtils";
 export abstract class ShopSmallEvent implements SmallEvent {
 	protected shopTranslation: TranslationModule;
 
-	protected multiplier: number;
+	protected itemMultiplier: number;
 
-	abstract initiateTranslationModule(language: string): void;
+	protected randomItem: GenericItemModel;
+
+	protected itemPrice: number;
+
+	abstract getTranslationModuleKey(): string;
 
 	abstract getRandomItem(): Promise<GenericItemModel>;
 
-	abstract initiatePriceMultiplier(player: Player): void | Promise<void>;
+	abstract getPriceMultiplier(player: Player): number | Promise<number>;
 
 	abstract getIntroKey(gender: number): string;
 
@@ -39,11 +43,11 @@ export abstract class ShopSmallEvent implements SmallEvent {
 	}
 
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
-		this.initiateTranslationModule(language);
-		await this.initiatePriceMultiplier(player);
-		const randomItem = await this.getRandomItem();
-		const price = Math.round(getItemValue(randomItem) * this.multiplier);
-		const endCallback = this.callbackShopSmallEvent(player, price, interaction, randomItem);
+		this.shopTranslation = Translations.getModule(`smallEvents.${this.getTranslationModuleKey()}`, language);
+		this.itemMultiplier = await this.getPriceMultiplier(player);
+		this.randomItem = await this.getRandomItem();
+		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);
+		const endCallback = this.callbackShopSmallEvent(player, interaction);
 		const gender = RandomUtils.draftbotRandom.pick([0, 1]);
 		await new DraftBotValidateReactionMessage(
 			interaction.user,
@@ -59,14 +63,14 @@ export abstract class ShopSmallEvent implements SmallEvent {
 					+ this.getTip()
 					+ this.shopTranslation.get("end"), {
 						name: this.shopTranslation.getRandom(this.getVendorNameKey(gender)),
-						item: randomItem.toString(language, null),
-						price,
-						type: `${Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()]} ${this.shopTranslation.get(`types.${randomItem.getCategory()}`)}`
+						item: this.randomItem.toString(language, null),
+						price: this.itemPrice,
+						type: `${Constants.REACTIONS.ITEM_CATEGORIES[this.randomItem.getCategory()]} ${this.shopTranslation.get(`types.${this.randomItem.getCategory()}`)}`
 					}))
 			.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}
 
-	private callbackShopSmallEvent(player: Player, price: number, interaction: CommandInteraction, randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
+	private callbackShopSmallEvent(player: Player, interaction: CommandInteraction): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 		const shopTranslationModule = Translations.getModule("commands.shop", this.shopTranslation.language);
 		return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.MERCHANT);
@@ -76,18 +80,18 @@ export abstract class ShopSmallEvent implements SmallEvent {
 				);
 				return;
 			}
-			if (player.money < price) {
+			if (player.money < this.itemPrice) {
 				await sendErrorMessage(interaction.user, interaction, this.shopTranslation.language,
 					shopTranslationModule.format("error.cannotBuy", {
-						missingMoney: price - player.money
+						missingMoney: this.itemPrice - player.money
 					})
 				);
 				return;
 			}
-			await giveItemToPlayer(player, randomItem, this.shopTranslation.language,
+			await giveItemToPlayer(player, this.randomItem, this.shopTranslation.language,
 				interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER);
 			await player.spendMoney({
-				amount: price,
+				amount: this.itemPrice,
 				channel: interaction.channel,
 				language: this.shopTranslation.language,
 				reason: NumberChangeReason.SMALL_EVENT
