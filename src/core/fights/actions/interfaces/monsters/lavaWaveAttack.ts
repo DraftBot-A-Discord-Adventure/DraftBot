@@ -6,7 +6,7 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
 
 export default class LavaWaveAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 5);
 		receiver.damage(damageDealt);

@@ -11,6 +11,7 @@ import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../constants/PVEConstants";
+import {PacketContext} from "draftbot_lib/packets/DraftBotPacket";
 
 /**
  * @class FightController
@@ -38,14 +39,13 @@ export class FightController {
 	public constructor(
 		fighters: { fighter1: Fighter, fighter2: Fighter },
 		fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior },
-		channel: TextBasedChannel,
-		language: string) {
+		context: PacketContext) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
 		this.friendly = fightParameters.friendly;
-		this._fightView = new FightView(channel, language, this);
+		this._fightView = new FightView(context, this);
 		this.weather = new FightWeather();
 		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}

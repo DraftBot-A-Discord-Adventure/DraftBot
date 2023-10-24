@@ -1,14 +1,11 @@
 import {Fighter} from "./Fighter";
 import {FightActions} from "../actions/FightActions";
 import {FightView} from "../FightView";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {RandomUtils} from "../../utils/RandomUtils";
-import Monster from "../../database/game/models/Monster";
-import MonsterAttack from "../../database/game/models/MonsterAttack";
 import {FightAction} from "../actions/FightAction";
 import {PVEConstants} from "../../constants/PVEConstants";
-import {TranslationModule} from "../../Translations";
 import {FighterStatus} from "../FighterStatus";
+import {Monster} from "../../../data/Monster";
 
 export class MonsterFighter extends Fighter {
 
@@ -20,11 +17,11 @@ export class MonsterFighter extends Fighter {
 
 	private readonly emoji: string;
 
-	public constructor(level: number, monster: Monster, monsterAttacks: MonsterAttack[], language: string) {
+	public constructor(level: number, monster: Monster) {
 		const attacks: FightAction[] = [];
-		for (const attack of monsterAttacks) {
+		for (const attack of monster.attacks) {
 			if (level >= attack.minLevel) {
-				const monsterAttackToAdd = FightActions.getFightActionById(attack.attackId);
+				const monsterAttackToAdd = FightActions.getFightActionById(attack.id);
 				monsterAttackToAdd.setWeightForRandomSelection(attack.weight);
 				attacks.push(monsterAttackToAdd);
 			}
@@ -38,9 +35,7 @@ export class MonsterFighter extends Fighter {
 		this.stats.breath = monster.breath;
 		this.stats.maxBreath = monster.maxBreath;
 		this.stats.breathRegen = monster.breathRegen;
-		this.name = monster.getName(language);
-		this.description = monster.getDescription(language);
-		this.emoji = monster.getEmoji();
+		this.emoji = monster.emoji;
 		this.monster = monster;
 		this.status = FighterStatus.NOT_STARTED;
 	}
@@ -83,27 +78,6 @@ export class MonsterFighter extends Fighter {
 
 	unblock(): void {
 		// Do nothing
-	}
-
-	/**
-	 * Return a display of the monster in a string format
-	 * @param fightTranslationModule
-	 */
-	public getStringDisplay(fightTranslationModule: TranslationModule): string {
-		return fightTranslationModule.format(
-			this.status.getTranslationField(),
-			{
-				pseudo: this.getName()
-			}
-		) + fightTranslationModule.format("summarize.stats", {
-			power: this.getFightPoints(),
-			attack: this.getAttack(),
-			defense: this.getDefense(),
-			speed: this.getSpeed(),
-			breath: this.getBreath(),
-			maxBreath: this.getMaxBreath(),
-			breathRegen: this.getRegenBreath()
-		});
 	}
 
 	/**

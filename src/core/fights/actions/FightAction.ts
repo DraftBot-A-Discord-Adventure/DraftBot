@@ -1,34 +1,28 @@
 import {Fighter} from "../fighter/Fighter";
-import {Translations} from "../../Translations";
-import {Data} from "../../Data";
-import {FightActionType} from "./FightActionType";
-import {format} from "../../utils/StringFormatter";
-import {FightActionStatus} from "./FightActionStatus";
+import {FightActionType} from "../../../../../Lib/src/interfaces/FightActionType";
+import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";
 import {FightWeather} from "../FightWeather";
 import {FightConstants} from "../../constants/FightConstants";
+import {IFightAction} from "../../../../../Lib/src/interfaces/IFightAction";
+import {Data} from "../../../data/Data";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
-export abstract class FightAction {
+export abstract class FightAction extends Data<string> implements IFightAction {
+	public readonly emoji: string;
 
-	public readonly name: string;
+	public readonly breath: number;
+
+	public readonly missionVariant: number;
+
+	public readonly type: FightActionType;
 
 	public isAlteration = false;
 
 	private toStringCache: { [key: string]: string } = {};
 
-	private emojiCache: string;
-
-	private breathCostCache: number;
-
 	private weightForRandomSelection: number;
-
-	private typeCache: FightActionType;
-
-	public constructor(name: string) {
-		this.name = name;
-	}
 
 	/**
 	 * Use the action the sender chose
@@ -39,31 +33,6 @@ export abstract class FightAction {
 	 * @param weather - current weather of the fight
 	 */
 	abstract use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string>;
-
-	/**
-	 * Return the name of the attack as it will appear in the list of actions
-	 * @param language
-	 */
-	public toString(language: string): string {
-		if (!this.toStringCache[language]) {
-			const name = Translations.getModule(`fightactions.${this.name}`, language).get("name");
-			this.toStringCache[language] = Translations.getModule("commands.fight", language).format("fightActionNameDisplay", {
-				name,
-				breathCost: this.getBreathCost()
-			});
-		}
-		return this.toStringCache[language];
-	}
-
-	/**
-	 * Return the emoji that is used to represent the action
-	 */
-	public getEmoji(): string {
-		if (!this.emojiCache) {
-			this.emojiCache = Data.getModule(`fightactions.${this.name}`).getString("emote");
-		}
-		return this.emojiCache;
-	}
 
 	/**
 	 * Return the weight of the action for random selection

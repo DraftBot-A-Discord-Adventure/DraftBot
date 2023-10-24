@@ -7,7 +7,7 @@ import {NumberChangeReason} from "../../../../constants/LogsConstants";
 import {PVEConstants} from "../../../../constants/PVEConstants";
 
 export default class RageExplosion extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		let damages = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		damages *=
 			Math.round(

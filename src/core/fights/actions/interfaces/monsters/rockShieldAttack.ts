@@ -3,7 +3,7 @@ import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 
 export default class RockShieldAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const defenseBuffTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
 		// Reduce by half the damages of the next attack

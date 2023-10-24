@@ -3,13 +3,13 @@ import {Translations} from "../../../../Translations";
 import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {FightActionType} from "../../FightActionType";
+import {FightActionType} from "../../../../../../../Lib/src/interfaces/FightActionType";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class GrabAndThrowAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		if (receiver.getLastFightActionUsed()?.getType() === FightActionType.PHYSICAL) {
 			// Calculate damages
 			const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());

@@ -1,37 +1,22 @@
 import {FightController} from "./FightController";
-import {Message, TextBasedChannel} from "discord.js";
 import {Fighter} from "./fighter/Fighter";
-import {TranslationModule, Translations} from "../Translations";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
+import {PacketContext} from "draftbot_lib/packets/DraftBotPacket";
 
 /**
  * @class FightController
  */
 export class FightView {
 
-	public channel: TextBasedChannel;
-
-	public language: string;
+	public context: PacketContext;
 
 	fightController: FightController;
 
-	readonly fightTranslationModule: TranslationModule;
-
-	private lastSummary: Message;
-
-	private readonly actionMessages: Message[];
-
-	private fightLaunchMessage: Message;
-
-	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
-		this.channel = channel;
-		this.language = language;
+	public constructor(context: PacketContext, fightController: FightController) {
+		this.context = context;
 		this.fightController = fightController;
-		this.fightTranslationModule = Translations.getModule("commands.fight", language);
-		this.actionMessages = [];
 	}
 
 	/**

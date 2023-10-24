@@ -5,7 +5,7 @@ import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 
 export default class Protection extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const protectionTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const alteration = sender.newAlteration(FightAlterations.PROTECTED);

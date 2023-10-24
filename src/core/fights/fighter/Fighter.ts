@@ -3,7 +3,6 @@ import {FightView} from "../FightView";
 import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
-import {TranslationModule} from "../../Translations";
 import {PVEConstants} from "../../constants/PVEConstants";
 
 type FighterStats = {
@@ -15,12 +14,6 @@ type FighterStats = {
 	breath: number,
 	maxBreath: number,
 	breathRegen: number
-}
-
-export enum FightStatModifierOperation {
-	ADDITION,
-	MULTIPLIER,
-	SET_VALUE
 }
 
 export type FightStatModifier = {
@@ -126,12 +119,6 @@ export abstract class Fighter {
 	 * Allow the fighter to unblock himself
 	 */
 	abstract unblock(): void;
-
-	/**
-	 * Summarize embed display string
-	 * @param fightTranslationModule
-	 */
-	abstract getStringDisplay(fightTranslationModule: TranslationModule): string;
 
 	/**
 	 * Set the status of the fighter

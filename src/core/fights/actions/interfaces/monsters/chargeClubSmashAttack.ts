@@ -4,7 +4,7 @@ import {FightAction} from "../../FightAction";
 import {FightActions} from "../../FightActions";
 
 export default class ChargeClubSmashAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
 		// Set the next fight action of the sender to be the club smash attack

@@ -6,7 +6,7 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActions} from "../../FightActions";
 
 export default class PetrificationAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const petrificationTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const alteration = receiver.newAlteration(FightAlterations.PETRIFIED);

@@ -4,7 +4,7 @@ import {FightAction} from "../../FightAction";
 import {FightConstants} from "../../../../constants/FightConstants";
 
 export default class RoarAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const roarTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 

@@ -4,7 +4,7 @@ import {FightWeather, FightWeatherEnum} from "../../../FightWeather";
 import {Translations} from "../../../../Translations";
 
 export default class EruptionAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string {
 		weather.setWeather(FightWeatherEnum.FIRESTORM, turn, sender);
 		const eruptionTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		return eruptionTranslationModule.get("active");

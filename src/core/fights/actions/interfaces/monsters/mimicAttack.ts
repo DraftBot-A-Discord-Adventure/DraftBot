@@ -5,7 +5,7 @@ import {FightController} from "../../../FightController";
 import {FightWeather} from "../../../FightWeather";
 
 export default class MimicAttack extends FightAction {
-	async use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): Promise<string> {
+	async use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): Promise<string> {
 		// Get a random monster, then choose one of its attacks, then try to use it
 		const mimicTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const chosenAttack = receiver.getRandomAvailableFightAction();

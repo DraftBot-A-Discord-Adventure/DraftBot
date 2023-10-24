@@ -3,7 +3,7 @@ import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 
 export default class QuickAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, sender.getSpeed() > receiver.getSpeed() ? 0 : 20);
 		receiver.damage(damageDealt);

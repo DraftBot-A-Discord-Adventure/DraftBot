@@ -7,7 +7,7 @@ import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class FireAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 20);
 

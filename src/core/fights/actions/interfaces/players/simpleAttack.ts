@@ -1,8 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {SimpleDamageFightActionTemplate} from "../../templates/SimpleDamageFightActionTemplate";
 
 export default class SimpleAttack extends SimpleDamageFightActionTemplate {
+	fightAction: FightAction,
 	constructor(name: string) {
 		super(name, 5, 10);
 	}

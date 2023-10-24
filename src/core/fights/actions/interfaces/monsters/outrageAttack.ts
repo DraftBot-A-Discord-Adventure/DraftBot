@@ -5,7 +5,7 @@ import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 
 export default class OutrageAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const outrageTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);

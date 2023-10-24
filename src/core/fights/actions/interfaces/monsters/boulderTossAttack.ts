@@ -4,10 +4,10 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
-import {FightActionStatus} from "../../FightActionStatus";
+import {FightActionStatus} from "../../../../../../../Lib/src/interfaces/FightActionStatus";
 
 export default class BoulderTossAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 20);
 		receiver.damage(damageDealt);

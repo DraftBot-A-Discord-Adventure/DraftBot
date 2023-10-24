@@ -1,8 +1,7 @@
 import {FightConstants} from "../../constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {MathUtils} from "../../utils/MathUtils";
-import {Data, JsonModule} from "../../Data";
 import {Fighter} from "../fighter/Fighter";
+import {FightActionStatus} from "draftbot_lib/interfaces/FightActionStatus";
 
 declare const JsonReader: JsonModule;
 
@@ -52,19 +51,28 @@ export class FightActionController {
 	 * @param criticalHitProbability
 	 * @param failureProbability
 	 */
-	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): number {
+	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): { damages: number, status: FightActionStatus } {
 		// First we get a random %
 		const randomValue = RandomUtils.randInt(0, 100);
 
 		// Then we use this % to determine if the attack has missed or is a critical hit
 		if (randomValue < criticalHitProbability) {
-			return Math.round(damageDealt * FightConstants.CRITICAL_HIT_MULTIPLIER);
+			return {
+				damages: Math.round(damageDealt * FightConstants.CRITICAL_HIT_MULTIPLIER),
+				status: FightActionStatus.CRITICAL
+			};
 		}
 		if (randomValue < failureProbability + criticalHitProbability) {
-			return Math.round(damageDealt * RandomUtils.draftbotRandom.pick(FightConstants.FAILURE_DIVIDERS));
+			return {
+				damages: Math.round(damageDealt * RandomUtils.draftbotRandom.pick(FightConstants.FAILURE_DIVIDERS)),
+				status: FightActionStatus.MISSED
+			};
 		}
 
-		return damageDealt;
+		return {
+			damages: damageDealt,
+			status: FightActionStatus.NORMAL
+		};
 	}
 
 	/**

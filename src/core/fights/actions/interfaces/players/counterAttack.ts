@@ -5,7 +5,7 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {FightWeather} from "../../../FightWeather";
 
 export default class CounterAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string> {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string, weather: FightWeather): string | Promise<string> {
 
 		// Of course, it should not be possible to counter on the first turn
 		const counterAttackTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);

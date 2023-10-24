@@ -4,7 +4,7 @@ import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 
 export default class Resting extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const restingTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 
 		const count = sender.fightActionsHistory.filter(action => action instanceof Resting).length;

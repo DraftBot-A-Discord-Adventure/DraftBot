@@ -6,7 +6,7 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 
 export default class FamilyMealAttack extends FightAction {
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const familyMealTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
