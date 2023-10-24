@@ -26,22 +26,54 @@ export abstract class ShopSmallEvent implements SmallEvent {
 
 	protected itemPrice: number;
 
+	/**
+	 * Returns the key of the translation module to use
+	 */
 	abstract getTranslationModuleKey(): string;
 
+	/**
+	 * Returns a random item to sell
+	 */
 	abstract getRandomItem(): Promise<GenericItemModel>;
 
+	/**
+	 * Returns the price multiplier for the item
+	 * @param player
+	 */
 	abstract getPriceMultiplier(player: Player): number | Promise<number>;
 
+	/**
+	 * Returns the key of the intro to use
+	 * @param gender
+	 */
 	abstract getIntroKey(gender: number): string;
 
+	/**
+	 * Returns the key of the vendor name to use
+	 * @param gender
+	 */
 	abstract getVendorNameKey(gender: number): string;
 
+	/**
+	 * Returns the tip to display
+	 */
 	abstract getTip(): string;
 
+	/**
+	 * This small event can be executed if the player is on the continent
+	 * @param player
+	 */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(Maps.isOnContinent(player));
 	}
 
+	/**
+	 * Executes the shop small event
+	 * @param interaction
+	 * @param language
+	 * @param player
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		this.shopTranslation = Translations.getModule(`smallEvents.${this.getTranslationModuleKey()}`, language);
 		this.itemMultiplier = await this.getPriceMultiplier(player);
@@ -70,6 +102,12 @@ export abstract class ShopSmallEvent implements SmallEvent {
 			.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MERCHANT, collector));
 	}
 
+	/**
+	 * Returns the callback for the shop small event
+	 * @param player
+	 * @param interaction
+	 * @private
+	 */
 	private callbackShopSmallEvent(player: Player, interaction: CommandInteraction): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 		const shopTranslationModule = Translations.getModule("commands.shop", this.shopTranslation.language);
 		return async (msg: DraftBotValidateReactionMessage): Promise<void> => {

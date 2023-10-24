@@ -8,20 +8,33 @@ import {ShopSmallEvent} from "./ShopSmallEventInterface";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 
 class EpicItemShopSmallEvent extends ShopSmallEvent {
+
+	/**
+	 * Returns the key of the intro to use
+	 */
 	getIntroKey(): string {
 		return "intro";
 	}
 
+	/**
+	 * Returns the key of the vendor name to use (here, unused)
+	 */
 	getVendorNameKey(): string {
-		return "intro"; // Unused but required
+		return "intro";
 	}
 
+	/**
+	 * Returns the tip to display
+	 */
 	getTip(): string {
 		return RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.REDUCTION_TIP_PROBABILITY) && this.itemMultiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
 			? this.shopTranslation.get("reductionTip")
 			: "";
 	}
 
+	/**
+	 * Returns a random item to sell
+	 */
 	getRandomItem(): Promise<GenericItemModel> {
 		return generateRandomItem(
 			RandomUtils.draftbotRandom.pick(
@@ -32,6 +45,10 @@ class EpicItemShopSmallEvent extends ShopSmallEvent {
 		);
 	}
 
+	/**
+	 * Returns the price multiplier for the item
+	 * @param player
+	 */
 	async getPriceMultiplier(player: Player): Promise<number> {
 		const destination = await player.getDestination();
 		const origin = await player.getPreviousMap();
@@ -42,6 +59,9 @@ class EpicItemShopSmallEvent extends ShopSmallEvent {
 			SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
 	}
 
+	/**
+	 * Returns the key of the translation module to use
+	 */
 	getTranslationModuleKey(): string {
 		return "epicItemShop";
 	}
