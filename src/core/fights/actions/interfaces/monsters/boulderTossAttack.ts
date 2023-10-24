@@ -4,7 +4,7 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
-import {FightActionStatus} from "../../../../../../../Lib/src/interfaces/FightActionStatus";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 
 export default class BoulderTossAttack extends FightAction {
 	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -21,7 +21,8 @@ export default class BoulderTossAttack extends FightAction {
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
 					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
+					effect: attackTranslationModule.get("effects.stunned")
+						.toLowerCase()
 				});
 			}
 		}
@@ -30,7 +31,11 @@ export default class BoulderTossAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 90, maxDamage: 150};
+		return {
+			minDamage: 25,
+			averageDamage: 90,
+			maxDamage: 150
+		};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -38,10 +43,12 @@ export default class BoulderTossAttack extends FightAction {
 			attackerStats: [
 				sender.getAttack(),
 				sender.getSpeed()
-			], defenderStats: [
+			],
+			defenderStats: [
 				receiver.getDefense(),
 				receiver.getSpeed()
-			], statsEffect: [
+			],
+			statsEffect: [
 				0.5,
 				0.5
 			]

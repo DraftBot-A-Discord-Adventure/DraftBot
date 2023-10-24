@@ -1,6 +1,6 @@
 import {Fighter} from "../fighter/Fighter";
-import {FightActionType} from "../../../../../Lib/src/interfaces/FightActionType";
-import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";
+import {FightActionType} from "@Lib/src/interfaces/FightActionType";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {FightWeather} from "../FightWeather";
 import {FightConstants} from "../../constants/FightConstants";
 import {IFightAction} from "../../../../../Lib/src/interfaces/IFightAction";
@@ -55,7 +55,8 @@ export abstract class FightAction extends Data<string> implements IFightAction {
 	 */
 	public getBreathCost(): number {
 		if (!this.breathCostCache) {
-			this.breathCostCache = Data.getModule(`fightactions.${this.name}`).getNumber("breath");
+			this.breathCostCache = Data.getModule(`fightactions.${this.name}`)
+				.getNumber("breath");
 		}
 		return this.breathCostCache;
 	}
@@ -84,9 +85,10 @@ export abstract class FightAction extends Data<string> implements IFightAction {
 			attack: Translations.getModule(`fightactions.${this.name}`, language)
 				.get("name")
 				.toLowerCase()
-		}) + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
+		}) + sideEffects + Translations.getModule("commands.fight", language)
+			.format("actions.damages", {
+				damages: damageDealt
+			});
 	}
 
 	/**
