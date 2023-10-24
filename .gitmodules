@@ -1,12 +1,15 @@
 [submodule "Core"]
 	path = Core
 	url = https://github.com/DraftBot-A-Discord-Adventure/Core
+	branch = develop
 [submodule "Lib"]
 	path = Lib
 	url = https://github.com/DraftBot-A-Discord-Adventure/Lib
+	branch = develop
 [submodule "Lang"]
 	path = Lang
 	url = https://github.com/DraftBot-A-Discord-Adventure/Lang
+	branch = develop
 [submodule "Discord"]
 	path = Discord
 	url = https://github.com/DraftBot-A-Discord-Adventure/Discord
