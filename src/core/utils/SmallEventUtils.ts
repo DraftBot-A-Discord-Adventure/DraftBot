@@ -16,7 +16,6 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
  * @param player
  * @param price
  * @param interaction
- * @param language
  * @param translationShop
  * @param randomItem
  */
@@ -24,32 +23,32 @@ export function callbackShopSmallEvent(
 	player: Player,
 	price: number,
 	interaction: CommandInteraction,
-	language: string,
 	translationShop: TranslationModule,
 	randomItem: GenericItemModel): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.MERCHANT);
 		if (msg.isValidated()) {
 			if (player.money < price) {
-				await sendErrorMessage(interaction.user, interaction, language,
+				await sendErrorMessage(interaction.user, interaction, translationShop.language,
 					translationShop.format("error.cannotBuy", {
 						missingMoney: price - player.money
 					})
 				);
 				return;
 			}
-			await giveItemToPlayer(player, randomItem, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER, 1);
+			await giveItemToPlayer(player, randomItem, translationShop.language,
+				interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER);
 			await player.spendMoney({
 				amount: price,
 				channel: interaction.channel,
-				language,
+				language: translationShop.language,
 				reason: NumberChangeReason.SMALL_EVENT
 			});
 			await player.save();
 			return;
 		}
-		await sendErrorMessage(interaction.user, interaction, language,
-			Translations.getModule("commands.shop", language).get("error.canceledPurchase"), true
+		await sendErrorMessage(interaction.user, interaction, translationShop.language,
+			Translations.getModule("commands.shop", translationShop.language).get("error.canceledPurchase"), true
 		);
 	};
 }
