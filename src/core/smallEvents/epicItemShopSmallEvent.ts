@@ -1,6 +1,5 @@
 import {generateRandomItem} from "../utils/ItemUtils";
 import {RandomUtils} from "../utils/RandomUtils";
-import {Translations} from "../Translations";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {ItemConstants} from "../constants/ItemConstants";
@@ -18,7 +17,7 @@ class EpicItemShopSmallEvent extends ShopSmallEvent {
 	}
 
 	getTip(): string {
-		return RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.REDUCTION_TIP_PROBABILITY) && this.multiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
+		return RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.REDUCTION_TIP_PROBABILITY) && this.itemMultiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
 			? this.shopTranslation.get("reductionTip")
 			: "";
 	}
@@ -33,19 +32,18 @@ class EpicItemShopSmallEvent extends ShopSmallEvent {
 		);
 	}
 
-	async initiatePriceMultiplier(player: Player): Promise<void> {
+	async getPriceMultiplier(player: Player): Promise<number> {
 		const destination = await player.getDestination();
 		const origin = await player.getPreviousMap();
-		let multiplier = RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_PROBABILITY) ?
-			SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
 		if (destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS || origin.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS) {
-			multiplier = SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER;
+			return SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER;
 		}
-		this.multiplier = multiplier;
+		return RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_PROBABILITY) ?
+			SmallEventConstants.EPIC_ITEM_SHOP.GREAT_DEAL_MULTIPLAYER : SmallEventConstants.EPIC_ITEM_SHOP.BASE_MULTIPLIER;
 	}
 
-	initiateTranslationModule(language: string): void {
-		this.shopTranslation = Translations.getModule("smallEvents.epicItemShop", language);
+	getTranslationModuleKey(): string {
+		return "epicItemShop";
 	}
 }
 
