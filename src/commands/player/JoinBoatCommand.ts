@@ -55,10 +55,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				embed: new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user),
 				tr
 			}, ":ferry:", price, guildOnBoat[0]).then(async (hasJoinedBoat) => {
-				await MissionsController.update(player, interaction.channel, language, {
-					missionId: "joinMemberOnBoat",
-					set: hasJoinedBoat
-				});
+				if (hasJoinedBoat) {
+					await MissionsController.update(player, interaction.channel, language, {
+						missionId: "joinMemberOnBoat"
+					});
+				}
 			});
 		}
 	);
