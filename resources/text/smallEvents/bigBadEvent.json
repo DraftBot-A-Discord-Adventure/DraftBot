@@ -145,6 +145,10 @@
 						"alte": ":scream:"
 					},
 					{
+						"sentence": "you realize you took the wrong direction at the last intersection. You decide not to turn around and find your own way to your destination... You get completely lost. {alteEmoji}",
+						"alte": ":face_with_monocle:"
+					},
+					{
 						"sentence": "as you are running through a thunderstorm, your clothes soaked, you find the wind to be freezing. You later take shelter, but you can already feel the sickness getting to you. {alteEmoji}",
 						"alte": ":cold_face:"
 					},
