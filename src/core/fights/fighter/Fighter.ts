@@ -4,6 +4,7 @@ import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
 import {PVEConstants} from "../../constants/PVEConstants";
+import {FightActionFunc} from "@Core/src/data/FightAction";
 
 type FighterStats = {
 	fightPoints: number,
@@ -31,9 +32,9 @@ type FightDamageMultiplier = {
  * @class Fighter
  */
 export abstract class Fighter {
-	public nextFightAction: FightAction;
+	public nextFightAction: FightActionFunc;
 
-	public fightActionsHistory: FightAction[];
+	public fightActionsHistory: FightActionFunc[];
 
 	public availableFightActions: Map<string, FightAction>;
 

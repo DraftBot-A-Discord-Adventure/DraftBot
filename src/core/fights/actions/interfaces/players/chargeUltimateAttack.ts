@@ -1,29 +1,18 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
-import {FightActions} from "../../FightActions";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import UltimateAttack from "@Core/src/core/fights/actions/interfaces/players/ultimateAttack";
 
-export default class ChargeUltimateAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// Check the amount of ultimate attacks the sender already used
-		const usedUltimateAttacks = sender.fightActionsHistory.filter(action => action instanceof ChargeUltimateAttack).length;
-
-		// If the sender already used the maximum amount of ultimate attacks, he can't use it anymore
-		if (usedUltimateAttacks >= 1) {
-			return attackTranslationModule.format("actions.attacksResults.maxUses", {
-				attack: Translations.getModule(`fightactions.${this.name}`, language)
-					.get("name")
-					.toLowerCase()
-			});
-		}
+const use: FightActionFunc = (_fight, _fightAction, sender) => {
+	const usedUltimateAttacks = sender.fightActionsHistory.filter(action => action === this).length;
+	if (usedUltimateAttacks == 0) {
 		// Set the next fight action of the sender to be the ultimate attack
-		sender.nextFightAction = FightActions.getFightActionById("ultimateAttack");
-		return attackTranslationModule.format("actions.attacksResults.charging", {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		});
+		sender.nextFightAction = UltimateAttack;
 	}
-}
+	return {
+		attackStatus: FightActionStatus.NORMAL,
+		damages: 0,
+		fail: usedUltimateAttacks >= 1
+	};
+};
+
+export default use;

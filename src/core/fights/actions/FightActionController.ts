@@ -1,7 +1,10 @@
 import {FightConstants} from "../../constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
-import {FightActionStatus} from "draftbot_lib/interfaces/FightActionStatus";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {FightActionBuff, FightActionResult, FightAlteration, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightAction} from "@Core/src/core/fights/actions/FightAction";
+import {MathUtils} from "@Core/src/core/utils/MathUtils";
 
 declare const JsonReader: JsonModule;
 
@@ -32,6 +35,58 @@ export class FightActionController {
 			attackDamage *= attacker.getDamageMultiplier();
 		}
 		return Math.round(attackDamage * (1 + levelBonusRatio));
+	}
+
+	/**
+	 * Apply a buff to a fighter
+	 * @param result
+	 * @param buff
+	 * @param fighters
+	 * @param origin
+	 */
+	static applyBuff(result: FightActionResult, buff: FightActionBuff, fighters: { sender: Fighter, receiver: Fighter }, origin: FightAction): void {
+		const target = buff.selfTarget ? fighters.sender : fighters.receiver;
+		switch (buff.stat) {
+		case FightStatBuffed.ATTACK:
+			target.applyAttackModifier({
+				origin,
+				operation: buff.operator,
+				value: buff.value
+			});
+			break;
+		case FightStatBuffed.DEFENSE:
+			target.applyDefenseModifier({
+				origin,
+				operation: buff.operator,
+				value: buff.value
+			});
+			break;
+		case FightStatBuffed.SPEED:
+			target.applySpeedModifier({
+				origin,
+				operation: buff.operator,
+				value: buff.value
+			});
+			break;
+		case FightStatBuffed.BREATH:
+			target.addBreath(buff.value);
+		}
+		if (result.buffs === undefined) {
+			result.buffs = [];
+		}
+		result.buffs.push(buff);
+	}
+
+	static applyAlteration(result: FightActionResult, fightAlteration: FightAlteration, fighters: { sender: Fighter, receiver: Fighter }): void {
+		const target = fightAlteration.selfTarget ? fighters.sender : fighters.receiver;
+		const alteration = target.newAlteration(fightAlteration.alteration);
+		if (alteration !== fightAlteration.alteration) {
+			return;
+		}
+		if (result.alterations === undefined) {
+			result.alterations = [];
+		}
+		result.alterations.push(fightAlteration);
 	}
 
 	/**
@@ -80,7 +135,8 @@ export class FightActionController {
 	 * @param idFightAction
 	 */
 	static fightActionIdToVariant(idFightAction: string): number {
-		return Data.getModule(`fightactions.${idFightAction}`).getNumber("missionVariant");
+		return Data.getModule(`fightactions.${idFightAction}`)
+			.getNumber("missionVariant");
 	}
 
 	/**
@@ -89,7 +145,8 @@ export class FightActionController {
 	 */
 	static variantToFightActionId(variant: number): string {
 		for (const fightActionId of Object.keys(JsonReader.fightactions)) {
-			if (Data.getModule(`fightactions.${fightActionId}`).getNumber("missionVariant") === variant) {
+			if (Data.getModule(`fightactions.${fightActionId}`)
+				.getNumber("missionVariant") === variant) {
 				return fightActionId;
 			}
 		}

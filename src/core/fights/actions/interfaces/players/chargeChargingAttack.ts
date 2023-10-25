@@ -1,54 +1,61 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
+import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {FightActions} from "../../FightActions";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import ChargingAttack from "./chargingAttack";
 
-export default class ChargeChargingAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
 
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
+	const result: FightActionResult = {
+		attackStatus: damageDealt.status,
+		damages: damageDealt.damages
+	};
 
-		// Increase defense of the sender by 50 %
-		const increaseAmount = 50;
-		sender.applyDefenseModifier({
-			origin: this,
-			operation: FightStatModifierOperation.MULTIPLIER,
-			value: 1 + increaseAmount / 100
-		});
-		const sideEffects = attackTranslationModule.format("actions.sideEffects.defense", {
-			adversary: FightConstants.TARGET.SELF,
-			operator: FightConstants.OPERATOR.PLUS,
-			amount: increaseAmount
-		});
+	receiver.damage(result.damages);
 
-		sender.nextFightAction = FightActions.getFightActionById("chargingAttack");
+	// Increase defense of the sender by 50 %
+	FightActionController.applyBuff(result, {
+		selfTarget: true,
+		stat: FightStatBuffed.DEFENSE,
+		operator: FightStatModifierOperation.MULTIPLIER,
+		value: 1.5
+	}, {
+		sender,
+		receiver
+	}, this);
 
-		receiver.damage(damageDealt);
+	sender.nextFightAction = ChargingAttack;
+	return result;
+};
 
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
-	}
+export default use;
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 15, averageDamage: 60, maxDamage: 100};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 15,
+		averageDamage: 60,
+		maxDamage: 100
+	};
+}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.7,
-				0.3
-			]
-		};
-	}
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.7,
+			0.3
+		]
+	};
 }

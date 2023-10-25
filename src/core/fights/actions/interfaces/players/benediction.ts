@@ -51,44 +51,19 @@ const use: FightActionFunc = (fight: FightController, fightAction: FightAction, 
 	result.attackStatus = attackApplied.status;
 
 	receiver.damage(result.damages);
-	let sideEffects = "";
-	const buff = turn < 15 ? Math.round(1.67 * turn) : 25;
+	const buff = (1 + (turn < 15 ? Math.round(1.67 * turn) : 25)) / 100;
 
-	sender.applyDefenseModifier({
-		origin: this,
-		operation: FightStatModifierOperation.ADDITION,
-		value: sender.getDefense() * buff / 100
-	});
-	sender.applyAttackModifier({
-		origin: this,
-		operation: FightStatModifierOperation.ADDITION,
-		value: sender.getAttack() * buff / 100
-	});
-	sender.applySpeedModifier({
-		origin: this,
-		operation: FightStatModifierOperation.ADDITION,
-		value: sender.getSpeed() * buff / 100
-	});
-	result.buffs = [
-		{
+	for (const statBuffed of [FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED]) {
+		FightActionController.applyBuff(result, {
 			selfTarget: true,
-			stat: FightStatBuffed.ATTACK,
+			stat: statBuffed,
 			operator: FightStatModifierOperation.ADDITION,
 			value: buff
-		},
-		{
-			selfTarget: true,
-			stat: FightStatBuffed.DEFENSE,
-			operator: FightStatModifierOperation.ADDITION,
-			value: buff
-		},
-		{
-			selfTarget: true,
-			stat: FightStatBuffed.SPEED,
-			operator: FightStatModifierOperation.ADDITION,
-			value: buff
-		}
-	];
+		}, {
+			sender,
+			receiver
+		}, this);
+	}
 
 	return result;
 };

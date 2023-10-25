@@ -1,60 +1,66 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
 import {MathUtils} from "../../../../utils/MathUtils";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
 
-export default class CanonAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 
-		// This attack will miss more if the opponent is fast
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
+	// This attack will miss more if the opponent is fast
+	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
+	let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
 
-		// If the attack was used two times in a row, the damage is multiplied by 1.5
-		const lastFightAction = sender.getLastFightActionUsed();
-		if (lastFightAction instanceof CanonAttack) {
-			damageDealt = Math.round(damageDealt * 1.5);
-		}
-
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		let sideEffects = "";
-
-		// The receiver has a 65% chance to be slowed
-		if (Math.random() < 0.65) {
-			const alteration = receiver.newAlteration(FightAlterations.SLOWED);
-			if (alteration === FightAlterations.SLOWED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.slowed").toLowerCase()
-				});
-			}
-		}
-
-		receiver.damage(damageDealt);
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	// If the attack was used two times in a row, the damage is multiplied by 1.5
+	const lastFightAction = sender.getLastFightActionUsed();
+	if (lastFightAction instanceof this) {
+		damageDealt.damages = Math.round(damageDealt.damages * 1.5);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 20, averageDamage: 120, maxDamage: 250};
-	}
+	const result: FightActionResult = {
+		attackStatus: damageDealt.status,
+		damages: damageDealt.damages
+	};
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				120
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.5,
-				0.5
-			]
-		};
+	receiver.damage(result.damages);
+
+	// The receiver has a 65% chance to be slowed
+	if (Math.random() < 0.65) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.SLOWED
+		}, {
+			sender,
+			receiver
+		});
 	}
+	return result;
+};
+
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 20,
+		averageDamage: 120,
+		maxDamage: 250
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			120
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.5,
+			0.5
+		]
+	};
 }
