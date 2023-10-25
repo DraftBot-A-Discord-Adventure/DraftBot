@@ -1,26 +1,28 @@
-import {attackInfo, FightAction, statsInfo} from "../FightAction";
+import {attackInfo, statsInfo} from "../FightAction";
 import {Fighter} from "../../fighter/Fighter";
 import {FightActionController} from "../FightActionController";
+import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
 
-export abstract class SimpleDamageFightActionTemplate extends FightAction {
-	private readonly criticalHitProbability: number;
+export function simpleDamageFightAction(
+	fighters: {
+		sender: Fighter,
+		receiver: Fighter
+	},
+	probabilities: {
+		critical: number,
+		failure: number
+	},
+	info: {
+		attackInfo: attackInfo,
+		statsInfo: statsInfo
+	}): FightActionResult {
 
-	private readonly failureProbability: number;
+	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo);
+	const attack = FightActionController.applySecondaryEffects(initialDamage, probabilities.critical, probabilities.failure);
+	fighters.receiver.damage(attack.damages);
 
-	protected constructor(name: string, criticalHitProbability: number, failureProbability: number) {
-		super(name);
-		this.criticalHitProbability = criticalHitProbability;
-		this.failureProbability = failureProbability;
+	return {
+		attackStatus: attack.status,
+		damages: attack.damages
 	}
-
-	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, this.criticalHitProbability, this.failureProbability);
-		receiver.damage(damageDealt);
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language);
-	}
-
-	abstract getAttackInfo(): attackInfo;
-
-	abstract getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo;
 }
