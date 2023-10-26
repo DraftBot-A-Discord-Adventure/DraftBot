@@ -649,7 +649,7 @@ export class Player extends Model {
 	 */
 	public async getCumulativeAttack(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.class)).getAttackValue(this.level);
-		if (playerAttack === 0){
+		if (playerAttack === 0) {
 			return 0;
 		}
 
