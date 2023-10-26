@@ -237,7 +237,7 @@ export abstract class SmallEventConstants {
 		}
 	};
 
-	static EPIC_ITEM_SHOP = {
+	static readonly EPIC_ITEM_SHOP = {
 		MIN_RARITY: ItemConstants.RARITY.EPIC,
 		MAX_RARITY: ItemConstants.RARITY.LEGENDARY,
 		GREAT_DEAL_PROBABILITY: 0.1,
@@ -245,5 +245,16 @@ export abstract class SmallEventConstants {
 		BASE_MULTIPLIER: 5.5,
 		ROAD_OF_WONDERS_MULTIPLIER: 1.5,
 		REDUCTION_TIP_PROBABILITY: 0.2 // 20% chance to have a reduction tip
+	};
+
+	static readonly CART = {
+		// For the threshold a number between 0 and 1 (inclusive) is generated, and then we check for the highest threshold that is lower than the generated number
+		TRANSPARENT_TP_THRESHOLD: 0.4, // 40% chance to have a transparent teleportation
+		HIDDEN_TP_THRESHOLD: 0.9, // 50% chance to have a hidden teleportation
+		SCAM_THRESHOLD: 0.95, // 5% chance to have a scam
+		// 5% chance to have a transparent teleportation with lower cost
+		TRANSPARENT_TP_PRICE: 1200,
+		HIDDEN_TP_PRICE: 250,
+		SCAM_TP_PRICE: 500
 	};
 }
