@@ -9,7 +9,7 @@ export default class SimpleAttack extends SimpleDamageFightActionTemplate {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 110, averageDamage: 130, maxDamage: 150};
+		return {minDamage: 110, averageDamage: 130, maxDamage: 250};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
