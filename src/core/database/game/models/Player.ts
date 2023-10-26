@@ -649,6 +649,10 @@ export class Player extends Model {
 	 */
 	public async getCumulativeAttack(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerAttack = (await Classes.getById(this.class)).getAttackValue(this.level);
+		if (playerAttack === 0){
+			return 0;
+		}
+
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
 				? playerActiveObjects.weapon.getAttack() : playerAttack)
@@ -665,6 +669,10 @@ export class Player extends Model {
 	 */
 	public async getCumulativeDefense(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerDefense = (await Classes.getById(this.class)).getDefenseValue(this.level);
+		if (playerDefense === 0) {
+			return 0;
+		}
+
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
 				? playerActiveObjects.weapon.getDefense() : playerDefense)
@@ -681,6 +689,10 @@ export class Player extends Model {
 	 */
 	public async getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects): Promise<number> {
 		const playerSpeed = (await Classes.getById(this.class)).getSpeedValue(this.level);
+		if (playerSpeed === 0) {
+			return 0;
+		}
+
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
 				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
