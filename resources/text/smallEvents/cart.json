@@ -1,0 +1,60 @@
+{
+	"translations": {
+		"fr": {
+			"cart": [
+				"Vous croisez une charette sur votre route. Le conducteur vous propose de vous emmener à votre destination pour quelques pièces. Acceptez-vous son offre ?",
+				"Un pnj avec une charette vous offre un voyage vers votre destination pour un certain prix. Acceptez-vous ?",
+				"Vous rencontrez un marchand avec une charette. Il vous propose un voyage vers votre destination pour un montant d'or. Acceptez-vous son offre ?"
+			],
+			"transparentTp": [
+				"Le conducteur vous emmène exactement là où vous vouliez aller. Vous payez le prix convenu.",
+				"Le pnj vous emmène à votre destination exacte comme promis. Vous payez le prix convenu.",
+				"Le marchand vous emmène à votre destination comme il l'avait promis. Vous payez le prix convenu."
+			],
+			"hiddenTp": [
+				"Le conducteur vous emmène à un endroit inconnu. Vous payez le prix convenu.",
+				"Le pnj vous emmène à un endroit aléatoire. Vous payez le prix convenu.",
+				"Le marchand vous emmène à une destination inconnue. Vous payez le prix convenu."
+			],
+			"scam": [
+				"Le conducteur vous ment sur la destination et vous emmène à un endroit aléatoire. Vous payez un prix réduit.",
+				"Le pnj vous ment sur la destination et vous emmène à un endroit aléatoire. Vous payez un prix réduit.",
+				"Le marchand vous ment sur la destination et vous emmène à un endroit aléatoire. Vous payez un prix réduit."
+			],
+			"cheap": [
+				"Le conducteur vous emmène à votre destination pour un prix réduit.",
+				"Le pnj vous emmène à votre destination pour un prix réduit.",
+				"Le marchand vous emmène à votre destination pour un prix réduit."
+			]
+		},
+		"en": {
+			"cart": [
+				"You come across a cart on your road. The driver offers to take you to your destination for a few coins. Do you accept his offer?",
+				"An NPC with a cart offers you a ride to your destination for a certain price. Do you accept?",
+				"You meet a merchant with a cart. He offers you a ride to your destination for a certain amount of gold. Do you accept his offer?"
+			],
+			"transparentTp": [
+				"The driver takes you exactly where you wanted to go. You pay the agreed price.",
+				"The NPC takes you to your exact destination as promised. You pay the agreed price.",
+				"The merchant takes you to your destination as he had promised. You pay the agreed price."
+			],
+			"hiddenTp": [
+				"The driver takes you to an unknown place. You pay the agreed price.",
+				"The NPC takes you to a random place. You pay the agreed price.",
+				"The merchant takes you to an unknown destination. You pay the agreed price."
+			],
+			"scam": [
+				"The driver lies to you about the destination and takes you to a random place. You pay a reduced price.",
+				"The NPC lies to you about the destination and takes you to a random place. You pay a reduced price.",
+				"The merchant lies to you about the destination and takes you to a random place. You pay a reduced price."
+			],
+			"cheap": [
+				"The driver takes you to your destination for a reduced price.",
+				"The NPC takes you to your destination for a reduced price.",
+				"The merchant takes you to your destination for a reduced price."
+			]
+		}
+	},
+	"rarity": 1,
+	"emote": ":horse_cart:"
+}

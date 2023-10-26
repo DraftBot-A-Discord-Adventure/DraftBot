@@ -1,4 +1,4 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MapConstants} from "../../../constants/MapConstants";
 import moment = require("moment");
@@ -58,6 +58,34 @@ export class MapLinks {
 			where: {
 				startMap: mapLinkToInvert.endMap,
 				endMap: mapLinkToInvert.startMap
+			}
+		});
+	}
+
+	/**
+	 * Get the list of all the mapLinks excluding the one given in parameter and if it exist the one that is the opposite of the one given in parameter (inverted destination and origin)
+	 * @param excludedMapLink : MapLink to exclude (can be null)
+	 */
+	static getMapLinks(excludedMapLink : MapLink | null = null) : Promise<MapLink[]> {
+		if (!excludedMapLink) {
+			return MapLink.findAll();
+		}
+		return MapLink.findAll({
+			where: {
+				[Op.not]: [
+					{
+						[Op.or]: [
+							{
+								startMap: excludedMapLink.startMap,
+								endMap: excludedMapLink.endMap
+							},
+							{
+								startMap: excludedMapLink.endMap,
+								endMap: excludedMapLink.startMap
+							}
+						]
+					}
+				]
 			}
 		});
 	}
