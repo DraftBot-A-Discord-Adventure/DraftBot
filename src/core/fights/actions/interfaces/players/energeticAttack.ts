@@ -1,45 +1,45 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class EnergeticAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 35, 5);
-		receiver.damage(damageDealt);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 35, failure: 5},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
+	FightActionController.applyBuff(result, {
+		selfTarget: true,
+		stat: FightStatBuffed.ENERGY,
+		operator: FightStatModifierOperation.ADDITION,
+		value: Math.round(result.damages / 2)
+	}, sender, fightAction);
 
-		// Half of the damage is converted to fight points
-		const healAmount = Math.round(damageDealt / 2);
-		sender.heal(healAmount);
-		const sideEffects = attackTranslationModule.format("actions.sideEffects.energy", {
-			adversary: FightConstants.TARGET.SELF,
-			operator: FightConstants.OPERATOR.PLUS,
-			amount: healAmount
-		});
+	return result;
+};
 
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
-	}
+export default use;
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 75, maxDamage: 115};
-	}
+function getAttackInfo(): attackInfo {
+	return {minDamage: 30, averageDamage: 75, maxDamage: 115};
+}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense() * 0.2,
-				receiver.getSpeed()
-			], statsEffect: [
-				0.75,
-				0.25
-			]
-		};
-	}
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		], defenderStats: [
+			receiver.getDefense() * 0.2,
+			receiver.getSpeed()
+		], statsEffect: [
+			0.75,
+			0.25
+		]
+	};
 }

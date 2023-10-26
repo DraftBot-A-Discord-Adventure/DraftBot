@@ -23,17 +23,12 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 		damages: damageDealt.damages
 	};
 
-	receiver.damage(result.damages);
-
 	// The receiver has a 65% chance to be slowed
 	if (Math.random() < 0.65) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
 			alteration: FightAlterations.SLOWED
-		}, {
-			sender,
-			receiver
-		});
+		}, receiver);
 	}
 	return result;
 };

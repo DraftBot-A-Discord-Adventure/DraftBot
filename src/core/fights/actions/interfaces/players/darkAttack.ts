@@ -1,52 +1,54 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
+import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {RandomUtils} from "../../../../utils/RandomUtils";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {RandomUtils} from "@Core/src/core/utils/RandomUtils";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class DarkAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), receiver, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 40, 15);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver, _turn) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 40, failure: 15},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
-		receiver.damage(damageDealt);
-
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		let sideEffects = "";
-
-		if (RandomUtils.draftbotRandom.bool(0.65)) {
-			receiver.applyAttackModifier({
-				origin: this,
-				operation: FightStatModifierOperation.ADDITION,
-				value: -receiver.getAttack() * 0.15
-			});
-			sideEffects = attackTranslationModule.format("actions.sideEffects.attack", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				operator: FightConstants.OPERATOR.MINUS,
-				amount: 15
-			});
-		}
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	if (RandomUtils.draftbotRandom.bool(0.65)) {
+		FightActionController.applyBuff(result, {
+			selfTarget: false,
+			stat: FightStatBuffed.ATTACK,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.85
+		}, receiver, fightAction);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 40, averageDamage: 75, maxDamage: 155};
-	}
+	return result;
+};
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				receiver.getAttack()
-			], defenderStats: [
-				0,
-				0
-			], statsEffect: [
-				0.5,
-				0.5
-			]
-		};
-	}
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 40,
+		averageDamage: 75,
+		maxDamage: 155
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			receiver.getAttack()
+		],
+		defenderStats: [
+			0,
+			0
+		],
+		statsEffect: [
+			0.5,
+			0.5
+		]
+	};
 }

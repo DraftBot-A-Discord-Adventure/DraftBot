@@ -4,17 +4,11 @@ import {Fighter} from "@Core/src/core/fights/fighter/Fighter";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
-	return simpleDamageFightAction({
-			sender,
-			receiver
-		}, {
-			critical: 5,
-			failure: 10
-		},
-		{
-			attackInfo: getAttackInfo(),
-			statsInfo: getStatsInfo(sender, receiver)
-		});
+	return simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 5, failure: 10},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 };
 
 function getAttackInfo(): attackInfo {

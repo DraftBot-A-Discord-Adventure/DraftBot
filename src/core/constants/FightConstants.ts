@@ -93,6 +93,11 @@ export abstract class FightConstants {
 		"stealth"
 	];
 
+	static readonly GOD_MOVES = [
+		"benediction",
+		"divineAttack"
+	];
+
 	static readonly ELO = {
 		DEFAULT_ELO: 0,
 		MAX_ELO_GAP: 400,

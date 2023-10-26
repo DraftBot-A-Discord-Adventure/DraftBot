@@ -3,8 +3,9 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightActionController} from "../../FightActionController";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -31,16 +32,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
-	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 10);
-
-	const result: FightActionResult = {
-		attackStatus: damageDealt.status,
-		damages: damageDealt.damages
-	};
-	receiver.damage(result.damages);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 1, failure: 10},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
 	// 60% chance of reducing the opponent's speed by 20%. Otherwise, steal 1 point of breath from the opponent.
 	if (RandomUtils.draftbotRandom.bool(0.4) || receiver.getBreath() < 1) {
@@ -50,10 +47,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 			stat: FightStatBuffed.SPEED,
 			operator: FightStatModifierOperation.MULTIPLIER,
 			value: 0.8
-		}, {
-			sender,
-			receiver
-		}, this);
+		}, receiver, fightAction);
 	}
 	else {
 		FightActionController.applyBuff(result, {
@@ -61,19 +55,13 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 			stat: FightStatBuffed.BREATH,
 			operator: FightStatModifierOperation.ADDITION,
 			value: -1
-		}, {
-			sender,
-			receiver
-		}, this);
+		}, receiver, fightAction);
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: FightStatBuffed.BREATH,
 			operator: FightStatModifierOperation.ADDITION,
 			value: 1
-		}, {
-			sender,
-			receiver
-		}, this);
+		}, receiver, fightAction);
 	}
 	return result;
 };

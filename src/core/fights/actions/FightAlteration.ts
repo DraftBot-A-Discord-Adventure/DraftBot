@@ -1,9 +1,8 @@
-import {FightAction} from "./FightAction";
+import {FightAction} from "@Core/src/data/FightAction";
 
-export abstract class FightAlteration extends FightAction {
+export class FightAlteration extends FightAction {
 
 	constructor(name: string) {
 		super(name);
-		this.isAlteration = true;
 	}
 }

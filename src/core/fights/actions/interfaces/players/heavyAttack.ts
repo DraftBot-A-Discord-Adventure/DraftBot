@@ -1,65 +1,58 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
+import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-export default class HeavyAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
+	let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
-		// This attack will do less damage if the opponent has lower defense than the attacker
-		damageDealt *= receiver.getDefense() < sender.getDefense() ? 0.1 : 1;
-		damageDealt = Math.round(damageDealt);
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		receiver.damage(damageDealt);
-		let sideEffects = "";
+	// This attack will do less damage if the opponent has lower defense than the attacker
+	damageDealt.damages *= Math.round(receiver.getDefense() < sender.getDefense() ? 0.1 : 1);
+	const result = {
+		attackStatus: damageDealt.status,
+		damages: damageDealt.damages
+	};
 
-		// 25% chance to stun the receiver
-		if (Math.random() < 0.25) {
-			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
-			if (alteration === FightAlterations.STUNNED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-
-		// Reduce defense of the receiver by 25 %
-		const reductionAmont = 25;
-		receiver.applyDefenseModifier({
-			origin: this,
-			operation: FightStatModifierOperation.MULTIPLIER,
-			value: 1 - reductionAmont / 100
-		});
-		sideEffects += attackTranslationModule.format("actions.sideEffects.defense", {
-			adversary: FightConstants.TARGET.OPPONENT,
-			operator: FightConstants.OPERATOR.MINUS,
-			amount: reductionAmont
-		});
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	// 25% chance to stun the receiver
+	if (Math.random() < 0.25) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.STUNNED
+		}, receiver);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 40, averageDamage: 120, maxDamage: 180};
-	}
+	// Reduce defense of the receiver by 25 %
+	FightActionController.applyBuff(result, {
+		selfTarget: false,
+		stat: FightStatBuffed.DEFENSE,
+		operator: FightStatModifierOperation.MULTIPLIER,
+		value: 0.75
+	}, receiver, fightAction);
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.7,
-				0.3
-			]
-		};
-	}
+	return result;
+};
+
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {minDamage: 40, averageDamage: 120, maxDamage: 180};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		], defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		], statsEffect: [
+			0.7,
+			0.3
+		]
+	};
 }

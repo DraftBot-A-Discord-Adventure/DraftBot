@@ -1,10 +1,10 @@
 import {FighterStatus} from "../FighterStatus";
 import {FightView} from "../FightView";
-import {FightAction} from "../actions/FightAction";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {FightAlteration} from "../actions/FightAlteration";
 import {PVEConstants} from "../../constants/PVEConstants";
-import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightAction} from "@Core/src/data/FightAction";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
 type FighterStats = {
 	fightPoints: number,
@@ -32,9 +32,9 @@ type FightDamageMultiplier = {
  * @class Fighter
  */
 export abstract class Fighter {
-	public nextFightAction: FightActionFunc;
+	public nextFightAction: FightAction;
 
-	public fightActionsHistory: FightActionFunc[];
+	public fightActionsHistory: (FightAction | FightAlteration)[];
 
 	public availableFightActions: Map<string, FightAction>;
 
@@ -42,7 +42,7 @@ export abstract class Fighter {
 
 	public readonly level: number;
 
-	public alteration: FightAction;
+	public alteration: FightAlteration;
 
 	protected stats: FighterStats;
 
@@ -83,7 +83,7 @@ export abstract class Fighter {
 
 		this.availableFightActions = new Map();
 		for (const fightAction of availableFightActions) {
-			this.availableFightActions.set(fightAction.name, fightAction);
+			this.availableFightActions.set(fightAction.id, fightAction);
 		}
 	}
 
@@ -316,16 +316,12 @@ export abstract class Fighter {
 	/**
 	 * Damage the fighter
 	 * @param value
-	 * @param keepAlive Prevent the fighter to die of these damages
 	 * @return The new value of energy
 	 */
-	public damage(value: number, keepAlive = false): number {
+	public damage(value: number): number {
 		this.stats.fightPoints -= value;
 		if (this.stats.fightPoints < 0) {
 			this.stats.fightPoints = 0;
-		}
-		if (keepAlive && this.stats.fightPoints === 0) {
-			this.stats.fightPoints = 1;
 		}
 		return this.stats.fightPoints;
 	}
@@ -371,11 +367,11 @@ export abstract class Fighter {
 	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
 		this.fightActionsHistory.forEach((action) => {
-			if (playerFightActionsHistory.has(action.name)) {
-				playerFightActionsHistory.set(action.name, playerFightActionsHistory.get(action.name) + 1);
+			if (playerFightActionsHistory.has(action.id)) {
+				playerFightActionsHistory.set(action.id, playerFightActionsHistory.get(action.id) + 1);
 			}
 			else {
-				playerFightActionsHistory.set(action.name, 1);
+				playerFightActionsHistory.set(action.id, 1);
 			}
 		});
 		return playerFightActionsHistory;
@@ -393,7 +389,7 @@ export abstract class Fighter {
 	 * @param alteration - the new fight alteration
 	 * returns the FighterAlterationId of the fight alteration that was set or kept
 	 */
-	newAlteration(alteration: FightAlteration): FightAction {
+	newAlteration(alteration: FightAlteration): FightAlteration {
 		if (this.alteration === null || this.alteration === alteration) {
 			this.alterationTurn = 0;
 		}
@@ -439,12 +435,12 @@ export abstract class Fighter {
 	 * Get the last fight action used by a fighter (excluding alteration)
 	 */
 	getLastFightActionUsed(): FightAction {
+		if (this.fightActionsHistory.length === 0) {
+			return null;
+		}
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
 		// We have to check that the last action is not a fight alteration
-		if (lastAction?.isAlteration) {
-			return this.fightActionsHistory[this.fightActionsHistory.length - 2];
-		}
-		return lastAction;
+		return lastAction instanceof FightAlteration ? this.fightActionsHistory[this.fightActionsHistory.length - 2] : lastAction;
 	}
 
 	/**

@@ -1,22 +1,21 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 
-export default class Concentration extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
+const use: FightActionFunc = (_fight, _fightAction, sender) => {
+	const result: FightActionResult = {
+		attackStatus: undefined,
+		damages: 0
+	};
+	FightActionController.applyAlteration(result, {
+		selfTarget: true,
+		alteration: FightAlterations.CONCENTRATED
+	}, sender);
+	result.fail = !result.alterations;
+	result.attackStatus = result.fail ? FightActionStatus.MISSED : FightActionStatus.NORMAL;
+	return result;
+};
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const concentrationTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		const alteration = sender.newAlteration(FightAlterations.CONCENTRATED);
-
-		if (alteration === FightAlterations.CONCENTRATED) {
-			return concentrationTranslationModule.get("active") + attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.concentrated").toLowerCase()
-			});
-		}
-		return concentrationTranslationModule.get("fail");
-	}
-}
+export default use;

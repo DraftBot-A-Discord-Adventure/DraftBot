@@ -3,7 +3,7 @@ import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -27,22 +27,17 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver, _turn) => {
-	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), receiver, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 30, 5);
-	const result: FightActionResult = {
-		attackStatus: damageDealt.status,
-		damages: damageDealt.damages
-	};
-	receiver.damage(result.damages);
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 30, failure: 5},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
 		alteration: FightAlterations.TARGETED
-	}, {
-		sender,
-		receiver
-	});
+	}, receiver);
 
 	return result;
 };

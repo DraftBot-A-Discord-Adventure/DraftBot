@@ -1,24 +1,28 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
-export default class DefenseBuff extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const defenseBuffTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
+const use: FightActionFunc = (_fight, fightAction, sender) => {
+	// Amount of times the sender has used the move already in its 3 last moves
+	const streak = sender.fightActionsHistory.slice(-3)
+		.filter(action => action === fightAction).length;
 
-		// Amount of times the sender has used the move already in its 5 last moves
-		const streak = sender.fightActionsHistory.slice(-3).filter(action => action instanceof DefenseBuff).length;
+	const defenseBuffArray = [20, 25, 35, 40];
 
-		const defenseBuffArray = [20, 25, 35, 40];
+	const result: FightActionResult = {
+		attackStatus: FightActionStatus.NORMAL,
+		damages: 0
+	};
+	FightActionController.applyBuff(result, {
+		selfTarget: true,
+		stat: FightStatBuffed.DEFENSE,
+		operator: FightStatModifierOperation.MULTIPLIER,
+		value: 1 + defenseBuffArray[streak] / 100
+	}, sender, fightAction);
 
-		sender.applyDefenseModifier({
-			origin: this,
-			operation: FightStatModifierOperation.ADDITION,
-			value: sender.getDefense() * defenseBuffArray[streak] / 100 + 1
-		});
+	return result;
+};
 
-		return defenseBuffTranslationModule.format("active", {
-			amount: defenseBuffArray[streak]
-		});
-	}
-}
+export default use;

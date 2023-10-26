@@ -1,73 +1,66 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import Benediction from "./benediction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class DivineAttack extends FightAction {
-	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-		return sender.fightActionsHistory.filter(action => action instanceof Benediction ||
-				action instanceof DivineAttack).length
-			+ receiver.fightActionsHistory.filter(action =>
-				action instanceof Benediction ||
-				action instanceof DivineAttack).length;
-	}
+export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
+	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
+		receiver.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length;
+}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 75, averageDamage: 220, maxDamage: 360};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 75,
+		averageDamage: 220,
+		maxDamage: 360
+	};
+}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.7,
+			0.3
+		]
+	};
+}
+
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver, turn) => {
+	const usedGodMoves = getUsedGodMoves(sender, receiver);
+
+	// Only works if less than 2 god moves have been used
+	if (usedGodMoves >= 2) {
 		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.7,
-				0.3
-			]
+			attackStatus: FightActionStatus.MISSED,
+			damages: 0,
+			fail: true
 		};
 	}
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 0, failure: Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7)},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// Check the amount of ultimate attacks the sender already used
-		const usedGodMoves = DivineAttack.getUsedGodMoves(sender, receiver);
-
-		// Only works if less than 2 god moves have been used
-		if (usedGodMoves >= 2) {
-			return attackTranslationModule.format("actions.attacksResults.maxUses", {
-				attack: Translations.getModule(`fightactions.${this.name}`, language)
-					.get("name")
-					.toLowerCase()
-			});
-		}
-
-		let sideEffects = "";
-
-		if (Math.random() < 0.2) {
-			const alteration = receiver.newAlteration(FightAlterations.PARALYZED);
-			if (alteration === FightAlterations.PARALYZED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
-				});
-			}
-		}
-
-		const failureProbability = Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7);
-
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, failureProbability);
-
-		receiver.damage(damageDealt);
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	if (Math.random() < 0.2) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.PARALYZED
+		}, receiver);
 	}
-}
+	return result;
+};
+
+export default use;

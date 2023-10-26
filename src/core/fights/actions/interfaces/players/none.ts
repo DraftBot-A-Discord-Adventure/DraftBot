@@ -1,10 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 
-export default class NoneAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		sender.nextFightAction = null;
-		return Translations.getModule(`fightactions.${this.name}`, language).get("active");
-	}
-}
+const use: FightActionFunc = (_fight, _fightAction, sender) => {
+	sender.nextFightAction = null;
+	return {
+		attackStatus: FightActionStatus.NORMAL,
+		damages: 0
+	};
+};
+
+export default use;

@@ -1,11 +1,12 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
-import DivineAttack from "./divineAttack";
-import {FightAction, FightActionFunc} from "@Core/src/data/FightAction";
-import {FightController} from "../../../FightController";
+import {getUsedGodMoves} from "./divineAttack";
+import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -32,25 +33,23 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (fight: FightController, fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number): FightActionResult => {
-	const result: FightActionResult = {
-		attackStatus: undefined,
-		damages: 0
-	};
-
+const use: FightActionFunc = (_fight, fightAction, sender, receiver, turn): FightActionResult => {
 	// Check the amount of ultimate attacks the sender already used
 	// 1 god move per fight
-	if (DivineAttack.getUsedGodMoves(sender, receiver) >= 1) {
-		result.fail = true;
-		return result;
+	if (getUsedGodMoves(sender, receiver) >= 1) {
+		return {
+			attackStatus: FightActionStatus.MISSED,
+			damages: 0,
+			fail: true
+		};
 	}
 
-	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const attackApplied = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
-	result.damages = attackApplied.damages;
-	result.attackStatus = attackApplied.status;
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 5, failure: 10},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
-	receiver.damage(result.damages);
 	const buff = (1 + (turn < 15 ? Math.round(1.67 * turn) : 25)) / 100;
 
 	for (const statBuffed of [FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED]) {
@@ -59,10 +58,7 @@ const use: FightActionFunc = (fight: FightController, fightAction: FightAction, 
 			stat: statBuffed,
 			operator: FightStatModifierOperation.ADDITION,
 			value: buff
-		}, {
-			sender,
-			receiver
-		}, this);
+		}, sender, fightAction);
 	}
 
 	return result;

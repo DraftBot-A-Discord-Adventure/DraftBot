@@ -19,10 +19,9 @@ export function simpleDamageFightAction(
 
 	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo);
 	const attack = FightActionController.applySecondaryEffects(initialDamage, probabilities.critical, probabilities.failure);
-	fighters.receiver.damage(attack.damages);
 
 	return {
 		attackStatus: attack.status,
 		damages: attack.damages
-	}
+	};
 }

@@ -1,54 +1,46 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
+import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class PiercingAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
-
-		receiver.damage(damageDealt);
-
-		let sideEffects = "";
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-
-		// 45% chance to lower the target's defense by 10%
-		if (Math.random() < 0.45) {
-			const reductionAmont = 10;
-			receiver.applyDefenseModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 1 - reductionAmont / 100
-			});
-			sideEffects = attackTranslationModule.format("actions.sideEffects.defense", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				operator: FightConstants.OPERATOR.MINUS,
-				amount: reductionAmont
-			});
-		}
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 5, failure: 10},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
+	// 45% chance to lower the target's defense by 10%
+	if (Math.random() < 0.45) {
+		FightActionController.applyBuff(result, {
+			selfTarget: false,
+			stat: FightStatBuffed.DEFENSE,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.9
+		}, receiver, fightAction);
 	}
+	return result;
+};
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 20, averageDamage: 80, maxDamage: 150};
-	}
+export default use;
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense() * 0.2,
-				receiver.getSpeed()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+function getAttackInfo(): attackInfo {
+	return {minDamage: 20, averageDamage: 80, maxDamage: 150};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		], defenderStats: [
+			receiver.getDefense() * 0.2,
+			receiver.getSpeed()
+		], statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

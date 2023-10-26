@@ -1,46 +1,40 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class ShieldAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
-		receiver.damage(damageDealt);
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 5, failure: 5},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.WEAK
+	}, receiver);
+	return result;
+};
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		let sideEffects = "";
-		const alteration = receiver.newAlteration(FightAlterations.WEAK);
+export default use;
 
-		if (alteration === FightAlterations.WEAK) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.weak").toLowerCase()
-			});
-		}
+function getAttackInfo(): attackInfo {
+	return {minDamage: 15, averageDamage: 60, maxDamage: 85};
+}
 
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
-	}
-
-	getAttackInfo(): attackInfo {
-		return {minDamage: 15, averageDamage: 60, maxDamage: 85};
-	}
-
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getDefense(),
-				sender.getAttack()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getDefense()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getDefense(),
+			sender.getAttack()
+		], defenderStats: [
+			receiver.getDefense(),
+			receiver.getDefense()
+		], statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

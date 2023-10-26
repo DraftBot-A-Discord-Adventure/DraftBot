@@ -1,70 +1,63 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class RamAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 25);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 5, failure: 25},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		let sideEffects = "";
-
-		// 70% chance to stun the defender
-		if (Math.random() < 0.70) {
-			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
-			if (alteration === FightAlterations.STUNNED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-
-		// Sender has a 25% chance to be stunned and 75% chance to be hurt by his own attack
-		if (Math.random() < 0.25) {
-			const alteration = sender.newAlteration(FightAlterations.STUNNED);
-			if (alteration === FightAlterations.STUNNED) {
-				sideEffects += attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.SELF,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-		else {
-			const ownDamage = Math.round(damageDealt * 0.45);
-			sender.damage(ownDamage);
-			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
-				amount: ownDamage
-			});
-		}
-
-		damageDealt = Math.round(damageDealt);
-		receiver.damage(damageDealt);
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	// 70% chance to stun the defender
+	if (Math.random() < 0.70) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.STUNNED
+		}, receiver);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 60, averageDamage: 110, maxDamage: 210};
+	// Sender has a 25% chance to be stunned and 75% chance to be hurt by his own attack
+	if (Math.random() < 0.25) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: true,
+			alteration: FightAlterations.STUNNED
+		}, sender);
+	}
+	else {
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.DAMAGE,
+			operator: FightStatModifierOperation.ADDITION,
+			value: Math.round(result.damages * 0.45)
+		}, sender, fightAction);
 	}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getDefense(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.85,
-				0.15
-			]
-		};
-	}
+	return result;
+};
+
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {minDamage: 60, averageDamage: 110, maxDamage: 210};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getDefense(),
+			sender.getSpeed()
+		], defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		], statsEffect: [
+			0.85,
+			0.15
+		]
+	};
 }

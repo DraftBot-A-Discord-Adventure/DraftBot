@@ -19,13 +19,11 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 	};
 
 	FightActionController.applyAlteration(result, {
-		selfTarget: false,
-		alteration: FightAlterations.SLOWED
-	}, {
-		sender,
+			selfTarget: false,
+			alteration: FightAlterations.SLOWED
+		},
 		receiver
-	});
-	receiver.damage(result.damages);
+	);
 
 	return result;
 };

@@ -3,8 +3,8 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {FightActionBuff, FightActionResult, FightAlteration, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightAction} from "@Core/src/core/fights/actions/FightAction";
 import {MathUtils} from "@Core/src/core/utils/MathUtils";
+import {FightAction} from "@Core/src/data/FightAction";
 
 declare const JsonReader: JsonModule;
 
@@ -41,11 +41,10 @@ export class FightActionController {
 	 * Apply a buff to a fighter
 	 * @param result
 	 * @param buff
-	 * @param fighters
+	 * @param target
 	 * @param origin
 	 */
-	static applyBuff(result: FightActionResult, buff: FightActionBuff, fighters: { sender: Fighter, receiver: Fighter }, origin: FightAction): void {
-		const target = buff.selfTarget ? fighters.sender : fighters.receiver;
+	static applyBuff(result: FightActionResult, buff: FightActionBuff, target: Fighter, origin: FightAction): void {
 		switch (buff.stat) {
 		case FightStatBuffed.ATTACK:
 			target.applyAttackModifier({
@@ -70,6 +69,13 @@ export class FightActionController {
 			break;
 		case FightStatBuffed.BREATH:
 			target.addBreath(buff.value);
+			break;
+		case FightStatBuffed.ENERGY:
+			target.heal(buff.value);
+			break;
+		case FightStatBuffed.DAMAGE:
+			target.damage(buff.value);
+			break;
 		}
 		if (result.buffs === undefined) {
 			result.buffs = [];
@@ -77,8 +83,7 @@ export class FightActionController {
 		result.buffs.push(buff);
 	}
 
-	static applyAlteration(result: FightActionResult, fightAlteration: FightAlteration, fighters: { sender: Fighter, receiver: Fighter }): void {
-		const target = fightAlteration.selfTarget ? fighters.sender : fighters.receiver;
+	static applyAlteration(result: FightActionResult, fightAlteration: FightAlteration, target: Fighter): void {
 		const alteration = target.newAlteration(fightAlteration.alteration);
 		if (alteration !== fightAlteration.alteration) {
 			return;

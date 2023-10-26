@@ -1,37 +1,41 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {SimpleDamageFightActionTemplate} from "../../templates/SimpleDamageFightActionTemplate";
+import {attackInfo, statsInfo} from "../../FightAction";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
+import {FightActionFunc} from "@Core/src/data/FightAction";
 
-export default class SimpleAttack extends SimpleDamageFightActionTemplate {
-	fightAction: FightAction,
-	constructor(name: string) {
-		super(name, 5, 0);
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	return simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 10, failure: 10},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
+};
+
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {minDamage: 110, averageDamage: 130, maxDamage: 150};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	let cumulatedAttack = sender.getAttack();
+	let cumulatedSpeed = sender.getSpeed();
+	for (const member of (sender as PlayerFighter).getPveMembersOnIsland()) {
+		cumulatedAttack += member.attack;
+		cumulatedSpeed += member.speed;
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 110, averageDamage: 130, maxDamage: 150};
-	}
-
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		let cumulatedAttack = sender.getAttack();
-		let cumulatedSpeed = sender.getSpeed();
-		for (const member of (sender as PlayerFighter).getPveMembersOnIsland()) {
-			cumulatedAttack += member.attack;
-			cumulatedSpeed += member.speed;
-		}
-
-		return {
-			attackerStats: [
-				cumulatedAttack,
-				cumulatedSpeed
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+	return {
+		attackerStats: [
+			cumulatedAttack,
+			cumulatedSpeed
+		], defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		], statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

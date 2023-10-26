@@ -1,49 +1,43 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {Translations} from "../../../../Translations";
 import {NumberChangeReason} from "../../../../constants/LogsConstants";
 import {PVEConstants} from "../../../../constants/PVEConstants";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 
-export default class RageExplosion extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		let damages = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		damages *=
-			Math.round(
-				Math.min(
-					Math.max(
-						(<PlayerFighter>sender).player.rage,
-						PVEConstants.RAGE_MIN_MULTIPLIER
-					)
-					,
-					PVEConstants.RAGE_MAX_DAMAGE + (<PlayerFighter>sender).player.level
-				)
-			);
-		(<PlayerFighter>sender).player.setRage(0, NumberChangeReason.RAGE_EXPLOSION_ACTION).then();
-		receiver.damage(damages);
-		return Translations.getModule(`fightactions.${this.name}`, language).get("use")
-			+ Translations.getModule("commands.fight", language).format("actions.damages", {
-				damages
-			});
-	}
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const playerSender = <PlayerFighter>sender;
+	const damages = Math.round(
+		FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo())
+		* Math.min(Math.max(playerSender.player.rage, PVEConstants.RAGE_MIN_MULTIPLIER), PVEConstants.RAGE_MAX_DAMAGE + playerSender.player.level));
+	playerSender.player.setRage(0, NumberChangeReason.RAGE_EXPLOSION_ACTION)
+		.then();
+	receiver.damage(damages);
+	return {
+		attackStatus: FightActionStatus.NORMAL,
+		damages
+	};
+};
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 10, averageDamage: 45, maxDamage: 85};
-	}
+export default use;
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.7,
-				0.3
-			]
-		};
-	}
+function getAttackInfo(): attackInfo {
+	return {minDamage: 10, averageDamage: 45, maxDamage: 85};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		], defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		], statsEffect: [
+			0.7,
+			0.3
+		]
+	};
 }

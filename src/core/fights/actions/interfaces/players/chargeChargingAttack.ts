@@ -1,22 +1,17 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionDataController, FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import ChargingAttack from "./chargingAttack";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
-	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 1, 1);
-
-	const result: FightActionResult = {
-		attackStatus: damageDealt.status,
-		damages: damageDealt.damages
-	};
-
-	receiver.damage(result.damages);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{sender, receiver},
+		{critical: 1, failure: 1},
+		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+	);
 
 	// Increase defense of the sender by 50 %
 	FightActionController.applyBuff(result, {
@@ -24,12 +19,9 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 		stat: FightStatBuffed.DEFENSE,
 		operator: FightStatModifierOperation.MULTIPLIER,
 		value: 1.5
-	}, {
-		sender,
-		receiver
-	}, this);
+	}, sender, fightAction);
 
-	sender.nextFightAction = ChargingAttack;
+	sender.nextFightAction = FightActionDataController.instance.getById("chargingAttack");
 	return result;
 };
 
