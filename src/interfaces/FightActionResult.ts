@@ -7,6 +7,8 @@ export enum FightStatBuffed {
 	DEFENSE,
 	SPEED,
 	BREATH,
+	ENERGY,
+	DAMAGE
 }
 
 export interface FightActionBuff {
