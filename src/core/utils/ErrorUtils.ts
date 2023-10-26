@@ -51,6 +51,10 @@ export const effectsErrorTextValue = function(user: User, language: string, play
  * @param reason
  */
 export async function replyErrorMessage(interaction: CommandInteraction, language: string, reason: string): Promise<void> {
+	if (interaction.replied) {
+		await interaction.editReply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)]});
+		return;
+	}
 	await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
 		ephemeral: true

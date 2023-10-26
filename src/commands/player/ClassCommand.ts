@@ -56,7 +56,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 	collector.on("end", async (reaction) => {
 		BlockingUtils.unblockPlayer(userInformation.player.discordUserId, BlockingConstants.REASONS.CLASS);
 		if (!reaction.first() || reaction.first()?.emoji.name !== Constants.REACTIONS.VALIDATE_REACTION) {
-			await replyErrorMessage(interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
+			await sendErrorMessage(interaction.user, interaction, classTranslations.language, classTranslations.get("error.canceledPurchase"));
 			return;
 		}
 		userInformation.player.class = selectedClass.id;
