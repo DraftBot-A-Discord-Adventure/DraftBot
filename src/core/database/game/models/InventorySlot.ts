@@ -1,12 +1,12 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
 import {ItemConstants} from "../../../constants/ItemConstants";
+import {GenericItem} from "@Core/src/data/GenericItem";
+import {Armor, ArmorDataController} from "@Core/src/data/Armor";
+import {Weapon, WeaponDataController} from "@Core/src/data/Weapon";
+import {Potion, PotionDataController} from "@Core/src/data/Potion";
+import {ObjectItem, ObjectItemDataController} from "@Core/src/data/ObjectItem";
 import moment = require("moment");
-import {GenericItem} from "../../../../data/GenericItem";
-import {Armor, ArmorDataController} from "../../../../data/Armor";
-import {Weapon, WeaponDataController} from "../../../../data/Weapon";
-import {Potion, PotionDataController} from "../../../../data/Potion";
-import {ObjectItem, ObjectItemDataController} from "../../../../data/ObjectItem";
 
 export class InventorySlot extends Model {
 	declare readonly playerId: number;
@@ -22,7 +22,7 @@ export class InventorySlot extends Model {
 	declare createdAt: Date;
 
 
-	async getItem(): Promise<GenericItem> {
+	getItem(): GenericItem {
 		switch (this.itemCategory) {
 		case ItemConstants.CATEGORIES.WEAPON:
 			return WeaponDataController.instance.getById(this.itemId);
@@ -33,7 +33,7 @@ export class InventorySlot extends Model {
 		case ItemConstants.CATEGORIES.OBJECT:
 			return ObjectItemDataController.instance.getById(this.itemId);
 		default:
-			return Promise.resolve(null);
+			return null;
 		}
 	}
 
@@ -222,7 +222,9 @@ export class InventorySlots {
 		});
 		let count = 0;
 		for (const obj of objs) {
-			if ((await obj.getItem()).tags) {
+			if (obj.getItem()
+				.tags
+				?.includes(tag)) {
 				count++;
 			}
 		}
@@ -250,11 +252,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -263,7 +267,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	InventorySlot.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

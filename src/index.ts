@@ -1,8 +1,8 @@
 import {WebSocketServer} from "ws";
 import {DraftBot} from "./core/bot/DraftBot";
 import {loadConfig} from "./core/bot/DraftBotConfig";
-import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
-import {sendPacket} from "draftbot_lib/packets/PacketUtils";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {sendPacket} from "@Lib/src/packets/PacketUtils";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;

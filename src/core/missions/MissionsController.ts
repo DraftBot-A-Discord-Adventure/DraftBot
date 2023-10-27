@@ -9,13 +9,13 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
-import {MissionsExpiredPacket} from "draftbot_lib/packets/notifications/MissionsExpiredPacket";
-import {draftBotInstance} from "../../index";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {MissionsExpiredPacket} from "@Lib/src/packets/notifications/MissionsExpiredPacket";
+import {draftBotInstance} from "@Core/src";
 import {Mission, MissionDataController} from "../../data/Mission";
-import {MissionsCompletedPacket} from "draftbot_lib/packets/notifications/MissionsCompletedPacket";
-import {CompletedMission} from "draftbot_lib/interfaces/CompletedMission";
-import {CompletedMissionType} from "draftbot_lib/interfaces/CompletedMissionType";
+import {MissionsCompletedPacket} from "@Lib/src/packets/notifications/MissionsCompletedPacket";
+import {CompletedMission} from "@Lib/src/interfaces/CompletedMission";
+import {CompletedMissionType} from "@Lib/src/interfaces/CompletedMissionType";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -24,8 +24,7 @@ export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
 			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
-		}
-		catch {
+		} catch {
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
@@ -51,7 +50,7 @@ export class MissionsController {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
-			const packet: MissionsCompletedPacket = { missions: completedMissions };
+			const packet: MissionsCompletedPacket = {missions: completedMissions};
 			response.push(packet);
 		}
 		return player;
@@ -113,7 +112,8 @@ export class MissionsController {
 					variant: mission.missionVariant,
 					xp: mission.xpToWin
 				});
-				draftBotInstance.logsDatabase.logMissionFinished(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective).then();
+				draftBotInstance.logsDatabase.logMissionFinished(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective)
+					.then();
 				await mission.destroy();
 			}
 		}
@@ -130,7 +130,8 @@ export class MissionsController {
 				variant: dailyMission.variant,
 				xp: dailyMission.xpToWin
 			});
-			draftBotInstance.logsDatabase.logMissionDailyFinished(player.discordUserId).then();
+			draftBotInstance.logsDatabase.logMissionDailyFinished(player.discordUserId)
+				.then();
 		}
 		await player.save();
 		return completedMissions;
@@ -175,7 +176,8 @@ export class MissionsController {
 		for (const mission of missionSlots) {
 			if (mission.hasExpired()) {
 				expiredMissions.push(mission);
-				draftBotInstance.logsDatabase.logMissionFailed(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective).then();
+				draftBotInstance.logsDatabase.logMissionFailed(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective)
+					.then();
 				await mission.destroy();
 			}
 		}
@@ -183,7 +185,7 @@ export class MissionsController {
 			return;
 		}
 
-		const packet: MissionsExpiredPacket = { missions: [] };
+		const packet: MissionsExpiredPacket = {missions: []};
 		for (const mission of expiredMissions) {
 			packet.missions.push({
 				missionId: mission.missionId,
@@ -241,7 +243,8 @@ export class MissionsController {
 		return {
 			mission,
 			index,
-			variant: await this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player)
+			variant: await this.getMissionInterface(mission.id)
+				.generateRandomVariant(difficulty, player)
 		};
 	}
 
@@ -254,14 +257,16 @@ export class MissionsController {
 			missionVariant: prop.variant,
 			missionObjective: missionData.objectives[prop.index],
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.expirations[prop.index])),
-			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
+			numberDone: await this.getMissionInterface(missionId)
+				.initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.gems[prop.index],
 			pointsToWin: missionData.points[prop.index],
 			xpToWin: missionData.xp[prop.index],
 			moneyToWin: missionData.money[prop.index]
 		});
 		const retMission = await MissionSlots.getById(missionSlot.id);
-		draftBotInstance.logsDatabase.logMissionFound(player.discordUserId, retMission.missionId, retMission.missionVariant, retMission.missionObjective).then();
+		draftBotInstance.logsDatabase.logMissionFound(player.discordUserId, retMission.missionId, retMission.missionVariant, retMission.missionObjective)
+			.then();
 		return retMission;
 	}
 

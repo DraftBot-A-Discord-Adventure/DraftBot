@@ -43,14 +43,6 @@ export abstract class FightAction extends Data<string> implements IFightAction {
 
 
 	/**
-	 * Set the weight of the action for random selection
-	 * @param weight
-	 */
-	public setWeightForRandomSelection(weight: number): void {
-		this.weightForRandomSelection = weight;
-	}
-
-	/**
 	 * Return the amount of breath the action cost
 	 */
 	public getBreathCost(): number {

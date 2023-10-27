@@ -1,11 +1,10 @@
 import {Fighter} from "./Fighter";
-import {FightActions} from "../actions/FightActions";
 import {FightView} from "../FightView";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {FightAction} from "../actions/FightAction";
 import {PVEConstants} from "../../constants/PVEConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Monster} from "../../../data/Monster";
+import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
 
 export class MonsterFighter extends Fighter {
 
@@ -21,7 +20,7 @@ export class MonsterFighter extends Fighter {
 		const attacks: FightAction[] = [];
 		for (const attack of monster.attacks) {
 			if (level >= attack.minLevel) {
-				const monsterAttackToAdd = FightActions.getFightActionById(attack.id);
+				const monsterAttackToAdd = FightActionDataController.instance.getById(attack.id);
 				monsterAttackToAdd.setWeightForRandomSelection(attack.weight);
 				attacks.push(monsterAttackToAdd);
 			}
@@ -50,13 +49,14 @@ export class MonsterFighter extends Fighter {
 				new DraftBotEmbed()
 					.setDescription(fightView.fightTranslationModule.get("actions.aiChoose"))
 			]
-		}).then((embed) => {
-			const fightAction = this.getRandomAvailableFightAction();
-			setTimeout(async function() {
-				await embed.delete();
-				await fightView.fightController.executeFightAction(fightAction, true);
-			}, RandomUtils.draftbotRandom.integer(500, 2000));
-		});
+		})
+			.then((embed) => {
+				const fightAction = this.getRandomAvailableFightAction();
+				setTimeout(async function() {
+					await embed.delete();
+					await fightView.fightController.executeFightAction(fightAction, true);
+				}, RandomUtils.draftbotRandom.integer(500, 2000));
+			});
 		return Promise.resolve();
 	}
 

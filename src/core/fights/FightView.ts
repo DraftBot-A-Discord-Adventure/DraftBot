@@ -3,7 +3,7 @@ import {Fighter} from "./fighter/Fighter";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
-import {PacketContext} from "draftbot_lib/packets/DraftBotPacket";
+import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
 import {FightWeatherResult} from "@Core/src/core/fights/FightWeather";
 
 /**

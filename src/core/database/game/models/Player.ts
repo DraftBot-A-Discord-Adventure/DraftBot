@@ -521,11 +521,11 @@ export class Player extends Model {
 			});
 	}
 
-	public async getMaxStatsValue(): Promise<{
+	public getMaxStatsValue(): {
 		attack: number,
 		defense: number,
 		speed: number
-	}> {
+	} {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),

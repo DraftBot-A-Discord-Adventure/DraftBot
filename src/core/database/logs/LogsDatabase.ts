@@ -877,7 +877,8 @@ export class LogsDatabase extends Database {
 	 */
 	public async logGuildDaily(guild: Guild, rewardResult: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const reward = Object.values(GuildDailyConstants.REWARD_TYPES).indexOf(rewardResult);
+		const reward = Object.values(GuildDailyConstants.REWARD_TYPES)
+			.indexOf(rewardResult);
 		await LogsGuildsDailies.create({
 			guildId: logGuild.id,
 			reward,
@@ -1014,7 +1015,7 @@ export class LogsDatabase extends Database {
 			for (const player of [player1, player2]) {
 				const fightActionsUsed: { [action: string]: number } = {};
 				for (const fightAction of player.fightActionsHistory) {
-					fightActionsUsed[fightAction.name] ? fightActionsUsed[fightAction.name]++ : fightActionsUsed[fightAction.name] = 1;
+					fightActionsUsed[fightAction.id] ? fightActionsUsed[fightAction.id]++ : fightActionsUsed[fightAction.id] = 1;
 				}
 				for (const [action, count] of Object.entries(fightActionsUsed)) {
 					const [fightAction] = await LogsFightsActions.findOrCreate({
@@ -1071,7 +1072,7 @@ export class LogsDatabase extends Database {
 			});
 			const fightActionsUsed: { [action: string]: number } = {};
 			for (const fightAction of player.fightActionsHistory) {
-				fightActionsUsed[fightAction.name] ? fightActionsUsed[fightAction.name]++ : fightActionsUsed[fightAction.name] = 1;
+				fightActionsUsed[fightAction.id] ? fightActionsUsed[fightAction.id]++ : fightActionsUsed[fightAction.id] = 1;
 			}
 			for (const [action, count] of Object.entries(fightActionsUsed)) {
 				const [fightAction] = await LogsFightsActions.findOrCreate({

@@ -1,9 +1,9 @@
 import {RandomUtils} from "./RandomUtils";
-import {ReactionCollectorCreationPacket, ReactionCollectorEnded, ReactionCollectorReactPacket, ReactionCollectorType} from "draftbot_lib/packets/interaction/ReactionCollectorPacket";
-import {DraftBotPacket, PacketContext} from "draftbot_lib/packets/DraftBotPacket";
+import {ReactionCollectorCreationPacket, ReactionCollectorEnded, ReactionCollectorReactPacket, ReactionCollectorType} from "@Lib/src/packets/interaction/ReactionCollectorPacket";
+import {DraftBotPacket, PacketContext} from "@Lib/src/packets/DraftBotPacket";
 import {Constants} from "../Constants";
 import {BlockingUtils} from "./BlockingUtils";
-import {sendPacketsToContext} from "draftbot_lib/packets/PacketUtils";
+import {sendPacketsToContext} from "@Lib/src/packets/PacketUtils";
 
 type CollectCallback = (collector: ReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => Promise<void>;
 

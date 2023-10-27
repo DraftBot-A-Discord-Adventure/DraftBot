@@ -4,6 +4,7 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -45,7 +46,7 @@ const use: FightActionFunc = (sender, receiver) => {
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.TARGETED
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.TARGETED)
 	}, receiver);
 
 	return result;

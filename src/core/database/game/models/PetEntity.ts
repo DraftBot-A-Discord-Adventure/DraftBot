@@ -85,7 +85,6 @@ export class PetEntity extends Model {
 	public async giveToPlayer(player: Player, response: DraftBotPacket[]): Promise<PET_ENTITY_GIVE_RETURN> {
 		let guild: Guild;
 		let returnValue: PET_ENTITY_GIVE_RETURN;
-		let petDisplay: string;
 		const packet: PlayerReceivePetPacket = {
 			giveInGuild: false,
 			giveInPlayerInv: false,
