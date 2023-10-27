@@ -1,6 +1,6 @@
 import {FightStatModifierOperation} from "./FightStatModifierOperation";
 import {FightActionStatus} from "./FightActionStatus";
-import {FightAlterations} from "@Core/src/core/fights/actions/FightAlterations";
+import {FightAlteration} from "@Core/src/data/FightAlteration";
 
 export enum FightStatBuffed {
 	ATTACK,
@@ -26,7 +26,7 @@ export interface FightActionResult {
 	buffs?: FightActionBuff[],
 	damages: number,
 	attackStatus: FightActionStatus,
-	alterations?: FightAlteration[]
+	alterations?: FightAlterationApplied[]
 	usedAction?: {
 		id: string,
 		result: FightActionResult,
@@ -59,7 +59,7 @@ export function updateFightActionResultFromSuccessTest(result: FightActionResult
 	return result;
 }
 
-export interface FightAlteration {
+export interface FightAlterationApplied {
 	selfTarget: boolean,
-	alteration: (typeof FightAlterations)[keyof typeof FightAlterations]
+	alteration: FightAlteration
 }
