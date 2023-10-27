@@ -4,12 +4,26 @@
     "description": "Lib package of DaftBot, used my multiple module",
     "private": "true",
     "scripts": {
-        "build": "tsc"
+        "start": "tsc && node dist/src/index.js",
+        "postinstall": "link-module-alias",
+        "test": "tsc && jest dist/test",
+        "eslint": "eslint src test",
+        "eslintFix": "eslint src test --fix",
+        "tsc": "tsc",
+        "yarnInstall": "yarn install",
+        "dockerStart": "node dist/src/index.js"
     },
     "dependencies": {
         "@types/node": "20.4.8",
         "@types/ws": "8.5.5",
-        "typescript": "5.1.6",
         "ws": "8.13.0"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "6.8.0",
+		"@typescript-eslint/parser": "6.8.0",
+		"eslint": "8.52.0",
+		"eslint-config-google": "0.14.0",
+        "typescript": "5.2.2",
+		"typescript-eslint": "0.0.1-alpha.0"
     }
 }
