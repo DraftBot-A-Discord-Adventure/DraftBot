@@ -672,6 +672,12 @@ export class CommandsManager {
 			console.log(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noFilePermission"];
 		}
+
+		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ReadMessageHistory)) {
+			console.log(`No perms to show i can't see messages history in server / channel : ${channel.guildId}/${channel.id}`);
+			return [false, "noHistoryPermission"];
+		}
+
 		return [true, ""];
 	}
 }
