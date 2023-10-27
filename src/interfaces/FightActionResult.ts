@@ -1,6 +1,5 @@
 import {FightStatModifierOperation} from "./FightStatModifierOperation";
 import {FightActionStatus} from "./FightActionStatus";
-import {FightAlteration} from "@Core/src/data/FightAlteration";
 
 export enum FightStatBuffed {
 	ATTACK,

@@ -1,7 +1,4 @@
 import {FightActionBuff} from "@Lib/src/interfaces/FightActionResult";
-import {Fighter} from "@Core/src/core/fights/fighter/Fighter";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightAction";
-import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
 export enum FightAlterationState {
 	NEW,
