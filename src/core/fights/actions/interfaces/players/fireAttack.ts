@@ -5,8 +5,9 @@ import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver, _turn) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
 	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 20);
 
@@ -18,7 +19,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver, _turn) => 
 	if (RandomUtils.draftbotRandom.bool(0.8)) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.BURNED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.BURNED)
 		}, receiver);
 	}
 	return result;
@@ -27,16 +28,22 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver, _turn) => 
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 15, averageDamage: 100, maxDamage: 130};
+	return {
+		minDamage: 15,
+		averageDamage: 100,
+		maxDamage: 130
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
 			sender.getAttack()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense() / 4
-		], statsEffect: [
+		],
+		statsEffect: [
 			1
 		]
 	};

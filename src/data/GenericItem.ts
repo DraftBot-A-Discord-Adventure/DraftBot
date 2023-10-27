@@ -3,15 +3,15 @@ import {Data} from "./Data";
 export type MaxStatsValues = { attack: number, defense: number, speed: number }
 
 export abstract class GenericItem extends Data<number> {
-    declare readonly rarity: number;
+	declare readonly rarity: number;
 
-    declare readonly emote: string;
+	declare readonly emote: string;
 
-    declare readonly fallbackEmote?: string;
+	declare readonly fallbackEmote?: string;
 
-    declare readonly frenchMasculine?: boolean;
+	declare readonly frenchMasculine?: boolean;
 
-    declare readonly frenchPlural?: boolean;
+	declare readonly frenchPlural?: boolean;
 
     abstract categoryName: string;
 

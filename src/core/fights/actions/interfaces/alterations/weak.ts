@@ -1,25 +1,27 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAlteration} from "../../FightAlteration";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 
-export default class WeakAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const weakTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 1) { // This effect heals after one turn
-			victim.removeAttackModifiers(this);
-			victim.removeAlteration();
-			return weakTranslationModule.get("heal");
-		}
-		if (!victim.hasAttackModifier(this)) {
-			// Attack is reduced by 70%
-			victim.applyAttackModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 0.3
-			});
-			return weakTranslationModule.get("new");
-		}
-		return weakTranslationModule.get("active");
+const use: FightAlterationFunc = (affected, fightAlteration) => {
+	if (affected.alterationTurn > 1) { // This effect heals after one turn
+		affected.removeAttackModifiers(fightAlteration);
+		return defaultHealFightAlterationResult(affected);
 	}
-}
+
+	const result = defaultFightAlterationResult();
+
+	if (!affected.hasAttackModifier(fightAlteration)) {
+		result.state = FightAlterationState.NEW;
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.ATTACK,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.3
+		}, affected, fightAlteration);
+	}
+	return result;
+};
+
+export default use;

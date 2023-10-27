@@ -1,4 +1,4 @@
-import {Fighter, FightStatModifierOperation} from "./fighter/Fighter";
+import {Fighter} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -11,7 +11,8 @@ import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../constants/PVEConstants";
-import {PacketContext} from "draftbot_lib/packets/DraftBotPacket";
+import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
 /**
  * @class FightController
@@ -37,8 +38,14 @@ export class FightController {
 	private readonly overtimeBehavior: FightOvertimeBehavior;
 
 	public constructor(
-		fighters: { fighter1: Fighter, fighter2: Fighter },
-		fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior },
+		fighters: {
+			fighter1: Fighter,
+			fighter2: Fighter
+		},
+		fightParameters: {
+			friendly: boolean,
+			overtimeBehavior: FightOvertimeBehavior
+		},
 		context: PacketContext) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;

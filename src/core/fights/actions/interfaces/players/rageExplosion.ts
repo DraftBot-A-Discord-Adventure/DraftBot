@@ -7,7 +7,7 @@ import {PVEConstants} from "../../../../constants/PVEConstants";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const playerSender = <PlayerFighter>sender;
 	const damages = Math.round(
 		FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo())
@@ -24,7 +24,11 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 10, averageDamage: 45, maxDamage: 85};
+	return {
+		minDamage: 10,
+		averageDamage: 45,
+		maxDamage: 85
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -32,10 +36,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			sender.getAttack(),
 			sender.getSpeed()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense(),
 			receiver.getSpeed()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.7,
 			0.3
 		]

@@ -1,32 +1,35 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAlteration} from "../../FightAlteration";
-import {FightAlterations} from "../../FightAlterations";
+import {FightAlterationDataController, FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightAlterations} from "@Core/src/core/fights/actions/FightAlterations";
 
-export default class OutrageAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const outrageTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 2) { // This effect heals after two turns
-			victim.removeAttackModifiers(this);
-			victim.removeSpeedModifiers(this);
-			victim.removeAlteration();
-			victim.newAlteration(FightAlterations.STUNNED);
-			return outrageTranslationModule.get("heal");
-		}
-		if (!victim.hasAttackModifier(this)) {
-			victim.applyDefenseModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 0.25
-			});
-			victim.applyAttackModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 2
-			});
-			return outrageTranslationModule.get("new");
-		}
-		return outrageTranslationModule.get("active");
+const use: FightAlterationFunc = (affected, fightAlteration) => {
+	if (affected.alterationTurn > 2) { // This effect heals after two turns
+		affected.removeAttackModifiers(fightAlteration);
+		affected.removeSpeedModifiers(fightAlteration);
+		const result = defaultHealFightAlterationResult(affected);
+		affected.newAlteration(FightAlterationDataController.instance.getById(FightAlterations.STUNNED));
+		return result;
 	}
-}
+	const result = defaultFightAlterationResult();
+	if (!affected.hasAttackModifier(fightAlteration)) {
+		result.state = FightAlterationState.NEW;
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.ATTACK,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 2
+		}, affected, fightAlteration);
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.DEFENSE,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.25
+		}, affected, fightAlteration);
+	}
+	return result;
+};
+
+export default use;

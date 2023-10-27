@@ -6,11 +6,20 @@ import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 1, failure: 1},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 1,
+			failure: 1
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 	// Reduce defense of the sender by 33 %
 	FightActionController.applyBuff(result, {

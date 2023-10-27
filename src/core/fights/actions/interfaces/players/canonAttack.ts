@@ -5,12 +5,13 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 
 	// This attack will miss more if the opponent is fast
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, MathUtils.getIntervalValue(5, 35, (receiver.getSpeed() + 20) / 320));
 
 	// If the attack was used two times in a row, the damage is multiplied by 1.5
 	const lastFightAction = sender.getLastFightActionUsed();
@@ -27,7 +28,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 	if (Math.random() < 0.65) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.SLOWED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
 		}, receiver);
 	}
 	return result;

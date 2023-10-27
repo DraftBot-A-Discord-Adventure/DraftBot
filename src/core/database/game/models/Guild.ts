@@ -8,11 +8,11 @@ import {PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
-import moment = require("moment");
 import {TopConstants} from "../../../constants/TopConstants";
-import {draftBotInstance} from "../../../../index";
-import { DraftBotPacket } from "draftbot_lib/packets/DraftBotPacket";
-import { GuildLevelUpPacket } from "draftbot_lib/packets/notifications/GuildLevelUpPacket";
+import {draftBotInstance} from "@Core/src";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {GuildLevelUpPacket} from "@Lib/src/packets/notifications/GuildLevelUpPacket";
+import moment = require("moment");
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -71,7 +71,8 @@ export class Guild extends Model {
 	 * Completely destroy a guild from the database
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
-		draftBotInstance.logsDatabase.logGuildDestroy(this).then();
+		draftBotInstance.logsDatabase.logGuildDestroy(this)
+			.then();
 		const guildPetsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<number>[] = [];
 		const pets = await GuildPets.getOfGuild(this.id);
@@ -118,7 +119,8 @@ export class Guild extends Model {
 		}
 		this.experience += experience;
 		this.setExperience(this.experience);
-		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason).then();
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, reason)
+			.then();
 		await this.levelUpIfNeeded(response);
 	}
 
@@ -139,12 +141,14 @@ export class Guild extends Model {
 		}
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
-		draftBotInstance.logsDatabase.logGuildLevelUp(this).then();
-		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP).then();
+		draftBotInstance.logsDatabase.logGuildLevelUp(this)
+			.then();
+		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP)
+			.then();
 		const levelUpPacket: GuildLevelUpPacket = {
 			guildName: this.name,
 			level: this.level
-		}
+		};
 		response.push(levelUpPacket);
 		for (const member of await Players.getByGuild(this.id)) {
 			await MissionsController.update(member, response, {
@@ -208,7 +212,8 @@ export class Guild extends Model {
 		if (this.isStorageFullFor(selectedItemType, 0)) {
 			this.setDataValue(selectedItemType, GuildConstants.MAX_PET_FOOD[getFoodIndexOf(selectedItemType)]);
 		}
-		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(selectedItemType), this.getDataValue(selectedItemType), reason).then();
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(selectedItemType), this.getDataValue(selectedItemType), reason)
+			.then();
 	}
 
 	/**
@@ -219,20 +224,8 @@ export class Guild extends Model {
 	 */
 	public removeFood(item: string, quantity: number, reason: NumberChangeReason): void {
 		this.setDataValue(item, this.getDataValue(item) - quantity);
-		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(item), this.getDataValue(item), reason).then();
-	}
-
-	/**
-	 * Set the guild's experience
-	 * @param experience
-	 */
-	private setExperience(experience: number): void {
-		if (experience > 0) {
-			this.experience = experience;
-		}
-		else {
-			this.experience = 0;
-		}
+		draftBotInstance.logsDatabase.logGuildsFoodChanges(this, getFoodIndexOf(item), this.getDataValue(item), reason)
+			.then();
 	}
 
 	/**
@@ -242,7 +235,8 @@ export class Guild extends Model {
 	 */
 	public addScore(points: number, reason: NumberChangeReason): void {
 		this.score += points;
-		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason).then();
+		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason)
+			.then();
 	}
 
 	/**
@@ -261,7 +255,22 @@ export class Guild extends Model {
 			replacements: {
 				id: this.id
 			}
-		}))[0][0] as { ranking: number }).ranking;
+		}))[0][0] as {
+			ranking: number
+		}).ranking;
+	}
+
+	/**
+	 * Set the guild's experience
+	 * @param experience
+	 */
+	private setExperience(experience: number): void {
+		if (experience > 0) {
+			this.experience = experience;
+		}
+		else {
+			this.experience = 0;
+		}
 	}
 }
 
@@ -286,7 +295,9 @@ export class Guilds {
 		const query = `SELECT AVG(level) as avg
 					   FROM guilds`;
 		return Math.round(
-			(<{ avg: number }[]>(await Guild.sequelize.query(query, {
+			(<{
+				avg: number
+			}[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -368,19 +379,23 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
 		tableName: "guilds",
 		freezeTableName: true
-	}).beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
-	});
+	})
+		.beforeSave(instance => {
+			instance.updatedAt = moment()
+				.toDate();
+		});
 }
 
 export default Guild;

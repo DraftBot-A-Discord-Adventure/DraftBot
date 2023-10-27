@@ -6,11 +6,11 @@ import {Player, PlayerEditValueParameters} from "./Player";
 import {PetConstants} from "../../../constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
+import {Pet, PetDataController} from "@Core/src/data/Pet";
+import {draftBotInstance} from "@Core/src";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {PlayerReceivePetPacket} from "@Lib/src/packets/notifications/PlayerReceivePetPacket";
 import moment = require("moment");
-import {Pet, PetDataController} from "../../../../data/Pet";
-import {draftBotInstance} from "../../../../index";
-import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
-import {PlayerReceivePetPacket} from "draftbot_lib/packets/notifications/PlayerReceivePetPacket";
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -60,7 +60,8 @@ export class PetEntity extends Model {
 		else if (this.lovePoints < 0) {
 			this.lovePoints = 0;
 		}
-		draftBotInstance.logsDatabase.logPetLoveChange(this, parameters.reason).then();
+		draftBotInstance.logsDatabase.logPetLoveChange(this, parameters.reason)
+			.then();
 		await MissionsController.update(parameters.player, parameters.response, {
 			missionId: "tamedPet",
 			params: {loveLevel: this.getLoveLevelNumber()}
@@ -85,19 +86,18 @@ export class PetEntity extends Model {
 		let guild: Guild;
 		let returnValue: PET_ENTITY_GIVE_RETURN;
 		let petDisplay: string;
-		let packet: PlayerReceivePetPacket = {
+		const packet: PlayerReceivePetPacket = {
 			giveInGuild: false,
 			giveInPlayerInv: false,
 			noRoomInGuild: false,
 			petId: this.petId,
 			petSex: this.sex
-		}
+		};
 
 		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
 
@@ -109,7 +109,8 @@ export class PetEntity extends Model {
 		}
 		else if (!noRoomInGuild && player.petId !== null) {
 			await this.save();
-			await GuildPets.addPet(guild, this, true).save();
+			await GuildPets.addPet(guild, this, true)
+				.save();
 			packet.giveInGuild = true;
 			returnValue = PET_ENTITY_GIVE_RETURN.GUILD;
 		}
@@ -186,7 +187,9 @@ export class PetEntities {
 		const query = `SELECT COUNT(*) as count
 					   FROM pet_entities
 					   WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
-		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -195,7 +198,9 @@ export class PetEntities {
 		const query = `SELECT COUNT(*) as count
 					   FROM pet_entities
 					   WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
-		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -204,7 +209,9 @@ export class PetEntities {
 		const query = `SELECT COUNT(*) as count
 					   FROM pet_entities
 					   WHERE sex = :sex`;
-		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
 				sex: sex
@@ -215,7 +222,9 @@ export class PetEntities {
 	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 					   FROM pet_entities`;
-		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -250,11 +259,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -263,7 +274,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	PetEntity.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

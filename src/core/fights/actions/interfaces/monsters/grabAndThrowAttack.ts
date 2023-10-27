@@ -7,8 +7,9 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	if (!receiver.getLastFightActionUsed() || receiver.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
 		return defaultFailFightActionResult();
 	}
@@ -31,7 +32,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 	if (RandomUtils.draftbotRandom.bool()) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.STUNNED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
 		}, receiver);
 	}
 

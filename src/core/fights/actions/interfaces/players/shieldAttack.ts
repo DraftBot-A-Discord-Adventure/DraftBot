@@ -4,16 +4,26 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 5, failure: 5},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 5,
+			failure: 5
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.WEAK
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.WEAK)
 	}, receiver);
 	return result;
 };
@@ -21,7 +31,11 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 15, averageDamage: 60, maxDamage: 85};
+	return {
+		minDamage: 15,
+		averageDamage: 60,
+		maxDamage: 85
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -29,10 +43,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			sender.getDefense(),
 			sender.getAttack()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense(),
 			receiver.getDefense()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.8,
 			0.2
 		]

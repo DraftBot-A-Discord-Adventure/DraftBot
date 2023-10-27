@@ -70,7 +70,7 @@ export class FightWeather {
 
 		this.lastWeather = this.currentWeather;
 		return {
-			weatherState: didWeatherChanged ? (this.currentWeather === FightWeatherEnum.SUNNY ? FightWeatherState.END : FightWeatherState.CHANGE) : FightWeatherState.CONTINUE,
+			weatherState: didWeatherChanged ? this.currentWeather === FightWeatherEnum.SUNNY ? FightWeatherState.END : FightWeatherState.CHANGE : FightWeatherState.CONTINUE,
 			currentWeather: this.currentWeather === FightWeatherEnum.SUNNY && didWeatherChanged ? this.lastWeather : this.currentWeather,
 			damages
 		};

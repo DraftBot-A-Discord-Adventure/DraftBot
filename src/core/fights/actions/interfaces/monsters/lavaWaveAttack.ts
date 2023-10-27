@@ -4,8 +4,9 @@ import {FightAlterations} from "../../FightAlterations";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -23,7 +24,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.BURNED
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.BURNED)
 	}, receiver);
 	return result;
 };

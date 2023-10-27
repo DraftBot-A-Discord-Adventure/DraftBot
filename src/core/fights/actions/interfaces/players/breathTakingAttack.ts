@@ -32,11 +32,20 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 1, failure: 10},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 1,
+			failure: 10
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 
 	// 60% chance of reducing the opponent's speed by 20%. Otherwise, steal 1 point of breath from the opponent.

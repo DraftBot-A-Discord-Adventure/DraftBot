@@ -3,7 +3,7 @@ import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierO
 import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
-const use: FightActionFunc = (_fight, fightAction, sender) => {
+const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	// Amount of times the sender has used the move already in its 3 last moves
 	const streak = sender.fightActionsHistory.slice(-3)
 		.filter(action => action === fightAction).length;

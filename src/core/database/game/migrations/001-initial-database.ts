@@ -214,7 +214,7 @@ export const petAttributes001 = {
 	},
 	updatedAt: DataTypes.DATE,
 	createdAt: DataTypes.DATE
-}
+};
 
 export const entitiesAttributes001 = {
 	id: {

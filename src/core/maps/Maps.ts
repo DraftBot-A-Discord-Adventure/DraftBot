@@ -1,7 +1,4 @@
 import Player from "../database/game/models/Player";
-import {Constants} from "../Constants";
-import {millisecondsToHours, millisecondsToMinutes} from "../utils/TimeUtils";
-import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "./TravelTime";
 import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "./MapCache";
@@ -9,7 +6,7 @@ import {Op} from "sequelize";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {MapLocation, MapLocationDataController} from "../../data/MapLocation";
-import {draftBotInstance} from "../../index";
+import {draftBotInstance} from "@Core/src";
 
 export class Maps {
 
@@ -20,7 +17,7 @@ export class Maps {
 	 */
 	static getNextPlayerAvailableMaps(player: Player): number[] {
 		if (!player.mapLinkId) {
-			player.mapLinkId = (MapLinkDataController.instance.getRandomLink()).id;
+			player.mapLinkId = MapLinkDataController.instance.getRandomLink().id;
 		}
 
 		const map = player.getDestinationId();
@@ -64,7 +61,8 @@ export class Maps {
 		player.startTravelDate = new Date(time);
 		await player.save();
 
-		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink).then();
+		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink)
+			.then();
 	}
 
 	/**
@@ -175,7 +173,7 @@ export class Maps {
 	/**
 	 * Get the lost of all the mapLocations
 	 */
-	static getMaps() : MapLocation[] {
-		return MapLocationDataController.instance.getAll() ;
+	static getMaps(): MapLocation[] {
+		return MapLocationDataController.instance.getAll();
 	}
 }

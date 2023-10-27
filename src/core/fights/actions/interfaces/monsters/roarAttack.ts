@@ -3,7 +3,7 @@ import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/Fig
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (_sender, receiver, fightAction) => {
 	const result = defaultFightActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: false,

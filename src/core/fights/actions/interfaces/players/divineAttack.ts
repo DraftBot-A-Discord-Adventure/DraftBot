@@ -6,6 +6,7 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
 	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
@@ -37,7 +38,7 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver, turn) => {
+const use: FightActionFunc = (sender, receiver, _fightAction, turn) => {
 	const usedGodMoves = getUsedGodMoves(sender, receiver);
 
 	// Only works if less than 2 god moves have been used
@@ -62,7 +63,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver, turn) => {
 	if (Math.random() < 0.2) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.PARALYZED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.PARALYZED)
 		}, receiver);
 	}
 	return result;

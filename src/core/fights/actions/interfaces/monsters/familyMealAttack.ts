@@ -4,8 +4,9 @@ import {FightActionController} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, fightAction, sender: Fighter, receiver: Fighter) => {
+const use: FightActionFunc = (sender: Fighter, receiver: Fighter) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -23,14 +24,14 @@ const use: FightActionFunc = (_fight, fightAction, sender: Fighter, receiver: Fi
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.POISONED
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.POISONED)
 	}, receiver);
 
 	sender.removeAlteration();
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: true,
-		alteration: FightAlterations.FULL
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.FULL)
 	}, sender);
 
 	return result;

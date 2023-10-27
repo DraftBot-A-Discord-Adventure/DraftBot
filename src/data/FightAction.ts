@@ -16,14 +16,14 @@ export class FightAction extends Data<string> {
 	public readonly type: FightActionType;
 
 
-	public use(fight: FightController, sender: Fighter, receiver: Fighter, turn: number): FightActionResult {
-		const result = FightActionDataController.getFightActionFunction(this.id)(fight, this, sender, receiver, turn);
+	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
+		const result = FightActionDataController.getFightActionFunction(this.id)(sender, receiver, this, turn, fight);
 		receiver.damage(result.damages);
 		return result;
 	}
 }
 
-export type FightActionFunc = (fight: FightController, fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number) => FightActionResult;
+export type FightActionFunc = (sender: Fighter, receiver: Fighter, fightAction: FightAction, turn: number, fight: FightController) => FightActionResult;
 
 
 export class FightActionDataController extends DataController<string, FightAction> {
@@ -32,7 +32,7 @@ export class FightActionDataController extends DataController<string, FightActio
 	private static fightActionsFunctionsCache: Map<string, FightActionFunc>;
 
 	public static getFightActionFunction(id: string): FightActionFunc {
-		if (FightActionDataController.fightActionsFunctionsCache == null) {
+		if (FightActionDataController.fightActionsFunctionsCache === null) {
 			FightActionDataController.fightActionsFunctionsCache = new Map<string, FightActionFunc>();
 			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
 			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "./interfaces/monsters");
@@ -54,5 +54,9 @@ export class FightActionDataController extends DataController<string, FightActio
 
 	newInstance(): FightAction {
 		return new FightAction();
+	}
+
+	getNone(): FightAction {
+		return this.getById("none");
 	}
 }

@@ -6,7 +6,7 @@ import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/S
 import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,

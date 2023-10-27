@@ -1,46 +1,37 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
-import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
-import {FightAlteration} from "../../FightAlteration";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "@Lib/src/interfaces/FightAlterationResult";
 
-export default class TargetedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const targetedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-
-		if (victim.alterationTurn === 1 || victim.alterationTurn === 3) {
-			return targetedTranslationModule.get("boomerangSpin");
-		}
-
-		if (victim.alterationTurn > 4 ||
-			RandomUtils.draftbotRandom.bool(0.05) ||
-			RandomUtils.draftbotRandom.bool(0.15)
-			&& victim.alterationTurn > 2) {
-			victim.removeAlteration();
-			return targetedTranslationModule.get("heal");
-		}
-
-		const damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim, this.getAttackInfo(), true);
-		victim.damage(damageDealt);
-		return format(targetedTranslationModule.get("damage"), {damages: damageDealt});
+const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
+	if (affected.alterationTurn === 1 || affected.alterationTurn === 3) {
+		return defaultFightAlterationResult();
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 45, averageDamage: 90, maxDamage: 150};
+	if (affected.alterationTurn > 4 ||
+		affected.alterationTurn > 2 && RandomUtils.draftbotRandom.bool(0.15) ||
+		RandomUtils.draftbotRandom.bool(0.05)) {
+		return defaultHealFightAlterationResult(affected);
 	}
 
-	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack()
-			], defenderStats: [
-				victim.getDefense()
-			], statsEffect: [
-				1
-			]
-		};
-	}
+	return defaultDamageFightAlterationResult(affected, getStatsInfo(affected, opponent), getAttackInfo());
+};
+
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {minDamage: 45, averageDamage: 90, maxDamage: 150};
+}
+
+function getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack()
+		], defenderStats: [
+			victim.getDefense()
+		], statsEffect: [
+			1
+		]
+	};
 }

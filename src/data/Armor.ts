@@ -1,35 +1,35 @@
 import {MainItem} from "./MainItem";
 import {ItemConstants} from "../core/constants/ItemConstants";
-import {DataController, ItemDataController} from "./DataController";
+import {ItemDataController} from "./DataController";
 
 export class Armor extends MainItem {
-    categoryName = "armors";
+	categoryName = "armors";
 
-    public getAttack(): number {
-        let before = 0;
-        if (this.rawAttack > 0) {
-            before = 1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawAttack);
-        }
-        return Math.round(before * 0.75) + this.attack;
-    }
+	public getAttack(): number {
+		let before = 0;
+		if (this.rawAttack > 0) {
+			before = 1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawAttack);
+		}
+		return Math.round(before * 0.75) + this.attack;
+	}
 
-    public getCategory(): number {
-        return ItemConstants.CATEGORIES.ARMOR;
-    }
+	public getCategory(): number {
+		return ItemConstants.CATEGORIES.ARMOR;
+	}
 
-    public getDefense(): number {
-        return Math.round(1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawDefense)) + this.defense;
-    }
+	public getDefense(): number {
+		return Math.round(1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawDefense)) + this.defense;
+	}
 
-    public getItemAddedValue(): number {
-        return this.rawDefense;
-    }
+	public getItemAddedValue(): number {
+		return this.rawDefense;
+	}
 }
 
 export class ArmorDataController extends ItemDataController<number, Armor> {
-    static readonly instance: ArmorDataController = new ArmorDataController("armors");
+	static readonly instance: ArmorDataController = new ArmorDataController("armors");
 
-    newInstance(): Armor {
-        return new Armor();
-    }
+	newInstance(): Armor {
+		return new Armor();
+	}
 }

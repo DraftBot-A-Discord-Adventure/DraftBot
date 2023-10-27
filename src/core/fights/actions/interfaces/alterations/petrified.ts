@@ -1,28 +1,30 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAlteration} from "../../FightAlteration";
-import {FightActions} from "../../FightActions";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionDataController} from "@Core/src/data/FightAction";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-export default class PetrifiedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const petrifiedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 2) { // This effect heals after two turns
-			victim.removeDefenseModifiers(this);
-			victim.removeAlteration();
-			return petrifiedTranslationModule.get("heal");
-		}
-
-		if (!victim.hasDefenseModifier(this)) {
-			victim.applyDefenseModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 2
-			});
-			return petrifiedTranslationModule.get("new");
-		}
-
-		victim.nextFightAction = FightActions.getNoAttack();
-		return petrifiedTranslationModule.get("active");
+const use: FightAlterationFunc = (affected, fightAction) => {
+	if (affected.alterationTurn > 2) { // This effect heals after two turns
+		affected.removeDefenseModifiers(fightAction);
+		return defaultHealFightAlterationResult(affected);
 	}
-}
+
+	const result = defaultFightAlterationResult();
+	result.state = FightAlterationState.NO_ACTION;
+
+	if (!affected.hasDefenseModifier(fightAction)) {
+		result.state = FightAlterationState.NEW;
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.DEFENSE,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 2
+		}, affected, fightAction);
+	}
+	affected.nextFightAction = FightActionDataController.instance.getNone();
+	return result;
+};
+
+export default use;

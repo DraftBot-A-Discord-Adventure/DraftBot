@@ -1,5 +1,5 @@
 export abstract class Data<T> {
-    public readonly id: T;
+	public id: T;
 
-    public readonly tags?: string[];
+	public tags?: string[];
 }

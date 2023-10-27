@@ -3,8 +3,9 @@ import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = defaultFightActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
@@ -14,7 +15,7 @@ const use: FightActionFunc = (fight, fightAction, sender, receiver) => {
 	}, sender, fightAction);
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.FROZEN
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.FROZEN)
 	}, receiver);
 	return result;
 };

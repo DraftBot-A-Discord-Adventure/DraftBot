@@ -4,8 +4,9 @@ import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
 
 	// Check if the sender has less than 45% of his fight points
@@ -19,11 +20,9 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 	};
 
 	FightActionController.applyAlteration(result, {
-			selfTarget: false,
-			alteration: FightAlterations.SLOWED
-		},
-		receiver
-	);
+		selfTarget: false,
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
+	}, receiver);
 
 	return result;
 };

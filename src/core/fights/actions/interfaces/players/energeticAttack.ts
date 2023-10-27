@@ -6,11 +6,20 @@ import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 35, failure: 5},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 35,
+			failure: 5
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 
 	FightActionController.applyBuff(result, {
@@ -26,7 +35,11 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 30, averageDamage: 75, maxDamage: 115};
+	return {
+		minDamage: 30,
+		averageDamage: 75,
+		maxDamage: 115
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -34,10 +47,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			sender.getAttack(),
 			sender.getSpeed()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense() * 0.2,
 			receiver.getSpeed()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.75,
 			0.25
 		]

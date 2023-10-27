@@ -19,7 +19,7 @@ import {MapCache} from "../../maps/MapCache";
 import {PVEConstants} from "../../constants/PVEConstants";
 import {LogsGuildsJoins} from "./models/LogsGuildJoins";
 import {LogsGuilds} from "./models/LogsGuilds";
-import {MapLocation, MapLocationDataController} from "../../../data/MapLocation";
+import {MapLocationDataController} from "../../../data/MapLocation";
 
 type RankedFightResult = {
 	won: number,
@@ -41,7 +41,8 @@ export class LogsReadRequests {
 			},
 			order: [["date", "DESC"]],
 			limit: 1
-		}).then((res) => new Date(res ? res.date : 0));
+		})
+			.then((res) => new Date(res ? res.date : 0));
 	}
 
 	/**
@@ -112,7 +113,11 @@ export class LogsReadRequests {
 					as: "LogsPlayer1"
 				})
 			}]
-		}) as unknown as { LogsPlayer1: { discordId: string } }[];
+		}) as unknown as {
+			LogsPlayer1: {
+				discordId: string
+			}
+		}[];
 		return await Player.findAll({
 			where: {
 				discordUserId: {
@@ -128,12 +133,13 @@ export class LogsReadRequests {
 	static getDateOfLastDailyPotionReset(): Promise<number> {
 		return LogsDailyPotions.findOne({
 			order: [["date", "DESC"]]
-		}).then((result) => {
-			if (result) {
-				return result.date;
-			}
-			return 0;
-		});
+		})
+			.then((result) => {
+				if (result) {
+					return result.date;
+				}
+				return 0;
+			});
 	}
 
 	/**
@@ -142,12 +148,13 @@ export class LogsReadRequests {
 	static getDateOfLastSeasonReset(): Promise<number> {
 		return LogsSeasonEnd.findOne({
 			order: [["date", "DESC"]]
-		}).then((result) => {
-			if (result) {
-				return result.date;
-			}
-			return 0;
-		});
+		})
+			.then((result) => {
+				if (result) {
+					return result.date;
+				}
+				return 0;
+			});
 	}
 
 	/**
@@ -160,12 +167,13 @@ export class LogsReadRequests {
 			where: {
 				playerId: logPlayer.id
 			}
-		}).then((result) => {
-			if (result) {
-				return result.date;
-			}
-			return null;
-		});
+		})
+			.then((result) => {
+				if (result) {
+					return result.date;
+				}
+				return null;
+			});
 	}
 
 	/**
@@ -213,49 +221,6 @@ export class LogsReadRequests {
 		}
 
 		return await this.travelsOnPveIslandsCountThisWeekRequest(discordId);
-	}
-
-	private static async travelsOnPveIslandsCountThisWeekRequest(discordId: string): Promise<number> {
-		return await LogsPlayersTravels.count({
-			where: {
-				"$LogsPlayer.discordId$": discordId,
-				date: {
-					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
-				},
-				"$LogsMapLink.start$": (MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT]))[0].id,
-				"$LogsMapLink.end$": {
-					[Op.in]: (MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY])).map((mapLocation) => mapLocation.id)
-				}
-			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsPlayersTravels, LogsPlayers, {sourceKey: "playerId", foreignKey: "id"})
-			}, {
-				model: LogsMapLinks,
-				association: new HasOne(LogsPlayersTravels, LogsMapLinks, {sourceKey: "mapLinkId", foreignKey: "id"})
-			}],
-			col: "playerId"
-		});
-	}
-
-	private static async joinGuildThisWeekRequest(discordId: string, guildId: number): Promise<boolean> {
-		return await LogsGuildsJoins.count({
-			where: {
-				"$LogsPlayer.discordId$": discordId,
-				"$LogsGuild.gameId$": guildId,
-				date: {
-					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
-				}
-			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
-			}, {
-				model: LogsGuilds,
-				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
-			}],
-			col: "addedId"
-		}) !== 0;
 	}
 
 	/*
@@ -317,6 +282,50 @@ export class LogsReadRequests {
 				}
 			}
 		});
+	}
+
+	private static async travelsOnPveIslandsCountThisWeekRequest(discordId: string): Promise<number> {
+		return await LogsPlayersTravels.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				},
+				"$LogsMapLink.start$": MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT])[0].id,
+				"$LogsMapLink.end$": {
+					[Op.in]: MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY])
+						.map((mapLocation) => mapLocation.id)
+				}
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsPlayersTravels, LogsPlayers, {sourceKey: "playerId", foreignKey: "id"})
+			}, {
+				model: LogsMapLinks,
+				association: new HasOne(LogsPlayersTravels, LogsMapLinks, {sourceKey: "mapLinkId", foreignKey: "id"})
+			}],
+			col: "playerId"
+		});
+	}
+
+	private static async joinGuildThisWeekRequest(discordId: string, guildId: number): Promise<boolean> {
+		return await LogsGuildsJoins.count({
+			where: {
+				"$LogsPlayer.discordId$": discordId,
+				"$LogsGuild.gameId$": guildId,
+				date: {
+					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+				}
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
+			}, {
+				model: LogsGuilds,
+				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
+			}],
+			col: "addedId"
+		}) !== 0;
 	}
 
 	/**

@@ -5,10 +5,11 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
 	// This attack will do less damage if the opponent has lower defense than the attacker
 	damageDealt.damages *= Math.round(receiver.getDefense() < sender.getDefense() ? 0.1 : 1);
@@ -21,7 +22,7 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
 	if (Math.random() < 0.25) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.STUNNED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
 		}, receiver);
 	}
 
@@ -39,7 +40,11 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 40, averageDamage: 120, maxDamage: 180};
+	return {
+		minDamage: 40,
+		averageDamage: 120,
+		maxDamage: 180
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -47,10 +52,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			sender.getAttack(),
 			sender.getSpeed()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense(),
 			receiver.getSpeed()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.7,
 			0.3
 		]

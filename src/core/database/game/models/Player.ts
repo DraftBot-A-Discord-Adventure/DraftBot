@@ -25,20 +25,20 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {LeagueInfoConstants} from "../../../constants/LeagueInfoConstants";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
-import moment = require("moment");
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
 import {Guilds} from "./Guild";
-import {DraftBotPacket} from "draftbot_lib/packets/DraftBotPacket";
-import {PlayerDeathPacket} from "draftbot_lib/packets/notifications/PlayerDeathPacket";
-import {PlayerLeavePveIslandPacket} from "draftbot_lib/packets/notifications/PlayerLeavePveIslandPacket";
-import {PlayerLevelUpPacket} from "draftbot_lib/packets/notifications/PlayerLevelUpPacket";
-import {MapLinkDataController} from "../../../../data/MapLink";
-import {MapLocation, MapLocationDataController} from "../../../../data/MapLocation";
-import {draftBotInstance} from "../../../../index";
-import {GenericItem} from "../../../../data/GenericItem";
-import {Class, ClassDataController} from "../../../../data/Class";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {PlayerDeathPacket} from "@Lib/src/packets/notifications/PlayerDeathPacket";
+import {PlayerLeavePveIslandPacket} from "@Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
+import {PlayerLevelUpPacket} from "@Lib/src/packets/notifications/PlayerLevelUpPacket";
+import {MapLinkDataController} from "@Core/src/data/MapLink";
+import {MapLocation, MapLocationDataController} from "@Core/src/data/MapLocation";
+import {draftBotInstance} from "@Core/src";
+import {GenericItem} from "@Core/src/data/GenericItem";
+import {Class, ClassDataController} from "@Core/src/data/Class";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
-import {League, LeagueDataController} from "../../../../data/League";
+import {League, LeagueDataController} from "@Core/src/data/League";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -214,7 +214,8 @@ export class Player extends Model {
 			Object.assign(this, newPlayer);
 		}
 		await this.setScore(this.score, parameters.response);
-		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason).then();
+		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason)
+			.then();
 		this.addWeeklyScore(parameters.amount);
 		return this;
 	}
@@ -235,7 +236,8 @@ export class Player extends Model {
 			Object.assign(this, newPlayer);
 		}
 		this.setMoney(this.money);
-		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason).then();
+		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason)
+			.then();
 		return this;
 	}
 
@@ -278,7 +280,7 @@ export class Player extends Model {
 			classesTier5Unlocked: this.level === Constants.CLASS.GROUP4LEVEL,
 			missionSlotUnlocked: this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL,
 			pveUnlocked: this.level === PVEConstants.MIN_LEVEL
-		}
+		};
 
 		if (healthRestored) {
 			await this.addHealth(await this.getMaxHealth() - this.health, response, NumberChangeReason.LEVEL_UP, {
@@ -301,9 +303,11 @@ export class Player extends Model {
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
-		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP).then();
+		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP)
+			.then();
 		this.level++;
-		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level).then();
+		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level)
+			.then();
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachLevel",
 			count: this.level,
@@ -377,7 +381,8 @@ export class Player extends Model {
 	 */
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
-		if (Object.values(EffectsConstants.EMOJI_TEXT).includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
+		if (Object.values(EffectsConstants.EMOJI_TEXT)
+			.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
 			if (!this.effectEndDate || this.effectEndDate.valueOf() === 0) {
 				return 0;
 			}
@@ -439,7 +444,9 @@ export class Player extends Model {
 						 AND score
 						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ count: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				count: number
+			}[]>(await Player.sequelize.query(query, {
 				replacements: {
 					link: this.mapLinkId,
 					linkInverse: oppositeLink.id
@@ -499,7 +506,8 @@ export class Player extends Model {
 				slot: 0,
 				itemCategory: ItemConstants.CATEGORIES.POTION
 			}
-		}).then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
+		})
+			.then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
 		await InventorySlot.update(
 			{
 				itemId: InventoryConstants.POTION_DEFAULT_ID
@@ -539,7 +547,8 @@ export class Player extends Model {
 	 */
 	public async addExperience(parameters: EditValueParameters): Promise<Player> {
 		this.experience += parameters.amount;
-		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason).then();
+		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason)
+			.then();
 		if (parameters.amount > 0) {
 			const newPlayer = await MissionsController.update(this, parameters.response, {
 				missionId: "earnXP",
@@ -567,7 +576,8 @@ export class Player extends Model {
 	 */
 	public setPet(petEntity: PetEntity): void {
 		this.petId = petEntity.id;
-		draftBotInstance.logsDatabase.logPlayerNewPet(this.discordUserId, petEntity).then();
+		draftBotInstance.logsDatabase.logPlayerNewPet(this.discordUserId, petEntity)
+			.then();
 	}
 
 	/**
@@ -575,7 +585,8 @@ export class Player extends Model {
 	 * @param playerActiveObjects
 	 */
 	public getCumulativeAttack(playerActiveObjects: PlayerActiveObjects): number {
-		const playerAttack = (ClassDataController.instance.getById(this.class)).getAttackValue(this.level);
+		const playerAttack = ClassDataController.instance.getById(this.class)
+			.getAttackValue(this.level);
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
 				? playerActiveObjects.weapon.getAttack() : playerAttack)
@@ -591,7 +602,8 @@ export class Player extends Model {
 	 * @param playerActiveObjects
 	 */
 	public getCumulativeDefense(playerActiveObjects: PlayerActiveObjects): number {
-		const playerDefense = (ClassDataController.instance.getById(this.class)).getDefenseValue(this.level);
+		const playerDefense = ClassDataController.instance.getById(this.class)
+			.getDefenseValue(this.level);
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
 				? playerActiveObjects.weapon.getDefense() : playerDefense)
@@ -607,7 +619,8 @@ export class Player extends Model {
 	 * @param playerActiveObjects
 	 */
 	public getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects): number {
-		const playerSpeed = (ClassDataController.instance.getById(this.class)).getSpeedValue(this.level);
+		const playerSpeed = ClassDataController.instance.getById(this.class)
+			.getSpeedValue(this.level);
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
 				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
@@ -663,7 +676,8 @@ export class Player extends Model {
 		shouldPokeMission: true
 	}): Promise<void> {
 		await this.setHealth(this.health + health, response, missionHealthParameter);
-		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason).then();
+		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason)
+			.then();
 	}
 
 	/**
@@ -682,7 +696,8 @@ export class Player extends Model {
 	 */
 	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
 		this.fightPointsLost = energy;
-		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason).then();
+		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason)
+			.then();
 	}
 
 	/**
@@ -724,37 +739,6 @@ export class Player extends Model {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
-	 * @param response
-	 * @private
-	 */
-	private async getAndApplyLostRessourcesOnPveFaint(response: DraftBotPacket[]): Promise<ressourcesLostOnPveFaint> {
-		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
-		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
-		if (moneyLost > this.money) {
-			moneyLost = this.money;
-		}
-		await this.addMoney({
-			amount: -moneyLost,
-			response,
-			reason: NumberChangeReason.PVE_ISLAND
-		});
-		await this.save();
-
-		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
-			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
-		if (this.hasAGuild()) {
-			const playerGuild = await Guilds.getById(this.guildId);
-			if (guildPointsLost > playerGuild.score) {
-				guildPointsLost = playerGuild.score;
-			}
-			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
-			await playerGuild.save();
-		}
-		return {moneyLost, guildPointsLost};
 	}
 
 	/**
@@ -893,8 +877,47 @@ export class Player extends Model {
 
 	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {
 		this.rage = rage;
-		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason).then();
+		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason)
+			.then();
 		await this.save();
+	}
+
+	/**
+	 * Check if the player has enough energy to join the island
+	 */
+	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
+		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
+	}
+
+	/**
+	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
+	 * @param response
+	 * @private
+	 */
+	private async getAndApplyLostRessourcesOnPveFaint(response: DraftBotPacket[]): Promise<ressourcesLostOnPveFaint> {
+		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
+		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
+		if (moneyLost > this.money) {
+			moneyLost = this.money;
+		}
+		await this.addMoney({
+			amount: -moneyLost,
+			response,
+			reason: NumberChangeReason.PVE_ISLAND
+		});
+		await this.save();
+
+		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
+			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
+		if (this.hasAGuild()) {
+			const playerGuild = await Guilds.getById(this.guildId);
+			if (guildPointsLost > playerGuild.score) {
+				guildPointsLost = playerGuild.score;
+			}
+			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
+			await playerGuild.save();
+		}
+		return {moneyLost, guildPointsLost};
 	}
 
 	/**
@@ -968,18 +991,13 @@ export class Player extends Model {
 		}
 		if (health < 0) {
 			this.health = 0;
-		} else if (health > this.getMaxHealth()) {
+		}
+		else if (health > this.getMaxHealth()) {
 			this.health = this.getMaxHealth();
-		} else {
+		}
+		else {
 			this.health = health;
 		}
-	}
-
-	/**
-	 * Check if the player has enough energy to join the island
-	 */
-	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
-		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 }
 
@@ -1052,7 +1070,9 @@ export class Players {
 							 WHERE (players.discordUserId IN (${ids.toString()}))
 							   AND ${secondCondition}) subquery
 					   WHERE subquery.discordUserId = ${discordId};`;
-		return ((await Player.sequelize.query(query))[0][0] as { rank: number }).rank;
+		return ((await Player.sequelize.query(query))[0][0] as {
+			rank: number
+		}).rank;
 	}
 
 	/**
@@ -1089,7 +1109,9 @@ export class Players {
 					   FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
 							 FROM players) subquery
 					   WHERE subquery.id = ${playerId}`;
-		return ((await Player.sequelize.query(query))[0][0] as { ranking: number }).ranking;
+		return ((await Player.sequelize.query(query))[0][0] as {
+			ranking: number
+		}).ranking;
 	}
 
 	/**
@@ -1100,7 +1122,9 @@ export class Players {
 					   FROM players`;
 		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
-		})) as { discordUserId: string }[];
+		})) as {
+			discordUserId: string
+		}[];
 		const discordIds: string[] = [];
 		queryResult.forEach(res => discordIds.push(res.discordUserId));
 		return discordIds;
@@ -1118,7 +1142,9 @@ export class Players {
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
 						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
-		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+		return (queryResult[0][0] as {
+			nbPlayers: number
+		}).nbPlayers;
 	}
 
 	/**
@@ -1132,7 +1158,9 @@ export class Players {
 						   <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
 						 AND players.discordUserId IN (${listDiscordId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
-		return (queryResult[0][0] as { nbPlayers: number }).nbPlayers;
+		return (queryResult[0][0] as {
+			nbPlayers: number
+		}).nbPlayers;
 	}
 
 	/**
@@ -1248,7 +1276,9 @@ export class Players {
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				avg: number
+			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -1262,7 +1292,9 @@ export class Players {
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				avg: number
+			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -1275,7 +1307,9 @@ export class Players {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
 					   WHERE effect = ":baby:"`;
-		return (<{ count: number }[]>(await Player.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -1287,7 +1321,9 @@ export class Players {
 		const query = `SELECT COUNT(*) as count
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
-		return (<{ count: number }[]>(await Player.sequelize.query(query, {
+		return (<{
+			count: number
+		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
 	}
@@ -1300,7 +1336,9 @@ export class Players {
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				avg: number
+			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -1314,7 +1352,9 @@ export class Players {
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ avg: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				avg: number
+			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
 		);
@@ -1327,7 +1367,9 @@ export class Players {
 		const query = `SELECT SUM(money) as sum
 					   FROM players
 					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
-		return (<{ sum: number }[]>(await Player.sequelize.query(query, {
+		return (<{
+			sum: number
+		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].sum;
 	}
@@ -1338,7 +1380,9 @@ export class Players {
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
 					   FROM players`;
-		return (<{ max: number }[]>(await Player.sequelize.query(query, {
+		return (<{
+			max: number
+		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].max;
 	}
@@ -1354,7 +1398,9 @@ export class Players {
 						 AND score
 						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
-			(<{ count: number }[]>(await Player.sequelize.query(query, {
+			(<{
+				count: number
+			}[]>(await Player.sequelize.query(query, {
 				replacements: {
 					class: classEntity.id
 				},
@@ -1473,11 +1519,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -1486,7 +1534,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	Player.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

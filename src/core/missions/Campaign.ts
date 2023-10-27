@@ -3,10 +3,10 @@ import {MissionsController} from "./MissionsController";
 import Player from "../database/game/models/Player";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {MissionDataController} from "../../data/Mission";
-import {draftBotInstance} from "../../index";
+import {draftBotInstance} from "@Core/src";
 import {CampaignData} from "../../data/Campaign";
-import {CompletedMissionType} from "draftbot_lib/interfaces/CompletedMissionType";
-import {CompletedMission} from "draftbot_lib/interfaces/CompletedMission";
+import {CompletedMissionType} from "@Lib/src/interfaces/CompletedMissionType";
+import {CompletedMission} from "@Lib/src/interfaces/CompletedMission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -37,16 +37,18 @@ export class Campaign {
 					objective: campaign.missionObjective,
 					points: 0, // Campaign doesn't give points
 					variant: campaign.missionVariant,
-					xp: campaign.xpToWin,
+					xp: campaign.xpToWin
 				});
-				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.discordUserId, missionInfo.campaignProgression).then();
+				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.discordUserId, missionInfo.campaignProgression)
+					.then();
 			}
 			if (this.hasNextCampaign(missionInfo.campaignProgression)) {
 				const prop = CampaignData.getMissions()[missionInfo.campaignProgression];
 				campaign.missionVariant = prop.missionVariant as number;
 				campaign.gemsToWin = prop.gemsToWin as number;
 				campaign.xpToWin = prop.xpToWin as number;
-				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string).initialNumberDone(player, prop.missionVariant as number);
+				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string)
+					.initialNumberDone(player, prop.missionVariant as number);
 				campaign.missionId = prop.missionId as string;
 				campaign.missionObjective = prop.missionObjective as number;
 				campaign.moneyToWin = prop.moneyToWin as number;

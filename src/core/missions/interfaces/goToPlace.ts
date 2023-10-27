@@ -7,7 +7,7 @@ export const missionInterface: IMission = {
 	},
 
 	async generateRandomVariant(): Promise<number> {
-		return Promise.resolve((MapLocationDataController.instance.getRandomGotoableMap()).id);
+		return Promise.resolve(MapLocationDataController.instance.getRandomGotoableMap().id);
 	},
 
 	initialNumberDone(): Promise<number> {

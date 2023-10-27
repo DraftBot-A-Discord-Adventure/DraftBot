@@ -32,7 +32,7 @@ export abstract class MapCache {
 			.concat(this.boatEntryMapLinks);
 
 		// PVE island map links
-		const pveIslandMapLinksObjects = (MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND))
+		const pveIslandMapLinksObjects = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND)
 			.concat(MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND));
 		this.pveIslandMapLinks = pveIslandMapLinksObjects
 			.map((pveLink) => pveLink.id);
@@ -52,13 +52,13 @@ export abstract class MapCache {
 		})).map((mapLink) => mapLink.id);
 
 		// All PVE links
-		this.allPveMapLinks = (MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY))
+		this.allPveMapLinks = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY)
 			.concat(MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND, MapConstants.MAP_ATTRIBUTES.PVE_EXIT))
 			.map((pveLink) => pveLink.id)
 			.concat(this.pveIslandMapLinks);
 
 		// Fight regen list
-		this.regenFightPointsMapLinks = (MapLinkDataController.instance.getAll())
+		this.regenFightPointsMapLinks = MapLinkDataController.instance.getAll()
 			.map((mapLink) => mapLink.id)
 			.filter((mapLinkId) => !this.allPveMapLinks.includes(mapLinkId));
 

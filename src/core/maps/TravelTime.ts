@@ -7,8 +7,8 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {Maps} from "./Maps";
 import {PVEConstants} from "../constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
-import {draftBotInstance} from "../../index";
-import {TravelEndPushPacket} from "draftbot_lib/packets/push/TravelEndPushPacket";
+import {draftBotInstance} from "@Core/src";
+import {TravelEndPushPacket} from "@Lib/src/packets/push/TravelEndPushPacket";
 
 /**
  * Travel time functions class
@@ -110,7 +110,7 @@ export class TravelTime {
 
 		// Basic variables
 		const effectStartTime = effectEndTime - effectDuration;
-		const tripDuration = minutesToMilliseconds((MapLinkDataController.instance.getById(player.mapLinkId)).tripDuration);
+		const tripDuration = minutesToMilliseconds(MapLinkDataController.instance.getById(player.mapLinkId).tripDuration);
 		const travelEndTime = travelStartTime + effectDuration + tripDuration;
 		let effectRemainingTime = effectEndTime - date.valueOf();
 		if (effectRemainingTime < 0) {
@@ -171,14 +171,15 @@ export class TravelTime {
 			}
 		}
 		const date = new Date();
-		const playerEndTime = (TravelTime.getTravelDataSimplified(player, date)).travelEndTime;
+		const playerEndTime = TravelTime.getTravelDataSimplified(player, date).travelEndTime;
 		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // Check if the player arrived with this potion
 			const packet: TravelEndPushPacket = {
 				destinationId: player.getDestinationId()
-			}
+			};
 		}
 		// Log
-		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason).then();
+		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason)
+			.then();
 	}
 
 	/**
@@ -229,6 +230,7 @@ export class TravelTime {
 
 		// Save and log
 		await player.save();
-		draftBotInstance.logsDatabase.logAlteration(player.discordUserId, effect, reason, time).then();
+		draftBotInstance.logsDatabase.logAlteration(player.discordUserId, effect, reason, time)
+			.then();
 	}
 }

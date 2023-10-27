@@ -1,26 +1,27 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {FightAlteration} from "../../FightAlteration";
-import {Translations} from "../../../../Translations";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-export default class FrozenAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const frozenTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		// 50% chance to be healed from the frozen (except for the first two turns)
-		if (Math.random() < 0.5 && victim.alterationTurn > 2) {
-			victim.removeSpeedModifiers(this);
-			victim.removeAlteration();
-			return frozenTranslationModule.get("heal");
-		}
-		if (!victim.hasSpeedModifier(this)) {
-			victim.applySpeedModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 0.4
-			});
-		}
-		const damageDealt = Math.round((victim.getMaxBreath() - victim.getBreath()) * 0.2 * sender.getSpeed());
-		victim.damage(damageDealt);
-		return frozenTranslationModule.format("damage", {damage: damageDealt});
+const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
+	// 50% chance to be healed from the frozen (except for the first two turns)
+	if (Math.random() < 0.5 && affected.alterationTurn > 2) {
+		affected.removeSpeedModifiers(fightAlteration);
+		return defaultHealFightAlterationResult(affected);
 	}
-}
+	const result = defaultFightAlterationResult();
+	result.state = FightAlterationState.DAMAGE;
+	if (!affected.hasSpeedModifier(fightAlteration)) {
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.SPEED,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.4
+		}, affected, fightAlteration);
+	}
+	result.damages = Math.round((affected.getMaxBreath() - affected.getBreath()) * 0.2 * opponent.getSpeed());
+	return result;
+};
+
+export default use;

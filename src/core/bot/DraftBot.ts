@@ -8,29 +8,29 @@ import {ReactionCollector} from "../utils/ReactionsCollector";
 import {CommandPingPacketReq} from "draftbot_lib/packets/commands/CommandPingPacket";
 
 export class DraftBot {
-    private config: DraftBotConfig;
+	public readonly packetListener: PacketListener;
 
-    public readonly packetListener: PacketListener;
+	public readonly gameDatabase: GameDatabase;
 
-    public readonly gameDatabase: GameDatabase;
+	public readonly logsDatabase: LogsDatabase;
 
-    public readonly logsDatabase: LogsDatabase;
+	private config: DraftBotConfig;
 
-    constructor(config: DraftBotConfig) {
-        this.config = config;
+	constructor(config: DraftBotConfig) {
+		this.config = config;
 
-        // Register commands
-        this.packetListener = new PacketListener();
-        this.packetListener.addPacketListener<CommandPingPacketReq>("CommandPingPacketReq", pingCommand);
-        this.packetListener.addPacketListener<ReactionCollectorReactPacket>("ReactionCollectorReactPacket", ReactionCollector.reactPacket);
+		// Register commands
+		this.packetListener = new PacketListener();
+		this.packetListener.addPacketListener<CommandPingPacketReq>("CommandPingPacketReq", pingCommand);
+		this.packetListener.addPacketListener<ReactionCollectorReactPacket>("ReactionCollectorReactPacket", ReactionCollector.reactPacket);
 
-        // Databases
-        this.gameDatabase = new GameDatabase();
-        this.logsDatabase = new LogsDatabase();
-    }
+		// Databases
+		this.gameDatabase = new GameDatabase();
+		this.logsDatabase = new LogsDatabase();
+	}
 
-    async init(): Promise<void> {
-        await this.gameDatabase.init();
-        await this.logsDatabase.init();
-    }
+	async init(): Promise<void> {
+		await this.gameDatabase.init();
+		await this.logsDatabase.init();
+	}
 }

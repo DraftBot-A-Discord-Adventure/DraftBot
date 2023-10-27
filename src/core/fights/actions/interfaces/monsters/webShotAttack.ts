@@ -4,8 +4,9 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (fight, fightAction, sender, receiver, turn) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -22,7 +23,7 @@ const use: FightActionFunc = (fight, fightAction, sender, receiver, turn) => {
 	);
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.SLOWED
+		alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
 	}, receiver);
 
 	return result;

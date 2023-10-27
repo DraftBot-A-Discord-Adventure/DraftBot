@@ -5,9 +5,9 @@ import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (fight, fightAction, sender, receiver, turn) => {
+const use: FightActionFunc = (sender, receiver) => {
 	// Fail if already used
-	if (sender.fightActionsHistory.filter((attack) => attack.id == "summonAttack").length !== 0) {
+	if (sender.fightActionsHistory.filter((attack) => attack.id === "summonAttack").length !== 0) {
 		return defaultFailFightActionResult();
 	}
 

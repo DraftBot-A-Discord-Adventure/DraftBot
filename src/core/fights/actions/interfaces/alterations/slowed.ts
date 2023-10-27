@@ -1,24 +1,26 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAlteration} from "../../FightAlteration";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 
-export default class SlowedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const slowedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 1) { // This effect heals after one turn
-			victim.removeSpeedModifiers(this);
-			victim.removeAlteration();
-			return slowedTranslationModule.get("inactive");
-		}
-		if (!victim.hasSpeedModifier(this)) {
-			victim.applySpeedModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 0.4
-			});
-			return slowedTranslationModule.get("new");
-		}
-		return slowedTranslationModule.get("active");
+const use: FightAlterationFunc = (affected, fightAlteration) => {
+	if (affected.alterationTurn > 1) { // This effect heals after one turn
+		affected.removeSpeedModifiers(fightAlteration);
+		return defaultHealFightAlterationResult(affected);
 	}
-}
+
+	const result = defaultFightAlterationResult();
+	if (!affected.hasSpeedModifier(fightAlteration)) {
+		result.state = FightAlterationState.NEW;
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.SPEED,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.4
+		}, affected, fightAlteration);
+	}
+	return result;
+};
+
+export default use;

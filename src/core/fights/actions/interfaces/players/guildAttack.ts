@@ -4,18 +4,29 @@ import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTe
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
-	return simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 10, failure: 10},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
-	);
-};
+const use: FightActionFunc = (sender, receiver) => simpleDamageFightAction(
+	{
+		sender,
+		receiver
+	},
+	{
+		critical: 10,
+		failure: 10
+	},
+	{
+		attackInfo: getAttackInfo(),
+		statsInfo: getStatsInfo(sender, receiver)
+	}
+);
 
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 110, averageDamage: 130, maxDamage: 150};
+	return {
+		minDamage: 110,
+		averageDamage: 130,
+		maxDamage: 150
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -30,10 +41,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			cumulatedAttack,
 			cumulatedSpeed
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense(),
 			receiver.getSpeed()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.8,
 			0.2
 		]

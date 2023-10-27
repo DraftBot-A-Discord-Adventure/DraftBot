@@ -9,7 +9,7 @@ export const missionInterface: IMission = {
 	},
 
 	async generateRandomVariant(difficulty, player): Promise<number> {
-		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick((ClassDataController.instance.getById(player.class)).fightActionsIds));
+		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick(ClassDataController.instance.getById(player.class).fightActionsIds));
 	},
 
 	initialNumberDone(): Promise<number> {

@@ -32,7 +32,7 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver, turn): FightActionResult => {
+const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionResult => {
 	// Check the amount of ultimate attacks the sender already used
 	// 1 god move per fight
 	if (getUsedGodMoves(sender, receiver) >= 1) {

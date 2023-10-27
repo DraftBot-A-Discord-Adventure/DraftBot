@@ -5,7 +5,7 @@ import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-const use: FightActionFunc = (_fight, fightAction, sender) => {
+const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	const count = sender.fightActionsHistory.filter(action => action.id === "resting").length;
 
 	sender.nextFightAction = null;

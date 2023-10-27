@@ -1,32 +1,36 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightActions} from "../../FightActions";
-import {FightAlteration} from "../../FightAlteration";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {FightActionDataController} from "@Core/src/data/FightAction";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
-export default class ParalyzedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const paralyzedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		if (victim.alterationTurn > 2) { // This effect heals after two turns
-			victim.removeSpeedModifiers(this);
-			victim.removeAlteration();
-			return paralyzedTranslationModule.get("inactive");
-		}
-
-		// 20% chance to not attack this turn
-		if (Math.random() < 0.2) {
-			victim.nextFightAction = FightActions.getNoAttack();
-			return paralyzedTranslationModule.get("noAttack");
-		}
-
-		if (!victim.hasSpeedModifier(this)) {
-			victim.applySpeedModifier({
-				origin: this,
-				operation: FightStatModifierOperation.SET_VALUE,
-				value: 0
-			});
-			return paralyzedTranslationModule.get("new");
-		}
-		return paralyzedTranslationModule.get("active");
+const use: FightAlterationFunc = (affected, fightAlteration) => {
+	if (affected.alterationTurn > 2) { // This effect heals after two turns
+		affected.removeSpeedModifiers(fightAlteration);
+		return defaultHealFightAlterationResult(affected);
 	}
-}
+
+	// 20% chance to not attack this turn
+	if (Math.random() < 0.2) {
+		affected.nextFightAction = FightActionDataController.instance.getNone();
+		return {
+			state: FightAlterationState.NO_ACTION,
+			damages: 0
+		};
+	}
+
+	const result = defaultFightAlterationResult();
+	if (!affected.hasSpeedModifier(fightAlteration)) {
+		result.state = FightAlterationState.NEW;
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.SPEED,
+			operator: FightStatModifierOperation.SET_VALUE,
+			value: 0
+		}, affected, fightAlteration);
+	}
+	return result;
+};
+
+export default use;

@@ -5,44 +5,46 @@ import {RandomUtils} from "../core/utils/RandomUtils";
 import {ObjectItem} from "./ObjectItem";
 
 export class Potion extends SupportItem {
-    categoryName = "potions";
+	categoryName = "potions";
 
-    public getCategory(): number {
-        return ItemConstants.CATEGORIES.POTION;
-    }
+	public getCategory(): number {
+		return ItemConstants.CATEGORIES.POTION;
+	}
 
-    public isFightPotion(): boolean {
-        return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
-            this.getDefense() !== 0;
-    }
+	public isFightPotion(): boolean {
+		return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
+			this.getDefense() !== 0;
+	}
 
-    public getItemAddedValue(): number {
-        return this.power;
-    }
+	public getItemAddedValue(): number {
+		return this.power;
+	}
 }
 
 export class PotionDataController extends ItemDataController<number, Potion> {
-    static readonly instance: PotionDataController = new PotionDataController("potions");
+	static readonly instance: PotionDataController = new PotionDataController("potions");
 
-    newInstance(): Potion {
-        return new Potion();
-    }
+	newInstance(): Potion {
+		return new Potion();
+	}
 
-    public randomItem(nature: number, rarity: number): ObjectItem {
-        return RandomUtils.draftbotRandom.pick(this.getValuesArray().filter((item) => item.nature === nature && item.rarity === rarity));
-    }
+	public randomItem(nature: number, rarity: number): ObjectItem {
+		return RandomUtils.draftbotRandom.pick(this.getValuesArray()
+			.filter((item) => item.nature === nature && item.rarity === rarity));
+	}
 
-    /**
-     * Get a random shop potion
-     * @param excludeId Prevent the potion to be with this id
-     */
-    public randomShopPotion(excludeId = -1): Potion {
-        return RandomUtils.draftbotRandom.pick(
-            this.getValuesArray().filter((item) =>
-                item.nature !== ItemConstants.NATURE.NONE &&
-                item.rarity < ItemConstants.RARITY.LEGENDARY &&
-                item.id !== excludeId
-            )
-        );
-    }
+	/**
+	 * Get a random shop potion
+	 * @param excludeId Prevent the potion to be with this id
+	 */
+	public randomShopPotion(excludeId = -1): Potion {
+		return RandomUtils.draftbotRandom.pick(
+			this.getValuesArray()
+				.filter((item) =>
+					item.nature !== ItemConstants.NATURE.NONE &&
+					item.rarity < ItemConstants.RARITY.LEGENDARY &&
+					item.id !== excludeId
+				)
+		);
+	}
 }

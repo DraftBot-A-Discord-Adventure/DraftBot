@@ -1,22 +1,23 @@
-import {readdirSync, readFileSync} from "fs";
+import {readFileSync} from "fs";
 
 export type CampaignMission = {
-    missionId: string,
-    missionVariant: number,
-    missionObjective: number,
-    gemsToWin: number,
-    xpToWin: number,
-    moneyToWin: number
+	missionId: string,
+	missionVariant: number,
+	missionObjective: number,
+	gemsToWin: number,
+	xpToWin: number,
+	moneyToWin: number
 }
 
 export class CampaignData {
-    private static missions: CampaignMission[] = null;
+	private static missions: CampaignMission[] = null;
 
-    public static getMissions(): CampaignMission[] {
-        if (CampaignData.missions === null) {
-            CampaignData.missions = JSON.parse(readFileSync("resources/campaign.json").toString("utf8")).missions;
-        }
+	public static getMissions(): CampaignMission[] {
+		if (CampaignData.missions === null) {
+			CampaignData.missions = JSON.parse(readFileSync("resources/campaign.json")
+				.toString("utf8")).missions;
+		}
 
-        return CampaignData.missions;
-    }
+		return CampaignData.missions;
+	}
 }

@@ -5,10 +5,11 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
 	// Check how many times the attack appears in the fight action history of the sender
 	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length;
@@ -23,7 +24,7 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
 	if (Math.random() < 0.2) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: true,
-			alteration: FightAlterations.STUNNED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
 		}, sender);
 		if (result.alterations) {
 			result.damages *= 1.5;
@@ -46,7 +47,11 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 50, averageDamage: 150, maxDamage: 250};
+	return {
+		minDamage: 50,
+		averageDamage: 150,
+		maxDamage: 250
+	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -54,10 +59,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		attackerStats: [
 			sender.getAttack(),
 			sender.getSpeed()
-		], defenderStats: [
+		],
+		defenderStats: [
 			receiver.getDefense(),
 			receiver.getSpeed()
-		], statsEffect: [
+		],
+		statsEffect: [
 			0.7,
 			0.3
 		]

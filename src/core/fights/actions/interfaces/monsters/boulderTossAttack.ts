@@ -5,8 +5,9 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -26,7 +27,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
 	if (result.attackStatus !== FightActionStatus.MISSED && Math.random() < 0.5) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterations.STUNNED
+			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
 		}, receiver);
 	}
 

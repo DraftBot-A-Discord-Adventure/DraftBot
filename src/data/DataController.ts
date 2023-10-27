@@ -3,80 +3,83 @@ import {Data} from "./Data";
 import {GenericItem} from "./GenericItem";
 
 export abstract class DataController<T extends string | number, U extends Data<number | string>> {
-    private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
+	protected data: Map<T, U> = new Map<T, U>();
 
-    protected data: Map<T, U> = new Map<T, U>();
+	private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
 
-    private valuesArrayCache: U[] = null;
+	private valuesArrayCache: U[] = null;
 
-    protected constructor(folder: string) {
-        for (const file of readdirSync(`resources/${folder}`)) {
-            let key: string | number;
-            if (typeof this.junkVariable === "string") {
-                key = file;
-            }
-            else {
-                key = parseInt(file);
-            }
+	protected constructor(folder: string) {
+		for (const file of readdirSync(`resources/${folder}`)) {
+			let key: string | number;
+			if (typeof this.junkVariable === "string") {
+				key = file;
+			}
+			else {
+				key = parseInt(file);
+			}
 
-            const instance = this.newInstance();
-            this.toInstance(<T> key, instance, readFileSync(file).toString("utf8"));
+			const instance = this.newInstance();
+			this.toInstance(<T>key, instance, readFileSync(file)
+				.toString("utf8"));
 
-            this.data.set(<T> key, instance);
-        }
-    }
+			this.data.set(<T>key, instance);
+		}
+	}
 
-    private toInstance(id: T, obj: U, json: string): void {
-        const jsonObj = JSON.parse(json);
+	abstract newInstance(): U;
 
-        for (const propName in jsonObj) {
-            // @ts-ignore
-            obj[propName] = jsonObj[propName]
-        }
+	public getById(id: T): U {
+		return this.data.get(id);
+	}
 
-        // @ts-ignore
-        obj["id"] = id;
-    }
+	protected getValuesArray(): U[] {
+		if (this.valuesArrayCache === null) {
+			this.valuesArrayCache = Array.from(this.data.values());
+		}
 
-    abstract newInstance(): U;
+		return this.valuesArrayCache;
+	}
 
-    public getById(id: T) {
-        return this.data.get(id);
-    }
+	private toInstance(id: T, obj: U, json: string): void {
+		const jsonObj = JSON.parse(json);
 
-    protected getValuesArray(): U[] {
-        if (this.valuesArrayCache === null) {
-            this.valuesArrayCache = Array.from(this.data.values());
-        }
+		for (const propName of jsonObj) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			obj[propName] = jsonObj[propName];
+		}
 
-        return this.valuesArrayCache;
-    }
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		obj.id = id;
+	}
 }
 
 export abstract class ItemDataController<T extends number, U extends GenericItem> extends DataController<T, U> {
-    private maxIdCache: number = null;
+	private maxIdCache: number = null;
 
-    private idsForRarityCache: Map<number, number[]> = null;
+	private idsForRarityCache: Map<number, number[]> = null;
 
-    public getMaxId(): number {
-        if (this.maxIdCache === null) {
-            this.maxIdCache = Math.max(...[...this.data.keys()].map(armor => armor))
-        }
+	public getMaxId(): number {
+		if (this.maxIdCache === null) {
+			this.maxIdCache = Math.max(...[...this.data.keys()].map(armor => armor));
+		}
 
-        return this.maxIdCache;
-    }
+		return this.maxIdCache;
+	}
 
-    public getAllIdsForRarity(rarity: number): number[] {
-        if (!this.idsForRarityCache.has(rarity)) {
-            const items = [];
-            for (const entry of this.data.entries()) {
-                if (entry[1].rarity === rarity) {
-                    items.push(entry[0]);
-                }
-            }
-            this.idsForRarityCache.set(rarity, items);
-        }
+	public getAllIdsForRarity(rarity: number): number[] {
+		if (!this.idsForRarityCache.has(rarity)) {
+			const items = [];
+			for (const entry of this.data.entries()) {
+				if (entry[1].rarity === rarity) {
+					items.push(entry[0]);
+				}
+			}
+			this.idsForRarityCache.set(rarity, items);
+		}
 
-        return this.idsForRarityCache.get(rarity);
-    }
+		return this.idsForRarityCache.get(rarity);
+	}
 }

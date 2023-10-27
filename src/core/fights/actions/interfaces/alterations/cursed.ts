@@ -1,42 +1,44 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
-import {FightAlteration} from "../../FightAlteration";
 import {MathUtils} from "../../../../utils/MathUtils";
 import {FightConstants} from "../../../../constants/FightConstants";
+import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "@Lib/src/interfaces/FightAlterationResult";
 
-export default class PoisonedAlteration extends FightAlteration {
-	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
-		victim.alterationTurn++;
-		const curseTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		// 50 % chance to be healed from the cursed (except for the first two turn) and 100 % after 5 turns of being cursed
-		if (Math.random() < 0.25 && victim.alterationTurn > 2 || victim.alterationTurn > 4) {
-			victim.removeAlteration();
-			let damageDealt = FightActionController.getAttackDamage(this.getStatsInfo(victim, sender), victim, this.getAttackInfo(), true);
-			damageDealt += MathUtils.getIntervalValue(0, damageDealt * 2, (victim.alterationTurn - 2) / 3);
-			damageDealt += MathUtils.getIntervalValue(0, damageDealt, Math.min(turn, FightConstants.MAX_TURNS) / FightConstants.MAX_TURNS);
-			damageDealt = Math.round(damageDealt);
-			victim.damage(damageDealt);
-			return curseTranslationModule.format("heal", {damages: damageDealt});
-		}
-
-		return curseTranslationModule.get("damage");
+const use: FightAlterationFunc = (affected, _fightAlteration, opponent, turn) => {
+	// 50 % chance to be healed from the cursed (except for the first two turn) and 100 % after 5 turns of being cursed
+	if (Math.random() < 0.25 && affected.alterationTurn > 2 || affected.alterationTurn > 4) {
+		const result = defaultHealFightAlterationResult(affected);
+		let damageDealt = FightActionController.getAttackDamage(getStatsInfo(affected, opponent), affected, getAttackInfo(), true);
+		damageDealt += MathUtils.getIntervalValue(0, damageDealt * 2, (affected.alterationTurn - 2) / 3);
+		damageDealt += MathUtils.getIntervalValue(0, damageDealt, Math.min(turn, FightConstants.MAX_TURNS) / FightConstants.MAX_TURNS);
+		result.damages = Math.round(damageDealt);
+		return result;
 	}
+	return defaultFightAlterationResult();
+};
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 60, averageDamage: 95, maxDamage: 135};
-	}
+export default use;
 
-	getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack()
-			], defenderStats: [
-				victim.getDefense()
-			], statsEffect: [
-				1
-			]
-		};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 60,
+		averageDamage: 95,
+		maxDamage: 135
+	};
+}
+
+function getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack()
+		],
+		defenderStats: [
+			victim.getDefense()
+		],
+		statsEffect: [
+			1
+		]
+	};
 }
