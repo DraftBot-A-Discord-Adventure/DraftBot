@@ -24,8 +24,15 @@
         "random-js": "^2.1.0",
         "sequelize": "6.32.1",
         "toml": "3.0.0",
-        "typescript": "5.1.6",
         "umzug": "3.2.1",
         "ws": "8.13.0"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "6.8.0",
+		"@typescript-eslint/parser": "6.8.0",
+		"eslint": "8.52.0",
+		"eslint-config-google": "0.14.0",
+        "typescript": "5.2.2",
+		"typescript-eslint": "0.0.1-alpha.0"
     }
 }
