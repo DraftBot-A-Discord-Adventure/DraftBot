@@ -1,6 +1,6 @@
 import DefenseBuff from "../players/defenseBuff";
-import {FightAction} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
 
-export default class StoneSkinAttack extends DefenseBuff {
-    fightAction: FightAction,
-}
+const use: FightActionFunc = DefenseBuff;
+
+export default use;

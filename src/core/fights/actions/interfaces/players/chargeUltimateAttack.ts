@@ -1,5 +1,5 @@
 import {FightActionDataController, FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {fightActionResultFromSuccessTest} from "@Lib/src/interfaces/FightActionResult";
 
 const use: FightActionFunc = (_fight, _fightAction, sender) => {
 	const usedUltimateAttacks = sender.fightActionsHistory.filter(action => action === this).length;
@@ -7,11 +7,7 @@ const use: FightActionFunc = (_fight, _fightAction, sender) => {
 		// Set the next fight action of the sender to be the ultimate attack
 		sender.nextFightAction = FightActionDataController.instance.getById("ultimateAttack");
 	}
-	return {
-		attackStatus: FightActionStatus.NORMAL,
-		damages: 0,
-		fail: usedUltimateAttacks >= 1
-	};
+	return fightActionResultFromSuccessTest(usedUltimateAttacks == 0);
 };
 
 export default use;

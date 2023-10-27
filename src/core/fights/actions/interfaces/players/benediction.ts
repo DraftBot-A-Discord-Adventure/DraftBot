@@ -3,9 +3,8 @@ import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {getUsedGodMoves} from "./divineAttack";
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {defaultFailFightActionResult, FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
@@ -37,17 +36,22 @@ const use: FightActionFunc = (_fight, fightAction, sender, receiver, turn): Figh
 	// Check the amount of ultimate attacks the sender already used
 	// 1 god move per fight
 	if (getUsedGodMoves(sender, receiver) >= 1) {
-		return {
-			attackStatus: FightActionStatus.MISSED,
-			damages: 0,
-			fail: true
-		};
+		return defaultFailFightActionResult();
 	}
 
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 5, failure: 10},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 5,
+			failure: 10
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 
 	const buff = (1 + (turn < 15 ? Math.round(1.67 * turn) : 25)) / 100;

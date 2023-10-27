@@ -1,45 +1,56 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {Translations} from "../../../../Translations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
-export default class WebShotAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 5);
-		receiver.damage(damageDealt);
-
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		let sideEffects = "";
-		const alteration = receiver.newAlteration(FightAlterations.SLOWED);
-		if (alteration === FightAlterations.SLOWED) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.slowed").toLowerCase()
-			});
+const use: FightActionFunc = (fight, fightAction, sender, receiver, turn) => {
+	const result = simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 10,
+			failure: 5
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
 		}
+	);
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.SLOWED
+	}, receiver);
 
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
-	}
+	return result;
+};
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 10, averageDamage: 50, maxDamage: 60};
-	}
+export default use;
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 10,
+		averageDamage: 50,
+		maxDamage: 60
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

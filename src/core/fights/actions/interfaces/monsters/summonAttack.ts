@@ -1,47 +1,55 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {Translations} from "../../../../Translations";
-import {FightActionController} from "../../FightActionController";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class SummonAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const summonAttackTranslations = Translations.getModule(`fightactions.${this.name}`, language);
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// Fail if already used
-		if (sender.fightActionsHistory.filter((attack) => attack instanceof SummonAttack).length !== 0) {
-			return summonAttackTranslations.get("fail");
-		}
-
-		const alliesCount = RandomUtils.randInt(2, 6); // Number of summoned allies
-		const sideEffects = attackTranslationModule.format("actions.sideEffects.summoning", {
-			amount: alliesCount
-		});
-
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo()) * alliesCount;
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 10);
-		receiver.damage(damageDealt);
-
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+const use: FightActionFunc = (fight, fightAction, sender, receiver, turn) => {
+	// Fail if already used
+	if (sender.fightActionsHistory.filter((attack) => attack.id == "summonAttack").length !== 0) {
+		return defaultFailFightActionResult();
 	}
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 90, maxDamage: 150};
-	}
+	return simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 5,
+			failure: 10
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}, RandomUtils.randInt(2, 6) // Number of summoned allies
+	);
+};
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 25,
+		averageDamage: 90,
+		maxDamage: 150
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

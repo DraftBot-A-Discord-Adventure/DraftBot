@@ -1,7 +1,6 @@
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
 const use: FightActionFunc = (_fight, fightAction, sender) => {
@@ -11,10 +10,7 @@ const use: FightActionFunc = (_fight, fightAction, sender) => {
 
 	const defenseBuffArray = [20, 25, 35, 40];
 
-	const result: FightActionResult = {
-		attackStatus: FightActionStatus.NORMAL,
-		damages: 0
-	};
+	const result = defaultFightActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.DEFENSE,

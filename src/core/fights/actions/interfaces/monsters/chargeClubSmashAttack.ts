@@ -1,18 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
-import {FightActions} from "../../FightActions";
+import {FightActionDataController, FightActionFunc} from "@Core/src/data/FightAction";
+import {defaultFightActionResult} from "@Lib/src/interfaces/FightActionResult";
 
-export default class ChargeClubSmashAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-
-		// Set the next fight action of the sender to be the club smash attack
-		sender.nextFightAction = FightActions.getFightActionById("clubSmashAttack");
-		return attackTranslationModule.format("actions.attacksResults.charging", {
-			attack: Translations.getModule(`fightactions.${this.name}`, language)
-				.get("name")
-				.toLowerCase()
-		});
-	}
-}
+const use: FightActionFunc = (_fight, _fightAction, sender: Fighter, _receiver: Fighter) => {
+	// Set the next fight action of the sender to be the club smash attack
+	sender.nextFightAction = FightActionDataController.instance.getById("clubSmashAttack");
+	return defaultFightActionResult();
+};

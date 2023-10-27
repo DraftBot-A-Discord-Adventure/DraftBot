@@ -1,14 +1,16 @@
-import {FightAction} from "../../FightAction";
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {simpleBuffFightAction} from "@Core/src/core/fights/actions/templates/SimpleBuffFightActionTemplate";
 
-export default class RockShieldAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const defenseBuffTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
+const use: FightActionFunc = (_fight, fightAction, _sender, receiver) => {
+	return simpleBuffFightAction(receiver, {
+		selfTarget: false,
+		stat: FightStatBuffed.DAMAGE_BOOST,
+		value: 0.5,
+		operator: FightStatModifierOperation.MULTIPLIER,
+		duration: 1
+	}, fightAction);
+};
 
-		// Reduce by half the damages of the next attack
-		receiver.applyDamageMultiplier(0.5, 1);
-
-		return defenseBuffTranslationModule.get("active");
-	}
-}
+export default use;

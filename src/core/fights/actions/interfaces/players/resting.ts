@@ -2,8 +2,7 @@ import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
 const use: FightActionFunc = (_fight, fightAction, sender) => {
@@ -14,10 +13,7 @@ const use: FightActionFunc = (_fight, fightAction, sender) => {
 	// Recovered fight points are reduced after the fourth use of this action
 	const recoveredFightPoints = Math.round(FightActionController.getAttackDamage(getStatsInfo(sender), sender, getAttackInfo(), true) / (count < 4 ? 1 : 4));
 
-	const result: FightActionResult = {
-		attackStatus: FightActionStatus.NORMAL,
-		damages: 0
-	};
+	const result = defaultFightActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ENERGY,
@@ -30,16 +26,22 @@ const use: FightActionFunc = (_fight, fightAction, sender) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 15, averageDamage: 60, maxDamage: 110};
+	return {
+		minDamage: 15,
+		averageDamage: 60,
+		maxDamage: 110
+	};
 }
 
 function getStatsInfo(sender: Fighter): statsInfo {
 	return {
 		attackerStats: [
 			sender.getMaxFightPoints() // We are comparing the max fight points to the current health to get the amount of recovered fight points
-		], defenderStats: [
+		],
+		defenderStats: [
 			sender.getFightPoints()
-		], statsEffect: [
+		],
+		statsEffect: [
 			1
 		]
 	};

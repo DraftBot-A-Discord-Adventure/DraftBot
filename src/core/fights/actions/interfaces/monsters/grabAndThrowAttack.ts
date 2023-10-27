@@ -1,79 +1,66 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightActionType} from "@Lib/src/interfaces/FightActionType";
 import {FightAlterations} from "../../FightAlterations";
-import {FightConstants} from "../../../../constants/FightConstants";
 import {RandomUtils} from "../../../../utils/RandomUtils";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class GrabAndThrowAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		if (receiver.getLastFightActionUsed()
-			?.getType() === FightActionType.PHYSICAL) {
-			// Calculate damages
-			const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-			const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, 10);
-
-			// Message variables
-			const attackTranslationModule = Translations.getModule("commands.fight", language);
-			let sideEffects = "";
-
-			// The receiver has a 50% chance to be stunned
-			if (RandomUtils.draftbotRandom.bool()) {
-				const alteration = receiver.newAlteration(FightAlterations.STUNNED);
-				if (alteration === FightAlterations.STUNNED) {
-					sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-						adversary: FightConstants.TARGET.OPPONENT,
-						effect: attackTranslationModule.get("effects.stunned")
-							.toLowerCase()
-					});
-				}
-			}
-
-			// Deal damages
-			receiver.damage(damageDealt);
-
-			// Action message
-			const attackStatus = this.getAttackStatus(damageDealt, initialDamage);
-			const chosenString = attackTranslationModule.getRandom(`actions.attacksResults.${attackStatus}`);
-			return format(chosenString, {
-				attack: Translations.getModule(`fightactions.${this.name}`, language)
-					.get("name")
-					.toLowerCase()
-			}) + sideEffects + Translations.getModule("commands.fight", language)
-				.format("actions.damages", {
-					damages: damageDealt
-				});
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	if (!receiver.getLastFightActionUsed() || receiver.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
+		return defaultFailFightActionResult();
+	}
+	const result = simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 10,
+			failure: 10
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
 		}
+	);
 
-		return Translations.getModule(`fightactions.${this.name}`, language)
-			.get("fail");
+	// The receiver has a 50% chance to be stunned
+	if (RandomUtils.draftbotRandom.bool()) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.STUNNED
+		}, receiver);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {
-			minDamage: 70,
-			averageDamage: 90,
-			maxDamage: 100
-		};
-	}
+	return result;
+};
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			],
-			defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			],
-			statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 70,
+		averageDamage: 90,
+		maxDamage: 100
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

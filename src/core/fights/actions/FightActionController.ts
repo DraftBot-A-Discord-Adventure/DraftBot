@@ -2,9 +2,10 @@ import {FightConstants} from "../../constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
-import {FightActionBuff, FightActionResult, FightAlteration, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlteration, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {MathUtils} from "@Core/src/core/utils/MathUtils";
-import {FightAction} from "@Core/src/data/FightAction";
+import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
+import {FightController} from "@Core/src/core/fights/FightController";
 
 declare const JsonReader: JsonModule;
 
@@ -76,6 +77,9 @@ export class FightActionController {
 		case FightStatBuffed.DAMAGE:
 			target.damage(buff.value);
 			break;
+		case FightStatBuffed.DAMAGE_BOOST:
+			target.applyDamageMultiplier(buff.value, buff.duration);
+			break;
 		}
 		if (result.buffs === undefined) {
 			result.buffs = [];
@@ -133,6 +137,28 @@ export class FightActionController {
 			damages: damageDealt,
 			status: FightActionStatus.NORMAL
 		};
+	}
+
+	static useSecondAttack(fight: FightController, chosenAttack: FightAction, sender: Fighter, receiver: Fighter, turn: number): FightActionResult {
+		if (chosenAttack.breath > sender.getBreath()) {
+			if (Math.random() < FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY) {
+				chosenAttack = FightActionDataController.instance.getById("outOfBreath");
+			}
+			else {
+				sender.setBreath(0);
+			}
+		}
+		else {
+			sender.addBreath(-chosenAttack.breath);
+		}
+		const resultLaunched = chosenAttack.use(fight, sender, receiver, turn);
+		const result = defaultFightActionResult();
+		result.usedAction = {
+			id: chosenAttack.id,
+			result: resultLaunched,
+			fromFighter: "player"
+		};
+		return result;
 	}
 
 	/**

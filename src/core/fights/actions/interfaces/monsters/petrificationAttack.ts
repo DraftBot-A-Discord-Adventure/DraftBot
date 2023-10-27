@@ -1,24 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import {FightActions} from "../../FightActions";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleAlterationFightAction} from "@Core/src/core/fights/actions/templates/SimpleAlterationFightActionTemplate";
 
-export default class PetrificationAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const petrificationTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		const alteration = receiver.newAlteration(FightAlterations.PETRIFIED);
+const use: FightActionFunc = (_fight, _fightAction, _sender, receiver) => {
+	return simpleAlterationFightAction(receiver, {
+		selfTarget: false,
+		alteration: FightAlterations.PETRIFIED
+	});
+};
 
-		if (alteration === FightAlterations.PETRIFIED) {
-			receiver.nextFightAction = FightActions.getNoAttack();
-			return petrificationTranslationModule.get("active") + attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.petrified").toLowerCase()
-			});
-		}
-
-		return petrificationTranslationModule.get("fail");
-	}
-}
+export default use;

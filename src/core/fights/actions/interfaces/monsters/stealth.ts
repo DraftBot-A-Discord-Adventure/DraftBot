@@ -1,11 +1,16 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleBuffFightAction} from "@Core/src/core/fights/actions/templates/SimpleBuffFightActionTemplate";
+import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-export default class Stealth extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const stealthTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		sender.applyDamageMultiplier(2, 1);
-		return stealthTranslationModule.get("active");
-	}
-}
+const use: FightActionFunc = (_fight, fightAction, sender, receiver, turn) => {
+	return simpleBuffFightAction(sender, {
+		selfTarget: true,
+		stat: FightStatBuffed.DAMAGE_BOOST,
+		value: 2,
+		operator: FightStatModifierOperation.MULTIPLIER,
+		duration: 1
+	}, fightAction);
+};
+
+export default use;

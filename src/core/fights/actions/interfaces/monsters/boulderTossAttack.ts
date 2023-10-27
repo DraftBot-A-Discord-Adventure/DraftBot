@@ -1,57 +1,61 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {Translations} from "../../../../Translations";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class BoulderTossAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 20);
-		receiver.damage(damageDealt);
-
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		let sideEffects = "";
-
-		// 50% chance to stun the defender
-		if (this.getAttackStatus(damageDealt, initialDamage) !== FightActionStatus.MISSED && Math.random() < 0.5) {
-			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
-			if (alteration === FightAlterations.STUNNED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned")
-						.toLowerCase()
-				});
-			}
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 0,
+			failure: 20
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
 		}
+	);
 
-		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
+	// 50% chance to stun the defender
+	if (result.attackStatus !== FightActionStatus.MISSED && Math.random() < 0.5) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.STUNNED
+		}, receiver);
 	}
 
-	getAttackInfo(): attackInfo {
-		return {
-			minDamage: 25,
-			averageDamage: 90,
-			maxDamage: 150
-		};
-	}
+	return result;
+};
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			],
-			defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			],
-			statsEffect: [
-				0.5,
-				0.5
-			]
-		};
-	}
+export default use;
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 25,
+		averageDamage: 90,
+		maxDamage: 150
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.5,
+			0.5
+		]
+	};
 }

@@ -1,48 +1,53 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {Translations} from "../../../../Translations";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
 
-export default class LavaWaveAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 5);
-		receiver.damage(damageDealt);
-
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const lavaWaveTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		let sideEffects = "";
-
-		const alteration = receiver.newAlteration(FightAlterations.BURNED);
-		if (alteration === FightAlterations.BURNED) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.burned").toLowerCase()
-			});
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	const result = simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 0,
+			failure: 5
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
 		}
+	);
 
-		return lavaWaveTranslationModule.format("active",
-			{
-				damages: damageDealt
-			}
-		) + sideEffects;
-	}
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.BURNED
+	}, receiver);
+	return result;
+};
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 100, averageDamage: 210, maxDamage: 280};
-	}
+export default use;
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack()
-			], defenderStats: [
-				receiver.getDefense()
-			], statsEffect: [
-				1
-			]
-		};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 100,
+		averageDamage: 210,
+		maxDamage: 280
+	};
+}
+
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack()
+		],
+		defenderStats: [
+			receiver.getDefense()
+		],
+		statsEffect: [
+			1
+		]
+	};
 }

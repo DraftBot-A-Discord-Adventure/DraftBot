@@ -1,22 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightConstants} from "../../../../constants/FightConstants";
-import {FightAction} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleAlterationFightAction} from "@Core/src/core/fights/actions/templates/SimpleAlterationFightActionTemplate";
 
-export default class OutrageAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
-		const outrageTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		const alteration = sender.newAlteration(FightAlterations.OUTRAGE);
+const use: FightActionFunc = (_fight, _fightAction, sender, receiver) => {
+	return simpleAlterationFightAction(sender, {
+		selfTarget: true,
+		alteration: FightAlterations.OUTRAGE
+	});
+};
 
-		if (alteration === FightAlterations.OUTRAGE) {
-			return outrageTranslationModule.get("active") + attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.outrage").toLowerCase()
-			});
-		}
-		return outrageTranslationModule.get("fail");
-	}
-}
+export default use;

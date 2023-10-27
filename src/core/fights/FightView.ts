@@ -4,6 +4,7 @@ import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {PacketContext} from "draftbot_lib/packets/DraftBotPacket";
+import {FightWeatherResult} from "@Core/src/core/fights/FightWeather";
 
 /**
  * @class FightController
@@ -138,7 +139,8 @@ export class FightView {
 			});
 		}
 
-		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]}).then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
+		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]})
+			.then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
 	}
 
 	/**
@@ -154,8 +156,8 @@ export class FightView {
 		});
 	}
 
-	async displayWeatherStatus(weatherEmote: string, weatherString: string): Promise<void> {
-		await this.updateHistory(weatherEmote, "", weatherString);
+	async displayWeatherStatus(weatherEmote: string, weatherString: FightWeatherResult): Promise<void> {
+		await this.updateHistory(weatherEmote, "", this.getWeatherString(weatherString));
 	}
 
 	/**
@@ -202,5 +204,9 @@ export class FightView {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
 		return actionList;
+	}
+
+	private getWeatherString(weatherString: FightWeatherResult) {
+		return "";
 	}
 }

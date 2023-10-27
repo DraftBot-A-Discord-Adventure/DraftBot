@@ -4,8 +4,8 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
 
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
 	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
@@ -42,16 +42,21 @@ const use: FightActionFunc = (_fight, _fightAction, sender, receiver, turn) => {
 
 	// Only works if less than 2 god moves have been used
 	if (usedGodMoves >= 2) {
-		return {
-			attackStatus: FightActionStatus.MISSED,
-			damages: 0,
-			fail: true
-		};
+		return defaultFailFightActionResult();
 	}
 	const result = simpleDamageFightAction(
-		{sender, receiver},
-		{critical: 0, failure: Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7)},
-		{attackInfo: getAttackInfo(), statsInfo: getStatsInfo(sender, receiver)}
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 0,
+			failure: Math.round(95 - turn * 7 < 10 ? 10 : 95 - turn * 7)
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}
 	);
 
 	if (Math.random() < 0.2) {

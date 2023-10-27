@@ -1,33 +1,23 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
-import {Translations} from "../../../../Translations";
-import {FightAction} from "../../FightAction";
-import {FightConstants} from "../../../../constants/FightConstants";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
-export default class RoarAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const roarTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
+const use: FightActionFunc = (_fight, fightAction, sender, receiver) => {
+	const result = defaultFightActionResult();
+	FightActionController.applyBuff(result, {
+		selfTarget: false,
+		stat: FightStatBuffed.ATTACK,
+		value: 0.9,
+		operator: FightStatModifierOperation.MULTIPLIER
+	}, receiver, fightAction);
+	FightActionController.applyBuff(result, {
+		selfTarget: false,
+		stat: FightStatBuffed.SPEED,
+		value: 0.9,
+		operator: FightStatModifierOperation.MULTIPLIER
+	}, receiver, fightAction);
+	return result;
+};
 
-		const statsReducePercentage = 10;
-		receiver.applyAttackModifier({
-			origin: this,
-			operation: FightStatModifierOperation.MULTIPLIER,
-			value: 1 - statsReducePercentage / 100
-		});
-		receiver.applySpeedModifier({
-			origin: this,
-			operation: FightStatModifierOperation.MULTIPLIER,
-			value: 1 - statsReducePercentage / 100
-		});
-
-		return roarTranslationModule.get("active") + attackTranslationModule.format("actions.sideEffects.attack", {
-			adversary: FightConstants.TARGET.OPPONENT,
-			operator: "-",
-			amount: statsReducePercentage
-		}) + attackTranslationModule.format("actions.sideEffects.speed", {
-			adversary: FightConstants.TARGET.OPPONENT,
-			operator: "-",
-			amount: statsReducePercentage
-		});
-	}
-}
+export default use;

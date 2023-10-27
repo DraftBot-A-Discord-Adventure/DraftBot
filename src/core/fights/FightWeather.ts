@@ -1,6 +1,5 @@
 import {RandomUtils} from "../utils/RandomUtils";
 import {Fighter} from "./fighter/Fighter";
-import {Translations} from "../Translations";
 
 export class FightWeatherEnum {
 	public static readonly SUNNY = new FightWeatherEnum("☀️", "sunny");
@@ -21,6 +20,18 @@ export class FightWeatherEnum {
 	}
 }
 
+export enum FightWeatherState {
+	CHANGE,
+	CONTINUE,
+	END
+}
+
+export interface FightWeatherResult {
+	weatherState: FightWeatherState;
+	currentWeather: FightWeatherEnum;
+	damages: number;
+}
+
 export class FightWeather {
 	// Gère la météo des combats
 	currentWeather: FightWeatherEnum;
@@ -35,9 +46,9 @@ export class FightWeather {
 		this.lastWeather = this.currentWeather = FightWeatherEnum.SUNNY;
 	}
 
-	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): string {
+	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): FightWeatherResult {
 		// Applique les effets globaux de la météo
-		let damages;
+		let damages = 0;
 		const didWeatherChanged = this.currentWeather !== this.lastWeather;
 		let mustSendMessage = didWeatherChanged;
 		switch (this.currentWeather) {
@@ -58,18 +69,11 @@ export class FightWeather {
 		}
 
 		this.lastWeather = this.currentWeather;
-		if (didWeatherChanged && this.currentWeather === FightWeatherEnum.SUNNY) {
-			return this.getWeatherMessage(didWeatherChanged, language);
-		}
-		else if (mustSendMessage) {
-			return this.getWeatherMessage(didWeatherChanged, language)
-				+ (damages > 0 ? Translations.getModule("commands.fight", language).format("weatherDamages", {
-					fighter: fighter.getMention(),
-					damages
-				}) : "");
-		}
-
-		return null;
+		return {
+			weatherState: didWeatherChanged ? (this.currentWeather === FightWeatherEnum.SUNNY ? FightWeatherState.END : FightWeatherState.CHANGE) : FightWeatherState.CONTINUE,
+			currentWeather: this.currentWeather === FightWeatherEnum.SUNNY && didWeatherChanged ? this.lastWeather : this.currentWeather,
+			damages
+		};
 	}
 
 	setWeather(weatherEnum: FightWeatherEnum, turn: number, weatherInitiator: Fighter): void {
@@ -80,13 +84,5 @@ export class FightWeather {
 
 	getWeatherEmote(): string {
 		return this.currentWeather.emote;
-	}
-
-	private getWeatherMessage(didWeatherChanged: boolean, language: string): string {
-		const module = Translations.getModule("commands.fight", language);
-		if (this.currentWeather === FightWeatherEnum.SUNNY && didWeatherChanged) {
-			return module.get(`weatherEnd.${this.lastWeather.name}`);
-		}
-		return module.get(`${didWeatherChanged ? "weatherChanges" : "weatherContinues"}.${this.currentWeather.name}`);
 	}
 }

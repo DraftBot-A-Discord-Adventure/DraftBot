@@ -1,59 +1,64 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {Translations} from "../../../../Translations";
+import {attackInfo, statsInfo} from "../../FightAction";
 import {FightActionController} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
-import {FightConstants} from "../../../../constants/FightConstants";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 
-export default class FamilyMealAttack extends FightAction {
-	use(fightAction: FightAction, sender: Fighter, receiver: Fighter, turn: number, language: string): string {
-		const familyMealTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		const attackTranslationModule = Translations.getModule("commands.fight", language);
+const use: FightActionFunc = (_fight, fightAction, sender: Fighter, receiver: Fighter) => {
+	const result = simpleDamageFightAction(
+		{
+			sender,
+			receiver
+		},
+		{
+			critical: 0,
+			failure: 0
+		},
+		{
+			attackInfo: getAttackInfo(),
+			statsInfo: getStatsInfo(sender, receiver)
+		}, 10
+	);
 
-		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo()) * 10;
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 0);
-		receiver.damage(damageDealt);
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.POISONED
+	}, receiver);
 
-		let sideEffects = attackTranslationModule.format("actions.sideEffects.summoning", {
-			amount: 10
-		});
+	sender.removeAlteration();
 
-		const alteration = receiver.newAlteration(FightAlterations.POISONED);
-		if (alteration === FightAlterations.POISONED) {
-			sideEffects += attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.OPPONENT,
-				effect: attackTranslationModule.get("effects.poisoned").toLowerCase()
-			});
-		}
+	FightActionController.applyAlteration(result, {
+		selfTarget: true,
+		alteration: FightAlterations.FULL
+	}, sender);
 
-		sender.removeAlteration();
-		sender.newAlteration(FightAlterations.FULL);
-		sideEffects += attackTranslationModule.format("actions.sideEffects.newAlteration", {
-			adversary: FightConstants.TARGET.SELF,
-			effect: attackTranslationModule.get("effects.full").toLowerCase()
-		});
+	return result;
+};
 
-		return familyMealTranslationModule.get("active") + sideEffects + Translations.getModule("commands.fight", language).format("actions.damages", {
-			damages: damageDealt
-		});
-	}
+export default use;
 
-	getAttackInfo(): attackInfo {
-		return {minDamage: 20, averageDamage: 30, maxDamage: 50};
-	}
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 20,
+		averageDamage: 30,
+		maxDamage: 50
+	};
+}
 
-	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
-		return {
-			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
-			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
-			], statsEffect: [
-				0.8,
-				0.2
-			]
-		};
-	}
+function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+	return {
+		attackerStats: [
+			sender.getAttack(),
+			sender.getSpeed()
+		],
+		defenderStats: [
+			receiver.getDefense(),
+			receiver.getSpeed()
+		],
+		statsEffect: [
+			0.8,
+			0.2
+		]
+	};
 }

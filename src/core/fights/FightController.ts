@@ -6,7 +6,7 @@ import {FightConstants} from "../constants/FightConstants";
 import {FighterStatus} from "./FighterStatus";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
-import {FightWeather} from "./FightWeather";
+import {FightWeather, FightWeatherEnum} from "./FightWeather";
 import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
@@ -67,7 +67,10 @@ export class FightController {
 
 
 		const receivedMessage = await fightAction.use(attacker, defender, turn, language, weather);
-		return {fightAction, receivedMessage};
+		return {
+			fightAction,
+			receivedMessage
+		};
 	}
 
 	/**
@@ -172,17 +175,21 @@ export class FightController {
 		fightAction = returns.fightAction;
 		const receivedMessage = returns.receivedMessage;
 
-		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter().getMention(), receivedMessage).catch(
-			(e) => {
-				console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
-				console.error(e.stack);
-				this.endBugFight();
-			});
+		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter()
+			.getMention(), receivedMessage)
+			.catch(
+				(e) => {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
+					console.error(e.stack);
+					this.endBugFight();
+				});
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
 			return;
 		}
-		this.getPlayingFighter().fightActionsHistory.push(fightAction);
+		this.getPlayingFighter()
+			.fightActionsHistory
+			.push(fightAction);
 		if (this.hadEnded()) {
 			await this.endFight();
 			return;
@@ -190,16 +197,18 @@ export class FightController {
 		if (endTurn) {
 			this.turn++;
 			this.invertFighters();
-			this.getPlayingFighter().regenerateBreath(this.turn < 3);
+			this.getPlayingFighter()
+				.regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn();
 		}
 		else {
-			await this._fightView.displayFightStatus().catch(
-				(e) => {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-					console.error(e.stack);
-					this.endBugFight();
-				});
+			await this._fightView.displayFightStatus()
+				.catch(
+					(e) => {
+						console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+						console.error(e.stack);
+						this.endBugFight();
+					});
 		}
 	}
 
@@ -216,6 +225,10 @@ export class FightController {
 	 */
 	public getFightView(): FightView {
 		return this._fightView;
+	}
+
+	setWeather(weather: FightWeatherEnum, turn: number, sender: Fighter) {
+		this.weather.setWeather(weather, turn, sender);
 	}
 
 	/**
@@ -251,25 +264,28 @@ export class FightController {
 			this.increaseDamagesPve(this.turn);
 		}
 
-		if (this.getPlayingFighter().hasFightAlteration()) {
+		if (this.getPlayingFighter()
+			.hasFightAlteration()) {
 			await this.executeFightAction(this.getPlayingFighter().alteration, false);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this._fightView.displayFightStatus().catch(
-			(e) => {
-				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-				console.error(e.stack);
-				this.endBugFight();
-			});
+		await this._fightView.displayFightStatus()
+			.catch(
+				(e) => {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
+					console.error(e.stack);
+					this.endBugFight();
+				});
 		if (this.state !== FightState.RUNNING) {
 			// An issue occurred during the fight status display, no need to continue the fight
 			return;
 		}
 
-		this.getPlayingFighter().reduceCounters();
+		this.getPlayingFighter()
+			.reduceCounters();
 
 		// If the player is fighting a monster, and it's his first turn, then use the "rage explosion" action without changing turns
 		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
@@ -281,9 +297,9 @@ export class FightController {
 
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
-				await this.getPlayingFighter().chooseAction(this._fightView);
-			}
-			catch (e) {
+				await this.getPlayingFighter()
+					.chooseAction(this._fightView);
+			} catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 				console.error(e.stack);
 				this.endBugFight();
@@ -337,8 +353,10 @@ export class FightController {
 	 */
 	private hadEnded(): boolean {
 		return (
-			this.getPlayingFighter().isDeadOrBug() ||
-			this.getDefendingFighter().isDeadOrBug() ||
+			this.getPlayingFighter()
+				.isDeadOrBug() ||
+			this.getDefendingFighter()
+				.isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
 	}
 }

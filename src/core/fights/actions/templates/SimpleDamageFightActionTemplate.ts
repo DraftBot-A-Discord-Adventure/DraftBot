@@ -1,7 +1,8 @@
 import {attackInfo, statsInfo} from "../FightAction";
 import {Fighter} from "../../fighter/Fighter";
 import {FightActionController} from "../FightActionController";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 
 export function simpleDamageFightAction(
 	fighters: {
@@ -15,13 +16,22 @@ export function simpleDamageFightAction(
 	info: {
 		attackInfo: attackInfo,
 		statsInfo: statsInfo
-	}): FightActionResult {
+	}, multiplier = 1): FightActionResult {
 
-	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo);
+	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo) * multiplier;
 	const attack = FightActionController.applySecondaryEffects(initialDamage, probabilities.critical, probabilities.failure);
 
-	return {
+	const result: FightActionResult = {
 		attackStatus: attack.status,
 		damages: attack.damages
 	};
+	if (multiplier !== 1) {
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.SUMMON,
+			value: multiplier,
+			operator: FightStatModifierOperation.MULTIPLIER
+		}, fighters.receiver, null);
+	}
+	return result;
 }

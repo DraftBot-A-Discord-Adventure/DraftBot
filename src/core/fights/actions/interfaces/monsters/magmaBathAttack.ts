@@ -1,6 +1,6 @@
-import Resting from "../players/resting";
-import {FightAction} from "../../FightAction";
+import {FightActionFunc} from "@Core/src/data/FightAction";
+import resting from "../players/resting";
 
-export default class MagmaBathAttack extends Resting {
-    fightAction: FightAction,
-}
+const use: FightActionFunc = resting;
+
+export default use;
