@@ -15,7 +15,7 @@ export class FightAction extends Data<string> {
 
 	public readonly type: FightActionType;
 
-	private weightForRandomSelection: number;
+	private _weightForRandomSelection: number;
 
 
 	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
@@ -29,7 +29,12 @@ export class FightAction extends Data<string> {
 	 * @param weight
 	 */
 	public setWeightForRandomSelection(weight: number): void {
-		this.weightForRandomSelection = weight;
+		this._weightForRandomSelection = weight;
+	}
+
+
+	public getWeightForRandomSelection(): number {
+		return this._weightForRandomSelection;
 	}
 }
 

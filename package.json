@@ -8,7 +8,7 @@
 	},
 	"engineStrict": true,
 	"scripts": {
-		"start": "cd ../Lib && yarn build && rm -rf ../Core/node_modules/draftbot_lib && mkdir ../Core/node_modules/draftbot_lib && cp -r dist/* ../Core/node_modules/draftbot_lib && cd ../Core && tsc && node dist/index.js",
+		"start": "cd ../Lib && tsc && rm -rf ../Core/node_modules/draftbot_lib && mkdir ../Core/node_modules/draftbot_lib && cp -r dist/* ../Core/node_modules/draftbot_lib && cd ../Core && tsc && node dist/index.js",
 		"eslint": "eslint src",
 		"eslintFix": "eslint src --fix",
 		"tsc": "tsc",

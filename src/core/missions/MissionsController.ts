@@ -14,8 +14,7 @@ import {MissionsExpiredPacket} from "@Lib/src/packets/notifications/MissionsExpi
 import {draftBotInstance} from "@Core/src";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "@Lib/src/packets/notifications/MissionsCompletedPacket";
-import {CompletedMission} from "@Lib/src/interfaces/CompletedMission";
-import {CompletedMissionType} from "@Lib/src/interfaces/CompletedMissionType";
+import {CompletedMission, CompletedMissionType} from "@Lib/src/interfaces/CompletedMission";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }

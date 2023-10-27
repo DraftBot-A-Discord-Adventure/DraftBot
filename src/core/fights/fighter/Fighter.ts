@@ -2,9 +2,9 @@ import {FighterStatus} from "../FighterStatus";
 import {FightView} from "../FightView";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
-import {FightAction} from "@Core/src/data/FightAction";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 import {FightAlteration} from "@Core/src/data/FightAlteration";
+import {FightAction} from "@Core/src/data/FightAction";
 
 type FighterStats = {
 	fightPoints: number,
@@ -414,7 +414,7 @@ export abstract class Fighter {
 	getRandomAvailableFightAction(): FightAction {
 
 		const attacks = Array.from(this.availableFightActions.values());
-		let availableAttacks = attacks.filter((action) => action.getBreathCost() < this.getBreath()
+		let availableAttacks = attacks.filter((action) => action.breath < this.getBreath()
 			|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY);
 
 		availableAttacks = availableAttacks.length === 0 ? attacks : availableAttacks;

@@ -5,8 +5,7 @@ import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/P
 import {MissionDataController} from "../../data/Mission";
 import {draftBotInstance} from "@Core/src";
 import {CampaignData} from "../../data/Campaign";
-import {CompletedMissionType} from "@Lib/src/interfaces/CompletedMissionType";
-import {CompletedMission} from "@Lib/src/interfaces/CompletedMission";
+import {CompletedMission, CompletedMissionType} from "@Lib/src/interfaces/CompletedMission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
