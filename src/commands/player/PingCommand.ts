@@ -5,5 +5,5 @@ export async function pingCommand(client: WebSocket, packet: CommandPingPacketRe
 	const resPacket: CommandPingPacketRes = {
 		latency: 0 // TODO
 	};
-	response.push(packet);
+	response.push(resPacket);
 }
