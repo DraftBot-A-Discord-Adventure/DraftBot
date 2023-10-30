@@ -1,4 +1,4 @@
-import {FightActionBuff} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionBuff} from "./FightActionResult";
 
 export enum FightAlterationState {
 	NEW,
