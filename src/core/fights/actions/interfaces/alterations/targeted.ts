@@ -1,8 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
-import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "@Core/src/core/fights/FightController";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
+import {attackInfo, statsInfo} from "../../FightActionController";
 
 const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
 	if (affected.alterationTurn === 1 || affected.alterationTurn === 3) {

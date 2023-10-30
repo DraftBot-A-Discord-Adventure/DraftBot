@@ -1,5 +1,5 @@
 import {DataController} from "./DataController";
-import {ClassStats} from "@Lib/src/interfaces/ClassStats";
+import {ClassStats} from "../../../Lib/src/interfaces/ClassStats";
 import {Data} from "./Data";
 
 export class Class extends Data<number> {

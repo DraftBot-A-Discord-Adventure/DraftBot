@@ -1,6 +1,6 @@
 import {Fighter} from "../../fighter/Fighter";
 import {FightActionController} from "../FightActionController";
-import {defaultFightActionResult, FightActionResult, FightAlterationApplied, updateFightActionResultFromSuccessTest} from "@Lib/src/interfaces/FightActionResult";
+import {defaultFightActionResult, FightActionResult, FightAlterationApplied, updateFightActionResultFromSuccessTest} from "../../../../../../Lib/src/interfaces/FightActionResult";
 
 export function simpleAlterationFightAction(target: Fighter, alteration: FightAlterationApplied): FightActionResult {
 	const result = defaultFightActionResult();

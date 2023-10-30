@@ -1,5 +1,5 @@
-import {FightActionDataController, FightActionFunc} from "@Core/src/data/FightAction";
-import {fightActionResultFromSuccessTest} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
+import {fightActionResultFromSuccessTest} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 
 const use: FightActionFunc = (sender) => {
 	const usedUltimateAttacks = sender.fightActionsHistory.filter(action => action === this).length;

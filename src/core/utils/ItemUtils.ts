@@ -8,18 +8,18 @@ import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import {ItemConstants} from "../constants/ItemConstants";
 import {GenericItem} from "../../data/GenericItem";
 import {BlockingUtils} from "./BlockingUtils";
-import {DraftBotPacket, PacketContext} from "@Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Potion, PotionDataController} from "../../data/Potion";
 import {WeaponDataController} from "../../data/Weapon";
 import {ArmorDataController} from "../../data/Armor";
 import {ObjectItemDataController} from "../../data/ObjectItem";
 import {ItemDataController} from "../../data/DataController";
-import {draftBotInstance} from "@Core/src";
+import {draftBotInstance} from "../../index";
 import {ChoiceReactionCollector, ValidationReactionCollector} from "./ReactionsCollector";
-import {ItemRefusePacket} from "@Lib/src/packets/notifications/ItemRefusePacket";
-import {ItemAcceptPacket} from "@Lib/src/packets/notifications/ItemAcceptPacket";
-import {ReactionCollectorType} from "@Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ItemFoundPacket} from "@Lib/src/packets/notifications/ItemFoundPacket";
+import {ItemRefusePacket} from "../../../../Lib/src/packets/notifications/ItemRefusePacket";
+import {ItemAcceptPacket} from "../../../../Lib/src/packets/notifications/ItemAcceptPacket";
+import {ReactionCollectorType} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {ItemFoundPacket} from "../../../../Lib/src/packets/notifications/ItemFoundPacket";
 
 /**
  * Get the value of an item

@@ -1,7 +1,7 @@
 import {Fighter} from "../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../FightActionController";
-import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightActionResult, FightStatBuffed} from "../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "../../../../../../Lib/src/interfaces/FightStatModifierOperation";
 
 export function simpleDamageFightAction(
 	fighters: {

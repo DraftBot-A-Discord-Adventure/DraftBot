@@ -1,11 +1,11 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
 import {ItemConstants} from "../../../constants/ItemConstants";
-import {GenericItem} from "@Core/src/data/GenericItem";
-import {Armor, ArmorDataController} from "@Core/src/data/Armor";
-import {Weapon, WeaponDataController} from "@Core/src/data/Weapon";
-import {Potion, PotionDataController} from "@Core/src/data/Potion";
-import {ObjectItem, ObjectItemDataController} from "@Core/src/data/ObjectItem";
+import {GenericItem} from "../../../../data/GenericItem";
+import {Armor, ArmorDataController} from "../../../../data/Armor";
+import {Weapon, WeaponDataController} from "../../../../data/Weapon";
+import {Potion, PotionDataController} from "../../../../data/Potion";
+import {ObjectItem, ObjectItemDataController} from "../../../../data/ObjectItem";
 import moment = require("moment");
 
 export class InventorySlot extends Model {

@@ -7,8 +7,8 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {Maps} from "./Maps";
 import {PVEConstants} from "../constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
-import {draftBotInstance} from "@Core/src";
-import {TravelEndPushPacket} from "@Lib/src/packets/push/TravelEndPushPacket";
+import {draftBotInstance} from "../../index";
+import {TravelEndPushPacket} from "../../../../Lib/src/packets/push/TravelEndPushPacket";
 
 /**
  * Travel time functions class

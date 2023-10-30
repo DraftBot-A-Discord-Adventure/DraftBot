@@ -6,7 +6,7 @@ import {Op} from "sequelize";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {MapLocation, MapLocationDataController} from "../../data/MapLocation";
-import {draftBotInstance} from "@Core/src";
+import {draftBotInstance} from "../../index";
 
 export class Maps {
 

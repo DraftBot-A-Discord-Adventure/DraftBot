@@ -1,7 +1,7 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
-import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
-import {FightWeatherResult} from "@Core/src/core/fights/FightWeather";
+import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {FightWeatherResult} from "./FightWeather";
 
 /* eslint-disable capitalized-comments */
 

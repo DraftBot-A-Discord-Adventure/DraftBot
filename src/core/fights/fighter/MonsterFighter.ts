@@ -4,7 +4,7 @@ import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Monster} from "../../../data/Monster";
-import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
+import {FightAction, FightActionDataController} from "../../../data/FightAction";
 
 export class MonsterFighter extends Fighter {
 

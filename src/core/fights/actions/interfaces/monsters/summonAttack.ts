@@ -1,9 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {defaultFailFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import {attackInfo, statsInfo} from "../../FightActionController";
 
 const use: FightActionFunc = (sender, receiver) => {
 	// Fail if already used

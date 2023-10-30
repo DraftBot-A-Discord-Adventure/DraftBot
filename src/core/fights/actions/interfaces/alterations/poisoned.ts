@@ -1,7 +1,7 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
-import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} from "@Core/src/core/fights/FightController";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
+import {attackInfo, statsInfo} from "../../FightActionController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 	// 25 % chance to be healed from the poison (except for the first turn)

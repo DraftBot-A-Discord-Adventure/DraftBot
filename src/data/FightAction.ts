@@ -1,10 +1,10 @@
 import {DataController} from "./DataController";
 import {Data} from "./Data";
-import {FightActionType} from "@Lib/src/interfaces/FightActionType";
+import {FightActionType} from "../../../Lib/src/interfaces/FightActionType";
 import {Fighter} from "../core/fights/fighter/Fighter";
 import {readdirSync} from "fs";
 import {FightController} from "../core/fights/FightController";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionResult} from "../../../Lib/src/interfaces/FightActionResult";
 
 export class FightAction extends Data<string> {
 	public readonly emote: string;

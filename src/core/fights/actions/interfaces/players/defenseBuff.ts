@@ -1,7 +1,7 @@
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {defaultFightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightActionController} from "../../FightActionController";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	// Amount of times the sender has used the move already in its 3 last moves

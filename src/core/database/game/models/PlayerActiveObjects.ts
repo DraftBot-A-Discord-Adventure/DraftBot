@@ -1,7 +1,7 @@
-import {Weapon} from "@Core/src/data/Weapon";
-import {Armor} from "@Core/src/data/Armor";
-import {Potion} from "@Core/src/data/Potion";
-import {ObjectItem} from "@Core/src/data/ObjectItem";
+import {Weapon} from "../../../../data/Weapon";
+import {Armor} from "../../../../data/Armor";
+import {Potion} from "../../../../data/Potion";
+import {ObjectItem} from "../../../../data/ObjectItem";
 
 export interface PlayerActiveObjects {
 	weapon: Weapon,

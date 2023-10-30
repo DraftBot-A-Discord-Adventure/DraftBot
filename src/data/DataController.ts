@@ -20,7 +20,7 @@ export abstract class DataController<T extends string | number, U extends Data<n
 			}
 
 			const instance = this.newInstance();
-			this.toInstance(<T>key, instance, readFileSync(file)
+			this.toInstance(<T>key, instance, readFileSync(`resources/${folder}/${file}`)
 				.toString("utf8"));
 
 			this.data.set(<T>key, instance);
@@ -44,7 +44,8 @@ export abstract class DataController<T extends string | number, U extends Data<n
 	private toInstance(id: T, obj: U, json: string): void {
 		const jsonObj = JSON.parse(json);
 
-		for (const propName of jsonObj) {
+		// eslint-disable-next-line guard-for-in
+		for (const propName in jsonObj) {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			obj[propName] = jsonObj[propName];

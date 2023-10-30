@@ -1,10 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {MathUtils} from "../../../../utils/MathUtils";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightAlterations} from "../../FightAlterations";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {FightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 
 const use: FightActionFunc = (sender, receiver) => {
 

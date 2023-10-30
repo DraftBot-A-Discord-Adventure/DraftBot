@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {PotionDataController} from "@Core/src/data/Potion";
+import {PotionDataController} from "../../../../data/Potion";
 import {MapCache} from "../../../maps/MapCache";
 import moment = require("moment");
 

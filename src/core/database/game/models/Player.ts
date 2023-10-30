@@ -27,17 +27,17 @@ import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
 import {Guilds} from "./Guild";
-import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
-import {PlayerDeathPacket} from "@Lib/src/packets/notifications/PlayerDeathPacket";
-import {PlayerLeavePveIslandPacket} from "@Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
-import {PlayerLevelUpPacket} from "@Lib/src/packets/notifications/PlayerLevelUpPacket";
-import {MapLinkDataController} from "@Core/src/data/MapLink";
-import {MapLocation, MapLocationDataController} from "@Core/src/data/MapLocation";
-import {draftBotInstance} from "@Core/src";
-import {GenericItem} from "@Core/src/data/GenericItem";
-import {Class, ClassDataController} from "@Core/src/data/Class";
+import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerDeathPacket} from "../../../../../../Lib/src/packets/notifications/PlayerDeathPacket";
+import {PlayerLeavePveIslandPacket} from "../../../../../../Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
+import {PlayerLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/PlayerLevelUpPacket";
+import {MapLinkDataController} from "../../../../data/MapLink";
+import {MapLocation, MapLocationDataController} from "../../../../data/MapLocation";
+import {draftBotInstance} from "../../../../index";
+import {GenericItem} from "../../../../data/GenericItem";
+import {Class, ClassDataController} from "../../../../data/Class";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
-import {League, LeagueDataController} from "@Core/src/data/League";
+import {League, LeagueDataController} from "../../../../data/League";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {

@@ -6,10 +6,10 @@ import {Player, PlayerEditValueParameters} from "./Player";
 import {PetConstants} from "../../../constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
-import {Pet, PetDataController} from "@Core/src/data/Pet";
-import {draftBotInstance} from "@Core/src";
-import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
-import {PlayerReceivePetPacket} from "@Lib/src/packets/notifications/PlayerReceivePetPacket";
+import {Pet, PetDataController} from "../../../../data/Pet";
+import {draftBotInstance} from "../../../../index";
+import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
 import moment = require("moment");
 
 export class PetEntity extends Model {

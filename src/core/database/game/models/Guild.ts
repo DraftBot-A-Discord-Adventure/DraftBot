@@ -9,9 +9,9 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import {TopConstants} from "../../../constants/TopConstants";
-import {draftBotInstance} from "@Core/src";
-import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
-import {GuildLevelUpPacket} from "@Lib/src/packets/notifications/GuildLevelUpPacket";
+import {draftBotInstance} from "../../../../index";
+import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/GuildLevelUpPacket";
 import moment = require("moment");
 
 export class Guild extends Model {

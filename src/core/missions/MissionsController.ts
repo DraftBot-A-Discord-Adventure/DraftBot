@@ -9,12 +9,12 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
-import {MissionsExpiredPacket} from "@Lib/src/packets/notifications/MissionsExpiredPacket";
-import {draftBotInstance} from "@Core/src";
+import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {MissionsExpiredPacket} from "../../../../Lib/src/packets/notifications/MissionsExpiredPacket";
+import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
-import {MissionsCompletedPacket} from "@Lib/src/packets/notifications/MissionsCompletedPacket";
-import {CompletedMission, CompletedMissionType} from "@Lib/src/interfaces/CompletedMission";
+import {MissionsCompletedPacket} from "../../../../Lib/src/packets/notifications/MissionsCompletedPacket";
+import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }

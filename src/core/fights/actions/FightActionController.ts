@@ -1,13 +1,13 @@
 import {FightConstants} from "../../constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
-import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {MathUtils} from "@Core/src/core/utils/MathUtils";
-import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
-import {FightController} from "@Core/src/core/fights/FightController";
-import {FightAlterationResult} from "@Lib/src/interfaces/FightAlterationResult";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
+import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";
+import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "../../../../../Lib/src/interfaces/FightActionResult";
+import {MathUtils} from "../../utils/MathUtils";
+import {FightAction, FightActionDataController} from "../../../data/FightAction";
+import {FightController} from "../FightController";
+import {FightAlterationResult} from "../../../../../Lib/src/interfaces/FightAlterationResult";
+import {FightAlteration, FightAlterationDataController} from "../../../data/FightAlteration";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -45,7 +45,8 @@ export class FightActionController {
 	 * @param target
 	 * @param origin
 	 */
-	static applyBuff(result: FightActionResult | FightAlterationResult, buff: FightActionBuff, target: Fighter, origin: FightAction): void {
+	static applyBuff(result: FightActionResult | FightAlterationResult, buff: FightActionBuff, target: Fighter, origin: FightAction | FightAlteration): void {
+		origin = origin as FightAction;
 		switch (buff.stat) {
 		case FightStatBuffed.ATTACK:
 			target.applyAttackModifier({

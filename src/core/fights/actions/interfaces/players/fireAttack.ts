@@ -2,8 +2,8 @@ import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {FightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());

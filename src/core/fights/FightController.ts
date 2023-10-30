@@ -9,13 +9,12 @@ import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../constants/PVEConstants";
-import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
-import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {FightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
-import {attackInfo, FightActionController, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
-import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
-import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
+import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {FightStatModifierOperation} from "../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/interfaces/FightAlterationResult";
+import {attackInfo, FightActionController, statsInfo} from "./actions/FightActionController";
+import {FightAction, FightActionDataController} from "../../data/FightAction";
+import {FightActionResult} from "../../../../Lib/src/interfaces/FightActionResult";
 
 /**
  * @class FightController
@@ -65,14 +64,12 @@ export class FightController {
 
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				fightAction = FightAlterationDataController.instance.getById("outOfBreath");
+				fightAction = FightActionDataController.instance.getById("outOfBreath");
 			}
 			else {
 				attacker.setBreath(0);
 			}
 		}
-
-
 		return fightAction.use(attacker, defender, turn, this);
 	}
 

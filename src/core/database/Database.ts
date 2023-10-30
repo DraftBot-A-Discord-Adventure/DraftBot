@@ -2,7 +2,7 @@ import {Sequelize, Transaction} from "sequelize";
 import {SequelizeStorage, Umzug} from "umzug";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
-import {botConfig} from "@Core/src";
+import {botConfig} from "../../index";
 import TYPES = Transaction.TYPES;
 
 export abstract class Database {

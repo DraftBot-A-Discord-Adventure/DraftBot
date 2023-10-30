@@ -1,11 +1,11 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
-import {FightActionType} from "@Lib/src/interfaces/FightActionType";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
+import {FightActionType} from "../../../../../../../Lib/src/interfaces/FightActionType";
 import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {defaultFailFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (sender, receiver) => {
 	if (!receiver.getLastFightActionUsed() || receiver.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {

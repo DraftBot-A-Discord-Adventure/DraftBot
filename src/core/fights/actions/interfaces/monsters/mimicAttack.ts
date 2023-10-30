@@ -1,5 +1,5 @@
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {FightActionController} from "../../FightActionController";
 
 const use: FightActionFunc = (sender, receiver, _fightAction, turn, fight) => {
 	const chosenAttack = receiver.getRandomAvailableFightAction();

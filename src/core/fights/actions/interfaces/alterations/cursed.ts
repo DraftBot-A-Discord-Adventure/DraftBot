@@ -1,10 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {MathUtils} from "../../../../utils/MathUtils";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
-import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "@Core/src/core/fights/FightController";
+import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent, turn) => {
 	// 50 % chance to be healed from the cursed (except for the first two turn) and 100 % after 5 turns of being cursed

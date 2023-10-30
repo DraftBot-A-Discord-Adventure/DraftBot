@@ -1,8 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
-import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
-import {FightActionDataController} from "@Core/src/data/FightAction";
-import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult, defaultRandomActionFightAlterationResult} from "@Core/src/core/fights/FightController";
+import {attackInfo, statsInfo} from "../../FightActionController";
+import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import {FightActionDataController} from "../../../../../data/FightAction";
+import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult, defaultRandomActionFightAlterationResult} from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 	const randomValue = Math.random();

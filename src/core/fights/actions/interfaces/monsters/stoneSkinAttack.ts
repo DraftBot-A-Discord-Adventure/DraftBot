@@ -1,5 +1,5 @@
 import DefenseBuff from "../players/defenseBuff";
-import {FightActionFunc} from "@Core/src/data/FightAction";
+import {FightActionFunc} from "../../../../../data/FightAction";
 
 const use: FightActionFunc = DefenseBuff;
 

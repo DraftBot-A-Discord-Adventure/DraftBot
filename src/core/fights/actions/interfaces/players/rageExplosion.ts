@@ -3,8 +3,8 @@ import {attackInfo, FightActionController, statsInfo} from "../../FightActionCon
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {NumberChangeReason} from "../../../../constants/LogsConstants";
 import {PVEConstants} from "../../../../constants/PVEConstants";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {FightActionStatus} from "../../../../../../../Lib/src/interfaces/FightActionStatus";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const playerSender = <PlayerFighter>sender;

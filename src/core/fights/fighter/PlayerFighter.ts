@@ -14,10 +14,10 @@ import {FighterStatus} from "../FighterStatus";
 import {Maps} from "../../maps/Maps";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
-import {Class} from "@Core/src/data/Class";
-import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
-import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
-import {Potion} from "@Core/src/data/Potion";
+import {Class} from "../../../data/Class";
+import {FightAction, FightActionDataController} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
+import {Potion} from "../../../data/Potion";
 
 /* eslint-disable capitalized-comments */
 

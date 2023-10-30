@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {draftBotInstance} from "@Core/src";
+import {draftBotInstance} from "../../../../index";
 import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {

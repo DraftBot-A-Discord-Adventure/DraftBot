@@ -1,7 +1,7 @@
 import {RandomUtils} from "../../../../utils/RandomUtils";
-import {FightActionDataController, FightActionFunc} from "@Core/src/data/FightAction";
-import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
-import {Monster, MonsterDataController} from "@Core/src/data/Monster";
+import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
+import {FightActionController} from "../../FightActionController";
+import {Monster, MonsterDataController} from "../../../../../data/Monster";
 
 const use: FightActionFunc = (sender, receiver, fightAction, turn, fight) => {
 	let chosenAttackId: string;

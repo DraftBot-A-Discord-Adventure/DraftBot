@@ -1,4 +1,4 @@
-import {FightAction} from "@Core/src/data/FightAction";
+import {FightAction} from "../../../data/FightAction";
 
 export class FightAlteration extends FightAction {
 	constructor() {

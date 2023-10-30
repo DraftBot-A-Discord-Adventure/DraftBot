@@ -1,11 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {getUsedGodMoves} from "./divineAttack";
-import {FightActionFunc} from "@Core/src/data/FightAction";
-import {defaultFailFightActionResult, FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
-import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
+import {FightActionFunc} from "../../../../../data/FightAction";
+import {defaultFailFightActionResult, FightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
 	return {

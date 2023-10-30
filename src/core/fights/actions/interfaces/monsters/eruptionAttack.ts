@@ -1,6 +1,6 @@
 import {FightWeatherEnum} from "../../../FightWeather";
-import {defaultFightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {FightActionFunc} from "@Core/src/data/FightAction";
+import {defaultFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightActionFunc} from "../../../../../data/FightAction";
 
 const use: FightActionFunc = (sender, _receiver, _fightAction, turn, fight) => {
 	fight.setWeather(FightWeatherEnum.FIRESTORM, turn, sender);

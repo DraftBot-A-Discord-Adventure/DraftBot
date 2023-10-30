@@ -2,8 +2,8 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {MissionsController} from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
-import {draftBotInstance} from "@Core/src";
-import {MissionDataController} from "@Core/src/data/Mission";
+import {draftBotInstance} from "../../../../index";
+import {MissionDataController} from "../../../../data/Mission";
 import moment = require("moment");
 
 export class DailyMission extends Model {
