@@ -81,7 +81,7 @@ export class Maps {
 	 * @param date
 	 */
 	static async isArrived(player: Player, date: Date): Promise<boolean> {
-		return (TravelTime.getTravelDataSimplified(player, date)).travelEndTime <= date.valueOf();
+		return TravelTime.getTravelDataSimplified(player, date).travelEndTime <= date.valueOf();
 	}
 
 	/**

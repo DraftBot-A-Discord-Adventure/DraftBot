@@ -188,7 +188,7 @@ export class PlayerFighter extends Fighter {
 		return this.pveMembers;
 	}
 
-	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void {// (m: Message) => void {
+	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void { // (m: Message) => void {
 		return null;
 		/* return (chooseActionEmbedMessage: Message): void => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
