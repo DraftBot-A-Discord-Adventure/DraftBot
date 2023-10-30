@@ -164,7 +164,7 @@ const sellOrKeepItem = async function(
  * @param inventorySlots
  */
 // eslint-disable-next-line max-params
-async function manageMoreThan2ItemsSwitching(
+function manageMoreThan2ItemsSwitching(
 	items: InventorySlot[],
 	player: Player,
 	context: PacketContext,
@@ -173,29 +173,33 @@ async function manageMoreThan2ItemsSwitching(
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
 	inventorySlots: InventorySlot[]
-): Promise<void> {
+): void {
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 	response.push(ChoiceReactionCollector.create<InventorySlot>(
 		context,
-		ReactionCollectorType.ACCEPT_ITEM_CHOICE,
-		[player.id],
-		items,
-		async (collector, playerId, inventorySlot, response) => {
-			player = await Players.getById(player.id);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-			await sellOrKeepItem(
-				player,
-				false,
-				response,
-				item,
-				inventorySlot,
-				await inventorySlot.getItem(),
-				resaleMultiplier,
-				resaleMultiplierActual,
-				false,
-				inventorySlots
-			);
+		{
+			collectorType: ReactionCollectorType.ACCEPT_ITEM_CHOICE
+		},
+		{
+			callback: async (collector, playerId, inventorySlot, response) => {
+				player = await Players.getById(player.id);
+				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+				await sellOrKeepItem(
+					player,
+					false,
+					response,
+					item,
+					inventorySlot,
+					await inventorySlot.getItem(),
+					resaleMultiplier,
+					resaleMultiplierActual,
+					false,
+					inventorySlots
+				);
+			},
+			allowedPlayerIds: [player.id],
+			choices: items
 		},
 		async (collector, response) => {
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
@@ -274,7 +278,7 @@ export const giveItemToPlayer = async function(
 			autoSell = true;
 		}
 		else {
-			await manageMoreThan2ItemsSwitching(items, player, context, response, item, resaleMultiplier, resaleMultiplierActual, inventorySlots);
+			manageMoreThan2ItemsSwitching(items, player, context, response, item, resaleMultiplier, resaleMultiplierActual, inventorySlots);
 			return;
 		}
 	}
@@ -294,7 +298,7 @@ export const giveItemToPlayer = async function(
 		return;
 	}
 
-	const itemToReplaceInstance = await itemToReplace.getItem();
+	const itemToReplaceInstance = itemToReplace.getItem();
 	response.push(
 		ValidationReactionCollector.create(
 			context,
@@ -327,7 +331,7 @@ export const giveItemToPlayer = async function(
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-export const generateRandomRarity = function(minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): number {
+export const generateRandomRarity = function(minRarity: number = ItemConstants.RARITY.COMMON, maxRarity: number = ItemConstants.RARITY.MYTHICAL): number {
 	const randomValue = RandomUtils.draftbotRandom.integer(
 		1 + (minRarity === ItemConstants.RARITY.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
 		ItemConstants.RARITY.GENERATOR.MAX_VALUE
@@ -395,7 +399,7 @@ export function generateRandomItem(
  * @param {Player} player
  */
 export const giveRandomItem = async function(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
-	await giveItemToPlayer(player, await generateRandomItem(), context, response, await InventorySlots.getOfPlayer(player.id));
+	await giveItemToPlayer(player, generateRandomItem(), context, response, await InventorySlots.getOfPlayer(player.id));
 };
 
 type TemporarySlotAndItemType = {
@@ -407,13 +411,13 @@ type TemporarySlotAndItemType = {
  * Sort an item slots list by type then price
  * @param items
  */
-export const sortPlayerItemList = async function(items: InventorySlot[]): Promise<InventorySlot[]> {
-	let itemInstances: TemporarySlotAndItemType[] = await Promise.all(items.map(async function(invSlot) {
+export const sortPlayerItemList = function(items: InventorySlot[]): InventorySlot[] {
+	let itemInstances: TemporarySlotAndItemType[] = items.map(function(invSlot) {
 		return {
 			slot: invSlot,
-			item: await invSlot.getItem()
+			item: invSlot.getItem()
 		};
-	}));
+	});
 	itemInstances = itemInstances.sort(
 		(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
 			if (a.slot.itemCategory < b.slot.itemCategory) {
@@ -437,9 +441,9 @@ export const sortPlayerItemList = async function(items: InventorySlot[]): Promis
  * @param slots
  * @param rarity
  */
-export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
+export const haveRarityOrMore = function(slots: InventorySlot[], rarity: number): boolean {
 	for (const slot of slots) {
-		if ((await slot.getItem()).rarity >= rarity) {
+		if (slot.getItem().rarity >= rarity) {
 			return true;
 		}
 	}

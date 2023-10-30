@@ -8,7 +8,7 @@ export type IMission = {
 	 * @param difficulty - the difficulty of the mission
 	 * @param player - the player from which the mission is generated
 	 */
-	generateRandomVariant(difficulty: MissionDifficulty, player: Player): Promise<number>;
+	generateRandomVariant(difficulty: MissionDifficulty, player: Player): number | Promise<number>;
 
 	/**
 	 * Check if the params are matching the variant
@@ -23,7 +23,7 @@ export type IMission = {
 	 * @param player - the player
 	 * @param variant - the variant of the mission
 	 */
-	initialNumberDone(player: Player, variant: number): Promise<number>;
+	initialNumberDone(player: Player, variant: number): number | Promise<number>;
 
 	/**
 	 * Save data in the mission (for example the location the player has to travel to in a go there mission)
@@ -31,5 +31,7 @@ export type IMission = {
 	 * @param saveBlob - the binary data to save
 	 * @param params - identical to the update of the mission
 	 */
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer>;
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: {
+		[key: string]: unknown
+	}): Buffer | Promise<Buffer>;
 }

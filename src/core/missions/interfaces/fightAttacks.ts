@@ -8,7 +8,7 @@ export const missionInterface: IMission = {
 		return params.attackType === FightActionController.variantToFightActionId(variant);
 	},
 
-	async generateRandomVariant(difficulty, player): Promise<number> {
+	generateRandomVariant(difficulty, player): number {
 		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick(ClassDataController.instance.getById(player.class).fightActionsIds));
 	},
 

@@ -17,7 +17,11 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"target": "es6",
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"lib": [
+			"ES2022",
+			"dom"
+		]
 	},
 	"include": [
 		"src/**/*",

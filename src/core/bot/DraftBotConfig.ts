@@ -33,11 +33,58 @@ export interface DraftBotConfig {
     WEBSERVER_PORT: number;
 }
 
+type ConfigStructure = {
+	discord: {
+		general: {
+			token: string;
+			main_server_id: string;
+		};
+		roles: {
+			badge_manager_ids: string;
+			contributor_role_id: string;
+		};
+		channels: {
+			console_channel_id: string;
+			contributor_channel: string;
+			english_announcements_channel_id: string;
+			french_announcements_channel_id: string;
+			english_channel_id: string;
+		};
+		users: {
+			owner_id: string;
+			dm_manager_id: string;
+		};
+	};
+	discord_bot_list: {
+		webhook_url: string;
+		webhook_port: number;
+		channel_id: string;
+		vote_role_id: string;
+		token: string;
+	};
+	bot: {
+		maintenance: boolean;
+		test_mode: boolean;
+	};
+	others: {
+		nasa_api_key: string;
+		webserver_port: number;
+	};
+	database: {
+		host: string;
+		user: string;
+		password: string;
+		root_password: string;
+		port: number;
+		prefix: string;
+	};
+}
+
 /**
  * Loads the config from the config file
  */
 export function loadConfig(): DraftBotConfig {
-	const config = parse(readFileSync(`${process.cwd()}/config/config.toml`, "utf-8"));
+	const config = parse(readFileSync(`${process.cwd()}/config/config.toml`, "utf-8")) as ConfigStructure;
 	return {
 		BADGE_MANAGER_ROLE: config.discord.roles.badge_manager_ids,
 		BOT_OWNER_ID: config.discord.users.owner_id,

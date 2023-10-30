@@ -120,8 +120,6 @@ export class Player extends Model {
 
 	declare createdAt: Date;
 
-	private pseudo: string;
-
 	/**
 	 * Add a badge to a player
 	 * @param badge
@@ -434,7 +432,6 @@ export class Player extends Model {
 	 * Get the number of player that are on the same map as the player
 	 */
 	public async getNbPlayersOnYourMap(): Promise<number> {
-		const mapLink = MapLinkDataController.instance.getById(this.mapLinkId);
 		const oppositeLink = MapLinkDataController.instance.getInverseLinkOf(this.mapLinkId);
 
 		const query = `SELECT COUNT(*) as count
@@ -525,7 +522,7 @@ export class Player extends Model {
 		attack: number,
 		defense: number,
 		speed: number
-	} {
+		} {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),
@@ -746,7 +743,7 @@ export class Player extends Model {
 	 * @param amount
 	 * @param maxPoints
 	 */
-	public async addFightPoints(amount: number, maxPoints = -1): Promise<void> {
+	public addFightPoints(amount: number, maxPoints = -1): void {
 		if (maxPoints === -1) {
 			maxPoints = this.getMaxCumulativeFightPoint();
 		}
@@ -885,7 +882,7 @@ export class Player extends Model {
 	/**
 	 * Check if the player has enough energy to join the island
 	 */
-	async hasEnoughEnergyToJoinTheIsland(): Promise<boolean> {
+	hasEnoughEnergyToJoinTheIsland(): boolean {
 		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 

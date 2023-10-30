@@ -6,15 +6,15 @@ export const missionInterface: IMission = {
 		return variant === params.mapId;
 	},
 
-	async generateRandomVariant(): Promise<number> {
-		return Promise.resolve(MapLocationDataController.instance.getRandomGotoableMap().id);
+	generateRandomVariant(): number {
+		return MapLocationDataController.instance.getRandomGotoableMap().id;
 	},
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
+	initialNumberDone(): number {
+		return 0;
 	},
 
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
+	updateSaveBlob(): Buffer {
+		return null;
 	}
 };

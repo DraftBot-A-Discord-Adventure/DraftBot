@@ -300,7 +300,8 @@ export class FightController {
 			try {
 				await this.getPlayingFighter()
 					.chooseAction(this._fightView);
-			} catch (e) {
+			}
+			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 				console.error(e.stack);
 				this.endBugFight();

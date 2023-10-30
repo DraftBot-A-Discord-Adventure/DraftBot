@@ -96,7 +96,8 @@ export class PetEntity extends Model {
 		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
 
@@ -144,7 +145,7 @@ export class PetEntities {
 		});
 	}
 
-	static async generateRandomPetEntity(level: number, minRarity = 1, maxRarity = 5): Promise<PetEntity> {
+	static generateRandomPetEntity(level: number, minRarity = 1, maxRarity = 5): PetEntity {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
 		const levelTier = Math.floor(level / 10);
 		let rarity;
@@ -178,8 +179,8 @@ export class PetEntities {
 		});
 	}
 
-	static async generateRandomPetEntityNotGuild(minRarity = 1, maxRarity = 5): Promise<PetEntity> {
-		return await PetEntities.generateRandomPetEntity(PetConstants.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT, minRarity, maxRarity);
+	static generateRandomPetEntityNotGuild(minRarity = 1, maxRarity = 5): PetEntity {
+		return PetEntities.generateRandomPetEntity(PetConstants.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT, minRarity, maxRarity);
 	}
 
 	static async getNbTrainedPets(): Promise<number> {

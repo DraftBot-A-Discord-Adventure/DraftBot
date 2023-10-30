@@ -16,14 +16,27 @@ import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/notifications/MissionsCompletedPacket";
 import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
-type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
-type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
+type MissionInformations = {
+	missionId: string,
+	count?: number,
+	params?: {
+		[key: string]: unknown
+	},
+	set?: boolean
+}
+type CompletedSpecialMissions = {
+	completedDaily: boolean,
+	completedCampaign: boolean
+}
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
-			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
-		} catch {
+			return <IMission>((require(`./interfaces/${missionId}`) as {
+				missionInterface: IMission
+			}).missionInterface);
+		}
+		catch {
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
@@ -197,13 +210,21 @@ export class MissionsController {
 		await player.save();
 	}
 
-	public static async generateRandomDailyMissionProperties(): Promise<{ mission: Mission, index: number, variant: number }> {
+	public static async generateRandomDailyMissionProperties(): Promise<{
+		mission: Mission,
+		index: number,
+		variant: number
+	}> {
 		const mission = MissionDataController.instance.getRandomDailyMission();
-		return this.generateMissionProperties(mission.id, MissionDifficulty.EASY, mission, true);
+		return await this.generateMissionProperties(mission.id, MissionDifficulty.EASY, mission, true);
 	}
 
 	public static async generateMissionProperties(missionId: string, difficulty: MissionDifficulty, mission: Mission = null, daily = false, player: Player = null)
-		: Promise<{ mission: Mission, index: number, variant: number } | null> {
+		: Promise<{
+		mission: Mission,
+		index: number,
+		variant: number
+	} | null> {
 		if (!mission) {
 			mission = MissionDataController.instance.getById(missionId);
 			if (!mission) {
@@ -270,7 +291,7 @@ export class MissionsController {
 	}
 
 	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exceptions: string = null): Promise<MissionSlot> {
-		const mission = await MissionDataController.instance.getRandomMission(difficulty, exceptions);
+		const mission = MissionDataController.instance.getRandomMission(difficulty, exceptions);
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 

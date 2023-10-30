@@ -5,9 +5,31 @@ import {Constants} from "../Constants";
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 
-type CollectCallback = (collector: ReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => Promise<void>;
+type CollectCallback = (collector: ReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => void | Promise<void>;
 
-type EndCallback = (collector: ReactionCollector, response: DraftBotPacket[]) => Promise<void>;
+type EndCallback = (collector: ReactionCollector, response: DraftBotPacket[]) => void | Promise<void>;
+
+type FilterFunction = (playerId: number, reaction: string) => boolean | Promise<boolean>;
+
+type ChoiceReactionCallback<T> = (collector: ChoiceReactionCollector, playerId: number, item: T, response: DraftBotPacket[]) => Promise<void>
+
+export type CollectorFunctions = {
+	collect?: CollectCallback;
+	end?: EndCallback;
+	filter?: FilterFunction;
+};
+
+export type CollectorOptions = {
+	collectorType?: ReactionCollectorType;
+	reactions?: string[];
+	time?: number;
+};
+
+export type ReactionCollectorOptions<T> = {
+	allowedPlayerIds?: number[],
+	choices?: T[],
+	callback?: ChoiceReactionCallback<T>,
+}
 
 export class ReactionCollector {
 	protected static collectors: Map<string, ReactionCollector>;
@@ -16,7 +38,7 @@ export class ReactionCollector {
 
 	protected readonly reactions: string[];
 
-	protected readonly filter: (playerId: number, reaction: string) => Promise<boolean>;
+	protected readonly filter: FilterFunction;
 
 	protected readonly endTime: number;
 
@@ -33,15 +55,15 @@ export class ReactionCollector {
 	protected hasEnded: boolean;
 
 
-	protected constructor(context: PacketContext, collectorType: ReactionCollectorType, reactions: string[], filter: (playerId: number, reaction: string) => Promise<boolean>, time: number, collectCallback: CollectCallback, endCallback: EndCallback) {
-		this.collectorType = collectorType;
-		this.reactions = reactions;
-		this.filter = filter;
-		this.time = time;
-		this.endTime = Date.now() + time;
-		this.collectCallback = collectCallback;
+	protected constructor(context: PacketContext, collectorOptions: CollectorOptions, collectorFunctions: CollectorFunctions) {
+		this.collectorType = collectorOptions.collectorType;
+		this.reactions = collectorOptions.reactions;
+		this.filter = collectorFunctions.filter;
+		this.time = collectorOptions.time;
+		this.endTime = Date.now() + this.time;
+		this.collectCallback = collectorFunctions.collect;
 		this.context = context;
-		this.endCallback = endCallback;
+		this.endCallback = collectorFunctions.end;
 	}
 
 	public static async reactPacket(socket: WebSocket, packet: ReactionCollectorReactPacket, response: DraftBotPacket[]): Promise<void> {
@@ -99,14 +121,12 @@ export class ReactionCollector {
 export class GenericReactionCollector extends ReactionCollector {
 	public static create(
 		context: PacketContext,
-		collectorType: ReactionCollectorType,
-		reactions: string[],
-		filter: (playerId: number, reaction: string) => Promise<boolean>,
-		collectCallback: CollectCallback,
-		endCallback: EndCallback = null,
-		time: number = Constants.MESSAGES.COLLECTOR_TIME
+		{collectorType, reactions, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions,
+		{filter, collect, end = null}: CollectorFunctions
 	): GenericReactionCollector {
-		const collector = new GenericReactionCollector(context, collectorType, reactions, filter, time, collectCallback, endCallback);
+		const collector = new GenericReactionCollector(context,
+			{collectorType, reactions, time},
+			{filter, collect, end});
 		ReactionCollector.register(collector);
 		return collector;
 	}
@@ -124,7 +144,7 @@ export class ValidationReactionCollector extends ReactionCollector {
 		time: number = Constants.MESSAGES.COLLECTOR_TIME
 	): ValidationReactionCollector {
 		const reactions = [Constants.REACTIONS.VALIDATE_REACTION, Constants.REACTIONS.REFUSE_REACTION];
-		const filter = (playerId: number, reaction: string) => Promise.resolve(allowedPlayerIds.includes(playerId) && reactions.includes(reaction));
+		const filter = (playerId: number, reaction: string): boolean => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
 		const callbackOverload: CollectCallback = async (collector: ValidationReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => {
 			collector.validated = reaction === reactions[0];
 			await callback(collector, playerId, reaction, response);
@@ -132,12 +152,8 @@ export class ValidationReactionCollector extends ReactionCollector {
 
 		const collector = new ValidationReactionCollector(
 			context,
-			collectorType,
-			reactions,
-			filter,
-			time,
-			callbackOverload,
-			endCallback
+			{collectorType, reactions, time},
+			{filter, collect: callbackOverload, end: endCallback}
 		);
 		ReactionCollector.register(collector);
 		return collector;
@@ -148,36 +164,37 @@ export class ValidationReactionCollector extends ReactionCollector {
 	}
 }
 
-export class ChoiceReactionCollector<T> extends ReactionCollector {
+export class ChoiceReactionCollector extends ReactionCollector {
 	public static create<T>(
 		context: PacketContext,
-		collectorType: ReactionCollectorType,
-		allowedPlayerIds: number[],
-		choices: T[],
-		callback: (collector: ChoiceReactionCollector<T>, playerId: number, item: T, response: DraftBotPacket[]) => Promise<void>,
-		endCallback: EndCallback = null,
-		time: number = Constants.MESSAGES.COLLECTOR_TIME
-	): ChoiceReactionCollector<T> {
+		{collectorType, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions,
+		{allowedPlayerIds, choices, callback}: ReactionCollectorOptions<T>,
+		endCallback: EndCallback = null
+	): ChoiceReactionCollector {
 		const reactions: string[] = [];
 		const reactionsMap = new Map<string, T>();
 		for (let i = 0; i < choices.length; ++i) {
 			reactions.push(Constants.REACTIONS.NUMBERS[i]);
 			reactionsMap.set(Constants.REACTIONS.NUMBERS[i], choices[i]);
 		}
-		const filter = (playerId: number, reaction: string) => Promise.resolve(allowedPlayerIds.includes(playerId) && reactions.includes(reaction));
-		const callbackOverload: CollectCallback = async (collector: ChoiceReactionCollector<T>, playerId: number, reaction: string, response: DraftBotPacket[]) => {
+		const filter: FilterFunction = (playerId, reaction) => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
+		const callbackOverload: CollectCallback = async (collector: ChoiceReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => {
 			const item = reactionsMap.get(reaction);
 			await callback(collector, playerId, item, response);
 		};
 
 		const collector = new ChoiceReactionCollector(
 			context,
-			collectorType,
-			reactions,
-			filter,
-			time,
-			callbackOverload,
-			endCallback
+			{
+				collectorType,
+				reactions,
+				time
+			},
+			{
+				collect: callbackOverload,
+				end: endCallback,
+				filter
+			}
 		);
 		ReactionCollector.register(collector);
 		return collector;

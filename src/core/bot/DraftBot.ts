@@ -1,6 +1,6 @@
 import {DraftBotConfig} from "./DraftBotConfig";
 import {PacketListener} from "../../../../Lib/src/packets/PacketListener";
-import {pingCommand} from "../../commands/player/PingCommand";
+import pingCommand from "../../commands/player/PingCommand";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {ReactionCollectorReactPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";

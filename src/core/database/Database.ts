@@ -56,7 +56,8 @@ export abstract class Database {
 		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${botConfig.MARIADB_PREFIX}_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
 		try {
 			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}'@${botConfig.MARIADB_HOST};`);
-		} catch {
+		}
+		catch {
 			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
 		}
 		await mariadbConnection.end();

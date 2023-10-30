@@ -51,9 +51,9 @@ export class MissionDataController extends DataController<string, Mission> {
 
 	public getRandomMission(difficulty: MissionDifficulty, exceptions: string = null): Mission {
 		const filter: (mission: Mission) => boolean =
-			difficulty === MissionDifficulty.EASY ? (mission) => mission.canBeEasy()
-				: difficulty === MissionDifficulty.MEDIUM ? (mission) => mission.canBeMedium()
-					: (mission) => mission.canBeHard();
+			difficulty === MissionDifficulty.EASY ? (mission): boolean => mission.canBeEasy()
+				: difficulty === MissionDifficulty.MEDIUM ? (mission): boolean => mission.canBeMedium()
+					: (mission): boolean => mission.canBeHard();
 
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()

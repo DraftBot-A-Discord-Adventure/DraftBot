@@ -18,10 +18,16 @@ ws.on("connection", (client: WebSocket): void => {
 		try {
 			const dataJson = JSON.parse(event.data);
 			console.log(dataJson);
+			if (!Object.hasOwn(dataJson, "packet")) {
+				return;
+			}
 			const response: DraftBotPacket[] = [];
-			await draftBotInstance.packetListener.getListener(dataJson.packet)(client, dataJson.data, response);
+			await draftBotInstance.packetListener.getListener((dataJson as {
+				packet: string
+			}).packet)(client, dataJson.data, response);
 			sendPacket(client, response);
-		} catch (e) {
+		}
+		catch (e) {
 			console.log(e);
 		}
 		client.close();

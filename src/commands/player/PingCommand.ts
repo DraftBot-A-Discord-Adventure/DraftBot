@@ -1,9 +1,11 @@
 import {CommandPingPacketReq, CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {PacketListenerCallback} from "../../../../Lib/src/packets/PacketListener";
 
-export async function pingCommand(client: WebSocket, packet: CommandPingPacketReq, response: DraftBotPacket[]): Promise<void> {
+const command: PacketListenerCallback<CommandPingPacketReq> = (client, packet, response) => {
 	const resPacket: CommandPingPacketRes = {
 		latency: 0 // TODO
 	};
 	response.push(resPacket);
-}
+};
+
+export default command;

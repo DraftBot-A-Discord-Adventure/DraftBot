@@ -11,7 +11,7 @@ export const missionInterface: IMission = {
 		return Promise.resolve(0);
 	},
 
-	async initialNumberDone(player: Player, variant: number): Promise<number> {
+	initialNumberDone(player: Player, variant: number): number {
 		return ClassDataController.instance.getById(player.class).classGroup >= variant ? 1 : 0;
 	},
 
