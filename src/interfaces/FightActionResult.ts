@@ -60,5 +60,5 @@ export function updateFightActionResultFromSuccessTest(result: FightActionResult
 
 export interface FightAlterationApplied {
 	selfTarget: boolean,
-	alteration: FightAlteration
+	alteration: string
 }
