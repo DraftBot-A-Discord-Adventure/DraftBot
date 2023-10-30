@@ -1,11 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionStatus} from "@Lib/src/interfaces/FightActionStatus";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
@@ -27,7 +26,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	if (result.attackStatus !== FightActionStatus.MISSED && Math.random() < 0.5) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
+			alteration: FightAlterations.STUNNED
 		}, receiver);
 	}
 

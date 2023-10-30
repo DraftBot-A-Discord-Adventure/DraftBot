@@ -1,6 +1,5 @@
-import {attackInfo, statsInfo} from "../FightAction";
 import {Fighter} from "../../fighter/Fighter";
-import {FightActionController} from "../FightActionController";
+import {attackInfo, FightActionController, statsInfo} from "../FightActionController";
 import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
 

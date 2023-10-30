@@ -1,5 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightActionController} from "../../FightActionController";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";

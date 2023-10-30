@@ -1,6 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {RandomUtils} from "@Core/src/core/utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";

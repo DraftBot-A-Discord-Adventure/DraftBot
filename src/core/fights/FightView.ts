@@ -1,11 +1,11 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
-import {FightConstants} from "../constants/FightConstants";
-import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
-import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
 import {FightWeatherResult} from "@Core/src/core/fights/FightWeather";
 
+/* eslint-disable capitalized-comments */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * @class FightController
  */
@@ -25,14 +25,14 @@ export class FightView {
 	 * @param introEmbed
 	 * @param fighter
 	 */
-	addFightActionFieldFor(introEmbed: DraftBotEmbed, fighter: Fighter): void {
-		introEmbed.addFields({
+	addFightActionFieldFor(introEmbed: string /* DraftBotEmbed */, fighter: Fighter): void {
+		/* introEmbed.addFields({
 			name: this.fightTranslationModule.format("actionsOf", {
 				player: fighter.getName()
 			}),
 			value: this.getFightActionsToStringOf(fighter),
 			inline: true
-		});
+		}); */
 	}
 
 	/**
@@ -42,7 +42,7 @@ export class FightView {
 	 */
 	async introduceFight(fighter1: Fighter, fighter2: Fighter): Promise<void> {
 		// Ce serait ici qu'il faudrait mettre les attaques ?
-		const introEmbed = new DraftBotEmbed()
+		/* const introEmbed = new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.format("intro", {
 				player1: fighter1.getName(),
 				player2: fighter2.getName()
@@ -53,14 +53,14 @@ export class FightView {
 			content: fighter1.getMention(),
 			embeds: [introEmbed]
 		});
-		this.actionMessages.push(await this.channel.send({content: "_ _"}));
+		this.actionMessages.push(await this.channel.send({content: "_ _"})); */
 	}
 
 	/**
 	 *  Summarize current fight status
 	 */
 	async displayFightStatus(): Promise<void> {
-		await this.scrollIfNeeded();
+		/* await this.scrollIfNeeded();
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		if (!this.lastSummary) {
@@ -68,7 +68,7 @@ export class FightView {
 		}
 		else {
 			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		}
+		} */
 	}
 
 	/**
@@ -78,7 +78,7 @@ export class FightView {
 	 * @param receivedMessage
 	 */
 	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
-		let lastMessage = this.actionMessages[this.actionMessages.length - 1];
+		/* let lastMessage = this.actionMessages[this.actionMessages.length - 1];
 		const messageToSend = this.fightTranslationModule.format("actions.intro", {
 			emote,
 			player
@@ -99,7 +99,7 @@ export class FightView {
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
 		// Fetch to get the new content
-		await lastMessage.fetch(true);
+		await lastMessage.fetch(true); */
 	}
 
 	/**
@@ -109,7 +109,7 @@ export class FightView {
 	 * @param draw
 	 */
 	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
-		if (this.lastSummary) {
+		/* if (this.lastSummary) {
 			setTimeout(() => this.lastSummary.delete(), TIMEOUT_FUNCTIONS.OUTRO_FIGHT);
 		}
 		let msg;
@@ -140,20 +140,20 @@ export class FightView {
 		}
 
 		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]})
-			.then(message => message.react(FightConstants.HANDSHAKE_EMOTE));
+			.then(message => message.react(FightConstants.HANDSHAKE_EMOTE)); */
 	}
 
 	/**
 	 * Send a message to the channel to display the status of the fight when a bug is detected
 	 */
 	displayBugFight(): void {
-		this.channel.send({
+		/* this.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.setErrorColor()
 					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
 					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
-		});
+		}); */
 	}
 
 	async displayWeatherStatus(weatherEmote: string, weatherString: FightWeatherResult): Promise<void> {
@@ -164,24 +164,26 @@ export class FightView {
 	 * Get summarize embed message
 	 * @param {Fighter} attacker
 	 * @param {Fighter} defender
-	 * @return {Promise<DraftBotEmbed>}
+	 * @return
 	 */
-	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): DraftBotEmbed {
-		return new DraftBotEmbed()
+
+	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): void { // DraftBotEmbed {
+		/* return new DraftBotEmbed()
 			.setTitle(this.fightTranslationModule.get("summarize.title"))
 			.setDescription(`${this.fightTranslationModule.format("summarize.intro", {
 				turn: this.fightController.turn,
 				maxTurns: FightConstants.MAX_TURNS
 			}) +
-			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`);
+			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`); */
 	}
+
 
 	/**
 	 * Scroll the messages down if needed before fight display status
 	 * @return {Promise<void>}
 	 */
 	private async scrollIfNeeded(): Promise<void> {
-		const messages = await this.channel.messages.fetch({limit: 1});
+		/* const messages = await this.channel.messages.fetch({limit: 1});
 		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
 			for (const actionMessage of this.actionMessages) {
 				const content = (await this.channel.messages.fetch(actionMessage.id)).content;
@@ -189,7 +191,7 @@ export class FightView {
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = null;
-		}
+		} */
 	}
 
 	/**
@@ -197,16 +199,18 @@ export class FightView {
 	 * @param fighter
 	 * @private
 	 */
-	private getFightActionsToStringOf(fighter: Fighter): string {
-		const fightActions = fighter.availableFightActions;
+	private getFightActionsToStringOf(fighter: Fighter): void {
+		/* const fightActions = fighter.availableFightActions;
 		let actionList = "";
 		for (const [, action] of fightActions) {
 			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
 		}
-		return actionList;
+		return actionList; */
 	}
 
-	private getWeatherString(weatherString: FightWeatherResult) {
+	private getWeatherString(weatherString: FightWeatherResult): string {
 		return "";
 	}
 }
+
+/* eslint-enable */

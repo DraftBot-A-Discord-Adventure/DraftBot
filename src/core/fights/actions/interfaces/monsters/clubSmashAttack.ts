@@ -1,5 +1,5 @@
 import {FightActionFunc} from "@Core/src/data/FightAction";
-import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {Fighter} from "@Core/src/core/fights/fighter/Fighter";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 

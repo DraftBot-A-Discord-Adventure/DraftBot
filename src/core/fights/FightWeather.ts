@@ -46,17 +46,15 @@ export class FightWeather {
 		this.lastWeather = this.currentWeather = FightWeatherEnum.SUNNY;
 	}
 
-	public applyWeatherEffect(fighter: Fighter, turn: number, language: string): FightWeatherResult {
+	public applyWeatherEffect(fighter: Fighter, turn: number): FightWeatherResult {
 		// Applique les effets globaux de la météo
 		let damages = 0;
 		const didWeatherChanged = this.currentWeather !== this.lastWeather;
-		let mustSendMessage = didWeatherChanged;
 		switch (this.currentWeather) {
 		case FightWeatherEnum.FIRESTORM:
 			if (this.weatherInitiator === fighter) {
 				break;
 			}
-			mustSendMessage = true;
 			if (turn - this.lastWeatherUpdate >= 8) {
 				this.setWeather(FightWeatherEnum.SUNNY, turn, null);
 				break;

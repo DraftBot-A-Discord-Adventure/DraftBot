@@ -74,4 +74,16 @@ export class FightActionDataController extends DataController<string, FightActio
 	getNone(): FightAction {
 		return this.getById("none");
 	}
+
+	getAllKeys(): string[] {
+		return Object.keys(this.data);
+	}
+
+	getListById(fightActionsIds: string[]): FightAction[] {
+		const fightActions: FightAction[] = [];
+		for (const fightActionId of fightActionsIds) {
+			fightActions.push(this.getById(fightActionId));
+		}
+		return fightActions;
+	}
 }

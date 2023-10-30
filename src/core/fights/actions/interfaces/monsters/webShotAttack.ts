@@ -1,10 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
-import {FightActionController} from "@Core/src/core/fights/actions/FightActionController";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
+import {attackInfo, FightActionController, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(
@@ -23,7 +21,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	);
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
+		alteration: FightAlterations.SLOWED
 	}, receiver);
 
 	return result;

@@ -88,17 +88,6 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get the string referring to the fighter name
-	 * @public
-	 */
-	abstract getName(): string;
-
-	/**
-	 * Get the mention of a fighter
-	 */
-	abstract getMention(): string;
-
-	/**
 	 * Make the fighter choose his next action
 	 * @param fightView
 	 */

@@ -1,11 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
@@ -24,7 +22,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 	if (Math.random() < 0.2) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: true,
-			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
+			alteration: FightAlterations.STUNNED
 		}, sender);
 		if (result.alterations) {
 			result.damages *= 1.5;

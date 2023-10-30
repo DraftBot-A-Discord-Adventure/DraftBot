@@ -4,8 +4,6 @@ import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {FighterStatus} from "./FighterStatus";
-import {FightAction} from "./actions/FightAction";
-import {FightActions} from "./actions/FightActions";
 import {FightWeather, FightWeatherEnum} from "./FightWeather";
 import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
@@ -13,6 +11,11 @@ import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../constants/PVEConstants";
 import {PacketContext} from "@Lib/src/packets/DraftBotPacket";
 import {FightStatModifierOperation} from "@Lib/src/interfaces/FightStatModifierOperation";
+import {FightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {attackInfo, FightActionController, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
+import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
+import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
 
 /**
  * @class FightController
@@ -57,15 +60,12 @@ export class FightController {
 		this.overtimeBehavior = fightParameters.overtimeBehavior;
 	}
 
-	public static async tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number, language: string, weather: FightWeather): Promise<{
-		fightAction: FightAction,
-		receivedMessage: string
-	}> {
-		const enoughBreath = attacker.useBreath(fightAction.getBreathCost());
+	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult {
+		const enoughBreath = attacker.useBreath(fightAction.breath);
 
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				fightAction = FightActions.getFightActionById("outOfBreath");
+				fightAction = FightAlterationDataController.instance.getById("outOfBreath");
 			}
 			else {
 				attacker.setBreath(0);
@@ -73,11 +73,7 @@ export class FightController {
 		}
 
 
-		const receivedMessage = await fightAction.use(attacker, defender, turn, language, weather);
-		return {
-			fightAction,
-			receivedMessage
-		};
+		return fightAction.use(attacker, defender, turn, this);
 	}
 
 	/**
@@ -178,18 +174,19 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 
-		const returns = await FightController.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this._fightView.language, this.weather);
-		fightAction = returns.fightAction;
-		const receivedMessage = returns.receivedMessage;
+		// eslint-disable-next-line capitalized-comments
+		/* const result =  */
+		this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
 
-		await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter()
+		// eslint-disable-next-line capitalized-comments
+		/* await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter()
 			.getMention(), receivedMessage)
 			.catch(
 				(e) => {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
 					console.error(e.stack);
 					this.endBugFight();
-				});
+				}); */
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
 			return;
@@ -234,7 +231,7 @@ export class FightController {
 		return this._fightView;
 	}
 
-	setWeather(weather: FightWeatherEnum, turn: number, sender: Fighter) {
+	setWeather(weather: FightWeatherEnum, turn: number, sender: Fighter): void {
 		this.weather.setWeather(weather, turn, sender);
 	}
 
@@ -257,7 +254,7 @@ export class FightController {
 	 */
 	private async prepareNextTurn(): Promise<void> {
 		// Weather related actions
-		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language);
+		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn);
 		if (weatherMessage) {
 			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
 		}
@@ -296,7 +293,7 @@ export class FightController {
 
 		// If the player is fighting a monster, and it's his first turn, then use the "rage explosion" action without changing turns
 		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
-			await this.executeFightAction(FightActions.getFightActionById("rageExplosion"), false);
+			await this.executeFightAction(FightActionDataController.instance.getById("rageExplosion"), false);
 			if (this.hadEnded()) {
 				return;
 			}
@@ -366,4 +363,35 @@ export class FightController {
 				.isDeadOrBug() ||
 			this.state !== FightState.RUNNING);
 	}
+}
+
+
+export function defaultHealFightAlterationResult(affected: Fighter): FightAlterationResult {
+	affected.removeAlteration();
+	return {
+		state: FightAlterationState.STOP,
+		damages: 0
+	};
+}
+
+export function defaultFightAlterationResult(): FightAlterationResult {
+	return {
+		state: FightAlterationState.ACTIVE,
+		damages: 0
+	};
+}
+
+export function defaultRandomActionFightAlterationResult(affected: Fighter): FightAlterationResult {
+	affected.nextFightAction = affected.getRandomAvailableFightAction();
+	return {
+		state: FightAlterationState.RANDOM_ACTION,
+		damages: 0
+	};
+}
+
+export function defaultDamageFightAlterationResult(affected: Fighter, statsInfos: statsInfo, attackInfo: attackInfo): FightAlterationResult {
+	return {
+		state: FightAlterationState.DAMAGE,
+		damages: FightActionController.getAttackDamage(statsInfos, affected, attackInfo, true)
+	};
 }

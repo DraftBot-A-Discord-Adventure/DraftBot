@@ -1,10 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
@@ -21,7 +19,7 @@ const use: FightActionFunc = (sender, receiver) => {
 
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
+		alteration: FightAlterations.SLOWED
 	}, receiver);
 
 	return result;

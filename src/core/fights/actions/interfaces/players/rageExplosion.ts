@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
 import {NumberChangeReason} from "../../../../constants/LogsConstants";
 import {PVEConstants} from "../../../../constants/PVEConstants";

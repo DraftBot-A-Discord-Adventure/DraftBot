@@ -1,12 +1,11 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
 import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
 	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
@@ -63,7 +62,7 @@ const use: FightActionFunc = (sender, receiver, _fightAction, turn) => {
 	if (Math.random() < 0.2) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterationDataController.instance.getById(FightAlterations.PARALYZED)
+			alteration: FightAlterations.PARALYZED
 		}, receiver);
 	}
 	return result;

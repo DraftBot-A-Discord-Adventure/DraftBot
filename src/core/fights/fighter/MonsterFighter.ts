@@ -44,19 +44,19 @@ export class MonsterFighter extends Fighter {
 	}
 
 	chooseAction(fightView: FightView): Promise<void> {
-		fightView.channel.send({
+		/* eslint-disable capitalized-comments */
+		/* fightView.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.setDescription(fightView.fightTranslationModule.get("actions.aiChoose"))
 			]
 		})
-			.then((embed) => {
-				const fightAction = this.getRandomAvailableFightAction();
-				setTimeout(async function() {
-					await embed.delete();
-					await fightView.fightController.executeFightAction(fightAction, true);
-				}, RandomUtils.draftbotRandom.integer(500, 2000));
-			});
+			.then((embed) => { */
+		const fightAction = this.getRandomAvailableFightAction();
+		setTimeout(async function() {
+			// await embed.delete();
+			await fightView.fightController.executeFightAction(fightAction, true);
+		}, RandomUtils.draftbotRandom.integer(500, 2000));
 		return Promise.resolve();
 	}
 

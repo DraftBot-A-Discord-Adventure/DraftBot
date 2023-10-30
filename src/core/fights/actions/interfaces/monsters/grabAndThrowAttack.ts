@@ -1,13 +1,11 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, FightActionController, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightActionType} from "@Lib/src/interfaces/FightActionType";
 import {FightAlterations} from "../../FightAlterations";
 import {RandomUtils} from "../../../../utils/RandomUtils";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFailFightActionResult} from "@Lib/src/interfaces/FightActionResult";
 import {simpleDamageFightAction} from "@Core/src/core/fights/actions/templates/SimpleDamageFightActionTemplate";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 const use: FightActionFunc = (sender, receiver) => {
 	if (!receiver.getLastFightActionUsed() || receiver.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
@@ -32,7 +30,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	if (RandomUtils.draftbotRandom.bool()) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterationDataController.instance.getById(FightAlterations.STUNNED)
+			alteration: FightAlterations.STUNNED
 		}, receiver);
 	}
 

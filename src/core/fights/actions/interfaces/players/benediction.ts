@@ -1,6 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {getUsedGodMoves} from "./divineAttack";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {defaultFailFightActionResult, FightActionResult, FightStatBuffed} from "@Lib/src/interfaces/FightActionResult";

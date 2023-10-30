@@ -1,11 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {FightActionController} from "../../FightActionController";
 import {MathUtils} from "../../../../utils/MathUtils";
-import {attackInfo, statsInfo} from "../../FightAction";
+import {attackInfo, statsInfo} from "@Core/src/core/fights/actions/FightActionController";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "@Core/src/data/FightAction";
 import {FightActionResult} from "@Lib/src/interfaces/FightActionResult";
-import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
 const use: FightActionFunc = (sender, receiver) => {
 
@@ -28,7 +27,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	if (Math.random() < 0.65) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
-			alteration: FightAlterationDataController.instance.getById(FightAlterations.SLOWED)
+			alteration: FightAlterations.SLOWED
 		}, receiver);
 	}
 	return result;

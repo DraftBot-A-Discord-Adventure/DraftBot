@@ -5,18 +5,23 @@ import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObject
 import {checkDrinkPotionMissions} from "../../utils/ItemUtils";
 import {BlockingUtils} from "../../utils/BlockingUtils";
 import {BlockingConstants} from "../../constants/BlockingConstants";
-import {FightConstants} from "../../constants/FightConstants";
 import {FightView} from "../FightView";
 import {MissionsController} from "../../missions/MissionsController";
 import {MissionSlots} from "../../database/game/models/MissionSlot";
 import {getDayNumber} from "../../utils/TimeUtils";
-import {FightActions} from "../actions/FightActions";
-import {FightAction} from "../actions/FightAction";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Maps} from "../../maps/Maps";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
+import {Class} from "@Core/src/data/Class";
+import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
+import {DraftBotPacket} from "@Lib/src/packets/DraftBotPacket";
+import {Potion} from "@Core/src/data/Potion";
+
+/* eslint-disable capitalized-comments */
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /**
  * @class PlayerFighter
@@ -26,33 +31,16 @@ import {PVEConstants} from "../../constants/PVEConstants";
 export class PlayerFighter extends Fighter {
 	public player: Player;
 
-	private readonly user: User;
-
 	private class: Class;
 
 	private glory: number;
 
 	private pveMembers: { attack: number, speed: number }[];
 
-	public constructor(user: User, player: Player, playerClass: Class) {
-		super(player.level, FightActions.listFightActionsFromClass(playerClass));
+	public constructor(player: Player, playerClass: Class) {
+		super(player.level, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
 		this.player = player;
 		this.class = playerClass;
-		this.user = user;
-	}
-
-	/**
-	 * Get the pseudo
-	 */
-	getName(): string {
-		return this.player.getPseudo(null);
-	}
-
-	/**
-	 * Get the mention
-	 */
-	getMention(): string {
-		return this.player.getMention();
 	}
 
 	/**
@@ -62,7 +50,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
 		this.status = startStatus;
-		await this.consumePotionIfNeeded(fightView.fightController.friendly, fightView.channel, fightView.language);
+		await this.consumePotionIfNeeded(fightView.fightController.friendly, [fightView.context]);
 		this.block();
 	}
 
@@ -75,12 +63,12 @@ export class PlayerFighter extends Fighter {
 		this.unblock();
 		await this.manageMissionsOf(fightView);
 		if (winner) {
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {
+			await MissionsController.update(this.player, [fightView.context], {
 				missionId: "fightHealthPercent", params: {
 					remainingPercent: this.stats.fightPoints / this.stats.maxFightPoint
 				}
 			});
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {
+			await MissionsController.update(this.player, [fightView.context], {
 				missionId: "finishWithAttack",
 				params: {
 					lastAttack: this.fightActionsHistory.at(-1)
@@ -94,7 +82,7 @@ export class PlayerFighter extends Fighter {
 	 * @public
 	 */
 	unblock(): void {
-		BlockingUtils.unblockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
+		BlockingUtils.unblockPlayer(this.player.id, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -104,33 +92,33 @@ export class PlayerFighter extends Fighter {
 	 */
 	public async loadStats(friendly: boolean): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = friendly ? await this.player.getMaxCumulativeFightPoint() : await this.player.getCumulativeFightPoint();
-		this.stats.maxFightPoint = await this.player.getMaxCumulativeFightPoint();
-		this.stats.attack = await this.player.getCumulativeAttack(playerActiveObjects);
-		this.stats.defense = await this.player.getCumulativeDefense(playerActiveObjects);
-		this.stats.speed = await this.player.getCumulativeSpeed(playerActiveObjects);
-		this.stats.breath = await this.player.getBaseBreath();
-		this.stats.maxBreath = await this.player.getMaxBreath();
-		this.stats.breathRegen = await this.player.getBreathRegen();
+		this.stats.fightPoints = friendly ? this.player.getMaxCumulativeFightPoint() : this.player.getCumulativeFightPoint();
+		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
+		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
+		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
+		this.stats.speed = this.player.getCumulativeSpeed(playerActiveObjects);
+		this.stats.breath = this.player.getBaseBreath();
+		this.stats.maxBreath = this.player.getMaxBreath();
+		this.stats.breathRegen = this.player.getBreathRegen();
 		this.glory = this.player.gloryPoints;
 	}
 
 	/**
 	 * Delete the potion from the inventory of the player if needed
 	 * @param friendly true if the fight is friendly
-	 * @param channel
-	 * @param language
+	 * @param response
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string): Promise<void> {
+	public async consumePotionIfNeeded(friendly: boolean, response: DraftBotPacket[]): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
-		const drankPotion = await inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).getItem() as Potion;
+		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
+			.getItem() as Potion;
 		if (friendly || !drankPotion.isFightPotion()) {
 			return;
 		}
 		await this.player.drinkPotion();
 		await this.player.save();
-		await checkDrinkPotionMissions(channel, language, this.player, drankPotion, await InventorySlots.getOfPlayer(this.player.id));
+		await checkDrinkPotionMissions(response, this.player, drankPotion, await InventorySlots.getOfPlayer(this.player.id));
 	}
 
 	/**
@@ -138,21 +126,7 @@ export class PlayerFighter extends Fighter {
 	 * @public
 	 */
 	public block(): void {
-		BlockingUtils.blockPlayer(this.player.discordUserId, BlockingConstants.REASONS.FIGHT);
-	}
-
-	/**
-	 * Get the discord id of a fighter
-	 */
-	public getDiscordId(): string {
-		return this.player.discordUserId;
-	}
-
-	/**
-	 * Get the user of a fighter
-	 */
-	public getUser(): User {
-		return this.user;
+		BlockingUtils.blockPlayer(this.player.id, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -170,58 +144,24 @@ export class PlayerFighter extends Fighter {
 				for (const member of members) {
 					const memberActiveObjects = await InventorySlots.getMainSlotsItems(member.id);
 					this.pveMembers.push({
-						attack: await member.getCumulativeAttack(memberActiveObjects),
-						speed: await member.getCumulativeSpeed(memberActiveObjects)
+						attack: member.getCumulativeAttack(memberActiveObjects),
+						speed: member.getCumulativeSpeed(memberActiveObjects)
 					});
 				}
 			}
 
 			if (this.pveMembers.length !== 0 && RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.GUILD_ATTACK_PROBABILITY) {
-				actions.set("guildAttack", FightActions.getFightActionById("guildAttack"));
+				actions.set("guildAttack", FightActionDataController.instance.getById("guildAttack"));
 			}
 		}
-
-		this.sendChooseActionEmbed(fightView).then(this.chooseActionCallback(actions, fightView));
+		this.sendChooseActionEmbed(fightView)
+			.then(this.chooseActionCallback(actions, fightView));
 	}
 
-	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): (m: Message) => void {
-		return (chooseActionEmbedMessage: Message): void => {
-			const collector = chooseActionEmbedMessage.createReactionCollector({
-				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
-				time: FightConstants.TIME_FOR_ACTION_SELECTION,
-				max: 1
-			});
-			collector.on("end", async (reaction) => {
-				const emoji = reaction.first()?.emoji.name;
-				const selectedAction = Array.from(actions.values()).find((action) => emoji && action.getEmoji() === emoji);
-				try {
-					await chooseActionEmbedMessage.delete();
-					if (!selectedAction) {
-						// USER HASN'T SELECTED AN ACTION
-						this.kill();
-						await fightView.fightController.endFight();
-						return;
-					}
-					await fightView.fightController.executeFightAction(selectedAction, true);
-				}
-				catch (e) {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
-					fightView.fightController.endBugFight();
-				}
-			});
-			const reactions = [];
-			for (const [, action] of actions) {
-				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
-			}
-
-			Promise.all(reactions).catch(() => null);
-		};
-	}
-
-	/**
+	/* /!**
 	 * Return a display of the player in a string format
 	 * @param fightTranslationModule
-	 */
+	 *!/
 	public getStringDisplay(fightTranslationModule: TranslationModule): string {
 		return fightTranslationModule.format(
 			this.status.getTranslationField(),
@@ -239,13 +179,49 @@ export class PlayerFighter extends Fighter {
 			maxBreath: this.getMaxBreath(),
 			breathRegen: this.getRegenBreath()
 		});
-	}
+	} */
 
 	/**
 	 * Get the members of the guild of the player on the island of the fighter
 	 */
 	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
 		return this.pveMembers;
+	}
+
+	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void {// (m: Message) => void {
+		return null;
+		/* return (chooseActionEmbedMessage: Message): void => {
+			const collector = chooseActionEmbedMessage.createReactionCollector({
+				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
+				time: FightConstants.TIME_FOR_ACTION_SELECTION,
+				max: 1
+			});
+			collector.on("end", async (reaction) => {
+				const emoji = reaction.first()?.emoji.name;
+				const selectedAction = Array.from(actions.values())
+					.find((action) => emoji && action.getEmoji() === emoji);
+				try {
+					await chooseActionEmbedMessage.delete();
+					if (!selectedAction) {
+						// USER HASN'T SELECTED AN ACTION
+						this.kill();
+						await fightView.fightController.endFight();
+						return;
+					}
+					await fightView.fightController.executeFightAction(selectedAction, true);
+				} catch (e) {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
+					fightView.fightController.endBugFight();
+				}
+			});
+			const reactions = [];
+			for (const [, action] of actions) {
+				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
+			}
+
+			Promise.all(reactions)
+				.catch(() => null);
+		};*/
 	}
 
 	/**
@@ -257,7 +233,7 @@ export class PlayerFighter extends Fighter {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
 		// Iterate on each action in the history
 		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(this.player, fightView.channel, fightView.language, {
+			await MissionsController.update(this.player, [fightView.context], {
 				missionId: "fightAttacks",
 				count, params: {attackType: action}
 			});
@@ -278,7 +254,7 @@ export class PlayerFighter extends Fighter {
 
 		await this.checkFightActionHistory(fightView);
 
-		await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "anyFight"});
+		await MissionsController.update(this.player, [fightView.context], {missionId: "anyFight"});
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);
 		for (const slot of slots) {
@@ -286,10 +262,10 @@ export class PlayerFighter extends Fighter {
 				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
+					await MissionsController.update(this.player, [fightView.context], {missionId: "fightStreak"});
 				}
 				else if (lastDay !== currDay) {
-					await MissionsController.update(this.player, fightView.channel, fightView.language, {
+					await MissionsController.update(this.player, [fightView.context], {
 						missionId: "fightStreak",
 						count: 1,
 						set: true
@@ -304,10 +280,10 @@ export class PlayerFighter extends Fighter {
 	 * @private
 	 * @param fightView
 	 */
-	private async sendChooseActionEmbed(fightView: FightView): Promise<Message> {
-		const chooseActionEmbed = new DraftBotEmbed();
+	private async sendChooseActionEmbed(fightView: FightView): Promise<void> {
+		/* const chooseActionEmbed = new DraftBotEmbed();
 		chooseActionEmbed.formatAuthor(fightView.fightTranslationModule.format("turnIndicationsTitle", {pseudo: this.getName()}), this.getUser());
 		chooseActionEmbed.setDescription(fightView.fightTranslationModule.get("turnIndicationsDescription"));
-		return await fightView.channel.send({embeds: [chooseActionEmbed]});
+		return await fightView.channel.send({embeds: [chooseActionEmbed]}); */
 	}
 }

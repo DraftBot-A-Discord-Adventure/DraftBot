@@ -7,11 +7,10 @@ import {MathUtils} from "@Core/src/core/utils/MathUtils";
 import {FightAction, FightActionDataController} from "@Core/src/data/FightAction";
 import {FightController} from "@Core/src/core/fights/FightController";
 import {FightAlterationResult} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightAlterationDataController} from "@Core/src/data/FightAlteration";
 
-declare const JsonReader: JsonModule;
-
-type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
-type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
+export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
+export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
 
 export class FightActionController {
 	/**
@@ -91,8 +90,8 @@ export class FightActionController {
 	}
 
 	static applyAlteration(result: FightActionResult, fightAlteration: FightAlterationApplied, target: Fighter): void {
-		const alteration = target.newAlteration(fightAlteration.alteration);
-		if (alteration !== fightAlteration.alteration) {
+		const alteration = target.newAlteration(FightAlterationDataController.instance.getById(fightAlteration.alteration));
+		if (alteration.id !== fightAlteration.alteration) {
 			return;
 		}
 		if (result.alterations === undefined) {
@@ -169,8 +168,7 @@ export class FightActionController {
 	 * @param idFightAction
 	 */
 	static fightActionIdToVariant(idFightAction: string): number {
-		return Data.getModule(`fightactions.${idFightAction}`)
-			.getNumber("missionVariant");
+		return FightActionDataController.instance.getById(idFightAction).missionVariant;
 	}
 
 	/**
@@ -178,9 +176,8 @@ export class FightActionController {
 	 * @param variant
 	 */
 	static variantToFightActionId(variant: number): string {
-		for (const fightActionId of Object.keys(JsonReader.fightactions)) {
-			if (Data.getModule(`fightactions.${fightActionId}`)
-				.getNumber("missionVariant") === variant) {
+		for (const fightActionId of FightActionDataController.instance.getAllKeys()) {
+			if (this.fightActionIdToVariant(fightActionId) === variant) {
 				return fightActionId;
 			}
 		}

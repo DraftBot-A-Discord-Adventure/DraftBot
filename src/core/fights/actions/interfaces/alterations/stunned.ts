@@ -1,6 +1,7 @@
 import {FightAlterationFunc} from "@Core/src/data/FightAlteration";
-import {defaultFightAlterationResult, defaultHealFightAlterationResult, FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
+import {FightAlterationState} from "@Lib/src/interfaces/FightAlterationResult";
 import {FightActionDataController} from "@Core/src/data/FightAction";
+import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "@Core/src/core/fights/FightController";
 
 const use: FightAlterationFunc = (affected) => {
 	if (affected.alterationTurn > 1) { // This effect heals after one turn
