@@ -55,7 +55,7 @@ export class TravelTime {
 		playerTravelledTime: number,
 		nextSmallEventTime: number
 	}> {
-		const data = await this.getTravelDataSimplified(player, date);
+		const data = this.getTravelDataSimplified(player, date);
 
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 		const timeBetweenSmallEvents = Maps.isOnPveIsland(player) ? PVEConstants.TIME_BETWEEN_SMALL_EVENTS : Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;

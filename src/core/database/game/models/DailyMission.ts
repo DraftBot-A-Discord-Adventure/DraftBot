@@ -2,9 +2,9 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {MissionsController} from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
+import {draftBotInstance} from "@Core/src";
+import {MissionDataController} from "@Core/src/data/Mission";
 import moment = require("moment");
-import {draftBotInstance} from "../../../../index";
-import {MissionDataController} from "../../../../data/Mission";
 
 export class DailyMission extends Model {
 	declare readonly id: number;
@@ -74,7 +74,8 @@ export class DailyMissions {
 				lastDate: new Date()
 			}, {returning: true});
 		}
-		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective).then();
+		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective)
+			.then();
 		return await this.queryDailyMission();
 	}
 }
@@ -111,11 +112,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,

@@ -283,7 +283,7 @@ export class Player extends Model {
 		};
 
 		if (healthRestored) {
-			await this.addHealth(await this.getMaxHealth() - this.health, response, NumberChangeReason.LEVEL_UP, {
+			await this.addHealth(this.getMaxHealth() - this.health, response, NumberChangeReason.LEVEL_UP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});

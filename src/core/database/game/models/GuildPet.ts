@@ -1,8 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import PetEntity from "./PetEntity";
 import Guild from "./Guild";
+import {draftBotInstance} from "@Core/src";
 import moment = require("moment");
-import {draftBotInstance} from "../../../../index";
 
 export class GuildPet extends Model {
 	declare readonly id: number;
@@ -29,7 +29,8 @@ export class GuildPets {
 	 */
 	static addPet(guild: Guild, petEntity: PetEntity, logInDatabase: boolean): GuildPet {
 		if (logInDatabase) {
-			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity).then();
+			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity)
+				.then();
 		}
 		return GuildPet.build({guildId: guild.id, petEntityId: petEntity.id});
 	}
@@ -62,11 +63,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -75,7 +78,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	GuildPet.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

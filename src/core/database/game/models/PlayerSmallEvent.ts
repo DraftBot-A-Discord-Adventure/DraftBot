@@ -58,7 +58,7 @@ export class PlayerSmallEvents {
 				playerId: player.id
 			}
 		});
-		const tripDuration = await player.getCurrentTripDuration();
+		const tripDuration = player.getCurrentTripDuration();
 		let somme = 0;
 		for (let i = 1; i <= numberOfSmallEventsDone; i++) {
 			// By Pokegali Le sang (et romain22222 pour sa tentative)
@@ -108,11 +108,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -121,7 +123,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	PlayerSmallEvent.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

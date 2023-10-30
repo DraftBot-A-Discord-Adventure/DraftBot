@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import moment = require("moment");
-import {PotionDataController} from "../../../../data/Potion";
+import {PotionDataController} from "@Core/src/data/Potion";
 import {MapCache} from "../../../maps/MapCache";
+import moment = require("moment");
 
 class SettingClass<T extends number | string> {
 	private readonly name: string;
@@ -113,11 +113,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -126,7 +128,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	Setting.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

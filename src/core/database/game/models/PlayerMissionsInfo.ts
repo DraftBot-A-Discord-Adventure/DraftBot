@@ -1,8 +1,8 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
+import {draftBotInstance} from "@Core/src";
 import moment = require("moment");
-import {draftBotInstance} from "../../../../index";
 
 export class PlayerMissionsInfo extends Model {
 	declare readonly playerId: number;
@@ -35,7 +35,8 @@ export class PlayerMissionsInfo extends Model {
 	public async addGems(amount: number, discordUserId: string, reason: NumberChangeReason): Promise<void> {
 		this.gems += amount;
 		await this.save();
-		draftBotInstance.logsDatabase.logGemsChange(discordUserId, this.gems, reason).then();
+		draftBotInstance.logsDatabase.logGemsChange(discordUserId, this.gems, reason)
+			.then();
 	}
 }
 
@@ -85,11 +86,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -98,7 +101,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	PlayerMissionsInfo.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 
