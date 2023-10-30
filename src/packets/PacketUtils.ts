@@ -6,7 +6,7 @@ export function sendPacket(client: WebSocket, packet: DraftBotPacket | DraftBotP
 
 export function sendPacketsToContext(context: PacketContext, packets: DraftBotPacket[]): void {
 	for (const packet of packets) {
-		for (const prop in context) {
+		for (const prop of Object.keys(context)) {
 			packet[<keyof PacketContext>prop] = context[<keyof PacketContext>prop];
 		}
 	}
