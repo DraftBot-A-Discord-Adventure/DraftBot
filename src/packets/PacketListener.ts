@@ -1,4 +1,5 @@
 import {DraftBotPacket} from "./DraftBotPacket";
+import {WebsocketClient} from "../instances/WebsocketClient";
 
 export class PacketListener {
 	private packetCallbacks: Map<string, PacketListenerCallback<DraftBotPacket>> = new Map<string, PacketListenerCallback<DraftBotPacket>>();
@@ -12,4 +13,4 @@ export class PacketListener {
 	}
 }
 
-export type PacketListenerCallback<T extends DraftBotPacket> = (socket: WebSocket, packet: T, response: DraftBotPacket[]) => void | Promise<void>;
+export type PacketListenerCallback<T extends DraftBotPacket> = (client: WebsocketClient, packet: T, response: DraftBotPacket[]) => void | Promise<void>;
