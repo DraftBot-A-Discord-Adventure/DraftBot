@@ -4,6 +4,7 @@ import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBo
 import {Constants} from "../Constants";
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
+import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
 type CollectCallback = (collector: ReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -66,7 +67,7 @@ export class ReactionCollector {
 		this.endCallback = collectorFunctions.end;
 	}
 
-	public static async reactPacket(socket: WebSocket, packet: ReactionCollectorReactPacket, response: DraftBotPacket[]): Promise<void> {
+	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, response: DraftBotPacket[]): Promise<void> {
 		const collector: ReactionCollector = ReactionCollector.collectors.get(packet.id);
 		if (!collector || collector.hasEnded) {
 			const packet: ReactionCollectorEnded = {};
