@@ -21,7 +21,7 @@ ws.on("connection", (webSocket: WebSocket): void => {
 	client.logger.log("Client connected");
 
 	if (botConfig.TEST_MODE) {
-		client.logger.mode = "console";
+		client.logger.mode = "file";
 	}
 
 	client.webSocket.addEventListener("message", async (event): Promise<void> => {
