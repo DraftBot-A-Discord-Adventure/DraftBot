@@ -1,5 +1,12 @@
 import * as fs from "fs";
 import {WriteStream} from "fs";
+import {Constants} from "../Constants";
+
+enum LogWritingState {
+	BUILDING,
+	READY,
+	ERROR
+}
 
 export class Logger {
 	private static instances: Map<string, Logger> = new Map<string, Logger>();
@@ -8,32 +15,22 @@ export class Logger {
 
 	private readonly suffix: string;
 
-	private readonly canWrite: boolean = null;
-
 	private creationDate: Date;
 
-	private fileStream: WriteStream;
+	private fileStream: &WriteStream;
+
+	private lineCount: number = 0;
+
+	private currentListener: (err: Error) => void;
+
+	private canWrite: LogWritingState;
 
 	private constructor(suffix: string) {
-		this.creationDate = new Date();
 		this.suffix = suffix;
-		if (!fs.existsSync("./logs")) {
-			fs.mkdirSync("./logs");
+		if (!fs.existsSync(Constants.LOGS.BASE_PATH)) {
+			fs.mkdirSync(Constants.LOGS.BASE_PATH);
 		}
-		try {
-			this.fileStream = fs.createWriteStream(this.getName(), {flags: "w"});
-			this.fileStream.write(this.getLogStart());
-		}
-		catch (e) {
-			console.error(`LOGGER INIT ERROR : ${e}`);
-			this.canWrite = false;
-		}
-		finally {
-			this.canWrite = true;
-			process.on("uncaughtException", (err) => {
-				this.log(`Uncaught exception : ${err.stack}`);
-			});
-		}
+		this.buildNewFileStream();
 	}
 
 	static getInstance(suffix: string): Logger {
@@ -44,28 +41,59 @@ export class Logger {
 	}
 
 	public log(loggedText: string): void {
-		if (this.canWrite === null) {
-			// The logger is not ready yet, wait 1 second and try again
-			setTimeout(() => {
-				this.log(loggedText);
-			}, 1000);
+		if (this.canWrite === LogWritingState.ERROR) {
 			return;
 		}
-		if (!this.canWrite) {
-			// The logger can't write to file cause of an error
-			console.log(`LOGGER ERROR : Can't write to file ${this.getName()}`);
-			return;
+		while (this.canWrite === LogWritingState.BUILDING || !this.fileStream.writable) {
+			// Wait for the file to be ready
 		}
 		const toSave = `${loggedText}\n----------------------------------------`;
 		if (this.mode === "console") {
 			console.log(`[${new Date().toLocaleString()}] {${this.suffix}} ${toSave}`);
 			return;
 		}
+		this.lineCount++;
+		if (this.lineCount > Constants.LOGS.MAX_LOGS_COUNT) {
+			this.lineCount = 0;
+			process.removeListener("uncaughtException", this.currentListener);
+			this.fileStream.end();
+			this.buildNewFileStream();
+			this.log(loggedText);
+			return;
+		}
 		this.fileStream.write( `[${new Date().toLocaleString()}] ${toSave}\n`, (err) => {
 			if (err) {
+				const eString = err.toString();
+				if (eString.includes("ERR_STREAM_WRITE_AFTER_END") || eString.includes("ERR_STREAM_DESTROYED")) {
+					setTimeout(() => {
+						this.log(loggedText);
+					}, 1000);
+					return;
+				}
 				console.error(`LOGGER ERROR : ${err}`);
 			}
 		});
+	}
+
+	private buildNewFileStream(): void {
+		this.canWrite = LogWritingState.BUILDING;
+		this.creationDate = new Date();
+		try {
+			this.fileStream = fs.createWriteStream(this.getName(), {flags: "w"});
+			this.fileStream.write(this.getLogStart());
+		}
+		catch (e) {
+			console.error(`LOGGER INIT ERROR : ${e}`);
+			this.canWrite = LogWritingState.ERROR;
+		}
+		finally {
+			const newListener = (err: Error): void => {
+				this.log(`Uncaught exception : ${err.stack}`);
+			};
+			process.on("uncaughtException", newListener);
+			this.currentListener = newListener;
+			this.canWrite = LogWritingState.READY;
+		}
 	}
 
 	private getLogStart(): string {
@@ -76,7 +104,7 @@ export class Logger {
 	}
 
 	private getName(): string {
-		return `./logs/${
+		return `${Constants.LOGS.BASE_PATH}/${
 			this.suffix}_${
 			this.creationDate.getFullYear()}-${this.creationDate.getMonth() + 1}-${this.creationDate.getDate()}_${
 			this.creationDate.getHours()}-${this.creationDate.getMinutes()}-${this.creationDate.getSeconds()}.log`;
