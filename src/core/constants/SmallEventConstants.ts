@@ -255,6 +255,10 @@ export abstract class SmallEventConstants {
 		// 5% chance to have a transparent teleportation with lower cost
 		TRANSPARENT_TP_PRICE: 1200,
 		HIDDEN_TP_PRICE: 250,
-		SCAM_TP_PRICE: 500
+		SCAM_TP_PRICE: 500,
+		REACTIONS: {
+			ACCEPT: "🚗",
+			REFUSE: "🚶"
+		}
 	};
 }

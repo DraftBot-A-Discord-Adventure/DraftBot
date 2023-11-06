@@ -12,6 +12,7 @@ import {MapLink, MapLinks} from "../database/game/models/MapLink";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {MapLocations} from "../database/game/models/MapLocation";
+import {DraftBotReaction} from "../messages/DraftBotReaction";
 
 
 /**
@@ -29,6 +30,8 @@ async function generateInitialEmbed(
 	cartObject: { player: Player, destination: MapLink, price: number, displayedDestination: MapLink },
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
+	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.ACCEPT));
+	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.REFUSE));
 	let displayedDestinationString = tr.get("unknownDestination");
 	if (cartObject.displayedDestination) {
 		const mapLocationDestination = await MapLocations.getById(cartObject.displayedDestination.endMap);
@@ -115,6 +118,6 @@ export const smallEvent: SmallEvent = {
 
 		const cartObject = {player, destination, price, displayedDestination};
 		const builtEmbed = await generateInitialEmbed(embed, interaction, seEmbed, cartObject, tr);
-		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
+		await builtEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
 	}
 };
