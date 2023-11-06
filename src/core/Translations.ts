@@ -46,6 +46,15 @@ export class TranslationModule {
 		return format(this.get(translation), replacements);
 	}
 
+	/**
+	 * Format a random translation
+	 * @param translation
+	 * @param replacements
+	 */
+	formatRandom(translation: string, replacements: Replacements = {}): string {
+		return format(this.getRandom(translation), replacements);
+	}
+
 	get(translation: string): string {
 		return this.getTranslationObject(translation) as string;
 	}

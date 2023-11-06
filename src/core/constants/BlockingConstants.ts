@@ -34,6 +34,7 @@ export abstract class BlockingConstants {
 		TEST: "test",
 		UNLOCK: "unlock",
 		START_BOSS_FIGHT: "startBossFight",
-		REPORT_COMMAND: "reportCommand"
+		REPORT_COMMAND: "reportCommand",
+		CART_CHOOSE: "cartChoose"
 	};
 }
