@@ -91,7 +91,8 @@
 				"unlock": "libération de quelqu'un",
 				"pveIsland": "mini-évent île PVE",
 				"startBossFight": "début d'un combat de boss",
-				"reportCommand": "commande rapport"
+				"reportCommand": "commande rapport",
+				"cartChoose": "choix de monter dans la charrette ou non"
 			}
 		},
 		"en": {
@@ -185,7 +186,8 @@
 				"fightPetChoose": "choice of an action for the pet fight event",
 				"pveIsland": "PVE island small event",
 				"startBossFight": "start of a boss fight",
-				"reportCommand": "report command"
+				"reportCommand": "report command",
+				"cartChoose": "choice to get in the cart or not"
 			}
 		}
 	}
