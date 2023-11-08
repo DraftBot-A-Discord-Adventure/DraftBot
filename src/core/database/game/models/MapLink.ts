@@ -20,6 +20,10 @@ export class MapLink extends Model {
 }
 
 export class MapLinks {
+
+	/**
+	 * Get a random mapLink only on the main continent
+	 */
 	static async getRandomLink(): Promise<MapLink> {
 		const query = `SELECT ml.id FROM map_links ml
 			JOIN map_locations ml_start ON ml.startMap = ml_start.id
