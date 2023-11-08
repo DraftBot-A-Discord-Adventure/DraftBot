@@ -13,6 +13,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {MapLocations} from "../database/game/models/MapLocation";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
+import {NumberChangeReason} from "../constants/LogsConstants";
 
 
 /**
@@ -52,6 +53,14 @@ async function generateInitialEmbed(
 }
 
 
+async function generateRandomMapLinkDifferentOfCurrent(player: Player) {
+	let destination = await MapLinks.getRandomLink();
+	if (destination.id === player.mapLinkId) { // If the player is already on the destination, get the inverse link
+		destination = await MapLinks.getInverseLinkOf(player.mapLinkId);
+	}
+	return destination;
+}
+
 export const smallEvent: SmallEvent = {
 	/**
 	 * Check if small event can be executed
@@ -72,7 +81,7 @@ export const smallEvent: SmallEvent = {
 		const tr = Translations.getModule("smallEvents.cart", language);
 		const chance = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 
-		const destination = RandomUtils.draftbotRandom.pick(await MapLinks.getMapLinks(await MapLinks.getById(player.mapLinkId)));
+		const destination = await generateRandomMapLinkDifferentOfCurrent(player);
 		let price = SmallEventConstants.CART.TRANSPARENT_TP_PRICE, displayedDestination = destination;
 
 		// 40% chance that the player knows where they will be teleported
@@ -83,7 +92,7 @@ export const smallEvent: SmallEvent = {
 		}
 		else if (chance <= SmallEventConstants.CART.SCAM_THRESHOLD) {
 			// 5% chance that the NPC lied about the destination but offers the trip for cheap
-			displayedDestination = RandomUtils.draftbotRandom.pick(await MapLinks.getMapLinks(await MapLinks.getById(player.mapLinkId)));
+			displayedDestination = await generateRandomMapLinkDifferentOfCurrent(player);
 			price = SmallEventConstants.CART.SCAM_TP_PRICE;
 		}
 		else {
@@ -96,12 +105,18 @@ export const smallEvent: SmallEvent = {
 			.allowUser(interaction.user)
 			.allowEndReaction()
 			.endCallback(async (acceptOrRefuseMenu) => {
+				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE);
 				const reaction = acceptOrRefuseMenu.getFirstReaction();
 				const reactionEmoji = !reaction ? Constants.REACTIONS.NOT_REPLIED_REACTION : reaction.emoji.name;
-				if (reactionEmoji === Constants.REACTIONS.VALIDATE_REACTION) {
+				if (reactionEmoji === SmallEventConstants.CART.REACTIONS.ACCEPT) {
 					// Player accepts the offer, teleport the player and debit the money
 					if (player.money >= price) {
-						player.money -= price;
+						await player.spendMoney({
+							amount: price,
+							channel: interaction.channel,
+							language: tr.language,
+							reason: NumberChangeReason.SMALL_EVENT
+						});
 						player.mapLinkId = destination.id;
 						await player.save();
 						seEmbed.setDescription(tr.get("travelAccepted"));
@@ -113,11 +128,11 @@ export const smallEvent: SmallEvent = {
 				else {
 					seEmbed.setDescription(tr.get("travelRefused"));
 				}
-				await interaction.editReply({embeds: [seEmbed]});
+				await interaction.channel.send({embeds: [seEmbed]});
 			});
 
 		const cartObject = {player, destination, price, displayedDestination};
 		const builtEmbed = await generateInitialEmbed(embed, interaction, seEmbed, cartObject, tr);
-		await builtEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
+		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
 	}
 };
