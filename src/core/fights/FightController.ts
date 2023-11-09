@@ -184,7 +184,9 @@ export class FightController {
 			return;
 		}
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
-		if (this.hadEnded()) {
+
+		// End the fight if a fighter is dead or if the maximum number of turns has been reached and the overtime behavior is to end the fight
+		if (this.hadEnded() || this.turn >= FightConstants.MAX_TURNS && this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW) {
 			await this.endFight();
 			return;
 		}
@@ -241,11 +243,6 @@ export class FightController {
 		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn, this._fightView.language);
 		if (weatherMessage) {
 			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
-		}
-
-		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			await this.endFight();
-			return;
 		}
 
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
