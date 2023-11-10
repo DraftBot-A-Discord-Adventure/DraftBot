@@ -245,6 +245,12 @@ export class FightController {
 			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
 		}
 
+		// End the fight if the weather drained the last energy points of a fighter
+		if (this.hadEnded()) {
+			await this.endFight();
+			return;
+		}
+
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
 			this.increaseDamagesPve(this.turn);
 		}
