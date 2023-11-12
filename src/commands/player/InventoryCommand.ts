@@ -1,12 +1,12 @@
 import {DraftBotInventoryEmbedBuilder} from "../../core/messages/DraftBotInventoryEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Shows the inventory of the given player (default player is the one who entered the command)
@@ -14,7 +14,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
 	if (!askedPlayer) {
 		askedPlayer = player;

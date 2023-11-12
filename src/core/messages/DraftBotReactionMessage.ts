@@ -1,19 +1,9 @@
-import {
-	CommandInteraction,
-	DMChannel,
-	GuildEmoji,
-	Message,
-	MessageReaction,
-	NewsChannel,
-	ReactionCollector,
-	TextBasedChannel,
-	TextChannel,
-	User
-} from "discord.js";
+import {GuildEmoji, Message, MessageReaction, ReactionCollector, User} from "discord.js";
 import {CallbackLike, DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {draftBotClient} from "../bot";
+import {DraftbotChannel, DraftbotInteraction} from "./DraftbotInteraction";
 
 /**
  * Error thrown if the message has not been sent before
@@ -127,7 +117,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param interaction
 	 * @param collectorCallback
 	 */
-	async reply(interaction: CommandInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+	async reply(interaction: DraftbotInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await interaction.reply({embeds: [this], fetchReply: true}) as Message;
 		await this.collectAndReact(collectorCallback);
 		return this._sentMessage;
@@ -138,7 +128,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param interaction
 	 * @param collectorCallback
 	 */
-	async editReply(interaction: CommandInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+	async editReply(interaction: DraftbotInteraction, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await interaction.editReply({embeds: [this]}) as Message;
 		await this.collectAndReact(collectorCallback);
 		return this._sentMessage;
@@ -149,7 +139,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param channel
 	 * @param collectorCallback The callback called when the collector is initialized. Often used to block the player
 	 */
-	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannel, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
+	async send(channel: DraftbotChannel, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await channel.send({embeds: [this]});
 		await this.collectAndReact(collectorCallback);
 		return this._sentMessage;
@@ -204,8 +194,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			if (this._reactionsNames.indexOf(reactionName) === -1 || !this._reactions[this._reactionsNames.indexOf(reactionName)].callback) {
 				// The reaction is an end reaction or the reaction has no callback associated
 				this._collector.stop();
-			}
-			else {
+			} else {
 				this._reactions[this._reactionsNames.indexOf(reactionName)].callback(this, reaction, user);
 			}
 		});
@@ -224,8 +213,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		for (const reaction of this._reactions) {
 			try {
 				await this._sentMessage.react(reaction.emote);
-			}
-			catch {
+			} catch {
 				const emoji = ((await draftBotClient.shard.broadcastEval((client, context) => {
 					const emoji = client.emojis.cache.get(context.emote);
 					if (emoji) {

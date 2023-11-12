@@ -30,6 +30,7 @@ import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {EntityConstants} from "../../core/constants/EntityConstants";
 import {Settings} from "../../core/database/game/models/Setting";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Callback of the shop command
@@ -59,13 +60,13 @@ function getPermanentItemShopItem(name: string, translationModule: TranslationMo
  * Get the shop item for getting a random item
  * @param translationModule
  */
-function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
+function getRandomItemShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"randomItem",
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			await giveRandomItem(message.user, message.sentMessage.channel, message.language, player);
+			await giveRandomItem(message.user, interaction.channel, message.language, player);
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(message.user.id, ShopItemType.RANDOM_ITEM).then();
 			return true;
 		});
@@ -76,7 +77,7 @@ function getRandomItemShopItem(translationModule: TranslationModule): ShopItem {
  * @param translationModule
  * @param interaction
  */
-function getHealAlterationShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getHealAlterationShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"healAlterations",
 		translationModule,
@@ -90,8 +91,8 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
 				await TravelTime.removeEffect(player, NumberChangeReason.SHOP);
 				await player.save();
 			}
-			await MissionsController.update(player, message.sentMessage.channel, translationModule.language, {missionId: "recoverAlteration"});
-			await message.sentMessage.channel.send({
+			await MissionsController.update(player, interaction.channel, translationModule.language, {missionId: "recoverAlteration"});
+			await interaction.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("success"), message.user)
 					.setDescription(translationModule.get("permanentItems.healAlterations.give"))]
@@ -109,7 +110,7 @@ function getHealAlterationShopItem(translationModule: TranslationModule, interac
  * @param healEnergyAlreadyPurchased
  * @param interaction
  */
-function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyAlreadyPurchased: number, interaction: CommandInteraction): ShopItem {
+function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyAlreadyPurchased: number, interaction: DraftbotInteraction): ShopItem {
 	return new ShopItem(
 		translationModule.get("permanentItems.healEnergy.emote"),
 		translationModule.get("permanentItems.healEnergy.name"),
@@ -131,7 +132,7 @@ function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyA
 			player.setFightPointsLost(0, NumberChangeReason.SHOP);
 			await player.save();
 
-			await message.sentMessage.channel.send({
+			await interaction.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("success"), message.user)
 					.setDescription(translationModule.get("permanentItems.healEnergy.give"))]
@@ -145,19 +146,20 @@ function getHealEnergyShopItem(translationModule: TranslationModule, healEnergyA
 /**
  * Get the shop item for regenerating to full life
  * @param translationModule
+ * @param interaction
  */
-function getRegenShopItem(translationModule: TranslationModule): ShopItem {
+function getRegenShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"regen",
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
-			await player.addHealth(await player.getMaxHealth() - player.health, message.sentMessage.channel, translationModule.language, NumberChangeReason.SHOP, {
+			await player.addHealth(await player.getMaxHealth() - player.health, interaction.channel, translationModule.language, NumberChangeReason.SHOP, {
 				shouldPokeMission: true,
 				overHealCountsForMission: false
 			});
 			await player.save();
-			await message.sentMessage.channel.send({
+			await interaction.channel.send({
 				embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(translationModule.get("success"), message.user)
@@ -175,7 +177,7 @@ function getRegenShopItem(translationModule: TranslationModule): ShopItem {
  * @param translationModule
  * @param interaction
  */
-function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getPermanentItemShopItem(
 		"badge",
 		translationModule,
@@ -187,7 +189,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 			}
 			player.addBadge(Constants.BADGES.RICH_PERSON);
 			await player.save();
-			await message.sentMessage.channel.send({
+			await interaction.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
 					.setDescription(`${Constants.BADGES.RICH_PERSON} ${translationModule.get("permanentItems.badge.name")}`)
@@ -204,7 +206,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
  * @param translationModule
  * @param interaction
  */
-async function getDailyPotionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): Promise<ShopItem> {
+async function getDailyPotionShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): Promise<ShopItem> {
 	const potion = await Potions.getById(await Settings.SHOP_POTION.getValue());
 
 	return new ShopItem(
@@ -233,7 +235,7 @@ type ItemInformation = { price: number, availableCategories: number[] }
 type PlayerInformation = { player: Player, invInfo: InventoryInfo }
 
 function getBuySlotExtensionShopItemCallback(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	translationModule: TranslationModule,
 	itemInformation: ItemInformation,
 	playerInformation: PlayerInformation
@@ -258,14 +260,14 @@ function getBuySlotExtensionShopItemCallback(
 					if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
 						await playerInformation.player.spendMoney({
 							amount: itemInformation.price,
-							channel: shopMessage.sentMessage.channel,
+							channel: interaction.channel,
 							language: translationModule.language,
 							reason: NumberChangeReason.SHOP
 						});
 						await playerInformation.player.save();
 						playerInformation.invInfo.addSlotForCategory(i);
 						await playerInformation.invInfo.save();
-						await shopMessage.sentMessage.channel.send({
+						await interaction.channel.send({
 							embeds: [
 								new DraftBotEmbed()
 									.formatAuthor(translationModule.get("success"), shopMessage.user)
@@ -291,7 +293,7 @@ function getBuySlotExtensionShopItemCallback(
 		chooseSlotBuilt.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 		chooseSlotBuilt.setDescription(`${translationModule.get("chooseSlotIndication")}\n\n${desc}`);
 		await chooseSlotBuilt.send(
-			shopMessage.sentMessage.channel,
+			interaction.channel,
 			(collector) => BlockingUtils.blockPlayerWithCollector(playerInformation.player.discordUserId, BlockingConstants.REASONS.SHOP,
 				collector));
 		return Promise.resolve(false);
@@ -304,7 +306,7 @@ function getBuySlotExtensionShopItemCallback(
  * @param player
  * @param interaction
  */
-async function getSlotExtensionShopItem(translationModule: TranslationModule, player: Player, interaction: CommandInteraction): Promise<ShopItem> {
+async function getSlotExtensionShopItem(translationModule: TranslationModule, player: Player, interaction: DraftbotInteraction): Promise<ShopItem> {
 	const invInfo = await InventoryInfos.getOfPlayer(player.id);
 	const availableCategories = [0, 1, 2, 3]
 		.filter(itemCategory => invInfo.slotLimitForCategory(itemCategory) < ItemConstants.SLOTS.LIMITS[itemCategory]);
@@ -335,7 +337,7 @@ async function getSlotExtensionShopItem(translationModule: TranslationModule, pl
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Player} player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -345,10 +347,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const permanentItemsCategory = new ShopItemCategory(
 		[
-			getRandomItemShopItem(shopTranslations),
+			getRandomItemShopItem(shopTranslations, interaction),
 			getHealAlterationShopItem(shopTranslations, interaction),
 			getHealEnergyShopItem(shopTranslations, healEnergyAlreadyPurchased, interaction),
-			getRegenShopItem(shopTranslations),
+			getRegenShopItem(shopTranslations, interaction),
 			getBadgeShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("permanentItem")

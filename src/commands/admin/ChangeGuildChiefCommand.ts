@@ -2,7 +2,6 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -12,6 +11,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  *Apply the changes due to validation
@@ -23,7 +23,7 @@ import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 function getEndCallbackChangeChief(
 	userToPromote: Player,
 	guild: Guild,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	tr: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		if (msg.isValidated()) {
@@ -88,7 +88,7 @@ function getEndCallbackChangeChief(
  * @param tr
  * @returns boolean
  */
-function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, guild: Guild | null, interaction: CommandInteraction, tr: TranslationModule): boolean {
+function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, guild: Guild | null, interaction: DraftbotInteraction, tr: TranslationModule): boolean {
 
 	if (guild === null) {
 		replyErrorMessage(
@@ -124,14 +124,13 @@ function checkMemberEligibility(userToPromote: Player, userGuild: Guild | null, 
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.changeGuildChief", language);
 
 	let userToPromote;
 	try {
 		userToPromote = await Players.getByDiscordUserId(interaction.options.get("id").value as string);
-	}
-	catch {
+	} catch {
 		userToPromote = null;
 	}
 	if (!userToPromote) {

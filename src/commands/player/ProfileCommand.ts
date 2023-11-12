@@ -6,7 +6,7 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, EmbedField, Message, MessageReaction} from "discord.js";
+import {EmbedField, Message, MessageReaction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {hoursToMilliseconds, millisecondsToMinutes, minutesDisplay} from "../../core/utils/TimeUtils";
 import MissionSlot, {MissionSlots} from "../../core/database/game/models/MissionSlot";
@@ -20,6 +20,7 @@ import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/
 import Pet, {Pets} from "../../core/database/game/models/Pet";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {FightConstants} from "../../core/constants/FightConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Display badges for the given player
@@ -31,8 +32,7 @@ async function displayBadges(player: Player, msg: Message): Promise<void> {
 	const badges = player.badges.split("-");
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
-	}
-	else {
+	} else {
 		for (const badgeId in badges) {
 			if (Object.prototype.hasOwnProperty.call(badges, badgeId)) {
 				await msg.react(badges[badgeId]);
@@ -250,7 +250,7 @@ function getNoTimeLeftField(profileModule: TranslationModule): EmbedField {
  * @param interaction
  * @returns {Promise<void>}
  */
-async function sendMessageAllBadgesTooMuchBadges(player: Player, language: string, interaction: CommandInteraction): Promise<void> {
+async function sendMessageAllBadgesTooMuchBadges(player: Player, language: string, interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	const badges = player.badges.split("-");
 	const profileModule = Translations.getModule("commands.profile", language);
@@ -280,8 +280,7 @@ function generateEffectField(askedPlayer: Player, titleEffect: string, fields: E
 		if (new Date() >= askedPlayer.effectEndDate) {
 			titleEffect = Constants.DEFAULT_HEALED_EFFECT;
 			fields.push(getNoTimeLeftField(profileModule));
-		}
-		else {
+		} else {
 			fields.push(getTimeLeftField(profileModule, askedPlayer));
 		}
 	}
@@ -301,8 +300,7 @@ async function generateClassField(askedPlayer: Player, fields: EmbedField[], pro
 		if (playerClass) {
 			fields.push(getClassField(profileModule, playerClass, language));
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		log(`Error while getting class of player for profile: ${error}`);
 	}
 }
@@ -319,8 +317,7 @@ async function generateGuildField(askedPlayer: Player, fields: EmbedField[], pro
 		if (guild) {
 			fields.push(getGuildField(profileModule, guild));
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		log(`Error while getting guild of player for profile: ${error}`);
 	}
 }
@@ -337,8 +334,7 @@ async function generateLocationField(askedPlayer: Player, fields: EmbedField[], 
 		if (await askedPlayer.getDestinationId()) {
 			fields.push(await getLocationField(profileModule, askedPlayer, language));
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		log(`Error while getting map of player for profile: ${error}`);
 	}
 }
@@ -357,8 +353,7 @@ async function generatePetField(askedPlayer: Player, fields: EmbedField[], profi
 			const petModel = await Pets.getById(petEntity.petId);
 			fields.push(getPetField(profileModule, petEntity, petModel, language));
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		log(`Error while getting pet of player for profile: ${error}`);
 	}
 }
@@ -374,7 +369,7 @@ async function generatePetField(askedPlayer: Player, fields: EmbedField[], profi
 async function generateFields(
 	profileModule: TranslationModule,
 	askedPlayer: Player,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	titleEffect: string,
 	language: string
 ): Promise<{ fields: EmbedField[], titleEffect: string }> {
@@ -421,7 +416,7 @@ async function generateFields(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	let askedPlayer = await Players.getByOptions(interaction);
 	if (!askedPlayer) {
 		askedPlayer = player;
@@ -456,9 +451,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 			collector.stop(); // Only one is allowed to avoid spam
 			await sendMessageAllBadgesTooMuchBadges(askedPlayer, language, interaction);
-		}
-		else {
-			reply.channel.send({content: profileModule.get(`badges.${reaction.emoji.name}`)}).then((msg: Message) => {
+		} else {
+			interaction.channel.send({content: profileModule.get(`badges.${reaction.emoji.name}`)}).then((msg: Message) => {
 				setTimeout(() => msg.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 			});
 		}

@@ -1,6 +1,5 @@
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {DraftBotEmbed} from "../../../messages/DraftBotEmbed";
-import {TextBasedChannel} from "discord.js";
 import {Translations} from "../../../Translations";
 import {MissionsController} from "../../../missions/MissionsController";
 import {Constants} from "../../../Constants";
@@ -13,6 +12,7 @@ import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import {TopConstants} from "../../../constants/TopConstants";
+import {DraftbotChannel} from "../../../messages/DraftbotInteraction";
 import moment = require("moment");
 
 export class Guild extends Model {
@@ -107,7 +107,7 @@ export class Guild extends Model {
 	 * @param language the language to use to display the message
 	 * @param reason The reason of the experience change
 	 */
-	public async addExperience(experience: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
+	public async addExperience(experience: number, channel: DraftbotChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
@@ -136,7 +136,7 @@ export class Guild extends Model {
 	 * @param channel the channel where the display will be done
 	 * @param language the language to use to display the message
 	 */
-	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
+	public async levelUpIfNeeded(channel: DraftbotChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -240,7 +240,7 @@ export class Guild extends Model {
 	 * @param language
 	 * @param reason
 	 */
-	public async addScore(points: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
+	public async addScore(points: number, channel: DraftbotChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		this.score += points;
 		if (points > 0) {
 			for (const member of await Players.getByGuild(this.id)) {
@@ -280,8 +280,7 @@ export class Guild extends Model {
 	private setExperience(experience: number): void {
 		if (experience > 0) {
 			this.experience = experience;
-		}
-		else {
+		} else {
 			this.experience = 0;
 		}
 	}

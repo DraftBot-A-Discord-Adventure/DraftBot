@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -29,9 +28,10 @@ import {Pets} from "../../core/database/game/models/Pet";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
 import {Maps} from "../../core/maps/Maps";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type GuildLike = { guild: Guild, members: Player[] };
-type StringInfos = { interaction: CommandInteraction, embed: DraftBotEmbed };
+type StringInfos = { interaction: DraftbotInteraction, embed: DraftBotEmbed };
 type RewardPalier = { [key: string]: number };
 type FunctionRewardType = (guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule) => Promise<void>;
 
@@ -60,7 +60,7 @@ async function awardGuildWithNewPet(guild: Guild, embed: DraftBotEmbed, guildDai
  * @param interaction
  * @param rewardType
  */
-async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, interaction: CommandInteraction, rewardType: string): Promise<DraftBotEmbed> {
+async function rewardPlayersOfTheGuild(guildLike: GuildLike, language: string, interaction: DraftbotInteraction, rewardType: string): Promise<DraftBotEmbed> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	const embed: DraftBotEmbed = new DraftBotEmbed()
 		.setTitle(guildDailyModule.format("rewardTitle", {
@@ -108,7 +108,7 @@ async function genericAwardingFunction(members: Player[], awardingFunctionForAMe
  */
 async function awardMoneyToMembers(guildLike: GuildLike, stringInfos: StringInfos, guildDailyModule: TranslationModule): Promise<void> {
 	const levelUsed = Math.min(guildLike.guild.level, GuildConstants.GOLDEN_GUILD_LEVEL);
-	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, levelUsed , levelUsed * GuildDailyConstants.MONEY_MULTIPLIER);
+	const moneyWon = RandomUtils.rangedInt(GuildDailyConstants.MONEY, levelUsed, levelUsed * GuildDailyConstants.MONEY_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, member => {
 		member.addMoney({
 			amount: moneyWon,
@@ -196,8 +196,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 					}
 				);
 			}
-		}
-		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
+		} else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
 			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
 		}
@@ -374,7 +373,7 @@ const linkToFunction = getMapOfAllRewardCommands();
  * @param guildDailyModule
  * @param embed
  */
-async function notifyAndUpdatePlayers(members: Player[], interaction: CommandInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
+async function notifyAndUpdatePlayers(members: Player[], interaction: DraftbotInteraction, language: string, guildDailyModule: TranslationModule, embed: DraftBotEmbed): Promise<void> {
 	for (const member of members) {
 		// We have to check if the member is not KO because if he is, he should not receive the notification as he does not receive the reward
 		if (member.isDead()) {
@@ -407,8 +406,7 @@ function generateRandomProperty(guild: Guild): string {
 	for (const reward of Object.keys(recompenses)) {
 		if (recompenses[reward] < resultNumber) {
 			resultNumber -= recompenses[reward];
-		}
-		else {
+		} else {
 			return reward;
 		}
 	}
@@ -422,7 +420,7 @@ function generateRandomProperty(guild: Guild): string {
  * @param player
  * @param forcedReward
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player, forcedReward: string = null): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player, forcedReward: string = null): Promise<void> {
 	const guildDailyModule = Translations.getModule("commands.guildDaily", language);
 	if (await sendBlockedError(interaction, language)) {
 		return;

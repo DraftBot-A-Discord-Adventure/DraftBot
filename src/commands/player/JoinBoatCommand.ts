@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -16,6 +15,7 @@ import {PVEConstants} from "../../core/constants/PVEConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -23,7 +23,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -53,7 +53,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 			confirmationCallback(player, {
 				reactionMessage: confirmMessage,
 				embed: new DraftBotEmbed().formatAuthor(tr.get("confirmedTitle"), interaction.user),
-				tr
+				tr,
+				interaction
 			}, ":ferry:", price, guildOnBoat[0]).then(async (hasJoinedBoat) => {
 				if (hasJoinedBoat) {
 					await MissionsController.update(player, interaction.channel, language, {

@@ -1,5 +1,4 @@
 import {ICommand} from "../ICommand";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -18,6 +17,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 
 /**
@@ -35,8 +35,7 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 				value: getItemValue(itemInstance),
 				moneyIcon: Constants.REACTIONS.MONEY_ICON
 			}), item));
-	}
-	else {
+	} else {
 		choiceItems.push(new ChoiceItem(
 			tr.format("throwAwayField", {
 				name: itemInstance.getName(tr.language),
@@ -53,7 +52,7 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
  * @param tr
  * @param itemInstance
  */
-function sellEmbedCallback(player: Player, interaction: CommandInteraction, tr: TranslationModule, item : InventorySlot, itemInstance : GenericItemModel) {
+function sellEmbedCallback(player: Player, interaction: DraftbotInteraction, tr: TranslationModule, item: InventorySlot, itemInstance: GenericItemModel) {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL_CONFIRM);
 		if (!validateMessage.isValidated()) {
@@ -125,9 +124,9 @@ function sellEmbedCallback(player: Player, interaction: CommandInteraction, tr: 
  * @param item
  * @param itemInstance
  */
-async function itemChoiceValidation(player: Player, interaction: CommandInteraction, tr: TranslationModule, item: InventorySlot, itemInstance: GenericItemModel): Promise<void> {
+async function itemChoiceValidation(player: Player, interaction: DraftbotInteraction, tr: TranslationModule, item: InventorySlot, itemInstance: GenericItemModel): Promise<void> {
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.SELL);
-	const reactionMessage = await new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(player, interaction, tr, item, itemInstance))
+	const reactionMessage = new DraftBotValidateReactionMessage(interaction.user, sellEmbedCallback(player, interaction, tr, item, itemInstance))
 		.formatAuthor(tr.get("sellTitle"), interaction.user)
 		.setDescription(tr.format(item.itemCategory === ItemConstants.CATEGORIES.POTION ? "confirmThrowAway" : "confirmSell", {
 			item: itemInstance.getName(tr.language),
@@ -145,7 +144,7 @@ async function itemChoiceValidation(player: Player, interaction: CommandInteract
  * @param player
  * @param tr
  */
-async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInteraction, player: Player, tr: TranslationModule): Promise<void> {
+async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: DraftbotInteraction, player: Player, tr: TranslationModule): Promise<void> {
 	const choiceMessage = new DraftBotListChoiceMessage(
 		choiceItems,
 		interaction.user.id,
@@ -168,7 +167,7 @@ async function sendSellEmbed(choiceItems: ChoiceItem[], interaction: CommandInte
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

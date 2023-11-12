@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -11,6 +10,7 @@ import {Classes} from "../database/game/models/Class";
 import {Constants} from "../Constants";
 import {readdir} from "fs/promises";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Gives how many players have a random class
@@ -38,7 +38,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botFacts", language);
 
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
@@ -48,49 +48,49 @@ export const smallEvent: SmallEvent = {
 		let complement = "";
 		let array = [];
 		switch (outReceived) {
-		case "nbMeanPoints":
-			result = await Players.getNbMeanPoints();
-			break;
-		case "meanWeeklyScore":
-			result = await Players.getMeanWeeklyScore();
-			break;
-		case "nbPlayersHaventStartedTheAdventure":
-			result = await Players.getNbPlayersHaventStartedTheAdventure();
-			break;
-		case "levelMean":
-			result = await Players.getLevelMean();
-			break;
-		case "nbMeanMoney":
-			result = await Players.getNbMeanMoney();
-			break;
-		case "sumAllMoney":
-			result = await Players.getSumAllMoney();
-			break;
-		case "richestPlayer":
-			result = await Players.getRichestPlayer();
-			break;
-		case "trainedPets":
-			result = await PetEntities.getNbTrainedPets();
-			break;
-		case "percentMalePets":
-			result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
-			break;
-		case "percentFemalePets":
-			result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
-			break;
-		case "guildLevelMean":
-			result = await Guilds.getGuildLevelMean();
-			break;
-		case "feistyPets":
-			result = await PetEntities.getNbFeistyPets();
-			break;
-		case "nbPlayersOnYourMap":
-			result = await player.getNbPlayersOnYourMap();
-			break;
-		default:
-			array = await getNbPlayersWithGivenClass(language);
-			result = array[0];
-			complement = array[1];
+			case "nbMeanPoints":
+				result = await Players.getNbMeanPoints();
+				break;
+			case "meanWeeklyScore":
+				result = await Players.getMeanWeeklyScore();
+				break;
+			case "nbPlayersHaventStartedTheAdventure":
+				result = await Players.getNbPlayersHaventStartedTheAdventure();
+				break;
+			case "levelMean":
+				result = await Players.getLevelMean();
+				break;
+			case "nbMeanMoney":
+				result = await Players.getNbMeanMoney();
+				break;
+			case "sumAllMoney":
+				result = await Players.getSumAllMoney();
+				break;
+			case "richestPlayer":
+				result = await Players.getRichestPlayer();
+				break;
+			case "trainedPets":
+				result = await PetEntities.getNbTrainedPets();
+				break;
+			case "percentMalePets":
+				result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
+				break;
+			case "percentFemalePets":
+				result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
+				break;
+			case "guildLevelMean":
+				result = await Guilds.getGuildLevelMean();
+				break;
+			case "feistyPets":
+				result = await PetEntities.getNbFeistyPets();
+				break;
+			case "nbPlayersOnYourMap":
+				result = await player.getNbPlayersOnYourMap();
+				break;
+			default:
+				array = await getNbPlayersWithGivenClass(language);
+				result = array[0];
+				complement = array[1];
 		}
 		seEmbed.setDescription(base +
 			format(

@@ -1,11 +1,11 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player from "../database/game/models/Player";
 import {MapConstants} from "../constants/MapConstants";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 export const smallEvent: SmallEvent = {
 
@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationWH = Translations.getModule("smallEvents.winEnergy", language);
 		seEmbed.setDescription(
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +

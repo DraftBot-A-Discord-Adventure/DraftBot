@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
@@ -14,6 +13,7 @@ import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {PET_ENTITY_GIVE_RETURN} from "../constants/PetEntityConstants";
 import {Guilds} from "../database/game/models/Guild";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Generates the resulting embed of the new pet's collect
@@ -60,7 +60,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const pet = await PetEntities.generateRandomPetEntityNotGuild();
 		const petModel = await Pets.getById(pet.petId);
 		const trad = Translations.getModule("smallEvents.findPet", language);
@@ -72,8 +72,7 @@ export const smallEvent: SmallEvent = {
 		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
 

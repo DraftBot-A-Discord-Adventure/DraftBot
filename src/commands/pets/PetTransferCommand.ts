@@ -5,7 +5,6 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import PetEntity, {PetEntities} from "../../core/database/game/models/PetEntity";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -16,6 +15,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type PlayerInformation = { player: Player, guild: Guild, pet?: PetEntity };
 
@@ -26,8 +26,7 @@ type PlayerInformation = { player: Player, guild: Guild, pet?: PetEntity };
 async function getGuildOfPlayer(player: Player): Promise<Guild> {
 	try {
 		return await Guilds.getById(player.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		return null;
 	}
 }
@@ -40,7 +39,7 @@ async function getGuildOfPlayer(player: Player): Promise<Guild> {
  * @param playerInformation
  */
 async function transferPetToGuild(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	petTransferModule: TranslationModule,
 	confirmEmbed: DraftBotEmbed,
 	playerInformation: PlayerInformation
@@ -81,7 +80,7 @@ async function transferPetToGuild(
  */
 async function sendErrorInvalidPositionShelter(
 	guildPetCount: number,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	petTransferModule: TranslationModule): Promise<void> {
 	if (guildPetCount === 1) {
 		await replyErrorMessage(interaction, petTransferModule.language, petTransferModule.get("wrongPetNumberSingle"));
@@ -101,7 +100,7 @@ async function sendErrorInvalidPositionShelter(
  */
 async function switchPets(
 	shelterPosition: number,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	petTransferModule: TranslationModule,
 	playerInformation: PlayerInformation): Promise<PetEntity> {
 	const playerPet = await PetEntities.getById(playerInformation.player.petId);
@@ -115,8 +114,7 @@ async function switchPets(
 		}
 		swPet.petEntityId = playerPet.id;
 		await swPet.save();
-	}
-	else {
+	} else {
 		await swPet.destroy();
 	}
 	playerInformation.player.petId = swPetEntity.id;
@@ -145,8 +143,7 @@ async function setDescriptionPetTransferEmbed(
 			pet1: `${playerPet.getPetEmote(playerPetModel)} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetModel, petTransferModule.language)}`,
 			pet2: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
-	}
-	else {
+	} else {
 		confirmEmbed.setDescription(petTransferModule.format("confirmFollows", {
 			pet: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
@@ -161,7 +158,7 @@ async function setDescriptionPetTransferEmbed(
  * @param language
  * @param swPetEntity
  */
-async function updateMissionsOfEntity(player: Player, interaction: CommandInteraction, language: string, swPetEntity: PetEntity): Promise<void> {
+async function updateMissionsOfEntity(player: Player, interaction: DraftbotInteraction, language: string, swPetEntity: PetEntity): Promise<void> {
 	await MissionsController.update(player, interaction.channel, language, {missionId: "havePet"});
 	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "tamedPet",
@@ -179,7 +176,7 @@ async function updateMissionsOfEntity(player: Player, interaction: CommandIntera
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

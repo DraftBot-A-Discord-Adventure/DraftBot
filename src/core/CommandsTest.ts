@@ -1,10 +1,11 @@
-import {CommandInteraction, HexColorString} from "discord.js";
+import {HexColorString} from "discord.js";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Constants} from "./Constants";
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {isAMention, isAnEmoji} from "./utils/StringUtils";
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
+import {DraftbotInteraction} from "./messages/DraftbotInteraction";
 
 const typeVariableChecks = [
 	{
@@ -37,7 +38,7 @@ export interface ITestCommand {
 	messageWhenExecuted?: string,
 	description: string,
 	commandTestShouldReply: boolean,
-	execute: (language: string, interaction: CommandInteraction, args: string[]) => Promise<string | DraftBotEmbed>,
+	execute: (language: string, interaction: DraftbotInteraction, args: string[]) => Promise<string | DraftBotEmbed>,
 	category?: string
 }
 
@@ -73,7 +74,7 @@ export class CommandsTest {
 	static isGoodFormat(
 		commandTest: ITestCommand,
 		args: string[],
-		interaction: CommandInteraction): [boolean, DraftBotEmbed] {
+		interaction: DraftbotInteraction): [boolean, DraftBotEmbed] {
 		if (!commandTest.typeWaited) {
 			return args.length === 0 ? [true, new DraftBotEmbed()] : [
 				false,
@@ -121,7 +122,7 @@ export class CommandsTest {
 	 */
 	static async executeAndAlertUser(
 		language: string,
-		interaction: CommandInteraction,
+		interaction: DraftbotInteraction,
 		testCommand: ITestCommand,
 		args: string[]): Promise<void> {
 		try {
@@ -138,8 +139,7 @@ export class CommandsTest {
 					})
 					.setDescription(messageToDisplay)
 					.setColor(<HexColorString>Constants.MESSAGES.COLORS.SUCCESSFUL);
-			}
-			else {
+			} else {
 				embedTestSuccessful = messageToDisplay;
 			}
 
@@ -148,25 +148,21 @@ export class CommandsTest {
 				return;
 			}
 			await interaction.channel.send({embeds: [embedTestSuccessful]});
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 			if (interaction.replied) {
 				try {
 					await interaction.channel.send({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
-				}
-				catch (e2) {
+				} catch (e2) {
 					await interaction.channel.send({
 						content:
 							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
 					});
 				}
-			}
-			else {
+			} else {
 				try {
 					await interaction.reply({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
-				}
-				catch (e2) {
+				} catch (e2) {
 					await interaction.reply({
 						content:
 							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``

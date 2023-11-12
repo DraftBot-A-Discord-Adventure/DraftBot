@@ -1,12 +1,12 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {botConfig} from "../../core/bot";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import * as fs from "fs";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.sendLogs", Constants.LANGUAGE.FRENCH);
@@ -17,15 +17,13 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.sendLo
  * @param interaction
  * @param msg
  */
-async function sendLogsMessage(inDM: boolean, interaction: CommandInteraction, msg: string): Promise<void> {
+async function sendLogsMessage(inDM: boolean, interaction: DraftbotInteraction, msg: string): Promise<void> {
 	if (inDM) {
 		await interaction.user.send({content: `${msg}\`\`\``});
-	}
-	else {
+	} else {
 		try {
 			await interaction.reply({content: `${msg}\`\`\``, ephemeral: true});
-		}
-		catch {
+		} catch {
 			await interaction.followUp({content: `${msg}\`\`\``, ephemeral: true});
 		}
 	}
@@ -36,7 +34,7 @@ async function sendLogsMessage(inDM: boolean, interaction: CommandInteraction, m
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const sendLogsModule = Translations.getModule("commands.sendLogs", language);
 	if (interaction.channel.id !== botConfig.CONTRIBUTORS_CHANNEL) {
 		await replyErrorMessage(
@@ -49,13 +47,12 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	let inDM: boolean;
 	try {
 		inDM = interaction.options.get(currentCommandEnglishTranslations.get("optionDMName")).value as boolean;
-	}
-	catch {
+	} catch {
 		inDM = true;
 	}
 
 	if (interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")) === null) {
-		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
+		fs.readdir("logs", async function (err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
 				await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
 				return;
@@ -76,8 +73,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		if (inDM) {
 			await interaction.reply({content: "Logs list sent !"});
 		}
-	}
-	else {
+	} else {
 		let queriedFile = interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")).value as string;
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
@@ -95,8 +91,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					}]
 				});
 				await interaction.reply({content: "Logs sent !"});
-			}
-			else {
+			} else {
 				await interaction.reply({
 					files: [{
 						attachment: `logs/${queriedFile}`,
@@ -105,8 +100,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					ephemeral: true
 				});
 			}
-		}
-		else {
+		} else {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
 		}
 	}

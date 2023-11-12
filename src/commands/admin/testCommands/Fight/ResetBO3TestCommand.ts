@@ -1,5 +1,4 @@
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {Constants} from "../../../../core/Constants";
@@ -8,6 +7,7 @@ import {LogsFightsResults} from "../../../../core/database/logs/models/LogsFight
 import {HasOne, Op} from "sequelize";
 import {getNextSaturdayMidnight} from "../../../../core/utils/TimeUtils";
 import {LogsPlayers} from "../../../../core/database/logs/models/LogsPlayers";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "resetbo3",
@@ -28,7 +28,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const bo3TestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const bo3TestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(getIdFromMention(args[0]));
 
 	const fightsBO3 = await LogsFightsResults.findAll({

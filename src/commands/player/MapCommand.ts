@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {BotConstants} from "../../core/constants/BotConstants";
@@ -10,6 +9,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {MapLinks} from "../../core/database/game/models/MapLink";
 import MapLocation from "../../core/database/game/models/MapLocation";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Get the map image link with the cursor on the player position
@@ -59,7 +59,7 @@ async function getMapToShowInfo(player: Player, destMap: MapLocation, inReport: 
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const mapModule = Translations.getModule("commands.map", language);
 	const mapEmbed = new DraftBotEmbed()
 		.formatAuthor(mapModule.get("text"), interaction.user);
@@ -69,12 +69,11 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	const mapToShowInfo = await getMapToShowInfo(player, destMap, inReport, language);
 	if (mapToShowInfo.forced) {
 		mapEmbed.setImage(
-			format(BotConstants.FORCED_MAPS_URL, { name: mapToShowInfo.name })
+			format(BotConstants.FORCED_MAPS_URL, {name: mapToShowInfo.name})
 		);
-	}
-	else {
+	} else {
 		mapEmbed.setImage(
-			format(BotConstants.MAP_URL_WITH_CURSOR, { mapLink: mapToShowInfo.name })
+			format(BotConstants.MAP_URL_WITH_CURSOR, {mapLink: mapToShowInfo.name})
 		);
 	}
 	mapEmbed.setDescription(mapModule.format(

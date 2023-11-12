@@ -1,4 +1,4 @@
-import {CommandInteraction, Message} from "discord.js";
+import {Message} from "discord.js";
 import {NearEarthObject, NeoWSFeed, SpaceUtils} from "../utils/SpaceUtils";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
@@ -11,6 +11,7 @@ import {SpaceConstants} from "../constants/SpaceConstants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Gives an object that is going close to earth
@@ -20,8 +21,7 @@ async function neoWS(): Promise<Record<string, unknown>> {
 	let neoWSFeed: NeoWSFeed;
 	try {
 		neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
-	}
-	catch (e) {
+	} catch (e) {
 		// Si erreur durant récup data api
 		neoWSFeed = null;
 	}
@@ -126,7 +126,7 @@ export const smallEvent: SmallEvent = {
 	/**
 	 * Throws a random, verified by the NASA, fact about the surrounding space
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed) {
 		let keysList = Translations.getModule("smallEvents.space", language).getKeys("specific");
 		if ((await nextFullMoon()).days === 0) {
 			keysList = keysList.filter(e => e !== "nextFullMoon");
@@ -168,9 +168,8 @@ export const smallEvent: SmallEvent = {
 				};
 				if (timeLeft <= 0) {
 					callBack().then();
-				}
-				else {
-					setTimeout(async function() {
+				} else {
+					setTimeout(async function () {
 						await callBack();
 					}, timeLeft);
 				}

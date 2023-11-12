@@ -5,7 +5,6 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -15,9 +14,10 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type PlayerInformation = { player: Player, guild: Guild }
-type TextInformation = { interaction: CommandInteraction, guildKickModule: TranslationModule, language: string }
+type TextInformation = { interaction: DraftbotInteraction, guildKickModule: TranslationModule, language: string }
 
 /**
  * Get the callback for the guild kick command
@@ -35,8 +35,7 @@ async function getValidationCallback(
 			let kickedGuild;
 			try {
 				kickedGuild = await Guilds.getById(kickedPlayer.guildId);
-			}
-			catch (error) {
+			} catch (error) {
 				kickedGuild = null;
 			}
 
@@ -109,8 +108,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
 	// Search for a user's guild
 	try {
 		kickedGuild = await Guilds.getById(kickedPlayer.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		kickedGuild = null;
 	}
 
@@ -141,7 +139,7 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

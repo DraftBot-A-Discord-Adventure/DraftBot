@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
 import {ICommand} from "../ICommand";
@@ -11,6 +10,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Shows the missions of the given player (default : the one who entered the command)
@@ -18,7 +18,7 @@ import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMission
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

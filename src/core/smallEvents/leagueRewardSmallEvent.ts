@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import Player from "../database/game/models/Player";
@@ -7,6 +6,7 @@ import League from "../database/game/models/League";
 import {getNextSaturdayMidnight, printTimeBeforeDate, todayIsSunday} from "../utils/TimeUtils";
 import {FightConstants} from "../constants/FightConstants";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Load the description of the reward the player will have
@@ -59,7 +59,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 
 		const leagueRewardTranslationModule = Translations.getModule("smallEvents.leagueReward", language);
 		const message = await generateEndMessage(leagueRewardTranslationModule, player, language);

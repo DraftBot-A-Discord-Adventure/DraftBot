@@ -1,7 +1,7 @@
 import {ICommand} from "../ICommand";
-import {CommandInteraction} from "discord.js";
 import {ChangeValueAdminCommands} from "../ChangeValueAdminCommands";
 import Player from "../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Change the weekly score of a player
@@ -9,14 +9,12 @@ import Player from "../../core/database/game/models/Player";
  * @param amount
  * @param interaction
  */
-function giveWeeklyPointsTo(playerToEdit: Player, amount: number, interaction: CommandInteraction): void {
+function giveWeeklyPointsTo(playerToEdit: Player, amount: number, interaction: DraftbotInteraction): void {
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.weeklyScore = amount;
-	}
-	else if (interaction.options.get("mode").value as string === "add") {
+	} else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.weeklyScore += amount;
-	}
-	else {
+	} else {
 		throw new Error("wrong parameter");
 	}
 }

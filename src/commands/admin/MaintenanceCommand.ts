@@ -1,20 +1,20 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {draftBotInstance} from "../../core/bot";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {IPCClient} from "../../core/bot/ipc/IPCClient";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Set the bot in maintenance mode
  * @param interaction
  * @param language
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.maintenance", language);
 	const enable = interaction.options.get("enable").value as boolean;
 	const save = interaction.options.get("save").value as boolean;
@@ -33,8 +33,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 					.setDescription(tr.get(enable ? "successMaintenanceOn" : "successMaintenanceOff"))
 			]
 		});
-	}
-	catch (err) {
+	} catch (err) {
 		await interaction.reply({
 			embeds: [
 				new DraftBotErrorEmbed(

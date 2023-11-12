@@ -1,8 +1,9 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
-import {CommandInteraction, GuildMember, PermissionsBitField} from "discord.js";
+import {GuildMember, PermissionsBitField} from "discord.js";
 import {Constants} from "./Constants";
 import {Translations} from "./Translations";
 import {botConfig} from "./bot";
+import {DraftbotInteraction} from "./messages/DraftbotInteraction";
 
 export class MessageError {
 	/**
@@ -13,7 +14,7 @@ export class MessageError {
 	 * @param permission
 	 * @returns {Promise<boolean|*>}
 	 */
-	static async canPerformCommand(member: GuildMember, interaction: CommandInteraction, language: string, permission: string): Promise<boolean> {
+	static async canPerformCommand(member: GuildMember, interaction: DraftbotInteraction, language: string, permission: string): Promise<boolean> {
 		if (this.hasNotPermission(permission, member)) {
 			await MessageError.permissionErrorMe(member, interaction, language, permission);
 			return false;
@@ -37,7 +38,7 @@ export class MessageError {
 	 * @param permission
 	 * @returns {Promise<*>}
 	 */
-	static async permissionErrorMe(member: GuildMember, interaction: CommandInteraction, language: string, permission: string): Promise<void> {
+	static async permissionErrorMe(member: GuildMember, interaction: DraftbotInteraction, language: string, permission: string): Promise<void> {
 		const tr = Translations.getModule("error", language);
 		const embed = new DraftBotEmbed()
 			.setErrorColor()

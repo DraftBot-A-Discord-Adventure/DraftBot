@@ -1,9 +1,9 @@
 import {Constants} from "../../../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {botConfig, draftBotInstance} from "../../../../core/bot";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
 import {GameDatabase} from "../../../../core/database/game/GameDatabase";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "migration",
@@ -21,8 +21,7 @@ export const commandInfo: ITestCommand = {
 function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase {
 	if (databaseName === "logs") {
 		return draftBotInstance.logsDatabase;
-	}
-	else if (databaseName === "game") {
+	} else if (databaseName === "game") {
 		return draftBotInstance.gameDatabase;
 	}
 	throw new Error(`Unknown database name "${databaseName}"`);
@@ -32,7 +31,7 @@ function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase 
  * Execute the migration test command
  * @return {String} - The successful message formatted
  */
-async function migrationTestCommand(language: string, interaction: CommandInteraction, args: string[]): Promise<string> {
+async function migrationTestCommand(language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> {
 	if (interaction.user.id !== botConfig.BOT_OWNER_ID) {
 		throw new Error("You must be the bot owner to perform this action");
 	}

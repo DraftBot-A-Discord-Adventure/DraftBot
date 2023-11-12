@@ -1,5 +1,4 @@
 import {ICommand} from "../ICommand";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
@@ -10,6 +9,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {NotificationsConstants, NotificationsScopes} from "../../core/constants/NotificationsConstants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 
 /**
@@ -18,7 +18,7 @@ import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -29,24 +29,24 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.setDescription(translations.get(`description.${choice}`));
 
 	switch (choice) {
-	case NotificationsScopes.CHANNEL_SCOPE:
-		player.notifications = interaction.channelId;
-		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
-		break;
-	case NotificationsScopes.DM_SCOPE:
-		player.notifications = NotificationsConstants.DM_VALUE;
-		await sendNotificationToPlayer(player,
-			new DraftBotEmbed()
-				.formatAuthor(translations.get("title"), interaction.user)
-				.setDescription(translations.get("normal")),
-			language);
-		break;
-	case NotificationsScopes.NO_NOTIFICATION_SCOPE:
-		player.notifications = NotificationsConstants.NO_NOTIFICATIONS_VALUE;
-		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
-		break;
-	default:
-		return;
+		case NotificationsScopes.CHANNEL_SCOPE:
+			player.notifications = interaction.channelId;
+			notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
+			break;
+		case NotificationsScopes.DM_SCOPE:
+			player.notifications = NotificationsConstants.DM_VALUE;
+			await sendNotificationToPlayer(player,
+				new DraftBotEmbed()
+					.formatAuthor(translations.get("title"), interaction.user)
+					.setDescription(translations.get("normal")),
+				language);
+			break;
+		case NotificationsScopes.NO_NOTIFICATION_SCOPE:
+			player.notifications = NotificationsConstants.NO_NOTIFICATIONS_VALUE;
+			notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
+			break;
+		default:
+			return;
 	}
 	await interaction.reply({embeds: [notificationsEmbed], ephemeral: choice !== NotificationsScopes.CHANNEL_SCOPE});
 	await player.save();

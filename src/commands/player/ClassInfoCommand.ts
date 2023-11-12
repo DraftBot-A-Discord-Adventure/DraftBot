@@ -1,7 +1,7 @@
 import Class, {Classes} from "../../core/database/game/models/Class";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
+import {Message, MessageReaction, User} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Data} from "../../core/Data";
@@ -10,6 +10,7 @@ import {ProfileConstants} from "../../core/constants/ProfileConstants";
 import {ClassInfoConstants} from "../../core/constants/ClassInfoConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Add the field containing the available actions for the given class
@@ -33,7 +34,7 @@ function addActionsFields(embed: DraftBotEmbed, classToShow: Class, language: st
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const classTranslations = Translations.getModule("commands.classInfo", language);
 	const classGroup = player.getClassGroup();
 	const allClasses = await Classes.getByGroupId(classGroup);

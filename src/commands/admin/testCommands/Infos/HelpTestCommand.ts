@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {CommandInteraction} from "discord.js";
 import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
 import {Constants} from "../../../../core/Constants";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "help",
@@ -22,12 +22,11 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const helpTestCommand = (language: string, interaction: CommandInteraction, args: string[]): DraftBotEmbed => {
+const helpTestCommand = (language: string, interaction: DraftbotInteraction, args: string[]): DraftBotEmbed => {
 	let helpOnCommand: ITestCommand;
 	try {
 		helpOnCommand = CommandsTest.getTestCommand(args[0]);
-	}
-	catch (e) {
+	} catch (e) {
 		throw new Error(`Commande inexistante : ${args[0]}`);
 	}
 	const embedHelpTest = new DraftBotEmbed()

@@ -1,10 +1,10 @@
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {Campaign} from "../../../../core/missions/Campaign";
 import {Constants} from "../../../../core/Constants";
 import {format} from "../../../../core/utils/StringFormatter";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaignBlob",
@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
 	execute: null // Defined later
 };
 
-const setCampaignBlobTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const setCampaignBlobTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	const givenBlob = args[0];

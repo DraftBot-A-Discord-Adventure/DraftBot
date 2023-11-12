@@ -1,18 +1,19 @@
 import {FightController} from "./FightController";
-import {Message, TextBasedChannel} from "discord.js";
+import {Message} from "discord.js";
 import {Fighter} from "./fighter/Fighter";
 import {TranslationModule, Translations} from "../Translations";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {FightConstants} from "../constants/FightConstants";
 import {millisecondsToMinutes, minutesDisplay} from "../utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
+import {DraftbotChannel} from "../messages/DraftbotInteraction";
 
 /**
  * @class FightController
  */
 export class FightView {
 
-	public channel: TextBasedChannel;
+	public channel: DraftbotChannel;
 
 	public language: string;
 
@@ -26,7 +27,7 @@ export class FightView {
 
 	private fightLaunchMessage: Message;
 
-	public constructor(channel: TextBasedChannel, language: string, fightController: FightController) {
+	public constructor(channel: DraftbotChannel, language: string, fightController: FightController) {
 		this.channel = channel;
 		this.language = language;
 		this.fightController = fightController;
@@ -79,8 +80,7 @@ export class FightView {
 		const defendingFighter = this.fightController.getDefendingFighter();
 		if (!this.lastSummary) {
 			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		}
-		else {
+		} else {
 			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
 	}
@@ -103,12 +103,10 @@ export class FightView {
 			this.lastSummary = null;
 			lastMessage = await this.channel.send({content: messageToSend});
 			this.actionMessages.push(lastMessage);
-		}
-		else if (lastMessage.content === "_ _") {
+		} else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
 			await lastMessage.edit({content: messageToSend});
-		}
-		else {
+		} else {
 			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
@@ -132,8 +130,7 @@ export class FightView {
 				winner: winner.getMention(),
 				loser: loser.getMention()
 			});
-		}
-		else {
+		} else {
 			msg = this.fightTranslationModule.format("end.draw", {
 				player1: winner.getMention(),
 				player2: loser.getMention()
@@ -166,7 +163,7 @@ export class FightView {
 					.setErrorColor()
 					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
 					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
-		});
+		}).then(() => null);
 	}
 
 	async displayWeatherStatus(weatherEmote: string, weatherString: string): Promise<void> {

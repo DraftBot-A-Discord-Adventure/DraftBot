@@ -1,11 +1,11 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {botConfig} from "../../core/bot";
 import {CommandsTest} from "../../core/CommandsTest";
 import {Translations} from "../../core/Translations";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.ENGLISH);
 const currentCommandFrenchTranslations = Translations.getModule("commands.test", Constants.LANGUAGE.FRENCH);
@@ -15,15 +15,14 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.test",
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	// First, we test if we are in test mode
 	if (botConfig.TEST_MODE) {
 		// Second, we collect the test commands entered
 		let testCommands: string[];
 		try {
 			testCommands = (interaction.options.get(currentCommandEnglishTranslations.get("optionCommandName")).value as string).split(" && ");
-		}
-		catch {
+		} catch {
 			testCommands = ["list"];
 		}
 
@@ -31,8 +30,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			let argsTest: string[];
 			try {
 				argsTest = testCommand.split(" ").slice(1);
-			}
-			catch { /* Case no args given */
+			} catch { /* Case no args given */
 			}
 
 			testCommand = testCommand.split(" ")[0];
@@ -40,8 +38,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 			let commandTestCurrent;
 			try {
 				commandTestCurrent = CommandsTest.getTestCommand(testCommand);
-			}
-			catch (e) {
+			} catch (e) {
 				if (!interaction.replied) {
 					await interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
 					return;
@@ -60,8 +57,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 
 			try {
 				await interaction.reply({embeds: [testGoodFormat[1]]});
-			}
-			catch {
+			} catch {
 				await interaction.followUp({embeds: [testGoodFormat[1]]});
 			}
 			return;

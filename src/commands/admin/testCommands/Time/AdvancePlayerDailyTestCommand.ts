@@ -1,9 +1,9 @@
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "advanceplayerdaily",
@@ -25,7 +25,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advancePlayerDailyTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const advancePlayerDailyTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	inventoryInfo.lastDailyAt = new Date(inventoryInfo.lastDailyAt.valueOf() - parseInt(args[0], 10) * 60000);

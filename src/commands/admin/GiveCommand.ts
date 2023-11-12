@@ -5,7 +5,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {APIApplicationCommandOptionChoice, CommandInteraction} from "discord.js";
+import {APIApplicationCommandOptionChoice} from "discord.js";
 import {GenericItemModel} from "../../core/database/game/models/GenericItemModel";
 import {draftBotInstance} from "../../core/bot";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
@@ -16,6 +16,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Get the end callback of the give command
@@ -24,7 +25,7 @@ import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
  * @param item
  * @param interaction
  */
-function getCallback(users: Set<string>, tr: TranslationModule, item: GenericItemModel, interaction: CommandInteraction) {
+function getCallback(users: Set<string>, tr: TranslationModule, item: GenericItemModel, interaction: DraftbotInteraction) {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		if (!validateMessage.isValidated()) {
 			await sendErrorMessage(
@@ -80,7 +81,7 @@ function getCallback(users: Set<string>, tr: TranslationModule, item: GenericIte
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.give", language);
 	const usersToChange = (interaction.options.get("users").value as string).split(" ");
 	if (usersToChange.length > 50) {

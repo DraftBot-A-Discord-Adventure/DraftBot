@@ -1,6 +1,5 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -19,8 +18,9 @@ import Player from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
-type TextInformation = { tr: TranslationModule, interaction: CommandInteraction }
+type TextInformation = { tr: TranslationModule, interaction: DraftbotInteraction }
 
 /**
  * Consumes the given potion
@@ -31,32 +31,32 @@ type TextInformation = { tr: TranslationModule, interaction: CommandInteraction 
  */
 async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Player, textInformation: TextInformation): Promise<void> {
 	switch (potion.nature) {
-	case ItemConstants.NATURE.HEALTH:
-		embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
-		await player.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
-		break;
-	case ItemConstants.NATURE.ENERGY:
-		embed.setDescription(textInformation.tr.format("energyBonus", {value: potion.power}));
-		player.addEnergy(potion.power, NumberChangeReason.DRINK);
-		break;
-	case ItemConstants.NATURE.HOSPITAL:
-		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
-		await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
-		break;
-	case ItemConstants.NATURE.MONEY:
-		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
-		await player.addMoney({
-			amount: potion.power,
-			channel: textInformation.interaction.channel,
-			language: textInformation.tr.language,
-			reason: NumberChangeReason.DRINK
-		});
-		break;
-	case ItemConstants.NATURE.NONE:
-		embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
-		break;
-	default:
-		break;
+		case ItemConstants.NATURE.HEALTH:
+			embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
+			await player.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
+			break;
+		case ItemConstants.NATURE.ENERGY:
+			embed.setDescription(textInformation.tr.format("energyBonus", {value: potion.power}));
+			player.addEnergy(potion.power, NumberChangeReason.DRINK);
+			break;
+		case ItemConstants.NATURE.HOSPITAL:
+			embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
+			await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
+			break;
+		case ItemConstants.NATURE.MONEY:
+			embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
+			await player.addMoney({
+				amount: potion.power,
+				channel: textInformation.interaction.channel,
+				language: textInformation.tr.language,
+				reason: NumberChangeReason.DRINK
+			});
+			break;
+		case ItemConstants.NATURE.NONE:
+			embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
+			break;
+		default:
+			break;
 	}
 	await player.drinkPotion();
 
@@ -112,7 +112,7 @@ function drinkPotionCallback(
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

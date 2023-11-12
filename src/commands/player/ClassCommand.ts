@@ -4,7 +4,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
+import {Message, MessageReaction, User} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import Player from "../../core/database/game/models/Player";
@@ -15,6 +15,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {dateDisplay, finishInTimeDisplay, millisecondsToSeconds} from "../../core/utils/TimeUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type UserInformation = { user: User, player: Player }
 
@@ -25,7 +26,7 @@ type UserInformation = { user: User, player: Player }
  * @param classTranslations
  * @param interaction
  */
-async function confirmPurchase(message: Message, selectedClass: Class, userInformation: UserInformation, classTranslations: TranslationModule, interaction: CommandInteraction): Promise<void> {
+async function confirmPurchase(message: Message, selectedClass: Class, userInformation: UserInformation, classTranslations: TranslationModule, interaction: DraftbotInteraction): Promise<void> {
 	const playerClass = await Classes.getById(userInformation.player.class);
 	if (selectedClass.id === playerClass.id) {
 		await sendErrorMessage(userInformation.user, interaction, classTranslations.language, classTranslations.get("error.sameClass"));
@@ -41,7 +42,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 			})}`
 		);
 
-	const confirmMessage = await message.channel.send({embeds: [confirmEmbed]}) as Message;
+	const confirmMessage = await interaction.channel.send({embeds: [confirmEmbed]}) as Message;
 
 	const collector = confirmMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => (
@@ -64,21 +65,21 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
 		const level = userInformation.player.level;
 		await userInformation.player.addHealth(Math.ceil(
 			userInformation.player.health / playerClass.getMaxHealthValue(level) * newClass.getMaxHealthValue(level)
-		) - userInformation.player.health, message.channel, classTranslations.language, NumberChangeReason.CLASS, {
+		) - userInformation.player.health, interaction.channel, classTranslations.language, NumberChangeReason.CLASS, {
 			shouldPokeMission: false,
 			overHealCountsForMission: false
 		});
 		userInformation.player.setFightPointsLost(Math.ceil(
 			userInformation.player.fightPointsLost / playerClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
 		), NumberChangeReason.CLASS);
-		await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {missionId: "chooseClass"});
-		await MissionsController.update(userInformation.player, message.channel, classTranslations.language, {
+		await MissionsController.update(userInformation.player, interaction.channel, classTranslations.language, {missionId: "chooseClass"});
+		await MissionsController.update(userInformation.player, interaction.channel, classTranslations.language, {
 			missionId: "chooseClassTier",
 			params: {tier: selectedClass.classGroup}
 		});
 		await userInformation.player.save();
 		draftBotInstance.logsDatabase.logPlayerClassChange(userInformation.player.discordUserId, newClass.id).then();
-		message.channel.send({
+		await interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(classTranslations.get("success"), userInformation.user)
@@ -101,7 +102,7 @@ async function confirmPurchase(message: Message, selectedClass: Class, userInfor
  * @param player
  * @param interaction
  */
-async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, player: Player, interaction: CommandInteraction): Promise<Message> {
+async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationModule, allClasses: Class[], language: string, player: Player, interaction: DraftbotInteraction): Promise<Message> {
 	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.get("title"))
 		.setDescription(classTranslations.get("desc"));
@@ -127,7 +128,7 @@ async function createDisplayClassEmbedAndSendIt(classTranslations: TranslationMo
 function createClassCollectorAndManageIt(
 	classMessage: Message,
 	userInformation: UserInformation,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	classTranslations: TranslationModule): void {
 	const collector = classMessage.createReactionCollector({
 		filter: (reaction: MessageReaction, user: User) => user.id === userInformation.player.discordUserId && reaction.me,
@@ -172,7 +173,7 @@ async function addClassEmbedReactions(allClasses: Class[], classMessage: Message
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

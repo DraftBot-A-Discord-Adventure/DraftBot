@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction, TextBasedChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {format} from "../utils/StringFormatter";
 import {Constants} from "../Constants";
@@ -23,8 +22,9 @@ import {Pets} from "../database/game/models/Pet";
 import {Op} from "sequelize";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Maps} from "../maps/Maps";
+import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
 
-type TextInformation = { interaction: CommandInteraction, tr: TranslationModule };
+type TextInformation = { interaction: DraftbotInteraction, tr: TranslationModule };
 
 /**
  * Check top interactions
@@ -34,14 +34,11 @@ type TextInformation = { interaction: CommandInteraction, tr: TranslationModule 
 function checkTop(otherPlayerRank: number, cList: string[]): void {
 	if (otherPlayerRank === 1) {
 		cList.push("top1");
-	}
-	else if (otherPlayerRank <= 10) {
+	} else if (otherPlayerRank <= 10) {
 		cList.push("top10");
-	}
-	else if (otherPlayerRank <= 50) {
+	} else if (otherPlayerRank <= 50) {
 		cList.push("top50");
-	}
-	else if (otherPlayerRank <= 100) {
+	} else if (otherPlayerRank <= 100) {
 		cList.push("top100");
 	}
 }
@@ -70,8 +67,7 @@ function checkBadges(otherPlayer: Player, cList: string[]): void {
 function checkLevel(otherPlayer: Player, cList: string[]): void {
 	if (otherPlayer.level < 10) {
 		cList.push("beginner");
-	}
-	else if (otherPlayer.level >= 50) {
+	} else if (otherPlayer.level >= 50) {
 		cList.push("advanced");
 	}
 }
@@ -120,8 +116,7 @@ async function checkHealth(otherPlayer: Player, cList: string[]): Promise<void> 
 	const healthPercentage = otherPlayer.health / await otherPlayer.getMaxHealth();
 	if (healthPercentage < 0.2) {
 		cList.push("lowHP");
-	}
-	else if (healthPercentage === 1.0) {
+	} else if (healthPercentage === 1.0) {
 		cList.push("fullHP");
 	}
 }
@@ -136,11 +131,9 @@ async function checkHealth(otherPlayer: Player, cList: string[]): Promise<void> 
 function checkRanking(otherPlayerRank: number, numberOfPlayers: number, cList: string[], playerRank: number): void {
 	if (otherPlayerRank > numberOfPlayers) {
 		cList.push("unranked");
-	}
-	else if (otherPlayerRank < playerRank) {
+	} else if (otherPlayerRank < playerRank) {
 		cList.push("lowerRankThanHim");
-	}
-	else if (otherPlayerRank > playerRank) {
+	} else if (otherPlayerRank > playerRank) {
 		cList.push("betterRankThanHim");
 	}
 }
@@ -154,8 +147,7 @@ function checkRanking(otherPlayerRank: number, numberOfPlayers: number, cList: s
 function checkMoney(otherPlayer: Player, cList: string[], player: Player): void {
 	if (otherPlayer.money > 20000) {
 		cList.push("rich");
-	}
-	else if (player.money > 0 && otherPlayer.money < 200) {
+	} else if (player.money > 0 && otherPlayer.money < 200) {
 		cList.push("poor");
 	}
 }
@@ -182,8 +174,7 @@ async function checkGuildResponsibilities(otherPlayer: Player, guild: Guild, cLi
 		guild = await Guilds.getById(otherPlayer.guildId);
 		if (guild.chiefId === otherPlayer.id) {
 			cList.push("guildChief");
-		}
-		else if (guild.elderId === otherPlayer.id) {
+		} else if (guild.elderId === otherPlayer.id) {
 			cList.push("guildElder");
 		}
 	}
@@ -275,7 +266,7 @@ async function getPetName(otherPlayer: Player, language: string): Promise<string
  * @param language
  * @param player
  */
-async function sendACoin(otherPlayer: Player, channel: TextBasedChannel, language: string, player: Player): Promise<void> {
+async function sendACoin(otherPlayer: Player, channel: DraftbotChannel, language: string, player: Player): Promise<void> {
 	await otherPlayer.addMoney({
 		amount: 1,
 		channel,
@@ -299,16 +290,16 @@ async function sendACoin(otherPlayer: Player, channel: TextBasedChannel, languag
  */
 async function getItemIfNeeded(characteristic: string, otherPlayer: Player): Promise<GenericItemModel> {
 	switch (characteristic) {
-	case "weapon":
-		return await (await InventorySlots.getMainWeaponSlot(otherPlayer.id)).getItem();
-	case "armor":
-		return await (await InventorySlots.getMainArmorSlot(otherPlayer.id)).getItem();
-	case "potion":
-		return await (await InventorySlots.getMainPotionSlot(otherPlayer.id)).getItem();
-	case "object":
-		return await (await InventorySlots.getMainObjectSlot(otherPlayer.id)).getItem();
-	default:
-		return null;
+		case "weapon":
+			return await (await InventorySlots.getMainWeaponSlot(otherPlayer.id)).getItem();
+		case "armor":
+			return await (await InventorySlots.getMainArmorSlot(otherPlayer.id)).getItem();
+		case "potion":
+			return await (await InventorySlots.getMainPotionSlot(otherPlayer.id)).getItem();
+		case "object":
+			return await (await InventorySlots.getMainObjectSlot(otherPlayer.id)).getItem();
+		default:
+			return null;
 	}
 }
 
@@ -321,15 +312,12 @@ function getPrefixes(item: GenericItemModel): { [key: string]: string } {
 	if (item) {
 		if (item.frenchPlural) {
 			prefixItem = "ses";
-		}
-		else if (item.frenchMasculine) {
+		} else if (item.frenchMasculine) {
 			prefixItem = "son";
-		}
-		else if (/^[AÂEIOUYÉÈH].*$/u.test(item.fr)) {
+		} else if (/^[AÂEIOUYÉÈH].*$/u.test(item.fr)) {
 			prefixItem = "son";
 			prefixItem2 = "sa";
-		}
-		else {
+		} else {
 			prefixItem = "sa";
 		}
 	}
@@ -362,8 +350,7 @@ async function sendAndManagePoorInteraction(
 				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorGiveMoney"), {
 					pseudo: otherPlayer.getPseudo(textInformation.tr.language)
 				}));
-			}
-			else {
+			} else {
 				poorEmbed.setDescription(format(textInformation.tr.getRandom("poorDontGiveMoney"), {
 					pseudo: otherPlayer.getPseudo(textInformation.tr.language)
 				}));
@@ -430,7 +417,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const numberOfPlayers = await Player.count({
 			where: {
 				score: {
@@ -473,8 +460,7 @@ export const smallEvent: SmallEvent = {
 
 		if (characteristic === "poor") {
 			await sendAndManagePoorInteraction({interaction, tr}, otherPlayer, player, seEmbed);
-		}
-		else {
+		} else {
 			await interaction.editReply({embeds: [seEmbed]});
 		}
 	}

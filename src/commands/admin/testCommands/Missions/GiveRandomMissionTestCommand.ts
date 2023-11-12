@@ -2,11 +2,11 @@ import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/database/game/models/Mission";
 import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "giveRandomMission",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param args
  */
-const giveRandomMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const giveRandomMissionTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	if (!player.hasEmptyMissionSlot(await MissionSlots.getOfPlayer(player.id))) {

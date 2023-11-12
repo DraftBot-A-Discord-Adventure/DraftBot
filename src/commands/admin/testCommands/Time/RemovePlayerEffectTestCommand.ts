@@ -1,8 +1,8 @@
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "removeplayereffect",
@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const removePlayerEffectTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const removePlayerEffectTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	await TravelTime.removeEffect(player, NumberChangeReason.TEST);

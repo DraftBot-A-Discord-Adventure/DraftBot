@@ -9,7 +9,7 @@ import Class, {Classes} from "./Class";
 import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import {Translations} from "../../../Translations";
-import {CacheType, ColorResolvable, CommandInteraction, TextBasedChannel} from "discord.js";
+import {ColorResolvable} from "discord.js";
 import {GenericItemModel, MaxStatsValues} from "./GenericItemModel";
 import {MissionsController} from "../../../missions/MissionsController";
 import {escapeUsername} from "../../../utils/StringUtils";
@@ -39,19 +39,20 @@ import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {ClassInfoConstants} from "../../../constants/ClassInfoConstants";
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
 import {Guilds} from "./Guild";
+import {DraftbotChannel, DraftbotInteraction} from "../../../messages/DraftbotInteraction";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
 	amount: number,
-	channel: TextBasedChannel,
+	channel: DraftbotChannel,
 	language: string,
 	reason: NumberChangeReason
 }
 
 export type EditValueParameters = {
 	amount: number,
-	channel: TextBasedChannel,
+	channel: DraftbotChannel,
 	language: string,
 	reason: NumberChangeReason
 }
@@ -133,12 +134,10 @@ export class Player extends Model {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
 				this.badges += `-${badge}`;
-			}
-			else {
+			} else {
 				return false;
 			}
-		}
-		else {
+		} else {
 			this.badges = badge;
 		}
 		return true;
@@ -273,12 +272,10 @@ export class Player extends Model {
 			const user = draftBotClient.users.cache.get(this.discordUserId);
 			if (user) {
 				this.pseudo = escapeUsername(user.username);
-			}
-			else {
+			} else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");
 			}
-		}
-		else {
+		} else {
 			this.pseudo = Translations.getModule("models.players", language).get("pseudo");
 		}
 	}
@@ -309,7 +306,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param channel
 	 */
-	public async getLvlUpReward(language: string, channel: TextBasedChannel): Promise<string[]> {
+	public async getLvlUpReward(language: string, channel: DraftbotChannel): Promise<string[]> {
 		const tr = Translations.getModule("models.players", language);
 		const bonuses = [];
 		if (this.level === FightConstants.REQUIRED_LEVEL) {
@@ -359,7 +356,7 @@ export class Player extends Model {
 	 * @param channel
 	 * @param language
 	 */
-	public async levelUpIfNeeded(channel: TextBasedChannel, language: string): Promise<void> {
+	public async levelUpIfNeeded(channel: DraftbotChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -406,7 +403,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param reason
 	 */
-	public async killIfNeeded(channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
+	public async killIfNeeded(channel: DraftbotChannel, language: string, reason: NumberChangeReason): Promise<boolean> {
 		if (this.health > 0) {
 			return false;
 		}
@@ -701,8 +698,7 @@ export class Player extends Model {
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
 			fp = 0;
-		}
-		else if (fp > maxHealth) {
+		} else if (fp > maxHealth) {
 			fp = maxHealth;
 		}
 		return fp;
@@ -732,7 +728,7 @@ export class Player extends Model {
 	 * @param reason
 	 * @param missionHealthParameter
 	 */
-	public async addHealth(health: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
+	public async addHealth(health: number, channel: DraftbotChannel, language: string, reason: NumberChangeReason, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}): Promise<void> {
@@ -779,7 +775,7 @@ export class Player extends Model {
 	 * @param interaction
 	 * @param language
 	 */
-	public async leavePVEIslandIfNoFightPoints(interaction: CommandInteraction, language: string): Promise<boolean> {
+	public async leavePVEIslandIfNoFightPoints(interaction: DraftbotInteraction, language: string): Promise<boolean> {
 		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= await this.getMaxCumulativeFightPoint()) {
 			const tr = Translations.getModule("models.players", language);
 			const {moneyLost, guildPointsLost} = await this.getAndApplyLostRessourcesOnPveFaint(interaction, language);
@@ -820,8 +816,7 @@ export class Player extends Model {
 		this.fightPointsLost -= amount;
 		if (this.fightPointsLost < 0) {
 			this.fightPointsLost = 0;
-		}
-		else if (this.fightPointsLost > maxPoints) {
+		} else if (this.fightPointsLost > maxPoints) {
 			this.fightPointsLost = maxPoints;
 		}
 	}
@@ -900,7 +895,7 @@ export class Player extends Model {
 	 * @param fightId
 	 * @private
 	 */
-	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, channel: TextBasedChannel, language: string, fightId: number = null): Promise<void> {
+	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, channel: DraftbotChannel, language: string, fightId: number = null): Promise<void> {
 		Object.assign(this, await MissionsController.update(this, channel, language, {
 			missionId: "reachGlory",
 			count: gloryPoints,
@@ -948,7 +943,7 @@ export class Player extends Model {
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 
-	public async addRage(rage: number, channel: TextBasedChannel, language: string, reason: NumberChangeReason): Promise<void> {
+	public async addRage(rage: number, channel: DraftbotChannel, language: string, reason: NumberChangeReason): Promise<void> {
 		await this.setRage(this.rage + rage, reason);
 		if (rage > 0) {
 			await MissionsController.update(this, channel, language, {missionId: "gainRage", count: rage});
@@ -974,7 +969,7 @@ export class Player extends Model {
 	 * @param language
 	 * @private
 	 */
-	private async getAndApplyLostRessourcesOnPveFaint(interaction: CommandInteraction<CacheType>, language: string): Promise<ressourcesLostOnPveFaint> {
+	private async getAndApplyLostRessourcesOnPveFaint(interaction: DraftbotInteraction, language: string): Promise<ressourcesLostOnPveFaint> {
 		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
 		let moneyLost = Math.round(this.level * PVEConstants.MONEY_LOST_PER_LEVEL_ON_DEATH * malusMultiplier);
 		if (moneyLost > this.money) {
@@ -1008,12 +1003,11 @@ export class Player extends Model {
 	 * @param language
 	 * @private
 	 */
-	private async setScore(score: number, channel: TextBasedChannel, language: string): Promise<void> {
+	private async setScore(score: number, channel: DraftbotChannel, language: string): Promise<void> {
 		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
-		}
-		else {
+		} else {
 			this.score = 0;
 		}
 	}
@@ -1026,8 +1020,7 @@ export class Player extends Model {
 	private setMoney(money: number): void {
 		if (money > 0) {
 			this.money = money;
-		}
-		else {
+		} else {
 			this.money = 0;
 		}
 	}
@@ -1050,8 +1043,7 @@ export class Player extends Model {
 	private setWeeklyScore(weeklyScore: number): void {
 		if (weeklyScore > 0) {
 			this.weeklyScore = weeklyScore;
-		}
-		else {
+		} else {
 			this.weeklyScore = 0;
 		}
 	}
@@ -1063,7 +1055,7 @@ export class Player extends Model {
 	 * @param language
 	 * @param missionHealthParameter
 	 */
-	private async setHealth(health: number, channel: TextBasedChannel, language: string, missionHealthParameter: MissionHealthParameter = {
+	private async setHealth(health: number, channel: DraftbotChannel, language: string, missionHealthParameter: MissionHealthParameter = {
 		overHealCountsForMission: true,
 		shouldPokeMission: true
 	}): Promise<void> {
@@ -1074,11 +1066,9 @@ export class Player extends Model {
 		}
 		if (health < 0) {
 			this.health = 0;
-		}
-		else if (health > await this.getMaxHealth()) {
+		} else if (health > await this.getMaxHealth()) {
 			this.health = await this.getMaxHealth();
-		}
-		else {
+		} else {
 			this.health = health;
 		}
 	}
@@ -1197,7 +1187,7 @@ export class Players {
 	 * Get a player from the options of an interaction
 	 * @param interaction
 	 */
-	static async getByOptions(interaction: CommandInteraction): Promise<Player | null> {
+	static async getByOptions(interaction: DraftbotInteraction): Promise<Player | null> {
 		const user = interaction.options.getUser("user");
 		if (user) {
 			return (await Players.getOrRegister(user.id))[0];

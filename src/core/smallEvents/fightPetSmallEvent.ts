@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import Player from "../database/game/models/Player";
 import {TranslationModule, Translations} from "../Translations";
@@ -18,6 +17,7 @@ import {format} from "../utils/StringFormatter";
 import {FeralPet} from "../database/game/models/FeralPet";
 import {ClassInfoConstants} from "../constants/ClassInfoConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Returns an object composed of three random witch events
@@ -62,7 +62,7 @@ function retrieveSelectedEvent(fightPetActionMessage: DraftBotReactionMessage): 
  * @param resultString
  * @param interaction
  */
-async function sendResultMessage(seEmbed: DraftBotEmbed, resultString: string, interaction: CommandInteraction): Promise<void> {
+async function sendResultMessage(seEmbed: DraftBotEmbed, resultString: string, interaction: DraftbotInteraction): Promise<void> {
 	seEmbed.setDescription(resultString);
 	await interaction.channel.send({embeds: [seEmbed]});
 }
@@ -114,7 +114,7 @@ async function generateFeralPet(language: string): Promise<FeralPet> {
 function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
 	feralPet: FeralPet,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	seEmbed: DraftBotEmbed,
 	player: Player,
 	tr: TranslationModule
@@ -149,7 +149,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.fightPet", language);
 		const feralPet = await generateFeralPet(language);
 		const embed = new DraftBotReactionMessageBuilder()
@@ -166,7 +166,7 @@ export const smallEvent: SmallEvent = {
 					`fightPetActions.${selectedFightPetAction.name}.${stringToGet}`
 				)}${outcomeIsSuccess ? ` ${tr.getRandom("rageUp")}${tr.get("rageUpEnd")}` : ""}`;
 				await sendResultMessage(seEmbed, resultString, interaction);
-				await player.addRage(outcomeIsSuccess ? 1 : 0, fightPetEventMessage.collector.message.channel, language, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
+				await player.addRage(outcomeIsSuccess ? 1 : 0, interaction.channel, language, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
 			});
 
 

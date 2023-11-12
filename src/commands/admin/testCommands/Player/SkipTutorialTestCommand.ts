@@ -1,10 +1,10 @@
 import {Maps} from "../../../../core/maps/Maps";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "skiptutorial",
@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const skipTutorialTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const skipTutorialTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	player.level = 1;
 	player.score = 2000;

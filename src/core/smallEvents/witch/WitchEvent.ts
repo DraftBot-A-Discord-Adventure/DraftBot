@@ -1,12 +1,12 @@
 import {TranslationModule, Translations} from "../../Translations";
 import {Data} from "../../Data";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {CommandInteraction} from "discord.js";
 import Player from "../../database/game/models/Player";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {GenericItemModel} from "../../database/game/models/GenericItemModel";
 import {format} from "../../utils/StringFormatter";
+import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 
 /**
  * The base class for the different events that can happen after the player encounters the witch
@@ -15,20 +15,13 @@ export abstract class WitchEvent {
 	public readonly name: string;
 
 	public type: number;
-
-	protected timePenalty = 0;
-
-	private emojiCache: string;
-
-	private outcomeProbabilities: number[];
-
 	public forceEffect = false;
-
-	protected effectName = "";
-
 	public tags: string[] = []; // Tags for mission completion
-
+	protected timePenalty = 0;
+	protected effectName = "";
 	protected lifePointsRemovedAmount = SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
+	private emojiCache: string;
+	private outcomeProbabilities: number[];
 
 	protected constructor(name: string) {
 		this.name = name;
@@ -68,7 +61,7 @@ export abstract class WitchEvent {
 	 * @param player
 	 * @param language
 	 */
-	public async removeLifePoints(interaction: CommandInteraction, player: Player, language: string): Promise<void> {
+	public async removeLifePoints(interaction: DraftbotInteraction, player: Player, language: string): Promise<void> {
 		await player.addHealth(
 			-this.lifePointsRemovedAmount,
 			interaction.channel,
@@ -139,7 +132,7 @@ export abstract class WitchEvent {
 	 * @param outcome
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async checkMissions(interaction: CommandInteraction, player: Player, language: string, outcome: number): Promise<void> {
+	public async checkMissions(interaction: DraftbotInteraction, player: Player, language: string, outcome: number): Promise<void> {
 		return await Promise.resolve();
 	}
 }

@@ -1,10 +1,10 @@
 import {Constants} from "../../../../core/Constants";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../../../core/constants/ItemConstants";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",
@@ -26,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const slotsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const slotsTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const slots = parseInt(args[1], 10);
 	if (slots >= 5 || slots < 0) {
@@ -36,24 +36,24 @@ const slotsTestCommand = async (language: string, interaction: CommandInteractio
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 
 	switch (parseInt(args[0], 10)) {
-	case ItemConstants.CATEGORIES.WEAPON:
-		inventoryInfo.weaponSlots = slots;
-		category = "armes";
-		break;
-	case ItemConstants.CATEGORIES.ARMOR:
-		inventoryInfo.armorSlots = slots;
-		category = "armures";
-		break;
-	case ItemConstants.CATEGORIES.POTION:
-		inventoryInfo.potionSlots = slots;
-		category = "potions";
-		break;
-	case ItemConstants.CATEGORIES.OBJECT:
-		inventoryInfo.objectSlots = slots;
-		category = "objets";
-		break;
-	default:
-		break;
+		case ItemConstants.CATEGORIES.WEAPON:
+			inventoryInfo.weaponSlots = slots;
+			category = "armes";
+			break;
+		case ItemConstants.CATEGORIES.ARMOR:
+			inventoryInfo.armorSlots = slots;
+			category = "armures";
+			break;
+		case ItemConstants.CATEGORIES.POTION:
+			inventoryInfo.potionSlots = slots;
+			category = "potions";
+			break;
+		case ItemConstants.CATEGORIES.OBJECT:
+			inventoryInfo.objectSlots = slots;
+			category = "objets";
+			break;
+		default:
+			break;
 	}
 
 	await inventoryInfo.save();
