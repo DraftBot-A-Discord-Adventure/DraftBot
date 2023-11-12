@@ -284,7 +284,6 @@ async function destinationChoseMessage(
 	language: string
 ): Promise<void> {
 	const user = interaction.user;
-	const channel = interaction.channel;
 	const tr = Translations.getModule("commands.report", language);
 	const typeTr = Translations.getModule("models.maps", language);
 	const mapInstance = await MapLocations.getById(map);
@@ -307,6 +306,12 @@ async function destinationChoseMessage(
 		}));
 	}
 	await interaction.channel.send({embeds: [destinationEmbed]});
+}
+
+async function automaticChooseDestination(forcedLink: MapLink, player: Player, destinationMaps: number[], interaction: DraftbotInteraction) {
+	const newLink = forcedLink && forcedLink.id != -1 ? forcedLink : await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
+	await Maps.startTravel(player, newLink, Date.now());
+	await destinationChoseMessage(player, newLink.endMap, interaction, interaction.channel.language);
 }
 
 /**
@@ -333,9 +338,7 @@ async function chooseDestination(
 	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
 		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(Constants.REPORT.AUTO_CHOOSE_DESTINATION_CHANCE) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
 	) {
-		const newLink = forcedLink ?? await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
-		await Maps.startTravel(player, newLink, Date.now());
-		await destinationChoseMessage(player, newLink.endMap, interaction, language);
+		await automaticChooseDestination(forcedLink, player, destinationMaps, interaction);
 		return;
 	}
 
@@ -344,7 +347,16 @@ async function chooseDestination(
 	chooseDestinationEmbed.formatAuthor(tr.get("destinationTitle"), interaction.user);
 	chooseDestinationEmbed.setDescription(await createDescriptionChooseDestination(tr, destinationMaps, player, language));
 
-	const sentMessage = await interaction.channel.send({embeds: [chooseDestinationEmbed]});
+	let continueChoice = true;
+
+	const sentMessage = await interaction.channel.send({embeds: [chooseDestinationEmbed]}, async () => {
+		await automaticChooseDestination(forcedLink, player, destinationMaps, interaction);
+		continueChoice = false;
+	});
+
+	if (!continueChoice) {
+		return;
+	}
 
 	const collector = sentMessage.createReactionCollector({
 		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === interaction.user.id,
@@ -422,6 +434,11 @@ async function doPossibility(
 			emoji: possibility.emoji === "end" ? "" : `${possibility.emoji} `,
 			alte: outcomeResult.alterationEmoji
 		})
+	}, () => {
+		// Mark the destination choice as automatic unless it is already forced
+		if (!outcomeResult.forcedDestination) {
+			outcomeResult.forcedDestination = {id: -1} as MapLink;
+		}
 	});
 
 	if (!await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.BIG_EVENT)) {
