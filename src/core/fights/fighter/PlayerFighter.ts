@@ -239,7 +239,8 @@ export class PlayerFighter extends Fighter {
 						return;
 					}
 					await fightView.fightController.executeFightAction(selectedAction, true);
-				} catch (e) {
+				}
+				catch (e) {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
 					fightView.fightController.endBugFight();
 				}
@@ -292,7 +293,8 @@ export class PlayerFighter extends Fighter {
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
 					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
-				} else if (lastDay !== currDay) {
+				}
+				else if (lastDay !== currDay) {
 					await MissionsController.update(this.player, fightView.channel, fightView.language, {
 						missionId: "fightStreak",
 						count: 1,

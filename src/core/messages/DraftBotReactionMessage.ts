@@ -194,7 +194,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			if (this._reactionsNames.indexOf(reactionName) === -1 || !this._reactions[this._reactionsNames.indexOf(reactionName)].callback) {
 				// The reaction is an end reaction or the reaction has no callback associated
 				this._collector.stop();
-			} else {
+			}
+			else {
 				this._reactions[this._reactionsNames.indexOf(reactionName)].callback(this, reaction, user);
 			}
 		});
@@ -213,7 +214,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 		for (const reaction of this._reactions) {
 			try {
 				await this._sentMessage.react(reaction.emote);
-			} catch {
+			}
+			catch {
 				const emoji = ((await draftBotClient.shard.broadcastEval((client, context) => {
 					const emoji = client.emojis.cache.get(context.emote);
 					if (emoji) {

@@ -60,7 +60,8 @@ export class FightController {
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
 				fightAction = FightActions.getFightActionById("outOfBreath");
-			} else {
+			}
+			else {
 				attacker.setBreath(0);
 			}
 		}
@@ -194,7 +195,8 @@ export class FightController {
 			this.invertFighters();
 			this.getPlayingFighter().regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn();
-		} else {
+		}
+		else {
 			await this._fightView.displayFightStatus().catch(
 				(e) => {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
@@ -278,12 +280,14 @@ export class FightController {
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
 				await this.getPlayingFighter().chooseAction(this._fightView);
-			} catch (e) {
+			}
+			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 				console.error(e.stack);
 				this.endBugFight();
 			}
-		} else {
+		}
+		else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
 		}
 	}

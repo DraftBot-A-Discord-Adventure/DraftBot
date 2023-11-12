@@ -70,7 +70,8 @@ function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFre
 			let guild: Guild;
 			try {
 				guild = await Guilds.getById(player.guildId);
-			} catch (error) {
+			}
+			catch (error) {
 				guild = null;
 			}
 

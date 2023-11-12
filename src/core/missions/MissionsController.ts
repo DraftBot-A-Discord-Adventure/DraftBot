@@ -26,7 +26,8 @@ export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
 			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
-		} catch {
+		}
+		catch {
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
@@ -242,28 +243,29 @@ export class MissionsController {
 		let index;
 		if (!daily) {
 			switch (difficulty) {
-				case MissionDifficulty.EASY:
-					if (!mission.canBeEasy) {
-						return null;
-					}
-					index = missionData.getRandomNumberFromArray("difficulties.easy");
-					break;
-				case MissionDifficulty.MEDIUM:
-					if (!mission.canBeMedium) {
-						return null;
-					}
-					index = missionData.getRandomNumberFromArray("difficulties.medium");
-					break;
-				case MissionDifficulty.HARD:
-					if (!mission.canBeHard) {
-						return null;
-					}
-					index = missionData.getRandomNumberFromArray("difficulties.hard");
-					break;
-				default:
+			case MissionDifficulty.EASY:
+				if (!mission.canBeEasy) {
 					return null;
+				}
+				index = missionData.getRandomNumberFromArray("difficulties.easy");
+				break;
+			case MissionDifficulty.MEDIUM:
+				if (!mission.canBeMedium) {
+					return null;
+				}
+				index = missionData.getRandomNumberFromArray("difficulties.medium");
+				break;
+			case MissionDifficulty.HARD:
+				if (!mission.canBeHard) {
+					return null;
+				}
+				index = missionData.getRandomNumberFromArray("difficulties.hard");
+				break;
+			default:
+				return null;
 			}
-		} else {
+		}
+		else {
 			index = missionData.getRandomNumberFromArray("dailyIndexes");
 		}
 		return {

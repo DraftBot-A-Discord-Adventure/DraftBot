@@ -71,7 +71,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		mapEmbed.setImage(
 			format(BotConstants.FORCED_MAPS_URL, {name: mapToShowInfo.name})
 		);
-	} else {
+	}
+	else {
 		mapEmbed.setImage(
 			format(BotConstants.MAP_URL_WITH_CURSOR, {mapLink: mapToShowInfo.name})
 		);

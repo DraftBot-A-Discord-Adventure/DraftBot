@@ -134,10 +134,12 @@ export class Player extends Model {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
 				this.badges += `-${badge}`;
-			} else {
+			}
+			else {
 				return false;
 			}
-		} else {
+		}
+		else {
 			this.badges = badge;
 		}
 		return true;
@@ -272,10 +274,12 @@ export class Player extends Model {
 			const user = draftBotClient.users.cache.get(this.discordUserId);
 			if (user) {
 				this.pseudo = escapeUsername(user.username);
-			} else {
+			}
+			else {
 				this.pseudo = Translations.getModule("models.players", language).get("pseudo");
 			}
-		} else {
+		}
+		else {
 			this.pseudo = Translations.getModule("models.players", language).get("pseudo");
 		}
 	}
@@ -698,7 +702,8 @@ export class Player extends Model {
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
 			fp = 0;
-		} else if (fp > maxHealth) {
+		}
+		else if (fp > maxHealth) {
 			fp = maxHealth;
 		}
 		return fp;
@@ -816,7 +821,8 @@ export class Player extends Model {
 		this.fightPointsLost -= amount;
 		if (this.fightPointsLost < 0) {
 			this.fightPointsLost = 0;
-		} else if (this.fightPointsLost > maxPoints) {
+		}
+		else if (this.fightPointsLost > maxPoints) {
 			this.fightPointsLost = maxPoints;
 		}
 	}
@@ -1007,7 +1013,8 @@ export class Player extends Model {
 		await MissionsController.update(this, channel, language, {missionId: "reachScore", count: score, set: true});
 		if (score > 0) {
 			this.score = score;
-		} else {
+		}
+		else {
 			this.score = 0;
 		}
 	}
@@ -1020,7 +1027,8 @@ export class Player extends Model {
 	private setMoney(money: number): void {
 		if (money > 0) {
 			this.money = money;
-		} else {
+		}
+		else {
 			this.money = 0;
 		}
 	}
@@ -1043,7 +1051,8 @@ export class Player extends Model {
 	private setWeeklyScore(weeklyScore: number): void {
 		if (weeklyScore > 0) {
 			this.weeklyScore = weeklyScore;
-		} else {
+		}
+		else {
 			this.weeklyScore = 0;
 		}
 	}
@@ -1066,9 +1075,11 @@ export class Player extends Model {
 		}
 		if (health < 0) {
 			this.health = 0;
-		} else if (health > await this.getMaxHealth()) {
+		}
+		else if (health > await this.getMaxHealth()) {
 			this.health = await this.getMaxHealth();
-		} else {
+		}
+		else {
 			this.health = health;
 		}
 	}

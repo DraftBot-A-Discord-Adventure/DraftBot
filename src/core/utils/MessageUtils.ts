@@ -93,12 +93,14 @@ export async function sendNotificationToPlayer(player: Player, embed: DraftBotEm
 	if (!embed.data.author) {
 		embed.formatAuthor(embed.data.title, user);
 		embed.setTitle(null);
-	} else {
+	}
+	else {
 		embed.formatAuthor(embed.data.author.name, user);
 	}
 	if (player.notifications === NotificationsConstants.DM_VALUE) {
 		await sendDirectMessage(user, embed, language);
-	} else if (player.notifications !== NotificationsConstants.NO_NOTIFICATIONS_VALUE) {
+	}
+	else if (player.notifications !== NotificationsConstants.NO_NOTIFICATIONS_VALUE) {
 		await checkChannelAccess(player, user, embed, language);
 	}
 }

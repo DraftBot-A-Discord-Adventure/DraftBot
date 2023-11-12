@@ -21,7 +21,8 @@ export const commandInfo: ITestCommand = {
 function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase {
 	if (databaseName === "logs") {
 		return draftBotInstance.logsDatabase;
-	} else if (databaseName === "game") {
+	}
+	else if (databaseName === "game") {
 		return draftBotInstance.gameDatabase;
 	}
 	throw new Error(`Unknown database name "${databaseName}"`);

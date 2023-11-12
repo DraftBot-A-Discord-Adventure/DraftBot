@@ -19,14 +19,16 @@ function givePointsTo(playerToEdit: Player, amount: number, interaction: Draftbo
 			language,
 			reason: NumberChangeReason.ADMIN
 		}).then();
-	} else if (interaction.options.get("mode").value as string === "add") {
+	}
+	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addScore({
 			amount,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.ADMIN
 		}).then();
-	} else {
+	}
+	else {
 		throw new Error("wrong parameter");
 	}
 }

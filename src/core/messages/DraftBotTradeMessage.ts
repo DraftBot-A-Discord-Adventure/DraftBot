@@ -78,7 +78,8 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = true;
-		} else {
+		}
+		else {
 			tradeMessage.trader2Accepted = true;
 		}
 		if (tradeMessage.trader1Accepted === true && tradeMessage.trader2Accepted === true) {
@@ -90,7 +91,8 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = false;
-		} else {
+		}
+		else {
 			tradeMessage.trader2Accepted = false;
 		}
 		message.collector.stop();
@@ -119,7 +121,8 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 			if (reaction.emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 				if (user.id === messageReturned.author.id) {
 					thisMessage.trader1Accepted = null;
-				} else {
+				}
+				else {
 					thisMessage.trader2Accepted = null;
 				}
 			}

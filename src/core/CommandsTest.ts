@@ -139,7 +139,8 @@ export class CommandsTest {
 					})
 					.setDescription(messageToDisplay)
 					.setColor(<HexColorString>Constants.MESSAGES.COLORS.SUCCESSFUL);
-			} else {
+			}
+			else {
 				embedTestSuccessful = messageToDisplay;
 			}
 
@@ -148,21 +149,25 @@ export class CommandsTest {
 				return;
 			}
 			await interaction.channel.send({embeds: [embedTestSuccessful]});
-		} catch (e) {
+		}
+		catch (e) {
 			console.error(e);
 			if (interaction.replied) {
 				try {
 					await interaction.channel.send({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
-				} catch (e2) {
+				}
+				catch (e2) {
 					await interaction.channel.send({
 						content:
 							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``
 					});
 				}
-			} else {
+			}
+			else {
 				try {
 					await interaction.reply({content: `**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : \`\`\`${e.stack}\`\`\``});
-				} catch (e2) {
+				}
+				catch (e2) {
 					await interaction.reply({
 						content:
 							`**:x: Une erreur est survenue pendant la commande test ${testCommand.name}** : (Erreur tronquée car limite de caractères atteinte) \`\`\`${e.stack.slice(0, 1850)}\`\`\``

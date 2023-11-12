@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
@@ -15,7 +14,7 @@ import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Displays information about a pet
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */

@@ -35,12 +35,14 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 
-		} else if (RandomUtils.draftbotRandom.bool()) {
+		}
+		else if (RandomUtils.draftbotRandom.bool()) {
 			// Item win
 			seEmbed.setDescription(`${base + tr.get("itemWin")}\n\n${tr.get("thanksFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 			await giveRandomItem(interaction.user, interaction.channel, language, player);
-		} else {
+		}
+		else {
 			// Money win
 			const moneyWon = RandomUtils.rangedInt(SmallEventConstants.VOTE.MONEY);
 			await player.addMoney({

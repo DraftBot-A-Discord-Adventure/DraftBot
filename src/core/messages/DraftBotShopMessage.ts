@@ -39,7 +39,9 @@ export enum ShopEndReason {
 export class DraftBotShopMessage extends DraftBotReactionMessage {
 
 	readonly interaction: DraftbotInteraction;
+
 	private readonly _getUserMoney: (userId: string) => Promise<number>;
+
 	private readonly _removeUserMoney: (userId: string, amount: number) => Promise<void>;
 
 	private readonly _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void;
@@ -167,7 +169,8 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 						if (removeMoney) {
 							await shopMessage.removeUserMoney(choseShopItem.price);
 						}
-					} else {
+					}
+					else {
 						await sendErrorMessage(
 							shopMessage.user,
 							shopMessage.interaction,

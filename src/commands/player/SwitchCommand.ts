@@ -46,7 +46,8 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
 				slot: item.slot
 			}
 		});
-	} else {
+	}
+	else {
 		await InventorySlot.update({
 			itemId: otherItem.itemId
 		}, {
@@ -97,7 +98,8 @@ async function sendFinishSwitchEmbed(
 			item: itemInventory.getName(tr.language),
 			frenchMasculine: itemInventory.frenchMasculine
 		});
-	} else {
+	}
+	else {
 		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 			item1: itemInventory.getName(tr.language),
 			item2: itemProfile.getName(tr.language)

@@ -33,7 +33,7 @@ const blockPlayerTestCommand = async (language: string, interaction: DraftbotInt
 	if (blockTime <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const messageToReact = <Message>await interaction.reply({
+	const messageToReact = <Message> await interaction.reply({
 		content: "je suis un message qui va te bloquer",
 		fetchReply: true
 	});

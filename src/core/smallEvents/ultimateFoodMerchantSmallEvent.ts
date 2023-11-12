@@ -45,7 +45,7 @@ function foodAmount(player: Player, currentFoodLevel: number, ultimate: boolean)
 	return Math.max(
 		Math.min(Math.ceil(food.MULTIPLIER * Math.tanh(player.level / 100))
 			+ RandomUtils.variationInt(food.VARIATION),
-			(ultimate ? GuildConstants.MAX_ULTIMATE_PET_FOOD : GuildConstants.MAX_COMMON_PET_FOOD) - currentFoodLevel), 1
+		(ultimate ? GuildConstants.MAX_ULTIMATE_PET_FOOD : GuildConstants.MAX_COMMON_PET_FOOD) - currentFoodLevel), 1
 	);
 }
 
@@ -57,7 +57,8 @@ async function generateReward(player: Player): Promise<RewardType> {
 	let guild: Guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
-	} catch {
+	}
+	catch {
 		guild = null;
 	}
 	if (guild === null) {
@@ -119,29 +120,29 @@ function generateEmbed(reward: RewardType, seEmbed: DraftBotEmbed, language: str
  */
 async function giveReward(reward: RewardType, interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	switch (reward.type) {
-		case "ultimateFood":
-			await giveFood(interaction, language, player, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
-			break;
-		case "fullUltimateFood":
-			break;
-		case "item":
-			await giveItemToPlayer(player, reward.option as GenericItemModel, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
-			break;
-		case "commonFood":
-			await giveFood(interaction, language, player, Constants.PET_FOOD.COMMON_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
-			break;
-		case "fullCommonFood":
-			break;
-		case "money":
-			await player.addMoney({
-				amount: reward.option as number,
-				channel: interaction.channel,
-				language,
-				reason: NumberChangeReason.SMALL_EVENT
-			});
-			break;
-		default:
-			throw new Error("reward type not found");
+	case "ultimateFood":
+		await giveFood(interaction, language, player, Constants.PET_FOOD.ULTIMATE_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
+		break;
+	case "fullUltimateFood":
+		break;
+	case "item":
+		await giveItemToPlayer(player, reward.option as GenericItemModel, language, interaction.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
+		break;
+	case "commonFood":
+		await giveFood(interaction, language, player, Constants.PET_FOOD.COMMON_FOOD, reward.option as number, NumberChangeReason.SMALL_EVENT);
+		break;
+	case "fullCommonFood":
+		break;
+	case "money":
+		await player.addMoney({
+			amount: reward.option as number,
+			channel: interaction.channel,
+			language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		break;
+	default:
+		throw new Error("reward type not found");
 	}
 	await player.save();
 }

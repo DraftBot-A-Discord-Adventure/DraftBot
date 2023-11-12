@@ -13,7 +13,7 @@ import {DraftbotInteraction} from "../messages/DraftbotInteraction";
  * @param language
  * @param player
  */
-export const effectsErrorTextValue = function (user: User, language: string, player: Player): { title: string, description: string } {
+export const effectsErrorTextValue = function(user: User, language: string, player: Player): { title: string, description: string } {
 	const startString = user.id === player.discordUserId ? "titleMe" : "player";
 	const stringEnd = EffectsConstants.ERROR_TEXT[player.effect as keyof typeof EffectsConstants.ERROR_TEXT];
 	const tr = Translations.getModule("error", language);
@@ -25,17 +25,17 @@ export const effectsErrorTextValue = function (user: User, language: string, pla
 	};
 	const timeEffect = minutesDisplay(millisecondsToMinutes(player.effectRemainingTime()));
 	switch (player.effect) {
-		case EffectsConstants.EMOJI_TEXT.SMILEY:
-			errorMessageObject.description += tr.get("notPossibleWithoutStatus");
-			break;
-		case EffectsConstants.EMOJI_TEXT.BABY:
-		case EffectsConstants.EMOJI_TEXT.DEAD:
-			errorMessageObject.description += tr.format(startString === "titleMe" ? `meIs${stringEnd}` : `${startString}Is${stringEnd}`, {
-				askedPseudo: "Il"
-			});
-			break;
-		default:
-			errorMessageObject.description += tr.format(startString === "titleMe" ? "pleaseWaitForHeal" : "pleaseWaitForHisHeal", {time: timeEffect});
+	case EffectsConstants.EMOJI_TEXT.SMILEY:
+		errorMessageObject.description += tr.get("notPossibleWithoutStatus");
+		break;
+	case EffectsConstants.EMOJI_TEXT.BABY:
+	case EffectsConstants.EMOJI_TEXT.DEAD:
+		errorMessageObject.description += tr.format(startString === "titleMe" ? `meIs${stringEnd}` : `${startString}Is${stringEnd}`, {
+			askedPseudo: "Il"
+		});
+		break;
+	default:
+		errorMessageObject.description += tr.format(startString === "titleMe" ? "pleaseWaitForHeal" : "pleaseWaitForHisHeal", {time: timeEffect});
 	}
 
 	if (startString === "titleMe") {

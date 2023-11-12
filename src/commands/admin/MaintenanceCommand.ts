@@ -33,7 +33,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 					.setDescription(tr.get(enable ? "successMaintenanceOn" : "successMaintenanceOff"))
 			]
 		});
-	} catch (err) {
+	}
+	catch (err) {
 		await interaction.reply({
 			embeds: [
 				new DraftBotErrorEmbed(

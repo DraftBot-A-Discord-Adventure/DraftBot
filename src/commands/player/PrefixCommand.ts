@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
@@ -9,7 +8,7 @@ import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * +DEPRECATED+, Allow a server's owner to change the prefix of the bot on the current server
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {

@@ -26,7 +26,8 @@ type PlayerInformation = { player: Player, guild: Guild, pet?: PetEntity };
 async function getGuildOfPlayer(player: Player): Promise<Guild> {
 	try {
 		return await Guilds.getById(player.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		return null;
 	}
 }
@@ -114,7 +115,8 @@ async function switchPets(
 		}
 		swPet.petEntityId = playerPet.id;
 		await swPet.save();
-	} else {
+	}
+	else {
 		await swPet.destroy();
 	}
 	playerInformation.player.petId = swPetEntity.id;
@@ -143,7 +145,8 @@ async function setDescriptionPetTransferEmbed(
 			pet1: `${playerPet.getPetEmote(playerPetModel)} ${playerPet.nickname ? playerPet.nickname : playerPet.getPetTypeName(playerPetModel, petTransferModule.language)}`,
 			pet2: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
-	} else {
+	}
+	else {
 		confirmEmbed.setDescription(petTransferModule.format("confirmFollows", {
 			pet: `${swPetEntity.getPetEmote(swPetModel)} ${swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(swPetModel, petTransferModule.language)}`
 		}));
