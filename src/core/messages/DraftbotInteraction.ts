@@ -35,8 +35,9 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	private async commonSendCommand(functionPrototype: ReplyFunctionLike, options: OptionLike, fallback: () => void | Promise<void>): Promise<Message> {
 		try {
 			return await functionPrototype.call(this, options);
-		} catch (e) {
-			console.error("Weird Permission Error" + e);
+		}
+		catch (e) {
+			console.error(`Weird Permission Error ${e}`);
 			await this.manageFallback(functionPrototype);
 			await fallback();
 			return null;
@@ -51,12 +52,14 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 				content: errorText
 			});
 
-		} catch (e) {
+		}
+		catch (e) {
 			// We can't send ephemeral message, so we send the message in DM
 			try {
 				await DraftbotInteraction.prototype.user.send({content: errorText});
 
-			} catch (e) {
+			}
+			catch (e) {
 				console.log(`Unable to alert user of no speak permission : ${CommandInteraction.prototype.user.id}`);
 			}
 		}
@@ -70,8 +73,9 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 		fallback = fallback ?? ((): null => null);
 		try {
 			return await DraftbotInteraction.prototype.channel.send.call(this, options);
-		} catch (e) {
-			console.error("Weird Permission Error" + e);
+		}
+		catch (e) {
+			console.error(`Weird Permission Error ${e}`);
 			await this.manageFallback();
 			await fallback();
 			return null;
@@ -82,7 +86,8 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 		// We can't send ephemeral message, so we send the message in DM
 		try {
 			await DraftbotInteraction.prototype.user.send({content: Translations.getModule("bot", this.language).get("noSpeakPermission")});
-		} catch (e) {
+		}
+		catch (e) {
 			console.log(`Unable to alert user of no speak permission : ${CommandInteraction.prototype.user.id}`);
 		}
 	}
