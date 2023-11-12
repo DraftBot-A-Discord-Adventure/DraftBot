@@ -42,7 +42,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		await user.send({content: messageToSend});
 		// SendMessageAttachments(message, user);
 		await interaction.reply({embeds: [embed]});
-	} catch {
+	}
+	catch {
 		await replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
 	}
 }

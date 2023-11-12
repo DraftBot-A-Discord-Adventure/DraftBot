@@ -20,10 +20,12 @@ const currentCommandFrenchTranslations = Translations.getModule("commands.sendLo
 async function sendLogsMessage(inDM: boolean, interaction: DraftbotInteraction, msg: string): Promise<void> {
 	if (inDM) {
 		await interaction.user.send({content: `${msg}\`\`\``});
-	} else {
+	}
+	else {
 		try {
 			await interaction.reply({content: `${msg}\`\`\``, ephemeral: true});
-		} catch {
+		}
+		catch {
 			await interaction.followUp({content: `${msg}\`\`\``, ephemeral: true});
 		}
 	}
@@ -47,12 +49,13 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	let inDM: boolean;
 	try {
 		inDM = interaction.options.get(currentCommandEnglishTranslations.get("optionDMName")).value as boolean;
-	} catch {
+	}
+	catch {
 		inDM = true;
 	}
 
 	if (interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")) === null) {
-		fs.readdir("logs", async function (err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
+		fs.readdir("logs", async function(err: (NodeJS.ErrnoException | null), files: string[]): Promise<void> {
 			if (err) {
 				await interaction.reply({content: `\`\`\`Unable to scan directory: ${err}\`\`\``});
 				return;
@@ -73,7 +76,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		if (inDM) {
 			await interaction.reply({content: "Logs list sent !"});
 		}
-	} else {
+	}
+	else {
 		let queriedFile = interaction.options.get(currentCommandEnglishTranslations.get("optionFileName")).value as string;
 		if (queriedFile.includes("/") || queriedFile.includes("..")) {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("localFileInclusion"));
@@ -91,7 +95,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 					}]
 				});
 				await interaction.reply({content: "Logs sent !"});
-			} else {
+			}
+			else {
 				await interaction.reply({
 					files: [{
 						attachment: `logs/${queriedFile}`,
@@ -100,7 +105,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 					ephemeral: true
 				});
 			}
-		} else {
+		}
+		else {
 			await replyErrorMessage(interaction, language, sendLogsModule.get("noLogFile"));
 		}
 	}

@@ -35,7 +35,8 @@ async function populateChoiceItems(item: InventorySlot, choiceItems: ChoiceItem[
 				value: getItemValue(itemInstance),
 				moneyIcon: Constants.REACTIONS.MONEY_ICON
 			}), item));
-	} else {
+	}
+	else {
 		choiceItems.push(new ChoiceItem(
 			tr.format("throwAwayField", {
 				name: itemInstance.getName(tr.language),

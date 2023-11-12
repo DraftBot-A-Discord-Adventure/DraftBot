@@ -86,7 +86,8 @@ export class FightView {
 			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]}, () => {
 				this.fightController.endBugFight();
 			});
-		} else {
+		}
+		else {
 			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
 	}
@@ -111,10 +112,12 @@ export class FightView {
 				this.fightController.endBugFight();
 			});
 			this.actionMessages.push(lastMessage);
-		} else if (lastMessage.content === "_ _") {
+		}
+		else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
 			await lastMessage.edit({content: messageToSend});
-		} else {
+		}
+		else {
 			// A history already exists, just append the new action
 			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
 		}
@@ -138,7 +141,8 @@ export class FightView {
 				winner: winner.getMention(),
 				loser: loser.getMention()
 			});
-		} else {
+		}
+		else {
 			msg = this.fightTranslationModule.format("end.draw", {
 				player1: winner.getMention(),
 				player2: loser.getMention()

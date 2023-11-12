@@ -36,7 +36,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		.formatAuthor(petNickTranslations.get("successTitle"), interaction.user);
 	if (petNickname === null) {
 		successEmbed.setDescription(petNickTranslations.get("successNoName"));
-	} else {
+	}
+	else {
 		if (!checkNameString(petNickname, PetConstants.NICKNAME_LENGTH_RANGE)) {
 			await replyErrorMessage(interaction, language,
 				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {

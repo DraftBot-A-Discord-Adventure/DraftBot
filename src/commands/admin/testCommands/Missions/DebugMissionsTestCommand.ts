@@ -50,7 +50,8 @@ const debugMissionsTestCommand = async (language: string, interaction: DraftbotI
 	let missionsFieldContent = "";
 	if (missionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
-	} else {
+	}
+	else {
 		for (const missionSlot of missionSlots) {
 			const mission = await Missions.getById(missionSlot.missionId);
 			missionsFieldContent += `${

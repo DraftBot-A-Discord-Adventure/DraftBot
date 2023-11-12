@@ -280,7 +280,8 @@ export class Guild extends Model {
 	private setExperience(experience: number): void {
 		if (experience > 0) {
 			this.experience = experience;
-		} else {
+		}
+		else {
 			this.experience = 0;
 		}
 	}

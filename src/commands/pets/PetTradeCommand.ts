@@ -155,7 +155,8 @@ function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interactio
 			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.format("tradeCanceled", {
 				trader: tradeMessage.trader1Accepted === false ? tradersAndPets[0].user : tradersAndPets[1].user
 			}), true);
-		} else {
+		}
+		else {
 			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
 		}
 	};

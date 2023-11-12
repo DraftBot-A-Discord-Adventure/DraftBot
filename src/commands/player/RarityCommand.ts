@@ -1,5 +1,4 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
@@ -9,7 +8,7 @@ import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Displays the several rarities that an item can get in the game
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {

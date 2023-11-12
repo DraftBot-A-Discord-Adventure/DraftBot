@@ -66,7 +66,8 @@ export async function confirmationCallback(
 	let isGoneOnIsland = false;
 	if (messageData.reactionMessage.isValidated()) {
 		isGoneOnIsland = await startBoatTravel(player, price, messageData, emote, anotherMemberOnBoat);
-	} else {
+	}
+	else {
 		messageData.embed.setDescription(`${emote} ${messageData.tr.get("endStoryRefuse")}`);
 	}
 	await messageData.interaction.channel.send({

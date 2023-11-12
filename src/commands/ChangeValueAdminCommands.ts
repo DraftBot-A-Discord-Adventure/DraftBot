@@ -134,7 +134,8 @@ export class ChangeValueAdminCommands {
 				const valueBefore = playersToEdit[changeValueModule.get("valueToEdit") as keyof Player];
 				try {
 					editFunction(playersToEdit, amount, interaction, language);
-				} catch (e) {
+				}
+				catch (e) {
 					if (e.message !== "wrong parameter") {
 						console.error(e.stack);
 						return;

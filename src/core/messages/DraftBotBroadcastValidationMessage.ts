@@ -84,7 +84,8 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 				errorOtherDeny: tmp.get("errorOtherDeny"),
 				errorNoAnswer: tmp.get("errorNoAnswer")
 			};
-		} else {
+		}
+		else {
 			this._translationModule = translationModule;
 		}
 	}
@@ -145,18 +146,18 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			return;
 		}
 		switch (reaction.emoji.name) {
-			case Constants.REACTIONS.VALIDATE_REACTION:
-				if (!await this.manageAcceptReaction(user)) {
-					return;
-				}
-				break;
-			case Constants.REACTIONS.REFUSE_REACTION:
-				if (!await this.manageDenyReaction(user)) {
-					return;
-				}
-				break;
-			default:
+		case Constants.REACTIONS.VALIDATE_REACTION:
+			if (!await this.manageAcceptReaction(user)) {
 				return;
+			}
+			break;
+		case Constants.REACTIONS.REFUSE_REACTION:
+			if (!await this.manageDenyReaction(user)) {
+				return;
+			}
+			break;
+		default:
+			return;
 		}
 		this._gotAnAnswer = true;
 		this._collector.stop();

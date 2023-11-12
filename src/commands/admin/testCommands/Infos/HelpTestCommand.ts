@@ -26,7 +26,8 @@ const helpTestCommand = (language: string, interaction: DraftbotInteraction, arg
 	let helpOnCommand: ITestCommand;
 	try {
 		helpOnCommand = CommandsTest.getTestCommand(args[0]);
-	} catch (e) {
+	}
+	catch (e) {
 		throw new Error(`Commande inexistante : ${args[0]}`);
 	}
 	const embedHelpTest = new DraftBotEmbed()

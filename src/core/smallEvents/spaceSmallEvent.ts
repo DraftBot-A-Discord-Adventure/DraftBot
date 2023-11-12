@@ -21,7 +21,8 @@ async function neoWS(): Promise<Record<string, unknown>> {
 	let neoWSFeed: NeoWSFeed;
 	try {
 		neoWSFeed = await SpaceUtils.getNeoWSFeed(botConfig.NASA_API_KEY);
-	} catch (e) {
+	}
+	catch (e) {
 		// Si erreur durant récup data api
 		neoWSFeed = null;
 	}
@@ -168,8 +169,9 @@ export const smallEvent: SmallEvent = {
 				};
 				if (timeLeft <= 0) {
 					callBack().then();
-				} else {
-					setTimeout(async function () {
+				}
+				else {
+					setTimeout(async function() {
 						await callBack();
 					}, timeLeft);
 				}

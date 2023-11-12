@@ -72,7 +72,8 @@ export const smallEvent: SmallEvent = {
 		// Search for a user's guild
 		try {
 			guild = await Guilds.getById(player.guildId);
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
 

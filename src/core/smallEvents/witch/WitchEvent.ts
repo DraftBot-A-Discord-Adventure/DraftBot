@@ -15,12 +15,19 @@ export abstract class WitchEvent {
 	public readonly name: string;
 
 	public type: number;
+
 	public forceEffect = false;
+
 	public tags: string[] = []; // Tags for mission completion
+
 	protected timePenalty = 0;
+
 	protected effectName = "";
+
 	protected lifePointsRemovedAmount = SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT;
+
 	private emojiCache: string;
+
 	private outcomeProbabilities: number[];
 
 	protected constructor(name: string) {

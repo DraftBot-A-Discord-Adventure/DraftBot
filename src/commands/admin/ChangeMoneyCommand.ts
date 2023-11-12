@@ -19,14 +19,16 @@ function giveMoneyTo(playerToEdit: Player, amount: number, interaction: Draftbot
 			language,
 			reason: NumberChangeReason.ADMIN
 		}).then();
-	} else if (interaction.options.get("mode").value as string === "add") {
+	}
+	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.addMoney({
 			amount,
 			channel: interaction.channel,
 			language,
 			reason: NumberChangeReason.ADMIN
 		}).then();
-	} else {
+	}
+	else {
 		throw new Error("wrong parameter");
 	}
 }

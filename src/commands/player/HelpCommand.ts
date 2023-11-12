@@ -1,6 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {ICommand} from "../ICommand";
 import {HelpConstants} from "../../core/constants/HelpConstants";
@@ -127,7 +126,7 @@ function getCommandAliasMap(): Map<string, string> {
 
 /**
  * Displays the link that allow to send the devs some suggestions
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
 async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {

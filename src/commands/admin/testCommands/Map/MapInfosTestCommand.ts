@@ -50,7 +50,8 @@ const mapInfosTestCommand = async (language: string, interaction: DraftbotIntera
 			field += `${map.getDisplayName(language)} (id: ${map.id})\n`;
 		}
 		mapEmbed.addFields({name: "Next available maps", value: field, inline: true});
-	} else {
+	}
+	else {
 		mapEmbed.addFields({
 			name: "Players",
 			value: `:speech_balloon: ${await currMap.playersCount(prevMap.id)} player(s) on this map`,

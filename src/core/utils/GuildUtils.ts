@@ -57,7 +57,8 @@ export async function giveFood(
 				}
 			)
 		);
-	} else {
+	}
+	else {
 		successEmbed.setDescription(
 			format(tr.get("multipleSuccessAddFoodDesc"),
 				{

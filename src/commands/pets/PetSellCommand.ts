@@ -282,7 +282,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 	if (guild === null) {

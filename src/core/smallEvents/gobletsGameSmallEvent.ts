@@ -37,25 +37,25 @@ function generateMalus(player: Player, malus: string, notReacted: boolean): Rewa
 	}
 
 	switch (malus) {
-		case "life":
-			return {
-				type: malus,
-				value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
+	case "life":
+		return {
+			type: malus,
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
 					+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
-			};
-		case "time":
-			return {
-				type: malus,
-				value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
+		};
+	case "time":
+		return {
+			type: malus,
+			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
 					+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION)
-			};
-		case "nothing":
-			return {
-				type: malus,
-				value: 0
-			};
-		default:
-			return null;
+		};
+	case "nothing":
+		return {
+			type: malus,
+			value: 0
+		};
+	default:
+		return null;
 	}
 }
 
@@ -68,20 +68,20 @@ function generateMalus(player: Player, malus: string, notReacted: boolean): Rewa
  */
 async function applyMalus(malus: RewardType, interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	switch (malus.type) {
-		case "life":
-			await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-			break;
-		case "time":
-			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.value as number, new Date(), NumberChangeReason.SMALL_EVENT);
-			malus.value = minutesDisplay(malus.value as number);
-			break;
-		case "nothing":
-			break;
-		case "end":
-			await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-			break;
-		default:
-			throw new Error("reward type not found");
+	case "life":
+		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		break;
+	case "time":
+		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, malus.value as number, new Date(), NumberChangeReason.SMALL_EVENT);
+		malus.value = minutesDisplay(malus.value as number);
+		break;
+	case "nothing":
+		break;
+	case "end":
+		await player.addHealth(-malus.value, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+		break;
+	default:
+		throw new Error("reward type not found");
 	}
 	await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);
 	await player.save();
