@@ -139,8 +139,7 @@ export class CommandsManager {
 				{body: commands}
 			);
 			console.log(`Successfully reloaded ${Array.isArray(data) ? data.length : "###ERROR###"} application (/) commands.`);
-		}
-		catch (error) {
+		} catch (error) {
 			// And of course, make sure you catch and log any errors!
 			console.error(error);
 		}
@@ -160,8 +159,7 @@ export class CommandsManager {
 				await CommandsManager.registerCommands(client.application.id, allCommandToRegister[0], Routes.applicationCommands);
 			}
 			await this.refreshCommands(client);
-		}
-		catch (err) {
+		} catch (err) {
 			console.log(err);
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
@@ -272,8 +270,7 @@ export class CommandsManager {
 			this.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 				guildsCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
-			}
-			else {
+			} else {
 				globalCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
 			}
 		}
@@ -344,10 +341,10 @@ export class CommandsManager {
 	 */
 	private static manageInteractionCreate(client: Client): void {
 		client.on("interactionCreate", discordInteraction => {
-			const interaction = discordInteraction as unknown as DraftbotInteraction;
-			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
+			if (!discordInteraction.isCommand() || discordInteraction.user.bot || discordInteraction.user.id === draftBotClient.user.id) {
 				return;
 			}
+			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
 			if (!interaction.channel) {
 				Server.findOrCreate({
 					where: {
@@ -450,8 +447,7 @@ export class CommandsManager {
 		let guild;
 		try {
 			guild = await Guilds.getById(player.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
 
