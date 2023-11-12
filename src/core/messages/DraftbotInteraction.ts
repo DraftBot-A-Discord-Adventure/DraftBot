@@ -65,9 +65,9 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		} catch (e) {
 			// We can't send ephemeral message, so we send the message in DM
 			try {
-				await CommandInteraction.prototype.user.send({content: errorText});
+				await CommandInteraction.prototype.user.send.bind(this.user)({content: errorText});
 			} catch (e) {
-				console.log(`Unable to alert user of no speak permission : ${CommandInteraction.prototype.user.id}`);
+				console.log(`Unable to alert user of no speak permission : c:${this.channel.id} / u:${this.user.id}`);
 			}
 		}
 	}
@@ -95,6 +95,6 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 
 	private async manageFallback(): Promise<void> {
 		// We can't send ephemeral message nor send message in DM
-		console.log(`Unable to alert user of no speak permission : ${CommandInteraction.prototype.channel.id}`);
+		console.log(`Unable to alert user of no speak permission : c:${this.id} / u:N/A`);
 	}
 }
