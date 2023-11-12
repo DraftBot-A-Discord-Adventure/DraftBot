@@ -1,8 +1,8 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {escapeUsername} from "../../../../core/utils/StringUtils";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {CommandsTest, ITestCommand} from "../../../../core/CommandsTest";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "list",
@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param interaction
  */
-const listTestCommand = (language: string, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
+const listTestCommand = (language: string, interaction: DraftbotInteraction): Promise<DraftBotEmbed> => {
 	const embedListCommandsTest = new DraftBotEmbed()
 		.formatAuthor(`${escapeUsername(interaction.user.username)}, voici la liste des commandes tests disponibles :`, interaction.user)
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")

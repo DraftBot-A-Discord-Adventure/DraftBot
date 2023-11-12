@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
 import {MissionsController} from "../../../../core/missions/MissionsController";
@@ -7,6 +6,7 @@ import {Data} from "../../../../core/Data";
 import MissionSlot, {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaign",
@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
 	execute: null // Defined later
 };
 
-const setCampaignTestCommand = async (_language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const setCampaignTestCommand = async (_language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);

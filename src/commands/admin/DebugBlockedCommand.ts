@@ -1,16 +1,16 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
  * @param interaction
  */
-async function executeCommand(interaction: CommandInteraction): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction): Promise<void> {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(interaction.options.get("user").value as string);
 	if (blockingReason.length === 0) {
 		await interaction.reply({content: "Not blocked or the id given isn't a right user id", ephemeral: true});

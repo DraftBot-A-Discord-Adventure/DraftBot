@@ -7,9 +7,8 @@ import {
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
@@ -29,6 +28,7 @@ import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Get the amount of gems a user has
@@ -68,7 +68,7 @@ function calculateGemsToMoneyRatio(): number {
 	 * Returns the decimal part of a number
 	 * @param x
 	 */
-	const frac = function(x: number): number {
+	const frac = function (x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};
 	return Constants.MISSION_SHOP.BASE_RATIO +
@@ -104,13 +104,13 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
  */
 async function getEndCallbackSkipMissionShopItem(
 	message: DraftBotShopMessage,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	translationModule: TranslationModule,
 	player: Player
-): Promise<(missionMessage: DraftBotShopMessage) => Promise<boolean>> {
+): Promise<(missionMessage: DraftBotShopMessage) => Promise<void>> {
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	const allMissions = missionSlots.filter(slot => !slot.isCampaign());
-	return async (missionMessage: DraftBotShopMessage): Promise<boolean> => {
+	return async (missionMessage: DraftBotShopMessage): Promise<void> => {
 		const reaction = missionMessage.getFirstReaction();
 		if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 			BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
@@ -120,7 +120,7 @@ async function getEndCallbackSkipMissionShopItem(
 				message.language,
 				translationModule.get("error.canceledPurchase")
 			);
-			return false;
+			return;
 		}
 		for (let i = 0; i < allMissions.length; ++i) {
 			if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
@@ -128,7 +128,7 @@ async function getEndCallbackSkipMissionShopItem(
 				const mission = await Missions.getById(allMissions[i].missionId);
 				await allMissions[i].destroy();
 				const newMission = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player), allMissions[i].missionId);
-				await message.sentMessage.channel.send({
+				await interaction.channel.send({
 					embeds: [
 						new DraftBotEmbed()
 							.formatAuthor(translationModule.get("items.changeMapMission.successTitle"), message.user)
@@ -156,9 +156,8 @@ async function getEndCallbackSkipMissionShopItem(
 			}
 		}
 		BlockingUtils.unblockPlayer(message.user.id, BlockingConstants.REASONS.MISSION_SHOP);
-		await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+		await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 		draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MISSION_SKIP).then();
-		return true;
 	};
 }
 
@@ -167,7 +166,7 @@ async function getEndCallbackSkipMissionShopItem(
  * @param translationModule
  * @param interaction
  */
-function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getSkipMapMissionShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"changeMapMission",
 		translationModule,
@@ -186,7 +185,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
 				.allowUser(message.user)
-				.endCallback(await getEndCallbackSkipMissionShopItem(message, interaction, translationModule, player) as (msg: DraftBotReactionMessage) => void);
+				.endCallback(await getEndCallbackSkipMissionShopItem(message, interaction, translationModule, player));
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
@@ -201,7 +200,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 			const chooseMissionBuilt = chooseMission.build();
 			chooseMissionBuilt.formatAuthor(translationModule.get("items.changeMapMission.giveTitle"), message.user);
 			chooseMissionBuilt.setDescription(`${translationModule.get("items.changeMapMission.giveDesc")}\n\n${desc}`);
-			await chooseMissionBuilt.send(message.sentMessage.channel);
+			await chooseMissionBuilt.send(interaction.channel);
 			BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.MISSION_SHOP, chooseMissionBuilt.collector);
 			return false;
 		});
@@ -210,8 +209,9 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule, interac
 /**
  * Get the shop item for buying money for gems
  * @param translationModule
+ * @param interaction
  */
-function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
+function getMoneyShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"money",
 		translationModule,
@@ -220,21 +220,21 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 			const amount = calculateGemsToMoneyRatio();
 			await player.addMoney({
 				amount,
-				channel: message.sentMessage.channel,
+				channel: interaction.channel,
 				language: translationModule.language,
 				reason: NumberChangeReason.MISSION_SHOP
 			});
 			await player.save();
-			await message.sentMessage.channel.send(
+			await interaction.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(translationModule.get("items.money.giveTitle"), message.user)
 						.setDescription(translationModule.format("items.money.giveDescription", {amount: calculateGemsToMoneyRatio()})
 						)]
 				});
-			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 			if (amount < 6500) {
-				await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "kingsMoneyValue"});
+				await MissionsController.update(player, interaction.channel, message.language, {missionId: "kingsMoneyValue"});
 			}
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.MONEY).then();
 			return true;
@@ -244,16 +244,17 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 /**
  * Get the shop item for buying a royal treasure
  * @param translationModule
+ * @param interaction
  */
-function getValuableItemShopItem(translationModule: TranslationModule): ShopItem {
+function getValuableItemShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"valuableItem",
 		translationModule,
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			const item = await generateRandomItem(null, ItemConstants.RARITY.SPECIAL, ItemConstants.RARITY.MYTHICAL);
-			await giveItemToPlayer(player, item, message.language, message.user, message.sentMessage.channel, await InventorySlots.getOfPlayer(player.id));
-			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			await giveItemToPlayer(player, item, message.language, message.user, interaction.channel, await InventorySlots.getOfPlayer(player.id));
+			await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.TREASURE).then();
 			return true;
 		});
@@ -264,7 +265,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
  * @param translationModule
  * @param interaction
  */
-function getAThousandPointsShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getAThousandPointsShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"1000Points",
 		translationModule,
@@ -282,12 +283,12 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 			}
 			await player.addScore({
 				amount: 1000,
-				channel: message.sentMessage.channel,
+				channel: interaction.channel,
 				language: translationModule.language,
 				reason: NumberChangeReason.MISSION_SHOP
 			});
 			await player.save();
-			await message.sentMessage.channel.send(
+			await interaction.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(translationModule.get("items.1000Points.giveTitle"), message.user)
@@ -296,7 +297,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
 				});
 			missionsInfo.hasBoughtPointsThisWeek = true;
 			await missionsInfo.save();
-			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.POINTS).then();
 			return true;
 		});
@@ -307,7 +308,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule, intera
  * @param translationModule
  * @param interaction
  */
-function getValueLovePointsPetShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getValueLovePointsPetShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"lovePointsValue",
 		translationModule,
@@ -325,7 +326,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 			const pet = await PetEntities.getById(player.petId);
 			const petModel = await Pets.getById(pet.petId);
 			const sentenceGotten = translationModule.getRandom(`items.lovePointsValue.advice.${pet.getLoveLevelNumber()}`);
-			await message.sentMessage.channel.send({
+			await interaction.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
 					.setDescription(translationModule.format("items.lovePointsValue.giveDesc", {
@@ -337,7 +338,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
 					}))
 				]
 			});
-			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.PET_INFORMATION).then();
 			return true;
 		});
@@ -348,7 +349,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule, int
  * @param translationModule
  * @param interaction
  */
-function getBadgeShopItem(translationModule: TranslationModule, interaction: CommandInteraction): ShopItem {
+function getBadgeShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
 	return getItemShopItem(
 		"badge",
 		translationModule,
@@ -365,13 +366,13 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
 			}
 			player.addBadge(Constants.BADGES.QUEST_MASTER);
 			await player.save();
-			await message.sentMessage.channel.send({
+			await interaction.channel.send({
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.badge.give"), message.user)
 					.setDescription(`${Constants.BADGES.QUEST_MASTER} ${translationModule.get("items.badge.name")}`)
 				]
 			});
-			await MissionsController.update(player, message.sentMessage.channel, message.language, {missionId: "spendGems"});
+			await MissionsController.update(player, interaction.channel, message.language, {missionId: "spendGems"});
 			draftBotInstance.logsDatabase.logMissionShopBuyout(message.user.id, ShopItemType.BADGE).then();
 			return true;
 		}
@@ -384,7 +385,7 @@ function getBadgeShopItem(translationModule: TranslationModule, interaction: Com
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -393,8 +394,8 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 
 	const resCategory = new ShopItemCategory(
 		[
-			getMoneyShopItem(shopTranslations),
-			getValuableItemShopItem(shopTranslations),
+			getMoneyShopItem(shopTranslations, interaction),
+			getValuableItemShopItem(shopTranslations, interaction),
 			getAThousandPointsShopItem(shopTranslations, interaction)
 		],
 		shopTranslations.get("resTitle")

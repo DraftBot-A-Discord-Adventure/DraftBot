@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -12,6 +11,7 @@ import {EffectsConstants} from "../constants/EffectsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -28,7 +28,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		const transIntroSE = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		const tr = Translations.getModule("smallEvents.bigBadEvent", language);
@@ -36,37 +36,37 @@ export const smallEvent: SmallEvent = {
 		const alterationObject = tr.getObject("alteration.stories");
 		let lifeLoss, seFallen, moneyLoss;
 		switch (outRand) {
-		case 0:
-			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
-			seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
-			await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-			break;
-		case 1:
-			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
-			seEmbed.setDescription(base + format(seFallen.sentence as string, {
-				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
-				alteEmoji: seFallen.alte as string
-			}));
-			await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
-			if (seFallen.tags) {
-				for (const tag of (seFallen.tags as string[])) {
-					await MissionsController.update(player, interaction.channel, language, {
-						missionId: tag,
-						params: {tags: seFallen.tags}
-					});
+			case 0:
+				lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
+				seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
+				await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+				break;
+			case 1:
+				seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
+				seEmbed.setDescription(base + format(seFallen.sentence as string, {
+					alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
+					alteEmoji: seFallen.alte as string
+				}));
+				await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
+				if (seFallen.tags) {
+					for (const tag of (seFallen.tags as string[])) {
+						await MissionsController.update(player, interaction.channel, language, {
+							missionId: tag,
+							params: {tags: seFallen.tags}
+						});
+					}
 				}
-			}
-			break;
-		default:
-			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
-			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
-			await player.addMoney({
-				amount: -moneyLoss,
-				channel: interaction.channel,
-				language,
-				reason: NumberChangeReason.SMALL_EVENT
-			});
-			break;
+				break;
+			default:
+				moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
+				seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
+				await player.addMoney({
+					amount: -moneyLoss,
+					channel: interaction.channel,
+					language,
+					reason: NumberChangeReason.SMALL_EVENT
+				});
+				break;
 		}
 		await interaction.editReply({embeds: [seEmbed]});
 		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);

@@ -1,6 +1,6 @@
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {CommandInteraction, User} from "discord.js";
+import {User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -27,6 +27,7 @@ import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {draftBotInstance} from "../../core/bot";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {MapCache} from "../../core/maps/MapCache";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type PlayerInformation = {
 	player: Player,
@@ -124,7 +125,7 @@ async function canFight(player: Player, opponent: Player, friendly: boolean, dat
  * @param user
  */
 async function sendError(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	fightTranslationModule: TranslationModule,
 	error: string,
 	isAboutSelectedOpponent: boolean,
@@ -175,8 +176,7 @@ async function getFightDescription(
 			friendly: friendly ? fightTranslationModule.get("friendly") : "",
 			player: askingFighter.getMention()
 		});
-	}
-	else {
+	} else {
 		fightAskingDescription = fightTranslationModule.format("wantsToFightSomeone", {
 			friendly: friendly ? fightTranslationModule.get("friendly") : "",
 			player: askingFighter.getMention(),
@@ -244,7 +244,7 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 			player2.save()
 		]);
 
-		fight.getFightView().channel.send({
+		await fight.getFightView().channel.send({
 			embeds: [
 				embed
 			]
@@ -332,32 +332,27 @@ function generateEmbedDescription(player1: PlayerInformation, player2: PlayerInf
 			player1: player1.player.getMention(),
 			player2: player2.player.getMention()
 		}));
-	}
-	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints > player2.player.gloryPoints) {
+	} else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints > player2.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
 			winner: player1.player.getMention(),
 			loser: player2.player.getMention()
 		}));
-	}
-	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints > player1.player.gloryPoints) {
+	} else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints > player1.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
 			winner: player2.player.getMention(),
 			loser: player1.player.getMention()
 		}));
-	}
-	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints < player2.player.gloryPoints) {
+	} else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints < player2.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
 			winner: player1.player.getMention(),
 			loser: player2.player.getMention()
 		}));
-	}
-	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints < player1.player.gloryPoints) {
+	} else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints < player1.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
 			winner: player2.player.getMention(),
 			loser: player1.player.getMention()
 		}));
-	}
-	else {
+	} else {
 		embed.setDescription(format(fightTr.getRandom("elo.draw"), {
 			player1: player1.player.getMention(),
 			player2: player2.player.getMention()
@@ -429,14 +424,14 @@ async function createFightEndCallbackEmbed(fight: FightController, player1: Play
  * @return boolean - false if the broadcast has to continue and true if the broadcast is finished
  */
 function getAcceptCallback(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	fightTranslationModule: TranslationModule,
 	friendly: boolean,
 	initiatorPlayer: Player,
 	askedPlayer: Player | null,
 	askingFighter: Fighter
 ): (user: User) => Promise<boolean> {
-	return async function(user: User): Promise<boolean> {
+	return async function (user: User): Promise<boolean> {
 		const incomingFighterPlayer = await Players.getByDiscordUserId(user.id);
 		const attackerFightErrorStatus = await canFight(incomingFighterPlayer, initiatorPlayer, friendly, new Date());
 		if (askedPlayer !== null && incomingFighterPlayer.discordUserId !== askedPlayer.discordUserId) {
@@ -484,7 +479,7 @@ function getBroadcastErrorStrings(fightTranslationModule: TranslationModule, res
  * @param player
  * @param friendly true if the fight is friendly
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player, friendly = false): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player, friendly = false): Promise<void> {
 	const askingFighter = new PlayerFighter(interaction.user, player, await Classes.getById(player.class));
 	const askedEntity: Player | null = await Players.getByOptions(interaction);
 	const fightTranslationModule: TranslationModule = Translations.getModule("commands.fight", language);

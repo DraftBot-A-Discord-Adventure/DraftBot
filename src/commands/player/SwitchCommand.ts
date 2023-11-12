@@ -5,7 +5,6 @@ import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import InventorySlot, {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
-import {CommandInteraction} from "discord.js";
 import {ICommand} from "../ICommand";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
@@ -14,6 +13,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import InventoryInfo, {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Collect all the stored items and prepare them for the main embed
@@ -46,8 +46,7 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
 				slot: item.slot
 			}
 		});
-	}
-	else {
+	} else {
 		await InventorySlot.update({
 			itemId: otherItem.itemId
 		}, {
@@ -80,7 +79,7 @@ async function switchItemSlots(otherItem: InventorySlot, player: Player, item: I
  */
 async function sendFinishSwitchEmbed(
 	player: Player,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	tr: TranslationModule,
 	itemInventorySlot: InventorySlot,
 	invInfo: InventoryInfo,
@@ -98,8 +97,7 @@ async function sendFinishSwitchEmbed(
 			item: itemInventory.getName(tr.language),
 			frenchMasculine: itemInventory.frenchMasculine
 		});
-	}
-	else {
+	} else {
 		desc = tr.format(itemProfile.getCategory() === ItemConstants.CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 			item1: itemInventory.getName(tr.language),
 			item2: itemProfile.getName(tr.language)
@@ -123,7 +121,7 @@ async function sendFinishSwitchEmbed(
  */
 async function sendSwitchEmbed(
 	choiceItems: ChoiceItem[],
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	player: Player,
 	tr: TranslationModule,
 	invInfo: InventoryInfo,
@@ -154,7 +152,7 @@ async function sendSwitchEmbed(
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	// Error if blocked
 	if (await sendBlockedError(interaction, language)) {
 		return;

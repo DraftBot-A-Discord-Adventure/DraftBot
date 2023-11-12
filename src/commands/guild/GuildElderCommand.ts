@@ -1,6 +1,6 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, User} from "discord.js";
+import {User} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -15,9 +15,10 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type PersonInformation = { user: User, player: Player };
-type TextInformation = { interaction: CommandInteraction, guildElderModule: TranslationModule }
+type TextInformation = { interaction: DraftbotInteraction, guildElderModule: TranslationModule }
 
 /**
  * Callback for the reaction collector
@@ -126,7 +127,7 @@ async function checkElderEligibility(elderGuild: Guild, guild: Guild, textInform
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

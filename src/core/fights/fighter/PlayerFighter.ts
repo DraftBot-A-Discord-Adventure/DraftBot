@@ -1,7 +1,7 @@
 import {Fighter} from "./Fighter";
 import Player, {Players} from "../../database/game/models/Player";
 import Class from "../../database/game/models/Class";
-import {Message, TextBasedChannel, User} from "discord.js";
+import {Message, User} from "discord.js";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
 import Potion from "../../database/game/models/Potion";
@@ -22,6 +22,7 @@ import {TranslationModule} from "../../Translations";
 import {Maps} from "../../maps/Maps";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PVEConstants} from "../../constants/PVEConstants";
+import {DraftbotChannel} from "../../messages/DraftbotInteraction";
 
 /**
  * @class PlayerFighter
@@ -127,7 +128,7 @@ export class PlayerFighter extends Fighter {
 	 * @param language
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, channel: TextBasedChannel, language: string): Promise<void> {
+	public async consumePotionIfNeeded(friendly: boolean, channel: DraftbotChannel, language: string): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = await inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).getItem() as Potion;
 		if (friendly || !drankPotion.isFightPotion()) {
@@ -189,40 +190,6 @@ export class PlayerFighter extends Fighter {
 		this.sendChooseActionEmbed(fightView).then(this.chooseActionCallback(actions, fightView));
 	}
 
-	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): (m: Message) => void {
-		return (chooseActionEmbedMessage: Message): void => {
-			const collector = chooseActionEmbedMessage.createReactionCollector({
-				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
-				time: FightConstants.TIME_FOR_ACTION_SELECTION,
-				max: 1
-			});
-			collector.on("end", async (reaction) => {
-				const emoji = reaction.first()?.emoji.name;
-				const selectedAction = Array.from(actions.values()).find((action) => emoji && action.getEmoji() === emoji);
-				try {
-					await chooseActionEmbedMessage.delete();
-					if (!selectedAction) {
-						// USER HASN'T SELECTED AN ACTION
-						this.kill();
-						await fightView.fightController.endFight();
-						return;
-					}
-					await fightView.fightController.executeFightAction(selectedAction, true);
-				}
-				catch (e) {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
-					fightView.fightController.endBugFight();
-				}
-			});
-			const reactions = [];
-			for (const [, action] of actions) {
-				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
-			}
-
-			Promise.all(reactions).catch(() => null);
-		};
-	}
-
 	/**
 	 * Return a display of the player in a string format
 	 * @param fightTranslationModule
@@ -251,6 +218,39 @@ export class PlayerFighter extends Fighter {
 	 */
 	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
 		return this.pveMembers;
+	}
+
+	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): (m: Message) => void {
+		return (chooseActionEmbedMessage: Message): void => {
+			const collector = chooseActionEmbedMessage.createReactionCollector({
+				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
+				time: FightConstants.TIME_FOR_ACTION_SELECTION,
+				max: 1
+			});
+			collector.on("end", async (reaction) => {
+				const emoji = reaction.first()?.emoji.name;
+				const selectedAction = Array.from(actions.values()).find((action) => emoji && action.getEmoji() === emoji);
+				try {
+					await chooseActionEmbedMessage.delete();
+					if (!selectedAction) {
+						// USER HASN'T SELECTED AN ACTION
+						this.kill();
+						await fightView.fightController.endFight();
+						return;
+					}
+					await fightView.fightController.executeFightAction(selectedAction, true);
+				} catch (e) {
+					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
+					fightView.fightController.endBugFight();
+				}
+			});
+			const reactions = [];
+			for (const [, action] of actions) {
+				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
+			}
+
+			Promise.all(reactions).catch(() => null);
+		};
 	}
 
 	/**
@@ -292,8 +292,7 @@ export class PlayerFighter extends Fighter {
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
 					await MissionsController.update(this.player, fightView.channel, fightView.language, {missionId: "fightStreak"});
-				}
-				else if (lastDay !== currDay) {
+				} else if (lastDay !== currDay) {
 					await MissionsController.update(this.player, fightView.channel, fightView.language, {
 						missionId: "fightStreak",
 						count: 1,

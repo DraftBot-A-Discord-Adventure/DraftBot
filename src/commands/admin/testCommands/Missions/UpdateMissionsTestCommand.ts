@@ -1,10 +1,10 @@
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/database/game/models/Mission";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "updateMissions",
@@ -26,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @param args
  */
-const updateMissionsTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const updateMissionsTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const mission = await Missions.getById(args[0]);
 	if (!mission) {

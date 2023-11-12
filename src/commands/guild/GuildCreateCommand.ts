@@ -1,5 +1,4 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
@@ -18,6 +17,7 @@ import {GuildCreateConstants} from "../../core/constants/GuildCreateConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Get a guild by its name
@@ -26,8 +26,7 @@ import {GuildConstants} from "../../core/constants/GuildConstants";
 async function getGuildByName(askedName: string): Promise<Guild> {
 	try {
 		return await Guilds.getByName(askedName);
-	}
-	catch (error) {
+	} catch (error) {
 		return null;
 	}
 }
@@ -45,7 +44,7 @@ function endCallbackGuildCreateValidationMessage(
 	player: Player,
 	guild: Guild,
 	askedName: string,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	guildCreateModule: TranslationModule
 ): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
@@ -109,7 +108,7 @@ function endCallbackGuildCreateValidationMessage(
  * @param guildCreateModule
  */
 function createValidationEmbedGuildCreation(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
 	askedName: string,
 	guildCreateModule: TranslationModule
@@ -132,7 +131,7 @@ function createValidationEmbedGuildCreation(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -141,8 +140,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		guild = null;
 	}
 	if (guild !== null) {

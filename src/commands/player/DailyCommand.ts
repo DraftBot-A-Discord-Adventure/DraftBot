@@ -1,7 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {
 	hoursToMilliseconds,
@@ -23,9 +22,10 @@ import Player from "../../core/database/game/models/Player";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {ItemConstants} from "../../core/constants/ItemConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type EntityInformation = { player: Player, activeObject: ObjectItem };
-type TextInformation = { dailyModule: TranslationModule, interaction: CommandInteraction, language: string };
+type TextInformation = { dailyModule: TranslationModule, interaction: DraftbotInteraction, language: string };
 
 /**
  * Checks if you have a right object you can daily with, and if you don't, sends an error
@@ -34,7 +34,7 @@ type TextInformation = { dailyModule: TranslationModule, interaction: CommandInt
  * @param language
  * @param dailyModule
  */
-async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: CommandInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
+async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: DraftbotInteraction, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	if (activeObject.nature === ItemConstants.NATURE.NONE) {
 		if (activeObject.id !== InventoryConstants.OBJECT_DEFAULT_ID) {
 			// There is an object that do nothing in the inventory
@@ -64,7 +64,7 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, interaction: Comm
  * @param language
  * @param dailyModule
  */
-async function dailyNotReady(interaction: CommandInteraction, player: Player, language: string, dailyModule: TranslationModule): Promise<boolean> {
+async function dailyNotReady(interaction: DraftbotInteraction, player: Player, language: string, dailyModule: TranslationModule): Promise<boolean> {
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	const time = millisecondsToHours(Date.now() - inventoryInfo.getLastDailyAtTimestamp());
 	if (time < DailyConstants.TIME_BETWEEN_DAILIES) {
@@ -92,33 +92,33 @@ async function activateDailyItem(
 	embed: DraftBotEmbed,
 	textInformation: TextInformation): Promise<void> {
 	switch (entityInformation.activeObject.nature) {
-	case ItemConstants.NATURE.HEALTH:
-		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
-		await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
-		break;
-	case ItemConstants.NATURE.ENERGY:
-		embed.setDescription(textInformation.dailyModule.format("energyDaily", {value: entityInformation.activeObject.power}));
-		entityInformation.player.addEnergy(entityInformation.activeObject.power, NumberChangeReason.DAILY);
-		break;
-	case ItemConstants.NATURE.HOSPITAL:
-		embed.setDescription(
-			textInformation.dailyModule.format("hospitalBonus", {
-				value: minutesDisplay(entityInformation.activeObject.power)
-			})
-		);
-		await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
-		break;
-	case ItemConstants.NATURE.MONEY:
-		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
-		await entityInformation.player.addMoney({
-			amount: entityInformation.activeObject.power,
-			channel: textInformation.interaction.channel,
-			language: textInformation.language,
-			reason: NumberChangeReason.DAILY
-		});
-		break;
-	default:
-		break;
+		case ItemConstants.NATURE.HEALTH:
+			embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
+			await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
+			break;
+		case ItemConstants.NATURE.ENERGY:
+			embed.setDescription(textInformation.dailyModule.format("energyDaily", {value: entityInformation.activeObject.power}));
+			entityInformation.player.addEnergy(entityInformation.activeObject.power, NumberChangeReason.DAILY);
+			break;
+		case ItemConstants.NATURE.HOSPITAL:
+			embed.setDescription(
+				textInformation.dailyModule.format("hospitalBonus", {
+					value: minutesDisplay(entityInformation.activeObject.power)
+				})
+			);
+			await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
+			break;
+		case ItemConstants.NATURE.MONEY:
+			embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
+			await entityInformation.player.addMoney({
+				amount: entityInformation.activeObject.power,
+				channel: textInformation.interaction.channel,
+				language: textInformation.language,
+				reason: NumberChangeReason.DAILY
+			});
+			break;
+		default:
+			break;
 	}
 	const inventoryInfo = await InventoryInfos.getOfPlayer(entityInformation.player.id);
 	inventoryInfo.updateLastDailyAt();
@@ -131,13 +131,13 @@ async function activateDailyItem(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
 	const dailyModule = Translations.getModule("commands.daily", language);
 	const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);
-	if ( !activeObjectSlot ) {
+	if (!activeObjectSlot) {
 		await replyErrorMessage(interaction, language, dailyModule.get("noActiveObjectDescription"));
 		return;
 	}

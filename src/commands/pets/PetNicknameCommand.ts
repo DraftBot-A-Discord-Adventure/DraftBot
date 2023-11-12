@@ -1,6 +1,5 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../core/Constants";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
@@ -13,6 +12,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Renames your current pet
@@ -20,7 +20,7 @@ import {PetConstants} from "../../core/constants/PetConstants";
  * @param language
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -36,8 +36,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		.formatAuthor(petNickTranslations.get("successTitle"), interaction.user);
 	if (petNickname === null) {
 		successEmbed.setDescription(petNickTranslations.get("successNoName"));
-	}
-	else {
+	} else {
 		if (!checkNameString(petNickname, PetConstants.NICKNAME_LENGTH_RANGE)) {
 			await replyErrorMessage(interaction, language,
 				`${petNickTranslations.get("invalidName")}\n${Translations.getModule("error", language).format("nameRules", {

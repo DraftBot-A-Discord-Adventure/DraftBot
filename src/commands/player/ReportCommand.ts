@@ -14,7 +14,7 @@ import {
 } from "../../core/utils/TimeUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
-import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
+import {Message, MessageReaction, User} from "discord.js";
 import {effectsErrorTextValue} from "../../core/utils/ErrorUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -44,6 +44,7 @@ import {Guilds} from "../../core/database/game/models/Guild";
 import {MapCache} from "../../core/maps/MapCache";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Initiates a new player on the map
@@ -76,7 +77,7 @@ async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
  * @param player
  * @param forced
  */
-async function executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, forced: string): Promise<void> {
+async function executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, forced: string): Promise<void> {
 	// Pick random event
 	let event: string;
 	if (forced === null) {
@@ -103,8 +104,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 				break;
 			}
 		}
-	}
-	else {
+	} else {
 		event = forced;
 	}
 
@@ -124,12 +124,10 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
 			await smallEvent.executeSmallEvent(interaction, language, player, seEmbed);
 
 			await MissionsController.update(player, interaction.channel, language, {missionId: "doReports"});
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		await interaction.editReply({content: `${filename} doesn't exist`});
 	}
 
@@ -143,7 +141,7 @@ async function executeSmallEvent(interaction: CommandInteraction, language: stri
  * @param interaction
  * @param language
  */
-async function completeMissionsBigEvent(player: Player, interaction: CommandInteraction, language: string): Promise<void> {
+async function completeMissionsBigEvent(player: Player, interaction: DraftbotInteraction, language: string): Promise<void> {
 	await MissionsController.update(player, interaction.channel, language, {
 		missionId: "travelHours", params: {
 			travelTime: await player.getCurrentTripDuration()
@@ -172,7 +170,7 @@ async function completeMissionsBigEvent(player: Player, interaction: CommandInte
  * @param date
  * @param effect
  */
-async function sendTravelPath(player: Player, interaction: CommandInteraction, language: string, date: Date, effect: string = null): Promise<void> {
+async function sendTravelPath(player: Player, interaction: DraftbotInteraction, language: string, date: Date, effect: string = null): Promise<void> {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = Translations.getModule("commands.report", language);
 	const timeData = await TravelTime.getTravelData(player, date);
@@ -195,8 +193,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 			value: errorMessageObject.description,
 			inline: false
 		});
-	}
-	else {
+	} else {
 		const millisecondsBeforeSmallEvent = timeData.nextSmallEventTime - date.valueOf();
 		const millisecondsBeforeBigEvent = timeData.travelEndTime - timeData.travelStartTime - timeData.effectDuration - timeData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
@@ -205,8 +202,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 				name: tr.get("travellingTitle"),
 				value: tr.get("travellingDescriptionEndTravel")
 			});
-		}
-		else {
+		} else {
 			const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 			const timeBeforeSmallEvent = printTimeBeforeDate(date.valueOf() + millisecondsBeforeSmallEvent);
 			travelEmbed.addFields({
@@ -229,8 +225,7 @@ async function sendTravelPath(player: Player, interaction: CommandInteraction, l
 			value: `⚡ ${await player.getCumulativeFightPoint()} / ${await player.getMaxCumulativeFightPoint()}`,
 			inline: true
 		});
-	}
-	else {
+	} else {
 		travelEmbed.addFields({
 			name: tr.get("collectedPointsTitle"),
 			value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
@@ -285,7 +280,7 @@ async function createDescriptionChooseDestination(
 async function destinationChoseMessage(
 	player: Player,
 	map: number,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string
 ): Promise<void> {
 	const user = interaction.user;
@@ -303,8 +298,7 @@ async function destinationChoseMessage(
 			mapType: typeTr.get(`types.${mapInstance.type}.name`).toLowerCase(),
 			time: Math.round(tripDuration * 60)
 		}));
-	}
-	else {
+	} else {
 		destinationEmbed.setDescription(tr.format("choseMap", {
 			mapPrefix: typeTr.get(`types.${mapInstance.type}.prefix`),
 			mapName: mapInstance.getDisplayName(language),
@@ -312,7 +306,7 @@ async function destinationChoseMessage(
 			time: tripDuration
 		}));
 	}
-	await channel.send({embeds: [destinationEmbed]});
+	await interaction.channel.send({embeds: [destinationEmbed]});
 }
 
 /**
@@ -324,7 +318,7 @@ async function destinationChoseMessage(
  */
 async function chooseDestination(
 	player: Player,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	forcedLink: MapLink
 ): Promise<void> {
@@ -373,8 +367,7 @@ async function chooseDestination(
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
 	}
@@ -386,7 +379,7 @@ async function chooseDestination(
  * @param {Possibility} possibility
  * @param {Player} player
  * @param {Number} time
- * @return {Promise<CommandInteraction>}
+ * @return {Promise<DraftbotInteraction>}
  */
 async function doPossibility(
 	textInformation: TextInformation,
@@ -505,7 +498,7 @@ async function doEvent(textInformation: TextInformation, event: BigEvent, player
  * @param forceSpecificEvent
  */
 async function doRandomBigEvent(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	player: Player,
 	forceSpecificEvent: number
@@ -533,8 +526,7 @@ async function doRandomBigEvent(
 			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
 			return;
 		}
-	}
-	else {
+	} else {
 		event = BigEventsController.getEvent(forceSpecificEvent);
 	}
 	await Maps.stopTravel(player);
@@ -548,7 +540,7 @@ async function doRandomBigEvent(
  * @param player
  */
 async function doPVEBoss(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	player: Player
 ): Promise<void> {
@@ -698,7 +690,7 @@ async function doPVEBoss(
  * @param forceSmallEvent
  */
 async function executeCommand(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	player: Player,
 	forceSpecificEvent: number = null,
@@ -726,8 +718,7 @@ async function executeCommand(
 		await interaction.deferReply();
 		if (Maps.isOnPveIsland(player)) {
 			await doPVEBoss(interaction, language, player);
-		}
-		else {
+		} else {
 			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
 		}
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);

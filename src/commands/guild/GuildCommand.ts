@@ -4,7 +4,6 @@ import {Player, Players} from "../../core/database/game/models/Player";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {progressBar} from "../../core/utils/StringUtils";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
@@ -13,6 +12,7 @@ import {GuildConstants} from "../../core/constants/GuildConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Maps} from "../../core/maps/Maps";
 import {MapCache} from "../../core/maps/MapCache";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow to display the info of a guild
@@ -20,7 +20,7 @@ import {MapCache} from "../../core/maps/MapCache";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const guildModule = Translations.getModule("commands.guild", language);
 
 	let guild;
@@ -28,12 +28,10 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	if (guildNameUntested) {
 		try {
 			guild = await Guilds.getByName(guildNameUntested.value as string);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
-	}
-	else {
+	} else {
 		// Search for a user's guild
 		let playerToAnalise = await Players.getByOptions(interaction);
 		if (playerToAnalise === null) {
@@ -41,8 +39,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 		}
 		try {
 			guild = await Guilds.getById(playerToAnalise.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
 	}

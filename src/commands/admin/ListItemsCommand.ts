@@ -1,17 +1,17 @@
 import {ICommand} from "../ICommand";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import * as fs from "fs";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow an admin to list all items
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const listItemsModule = Translations.getModule("commands.listItems", language);
 	await interaction.reply({
 		embeds: [
@@ -24,43 +24,38 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	try {
 		fs.statSync("allArmors.txt");
 		fs.unlinkSync("allArmors.txt");
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(`Cannot send allArmors.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allWeapons.txt");
 		fs.unlinkSync("allWeapons.txt");
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(`Cannot send allWeapons.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allPotions.txt");
 		fs.unlinkSync("allPotions.txt");
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(`Cannot send allPotions.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allItems.txt");
 		fs.unlinkSync("allItems.txt");
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(`Cannot send allItems.txt: ${err}`);
 	}
 	try {
 		fs.statSync("allObjects.txt");
 		fs.unlinkSync("allObjects.txt");
-	}
-	catch (err) {
+	} catch (err) {
 		console.log(`Cannot send allObjects.txt: ${err}`);
 	}
 
 	// List armors
 	let files = fs.readdirSync("resources/text/armors");
 	fs.appendFileSync("allItems.txt", "ALL ARMORS :\n");
-	files.forEach(function(file: string) {
+	files.forEach(function (file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync(`resources/text/armors/${file}`);
 			const armor = JSON.parse(data.toString());
@@ -86,7 +81,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	// List weapons
 	files = fs.readdirSync("resources/text/weapons");
 	fs.appendFileSync("allItems.txt", "ALL WEAPONS :\n");
-	files.forEach(function(file: string) {
+	files.forEach(function (file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync(`resources/text/weapons/${file}`);
 			const weapons = JSON.parse(data.toString());
@@ -112,7 +107,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	// List potions
 	files = fs.readdirSync("resources/text/potions");
 	fs.appendFileSync("allItems.txt", "ALL POTIONS :\n");
-	files.forEach(function(file: string) {
+	files.forEach(function (file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync(`resources/text/potions/${file}`);
 			const Potions = JSON.parse(data.toString());
@@ -138,7 +133,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 	// List Objects
 	files = fs.readdirSync("resources/text/objects");
 	fs.appendFileSync("allItems.txt", "ALL OBJECTS :\n");
-	files.forEach(function(file: string) {
+	files.forEach(function (file: string) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync(`resources/text/objects/${file}`);
 			const Objects = JSON.parse(data.toString());

@@ -4,7 +4,6 @@ import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEven
 import {escapeUsername} from "../../core/utils/StringUtils";
 import {ICommand} from "../ICommand";
 import {sendBlockedError} from "../../core/utils/BlockingUtils";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
@@ -14,6 +13,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TravelTime} from "../../core/maps/TravelTime";
 import Player from "../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow a player who is dead to respawn
@@ -21,7 +21,7 @@ import Player from "../../core/database/game/models/Player";
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

@@ -1,10 +1,10 @@
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {draftBotInstance} from "../../../../core/bot";
 import Class from "../../../../core/database/game/models/Class";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "changeClass",
@@ -25,7 +25,7 @@ export const commandInfo: ITestCommand = {
  * @param args {String[]=[]} - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const changeClassTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const changeClassTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const newClassId = parseInt(args[0], 10);
 	const classAmount = (await Class.findAll()).length - 1;

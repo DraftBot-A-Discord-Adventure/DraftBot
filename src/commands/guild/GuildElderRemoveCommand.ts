@@ -3,7 +3,6 @@ import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
@@ -13,6 +12,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * @param player
@@ -20,7 +20,7 @@ import {GuildConstants} from "../../core/constants/GuildConstants";
  * @param guildElderRemoveModule
  * @param interaction
  */
-function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: CommandInteraction) {
+function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guildElderRemoveModule: TranslationModule, interaction: DraftbotInteraction) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 		if (msg.isValidated()) {
@@ -52,7 +52,7 @@ function getEndCallbackElderRemoveValidation(player: Player, guild: Guild, guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	const guildElderRemoveModule = Translations.getModule("commands.guildElderRemove", language);
 

@@ -2,12 +2,13 @@ import {DraftBotReactionMessage} from "./DraftBotReactionMessage";
 import {DraftBotReaction} from "./DraftBotReaction";
 import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
-import {CommandInteraction, User} from "discord.js";
+import {User} from "discord.js";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 import {format} from "../utils/StringFormatter";
 import {sendErrorMessage} from "../utils/ErrorUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {Players} from "../database/game/models/Player";
+import {DraftbotInteraction} from "./DraftbotInteraction";
 
 /**
  * Reasons when the shop ends
@@ -37,10 +38,8 @@ export enum ShopEndReason {
 
 export class DraftBotShopMessage extends DraftBotReactionMessage {
 
+	readonly interaction: DraftbotInteraction;
 	private readonly _getUserMoney: (userId: string) => Promise<number>;
-
-	private readonly _interaction: CommandInteraction;
-
 	private readonly _removeUserMoney: (userId: string, amount: number) => Promise<void>;
 
 	private readonly _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void;
@@ -70,7 +69,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		shopItemCategories: ShopItemCategory[],
 		language: string,
 		title: string,
-		interaction: CommandInteraction,
+		interaction: DraftbotInteraction,
 		currentMoney: number,
 		getUserMoney: (userId: string) => Promise<number>,
 		removeUserMoney: (userId: string, amount: number) => Promise<void>,
@@ -111,7 +110,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		this.setTitle(title);
 		this.setDescription(content);
 		this._getUserMoney = getUserMoney;
-		this._interaction = interaction;
+		this.interaction = interaction;
 		this._removeUserMoney = removeUserMoney;
 		this._shopEndCallback = shopEndCallback;
 		this._shopItems = shopItems;
@@ -121,7 +120,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	get user(): User {
-		return this._interaction.user;
+		return this.interaction.user;
 	}
 
 	get language(): string {
@@ -134,7 +133,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (!choseShopItem) {
 			await sendErrorMessage(
 				shopMessage.user,
-				shopMessage._interaction,
+				shopMessage.interaction,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true);
@@ -145,7 +144,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (userMoney < choseShopItem.price) {
 			await sendErrorMessage(
 				shopMessage.user,
-				shopMessage._interaction,
+				shopMessage.interaction,
 				shopMessage._language,
 				format(
 					shopMessage._translationModule.get("error.cannotBuy"),
@@ -168,11 +167,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 						if (removeMoney) {
 							await shopMessage.removeUserMoney(choseShopItem.price);
 						}
-					}
-					else {
+					} else {
 						await sendErrorMessage(
 							shopMessage.user,
-							shopMessage._interaction,
+							shopMessage.interaction,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
@@ -187,7 +185,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				name: choseShopItem.name,
 				price: choseShopItem.price
 			})}\n\n${Constants.REACTIONS.WARNING} ${choseShopItem.description}`);
-			await confirmBuyMessage.send(shopMessage.sentMessage.channel);
+			await confirmBuyMessage.send(shopMessage.interaction.channel);
 			return;
 		}
 		const numberReactions: DraftBotReaction[] = [];
@@ -216,7 +214,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				reactionMessage.stop();
 				sendErrorMessage(
 					shopMessage.user,
-					shopMessage._interaction,
+					shopMessage.interaction,
 					shopMessage.language,
 					shopMessage._translationModule.get("error.canceledPurchase"),
 					true
@@ -242,7 +240,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		}
 		desc += `\n\n${choseShopItem.description}\n\n${Constants.REACTIONS.WARNING} ${shopMessage._translationModule.get("multipleChoice.warning")}`;
 		confirmBuyMessage.setDescription(desc);
-		await confirmBuyMessage.send(shopMessage.sentMessage.channel);
+		await confirmBuyMessage.send(shopMessage.interaction.channel);
 	}
 
 	/**
@@ -250,7 +248,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	 * @private
 	 */
 	private async getUserMoney(): Promise<number> {
-		return await this._getUserMoney(this._interaction.user.id);
+		return await this._getUserMoney(this.interaction.user.id);
 	}
 
 	/**
@@ -277,7 +275,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	 * @private
 	 */
 	private async removeUserMoney(amount: number): Promise<void> {
-		return await this._removeUserMoney(this._interaction.user.id, amount);
+		return await this._removeUserMoney(this.interaction.user.id, amount);
 	}
 }
 
@@ -287,7 +285,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 export class DraftBotShopMessageBuilder {
 	private _shopItemCategories: ShopItemCategory[] = [];
 
-	private readonly _interaction: CommandInteraction;
+	private readonly _interaction: DraftbotInteraction;
 
 	private readonly _title: string;
 
@@ -304,7 +302,7 @@ export class DraftBotShopMessageBuilder {
 	 * @param language The language of the shop
 	 */
 	constructor(
-		interaction: CommandInteraction,
+		interaction: DraftbotInteraction,
 		title: string,
 		language: string
 	) {

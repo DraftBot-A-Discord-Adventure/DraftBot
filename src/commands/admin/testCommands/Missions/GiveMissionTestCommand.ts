@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
@@ -6,6 +5,7 @@ import Mission from "../../../../core/database/game/models/Mission";
 import {format} from "../../../../core/utils/StringFormatter";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "giveMission",
@@ -28,7 +28,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const giveMissionTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const giveMissionTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const missionId = args[0];

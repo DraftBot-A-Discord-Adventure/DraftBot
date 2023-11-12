@@ -1,7 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {getNextSaturdayMidnight, printTimeBeforeDate, todayIsSunday} from "../../core/utils/TimeUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -14,6 +13,7 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {giveItemToPlayer} from "../../core/utils/ItemUtils";
 import League from "../../core/database/game/models/League";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 
 /**
@@ -46,7 +46,7 @@ async function generateDescription(embed: DraftBotEmbed, leagueRewardModule: Tra
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

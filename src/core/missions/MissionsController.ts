@@ -1,6 +1,6 @@
 import Player from "../database/game/models/Player";
 import {IMission} from "./IMission";
-import {TextBasedChannel, User} from "discord.js";
+import {User} from "discord.js";
 import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {DailyMissions} from "../database/game/models/DailyMission";
 import Mission, {Missions} from "../database/game/models/Mission";
@@ -17,6 +17,7 @@ import {Constants} from "../Constants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {DraftbotChannel} from "../messages/DraftbotInteraction";
 
 type MissionInformations = { missionId: string, count?: number, params?: { [key: string]: unknown }, set?: boolean }
 type CompletedSpecialMissions = { completedDaily: boolean, completedCampaign: boolean }
@@ -25,8 +26,7 @@ export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
 			return <IMission>(require(`./interfaces/${missionId}`).missionInterface);
-		}
-		catch {
+		} catch {
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
@@ -45,7 +45,7 @@ export class MissionsController {
 		player: Player,
 		missionSlots: MissionSlot[],
 		missionInfo: PlayerMissionsInfo,
-		channel: TextBasedChannel,
+		channel: DraftbotChannel,
 		language: string,
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
@@ -68,7 +68,7 @@ export class MissionsController {
 	 */
 	static async update(
 		player: Player,
-		channel: TextBasedChannel,
+		channel: DraftbotChannel,
 		language: string,
 		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Player> {
 
@@ -135,7 +135,7 @@ export class MissionsController {
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(player: Player, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<void> {
+	static async sendCompletedMissions(player: Player, completedMissions: CompletedMission[], channel: DraftbotChannel, language: string): Promise<void> {
 		await channel.send({
 			embeds: [
 				new DraftBotCompletedMissions(draftBotClient.users.cache.get(player.discordUserId), completedMissions, language)
@@ -143,7 +143,7 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: TextBasedChannel, language: string): Promise<Player> {
+	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], channel: DraftbotChannel, language: string): Promise<Player> {
 		let gemsToWin = 0;
 		let xpToWin = 0;
 		let pointsToWin = 0;
@@ -180,7 +180,7 @@ export class MissionsController {
 		return player;
 	}
 
-	static async handleExpiredMissions(player: Player, missionSlots: MissionSlot[], user: User, channel: TextBasedChannel, language: string): Promise<void> {
+	static async handleExpiredMissions(player: Player, missionSlots: MissionSlot[], user: User, channel: DraftbotChannel, language: string): Promise<void> {
 		const expiredMissions: MissionSlot[] = [];
 		for (const mission of missionSlots) {
 			if (mission.hasExpired()) {
@@ -242,29 +242,28 @@ export class MissionsController {
 		let index;
 		if (!daily) {
 			switch (difficulty) {
-			case MissionDifficulty.EASY:
-				if (!mission.canBeEasy) {
+				case MissionDifficulty.EASY:
+					if (!mission.canBeEasy) {
+						return null;
+					}
+					index = missionData.getRandomNumberFromArray("difficulties.easy");
+					break;
+				case MissionDifficulty.MEDIUM:
+					if (!mission.canBeMedium) {
+						return null;
+					}
+					index = missionData.getRandomNumberFromArray("difficulties.medium");
+					break;
+				case MissionDifficulty.HARD:
+					if (!mission.canBeHard) {
+						return null;
+					}
+					index = missionData.getRandomNumberFromArray("difficulties.hard");
+					break;
+				default:
 					return null;
-				}
-				index = missionData.getRandomNumberFromArray("difficulties.easy");
-				break;
-			case MissionDifficulty.MEDIUM:
-				if (!mission.canBeMedium) {
-					return null;
-				}
-				index = missionData.getRandomNumberFromArray("difficulties.medium");
-				break;
-			case MissionDifficulty.HARD:
-				if (!mission.canBeHard) {
-					return null;
-				}
-				index = missionData.getRandomNumberFromArray("difficulties.hard");
-				break;
-			default:
-				return null;
 			}
-		}
-		else {
+		} else {
 			index = missionData.getRandomNumberFromArray("dailyIndexes");
 		}
 		return {

@@ -1,6 +1,5 @@
 import {DraftBotTopMessage, TopBadgeColorEnum, TopData, TopElement} from "./DraftBotTopMessage";
 import {Player, Players} from "../../database/game/models/Player";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../Constants";
 import {TranslationModule, Translations} from "../../Translations";
 import {TopConstants} from "../../constants/TopConstants";
@@ -8,6 +7,7 @@ import {Maps} from "../../maps/Maps";
 import {getNextSundayMidnight, parseTimeDifferenceFooter} from "../../utils/TimeUtils";
 import {FightConstants} from "../../constants/FightConstants";
 import {TextInformation} from "../../utils/MessageUtils";
+import {DraftbotInteraction} from "../DraftbotInteraction";
 
 /**
  * Players top data type
@@ -43,7 +43,7 @@ export type TopParameters = {
 };
 
 export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
-	private readonly _interaction: CommandInteraction;
+	private readonly _interaction: DraftbotInteraction;
 
 	private readonly _topTrModule: TranslationModule;
 
@@ -70,8 +70,7 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 		let title;
 		if (topParameters.dataType === TopDataType.GLORY) {
 			title = `topGlory${topParameters.scope}Title`;
-		}
-		else {
+		} else {
 			title = `top${topParameters.dataType}${topParameters.timing}${topParameters.scope}Title`;
 		}
 
@@ -96,6 +95,45 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 		this._timing = topParameters.timing;
 		this._dataType = topParameters.dataType;
 		this._player = player;
+	}
+
+	async getTotalElements(): Promise<number> {
+		await this.populateDiscordIds();
+		return this._dataType === TopDataType.GLORY ?
+			await Players.getNumberOfFightingPlayersInList(this._listDiscordId) :
+			await Players.getNumberOfPlayingPlayersInList(this._listDiscordId, this._timing === TopTiming.WEEK);
+	}
+
+	async getTopData(minRank: number, maxRank: number, totalRanks: number): Promise<TopData> {
+		await this.populateDiscordIds();
+
+		const weekOnly = this._timing === TopTiming.WEEK;
+		const gloryTop = this._dataType === TopDataType.GLORY;
+
+		const isPlayerScoreTooLow = gloryTop ?
+			this._player.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE :
+			this._player[weekOnly ? "weeklyScore" : "score"] <= Constants.MINIMAL_PLAYER_SCORE;
+
+		const playerRank = isPlayerScoreTooLow ?
+			-1 :
+			await Players.getRankFromUserList(
+				this._player.discordUserId,
+				this._listDiscordId,
+				weekOnly,
+				this._dataType === TopDataType.GLORY
+			);
+
+		const rankedPlayers = gloryTop ?
+			await Players.getPlayersToPrintGloryTop(this._listDiscordId, minRank, maxRank) :
+			await Players.getPlayersToPrintTop(this._listDiscordId, minRank, maxRank, weekOnly);
+
+		return {
+			topElements: gloryTop ?
+				await this.buildTopElementsListGlory(rankedPlayers) :
+				await this.buildTopElementsListScore(rankedPlayers),
+			elementRank: playerRank,
+			rankText: this.getRankText(playerRank, minRank, maxRank, totalRanks)
+		};
 	}
 
 	/**
@@ -157,12 +195,12 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 			elements.push({
 				name: rankedPlayer.getPseudo(this._topTrModule.language),
 				attributes: state.length === 0 ? [
-					{ value: totalScore, formatted: true},
-					{ value: level, formatted: true }
+					{value: totalScore, formatted: true},
+					{value: level, formatted: true}
 				] : [
-					{ value: state, formatted: false },
-					{ value: totalScore, formatted: true},
-					{ value: level, formatted: true }
+					{value: state, formatted: false},
+					{value: totalScore, formatted: true},
+					{value: level, formatted: true}
 				],
 				badge
 			});
@@ -193,9 +231,9 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 			elements.push({
 				name: rankedPlayer.getPseudo(this._topTrModule.language),
 				attributes: [
-					{ value: leagueBadge, formatted: false },
-					{ value: totalScore, formatted: true },
-					{ value: level, formatted: true }
+					{value: leagueBadge, formatted: false},
+					{value: totalScore, formatted: true},
+					{value: level, formatted: true}
 				],
 				badge
 			});
@@ -217,12 +255,10 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 		if (playerRank === -1) {
 			if (this._dataType === TopDataType.GLORY) {
 				message = "notEnoughRankedFight";
-			}
-			else {
+			} else {
 				message = "lowScore";
 			}
-		}
-		else {
+		} else {
 			message = `end${playerRank === 1 ? "First" : "Any"}${maxRank >= playerRank && playerRank >= minRank ? "Right" : "Wrong"}Page`;
 		}
 
@@ -235,44 +271,5 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 			pageMax: Math.ceil(totalRanks / this._pageSize),
 			needFight: this._player.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
 		});
-	}
-
-	async getTotalElements(): Promise<number> {
-		await this.populateDiscordIds();
-		return this._dataType === TopDataType.GLORY ?
-			await Players.getNumberOfFightingPlayersInList(this._listDiscordId) :
-			await Players.getNumberOfPlayingPlayersInList(this._listDiscordId, this._timing === TopTiming.WEEK);
-	}
-
-	async getTopData(minRank: number, maxRank: number, totalRanks: number): Promise<TopData> {
-		await this.populateDiscordIds();
-
-		const weekOnly = this._timing === TopTiming.WEEK;
-		const gloryTop = this._dataType === TopDataType.GLORY;
-
-		const isPlayerScoreTooLow = gloryTop ?
-			this._player.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE :
-			this._player[weekOnly ? "weeklyScore" : "score"] <= Constants.MINIMAL_PLAYER_SCORE;
-
-		const playerRank = isPlayerScoreTooLow ?
-			-1 :
-			await Players.getRankFromUserList(
-				this._player.discordUserId,
-				this._listDiscordId,
-				weekOnly,
-				this._dataType === TopDataType.GLORY
-			);
-
-		const rankedPlayers = gloryTop ?
-			await Players.getPlayersToPrintGloryTop(this._listDiscordId, minRank, maxRank) :
-			await Players.getPlayersToPrintTop(this._listDiscordId, minRank, maxRank, weekOnly);
-
-		return {
-			topElements: gloryTop ?
-				await this.buildTopElementsListGlory(rankedPlayers) :
-				await this.buildTopElementsListScore(rankedPlayers),
-			elementRank: playerRank,
-			rankText: this.getRankText(playerRank, minRank, maxRank, totalRanks)
-		};
 	}
 }

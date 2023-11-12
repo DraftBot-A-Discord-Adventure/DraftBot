@@ -3,7 +3,6 @@ import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetFreeConstants} from "../../core/constants/PetFreeConstants";
@@ -20,6 +19,7 @@ import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Say if you win a meat piece for freeing your pet
@@ -40,7 +40,7 @@ function luckyMeat(guild: Guild, pPet: PetEntity): boolean {
  * @param petFreeModule
  * @param interaction
  */
-function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFreeModule: TranslationModule, interaction: CommandInteraction) {
+function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFreeModule: TranslationModule, interaction: DraftbotInteraction) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PET_FREE);
 		if (msg.isValidated()) {
@@ -70,8 +70,7 @@ function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFre
 			let guild: Guild;
 			try {
 				guild = await Guilds.getById(player.guildId);
-			}
-			catch (error) {
+			} catch (error) {
 				guild = null;
 			}
 
@@ -95,7 +94,7 @@ function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFre
  * @param petFreeModule
  * @param player
  */
-async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, petFreeModule: TranslationModule, player: Player): Promise<boolean> {
+async function cantBeFreed(pPet: PetEntity, interaction: DraftbotInteraction, petFreeModule: TranslationModule, player: Player): Promise<boolean> {
 	if (!pPet) {
 		await replyErrorMessage(
 			interaction,
@@ -136,7 +135,7 @@ async function cantBeFreed(pPet: PetEntity, interaction: CommandInteraction, pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

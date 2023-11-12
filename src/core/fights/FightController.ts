@@ -3,7 +3,6 @@ import {FightState} from "./FightState";
 import {FightView} from "./FightView";
 import {RandomUtils} from "../utils/RandomUtils";
 import {FightConstants} from "../constants/FightConstants";
-import {TextBasedChannel} from "discord.js";
 import {FighterStatus} from "./FighterStatus";
 import {FightAction} from "./actions/FightAction";
 import {FightActions} from "./actions/FightActions";
@@ -12,6 +11,7 @@ import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../constants/PVEConstants";
+import {DraftbotChannel} from "../messages/DraftbotInteraction";
 
 /**
  * @class FightController
@@ -39,7 +39,7 @@ export class FightController {
 	public constructor(
 		fighters: { fighter1: Fighter, fighter2: Fighter },
 		fightParameters: { friendly: boolean, overtimeBehavior: FightOvertimeBehavior },
-		channel: TextBasedChannel,
+		channel: DraftbotChannel,
 		language: string) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
@@ -60,8 +60,7 @@ export class FightController {
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
 				fightAction = FightActions.getFightActionById("outOfBreath");
-			}
-			else {
+			} else {
 				attacker.setBreath(0);
 			}
 		}
@@ -195,8 +194,7 @@ export class FightController {
 			this.invertFighters();
 			this.getPlayingFighter().regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn();
-		}
-		else {
+		} else {
 			await this._fightView.displayFightStatus().catch(
 				(e) => {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
@@ -280,14 +278,12 @@ export class FightController {
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
 				await this.getPlayingFighter().chooseAction(this._fightView);
-			}
-			catch (e) {
+			} catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 				console.error(e.stack);
 				this.endBugFight();
 			}
-		}
-		else {
+		} else {
 			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
 		}
 	}

@@ -1,11 +1,11 @@
 import {Constants} from "../../../../core/Constants";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 const effects = Object.keys(EffectsConstants.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
 let printableEffects = "";
@@ -33,7 +33,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const playerEffectTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const playerEffectTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const effectMalus = `:${args[0]}:`;
 	if (Object.keys(EffectsConstants.DURATION).includes(effectMalus)) {

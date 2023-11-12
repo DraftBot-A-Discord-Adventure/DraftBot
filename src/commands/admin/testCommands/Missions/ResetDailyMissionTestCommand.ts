@@ -1,7 +1,7 @@
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "resetDailyMission",
@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const resetDailyMissionTextCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const resetDailyMissionTextCommand = async (language: string, interaction: DraftbotInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	missionsInfo.dailyMissionNumberDone = 0;

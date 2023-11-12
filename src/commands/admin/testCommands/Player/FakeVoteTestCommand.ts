@@ -1,6 +1,6 @@
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {DBL} from "../../../../core/DBL";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "fakevote",
@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const fakeVoteTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const fakeVoteTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<string> => {
 	await DBL.userDBLVote(interaction.user.id);
 	return commandInfo.messageWhenExecuted;
 };

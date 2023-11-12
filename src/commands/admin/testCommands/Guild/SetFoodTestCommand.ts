@@ -2,9 +2,9 @@ import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {getFoodIndexOf} from "../../../../core/utils/FoodUtils";
 import {Constants} from "../../../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "setfood",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const setFoodTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const setFoodTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const guild = await Guild.findOne({where: {id: player.guildId}});
 	if (guild === null) {

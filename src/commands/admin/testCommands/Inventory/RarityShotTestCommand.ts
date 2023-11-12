@@ -1,8 +1,8 @@
 import {generateRandomRarity} from "../../../../core/utils/ItemUtils";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "rarityshot",
@@ -50,7 +50,7 @@ function checkShotValues(nbShots: number, min: number, max: number): void {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const rarityShotTestCommand = (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const rarityShotTestCommand = (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const nbShots = parseInt(args[0], 10);
 	const min = parseInt(args[1], 10);
 	const max = parseInt(args[2], 10);

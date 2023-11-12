@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {TranslationModule, Translations} from "../Translations";
 import Player from "../database/game/models/Player";
@@ -17,11 +16,13 @@ import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../maps/TravelTime";
 import {Settings} from "../database/game/models/Setting";
 import {MissionsController} from "../missions/MissionsController";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 async function startBoatTravel(player: Player, price: number, messageData: {
 	reactionMessage: DraftBotValidateReactionMessage;
 	tr: TranslationModule;
-	embed: DraftBotEmbed
+	embed: DraftBotEmbed,
+	interaction: DraftbotInteraction
 }, emote: string, anotherMemberOnBoat: Player): Promise<boolean> {
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	if (missionInfo.gems < price) {
@@ -37,7 +38,9 @@ async function startBoatTravel(player: Player, price: number, messageData: {
 	await missionInfo.addGems(-price, player.discordUserId, NumberChangeReason.SMALL_EVENT);
 	await missionInfo.save();
 	if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
-		await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
+		const draftbotChannel = messageData.interaction.channel;
+		draftbotChannel.language = messageData.tr.language;
+		await MissionsController.update(player, draftbotChannel, messageData.tr.language, {
 			missionId: "wealthyPayForPVEIsland"
 		});
 	}
@@ -54,6 +57,7 @@ export async function confirmationCallback(
 		reactionMessage: DraftBotValidateReactionMessage,
 		tr: TranslationModule,
 		embed: DraftBotEmbed,
+		interaction: DraftbotInteraction
 	},
 	emote: string,
 	price: number,
@@ -62,16 +66,15 @@ export async function confirmationCallback(
 	let isGoneOnIsland = false;
 	if (messageData.reactionMessage.isValidated()) {
 		isGoneOnIsland = await startBoatTravel(player, price, messageData, emote, anotherMemberOnBoat);
-	}
-	else {
+	} else {
 		messageData.embed.setDescription(`${emote} ${messageData.tr.get("endStoryRefuse")}`);
 	}
-	await messageData.reactionMessage.sentMessage.channel.send({
+	await messageData.interaction.channel.send({
 		embeds: [messageData.embed]
 	});
 	BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.PVE_ISLAND);
 	if (isGoneOnIsland) {
-		await MissionsController.update(player, messageData.reactionMessage.sentMessage.channel, messageData.tr.language, {
+		await MissionsController.update(player, messageData.interaction.channel, messageData.tr.language, {
 			missionId: "joinPVEIsland",
 			set: true
 		});
@@ -98,7 +101,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.goToPVEIsland", language);
 		const price = await player.getTravelCostThisWeek();
 		const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
@@ -110,7 +113,8 @@ export const smallEvent: SmallEvent = {
 					reactionMessage: confirmMessage,
 					embed: new DraftBotEmbed()
 						.setAuthor(confirmMessage.sentMessage.embeds[0].author),
-					tr
+					tr,
+					interaction
 				}, seEmbed.data.description, price, anotherMemberOnBoat[0]).then();
 			}
 		);

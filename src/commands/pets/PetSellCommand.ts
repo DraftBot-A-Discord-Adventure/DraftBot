@@ -6,7 +6,7 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, Message, MessageReaction, User} from "discord.js";
+import {Message, MessageReaction, User} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {PetSellConstants} from "../../core/constants/PetSellConstants";
@@ -24,8 +24,9 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {Pet, Pets} from "../../core/database/game/models/Pet";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
-type TextInformation = { interaction: CommandInteraction, petSellModule: TranslationModule };
+type TextInformation = { interaction: DraftbotInteraction, petSellModule: TranslationModule };
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
 type BuyerInformation = { buyer: Player, user: User };
 
@@ -265,7 +266,7 @@ function getBroadcastErrorStrings(petSellModule: TranslationModule): BroadcastTr
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}
@@ -281,8 +282,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		guild = null;
 	}
 	if (guild === null) {

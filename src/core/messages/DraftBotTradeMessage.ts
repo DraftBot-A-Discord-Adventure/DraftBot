@@ -1,7 +1,8 @@
 import {DraftBotReactionMessage} from "./DraftBotReactionMessage";
-import {DMChannel, Message, MessageReaction, NewsChannel, TextChannel, User} from "discord.js";
+import {Message, MessageReaction, User} from "discord.js";
 import {DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
+import {DraftbotChannel} from "./DraftbotInteraction";
 
 /**
  * Trade message and executor
@@ -77,8 +78,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = true;
-		}
-		else {
+		} else {
 			tradeMessage.trader2Accepted = true;
 		}
 		if (tradeMessage.trader1Accepted === true && tradeMessage.trader2Accepted === true) {
@@ -90,8 +90,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		const tradeMessage: DraftBotTradeMessage = message as DraftBotTradeMessage;
 		if (user.id === tradeMessage.trader1id) {
 			tradeMessage.trader1Accepted = false;
-		}
-		else {
+		} else {
 			tradeMessage.trader2Accepted = false;
 		}
 		message.collector.stop();
@@ -112,7 +111,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 	 * Send the trade in a channel
 	 * @param channel
 	 */
-	async send(channel: TextChannel | DMChannel | NewsChannel): Promise<Message> {
+	async send(channel: DraftbotChannel): Promise<Message> {
 		const messageReturned = await super.send(channel);
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisMessage = this;
@@ -120,8 +119,7 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 			if (reaction.emoji.name === Constants.REACTIONS.VALIDATE_REACTION) {
 				if (user.id === messageReturned.author.id) {
 					thisMessage.trader1Accepted = null;
-				}
-				else {
+				} else {
 					thisMessage.trader2Accepted = null;
 				}
 			}

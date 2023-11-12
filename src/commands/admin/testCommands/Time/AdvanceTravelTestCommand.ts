@@ -1,10 +1,10 @@
 import {format} from "../../../../core/utils/StringFormatter";
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetravel",
@@ -26,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const advanceTravelTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const advanceTravelTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	await TravelTime.timeTravel(player, parseInt(args[0], 10), NumberChangeReason.TEST);
 	await player.save();

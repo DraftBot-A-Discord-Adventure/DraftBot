@@ -1,7 +1,7 @@
 import {Constants} from "../../core/Constants";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {ChatInputCommandInteraction, CommandInteraction, SlashCommandSubcommandBuilder} from "discord.js";
+import {SlashCommandSubcommandBuilder} from "discord.js";
 import {TopConstants} from "../../core/constants/TopConstants";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
@@ -14,6 +14,7 @@ import {
 	TopTiming
 } from "../../core/messages/top/DraftBotTopPlayersMessage";
 import {DraftBotTopGuildsMessage} from "../../core/messages/top/DraftBotTopGuildsMessage";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow to display the rankings of the players
@@ -21,15 +22,14 @@ import {DraftBotTopGuildsMessage} from "../../core/messages/top/DraftBotTopGuild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	// Get page
 	const pageOption = interaction.options.get(Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("optionPageName"));
 	const page = pageOption ? pageOption.value as number : 1;
 
 	// Check if guilds top
 	if (interaction.isChatInputCommand()) {
-		const chatInput = interaction as ChatInputCommandInteraction;
-		const typeUntested = chatInput.options.getSubcommand();
+		const typeUntested = interaction.options.getSubcommand();
 		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("guildsTopCommandName")) {
 			await new DraftBotTopGuildsMessage({
 				interaction,
@@ -50,8 +50,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	// Check if glory subcommand
 	let isGlory = false;
 	if (interaction.isChatInputCommand()) {
-		const chatInput = interaction as ChatInputCommandInteraction;
-		const typeUntested = chatInput.options.getSubcommand();
+		const typeUntested = interaction.options.getSubcommand();
 		if (typeUntested === Translations.getModule("commands.top", Constants.LANGUAGE.ENGLISH).get("gloryTopCommandName")) {
 			isGlory = true;
 		}
