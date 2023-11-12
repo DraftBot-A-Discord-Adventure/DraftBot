@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {Maps} from "../../../../core/maps/Maps";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "mapinfo",
@@ -21,7 +21,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const mapInfosTestCommand = async (language: string, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
+const mapInfosTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<DraftBotEmbed> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const mapEmbed = new DraftBotEmbed();
@@ -50,8 +50,7 @@ const mapInfosTestCommand = async (language: string, interaction: CommandInterac
 			field += `${map.getDisplayName(language)} (id: ${map.id})\n`;
 		}
 		mapEmbed.addFields({name: "Next available maps", value: field, inline: true});
-	}
-	else {
+	} else {
 		mapEmbed.addFields({
 			name: "Players",
 			value: `:speech_balloon: ${await currMap.playersCount(prevMap.id)} player(s) on this map`,

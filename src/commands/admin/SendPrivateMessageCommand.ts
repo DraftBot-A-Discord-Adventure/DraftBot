@@ -3,18 +3,18 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import {replyErrorMessage} from "../../core/utils/ErrorUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const userId = getIdFromMention(interaction.options.get("user").value as string).length < 17
 		? interaction.options.get("user").value as string
 		: getIdFromMention(interaction.options.get("user").value as string);
@@ -42,8 +42,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await user.send({content: messageToSend});
 		// SendMessageAttachments(message, user);
 		await interaction.reply({embeds: [embed]});
-	}
-	catch {
+	} catch {
 		await replyErrorMessage(interaction, language, dmModule.get("errorCannotSend"));
 	}
 }

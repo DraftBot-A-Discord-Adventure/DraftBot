@@ -1,4 +1,3 @@
-import {CommandInteraction} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
@@ -15,6 +14,7 @@ import {EffectsConstants} from "../../core/constants/EffectsConstants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Create validation message to change guild description
@@ -28,7 +28,7 @@ function endCallbackGuildCreateValidationMessage(
 	player: Player,
 	guild: Guild,
 	askedDescription: string,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	guildDescriptionModule: TranslationModule): (validateMessage: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (validateMessage: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
@@ -63,7 +63,7 @@ function endCallbackGuildCreateValidationMessage(
  * @param guildDescriptionModule
  */
 async function createValidationEmbedGuildDesc(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	endCallback: (validateMessage: DraftBotValidateReactionMessage) => Promise<void>,
 	askedDescription: string,
 	player: Player,
@@ -88,7 +88,7 @@ async function createValidationEmbedGuildDesc(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	const guildDescriptionModule = Translations.getModule("commands.guildDescription", language);
 

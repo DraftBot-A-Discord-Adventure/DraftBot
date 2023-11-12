@@ -1,8 +1,8 @@
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {BigEventsController} from "../../../../core/events/BigEventsController";
 import {verifyTrigger} from "../../../../core/events/BigEventTrigger";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "possibleEvents",
@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const possibleEventsTestCommand = async (language: string, interaction: CommandInteraction): Promise<string> => {
+const possibleEventsTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const mapId = await player.getDestinationId();
 

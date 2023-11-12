@@ -1,18 +1,19 @@
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, Guild} from "discord.js";
+import {Guild} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {draftBotClient} from "../../core/bot";
 import * as fs from "fs";
 import {BotUtils} from "../../core/utils/BotUtils";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Allows an admin to check the server list
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	let count = 0;
 	let total = 0;
 	let result = "";

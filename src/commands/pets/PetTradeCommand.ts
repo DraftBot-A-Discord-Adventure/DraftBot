@@ -1,5 +1,5 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, User} from "discord.js";
+import {User} from "discord.js";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -18,6 +18,7 @@ import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {Pets} from "../../core/database/game/models/Pet";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 
@@ -31,7 +32,7 @@ type TraderAndPet = { trader: Player, pet: PetEntity, user: User }
 async function missingRequirementsForAnyTrader(
 	traderAndPet1: TraderAndPet,
 	traderAndPet2: TraderAndPet,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	petTradeModule: TranslationModule
 ): Promise<boolean> {
 	const petModule = Translations.getModule("commands.pet", petTradeModule.language);
@@ -72,7 +73,7 @@ async function missingRequirementsForAnyTrader(
 async function refreshMissionsOfTrader(
 	tradersAndPets: TraderAndPet[],
 	i: number,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	petTradeModule: TranslationModule
 ): Promise<void> {
 
@@ -104,7 +105,7 @@ async function refreshMissionsOfTrader(
  * @param interaction
  * @param petTradeModule
  */
-async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
+async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, interaction: DraftbotInteraction, petTradeModule: TranslationModule): Promise<void> {
 	BlockingUtils.unblockPlayer(tradersAndPets[i].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 	tradersAndPets[i].trader.petId = tradersAndPets[1 - i].pet.id;
 	await tradersAndPets[i].trader.save();
@@ -123,7 +124,7 @@ async function manageATraderAndPet(tradersAndPets: TraderAndPet[], i: number, in
  * @param interaction
  * @param petTradeModule
  */
-function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule) {
+function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: DraftbotInteraction, petTradeModule: TranslationModule) {
 	return async (): Promise<void> => {
 		const tradersAndPets = [traderAndPet1, traderAndPet2];
 		for (let i = 0; i < 2; i++) {
@@ -146,7 +147,7 @@ function getTradeSuccessCallback(traderAndPet1: TraderAndPet, traderAndPet2: Tra
  * @param petTradeModule
  * @param hasResponded
  */
-function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: CommandInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
+function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interaction: DraftbotInteraction, petTradeModule: TranslationModule, hasResponded: boolean) {
 	return async (tradeMessage: DraftBotTradeMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(tradersAndPets[0].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
 		BlockingUtils.unblockPlayer(tradersAndPets[1].trader.discordUserId, BlockingConstants.REASONS.PET_TRADE);
@@ -154,8 +155,7 @@ function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interactio
 			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.format("tradeCanceled", {
 				trader: tradeMessage.trader1Accepted === false ? tradersAndPets[0].user : tradersAndPets[1].user
 			}), true);
-		}
-		else {
+		} else {
 			await sendErrorMessage(interaction.user, interaction, petTradeModule.language, petTradeModule.get("tradeCanceledTime"), true);
 		}
 	};
@@ -168,7 +168,7 @@ function getTradeUnsuccessfulCallback(tradersAndPets: TraderAndPet[], interactio
  * @param interaction
  * @param petTradeModule
  */
-async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: CommandInteraction, petTradeModule: TranslationModule): Promise<void> {
+async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndPet2: TraderAndPet, interaction: DraftbotInteraction, petTradeModule: TranslationModule): Promise<void> {
 	const tradersAndPets = [traderAndPet1, traderAndPet2];
 	const tradeMessage = new DraftBotTradeMessage(
 		traderAndPet1.user,
@@ -204,7 +204,7 @@ async function createAndSendTradeMessage(traderAndPet1: TraderAndPet, traderAndP
  * @param {("fr"|"en")} language - Language to use in the response
  * @param trader1
  */
-async function executeCommand(interaction: CommandInteraction, language: string, trader1: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, trader1: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

@@ -1,10 +1,10 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {GuildConstants} from "../../../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "forcejoinguild",
@@ -26,7 +26,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const forceJoinGuildTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const forceJoinGuildTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 
 	const guildToJoin = await Guild.findOne({where: {id: args[0]}});

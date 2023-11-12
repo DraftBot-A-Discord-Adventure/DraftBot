@@ -1,6 +1,5 @@
 import {Guilds} from "../database/game/models/Guild";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../Translations";
 import {Constants} from "../Constants";
 import {sendErrorMessage} from "./ErrorUtils";
@@ -10,6 +9,7 @@ import Player from "../database/game/models/Player";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {RandomUtils} from "./RandomUtils";
 import {GuildConstants} from "../constants/GuildConstants";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Gives food to a given guild / player
@@ -21,7 +21,7 @@ import {GuildConstants} from "../constants/GuildConstants";
  * @param reason
  */
 export async function giveFood(
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	language: string,
 	player: Player,
 	selectedFood: string,
@@ -57,8 +57,7 @@ export async function giveFood(
 				}
 			)
 		);
-	}
-	else {
+	} else {
 		successEmbed.setDescription(
 			format(tr.get("multipleSuccessAddFoodDesc"),
 				{

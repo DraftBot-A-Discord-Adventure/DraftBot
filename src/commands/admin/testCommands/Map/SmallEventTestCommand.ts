@@ -1,10 +1,10 @@
-import {CommandInteraction} from "discord.js";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {CommandsManager} from "../../../CommandsManager";
 import {Data} from "../../../../core/Data";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 const smallEventsModules = Data.getKeys("smallEvents");
 
@@ -33,7 +33,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const smallEventTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const smallEventTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	if (!smallEventsModules.includes(args[0])) {
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}

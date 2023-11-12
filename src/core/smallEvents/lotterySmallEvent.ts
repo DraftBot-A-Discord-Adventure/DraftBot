@@ -1,5 +1,5 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction, Message} from "discord.js";
+import {Message} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
@@ -15,6 +15,7 @@ import {TravelTime} from "../maps/TravelTime";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Get a guild, may be null if the player isn't in a guild
@@ -23,8 +24,7 @@ import {Maps} from "../maps/Maps";
 async function getGuild(player: Player): Promise<Guild> {
 	try {
 		return await Guilds.getById(player.guildId);
-	}
-	catch {
+	} catch {
 		return null;
 	}
 }
@@ -62,7 +62,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const translationLottery = Translations.getModule("smallEvents.lottery", language);
 		const seEmbedEmote = seEmbed.data.description;
 		seEmbed.setDescription(seEmbed.data.description + translationLottery.get("intro"));
@@ -108,27 +108,27 @@ export const smallEvent: SmallEvent = {
 			if (RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`)) && (guild || reward !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP)) {
 				const coeff = dataLottery.getNumber(`coeff.${collected.first().emoji.name}`);
 				switch (reward) {
-				case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
-					await player.addExperience(Object.assign(editValuesParams, {
-						amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coeff
-					}));
-					break;
-				case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
-					await player.addMoney(Object.assign(editValuesParams, {
-						amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coeff
-					}));
-					break;
-				case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
-					await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-					await guild.save();
-					break;
-				case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
-					await player.addScore(Object.assign(editValuesParams, {
-						amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coeff
-					}));
-					break;
-				default:
-					throw new Error("lottery reward type not found");
+					case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
+						await player.addExperience(Object.assign(editValuesParams, {
+							amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coeff
+						}));
+						break;
+					case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
+						await player.addMoney(Object.assign(editValuesParams, {
+							amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coeff
+						}));
+						break;
+					case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
+						await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coeff, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+						await guild.save();
+						break;
+					case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
+						await player.addScore(Object.assign(editValuesParams, {
+							amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coeff
+						}));
+						break;
+					default:
+						throw new Error("lottery reward type not found");
 				}
 				await player.save();
 				const money = SmallEventConstants.LOTTERY.REWARDS.MONEY * coeff;
@@ -141,8 +141,7 @@ export const smallEvent: SmallEvent = {
 					guildXpWon: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coeff,
 					pointsWon: SmallEventConstants.LOTTERY.REWARDS.POINTS * coeff
 				});
-			}
-			else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`))) {
+			} else if (malus && RandomUtils.draftbotRandom.bool(dataLottery.getNumber(`successRate.${collected.first().emoji.name}`))) {
 				await player.addMoney(Object.assign(editValuesParams, {
 					amount: -175
 				}));
@@ -153,8 +152,7 @@ export const smallEvent: SmallEvent = {
 					negativeMoney: true,
 					money: 175
 				});
-			}
-			else {
+			} else {
 				sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 1), {
 					lostTime: dataLottery.getNumber("lostTime")
 				});
@@ -168,8 +166,7 @@ export const smallEvent: SmallEvent = {
 		for (const emote of emojiLottery) {
 			try {
 				await lotteryIntro.react(emote);
-			}
-			catch (e) {
+			} catch (e) {
 				console.error(e);
 			}
 		}

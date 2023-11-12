@@ -1,4 +1,4 @@
-import {CommandInteraction, Message, MessageReaction, ReactionCollector, User} from "discord.js";
+import {Message, MessageReaction, ReactionCollector, User} from "discord.js";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {Constants} from "../Constants";
 import {BlockingUtils} from "../utils/BlockingUtils";
@@ -6,6 +6,7 @@ import {sendErrorMessage} from "../utils/ErrorUtils";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import {getMention} from "../utils/StringUtils";
+import {DraftbotInteraction} from "./DraftbotInteraction";
 
 export type BroadcastTranslationModuleLike = {
 	errorBroadcastCancelled: string,
@@ -19,7 +20,7 @@ export type BroadcastTranslationModuleLike = {
  * Base class for bot embeds
  */
 export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
-	private readonly _interaction: CommandInteraction;
+	private readonly _interaction: DraftbotInteraction;
 
 	private _collector: ReactionCollector;
 
@@ -57,7 +58,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 	 * @param collectorTime
 	 */
 	constructor(
-		interaction: CommandInteraction,
+		interaction: DraftbotInteraction,
 		language: string,
 		acceptCallback: (user: User) => Promise<boolean>,
 		blockingReason: string,
@@ -83,8 +84,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 				errorOtherDeny: tmp.get("errorOtherDeny"),
 				errorNoAnswer: tmp.get("errorNoAnswer")
 			};
-		}
-		else {
+		} else {
 			this._translationModule = translationModule;
 		}
 	}
@@ -145,18 +145,18 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 			return;
 		}
 		switch (reaction.emoji.name) {
-		case Constants.REACTIONS.VALIDATE_REACTION:
-			if (!await this.manageAcceptReaction(user)) {
+			case Constants.REACTIONS.VALIDATE_REACTION:
+				if (!await this.manageAcceptReaction(user)) {
+					return;
+				}
+				break;
+			case Constants.REACTIONS.REFUSE_REACTION:
+				if (!await this.manageDenyReaction(user)) {
+					return;
+				}
+				break;
+			default:
 				return;
-			}
-			break;
-		case Constants.REACTIONS.REFUSE_REACTION:
-			if (!await this.manageDenyReaction(user)) {
-				return;
-			}
-			break;
-		default:
-			return;
 		}
 		this._gotAnAnswer = true;
 		this._collector.stop();
@@ -195,7 +195,7 @@ export class DraftBotBroadcastValidationMessage extends DraftBotEmbed {
 		}
 		this._spammers.push(user.id);
 		await sendErrorMessage(this._interaction.user, this._interaction, this._language,
-			format(this._translationModule.errorOtherDeny, { pseudo: getMention(user.id) }));
+			format(this._translationModule.errorOtherDeny, {pseudo: getMention(user.id)}));
 		return false;
 	}
 

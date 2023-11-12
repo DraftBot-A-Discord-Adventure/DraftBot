@@ -1,11 +1,11 @@
 import {Constants} from "../../../../core/Constants";
 import * as ItemUtils from "../../../../core/utils/ItemUtils";
 import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {InventorySlots} from "../../../../core/database/game/models/InventorySlot";
 import {format} from "../../../../core/utils/StringFormatter";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",
@@ -27,7 +27,7 @@ export const commandInfo: ITestCommand = {
  * @param args {String[]=[]} - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const findItemTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const findItemTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const category = parseInt(args[0], 10);
 	const itemId = parseInt(args[1], 10);

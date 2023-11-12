@@ -1,9 +1,9 @@
 import {Constants} from "../../../../core/Constants";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "giveitem",
@@ -25,7 +25,7 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const giveItemTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const giveItemTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const itemId = parseInt(args[1], 10);
 	const category = parseInt(args[0], 10);

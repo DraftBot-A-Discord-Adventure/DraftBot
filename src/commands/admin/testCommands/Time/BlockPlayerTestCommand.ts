@@ -1,10 +1,11 @@
 import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../core/constants/BlockingConstants";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction, Message} from "discord.js";
+import {Message} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "blockplayer",
@@ -26,13 +27,13 @@ export const commandInfo: ITestCommand = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const blockPlayerTestCommand = async (language: string, interaction: CommandInteraction, args: string[]): Promise<string> => {
+const blockPlayerTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const blockTime = parseInt(args[0], 10);
 	if (blockTime <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const messageToReact = <Message> await interaction.reply({
+	const messageToReact = <Message>await interaction.reply({
 		content: "je suis un message qui va te bloquer",
 		fetchReply: true
 	});

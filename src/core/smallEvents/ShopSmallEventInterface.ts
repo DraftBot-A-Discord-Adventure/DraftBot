@@ -2,7 +2,6 @@ import {SmallEvent} from "./SmallEvent";
 import {GenericItemModel} from "../database/game/models/GenericItemModel";
 import {TranslationModule, Translations} from "../Translations";
 import Player from "../database/game/models/Player";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Maps} from "../maps/Maps";
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
@@ -16,6 +15,7 @@ import {InventorySlots} from "../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {RandomUtils} from "../utils/RandomUtils";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 export abstract class ShopSmallEvent implements SmallEvent {
 	protected shopTranslation: TranslationModule;
@@ -74,7 +74,7 @@ export abstract class ShopSmallEvent implements SmallEvent {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		this.shopTranslation = Translations.getModule(`smallEvents.${this.getTranslationModuleKey()}`, language);
 		this.itemMultiplier = await this.getPriceMultiplier(player);
 		this.randomItem = await this.getRandomItem();
@@ -108,7 +108,7 @@ export abstract class ShopSmallEvent implements SmallEvent {
 	 * @param interaction
 	 * @private
 	 */
-	private callbackShopSmallEvent(player: Player, interaction: CommandInteraction): (msg: DraftBotValidateReactionMessage) => Promise<void> {
+	private callbackShopSmallEvent(player: Player, interaction: DraftbotInteraction): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 		const shopTranslationModule = Translations.getModule("commands.shop", this.shopTranslation.language);
 		return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 			BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.MERCHANT);

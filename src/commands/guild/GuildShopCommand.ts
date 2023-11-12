@@ -11,7 +11,6 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {calculateAmountOfXPToAdd, giveFood} from "../../core/utils/GuildUtils";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
@@ -22,6 +21,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason, ShopItemType} from "../../core/constants/LogsConstants";
 import {GuildConstants} from "../../core/constants/GuildConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Callback of the guild shop command
@@ -58,10 +58,10 @@ function getGuildXPShopItem(guildShopTranslations: TranslationModule): ShopItem 
  * @param guildShopTranslations
  */
 async function giveXpToGuild(guild: Guild, xpToAdd: number, message: DraftBotShopMessage, guildShopTranslations: TranslationModule): Promise<boolean> {
-	await guild.addExperience(xpToAdd, message.sentMessage.channel, message.language, NumberChangeReason.SHOP);
+	await guild.addExperience(xpToAdd, message.interaction.channel, message.language, NumberChangeReason.SHOP);
 
 	await guild.save();
-	await message.sentMessage.channel.send(
+	await message.interaction.channel.send(
 		{
 			embeds: [
 				new DraftBotEmbed()
@@ -101,7 +101,7 @@ function getBigGuildXPShopItem(guildShopTranslations: TranslationModule): ShopIt
  * @param amounts
  * @param interaction
  */
-function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: CommandInteraction): ShopItem {
+function getFoodShopItem(guildShopTranslations: TranslationModule, name: string, amounts: number[], interaction: DraftbotInteraction): ShopItem {
 	const foodJson = Translations.getModule("food", guildShopTranslations.language);
 	const indexFood = getFoodIndexOf(name);
 	return new ShopItem(
@@ -118,7 +118,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
 			}
 			await giveFood(interaction, message.language, player, name, amount, NumberChangeReason.SHOP);
 			if (name === Constants.PET_FOOD.ULTIMATE_FOOD) {
-				await MissionsController.update(player, message.sentMessage.channel, guildShopTranslations.language, {
+				await MissionsController.update(player, interaction.channel, guildShopTranslations.language, {
 					missionId: "buyUltimateSoups",
 					count: amount
 				});
@@ -136,7 +136,7 @@ function getFoodShopItem(guildShopTranslations: TranslationModule, name: string,
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

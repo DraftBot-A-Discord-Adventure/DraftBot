@@ -1,6 +1,5 @@
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {ICommand} from "../ICommand";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
@@ -13,6 +12,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import Player, {Players} from "../../core/database/game/models/Player";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type UserInformation = { guild: Guild, player: Player };
 
@@ -22,7 +22,7 @@ type UserInformation = { guild: Guild, player: Player };
  * @param interaction
  * @param guildLeaveModule
  */
-function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: CommandInteraction, guildLeaveModule: TranslationModule) {
+function getEndCallbackGuildLeave(userInformation: UserInformation, interaction: DraftbotInteraction, guildLeaveModule: TranslationModule) {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(
 			userInformation.player.discordUserId,
@@ -33,8 +33,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			// The user confirmed the choice to leave
 			try {
 				userInformation.guild = await Guilds.getById(userInformation.player.guildId);
-			}
-			catch (error) {
+			} catch (error) {
 				userInformation.guild = null;
 			}
 			if (userInformation.guild === null) {
@@ -63,13 +62,12 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 					userInformation.guild.chiefId = userInformation.guild.elderId;
 					await draftBotInstance.logsDatabase.logGuildElderRemove(userInformation.guild, userInformation.guild.elderId);
 					userInformation.guild.elderId = null;
-					interaction.channel.send({
+					await interaction.channel.send({
 						content: guildLeaveModule.format("newChiefTitle", {
 							guild: userInformation.guild.name
 						})
 					});
-				}
-				else {
+				} else {
 					// No one can recover the guild.
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
@@ -113,7 +111,7 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 
 	if (await sendBlockedError(interaction, language)) {
 		return;
@@ -150,8 +148,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 				guildName: guild.name,
 				elderName: elder.getPseudo(language)
 			}));
-		}
-		else {
+		} else {
 			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDesc", {
 				guildName: guild.name
 			}));

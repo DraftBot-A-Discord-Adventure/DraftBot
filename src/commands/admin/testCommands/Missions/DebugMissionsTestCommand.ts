@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
-import {CommandInteraction} from "discord.js";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
 import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
 import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
 import {Missions} from "../../../../core/database/game/models/Mission";
+import {DraftbotInteraction} from "../../../../core/messages/DraftbotInteraction";
 
 export const commandInfo: ITestCommand = {
 	name: "debugMissions",
@@ -22,7 +22,7 @@ export const commandInfo: ITestCommand = {
  * @param interaction
  * @return {String} - The successful message formatted
  */
-const debugMissionsTestCommand = async (language: string, interaction: CommandInteraction): Promise<DraftBotEmbed> => {
+const debugMissionsTestCommand = async (language: string, interaction: DraftbotInteraction): Promise<DraftBotEmbed> => {
 
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
@@ -50,8 +50,7 @@ const debugMissionsTestCommand = async (language: string, interaction: CommandIn
 	let missionsFieldContent = "";
 	if (missionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
-	}
-	else {
+	} else {
 		for (const missionSlot of missionSlots) {
 			const mission = await Missions.getById(missionSlot.missionId);
 			missionsFieldContent += `${

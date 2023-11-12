@@ -1,9 +1,10 @@
-import {CommandInteraction, ReactionCollector, User} from "discord.js";
+import {ReactionCollector, User} from "discord.js";
 import {IPCClient} from "../bot/ipc/IPCClient";
 import {Translations} from "../Translations";
 import {replyErrorMessage} from "./ErrorUtils";
 import {escapeUsername} from "./StringUtils";
 import {format} from "./StringFormatter";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 /**
  * Functions to call when you want to manage the blocking of a player
@@ -83,7 +84,7 @@ export function getErrorReasons(blockingReason: string[], language: string): str
  * @param interaction - optional interaction to reply to
  * @returns {boolean}
  */
-export async function sendBlockedError(interaction: CommandInteraction, language: string, user: User = interaction.user): Promise<boolean> {
+export async function sendBlockedError(interaction: DraftbotInteraction, language: string, user: User = interaction.user): Promise<boolean> {
 	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
 	if (blockingReason.length !== 0) {
 		await replyErrorMessage(

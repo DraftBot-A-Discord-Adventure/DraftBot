@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import Player from "../database/game/models/Player";
@@ -7,6 +6,7 @@ import {Maps} from "../maps/Maps";
 import {RandomUtils} from "../utils/RandomUtils";
 import {format} from "../utils/StringFormatter";
 import {PVEConstants} from "../constants/PVEConstants";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.winFightPoints", language);
 		const maxFightPoints = await player.getMaxCumulativeFightPoint();
 		let amount = RandomUtils.randInt(
@@ -43,7 +43,7 @@ export const smallEvent: SmallEvent = {
 		seEmbed.setDescription(
 			seEmbed.data.description +
 			Translations.getModule("smallEventsIntros", language).getRandom("intro") +
-			format(tr.getRandom("stories"),{
+			format(tr.getRandom("stories"), {
 				fightPoints: amount
 			})
 		);

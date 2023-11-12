@@ -5,8 +5,6 @@ import {
 	AttachmentBuilder,
 	ChannelType,
 	Client,
-	CommandInteraction,
-	GuildChannel,
 	GuildMember,
 	GuildResolvable,
 	Message,
@@ -43,9 +41,10 @@ import {NotificationsConstants} from "../core/constants/NotificationsConstants";
 import {RESTPostAPIChatInputApplicationCommandsJSONBody} from "discord-api-types/v10";
 import {PVEConstants} from "../core/constants/PVEConstants";
 import {Maps} from "../core/maps/Maps";
+import {DraftbotChannel, DraftbotInteraction} from "../core/messages/DraftbotInteraction";
 
 type UserPlayer = { user: User, player: Player };
-type TextInformations = { interaction: CommandInteraction, tr: TranslationModule };
+type TextInformations = { interaction: DraftbotInteraction, tr: TranslationModule };
 
 /**
  * The manager for creating and executing classic commands
@@ -62,7 +61,7 @@ export class CommandsManager {
 	 * @param interaction
 	 * @param shouldReply
 	 */
-	static async effectError(user: User, tr: TranslationModule, interaction: CommandInteraction, shouldReply = false): Promise<void> {
+	static async effectError(user: User, tr: TranslationModule, interaction: DraftbotInteraction, shouldReply = false): Promise<void> {
 		const player = await Players.getByDiscordUserId(user.id);
 		const textValues = effectsErrorTextValue(interaction.user, tr.language, player);
 		const embed = new DraftBotEmbed().setErrorColor()
@@ -140,8 +139,7 @@ export class CommandsManager {
 				{body: commands}
 			);
 			console.log(`Successfully reloaded ${Array.isArray(data) ? data.length : "###ERROR###"} application (/) commands.`);
-		}
-		catch (error) {
+		} catch (error) {
 			// And of course, make sure you catch and log any errors!
 			console.error(error);
 		}
@@ -161,8 +159,7 @@ export class CommandsManager {
 				await CommandsManager.registerCommands(client.application.id, allCommandToRegister[0], Routes.applicationCommands);
 			}
 			await this.refreshCommands(client);
-		}
-		catch (err) {
+		} catch (err) {
 			console.log(err);
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
@@ -177,7 +174,7 @@ export class CommandsManager {
 	 * @param player
 	 * @param argsOfCommand
 	 */
-	static async executeCommandWithParameters(commandName: string, interaction: CommandInteraction, language: string, player: Player, ...argsOfCommand: unknown[]): Promise<void> {
+	static async executeCommandWithParameters(commandName: string, interaction: DraftbotInteraction, language: string, player: Player, ...argsOfCommand: unknown[]): Promise<void> {
 		await CommandsManager.commands.get(commandName).executeCommand(interaction, language, player, ...argsOfCommand);
 	}
 
@@ -185,8 +182,8 @@ export class CommandsManager {
 	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
-	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
-		const author = message instanceof CommandInteraction ? message.user.id : message.author.id;
+	static async handlePrivateMessage(message: Message | DraftbotInteraction): Promise<void> {
+		const author = message instanceof DraftbotInteraction ? message.user.id : message.author.id;
 		if (author === botConfig.DM_MANAGER_ID) {
 			return;
 		}
@@ -273,8 +270,7 @@ export class CommandsManager {
 			this.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			if (commandInfo.mainGuildCommand || botConfig.TEST_MODE) {
 				guildsCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
-			}
-			else {
+			} else {
 				globalCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
 			}
 		}
@@ -317,7 +313,7 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static shouldSendHelpMessage(message: Message, client: Client): boolean {
-		return message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as GuildChannel)[0];
+		return message.mentions.has(client.user.id) && this.hasChannelPermission(message.channel as unknown as DraftbotChannel)[0];
 	}
 
 	/**
@@ -344,7 +340,8 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static manageInteractionCreate(client: Client): void {
-		client.on("interactionCreate", interaction => {
+		client.on("interactionCreate", discordInteraction => {
+			const interaction = discordInteraction as unknown as DraftbotInteraction;
 			if (!interaction.isCommand() || interaction.user.bot || interaction.user.id === draftBotClient.user.id) {
 				return;
 			}
@@ -355,6 +352,7 @@ export class CommandsManager {
 					}
 				}).then(serverAnswer => {
 					const server = serverAnswer[0];
+					interaction.channel.language = server.language;
 					replyErrorMessage(
 						interaction,
 						server.language,
@@ -364,10 +362,11 @@ export class CommandsManager {
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				CommandsManager.handlePrivateMessage(interaction as CommandInteraction).finally(() => null);
+				interaction.channel.language = Constants.LANGUAGE.ENGLISH;
+				CommandsManager.handlePrivateMessage(interaction).finally(() => null);
 				return;
 			}
-			CommandsManager.handleCommand(interaction as CommandInteraction).then();
+			CommandsManager.handleCommand(interaction).then();
 		});
 	}
 
@@ -409,8 +408,8 @@ export class CommandsManager {
 	 * @param message
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
-		const author = message instanceof CommandInteraction ? message.user : message.author;
+	private static async sendHelperMessage(message: Message | DraftbotInteraction): Promise<void> {
+		const author = message instanceof DraftbotInteraction ? message.user : message.author;
 		const helpMessage = new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
 			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
@@ -429,8 +428,10 @@ export class CommandsManager {
 			})
 			.build()
 			.formatAuthor(BotConstants.DM.TITLE_SUPPORT, author)
-			.setDescription(message instanceof CommandInteraction ? BotConstants.DM.INTERACTION_SUPPORT : BotConstants.DM.MESSAGE_SUPPORT);
-		message instanceof Message ? await helpMessage.send(message.channel) : await helpMessage.reply(message);
+			.setDescription(message instanceof DraftbotInteraction ? BotConstants.DM.INTERACTION_SUPPORT : BotConstants.DM.MESSAGE_SUPPORT);
+		const draftbotChannel = message.channel as unknown as DraftbotChannel;
+		draftbotChannel.language = Constants.LANGUAGE.ENGLISH;
+		message instanceof Message ? await helpMessage.send(draftbotChannel) : await helpMessage.reply(message);
 	}
 
 	/**
@@ -442,12 +443,11 @@ export class CommandsManager {
 	 */
 	private static async missingRequirementsForGuild(commandInfo: ICommand, {
 		player
-	}: UserPlayer, interaction: CommandInteraction, tr: TranslationModule): Promise<boolean> {
+	}: UserPlayer, interaction: DraftbotInteraction, tr: TranslationModule): Promise<boolean> {
 		let guild;
 		try {
 			guild = await Guilds.getById(player.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			guild = null;
 		}
 
@@ -510,12 +510,13 @@ export class CommandsManager {
 	 * @param interaction the interaction to reply to
 	 * @private
 	 */
-	private static async handleCommand(interaction: CommandInteraction): Promise<void> {
+	private static async handleCommand(interaction: DraftbotInteraction): Promise<void> {
 		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: interaction.guild.id
 			}
 		});
+		interaction.channel.language = server.language;
 
 		let language = server.language;
 		if (interaction.channel.id === botConfig.ENGLISH_CHANNEL_ID) {
@@ -549,7 +550,7 @@ export class CommandsManager {
 	 * @param interaction - Command interaction that has to be launched
 	 * @private
 	 */
-	private static async launchCommand(tr: TranslationModule, interaction: CommandInteraction): Promise<void> {
+	private static async launchCommand(tr: TranslationModule, interaction: DraftbotInteraction): Promise<void> {
 		if (resetIsNow()) {
 			replyErrorMessage(
 				interaction,
@@ -584,7 +585,7 @@ export class CommandsManager {
 			return;
 		}
 
-		const channelAccess = this.hasChannelPermission(interaction.channel as GuildChannel);
+		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
 			await replyErrorMessage(
 				interaction,
@@ -632,7 +633,7 @@ export class CommandsManager {
 	 * @param commandInfo
 	 * @private
 	 */
-	private static checkCommandDisallowedOnPveIsland(player: Player, interaction: CommandInteraction, commandInfo: ICommand): boolean {
+	private static checkCommandDisallowedOnPveIsland(player: Player, interaction: DraftbotInteraction, commandInfo: ICommand): boolean {
 		return (Maps.isOnPveIsland(player) || Maps.isOnBoat(player)) && !PVEConstants.ALLOWED_COMMANDS.includes(interaction.commandName) && !commandInfo.requirements.userPermission;
 	}
 
@@ -641,7 +642,7 @@ export class CommandsManager {
 	 * @param channel
 	 * @private
 	 */
-	private static hasChannelPermission(channel: GuildChannel): [boolean, string] {
+	private static hasChannelPermission(channel: DraftbotChannel): [boolean, string] {
 
 		if (!channel.permissionsFor(draftBotClient.user).has(PermissionsBitField.Flags.ViewChannel)) {
 			console.log(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);

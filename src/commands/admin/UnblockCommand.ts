@@ -2,12 +2,12 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction} from "discord.js";
 import {Translations} from "../../core/Translations";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {Players} from "../../core/database/game/models/Player";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 const currentCommandEnglishTranslations = Translations.getModule("commands.unblock", Constants.LANGUAGE.ENGLISH);
 
@@ -15,7 +15,7 @@ const currentCommandEnglishTranslations = Translations.getModule("commands.unblo
  * @param interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const idToUnblock = interaction.options.get(currentCommandEnglishTranslations.get("optionIdName")).value as string;
 	if (!await Players.getByDiscordUserId(idToUnblock)) {
 		await interaction.reply({content: "Id unrecognized (is it a message id ?)", ephemeral: true});

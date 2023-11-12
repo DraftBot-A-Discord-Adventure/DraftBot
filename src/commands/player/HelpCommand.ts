@@ -8,6 +8,7 @@ import {Constants} from "../../core/Constants";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {format} from "../../core/utils/StringFormatter";
 import {PetConstants} from "../../core/constants/PetConstants";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 /**
  * Get the list of commands mention from the command data
@@ -29,32 +30,32 @@ function getCommandByCategories(): { [key: string]: string[] } {
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
 	for (const commandData of Object.entries(HelpConstants.COMMANDS_DATA)) {
 		switch (commandData[1].CATEGORY) {
-		case Constants.COMMAND_CATEGORY.SERVER:
-			serverCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		case Constants.COMMAND_CATEGORY.UTIL:
-			utilCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		case Constants.COMMAND_CATEGORY.PLAYER:
-			playerCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		case Constants.COMMAND_CATEGORY.MISSION:
-			missionCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		case Constants.COMMAND_CATEGORY.GUILD:
-			guildCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		case Constants.COMMAND_CATEGORY.PET:
-			petCommands.push(
-				getListOfMentionFromCommandData(commandData));
-			break;
-		default:
-			break;
+			case Constants.COMMAND_CATEGORY.SERVER:
+				serverCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			case Constants.COMMAND_CATEGORY.UTIL:
+				utilCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			case Constants.COMMAND_CATEGORY.PLAYER:
+				playerCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			case Constants.COMMAND_CATEGORY.MISSION:
+				missionCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			case Constants.COMMAND_CATEGORY.GUILD:
+				guildCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			case Constants.COMMAND_CATEGORY.PET:
+				petCommands.push(
+					getListOfMentionFromCommandData(commandData));
+				break;
+			default:
+				break;
 		}
 	}
 	return {serverCommands, utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
@@ -66,7 +67,7 @@ function getCommandByCategories(): { [key: string]: string[] } {
  * @param tr
  * @param interaction
  */
-function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: CommandInteraction): void {
+function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationModule, interaction: DraftbotInteraction): void {
 	const {
 		serverCommands,
 		utilCommands,
@@ -116,7 +117,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, tr: TranslationM
  */
 function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
-	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {
+	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function (commands) {
 		for (const alias of commands[1]) {
 			helpAlias.set(alias, commands[0]);
 		}
@@ -129,7 +130,7 @@ function getCommandAliasMap(): Map<string, string> {
  * @param {CommandInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  */
-async function executeCommand(interaction: CommandInteraction, language: string): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string): Promise<void> {
 	const tr = Translations.getModule("commands.help", language);
 	const helpMessage = new DraftBotEmbed();
 	const command = interaction.options.get(Translations.getModule("commands.help", Constants.LANGUAGE.ENGLISH).get("optionCommandName"));
@@ -139,8 +140,7 @@ async function executeCommand(interaction: CommandInteraction, language: string)
 		await interaction.reply({
 			embeds: [helpMessage]
 		});
-	}
-	else {
+	} else {
 		const helpAlias = getCommandAliasMap();
 		const command = helpAlias.get(askedCommand.toLowerCase().replace(" ", ""));
 		let option1, option2;

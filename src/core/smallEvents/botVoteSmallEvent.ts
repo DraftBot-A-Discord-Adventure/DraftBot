@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -10,6 +9,7 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {DBL} from "../DBL";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 export const smallEvent: SmallEvent = {
 	/**
@@ -26,7 +26,7 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.botVote", language);
 		const base = `${seEmbed.data.description} ${Translations.getModule("smallEventsIntros", language).getRandom("intro")}${tr.getRandom("stories")}`;
 
@@ -35,14 +35,12 @@ export const smallEvent: SmallEvent = {
 			seEmbed.setDescription(`${base + tr.get("pleaseVote")}\n\n${tr.get("pleaseVoteFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 
-		}
-		else if (RandomUtils.draftbotRandom.bool()) {
+		} else if (RandomUtils.draftbotRandom.bool()) {
 			// Item win
 			seEmbed.setDescription(`${base + tr.get("itemWin")}\n\n${tr.get("thanksFooter")}`);
 			await interaction.editReply({embeds: [seEmbed]});
 			await giveRandomItem(interaction.user, interaction.channel, language, player);
-		}
-		else {
+		} else {
 			// Money win
 			const moneyWon = RandomUtils.rangedInt(SmallEventConstants.VOTE.MONEY);
 			await player.addMoney({

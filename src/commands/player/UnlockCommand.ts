@@ -3,7 +3,7 @@ import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {Collection, CommandInteraction, Message, MessageReaction} from "discord.js";
+import {Collection, Message, MessageReaction} from "discord.js";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
 import {UnlockConstants} from "../../core/constants/UnlockConstants";
@@ -17,9 +17,10 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../core/constants/LogsConstants";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {sendNotificationToPlayer} from "../../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type PlayerCouple = { unlocker: Player, locked?: Player }
-type TextInformation = { interaction: CommandInteraction, language: string, unlockModule: TranslationModule }
+type TextInformation = { interaction: DraftbotInteraction, language: string, unlockModule: TranslationModule }
 
 /**
  * Test if both entities are eligible to the context of the unlock command
@@ -126,8 +127,7 @@ async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 			unlockMessage.react(Constants.REACTIONS.VALIDATE_REACTION),
 			unlockMessage.react(Constants.REACTIONS.REFUSE_REACTION)
 		]);
-	}
-	catch (e) {
+	} catch (e) {
 		log(`Error while reaction to unlock message: ${e}`);
 	}
 }
@@ -164,7 +164,7 @@ async function sendAndManageUnlockMessage(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	if (await sendBlockedError(interaction, language)) {
 		return;
 	}

@@ -6,7 +6,7 @@ import {escapeUsername} from "../../core/utils/StringUtils";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {Constants} from "../../core/Constants";
-import {CommandInteraction, User} from "discord.js";
+import {User} from "discord.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {replyErrorMessage, sendErrorMessage} from "../../core/utils/ErrorUtils";
 import {TranslationModule, Translations} from "../../core/Translations";
@@ -17,6 +17,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {GuildConstants} from "../../core/constants/GuildConstants";
 import {Maps} from "../../core/maps/Maps";
+import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 
 type InvitedUserInformation = { invitedUser: User, invitedPlayer: Player };
 type InviterUserInformation = { guild: Guild, player: Player };
@@ -31,7 +32,7 @@ type InviterUserInformation = { guild: Guild, player: Player };
 function getEndCallbackGuildAdd(
 	inviter: InviterUserInformation,
 	invited: InvitedUserInformation,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	guildInviteModule: TranslationModule): (msg: DraftBotValidateReactionMessage) => Promise<void> {
 	return async (msg: DraftBotValidateReactionMessage): Promise<void> => {
 		BlockingUtils.unblockPlayer(invited.invitedPlayer.discordUserId, BlockingConstants.REASONS.GUILD_ADD);
@@ -43,8 +44,7 @@ function getEndCallbackGuildAdd(
 		}
 		try {
 			inviter.guild = await Guilds.getById(inviter.player.guildId);
-		}
-		catch (error) {
+		} catch (error) {
 			inviter.guild = null;
 		}
 
@@ -116,7 +116,7 @@ function getEndCallbackGuildAdd(
 			set: true
 		});
 
-		interaction.channel.send({
+		await interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.setAuthor(
@@ -140,7 +140,7 @@ function getEndCallbackGuildAdd(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param player
  */
-async function executeCommand(interaction: CommandInteraction, language: string, player: Player): Promise<void> {
+async function executeCommand(interaction: DraftbotInteraction, language: string, player: Player): Promise<void> {
 	const guildInviteModule = Translations.getModule("commands.guildInvite", language);
 	const invitedPlayer = await Players.getByOptions(interaction);
 
@@ -170,8 +170,7 @@ async function executeCommand(interaction: CommandInteraction, language: string,
 	let invitedGuild;
 	try {
 		invitedGuild = await Guilds.getById(invitedPlayer.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		invitedGuild = null;
 	}
 	if (invitedGuild !== null) {

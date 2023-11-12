@@ -1,13 +1,13 @@
 import {ICommand} from "./ICommand";
 import {Constants} from "../core/Constants";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction} from "discord.js";
 import {TranslationModule, Translations} from "../core/Translations";
 import {replyErrorMessage} from "../core/utils/ErrorUtils";
 import {DraftBotEmbed} from "../core/messages/DraftBotEmbed";
 import Player, {Players} from "../core/database/game/models/Player";
 import {getIdFromMention, isAMention} from "../core/utils/StringUtils";
 import {sendNotificationToPlayer} from "../core/utils/MessageUtils";
+import {DraftbotInteraction} from "../core/messages/DraftbotInteraction";
 
 /**
  * Special class for mass editing player values (admin only)
@@ -18,7 +18,7 @@ export class ChangeValueAdminCommands {
 	 * @param commandName
 	 * @param editFunction
 	 */
-	static getCommandInfo(commandName: string, editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void): ICommand {
+	static getCommandInfo(commandName: string, editFunction: (playerToEdit: Player, amount: number, interaction: DraftbotInteraction, language: string) => void): ICommand {
 		const executeCommand = this.executeCommandFrom(commandName, editFunction);
 		const currentCommandFrenchTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.FRENCH);
 		const currentCommandEnglishTranslations = Translations.getModule(`commands.${commandName}`, Constants.LANGUAGE.ENGLISH);
@@ -61,7 +61,7 @@ export class ChangeValueAdminCommands {
 	 * @param changeValueModule
 	 * @private
 	 */
-	static async getConcernedUsers(usersToChange: string[], interaction: CommandInteraction, changeValueModule: TranslationModule): Promise<Set<string>> {
+	static async getConcernedUsers(usersToChange: string[], interaction: DraftbotInteraction, changeValueModule: TranslationModule): Promise<Set<string>> {
 		const users = new Set<string>();
 		for (let i = 0; i < usersToChange.length; i++) {
 			const mention = usersToChange[i];
@@ -89,9 +89,9 @@ export class ChangeValueAdminCommands {
 	 */
 	private static executeCommandFrom(
 		commandName: string,
-		editFunction: (playerToEdit: Player, amount: number, interaction: CommandInteraction, language: string) => void
-	): (interaction: CommandInteraction, language: string) => Promise<void> {
-		return async (interaction: CommandInteraction, language: string): Promise<void> => {
+		editFunction: (playerToEdit: Player, amount: number, interaction: DraftbotInteraction, language: string) => void
+	): (interaction: DraftbotInteraction, language: string) => Promise<void> {
+		return async (interaction: DraftbotInteraction, language: string): Promise<void> => {
 			const changeValueModule = Translations.getModule(`commands.${commandName}`, language);
 			const amount = interaction.options.get("amount").value as number;
 			if (amount > 10 ** 17) {
@@ -134,8 +134,7 @@ export class ChangeValueAdminCommands {
 				const valueBefore = playersToEdit[changeValueModule.get("valueToEdit") as keyof Player];
 				try {
 					editFunction(playersToEdit, amount, interaction, language);
-				}
-				catch (e) {
+				} catch (e) {
 					if (e.message !== "wrong parameter") {
 						console.error(e.stack);
 						return;
